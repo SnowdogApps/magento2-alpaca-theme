@@ -1,0 +1,1 @@
+# magento2-snowdog-theme
