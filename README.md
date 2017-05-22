@@ -1,1 +1,1 @@
-# magento2-snowdog-theme
+# theme-frontend-alpaka
