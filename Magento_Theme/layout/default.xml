@@ -8,6 +8,77 @@
 <page layout="3columns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <update handle="default_head_blocks"/>
     <body>
+        <!-- Header layout -->
+        <move element="skip_to_content" destination="header.panel.action" after="-"/>
+        <move element="store_language" destination="header.panel.action" before="-"/>
+        <move element="currency" destination="header.panel.action" before="store_language" />
+        <referenceContainer name="header.panel.wrapper" htmlClass="wrapper-collapsible wrapper-collapsible--mobile">
+            <block class="Magento\Framework\View\Element\Template"
+                   name="wrapper-collapsible-icon-account"
+                   template="Magento_Theme::html/wrapper-collapsible-icon.phtml"
+                   before="-"
+            >
+                <arguments>
+                    <argument name="icon" xsi:type="string">user</argument>
+                </arguments>
+            </block>
+            <referenceContainer name="header.panel" htmlClass="wrapper-collapsible__container">
+                <referenceBlock name="top.links">
+                    <arguments>
+                        <argument name="css_class" xsi:type="string">links-list</argument>
+                    </arguments>
+                    <move element="catalog.compare.link" destination="top.links" after="-"/>
+                    <referenceBlock name="my-account-link" template="Magento_Customer::account/link/customer-link.phtml">
+                        <arguments>
+                            <argument name="class" xsi:type="string">links-list__link</argument>
+                            <argument name="title" xsi:type="string" translate="true">My Account</argument>
+                        </arguments>
+                    </referenceBlock>
+                    <referenceBlock name="register-link" template="Magento_Customer::account/link/customer-link.phtml">
+                        <arguments>
+                            <argument name="class" xsi:type="string">links-list__link</argument>
+                            <argument name="title" xsi:type="string" translate="true">Create an Account</argument>
+                        </arguments>
+                    </referenceBlock>
+                    <referenceBlock name="authorization-link">
+                        <arguments>
+                            <argument name="class" xsi:type="string">links-list__link</argument>
+                            <argument name="title" xsi:type="string" translate="true">Sign In</argument>
+                        </arguments>
+                    </referenceBlock>
+                    <referenceBlock name="wish-list-link">
+                        <arguments>
+                            <argument name="class" xsi:type="string">links-list__link</argument>
+                            <argument name="title" xsi:type="string" translate="true">Create an Account</argument>
+                        </arguments>
+                    </referenceBlock>
+                </referenceBlock>
+            </referenceContainer>
+        </referenceContainer>
+        <referenceContainer name="header.container">
+            <container name="header.panel.wrapper.action"
+                       as="header.panel.wrapper.action"
+                       htmlTag="div"
+                       htmlClass="wrapper-collapsible"
+                       after="header.panel.wrapper"
+            >
+                <block class="Magento\Framework\View\Element\Template"
+                       name="wrapper-collapsible-icon-settings"
+                       template="Magento_Theme::html/wrapper-collapsible-icon.phtml"
+                       before="-"
+                >
+                    <arguments>
+                        <argument name="icon" xsi:type="string">settings</argument>
+                    </arguments>
+                </block>
+                <container name="header.panel.action"
+                           as="header.panel.action"
+                           htmlTag="div"
+                           htmlClass="wrapper-collapsible__container"
+                />
+            </container>
+        </referenceContainer>
+
         <!-- Content layout -->
         <referenceContainer name="main" htmlClass="columns__main" />
         <!-- End of Content layout -->
