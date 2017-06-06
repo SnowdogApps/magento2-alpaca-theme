@@ -1,0 +1,61 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+?>
+<?php
+/** @var $block \Magento\Framework\View\Element\Template */
+/** @var $helper \Magento\Search\Helper\Data */
+$helper = $this->helper('Magento\Search\Helper\Data');
+?>
+
+<div class="search-block" data-mage-init='{"toggleSearch": {}}'>
+    <div class="search-block__toggle-btn">
+        <svg class="search__icon">
+            <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#search'); ?>"></use>
+        </svg>
+    </div>
+    <form class="search-block__form"
+          id="search_mini_form"
+          action="<?php /* @escapeNotVerified */ echo $helper->getResultUrl() ?>"
+          method="get"
+    >
+        <div class="search">
+            <div class="input search__input">
+                <label class="input__label"
+                       for="search"
+                >
+                    <?= __('Search'); ?>
+                </label>
+                <input id="search"
+                       data-mage-init='{"quickSearch":{
+                            "formSelector":"#search_mini_form",
+                            "url":"<?php /* @escapeNotVerified */ echo $block->getUrl('search/ajax/suggest', ['_secure' => $block->getRequest()->isSecure()]); ?>",
+                            "destinationSelector":"#search_autocomplete"}
+                       }'
+                       type="text"
+                       name="<?php /* @escapeNotVerified */ echo $helper->getQueryParamName() ?>"
+                       value="<?php /* @escapeNotVerified */ echo $helper->getEscapedQueryText() ?>"
+                       placeholder="<?php /* @escapeNotVerified */ echo __('Search entire store here...'); ?>"
+                       class="input__field"
+                       maxlength="<?php /* @escapeNotVerified */ echo $helper->getMaxQueryLength();?>"
+                       role="combobox"
+                       aria-haspopup="false"
+                       aria-autocomplete="both"
+                       autocomplete="off"
+                />
+            </div>
+            <button type="submit"
+                    title="<?php echo $block->escapeHtml(__('Search')) ?>"
+                    class="button search__button"
+            >
+                <?php /* @escapeNotVerified */ echo __('Search'); ?>
+            </button>
+        </div>
+        <div id="search_autocomplete" class="search-autocomplete"></div>
+        <?php echo $block->getChildHtml() ?>
+    </form>
+</div>
