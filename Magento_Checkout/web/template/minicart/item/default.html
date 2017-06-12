@@ -1,0 +1,99 @@
+<!--
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<li class="item product product--img-thumb product-item list__item"
+    data-role="product-item"
+>
+    <div class="grid">
+        <div class="product__img-box grid__column grid__column--1-3">
+            <!-- ko foreach: $parent.getRegion('itemImage') -->
+                <!-- ko template: {name: getTemplate(), data: item.product_image} --><!-- /ko -->
+            <!-- /ko -->
+        </div>
+        <h2 class="heading product-item-name product__name grid__column grid__column--2-3">
+            <!-- ko text: product_name --><!-- /ko -->
+        </h2>
+    </div>
+
+    <div>
+        <!-- ko if: options.length -->
+            <h6 class="heading"><!-- ko i18n: 'Product\'s details' --><!-- /ko --></h6>
+
+                <dl class="product__details-list grid">
+                    <!-- ko foreach: { data: options, as: 'option' } -->
+                    <dt class="product__details-list-item grid__column grid__column--1-2"><!-- ko text: option.label --><!-- /ko --></dt>
+                    <dd class="product__details-list-item grid__column grid__column--1-2">
+                        <!-- ko if: Array.isArray(option.value) -->
+                            <span data-bind="html: option.value.join('<br>')"></span>
+                        <!-- /ko -->
+                        <!-- ko ifnot: Array.isArray(option.value) -->
+                            <span data-bind="html: option.value"></span>
+                        <!-- /ko -->
+                    </dd>
+                    <!-- /ko -->
+                </dl>
+        <!-- /ko -->
+
+            <!-- ko if: canApplyMsrp -->
+
+            <div class="details-map">
+                <span class="label" data-bind="i18n: 'Price'"></span>
+                <span class="value" data-bind="i18n: 'See price before order confirmation.'"></span>
+            </div>
+            <!-- /ko -->
+            <!-- ko ifnot: canApplyMsrp -->
+            <!-- ko foreach: $parent.getRegion('priceSidebar') -->
+                <!-- ko template: {name: getTemplate(), data: item.product_price, as: 'price'} --><!-- /ko -->
+            <!-- /ko -->
+            <!-- /ko -->
+
+            <div class="details-qty qty input input--small">
+                <label class="input__label"
+                       data-bind="i18n: 'Qty', attr: {
+                       for: 'cart-item-'+item_id+'-qty'}"
+                ></label>
+                <input data-bind="attr: {
+                       id: 'cart-item-'+item_id+'-qty',
+                       'data-cart-item': item_id,
+                       'data-item-qty': qty,
+                       'data-cart-item-id': product_sku
+                       }, value: qty"
+                       type="number"
+                       size="4"
+                       class="input item-qty cart-item-qty input__field"
+                       maxlength="12"/>
+                <button data-bind="attr: {
+                       id: 'update-cart-item-'+item_id,
+                       'data-cart-item': item_id,
+                       title: $t('Update')
+                       }"
+                        class="update-cart-item button button--wide button--secondary"
+                        style="display: none">
+                    <span data-bind="i18n: 'Update'"></span>
+                </button>
+            </div>
+            <div class="minicart__action">
+                <!-- ko if: is_visible_in_site_visibility -->
+                    <a data-bind="attr: {href: configure_url, title: $t('Edit item')}"
+                       class="action edit button button--icon">
+                        <svg class="button__icon">
+                            <use data-bind="attr: { 'xlink:href': require.toUrl('images/icons-sprite.svg#edit') }" xlink:href='' ></use>
+                        </svg>
+                    </a>
+                <!-- /ko -->
+                    <a href="#" data-bind="attr: {'data-cart-item': item_id, title: $t('Remove item')}"
+                       class="action delete button button--icon"
+                    >
+                       <svg class="button__icon">
+                           <use data-bind="attr: { 'xlink:href': require.toUrl('images/icons-sprite.svg#remove') }" xlink:href='' ></use>
+                       </svg>
+                    </a>
+            </div>
+        </div>
+        <!-- ko if: product_has_url -->
+            <a data-bind="attr: {href: product_url, title: product_name}" tabindex="-1" class="product__link"></a>
+        <!-- /ko -->
+</li>
