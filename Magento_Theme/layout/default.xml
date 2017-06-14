@@ -1,15 +1,41 @@
 <?xml version="1.0"?>
-<!--
-/**
- * Copyright © 2016 Magento. All rights reserved.
- * See COPYING.txt for license details.
- */
--->
-<page layout="3columns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+<page layout="3columns"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd"
+>
     <update handle="default_head_blocks"/>
     <body>
         <!-- Content layout -->
-        <referenceContainer name="main" htmlClass="columns__main" />
+        <referenceContainer name="main" htmlClass="columns__main"/>
         <!-- End of Content layout -->
+
+        <!-- Footer layout -->
+        <referenceContainer name="footer" htmlClass="page-footer__content">
+            <container name="footer_first_row"
+                       as="footer_first_row"
+                       label="Page Footer First"
+                       htmlTag="div"
+                       htmlClass="page-footer__row"
+                       before="-"
+            >
+                <block class="Magento\Framework\View\Element\Template"
+                       name="social_list"
+                       template="Magento_Theme::html/social-list.phtml"
+                />
+            </container>
+            <referenceBlock name="footer_links">
+                <arguments>
+                    <argument name="css_class" xsi:type="string">footer-menu</argument>
+                </arguments>
+            </referenceBlock>
+        </referenceContainer>
+        <!-- End of Footer layout -->
+
+        <!--Removed blocks-->
+        <referenceBlock name="report.bugs" remove="true"/>
+
+        <!--Moved blocks-->
+        <move element="copyright" destination="before.body.end"/>
+        <move element="form.subscribe" destination="footer_first_row" before="-"/>
     </body>
 </page>
