@@ -1,0 +1,43 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php $url = $block->getReviewsUrl() . '#reviews'; ?>
+<?php $urlForm = $block->getReviewsUrl() . '#review-form'; ?>
+<?php if ($block->getReviewsCount()): ?>
+    <?php $rating = $block->getRatingSummary(); ?>
+    <div class="rating short<?php echo !$rating ? ' no-rating' : ''?>">
+        <?php if ($rating):?>
+            <div class="rating__summary">
+                <svg title="icon rating summary" class="rating__icon">
+                    <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#stars'); ?>"></use>
+                </svg>
+                <div class="rating__results"
+                     title="rating <?php /* @escapeNotVerified */ echo $rating; ?>%"
+                     style="width:<?php /* @escapeNotVerified */ echo $rating; ?>%"
+                >
+                    <svg title="icon rating results" class="rating__icon rating__icon--results">
+                        <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#stars'); ?>"></use>
+                    </svg>
+                </div>
+            </div>
+        <?php endif;?>
+            <a href="<?php /* @escapeNotVerified */ echo $url ?>">
+                <?php /* @escapeNotVerified */ echo $block->getReviewsCount() ?>&nbsp;
+                <?php /* @escapeNotVerified */ echo($block->getReviewsCount() == 1) ? __('Review') : __('Reviews') ?>
+            </a>
+    </div>
+<?php elseif ($block->getDisplayIfEmpty()): ?>
+    <div class="product-reviews-summary short empty">
+        <a class="action add"
+           href="<?php /* @escapeNotVerified */ echo $urlForm; ?>"
+        >
+            <?php /* @escapeNotVerified */ echo __('Be the first to review this product') ?>
+        </a>
+    </div>
+<?php endif; ?>
