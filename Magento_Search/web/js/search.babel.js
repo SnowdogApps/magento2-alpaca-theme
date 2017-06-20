@@ -1,8 +1,8 @@
 define(function() {
     'use strict'
 
-    const searchForm        = document.querySelector('.search-block__form'),
-          searchLabel        = document.querySelector('.search-block__toggle-btn');
+    const searchForm        = document.querySelector('.search'),
+          searchLabel        = document.querySelector('.search-trigger');
 
-    searchLabel.addEventListener('click', () => searchForm.classList.toggle('search-block__form--visible'));
+    searchLabel.addEventListener('click', () => searchForm.classList.toggle('search--visible'));
 });
