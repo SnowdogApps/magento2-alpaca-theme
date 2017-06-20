@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<page layout="3columns"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd"
+>
+    <update handle="default_head_blocks"/>
+    <body>
+        <!-- Content layout -->
+        <referenceContainer name="main" htmlClass="columns__main"/>
+        <!-- End of Content layout -->
+
+        <!-- Footer layout -->
+        <referenceContainer name="footer"
+                            htmlClass="page-footer__content"
+        >
+            <container name="footer_first_row"
+                       as="footer_first_row"
+                       label="Page Footer First"
+                       htmlTag="div"
+                       htmlClass="page-footer__row grid container"
+                       before="-"
+            >
+                <container name="footer_subscribe"
+                           label="Page Footer Subscribe"
+                           htmlTag="div"
+                           htmlClass="page-footer__subscribe grid__column grid__column--1-2"
+                />
+                <container name="footer_social"
+                           label="Page Footer Social"
+                           htmlTag="div"
+                           htmlClass="page-footer__social grid__column grid__column--1-2"
+                >
+                    <block class="Magento\Framework\View\Element\Template"
+                           name="social_list"
+                           template="Magento_Theme::html/social-list.phtml"
+                    />
+                </container>
+            </container>
+            <referenceBlock name="footer_links">
+                <arguments>
+                    <argument name="css_class" xsi:type="string">footer-menu list list--divided list--min-medium-horizontal list--center</argument>
+                </arguments>
+            </referenceBlock>
+        </referenceContainer>
+        <!-- End of Footer layout -->
+
+        <!--Removed blocks-->
+        <referenceBlock name="report.bugs" remove="true"/>
+
+        <!--Moved blocks-->
+        <move element="copyright" destination="before.body.end"/>
+        <move element="form.subscribe"
+              destination="footer_subscribe"
+              before="-"
+        />
+    </body>
+</page>
