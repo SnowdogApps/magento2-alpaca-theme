@@ -1,0 +1,97 @@
+<?php
+// @codingStandardsIgnoreFile
+
+?>
+<div class="container">
+    <form class="form contact"
+          action="<?php /* @escapeNotVerified */ echo $block->getFormAction(); ?>"
+          id="contact-form"
+          method="post"
+          data-hasrequired="<?php /* @escapeNotVerified */ echo __('* Required Fields') ?>"
+          data-mage-init='{"validation":{}}'
+    >
+        <div class="heading heading--fourth-level form__heading">
+            <?php /* @escapeNotVerified */ echo __('Write Us') ?>
+        </div>
+
+        <div class="form__heading">
+            <?php /* @escapeNotVerified */ echo __('Join us a note and we’ll get back to you as quickly as possible.') ?>
+        </div>
+
+        <div class="form__content">
+            <div class="input input--inline-small-right field required">
+                <label for="name" class="input__label">
+                    <?php /* @escapeNotVerified */ echo __('Name') ?>
+                </label>
+
+                <input type="text"
+                       name="name"
+                       id="name"
+                       class="input__field"
+                       placeholder="<?php /* @escapeNotVerified */ echo __('Name') ?>"
+                       title="<?php /* @escapeNotVerified */ echo __('Name') ?>"
+                       value="<?php echo $block->escapeHtml($this->helper('Magento\Contact\Helper\Data')->getPostValue('name') ?: $this->helper('Magento\Contact\Helper\Data')->getUserName()) ?>"
+                       data-validate="{required:true}"
+                />
+            </div>
+
+            <div class="input input--inline-small-right field required">
+                <label for="email" class="input__label">
+                    <?php /* @escapeNotVerified */ echo __('Email') ?>
+                </label>
+
+                <input type="email"
+                       name="email"
+                       id="email"
+                       class="input__field"
+                       placeholder="<?php /* @escapeNotVerified */ echo __('Email') ?>"
+                       title="<?php /* @escapeNotVerified */ echo __('Email') ?>"
+                       value="<?php echo $block->escapeHtml($this->helper('Magento\Contact\Helper\Data')->getPostValue('email') ?: $this->helper('Magento\Contact\Helper\Data')->getUserEmail()) ?>"
+                       data-validate="{required:true, 'validate-email':true}"
+                />
+            </div>
+
+            <div class="input input--inline-small-right field">
+                <label for="telephone" class="input__label">
+                    <?php /* @escapeNotVerified */ echo __('Phone Number') ?>
+                </label>
+
+                <input type="text"
+                       name="telephone"
+                       id="telephone"
+                       class="input__field"
+                       placeholder="<?php /* @escapeNotVerified */ echo __('Phone Number') ?>"
+                       title="<?php /* @escapeNotVerified */ echo __('Phone Number') ?>"
+                       value="<?php echo $block->escapeHtml($this->helper('Magento\Contact\Helper\Data')->getPostValue('telephone')) ?>"
+                />
+            </div>
+
+            <div class="input input--inline-small-right comment required">
+                <label for="comment" class="input__label">
+                    <?php /* @escapeNotVerified */ echo __('What’s on your mind?') ?>
+                </label>
+
+                <textarea class="input__field input__field--textarea"
+                          name="comment"
+                          id="comment"
+                          placeholder="<?php /* @escapeNotVerified */ echo __('What’s on your mind?') ?>"
+                          title="<?php /* @escapeNotVerified */ echo __('What’s on your mind?') ?>"
+                          cols="5"
+                          rows="3"
+                          data-validate="{required:true}"
+                ><?php echo $block->escapeHtml($this->helper('Magento\Contact\Helper\Data')->getPostValue('comment')) ?></textarea>
+            </div>
+
+            <?php echo $block->getChildHtml('form.additional.info'); ?>
+
+            <div class="form__handler">
+                <button class="button submit primary" 
+                        title="<?php /* @escapeNotVerified */ echo __('Submit') ?>"
+                        type="submit"
+                >
+                    <?php /* @escapeNotVerified */ echo __('Submit') ?>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
