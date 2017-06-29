@@ -1,0 +1,48 @@
+<?php
+// @codingStandardsIgnoreFile
+/**
+ * Currency switcher
+ *
+ * @see \Magento\Directory\Block\Currency
+ */
+
+ // temporary component used: dropdown-list, TODO: should use simpler component
+?>
+<?php if ($block->getCurrencyCount() > 1): ?>
+<?php $currencies = $block->getCurrencies(); ?>
+<?php $currentCurrencyCode = $block->getCurrentCurrencyCode(); ?>
+<?php $id = $block->getIdModifier() ? '-' . $block->getIdModifier() : ''?>
+
+<div class="dropdown-list dropdown-list--item-wide"
+     id="switcher-currency<?php /* @escapeNotVerified */ echo $id?>" data-mage-init='{"dropdownList": {}}'
+>
+    <ul class="dropdown-list__list dropdown-list__item--parent">
+        <li class="dropdown-list__item">
+            <span class="dropdown-list__link"
+                  data-dropdown="language-<?php echo $block->escapeHtml($block->getCurrentCurrencyCode()) ?>"
+            >
+                <?php /* @escapeNotVerified */ echo __('Currency') ?>: <?php echo $block->escapeHtml($currentCurrencyCode) ?> - <?php echo @$block->escapeHtml($currencies[$currentCurrencyCode]) ?>
+                <svg class="dropdown-list__icon dropdown-list__icon--inner">
+                    <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#arrow-down'); ?>"></use>
+                </svg>
+            </span>
+            <ul class="dropdown-list__inner-list dropdown-list__inner-list--level1"
+                data-dropdown="language-<?php echo $block->escapeHtml($block->getCurrentCurrencyCode()) ?>"
+            >
+                <?php foreach ($currencies as $_code => $_name): ?>
+                    <?php if ($_code != $currentCurrencyCode): ?>
+                        <li class="dropdown-list__inner-item  dropdown-list__inner-item--level1">
+                            <a href="#"
+                               title="currency: <?php /* @escapeNotVerified */ echo $block->getSwitchCurrencyPostData($_code); ?>"
+                               class="dropdown-list__inner-link"
+                               data-post='<?php /* @escapeNotVerified */ echo $block->getSwitchCurrencyPostData($_code); ?>'>
+                               <?php /* @escapeNotVerified */ echo $_code ?> - <?php /* @escapeNotVerified */ echo $_name ?>
+                           </a>
+                        </li>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </ul>
+        </li>
+    </ul>
+</div>
+<?php endif; ?>

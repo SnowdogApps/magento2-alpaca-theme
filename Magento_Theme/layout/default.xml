@@ -1,8 +1,144 @@
 <?xml version="1.0"?>
-
-<page layout="3columns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+<page layout="3columns"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd"
+>
     <update handle="default_head_blocks"/>
     <body>
+        <!-- Header layout -->
+        <move element="skip_to_content" destination="header.container" before="-"/>
+        <move element="store_language" destination="header.panel.action" before="-"/>
+        <move element="currency" destination="header.panel.action" before="store_language" />
+        <referenceContainer name="header.panel.wrapper" htmlClass="wrapper-collapsible wrapper-collapsible--min-medium-horizontal">
+            <block class="Magento\Framework\View\Element\Template"
+                   name="wrapper-collapsible-icon-account"
+                   template="Magento_Theme::html/wrapper-collapsible-icon.phtml"
+                   before="-"
+            >
+                <arguments>
+                    <argument name="icon" xsi:type="string">user</argument>
+                </arguments>
+            </block>
+            <referenceContainer name="header.panel" htmlClass="wrapper-collapsible__container">
+                <referenceBlock name="top.links">
+                    <arguments>
+                        <argument name="css_class" xsi:type="string">list list--min-medium-horizontal</argument>
+                    </arguments>
+                    <move element="catalog.compare.link" destination="top.links" after="-"/>
+                    <referenceBlock name="my-account-link" template="Magento_Customer::account/link/customer-link.phtml">
+                        <arguments>
+                            <argument name="class" xsi:type="string">list__link</argument>
+                            <argument name="title" xsi:type="string" translate="true">My Account</argument>
+                        </arguments>
+                    </referenceBlock>
+                    <referenceBlock name="register-link" template="Magento_Customer::account/link/customer-link.phtml">
+                        <arguments>
+                            <argument name="class" xsi:type="string">list__link</argument>
+                            <argument name="title" xsi:type="string" translate="true">Create an Account</argument>
+                        </arguments>
+                    </referenceBlock>
+                    <referenceBlock name="authorization-link">
+                        <arguments>
+                            <argument name="class" xsi:type="string">list__link</argument>
+                            <argument name="title" xsi:type="string" translate="true">Sign In</argument>
+                        </arguments>
+                    </referenceBlock>
+                    <referenceBlock name="wish-list-link">
+                        <arguments>
+                            <argument name="class" xsi:type="string">list__link</argument>
+                            <argument name="title" xsi:type="string" translate="true">Create an Account</argument>
+                        </arguments>
+                    </referenceBlock>
+                </referenceBlock>
+            </referenceContainer>
+        </referenceContainer>
+        <referenceContainer name="header.container">
+            <block class="Magento\Framework\View\Element\Template"
+                   name="search-trigger"
+                   template="Magento_Search::search-trigger.phtml"
+                   before="-"
+            />
+            <container name="header.panel.wrapper.action"
+                       as="header.panel.wrapper.action"
+                       htmlTag="div"
+                       htmlClass="wrapper-collapsible"
+                       after="header.panel.wrapper"
+            >
+                <block class="Magento\Framework\View\Element\Template"
+                       name="wrapper-collapsible-icon-settings"
+                       template="Magento_Theme::html/wrapper-collapsible-icon.phtml"
+                       before="-"
+                >
+                    <arguments>
+                        <argument name="icon" xsi:type="string">settings</argument>
+                    </arguments>
+                </block>
+                <container name="header.panel.action"
+                           as="header.panel.action"
+                           htmlTag="div"
+                           htmlClass="wrapper-collapsible__container"
+                />
+            </container>
+        </referenceContainer>
+        <referenceContainer name="header-wrapper" htmlClass="page-header__content">
+
+            <block name="main.menu.mobile" class="Snowdog\Menu\Block\Menu" template="Snowdog_Menu::menu-mobile.phtml" after="top.search">
+                <arguments>
+                    <argument name="menu" xsi:type="string">menu_mobile</argument>
+                </arguments>
+            </block>
+            <block name="main.menu.desktop" class="Snowdog\Menu\Block\Menu" template="Snowdog_Menu::menu.phtml" before="top.search">
+                <arguments>
+                    <argument name="menu" xsi:type="string">main_menu</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+
+        <!-- Footer layout -->
+        <referenceContainer name="footer"
+                            htmlClass="page-footer__content"
+        >
+            <container name="footer_first_row"
+                       as="footer_first_row"
+                       label="Page Footer First"
+                       htmlTag="div"
+                       htmlClass="page-footer__row grid container"
+                       before="-"
+            >
+                <container name="footer_subscribe"
+                           label="Page Footer Subscribe"
+                           htmlTag="div"
+                           htmlClass="page-footer__subscribe grid__column grid__column--1-2"
+                />
+                <container name="footer_social"
+                           label="Page Footer Social"
+                           htmlTag="div"
+                           htmlClass="page-footer__social grid__column grid__column--1-2"
+                >
+                    <block class="Magento\Framework\View\Element\Template"
+                           name="social_list"
+                           template="Magento_Theme::html/social-list.phtml"
+                    />
+                </container>
+            </container>
+            <referenceBlock name="footer_links">
+                <arguments>
+                    <argument name="css_class" xsi:type="string">footer-menu list list--divided list--min-medium-horizontal list--center</argument>
+                </arguments>
+            </referenceBlock>
+        </referenceContainer>
+        <!-- End of Footer layout -->
+
+        <!--Removed blocks-->
+        <referenceBlock name="report.bugs" remove="true"/>
+        <referenceBlock name="navigation.sections" remove="true" />
+
+        <!--Moved blocks-->
+        <move element="copyright" destination="before.body.end"/>
+        <move element="form.subscribe"
+              destination="footer_subscribe"
+              before="-"
+        />
         <move element="catalog.compare.sidebar" destination="div.sidebar.main" after="-"/>
         <move element="wishlist_sidebar" destination="div.sidebar.main" after="-"/>
         <referenceContainer name="main.content" htmlClass="page-main container"/>
