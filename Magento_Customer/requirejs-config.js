@@ -1,7 +1,7 @@
 var config = {
     map: {
         "*": {
-            "toggleAccountNav" : "Magento_Customer/js/account-nav.babel"
+            "dropdownContainer" : "Magento_Customer/js/dropdown-container.babel"
         }
     }
 };
