@@ -1,0 +1,62 @@
+<?php
+// @codingStandardsIgnoreFile
+
+/** @var \Magento\Customer\Block\Account\Dashboard\Info $block */
+?>
+<div class="block-dashboard-info">
+    <h2>
+        <?php /* @escapeNotVerified */ echo __('Account Information') ?>
+    </h2>
+    <div class="grid">
+        <div class="grid__column grid__column--1-2 flex-column">
+            <h3 class="heading heading--fourth-level">
+                <?php /* @escapeNotVerified */ echo __('Contact Information') ?>
+            </h3>
+            <div>
+                <p>
+                    <?php echo $block->escapeHtml($block->getName()) ?>
+                </p>
+                <p>
+                    <?php echo $block->escapeHtml($block->getCustomer()->getEmail()) ?>
+                </p>
+            </div>
+            <div>
+                <a href="<?php /* @escapeNotVerified */ echo $block->getUrl('customer/account/edit') ?>"
+                   class="action edit flex-column__button"
+                >
+                    <?php /* @escapeNotVerified */ echo __('Edit') ?>
+                </a>
+                <a href="<?php /* @escapeNotVerified */ echo $block->getChangePasswordUrl() ?>"
+                   class="action change-password flex-column__button"
+                >
+                    <?php /* @escapeNotVerified */ echo __('Change Password') ?>
+                </a>
+            </div>
+        </div>
+        <?php if ($block->isNewsletterEnabled()): ?>
+            <div class="box box-newsletter grid__column grid__column--1-2 flex-column">
+                <h3 class="heading heading--fourth-level">
+                    <?php /* @escapeNotVerified */ echo __('Newsletters') ?>
+                </h3>
+                <div>
+                    <p>
+                        <?php if ($block->getIsSubscribed()): ?>
+                            <?php /* @escapeNotVerified */ echo __('You subscribe to "General Subscription".') ?>
+                        <?php else: ?>
+                            <?php /* @escapeNotVerified */ echo __('You don\'t subscribe to our newsletter.') ?>
+                        <?php endif; ?>
+                    </p>
+                    <?php /* Extensions placeholder */ ?>
+                    <?php echo $block->getChildHtml('customer.account.dashboard.info.extra')?>
+                </div>
+                <div>
+                    <a href="<?php /* @escapeNotVerified */ echo $block->getUrl('newsletter/manage') ?>"
+                       class="action edit flex-column__button"
+                    >
+                        <?php /* @escapeNotVerified */ echo __('Edit') ?>
+                    </a>
+                </div>
+            </div>
+        <?php endif; ?>
+    </div>
+</div>

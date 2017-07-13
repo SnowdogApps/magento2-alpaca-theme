@@ -1,0 +1,42 @@
+<?php
+
+// @codingStandardsIgnoreFile
+
+/**
+USAGE:
+
+Simple:
+
+<?php echo $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Dob')
+   ->setDate($block->getCustomer()->getDob())
+   ->toHtml() ?>
+
+For checkout/onepage/billing.phtml:
+
+<?php echo $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Dob')
+   ->setDate($block->getCustomer()->getDob())
+   ->setFieldIdFormat('billing:%s')
+   ->setFieldNameFormat('billing[%s]')
+   ->toHtml() ?>
+
+NOTE: Regarding styles - if we leave it this way, we'll move it to boxes.css
+      Alternatively we could calculate widths automatically using block input parameters.
+*/
+
+/**
+ * @see \Magento\Customer\Block\Widget\Dob
+ */
+?>
+<?php
+$fieldCssClass = 'input field date field-' . $block->getHtmlId();
+$fieldCssClass .= $block->isRequired() ? ' required' : '';
+?>
+<div class="<?php /* @escapeNotVerified */ echo $fieldCssClass; ?>">
+    <label class="label input__label" for="<?php echo $block->getHtmlId()?>">
+        <?php /* @escapeNotVerified */ echo $block->getLabel() ?>
+    </label>
+    <?php echo $block->getFieldHtml(); ?>
+    <?php if ($_message = $block->getAdditionalDescription()) : ?>
+        <div class="note"><?php /* @escapeNotVerified */ echo $_message; ?></div>
+    <?php endif; ?>
+</div>
