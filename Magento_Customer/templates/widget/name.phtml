@@ -31,16 +31,13 @@ $suffixHtmlTag = $suffixOptions ? 'select' : 'input';
 
 <?php if (($prefix || $middle || $suffix) && !$block->getNoWrap()): ?>
 <div class="field required fullname <?php /* @escapeNotVerified */ echo $block->getContainerClassName() ?>">
-    <fieldset class="fieldset fieldset-fullname">
-        <legend>
-            <?php /* @escapeNotVerified */ echo __('Name') ?>
-        </legend>
+    <fieldset class="fieldset-fullname">
 <?php endif; ?>
 
 <?php if ($prefix): ?>
-    <div class="field field-name-prefix<?php if ($block->isPrefixRequired()) echo ' required' ?> <?= $prefixHtmlTag; ?>">
+    <div class="form__field field-name-prefix users-account__field-short <?php if ($block->isPrefixRequired()) echo ' required' ?> <?= $prefixOptions ? '' : $prefixHtmlTag; ?>">
         <label for="<?php /* @escapeNotVerified */ echo $block->getFieldId('prefix') ?>"
-               class="label <?= $prefixHtmlTag; ?>__label"
+               class="input__label"
         >
             <?php /* @escapeNotVerified */ echo $block->getStoreLabel('prefix') ?>
         </label>
@@ -57,9 +54,10 @@ $suffixHtmlTag = $suffixOptions ? 'select' : 'input';
             <select id="<?php /* @escapeNotVerified */ echo $block->getFieldId('prefix') ?>"
                     name="<?php /* @escapeNotVerified */ echo $block->getFieldName('prefix') ?>"
                     title="<?php /* @escapeNotVerified */ echo $block->getStoreLabel('prefix') ?>"
-                    class="<?php /* @escapeNotVerified */ echo $block->getAttributeValidationClass('prefix') ?> select__field"
+                    class="<?php /* @escapeNotVerified */ echo $block->getAttributeValidationClass('prefix') ?> select"
                     <?php /* @escapeNotVerified */ echo $block->getFieldParams() ?>
                     <?php if ($block->isPrefixRequired()) echo ' data-validate="{required:true}"' ?>
+                    data-mage-init='{ "select" : {}}'
             >
                 <?php foreach ($block->getPrefixOptions() as $_option): ?>
                     <option value="<?php /* @escapeNotVerified */ echo $_option ?>"<?php if ($block->getObject()->getPrefix() == $_option): ?> selected="selected"<?php endif; ?>>
@@ -70,9 +68,9 @@ $suffixHtmlTag = $suffixOptions ? 'select' : 'input';
         <?php endif; ?>
     </div>
 <?php endif; ?>
-    <div class="field field-name-firstname required input">
+    <div class="form__field field-name-firstname required input">
         <label for="<?php /* @escapeNotVerified */ echo $block->getFieldId('firstname') ?>"
-               class="label input__label"
+               class="input__label"
         >
             <?php /* @escapeNotVerified */ echo $block->getStoreLabel('firstname') ?>
         </label>
@@ -87,9 +85,9 @@ $suffixHtmlTag = $suffixOptions ? 'select' : 'input';
     </div>
 <?php if ($middle): ?>
     <?php $isMiddlenameRequired = $block->isMiddlenameRequired(); ?>
-    <div class="field field-name-middlename<?php echo $isMiddlenameRequired ? ' required' : '' ?> input">
+    <div class="form__field field-name-middlename<?php echo $isMiddlenameRequired ? ' required' : '' ?> input">
         <label for="<?php /* @escapeNotVerified */ echo $block->getFieldId('middlename') ?>"
-               class="label input__label"
+               class="input__label"
         >
             <?php /* @escapeNotVerified */ echo $block->getStoreLabel('middlename') ?>
         </label>

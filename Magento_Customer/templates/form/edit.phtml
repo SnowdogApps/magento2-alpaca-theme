@@ -3,180 +3,199 @@
 
 /** @var \Magento\Customer\Block\Form\Edit $block */
 ?>
-<form action="<?php /* @escapeNotVerified */ echo $block->getUrl('customer/account/editPost') ?>"
-      method="post" id="form-validate"
-      enctype="multipart/form-data"
-      data-hasrequired="<?php /* @escapeNotVerified */ echo __('* Required Fields') ?>"
-      autocomplete="off"
-      class="form form-edit-account"
-      aria-labelledby="form-label"
->
-    <h2 id="form-label" class="heading heading--fourth-level">
+<div class="users-account">
+    <h2>
         <?php /* @escapeNotVerified */ echo __('Account Information') ?>
     </h2>
-
-
-    <fieldset class="fieldset info">
-        <?php echo $block->getBlockHtml('formkey')?>
-        <legend class="legend">
-            <?php /* @escapeNotVerified */ echo __('Edit Account Information') ?>
-        </legend>
-        <?php echo $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Name')->setObject($block->getCustomer())->toHtml() ?>
-
-        <?php $_dob = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Dob') ?>
-        <?php $_taxvat = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Taxvat') ?>
-        <?php $_gender = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Gender') ?>
-        <?php if ($_dob->isEnabled()): ?>
-            <?php echo $_dob->setDate($block->getCustomer()->getDob())->setHtmlClass('input__field')->toHtml() ?>
-        <?php endif ?>
-        <?php if ($_taxvat->isEnabled()): ?>
-            <?php echo $_taxvat->setTaxvat($block->getCustomer()->getTaxvat())->toHtml() ?>
-        <?php endif ?>
-        <?php if ($_gender->isEnabled()): ?>
-            <?php echo $_gender->setGender($block->getCustomer()->getGender())->toHtml() ?>
-        <?php endif ?>
-        <div class="field choice checkbox">
-            <input id="change-email"
-                   type="checkbox"
-                   name="change_email"
-                   data-role="change-email"
-                   value="1"
-                   title="<?php /* @escapeNotVerified */ echo __('Change Email') ?>"
-                   class="checkbox checkbox__field"
-            />
-            <svg class="checkbox__icon">
-                <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#checked'); ?>"></use>
-            </svg>
-            <label for="change-email"
-                   class="label checkbox__label"
-            >
-                <?php /* @escapeNotVerified */ echo __('Change Email') ?>
-            </label>
-        </div>
-        <div class="field choice checkbox">
-            <input id="change-password"
-                   type="checkbox"
-                   name="change_password"
-                   data-role="change-password"
-                   value="1"
-                   title="<?php /* @escapeNotVerified */ echo __('Change Password') ?>"
-                   <?php if ($block->getChangePassword()): ?>
-                       checked="checked"
-                   <?php endif; ?>
-                   class="checkbox checkbox__field"
-            />
-            <label for="change-password"
-                   class="label checkbox__label"
-            >
-                <?php /* @escapeNotVerified */ echo __('Change Password') ?>
-            </label>
-        </div>
-    </fieldset>
-
-    <fieldset class="fieldset password"
-              data-container="change-email-password"
+    <form action="<?php /* @escapeNotVerified */ echo $block->getUrl('customer/account/editPost') ?>"
+          method="post" id="form-validate"
+          enctype="multipart/form-data"
+          data-hasrequired="<?php /* @escapeNotVerified */ echo __('* Required Fields') ?>"
+          autocomplete="off"
+          class="form form-edit-account"
+          aria-labelledby="form-label"
     >
-        <legend class="legend">
-            <span data-title="change-email-password">
-                <?php /* @escapeNotVerified */ echo __('Change Email and Password') ?>
-            </span>
-        </legend>
-        <div class="field email required input" data-container="change-email">
-            <label class="label input__label" for="email">
-                <?php /* @escapeNotVerified */ echo __('Email') ?>
-            </label>
-            <input id="email"
-                   type="email"
-                   name="email"
-                   autocomplete="email"
-                   data-input="change-email"
-                   value="<?php echo $block->escapeHtml($block->getCustomer()->getEmail()) ?>"
-                   title="<?php /* @escapeNotVerified */ echo __('Email') ?>"
-                   class="input__field"
-                   data-validate="{required:true, 'validate-email':true}"
-             />
-        </div>
-        <div class="field password current required input">
-            <label for="current-password"
-                   class="label input__label"
-            >
-                <?php /* @escapeNotVerified */ echo __('Current Password') ?>
-            </label>
-            <input id="current-password"
-                   type="password"
-                   class="input__field"
-                   name="current_password"
-                   data-input="current-password"
-                   autocomplete="off"
-            />
-        </div>
-        <div class="field new password required input"
-             data-container="new-password"
-             data-mage-init='{"passwordStrengthIndicator": {}}'
+        <h3 id="form-label" class="heading heading--fifth-level">
+            <?php /* @escapeNotVerified */ echo __('Edit Account Information') ?>
+        </h3>
+        <fieldset class="fieldset info users-account__fieldset"
+                  aria-labelledby="personal-info"
         >
-            <label for="password"
-                   class="label input__label"
+            <h4 id="personal-info"
+                class="heading heading--sixth-level"
             >
-                <?php /* @escapeNotVerified */ echo __('New Password') ?>
-            </label>
-            <input id="password"
-                   type="password"
-                   class="input__field"
-                   name="password"
-                   data-password-min-length="<?php echo $block->escapeHtml($block->getMinimumPasswordLength()) ?>"
-                   data-password-min-character-sets="<?php echo $block->escapeHtml($block->getRequiredCharacterClassesNumber()) ?>"
-                   data-input="new-password"
-                   data-validate="{required:true, 'validate-customer-password':true}"
-                   autocomplete="off"
-            />
-            <div id="password-strength-meter-container"
-                 data-role="password-strength-meter"
-            >
-                <div id="password-strength-meter"
-                     class="password-strength-meter"
+                <?php /* @escapeNotVerified */ echo __('Personal informations'); ?>
+            </h4>
+            <?php echo $block->getBlockHtml('formkey')?>
+
+            <?php echo $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Name')->setObject($block->getCustomer())->toHtml() ?>
+
+            <?php $_dob = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Dob') ?>
+            <?php $_taxvat = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Taxvat') ?>
+            <?php $_gender = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Gender') ?>
+            <?php if ($_dob->isEnabled()): ?>
+                <?php echo $_dob->setDate($block->getCustomer()->getDob())->setHtmlClass('input__field')->toHtml() ?>
+            <?php endif ?>
+            <?php if ($_taxvat->isEnabled()): ?>
+                <?php echo $_taxvat->setTaxvat($block->getCustomer()->getTaxvat())->toHtml() ?>
+            <?php endif ?>
+            <?php if ($_gender->isEnabled()): ?>
+                <?php echo $_gender->setGender($block->getCustomer()->getGender())->toHtml() ?>
+            <?php endif ?>
+            <div class="field choice checkbox">
+                <input id="change-email"
+                       type="checkbox"
+                       name="change_email"
+                       data-role="change-email"
+                       value="1"
+                       title="<?php /* @escapeNotVerified */ echo __('Change Email'); ?>"
+                       class="checkbox checkbox__field"
+                />
+                <svg class="checkbox__icon">
+                    <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#checked'); ?>"></use>
+                </svg>
+                <label for="change-email"
+                       class="label checkbox__label"
                 >
-                    <?php /* @escapeNotVerified */ echo __('Password Strength'); ?>:
-                    <span id="password-strength-meter-label"
-                          data-role="password-strength-meter-label"
+                    <?php /* @escapeNotVerified */ echo __('Change Email'); ?>
+                </label>
+            </div>
+            <div class="field choice checkbox">
+                <input id="change-password"
+                       type="checkbox"
+                       name="change_password"
+                       data-role="change-password"
+                       value="1"
+                       title="<?php /* @escapeNotVerified */ echo __('Change Password'); ?>"
+                       <?php if ($block->getChangePassword()): ?>
+                           checked="checked"
+                       <?php endif; ?>
+                       class="checkbox checkbox__field"
+                />
+                <svg class="checkbox__icon">
+                    <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#checked'); ?>"></use>
+                </svg>
+                <label for="change-password"
+                       class="label checkbox__label"
+                >
+                    <?php /* @escapeNotVerified */ echo __('Change Password'); ?>
+                </label>
+            </div>
+        </fieldset>
+
+        <fieldset class="fieldset password"
+                  data-container="change-email-password"
+                  aria-labelledby="change-info-fieldset"
+        >
+            <h4 id="change-info-fieldset"
+                class="heading heading--sixth-level"
+                data-title="change-email-password"
+            >
+                <?php /* @escapeNotVerified */ echo __('Change Email and Password'); ?>
+            </h4>
+
+            <div class="form__field email required input"
+                 data-container="change-email"
+            >
+                <label class="label input__label" for="email">
+                    <?php /* @escapeNotVerified */ echo __('Email'); ?>
+                </label>
+                <input id="email"
+                       type="email"
+                       name="email"
+                       autocomplete="email"
+                       data-input="change-email"
+                       value="<?php echo $block->escapeHtml($block->getCustomer()->getEmail()); ?>"
+                       title="<?php /* @escapeNotVerified */ echo __('Email'); ?>"
+                       class="input__field"
+                       data-validate="{required:true, 'validate-email':true}"
+                 />
+            </div>
+            <div class="form__field password current required input">
+                <label for="current-password"
+                       class="label input__label"
+                >
+                    <?php /* @escapeNotVerified */ echo __('Current Password'); ?>
+                </label>
+                <input id="current-password"
+                       type="password"
+                       class="input__field"
+                       name="current_password"
+                       data-input="current-password"
+                       autocomplete="off"
+                />
+            </div>
+            <div class="form__field new password required input"
+                 data-container="new-password"
+                 data-mage-init='{"passwordStrengthIndicator": {}}'
+            >
+                <label for="password"
+                       class="label input__label"
+                >
+                    <?php /* @escapeNotVerified */ echo __('New Password'); ?>
+                </label>
+                <input id="password"
+                       type="password"
+                       class="input__field"
+                       name="password"
+                       data-password-min-length="<?php echo $block->escapeHtml($block->getMinimumPasswordLength()); ?>"
+                       data-password-min-character-sets="<?php echo $block->escapeHtml($block->getRequiredCharacterClassesNumber()); ?>"
+                       data-input="new-password"
+                       data-validate="{required:true, 'validate-customer-password':true}"
+                       autocomplete="off"
+                />
+                <div id="password-strength-meter-container"
+                     data-role="password-strength-meter"
+                     class="password-field-strength"
+                >
+                    <div id="password-strength-meter"
+                         class="password-strength-meter"
                     >
-                        <?php /* @escapeNotVerified */ echo __('No Password'); ?>
-                    </span>
+                        <?php /* @escapeNotVerified */ echo __('Password Strength'); ?>:
+                        <span id="password-strength-meter-label"
+                              data-role="password-strength-meter-label"
+                              class="password-strength-meter__strength-measure"
+                        >
+                            <?php /* @escapeNotVerified */ echo __('No Password'); ?>
+                        </span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="field confirm password required input"
-             data-container="confirm-password"
-        >
-            <label for="password-confirmation"
-                   class="label"
+            <div class="form__field confirm password required input"
+                 data-container="confirm-password"
             >
-                <?php /* @escapeNotVerified */ echo __('Confirm New Password') ?>
-            </label>
-            <input id="password-confirmation"
-                   type="password"
-                   class="input__field"
-                   name="password_confirmation"
-                   data-input="confirm-password"
-                   autocomplete="off"
-             />
+                <label for="password-confirmation"
+                       class="label"
+                >
+                    <?php /* @escapeNotVerified */ echo __('Confirm New Password'); ?>
+                </label>
+                <input id="password-confirmation"
+                       type="password"
+                       class="input__field"
+                       name="password_confirmation"
+                       data-input="confirm-password"
+                       autocomplete="off"
+                 />
+            </div>
+            <?php echo $block->getChildHtml('form_additional_info'); ?>
+        </fieldset>
+        <div class="users-account__actions actions-toolbar">
+            <a href="<?php echo $block->escapeUrl($block->getBackUrl()); ?>"
+               class="action back users-account__button"
+            >
+                <?php /* @escapeNotVerified */ echo __('Go back'); ?>
+            </a>
+            <button type="submit"
+                    class="action save primary users-account__button-primary"
+                    title="<?php /* @escapeNotVerified */ echo __('Save'); ?>"
+                    aria-label="<?php /* @escapeNotVerified */ echo __('Save button'); ?>"
+            >
+                    <?php /* @escapeNotVerified */ echo __('Save'); ?>
+            </button>
         </div>
-        <?php echo $block->getChildHtml('form_additional_info'); ?>
-    </fieldset>
-    <div class="actions-toolbar">
-        <button type="submit"
-                class="action save primary button"
-                title="<?php /* @escapeNotVerified */ echo __('Save') ?>"
-                aria-label="<?php /* @escapeNotVerified */ echo __('Save button') ?>"
-        >
-                <?php /* @escapeNotVerified */ echo __('Save') ?>
-        </button>
-        <a href="<?php echo $block->escapeUrl($block->getBackUrl()) ?>"
-           class="action back button button--link"
-        >
-            <?php /* @escapeNotVerified */ echo __('Go back') ?>
-        </a>
-    </div>
-</form>
+    </form>
+</div>
+
 <script>
     require([
         "jquery",
@@ -217,4 +236,5 @@
             }
         }
     }
+
 </script>
