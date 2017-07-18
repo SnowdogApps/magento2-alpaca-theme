@@ -4,12 +4,12 @@ var config = {
             "choices"          : "Magento_Theme/js/lib/choices",
             "closestPolyfill" : "Magento_Theme/js/lib/closest-polyfill",
             "lazysizes"       : "Magento_Theme/js/lib/lazysizes",
+            "linksWrapper"    : "Magento_Theme/js/wrapper-collapsible",
             "picturefill"     : "Magento_Theme/js/lib/picturefill",
             "select"          : "Magento_Theme/js/select.babel",
+            "setHeightFn"     : "Magento_Theme/js/set-height",
             "slick"           : "Magento_Theme/js/lib/slick",
-            "svg4everybody"   : "Magento_Theme/js/lib/svg4everybody",
-            "linksWrapper"    : "Magento_Theme/js/wrapper-collapsible",
-            "setHeightFn"     : "Magento_Theme/js/set-height"
+            "svg4everybody"   : "Magento_Theme/js/lib/svg4everybody"
         }
     }
 };

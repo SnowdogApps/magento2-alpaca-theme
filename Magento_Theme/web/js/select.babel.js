@@ -1,4 +1,4 @@
-define([
+require([
     'choices'
 ], function(Choices) {
     'use strict'
@@ -6,10 +6,11 @@ define([
     /*global Choices */
 
     const selects = [...document.querySelectorAll('.select')];
-
+    console.log(selects);
     selects.forEach(select => {
       new Choices(select, {
         placeholder: true,
+        searchEnabled: false,
         placeholderValue: 'Search item',
         classNames: {
           containerInner: 'select',
