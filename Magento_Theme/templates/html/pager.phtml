@@ -1,0 +1,154 @@
+<?php
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+/**
+ * Pager template
+ *
+ * @see \Magento\Theme\Block\Html\Pager
+ */
+?>
+<?php if ($block->getCollection()->getSize()): ?>
+
+    <?php if ($block->getUseContainer()): ?>
+    <div class="action-toolbar">
+    <?php endif ?>
+
+        <?php if ($block->getShowAmounts()): ?>
+        <div class="amount-counter action-toolbar__item">
+            <?php if ($block->getLastPageNum()>1): ?>
+                <?php /* @escapeNotVerified */ echo __('Items %1 to %2 of %3 total', $block->getFirstNum(), $block->getLastNum(), $block->getTotalNum()); ?>
+            <?php elseif ($block->getTotalNum() == 1): ?>
+                <?php /* @escapeNotVerified */ echo __('%1 Item', $block->getTotalNum()); ?>
+            <?php else: ?>
+                <?php /* @escapeNotVerified */ echo __('%1 Item(s)', $block->getTotalNum()); ?>
+            <?php endif; ?>
+        </div>
+        <?php endif ?>
+
+        <?php if ($block->isShowPerPage()): ?>
+            <div class="limiter action-toolbar__item">
+                <span class="limiter__label">
+                    <?php /* @escapeNotVerified */ echo __('Show'); ?>
+                </span>
+                <div class="limiter__content">
+                    <?php foreach ($block->getAvailableLimit() as $_key => $_limit): ?>
+                        <?php if ($block->isLimitCurrent($_key)): ?>
+                            <span class="limiter__option limiter__option--current">
+                                <?php /* @escapeNotVerified */ echo $_limit ?>
+                            </span>
+                        <?php else: ?>
+                            <a href="<?php /* @escapeNotVerified */ echo $block->getLimitUrl($_key) ?>"
+                               class="limiter__option"
+                            >
+                                <?php /* @escapeNotVerified */ echo $_limit ?>
+                            </a>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                    <span class="limiter__text">
+                        <?php /* @escapeNotVerified */ echo __('items per page') ?>
+                    </span>
+                </div>
+            </div>
+        <?php endif ?>
+
+        <?php if ($block->getLastPageNum()>1): ?>
+            <ul class="pager action-toolbar__item items pages-items"
+                aria-label="paging-label"
+            >
+            <?php if (!$block->isFirstPage()): ?>
+                <li class="pager__item item pages-item-previous pager__item--prev">
+                    <?php $text = $block->getAnchorTextForPrevious() ? $block->getAnchorTextForPrevious() : '';?>
+                    <a class="<?php /* @escapeNotVerified */ echo $text ? 'link ' : 'action '?> pager__link previous"
+                       href="<?php /* @escapeNotVerified */ echo $block->getPreviousPageUrl(); ?>"
+                       title="<?php /* @escapeNotVerified */ echo $text ? $text : __('Previous'); ?>"
+                    >
+                        <svg title="previous item" class="pager__nav-icon">
+                            <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#arrow-left'); ?>"></use>
+                        </svg>
+                    </a>
+                </li>
+            <?php endif;?>
+
+            <?php if ($block->canShowFirst()): ?>
+                <li class="item pager__item">
+                    <a class="page first pager__link"
+                       href="<?php /* @escapeNotVerified */ echo $block->getFirstPageUrl(); ?>"
+                    >
+                        1
+                    </a>
+                </li>
+            <?php endif;?>
+
+            <?php if ($block->canShowPreviousJump()): ?>
+                <li class="item pager__item">
+                    <a class="page previous pager__link jump"
+                       title="previous item"
+                       href="<?php /* @escapeNotVerified */ echo $block->getPreviousJumpUrl(); ?>"
+                    >
+                        <span>...</span>
+                    </a>
+                </li>
+            <?php endif;?>
+
+            <?php foreach ($block->getFramePages() as $_page): ?>
+                <?php if ($block->isPageCurrent($_page)): ?>
+                    <li class="item pager__item pager__item--current current">
+                            <?php /* @escapeNotVerified */ echo $_page; ?>
+                    </li>
+                <?php else: ?>
+                    <li class="item pager__item">
+                        <a href="<?php /* @escapeNotVerified */ echo $block->getPageUrl($_page); ?>"
+                           class="page pager__link"
+                        >
+                            <?php /* @escapeNotVerified */ echo $_page; ?>
+                        </a>
+                    </li>
+                <?php endif;?>
+            <?php endforeach;?>
+
+            <?php if ($block->canShowNextJump()): ?>
+                <li class="item pager__item">
+                    <a class="page next jump pager__link"
+                       title=""
+                       href="<?php /* @escapeNotVerified */ echo $block->getNextJumpUrl(); ?>"
+                    >
+                        ...
+                    </a>
+                </li>
+            <?php endif;?>
+
+            <?php if ($block->canShowLast()): ?>
+              <li class="item pager__item">
+                  <a class="page last pager__link"
+                     href="<?php /* @escapeNotVerified */ echo $block->getLastPageUrl(); ?>"
+                  >
+                      <?php /* @escapeNotVerified */ echo $block->getLastPageNum(); ?>
+                  </a>
+              </li>
+            <?php endif;?>
+
+            <?php if (!$block->isLastPage()): ?>
+                <li class="item pages-item-next pager__item pager__item--nect ">
+                    <?php $text = $block->getAnchorTextForNext() ? $block->getAnchorTextForNext() : '';?>
+                    <a class="<?php /* @escapeNotVerified */ echo $text ? 'link ' : 'action '; ?> pager__link next"
+                       href="<?php /* @escapeNotVerified */ echo $block->getNextPageUrl(); ?>"
+                       title="<?php /* @escapeNotVerified */ echo $text ? $text : __('Next'); ?>"
+                    >
+                        <svg title="previous item"
+                             class="pager__nav-icon next">
+                            <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#arrow-right'); ?>"></use>
+                        </svg>
+                    </a>
+                </li>
+            <?php endif;?>
+            </ul>
+        <?php endif; ?>
+
+    <?php if ($block->getUseContainer()): ?>
+    </div>
+    <?php endif ?>
+
+<?php endif ?>
