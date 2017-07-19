@@ -1,0 +1,25 @@
+<?php
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php /** @var  $block \Magento\Sales\Block\Order\View*/?>
+
+<?php $_history = $block->getOrder()->getVisibleStatusHistory(); ?>
+<?php if (count($_history)): ?>
+    <div class="block-order-details-comments users-account users-account--right">
+        <h2 class="heading heading--fifth-level">
+            <?php /* @escapeNotVerified */ echo __('About Your Order'); ?>
+        </h2>
+        <dl class="definition-list">
+            <?php foreach ($_history as $_historyItem): ?>
+                <dt class="definition-list__label">
+                    <?php /* @escapeNotVerified */ echo $block->formatDate($_historyItem->getCreatedAt(), \IntlDateFormatter::MEDIUM, true); ?>
+                </dt>
+                <dd class="definition-list__value">
+                    <?php echo $block->escapeHtml($_historyItem->getComment()); ?>
+                </dd>
+            <?php endforeach; ?>
+        </dl>
+    </div>
+<?php endif; ?>

@@ -1,0 +1,21 @@
+<?php
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php  $_order = $block->getOrder() ?>
+<?php if ($this->helper('Magento\Sales\Helper\Reorder')->canReorder($_order->getEntityId())) : ?>
+    <a href="#"
+       data-post='<?php /* @escapeNotVerified */ echo $this->helper(\Magento\Framework\Data\Helper\PostHelper::class)->getPostData($block->getReorderUrl($_order)); ?>'
+       class="action order actions-toolbar__button"
+    >
+        <?php /* @escapeNotVerified */ echo __('Reorder'); ?>
+    </a>
+<?php endif ?>
+<a class="action print actions-toolbar__button"
+   href="<?php /* @escapeNotVerified */ echo $block->getPrintUrl($_order) ?>"
+   onclick="this.target='_blank';"
+>
+    <?php /* @escapeNotVerified */ echo __('Print Order'); ?>
+</a>
+<?php echo $block->getChildHtml(); ?>

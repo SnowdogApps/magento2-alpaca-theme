@@ -1,0 +1,61 @@
+<?php
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php /** @var $block \Magento\Sales\Block\Order\Info */ ?>
+<?php $_order = $block->getOrder() ?>
+<div class="block block-order-details-view users-account">
+    <h2>
+        <?php /* @escapeNotVerified */ echo __('Order Information'); ?>
+    </h2>
+    <div class="grid">
+        <div class="grid__column grid__column--1-2">
+            <?php if (!$_order->getIsVirtual()): ?>
+                <div class="box-order-shipping-address flex-column">
+                    <h3 class="heading heading--fourth-level">
+                        <?php /* @escapeNotVerified */ echo __('Shipping Address') ?>
+                    </h3>
+                    <div class="box-content">
+                        <address>
+                            <?php /* @escapeNotVerified */ echo $block->getFormattedAddress($_order->getShippingAddress()); ?>
+                        </address>
+                    </div>
+                </div>
+
+                <div class="box-order-shipping-method flex-column">
+                    <h3 class="heading heading--fourth-level">
+                        <?php /* @escapeNotVerified */ echo __('Shipping Method') ?>
+                    </h3>
+                    <div class="box-content">
+                        <?php if ($_order->getShippingDescription()): ?>
+                            <?php echo $block->escapeHtml($_order->getShippingDescription()) ?>
+                        <?php else: ?>
+                            <?php /* @escapeNotVerified */ echo __('No shipping information available'); ?>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+        </div>
+        <div class="grid__column grid__column--1-2">
+            <div class="box-order-billing-address flex-column">
+                <h3 class="heading heading--fourth-level">
+                    <?php /* @escapeNotVerified */ echo __('Billing Address') ?>
+                </h3>
+                <div class="box-content">
+                    <address>
+                        <?php /* @escapeNotVerified */ echo $block->getFormattedAddress($_order->getBillingAddress()); ?>
+                    </address>
+                </div>
+            </div>
+            <div class="box-order-billing-method flex-column">
+                <h3 class="heading heading--fourth-level">
+                    <?php /* @escapeNotVerified */ echo __('Payment Method') ?>
+                </h3>
+                <div class="box-content">
+                    <?php echo $block->getPaymentInfoHtml() ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
