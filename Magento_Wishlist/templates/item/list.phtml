@@ -1,0 +1,38 @@
+<?php
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+/** @var \Magento\Wishlist\Block\Customer\Wishlist\Items $block */
+$columns = $block->getColumns();
+?>
+
+<div class=" wishlist">
+    <?php $iterator = 1; ?>
+    <?php if (count($block->getItems())): ?>
+    <ul class="product-items products-grid">
+        <?php foreach ($block->getItems() as $item): ?>
+        <?php /* @escapeNotVerified */ echo($iterator++ == 1) ? '<li data-row="product-item" class="products-grid__item product product-item" id="item_' . $item->getId() . '">' : '</li><li class="product-item product products-grid__item" id="item_' . $item->getId() . '">' ?>
+            <div class="product-item-info product__details">
+                <?php foreach ($columns as $column): ?>
+                    <?php $column->setItem($item); echo $column->toHtml($item);?>
+                <?php endforeach; ?>
+            </div>
+        <?php echo($iterator == count($block->getItems())+1) ? '</li>' : '' ?>
+        <?php endforeach; ?>
+    </ol>
+    <?php else: ?>
+        <div class="message info empty">
+            <div class="message__container">
+                <div class="message__text">
+                    <?php /* @escapeNotVerified */ echo __('This Wish List has no Items'); ?>
+                </div>
+            </div>
+        </div>
+    <?php endif; ?>
+</div>
+
+<?php foreach ($columns as $column): ?>
+    <?php echo $column->getAdditionalHtml();?>
+<?php endforeach; ?>
