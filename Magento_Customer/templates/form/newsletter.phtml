@@ -1,0 +1,59 @@
+<?php
+
+// @codingStandardsIgnoreFile
+
+?>
+<div class="users-account">
+    <h2>
+        <?php /* @escapeNotVerified */ echo __('Subscription option') ?>
+    </h2>
+    <?php echo $block->getChildHtml('form_before'); ?>
+        <form class="form form-newsletter-manage"
+              action="<?php /* @escapeNotVerified */ echo $block->getAction(); ?>"
+              method="post"
+              id="form-validate"
+              aria-label="<?php /* @escapeNotVerified */ echo __('Newsletter subscription option'); ?>"
+         >
+            <fieldset class="fieldset">
+                <?php echo $block->getBlockHtml('formkey'); ?>
+
+                <div class="form__field  checkbox choice">
+                    <input type="checkbox"
+                           name="is_subscribed"
+                           id="subscription"
+                           value="1"
+                           class="checkbox__field"
+                           title="<?php /* @escapeNotVerified */ echo __('General Subscription'); ?>"
+                           <?php if ($block->getIsSubscribed()): ?>
+                               checked="checked"
+                           <?php endif; ?>
+                    >
+                    <svg class="checkbox__icon">
+                        <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#checked');  ?>"></use>
+                    </svg>
+                    <label for="subscription"
+                           class="checkbox__label"
+                    >
+                        <?php /* @escapeNotVerified */ echo __('General Subscription'); ?>
+                    </label>
+                </div>
+                <?php /* Extensions placeholder */ ?>
+                <?php echo $block->getChildHtml('customer.form.newsletter.extra'); ?>
+            </fieldset>
+            <div class="actions-toolbar">
+                <a class="action back actions-toolbar__button"
+                   href="<?php echo $block->escapeUrl($block->getBackUrl()); ?>"
+                >
+                    <?php /* @escapeNotVerified */ echo __('Back'); ?>
+                </a>
+                <button type="submit"
+                        title="<?php /* @escapeNotVerified */ echo __('Save'); ?>"
+                        class="action save primary actions-toolbar__button"
+                >
+                    <?php /* @escapeNotVerified */ echo __('Save'); ?>
+                </button>
+            </div>
+        </form>
+    <?php /* Extensions placeholder */ ?>
+    <?php echo $block->getChildHtml('customer.form.newsletter.extra2'); ?>
+</div>

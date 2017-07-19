@@ -1,0 +1,88 @@
+<?php
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+$product = $block->getProductData();
+?>
+<div class="users-account">
+    <?php if ($product->getId()): ?>
+    <div class="customer-review view">
+        <div class="product-details">
+            <h2 class="product-name">
+                <?php echo $block->escapeHtml($product->getName()); ?>
+            </h2>
+            <div class="product-media">
+                <a class="product-photo"
+                   href="<?php /* @escapeNotVerified */ echo $product->getProductUrl(); ?>"
+                >
+                    <?php /* customer_account_product_review_page */ ?>
+                    <?php echo $block
+                                ->getImage($block->getProductData(), 'customer_account_product_review_page')
+                                ->toHtml();
+                    ?>
+                </a>
+            </div>
+            <div class="product-info flex-column">
+                <?php if ($block->getRating() && $block->getRating()->getSize()): ?>
+                    <h3 class="heading heading--fifth-level rating-average-label">
+                        <?php /* @escapeNotVerified */ echo __('Average Customer Rating:'); ?>
+                    </h3>
+                    <?php echo $block->getReviewsSummaryHtml($product); ?>
+                <?php endif; ?>
+            </div>
+        </div>
+
+        <div class="review-details flex-column">
+            <?php if ($block->getRating() && $block->getRating()->getSize()): ?>
+                <h3 class="heading heading--fifth-level">
+                    <?php /* @escapeNotVerified */ echo __('Your Review'); ?>
+                </h3>
+                <div class="customer-review-rating rating">
+                    <?php foreach ($block->getRating() as $_rating): ?>
+                    <?php if ($_rating->getPercent()): ?>
+                        <?php $rating = ceil($_rating->getPercent()) ?>
+
+                        <div class="rating__summary item">
+                            <svg title="icon rating summary"
+                                 class="rating__icon"
+                            >
+                                <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#stars'); ?>"></use>
+                            </svg>
+                            <div class="rating__results"
+                                 title="<?php /* @escapeNotVerified */ echo $rating; ?>%"
+                                 style="width:<?php /* @escapeNotVerified */ echo $rating; ?>%"
+                            >
+                                <svg title="icon rating results"
+                                     class="rating__icon rating__icon--results"
+                                >
+                                    <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#stars'); ?>"></use>
+                                </svg>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
+
+            <div class="rating__title">
+                <?php echo $block->escapeHtml($block->getReviewData()->getTitle()); ?>
+            </div>
+            <div>
+                <?php echo nl2br($block->escapeHtml($block->getReviewData()->getDetail())); ?>
+            </div>
+            <div class="rating__date">
+                <?php /* @escapeNotVerified */ echo __('Submitted on %1', '<time class="date">' . $block->dateFormat($block->getReviewData()->getCreatedAt()) . '</time>'); ?>
+            </div>
+        </div>
+    </div>
+    <div class="actions-toolbar">
+        <a class="action back actions-toolbar__button"
+           href="<?php /* @escapeNotVerified */ echo $block->getBackUrl(); ?>"
+        >
+           <?php /* @escapeNotVerified */ echo __('Back to My Reviews'); ?>
+       </a>
+    </div>
+    <?php endif; ?>
+</div>

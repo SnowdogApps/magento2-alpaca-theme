@@ -1,0 +1,61 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+
+<?php
+/** @var $block \Magento\Review\Block\Customer\Recent */
+?>
+
+<?php if ($block->getReviews() && count($block->getReviews())): ?>
+<div class="block-reviews-dashboard users-account">
+    <h2 class="heading--with-item">
+        <?php /* @escapeNotVerified */ echo __('My Recent Reviews'); ?>
+        <a class="action view heading__item"
+           href="<?php /* @escapeNotVerified */ echo $block->getAllReviewsUrl(); ?>"
+        >
+            <?php /* @escapeNotVerified */ echo __('View All') ?>
+        </a>
+    </h2>
+    <ul class="list">
+    <?php foreach ($block->getReviews() as $_review): ?>
+        <li class="list__item">
+            <a href="<?php /* @escapeNotVerified */ echo $block->getReviewUrl($_review->getReviewId()); ?>">
+                <?php echo $block->escapeHtml($_review->getName()); ?>
+            </a>
+            <?php if ($_review->getSum()): ?>
+            <?php $rating = $_review->getSum() / $_review->getCount() ?>
+                <div class="rating">
+                    <div class="rating__label">
+                        <?php /* @escapeNotVerified */ echo __('Rating') ?>:
+                    </div>
+                    <div class="rating__summary">
+                        <svg title="icon rating summary"
+                             class="rating__icon"
+                        >
+                            <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#stars'); ?>"></use>
+                        </svg>
+
+                        <div class="rating__results"
+                             title="<?php /* @escapeNotVerified */ echo $rating; ?>%"
+                             style="width:<?php /* @escapeNotVerified */ echo $rating; ?>%"
+                        >
+                        <svg title="icon rating results"
+                             class="rating__icon rating__icon--results"
+                        >
+                            <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#stars'); ?>"></use>
+                        </svg>
+                        </div>
+                     </div>
+                </div>
+            <?php endif; ?>
+        </li>
+    <?php endforeach; ?>
+</ul>
+</div>
+<?php endif; ?>
