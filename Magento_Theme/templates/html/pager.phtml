@@ -1,0 +1,149 @@
+<?php
+/**
+ * Pager template
+ *
+ * @see \Magento\Theme\Block\Html\Pager
+ */
+?>
+<?php if ($block->getCollection()->getSize()): ?>
+    <?php if ($block->getUseContainer()): ?>
+        <div class="pager">
+    <?php endif ?>
+
+    <?php if ($block->getShowAmounts()): ?>
+        <p class="toolbar-amount">
+            <span class="toolbar-number">
+            <?php if ($block->getLastPageNum() > 1): ?>
+                <?= /* @escapeNotVerified */  __(
+                        'Items %1 to %2 of %3 total',
+                        $block->getFirstNum(),
+                        $block->getLastNum(),
+                        $block->getTotalNum()
+                ) ?>
+            <?php elseif ($block->getTotalNum() == 1): ?>
+                <?= /* @escapeNotVerified */  __('%1 Item', $block->getTotalNum()) ?>
+            <?php else: ?>
+                <?= /* @escapeNotVerified */  __('%1 Item(s)', $block->getTotalNum()) ?>
+            <?php endif; ?>
+            </span>
+        </p>
+    <?php endif ?>
+
+    <?php if ($block->getLastPageNum() > 1): ?>
+        <div class="pager">
+            <ul class="pager__list">
+                <?php if ( ! $block->isFirstPage()): ?>
+                    <li class="pager__item pager__item--prev">
+                        <?php $text = $block->getAnchorTextForPrevious() ? $block->getAnchorTextForPrevious() : ''; ?>
+                        <a class="pager__link"
+                           href="<?= /* @escapeNotVerified */  $block->getPreviousPageUrl() ?>"
+                           title="<?= /* @escapeNotVerified */  $text ? $text : __('Previous') ?>"
+                        >
+                            <svg class="pager__icon">
+                                <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#arrow-left'); ?>"></use>
+                            </svg>
+                        </a>
+                    </li>
+                <?php endif; ?>
+
+                <?php if ($block->canShowFirst()): ?>
+                    <li class="pager__item">
+                        <a class="pager__link"
+                           href="<?= /* @escapeNotVerified */  $block->getFirstPageUrl() ?>"
+                        >
+                            1
+                        </a>
+                    </li>
+                <?php endif; ?>
+
+                <?php if ($block->canShowPreviousJump()): ?>
+                    <li class="pager__item">
+                        <a class="pager__link"
+                           href="<?= /* @escapeNotVerified */  $block->getPreviousJumpUrl() ?>"
+                        >
+                            ...
+                        </a>
+                    </li>
+                <?php endif; ?>
+
+                <?php foreach ($block->getFramePages() as $_page): ?>
+                    <?php if ($block->isPageCurrent($_page)): ?>
+                        <li class="pager__item pager__item--current">
+                            <?= /* @escapeNotVerified */  $_page ?>
+                        </li>
+                    <?php else: ?>
+                        <li class="pager__item">
+                            <a href="<?= /* @escapeNotVerified */  $block->getPageUrl($_page) ?>"
+                               class="pager__link"
+                            >
+                                <?= /* @escapeNotVerified */  $_page ?>
+                            </a>
+                        </li>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+
+                <?php if ($block->canShowNextJump()): ?>
+                    <li class="pager__item">
+                        <a class="pager__link"
+                           href="<?= /* @escapeNotVerified */  $block->getNextJumpUrl() ?>"
+                        >
+                            ...
+                        </a>
+                    </li>
+                <?php endif; ?>
+
+                <?php if ($block->canShowLast()): ?>
+                    <li class="pager__item">
+                        <a class="pager__link"
+                           href="<?= /* @escapeNotVerified */  $block->getLastPageUrl() ?>"
+                        >
+                            <?= /* @escapeNotVerified */  $block->getLastPageNum() ?>
+                        </a>
+                    </li>
+                <?php endif; ?>
+
+                <?php if ( ! $block->isLastPage()): ?>
+                    <li class="pager__item pager__item--next">
+                        <?php $text = $block->getAnchorTextForNext() ? $block->getAnchorTextForNext() : ''; ?>
+                        <a class="pager__link"
+                           href="<?= /* @escapeNotVerified */  $block->getNextPageUrl() ?>"
+                           title="<?= /* @escapeNotVerified */  $text ? $text : __('Next') ?>"
+                        >
+                            <svg class="pager__icon">
+                                <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#arrow-right'); ?>"></use>
+                            </svg>
+                        </a>
+                    </li>
+                <?php endif; ?>
+            </ul>
+        </div>
+    <?php endif; ?>
+
+    <?php if ($block->isShowPerPage()): ?>
+        <div class="limiter">
+            <strong class="limiter-label">
+                <?= /* @escapeNotVerified */  __('Show') ?>
+            </strong>
+            <select id="limiter"
+                    data-mage-init='{"redirectUrl": {"event":"change"}}'
+                    class="limiter-options"
+            >
+                <?php foreach ($block->getAvailableLimit() as $_key => $_limit): ?>
+                    <option value="<?= /* @escapeNotVerified */  $block->getLimitUrl($_key) ?>"
+                        <?= ($block->isLimitCurrent($_key)) ? 'selected="selected"' : '' ?>
+                    >
+                        <?= /* @escapeNotVerified */  $_limit ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+            <span class="limiter-text">
+                <?= /* @escapeNotVerified */  __('per page') ?>
+            </span>
+        </div>
+    <?php endif ?>
+
+    <?php if ($block->getUseContainer()): ?>
+        </div>
+    <?php endif ?>
+
+<?php endif ?>

@@ -1,0 +1,53 @@
+<?php
+/**
+ * Product list toolbar
+ *
+ * @var $block \Magento\Catalog\Block\Product\ProductList\Toolbar
+ */
+use Magento\Catalog\Model\Product\ProductList\Toolbar;
+?>
+<?php if ($block->isEnabledViewSwitcher()): ?>
+<div class="toolbar__modes">
+    <?php $_modes = $block->getModes(); ?>
+    <?php if ($_modes && count($_modes) > 1): ?>
+    <?php foreach ($block->getModes() as $_code => $_label): ?>
+        <?php if ($block->isModeActive($_code)): ?>
+            <button title="<?php /* @escapeNotVerified */ echo $_label ?>"
+                class="
+                    button
+                    button--icon
+                    active mode-<?php /* @escapeNotVerified */ echo strtolower($_code); ?>
+                "
+                data-value="<?php /* @escapeNotVerified */ echo strtolower($_code); ?>"
+                disabled
+            >
+                <svg class="button__icon">
+                    <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#' . strtolower($_code)); ?>"></use>
+                </svg>
+            </button>
+        <?php else: ?>
+            <a class="
+                    button
+                    button--link
+                    button--icon
+                    mode-<?php /* @escapeNotVerified */ echo strtolower($_code); ?>
+                "
+               title="<?php /* @escapeNotVerified */ echo $_label ?>"
+               href="#"
+               data-role="mode-switcher"
+               data-value="<?php /* @escapeNotVerified */ echo strtolower($_code); ?>"
+               id="mode-<?php /* @escapeNotVerified */ echo strtolower($_code); ?>"
+               aria-labelledby="
+                    modes-label
+                    mode-<?php /* @escapeNotVerified */ echo strtolower($_code); ?>
+                "
+            >
+                <svg class="button__icon">
+                    <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#' . strtolower($_code)); ?>"></use>
+                </svg>
+            </a>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    <?php endif; ?>
+</div>
+<?php endif; ?>
