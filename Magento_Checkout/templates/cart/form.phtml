@@ -1,50 +1,48 @@
 <?php $mergedCells = ($this->helper('Magento\Tax\Helper\Data')->displayCartBothPrices() ? 2 : 1); ?>
 <?= $block->getChildHtml('form_before') ?>
-<div class="grid__column grid__column--4-6 cart__main-col">
-    <form action="<?= /* @escapeNotVerified */ $block->getUrl('checkout/cart/updatePost') ?>"
-          method="post"
-          id="form-validate"
-          data-mage-init='{"validation":{}}'
-          class="form form-cart cart__products-list"
-    >
-        <?= $block->getBlockHtml('formkey'); ?>
-        <!-- <div id="shopping-cart-table"
-               class="cart items data grid__content cart__products-list"
-               data-mage-init='{"shoppingCart":{"emptyCartButton": "action.clear",
-               "updateCartActionContainer": "#update_cart_action_container"}}'
-        > -->
-            <?php foreach ($block->getItems() as $_item): ?>
-                <?= $block->getItemHtml($_item); ?>
-            <?php endforeach ?>
-        <!-- </div> -->
+<form action="<?= /* @escapeNotVerified */ $block->getUrl('checkout/cart/updatePost') ?>"
+      method="post"
+      id="form-validate"
+      data-mage-init='{"validation":{}}'
+      class="form form-cart cart__products-list"
+>
+    <?= $block->getBlockHtml('formkey'); ?>
+    <!-- <div id="shopping-cart-table"
+           class="cart items data grid__content cart__products-list"
+           data-mage-init='{"shoppingCart":{"emptyCartButton": "action.clear",
+           "updateCartActionContainer": "#update_cart_action_container"}}'
+    > -->
+        <?php foreach ($block->getItems() as $_item): ?>
+            <?= $block->getItemHtml($_item); ?>
+        <?php endforeach ?>
+    <!-- </div> -->
 
-        <div class="cart main actions" style="display: none;">
-            <?php if ($block->getContinueShoppingUrl()): ?>
-                <a class="action continue"
-                   href="<?php echo $block->escapeUrl($block->getContinueShoppingUrl()) ?>"
-                   title="<?php echo $block->escapeHtml(__('Continue Shopping')); ?>">
-                    <span><?php /* @escapeNotVerified */ echo __('Continue Shopping') ?></span>
-                </a>
-            <?php endif; ?>
-            <button type="submit"
-                    name="update_cart_action"
-                    data-cart-empty=""
-                    value="empty_cart"
-                    title="<?php echo $block->escapeHtml(__('Clear Shopping Cart')); ?>"
-                    class="action clear" id="empty_cart_button">
-                <span><?php /* @escapeNotVerified */ echo __('Clear Shopping Cart'); ?></span>
-            </button>
-            <button type="submit"
-                    name="update_cart_action"
-                    data-cart-item-update=""
-                    value="update_qty"
-                    title="<?= $block->escapeHtml(__('Update Shopping Cart')); ?>"
-                    class="action update">
-                <span><?= /* @escapeNotVerified */ __('Update Shopping Cart'); ?></span>
-            </button>
-            <input type="hidden" value="" id="update_cart_action_container" data-cart-item-update=""/>
-        </div>
-    </form>
-    <?php echo $block->getChildHtml('checkout.cart.order.actions') ?>
-    <?php echo $block->getChildHtml('shopping.cart.table.after'); ?>
-</div>
+    <div class="cart main actions" style="display: none;">
+        <?php if ($block->getContinueShoppingUrl()): ?>
+            <a class="action continue"
+               href="<?php echo $block->escapeUrl($block->getContinueShoppingUrl()) ?>"
+               title="<?php echo $block->escapeHtml(__('Continue Shopping')); ?>">
+                <span><?php /* @escapeNotVerified */ echo __('Continue Shopping') ?></span>
+            </a>
+        <?php endif; ?>
+        <button type="submit"
+                name="update_cart_action"
+                data-cart-empty=""
+                value="empty_cart"
+                title="<?php echo $block->escapeHtml(__('Clear Shopping Cart')); ?>"
+                class="action clear" id="empty_cart_button">
+            <span><?php /* @escapeNotVerified */ echo __('Clear Shopping Cart'); ?></span>
+        </button>
+        <button type="submit"
+                name="update_cart_action"
+                data-cart-item-update=""
+                value="update_qty"
+                title="<?= $block->escapeHtml(__('Update Shopping Cart')); ?>"
+                class="action update">
+            <span><?= /* @escapeNotVerified */ __('Update Shopping Cart'); ?></span>
+        </button>
+        <input type="hidden" value="" id="update_cart_action_container" data-cart-item-update=""/>
+    </div>
+</form>
+<?php echo $block->getChildHtml('checkout.cart.order.actions'); ?>
+<?php echo $block->getChildHtml('shopping.cart.table.after'); ?>

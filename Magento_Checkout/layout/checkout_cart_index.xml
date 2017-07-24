@@ -8,6 +8,12 @@
         <referenceContainer name="checkout.cart.container"
                             htmlClass="cart-container grid cart"
         >
+            <container name="cart.main.container"
+                       as="cart_main_container"
+                       label="Shopping Cart Main Container"
+                       htmlTag="div"
+                       htmlClass="grid__column grid__column--4-6 cart__main-col"
+            />
             <block class="Magento\Checkout\Block\Cart"
                    name="checkout.cart.form"
                    as="cart-items"
@@ -30,6 +36,17 @@
                             htmlTag="div"
                             htmlClass="grid__column grid__column--2-6 cart__summary-col cart-summary"
                             after="checkout.cart.form"
+        />
+
+        <!-- moved blocks coupon to new main container -->
+        <move element="checkout.cart.coupon"
+              destination="cart.main.container"
+              after="-"
+        />
+        <!-- moved cart form to new main container -->
+        <move element="checkout.cart.form"
+              destination="cart.main.container"
+              after="-"
         />
     </body>
 </page>
