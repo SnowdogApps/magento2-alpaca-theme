@@ -7,42 +7,43 @@
       class="form form-cart cart__products-list"
 >
     <?= $block->getBlockHtml('formkey'); ?>
-    <!-- <div id="shopping-cart-table"
-           class="cart items data grid__content cart__products-list"
-           data-mage-init='{"shoppingCart":{"emptyCartButton": "action.clear",
-           "updateCartActionContainer": "#update_cart_action_container"}}'
-    > -->
-        <?php foreach ($block->getItems() as $_item): ?>
-            <?= $block->getItemHtml($_item); ?>
-        <?php endforeach ?>
-    <!-- </div> -->
-
-    <div class="cart main actions" style="display: none;">
-        <?php if ($block->getContinueShoppingUrl()): ?>
-            <a class="action continue"
-               href="<?php echo $block->escapeUrl($block->getContinueShoppingUrl()) ?>"
-               title="<?php echo $block->escapeHtml(__('Continue Shopping')); ?>">
-                <span><?php /* @escapeNotVerified */ echo __('Continue Shopping') ?></span>
-            </a>
-        <?php endif; ?>
+    <?php foreach ($block->getItems() as $_item): ?>
+        <?= $block->getItemHtml($_item); ?>
+    <?php endforeach ?>
+    <div class="cart-actions">
         <button type="submit"
                 name="update_cart_action"
                 data-cart-empty=""
                 value="empty_cart"
-                title="<?php echo $block->escapeHtml(__('Clear Shopping Cart')); ?>"
-                class="action clear" id="empty_cart_button">
-            <span><?php /* @escapeNotVerified */ echo __('Clear Shopping Cart'); ?></span>
+                title="<?= $block->escapeHtml(__('Clear Shopping Cart')); ?>"
+                class="button cart-actions__button"
+                id="empty_cart_button"
+        >
+            <?= /* @escapeNotVerified */ __('Clear Shopping Cart'); ?>
         </button>
         <button type="submit"
                 name="update_cart_action"
                 data-cart-item-update=""
                 value="update_qty"
                 title="<?= $block->escapeHtml(__('Update Shopping Cart')); ?>"
-                class="action update">
-            <span><?= /* @escapeNotVerified */ __('Update Shopping Cart'); ?></span>
+                class="button cart-actions__button"
+        >
+            <?= /* @escapeNotVerified */ __('Update Shopping Cart'); ?>
         </button>
-        <input type="hidden" value="" id="update_cart_action_container" data-cart-item-update=""/>
+        <?php if ($block->getContinueShoppingUrl()): ?>
+            <a class="button cart-actions__button cart-actions__button--continue"
+               href="<?= $block->escapeUrl($block->getContinueShoppingUrl()); ?>"
+               title="<?= $block->escapeHtml(__('Continue Shopping')); ?>"
+            >
+                <?= /* @escapeNotVerified */ __('Continue Shopping'); ?>
+            </a>
+        <?php endif; ?>
+        <input type="hidden"
+               value=""
+               id="update_cart_action_container"
+               data-cart-item-update=""
+        >
     </div>
 </form>
-<?php echo $block->getChildHtml('checkout.cart.order.actions'); ?>
-<?php echo $block->getChildHtml('shopping.cart.table.after'); ?>
+<?= $block->getChildHtml('checkout.cart.order.actions'); ?>
+<?= $block->getChildHtml('shopping.cart.table.after'); ?>

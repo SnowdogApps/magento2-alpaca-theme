@@ -1,55 +1,65 @@
-<div class="block discount" id="block-discount">
-    <div class="content"
-         data-role="content"
-         aria-labelledby="block-discount-heading"
+<form id="discount-coupon-form"
+      action="<?= /* @escapeNotVerified */ $block->getUrl('checkout/cart/couponPost'); ?>"
+      method="post"
+      class="form-compact cart__discount"
+      data-mage-init='{
+          "discountCode":{
+              "couponCodeSelector": "#coupon_code",
+              "removeCouponSelector": "#remove-coupon",
+              "applyButton": ".button--apply",
+              "cancelButton": ".button--cancel"
+          }
+      }'
+>
+    <div class="
+            fieldset
+            form-compact__content
+            coupon<?php strlen($block->getCouponCode()) ? ' applied' : ''?>
+        "
     >
-        <form id="discount-coupon-form"
-              action="<?= /* @escapeNotVerified */ $block->getUrl('checkout/cart/couponPost') ?>"
-              method="post"
-              data-mage-init='{"discountCode":{
-                  "couponCodeSelector": "#coupon_code",
-                  "removeCouponSelector": "#remove-coupon",
-                  "applyButton": "button.action.apply",
-                  "cancelButton": "button.action.cancel"}}'
-        >
-        <div class="fieldset coupon<?php strlen($block->getCouponCode()) ? ' applied' : ''?>">
-            <input type="hidden" name="remove" id="remove-coupon" value="0" />
-            <div class="field">
-                <label for="coupon_code" class="label">
-                    <?= /* @escapeNotVerified */ __('Enter discount code'); ?>
-                </label>
-                <div class="control">
-                    <input type="text"
-                           class="input-text"
-                           id="coupon_code"
-                           name="coupon_code"
-                           value="<?= $block->escapeHtml($block->getCouponCode()); ?>"
-                           placeholder="<?= $block->escapeHtml(__('Enter discount code')); ?>"
-                    >
-                </div>
-            </div>
-            <div class="actions-toolbar">
-                <?php if (!strlen($block->getCouponCode())): ?>
-                    <div class="primary">
-                        <button class="action apply primary"
-                                type="button"
-                                value="<?= /* @escapeNotVerified */ __('Apply Discount') ?>"
-                        >
-                            <?= /* @escapeNotVerified */ __('Apply Discount'); ?>
-                        </button>
-                    </div>
-                <?php else: ?>
-                    <div class="primary">
-                        <button type="button"
-                                class="action cancel primary"
-                                value="<?= /* @escapeNotVerified */ __('Cancel Coupon'); ?>"
-                        >
-                            <?= /* @escapeNotVerified */ __('Cancel Coupon'); ?>
-                    </button>
-                    </div>
-                <?php endif; ?>
-            </div>
+        <input type="hidden" name="remove" id="remove-coupon" value="0" />
+        <div class="input form-compact__input">
+            <label for="coupon_code"
+                   class="form-compact__input-label cart__discount-label"
+            >
+                <?= /* @escapeNotVerified */ __('Enter discount code'); ?>
+            </label>
+            <input type="text"
+                   class="input-text
+                          input__field
+                          form-compact__input-field
+                          cart__discount-field
+                   "
+                   id="coupon_code"
+                   name="coupon_code"
+                   value="<?= $block->escapeHtml($block->getCouponCode()); ?>"
+                   placeholder="<?= $block->escapeHtml(__('Enter discount code')); ?>"
+            >
         </div>
-        </form>
+        <?php if (!strlen($block->getCouponCode())): ?>
+            <button class="
+                        button
+                        button--apply
+                        form-compact__button
+                        cart__discount-button
+                    "
+                    type="button"
+                    value="<?= /* @escapeNotVerified */ __('Apply Discount') ?>"
+            >
+                <?= /* @escapeNotVerified */ __('Apply Discount'); ?>
+            </button>
+        <?php else: ?>
+            <button type="button"
+                    class="
+                        button
+                        button--cancel
+                        form-compact__button
+                        cart__discount-button
+                    "
+                    value="<?= /* @escapeNotVerified */ __('Cancel Coupon'); ?>"
+            >
+                <?= /* @escapeNotVerified */ __('Cancel Coupon'); ?>
+            </button>
+        <?php endif; ?>
     </div>
-</div>
+</form>
