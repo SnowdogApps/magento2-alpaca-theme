@@ -6,7 +6,7 @@ require([
     /*global Choices */
 
     const selects = [...document.querySelectorAll('.select')];
-    console.log(selects);
+    
     selects.forEach(select => {
       new Choices(select, {
         placeholder: true,
