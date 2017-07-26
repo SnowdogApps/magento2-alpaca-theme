@@ -4,10 +4,10 @@ define([
     'use strict';
 
     return function(options, element) {
-        const wrap     = element,
+        const wrap          = element,
               wrapLabel     = wrap.querySelector('.dropdown-container__label'),
               wrapContent   = wrap.querySelector('.dropdown-container__content'),
-              mqBreakpoint = window.matchMedia('screen and (min-width: 768px)');
+              mqBreakpoint  = window.matchMedia('screen and (min-width: 768px)');
 
         function isOpenWide() {
             return wrap.classList.contains('dropdown-container--open-wide');
@@ -19,8 +19,7 @@ define([
                     wrapContent.style.height = 0;
                 }
                 else {
-                    const contentHeight =  setHeight.setListHeight(wrapContent);
-                    wrapContent.style.height = `${contentHeight}px`;
+                    wrapContent.style.height = `${setHeight.setListHeight(wrapContent)}px`;
                 }
                 wrap.classList.toggle('dropdown-container--open');
             }
