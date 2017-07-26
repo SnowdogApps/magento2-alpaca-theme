@@ -7,7 +7,7 @@ var config = {
             "linksWrapper"    : "Magento_Theme/js/wrapper-collapsible",
             "picturefill"     : "Magento_Theme/js/lib/picturefill",
             "select"          : "Magento_Theme/js/select.babel",
-            "setHeightFn"     : "Magento_Theme/js/set-height",
+            "setHeightFn"     : "Magento_Theme/js/set-height.babel",
             "slick"           : "Magento_Theme/js/lib/slick",
             "svg4everybody"   : "Magento_Theme/js/lib/svg4everybody"
         }
