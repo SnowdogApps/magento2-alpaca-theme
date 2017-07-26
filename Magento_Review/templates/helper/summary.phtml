@@ -5,58 +5,59 @@
 ?>
 <?php $url = $block->getReviewsUrl() . '#reviews'; ?>
 <?php $urlForm = $block->getReviewsUrl() . '#review-form'; ?>
-<?php if ($block->getReviewsCount()): ?>
-<?php $rating = $block->getRatingSummary(); ?>
 
-<div class="rating product-reviews-summary<?php echo !$rating ? ' no-rating' : ''?>"
-     itemprop="aggregateRating"
-     itemscope
-     itemtype="http://schema.org/AggregateRating"
->
-    <?php if ($rating):?>
-    <h4 class="rating__title">
-        <?php /* @escapeNotVerified */ echo __('Rating'); ?>:
-    </h4>
-    <div class="rating__summary">
-        <svg title="icon rating summary"
-             class="rating__icon"
-        >
-            <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#stars'); ?>"></use>
-        </svg>
-        <div class="rating__results"
-             title="<?php /* @escapeNotVerified */ echo $rating; ?>%"
-             style="width:<?php /* @escapeNotVerified */ echo $rating; ?>%"
-        >
-            <svg title="icon rating results"
-                 class="rating__icon rating__icon--results"
+<?php if ($block->getReviewsCount()): ?>
+    <?php $rating = $block->getRatingSummary(); ?>
+
+    <div class="rating product-reviews-summary<?php echo !$rating ? ' no-rating' : ''?>"
+         itemprop="aggregateRating"
+         itemscope
+         itemtype="http://schema.org/AggregateRating"
+    >
+        <?php if ($rating):?>
+            <h4 class="rating__title">
+                <?php /* @escapeNotVerified */ echo __('Rating'); ?>:
+            </h4>
+            <div class="rating__summary">
+                <svg title="icon rating summary"
+                     class="rating__icon"
+                >
+                    <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#stars'); ?>"></use>
+                </svg>
+                <div class="rating__results"
+                     title="<?php /* @escapeNotVerified */ echo $rating; ?>%"
+                     style="width:<?php /* @escapeNotVerified */ echo $rating; ?>%"
+                >
+                    <svg title="icon rating results"
+                         class="rating__icon rating__icon--results"
+                    >
+                        <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#stars'); ?>"></use>
+                    </svg>
+                </div>
+             </div>
+        <?php endif;?>
+        <div class="actions-toolbar reviews-actions">
+            <a class="action view actions-toolbar__button"
+               href="<?php /* @escapeNotVerified */ echo $url ?>"
             >
-                <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#stars'); ?>"></use>
-            </svg>
+                <span itemprop="reviewCount">
+                    <?php /* @escapeNotVerified */ echo $block->getReviewsCount(); ?>
+                </span>
+                &nbsp;<?php /* @escapeNotVerified */ echo($block->getReviewsCount() == 1) ? __('Review') : __('Reviews'); ?>
+            </a>
+            <a class="action add actions-toolbar__button-primary"
+               href="<?php /* @escapeNotVerified */ echo $urlForm ?>"
+            >
+                <?php /* @escapeNotVerified */ echo __('Add Your Review'); ?>
+            </a>
         </div>
-     </div>
-    <?php endif;?>
-    <div class="actions-toolbar reviews-actions">
-        <a class="action view actions-toolbar__button"
-           href="<?php /* @escapeNotVerified */ echo $url ?>"
-        >
-            <span itemprop="reviewCount">
-                <?php /* @escapeNotVerified */ echo $block->getReviewsCount(); ?>
-            </span>
-            &nbsp;<?php /* @escapeNotVerified */ echo($block->getReviewsCount() == 1) ? __('Review') : __('Reviews'); ?>
-        </a>
-        <a class="action add actions-toolbar__button-primary"
-           href="<?php /* @escapeNotVerified */ echo $urlForm ?>"
-        >
-            <?php /* @escapeNotVerified */ echo __('Add Your Review'); ?>
-        </a>
     </div>
-</div>
 <?php elseif ($block->getDisplayIfEmpty()): ?>
-<div class="product-reviews-summary empty">
-    <div class="reviews-actions">
-        <a class="action add" href="<?php /* @escapeNotVerified */ echo $urlForm; ?>">
-            <?php /* @escapeNotVerified */ echo __('Be the first to review this product') ?>
-        </a>
+    <div class="product-reviews-summary empty">
+        <div class="reviews-actions">
+            <a class="action add" href="<?php /* @escapeNotVerified */ echo $urlForm; ?>">
+                <?php /* @escapeNotVerified */ echo __('Be the first to review this product') ?>
+            </a>
+        </div>
     </div>
-</div>
 <?php endif; ?>
