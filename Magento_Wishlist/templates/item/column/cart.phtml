@@ -9,49 +9,51 @@ $product = $item->getProduct();
 ?>
 <?php foreach ($block->getChildNames() as $childName): ?>
     <?php /* @escapeNotVerified */ echo $block->getLayout()->renderElement($childName, false); ?>
-<?php endforeach;?>
+<?php endforeach; ?>
+
 <div class="box-tocart wishlist">
     <fieldset class="fieldset">
-    <?php if ($item->canHaveQty() && $product->isVisibleInSiteVisibility()): ?>
-        <div class="field input input--small input--inline qty">
-            <label class="input__label"
-                   for="qty[<?php /* @escapeNotVerified */ echo $item->getId(); ?>]"
-            >
-                <?php /* @escapeNotVerified */ echo __('Qty') ?>
-            </label>
-            <input type="number"
-                   data-role="qty" id="qty[<?php /* @escapeNotVerified */ echo $item->getId(); ?>]"
-                   class="input__field qty"
-                   data-validate="{'required-number':true,'validate-greater-than-zero':true}"
-                   name="qty[<?php /* @escapeNotVerified */ echo $item->getId(); ?>]"
-                   value="<?php /* @escapeNotVerified */ echo $block->getAddToCartQty($item) * 1; ?>"
-             />
-        </div>
-    <?php endif; ?>
-    <?php if ($product->isSaleable()): ?>
-    <button type="button"
-            data-role="tocart"
-            data-post='<?php /* @escapeNotVerified */ echo $block->getItemAddToCartParams($item); ?>'
-            title="<?php /* @escapeNotVerified */ echo __('Add to Cart'); ?>"
-            data-item-id="<?php /* @escapeNotVerified */ echo $item->getId(); ?>"
-            class="action tocart primary button button--fluid"
-    >
-        <?php /* @escapeNotVerified */ echo __('Add to Cart'); ?>
-    </button>
-    <?php else: ?>
-        <?php if ($product->getIsSalable()): ?>
-            <p class="available stock"
-               title="<?php /* @escapeNotVerified */ echo __('Availability'); ?>"
-            >
-                <?php /* @escapeNotVerified */ echo __('In stock'); ?>
-            </p>
-        <?php else: ?>
-            <p class="unavailable stock"
-               title="<?php /* @escapeNotVerified */ echo __('Availability'); ?>"
-            >
-                <?php /* @escapeNotVerified */ echo __('Out of stock'); ?>
-            </p>
+        <?php if ($item->canHaveQty() && $product->isVisibleInSiteVisibility()): ?>
+            <div class="field input input--small input--inline qty">
+                <label class="input__label"
+                       for="qty[<?php /* @escapeNotVerified */ echo $item->getId(); ?>]"
+                >
+                    <?php /* @escapeNotVerified */ echo __('Qty') ?>
+                </label>
+                <input type="number"
+                       data-role="qty" id="qty[<?php /* @escapeNotVerified */ echo $item->getId(); ?>]"
+                       class="input__field qty"
+                       data-validate="{'required-number':true,'validate-greater-than-zero':true}"
+                       name="qty[<?php /* @escapeNotVerified */ echo $item->getId(); ?>]"
+                       value="<?php /* @escapeNotVerified */ echo $block->getAddToCartQty($item) * 1; ?>"
+                 />
+            </div>
         <?php endif; ?>
-    <?php endif; ?>
+        
+        <?php if ($product->isSaleable()): ?>
+            <button type="button"
+                    data-role="tocart"
+                    data-post='<?php /* @escapeNotVerified */ echo $block->getItemAddToCartParams($item); ?>'
+                    title="<?php /* @escapeNotVerified */ echo __('Add to Cart'); ?>"
+                    data-item-id="<?php /* @escapeNotVerified */ echo $item->getId(); ?>"
+                    class="action tocart primary button button--fluid"
+            >
+                <?php /* @escapeNotVerified */ echo __('Add to Cart'); ?>
+            </button>
+        <?php else: ?>
+            <?php if ($product->getIsSalable()): ?>
+                <p class="available stock"
+                   title="<?php /* @escapeNotVerified */ echo __('Availability'); ?>"
+                >
+                    <?php /* @escapeNotVerified */ echo __('In stock'); ?>
+                </p>
+            <?php else: ?>
+                <p class="unavailable stock"
+                   title="<?php /* @escapeNotVerified */ echo __('Availability'); ?>"
+                >
+                    <?php /* @escapeNotVerified */ echo __('Out of stock'); ?>
+                </p>
+            <?php endif; ?>
+        <?php endif; ?>
     </fieldset>
 </div>
