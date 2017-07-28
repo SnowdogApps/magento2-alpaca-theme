@@ -1,50 +1,80 @@
-<!--
-/**
- * Copyright © 2013-2017 Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
--->
-
 <!-- ko if: ifShowValue() && !ifShowDetails() -->
-<div class="totals-tax cart-totals__row">
-    <div data-bind="text: title" class="mark cart-totals__row-label" colspan="1" scope="row"></div>
-    <div data-bind="attr: {'data-th': title}" class="amount cart-totals__row-value">
-        <span class="price" data-bind="text: getValue()"></span>
+    <div class="totals-tax cart-totals__row">
+        <div data-bind="text: title" 
+             class="mark cart-totals__row-label"
+             colspan="1"
+             scope="row"
+        ></div>
+        <div data-bind="attr: {'data-th': title}"
+             class="amount cart-totals__row-value"
+        >
+            <span class="price" data-bind="text: getValue()"></span>
+        </div>
     </div>
-</div>
 <!-- /ko -->
 <!-- ko if: ifShowValue() && ifShowDetails() -->
     <div class="totals-tax-summary"
-        data-bind="mageInit: {'toggleAdvanced':{'selectorsToggleClass': 'shown', 'baseToggleClass': 'expanded', 'toggleContainers': '.totals-tax-details'}}">
+         data-bind="mageInit: {
+             'toggleAdvanced':{
+                 'selectorsToggleClass': 'shown',
+                 'baseToggleClass': 'expanded',
+                 'toggleContainers': '.totals-tax-details'
+             }
+         }"
+    >
         <div class="mark cart-totals__row-label" scope="row" colspan="1">
             <span class="detailed" data-bind="text: title"></span>
         </div>
-        <div data-bind="attr: {'data-th': title}" class="amount cart-totals__row-value">
+        <div data-bind="attr: {'data-th': title}"
+             class="amount cart-totals__row-value"
+        >
             <span class="price" data-bind="text: getValue()"></span>
         </div>
     </div>
     <!-- ko foreach: getDetails() -->
         <!-- ko foreach: rates -->
-        <div class="totals-tax-details cart-totals__row">
-            <!-- ko if: percent -->
-                <div class="mark cart-totals__row-label" scope="row" colspan="1" data-bind="text: title + ' (' + percent + '%)'"></div>
-            <!-- /ko -->
-            <!-- ko if: !percent -->
-                <div class="mark cart-totals__row-label" scope="row" colspan="1" data-bind="text: title"></div>
-            <!-- /ko -->
-            <!-- ko if: $index() == 0 -->
-                <div class="amount cart-totals__row-value" rowspan="1">
-                    <!-- ko if: $parents[1].isCalculated() -->
-                    <span class="price"
-                          data-bind="text: $parents[1].formatPrice($parents[0].amount), attr: {'data-th': title, 'rowspan': $parents[0].rates.length }"></span>
-                    <!-- /ko -->
-                    <!-- ko ifnot: $parents[1].isCalculated() -->
-                    <span class="not-calculated"
-                          data-bind="text: $parents[1].formatPrice($parents[0].amount), attr: {'data-th': title, 'rowspan': $parents[0].rates.length }"></span>
-                    <!-- /ko -->
-                </div>
-            <!-- /ko -->
-        </div>
+            <div class="totals-tax-details cart-totals__row">
+                <!-- ko if: percent -->
+                    <div class="mark cart-totals__row-label"
+                         scope="row"
+                         colspan="1"
+                         data-bind="text: title + ' (' + percent + '%)'"
+                    ></div>
+                <!-- /ko -->
+                <!-- ko if: !percent -->
+                    <div class="mark cart-totals__row-label"
+                         scope="row"
+                         colspan="1"
+                         data-bind="text: title"
+                    ></div>
+                <!-- /ko -->
+                <!-- ko if: $index() == 0 -->
+                    <div class="amount cart-totals__row-value" rowspan="1">
+                        <!-- ko if: $parents[1].isCalculated() -->
+                            <span class="price"
+                                  data-bind="
+                                      text: $parents[1].formatPrice($parents[0].amount), 
+                                      attr: {
+                                          'data-th': title,
+                                          'rowspan': $parents[0].rates.length
+                                      } 
+                                  "
+                            ></span>
+                        <!-- /ko -->
+                        <!-- ko ifnot: $parents[1].isCalculated() -->
+                            <span class="not-calculated"
+                                  data-bind="
+                                      text: $parents[1].formatPrice($parents[0].amount),
+                                      attr: {
+                                          'data-th': title, 
+                                          'rowspan': $parents[0].rates.length 
+                                      }
+                                  "
+                            ></span>
+                        <!-- /ko -->
+                    </div>
+                <!-- /ko -->
+            </div>
         <!-- /ko -->
     <!-- /ko -->
 <!-- /ko -->
