@@ -1,0 +1,31 @@
+<?php
+/**
+ * Product list toolbar
+ *
+ * @var $block \Magento\Catalog\Block\Product\ProductList\Toolbar
+ */
+use Magento\Catalog\Model\Product\ProductList\Toolbar;
+
+?>
+<?php if ($block->getCollection()->getSize()): ?>
+    <div class="toolbar toolbar--products grid"
+         data-mage-init='<?php /* @escapeNotVerified */
+         echo $block->getWidgetOptionsJson(); ?>'
+    >
+        <?php if ($block->isExpanded()): ?>
+            <?php include($block->getTemplateFile('Magento_Catalog::product/list/toolbar/viewmode.phtml')) ?>
+        <?php endif; ?>
+
+        <?php include($block->getTemplateFile('Magento_Catalog::product/list/toolbar/amount.phtml')) ?>
+
+        <?php if ($block->isExpanded()): ?>
+            <?php include($block->getTemplateFile('Magento_Catalog::product/list/toolbar/sorter.phtml')) ?>
+        <?php endif; ?>
+
+        <div class="toolbar__pager">
+            <?php echo $block->getPagerHtml() ?>
+        </div>
+
+        <?php include($block->getTemplateFile('Magento_Catalog::product/list/toolbar/limiter.phtml')) ?>
+    </div>
+<?php endif ?>
