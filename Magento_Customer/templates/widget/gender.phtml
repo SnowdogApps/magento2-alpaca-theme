@@ -1,4 +1,4 @@
-<div class="input<?php if ($block->isRequired()) echo ' required' ?>">
+<div class="input <?= $block->isRequired() ?'required' : '' ?>">
     <label class="input__label"
            for="<?= /* @escapeNotVerified */ $block->getFieldId('gender')?>"
     >
@@ -10,16 +10,16 @@
                 title="<?= /* @escapeNotVerified */ __('Gender') ?>"
                 class="select <?= ($is_required) ? ' validate-select': ''?>"
                 data-mage-init='{"select": {}}'
-                <?= ($is_required) ? 'data-validate="{required:true}"' : '' ?>
-            <?= /* @escapeNotVerified */ $block->getFieldParams() ?>
+                <?= $is_required ? 'data-validate="{required:true}"' : '' ?>
+                <?= /* @escapeNotVerified */ $block->getFieldParams() ?>
         >
             <?php $options = $block->getGenderOptions(); ?>
             <?php $value = $block->getGender();?>
             <?php foreach ($options as $option):?>
                 <option value="<?= /* @escapeNotVerified */ $option->getValue() ?>"
-                    <?php if ($option->getValue() == $value) echo ' selected="selected"' ?>
+                        <?= $option->getValue() == $value ? 'selected="selected"' : '' ?>
                 >
-                    <?php /* @escapeNotVerified */ echo __($option->getLabel()) ?>
+                    <?= /* @escapeNotVerified */ __($option->getLabel()) ?>
                 </option>
             <?php endforeach;?>
         </select>
