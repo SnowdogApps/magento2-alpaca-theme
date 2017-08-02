@@ -1,0 +1,22 @@
+<?php if ($block->isPossibleOnepageCheckout()): ?>
+    <button type="button"
+            data-role="proceed-to-checkout"
+            title="<?= /* @escapeNotVerified */ __('Proceed to Checkout') ?>"
+            data-mage-init='{
+                "Magento_Checkout/js/proceed-to-checkout": {
+                    "checkoutUrl":"<?= /* @escapeNotVerified */ $block->getCheckoutUrl(); ?>"
+                }
+            }'
+            class="
+                action
+                primary
+                button
+                button--fluid
+                cart-summary__checkout-button
+                checkout<?php echo($block->isDisabled()) ? ' disabled' : ''; ?>
+            "
+            <?php if ($block->isDisabled()): ?>disabled="disabled"<?php endif; ?>
+    >
+        <?= /* @escapeNotVerified */ __('Proceed to Checkout'); ?>
+    </button>
+<?php endif; ?>

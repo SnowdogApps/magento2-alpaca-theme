@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      layout="1column"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd"
+>
+    <body>
+        <!-- main column -->
+        <referenceContainer name="checkout.cart.container"
+                            htmlClass="cart-container grid cart"
+        >
+            <container name="cart.main.container"
+                       as="cart_main_container"
+                       label="Shopping Cart Main Container"
+                       htmlTag="div"
+                       htmlClass="grid__column grid__column--4-6 cart__main-col"
+            />
+            <block class="Magento\Checkout\Block\Cart"
+                   name="checkout.cart.form"
+                   as="cart-items"
+                   template="cart/form.phtml"
+                   before="cart.summary"
+            >
+                <block class="Magento\Framework\View\Element\RendererList"
+                       name="checkout.cart.item.renderers"
+                       as="renderer.list"
+                />
+                <block class="Magento\Framework\View\Element\Text\ListText"
+                       name="checkout.cart.order.actions"
+                />
+            </block>
+        </referenceContainer>
+
+        <!-- summary -->
+        <referenceContainer name="cart.summary"
+                            label="Cart Summary Container"
+                            htmlTag="div"
+                            htmlClass="grid__column grid__column--2-6 cart__summary-col cart-summary"
+                            after="checkout.cart.form"
+        >
+            <block class="Magento\Framework\View\Element\Template"
+                   name="cart.summary.title"
+                   template="Magento_Checkout::cart/summary/title.phtml"
+                   before="checkout.cart.shipping"
+            />
+        </referenceContainer>
+
+        <!-- moved blocks coupon to new main container -->
+        <move element="checkout.cart.coupon"
+              destination="cart.main.container"
+              after="-"
+        />
+        <!-- moved cart form to new main container -->
+        <move element="checkout.cart.form"
+              destination="cart.main.container"
+              after="-"
+        />
+
+        <!-- removed blocks -->
+        <referenceBlock name="checkout.cart.summary.title" remove="true"/>
+    </body>
+</page>

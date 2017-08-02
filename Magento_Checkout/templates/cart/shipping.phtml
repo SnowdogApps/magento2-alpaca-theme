@@ -1,0 +1,46 @@
+<?php /** @var $block \Magento\Checkout\Block\Cart\Shipping */ ?>
+
+<div id="block-shipping"
+     class="block shippin shipping-estimation cart-summary__item"
+     data-mage-init='{
+         "collapsible":{
+             "openedState": "active",
+             "saveState": true
+         }
+     }'
+>
+    <div data-role="title" class="shipping-estimation__title">
+        <span class="shipping-estimation__title-text">
+            <?= /* @escapeNotVerified */ $block->getQuote()->isVirtual() ? __('Estimate Tax') : __('Estimate Shipping and Tax'); ?>
+        </span>
+        <svg class="shipping-estimation__title-icon">
+            <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#arrow-down'); ?>"></use>
+        </svg>
+    </div>
+    <div id="block-summary"
+         data-bind="scope:'block-summary'"
+         class="content shipping-estimation__content"
+         data-role="content"
+    >
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <script type="text/x-magento-init">
+            {
+                "#block-summary": {
+                    "Magento_Ui/js/core/app": <?= /* @escapeNotVerified */ $block->getJsLayout();?>
+                }
+            }
+        </script>
+        <script>
+            window.checkoutConfig = <?= /* @escapeNotVerified */ \Zend_Json::encode($block->getCheckoutConfig()); ?>;
+            window.customerData = window.checkoutConfig.customerData;
+            window.isCustomerLoggedIn = window.checkoutConfig.isCustomerLoggedIn;
+            require([
+                'mage/url',
+                'Magento_Ui/js/block-loader'
+            ], function(url, blockLoader) {
+                blockLoader("<?= /* @escapeNotVerified */ $block->getViewFileUrl('images/loader-1.gif'); ?>");
+                return url.setBaseUrl('<?= /* @escapeNotVerified */ $block->getBaseUrl(); ?>');
+            })
+        </script>
+    </div>
+</div>
