@@ -11,6 +11,19 @@
         <?= $block->getItemHtml($_item); ?>
     <?php endforeach ?>
     <div class="cart-actions">
+        <?php if ($block->getContinueShoppingUrl()): ?>
+            <a class="
+                   button
+                   button--secondary
+                   cart-actions__button
+                   cart-actions__button--continue
+               "
+               href="<?= $block->escapeUrl($block->getContinueShoppingUrl()); ?>"
+               title="<?= $block->escapeHtml(__('Continue Shopping')); ?>"
+            >
+                <?= /* @escapeNotVerified */ __('Continue Shopping'); ?>
+            </a>
+        <?php endif; ?>
         <button type="submit"
                 name="update_cart_action"
                 data-cart-empty=""
@@ -30,19 +43,6 @@
         >
             <?= /* @escapeNotVerified */ __('Update Shopping Cart'); ?>
         </button>
-        <?php if ($block->getContinueShoppingUrl()): ?>
-            <a class="
-                   button 
-                   button--secondary
-                   cart-actions__button
-                   cart-actions__button--continue
-               "
-               href="<?= $block->escapeUrl($block->getContinueShoppingUrl()); ?>"
-               title="<?= $block->escapeHtml(__('Continue Shopping')); ?>"
-            >
-                <?= /* @escapeNotVerified */ __('Continue Shopping'); ?>
-            </a>
-        <?php endif; ?>
         <input type="hidden"
                value=""
                id="update_cart_action_container"
