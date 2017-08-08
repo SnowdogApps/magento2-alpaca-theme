@@ -1,0 +1,85 @@
+<?php
+/**
+ * @var \Magento\GiftCardAccount\Block\Checkout\Cart\Giftcardaccount $block
+ * @see \Magento\GiftCardAccount\Block\Checkout\Cart\Giftcardaccount
+ */
+?>
+<div class="block giftcard gift-card cart-summary__item"
+     id="block-giftcard"
+     data-mage-init='{
+         "collapsible":{
+             "openedState": "active",
+             "saveState": false
+         }
+     }'
+>
+    <div data-role="title"  class="gift-card__title">
+        <span class="gift-card__title-text">
+            <?= $block->escapeHtml(__('Gift Cards')); ?>
+        </span>
+        <svg class="gift-card__title-icon">
+            <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#arrow-down'); ?>"></use>
+        </svg>
+    </div>
+    <div data-role="content" class="content gift-card__content" aria-labelledby="block-giftcard-heading">
+        <div id="giftcard-balance-lookup"></div>
+        <span id="gc-please-wait"
+              class="please-wait load indicator"
+              style="display: none;"
+              data-text="<?= $block->escapeHtml(__('This won\'t take long . . .')); ?>"
+        >
+              <?= $block->escapeHtml(__('This won\'t take long . . .')); ?>
+        </span>
+        <form class="form giftcard add gift-card__form"
+              id="giftcard-form"
+              action="<?= $block->escapeUrl($block->getUrl('magento_giftcardaccount/cart/add')); ?>"
+              method="post"
+              data-mage-init='{
+                  "validation": {},
+                  "giftCard": {
+                      "giftCardCodeSelector": "#giftcard-code",
+                      "checkStatus": ".action.check",
+                      "giftCardStatusUrl": "<?= $block->escapeHtml($block->getUrl('magento_giftcardaccount/cart/quickCheck',  ['_secure' => true])); ?>",
+                      "giftCardStatusId": "#giftcard-balance-lookup",
+                      "giftCardSpinnerId": "#gc-please-wait",
+                      "messages": ".page.messages .messages"
+                  }
+              }'
+        >
+            <div class="fieldset">
+                <div class="field input">
+                    <label for="giftcard-code">
+                        <?= $block->escapeHtml(__('Enter the gift card code')); ?>
+                    </label>
+                    <div class="control">
+                        <input class="input-text input__field"
+                               type="text"
+                               id="giftcard-code"
+                               name="giftcard_code"
+                               data-validate="{'required-entry':true}" value=""
+                               placeholder="<?= $block->escapeHtml(__('Enter the gift card code')); ?>"
+                        >
+                    </div>
+                </div>
+                <div class="actions-toolbar">
+                    <div class="primary">
+                        <button class="action add button button--fluid button--secondary"
+                                type="submit"
+                                value="<?= $block->escapeHtml(__('Add Gift Card')); ?>"
+                        >
+                            <?= $block->escapeHtml(__('Add Gift Card')); ?>
+                        </button>
+                    </div>
+                    <div class="secondary">
+                        <button class="action check button button--fluid button--secondary"
+                                type="button"
+                                value="<?= $block->escapeHtml(__('Check Gift Card status and balance')); ?>"
+                        >
+                            <?= $block->escapeHtml(__('Check Gift Card status and balance')); ?>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
