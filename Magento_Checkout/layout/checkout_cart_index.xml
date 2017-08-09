@@ -5,9 +5,7 @@
 >
     <body>
         <!-- main column -->
-        <referenceContainer name="checkout.cart.container"
-                            htmlClass="cart-container grid cart"
-        >
+        <referenceContainer name="checkout.cart.container" htmlClass="cart-container grid cart">
             <container name="cart.main.container"
                        as="cart_main_container"
                        label="Shopping Cart Main Container"
@@ -18,7 +16,7 @@
                            as="cart_main_gift_coupon"
                            label="Shopping Cart Main Container For Fift Card And Coupon"
                            htmlTag="div"
-                           htmlClass="coupontandgift"
+                           htmlClass="grid cart__bottom"
                 />
             </container>
             <block class="Magento\Checkout\Block\Cart"
@@ -31,9 +29,7 @@
                        name="checkout.cart.item.renderers"
                        as="renderer.list"
                 />
-                <block class="Magento\Framework\View\Element\Text\ListText"
-                       name="checkout.cart.order.actions"
-                />
+                <block class="Magento\Framework\View\Element\Text\ListText" name="checkout.cart.order.actions"/>
             </block>
         </referenceContainer>
 
@@ -51,20 +47,10 @@
             />
         </referenceContainer>
 
-        <!-- moved blocks coupon to new main container -->
-        <move element="checkout.cart.coupon"
-              destination="cart.main.gift.coupon"
-              after="-"
-        />
-        <move element="checkout.cart.giftcardaccount"
-              destination="cart.main.gift.coupon"
-              after="-"
-        />
-        <!-- moved cart form to new main container -->
-        <move element="checkout.cart.form"
-              destination="cart.main.container"
-              before="cart.main.gift.coupon"
-        />
+        <!-- moved elements -->
+        <move element="checkout.cart.coupon" destination="cart.main.gift.coupon" after="-"/>
+        <move element="checkout.cart.giftcardaccount" destination="cart.main.gift.coupon" after="-"/>
+        <move element="checkout.cart.form" destination="cart.main.container" before="cart.main.gift.coupon"/>
 
         <!-- removed blocks -->
         <referenceBlock name="checkout.cart.summary.title" remove="true"/>
