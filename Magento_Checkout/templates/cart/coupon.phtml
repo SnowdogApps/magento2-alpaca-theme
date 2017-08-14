@@ -1,0 +1,52 @@
+<form id="discount-coupon-form"
+      action="<?= /* @escapeNotVerified */ $block->getUrl('checkout/cart/couponPost'); ?>"
+      method="post"
+      class="form form--compact cart__discount"
+      data-mage-init='{
+          "discountCode":{
+              "couponCodeSelector": "#coupon_code",
+              "removeCouponSelector": "#remove-coupon",
+              "applyButton": ".button--apply",
+              "cancelButton": ".button--cancel"
+          }
+      }'
+>
+    <div class="
+            fieldset
+            form__content
+            coupon
+            <?php strlen($block->getCouponCode()) ? 'applied' : ''; ?>
+        "
+    >
+        <input type="hidden" name="remove" id="remove-coupon" value="0" />
+        <div class="input">
+            <label for="coupon_code"
+                   class="label label--hidden"
+            >
+                <?= /* @escapeNotVerified */ __('Enter discount code'); ?>
+            </label>
+            <input type="text"
+                   class="input-text input__field cart__discount-field"
+                   id="coupon_code"
+                   name="coupon_code"
+                   value="<?= $block->escapeHtml($block->getCouponCode()); ?>"
+                   placeholder="<?= $block->escapeHtml(__('Enter discount code')); ?>"
+            >
+        </div>
+        <?php if (!strlen($block->getCouponCode())): ?>
+            <button class="button button--apply"
+                    type="button"
+                    value="<?= /* @escapeNotVerified */ __('Apply Discount') ?>"
+            >
+                <?= /* @escapeNotVerified */ __('Apply Discount'); ?>
+            </button>
+        <?php else: ?>
+            <button type="button"
+                    class="button button--cancel"
+                    value="<?= /* @escapeNotVerified */ __('Cancel Coupon'); ?>"
+            >
+                <?= /* @escapeNotVerified */ __('Cancel Coupon'); ?>
+            </button>
+        <?php endif; ?>
+    </div>
+</form>
