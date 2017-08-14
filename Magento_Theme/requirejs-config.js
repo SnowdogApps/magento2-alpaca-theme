@@ -8,7 +8,7 @@ var config = {
             "svg4everybody"   : "Magento_Theme/js/lib/svg4everybody",
             "choices"         : "Magento_Theme/js/lib/choices",
             "linksWrapper"    : "Magento_Theme/js/wrapper-collapsible",
-            "select"          : "Magento_Theme/js/select"
+            "select"          : "Magento_Theme/js/select.babel"
         }
     }
 };
