@@ -1,0 +1,107 @@
+<!-- ko if: isActive() -->
+<div class="gift-wrapping">
+    <div class="gift-options__sub-title" data-bind="i18n: 'Pick a paper of your choice (optional)'"></div>
+    <div class="gift-options-content">
+        <ul class="gift-wrapping-list">
+             <!--ko foreach: {data: getWrappingItems(), as: 'item'}-->
+                 <li class="gift-wrapping-item" data-bind="css: {_active: $parent.isHighlight(id)}">
+                     <!-- ko if: path -->
+                         <span data-bind="click: $parent.setActiveItem.bind($parent, id)">
+                             <img data-bind="attr: {src: path, alt: label, title: label}"/>
+                         </span>
+                     <!-- /ko -->
+                     <!-- ko ifnot: path -->
+                         <span class="no-image" data-bind="click: $parent.setActiveItem.bind($parent, id)">
+                             <span data-bind="i18n: 'No image'"></span>
+                         </span>
+                     <!-- /ko -->
+                 </li>
+             <!--/ko-->
+        </ul>
+        <div class="gift-wrapping-preview" data-bind="visible: isVisibleInfoBlock()">
+            <span>
+                <!-- ko if: getObservable('activeWrappingImageSrc') -->
+                <img data-bind="attr: {
+                        src: getObservable('activeWrappingImageSrc'),
+                        alt: $t(getObservable('activeWrappingLabel')),
+                        title: $t(getObservable('activeWrappingLabel'))
+                    }"/>
+                 <!-- /ko -->
+            </span>
+        </div>
+        <div class="gift-wrapping-title" data-bind="visible: isVisibleInfoBlock()">
+            <span class="gift-wrapping-name" data-bind="i18n: getObservable('activeWrappingLabel')"></span>
+            <!-- ko if: isDisplayWrappingBothPrices() -->
+            <span class="price-including-tax" data-bind="{attr: {'data-label': $t('Price Incl. Tax')}}">
+                <span class="price"
+                      data-bind="text: getObservable('activeWrappingPriceWithTax')"></span>
+            </span>
+            <span class="price-excluding-tax" data-bind="{attr: {'data-label': $t('Price Excl. Tax')}}">
+                <span class="price"
+                      data-bind="text: getObservable('activeWrappingPriceWithoutTax')"></span>
+            </span>
+            <!-- /ko -->
+            <!-- ko ifnot: isDisplayWrappingBothPrices() -->
+            <span class="regular-price" data-bind="{attr: {'data-label': $t('Price')}}">
+                <span class="price"
+                      data-bind="text: getObservable('activeWrappingPrice')"></span>
+            </span>
+            <!-- /ko -->
+            <button class="action action-remove"
+                    data-bind="attr: {title: $t('Remove')}, click: $data.uncheckWrapping.bind($data)">
+                <span data-bind="i18n: 'Remove'"></span>
+            </button>
+        </div>
+
+        <!-- ko if: isAllowGiftReceipt() -->
+        <div class="field choice gift-receipt checkbox">
+            <input type="checkbox"
+                   class="checkbox__field"
+                   id="giftReceipt"
+                   data-bind="checked: getObservable('giftReceipt')"
+            >
+            <svg class="checkbox__icon">
+                <use data-bind="attr: { 'xlink:href': require.toUrl('images/icons-sprite.svg#checked') }" xlink:href='' ></use>
+            </svg>
+            <label for="giftReceipt" class="label checkbox__label">
+                <span data-bind="i18n: 'Gift Receipt'"></span>
+            </label>
+        </div>
+        <!-- /ko -->
+
+        <!-- ko if: isAllowPrintedCard() -->
+        <div class="field choice gift-printed-card checkbox">
+            <input type="checkbox"
+                   class="checkbox__field"
+                   id="printedCard" data-bind="checked: getObservable('printedCard')"
+            >
+            <svg class="checkbox__icon">
+                <use data-bind="attr: { 'xlink:href': require.toUrl('images/icons-sprite.svg#checked') }" xlink:href='' ></use>
+            </svg>
+            <label for="printedCard" class="label checkbox__label">
+                <span data-bind="i18n: 'Printed card'"></span>
+            </label>
+        </div>
+        <div class="price-box" data-bind="visible: getObservable('printedCard')">
+            <!-- ko if: isDisplayCardBothPrices() -->
+                <span class="price-including-tax" data-bind="{attr: {'data-label': $t('Price Incl. Tax')}}">
+                    <span class="price"
+                          data-bind="text: getPrintedCardPriceWithTax()"></span>
+                </span>
+                <span class="price-excluding-tax" data-bind="{attr: {'data-label': $t('Price Excl. Tax')}}">
+                    <span class="price"
+                          id="regular-card-price"
+                          data-bind="text: getPrintedCardPriceWithoutTax()"></span>
+                </span>
+            <!-- /ko -->
+            <!-- ko ifnot: isDisplayCardBothPrices() -->
+                <span class="regular-price" data-bind="{attr: {'data-label': $t('Price')}}">
+                    <span class="price"
+                          data-bind="text: getPrintedCardPrice()"></span>
+                </span>
+            <!-- /ko -->
+        </div>
+        <!-- /ko -->
+    </div>
+</div>
+<!-- /ko -->
