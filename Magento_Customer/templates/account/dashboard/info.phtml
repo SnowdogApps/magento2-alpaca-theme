@@ -1,0 +1,68 @@
+<div class="dashboard-items">
+    <h3 class="heading heading--fifth-level dashboard-items__title ">
+        <?php /* @escapeNotVerified */ echo __('Account Information') ?>
+    </h3>
+
+    <div class="grid dashboard-items__content ">
+        <div class="dashboard-items__item grid__column grid__column--1-2">
+            <h5 class="heading heading--sixth-level">
+                <span><?php /* @escapeNotVerified */ echo __('Contact Information') ?></span>
+            </h5>
+
+            <div class="dashboard-items__address">
+                <p>
+                    <?php echo $block->escapeHtml($block->getName()) ?>
+                </p>
+                
+                <p>
+                    <?php echo $block->escapeHtml($block->getCustomer()->getEmail()) ?>
+                </p>
+            </div>
+
+            <div class="action">
+                <div class="action__handler">
+                    <a href="<?php /* @escapeNotVerified */ echo $block->getUrl('customer/account/edit') ?>" 
+                       class="link action__link"
+                    >
+                        <?php /* @escapeNotVerified */ echo __('Edit') ?>
+                    </a>
+
+                    <a href="<?php /* @escapeNotVerified */ echo $block->getChangePasswordUrl() ?>" 
+                       class="link action__link"
+                    >
+                        <?php /* @escapeNotVerified */ echo __('Change Password') ?>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <?php if ($block->isNewsletterEnabled()): ?>
+            <div class="dashboard-items__item grid__column grid__column--1-2">
+                <h5 class="heading heading--sixth-level">
+                    <?php /* @escapeNotVerified */ echo __('Newsletters') ?>
+                </h5>
+
+                <div class="dashboard-items__address">
+                        <?php if ($block->getIsSubscribed()): ?>
+                            <?php /* @escapeNotVerified */ echo __('You subscribe to "General Subscription".') ?>
+                        <?php else: ?>
+                            <?php /* @escapeNotVerified */ echo __('You don\'t subscribe to our newsletter.') ?>
+                        <?php endif; ?>
+
+                    <?php /* Extensions placeholder */ ?>
+                    <?php echo $block->getChildHtml('customer.account.dashboard.info.extra')?>
+                </div>
+
+                <div class="action">
+                    <div class="action__handler">
+                        <a class="link action__link" 
+                           href="<?php /* @escapeNotVerified */ echo $block->getUrl('newsletter/manage') ?>"
+                        >
+                           <?php /* @escapeNotVerified */ echo __('Edit') ?>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
+    </div>
+</div>
