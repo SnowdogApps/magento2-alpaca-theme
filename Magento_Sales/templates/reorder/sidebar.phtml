@@ -1,5 +1,5 @@
 <div class="sidebar-nav-list" data-bind="scope: 'lastOrderedItems'">
-    <h3 class="heading heading--fifth-level sidebar-nav-list__title "
+    <h3 class="heading heading--fifth-level sidebar-nav-list__title no-display"
          data-bind="css: {'no-display': !lastOrderedItems().items || lastOrderedItems().items.length === 0}"
     >
         <?php /* @escapeNotVerified */ echo __('Recently Ordered') ?>
@@ -13,7 +13,8 @@
         <form method="post" class="form reorder"
               action="<?php /* @escapeNotVerified */ echo $block->getFormActionUrl() ?>" id="reorder-validate-detail"
         >
-            <ol id="cart-sidebar-reorder" class="list sidebar-nav-list__list"
+            <ol id="cart-sidebar-reorder" 
+                class="list sidebar-nav-list__list"
                 data-bind="foreach: lastOrderedItems().items"
             >
                 <li class="list__item">
@@ -49,16 +50,13 @@
             
             <div class="action">
                 <div class="action__handler">
-                    <div class="primary no-display"
-                         data-bind="css: {'no-display': !lastOrderedItems().isShowAddToCart}"
+                    <button type="submit" 
+                            title="<?php /* @escapeNotVerified */ echo __('Add to Cart') ?>" 
+                            class="button action__button sidebar-nav-list__button no-display"
+                            data-bind="css: {'no-display': !lastOrderedItems().items || lastOrderedItems().items.length === 0}"
                     >
-                        <button type="submit" 
-                                title="<?php /* @escapeNotVerified */ echo __('Add to Cart') ?>" 
-                                class="button action__button sidebar-nav-list__button"
-                        >
-                            <?php /* @escapeNotVerified */ echo __('Add to Cart') ?>
-                        </button>
-                    </div>
+                        <?php /* @escapeNotVerified */ echo __('Add to Cart') ?>
+                    </button>
                 </div>
 
                 <div class="action__handler">
