@@ -5,36 +5,33 @@
 >
     <body>
         <!-- main column -->
-        <referenceContainer name="checkout.cart.container"
-                            htmlClass="cart-container grid cart"
-        >
+        <referenceContainer name="checkout.cart.container" htmlClass="cart-container grid cart">
             <container name="cart.main.container"
                        as="cart_main_container"
                        label="Shopping Cart Main Container"
                        htmlTag="div"
                        htmlClass="grid__column grid__column--4-6 cart__main-col"
-            />
-            <block class="Magento\Checkout\Block\Cart"
-                   name="checkout.cart.form"
-                   as="cart-items"
-                   template="cart/form.phtml"
-                   before="cart.summary"
             >
-                <block class="Magento\Framework\View\Element\RendererList"
-                       name="checkout.cart.item.renderers"
-                       as="renderer.list"
+                <container name="cart.main.gift.coupon"
+                           as="cart_main_gift_coupon"
+                           label="Shopping Cart Main Container For Gift Card And Coupon"
+                           htmlTag="div"
+                           htmlClass="grid cart__bottom"
                 />
-                <block class="Magento\Framework\View\Element\Text\ListText"
-                       name="checkout.cart.order.actions"
-                />
-            </block>
+            </container>
+            <container name="cart.summary.container"
+                       as="cart_summary_container"
+                       label="Shopping Cart Summary Container"
+                       htmlTag="div"
+                       htmlClass="grid__column grid__column--2-6 cart__summary-col"
+            />
         </referenceContainer>
 
         <!-- summary -->
         <referenceContainer name="cart.summary"
                             label="Cart Summary Container"
                             htmlTag="div"
-                            htmlClass="grid__column grid__column--2-6 cart__summary-col cart-summary"
+                            htmlClass="cart-summary"
                             after="checkout.cart.form"
         >
             <block class="Magento\Framework\View\Element\Template"
@@ -44,16 +41,11 @@
             />
         </referenceContainer>
 
-        <!-- moved blocks coupon to new main container -->
-        <move element="checkout.cart.coupon"
-              destination="cart.main.container"
-              after="-"
-        />
-        <!-- moved cart form to new main container -->
-        <move element="checkout.cart.form"
-              destination="cart.main.container"
-              after="-"
-        />
+        <!-- moved elements -->
+        <move element="checkout.cart.coupon" destination="cart.main.gift.coupon" after="-"/>
+        <move element="checkout.cart.giftcardaccount" destination="cart.main.gift.coupon" after="-"/>
+        <move element="checkout.cart.form" destination="cart.main.container" before="cart.main.gift.coupon"/>
+        <move element="cart.summary" destination="cart.summary.container" before="-"/>
 
         <!-- removed blocks -->
         <referenceBlock name="checkout.cart.summary.title" remove="true"/>
