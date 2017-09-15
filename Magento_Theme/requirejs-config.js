@@ -2,6 +2,7 @@ var config = {
     map: {
         "*": {
             "closestPolyfill" : "Magento_Theme/js/lib/closest-polyfill",
+            "fileUpload"      : "Magento_Theme/js/file-upload.babel",
             "lazysizes"       : "Magento_Theme/js/lib/lazysizes",
             "picturefill"     : "Magento_Theme/js/lib/picturefill",
             "slick"           : "Magento_Theme/js/lib/slick",

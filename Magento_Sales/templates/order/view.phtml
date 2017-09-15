@@ -1,0 +1,64 @@
+<?php $_order = $block->getOrder() ?>
+
+<div class="dashboard__handler">
+    <h3 class="heading heading--third-level dashboard__title--wrapped">
+        <?php /* @escapeNotVerified */ echo __('Order #') ?>
+        <?php /* @escapeNotVerified */ echo $_order->getRealOrderId() ?>
+    </h3>
+
+    <span class="dashboard__status">
+        <?php /* @escapeNotVerified */ echo $_order->getStatus() ?>
+    </span>
+</div>
+
+<?php if ($_order->getTracksCollection()->count()) : ?>
+    <?php echo $block->getChildHtml('tracking-info-link') ?>
+<?php endif; ?>
+
+<?php echo $block->getChildHtml('order_items') ?>
+
+<?php if ($this->helper('Magento\GiftMessage\Helper\Message')->isMessagesAllowed('order', $_order) && $_order->getGiftMessageId()): ?>
+    <div class="dashboard__handler">
+        <h3 class="heading heading--third-level dashboard__title--wrapped">
+            <?php /* @escapeNotVerified */ echo __('Gift Message for This Order') ?>
+        </h3>
+    </div>
+
+    <?php $_giftMessage = $this->helper('Magento\GiftMessage\Helper\Message')->getGiftMessageForEntity($_order); ?>
+
+    <div class="grid">
+        <div class="information grid__column grid__column--1-2">
+            <h5 class="heading heading--fifth-level information__title">
+                <?php /* @escapeNotVerified */ echo __('From') ?>
+            </h5>
+
+            <p class="information__text">
+                <?php echo $block->escapeHtml($_giftMessage->getSender()) ?>
+            </p>
+        </div>
+
+        <div class="information grid__column grid__column--1-2">
+            <h5 class="heading heading--fifth-level information__title">
+                <?php /* @escapeNotVerified */ echo __('To') ?>
+            </h5>
+            
+            <p class="information__text">
+                <?php echo $block->escapeHtml($_giftMessage->getRecipient()) ?>
+            </p>
+
+            <p class="information__text">
+                <?php /* @escapeNotVerified */ echo $this->helper('Magento\GiftMessage\Helper\Message')->getEscapedGiftMessage($_order) ?>
+            </p>
+        </div>
+    </div>
+<?php endif; ?>
+
+<div class="action dashboard__item">
+    <div class="action__handler">
+        <a class="link action__link" 
+            href="<?php /* @escapeNotVerified */ echo $block->getBackUrl() ?>"
+        >
+            <?php /* @escapeNotVerified */ echo $block->getBackTitle() ?>
+        </a>
+    </div>
+</div>

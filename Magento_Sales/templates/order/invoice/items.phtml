@@ -1,0 +1,64 @@
+<?php $_order = $block->getOrder() ?>
+<div class="dashboard-table">
+    <div class="dashboard-table__header">
+        <h5 class="heading heading--fifth-level dashboard-table__title">
+            <?php /* @escapeNotVerified */ echo __('Invoice #') ?><?php /* @escapeNotVerified */ echo $_invoice->getIncrementId(); ?>
+        </h5>
+
+        <a href="<?php /* @escapeNotVerified */ echo $block->getPrintAllInvoicesUrl($_order) ?>" 
+           class="link dashboard-table__link"
+           target="_blank"
+        >
+            <?php /* @escapeNotVerified */ echo __('Print All Invoices') ?>
+        </a>
+    </div>
+
+    <?php foreach ($_order->getInvoiceCollection() as $_invoice): ?>
+        <div class="dashboard-table__content">
+            <table class="table" 
+                   id="my-invoice-table-<?php /* @escapeNotVerified */ echo $_invoice->getId(); ?>"
+            >
+                <thead>
+                    <tr>
+                        <th class="name">
+                            <?php /* @escapeNotVerified */ echo __('Product Name') ?>
+                        </th>
+
+                        <th class="sku">
+                            <?php /* @escapeNotVerified */ echo __('SKU') ?>
+                        </th>
+
+                        <th class="price">
+                            <?php /* @escapeNotVerified */ echo __('Price') ?>
+                        </th>
+
+                        <th class="qty">
+                            <?php /* @escapeNotVerified */ echo __('Qty Invoiced') ?>
+                        </th>
+
+                        <th class="subtotal">
+                            <?php /* @escapeNotVerified */ echo __('Subtotal') ?>
+                        </th>
+                    </tr>
+                </thead>
+
+                <?php $_items = $_invoice->getAllItems(); ?>
+                <?php $_count = count($_items) ?>
+
+                <?php foreach ($_items as $_item): ?>
+                    <?php if ($_item->getOrderItem()->getParentItem()): continue; endif; ?>
+
+                    <tbody>
+                        <?php echo $block->getItemHtml($_item) ?>
+                    </tbody>
+                <?php endforeach; ?>
+
+                <tfoot>
+                    <?php echo $block->getInvoiceTotalsHtml($_invoice)?>
+                </tfoot>
+            </table>
+        </div>
+
+        <?php echo $block->getInvoiceCommentsHtml($_invoice)?>
+    <?php endforeach; ?>
+</div>

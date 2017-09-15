@@ -1,0 +1,108 @@
+<div id="<?= /* @escapeNotVerified */  $block->getUniqueId() ?>" 
+     class="dashboard-form"
+     data-mage-init='{"itemTable":{"addBlockData":{"widgetId":"<?= /* @escapeNotVerified */  $block->getUniqueId() ?>"}}}'
+>
+    <?php if (!$block->getIsTitleHidden()): ?>
+        <h5 class="heading heading--fifth-level dashboard-form__title">
+            <?php /* @escapeNotVerified */ echo __('Order by SKU') ?>
+        </h5>
+    <?php endif ?>
+
+    <div class="dashboard-form__divider">
+        <form class="form form-addbysku"
+              action="<?php /* @escapeNotVerified */ echo $block->getFormAction(); ?>"
+              method="post"
+              data-mage-init='{"validation":{}}'
+              <?php if ($block->getIsMultipart()): ?> enctype="multipart/form-data"<?php endif; ?>
+        >
+            <div data-container="items"></div>
+
+            <div class="action dashboard__item">
+                <div class="action__handler">
+                    <button type="button" 
+                            title="<?php /* @escapeNotVerified */ echo __('Add Row') ?>" 
+                            class="button action__button" 
+                            data-role="add"
+                    >
+                        <?php /* @escapeNotVerified */ echo __('Add Row') ?>
+                    </button>
+                </div>
+            </div>
+
+            <?php if ($block->getChildHtml()): ?>
+                <?php echo $block->getChildHtml(); ?>
+            <?php endif; ?>
+
+            <div class="action">
+                <div class="action__handler">
+                    <button type="submit"
+                            title="<?php /* @escapeNotVerified */ echo __('Add to Cart') ?>"
+                            class="button action__button">
+                        <?php /* @escapeNotVerified */ echo __('Add to Cart') ?>
+                    </button>
+                </div>
+            </div>
+
+            <?php if ($block->getLink()): ?>
+                <?php /* @escapeNotVerified */ echo $block->getLink(); ?>
+            <?php endif; ?>
+        </form>
+
+        <script data-template="add-block" type="text/x-magento-template">
+            <div class="fields additional deletableItem dashboard__item" data-mage-init='{"deletableItem":{}}'>
+                <div class="input dashboard-form__divider sku required">
+                    <label for="id-items<%- data.widgetId %><%- data.rowIndex %>sku" class="label">
+                        <?php /* @escapeNotVerified */ echo __('SKU') ?>
+                    </label>
+
+                    <input type="text"
+                           class="input__field"
+                           name="items[<%- data.rowIndex %>][sku]"
+                           placeholder="SKU"
+                           id="id-items<%- data.widgetId %><%- data.rowIndex %>sku"
+                           data-id="<%- data.widgetId %><%- data.rowIndex %>sku"
+                           data-sku="true"
+                           aria-required="true"
+                           data-validate='{
+                                "required-if-all-sku-empty-and-file-not-loaded": {
+                                    specifiedId: "#customer_sku_csv",
+                                    dataSku: "data-sku"
+                                    }
+                           }'
+                    />
+                </div>
+
+                <div class="input dashboard-form__divider qty required">
+                    <label for="id-items<%- data.widgetId %><%- data.rowIndex %>qty" class="label">
+                        <?php /* @escapeNotVerified */ echo __('Qty') ?>
+                    </label>
+
+                    <input type="number"
+                           class="input__field"
+                           name="items[<%- data.rowIndex %>][qty]"
+                           id="id-items<%- data.widgetId %><%- data.rowIndex %>qty"
+                           maxlength="13"
+                           placeholder="QTY"
+                           aria-required="true"
+                           data-validate='{
+                                "required-number-if-specified": "[data-id=<%- data.widgetId %><%- data.rowIndex %>sku]",
+                                "validate-number": true,
+                                "validate-greater-than-zero": true,
+                                "validate-number-range": "0.0001-99999999.9999"
+                           }'
+                    />
+                </div>
+
+                <% if (data.rowIndex > 0) { %>
+                    <div class="action">
+                        <div class="action__handler">
+                            <button type="button" class="button action__button remove" title="<?php /* @escapeNotVerified */ echo __('Remove Row') ?>" data-role="delete">
+                                <?php /* @escapeNotVerified */ echo __('Remove Row') ?>
+                            </button>
+                        </div>
+                    </div>
+                <% } %>
+            </div>
+        </script>
+    </div>
+</div>

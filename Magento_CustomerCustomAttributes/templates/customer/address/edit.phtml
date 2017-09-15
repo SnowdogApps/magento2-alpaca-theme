@@ -13,8 +13,8 @@
 
             <div class="dashboard-form__divider">
                 <?php echo $block->getBlockHtml('formkey')?>
-                <input type="hidden" name="success_url" value="<?php /* @escapeNotVerified */ echo $block->getSuccessUrl() ?>">
-                <input type="hidden" name="error_url" value="<?php /* @escapeNotVerified */ echo $block->getErrorUrl() ?>">
+                <input type="hidden" name="success_url" value="<?php /* @escapeNotVerified */ echo $block->getSuccessUrl() ?>"/>
+                <input type="hidden" name="error_url" value="<?php /* @escapeNotVerified */ echo $block->getErrorUrl() ?>"/>
 
                 <?php echo $block->getNameBlockHtml() ?>
 
@@ -36,7 +36,7 @@
                     <label class="label" for="telephone">
                         <?php /* @escapeNotVerified */ echo __('Phone Number') ?>
                     </label>
-
+                    
                     <input type="text" 
                            name="telephone" 
                            value="<?php echo $block->escapeHtml($block->getAddress()->getTelephone()) ?>" 
@@ -79,24 +79,24 @@
                            name="street[]" 
                            value="<?php echo $block->escapeHtml($block->getStreetLine(1)) ?>" 
                            title="<?php /* @escapeNotVerified */ echo __('Street Address') ?>" 
-                           id="street_1" 
+                           id="street_1"
                            class="input__field <?php /* @escapeNotVerified */ echo $_streetValidationClass ?>"
                     />
                 </div>
 
                 <?php $_streetValidationClass = trim(str_replace('required-entry', '', $_streetValidationClass)); ?>
 
-                <?php for ($_i = 1, $_n = $this->helper('Magento\Customer\Helper\Address')->getStreetLines(); $_i < $_n; $_i++): ?>
+                <?php for ($_i = 2, $_n = $this->helper('Magento\Customer\Helper\Address')->getStreetLines(); $_i <= $_n; $_i++): ?>
                     <div class="input dashboard__input">
-                        <label class="label" for="street_<?php /* @escapeNotVerified */ echo $_i+1 ?>">
-                            <?php /* @escapeNotVerified */ echo __('Street Address %1', $_i+1) ?>
+                        <label class="label" for="street_<?php /* @escapeNotVerified */ echo $_i ?>">
+                            <?php /* @escapeNotVerified */ echo __('Street Address %1', $_i) ?>
                         </label>
 
                         <input type="text" 
-                               name="street[]"
-                               value="<?php echo $block->escapeHtml($block->getStreetLine($_i+1)) ?>" 
-                               title="<?php /* @escapeNotVerified */ echo __('Street Address %1', $_i+1) ?>" 
-                               id="street_<?php /* @escapeNotVerified */ echo $_i+1 ?>" 
+                               name="street[]" 
+                               value="<?php echo $block->escapeHtml($block->getStreetLine($_i)) ?>" 
+                               title="<?php /* @escapeNotVerified */ echo __('Street Address %1', $_i) ?>" 
+                               id="street_<?php /* @escapeNotVerified */ echo $_i ?>" 
                                class="input__field <?php /* @escapeNotVerified */ echo $_streetValidationClass ?>"
                         />
                     </div>
@@ -107,7 +107,7 @@
                         <label class="label" for="vat_id">
                             <?php /* @escapeNotVerified */ echo __('VAT Number') ?>
                         </label>
-
+                        
                         <input type="text" 
                                name="vat_id" 
                                value="<?php echo $block->escapeHtml($block->getAddress()->getVatId()) ?>" 
@@ -131,12 +131,11 @@
                            id="city"
                     />
                 </div>
-
-                <div class="select dashboard__address dashboard-form__select">
+                <div class="input dashboard__input required">
                     <label class="label" for="region_id">
                         <?php /* @escapeNotVerified */ echo __('State/Province') ?>
                     </label>
-                    
+
                     <select id="region_id" 
                             name="region_id" 
                             title="<?php /* @escapeNotVerified */ echo __('State/Province') ?>" 
@@ -163,7 +162,7 @@
                     <label class="label" for="zip">
                         <?php /* @escapeNotVerified */ echo __('Zip/Postal Code') ?>
                     </label>
-
+                    
                     <input type="text" 
                            name="postcode" 
                            value="<?php echo $block->escapeHtml($block->getAddress()->getPostcode()) ?>" 
@@ -173,7 +172,7 @@
                     />
                 </div>
 
-                <div class="select dashboard__address dashboard-form__select">
+                <div class="input dashboard__input required">
                     <label class="label" for="country">
                         <?php /* @escapeNotVerified */ echo __('Country') ?>
                     </label>
@@ -269,10 +268,9 @@
                 <?php /* @escapeNotVerified */ echo __('Save Address') ?>
             </button>
         </div>
+
         <div class="action__handler">
-            <a class="link action__link" 
-               href="<?php echo $block->escapeUrl($block->getBackUrl()) ?>"
-            >
+            <a class="link action__link" href="<?php echo $block->escapeUrl($block->getBackUrl()) ?>">
                 <?php /* @escapeNotVerified */ echo __('Go back') ?>
             </a>
         </div>
