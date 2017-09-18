@@ -1,0 +1,68 @@
+<?php
+/**
+ * @see \Magento\Invitation\Block\Customer\ListCustomer
+ */
+?>
+<div class="dashboard-table dashboard__item">
+    <?php echo $block->getChildHtml('list_before')?>
+
+    <div class="dashboard-table__header">
+        <h5 class="heading heading--fifth-level dashboard-table__title">
+            <?php /* @escapeNotVerified */ echo __('My Invitations'); ?>
+        </h5>
+    </div>
+
+    <?php if (count($block->getInvitationCollection())): ?>
+        <div class="dashboard-table__content">
+            <table class="table" id="invitations-list-table">
+                <thead>
+                    <tr>
+                        <th scope="col" class="col email">
+                            <?php /* @escapeNotVerified */ echo __('Email'); ?>
+                        </th>
+
+                        <th scope="col" class="col status">
+                            <?php /* @escapeNotVerified */ echo __('Status'); ?>
+                        </th>
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    <?php foreach ($block->getInvitationCollection() as $invitation): ?>
+                        <tr>
+                            <td data-th="<?php echo $block->escapeHtml(__('Email')); ?>" class="col email">
+                                <?php echo $block->escapeHtml($invitation->getEmail()); ?>
+                            </td>
+
+                            <td data-th="<?php echo $block->escapeHtml(__('Status')); ?>" class="col status">
+                                <?php /* @escapeNotVerified */ echo $this->helper('Magento\Invitation\Helper\Data')->getInvitationStatusText($invitation);?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    <?php else: ?>
+        <div class="message info empty">
+            <?php /* @escapeNotVerified */ echo __('There are no sent invitations.'); ?>
+        </div>
+    <?php endif; ?>
+
+    <div class="action">
+        <div class="action__handler">
+            <a href="<?php /* @escapeNotVerified */ echo $this->helper('Magento\Invitation\Helper\Data')->getCustomerInvitationFormUrl(); ?>" 
+               class="link action__link"
+            >
+                <?php /* @escapeNotVerified */ echo __('Send Invitations') ?>
+            </a>
+        </div>
+
+        <div class="action__handler">
+            <a href="<?php echo $block->escapeUrl($block->getBackUrl()) ?>" 
+               class="link action__link"
+            >
+                <?php /* @escapeNotVerified */ echo __('Back') ?>
+            </a>
+        </div>
+    </div>
+</div>

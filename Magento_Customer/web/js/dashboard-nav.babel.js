@@ -2,11 +2,14 @@
 
 const content     = document.querySelector('.dashboard-nav__content'),
       currentItem = content.querySelector('.dashboard-nav__list .item.current'),
-      mobileNav   = document.querySelector('.dashboard-nav__mobile');
+      mobileNav   = document.querySelector('.dashboard-nav__mobile'),
+      windowSize  = window.matchMedia('(max-width: 768px)');
 
-mobileNav.innerHTML = currentItem.textContent;
+if (windowSize.match) {
+  mobileNav.innerHTML = currentItem.textContent;
 
-mobileNav.addEventListener('click', () => {
-  mobileNav.classList.toggle('dashboard-nav__mobile--active');
-  content.classList.toggle('dashboard-nav__content--visible');
-});
+  mobileNav.addEventListener('click', () => {
+    mobileNav.classList.toggle('dashboard-nav__mobile--active');
+    content.classList.toggle('dashboard-nav__content--visible');
+  });
+}
