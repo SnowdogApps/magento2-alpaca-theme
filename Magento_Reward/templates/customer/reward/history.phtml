@@ -1,0 +1,90 @@
+<?php
+/**
+ * @see \Magento\Reward\Block\Customer\Reward\History
+ */
+?>
+<div class="dashboard-table dashboard__item">
+    <div class="dashboard-table__header">
+        <h5 class="heading heading--fifth-level dashboard-table__title">
+            <?php /* @escapeNotVerified */ echo __('Balance History'); ?>
+        </h5>
+    </div>
+
+    <?php if ($history = $block->getHistory()):?>
+        <div class="dashboard-table__content">
+            <?php echo $block->getChildHtml('pager') ?>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col" class="col balance">
+                            <?php /* @escapeNotVerified */ echo __('Balance'); ?>
+                        </th>
+
+                        <th scope="col" class="col amount">
+                            <?php /* @escapeNotVerified */ echo __('Amount'); ?>
+                        </th>
+
+                        <th scope="col" class="col points">
+                            <?php /* @escapeNotVerified */ echo __('Points'); ?>
+                        </th>
+
+                        <th scope="col" class="col reason">
+                            <?php /* @escapeNotVerified */ echo __('Reason'); ?>
+                        </th>
+
+                        <th scope="col" class="col date">
+                            <?php /* @escapeNotVerified */ echo __('Date'); ?>
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <?php foreach ($history as $item): ?>
+                        <tr>
+                            <td data-th="<?php echo $block->escapeHtml(__('Balance')); ?>" classs="col balance">
+                                <?php /* @escapeNotVerified */ echo $block->getPointsBalance($item)?>
+                            </td>
+
+                            <td data-th="<?php echo $block->escapeHtml(__('Amount')); ?>" classs="col amount">
+                                <?php /* @escapeNotVerified */ echo $block->getCurrencyBalance($item)?>
+                            </td>
+
+                            <td data-th="<?php echo $block->escapeHtml(__('Points')); ?>" classs="col points">
+                                <?php /* @escapeNotVerified */ echo $block->getPointsDelta($item)?>
+                            </td>
+
+                            <td data-th="<?php echo $block->escapeHtml(__('Reason')); ?>" classs="col reason">
+                                <?php echo $block->escapeHtml($block->getMessage($item))?>
+                                
+                                <?php if ($explanation = $block->getExplanation($item)):?>
+                                    <small>
+                                        <?php echo $block->escapeHtml($explanation);?>
+                                    </small>
+                                <?php endif;?>
+                            </td>
+
+                            <td data-th="<?php echo $block->escapeHtml(__('Date')); ?>" classs="col date">
+                                <span class="datetime">
+                                    <?php /* @escapeNotVerified */ echo $block->getDate($item)?>
+                                </span>
+
+                                <?php if ($expirationDate = $block->getExpirationDate($item)):?>
+                                    <small>
+                                        <?php /* @escapeNotVerified */ echo __('Expires on %1', $expirationDate);?>
+                                    </small>
+                                <?php endif;?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+
+            <?php echo $block->getChildHtml('pager') ?>
+        </div>
+    <?php else:?>
+        <div class="message info empty">
+            <?php /* @escapeNotVerified */ echo __('There is no balance history.')?>
+        </div>
+    <?php endif;?>
+</div>
