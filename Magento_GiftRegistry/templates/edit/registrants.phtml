@@ -1,0 +1,107 @@
+<script id="template-registrant" type="text/x-magento-template">
+    <input name="registrant[<%- data._index_ %>][person_id]" value="" id="registrant:person_id<%- data._index_ %>" type="hidden" />
+
+    <div class="input dashboard-form__divider required">
+        <label for="registrant:firstname<%- data._index_ %>" class="label">
+            <?php /* @escapeNotVerified */ echo __('First Name') ?>
+        </label>
+
+        <input name="registrant[<%- data._index_ %>][firstname]" 
+               value="" 
+               type="text" 
+               class="input__field" 
+               data-validate="{required:true}" 
+               id="registrant:firstname<%- data._index_ %>" 
+        />
+    </div>
+
+    <div class="input dashboard-form__divider required">
+        <label for="registrant:lastname<%- data._index_ %>" class="label">
+            <?php /* @escapeNotVerified */ echo __('Last Name') ?>
+        </label>
+
+        <input name="registrant[<%- data._index_ %>][lastname]" 
+               value="" 
+               type="text" 
+               class="input__field" 
+               data-validate="{required:true}" 
+               id="registrant:lastname<%- data._index_ %>" 
+        />
+    </div>
+
+    <div class="input dashboard-form__divider required">
+        <label for="registrant:email<%- data._index_ %>" class="label">
+            <?php /* @escapeNotVerified */ echo __('Email') ?>
+        </label>
+
+        <input name="registrant[<%- data._index_ %>][email]" 
+               value="" 
+               title="<?php /* @escapeNotVerified */ echo __('Email') ?>" 
+               id="registrant:email<%- data._index_ %>" 
+               type="email" 
+               class="input__field" 
+               data-validate="{required:true,'validate-email':true}" 
+        />
+    </div>
+
+    <?php foreach ($block->getGroupedRegistrantAttributes() as $field => $data) : ?>
+        <?php $isRequired = $block->isAttributeRequired($data); ?>
+        <?php $isStatic = $block->isAttributeStatic($field); ?>
+
+        <?php var_dump($data['type']) ?>
+        <div class="input dashboard-form__divider <?php echo($isRequired ? ' required' : '') ?>">
+            <label for="registrant:<?php if (!$isStatic):?>custom:<?php endif;?><?php /* @escapeNotVerified */ echo $field ?><%- data._index_ %>" class="label">
+                <?php /* @escapeNotVerified */ echo __("%1", $data['label']); ?>
+            </label>
+            
+            <?php /* @escapeNotVerified */ echo $block->renderField($data, $field, '{{' . $field . '_value}}') ?>
+        </div>
+    <?php endforeach; ?>
+
+    <div class="action">
+        <div class="action__handler">
+            <button type="button" class="button action__button remove" id="btn-remove<%- data._index_ %>">
+                <?php /* @escapeNotVerified */ echo __('Remove') ?>
+            </button>
+        </div>
+    </div>
+</script>
+
+<h5 class="heading heading--fifth-level dashboard-form__title">
+    <?php /* @escapeNotVerified */ echo __('Registrant Information') ?>
+</h5>
+
+<div id="registrant-container"></div>
+
+<?php if ($block->getMaxRegistrant()): ?>
+    <div id="max-registrant-message" style="display:none;" class="message notice limit" role="alert">
+        <?php /* @escapeNotVerified */ echo __('Maximum %1 registrants.', $block->getMaxRegistrant()) ?>
+    </div>
+<?php endif; ?>
+
+<div class="action dashboard__item">
+    <div class="action__handler">
+        <?php if ($block->getMaxRegistrant() > 1): ?>
+            <button type="button" id="add-registrant-button" class="button action__button add">
+                <?php /* @escapeNotVerified */ echo __('Add Registrant') ?>
+            </button>
+        <?php endif; ?>
+    </div>
+</div>
+
+<script type="text/x-magento-init">
+    {
+        "#form-validate": {
+            "giftRegistry": {
+                "rowParentElem": "<div></div>",
+                "remEventSelector": "button",
+                "btnRemoveSelector": ".action__button.remove",
+                "additionalRowClass": "additional",
+                "maxRows": "<?php /* @escapeNotVerified */ echo $block->getMaxRegistrant() ?>",
+                "formDataPost": {
+                    "formData": <?php /* @escapeNotVerified */ echo json_encode($block->getRegistrantPresets($block->getEntity()->getId())); ?>
+                }
+            }
+        }
+    }
+</script>

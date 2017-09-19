@@ -1,0 +1,250 @@
+<input type="hidden" name="entity_id" id="entity_id" value="<?php /* @escapeNotVerified */ echo $block->getEntity()->getEntityId(); ?>" />
+<input type="hidden" name="type_id" id="type_id" value="<?php /* @escapeNotVerified */ echo $block->getTypeId(); ?>" />
+
+<h5 class="heading heading--fifth-level dashboard-form__title">
+    <?php /* @escapeNotVerified */ echo __('General Information') ?>
+</h5>
+
+<div class="information">
+    <p class="information__text">
+        <span>
+            <?php /* @escapeNotVerified */ echo __('Type:') ?>
+        </span>
+
+        <strong>
+            <?php /* @escapeNotVerified */ echo $block->getTypeLabel(); ?>
+        </strong>
+    </p>
+</div>
+
+<div class="dashboard-form__divider ">
+    <div class="input dashboard-form__divider required">
+        <label for="title" class="label">
+            <?php /* @escapeNotVerified */ echo __('Event') ?>
+        </label>
+        
+        <input type="text" 
+               name="title" 
+               id="title" 
+               value="<?php echo $block->escapeHtml($block->getEntity()->getTitle());?>" 
+               title="<?php /* @escapeNotVerified */ echo __('Event') ?>" 
+               class="input__field" 
+               data-validate="{required:true}" 
+        />
+    </div>
+
+    <div class="input dashboard-form__divider required">
+        <label for="message" class="label">
+            <?php /* @escapeNotVerified */ echo __('Message') ?>
+        </label>
+        
+        <textarea name="message" 
+                  id="message" 
+                  cols="5" 
+                  rows="3"
+                  class="input__field input__field--textarea" 
+                  title="<?php /* @escapeNotVerified */ echo __('Message') ?>" 
+                  data-validate="{required:true}" 
+        ><?php echo $block->escapeHtml($block->getEntity()->getMessage());?></textarea>
+    </div>
+
+    <div class="select dashboard-form__select required">
+        <label for="is_public" class="label">
+            <?php /* @escapeNotVerified */ echo __('Privacy Settings') ?>
+        </label>
+
+        <select data-validate="{required:true}" 
+                name="type_id" 
+                id="type_id"
+                class="select__field validate-select"
+                data-mage-init='{"select": {}}'
+        >
+            <option value="" selected disabled>
+                <?php /* @escapeNotVerified */ echo __('Please select.') ?>
+            </option>
+
+            <?php foreach ($block->getEntity()->getOptionsIsPublic() as $num=>$type):?>
+                <option value="<?= $num; ?>">
+                    <?php /* @escapeNotVerified */ echo $type->getText() ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+
+    <div class="select dashboard-form__select required">
+        <label for="select" class="label">
+            <?php /* @escapeNotVerified */ echo __('Status') ?>
+        </label>
+
+        <select data-validate="{required:true}" 
+                name="type_id" 
+                id="type_id"
+                class="select__field validate-select"
+                data-mage-init='{"select": {}}'
+        >
+            <?php foreach ($block->getEntity()->getOptionsStatus() as $num=>$type):?>
+                <option value="<?= $num; ?>">
+                    <?php /* @escapeNotVerified */ echo $type->getText() ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+</div>
+
+<?php
+$fieldsets = $block->getGroupedRegistryAttributes();
+
+foreach ($fieldsets as $fieldset => $fields) : ?>
+    <h5 class="heading heading--fifth-level dashboard-form__title">
+        <?php /* @escapeNotVerified */ echo $block->getGroupLabel($fieldset);?>
+    </h5>
+
+    <?php foreach ($fields as $field => $data) : ?>
+        <?php $isRequired = $block->isAttributeRequired($data); ?>
+
+        <?php 
+            /**
+             * Let's create module from that 
+             * Greetings to backend dev
+             */
+
+            $type = $data['type'];
+            $name = $data['name'];
+            $id   = $data['id'];
+            $value = $this->getEntity()->getFieldValue($id);
+        
+            switch ($type) :
+                case 'country':
+                    //$element = $this->getCountryHtmlSelect($value, $name, $id, $class);
+                    break;
+
+                case 'region':
+                    //$default = isset($data['default']) ? $data['default'] : '';
+                    // $element = $this->getRegionHtmlSelectEmpty(
+                    //     $name,
+                    //     $id,
+                    //     $value,
+                    //     $class,
+                    //     '',
+                    //     $default
+                    // );
+                    //$id = $this->_getElementId($id . '_text');
+                    //$name = $this->_getElementName($id);
+                    //$value = $this->getEntity()->getFieldValue($id);
+                    //$element .= $this->_getInputTextHtml($name, $id, $value, $class);
+                    break;
+
+                case 'date':
+                    $date = !($value instanceof \DateTime) ? new \DateTime($value) : $value;
+                    $calendar = $this->getLayout()->createBlock(
+                        'Magento\GiftRegistry\Block\Customer\Date'
+                    )->setId(
+                        $id
+                    )->setName(
+                        $name
+                    )->setValue(
+                        $this->formatDate($date)
+                    )->setClass(
+                        ' product-custom-option datetime-picker input__field validate-date'
+                    )->setImage(
+                        $this->getViewFileUrl('Magento_Theme::calendar.png')
+                    );
+                ?>
+                    <div class="input dashboard-form__divider <?php echo($isRequired ? ' required' : ''); ?><?php /* @escapeNotVerified */ echo $field == 'event_date' ? ' date' : ''; ?>">
+                <?php
+                        echo $calendar->getHtml();
+                ?>
+                    </div>
+                <?php
+                    break;
+
+                case 'select':
+                    $options = [];
+                    if (is_array($data['options'])) {
+                        foreach ($data['options'] as $option) {
+                            $options[] = ['label' => $option['label'], 'value' => $option['code']];
+                        }
+                    }
+                ?>
+                    <div class="select dashboard-form__select required">
+                        <label for="<?php /* @escapeNotVerified */ echo $id; ?>" class="label">
+                            <?php /* @escapeNotVerified */ echo __($data['label']) ?>
+                        </label>
+
+                        <select data-validate="{required:true}" 
+                                name="<?php /* @escapeNotVerified */ echo $id; ?>" 
+                                id="<?php /* @escapeNotVerified */ echo $id; ?>"
+                                class="select__field validate-select"
+                                data-mage-init='{"select": {}}'
+                        >
+                            <option value="" disabled selected>
+                                <?php /* @escapeNotVerified */  echo __('Please Select'); ?>
+                            </option>
+
+                            <?php foreach ($options as $num=>$option):?>
+                                <option value="<?= $option['value'] ?>">
+                                    <?php /* @escapeNotVerified */ echo __($option['label']) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                <?php
+                    break;
+                        
+                case 'number':
+                ?>
+                    <div class="input dashboard-form__divider validate-digits <?php echo($isRequired ? ' required' : ''); ?><?php /* @escapeNotVerified */ echo $field == 'event_date' ? ' date' : ''; ?>">
+                        <label for="<?php /* @escapeNotVerified */ echo $field ?>" class="label">
+                            <?php /* @escapeNotVerified */ echo __($data['label']); ?>
+                        </label>
+        
+                        <input type="number"
+                            class="input__field required-entry"
+                            name="<?php echo $id; ?>"
+                            id="<?php echo $id; ?>"
+                        />
+                    </div>
+                <?php
+                    break;
+
+                default:
+                ?>
+                    <div class="input dashboard-form__divider <?php echo($isRequired ? ' required' : ''); ?><?php /* @escapeNotVerified */ echo $field == 'event_date' ? ' date' : ''; ?>">
+                        <label for="<?php /* @escapeNotVerified */ echo $field ?>" class="label">
+                            <?php /* @escapeNotVerified */ echo __($data['label']); ?>
+                        </label>
+        
+                        <input type="text"
+                            class="input__field required-entry"
+                            name="<?php echo $id; ?>"
+                            id="<?php echo $id; ?>"
+                        />
+                    </div>
+                <?php
+            endswitch;
+        ?>
+    <?php endforeach; ?>
+
+    <?php foreach ($fields as $field => $data) : ?>
+        <?php if ($block->useRegionUpdater($data)) : ?>
+            <script type="text/x-magento-init">
+            {
+                "#<?php /* @escapeNotVerified */ echo $field ?>": {
+                    "regionUpdater": {
+                        "optionalRegionAllowed": <?php /* @escapeNotVerified */ echo($block->getConfig('general/region/display_all') ? 'true' : 'false'); ?>,
+                        "regionListId": "#<?php /* @escapeNotVerified */ echo $field ?>_region",
+                        "regionInputId": "#<?php /* @escapeNotVerified */ echo $field ?>_region_text",
+                        "isRegionRequired": false,
+                        "isZipRequired": false,
+                        "isCountryRequired": true,
+                        <?php if ($block->getEntity()->getFieldValue($data['id'] . '_region')) : ?>
+                            "currentRegion": <?php /* @escapeNotVerified */ echo $block->getEntity()->getFieldValue($data['id'] . '_region'); ?>,
+                        <?php endif; ?>
+                        "regionJson": <?php /* @escapeNotVerified */ echo $this->helper('Magento\Directory\Helper\Data')->getRegionJson(); ?>         
+                    }
+                }
+            }
+            </script>
+        <?php endif; ?>
+    <?php endforeach; ?>
+<?php endforeach; ?>
