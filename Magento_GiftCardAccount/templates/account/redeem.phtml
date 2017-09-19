@@ -1,0 +1,68 @@
+<div id="gc-please-wait" 
+      class="dashboard__item please-wait load indicator"
+      data-text="<?php echo $block->escapeHtml(__('This won\'t take long . . .')); ?>" 
+      style="display: none;"
+>
+    <?php echo $block->escapeHtml(__('This won\'t take long . . .')); ?>
+</div>
+
+<form class="form form-giftcard-redeem" 
+      id="giftcard-form" 
+      action="<?php echo $block->escapeUrl($block->getUrl('*/*/*')); ?>" 
+      method="post"
+      data-mage-init='
+        {
+            "giftCard": {
+                "giftCardCodeSelector": "#giftcard-code", 
+                "checkStatus": ".action__button.check",
+                "giftCardStatusUrl": "<?php echo $block->escapeUrl($block->getUrl('magento_giftcardaccount/cart/quickCheck',  ['_secure' => true])); ?>",
+                "giftCardStatusId": "#giftcard-balance-lookup", 
+                "giftCardSpinnerId": "#gc-please-wait", 
+                "messages": ".page.messages .messages"
+            }
+        }
+      '
+>
+    <h5 class="heading heading--fifth-level dashboard-form__title">
+        <?php /* @escapeNotVerified */ echo __('Gift Card') ?>
+    </h5>
+        
+    <div id="giftcard-balance-lookup" class="giftcard ballance"></div>
+
+    <div class="input dashboard__item giftcard required">
+        <label class="label" for="giftcard-code">
+            <?php echo $block->escapeHtml(__('Enter gift card code')); ?>
+        </label>
+
+        <input class="input__field"
+               id="giftcard-code" 
+               type="text" 
+               name="giftcard_code"
+               data-validate="{required:true}"
+               value="<?php /* @noEscape */ echo $block->getCurrentGiftcard(); ?>" 
+        />
+    </div>
+
+    <div class="action">
+        <?php if ($block->canRedeem()): ?>
+            <div class="action__handler">
+                <button class="button action__button redeem primary" 
+                        type="submit" 
+                        value="<?php echo $block->escapeHtml(__('Redeem Gift Card')); ?>"
+                >
+                    <?php echo $block->escapeHtml(__('Redeem Gift Card')); ?>
+                </button>
+            </div>
+        <?php endif; ?>
+
+        <div class="action__handler">
+            <button class="button action__button check" 
+                    id="gca_balance_button" 
+                    type="button"
+                    value="<?php echo $block->escapeHtml(__('Check status and balance')); ?>"
+            >
+                <?php echo $block->escapeHtml(__('Check status and balance')); ?>
+            </button>
+        </div>
+    </div>
+</form>
