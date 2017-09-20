@@ -115,27 +115,77 @@ foreach ($fieldsets as $fieldset => $fields) : ?>
         
             switch ($type) :
                 case 'country':
-                    //$element = $this->getCountryHtmlSelect($value, $name, $id, $class);
+                    $options = $this->getCountryCollection()
+                    ->setForegroundCountries($this->getTopDestinations())
+                    ->toOptionArray();
+        ?>
+                    <div class="select dashboard-form__select required">
+                        <label for="<?php /* @escapeNotVerified */ echo $id; ?>" class="label">
+                            <?php /* @escapeNotVerified */ echo __($data['label']) ?>
+                        </label>
+
+                        <select data-validate="{required:true}" 
+                                name="<?php /* @escapeNotVerified */ echo $id; ?>" 
+                                id="<?php /* @escapeNotVerified */ echo $id; ?>"
+                                class="select__field validate-select"
+                                data-mage-init='{"select": {}}'
+                        >
+                            <option value="" disabled selected>
+                                <?php /* @escapeNotVerified */  echo __('Please Select a country'); ?>
+                            </option>
+
+                            <?php for ($_i = 1, $_n = $options; $_i < count($_n); $_i++):?>
+                                <option value="<?= $_n[$_i]['value'] ?>">
+                                    <?php /* @escapeNotVerified */ echo __($_n[$_i]['label']) ?>
+                                </option>
+                            <?php endfor; ?>
+                        </select>
+                    </div>
+        <?php
                     break;
 
                 case 'region':
-                    //$default = isset($data['default']) ? $data['default'] : '';
-                    // $element = $this->getRegionHtmlSelectEmpty(
-                    //     $name,
-                    //     $id,
-                    //     $value,
-                    //     $class,
-                    //     '',
-                    //     $default
-                    // );
-                    //$id = $this->_getElementId($id . '_text');
-                    //$name = $this->_getElementName($id);
-                    //$value = $this->getEntity()->getFieldValue($id);
-                    //$element .= $this->_getInputTextHtml($name, $id, $value, $class);
+                    $options = $this->getRegionCollection()->toOptionArray();
+                    $value = $this->getEntity()->getFieldValue($id);
+        ?>
+                    <div class="select dashboard-form__select required">
+                        <label for="<?php /* @escapeNotVerified */ echo $id; ?>" class="label">
+                            <?php /* @escapeNotVerified */ echo __($data['label']) ?>
+                        </label>
+
+                        <select data-validate="{required:true}" 
+                                name="<?php /* @escapeNotVerified */ echo $id; ?>" 
+                                id="<?php /* @escapeNotVerified */ echo $id; ?>"
+                                class="select__field validate-select"
+                                style="display:none"
+                        >
+                            <option value="" disabled selected>
+                                <?php /* @escapeNotVerified */  echo __('Please Select a region, state or province'); ?>
+                            </option>
+
+                            <?php foreach ($options as $option):?>
+                                <option value="<?= $option['value'] ?>">
+                                    <?php /* @escapeNotVerified */ echo __($option['label']) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+
+                        <input type="text" 
+                               id="<?php /* @escapeNotVerified */ echo $id.'_text'; ?>" 
+                               name="<?php /* @escapeNotVerified */ echo $id.'_text'; ?>" 
+                               value="<?php /* @escapeNotVerified */ echo $value; ?>" 
+                               title="<?php /* @escapeNotVerified */ echo __('State/Province') ?>" 
+                               class="input__field <?php /* @escapeNotVerified */ echo $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('region') ?>"
+                               <?php echo(!$block->getConfig('general/region/display_all')) ? ' disabled="disabled"' : '';?>
+                               style="display:none"
+                        />
+                    </div>
+        <?php
                     break;
 
                 case 'date':
                     $date = !($value instanceof \DateTime) ? new \DateTime($value) : $value;
+
                     $calendar = $this->getLayout()->createBlock(
                         'Magento\GiftRegistry\Block\Customer\Date'
                     )->setId(
@@ -149,13 +199,13 @@ foreach ($fieldsets as $fieldset => $fields) : ?>
                     )->setImage(
                         $this->getViewFileUrl('Magento_Theme::calendar.png')
                     );
-                ?>
+        ?>
                     <div class="input dashboard-form__divider <?php echo($isRequired ? ' required' : ''); ?><?php /* @escapeNotVerified */ echo $field == 'event_date' ? ' date' : ''; ?>">
-                <?php
-                        echo $calendar->getHtml();
-                ?>
+        <?php
+                        /* @escapeNotVerified */ echo $calendar->getHtml();
+        ?>
                     </div>
-                <?php
+        <?php
                     break;
 
                 case 'select':
@@ -165,7 +215,7 @@ foreach ($fieldsets as $fieldset => $fields) : ?>
                             $options[] = ['label' => $option['label'], 'value' => $option['code']];
                         }
                     }
-                ?>
+        ?>
                     <div class="select dashboard-form__select required">
                         <label for="<?php /* @escapeNotVerified */ echo $id; ?>" class="label">
                             <?php /* @escapeNotVerified */ echo __($data['label']) ?>
@@ -188,11 +238,11 @@ foreach ($fieldsets as $fieldset => $fields) : ?>
                             <?php endforeach; ?>
                         </select>
                     </div>
-                <?php
+        <?php
                     break;
                         
                 case 'number':
-                ?>
+        ?>
                     <div class="input dashboard-form__divider validate-digits <?php echo($isRequired ? ' required' : ''); ?><?php /* @escapeNotVerified */ echo $field == 'event_date' ? ' date' : ''; ?>">
                         <label for="<?php /* @escapeNotVerified */ echo $field ?>" class="label">
                             <?php /* @escapeNotVerified */ echo __($data['label']); ?>
@@ -200,15 +250,15 @@ foreach ($fieldsets as $fieldset => $fields) : ?>
         
                         <input type="number"
                             class="input__field required-entry"
-                            name="<?php echo $id; ?>"
-                            id="<?php echo $id; ?>"
+                            name="<?php /* @escapeNotVerified */ echo $id; ?>"
+                            id="<?php /* @escapeNotVerified */ echo $id; ?>"
                         />
                     </div>
-                <?php
+        <?php
                     break;
 
                 default:
-                ?>
+        ?>
                     <div class="input dashboard-form__divider <?php echo($isRequired ? ' required' : ''); ?><?php /* @escapeNotVerified */ echo $field == 'event_date' ? ' date' : ''; ?>">
                         <label for="<?php /* @escapeNotVerified */ echo $field ?>" class="label">
                             <?php /* @escapeNotVerified */ echo __($data['label']); ?>
@@ -216,11 +266,11 @@ foreach ($fieldsets as $fieldset => $fields) : ?>
         
                         <input type="text"
                             class="input__field required-entry"
-                            name="<?php echo $id; ?>"
-                            id="<?php echo $id; ?>"
+                            name="<?php /* @escapeNotVerified */ echo $id; ?>"
+                            id="<?php /* @escapeNotVerified */ echo $id; ?>"
                         />
                     </div>
-                <?php
+        <?php
             endswitch;
         ?>
     <?php endforeach; ?>
