@@ -1,6 +1,11 @@
-define(['choices',], function(Choices) {
+define(['choices'], function(Choices) {
     'use strict';
 
+    /** 
+      * This is for all select's in form to load chocices on it
+      * Customer Dashboard -> Gift Registry form
+      *
+      */
     return function(options, element) {
         let selects = element.querySelectorAll('select');
         const defaultOptions = {
