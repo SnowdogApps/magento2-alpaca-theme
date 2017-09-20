@@ -1,7 +1,8 @@
-define(['choices'], function(Choices) {
+define(['choices',], function(Choices) {
     'use strict';
 
-    return function(options, select) {
+    return function(options, element) {
+        let selects = element.querySelectorAll('select');
         const defaultOptions = {
             placeholder  : false,
             searchEnabled: false,
@@ -14,6 +15,9 @@ define(['choices'], function(Choices) {
             }
         };
         options = Object.assign(defaultOptions, options);
-        new Choices(select, options);
+
+        selects.forEach(item => {
+            new Choices(item, options);
+        });   
     }
 });

@@ -48,14 +48,175 @@
         <?php $isRequired = $block->isAttributeRequired($data); ?>
         <?php $isStatic = $block->isAttributeStatic($field); ?>
 
-        <?php var_dump($data['type']) ?>
-        <div class="input dashboard-form__divider <?php echo($isRequired ? ' required' : '') ?>">
-            <label for="registrant:<?php if (!$isStatic):?>custom:<?php endif;?><?php /* @escapeNotVerified */ echo $field ?><%- data._index_ %>" class="label">
-                <?php /* @escapeNotVerified */ echo __("%1", $data['label']); ?>
-            </label>
-            
-            <?php /* @escapeNotVerified */ echo $block->renderField($data, $field, '{{' . $field . '_value}}') ?>
-        </div>
+        <?php 
+            /**
+            * Let's create module from that 
+            * Greetings to backend dev
+            */
+
+            $type = $data['type'];
+            $name = $data['name'];
+            $id   = $data['id'];
+            $value = $this->getEntity()->getFieldValue($id);
+        
+            switch ($type) :
+                case 'country':
+                    $options = $this->getCountryCollection()
+                    ->setForegroundCountries($this->getTopDestinations())
+                    ->toOptionArray();
+        ?>
+                    <div class="select dashboard-form__select required">
+                        <label for="<?php /* @escapeNotVerified */ echo $id; ?>" class="label">
+                            <?php /* @escapeNotVerified */ echo __($data['label']) ?>
+                        </label>
+
+                        <select data-validate="{required:true}" 
+                                name="<?php /* @escapeNotVerified */ echo $id; ?>" 
+                                id="<?php /* @escapeNotVerified */ echo $id; ?>"
+                                class="select__field validate-select"
+                        >
+                            <option value="" disabled selected>
+                                <?php /* @escapeNotVerified */  echo __('Please Select a country'); ?>
+                            </option>
+
+                            <?php for ($_i = 1, $_n = $options; $_i < count($_n); $_i++):?>
+                                <option value="<?= $_n[$_i]['value'] ?>">
+                                    <?php /* @escapeNotVerified */ echo __($_n[$_i]['label']) ?>
+                                </option>
+                            <?php endfor; ?>
+                        </select>
+                    </div>
+        <?php
+                    break;
+
+                case 'region':
+                    $options = $this->getRegionCollection()->toOptionArray();
+                    $value = $this->getEntity()->getFieldValue($id);
+        ?>
+                    <div class="select dashboard-form__select required">
+                        <label for="<?php /* @escapeNotVerified */ echo $id; ?>" class="label">
+                            <?php /* @escapeNotVerified */ echo __($data['label']) ?>
+                        </label>
+
+                        <select data-validate="{required:true}" 
+                                name="<?php /* @escapeNotVerified */ echo $id; ?>" 
+                                id="<?php /* @escapeNotVerified */ echo $id; ?>"
+                                class="select__field validate-select"
+                                style="display:none"
+                        >
+                            <option value="" disabled selected>
+                                <?php /* @escapeNotVerified */  echo __('Please Select a region, state or province'); ?>
+                            </option>
+
+                            <?php foreach ($options as $option):?>
+                                <option value="<?= $option['value'] ?>">
+                                    <?php /* @escapeNotVerified */ echo __($option['label']) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+
+                        <input type="text" 
+                            id="<?php /* @escapeNotVerified */ echo $id.'_text'; ?>" 
+                            name="<?php /* @escapeNotVerified */ echo $id.'_text'; ?>" 
+                            value="<?php /* @escapeNotVerified */ echo $value; ?>" 
+                            title="<?php /* @escapeNotVerified */ echo __('State/Province') ?>" 
+                            class="input__field <?php /* @escapeNotVerified */ echo $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('region') ?>"
+                            <?php echo(!$block->getConfig('general/region/display_all')) ? ' disabled="disabled"' : '';?>
+                            style="display:none"
+                        />
+                    </div>
+        <?php
+                    break;
+
+                case 'date':
+                    $date = !($value instanceof \DateTime) ? new \DateTime($value) : $value;
+
+                    $calendar = $this->getLayout()->createBlock(
+                        'Magento\GiftRegistry\Block\Customer\Date'
+                    )->setId(
+                        $id
+                    )->setName(
+                        $name
+                    )->setValue(
+                        $this->formatDate($date)
+                    )->setClass(
+                        ' product-custom-option datetime-picker input__field validate-date'
+                    )->setImage(
+                        $this->getViewFileUrl('Magento_Theme::calendar.png')
+                    );
+        ?>
+                    <div class="input dashboard-form__divider <?php echo($isRequired ? ' required' : ''); ?><?php /* @escapeNotVerified */ echo $field == 'event_date' ? ' date' : ''; ?>">
+        <?php
+                        /* @escapeNotVerified */ echo $calendar->getHtml();
+        ?>
+                    </div>
+        <?php
+                    break;
+
+                case 'select':
+                    $options = [];
+                    if (is_array($data['options'])) {
+                        foreach ($data['options'] as $option) {
+                            $options[] = ['label' => $option['label'], 'value' => $option['code']];
+                        }
+                    }
+        ?>
+                    <div class="select dashboard-form__select required">
+                        <label for="<?php /* @escapeNotVerified */ echo $id; ?>" class="label">
+                            <?php /* @escapeNotVerified */ echo __($data['label']) ?>
+                        </label>
+
+                        <select data-validate="{required:true}" 
+                                name="<?php /* @escapeNotVerified */ echo $id; ?>" 
+                                id="<?php /* @escapeNotVerified */ echo $id; ?>"
+                                class="select__field validate-select"
+                        >
+                            <option value="" disabled selected>
+                                <?php /* @escapeNotVerified */  echo __('Please Select'); ?>
+                            </option>
+
+                            <?php foreach ($options as $num=>$option):?>
+                                <option value="<?= $option['value'] ?>">
+                                    <?php /* @escapeNotVerified */ echo __($option['label']) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+        <?php
+                    break;
+                        
+                case 'number':
+        ?>
+                    <div class="input dashboard-form__divider validate-digits <?php echo($isRequired ? ' required' : ''); ?><?php /* @escapeNotVerified */ echo $field == 'event_date' ? ' date' : ''; ?>">
+                        <label for="<?php /* @escapeNotVerified */ echo $field ?>" class="label">
+                            <?php /* @escapeNotVerified */ echo __($data['label']); ?>
+                        </label>
+        
+                        <input type="number"
+                            class="input__field required-entry"
+                            name="<?php /* @escapeNotVerified */ echo $id; ?>"
+                            id="<?php /* @escapeNotVerified */ echo $id; ?>"
+                        />
+                    </div>
+        <?php
+                    break;
+
+                default:
+        ?>
+                    <div class="input dashboard-form__divider <?php echo($isRequired ? ' required' : ''); ?><?php /* @escapeNotVerified */ echo $field == 'event_date' ? ' date' : ''; ?>">
+                        <label for="<?php /* @escapeNotVerified */ echo $field ?>" class="label">
+                            <?php /* @escapeNotVerified */ echo __($data['label']); ?>
+                        </label>
+        
+                        <input type="text"
+                            class="input__field required-entry"
+                            name="<?php /* @escapeNotVerified */ echo $id; ?>"
+                            id="<?php /* @escapeNotVerified */ echo $id; ?>"
+                        />
+                    </div>
+        <?php
+            endswitch;
+        ?>
     <?php endforeach; ?>
 
     <div class="action">
@@ -101,7 +262,8 @@
                 "formDataPost": {
                     "formData": <?php /* @escapeNotVerified */ echo json_encode($block->getRegistrantPresets($block->getEntity()->getId())); ?>
                 }
-            }
+            },
+            "loadSelect": {}
         }
     }
 </script>
