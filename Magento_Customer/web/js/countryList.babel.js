@@ -1,19 +1,21 @@
 define(['choices'], function(Choices) {
   'use strict'
 
-  const countrySelect = document.getElementById('country'),
-        stateSelect   = document.getElementById('region_id'),
-        stateLabel    = document.querySelector('.label[for="region_id"]');
+  return function(config, element) {
+    const countrySelect   = document.getElementById(config.countrySelect),
+          placeholder     = config.placeholder,
+          regionContainer = document.getElementById(config.regionContainer),
+          regionSelect    = document.getElementById(config.regionSelect),
+          regionText      = document.getElementById(config.regionText);
 
-  countrySelect.addEventListener('change', (event) => { 
-    if (stateSelect.style.display === "none") {
-      stateLabel.nextElementSibling.style.display = "none";
-    }
-    else {
-      stateLabel.nextElementSibling.remove();
-      stateLabel.parentNode.insertBefore(stateSelect,stateLabel.nextElementSibling);
+    countrySelect.addEventListener('change', (event) => { 
+      const numberOfChildrens = regionSelect.childNodes.length;
 
-      const updateStateSelect = new Choices(stateSelect, {
+      regionSelect.style.display = "none";
+      regionContainer.querySelector('.choices').remove();
+      regionContainer.insertBefore(regionSelect, null);
+
+      const updateRegionSelect = new Choices(regionSelect, {
         placeholder  : false,
         searchEnabled: false,
         classNames   : {
@@ -24,7 +26,21 @@ define(['choices'], function(Choices) {
             listSingle    : 'select__field-list--single'
         }
       });
-      updateStateSelect.init();
-    }
-  });
+
+      updateRegionSelect.init();
+      updateRegionSelect.setChoices([
+        {value: '', label: config.placeholder, selected: true, disabled: true}
+      ], 'value', 'label', false, false);
+      regionSelect.innerHTML = "";
+
+      if (numberOfChildrens < 2) {
+        regionContainer.querySelector('.choices').style.display = 'none';
+        regionText.style.display = 'block';
+      }
+      else {
+        regionContainer.querySelector('.choices').style.display = 'block';
+        regionText.style.display = 'none';
+      }
+    });
+  };
 });

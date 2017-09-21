@@ -62,7 +62,19 @@
             </div>
         </div>
 
-        <div class="dashboard-form grid__column grid__column--1-2 dashboard__form" data-mage-init='{"countryList": {}}'>
+        <div class="dashboard-form grid__column grid__column--1-2 dashboard__form" 
+             data-mage-init='
+                {
+                    "countryList": {
+                        "countrySelect"  : "country",
+                        "regionSelect"   : "region_id",
+                        "regionText"     : "region",
+                        "regionContainer": "region_container",
+                        "placeholder"    : "<?php /* @escapeNotVerified */ echo __('Please select a region, state or province.') ?>"
+                    }
+                }
+              '
+        >
             <h5 class="heading heading--fifth-level dashboard-form__title">
                 <?php /* @escapeNotVerified */ echo __('Address') ?>
             </h5>
@@ -132,7 +144,7 @@
                     />
                 </div>
                 
-                <div class="input dashboard__input required">
+                <div id="region_container" class="input dashboard__input required">
                     <label class="label" for="region_id">
                         <?php /* @escapeNotVerified */ echo __('State/Province') ?>
                     </label>
@@ -142,7 +154,6 @@
                             title="<?php /* @escapeNotVerified */ echo __('State/Province') ?>" 
                             class="select__field validate-select"
                             data-mage-init='{"select": {}}'
-                            <?php echo(!$block->getConfig('general/region/display_all')) ? ' disabled="disabled"' : '';?>
                     >
                         <option value="" disabled>
                             <?php /* @escapeNotVerified */ echo __('Please select a region, state or province.') ?>
@@ -155,7 +166,6 @@
                            value="<?php echo $block->escapeHtml($block->getRegion()) ?>" 
                            title="<?php /* @escapeNotVerified */ echo __('State/Province') ?>" 
                            class="input__field <?php /* @escapeNotVerified */ echo $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('region') ?>"
-                           <?php echo(!$block->getConfig('general/region/display_all')) ? ' disabled="disabled"' : '';?>
                     />
                 </div>
 

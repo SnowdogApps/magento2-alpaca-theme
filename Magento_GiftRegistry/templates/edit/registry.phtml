@@ -17,7 +17,7 @@
     </p>
 </div>
 
-<div class="dashboard-form__divider ">
+<div class="dashboard-form__divider " >
     <div class="input dashboard-form__divider required">
         <label for="title" class="label">
             <?php /* @escapeNotVerified */ echo __('Event') ?>
@@ -154,30 +154,12 @@ foreach ($fieldsets as $fieldset => $fields) : ?>
                     break;
 
                 case 'region':
-                    $options = $this->getRegionCollection()->toOptionArray();
                     $value = $this->getEntity()->getFieldValue($id);
         ?>
-                    <div class="select dashboard-form__select required">
-                        <label for="<?php /* @escapeNotVerified */ echo $id; ?>" class="label">
+                    <div class="input dashboard-form__divider required">
+                        <label for="<?php /* @escapeNotVerified */ echo $id.'_text'; ?>" class="label">
                             <?php /* @escapeNotVerified */ echo __($data['label']) ?>
                         </label>
-
-                        <select data-validate="{required:true}" 
-                                name="<?php /* @escapeNotVerified */ echo $id; ?>" 
-                                id="<?php /* @escapeNotVerified */ echo $id; ?>"
-                                class="select__field validate-select"
-                                style="display:none"
-                        >
-                            <option value="" disabled selected>
-                                <?php /* @escapeNotVerified */  echo __('Please Select a region, state or province'); ?>
-                            </option>
-
-                            <?php foreach ($options as $option):?>
-                                <option value="<?= $option['value'] ?>">
-                                    <?php /* @escapeNotVerified */ echo __($option['label']) ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
 
                         <input type="text" 
                                id="<?php /* @escapeNotVerified */ echo $id.'_text'; ?>" 
@@ -186,7 +168,6 @@ foreach ($fieldsets as $fieldset => $fields) : ?>
                                title="<?php /* @escapeNotVerified */ echo __('State/Province') ?>" 
                                class="input__field <?php /* @escapeNotVerified */ echo $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('region') ?>"
                                <?php echo(!$block->getConfig('general/region/display_all')) ? ' disabled="disabled"' : '';?>
-                               style="display:none"
                         />
                     </div>
         <?php
@@ -281,28 +262,5 @@ foreach ($fieldsets as $fieldset => $fields) : ?>
         <?php
             endswitch;
         ?>
-    <?php endforeach; ?>
-
-    <?php foreach ($fields as $field => $data) : ?>
-        <?php if ($block->useRegionUpdater($data)) : ?>
-            <script type="text/x-magento-init">
-            {
-                "#<?php /* @escapeNotVerified */ echo $field ?>": {
-                    "regionUpdater": {
-                        "optionalRegionAllowed": <?php /* @escapeNotVerified */ echo($block->getConfig('general/region/display_all') ? 'true' : 'false'); ?>,
-                        "regionListId": "#<?php /* @escapeNotVerified */ echo $field ?>_region",
-                        "regionInputId": "#<?php /* @escapeNotVerified */ echo $field ?>_region_text",
-                        "isRegionRequired": false,
-                        "isZipRequired": false,
-                        "isCountryRequired": true,
-                        <?php if ($block->getEntity()->getFieldValue($data['id'] . '_region')) : ?>
-                            "currentRegion": <?php /* @escapeNotVerified */ echo $block->getEntity()->getFieldValue($data['id'] . '_region'); ?>,
-                        <?php endif; ?>
-                        "regionJson": <?php /* @escapeNotVerified */ echo $this->helper('Magento\Directory\Helper\Data')->getRegionJson(); ?>         
-                    }
-                }
-            }
-            </script>
-        <?php endif; ?>
     <?php endforeach; ?>
 <?php endforeach; ?>

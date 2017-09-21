@@ -94,7 +94,18 @@
             </div>
         <?php endfor; ?>
 
-    <div class="input dashboard-form__divider address city required">
+    <div class="input dashboard-form__divider address city required" 
+         data-mage-init='
+            {
+                "countryList": { 
+                    "countrySelect"  : "address:country_id", 
+                    "regionSelect"   : "address:region_id",
+                    "regionText"     : "address:region",
+                    "regionContainer": "region_container",
+                    "placeholder"    : "<?php /* @escapeNotVerified */ echo __('Please select a region, state or province.') ?>"
+                }
+            }
+          '>
         <label for="address:city" class="label">
             <?php /* @escapeNotVerified */ echo __('City') ?>
         </label>
@@ -108,8 +119,8 @@
         />
     </div>
 
-    <div class="select dashboard-form__select address region required">
-        <label for="address:region" class="label">
+    <div id="region_container" class="select dashboard-form__select address region required">
+        <label for="address:region_id" class="label">
             <?php /* @escapeNotVerified */ echo __('State/Province') ?>
         </label>
 
@@ -119,7 +130,9 @@
                 class="select__field validate-select"
                 data-mage-init='{"select": {}}'
         >
-            <option value=""><?php /* @escapeNotVerified */ echo __('Please select a region, state or province.') ?></option>
+            <option value="" disabled>
+                <?php /* @escapeNotVerified */ echo __('Please select a region, state or province.') ?>
+            </option>
         </select>
 
         <input type="text" 
@@ -151,11 +164,7 @@
             <?php /* @escapeNotVerified */ echo __('Country') ?>
         </label>
 
-        <?php 
-            $options = $this->getCountryCollection()
-            ->setForegroundCountries($this->getTopDestinations())
-            ->toOptionArray();
-        ?>
+        <?php $countryList = $block->getCountryCollection()->toOptionArray() ?>
 
         <select data-validate="{required:true}" 
                 name="address[country_id]" 
@@ -163,15 +172,21 @@
                 class="select__field validate-select"
                 data-mage-init='{"select": {}}'
         >
-            <option value="" disabled selected>
-                <?php /* @escapeNotVerified */  echo __('Please Select a country'); ?>
+            <option value="" disabled>
+                <?php /* @escapeNotVerified */ echo __('Please select a country.') ?>
             </option>
 
-            <?php for ($_i = 1, $_n = $options; $_i < count($_n); $_i++):?>
-                <option value="<?= $_n[$_i]['value'] ?>">
-                    <?php /* @escapeNotVerified */ echo __($_n[$_i]['label']) ?>
-                </option>
-            <?php endfor; ?>
+            <?php for ($i = 1, $n = count($countryList); $i < $n; $i++): ?>
+                <?php if ($block->getCountryId() === $countryList[$i]['value']): ?>
+                    <option value="<?php /* @escapeNotVerified */ echo $countryList[$i]['value'] ?>" selected>
+                        <?= $countryList[$i]['label']; ?>
+                    </option>
+                <?php else: ?>
+                    <option value="<?php /* @escapeNotVerified */ echo $countryList[$i]['value'] ?>">
+                        <?= $countryList[$i]['label']; ?>
+                    </option>
+                <?php endif ?>
+            <?php endfor ?>
         </select>
     </div>
 
@@ -206,14 +221,19 @@
 
 <script type="text/x-magento-init">
     {
+        "#form-validate": {
+            "validation": {}
+        },
         "#address\\:country_id": {
             "regionUpdater": {
                 "optionalRegionAllowed": <?php /* @escapeNotVerified */ echo($block->getConfig('general/region/display_all') ? 'true' : 'false'); ?>,
                 "regionListId": "#address\\:region_id",
                 "regionInputId": "#address\\:region",
                 "postcodeId": "#address\\:postcode",
+                "form": "#form-validate",
                 "regionJson": <?php /* @escapeNotVerified */ echo $this->helper('Magento\Directory\Helper\Data')->getRegionJson(); ?>,
-                "defaultRegion": "<?php /* @escapeNotVerified */ echo $block->getAddress()->getRegionId() ?>"    
+                "defaultRegion": "<?php /* @escapeNotVerified */ echo $block->getAddress()->getRegionId() ?>",
+                "countriesWithOptionalZip": <?php /* @escapeNotVerified */ echo $this->helper('Magento\Directory\Helper\Data')->getCountriesWithOptionalZip(true) ?>   
             }
         }
     }
