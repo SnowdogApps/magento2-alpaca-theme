@@ -53,27 +53,7 @@
             <?php /* @escapeNotVerified */ echo __('Privacy Settings') ?>
         </label>
 
-        <select data-validate="{required:true}" 
-                name="type_id" 
-                id="type_id"
-                class="select__field validate-select"
-        >
-            <option value="" selected disabled>
-                <?php /* @escapeNotVerified */ echo __('Please select.') ?>
-            </option>
-
-            <?php
-              /**
-                * Let's create module from that 
-                * Greetings to backend dev
-                */
-            ?>
-            <?php foreach ($block->getEntity()->getOptionsIsPublic() as $num=>$type):?>
-                <option value="<?= $num; ?>">
-                    <?php /* @escapeNotVerified */ echo $type->getText() ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
+        <?php echo $block->getIsPublicHtml()?>
     </div>
 
     <div class="select dashboard-form__select required">
@@ -86,12 +66,6 @@
                 id="status"
                 class="select__field validate-select"
         >
-            <?php
-              /**
-                * Let's create module from that 
-                * Greetings to backend dev
-                */
-            ?>
             <?php foreach ($block->getEntity()->getOptionsStatus() as $num=>$type):?>
                 <option value="<?= $num; ?>">
                     <?php /* @escapeNotVerified */ echo $type->getText() ?>
@@ -113,11 +87,6 @@ foreach ($fieldsets as $fieldset => $fields) : ?>
         <?php $isRequired = $block->isAttributeRequired($data); ?>
 
         <?php 
-            /**
-             * Let's create module from that 
-             * Greetings to backend dev
-             */
-
             $type = $data['type'];
             $name = $data['name'];
             $id   = $data['id'];
@@ -174,25 +143,11 @@ foreach ($fieldsets as $fieldset => $fields) : ?>
                     break;
 
                 case 'date':
-                    $date = !($value instanceof \DateTime) ? new \DateTime($value) : $value;
-
-                    $calendar = $this->getLayout()->createBlock(
-                        'Magento\GiftRegistry\Block\Customer\Date'
-                    )->setId(
-                        $id
-                    )->setName(
-                        $name
-                    )->setValue(
-                        $this->formatDate($date)
-                    )->setClass(
-                        ' product-custom-option datetime-picker input__field validate-date'
-                    )->setImage(
-                        $this->getViewFileUrl('Magento_Theme::calendar.png')
-                    );
+                    $formatType = \IntlDateFormatter::SHORT;
         ?>
                     <div class="input dashboard-form__divider <?php echo($isRequired ? ' required' : ''); ?><?php /* @escapeNotVerified */ echo $field == 'event_date' ? ' date' : ''; ?>">
         <?php
-                        /* @escapeNotVerified */ echo $calendar->getHtml();
+                        /* @escapeNotVerified */ echo $block->getCalendarDateHtml($name, $id, $value, $formatType, 'input__field');
         ?>
                     </div>
         <?php
@@ -211,21 +166,7 @@ foreach ($fieldsets as $fieldset => $fields) : ?>
                             <?php /* @escapeNotVerified */ echo __($data['label']) ?>
                         </label>
 
-                        <select data-validate="{required:true}" 
-                                name="<?php /* @escapeNotVerified */ echo $id; ?>" 
-                                id="<?php /* @escapeNotVerified */ echo $id; ?>"
-                                class="select__field validate-select"
-                        >
-                            <option value="" disabled selected>
-                                <?php /* @escapeNotVerified */  echo __('Please Select'); ?>
-                            </option>
-
-                            <?php foreach ($options as $num=>$option):?>
-                                <option value="<?= $option['value'] ?>">
-                                    <?php /* @escapeNotVerified */ echo __($option['label']) ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
+                        <?php /* @escapeNotVerified */ echo $this->getSelectHtml($options, $name, $id, $value, 'select__field'); ?>
                     </div>
         <?php
                     break;

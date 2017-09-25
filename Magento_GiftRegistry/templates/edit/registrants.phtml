@@ -49,11 +49,6 @@
         <?php $isStatic = $block->isAttributeStatic($field); ?>
 
         <?php 
-            /**
-            * Let's create module from that 
-            * Greetings to backend dev
-            */
-
             $type = $data['type'];
             $name = $data['name'];
             $id   = $data['id'];
@@ -129,25 +124,11 @@
                     break;
 
                 case 'date':
-                    $date = !($value instanceof \DateTime) ? new \DateTime($value) : $value;
-
-                    $calendar = $this->getLayout()->createBlock(
-                        'Magento\GiftRegistry\Block\Customer\Date'
-                    )->setId(
-                        $id
-                    )->setName(
-                        $name
-                    )->setValue(
-                        $this->formatDate($date)
-                    )->setClass(
-                        ' product-custom-option datetime-picker input__field validate-date'
-                    )->setImage(
-                        $this->getViewFileUrl('Magento_Theme::calendar.png')
-                    );
+                    $formatType = \IntlDateFormatter::SHORT;
         ?>
                     <div class="input dashboard-form__divider <?php echo($isRequired ? ' required' : ''); ?><?php /* @escapeNotVerified */ echo $field == 'event_date' ? ' date' : ''; ?>">
         <?php
-                        /* @escapeNotVerified */ echo $calendar->getHtml();
+                        /* @escapeNotVerified */ echo $block->getCalendarDateHtml($name, $id, $formatType, $date, 'input__field');
         ?>
                     </div>
         <?php
