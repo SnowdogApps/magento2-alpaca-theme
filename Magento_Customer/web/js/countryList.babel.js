@@ -28,9 +28,12 @@ define(['choices'], function(Choices) {
       });
 
       updateRegionSelect.init();
-      updateRegionSelect.setChoices([
-        {value: '', label: config.placeholder, selected: true, disabled: true}
-      ], 'value', 'label', false, false);
+      updateRegionSelect.setChoices([{
+        value: '',
+        label: config.placeholder,
+        selected: true,
+        disabled: true
+      }], 'value', 'label', false, false);
       regionSelect.innerHTML = "";
 
       if (numberOfChildrens < 2) {
