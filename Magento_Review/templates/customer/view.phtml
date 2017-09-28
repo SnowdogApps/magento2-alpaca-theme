@@ -3,60 +3,67 @@
 ?>
 <?php if ($product->getId()): ?>
     <h2 class="heading heading--fourth-level dashboard__title">
-        <?php /* @escapeNotVerified */ echo __('Review Details') ?>
+        <?= /* @escapeNotVerified */  __('Review Details') ?>
     </h2>
 
     <div class="product dashboard__product">
-        <a class="product__link" href="<?php /* @escapeNotVerified */ echo $product->getProductUrl() ?>">
+        <a class="product__link" href="<?= /* @escapeNotVerified */ $product->getProductUrl() ?>">
             <div class="product__img-box">
                 <?php /* customer_account_product_review_page */ ?>
-                <?php echo $block->getImage($block->getProductData(), 'customer_account_product_review_page')->toHtml() ?>
+                <?= /* @escapeNotVerified */ 
+                    $block->getImage($block->getProductData(), 'customer_account_product_review_page')
+                          ->toHtml() 
+                ?>
             </div>
         </a>
 
         <h2 class="product__name dashboard__item">
-            <?php echo $block->escapeHtml($product->getName()) ?>
+            <?= /* @escapeNotVerified */ $block->escapeHtml($product->getName()) ?>
         </h2>
 
         <?php if ($block->getRating() && $block->getRating()->getSize()): ?>
-            <?php echo $block->getReviewsSummaryHtml($product) ?>
+            <?= /* @escapeNotVerified */ $block->getReviewsSummaryHtml($product) ?>
         <?php endif; ?>
 
         <h3 class="heading heading--fifth-level dashboard__title">
-            <?php /* @escapeNotVerified */ echo __('Your Review'); ?>
+            <?= /* @escapeNotVerified */ __('Your Review'); ?>
         </h3>
 
         <div class="review dashboard__item">
             <?php if ($block->getRating() && $block->getRating()->getSize()): ?>
-                    <?php foreach ($block->getRating() as $_rating): ?>
-                        <?php if ($_rating->getPercent()): ?>
-                            <?php $rating = ceil($_rating->getPercent()) ?>
+                <?php foreach ($block->getRating() as $_rating): ?>
+                    <?php if ($_rating->getPercent()): ?>
+                        <?php $rating = ceil($_rating->getPercent()) ?>
 
-                            <div class="review__divider">
-                                <span class="review__description">
-                                    <?php echo $block->escapeHtml($_rating->getRatingCode()).':' ?>
-                                </span>
+                        <div class="review__divider">
+                            <span class="review__description">
+                                <?= /* @escapeNotVerified */ $block->escapeHtml($_rating->getRatingCode()).':' ?>
+                            </span>
 
-                                <div class="rating__summary " title="<?php /* @escapeNotVerified */ echo $rating; ?>%">
-                                    <span class="rating__fill" style="width:<?php /* @escapeNotVerified */ echo $rating; ?>%">
-                                        <span><?php /* @escapeNotVerified */ echo $rating; ?>%</span>
+                            <div class="rating__summary " title="<?= /* @escapeNotVerified */  $rating; ?>%">
+                                <span class="rating__fill" style="width:<?= /* @escapeNotVerified */  $rating; ?>%">
+                                    <span>
+                                        <?= /* @escapeNotVerified */ $rating; ?>%
                                     </span>
-                                </div>
+                                </span>
                             </div>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
+                        </div>
+                    <?php endif; ?>
+                <?php endforeach; ?>
             <?php endif; ?>
 
             <h3 class="heading heading--fourth-level review__title">
-                <?php echo $block->escapeHtml($block->getReviewData()->getTitle()) ?>
+                <?= /* @escapeNotVerified */ $block->escapeHtml($block->getReviewData()->getTitle()) ?>
             </h3>
 
             <div class="review__divider">
-                <?php echo nl2br($block->escapeHtml($block->getReviewData()->getDetail())) ?>
+                <?= /* @escapeNotVerified */ nl2br($block->escapeHtml($block->getReviewData()->getDetail())) ?>
             </div>
 
             <div class="review__divider review__date">
-                <?php /* @escapeNotVerified */ echo __('Submitted on %1', '<time class="date">' . $block->dateFormat($block->getReviewData()->getCreatedAt()) . '</time>') ?>
+                <?= /* @escapeNotVerified */  
+                    __('Submitted on %1', '<time class="date">' . $block->dateFormat($block->getReviewData()->getCreatedAt()) . '</time>') 
+                ?>
             </div>
         </div>
     </div>
@@ -64,9 +71,9 @@
     <div class="action">
         <div class="action__handler">
             <a class="link action__link back" 
-               href="<?php /* @escapeNotVerified */ echo $block->getBackUrl() ?>"
+               href="<?= /* @escapeNotVerified */ $block->getBackUrl() ?>"
             >
-                <?php /* @escapeNotVerified */ echo __('Back to My Reviews') ?>
+                <?= /* @escapeNotVerified */  __('Back to My Reviews') ?>
             </a>
         </div>
     </div>

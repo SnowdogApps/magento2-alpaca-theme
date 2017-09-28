@@ -3,7 +3,7 @@
 
     <div class="input dashboard-form__divider required">
         <label for="registrant:firstname<%- data._index_ %>" class="label">
-            <?php /* @escapeNotVerified */ echo __('First Name') ?>
+            <?= /* @escapeNotVerified */ __('First Name') ?>
         </label>
 
         <input name="registrant[<%- data._index_ %>][firstname]" 
@@ -17,7 +17,7 @@
 
     <div class="input dashboard-form__divider required">
         <label for="registrant:lastname<%- data._index_ %>" class="label">
-            <?php /* @escapeNotVerified */ echo __('Last Name') ?>
+            <?= /* @escapeNotVerified */ __('Last Name') ?>
         </label>
 
         <input name="registrant[<%- data._index_ %>][lastname]" 
@@ -31,12 +31,12 @@
 
     <div class="input dashboard-form__divider required">
         <label for="registrant:email<%- data._index_ %>" class="label">
-            <?php /* @escapeNotVerified */ echo __('Email') ?>
+            <?= /* @escapeNotVerified */ __('Email') ?>
         </label>
 
         <input name="registrant[<%- data._index_ %>][email]" 
                value="" 
-               title="<?php /* @escapeNotVerified */ echo __('Email') ?>" 
+               title="<?= /* @escapeNotVerified */ __('Email') ?>" 
                id="registrant:email<%- data._index_ %>" 
                type="email" 
                class="input__field" 
@@ -57,17 +57,17 @@
             switch ($type) :
                 case 'country':
                     $options = $this->getCountryCollection()
-                    ->setForegroundCountries($this->getTopDestinations())
-                    ->toOptionArray();
+                                    ->setForegroundCountries($this->getTopDestinations())
+                                    ->toOptionArray();
         ?>
                     <div class="select dashboard-form__select required">
-                        <label for="<?php /* @escapeNotVerified */ echo $id; ?>" class="label">
-                            <?php /* @escapeNotVerified */ echo __($data['label']) ?>
+                        <label for="<?= /* @escapeNotVerified */ $id; ?>" class="label">
+                            <?= /* @escapeNotVerified */ __($data['label']) ?>
                         </label>
 
                         <select data-validate="{required:true}" 
-                                name="<?php /* @escapeNotVerified */ echo $id; ?>" 
-                                id="<?php /* @escapeNotVerified */ echo $id; ?>"
+                                name="<?= /* @escapeNotVerified */ $id; ?>" 
+                                id="<?= /* @escapeNotVerified */ $id; ?>"
                                 class="select__field validate-select"
                         >
                             <option value="" disabled selected>
@@ -76,7 +76,7 @@
 
                             <?php for ($_i = 1, $_n = $options; $_i < count($_n); $_i++):?>
                                 <option value="<?= $_n[$_i]['value'] ?>">
-                                    <?php /* @escapeNotVerified */ echo __($_n[$_i]['label']) ?>
+                                    <?= /* @escapeNotVerified */ __($_n[$_i]['label']) ?>
                                 </option>
                             <?php endfor; ?>
                         </select>
@@ -89,13 +89,13 @@
                     $value = $this->getEntity()->getFieldValue($id);
         ?>
                     <div class="select dashboard-form__select required">
-                        <label for="<?php /* @escapeNotVerified */ echo $id; ?>" class="label">
-                            <?php /* @escapeNotVerified */ echo __($data['label']) ?>
+                        <label for="<?= /* @escapeNotVerified */ $id; ?>" class="label">
+                            <?= /* @escapeNotVerified */ __($data['label']) ?>
                         </label>
 
                         <select data-validate="{required:true}" 
-                                name="<?php /* @escapeNotVerified */ echo $id; ?>" 
-                                id="<?php /* @escapeNotVerified */ echo $id; ?>"
+                                name="<?= /* @escapeNotVerified */ $id; ?>" 
+                                id="<?= /* @escapeNotVerified */ $id; ?>"
                                 class="select__field validate-select"
                                 style="display:none"
                         >
@@ -105,17 +105,17 @@
 
                             <?php foreach ($options as $option):?>
                                 <option value="<?= $option['value'] ?>">
-                                    <?php /* @escapeNotVerified */ echo __($option['label']) ?>
+                                    <?= /* @escapeNotVerified */ __($option['label']) ?>
                                 </option>
                             <?php endforeach; ?>
                         </select>
 
                         <input type="text" 
-                               id="<?php /* @escapeNotVerified */ echo $id.'_text'; ?>" 
-                               name="<?php /* @escapeNotVerified */ echo $id.'_text'; ?>" 
-                               value="<?php /* @escapeNotVerified */ echo $value; ?>" 
-                               title="<?php /* @escapeNotVerified */ echo __('State/Province') ?>" 
-                               class="input__field <?php /* @escapeNotVerified */ echo $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('region') ?>"
+                               id="<?= /* @escapeNotVerified */ $id.'_text'; ?>" 
+                               name="<?= /* @escapeNotVerified */ $id.'_text'; ?>" 
+                               value="<?= /* @escapeNotVerified */ $value; ?>" 
+                               title="<?= /* @escapeNotVerified */ __('State/Province') ?>" 
+                               class="input__field <?= /* @escapeNotVerified */ $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('region') ?>"
                                <?php echo(!$block->getConfig('general/region/display_all')) ? ' disabled="disabled"' : '';?>
                                style="display:none"
                         />
@@ -126,7 +126,7 @@
                 case 'date':
                     $formatType = \IntlDateFormatter::SHORT;
         ?>
-                    <div class="input dashboard-form__divider <?php echo($isRequired ? ' required' : ''); ?><?php /* @escapeNotVerified */ echo $field == 'event_date' ? ' date' : ''; ?>">
+                    <div class="input dashboard-form__divider <?php echo($isRequired ? ' required' : ''); ?><?= /* @escapeNotVerified */ $field == 'event_date' ? ' date' : ''; ?>">
         <?php
                         /* @escapeNotVerified */ echo $block->getCalendarDateHtml($name, $id, $formatType, $date, 'input__field');
         ?>
@@ -143,13 +143,13 @@
                     }
         ?>
                     <div class="select dashboard-form__select required">
-                        <label for="<?php /* @escapeNotVerified */ echo $id; ?>" class="label">
-                            <?php /* @escapeNotVerified */ echo __($data['label']) ?>
+                        <label for="<?= /* @escapeNotVerified */ $id; ?>" class="label">
+                            <?= /* @escapeNotVerified */ __($data['label']) ?>
                         </label>
 
                         <select data-validate="{required:true}" 
-                                name="<?php /* @escapeNotVerified */ echo $id; ?>" 
-                                id="<?php /* @escapeNotVerified */ echo $id; ?>"
+                                name="<?= /* @escapeNotVerified */ $id; ?>" 
+                                id="<?= /* @escapeNotVerified */ $id; ?>"
                                 class="select__field validate-select"
                         >
                             <option value="" disabled selected>
@@ -158,7 +158,7 @@
 
                             <?php foreach ($options as $num=>$option):?>
                                 <option value="<?= $option['value'] ?>">
-                                    <?php /* @escapeNotVerified */ echo __($option['label']) ?>
+                                    <?= /* @escapeNotVerified */ __($option['label']) ?>
                                 </option>
                             <?php endforeach; ?>
                         </select>
@@ -168,15 +168,15 @@
                         
                 case 'number':
         ?>
-                    <div class="input dashboard-form__divider validate-digits <?php echo($isRequired ? ' required' : ''); ?><?php /* @escapeNotVerified */ echo $field == 'event_date' ? ' date' : ''; ?>">
-                        <label for="<?php /* @escapeNotVerified */ echo $field ?>" class="label">
-                            <?php /* @escapeNotVerified */ echo __($data['label']); ?>
+                    <div class="input dashboard-form__divider validate-digits <?php echo($isRequired ? ' required' : ''); ?><?= /* @escapeNotVerified */ $field == 'event_date' ? ' date' : ''; ?>">
+                        <label for="<?= /* @escapeNotVerified */ $field ?>" class="label">
+                            <?= /* @escapeNotVerified */ __($data['label']); ?>
                         </label>
         
                         <input type="number"
                                class="input__field required-entry"
-                               name="<?php /* @escapeNotVerified */ echo $id; ?>"
-                               id="<?php /* @escapeNotVerified */ echo $id; ?>"
+                               name="<?= /* @escapeNotVerified */ $id; ?>"
+                               id="<?= /* @escapeNotVerified */ $id; ?>"
                         />
                     </div>
         <?php
@@ -184,15 +184,15 @@
 
                 default:
         ?>
-                    <div class="input dashboard-form__divider <?php echo($isRequired ? ' required' : ''); ?><?php /* @escapeNotVerified */ echo $field == 'event_date' ? ' date' : ''; ?>">
-                        <label for="<?php /* @escapeNotVerified */ echo $field ?>" class="label">
-                            <?php /* @escapeNotVerified */ echo __($data['label']); ?>
+                    <div class="input dashboard-form__divider <?php echo($isRequired ? ' required' : ''); ?><?= /* @escapeNotVerified */ $field == 'event_date' ? ' date' : ''; ?>">
+                        <label for="<?= /* @escapeNotVerified */ $field ?>" class="label">
+                            <?= /* @escapeNotVerified */ __($data['label']); ?>
                         </label>
         
                         <input type="text"
                                class="input__field required-entry"
-                               name="<?php /* @escapeNotVerified */ echo $id; ?>"
-                               id="<?php /* @escapeNotVerified */ echo $id; ?>"
+                               name="<?= /* @escapeNotVerified */ $id; ?>"
+                               id="<?= /* @escapeNotVerified */ $id; ?>"
                         />
                     </div>
         <?php
@@ -203,21 +203,21 @@
     <div class="action">
         <div class="action__handler">
             <button type="button" class="button action__button remove" id="btn-remove<%- data._index_ %>">
-                <?php /* @escapeNotVerified */ echo __('Remove') ?>
+                <?= /* @escapeNotVerified */ __('Remove') ?>
             </button>
         </div>
     </div>
 </script>
 
 <h5 class="heading heading--fifth-level dashboard-form__title">
-    <?php /* @escapeNotVerified */ echo __('Registrant Information') ?>
+    <?= /* @escapeNotVerified */ __('Registrant Information') ?>
 </h5>
 
 <div id="registrant-container"></div>
 
 <?php if ($block->getMaxRegistrant()): ?>
     <div id="max-registrant-message" style="display:none;" class="message notice limit" role="alert">
-        <?php /* @escapeNotVerified */ echo __('Maximum %1 registrants.', $block->getMaxRegistrant()) ?>
+        <?= /* @escapeNotVerified */ __('Maximum %1 registrants.', $block->getMaxRegistrant()) ?>
     </div>
 <?php endif; ?>
 
@@ -225,7 +225,7 @@
     <div class="action__handler">
         <?php if ($block->getMaxRegistrant() > 1): ?>
             <button type="button" id="add-registrant-button" class="button action__button add">
-                <?php /* @escapeNotVerified */ echo __('Add Registrant') ?>
+                <?= /* @escapeNotVerified */ __('Add Registrant') ?>
             </button>
         <?php endif; ?>
     </div>
@@ -239,9 +239,9 @@
                 "remEventSelector": "button",
                 "btnRemoveSelector": ".action__button.remove",
                 "additionalRowClass": "additional",
-                "maxRows": "<?php /* @escapeNotVerified */ echo $block->getMaxRegistrant() ?>",
+                "maxRows": "<?= /* @escapeNotVerified */ $block->getMaxRegistrant() ?>",
                 "formDataPost": {
-                    "formData": <?php /* @escapeNotVerified */ echo json_encode($block->getRegistrantPresets($block->getEntity()->getId())); ?>
+                    "formData": <?= /* @escapeNotVerified */ json_encode($block->getRegistrantPresets($block->getEntity()->getId())); ?>
                 }
             },
             "loadSelect": {}

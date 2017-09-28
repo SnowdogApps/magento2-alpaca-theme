@@ -1,55 +1,62 @@
 <?php if ($block->canShow() && $block->getEvents() && count($block->getEvents())): ?>
-    <div class="dashboard-table ">
-        <div class="dashboard-table__header">
-            <h5 class="heading heading--fifth-level dashboard-table__title">
-                <?php /* @escapeNotVerified */ echo __('Balance History'); ?>
-            </h5>
-        </div>
+<div class="dashboard-table ">
+    <div class="dashboard-table__header">
+        <h5 class="heading heading--fifth-level dashboard-table__title">
+            <?= /* @escapeNotVerified */ __('Balance History'); ?>
+        </h5>
+    </div>
 
-        <div class="dashboard-table__content">
-            <table id="customerbalance-history" class="table dashboard-table__table">
-                <thead>
+    <div class="dashboard-table__content">
+        <table id="customerbalance-history" class="table dashboard-table__table">
+            <thead>
+                <tr>
+                    <th scope="col" class="col actions">
+                        <?= /* @escapeNotVerified */ __('Action'); ?>
+                    </th>
+
+                    <th scope="col" class="col change">
+                        <?= /* @escapeNotVerified */ __('Balance Change'); ?>
+                    </th>
+
+                    <th scope="col" class="col balance">
+                        <?= /* @escapeNotVerified */ __('Balance'); ?>
+                    </th>
+
+                    <th scope="col" class="col date">
+                        <?= /* @escapeNotVerified */ __('Date'); ?>
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <?php foreach ($block->getEvents() as $event): ?>
+                    <?php 
+                        $getBalanceDelta  = $this->helper('Magento\Framework\Pricing\Helper\Data')
+                                                 ->currency($event->getBalanceDelta());
+                        $getBalanceAmount = $this->helper('Magento\Framework\Pricing\Helper\Data')
+                                                 ->currency($event->getBalanceAmount());
+                        $getFormDate      = $block->formatDate($event->getUpdatedAt(), \IntlDateFormatter::SHORT, true);
+                    ?>
+                    
                     <tr>
-                        <th scope="col" class="col actions">
-                            <?php /* @escapeNotVerified */ echo __('Action'); ?>
-                        </th>
+                        <td data-th="<?php echo $block->escapeHtml(__('Action')); ?>" class="col actions">
+                            <?= /* @escapeNotVerified */ $block->getActionLabel($event->getAction()); ?>
+                        </td>
 
-                        <th scope="col" class="col change">
-                            <?php /* @escapeNotVerified */ echo __('Balance Change'); ?>
-                        </th>
+                        <td data-th="<?php echo $block->escapeHtml(__('Balance Change')); ?>" class="col change">
+                            <?= /* @escapeNotVerified */ $getBalanceDelta ?>
+                        </td>
 
-                        <th scope="col" class="col balance">
-                            <?php /* @escapeNotVerified */ echo __('Balance'); ?>
-                        </th>
+                        <td data-th="<?php echo $block->escapeHtml(__('Balance')); ?>" class="col balance">
+                            <?= /* @escapeNotVerified */ $getBalanceAmount ?>
+                        </td>
 
-                        <th scope="col" class="col date">
-                            <?php /* @escapeNotVerified */ echo __('Date'); ?>
-                        </th>
+                        <td data-th="<?php echo $block->escapeHtml(__('Date')); ?>" class="col date">
+                            <?= /* @escapeNotVerified */ $getFormDate ?>
+                        </td>
                     </tr>
-                </thead>
-
-                <tbody>
-                    <?php foreach ($block->getEvents() as $event): ?>
-                        <tr>
-                            <td data-th="<?php echo $block->escapeHtml(__('Action')); ?>" class="col actions">
-                                <?php /* @escapeNotVerified */ echo $block->getActionLabel($event->getAction()); ?>
-                            </td>
-
-                            <td data-th="<?php echo $block->escapeHtml(__('Balance Change')); ?>" class="col change">
-                                <?php /* @escapeNotVerified */ echo $this->helper('Magento\Framework\Pricing\Helper\Data')->currency($event->getBalanceDelta()); ?>
-                            </td>
-
-                            <td data-th="<?php echo $block->escapeHtml(__('Balance')); ?>" class="col balance">
-                                <?php /* @escapeNotVerified */ echo $this->helper('Magento\Framework\Pricing\Helper\Data')->currency($event->getBalanceAmount()); ?>
-                            </td>
-
-                            <td data-th="<?php echo $block->escapeHtml(__('Date')); ?>" class="col date">
-                                <?php /* @escapeNotVerified */ echo $block->formatDate($event->getUpdatedAt(), \IntlDateFormatter::SHORT, true); ?>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        </div>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
     </div>
 <?php endif; ?>

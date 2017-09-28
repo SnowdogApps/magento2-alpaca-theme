@@ -1,44 +1,46 @@
 <?php if ($this->helper('Magento\Wishlist\Helper\Data')->isAllow()) : ?>
-    <?php echo($block->getChildHtml('wishlist.rss.link'));?>
+    <?= /* @escapeNotVerified */ ($block->getChildHtml('wishlist.rss.link')); ?>
+
+    <?php 
+        $getFormAction = $block->getUrl('wishlist/index/update', ['wishlist_id' => $block->getWishlistInstance()->getId()]);
+    ?>
 
     <form class="form-wishlist-items" id="wishlist-view-form"
-          data-mage-init='
-            {
-                "wishlist":{
-                    "addToCartUrl":<?php /* @escapeNotVerified */ echo $block->getItemAddToCartParams("%item%");?>,
-                    "addAllToCartUrl":<?php /* @escapeNotVerified */ echo $block->getAddAllToCartParams(); ?>,
-                    "commentString":""
-                },
-                "validation": {}
-            }
-          ' 
-          action="<?php /* @escapeNotVerified */ echo $block->getUrl('wishlist/index/update', ['wishlist_id' => $block->getWishlistInstance()->getId()]) ?>" 
+          data-mage-init='{
+            "wishlist":{
+                "addToCartUrl":<?= /* @escapeNotVerified */ $block->getItemAddToCartParams("%item%");?>,
+                "addAllToCartUrl":<?= /* @escapeNotVerified */ $block->getAddAllToCartParams(); ?>,
+                "commentString":""
+            },
+            "validation": {}
+          }' 
+          action="<?= /* @escapeNotVerified */ $getFormAction; ?>" 
           method="post"
     >
-        <?php echo $block->getChildHtml('top'); ?>
+        <?= /* @escapeNotVerified */ $block->getChildHtml('top'); ?>
 
         <?php if ($block->hasWishlistItems()): ?>
-            <?php echo $block->getBlockHtml('formkey');?>
+            <?= /* @escapeNotVerified */ $block->getBlockHtml('formkey'); ?>
 
             <?php $block->getChildBlock('items')->setItems($block->getWishlistItems()); ?>
 
-            <?php echo $block->getChildHtml('items');?>
+            <?= /* @escapeNotVerified */ $block->getChildHtml('items'); ?>
         <?php else: ?>
             <div class="message info empty">
-                <?php /* @escapeNotVerified */ echo __('You have no items in your wish list.') ?>
+                <?= /* @escapeNotVerified */ __('You have no items in your wish list.') ?>
             </div>
         <?php endif ?>
 
-        <?php echo $block->getChildHtml('bottom'); ?>
+        <?= /* @escapeNotVerified */ $block->getChildHtml('bottom'); ?>
 
         <div class="action">
             <div class="action__handler">
-                <?php echo $block->getChildHtml('control_buttons');?>
+                <?= /* @escapeNotVerified */ $block->getChildHtml('control_buttons'); ?>
             </div>
 
             <div class="action__handler">
-                <a href="<?php echo $block->escapeUrl($block->getBackUrl()) ?>" class="link action__link back">
-                    <?php /* @escapeNotVerified */ echo __('Back') ?>
+                <a href="<?= /* @escapeNotVerified */ $block->escapeUrl($block->getBackUrl()) ?>" class="link action__link back">
+                    <?= /* @escapeNotVerified */ __('Back') ?>
                 </a>
             </div>
         </div>
@@ -47,16 +49,16 @@
     <script id="form-tmpl" type="text/x-magento-template">
         <form id="wishlist-hidden-form" method="post" action="<%- data.url %>" class="no-display">
             <% if (data.qty) { %>
-            <input name="qty" value="<%- data.qty %>">
+                <input name="qty" value="<%- data.qty %>">
             <% } %>
             
             <% if (data.item) { %>
-            <input name="item" value="<%- data.item %>">
+                <input name="item" value="<%- data.item %>">
             <% } %>
             
             <% if (data.entity) { %>
-            <input name="entity" value="<%- data.entity %>">
+                <input name="entity" value="<%- data.entity %>">
             <% } %>
         </form>
     </script>
-<?php endif ?>
+<?php endif; ?>

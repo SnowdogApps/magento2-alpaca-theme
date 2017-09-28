@@ -1,32 +1,34 @@
 <?php $_item = $block->getItem() ?>
 
-<tr id="order-item-row-<?php /* @escapeNotVerified */ echo $_item->getId() ?>">
-    <td class="name" data-th="<?php echo $block->escapeHtml(__('Product Name')); ?>">
+<tr id="order-item-row-<?= /* @escapeNotVerified */ $_item->getId() ?>">
+    <td class="name" data-th="<?= /* @escapeNotVerified */ $block->escapeHtml(__('Product Name')); ?>">
         <strong>
-            <?php echo $block->escapeHtml($_item->getName()) ?>
+            <?= /* @escapeNotVerified */ $block->escapeHtml($_item->getName()) ?>
         </strong>
 
         <?php if ($_options = $block->getItemOptions()): ?>
             <ul class="list">
                 <?php foreach ($_options as $_option) : ?>
                     <li class="list__item">
-                        <?php echo $block->escapeHtml($_option['label']).': ' ?>
+                        <?= /* @escapeNotVerified */ $block->escapeHtml($_option['label']).': ' ?>
 
                         <?php if (!$block->getPrintStatus()): ?>
                             <?php $_formatedOptionValue = $block->getFormatedOptionValue($_option) ?>
 
-                            <?php /* @escapeNotVerified */ echo $_formatedOptionValue['value'].': ' ?>
+                            <?= /* @escapeNotVerified */ $_formatedOptionValue['value'].': ' ?>
 
                             <?php if (isset($_formatedOptionValue['full_view'])): ?>
                                 <strong>
-                                    <?php echo $block->escapeHtml($_option['label']).' ' ?>
+                                    <?= /* @escapeNotVerified */ $block->escapeHtml($_option['label']).' ' ?>
 
-                                    <?php /* @escapeNotVerified */ echo $_formatedOptionValue['full_view'] ?>
+                                    <?= /* @escapeNotVerified */ $_formatedOptionValue['full_view'] ?>
                                 </strong>
                             <?php endif; ?>
                         <?php else: ?>
                             <strong>
-                                <?php echo nl2br($block->escapeHtml((isset($_option['print_value']) ? $_option['print_value'] : $_option['value']))) ?>
+                                <?= /* @escapeNotVerified */ 
+                                    nl2br($block->escapeHtml((isset($_option['print_value']) ? $_option['print_value'] : $_option['value']))) 
+                                ?>
                             </strong>
                         <?php endif; ?>
                     </li>
@@ -37,13 +39,13 @@
         <?php /* downloadable */ ?>
         <?php if ($links = $block->getLinks()): ?>
             <strong>
-                <?php /* @escapeNotVerified */ echo $block->getLinksTitle() ?>
+                <?= /* @escapeNotVerified */ $block->getLinksTitle() ?>
             </strong>
 
             <ul class="list">
                 <?php foreach ($links->getPurchasedItems() as $link): ?>
                     <li class="list__item">
-                        <?php echo $block->escapeHtml($link->getLinkTitle()); ?>
+                        <?= /* @escapeNotVerified */ $block->escapeHtml($link->getLinkTitle()); ?>
                     </li>
                 <?php endforeach; ?>
             </ul>
@@ -53,57 +55,57 @@
         <?php $addtInfoBlock = $block->getProductAdditionalInformationBlock(); ?>
 
         <?php if ($addtInfoBlock) :?>
-            <?php echo $addtInfoBlock->setItem($_item)->toHtml(); ?>
+            <?= /* @escapeNotVerified */ $addtInfoBlock->setItem($_item)->toHtml(); ?>
         <?php endif; ?>
 
-        <?php echo $block->escapeHtml($_item->getDescription()) ?>
+        <?= /* @escapeNotVerified */ $block->escapeHtml($_item->getDescription()) ?>
     </td>
 
-    <td class="sku" data-th="<?php echo $block->escapeHtml(__('SKU')); ?>">
-        <?php /* @escapeNotVerified */ echo $block->prepareSku($block->getSku()) ?>
+    <td class="sku" data-th="<?= /* @escapeNotVerified */ $block->escapeHtml(__('SKU')); ?>">
+        <?= /* @escapeNotVerified */ $block->prepareSku($block->getSku()) ?>
     </td>
 
-    <td class="price" data-th="<?php echo $block->escapeHtml(__('Price')); ?>">
-        <?php echo $block->getItemPriceHtml(); ?>
+    <td class="price" data-th="<?= /* @escapeNotVerified */ $block->escapeHtml(__('Price')); ?>">
+        <?= /* @escapeNotVerified */ $block->getItemPriceHtml(); ?>
     </td>
 
-    <td class="qty" data-th="<?php echo $block->escapeHtml(__('Qty')); ?>">
+    <td class="qty" data-th="<?= /* @escapeNotVerified */ $block->escapeHtml(__('Qty')); ?>">
         <ul class="list">
             <?php if ($block->getItem()->getQtyOrdered() > 0): ?>
                 <li class="list__item">
-                    <?php /* @escapeNotVerified */ echo __('Ordered: '); ?>
+                    <?= /* @escapeNotVerified */ __('Ordered: '); ?>
 
-                    <?php /* @escapeNotVerified */ echo $block->getItem()->getQtyOrdered()*1 ?>
+                    <?= /* @escapeNotVerified */ $block->getItem()->getQtyOrdered()*1 ?>
                 </li>
             <?php endif; ?>
 
             <?php if ($block->getItem()->getQtyShipped() > 0): ?>
                 <li class="list__item">
-                    <?php /* @escapeNotVerified */ echo __('Shipped: '); ?>
+                    <?= /* @escapeNotVerified */ __('Shipped: '); ?>
 
-                    <?php /* @escapeNotVerified */ echo $block->getItem()->getQtyShipped() * 1 ?>
+                    <?= /* @escapeNotVerified */ $block->getItem()->getQtyShipped() * 1 ?>
                 </li>
             <?php endif; ?>
 
             <?php if ($block->getItem()->getQtyCanceled() > 0): ?>
                 <li class="list__item">
-                    <?php /* @escapeNotVerified */ echo __('Canceled: '); ?>
+                    <?= /* @escapeNotVerified */ __('Canceled: '); ?>
 
-                    <?php /* @escapeNotVerified */ echo $block->getItem()->getQtyCanceled()*1 ?>
+                    <?= /* @escapeNotVerified */ $block->getItem()->getQtyCanceled()*1 ?>
                 </li>
             <?php endif; ?>
 
             <?php if ($block->getItem()->getQtyRefunded() > 0): ?>
                 <li class="list__item">
-                    <?php /* @escapeNotVerified */ echo __('Refunded: '); ?>
+                    <?= /* @escapeNotVerified */ __('Refunded: '); ?>
 
-                    <?php /* @escapeNotVerified */ echo $block->getItem()->getQtyRefunded()*1 ?>
+                    <?= /* @escapeNotVerified */ $block->getItem()->getQtyRefunded()*1 ?>
                 </li>
             <?php endif; ?>
         </ul>
     </td>
 
-    <td class="subtotal" data-th="<?php echo $block->escapeHtml(__('Subtotal')); ?>">
-        <?php echo $block->getItemRowTotalHtml(); ?>
+    <td class="subtotal" data-th="<?= /* @escapeNotVerified */ $block->escapeHtml(__('Subtotal')); ?>">
+        <?= /* @escapeNotVerified */ $block->getItemRowTotalHtml(); ?>
     </td>
 </tr>

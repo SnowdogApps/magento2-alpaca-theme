@@ -1,12 +1,16 @@
 <?php
 /** @var $block \Magento\Wishlist\Block\Customer\Wishlist\Button */
+
+$getWishlistItems      = $block->getWishlist()->getItemsCount();
+$getWishlistShared     = $block->getWishlist()->getShared();
+$getWishlistEmailLimit = $block->getConfig()->getSharingEmailLimit();
 ?>
-<?php if ($block->getWishlist()->getItemsCount() && $block->getWishlist()->getShared() < $block->getConfig()->getSharingEmailLimit()): ?>
+<?php if ($getWishlistItems && $getWishlistShared < $getWishlistEmailLimit): ?>
     <button type="submit" 
             name="save_and_share" 
-            title="<?php /* @escapeNotVerified */ echo __('Share Wish List') ?>" 
+            title="<?= /* @escapeNotVerified */ __('Share Wish List') ?>" 
             class="button action__button share"
     >
-        <?php /* @escapeNotVerified */ echo __('Share Wish List') ?>
+        <?= /* @escapeNotVerified */ __('Share Wish List') ?>
     </button>
 <?php endif;?>

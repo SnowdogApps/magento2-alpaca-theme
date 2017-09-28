@@ -12,79 +12,90 @@
 <div class="information">
     <div class="dashboard-table__header">
         <h5 class="heading heading--fifth-level dashboard-table__title">
-            <?php /* @escapeNotVerified */ echo __('Reward points balance Information'); ?>
+            <?= /* @escapeNotVerified */ __('Reward points balance Information'); ?>
         </h5>
 
-        <a class="link dashboard-table__link more" href="<?php /* @escapeNotVerified */ echo $helper->getLandingPageUrl()?>">
-            <?php /* @escapeNotVerified */ echo __('Learn more')?>
+        <a class="link dashboard-table__link more" href="<?= /* @escapeNotVerified */ $helper->getLandingPageUrl() ?>">
+            <?= /* @escapeNotVerified */ __('Learn more') ?>
         </a>
     </div>
 
     <p class="information__text">
-        <?php /* @escapeNotVerified */ echo __('Your balance is %1.', $helper->formatReward($block->getPointsBalance(), $block->getCurrencyBalance()))?>
+        <?= /* @escapeNotVerified */ 
+            __('Your balance is %1.', 
+               $helper->formatReward($block->getPointsBalance(), 
+               $block->getCurrencyBalance())
+            ) 
+        ?>
     </p>
 </div>
 
 <div class="information dashboard__item">
     <p class="information__text">
-        <?php /* @escapeNotVerified */ echo __('Current exchange rates: ')?>
+        <?= /* @escapeNotVerified */ __('Current exchange rates: ') ?>
 
         <?php if ($block->getPtsToAmountRateAmount() || $block->getAmountToPtsRatePts()): ?>
             <?php if ($block->getPtsToAmountRateAmount()): ?>
-                <?php /* @escapeNotVerified */ echo __('%1 = %2', $helper->formatReward($block->getPtsToAmountRatePts(), null, null, '<strong>%s</strong>'), 
-                    '<strong>' . $helper->formatAmount($block->getPtsToAmountRateAmount()) . '</strong>')
+                <?= /* @escapeNotVerified */ 
+                    __('%1 = %2', 
+                       $helper->formatReward($block->getPtsToAmountRatePts(), null, null, '<strong>%s</strong>'), 
+                       '<strong>' . $helper->formatAmount($block->getPtsToAmountRateAmount()) . '</strong>'
+                    )
                 ?>
-            <?php endif;?>
+            <?php endif; ?>
 
             <?php if ($block->getAmountToPtsRatePts()): ?>
-                <?php /* @escapeNotVerified */ echo __('%1 spent = %2 earned', '<strong>' . $helper->formatAmount($block->getAmountToPtsRateAmount()) . '</strong>', 
-                    $helper->formatReward($block->getAmountToPtsRatePts(), null, null, '<strong>%s</strong>'))
+                <?= /* @escapeNotVerified */
+                    __('%1 spent = %2 earned', 
+                       '<strong>' . $helper->formatAmount($block->getAmountToPtsRateAmount()) . '</strong>', 
+                       $helper->formatReward($block->getAmountToPtsRatePts(), null, null, '<strong>%s</strong>')
+                    )
                 ?>
-            <?php endif;?>
-        <?php else:?>
-            <?php /* @escapeNotVerified */ echo __('None')?>
-        <?php endif;?>
+            <?php endif; ?>
+        <?php else: ?>
+            <?= /* @escapeNotVerified */ __('None') ?>
+        <?php endif; ?>
     </p>
 </div>
 
-<?php if ($maxBalance || $minBalance):?>
+<?php if ($maxBalance || $minBalance): ?>
     <div class="information dashboard__item">
-        <?php if ($maxBalance):?>
+        <?php if ($maxBalance): ?>
             <p class="information__text">
-                <?php /* @escapeNotVerified */ echo __('Balance limit is %1.', $helper->formatReward($maxBalance))?>
+                <?= /* @escapeNotVerified */ __('Balance limit is %1.', $helper->formatReward($maxBalance)) ?>
             </p>
 
-            <?php if ($block->getIsMaxBalanceReached()):?>
+            <?php if ($block->getIsMaxBalanceReached()): ?>
                 <div class="message info empty">
-                    <?php /* @escapeNotVerified */ echo __('Maximum balance is reached')?>
+                    <?= /* @escapeNotVerified */ __('Maximum balance is reached') ?>
                 </div>
-            <?php endif;?>
-        <?php endif;?>
+            <?php endif; ?>
+        <?php endif; ?>
 
-        <?php if ($minBalance):?>
+        <?php if ($minBalance): ?>
             <p class="information__text">
-                <?php /* @escapeNotVerified */ echo __('Minimum Balance in order to redeem: %1.', $helper->formatReward($minBalance))?>
+                <?= /* @escapeNotVerified */ __('Minimum Balance in order to redeem: %1.', $helper->formatReward($minBalance)) ?>
             </p>
 
-            <?php if (!$block->getIsMinBalanceReached()):?>
+            <?php if (!$block->getIsMinBalanceReached()): ?>
                 <div class="message info empty">
-                    <?php /* @escapeNotVerified */ echo __('You need a higher balance to use your rewards points.')?>
+                    <?= /* @escapeNotVerified */ __('You need a higher balance to use your rewards points.') ?>
                 </div>
-            <?php endif;?>
-        <?php endif;?>
+            <?php endif; ?>
+        <?php endif; ?>
     </div>
-<?php endif;?>
+<?php endif; ?>
 
-<?php if ($expireIn):?>
+<?php if ($expireIn): ?>
     <div class="information dashboard__item">
         <h5 class="heading heading--fifth-level information__title">
-            <?php /* @escapeNotVerified */ echo __('Each earned reward points award expires in %1 days.', $expireIn)?>
+            <?= /* @escapeNotVerified */ __('Each earned reward points award expires in %1 days.', $expireIn) ?>
         </h5>
 
-        <?php if ($block->getIsHistoryPublished()):?>
+        <?php if ($block->getIsHistoryPublished()): ?>
             <p class="information__text">
-                <?php /* @escapeNotVerified */ echo __('Refer to reward points history to see when a specific record expires.')?>
+                <?= /* @escapeNotVerified */ __('Refer to reward points history to see when a specific record expires.') ?>
             </p>
-        <?php endif;?>
+        <?php endif; ?>
     </div>
-<?php endif;?>
+<?php endif; ?>

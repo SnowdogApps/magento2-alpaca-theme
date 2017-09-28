@@ -1,191 +1,234 @@
 <form class="form-address-edit form" 
-      action="<?php /* @escapeNotVerified */ echo $block->getSaveUrl() ?>" 
+      action="<?= /* @escapeNotVerified */ $block->getSaveUrl() ?>" 
       method="post" 
       id="form-validate" 
       enctype="multipart/form-data" 
-      data-hasrequired="<?php /* @escapeNotVerified */ echo __('* Required Fields') ?>"
+      data-hasrequired="<?= /* @escapeNotVerified */ __('* Required Fields') ?>"
 >
     <div class="grid">
         <div class="dashboard-form grid__column grid__column--1-2 dashboard__form">
             <h5 class="heading heading--fifth-level dashboard-form__title">
-                <?php /* @escapeNotVerified */ echo __('Contact Information') ?>
+                <?= /* @escapeNotVerified */ __('Contact Information') ?>
             </h5>
 
             <div class="dashboard-form__divider">
-                <?php echo $block->getBlockHtml('formkey')?>
-                <input type="hidden" name="success_url" value="<?php /* @escapeNotVerified */ echo $block->getSuccessUrl() ?>"/>
-                <input type="hidden" name="error_url" value="<?php /* @escapeNotVerified */ echo $block->getErrorUrl() ?>"/>
+                <?= /* @escapeNotVerified */ $block->getBlockHtml('formkey') ?>
+                <input type="hidden" name="success_url" value="<?= /* @escapeNotVerified */ $block->getSuccessUrl() ?>"/>
+                <input type="hidden" name="error_url" value="<?= /* @escapeNotVerified */ $block->getErrorUrl() ?>"/>
 
-                <?php echo $block->getNameBlockHtml() ?>
+                <?= /* @escapeNotVerified */ $block->getNameBlockHtml() ?>
 
                 <div class="input dashboard__input">
+                    <?php 
+                        $getCompanyValidationClass = $this->helper('Magento\Customer\Helper\Address')
+                                                          ->getAttributeValidationClass('company');
+                    ?>
+
                     <label class="label" for="company">
-                        <?php /* @escapeNotVerified */ echo __('Company') ?>
+                        <?= /* @escapeNotVerified */ __('Company') ?>
                     </label>
 
                     <input type="text" 
                            name="company" 
                            id="company" 
-                           title="<?php /* @escapeNotVerified */ echo __('Company') ?>" 
-                           value="<?php echo $block->escapeHtml($block->getAddress()->getCompany()) ?>" 
-                           class="input__field <?php /* @escapeNotVerified */ echo $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('company') ?>"
+                           title="<?= /* @escapeNotVerified */ __('Company') ?>" 
+                           value="<?= /* @escapeNotVerified */ $block->escapeHtml($block->getAddress()->getCompany()) ?>" 
+                           class="input__field <?= /* @escapeNotVerified */ $getCompanyValidationClass ?>"
                     />
                 </div>
 
                 <div class="input dashboard__input required">
+                    <?php 
+                        $getTelephoneValidationClass = $this->helper('Magento\Customer\Helper\Address')
+                                                            ->getAttributeValidationClass('telephone');
+                    ?>
+
                     <label class="label" for="telephone">
-                        <?php /* @escapeNotVerified */ echo __('Phone Number') ?>
+                        <?= /* @escapeNotVerified */ __('Phone Number') ?>
                     </label>
                     
                     <input type="text" 
                            name="telephone" 
-                           value="<?php echo $block->escapeHtml($block->getAddress()->getTelephone()) ?>" 
-                           title="<?php /* @escapeNotVerified */ echo __('Phone Number') ?>" 
-                           class="input__field <?php /* @escapeNotVerified */ echo $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('telephone') ?>" 
+                           value="<?= /* @escapeNotVerified */ $block->escapeHtml($block->getAddress()->getTelephone()) ?>" 
+                           title="<?= /* @escapeNotVerified */ __('Phone Number') ?>" 
+                           class="input__field <?= /* @escapeNotVerified */ $getTelephoneValidationClass ?>" 
                            id="telephone"
                     />
                 </div>
 
                 <div class="input dashboard__input">
+                    <?php 
+                        $getFaxValidationClass = $this->helper('Magento\Customer\Helper\Address')
+                                                      ->getAttributeValidationClass('fax');
+                    ?>
+
                     <label class="label" for="fax">
-                        <?php /* @escapeNotVerified */ echo __('Fax') ?>
+                        <?= /* @escapeNotVerified */ __('Fax') ?>
                     </label>
 
                     <input type="text" 
                            name="fax" 
                            id="fax" 
-                           title="<?php /* @escapeNotVerified */ echo __('Fax') ?>" 
-                           value="<?php echo $block->escapeHtml($block->getAddress()->getFax()) ?>" 
-                           class="input__field <?php /* @escapeNotVerified */ echo $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('fax') ?>"
+                           title="<?= /* @escapeNotVerified */ __('Fax') ?>" 
+                           value="<?= /* @escapeNotVerified */ $block->escapeHtml($block->getAddress()->getFax()) ?>" 
+                           class="input__field <?= /* @escapeNotVerified */ $getFaxValidationClass ?>"
                     />
                 </div>
             </div>
         </div>
 
         <div class="dashboard-form grid__column grid__column--1-2 dashboard__form" 
-             data-mage-init='
-                {
-                    "countryList": {
-                        "countrySelect"  : "country",
-                        "regionSelect"   : "region_id",
-                        "regionText"     : "region",
-                        "regionContainer": "region_container",
-                        "placeholder"    : "<?php /* @escapeNotVerified */ echo __('Please select a region, state or province.') ?>"
-                    }
+             data-mage-init='{
+                "countryList": {
+                    "countrySelect"  : "country",
+                    "regionSelect"   : "region_id",
+                    "regionText"     : "region",
+                    "regionContainer": "region_container",
+                    "placeholder"    : "<?= /* @escapeNotVerified */ __('Please select a region, state or province.') ?>"
                 }
-              '
+             }'
         >
             <h5 class="heading heading--fifth-level dashboard-form__title">
-                <?php /* @escapeNotVerified */ echo __('Address') ?>
+                <?= /* @escapeNotVerified */ __('Address') ?>
             </h5>
 
             <div class="dashboard-form__divider">
-                <?php $_streetValidationClass = $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('street'); ?>
+                <?php 
+                    $_streetValidationClass = $this->helper('Magento\Customer\Helper\Address')
+                                                   ->getAttributeValidationClass('street'); 
+                ?>
 
                 <div class="input dashboard__input required">
                     <label for="street_1" class="label">
-                        <?php /* @escapeNotVerified */ echo __('Street Address') ?>
+                        <?= /* @escapeNotVerified */ __('Street Address') ?>
                     </label>
 
                     <input type="text" 
                            name="street[]" 
-                           value="<?php echo $block->escapeHtml($block->getStreetLine(1)) ?>" 
-                           title="<?php /* @escapeNotVerified */ echo __('Street Address') ?>" 
+                           value="<?= /* @escapeNotVerified */ $block->escapeHtml($block->getStreetLine(1)) ?>" 
+                           title="<?= /* @escapeNotVerified */ __('Street Address') ?>" 
                            id="street_1"
-                           class="input__field <?php /* @escapeNotVerified */ echo $_streetValidationClass ?>"
+                           class="input__field <?= /* @escapeNotVerified */ $_streetValidationClass ?>"
                     />
                 </div>
 
-                <?php $_streetValidationClass = trim(str_replace('required-entry', '', $_streetValidationClass)); ?>
+                <?php 
+                    $_streetValidationClass = trim(str_replace('required-entry', '', $_streetValidationClass)); 
+                    $getStreetLines         = $this->helper('Magento\Customer\Helper\Address')->getStreetLines();
+                ?>
 
-                <?php for ($_i = 2, $_n = $this->helper('Magento\Customer\Helper\Address')->getStreetLines(); $_i <= $_n; $_i++): ?>
+                <?php for ($_i = 2, $_n = $getStreetLines; $_i <= $_n; $_i++): ?>
                     <div class="input dashboard__input">
-                        <label class="label" for="street_<?php /* @escapeNotVerified */ echo $_i ?>">
-                            <?php /* @escapeNotVerified */ echo __('Street Address %1', $_i) ?>
+                        <label class="label" for="street_<?= /* @escapeNotVerified */ $_i ?>">
+                            <?= /* @escapeNotVerified */ __('Street Address %1', $_i) ?>
                         </label>
 
                         <input type="text" 
                                name="street[]" 
-                               value="<?php echo $block->escapeHtml($block->getStreetLine($_i)) ?>" 
-                               title="<?php /* @escapeNotVerified */ echo __('Street Address %1', $_i) ?>" 
-                               id="street_<?php /* @escapeNotVerified */ echo $_i ?>" 
-                               class="input__field <?php /* @escapeNotVerified */ echo $_streetValidationClass ?>"
+                               value="<?= /* @escapeNotVerified */ $block->escapeHtml($block->getStreetLine($_i)) ?>" 
+                               title="<?= /* @escapeNotVerified */ __('Street Address %1', $_i) ?>" 
+                               id="street_<?= /* @escapeNotVerified */ $_i ?>" 
+                               class="input__field <?= /* @escapeNotVerified */ $_streetValidationClass ?>"
                         />
                     </div>
                 <?php endfor; ?>
 
-                <?php if ($this->helper('Magento\Customer\Helper\Address')->isVatAttributeVisible()) : ?>
+                <?php if ($this->helper('Magento\Customer\Helper\Address')->isVatAttributeVisible()): ?>
                     <div class="input dashboard__input">
+                        <?php 
+                            $getVatValidationClass = $this->helper('Magento\Customer\Helper\Address')
+                                                          ->getAttributeValidationClass('vat_id');
+                        ?>
+
                         <label class="label" for="vat_id">
-                            <?php /* @escapeNotVerified */ echo __('VAT Number') ?>
+                            <?= /* @escapeNotVerified */ __('VAT Number') ?>
                         </label>
                         
                         <input type="text" 
                                name="vat_id" 
-                               value="<?php echo $block->escapeHtml($block->getAddress()->getVatId()) ?>" 
-                               title="<?php /* @escapeNotVerified */ echo __('VAT Number') ?>" 
-                               class="input__field <?php /* @escapeNotVerified */ echo $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('vat_id') ?>" 
+                               value="<?= /* @escapeNotVerified */ $block->escapeHtml($block->getAddress()->getVatId()) ?>" 
+                               title="<?= /* @escapeNotVerified */ __('VAT Number') ?>" 
+                               class="input__field <?= /* @escapeNotVerified */ $getVatValidationClass ?>" 
                                id="vat_id"
                         />
                     </div>
                 <?php endif; ?>
 
                 <div class="input dashboard__input required">
+                    <?php 
+                        $getCityValidationClass = $this->helper('Magento\Customer\Helper\Address')
+                                                       ->getAttributeValidationClass('city');
+                    ?>
+
                     <label class="label" for="city">
-                        <?php /* @escapeNotVerified */ echo __('City') ?>
+                        <?= /* @escapeNotVerified */ __('City') ?>
                     </label>
                     
                     <input type="text" 
                            name="city" 
-                           value="<?php echo $block->escapeHtml($block->getAddress()->getCity()) ?>" 
-                           title="<?php /* @escapeNotVerified */ echo __('City') ?>" 
-                           class="input__field <?php /* @escapeNotVerified */ echo $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('city') ?>" 
+                           value="<?= /* @escapeNotVerified */ $block->escapeHtml($block->getAddress()->getCity()) ?>" 
+                           title="<?= /* @escapeNotVerified */ __('City') ?>" 
+                           class="input__field <?= /* @escapeNotVerified */ $getCityValidationClass ?>" 
                            id="city"
                     />
                 </div>
                 
                 <div id="region_container" class="input dashboard__input required">
+                    <?php
+                        $getRegionValidationClass = $this->helper('Magento\Customer\Helper\Address')
+                                                         ->getAttributeValidationClass('region');
+                    ?>
+
                     <label class="label" for="region_id">
-                        <?php /* @escapeNotVerified */ echo __('State/Province') ?>
+                        <?= /* @escapeNotVerified */ __('State/Province') ?>
                     </label>
 
                     <select id="region_id" 
                             name="region_id" 
-                            title="<?php /* @escapeNotVerified */ echo __('State/Province') ?>" 
+                            title="<?= /* @escapeNotVerified */ __('State/Province') ?>" 
                             class="select__field validate-select"
                             data-mage-init='{"select": {}}'
                     >
                         <option value="" disabled>
-                            <?php /* @escapeNotVerified */ echo __('Please select a region, state or province.') ?>
+                            <?= /* @escapeNotVerified */ __('Please select a region, state or province.') ?>
                         </option>
                     </select>
 
                     <input type="text" 
                            id="region" 
                            name="region" 
-                           value="<?php echo $block->escapeHtml($block->getRegion()) ?>" 
-                           title="<?php /* @escapeNotVerified */ echo __('State/Province') ?>" 
-                           class="input__field <?php /* @escapeNotVerified */ echo $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('region') ?>"
+                           value="<?= /* @escapeNotVerified */ $block->escapeHtml($block->getRegion()) ?>" 
+                           title="<?= /* @escapeNotVerified */ __('State/Province') ?>" 
+                           class="input__field <?= /* @escapeNotVerified */ $getRegionValidationClass ?>"
                     />
                 </div>
 
                 <div class="input dashboard__input required">
+                    <?php
+                        $getPostcodeValidationClass = $this->helper('Magento\Customer\Helper\Address')
+                                                           ->getAttributeValidationClass('postcode');
+                    ?>
+
                     <label class="label" for="zip">
-                        <?php /* @escapeNotVerified */ echo __('Zip/Postal Code') ?>
+                        <?= /* @escapeNotVerified */ __('Zip/Postal Code') ?>
                     </label>
                     
                     <input type="text" 
                            name="postcode" 
-                           value="<?php echo $block->escapeHtml($block->getAddress()->getPostcode()) ?>" 
-                           title="<?php /* @escapeNotVerified */ echo __('Zip/Postal Code') ?>" 
+                           value="<?= /* @escapeNotVerified */ $block->escapeHtml($block->getAddress()->getPostcode()) ?>" 
+                           title="<?= /* @escapeNotVerified */ __('Zip/Postal Code') ?>" 
                            id="zip" 
-                           class="input__field validate-zip-international <?php /* @escapeNotVerified */ echo $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('postcode') ?>"
+                           class="
+                                input__field 
+                                validate-zip-international 
+                                <?= /* @escapeNotVerified */ $getPostcodeValidationClass ?>
+                           "
                     />
                 </div>
 
                 <div class="input dashboard__input required">
                     <label class="label" for="country">
-                        <?php /* @escapeNotVerified */ echo __('Country') ?>
+                        <?= /* @escapeNotVerified */ __('Country') ?>
                     </label>
 
                     <?php $countryList = $block->getCountryCollection()->toOptionArray() ?>
@@ -199,16 +242,16 @@
                             aria-required="true"
                     >
                         <option value="" disabled>
-                            <?php /* @escapeNotVerified */ echo __('Please select a country.') ?>
+                            <?= /* @escapeNotVerified */ __('Please select a country.') ?>
                         </option>
 
                         <?php for ($i = 1, $n = count($countryList); $i < $n; $i++): ?>
                             <?php if ($block->getCountryId() === $countryList[$i]['value']): ?>
-                                <option value="<?php /* @escapeNotVerified */ echo $countryList[$i]['value'] ?>" selected>
+                                <option value="<?= /* @escapeNotVerified */ $countryList[$i]['value'] ?>" selected>
                                     <?= $countryList[$i]['label']; ?>
                                 </option>
                             <?php else: ?>
-                                <option value="<?php /* @escapeNotVerified */ echo $countryList[$i]['value'] ?>">
+                                <option value="<?= /* @escapeNotVerified */ $countryList[$i]['value'] ?>">
                                     <?= $countryList[$i]['label']; ?>
                                 </option>
                             <?php endif ?>
@@ -218,7 +261,7 @@
 
                 <?php if ($block->isDefaultBilling()): ?>
                     <div class="message info">
-                        <?php /* @escapeNotVerified */ echo __("It's a default billing address.") ?>
+                        <?= /* @escapeNotVerified */ __("It's a default billing address.") ?>
                     </div>
                 <?php elseif ($block->canSetAsDefaultBilling()): ?>
                     <div class="checkbox dashboard-form__divider">
@@ -234,7 +277,7 @@
                         </svg>
 
                         <label class="checkbox__label" for="primary_billing">
-                            <?php /* @escapeNotVerified */ echo __('Use as my default billing address') ?>
+                            <?= /* @escapeNotVerified */ __('Use as my default billing address') ?>
                         </label>
                     </div>
                 <?php else: ?>
@@ -243,7 +286,7 @@
 
                 <?php if ($block->isDefaultShipping()): ?>
                     <div class="message info">
-                        <?php /* @escapeNotVerified */ echo __("It's a default shipping address.") ?>
+                        <?= /* @escapeNotVerified */ __("It's a default shipping address.") ?>
                     </div>
                 <?php elseif ($block->canSetAsDefaultShipping()): ?>
                     <div class="checkbox dashboard-form__divider">
@@ -259,7 +302,7 @@
                         </svg>
 
                         <label class="checkbox__label" for="primary_shipping">
-                            <?php /* @escapeNotVerified */ echo __('Use as my default shipping address') ?>
+                            <?= /* @escapeNotVerified */ __('Use as my default shipping address') ?>
                         </label>
                     </div>
                 <?php else: ?>
@@ -274,15 +317,15 @@
             <button type="submit" 
                     class="button action__button" 
                     data-action="save-address" 
-                    title="<?php /* @escapeNotVerified */ echo __('Save Address') ?>"
+                    title="<?= /* @escapeNotVerified */ __('Save Address') ?>"
             >
-                <?php /* @escapeNotVerified */ echo __('Save Address') ?>
+                <?= /* @escapeNotVerified */ __('Save Address') ?>
             </button>
         </div>
 
         <div class="action__handler">
-            <a class="link action__link" href="<?php echo $block->escapeUrl($block->getBackUrl()) ?>">
-                <?php /* @escapeNotVerified */ echo __('Go back') ?>
+            <a class="link action__link" href="<?= /* @escapeNotVerified */ $block->escapeUrl($block->getBackUrl()) ?>">
+                <?= /* @escapeNotVerified */ __('Go back') ?>
             </a>
         </div>
     </div>
@@ -295,14 +338,14 @@
         },
         "#country": {
             "regionUpdater": {
-                "optionalRegionAllowed": <?php /* @escapeNotVerified */ echo($block->getConfig('general/region/display_all') ? 'true' : 'false'); ?>,
+                "optionalRegionAllowed": <?= /* @escapeNotVerified */($block->getConfig('general/region/display_all') ? 'true' : 'false'); ?>,
                 "regionListId": "#region_id",
                 "regionInputId": "#region",
                 "postcodeId": "#zip",
                 "form": "#form-validate",
-                "regionJson": <?php /* @escapeNotVerified */ echo $this->helper('Magento\Directory\Helper\Data')->getRegionJson() ?>,
-                "defaultRegion": "<?php /* @escapeNotVerified */ echo $block->getRegionId() ?>",
-                "countriesWithOptionalZip": <?php /* @escapeNotVerified */ echo $this->helper('Magento\Directory\Helper\Data')->getCountriesWithOptionalZip(true) ?>
+                "regionJson": <?= /* @escapeNotVerified */ $this->helper('Magento\Directory\Helper\Data')->getRegionJson() ?>,
+                "defaultRegion": "<?= /* @escapeNotVerified */ $block->getRegionId() ?>",
+                "countriesWithOptionalZip": <?= /* @escapeNotVerified */ $this->helper('Magento\Directory\Helper\Data')->getCountriesWithOptionalZip(true) ?>
             }
         }
     }

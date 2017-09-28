@@ -1,34 +1,39 @@
 <form class="dashboard-form form" 
-      action="<?php /* @escapeNotVerified */ echo $block->getUrl('customer/account/editPost') ?>" 
+      action="<?= /* @escapeNotVerified */ $block->getUrl('customer/account/editPost') ?>" 
       method="post" 
       id="form-validate" 
       enctype="multipart/form-data" 
-      data-hasrequired="<?php /* @escapeNotVerified */ echo __('* Required Fields') ?>" 
+      data-hasrequired="<?= /* @escapeNotVerified */ __('* Required Fields') ?>" 
       autocomplete="off"
 >
-    <?php echo $block->getBlockHtml('formkey')?>
+    <?= /* @escapeNotVerified */ $block->getBlockHtml('formkey')?>
 
     <h5 class="heading heading--fifth-level dashboard-form__title">
-        <?php /* @escapeNotVerified */ echo __('Account Information') ?>
+        <?= /* @escapeNotVerified */ __('Account Information') ?>
     </h5>
 
     <div class="dashboard-form__divider">
-        <?php echo $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Name')->setObject($block->getCustomer())->toHtml() ?>
+        <?= /* @escapeNotVerified */ 
+            $block->getLayout()
+                  ->createBlock('Magento\Customer\Block\Widget\Name')
+                  ->setObject($block->getCustomer())
+                  ->toHtml() 
+        ?>
 
         <?php $_dob = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Dob') ?>
         <?php $_taxvat = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Taxvat') ?>
         <?php $_gender = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Gender') ?>
 
         <?php if ($_dob->isEnabled()): ?>
-            <?php echo $_dob->setDate($block->getCustomer()->getDob())->toHtml() ?>
+            <?= /* @escapeNotVerified */ $_dob->setDate($block->getCustomer()->getDob())->toHtml() ?>
         <?php endif ?>
 
         <?php if ($_taxvat->isEnabled()): ?>
-            <?php echo $_taxvat->setTaxvat($block->getCustomer()->getTaxvat())->toHtml() ?>
+            <?= /* @escapeNotVerified */ $_taxvat->setTaxvat($block->getCustomer()->getTaxvat())->toHtml() ?>
         <?php endif ?>
         
         <?php if ($_gender->isEnabled()): ?>
-            <?php echo $_gender->setGender($block->getCustomer()->getGender())->toHtml() ?>
+            <?= /* @escapeNotVerified */ $_gender->setGender($block->getCustomer()->getGender())->toHtml() ?>
         <?php endif ?>
 
         <div class="checkbox dashboard-form__divider">
@@ -37,7 +42,7 @@
                    id="change-email" 
                    data-role="change-email" 
                    value="1" 
-                   title="<?php /* @escapeNotVerified */ echo __('Change Email') ?>" 
+                   title="<?= /* @escapeNotVerified */ __('Change Email') ?>" 
                    class="checkbox__field" 
             />
 
@@ -46,7 +51,7 @@
             </svg>
 
             <label class="checkbox__label" for="change-email">
-                <?php /* @escapeNotVerified */ echo __('Change Email') ?>
+                <?= /* @escapeNotVerified */ __('Change Email') ?>
             </label>
         </div>
 
@@ -56,7 +61,7 @@
                    id="change-password" 
                    data-role="change-password" 
                    value="1" 
-                   title="<?php /* @escapeNotVerified */ echo __('Change Password') ?>"
+                   title="<?= /* @escapeNotVerified */ __('Change Password') ?>"
                    <?php if ($block->getChangePassword()): ?> 
                         checked="checked"
                    <?php endif; ?> 
@@ -68,7 +73,7 @@
             </svg>
 
             <label class="checkbox__label" for="change-password">
-                <?php /* @escapeNotVerified */ echo __('Change Password') ?>
+                <?= /* @escapeNotVerified */ __('Change Password') ?>
             </label>
         </div>
 
@@ -81,13 +86,13 @@
                 "
             >
                 <span data-title="change-email-password">
-                    <?php /* @escapeNotVerified */ echo __('Change Email and Password') ?>
+                    <?= /* @escapeNotVerified */ __('Change Email and Password') ?>
                 </span>
             </h5>
 
             <div class="input dashboard-form__divider email required" data-container="change-email">
                 <label class="label" for="email">
-                    <?php /* @escapeNotVerified */ echo __('Email') ?>
+                    <?= /* @escapeNotVerified */ __('Email') ?>
                 </label>
 
                 <input type="email" 
@@ -95,8 +100,8 @@
                        id="email" 
                        autocomplete="email"
                        data-input="change-email" 
-                       value="<?php echo $block->escapeHtml($block->getCustomer()->getEmail()) ?>" 
-                       title="<?php /* @escapeNotVerified */ echo __('Email') ?>" 
+                       value="<?= /* @escapeNotVerified */ $block->escapeHtml($block->getCustomer()->getEmail()) ?>" 
+                       title="<?= /* @escapeNotVerified */ __('Email') ?>" 
                        class="input__field" 
                        data-validate="{required:true, 'validate-email':true}" 
                 />
@@ -104,7 +109,7 @@
 
             <div class="input dashboard-form__divider password required">
                 <label class="label" for="current-password">
-                    <?php /* @escapeNotVerified */ echo __('Current Password') ?>
+                    <?= /* @escapeNotVerified */ __('Current Password') ?>
                 </label>
 
                 <input type="password" 
@@ -124,16 +129,21 @@
                     }
                  }'
             >
+                 <?php
+                    $getMinPasswordLength = $block->escapeHtml($block->getMinimumPasswordLength());
+                    $getMaxPasswordLength = $block->escapeHtml($block->getRequiredCharacterClassesNumber());
+                 ?>
+                 
                 <label class="label" for="password">
-                    <?php /* @escapeNotVerified */ echo __('New Password') ?>
+                    <?= /* @escapeNotVerified */ __('New Password') ?>
                 </label>
                 
                 <input type="password" 
                        class="input__field" 
                        name="password" 
                        id="password"
-                       data-password-min-length="<?php echo $block->escapeHtml($block->getMinimumPasswordLength()) ?>"
-                       data-password-min-character-sets="<?php echo $block->escapeHtml($block->getRequiredCharacterClassesNumber()) ?>"
+                       data-password-min-length="<?= /* @escapeNotVerified */ $getMinPasswordLength; ?>"
+                       data-password-min-character-sets="<?= /* @escapeNotVerified */ $getMaxPasswordLength ?>"
                        data-input="new-password"
                        data-validate="{required:true, 'validate-customer-password':true}"
                        autocomplete="off" 
@@ -154,7 +164,7 @@
                  data-container="confirm-password"
             >
                 <label class="label" for="password-confirmation">
-                    <?php /* @escapeNotVerified */ echo __('Confirm New Password') ?>
+                    <?= /* @escapeNotVerified */ __('Confirm New Password') ?>
                 </label>
 
                 <input type="password" 
@@ -166,7 +176,7 @@
                 />
             </div>
 
-            <?php echo $block->getChildHtml('form_additional_info'); ?>
+            <?= /* @escapeNotVerified */ $block->getChildHtml('form_additional_info'); ?>
         </div>
     </div>
 
@@ -174,15 +184,15 @@
         <div class="action__handler">
             <button type="submit" 
                     class="button action__button" 
-                    title="<?php /* @escapeNotVerified */ echo __('Save') ?>"
+                    title="<?= /* @escapeNotVerified */ __('Save') ?>"
             >
-                <?php /* @escapeNotVerified */ echo __('Save') ?>
+                <?= /* @escapeNotVerified */ __('Save') ?>
             </button>
         </div>
 
         <div class="action__handler">
-            <a class="action__link" href="<?php echo $block->escapeUrl($block->getBackUrl()) ?>">
-                <?php /* @escapeNotVerified */ echo __('Go back') ?>
+            <a class="action__link" href="<?= /* @escapeNotVerified */ $block->escapeUrl($block->getBackUrl()) ?>">
+                <?= /* @escapeNotVerified */ __('Go back') ?>
             </a>
         </div>
     </div>
@@ -193,7 +203,7 @@
         "mage/mage"
     ], function($){
         var dataForm = $('#form-validate');
-        var ignore = <?php /* @escapeNotVerified */ echo $_dob->isEnabled() ? '\'input[id$="full"]\'' : 'null'; ?>;
+        var ignore = <?= /* @escapeNotVerified */ $_dob->isEnabled() ? '\'input[id$="full"]\'' : 'null'; ?>;
         
         dataForm.mage('validation', {
         <?php if ($_dob->isEnabled()): ?>
@@ -221,9 +231,9 @@
     {
         "[data-role=change-email], [data-role=change-password]": {
             "changeEmailPassword": {
-                "titleChangeEmail": "<?php /* @escapeNotVerified */ echo __('Change Email') ?>",
-                "titleChangePassword": "<?php /* @escapeNotVerified */ echo __('Change Password') ?>",
-                "titleChangeEmailAndPassword": "<?php /* @escapeNotVerified */ echo __('Change Email and Password') ?>"
+                "titleChangeEmail": "<?= /* @escapeNotVerified */ __('Change Email') ?>",
+                "titleChangePassword": "<?= /* @escapeNotVerified */ __('Change Password') ?>",
+                "titleChangeEmailAndPassword": "<?= /* @escapeNotVerified */ __('Change Email and Password') ?>"
             }
         }
     }

@@ -8,9 +8,10 @@ $columns = $block->getColumns();
 <?php if (count($block->getItems())): ?>
     <div class="grid">
         <?php foreach ($block->getItems() as $item): ?>
-            <?php /* @escapeNotVerified */ echo($iterator++ == 1) 
-                  ? '<div data-row="product-item" class="dashboard__wishlist-item grid__column grid__column--1-2" id="item_' . $item->getId() . '">' 
-                  : '</div><div class="dashboard__wishlist-item grid__column grid__column--1-2" id="item_' . $item->getId() . '">' 
+            <?= /* @escapeNotVerified */ 
+                ($iterator++ == 1) 
+                ? '<div data-row="product-item" class="dashboard__wishlist-item grid__column grid__column--1-2" id="item_' . $item->getId() . '">' 
+                : '</div><div class="dashboard__wishlist-item grid__column grid__column--1-2" id="item_' . $item->getId() . '">' 
             ?>
                 <div class="product dashboard__product">
                     <?php foreach ($columns as $column): ?>
@@ -20,15 +21,15 @@ $columns = $block->getColumns();
                         ?>
                     <?php endforeach; ?>
                 </div>
-            <?php echo($iterator == count($block->getItems())+1) ? '</div>' : '' ?>
+            <?= /* @escapeNotVerified */ ($iterator == count($block->getItems())+1) ? '</div>' : '' ?>
         <?php endforeach; ?>
     </div>
 <?php else: ?>
     <div class="message info empty">
-        <?php /* @escapeNotVerified */ echo __('This Wish List has no Items');?>
+        <?= /* @escapeNotVerified */ __('This Wish List has no Items'); ?>
     </div>
 <?php endif; ?>
 
 <?php foreach ($columns as $column): ?>
-    <?php echo $column->getAdditionalHtml();?>
+    <?= /* @escapeNotVerified */ $column->getAdditionalHtml(); ?>
 <?php endforeach; ?>

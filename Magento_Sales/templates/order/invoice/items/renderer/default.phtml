@@ -2,16 +2,16 @@
 <?php $_order = $block->getItem()->getOrderItem()->getOrder() ?>
 
 <tr id="order-item-row-<?php /* @escapeNotVerified */ echo $_item->getId() ?>">
-    <td class="name" data-th="<?php echo $block->escapeHtml(__('Product Name')); ?>">
+    <td class="name" data-th="<?= /* @escapeNotVerified */ $block->escapeHtml(__('Product Name')); ?>">
         <strong>
-            <?php echo $block->escapeHtml($_item->getName()) ?>
+            <?= /* @escapeNotVerified */ $block->escapeHtml($_item->getName()) ?>
         </strong>
 
         <?php if ($_options = $block->getItemOptions()): ?>
             <ul class="list">
                 <?php foreach ($_options as $_option) : ?>
                     <li>
-                        <?php echo $block->escapeHtml($_option['label']).': ' ?>
+                        <?= /* @escapeNotVerified */ $block->escapeHtml($_option['label']).': ' ?>
 
                         <?php if (!$block->getPrintStatus()): ?>
                             <?php $_formatedOptionValue = $block->getFormatedOptionValue($_option) ?>
@@ -20,14 +20,16 @@
 
                             <?php if (isset($_formatedOptionValue['full_view'])): ?>
                                 <strong>
-                                    <?php echo $block->escapeHtml($_option['label']).' ' ?>
+                                    <?= /* @escapeNotVerified */ $block->escapeHtml($_option['label']).' ' ?>
 
                                     <?php /* @escapeNotVerified */ echo $_formatedOptionValue['full_view'] ?>
                                 </strong>
                             <?php endif; ?>
                         <?php else: ?>
                             <strong>
-                                <?php echo $block->escapeHtml((isset($_option['print_value']) ? $_option['print_value'] : $_option['value'])) ?>
+                                <?= /* @escapeNotVerified */ 
+                                    $block->escapeHtml((isset($_option['print_value']) ? $_option['print_value'] : $_option['value'])) 
+                                ?>
                             <strong>
                         <?php endif; ?>
                     </li>
@@ -38,25 +40,25 @@
         <?php $addInfoBlock = $block->getProductAdditionalInformationBlock(); ?>
 
         <?php if ($addInfoBlock) :?>
-            <?php echo $addInfoBlock->setItem($_item->getOrderItem())->toHtml(); ?>
+            <?= /* @escapeNotVerified */ $addInfoBlock->setItem($_item->getOrderItem())->toHtml(); ?>
         <?php endif; ?>
 
-        <?php echo $block->escapeHtml($_item->getDescription()) ?>
+        <?= /* @escapeNotVerified */ $block->escapeHtml($_item->getDescription()) ?>
     </td>
 
-    <td class="sku" data-th="<?php echo $block->escapeHtml(__('SKU')); ?>">
+    <td class="sku" data-th="<?= /* @escapeNotVerified */ $block->escapeHtml(__('SKU')); ?>">
         <?php /* @escapeNotVerified */ echo $block->prepareSku($block->getSku()) ?>
     </td>
 
-    <td class="price" data-th="<?php echo $block->escapeHtml(__('Price')); ?>">
-        <?php echo $block->getItemPriceHtml(); ?>
+    <td class="price" data-th="<?= /* @escapeNotVerified */ $block->escapeHtml(__('Price')); ?>">
+        <?= /* @escapeNotVerified */ $block->getItemPriceHtml(); ?>
     </td>
 
-    <td class="qty" data-th="<?php echo $block->escapeHtml(__('Qty Invoiced')); ?>">
+    <td class="qty" data-th="<?= /* @escapeNotVerified */ $block->escapeHtml(__('Qty Invoiced')); ?>">
         <?php /* @escapeNotVerified */ echo $_item->getQty()*1 ?>
     </td>
 
-    <td class="subtotal" data-th="<?php echo $block->escapeHtml(__('Subtotal')); ?>">
-        <?php echo $block->getItemRowTotalHtml(); ?>
+    <td class="subtotal" data-th="<?= /* @escapeNotVerified */ $block->escapeHtml(__('Subtotal')); ?>">
+        <?= /* @escapeNotVerified */ $block->getItemRowTotalHtml(); ?>
     </td>
 </tr>

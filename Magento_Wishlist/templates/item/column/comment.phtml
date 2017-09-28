@@ -1,18 +1,19 @@
 <?php
 /* @var \Magento\Wishlist\Model\Item $item */
 
-$item = $block->getItem();
+$item        = $block->getItem();
+$placeholder = $this->helper('Magento\Wishlist\Helper\Data')->defaultCommentString();
 ?>
 
 <div class="input dashboard__input">
-    <label class="label" for="product-item-comment-<?php /* @escapeNotVerified */ echo $item->getWishlistItemId() ?>">
-        <?php /* @escapeNotVerified */ echo __('Comment') ?>
+    <label class="label" for="product-item-comment-<?= /* @escapeNotVerified */ $item->getWishlistItemId() ?>">
+        <?= /* @escapeNotVerified */ __('Comment') ?>
     </label>
 
-    <textarea id="product-item-comment-<?php /* @escapeNotVerified */ echo $item->getWishlistItemId() ?>" 
-              placeholder="<?php /* @escapeNotVerified */ echo $this->helper('Magento\Wishlist\Helper\Data')->defaultCommentString() ?>" 
-              name="description[<?php /* @escapeNotVerified */ echo $item->getWishlistItemId() ?>]" 
-              title="<?php /* @escapeNotVerified */ echo __('Comment') ?>" 
+    <textarea id="product-item-comment-<?= /* @escapeNotVerified */ $item->getWishlistItemId() ?>" 
+              placeholder="<?= /* @escapeNotVerified */ $placeholder; ?>" 
+              name="description[<?= /* @escapeNotVerified */ $item->getWishlistItemId() ?>]" 
+              title="<?= /* @escapeNotVerified */ __('Comment') ?>" 
               class="input__field input__field--textarea"
-    ><?php echo($block->escapeHtml($item->getDescription())) ?></textarea>
+    ><?= /* @escapeNotVerified */ ($block->escapeHtml($item->getDescription())) ?></textarea>
 </div>

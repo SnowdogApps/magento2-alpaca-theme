@@ -1,13 +1,55 @@
+<?php
+/**
+ * Temlate for \Magento\Customer\Block\Address\Book block
+ * @var $block \Magento\Customer\Block\Address\Book
+ */
+?>
 <div class="dashboard-items">
     <h3 class="heading heading--fifth-level dashboard-items__title">
-        <?php /* @escapeNotVerified */ echo __('Default Addresses') ?>
+        <?= /* @escapeNotVerified */ __('Default Addresses') ?>
     </h3>
 
     <div class="grid dashboard-items__content ">
         <?php if ($_pAddsses = $block->getDefaultBilling()): ?>
             <div class="dashboard-items__item grid__column grid__column--1-2">
                 <h5 class="heading heading--sixth-level">
-                    <span><?php /* @escapeNotVerified */ echo __('Default Billing Address') ?></span>
+                    <?= /* @escapeNotVerified */ __('Default Billing Address') ?>
+                </h5>
+
+                <div class="dashboard-items__address">
+                    <address>
+                        <?= /* @escapeNotVerified */ $block->getAddressHtml($block->getAddressById($_pAddsses)) ?>
+                    </address>
+                </div>
+
+                <div class="action">
+                    <div class="action__handler">
+                        <a class="link action__link" 
+                           href="<?= /* @escapeNotVerified */ $block->getAddressEditUrl($_pAddsses) ?>"
+                        >
+                            <?= /* @escapeNotVerified */ __('Change Billing Address') ?>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        <?php else: ?>
+            <div class="dashboard-items__item grid__column grid__column--1-2">
+                <h5 class="heading heading--sixth-level">
+                    <?= /* @escapeNotVerified */ __('Default Billing Address') ?>
+                </h5>
+
+                <div class="dashboard-items__address">
+                    <p>
+                        <?= /* @escapeNotVerified */ __('You have no default billing address in your address book.') ?>
+                    </p>
+                </div>
+            </div>
+        <?php endif ?>
+
+        <?php if ($_pAddsses = $block->getDefaultShipping()): ?>
+            <div class="dashboard-items__item grid__column grid__column--1-2">
+                <h5 class="heading heading--sixth-level">
+                    <?= /* @escapeNotVerified */ __('Default Shipping Address') ?>
                 </h5>
 
                 <div class="dashboard-items__address">
@@ -19,9 +61,9 @@
                 <div class="action">
                     <div class="action__handler">
                         <a class="link action__link" 
-                           href="<?php /* @escapeNotVerified */ echo $block->getAddressEditUrl($_pAddsses) ?>"
+                           href="<?= /* @escapeNotVerified */ $block->getAddressEditUrl($_pAddsses) ?>"
                         >
-                            <?php /* @escapeNotVerified */ echo __('Change Billing Address') ?>
+                            <?= /* @escapeNotVerified */ __('Change Shipping Address') ?>
                         </a>
                     </div>
                 </div>
@@ -29,46 +71,12 @@
         <?php else: ?>
             <div class="dashboard-items__item grid__column grid__column--1-2">
                 <h5 class="heading heading--sixth-level">
-                    <?php /* @escapeNotVerified */ echo __('Default Billing Address') ?>
+                    <?= /* @escapeNotVerified */ __('Default Shipping Address') ?>
                 </h5>
 
                 <div class="dashboard-items__address">
                     <p>
-                        <?php /* @escapeNotVerified */ echo __('You have no default billing address in your address book.') ?>
-                    </p>
-                </div>
-            </div>
-        <?php endif ?>
-
-        <?php if ($_pAddsses = $block->getDefaultShipping()): ?>
-            <div class="dashboard-items__item grid__column grid__column--1-2">
-                <h5 class="heading heading--sixth-level">
-                    <?php /* @escapeNotVerified */ echo __('Default Shipping Address') ?>
-                </h5>
-
-                <div class="dashboard-items__address">
-                    <address>
-                        <?php echo $block->getAddressHtml($block->getAddressById($_pAddsses)) ?>
-                    </address>
-                </div>
-
-                <div class="action">
-                    <div class="action__handler">
-                        <a class="link action__link" href="<?php /* @escapeNotVerified */ echo $block->getAddressEditUrl($_pAddsses) ?>">
-                            <?php /* @escapeNotVerified */ echo __('Change Shipping Address') ?>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        <?php else: ?>
-            <div class="dashboard-items__item grid__column grid__column--1-2">
-                <h5 class="heading heading--sixth-level">
-                    <?php /* @escapeNotVerified */ echo __('Default Shipping Address') ?>
-                </h5>
-
-                <div class="dashboard-items__address">
-                    <p>
-                        <?php /* @escapeNotVerified */ echo __('You have no default shipping address in your address book.') ?>
+                        <?= /* @escapeNotVerified */ __('You have no default shipping address in your address book.') ?>
                     </p>
                 </div>
             </div>
@@ -78,7 +86,7 @@
 
 <div class="dashboard-items">
     <h3 class="heading heading--fifth-level dashboard-items__title ">
-        <?php /* @escapeNotVerified */ echo __('Additional Address Entries') ?>
+        <?= /* @escapeNotVerified */ __('Additional Address Entries') ?>
     </h3>
     
     <div class="grid dashboard-items__content ">
@@ -87,32 +95,32 @@
                 <?php foreach ($_pAddsses as $_address): ?>
                     <div class="dashboard-items__address">
                         <address>
-                            <?php echo $block->getAddressHtml($_address) ?><br />
+                            <?= /* @escapeNotVerified */ $block->getAddressHtml($_address) ?>
                         </address>
                     </div>
 
                     <div class="action">
                         <div class="action__handler">
                             <a class="link action__link" 
-                                href="<?php /* @escapeNotVerified */ echo $block->getUrl('customer/address/edit', ['id' => $_address->getId()]) ?>"
+                                href="<?= /* @escapeNotVerified */ $block->getUrl('customer/address/edit', ['id' => $_address->getId()]) ?>"
                             >
-                                <?php /* @escapeNotVerified */ echo __('Edit Address') ?>
+                                <?= /* @escapeNotVerified */ __('Edit Address') ?>
                             </a>
 
                             <a class="link action__link" 
                                 href="#" 
                                 role="delete-address" 
-                                data-address="<?php /* @escapeNotVerified */ echo $_address->getId() ?>"
+                                data-address="<?= /* @escapeNotVerified */ $_address->getId() ?>"
                             >
-                                <?php /* @escapeNotVerified */ echo __('Delete Address') ?>
+                                <?= /* @escapeNotVerified */ __('Delete Address') ?>
                             </a>
                         </div>
                     </div>
                 <?php endforeach; ?>
-            </ol>
+            </div>
         <?php else: ?>
             <div class="message empty">
-                <?php /* @escapeNotVerified */ echo __('You have no other address entries in your address book.') ?>
+                <?= /* @escapeNotVerified */ __('You have no other address entries in your address book.') ?>
             </div>
         <?php endif ?>
     </div>
@@ -122,16 +130,16 @@
     <div class="action__handler">
         <button type="button" 
                 role="add-address" 
-                title="<?php /* @escapeNotVerified */ echo __('Add New Address') ?>" 
+                title="<?= /* @escapeNotVerified */ __('Add New Address') ?>" 
                 class="button action__button"
         >
-            <?php /* @escapeNotVerified */ echo __('Add New Address') ?>
+            <?= /* @escapeNotVerified */ __('Add New Address') ?>
         </button>
     </div>
 
     <div class="action__handler">
         <a class="link action__link" href="<?php echo $block->escapeUrl($block->getBackUrl()) ?>">
-            <?php /* @escapeNotVerified */ echo __('Back') ?>
+            <?= /* @escapeNotVerified */ __('Back') ?>
         </a>
     </div>
 </div>
@@ -141,9 +149,9 @@
         ".page-main": {
             "address": {
                 "deleteAddress": "li.item a[role='delete-address']",
-                "deleteUrlPrefix": "<?php /* @escapeNotVerified */ echo $block->getDeleteUrl() ?>id/",
+                "deleteUrlPrefix": "<?= /* @escapeNotVerified */ $block->getDeleteUrl() ?>id/",
                 "addAddress": "button[role='add-address']",
-                "addAddressLocation": "<?php /* @escapeNotVerified */ echo $block->getAddAddressUrl() ?>"
+                "addAddressLocation": "<?= /* @escapeNotVerified */ $block->getAddAddressUrl() ?>"
             }
         }
     }

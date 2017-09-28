@@ -5,22 +5,22 @@
     $product = $item->getProduct();
 ?>
 <?php foreach ($block->getChildNames() as $childName): ?>
-    <?php /* @escapeNotVerified */ echo $block->getLayout()->renderElement($childName, false); ?>
+    <?= /* @escapeNotVerified */ $block->getLayout()->renderElement($childName, false); ?>
 <?php endforeach;?>
 
 <?php if ($item->canHaveQty() && $product->isVisibleInSiteVisibility()): ?>
     <div class="input input--inline dashboard__input qty">
-        <label class="label dashboard__label" for="qty[<?php /* @escapeNotVerified */ echo $item->getId() ?>]">
-            <?php /* @escapeNotVerified */ echo __('Qty') ?>
+        <label class="label dashboard__label" for="qty[<?= /* @escapeNotVerified */ $item->getId() ?>]">
+            <?= /* @escapeNotVerified */ __('Qty') ?>
         </label>
 
         <input type="number" 
                data-role="qty" 
-               id="qty[<?php /* @escapeNotVerified */ echo $item->getId() ?>]" 
+               id="qty[<?= /* @escapeNotVerified */ $item->getId() ?>]" 
                class="input__field dashboard__field-qty qty" 
                data-validate="{'required-number':true,'validate-greater-than-zero':true}"
-               name="qty[<?php /* @escapeNotVerified */ echo $item->getId() ?>]" 
-               value="<?php /* @escapeNotVerified */ echo $block->getAddToCartQty($item) * 1 ?>"
+               name="qty[<?= /* @escapeNotVerified */ $item->getId() ?>]" 
+               value="<?= /* @escapeNotVerified */ $block->getAddToCartQty($item) * 1 ?>"
         />
     </div>
 <?php endif; ?>
@@ -30,23 +30,23 @@
         <div class="action__handler">
             <button type="button" 
                     data-role="tocart" 
-                    data-post='<?php /* @escapeNotVerified */ echo $block->getItemAddToCartParams($item)?>' 
-                    title="<?php /* @escapeNotVerified */ echo __('Add to Cart') ?>" 
-                    data-item-id="<?php /* @escapeNotVerified */ echo $item->getId()?>" 
+                    data-post='<?= /* @escapeNotVerified */ $block->getItemAddToCartParams($item) ?>' 
+                    title="<?= /* @escapeNotVerified */ __('Add to Cart') ?>" 
+                    data-item-id="<?= /* @escapeNotVerified */ $item->getId() ?>" 
                     class="button action__button tocart primary"
             >
-                <?php /* @escapeNotVerified */ echo __('Add to Cart') ?>
+                <?= /* @escapeNotVerified */ __('Add to Cart') ?>
             </button>
         </div>
     </div>
 <?php else: ?>
     <?php if ($product->getIsSalable()): ?>
-        <p class="available stock" title="<?php /* @escapeNotVerified */ echo __('Availability') ?>">
-            <?php /* @escapeNotVerified */ echo __('In stock') ?>
+        <p class="available stock" title="<?= /* @escapeNotVerified */ __('Availability') ?>">
+            <?= /* @escapeNotVerified */ __('In stock') ?>
         </p>
     <?php else: ?>
-        <p class="unavailable stock" title="<?php /* @escapeNotVerified */ echo __('Availability') ?>">
-            <?php /* @escapeNotVerified */ echo __('Out of stock') ?>
+        <p class="unavailable stock" title="<?= /* @escapeNotVerified */ __('Availability') ?>">
+            <?= /* @escapeNotVerified */ __('Out of stock') ?>
         </p>
     <?php endif; ?>
 <?php endif; ?>
