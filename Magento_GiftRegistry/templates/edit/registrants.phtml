@@ -186,16 +186,26 @@
 
                 default:
         ?>
+                    $class = 'input__field';
+        
+                    $template = $this->getLayout()->getBlock('giftregistry_edit')->getInputTypeTemplate('text');
+                    
+                    $this->setInputName(
+                        $name
+                    )->setInputId(
+                        $id
+                    )->setInputValue(
+                        $value
+                    )->setInputClass(
+                        $class
+                    );
+        ?>
                     <div class="input dashboard-form__divider <?php echo($isRequired ? ' required' : ''); ?>">
                         <label for="<?= /* @escapeNotVerified */ $field ?>" class="label">
                             <?= /* @escapeNotVerified */ __($data['label']); ?>
                         </label>
-        
-                        <input type="text"
-                               class="input__field required-entry"
-                               name="<?= /* @escapeNotVerified */ $id; ?>"
-                               id="<?= /* @escapeNotVerified */ $id; ?>"
-                        />
+                    
+                        <?=  /* @escapeNotVerified */ $this->fetchView($template); ?>
                     </div>
         <?php
             endswitch;
