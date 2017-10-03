@@ -49,16 +49,13 @@
         <?php $isStatic = $block->isAttributeStatic($field); ?>
 
         <?php 
-            $type = $data['type'];
             $name = $data['name'];
             $id   = $data['id'];
             $value = $this->getEntity()->getFieldValue($id);
         
-            switch ($type) :
+            switch ($data['type']) :
                 case 'country':
-                    $options = $this->getCountryCollection()
-                                    ->setForegroundCountries($this->getTopDestinations())
-                                    ->toOptionArray();
+                    $options = $this->getCountry();
         ?>
                     <div class="select dashboard-form__select required">
                         <label for="<?= /* @escapeNotVerified */ $id; ?>" class="label">
@@ -74,11 +71,11 @@
                                 <?php /* @escapeNotVerified */  echo __('Please Select a country'); ?>
                             </option>
 
-                            <?php for ($_i = 1, $_n = $options; $_i < count($_n); $_i++):?>
-                                <option value="<?= $_n[$_i]['value'] ?>">
-                                    <?= /* @escapeNotVerified */ __($_n[$_i]['label']) ?>
+                            <?php foreach ($options as $option):?>
+                                <option value="<?= $option['value'] ?>">
+                                    <?php /* @escapeNotVerified */ echo __($option['label']) ?>
                                 </option>
-                            <?php endfor; ?>
+                            <?php endforeach; ?>
                         </select>
                     </div>
         <?php
@@ -87,8 +84,6 @@
                 case 'region':
                     $options = $this->getRegionCollection()->toOptionArray();
                     $value = $this->getEntity()->getFieldValue($id);
-                    $getRegionValidateClass = $this->helper('Magento\Customer\Helper\Address')
-                                                   ->getAttributeValidationClass('region');
         ?>
                     <div class="select dashboard-form__select required">
                         <label for="<?= /* @escapeNotVerified */ $id; ?>" class="label">
@@ -117,8 +112,8 @@
                                name="<?= /* @escapeNotVerified */ $id.'_text'; ?>" 
                                value="<?= /* @escapeNotVerified */ $value; ?>" 
                                title="<?= /* @escapeNotVerified */ __('State/Province') ?>" 
-                               class="input__field <?= /* @escapeNotVerified */ $tgetRegionValidateClass ?>"
-                               <?php echo(!$block->getConfig('general/region/display_all')) ? ' disabled="disabled"' : '';?>
+                               class="input__field <?= /* @escapeNotVerified */ $block->getRegionValidationClass(); ?>"
+                               <?= (!$block->displayAll()) ? ' disabled="disabled"' : ''; ?>
                                style="display:none"
                         />
                     </div>
@@ -143,12 +138,7 @@
                     break;
 
                 case 'select':
-                    $options = [];
-                    if (is_array($data['options'])) {
-                        foreach ($data['options'] as $option) {
-                            $options[] = ['label' => $option['label'], 'value' => $option['code']];
-                        }
-                    }
+                    $options = $block->getOptionsToArray($data['options']);
         ?>
                     <div class="select dashboard-form__select required">
                         <label for="<?= /* @escapeNotVerified */ $id; ?>" class="label">
@@ -185,7 +175,7 @@
                     break;
 
                 default:
-        ?>
+        
                     $class = 'input__field';
                     $requiredField = ($isRequired ? ' required' : '');
         
