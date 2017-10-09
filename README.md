@@ -1,1 +1,1 @@
-# theme-frontend-alpaka
+# Alpaca theme
