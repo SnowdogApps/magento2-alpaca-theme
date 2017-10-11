@@ -16,6 +16,7 @@
           enctype="multipart/form-data"
           autocomplete="off"
     >
+        <?= /* @noEscape */ $block->getBlockHtml('formkey'); ?>
         <fieldset class="form__fieldset">
             <legend class="form__legend">
                 <?= /* @escapeNotVerified */ __('Personal Information') ?>
@@ -222,7 +223,7 @@
                        data-validate="{required:true, 'validate-email':true}"
                 >
             </div>
-            <div class="input register__password required"
+            <div class="input password register__password required"
                  data-mage-init='{
                     "passwordStrengthIndicator": {
                         "defaultClassName": "password-strength--"
@@ -326,3 +327,13 @@
 
     </script>
 <?php endif; ?>
+
+<script type="text/x-magento-init">
+    {
+        ".input.password": {
+            "passwordStrengthIndicator": {
+                "formSelector": "form.form"
+            }
+        }
+    }
+</script>
