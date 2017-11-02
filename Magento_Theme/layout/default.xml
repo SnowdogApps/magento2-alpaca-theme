@@ -5,6 +5,14 @@
 >
     <update handle="default_head_blocks"/>
     <body>
+        <referenceContainer name="page.wrapper">
+            <block class="Magento\Framework\View\Element\Template"
+                   name="header.content"
+                   template="Magento_Theme::header/header.phtml"
+                   before="main.content"
+            ></block>
+        </referenceContainer>
+
         <!-- Header layout -->
         <referenceContainer name="header.panel.wrapper" htmlClass="wrapper-collapsible wrapper-collapsible--min-medium-horizontal">
             <block class="Magento\Framework\View\Element\Template"
@@ -172,8 +180,12 @@
         <referenceBlock name="report.bugs" remove="true"/>
         <referenceBlock name="navigation.sections" remove="true" />
 
+        <!--Removed constainers-->
+        <referenceContainer name="header.container" remove="true" />
+
         <!--Moved blocks-->
-        <move element="skip_to_content" destination="header.container" before="-"/>
+        <move element="logo" destination="header.content" />
+
         <move element="store_language" destination="header.panel.action" before="-"/>
         <move element="currency" destination="header.panel.action" before="store_language" />
         <move element="catalog.compare.link" destination="top.links" after="-"/>
