@@ -5,79 +5,54 @@
 >
     <update handle="default_head_blocks"/>
     <body>
-        <!-- Header layout -->
-        <referenceContainer name="header.panel.wrapper" htmlClass="wrapper-collapsible wrapper-collapsible--min-medium-horizontal">
+        <referenceContainer name="page.wrapper">
             <block class="Magento\Framework\View\Element\Template"
-                   name="wrapper-collapsible-icon-account"
-                   template="Magento_Theme::html/wrapper-collapsible-icon.phtml"
-                   before="-"
-            >
-                <arguments>
-                    <argument name="icon" xsi:type="string">user</argument>
-                </arguments>
-            </block>
-            <referenceContainer name="header.panel" htmlClass="wrapper-collapsible__container">
-                <referenceBlock name="top.links">
-                    <arguments>
-                        <argument name="css_class" xsi:type="string">list list--min-medium-horizontal</argument>
-                    </arguments>
-                    <referenceBlock name="my-account-link" template="Magento_Customer::account/link/customer-link.phtml">
-                        <arguments>
-                            <argument name="class" xsi:type="string">list__link</argument>
-                            <argument name="title" xsi:type="string" translate="true">My Account</argument>
-                        </arguments>
-                    </referenceBlock>
-                    <referenceBlock name="register-link" template="Magento_Customer::account/link/customer-link.phtml">
-                        <arguments>
-                            <argument name="class" xsi:type="string">list__link</argument>
-                            <argument name="title" xsi:type="string" translate="true">Create an Account</argument>
-                        </arguments>
-                    </referenceBlock>
-                    <referenceBlock name="authorization-link">
-                        <arguments>
-                            <argument name="class" xsi:type="string">list__link</argument>
-                            <argument name="title" xsi:type="string" translate="true">Sign In</argument>
-                        </arguments>
-                    </referenceBlock>
-                    <referenceBlock name="wish-list-link">
-                        <arguments>
-                            <argument name="class" xsi:type="string">list__link</argument>
-                            <argument name="title" xsi:type="string" translate="true">Create an Account</argument>
-                        </arguments>
-                    </referenceBlock>
-                </referenceBlock>
-            </referenceContainer>
-        </referenceContainer>
-        <referenceContainer name="header.container">
-            <block class="Magento\Framework\View\Element\Template"
-                   name="search-trigger"
-                   template="Magento_Search::search-trigger.phtml"
-                   before="-"
-            />
-            <container name="header.panel.wrapper.action"
-                       as="header.panel.wrapper.action"
-                       htmlTag="div"
-                       htmlClass="wrapper-collapsible"
-                       after="header.panel.wrapper"
+                   name="header.content"
+                   template="Magento_Theme::header/header.phtml"
+                   before="main.content"
             >
                 <block class="Magento\Framework\View\Element\Template"
-                       name="wrapper-collapsible-icon-settings"
-                       template="Magento_Theme::html/wrapper-collapsible-icon.phtml"
-                       before="-"
-                >
-                    <arguments>
-                        <argument name="icon" xsi:type="string">settings</argument>
-                    </arguments>
-                </block>
-                <container name="header.panel.action"
-                           as="header.panel.action"
-                           htmlTag="div"
-                           htmlClass="wrapper-collapsible__container"
+                       name="marketing-bar"
+                       template="Magento_Theme::header/marketing-bar.phtml"
                 />
-            </container>
-        </referenceContainer>
-        <referenceContainer name="header-wrapper" htmlClass="page-header__content">
 
+                <block class="Magento\Framework\View\Element\Template"
+                       name="featured-info"
+                       template="Magento_Theme::header/featured-info.phtml"
+                />
+
+                <block class="Magento\Wishlist\Block\Link"
+                       name="wish-list-link"
+                       template="Magento_Theme::header/top-links/wishlist.phtml"
+                />
+
+                <block class="Magento\Customer\Block\Account\AuthorizationLink"
+                       name="authorization-link"
+                       template="Magento_Theme::header/top-links/authorization.phtml"
+                />
+
+                <block class="Magento\Customer\Block\Account\RegisterLink"
+                       name="registration-link"
+                       template="Magento_Theme::header/top-links/registration.phtml"
+                />
+
+                <block class="Magento\Customer\Block\Account\Link"
+                       name="account-link-mobile"
+                       template="Magento_Theme::header/mobile-links/account.phtml"
+                />
+
+                <block class="Magento\Framework\View\Element\Template"
+                       name="phone-link-mobile"
+                       template="Magento_Theme::header/mobile-links/phone.phtml"
+                />
+
+                <referenceBlock name="minicart" template="Magento_Theme::header/minicart.phtml"/>
+                <referenceBlock name="logo" template="Magento_Theme::header/logo.phtml"/>
+                <referenceBlock name="top.search" template="Magento_Theme::header/search.phtml"/>
+            </block>
+        </referenceContainer>
+
+        <referenceContainer name="header-wrapper" htmlClass="page-header__content">
             <block name="main.menu.mobile" class="Snowdog\Menu\Block\Menu" template="Snowdog_Menu::menu-mobile.phtml" after="top.search">
                 <arguments>
                     <argument name="menu" xsi:type="string">menu_mobile</argument>
@@ -166,14 +141,18 @@
 
         <!-- End of Footer layout -->
 
-
-
         <!--Removed blocks-->
         <referenceBlock name="report.bugs" remove="true"/>
         <referenceBlock name="navigation.sections" remove="true" />
 
+        <!--Removed constainers-->
+        <referenceContainer name="header.container" remove="true" />
+
         <!--Moved blocks-->
-        <move element="skip_to_content" destination="header.container" before="-"/>
+        <move element="logo" destination="header.content" />
+        <move element="top.search" destination="header.content" as="search" />
+        <move element="minicart" destination="header.content" />
+
         <move element="store_language" destination="header.panel.action" before="-"/>
         <move element="currency" destination="header.panel.action" before="store_language" />
         <move element="catalog.compare.link" destination="top.links" after="-"/>
