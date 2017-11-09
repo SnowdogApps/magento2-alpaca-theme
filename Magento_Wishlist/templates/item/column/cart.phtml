@@ -1,0 +1,52 @@
+<?php
+    /* @var $block \Magento\Wishlist\Block\Customer\Wishlist\Item\Column\Cart */
+    /* @var \Magento\Wishlist\Model\Item $item */
+    $item = $block->getItem();
+    $product = $item->getProduct();
+?>
+<?php foreach ($block->getChildNames() as $childName): ?>
+    <?= /* @escapeNotVerified */ $block->getLayout()->renderElement($childName, false); ?>
+<?php endforeach; ?>
+
+<?php if ($item->canHaveQty() && $product->isVisibleInSiteVisibility()): ?>
+    <div class="input input--inline dashboard__input qty">
+        <label class="label dashboard__label" for="qty[<?= /* @escapeNotVerified */ $item->getId() ?>]">
+            <?= /* @escapeNotVerified */ __('Qty') ?>
+        </label>
+
+        <input type="number" 
+               data-role="qty" 
+               id="qty[<?= /* @escapeNotVerified */ $item->getId() ?>]" 
+               class="input__field dashboard__field-qty qty" 
+               data-validate="{'required-number':true,'validate-greater-than-zero':true}"
+               name="qty[<?= /* @escapeNotVerified */ $item->getId() ?>]" 
+               value="<?= /* @escapeNotVerified */ $block->getAddToCartQty($item) * 1 ?>"
+        />
+    </div>
+<?php endif; ?>
+
+<?php if ($product->isSaleable()): ?>
+    <div class="action">
+        <div class="action__handler">
+            <button type="button" 
+                    data-role="tocart" 
+                    data-post='<?= /* @escapeNotVerified */ $block->getItemAddToCartParams($item) ?>' 
+                    title="<?= /* @escapeNotVerified */ __('Add to Cart') ?>" 
+                    data-item-id="<?= /* @escapeNotVerified */ $item->getId() ?>" 
+                    class="button action__button tocart primary"
+            >
+                <?= /* @escapeNotVerified */ __('Add to Cart') ?>
+            </button>
+        </div>
+    </div>
+<?php else: ?>
+    <?php if ($product->getIsSalable()): ?>
+        <p class="available stock" title="<?= /* @escapeNotVerified */ __('Availability') ?>">
+            <?= /* @escapeNotVerified */ __('In stock') ?>
+        </p>
+    <?php else: ?>
+        <p class="unavailable stock" title="<?= /* @escapeNotVerified */ __('Availability') ?>">
+            <?= /* @escapeNotVerified */ __('Out of stock') ?>
+        </p>
+    <?php endif; ?>
+<?php endif; ?>

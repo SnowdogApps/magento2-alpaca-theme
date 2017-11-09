@@ -1,0 +1,74 @@
+<div class="dashboard-table">
+    <?php $_order = $block->getOrder(); ?>
+
+    <div class="dashboard-table__header">
+        <h5 class="heading heading--fifth-level dashboard-table__title">
+            <?= /* @escapeNotVerified */ __('Refund #') ?>
+            <?= /* @escapeNotVerified */ $_creditmemo->getIncrementId(); ?>
+        </h5>
+
+        <?php if (sizeof($_order->getItems()) > 0): ?>
+            <a class="link dashboard-table__link" 
+               href="<?= /* @escapeNotVerified */ $block->getPrintAllCreditmemosUrl($_order) ?>"
+               onclick="this.target='_blank'"
+            >
+                <?= /* @escapeNotVerified */ __('Print All Refunds') ?>
+            </a>
+        <?php endif; ?>
+    </div>
+
+    <?php foreach ($_order->getCreditmemosCollection() as $_creditmemo): ?>
+        <div class="dashboard-table__content">
+            <table class="table" id="my-refund-table-<?= /* @escapeNotVerified */ $_creditmemo->getId(); ?>">
+                <thead>
+                    <tr>
+                        <th class="name">
+                            <?= /* @escapeNotVerified */ __('Product Name') ?>
+                        </th>
+
+                        <th class="sku">
+                            <?= /* @escapeNotVerified */ __('SKU') ?>
+                        </th>
+
+                        <th class="price">
+                            <?= /* @escapeNotVerified */ __('Price') ?>
+                        </th>
+
+                        <th class="qty">
+                            <?= /* @escapeNotVerified */ __('Qty') ?>
+                        </th>
+
+                        <th class="subtotal">
+                            <?= /* @escapeNotVerified */ __('Subtotal') ?>
+                        </th>
+
+                        <th class="discount">
+                            <?= /* @escapeNotVerified */ __('Discount Amount') ?>
+                        </th>
+
+                        <th class="total">
+                            <?= /* @escapeNotVerified */ __('Row Total') ?>
+                        </th>
+                    </tr>
+                </thead>
+                
+                <?php $_items = $_creditmemo->getAllItems(); ?>
+                <?php $_count = count($_items) ?>
+
+                <?php foreach ($_items as $_item): ?>
+                    <?php if ($_item->getOrderItem()->getParentItem()): continue; endif; ?>
+
+                    <tbody>
+                        <?= /* @escapeNotVerified */ $block->getItemHtml($_item) ?>
+                    </tbody>
+                <?php endforeach; ?>
+
+                <tfoot>
+                    <?= /* @escapeNotVerified */ $block->getTotalsHtml($_creditmemo); ?>
+                </tfoot>
+            </table>
+        </div>
+        
+        <?= /* @escapeNotVerified */ $block->getCommentsHtml($_creditmemo) ?>
+    <?php endforeach; ?>
+</div>

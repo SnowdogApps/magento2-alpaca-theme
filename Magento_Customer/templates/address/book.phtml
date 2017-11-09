@@ -1,0 +1,158 @@
+<?php
+/**
+ * Temlate for \Magento\Customer\Block\Address\Book block
+ * @var $block \Magento\Customer\Block\Address\Book
+ */
+?>
+<div class="dashboard-items">
+    <h3 class="heading heading--fifth-level dashboard-items__title">
+        <?= /* @escapeNotVerified */ __('Default Addresses') ?>
+    </h3>
+
+    <div class="grid dashboard-items__content ">
+        <?php if ($_pAddsses = $block->getDefaultBilling()): ?>
+            <div class="dashboard-items__item grid__column grid__column--1-2">
+                <h5 class="heading heading--sixth-level">
+                    <?= /* @escapeNotVerified */ __('Default Billing Address') ?>
+                </h5>
+
+                <div class="dashboard-items__address">
+                    <address>
+                        <?= /* @escapeNotVerified */ $block->getAddressHtml($block->getAddressById($_pAddsses)) ?>
+                    </address>
+                </div>
+
+                <div class="action">
+                    <div class="action__handler">
+                        <a class="link action__link" 
+                           href="<?= /* @escapeNotVerified */ $block->getAddressEditUrl($_pAddsses) ?>"
+                        >
+                            <?= /* @escapeNotVerified */ __('Change Billing Address') ?>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        <?php else: ?>
+            <div class="dashboard-items__item grid__column grid__column--1-2">
+                <h5 class="heading heading--sixth-level">
+                    <?= /* @escapeNotVerified */ __('Default Billing Address') ?>
+                </h5>
+
+                <div class="dashboard-items__address">
+                    <p>
+                        <?= /* @escapeNotVerified */ __('You have no default billing address in your address book.') ?>
+                    </p>
+                </div>
+            </div>
+        <?php endif ?>
+
+        <?php if ($_pAddsses = $block->getDefaultShipping()): ?>
+            <div class="dashboard-items__item grid__column grid__column--1-2">
+                <h5 class="heading heading--sixth-level">
+                    <?= /* @escapeNotVerified */ __('Default Shipping Address') ?>
+                </h5>
+
+                <div class="dashboard-items__address">
+                    <address>
+                        <?php echo $block->getAddressHtml($block->getAddressById($_pAddsses)) ?>
+                    </address>
+                </div>
+
+                <div class="action">
+                    <div class="action__handler">
+                        <a class="link action__link" 
+                           href="<?= /* @escapeNotVerified */ $block->getAddressEditUrl($_pAddsses) ?>"
+                        >
+                            <?= /* @escapeNotVerified */ __('Change Shipping Address') ?>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        <?php else: ?>
+            <div class="dashboard-items__item grid__column grid__column--1-2">
+                <h5 class="heading heading--sixth-level">
+                    <?= /* @escapeNotVerified */ __('Default Shipping Address') ?>
+                </h5>
+
+                <div class="dashboard-items__address">
+                    <p>
+                        <?= /* @escapeNotVerified */ __('You have no default shipping address in your address book.') ?>
+                    </p>
+                </div>
+            </div>
+        <?php endif ?>
+    </div>
+</div>
+
+<div class="dashboard-items">
+    <h3 class="heading heading--fifth-level dashboard-items__title ">
+        <?= /* @escapeNotVerified */ __('Additional Address Entries') ?>
+    </h3>
+    
+    <div class="grid dashboard-items__content ">
+        <?php if ($_pAddsses = $block->getAdditionalAddresses()): ?>
+            <div class="dashboard-items__item grid__column grid__column--1-2">
+                <?php foreach ($_pAddsses as $_address): ?>
+                    <div class="dashboard-items__address">
+                        <address>
+                            <?= /* @escapeNotVerified */ $block->getAddressHtml($_address) ?>
+                        </address>
+                    </div>
+
+                    <div class="action">
+                        <div class="action__handler">
+                            <a class="link action__link" 
+                                href="<?= /* @escapeNotVerified */ $block->getUrl('customer/address/edit', ['id' => $_address->getId()]) ?>"
+                            >
+                                <?= /* @escapeNotVerified */ __('Edit Address') ?>
+                            </a>
+
+                            <a class="link action__link" 
+                                href="#" 
+                                role="delete-address" 
+                                data-address="<?= /* @escapeNotVerified */ $_address->getId() ?>"
+                            >
+                                <?= /* @escapeNotVerified */ __('Delete Address') ?>
+                            </a>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        <?php else: ?>
+            <div class="message empty">
+                <?= /* @escapeNotVerified */ __('You have no other address entries in your address book.') ?>
+            </div>
+        <?php endif; ?>
+    </div>
+</div>
+
+<div class="action">
+    <div class="action__handler">
+        <button type="button" 
+                role="add-address" 
+                title="<?= /* @escapeNotVerified */ __('Add New Address') ?>" 
+                class="button action__button"
+        >
+            <?= /* @escapeNotVerified */ __('Add New Address') ?>
+        </button>
+    </div>
+
+    <div class="action__handler">
+        <a class="link action__link" href="<?= /* @escapeNotVerified */ $block->escapeUrl($block->getBackUrl()) ?>">
+            <?= /* @escapeNotVerified */ __('Back') ?>
+        </a>
+    </div>
+</div>
+
+<script type="text/x-magento-init">
+    {
+        ".page-main": {
+            "address": {
+                "deleteAddress": "li.item a[role='delete-address']",
+                "deleteUrlPrefix": "<?= /* @escapeNotVerified */ $block->getDeleteUrl() ?>id/",
+                "addAddress": "button[role='add-address']",
+                "addAddressLocation": "<?= /* @escapeNotVerified */ $block->getAddAddressUrl() ?>"
+            }
+        }
+    }
+</script>

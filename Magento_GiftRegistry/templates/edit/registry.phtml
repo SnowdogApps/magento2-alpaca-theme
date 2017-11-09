@@ -1,0 +1,228 @@
+<input type="hidden" name="entity_id" id="entity_id" value="<?= /* @escapeNotVerified */ $block->getEntity()->getEntityId(); ?>" />
+<input type="hidden" name="type_id" id="type_id" value="<?= /* @escapeNotVerified */ $block->getTypeId(); ?>" />
+
+<h5 class="heading heading--fifth-level dashboard-form__title">
+    <?= /* @escapeNotVerified */ __('General Information') ?>
+</h5>
+
+<div class="information">
+    <p class="information__text">
+        <span>
+            <?= /* @escapeNotVerified */ __('Type:') ?>
+        </span>
+
+        <strong>
+            <?= /* @escapeNotVerified */ $block->getTypeLabel(); ?>
+        </strong>
+    </p>
+</div>
+
+<div class="dashboard-form__divider " >
+    <div class="input dashboard-form__divider required">
+        <label for="title" class="label">
+            <?= /* @escapeNotVerified */ __('Event') ?>
+        </label>
+        
+        <input type="text" 
+               name="title" 
+               id="title" 
+               value="<?= /* @escapeNotVerified */ $block->escapeHtml($block->getEntity()->getTitle());?>" 
+               title="<?= /* @escapeNotVerified */ __('Event') ?>" 
+               class="input__field" 
+               data-validate="{required:true}" 
+        />
+    </div>
+
+    <div class="input dashboard-form__divider required">
+        <label for="message" class="label">
+            <?= /* @escapeNotVerified */ __('Message') ?>
+        </label>
+        
+        <textarea name="message" 
+                  id="message" 
+                  cols="5" 
+                  rows="3"
+                  class="input__field input__field--textarea" 
+                  title="<?= /* @escapeNotVerified */ __('Message') ?>" 
+                  data-validate="{required:true}" 
+        ><?= /* @escapeNotVerified */ $block->escapeHtml($block->getEntity()->getMessage());?></textarea>
+    </div>
+
+    <div class="select dashboard-form__select required" data-mage-init='{"loadSelect": {}}'>
+        <label for="is_public" class="label">
+            <?= /* @escapeNotVerified */ __('Privacy Settings') ?>
+        </label>
+
+        <?= /* @escapeNotVerified */ $block->getIsPublicHtml() ?>
+    </div>
+
+    <div class="select dashboard-form__select required">
+        <label for="status" class="label">
+            <?= /* @escapeNotVerified */ __('Status') ?>
+        </label>
+
+        <select data-validate="{required:true}" 
+                name="status" 
+                id="status"
+                class="select__field select__field--native validate-select"
+                data-mage-init='{"select": {}}'
+        >
+            <?php foreach ($block->getEntity()->getOptionsStatus() as $num=>$type):?>
+                <option value="<?= $num; ?>">
+                    <?= /* @escapeNotVerified */ $type->getText() ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+</div>
+
+<?php
+$fieldsets = $block->getGroupedRegistryAttributes();
+
+foreach ($fieldsets as $fieldset => $fields) : ?>
+    <h5 class="heading heading--fifth-level dashboard-form__title">
+        <?= /* @escapeNotVerified */ $block->getGroupLabel($fieldset); ?>
+    </h5>
+
+    <?php foreach ($fields as $field => $data) : ?>
+        <?php $isRequired = $block->isAttributeRequired($data); ?>
+
+        <?php 
+            $name  = $data['name'];
+            $id    = $data['id'];
+            $value = $this->getEntity()->getFieldValue($id);
+        
+            switch ($data['type']) :
+                case 'country':
+                    $options = $block->getCountry();
+        ?>
+                    <div class="select dashboard-form__select required">
+                        <label for="<?= /* @escapeNotVerified */ $id; ?>" class="label">
+                            <?= /* @escapeNotVerified */ __($data['label']) ?>
+                        </label>
+
+                        <select data-validate="{required:true}" 
+                                name="<?= /* @escapeNotVerified */ $id; ?>" 
+                                id="<?= /* @escapeNotVerified */ $id; ?>"
+                                class="select__field select__field--native validate-select"
+                                data-mage-init='{"select": {}}'
+                        >
+                            <option value="" disabled selected>
+                                <?php /* @escapeNotVerified */  echo __('Please Select a country'); ?>
+                            </option>
+
+                            <?php foreach ($options as $option):?>
+                                <option value="<?= $option['value'] ?>">
+                                    <?php /* @escapeNotVerified */ echo __($option['label']) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+        <?php
+                    break;
+
+                case 'region':
+                    $value = $this->getEntity()->getFieldValue($id);
+        ?>
+                    <div class="input dashboard-form__divider required">
+                        <label for="<?= /* @escapeNotVerified */ $id.'_text'; ?>" class="label">
+                            <?= /* @escapeNotVerified */ __($data['label']) ?>
+                        </label>
+
+                        <input type="text" 
+                               id="<?= /* @escapeNotVerified */ $id.'_text'; ?>" 
+                               name="<?= /* @escapeNotVerified */ $id.'_text'; ?>" 
+                               value="<?= /* @escapeNotVerified */ $value; ?>" 
+                               title="<?= /* @escapeNotVerified */ __('State/Province') ?>" 
+                               class="input__field <?= /* @escapeNotVerified */ $block->getRegionValidationClass(); ?>"
+                               <?= /* @escapeNotVerified */ $block->displayAll(); ?>
+                        />
+                    </div>
+        <?php
+                    break;
+
+                case 'date':
+                    $formatType      = \IntlDateFormatter::SHORT;
+                    $isRequiredField = ($isRequired ? ' required' : '');
+        ?>
+                    <div class="
+                            input 
+                            dashboard-form__divider 
+                            <?= /* @escapeNotVerified */ $isRequiredField; ?>
+                            <?= /* @escapeNotVerified */ $field == 'event_date' ? ' date' : ''; ?>
+                         "
+                    >
+                        <?= /* @escapeNotVerified */ 
+                            $block->getCalendarDateHtml($name, $id, $value, $formatType, 'input__field');
+                        ?>
+                    </div>
+        <?php
+                    break;
+
+                case 'select':
+                    $options = $block->getOptionsToArray($data['options']);
+        ?>
+                    <div class="select dashboard-form__select required">
+                        <label for="<?= /* @escapeNotVerified */ $id; ?>" class="label">
+                            <?= /* @escapeNotVerified */ __($data['label']) ?>
+                        </label>
+
+                        <div class="select--native">
+                            <?= /* @escapeNotVerified */ 
+                                $this->getSelectHtml($options, $name, $id, $value, 'select__field select__field--native'); 
+                            ?>
+                        </div>
+                    </div>
+        <?php
+                    break;
+                        
+                case 'number':
+        ?>
+                    <div class="
+                            input 
+                            dashboard-form__divider 
+                            validate-digits 
+                            <?= /* @escapeNotVerified */ ($isRequired ? ' required' : ''); ?>
+                         "
+                    >
+                        <label for="<?= /* @escapeNotVerified */ $field ?>" class="label">
+                            <?= /* @escapeNotVerified */ __($data['label']); ?>
+                        </label>
+        
+                        <input type="number"
+                               class="input__field required-entry"
+                               name="<?= /* @escapeNotVerified */ $id; ?>"
+                               id="<?= /* @escapeNotVerified */ $id; ?>"
+                        />
+                    </div>
+        <?php
+                    break;
+
+                default:
+                    $class = 'input__field';
+                    $requiredField = ($isRequired ? ' required' : '');
+
+                    $template = $this->getLayout()->getBlock('giftregistry_edit')->getInputTypeTemplate('text');
+                    
+                    $this->setInputName(
+                        $name
+                    )->setInputId(
+                        $id
+                    )->setInputValue(
+                        $value
+                    )->setInputClass(
+                        $class
+                    );
+        ?>
+                    <div class="input dashboard-form__divider <?= /* @escapeNotVerified */ $requiredField; ?>">
+                        <label for="<?= /* @escapeNotVerified */ $field ?>" class="label">
+                            <?= /* @escapeNotVerified */ __($data['label']); ?>
+                        </label>
+                    
+                        <?=  /* @escapeNotVerified */ $this->fetchView($template); ?>
+                    </div>
+        <?php
+            endswitch;
+        ?>
+    <?php endforeach; ?>
+<?php endforeach; ?>

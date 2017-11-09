@@ -1,0 +1,142 @@
+<div class="dashboard-table">
+    <?php $_order = $block->getOrder(); ?>
+
+    <div class="dashboard-table__header">
+        <h5 class="heading heading--fifth-level dashboard-table__title">
+            <?= /* @escapeNotVerified */  __('Shipments') ?>
+        </h5>
+
+        <?php if ($_order->getTracksCollection()->count()) : ?>
+            <?= /* @escapeNotVerified */ $block->getChildHtml('track-all-link') ?>
+        <?php endif; ?>
+
+        <?php if (sizeof($_orders->getItems()) > 0): ?>
+            <a class="link dashboard-table__link" 
+               href="<?= /* @escapeNotVerified */  $block->getPrintAllShipmentsUrl($_order) ?>"
+            >
+                <?= /* @escapeNotVerified */  __('Print All Shipments') ?>
+            </a>
+        <?php endif; ?>
+    </div>
+
+    <?php foreach ($_order->getShipmentsCollection() as $_shipment): ?>
+        <div class="dashboard-table__content">
+            <div class="dashboard-table__header">
+                <?php 
+                    $getTrackingUrl = $this->helper('Magento\Shipping\Helper\Data')
+                                           ->getTrackingPopupUrlBySalesModel($_shipment);
+                ?>
+
+                <strong>
+                    <?= /* @escapeNotVerified */  __('Shipment #') ?>
+                    <?= /* @escapeNotVerified */  $_shipment->getIncrementId(); ?>
+                </strong>
+
+                <a href="<?= /* @escapeNotVerified */  $block->getPrintShipmentUrl($_shipment) ?>"
+                   onclick="this.target='_blank'"
+                   class="link"
+                >
+                    <?= /* @escapeNotVerified */  __('Print Shipment') ?>
+                </a>
+
+                <a href="#"
+                   data-mage-init='{
+                       "popupWindow": {
+                           "windowURL": "<?= /* @escapeNotVerified */ $getTrackingUrl ?>",
+                           "windowName": "trackshipment",
+                           "width":800, 
+                           "height":600,
+                           "top":0,
+                           "left":0,
+                           "resizable":1,
+                           "scrollbars":1
+                        }
+                   }'
+                   title="<?= /* @escapeNotVerified */  __('Track this shipment') ?>"
+                   class="link"
+                >
+                    <?= /* @escapeNotVerified */  __('Track this shipment') ?>
+                </a>
+            </div>
+
+            <?php $tracks = $_shipment->getTracksCollection(); ?>
+
+            <?php if ($tracks->count()): ?>
+                <strong>
+                    <?= /* @escapeNotVerified */  __('Tracking Number(s):') ?>
+                </strong>
+                
+                <ul class="list" id="my-tracking-table-<?= /* @escapeNotVerified */  $_shipment->getId(); ?>">
+                    <?php
+                        $i = 1;
+                        $_size = $tracks->count();
+                    ?>
+                    <?php foreach ($tracks as $track): ?>
+                        <?php 
+                            $getPopupUrl = $this->helper('Magento\Shipping\Helper\Data')->getTrackingPopupUrlBySalesModel($track);
+                        ?>
+
+                        <li class="list__item">
+                            <?php if ($track->isCustom()): ?>
+                                <?= /* @escapeNotVerified */ $block->escapeHtml($track->getNumber()) ?>
+                            <?php else: ?>
+                                <a href="#"
+                                   data-mage-init='{
+                                        "popupWindow": {
+                                            "windowURL": "<?= /* @escapeNotVerified */ $getPopupUrl ?>",
+                                            "windowName":"trackorder",
+                                            "width":800,
+                                            "height":600,
+                                            "left":0,
+                                            "top":0,
+                                            "resizable":1,
+                                            "scrollbars":1
+                                        }
+                                    }'
+                                   class="action track"
+                                >
+                                    <?= /* @escapeNotVerified */ $block->escapeHtml($track->getNumber()) ?>
+                                </a>
+                            <?php endif; ?>
+                                
+                            <?php if ($i != $_size): ?>
+                            , 
+                            <?php endif; ?>
+                            <?php $i++; ?>
+                        </li>
+                    <?php endforeach; ?>                    
+                </ul>
+            <?php  endif; ?>
+
+            <table class="table" id="my-shipment-table-<?= /* @escapeNotVerified */  $_shipment->getId(); ?>">
+                <thead>
+                    <tr>
+                        <th class="name">
+                            <?= /* @escapeNotVerified */  __('Product Name') ?>
+                        </th>
+
+                        <th class="sku">
+                            <?= /* @escapeNotVerified */  __('SKU') ?>
+                        </th>
+
+                        <th class="qty">
+                            <?= /* @escapeNotVerified */  __('Qty Shipped') ?>
+                        </th>
+                    </tr>
+                </thead>
+
+                <?php $_items = $_shipment->getAllItems(); ?>
+                <?php $_count = count($_items); ?>
+
+                <?php foreach ($_items as $_item): ?>
+                    <?php if ($_item->getOrderItem()->getParentItem()): continue; endif; ?>
+
+                    <tbody>
+                        <?= /* @escapeNotVerified */ $block->getItemHtml($_item) ?>
+                    </tbody>
+                <?php endforeach; ?>
+            </table>
+            <?= /* @escapeNotVerified */ $block->getCommentsHtml($_shipment) ?>
+        </div>
+    <?php endforeach; ?>
+</div>

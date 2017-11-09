@@ -1,0 +1,49 @@
+<?php $ccNumberView = $block->escapeHtml($block->getNumberLast4Digits()); ?>
+<tr>
+    <td data-th="<?= /* @escapeNotVerified */ $block->escapeHtml(__('Card Number')) ?>" class="col card-number">
+        <?= /* @escapeNotVerified */ $block->escapeHtml(__('ending ')); ?>
+        <?= /* @escapeNotVerified */ $ccNumberView ?>
+    </td>
+
+    <td data-th="<?= /* @escapeNotVerified */ $block->escapeHtml(__('Expiration Date')) ?>" class="col card-expire">
+        <?= /* @escapeNotVerified */ $block->escapeHtml($block->getExpDate()); ?>
+    </td>
+
+    <td data-th="<?= /* @escapeNotVerified */ $block->escapeHtml(__('Type')) ?>" class="col card-type">
+        <img src="<?= /* @escapeNotVerified */ $block->getIconUrl(); ?>"
+             width="<?= /* @escapeNotVerified */ $block->getIconWidth(); ?>"
+             height="<?= /* @escapeNotVerified */ $block->getIconHeight(); ?>"
+        />
+    </td>
+
+    <td data-th="<?= /* @escapeNotVerified */ $block->escapeHtml(__('Actions')) ?>" class="col actions">
+        <form class="form"
+              action="<?= /* @escapeNotVerified */ $block->escapeUrl($block->getUrl('vault/cards/deleteaction')); ?>"
+              method="post"
+        >
+            <?= /* @escapeNotVerified */ $block->getBlockHtml('formkey') ?>
+
+            <input name="<?= /* @escapeNotVerified */ PaymentTokenInterface::PUBLIC_HASH ?>"
+                   value="<?= /* @escapeNotVerified */ $block->getToken()->getPublicHash() ?>"
+                   type="hidden"
+            />
+
+            <button type="submit"
+                    class="button delete"
+                    data-mage-init='{
+                        "Magento_Vault/js/customer_account/deleteWidget":{
+                            "type": "popup",
+                            "modalClass": "my-credit-cards-popup",
+                            "toggleEvent": "click",
+                            "title": "<?= /* @escapeNotVerified */ $block->escapeHtml(__('Delete')) ?>",
+                            "content": "
+                                Are you sure you want to delete this card: <?= /* @noEscape */ $ccNumberView; ?>?
+                            "
+                        }
+                    }'
+            >
+                <?= /* @escapeNotVerified */ $block->escapeHtml(__('Delete')) ?>
+            </button>
+        </form>
+    </td>
+</tr>

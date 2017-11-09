@@ -1,0 +1,56 @@
+<form action="<?= /* @escapeNotVerified */ $block->getAddActionUrl(); ?>"
+      method="post"
+      id="form-validate"
+      class="form dashboard-form validation"
+      data-hasrequired="<?= /* @escapeNotVerified */ __('* Required Fields') ?>"
+      data-mage-init='{"validation":{}}'
+>
+    <?= /* @escapeNotVerified */ $block->getBlockHtml('formkey') ?>
+
+    <h5 class="heading heading--fifth-level dashboard-form__title">
+        <?= /* @escapeNotVerified */ __('General Information') ?>
+    </h5>
+
+    <div class="select dashboard-form__select required">
+        <label for="type_id" class="label">
+            <?= /* @escapeNotVerified */ __('Gift Registry Type') ?>
+        </label>
+
+        <select data-validate="{required:true}" 
+                name="type_id" 
+                id="type_id"
+                class="select__field select__field--native validate-select"
+                data-mage-init='{"select": {}}'
+        >
+            <option value="" selected disabled>
+                <?= /* @escapeNotVerified */ __('Please select a gift registry type.') ?>
+            </option>
+
+            <?php foreach ($block->getTypeList() as $type): ?>
+                <option value="<?= /* @escapeNotVerified */ $type['value'] ?>">
+                    <?= /* @escapeNotVerified */ $type['label'] ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+
+    <div class="action">
+        <div class="action__handler">
+            <button type="submit" 
+                    id="submit.next" 
+                    title="<?= /* @escapeNotVerified */ __('Next') ?>" 
+                    class="button action__button primary next"
+            >
+                <?= /* @escapeNotVerified */ __('Next') ?>
+            </button>
+        </div>
+
+        <div class="action__handler">
+            <a href="<?= /* @escapeNotVerified */ $block->escapeUrl($block->getBackUrl()) ?>"
+               class="link action__link back"
+            >
+                <?= /* @escapeNotVerified */ __('Back') ?>
+            </a>
+        </div>
+    </div>
+</form>

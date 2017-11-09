@@ -1,15 +1,16 @@
 define(['choices'], function(Choices) {
     'use strict';
+
     return function(options, select) {
         const defaultOptions = {
-            placeholder     : true,
-            placeholderValue: 'Search item',
-            classNames      : {
-                containerInner: 'select',
-                list          : 'select__list',
-                input         : 'select__input',
-                item          : 'select__item',
-                listSingle    : 'select__list--single',
+            placeholder  : false,
+            searchEnabled: false,
+            classNames   : {
+                containerInner: 'select__field',
+                list          : 'select__field-list',
+                input         : 'select__field-input',
+                item          : 'select__field-item',
+                listSingle    : 'select__field-list--single'
             }
         };
         options = Object.assign(defaultOptions, options);
