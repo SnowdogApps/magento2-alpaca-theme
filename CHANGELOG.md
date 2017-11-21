@@ -1,7 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [0.1.2] - 2017-10-10 
+## [Unreleased]
+### Added
+ - on dashboard order view - links to invoices, shipments and crmemo lists
+
+## [0.1.2] - 2017-10-10
 ### Added
  - CHANGELOG.md
 
