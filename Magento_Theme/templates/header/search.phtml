@@ -6,42 +6,40 @@
 $helper = $this->helper('Magento\Search\Helper\Data');
 ?>
 
-<div class="header__search-wrapper">
-    <form class="search-form"
-          id="search_mini_form"
-          action="<?= /* @escapeNotVerified */ $helper->getResultUrl() ?>"
-          method="get"
-    >
-        <div class="input search-form__input-wrapper">
-            <label class="label search-form__label" for="search">
-                <?= __('Search') ?>
-            </label>
-            <input id="search"
-                   data-mage-init='{"quickSearch":{
-                        "formSelector":"#search_mini_form",
-                        "url":"<?= /* @escapeNotVerified */ $block->getUrl('search/ajax/suggest', ['_secure' => $block->getRequest()->isSecure()]); ?>",
-                        "destinationSelector":"#search_autocomplete"}
-                   }'
-                   type="text"
-                   name="<?= /* @escapeNotVerified */ $helper->getQueryParamName(); ?>"
-                   value="<?= /* @escapeNotVerified */ $helper->getEscapedQueryText(); ?>"
-                   placeholder="<?= /* @escapeNotVerified */ __('Search entire store here...'); ?>"
-                   class="input__field search-form__input"
-                   maxlength="<?= /* @escapeNotVerified */ $helper->getMaxQueryLength(); ?>"
-                   role="combobox"
-                   aria-haspopup="false"
-                   aria-autocomplete="none"
-                   autocomplete="off"
-            >
-        </div>
-        <button class="button button--icon search-form__button"
-                type="submit"
-                title="<?= $block->escapeHtml(__('Search')); ?>"
-                aria-label="Search button"
+<form class="search-form"
+      id="search_mini_form"
+      action="<?= /* @escapeNotVerified */ $helper->getResultUrl() ?>"
+      method="get"
+>
+    <div class="input search-form__input-wrapper">
+        <label class="label label--hidden" for="search">
+            <?= __('Search') ?>
+        </label>
+        <input id="search"
+               data-mage-init='{"quickSearch":{
+                    "formSelector":"#search_mini_form",
+                    "url":"<?= /* @escapeNotVerified */ $block->getUrl('search/ajax/suggest', ['_secure' => $block->getRequest()->isSecure()]); ?>",
+                    "destinationSelector":"#search_autocomplete"}
+               }'
+               type="text"
+               name="<?= /* @escapeNotVerified */ $helper->getQueryParamName(); ?>"
+               value="<?= /* @escapeNotVerified */ $helper->getEscapedQueryText(); ?>"
+               placeholder="<?= /* @escapeNotVerified */ __('Search entire store here...'); ?>"
+               class="input__field search-form__input"
+               maxlength="<?= /* @escapeNotVerified */ $helper->getMaxQueryLength(); ?>"
+               role="combobox"
+               aria-haspopup="false"
+               aria-autocomplete="none"
+               autocomplete="off"
         >
-            <svg title="search" class="button__icon">
-                <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#search'); ?>"></use>
-            </svg>
-        </button>
-    </form>
-</div>
+    </div>
+    <button class="button button--icon search-form__button"
+            type="submit"
+            title="<?= $block->escapeHtml(__('Search')); ?>"
+            aria-label="Search button"
+    >
+        <svg title="<?= /* @escapeNotVerified */ __('Search') ?>" class="button__icon">
+            <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#search'); ?>"></use>
+        </svg>
+    </button>
+</form>
