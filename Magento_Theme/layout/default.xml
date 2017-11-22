@@ -50,6 +50,24 @@
                 <referenceBlock name="logo" template="Magento_Theme::header/logo.phtml"/>
                 <referenceBlock name="top.search" template="Magento_Theme::header/search.phtml"/>
             </block>
+            <block class="Magento\Framework\View\Element\Template"
+                   name="footer.content"
+                   template="Magento_Theme::footer/footer.phtml"
+                   after="main.content"
+            >
+                <block class="Magento\Newsletter\Block\Subscribe"
+                       name="footer-newsletter"
+                       template="Magento_Newsletter::subscribe.phtml"
+                />
+                <block class="Magento\Framework\View\Element\Template"
+                        name="footer-links"
+                        template="Magento_Theme::footer/footer-links.phtml"
+                />
+                <block class="Magento\Framework\View\Element\Template"
+                       name="social-links"
+                       template="Magento_Theme::footer/social-links.phtml"
+                />
+            </block>
         </referenceContainer>
 
         <referenceContainer name="header-wrapper" htmlClass="page-header__content">
@@ -65,88 +83,15 @@
             </block>
         </referenceContainer>
 
-        <!-- Footer layout -->
-        <referenceContainer name="footer"
-                            htmlClass="page-footer__content"
-        >
-            <container name="footer_first_row"
-                       as="footer_first_row"
-                       label="Page Footer First"
-                       htmlTag="div"
-                       htmlClass="page-footer__row grid container"
-                       before="-"
-            >
-                <container name="footer_subscribe"
-                           label="Page Footer Subscribe"
-                           htmlTag="div"
-                           htmlClass="page-footer__subscribe grid__column grid__column--1-2"
-                />
-                <container name="footer_social"
-                           label="Page Footer Social"
-                           htmlTag="div"
-                           htmlClass="page-footer__social grid__column grid__column--1-2"
-                >
-                    <block class="Magento\Cms\Block\Block"
-                           name="social_list"
-                    >
-                        <arguments>
-                            <argument name="block_id" xsi:type="string">footer-social-links</argument>
-                        </arguments>
-                    </block>
-                </container>
-            </container>
-            <referenceBlock name="footer_links">
-                <arguments>
-                    <argument name="css_class" xsi:type="string">footer-menu list list--divided list--min-medium-horizontal list--center</argument>
-                </arguments>
-            </referenceBlock>
-        </referenceContainer>
-
-        <!-- Footer links -->
-        <referenceBlock name="catalog-search-advanced-link">
-            <arguments>
-                <argument name="attributes" xsi:type="array">
-                    <item name="class" xsi:type="string">list__link</item>
-                </argument>
-            </arguments>
-        </referenceBlock>
-        <referenceBlock name="privacy-policy-link">
-            <arguments>
-                <argument name="attributes" xsi:type="array">
-                    <item name="class" xsi:type="string">list__link</item>
-                </argument>
-            </arguments>
-        </referenceBlock>
-        <referenceBlock name="contact-us-link">
-            <arguments>
-                <argument name="attributes" xsi:type="array">
-                    <item name="class" xsi:type="string">list__link</item>
-                </argument>
-            </arguments>
-        </referenceBlock>
-        <referenceBlock name="sales-guest-form-link">
-            <arguments>
-                <argument name="attributes" xsi:type="array">
-                    <item name="class" xsi:type="string">list__link</item>
-                </argument>
-            </arguments>
-        </referenceBlock>
-        <referenceBlock name="search-term-popular-link">
-            <arguments>
-                <argument name="attributes" xsi:type="array">
-                    <item name="class" xsi:type="string">list__link</item>
-                </argument>
-            </arguments>
-        </referenceBlock>
-
-        <!-- End of Footer layout -->
-
         <!--Removed blocks-->
         <referenceBlock name="report.bugs" remove="true"/>
         <referenceBlock name="navigation.sections" remove="true" />
+        <referenceBlock name="form.subscribe" remove="true"/>
+        <referenceBlock name="copyright" remove="true"/>
 
         <!--Removed constainers-->
         <referenceContainer name="header.container" remove="true" />
+        <referenceContainer name="footer" remove="true" />
 
         <!--Moved blocks-->
         <move element="logo" destination="header.content" />
@@ -156,11 +101,6 @@
         <move element="store_language" destination="header.panel.action" before="-"/>
         <move element="currency" destination="header.panel.action" before="store_language" />
         <move element="catalog.compare.link" destination="top.links" after="-"/>
-        <move element="copyright" destination="before.body.end"/>
-        <move element="form.subscribe"
-              destination="footer_subscribe"
-              before="-"
-        />
         <move element="catalog.compare.sidebar" destination="div.sidebar.main" after="-"/>
         <move element="wishlist_sidebar" destination="div.sidebar.main" after="-"/>
     </body>

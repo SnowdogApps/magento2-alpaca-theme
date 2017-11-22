@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Added
  - on dashboard order view - links to invoices, shipments and crmemo lists
+ - Footer implemented
+ - Footer links
+ - Newsletter module styles
+ - social links
 
 ## [0.1.2] - 2017-10-10
 ### Added
