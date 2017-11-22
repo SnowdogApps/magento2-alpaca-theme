@@ -2,27 +2,22 @@
 /** @var $block \Magento\Checkout\Block\Cart\Sidebar */
 ?>
 
-<div class="header__minicart minicart-wrapper" data-block="minicart">
-    <a class="minicart-trigger button action showcart minicart-trigger"
+<div class="header__minicart" data-block="minicart">
+    <a class="header-button popup-trigger showcart"
        href="<?= /* @escapeNotVerified */ $block->getShoppingCartUrl() ?>"
        data-bind="scope: 'minicart_content'"
     >
-        <svg title="shopping-cart" class="minicart-trigger__icon">
+        <svg title="<?= /* @escapeNotVerified */ __('Shopping cart') ?>" class="icon header-button__icon">
             <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#shopping-cart'); ?>"></use>
         </svg>
-        <span class="minicart-trigger__counter counter qty empty minicart-trigger__counter"
-              data-bind="css: { empty: !!getCartParam('summary_count') == false }, blockLoader: isLoading"
-        >
-            <span class="counter-number minicart-trigger__counter-qty">
-                <!-- ko text: getCartParam('summary_count') --><!-- /ko -->
-            </span>
-            <span class="counter-label minicart-trigger__counter-label">
-                <!-- ko if: getCartParam('summary_count') -->
-                    <!-- ko text: getCartParam('summary_count') --><!-- /ko -->
-                    <!-- ko i18n: 'items' --><!-- /ko -->
-                <!-- /ko -->
-            </span>
+        <span class="header-button__text">
+            <?= __('Cart') ?>
         </span>
+        <!-- ko if: getCartParam('summary_count') -->
+            <span class="header-button__counter">
+                <span class="header-button__counter-dot"></span>
+            </span>
+        <!-- /ko -->
     </a>
 
     <?php if ($block->getIsNeedToDisplaySideBar()): ?>
