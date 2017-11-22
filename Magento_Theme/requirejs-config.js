@@ -2,7 +2,7 @@ var config = {
     map: {
         "*": {
             "closestPolyfill" : "Magento_Theme/js/lib/closest-polyfill",
-            "dropdownList"    : "Magento_Theme/js.dropdown-list.babel",
+            "dropdownList"    : "Magento_Theme/js/dropdown-list.babel",
             "fileUpload"      : "Magento_Theme/js/file-upload.babel",
             "lazysizes"       : "Magento_Theme/js/lib/lazysizes",
             "picturefill"     : "Magento_Theme/js/lib/picturefill",
