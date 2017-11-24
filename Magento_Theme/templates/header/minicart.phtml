@@ -6,13 +6,16 @@
     <a class="header-button popup-trigger showcart"
        href="<?= /* @escapeNotVerified */ $block->getShoppingCartUrl() ?>"
        data-bind="scope: 'minicart_content'"
+       aria-label="<?= /* @escapeNotVerified */ __('Shopping cart dropdown trigger') ?>"
     >
-        <svg title="<?= /* @escapeNotVerified */ __('Shopping cart') ?>" class="icon header-button__icon">
+        <svg class="icon header-button__icon">
             <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#shopping-cart'); ?>"></use>
         </svg>
+        
         <span class="header-button__text">
             <?= __('Cart') ?>
         </span>
+        
         <!-- ko if: getCartParam('summary_count') -->
             <span class="header-button__counter">
                 <span class="header-button__counter-dot"></span>
@@ -23,20 +26,18 @@
     <?php if ($block->getIsNeedToDisplaySideBar()): ?>
         <div class="block block-minicart minicart empty"
              data-role="dropdownDialog"
-             data-mage-init='
-                 {
-                     "dropdownDialog":{
-                         "appendTo":"[data-block=minicart]",
-                         "triggerTarget":".showcart",
-                         "timeout": "2000",
-                         "closeOnMouseLeave": false,
-                         "closeOnEscape": true,
-                         "triggerClass":"active",
-                         "parentClass":"active",
-                         "buttons":[]
-                     }
+             data-mage-init='{
+                 "dropdownDialog":{
+                     "appendTo":"[data-block=minicart]",
+                     "triggerTarget":".showcart",
+                     "timeout": "2000",
+                     "closeOnMouseLeave": false,
+                     "closeOnEscape": true,
+                     "triggerClass":"active",
+                     "parentClass":"active",
+                     "buttons":[]
                  }
-             '
+             }'
         >
             <div id="minicart-content-wrapper"
                  class="minicart__wrapper"
@@ -51,6 +52,7 @@
     <script>
         window.checkout = <?= /* @escapeNotVerified */ \Zend_Json::encode($block->getConfig()) ?>;
     </script>
+    
     <script type="text/x-magento-init">
     {
         "[data-block='minicart']": {
