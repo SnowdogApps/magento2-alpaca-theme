@@ -1,9 +1,9 @@
 <input type="hidden" name="entity_id" id="entity_id" value="<?= /* @escapeNotVerified */ $block->getEntity()->getEntityId(); ?>" />
 <input type="hidden" name="type_id" id="type_id" value="<?= /* @escapeNotVerified */ $block->getTypeId(); ?>" />
 
-<h5 class="heading heading--fifth-level dashboard-form__title">
+<h3 class="dashboard-form__title">
     <?= /* @escapeNotVerified */ __('General Information') ?>
-</h5>
+</h3>
 
 <div class="information">
     <p class="information__text">
@@ -22,14 +22,14 @@
         <label for="title" class="label">
             <?= /* @escapeNotVerified */ __('Event') ?>
         </label>
-        
-        <input type="text" 
-               name="title" 
-               id="title" 
-               value="<?= /* @escapeNotVerified */ $block->escapeHtml($block->getEntity()->getTitle());?>" 
-               title="<?= /* @escapeNotVerified */ __('Event') ?>" 
-               class="input__field" 
-               data-validate="{required:true}" 
+
+        <input type="text"
+               name="title"
+               id="title"
+               value="<?= /* @escapeNotVerified */ $block->escapeHtml($block->getEntity()->getTitle());?>"
+               title="<?= /* @escapeNotVerified */ __('Event') ?>"
+               class="input__field"
+               data-validate="{required:true}"
         />
     </div>
 
@@ -37,14 +37,14 @@
         <label for="message" class="label">
             <?= /* @escapeNotVerified */ __('Message') ?>
         </label>
-        
-        <textarea name="message" 
-                  id="message" 
-                  cols="5" 
+
+        <textarea name="message"
+                  id="message"
+                  cols="5"
                   rows="3"
-                  class="input__field input__field--textarea" 
-                  title="<?= /* @escapeNotVerified */ __('Message') ?>" 
-                  data-validate="{required:true}" 
+                  class="input__field input__field--textarea"
+                  title="<?= /* @escapeNotVerified */ __('Message') ?>"
+                  data-validate="{required:true}"
         ><?= /* @escapeNotVerified */ $block->escapeHtml($block->getEntity()->getMessage());?></textarea>
     </div>
 
@@ -61,8 +61,8 @@
             <?= /* @escapeNotVerified */ __('Status') ?>
         </label>
 
-        <select data-validate="{required:true}" 
-                name="status" 
+        <select data-validate="{required:true}"
+                name="status"
                 id="status"
                 class="select__field select__field--native validate-select"
                 data-mage-init='{"select": {}}'
@@ -80,18 +80,18 @@
 $fieldsets = $block->getGroupedRegistryAttributes();
 
 foreach ($fieldsets as $fieldset => $fields) : ?>
-    <h5 class="heading heading--fifth-level dashboard-form__title">
+    <h3 class="dashboard-form__title">
         <?= /* @escapeNotVerified */ $block->getGroupLabel($fieldset); ?>
-    </h5>
+    </h3>
 
     <?php foreach ($fields as $field => $data) : ?>
         <?php $isRequired = $block->isAttributeRequired($data); ?>
 
-        <?php 
+        <?php
             $name  = $data['name'];
             $id    = $data['id'];
             $value = $this->getEntity()->getFieldValue($id);
-        
+
             switch ($data['type']) :
                 case 'country':
                     $options = $block->getCountry();
@@ -101,8 +101,8 @@ foreach ($fieldsets as $fieldset => $fields) : ?>
                             <?= /* @escapeNotVerified */ __($data['label']) ?>
                         </label>
 
-                        <select data-validate="{required:true}" 
-                                name="<?= /* @escapeNotVerified */ $id; ?>" 
+                        <select data-validate="{required:true}"
+                                name="<?= /* @escapeNotVerified */ $id; ?>"
                                 id="<?= /* @escapeNotVerified */ $id; ?>"
                                 class="select__field select__field--native validate-select"
                                 data-mage-init='{"select": {}}'
@@ -129,11 +129,11 @@ foreach ($fieldsets as $fieldset => $fields) : ?>
                             <?= /* @escapeNotVerified */ __($data['label']) ?>
                         </label>
 
-                        <input type="text" 
-                               id="<?= /* @escapeNotVerified */ $id.'_text'; ?>" 
-                               name="<?= /* @escapeNotVerified */ $id.'_text'; ?>" 
-                               value="<?= /* @escapeNotVerified */ $value; ?>" 
-                               title="<?= /* @escapeNotVerified */ __('State/Province') ?>" 
+                        <input type="text"
+                               id="<?= /* @escapeNotVerified */ $id.'_text'; ?>"
+                               name="<?= /* @escapeNotVerified */ $id.'_text'; ?>"
+                               value="<?= /* @escapeNotVerified */ $value; ?>"
+                               title="<?= /* @escapeNotVerified */ __('State/Province') ?>"
                                class="input__field <?= /* @escapeNotVerified */ $block->getRegionValidationClass(); ?>"
                                <?= /* @escapeNotVerified */ $block->displayAll(); ?>
                         />
@@ -146,13 +146,13 @@ foreach ($fieldsets as $fieldset => $fields) : ?>
                     $isRequiredField = ($isRequired ? ' required' : '');
         ?>
                     <div class="
-                            input 
-                            dashboard-form__divider 
+                            input
+                            dashboard-form__divider
                             <?= /* @escapeNotVerified */ $isRequiredField; ?>
                             <?= /* @escapeNotVerified */ $field == 'event_date' ? ' date' : ''; ?>
                          "
                     >
-                        <?= /* @escapeNotVerified */ 
+                        <?= /* @escapeNotVerified */
                             $block->getCalendarDateHtml($name, $id, $value, $formatType, 'input__field');
                         ?>
                     </div>
@@ -168,27 +168,27 @@ foreach ($fieldsets as $fieldset => $fields) : ?>
                         </label>
 
                         <div class="select--native">
-                            <?= /* @escapeNotVerified */ 
-                                $this->getSelectHtml($options, $name, $id, $value, 'select__field select__field--native'); 
+                            <?= /* @escapeNotVerified */
+                                $this->getSelectHtml($options, $name, $id, $value, 'select__field select__field--native');
                             ?>
                         </div>
                     </div>
         <?php
                     break;
-                        
+
                 case 'number':
         ?>
                     <div class="
-                            input 
-                            dashboard-form__divider 
-                            validate-digits 
+                            input
+                            dashboard-form__divider
+                            validate-digits
                             <?= /* @escapeNotVerified */ ($isRequired ? ' required' : ''); ?>
                          "
                     >
                         <label for="<?= /* @escapeNotVerified */ $field ?>" class="label">
                             <?= /* @escapeNotVerified */ __($data['label']); ?>
                         </label>
-        
+
                         <input type="number"
                                class="input__field required-entry"
                                name="<?= /* @escapeNotVerified */ $id; ?>"
@@ -203,7 +203,7 @@ foreach ($fieldsets as $fieldset => $fields) : ?>
                     $requiredField = ($isRequired ? ' required' : '');
 
                     $template = $this->getLayout()->getBlock('giftregistry_edit')->getInputTypeTemplate('text');
-                    
+
                     $this->setInputName(
                         $name
                     )->setInputId(
@@ -218,7 +218,7 @@ foreach ($fieldsets as $fieldset => $fields) : ?>
                         <label for="<?= /* @escapeNotVerified */ $field ?>" class="label">
                             <?= /* @escapeNotVerified */ __($data['label']); ?>
                         </label>
-                    
+
                         <?=  /* @escapeNotVerified */ $this->fetchView($template); ?>
                     </div>
         <?php

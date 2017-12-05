@@ -6,12 +6,12 @@
             <?= /* @escapeNotVerified */ __('First Name') ?>
         </label>
 
-        <input name="registrant[<%- data._index_ %>][firstname]" 
-               value="" 
-               type="text" 
-               class="input__field" 
-               data-validate="{required:true}" 
-               id="registrant:firstname<%- data._index_ %>" 
+        <input name="registrant[<%- data._index_ %>][firstname]"
+               value=""
+               type="text"
+               class="input__field"
+               data-validate="{required:true}"
+               id="registrant:firstname<%- data._index_ %>"
         />
     </div>
 
@@ -20,12 +20,12 @@
             <?= /* @escapeNotVerified */ __('Last Name') ?>
         </label>
 
-        <input name="registrant[<%- data._index_ %>][lastname]" 
-               value="" 
-               type="text" 
-               class="input__field" 
-               data-validate="{required:true}" 
-               id="registrant:lastname<%- data._index_ %>" 
+        <input name="registrant[<%- data._index_ %>][lastname]"
+               value=""
+               type="text"
+               class="input__field"
+               data-validate="{required:true}"
+               id="registrant:lastname<%- data._index_ %>"
         />
     </div>
 
@@ -34,13 +34,13 @@
             <?= /* @escapeNotVerified */ __('Email') ?>
         </label>
 
-        <input name="registrant[<%- data._index_ %>][email]" 
-               value="" 
-               title="<?= /* @escapeNotVerified */ __('Email') ?>" 
-               id="registrant:email<%- data._index_ %>" 
-               type="email" 
-               class="input__field" 
-               data-validate="{required:true,'validate-email':true}" 
+        <input name="registrant[<%- data._index_ %>][email]"
+               value=""
+               title="<?= /* @escapeNotVerified */ __('Email') ?>"
+               id="registrant:email<%- data._index_ %>"
+               type="email"
+               class="input__field"
+               data-validate="{required:true,'validate-email':true}"
         />
     </div>
 
@@ -48,11 +48,11 @@
         <?php $isRequired = $block->isAttributeRequired($data); ?>
         <?php $isStatic = $block->isAttributeStatic($field); ?>
 
-        <?php 
+        <?php
             $name = $data['name'];
             $id   = $data['id'];
             $value = $this->getEntity()->getFieldValue($id);
-        
+
             switch ($data['type']) :
                 case 'country':
                     $options = $block->getCountry();
@@ -62,8 +62,8 @@
                             <?= /* @escapeNotVerified */ __($data['label']) ?>
                         </label>
 
-                        <select data-validate="{required:true}" 
-                                name="<?= /* @escapeNotVerified */ $id; ?>" 
+                        <select data-validate="{required:true}"
+                                name="<?= /* @escapeNotVerified */ $id; ?>"
                                 id="<?= /* @escapeNotVerified */ $id; ?>"
                                 class="select__field select__field--native validate-select"
                                 data-mage-init='{"select": {}}'
@@ -91,8 +91,8 @@
                             <?= /* @escapeNotVerified */ __($data['label']) ?>
                         </label>
 
-                        <select data-validate="{required:true}" 
-                                name="<?= /* @escapeNotVerified */ $id; ?>" 
+                        <select data-validate="{required:true}"
+                                name="<?= /* @escapeNotVerified */ $id; ?>"
                                 id="<?= /* @escapeNotVerified */ $id; ?>"
                                 class="select__field select__field--native validate-select"
                                 style="display:none"
@@ -109,11 +109,11 @@
                             <?php endforeach; ?>
                         </select>
 
-                        <input type="text" 
-                               id="<?= /* @escapeNotVerified */ $id.'_text'; ?>" 
-                               name="<?= /* @escapeNotVerified */ $id.'_text'; ?>" 
-                               value="<?= /* @escapeNotVerified */ $value; ?>" 
-                               title="<?= /* @escapeNotVerified */ __('State/Province') ?>" 
+                        <input type="text"
+                               id="<?= /* @escapeNotVerified */ $id.'_text'; ?>"
+                               name="<?= /* @escapeNotVerified */ $id.'_text'; ?>"
+                               value="<?= /* @escapeNotVerified */ $value; ?>"
+                               title="<?= /* @escapeNotVerified */ __('State/Province') ?>"
                                class="input__field <?= /* @escapeNotVerified */ $block->getRegionValidationClass(); ?>"
                                <?= (!$block->displayAll()) ? ' disabled="disabled"' : ''; ?>
                                style="display:none"
@@ -126,8 +126,8 @@
                     $formatType = \IntlDateFormatter::SHORT;
         ?>
                     <div class="
-                            input 
-                            dashboard-form__divider 
+                            input
+                            dashboard-form__divider
                             <?php echo($isRequired ? ' required' : ''); ?>
                             <?= /* @escapeNotVerified */ $field == 'event_date' ? ' date' : ''; ?>
                          "
@@ -148,27 +148,27 @@
                         </label>
 
                         <div class="select--native">
-                            <?= /* @escapeNotVerified */ 
-                                $this->getSelectHtml($options, $name, $id, $value, 'select__field select__field--native'); 
+                            <?= /* @escapeNotVerified */
+                                $this->getSelectHtml($options, $name, $id, $value, 'select__field select__field--native');
                             ?>
                         </div>
                     </div>
         <?php
                     break;
-                        
+
                 case 'number':
         ?>
                     <div class="
-                            input 
-                            dashboard-form__divider 
-                            validate-digits 
+                            input
+                            dashboard-form__divider
+                            validate-digits
                             <?php echo($isRequired ? ' required' : ''); ?>
                          "
                     >
                         <label for="<?= /* @escapeNotVerified */ $field ?>" class="label">
                             <?= /* @escapeNotVerified */ __($data['label']); ?>
                         </label>
-        
+
                         <input type="number"
                                class="input__field required-entry"
                                name="<?= /* @escapeNotVerified */ $id; ?>"
@@ -179,12 +179,12 @@
                     break;
 
                 default:
-        
+
                     $class = 'input__field';
                     $requiredField = ($isRequired ? ' required' : '');
-        
+
                     $template = $this->getLayout()->getBlock('giftregistry_edit')->getInputTypeTemplate('text');
-                    
+
                     $this->setInputName(
                         $name
                     )->setInputId(
@@ -199,7 +199,7 @@
                         <label for="<?= /* @escapeNotVerified */ $field ?>" class="label">
                             <?= /* @escapeNotVerified */ __($data['label']); ?>
                         </label>
-                    
+
                         <?=  /* @escapeNotVerified */ $this->fetchView($template); ?>
                     </div>
         <?php
@@ -216,9 +216,9 @@
     </div>
 </script>
 
-<h5 class="heading heading--fifth-level dashboard-form__title">
+<h3 class="dashboard-form__title">
     <?= /* @escapeNotVerified */ __('Registrant Information') ?>
-</h5>
+</h3>
 
 <div id="registrant-container"></div>
 
