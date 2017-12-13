@@ -1,3 +1,7 @@
+<?php
+    $messageHelper = $this->helper('Magento\GiftMessage\Helper\Message');
+?>
+
 <div class="dashboard-table dashboard-table--tab">
     <div class="dashboard-table__header">
         <h3 class="dashboard-table__title">
@@ -52,14 +56,12 @@
                     <?= /* @escapeNotVerified */ $block->getItemHtml($item) ?>
 
                     <?php
-                        $isMessageAllowed = $this->helper('Magento\GiftMessage\Helper\Message')
-                                                 ->isMessagesAllowed('order_item', $item);
+                        $isMessageAllowed = $messageHelper->isMessagesAllowed('order_item', $item);
                     ?>
 
                     <?php if ($isMessageAllowed && $item->getGiftMessageId()): ?>
                         <?php
-                            $giftMessage = $this->helper('Magento\GiftMessage\Helper\Message')
-                                                ->getGiftMessageForEntity($item);
+                            $giftMessage = $messageHelper->getGiftMessageForEntity($item);
                         ?>
                         <tr>
                             <td class="col options" colspan="5">
@@ -73,10 +75,8 @@
                                 </a>
 
                                 <?php
-                                    $giftMessage       = $this->helper('Magento\GiftMessage\Helper\Message')
-                                                              ->getGiftMessageForEntity($item);
-                                    $escapeGiftMessage = $this->helper('Magento\GiftMessage\Helper\Message')
-                                                              ->getEscapedGiftMessage($item);
+                                    $giftMessage       = $messageHelper->getGiftMessageForEntity($item);
+                                    $escapeGiftMessage = $messageHelper->getEscapedGiftMessage($item);
                                 ?>
 
                                 <div class="order-gift-message"
