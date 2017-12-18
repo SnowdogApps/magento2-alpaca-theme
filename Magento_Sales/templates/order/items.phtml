@@ -1,8 +1,12 @@
-<div class="dashboard-table">
+<?php
+    $messageHelper = $this->helper('Magento\GiftMessage\Helper\Message');
+?>
+
+<div class="dashboard-table dashboard-table--tab">
     <div class="dashboard-table__header">
-        <h5 class="heading heading--fifth-level dashboard-table__title">
+        <h3 class="dashboard-table__title">
             <?= /* @escapeNotVerified */ __('Items Ordered') ?>
-        </h5>
+        </h3>
     </div>
 
     <div class="dashboard-table__content">
@@ -10,8 +14,8 @@
             <thead>
                 <?php if ($block->isPagerDisplayed()): ?>
                     <tr>
-                        <td colspan="5" 
-                            data-block="order-items-pager-top" 
+                        <td colspan="5"
+                            data-block="order-items-pager-top"
                             class="order-pager-wrapper order-pager-wrapper-top"
                         >
                             <?= /* @escapeNotVerified */ $block->getPagerHtml() ?>
@@ -51,15 +55,13 @@
                 <tbody>
                     <?= /* @escapeNotVerified */ $block->getItemHtml($item) ?>
 
-                    <?php 
-                        $isMessageAllowed = $this->helper('Magento\GiftMessage\Helper\Message')
-                                                 ->isMessagesAllowed('order_item', $item);
+                    <?php
+                        $isMessageAllowed = $messageHelper->isMessagesAllowed('order_item', $item);
                     ?>
 
                     <?php if ($isMessageAllowed && $item->getGiftMessageId()): ?>
-                        <?php 
-                            $giftMessage = $this->helper('Magento\GiftMessage\Helper\Message')
-                                                ->getGiftMessageForEntity($item); 
+                        <?php
+                            $giftMessage = $messageHelper->getGiftMessageForEntity($item);
                         ?>
                         <tr>
                             <td class="col options" colspan="5">
@@ -72,17 +74,15 @@
                                    <?= /* @escapeNotVerified */ __('Gift Message') ?>
                                 </a>
 
-                                <?php 
-                                    $giftMessage       = $this->helper('Magento\GiftMessage\Helper\Message')
-                                                              ->getGiftMessageForEntity($item); 
-                                    $escapeGiftMessage = $this->helper('Magento\GiftMessage\Helper\Message')
-                                                              ->getEscapedGiftMessage($item);
+                                <?php
+                                    $giftMessage       = $messageHelper->getGiftMessageForEntity($item);
+                                    $escapeGiftMessage = $messageHelper->getEscapedGiftMessage($item);
                                 ?>
 
-                                <div class="order-gift-message" 
-                                     id="order-item-gift-message-<?= /* @escapeNotVerified */ $item->getId() ?>" 
-                                     role="region" 
-                                     aria-expanded="false" 
+                                <div class="order-gift-message"
+                                     id="order-item-gift-message-<?= /* @escapeNotVerified */ $item->getId() ?>"
+                                     role="region"
+                                     aria-expanded="false"
                                      tabindex="-1"
                                 >
                                     <a href="#"
@@ -98,7 +98,7 @@
                                             <strong class="label">
                                                 <?= /* @escapeNotVerified */ __('From') ?>
                                             </strong>
-                                            
+
                                             <?= /* @escapeNotVerified */ $block->escapeHtml($giftMessage->getSender()) ?>
                                         </dt>
 
@@ -106,7 +106,7 @@
                                             <strong class="label">
                                                 <?= /* @escapeNotVerified */ __('To') ?>
                                             </strong>
-                                            
+
                                             <?= /* @escapeNotVerified */ $block->escapeHtml($giftMessage->getRecipient()) ?>
                                         </dt>
 
@@ -124,15 +124,15 @@
             <tfoot>
                 <?php if ($block->isPagerDisplayed()): ?>
                     <tr>
-                        <td colspan="5" 
-                            data-block="order-items-pager-bottom" 
+                        <td colspan="5"
+                            data-block="order-items-pager-bottom"
                             class="order-pager-wrapper order-pager-wrapper-bottom"
                         >
                             <?= /* @escapeNotVerified */ $block->getPagerHtml(); ?>
                         </td>
                     </tr>
                 <?php endif; ?>
-                
+
                 <?= /* @escapeNotVerified */ $block->getChildHtml('order_totals') ?>
             </tfoot>
         </table>

@@ -6,9 +6,9 @@ $blockGetEvents = $block->getEvents();
 <?php if ($blockCanShow && $blockGetEvents && count($blockGetEvents)): ?>
 <div class="dashboard-table ">
     <div class="dashboard-table__header">
-        <h5 class="heading heading--fifth-level dashboard-table__title">
+        <h3 class="dashboard-table__title">
             <?= /* @escapeNotVerified */ __('Balance History'); ?>
-        </h5>
+        </h3>
     </div>
 
     <div class="dashboard-table__content">
@@ -35,14 +35,14 @@ $blockGetEvents = $block->getEvents();
 
             <tbody>
                 <?php foreach ($block->getEvents() as $event): ?>
-                    <?php 
+                    <?php
                         $getBalanceDelta  = $this->helper('Magento\Framework\Pricing\Helper\Data')
                                                  ->currency($event->getBalanceDelta());
                         $getBalanceAmount = $this->helper('Magento\Framework\Pricing\Helper\Data')
                                                  ->currency($event->getBalanceAmount());
                         $getFormDate      = $block->formatDate($event->getUpdatedAt(), \IntlDateFormatter::SHORT, true);
                     ?>
-                    
+
                     <tr>
                         <td data-th="<?php echo $block->escapeHtml(__('Action')); ?>" class="col actions">
                             <?= /* @escapeNotVerified */ $block->getActionLabel($event->getAction()); ?>
