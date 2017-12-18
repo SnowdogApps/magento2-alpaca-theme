@@ -1,10 +1,7 @@
 <?php
-/**
- * Create account form template
- *
- * @var $block \Magento\Customer\Block\Form\Register
- */
+    $addressHelper = $this->helper('Magento\Customer\Helper\Address');
 ?>
+
 <div class="register">
     <?= $block->getChildHtml('form_fields_before') ?>
     <?php /* Extensions placeholder */ ?>
@@ -84,7 +81,7 @@
                            id="company"
                            value="<?= $block->escapeHtml($block->getFormData()->getCompany()) ?>"
                            title="<?= /* @escapeNotVerified */ __('Company') ?>"
-                           class="input__field <?= /* @escapeNotVerified */ $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('company') ?>"
+                           class="input__field <?= /* @escapeNotVerified */ $addressHelper->getAttributeValidationClass('company') ?>"
                     >
                 </div>
                 <div class="input">
@@ -96,11 +93,11 @@
                            id="telephone"
                            value="<?= $block->escapeHtml($block->getFormData()->getTelephone()) ?>"
                            title="<?= /* @escapeNotVerified */ __('Phone Number') ?>"
-                           class="input__field <?= /* @escapeNotVerified */ $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('telephone') ?>"
+                           class="input__field <?= /* @escapeNotVerified */ $addressHelper->getAttributeValidationClass('telephone') ?>"
                     >
                 </div>
 
-                <?php $_streetValidationClass = $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('street'); ?>
+                <?php $_streetValidationClass = $addressHelper->getAttributeValidationClass('street'); ?>
 
                 <div class="input required">
                     <label for="street_1" class="input__label">
@@ -115,7 +112,7 @@
                     >
                     <div class="nested">
                         <?php $_streetValidationClass = trim(str_replace('required-entry', '', $_streetValidationClass)); ?>
-                        <?php for ($_i = 2, $_n = $this->helper('Magento\Customer\Helper\Address')->getStreetLines(); $_i <= $_n; $_i++): ?>
+                        <?php for ($_i = 2, $_n = $addressHelper->getStreetLines(); $_i <= $_n; $_i++): ?>
                             <div class="input">
                                 <label class="input__label"
                                        for="street_<?= /* @escapeNotVerified */ $_i ?>"
@@ -141,7 +138,7 @@
                     <input type="text" name="city"
                            value="<?= $block->escapeHtml($block->getFormData()->getCity()) ?>"
                            title="<?= /* @escapeNotVerified */ __('City') ?>"
-                           class="input__field <?= /* @escapeNotVerified */ $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('city') ?>"
+                           class="input__field <?= /* @escapeNotVerified */ $addressHelper->getAttributeValidationClass('city') ?>"
                            id="city"
                     >
                 </div>
@@ -165,7 +162,7 @@
                            name="region"
                            value="<?= $block->escapeHtml($block->getRegion()) ?>"
                            title="<?= /* @escapeNotVerified */ __('State/Province') ?>"
-                           class="input__field <?= /* @escapeNotVerified */ $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('region') ?>"
+                           class="input__field <?= /* @escapeNotVerified */ $addressHelper->getAttributeValidationClass('region') ?>"
                            style="display:none;"
                     >
                 </div>
@@ -179,7 +176,7 @@
                            value="<?= $block->escapeHtml($block->getFormData()->getPostcode()) ?>"
                            title="<?= /* @escapeNotVerified */ __('Zip/Postal Code') ?>"
                            id="zip"
-                           class="input__field validate-zip-international <?= /* @escapeNotVerified */ $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('postcode') ?>"
+                           class="input__field validate-zip-international <?= /* @escapeNotVerified */ $addressHelper->getAttributeValidationClass('postcode') ?>"
                     >
                 </div>
 

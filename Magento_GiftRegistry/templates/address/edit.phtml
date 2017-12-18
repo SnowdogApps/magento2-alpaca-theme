@@ -1,3 +1,7 @@
+<?php
+    $addressHelper = $this->helper('Magento\Customer\Helper\Address');
+?>
+
 <h3 class="dashboard-form__title">
     <?= /* @escapeNotVerified */  __('Shipping Address'); ?>
 </h3>
@@ -53,7 +57,7 @@
      id="shipping-new-address-form"
      <?php if ($block->customerHasAddresses()): ?>
         style="display: none;"
-    <?php endif ?>
+     <?php endif ?>
 >
     <?= /* @escapeNotVerified */
         $block->getLayout()
@@ -65,8 +69,7 @@
 
     <div class="input dashboard-form__divider company">
         <?php
-            $getCompanyVerifiedClass = $this->helper('Magento\Customer\Helper\Address')
-                                            ->getAttributeValidationClass('company');
+            $getCompanyVerifiedClass = $addressHelper->getAttributeValidationClass('company');
         ?>
 
         <label for="address:company" class="label">
@@ -83,8 +86,7 @@
     </div>
 
     <?php
-        $_streetValidationClass = $this->helper('Magento\Customer\Helper\Address')
-                                       ->getAttributeValidationClass('street');
+        $_streetValidationClass = $addressHelper->getAttributeValidationClass('street');
     ?>
 
     <div class="input dashboard-form__divider address street required">
@@ -103,7 +105,7 @@
 
         <?php
             $_streetValidationClass = trim(str_replace('required-entry', '', $_streetValidationClass));
-            $getStreetLines         = $this->helper('Magento\Customer\Helper\Address')->getStreetLines();
+            $getStreetLines         = $addressHelper->getStreetLines();
         ?>
 
         <?php for ($_i = 2, $_n = $getStreetLines; $_i <= $_n; $_i++): ?>
@@ -134,8 +136,7 @@
          }'
     >
         <?php
-            $getCityValiadationClass = $this->helper('Magento\Customer\Helper\Address')
-                                            ->getAttributeValidationClass('city');
+            $getCityValiadationClass = $addressHelper->getAttributeValidationClass('city');
         ?>
 
         <label for="address:city" class="label">
@@ -153,8 +154,7 @@
 
     <div id="region_container" class="select dashboard-form__select address region required">
         <?php
-            $getRegionValiadationClass = $this->helper('Magento\Customer\Helper\Address')
-                                              ->getAttributeValidationClass('region');
+            $getRegionValiadationClass = $addressHelper->getAttributeValidationClass('region');
         ?>
 
         <label for="address:region_id" class="label">
@@ -183,8 +183,7 @@
 
     <div class="input dashboard-form__divider address postcode required">
         <?php
-            $getPostcodeValiadationClass = $this->helper('Magento\Customer\Helper\Address')
-                                                ->getAttributeValidationClass('postcode');
+            $getPostcodeValiadationClass = $addressHelper->getAttributeValidationClass('postcode');
         ?>
         <label for="address:postcode" class="label">
             <?= /* @escapeNotVerified */  __('Zip/Postal Code') ?>
@@ -237,8 +236,7 @@
 
     <div class="input dashboard-form__divider address telephone required">
         <?php
-            $getPostcodeValiadationClass = $this->helper('Magento\Customer\Helper\Address')
-                                                ->getAttributeValidationClass('telephone');
+            $getPostcodeValiadationClass = $addressHelper->getAttributeValidationClass('telephone');
         ?>
 
         <label for="address:telephone" class="label">
@@ -256,8 +254,7 @@
 
     <div class="input dashboard-form__divider address fax">
         <?php
-            $getFaxValiadationClass = $this->helper('Magento\Customer\Helper\Address')
-                                           ->getAttributeValidationClass('fax');
+            $getFaxValiadationClass = $addressHelper->getAttributeValidationClass('fax');
         ?>
 
         <label for="address:fax" class="label">
