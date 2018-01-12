@@ -17,7 +17,8 @@ class DropdownList {
     );
 
     window.addEventListener('resize', () => {
-      const dropdownMediumOpen = document.querySelector(`.${this.mqClass}`);
+      const dropdownMediumOpen = this.element.classList.contains(this.mqClass);
+
       if (dropdownMediumOpen) {
         this.resetMqMediumOpen(this.element);
       }
@@ -46,7 +47,7 @@ class DropdownList {
   }
 
   resetMqMediumOpen(item) {
-    const dropdownContent = this.parentElement.querySelector(`.${this.contentClass}`);
+    const dropdownContent = item.querySelector(`.${this.contentClass}`);
 
     if (window.matchMedia(this.mq).matches) {
       dropdownContent.style.height = 'auto';
