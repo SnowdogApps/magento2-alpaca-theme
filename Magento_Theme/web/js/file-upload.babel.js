@@ -1,11 +1,28 @@
-'use strict'
+define(['choices'], function(Choices) {
+  return function(config, element) {
+    'use strict'
 
-const inputFile = document.querySelector('.file-upload__field');
+    const input  = element.querySelector('.file-upload__input'),
+          name   = element.querySelector('.file-upload__name'),
+          button = element.querySelector('span[role="button"]');
 
-inputFile.addEventListener('change', (file) => {
-  const filePath          = file.target.value,
-        splitedPath       = filePath.split('\\'),
-        splitedPathLength = splitedPath.length - 1;
+    input.addEventListener('change', file => {
+      const filePath = file.target.value,
+            fileName = filePath.split('\\').pop();
 
-  inputFile.parentNode.querySelector('.file-upload__name').innerHTML = splitedPath[splitedPathLength];
+      if (fileName) {
+        name.textContent = fileName;
+      }
+      else {
+        name.textContent = name.dataset.defaultText;
+      }
+      name.focus();
+    });
+
+    button.addEventListener('keypress', event => {
+      if (event.which === 32 || event.which === 13) {
+        input.click();
+      }
+    });
+  }
 });

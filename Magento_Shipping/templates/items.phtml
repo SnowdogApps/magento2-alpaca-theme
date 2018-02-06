@@ -1,22 +1,16 @@
 <div class="dashboard-table dashboard-table--tab">
     <?php $_order = $block->getOrder(); ?>
-    <div class="dashboard-table__header">
-        <h3 class="dashboard-table__title">
-            <?= /* @escapeNotVerified */  __('Shipments') ?>
-        </h3>
+    <?php if ($_order->getTracksCollection()->count()): ?>
+        <?= /* @escapeNotVerified */ $block->getChildHtml('track-all-link') ?>
+    <?php endif; ?>
 
-        <?php if ($_order->getTracksCollection()->count()) : ?>
-            <?= /* @escapeNotVerified */ $block->getChildHtml('track-all-link') ?>
-        <?php endif; ?>
-
-        <?php if (sizeof($_order->getItems()) > 0): ?>
-            <a class="link dashboard-table__link"
-               href="<?= /* @escapeNotVerified */  $block->getPrintAllShipmentsUrl($_order) ?>"
-            >
-                <?= /* @escapeNotVerified */  __('Print All Shipments') ?>
-            </a>
-        <?php endif; ?>
-    </div>
+    <?php if (sizeof($_order->getItems()) > 0): ?>
+        <a class="link dashboard-table__link"
+            href="<?= /* @escapeNotVerified */  $block->getPrintAllShipmentsUrl($_order) ?>"
+        >
+            <?= /* @escapeNotVerified */  __('Print All Shipments') ?>
+        </a>
+    <?php endif; ?>
 
     <?php foreach ($_order->getShipmentsCollection() as $_shipment): ?>
         <div class="dashboard-table__content">
@@ -26,10 +20,10 @@
                                            ->getTrackingPopupUrlBySalesModel($_shipment);
                 ?>
 
-                <strong class="dashboard-table__spacer">
+                <h3 class="dashboard-table__title">
                     <?= /* @escapeNotVerified */  __('Shipment #') ?>
                     <?= /* @escapeNotVerified */  $_shipment->getIncrementId(); ?>
-                </strong>
+                </h3>
 
                 <a href="<?= /* @escapeNotVerified */  $block->getPrintShipmentUrl($_shipment) ?>"
                    onclick="this.target='_blank'"
