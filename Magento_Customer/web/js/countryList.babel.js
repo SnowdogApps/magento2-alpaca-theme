@@ -8,7 +8,7 @@ define(['choices'], function(Choices) {
           regionSelect    = document.getElementById(config.regionSelect),
           regionText      = document.getElementById(config.regionText);
 
-    countrySelect.addEventListener('change', (event) => { 
+    countrySelect.addEventListener('change', (event) => {
       const numberOfChildrens = regionSelect.childNodes.length;
 
       regionSelect.style.display = "none";
@@ -33,7 +33,7 @@ define(['choices'], function(Choices) {
         label: config.placeholder,
         selected: true,
         disabled: true
-      }], 'value', 'label', false, false);
+      }], 'value', 'label', false);
       regionSelect.innerHTML = "";
 
       if (numberOfChildrens < 2) {
