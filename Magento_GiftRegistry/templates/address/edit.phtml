@@ -29,7 +29,7 @@
         <div class="select dashboard-form__select"
              data-shipping-address="<?= /* @escapeNotVerified */ $getShippingAddress; ?>"
         >
-            <select data-validate="{required:true}"
+            <select data-validate="{required: true}"
                     name="address_type_or_id"
                     id="address_type_or_id"
                     class="select__field select__field--native validate-select"
@@ -199,7 +199,7 @@
                     validate-zip-international
                     <?= /* @escapeNotVerified */  $getPostcodeValiadationClass ?>
                "
-               data-validate="{'required':true, 'validate-zip-international':true}"
+               data-validate="{'required': true, 'validate-zip-international': true}"
         />
     </div>
 
@@ -210,7 +210,7 @@
 
         <?php $countryList = $block->getCountryCollection()->toOptionArray() ?>
 
-        <select data-validate="{required:true}"
+        <select data-validate="{required: true}"
                 name="address[country_id]"
                 id="address:country_id"
                 class="select__field select__field--native validate-select"
@@ -221,15 +221,12 @@
             </option>
 
             <?php for ($i = 1, $n = count($countryList); $i < $n; $i++): ?>
-                <?php if ($block->getCountryId() === $countryList[$i]['value']): ?>
-                    <option value="<?= /* @escapeNotVerified */  $countryList[$i]['value'] ?>" selected>
-                        <?= $countryList[$i]['label']; ?>
-                    </option>
-                <?php else: ?>
-                    <option value="<?= /* @escapeNotVerified */  $countryList[$i]['value'] ?>">
-                        <?= $countryList[$i]['label']; ?>
-                    </option>
-                <?php endif ?>
+                <option
+                    value="<?= /* @escapeNotVerified */ $countryList[$i]['value'] ?>"
+                    <?php if ($block->getCountryId() === $countryList[$i]['value']) echo 'selected' ?>
+                >
+                    <?= /* @escapeNotVerified */ $countryList[$i]['label']; ?>
+                </option>
             <?php endfor ?>
         </select>
     </div>
