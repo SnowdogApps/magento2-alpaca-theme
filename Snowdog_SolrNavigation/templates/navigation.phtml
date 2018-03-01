@@ -1,0 +1,35 @@
+<?php
+/** @var \Snowdog\SolrNavigation\Block\Navigation $this */
+$facets = $this->getFacets();
+?>
+<?php if (count($facets) > 0): ?>
+    <button type="button"
+            class="filters__switcher"
+            data-state-current="hidden"
+            data-state-hidden-text="<?= __('Show Filters') ?>"
+            data-state-display-text="<?= __('Hide Filters') ?>"
+    >
+        <?= /* @escapeNotVerified */ __('Show Filters'); ?>
+    </button>
+    <div class="
+            filters__list
+            filters__list--mobile-hidden
+            dropdown-list
+            dropdown-list--secondary
+        "
+        data-mage-init='{ "filters": { } }'
+    >
+        <h1 class="filters__heading filters__heading--mobile-hidden">
+            <?= /* @escapeNotVerified */ __('All filters:'); ?>
+        </h1>
+        <div class="divider ">
+            <span class="divider__left"></span>
+            <span class="divider__right"></span>
+        </div>
+        <ul class="dropdown-list__list">
+            <?php foreach ($facets as $attributeCode => $facetBlock): ?>
+                <?= $facetBlock->toHtml() ?>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+<?php endif; ?>
