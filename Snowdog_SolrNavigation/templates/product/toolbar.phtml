@@ -3,8 +3,22 @@
 ?>
 
 <?php if ($block->getResponse()->getItemsFound()): ?>
-    <div class="toolbar">
+    <div
+        class="toolbar"
+        data-url="<?= $this->getPagerUrl(); ?>"
+        data-mage-init='{
+            "toolbar": {
+                "url":  "<?= $this->getPagerUrl(); ?>"
+            }
+        }'
+    >
+        <?php include($block->getTemplateFile('Snowdog_SolrNavigation::product/list/toolbar/view-switcher.phtml')); ?>
         <?php include($block->getTemplateFile('Snowdog_SolrNavigation::product/list/toolbar/sorter.phtml')); ?>
+        <div class="toolbar__amount">
+            <span class="toolbar__amount-content">
+                Items 1-9 of 12
+            </span>
+        </div>
         <?php include($block->getTemplateFile('Snowdog_SolrNavigation::product/list/toolbar/limiter.phtml')); ?>
     </div>
 <?php endif ?>
