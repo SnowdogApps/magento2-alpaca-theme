@@ -9,6 +9,7 @@ var config = {
             "slick"           : "Magento_Theme/js/lib/slick",
             "svg4everybody"   : "Magento_Theme/js/lib/svg4everybody",
             "choices"         : "Magento_Theme/js/lib/choices",
+            "noUiSlider"      : "Magento_Theme/js/lib/nouislider.min",
             "linksWrapper"    : "Magento_Theme/js/wrapper-collapsible",
             "select"          : "Magento_Theme/js/select.babel"
         }
