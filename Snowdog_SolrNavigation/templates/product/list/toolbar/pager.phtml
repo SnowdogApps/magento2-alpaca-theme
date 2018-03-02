@@ -1,0 +1,59 @@
+<?php
+/** @var $block \Snowdog\SolrNavigation\Block\Product\Toolbar */
+?>
+
+<?php if ($block->getResponse()->getItemsFound()): ?>
+    <div class="pager">
+        <ul class="pager__list">
+            <li class="pager__item">
+                <a
+                    class="pager__link pager__link--prev"
+                    href="<?= /* @escapeNotVerified */ $block->getPageUrl($block->getPage() - 1) ?>"
+                    <?php if ($block->getPage() === 1) : ?>
+                        aria-label="<?= /* @escapeNotVerified */ __("Link to previous page, disabled") ?>"
+                        disabled
+                    <?php else: ?>
+                        aria-label="<?= /* @escapeNotVerified */ __("Link to previous page") ?>"
+                    <?php endif; ?>
+                >
+                    <svg class="pager__icon">
+                        <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#arrow-left') ?>"></use>
+                    </svg>
+                </a>
+            </li>
+            <?php foreach ($block->getPages(1) as $page): ?>
+                <?php if ($page["page"] == $block->getPage()): ?>
+                    <li class="pager__item pager__item--current">
+                        <?= /* @escapeNotVerified */ $page['label'] ?>
+                    </li>
+                <?php else: ?>
+                    <li class="pager__item">
+                        <a
+                            class="pager__link link--invert"
+                            href="<?= /* @escapeNotVerified */ $block->getPageUrl($page['page']) ?>"
+                            title="<?= /* @escapeNotVerified */ __('Link to page ') . $page['label'] ?>"
+                        >
+                            <?= /* @escapeNotVerified */ $page['label'] ?>
+                        </a>
+                    </li>
+                <?php endif; ?>
+            <?php endforeach; ?>
+            <li class="pager__item">
+                <a
+                    class="pager__link pager__link--next"
+                    href="<?= /* @escapeNotVerified */ $block->getPageUrl($block->getPage() + 1) ?>"
+                    <?php if ($block->getPage() === $block->getLastPageNum()): ?>
+                        aria-label="<?= /* @escapeNotVerified */ __("Link to next page, disabled") ?>"
+                        disabled
+                    <?php else: ?>
+                        aria-label="<?= /* @escapeNotVerified */ __("Link to next page") ?>"
+                    <?php endif; ?>
+                >
+                    <svg class="pager__icon">
+                        <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#arrow-right') ?>"></use>
+                    </svg>
+                </a>
+            </li>
+        </ul>
+    </div>
+<?php endif ?>
