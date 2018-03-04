@@ -16,7 +16,18 @@
         <?php include($block->getTemplateFile('Snowdog_SolrNavigation::product/list/toolbar/sorter.phtml')); ?>
         <div class="toolbar__amount">
             <span class="toolbar__amount-content">
-                Items 1-9 of 12
+                <?php if ($block->getLastPageNum() > 1): ?>
+                    <?= /* @escapeNotVerified */ __(
+                        'Items %1 - %2 of %3',
+                        $block->getFirstNum(),
+                        $block->getLastNum(),
+                        $block->getTotalNum()
+                    ) ?>
+                <?php elseif ($block->getTotalNum() == 1): ?>
+                    <?= /* @escapeNotVerified */ __('%1 Item', $block->getTotalNum()); ?>
+                <?php else: ?>
+                    <?= /* @escapeNotVerified */ __('%1 Items', $block->getTotalNum()); ?>
+                <?php endif; ?>
             </span>
         </div>
         <?php include($block->getTemplateFile('Snowdog_SolrNavigation::product/list/toolbar/limiter.phtml')); ?>
