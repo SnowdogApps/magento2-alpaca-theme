@@ -38,6 +38,10 @@ define(['jquery'], function($) {
       });
     })
 
+    $('.range-filter__slider').on('click', function() {
+      checkRangeValues();
+    });
+
     $filterButton.click(function() {
       var lower = parseFloat(lowerBound.val()),
           upper = parseFloat(upperBound.val());
