@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="main.content" htmlClass="page-main" />
+        <referenceContainer name="page.messages" htmlClass="page messages container" />
+
+        <container name="product.container" htmlClass="product-view container" htmlTag="div">
+            <container name="product.wrapper" htmlClass="product-view__wrapper" htmlTag="section">
+                <container name="product.column.left" htmlClass="product-view__gallery" htmlTag="div">
+                    <referenceContainer name="product.info.media" htmlClass="gallery galler--vertical" />
+                </container>
+
+                <container
+                    name="product.column.right.upper"
+                    htmlClass="product-view__main-details"
+                    htmlTag="div"
+                >
+                    <referenceBlock name="page.main.title">
+                        <arguments>
+                            <argument name="css_class" xsi:type="string">product-view__title</argument>
+                        </arguments>
+                    </referenceBlock>
+
+                    <referenceContainer name="product.info.stock.sku" htmlClass="product-view__sku" />
+
+                    <referenceContainer name="product.info.price" htmlClass="product-view__price" />
+
+                    <container name="product.column.right.status" htmlClass="product-view__stock-status" htmlTag="div" />
+
+                    <container name="product.column.right.review" htmlClass="product-view__rating" htmlTag="div">
+                        <referenceBlock name="product.info.review" />
+                    </container>
+                </container>
+
+                <container
+                    name="product.column.right.lower"
+                    htmlClass="product-view__secondary-details"
+                    htmlTag="div"
+                >
+                    <container name="product.column.right.options" htmlClass="product-view__options" htmlTag="div" />
+
+                    <container name="product.column.right.actions" htmlClass="product-view__main-actions" htmlTag="div" />
+                </container>
+            </container>
+        </container>
+
+        <!--Moved blocks-->
+        <move element="product.container" destination="content" before="-" />
+        <move element="product.info.media" destination="product.column.left" />
+
+        <move element="page.main.title" destination="product.column.right.upper" before="-" />
+        <move element="product.info.stock.sku" destination="product.column.right.upper" after="page.main.title" />
+        <move element="product.info.price" destination="product.column.right.upper" after="product.info.stock.sku" />
+        <move element="product.info.type" destination="product.column.right.status" />
+        <move element="product.info.review" destination="product.column.right.review" />
+
+        <move element="product.info.options.wrapper" destination="product.column.right.options" />
+        <move element="product.info.options.wrapper.bottom" destination="product.column.right.actions" />
+    </body>
+</page>
