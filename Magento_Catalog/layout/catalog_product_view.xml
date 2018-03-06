@@ -32,15 +32,21 @@
                     </container>
                 </container>
 
-                <container
-                    name="product.column.right.lower"
-                    htmlClass="product-view__secondary-details"
-                    htmlTag="div"
-                >
+                <referenceContainer name="product.info.main" htmlClass="product-view__secondary-details">
+                    <referenceBlock name="product.info.overview" template="Magento_Catalog::product/view/shortDescription.phtml" />
+
                     <container name="product.column.right.options" htmlClass="product-view__options" htmlTag="div" />
 
-                    <container name="product.column.right.actions" htmlClass="product-view__main-actions" htmlTag="div" />
-                </container>
+                    <container name="product.column.right.actions" htmlClass="product-view__main-actions" htmlTag="div">
+                            <block class="Magento\Catalog\Block\Product\View" name="product.column.right.qty" template="Magento_Catalog::product/view/qty.phtml" />
+
+                            <container name="product.column.right.extra.actions" htmlClass="product-view__action-elements" htmlTag="div">
+                                <referenceBlock name="product.info.addtocart"/>
+
+                                <referenceContainer name="product.info.social" htmlClass="product-view__extra-actions" htmlTag="div" />
+                            </container>
+                    </container>
+                </referenceContainer>
             </container>
         </container>
 
@@ -55,6 +61,12 @@
         <move element="product.info.review" destination="product.column.right.review" />
 
         <move element="product.info.options.wrapper" destination="product.column.right.options" />
-        <move element="product.info.options.wrapper.bottom" destination="product.column.right.actions" />
+        <move element="product.info.main" destination="product.wrapper"/>
+        <move element="product.info.addtocart" destination="product.column.right.extra.actions" />
+        <move element="product.info.social" destination="product.column.right.extra.actions" />
+        <move element="view.addto.wishlist" destination="product.info.social" before="-" />
+        <move element="view.addto.compare" destination="product.info.social" before="product.info.mailto" />
+
+        <referenceBlock name="product.info.addto" remove="true" />
     </body>
 </page>
