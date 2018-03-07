@@ -3,56 +3,50 @@
 ?>
 
 <div class="header__minicart" data-block="minicart">
-    <a class="header-button popup-trigger showcart"
-       href="<?= /* @escapeNotVerified */ $block->getShoppingCartUrl() ?>"
-       data-bind="scope: 'minicart_content'"
-       aria-label="<?= /* @escapeNotVerified */ __('Shopping cart dropdown trigger') ?>"
+    <button
+        class="header-button popup-trigger"
+        aria-label="<?= __('Cart trigger') ?>"
+        data-bind="scope: 'minicart_content'"
+        data-popuptrigger="popup-minicart"
+        data-mage-init='{ "popup": { } }'
     >
         <svg class="icon header-button__icon">
             <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#shopping-cart'); ?>"></use>
         </svg>
-        
         <span class="header-button__text">
             <?= __('Cart') ?>
         </span>
-        
         <!-- ko if: getCartParam('summary_count') -->
             <span class="header-button__counter">
                 <span class="header-button__counter-dot"></span>
             </span>
         <!-- /ko -->
-    </a>
+    </button>
 
     <?php if ($block->getIsNeedToDisplaySideBar()): ?>
-        <div class="block block-minicart minicart empty"
-             data-role="dropdownDialog"
-             data-mage-init='{
-                 "dropdownDialog":{
-                     "appendTo":"[data-block=minicart]",
-                     "triggerTarget":".showcart",
-                     "timeout": "2000",
-                     "closeOnMouseLeave": false,
-                     "closeOnEscape": true,
-                     "triggerClass":"active",
-                     "parentClass":"active",
-                     "buttons":[]
-                 }
-             }'
+        <dialog
+            data-popup="popup-minicart"
+            class="popup header__minicart-content"
+            role="alertdialog"
         >
-            <div id="minicart-content-wrapper"
-                 class="minicart__wrapper"
-                 data-bind="scope: 'minicart_content'"
-            >
-                <!-- ko template: getTemplate() --><!-- /ko -->
+            <div class="popup__handler">
+                <div class="popup__content" tabindex="0" role="document">
+                    <div
+                        class="minicart-content"
+                        data-bind="scope: 'minicart_content'"
+                    >
+                        <!-- ko template: getTemplate() --><!-- /ko -->
+                    </div>
+                    <?= $block->getChildHtml('minicart.addons') ?>
+                </div>
             </div>
-            <?= $block->getChildHtml('minicart.addons'); ?>
-        </div>
-    <?php endif ?>
+        </dialog>
+    <?php endif; ?>
 
     <script>
         window.checkout = <?= /* @escapeNotVerified */ \Zend_Json::encode($block->getConfig()) ?>;
     </script>
-    
+
     <script type="text/x-magento-init">
     {
         "[data-block='minicart']": {
