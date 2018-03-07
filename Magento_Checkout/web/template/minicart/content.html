@@ -1,37 +1,8 @@
-<!--
-/**
- * Copyright © 2013-2017 Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
--->
-<h3 class="heading">
-        <span class="text"><!-- ko i18n: 'My Cart' --><!-- /ko --></span>
-        <span
-            class="qty empty"
-            data-bind="css: { empty: !!getCartParam('summary_count') == false },
-                       attr: { title: $t('Items in Cart') }">
+<div class="minicart-content__bar"></div>
+<!-- ko if: getCartParam('summary_count') -->
+    <div class="minicart-content__total">
+        <div class="minicart-content__total-counter">
             <!-- ko text: getCartParam('summary_count') --><!-- /ko -->
-        </span>
-</h3>
-
-<div class="block-content minicart__content">
-    <button type="button"
-            id="btn-minicart-close"
-            class="action close minicart__btn-close"
-            data-action="close"
-            data-bind="attr: { title: $t('Close') }">
-            <!-- <img data-bind="attr: { 'data-src': require.toUrl('Magento_Checkout/images/close.svg') }"
-                 alt="close button"
-                 class="minicart__btn-close-img lazyload"
-            /> -->
-            <svg class="minicart__btn-close-icon">
-                <use data-bind="attr: { 'xlink:href': require.toUrl('images/icons-sprite.svg#close') }" xlink:href='' ></use>
-            </svg>
-    </button>
-
-    <!-- ko if: getCartParam('summary_count') -->
-        <div class="items-total">
-            <span class="count"><!-- ko text: getCartParam('summary_count') --><!-- /ko --></span>
             <!-- ko if: getCartParam('summary_count') == 1 -->
                 <!-- ko i18n: 'item' --><!-- /ko -->
             <!-- /ko -->
@@ -45,6 +16,7 @@
                 <!-- ko template: getTemplate() --><!-- /ko -->
             <!-- /ko -->
         <!-- /ko -->
+    </div>
 
         <!-- ko foreach: getRegion('extraInfo') -->
             <!-- ko template: getTemplate() --><!-- /ko -->
@@ -103,7 +75,6 @@
             <!-- ko template: getTemplate() --><!-- /ko -->
         <!-- /ko -->
     </div>
-</div>
 <!-- ko foreach: getRegion('sign-in-popup') -->
 <!-- ko template: getTemplate() --><!-- /ko -->
 <!-- /ko -->
