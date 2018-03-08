@@ -94,36 +94,42 @@
                     <input
                         class="input__field minicart-product__field cart-item-qty"
                         name="mini-qty"
-                        type="number"
-                        placeholder="32"
+                        type="text"
                         aria-label="Change the quantity"
                         min="1"
                         data-bind="
                             attr: {
                                 id: 'cart-item-'+item_id+'-qty',
+                                placeholder: qty,
                                 'data-cart-item': item_id,
                                 'data-item-qty': qty,
                                 'data-cart-item-id': product_sku
                             },
-                            value: qty
+                            value: qty,
                         "
                         size="4"
                         maxlength="12"
+                        autocomplete="off"
                     >
-                    <button
-                        data-bind="
-                            attr: {
-                                id: 'update-cart-item-'+item_id,
-                                'data-cart-item': item_id,
-                                title: $t('Update')
-                            }
-                        "
-                        class="update-cart-item button button--wide button--secondary"
-                        style="display: none"
-                    >
-                        <span data-bind="i18n: 'Update'"></span>
-                    </button>
                 </div>
+                <button
+                    data-bind="
+                        attr: {
+                            id: 'update-cart-item-'+item_id,
+                            'data-cart-item': item_id,
+                            title: $t('Update')
+                        }
+                    "
+                    class="
+                        button
+                        button--secondary
+                        minicart-product__update
+                        update-cart-item
+                    "
+                    style="display: none"
+                >
+                    <span data-bind="i18n: 'Update'"></span>
+                </button>
             </div>
             <div class="minicart-product__actions">
                 <!-- ko if: is_visible_in_site_visibility -->
@@ -142,6 +148,7 @@
                 <!-- /ko -->
 
                 <a
+                    href="#"
                     data-bind="attr: {'data-cart-item': item_id, title: $t('Remove item')}"
                     class="button button--icon minicart-product__button action delete"
                     aria-label="remove this product from your shopping cart"
