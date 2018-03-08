@@ -70,51 +70,81 @@
                 <!-- /ko -->
             </div>
         <!-- /ko -->
-    </div>
 
-    <div class="details-qty qty input input--inline-small-right">
-        <label class="input__label"
-                data-bind="i18n: 'Qty', attr: {
-                for: 'cart-item-'+item_id+'-qty'}"
-        ></label>
-        <input data-bind="attr: {
-                id: 'cart-item-'+item_id+'-qty',
-                'data-cart-item': item_id,
-                'data-item-qty': qty,
-                'data-cart-item-id': product_sku
-                }, value: qty"
-                type="number"
-                size="4"
-                class="input item-qty cart-item-qty input__field"
-                maxlength="12"/>
-        <button data-bind="attr: {
-                id: 'update-cart-item-'+item_id,
-                'data-cart-item': item_id,
-                title: $t('Update')
-                }"
-                class="update-cart-item button button--wide button--secondary"
-                style="display: none">
-            <span data-bind="i18n: 'Update'"></span>
-        </button>
+        <div class="minicart-product__bottom">
+            <div class="minicart-product__qty">
+                <div class="input input--inline minicart-product__input">
+                    <label
+                        class="label minicart-product__label"
+                        for="mini-qty"
+                        data-bind="
+                            i18n: 'Qty',
+                            attr: { for: 'cart-item-'+item_id+'-qty' }
+                        "
+                    ></label>
+                    <input
+                        class="input__field minicart-product__field"
+                        id="mini-qty"
+                        name="mini-qty"
+                        type="number"
+                        placeholder="32"
+                        aria-label="Change the quantity"
+                        min="1"
+                        data-bind="
+                            attr: {
+                                id: 'cart-item-'+item_id+'-qty',
+                                'data-cart-item': item_id,
+                                'data-item-qty': qty,
+                                'data-cart-item-id': product_sku
+                            }, value: qty
+                        "
+                        size="4"
+                        maxlength="12"
+                    >
+                    <button
+                        data-bind="
+                            attr: {
+                                id: 'update-cart-item-'+item_id,
+                                'data-cart-item': item_id,
+                                title: $t('Update')
+                            }
+                        "
+                        class="update-cart-item button button--wide button--secondary"
+                        style="display: none"
+                    >
+                        <span data-bind="i18n: 'Update'"></span>
+                    </button>
+                </div>
+            </div>
+            <div class="minicart-product__actions">
+                <!-- ko if: is_visible_in_site_visibility -->
+                    <a
+                        data-bind="attr: {href: configure_url, title: $t('Edit item')}"
+                        class="button button--icon minicart-product__button"
+                        aria-label="edit product in your shopping cart"
+                    >
+                        <svg
+                            title="edit"
+                            class="button__icon minicart-product__button-icon"
+                        >
+                            <use data-bind="attr: { 'xlink:href': require.toUrl('images/icons-sprite.svg#edit') }" xlink:href='' ></use>
+                        </svg>
+                    </a>
+                <!-- /ko -->
+
+                <button
+                    data-bind="attr: {'data-cart-item': item_id, title: $t('Remove item')}"
+                    class="button button--icon minicart-product__button"
+                    aria-label="remove this product from your shopping cart"
+                >
+                    <svg
+                        title="remove"
+                        class="button__icon minicart-product__button-icon"
+                    >
+                        <use data-bind="attr: { 'xlink:href': require.toUrl('images/icons-sprite.svg#remove') }" xlink:href='' ></use>
+                    </svg>
+                </button>
+            </div>
+        </div>
     </div>
-    <div class="minicart__action">
-        <!-- ko if: is_visible_in_site_visibility -->
-            <a data-bind="attr: {href: configure_url, title: $t('Edit item')}"
-                class="action edit button button--icon">
-                <svg class="button__icon">
-                    <use data-bind="attr: { 'xlink:href': require.toUrl('images/icons-sprite.svg#edit') }" xlink:href='' ></use>
-                </svg>
-            </a>
-        <!-- /ko -->
-            <button data-bind="attr: {'data-cart-item': item_id, title: $t('Remove item')}"
-                class="action delete button button--icon"
-            >
-                <svg class="button__icon">
-                    <use data-bind="attr: { 'xlink:href': require.toUrl('images/icons-sprite.svg#remove') }" xlink:href='' ></use>
-                </svg>
-            </button>
-    </div>
-    <!-- ko if: product_has_url -->
-        <a data-bind="attr: {href: product_url, title: product_name}" tabindex="-1" class="product__link"></a>
-    <!-- /ko -->
 </div>
