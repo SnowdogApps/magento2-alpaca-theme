@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
  - Footer links
  - Newsletter module styles
  - social links
+ - Minicart
 
 ## [0.1.2] - 2017-10-10
 ### Added
