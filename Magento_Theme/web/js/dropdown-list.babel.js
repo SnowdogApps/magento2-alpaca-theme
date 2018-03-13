@@ -20,7 +20,9 @@ define(function() {
     }
 
     function isMediumOpen(dropdownBlock) {
-      return (dropdownBlock.classList.contains('dropdown-list--is-open@screen-m')) && window.matchMedia(mq).matches;
+      return
+        (dropdownBlock.classList.contains('dropdown-list--is-open@screen-m'))
+        && window.matchMedia(mq).matches;
     }
 
     function resetMqMediumOpen(item) {

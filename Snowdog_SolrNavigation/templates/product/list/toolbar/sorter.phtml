@@ -12,25 +12,28 @@
         >
             <?php foreach ($block->getAvailableOrders() as $_key => $_order): ?>
                 <?php if (!$block->getNavigationConfig()->isCombinedSort()): ?>
-                    <option value="<?= /* @escapeNotVerified */ $block->getOrderUrl($_key, "asc"); ?>"
-                            <?= ($block->isOrderCurrent($_key) && $block->getCurrentDirection() == "asc") ? 'selected="selected"' : '' ?>
+                    <option
+                        value="<?= /* @escapeNotVerified */ $block->getOrderUrl($_key, "asc") ?>"
+                        <?= ($block->isOrderCurrent($_key) && $block->getCurrentDirection() == "asc") ? 'selected="selected"' : '' ?>
                     >
-                        <?= /* @escapeNotVerified */ __($_order) . ' - ' . /* @escapeNotVerified */ __("asc"); ?>
+                        <?= /* @escapeNotVerified */ __($_order) . ' - ' . /* @escapeNotVerified */ __("asc") ?>
                     </option>
-                    <option value="<?= /* @escapeNotVerified */ $block->getOrderUrl($_key, "desc"); ?>"
-                            <?= ($block->isOrderCurrent($_key) && $block->getCurrentDirection() == "desc") ? 'selected="selected"' : '' ?>
+                    <option
+                        value="<?= /* @escapeNotVerified */ $block->getOrderUrl($_key, "desc") ?>"
+                        <?= ($block->isOrderCurrent($_key) && $block->getCurrentDirection() == "desc") ? 'selected="selected"' : '' ?>
                     >
-                        <?= $block->escapeHtml(__($_order)) . ' - ' . /* @escapeNotVerified */ __("desc"); ?>
+                        <?= $block->escapeHtml(__($_order)) . ' - ' . /* @escapeNotVerified */ __("desc") ?>
                     </option>
                 <?php else: ?>
-                    <option value="<?= /* @escapeNotVerified */ $block->getOrderUrl($_key, $_order); ?>"
-                            <?php if (isset($block->getNavigationConfig()->getSortingMap()[$_key]['direction'])): ?>
-                                data-dir="<?= $block->getNavigationConfig()->getSortingMap()[$_key]['direction']; ?>"
-                            <?php endif; ?>
-                            data-key="<?= $block->escapeHtml($_key); ?>"
-                            <?= ($block->isOrderCurrent($_key)) ? 'selected="selected"' : '' ?>
+                    <option
+                        value="<?= /* @escapeNotVerified */ $block->getOrderUrl($_key, $_order) ?>"
+                        <?php if (isset($block->getNavigationConfig()->getSortingMap()[$_key]['direction'])): ?>
+                            data-dir="<?= $block->getNavigationConfig()->getSortingMap()[$_key]['direction'] ?>"
+                        <?php endif; ?>
+                        data-key="<?= $block->escapeHtml($_key) ?>"
+                        <?= ($block->isOrderCurrent($_key)) ? 'selected="selected"' : '' ?>
                     >
-                        <?= $block->escapeHtml(__($_order)); ?>
+                        <?= $block->escapeHtml(__($_order)) ?>
                     </option>
                 <?php endif; ?>
             <?php endforeach; ?>
