@@ -35,7 +35,7 @@ define([
           var decode = window.decodeURIComponent,
               optionsUrl = this.options.url;
 
-          if(optionsUrl === '') {
+          if (optionsUrl === '') {
               optionsUrl = window.location.href;
           }
 
