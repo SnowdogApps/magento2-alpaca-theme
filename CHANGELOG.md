@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
  - Newsletter module styles
  - Social links
  - Login page
+ - Minicart
 
 ## [0.1.2] - 2017-10-10
 ### Added
