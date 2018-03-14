@@ -1,18 +1,18 @@
 <?php if ($crumbs && is_array($crumbs)): ?>
     <div class="breadcrumbs container">
         <?php foreach ($crumbs as $crumbName => $crumbInfo): ?>
-            <?php if ($crumbInfo['link']): ?>
-                <a href="<?= /* @escapeNotVerified */ $crumbInfo['link'] ?>"
-                   class="breadcrumbs__item"
-                   title="<?= $block->escapeHtml($crumbInfo['title']) ?>"
-                >
+            <span class="breadcrumbs__item">
+                <?php if ($crumbInfo['link']): ?>
+                    <a href="<?= /* @escapeNotVerified */ $crumbInfo['link'] ?>"
+                    class="breadcrumbs__link link link--invert"
+                    title="<?= $block->escapeHtml($crumbInfo['title']) ?>"
+                    >
+                        <?= $block->escapeHtml($crumbInfo['label']) ?>
+                    </a>
+                <?php else: ?>
                     <?= $block->escapeHtml($crumbInfo['label']) ?>
-                </a>
-            <?php else: ?>
-                <span class="breadcrumbs__item">
-                    <?= $block->escapeHtml($crumbInfo['label']) ?>
-                </span>
-            <?php endif; ?>
+                <?php endif; ?>
+            </span>
         <?php endforeach; ?>
     </div>
 <?php endif; ?>

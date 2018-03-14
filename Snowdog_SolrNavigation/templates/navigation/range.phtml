@@ -1,0 +1,92 @@
+<?php
+/** @var \Snowdog\SolrNavigation\Block\Navigation\Range $block */
+
+$_currencyHelper = $this->helper('Magento\Framework\Pricing\Helper\Data');
+$_max = number_format($block->getMax(), 2);
+$_min = number_format($block->getMin(), 2);
+?>
+
+<?php if (!($_max === $_min)): ?>
+    <li class="dropdown-list__item dropdown-list__item--collapse filter">
+        <div class="dropdown-list__label filter__label" data-dropdown="range">
+            <?= $block->getAttributeLabel() ?>
+            <svg class="icon dropdown-list__icon">
+                <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#angle-down') ?>"></use>
+            </svg>
+        </div>
+        <div
+            id="range"
+            class="dropdown-list__content filter__content"
+            data-content="range"
+            aria-hidden="true"
+            data-mage-init='{ "range": { } }'
+        >
+            <div class="range-filter filter__range">
+                <div
+                    class="range-filter__slider"
+                    data-min="<?= $_min ?>"
+                    data-max="<?= $_max ?>"
+                >
+                </div>
+                <div class="range-filter__inputs-wrapper ">
+                    <div class="input range-filter__input range-filter__input--lower">
+                        <label
+                            class="label range-filter__label"
+                            for="<?= $block->getAttributeCode() ?>-lower"
+                        >
+                            <?= /* @escapeNotVerified */ __('Minimum value') ?>
+                        </label>
+                        <input
+                            class="input__field range-filter__field range-filter__field--lower"
+                            id="<?= $block->getAttributeCode() ?>-lower"
+                            name="range-filter-min"
+                            type="number"
+                            value="<?= $block->getLowerBound() ?>"
+                            placeholder="<?= $_currencyHelper->currency($block->getMin(), false, false) ?>"
+                        >
+                    </div>
+                    <span class="range-filter__suffix ">
+                        <?= /* @escapeNotVerified */ '$' ?>
+                    </span>
+                    <span class="range-filter__dash">-</span>
+                    <div class="input range-filter__input range-filter__input--upper">
+                        <label
+                            class="label range-filter__label"
+                            for="<?= $block->getAttributeCode() ?>-upper"
+                        >
+                            <?= /* @escapeNotVerified */ __('Maximum value') ?>
+                        </label>
+                        <input
+                            class="
+                                input__field
+                                range-filter__field
+                                range-filter__field--upper
+                            "
+                            id="<?= $block->getAttributeCode() ?>-upper"
+                            name="range-filter-max"
+                            type="number"
+                            value="<?= $block->getUpperBound() ?>"
+                            placeholder="<?= $_currencyHelper->currency($block->getMax(), false, false) ?>"
+                        >
+                    </div>
+                    <span class="range-filter__suffix">
+                        <?= /* @escapeNotVerified */ '$' ?>
+                    </span>
+                </div>
+            </div>
+            <button
+                class="button button--secondary range-filter__button"
+                id="<?= $block->getAttributeCode() ?>-filter"
+                data-filter-url="<?= $block->getFilterUrl() ?>"
+                href="<?= $block->getFilterUrl() ?>"
+                data-min="<?= $_min ?>"
+                data-max="<?= $_max ?>"
+                data-attribute="<?= $block->getAttributeCode() ?>"
+                data-mage-init='{ "priceRange": { } }'
+            >
+                <?= __('Apply') ?>
+            </button>
+            <div class="filter__divider"></div>
+        </div>
+    </li>
+<?php endif; ?>

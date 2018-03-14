@@ -1,0 +1,78 @@
+<?php
+/** @var \Snowdog\SolrNavigation\Block\Navigation\ListItem $block */
+?>
+
+<li class="
+        dropdown-list__item
+        dropdown-list__item--collapse
+        filter
+    "
+>
+    <?php if (strtolower($block->getAttributeLabel()) == 'color') : ?>
+        <div class="dropdown-list__label filter__label" data-dropdown="color">
+            <?= $block->getAttributeLabel() ?>
+            <svg class="icon dropdown-list__icon">
+                <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#angle-down') ?>"></use>
+            </svg>
+        </div>
+        <div
+            id="color"
+            class="dropdown-list__content filter__content"
+            data-content="color"
+            aria-hidden="true"
+        >
+            <div class="filter__color">
+                <?php foreach ($block->getItems() as $_item): ?>
+                    <a
+                        href="<?= $block->getNavigationUrl($block->getAttributeCode(), $_item['value_id']) ?>"
+                        class="
+                            filter__color-option
+                            <?= $block->isActive($_item['value_id']) ? 'filter__color-option--active' : '' ?>
+                        "
+                        aria-label="<?= $_item['label'] ?>"
+                        title="<?= $_item['label'] ?>"
+                    >
+                        <div
+                            class="filter__color-sample"
+                            style="background: <?= $_item['swatch_value'] ?>"
+                        ></div>
+                        <span class="filter__color-label">
+                            <?= $_item['label'] ?>
+                        </span>
+                    </a>
+                <?php endforeach ?>
+            </div>
+            <div class="filter__divider"></div>
+        </div>
+    <?php else : ?>
+        <div class="dropdown-list__label filter__label" data-dropdown="swatch">
+            <?= $block->getAttributeLabel() ?>
+            <svg class="icon dropdown-list__icon">
+                <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#angle-down') ?>"></use>
+            </svg>
+        </div>
+        <div
+            id="swatch"
+            class="dropdown-list__content filter__content"
+            data-content="swatch"
+            aria-hidden="true"
+        >
+            <div class="filter__swatch">
+                <?php foreach ($block->getItems() as $_item): ?>
+                    <a
+                        href="<?= $block->getNavigationUrl($block->getAttributeCode(), $_item['value_id']) ?>"
+                        class="
+                            filter__swatch-option
+                            <?= $block->isActive($_item['value_id']) ? 'filter__swatch-option--active' : '' ?>
+                        "
+                        aria-label="<?= $_item['label'] ?>"
+                        title="<?= $_item['label'] ?>"
+                    >
+                        <?= $_item['label'] ?>
+                    </a>
+                <?php endforeach ?>
+            </div>
+            <div class="filter__divider"></div>
+        </div>
+    <?php endif; ?>
+</li>

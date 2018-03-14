@@ -1,0 +1,47 @@
+<?php
+/** @var \Snowdog\SolrNavigation\Block\Navigation\ListItem $block */
+?>
+<li class="
+        dropdown-list__item
+        dropdown-list__item--collapse
+        filter
+    "
+>
+    <div
+        class="dropdown-list__label filter__label"
+        data-dropdown="checkbox"
+    >
+        <?= $block->getAttributeLabel() ?>
+        <svg class="icon dropdown-list__icon">
+            <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#angle-down') ?>"></use>
+        </svg>
+    </div>
+    <div
+        id="checkbox"
+        class="dropdown-list__content filter__content"
+        data-content="checkbox"
+        aria-hidden="true"
+    >
+        <?php foreach ($block->getItems() as $_item): ?>
+            <a
+                href="<?= $block->getNavigationUrl($block->getAttributeCode(), $_item['value_id']) ?>"
+                class="
+                    checkbox
+                    checkbox--link
+                    <?= $block->isActive($_item['value_id']) ? 'checkbox--link-checked' : '' ?>
+                "
+                title="<?= $_item['label'] ?>"
+            >
+                <svg
+                    class="checkbox__icon"
+                >
+                    <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#checked') ?>"></use>
+                </svg>
+                <span class="checkbox__label">
+                    <?= $_item['label'] ?>
+                </span>
+            </a>
+        <?php endforeach; ?>
+        <div class="filter__divider"></div>
+    </div>
+</li>

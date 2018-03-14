@@ -1,0 +1,130 @@
+<?php
+use Snowdog\SolrNavigation\Helper\Data;
+/* @var $block \Snowdog\SolrNavigation\Block\Product\ListProduct */
+/** @var Data $solrDataHelper */
+$solrDataHelper = $this->helper('Snowdog\SolrNavigation\Helper\Data');
+?>
+
+<?php /** @var $_product \Magento\Catalog\Model\Product */ ?>
+
+<?php if ($block->getMode() == 'list') : ?>
+    <?php if (count($block->getProducts()) == 0): ?>
+        <div class="message info empty">
+            <?= /* @escapeNotVerified */ __('We can\'t find products matching the selection.') ?>
+        </div>
+    <?php else: ?>
+        <?php foreach ($block->getProducts() as $_product): ?>
+            <section class="catalog-list-item catalog-list__item">
+                <a
+                    href="<?= /* @escapeNotVerified */ $block->getProductUrl($_product) ?>"
+                    class="
+                        catalog-list-item__image-wrapper
+                        catalog-list-item__link
+                    "
+                    title="<?= /* @escapeNotVerified */ $_product['name'] ?>"
+                >
+                    <img
+                        class="image lazyload catalog-list-item__image"
+                        src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                        data-src="<?= $solrDataHelper->getImageUrl($_product['small_image'], 300, 300) ?>"
+                        alt="<?= /* @escapeNotVerified */ $_product['image_label'] ?>"
+                    />
+                </a>
+                <div class="catalog-list-item__main">
+                    <?php if ($solrDataHelper->isProductNew($_product) === true): ?>
+                        <div class="badge catalog-list-item__badge">
+                            <?= /* @escapeNotVerified */ __('NEW') ?>
+                        </div>
+                    <?php endif; ?>
+                    <div class="catalog-list-item__details">
+                        <h2 class="catalog-list-item__name">
+                            <a
+                                href="<?= /* @escapeNotVerified */ $block->getProductUrl($_product) ?>"
+                                class="catalog-list-item__link"
+                                title="<?= /* @escapeNotVerified */ $_product['name'] ?>"
+                            >
+                                <?= /* @escapeNotVerified */ $_product['name'] ?>
+                            </a>
+                        </h2>
+                        <div class="catalog-list-item__reviews">
+                            <div class="rating">
+                                <div class="rating__star">
+                                    <span class="rating__indicator"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="catalog-list-item__price">
+                        <div class="price">
+                            <span class="price__value">
+                                <?= /* @escapeNotVerified */ $solrDataHelper->getPrice($_product) ?>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="catalog-list-item__actions">
+                        <div class="catalog-list-item__actions-primary">
+                            <form
+                                action="<?= $block->escapeHtml($block->getAddToUrl('cart', $_product['entity_id'])) ?>"
+                                method="post"
+                                data-mage-init='{ "validation": {} }'
+                            >
+                                <button
+                                    class="
+                                        button
+                                        button--secondary
+                                        catalog-list-item__actions-primary-button
+                                    "
+                                    type="submit"
+                                >
+                                    <?= /* @escapeNotVerified */ __('Add to Cart') ?>
+                                </button>
+                            </form>
+                        </div>
+                        <div class="catalog-list-item__actions-secondary">
+                            <form
+                                action="<?= $block->escapeHtml($block->getAddToUrl('wishlist', $_product['entity_id'])) ?>"
+                                method="post"
+                                data-mage-init='{ "validation": {} }'
+                            >
+                                <button
+                                    class="
+                                        button
+                                        button--icon
+                                        catalog-list-item__actions-secondary-button
+                                    "
+                                    type="submit"
+                                    aria-label="<?= __('Add to wishlist') ?>"
+                                    title="<?= __('Add to wishlist') ?>"
+                                >
+                                    <svg class="button__icon catalog-list-item__actions-secondary-button-icon">
+                                        <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#heart') ?>"></use>
+                                    </svg>
+                                </button>
+                            </form>
+                            <form
+                                action="<?= $block->escapeHtml($block->getAddToUrl('compare', $_product['entity_id'])) ?>"
+                                method="post"
+                                data-mage-init='{ "validation": {} }'
+                            >
+                                <button
+                                    class="
+                                        button
+                                        button--icon
+                                        catalog-list-item__actions-secondary-button
+                                    "
+                                    type="submit"
+                                    aria-label="<?= __('Add to compare') ?>"
+                                    title="<?= __('Add to compare') ?>"
+                                >
+                                    <svg class="button__icon catalog-list-item__actions-secondary-button-icon">
+                                        <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#compare') ?>"></use>
+                                    </svg>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        <?php endforeach; ?>
+    <?php endif; ?>
+<?php endif; ?>
