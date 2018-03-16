@@ -194,6 +194,7 @@
     ], function($) {
         var dataForm = $('#form-validate'),
             ignore = <?= /* @escapeNotVerified */ $_dob->isEnabled() ? '\'input[id$="full"]\'' : 'null' ?>;
+
         dataForm.mage('validation', {
             <?php if ($_dob->isEnabled()): ?>
                 errorPlacement: function(error, element) {
@@ -215,21 +216,3 @@
         }).find('input:text').attr('autocomplete', 'off');
     });
 </script>
-<?php if ($block->getShowAddressFields()): ?>
-    <script type="text/x-magento-init">
-        {
-            "#country": {
-                "regionUpdater": {
-                    "optionalRegionAllowed": <?= /* @escapeNotVerified */ ($block->getConfig('general/region/display_all') ? 'true' : 'false'); ?>,
-                    "regionListId": "#region_id",
-                    "regionInputId": "#region",
-                    "postcodeId": "#zip",
-                    "form": "#form-validate",
-                    "regionJson": <?= /* @escapeNotVerified */ $this->helper('Magento\Directory\Helper\Data')->getRegionJson() ?>,
-                    "defaultRegion": "<?= /* @escapeNotVerified */ $block->getFormData()->getRegionId() ?>",
-                    "countriesWithOptionalZip": <?= /* @escapeNotVerified */ $this->helper('Magento\Directory\Helper\Data')->getCountriesWithOptionalZip(true) ?>
-                }
-            }
-        }
-    </script>
-<?php endif; ?>
