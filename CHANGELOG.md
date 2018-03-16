@@ -11,6 +11,9 @@ All notable changes to this project will be documented in this file.
  - Login page
  - Minicart
 
+ ### Changed
+  - registration form to fit new components
+
 ## [0.1.2] - 2017-10-10
 ### Added
  - CHANGELOG.md
