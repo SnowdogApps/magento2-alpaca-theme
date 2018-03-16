@@ -236,7 +236,7 @@
                 <span class="divider__left"></span>
                 <span class="divider__right"></span>
             </div>
-            <div class="input required">
+            <div class="input registration__input  required">
                 <label for="email_address"
                        class="input__label"
                 >
@@ -252,39 +252,51 @@
                        data-validate="{required:true, 'validate-email':true}"
                 >
             </div>
-            <div class="input password register__password required"
+            <div class="registration__password-wrapper"
                  data-mage-init='{
                     "passwordStrengthIndicator": {
                         "defaultClassName": "password-strength--"
                     }
                  }'
             >
-                <label for="password" class="input__label">
-                    <?= /* @escapeNotVerified */ __('Password') ?>
-                </label>
-                <input
-                    type="password"
-                    name="password"
-                    id="password"
-                    title="<?= /* @escapeNotVerified */ __('Password') ?>"
-                    class="input__field"
-                    data-password-min-length="<?= $block->escapeHtml($block->getMinimumPasswordLength()) ?>"
-                    data-password-min-character-sets="<?= $block->escapeHtml($block->getRequiredCharacterClassesNumber()) ?>"
-                    data-validate="{required:true, 'validate-customer-password':true}"
-                    autocomplete="off"
-                >
-                <div data-role="password-strength"
-                     class="password-strength"
-                >
-                    <div class="password-strength__progress">
-                        <?= /* @escapeNotVerified */ __('Password Strength'); ?>:
-                        <span data-role="password-strength-meter-label">
-                            <?= /* @escapeNotVerified */ __('No Password'); ?>
-                        </span>
+                <div class="input required">
+                    <label for="password" class="input__label">
+                        <?= /* @escapeNotVerified */ __('Password') ?>
+                    </label>
+                    <input
+                        type="password"
+                        name="password"
+                        id="password"
+                        title="<?= /* @escapeNotVerified */ __('Password') ?>"
+                        class="input__field"
+                        data-password-min-length="<?= $block->escapeHtml($block->getMinimumPasswordLength()) ?>"
+                        data-password-min-character-sets="<?= $block->escapeHtml($block->getRequiredCharacterClassesNumber()) ?>"
+                        data-validate="{required:true, 'validate-customer-password':true}"
+                        autocomplete="off"
+                    >
+                </div>
+                <div class="password-strength">
+                    <div
+                        id="password-strength-meter-container"
+                        data-role="password-strength-meter"
+                        aria-live="polite"
+                    >
+                        <div id="password-strength-meter"
+                            class="password-strength-meter"
+                        >
+                            <?= $block->escapeHtml(__('Password Strength')) ?>:
+                            <span
+                                class="password-strength__indicator"
+                                id="password-strength-meter-label"
+                                data-role="password-strength-meter-label"
+                            >
+                                <?= $block->escapeHtml(__('No Password')) ?>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="input required">
+            <div class="input registration__input required">
                 <label for="password-confirmation" class="input__label">
                     <?= /* @escapeNotVerified */ __('Confirm Password') ?>
                 </label>
@@ -359,7 +371,7 @@
 
 <script type="text/x-magento-init">
     {
-        ".input.password": {
+        ".registration__password-wrapper": {
             "passwordStrengthIndicator": {
                 "formSelector": "form.form"
             }
