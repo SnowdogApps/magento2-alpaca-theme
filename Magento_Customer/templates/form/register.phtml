@@ -6,56 +6,79 @@
     <?= $block->getChildHtml('form_fields_before') ?>
     <?php /* Extensions placeholder */ ?>
     <?= $block->getChildHtml('customer.form.register.extra') ?>
-    <form class="form"
-          action="<?= /* @escapeNotVerified */ $block->getPostActionUrl() ?>"
-          method="post"
-          id="form-validate"
-          enctype="multipart/form-data"
-          autocomplete="off"
+    <form
+        class="form registration__content"
+        action="<?= /* @escapeNotVerified */ $block->getPostActionUrl() ?>"
+        method="post"
+        id="form-validate"
+        enctype="multipart/form-data"
+        autocomplete="off"
     >
         <?= /* @noEscape */ $block->getBlockHtml('formkey'); ?>
-        <fieldset class="form__fieldset">
-            <legend class="form__legend">
+        <fieldset class="fieldset registration__fieldset">
+            <legend class="form__legend fieldset__legend registration__legend">
                 <?= /* @escapeNotVerified */ __('Personal Information') ?>
             </legend>
-            <input type="hidden"
-                   name="success_url"
-                   value="<?= /* @escapeNotVerified */ $block->getSuccessUrl() ?>"
+            <div class="divider registration__divider">
+                <span class="divider__left"></span>
+                <span class="divider__right"></span>
+            </div>
+            <input
+                type="hidden"
+                name="success_url"
+                value="<?= /* @escapeNotVerified */ $block->getSuccessUrl() ?>"
             >
-            <input type="hidden"
-                   name="error_url"
-                   value="<?= /* @escapeNotVerified */ $block->getErrorUrl() ?>"
+            <input
+                type="hidden"
+                name="error_url"
+                value="<?= /* @escapeNotVerified */ $block->getErrorUrl() ?>"
             >
-            <?= $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Name')->setObject($block->getFormData())->setForceUseCustomerAttributes(true)->toHtml() ?>
+            <?= $block->getLayout()
+                ->createBlock('Magento\Customer\Block\Widget\Name')
+                ->setObject($block->getFormData())
+                ->setForceUseCustomerAttributes(true)
+                ->toHtml()
+            ?>
             <?php if ($block->isNewsletterEnabled()): ?>
-                <div class="checkbox">
-                    <input type="checkbox"
-                           name="is_subscribed"
-                           title="<?= /* @escapeNotVerified */ __('Sign Up for Newsletter') ?>"
-                           value="1"
-                           id="is_subscribed"
-                           class="checkbox__field"
+                <div class="checkbox registration__newsletter-checkbox">
+                    <input
+                        type="checkbox"
+                        name="is_subscribed"
+                        title="<?= /* @escapeNotVerified */ __('Sign Up for Newsletter') ?>"
+                        value="1"
+                        id="is_subscribed"
+                        class="checkbox__field registration__newsletter-checkbox-field"
                         <?= ($block->getFormData()->getIsSubscribed()) ? 'checked="checked"' : '' ?>
                     >
-                    <svg class="checkbox__icon">
-                        <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#checked'); ?>"></use>
+                    <svg
+                        class="
+                            checkbox__icon
+                            registration__newsletter-checkbox-icon
+                        "
+                    >
+                        <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#checked') ?>"></use>
                     </svg>
-                    <label for="is_subscribed" class="checkbox__label">
+                    <label
+                        for="is_subscribed"
+                        class="
+                            checkbox__label
+                            registration__newsletter-checkbox-label
+                        "
+                    >
                         <?= /* @escapeNotVerified */ __('Sign Up for Newsletter') ?>
                     </label>
                 </div>
                 <?php /* Extensions placeholder */ ?>
                 <?= $block->getChildHtml('customer.form.register.newsletter') ?>
             <?php endif ?>
-
             <?php $_dob = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Dob') ?>
             <?php if ($_dob->isEnabled()): ?>
-                <?= $_dob->setDate($block->getFormData()->getDob())
+                <?= $_dob->setDate($block->getFormData()
+                    ->getDob())
                     ->setHtmlClass('input__field')
                     ->toHtml();
                 ?>
             <?php endif; ?>
-
             <?php $_taxvat = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Taxvat') ?>
             <?php if ($_taxvat->isEnabled()): ?>
                 <?= $_taxvat->setTaxvat($block->getFormData()->getTaxvat())->toHtml() ?>
@@ -67,10 +90,14 @@
             <?php endif; ?>
         </fieldset>
         <?php if ($block->getShowAddressFields()): ?>
-            <fieldset class="form__fieldset">
-                <legend class="form__legend">
+            <fieldset class="fieldset registration__fieldset">
+                <legend class="form__legend fieldset__legend registration__legend">
                     <?= /* @escapeNotVerified */ __('Address Information') ?>
                 </legend>
+                <div class="divider registration__divider">
+                    <span class="divider__left"></span>
+                    <span class="divider__right"></span>
+                </div>
                 <input type="hidden" name="create_address" value="1"/>
                 <div class="input">
                     <label for="company" class="input__label">
@@ -198,12 +225,17 @@
             </fieldset>
 
         <?php endif; ?>
-        <fieldset class="form__fieldset"
-                  data-hasrequired="<?= /* @escapeNotVerified */ __('* Required Fields') ?>"
+        <fieldset
+            class="fieldset registration__fieldset"
+            data-hasrequired="<?= /* @escapeNotVerified */ __('* Required Fields') ?>"
         >
-            <legend class="form__legend">
+            <legend class="form__legend fieldset__legend registration__legend">
                 <?= /* @escapeNotVerified */ __('Sign-in Information') ?>
             </legend>
+            <div class="divider registration__divider">
+                <span class="divider__left"></span>
+                <span class="divider__right"></span>
+            </div>
             <div class="input required">
                 <label for="email_address"
                        class="input__label"
@@ -230,15 +262,16 @@
                 <label for="password" class="input__label">
                     <?= /* @escapeNotVerified */ __('Password') ?>
                 </label>
-                <input type="password"
-                       name="password"
-                       id="password"
-                       title="<?= /* @escapeNotVerified */ __('Password') ?>"
-                       class="input__field"
-                       data-password-min-length="<?= $block->escapeHtml($block->getMinimumPasswordLength()) ?>"
-                       data-password-min-character-sets="<?= $block->escapeHtml($block->getRequiredCharacterClassesNumber()) ?>"
-                       data-validate="{required:true, 'validate-customer-password':true}"
-                       autocomplete="off"
+                <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    title="<?= /* @escapeNotVerified */ __('Password') ?>"
+                    class="input__field"
+                    data-password-min-length="<?= $block->escapeHtml($block->getMinimumPasswordLength()) ?>"
+                    data-password-min-character-sets="<?= $block->escapeHtml($block->getRequiredCharacterClassesNumber()) ?>"
+                    data-validate="{required:true, 'validate-customer-password':true}"
+                    autocomplete="off"
                 >
                 <div data-role="password-strength"
                      class="password-strength"
@@ -255,20 +288,22 @@
                 <label for="password-confirmation" class="input__label">
                     <?= /* @escapeNotVerified */ __('Confirm Password') ?>
                 </label>
-                <input type="password"
-                       name="password_confirmation"
-                       title="<?= /* @escapeNotVerified */ __('Confirm Password') ?>"
-                       id="password-confirmation"
-                       class="input__field"
-                       data-validate="{required:true, equalTo:'#password'}"
-                       autocomplete="off"
+                <input
+                    type="password"
+                    name="password_confirmation"
+                    title="<?= /* @escapeNotVerified */ __('Confirm Password') ?>"
+                    id="password-confirmation"
+                    class="input__field"
+                    data-validate="{required:true, equalTo:'#password'}"
+                    autocomplete="off"
                 >
             </div>
             <?= $block->getChildHtml('form_additional_info'); ?>
         </fieldset>
-        <button type="submit"
-                class="button"
-                title="<?= /* @escapeNotVerified */ __('Create an Account') ?>"
+        <button
+            type="submit"
+            class="button"
+            title="<?= /* @escapeNotVerified */ __('Create an Account') ?>"
         >
             <?= /* @escapeNotVerified */ __('Create an Account') ?>
         </button>
@@ -279,30 +314,27 @@
         'jquery',
         'mage/mage'
     ], function($) {
-
-        var dataForm = $('#form-validate');
-        var ignore = <?= /* @escapeNotVerified */ $_dob->isEnabled() ? '\'input[id$="full"]\'' : 'null'; ?>;
-
+        var dataForm = $('#form-validate'),
+            ignore   = <?= /* @escapeNotVerified */ $_dob->isEnabled() ? '\'input[id$="full"]\'' : 'null' ?>;
         dataForm.mage('validation', {
             <?php if ($_dob->isEnabled()): ?>
-            errorPlacement: function(error, element) {
-                if (element.prop('id').search('full') !== -1) {
-                    var dobElement = $(element).parents('.customer-dob'),
-                        errorClass = error.prop('class');
-                    error.insertAfter(element.parent());
-                    dobElement.find('.validate-custom').addClass(errorClass)
-                        .after('<div class="' + errorClass + '"></div>');
-                }
-                else {
-                    error.insertAfter(element);
-                }
-            },
-            ignore        : ':hidden:not(' + ignore + ')'
+                errorPlacement: function(error, element) {
+                    if (element.prop('id').search('full') !== -1) {
+                        var dobElement = $(element).parents('.customer-dob'),
+                            errorClass = error.prop('class');
+                        error.insertAfter(element.parent());
+                        dobElement.find('.validate-custom').addClass(errorClass)
+                            .after('<div class="' + errorClass + '"></div>');
+                    }
+                    else {
+                        error.insertAfter(element);
+                    }
+                },
+                ignore: ':hidden:not(' + ignore + ')'
             <?php else: ?>
-            ignore        : ignore ? ':hidden:not(' + ignore + ')' : ':hidden'
+                ignore: ignore ? ':hidden:not(' + ignore + ')' : ':hidden'
             <?php endif ?>
         }).find('input:text').attr('autocomplete', 'off');
-
     });
 </script>
 <?php if ($block->getShowAddressFields()): ?>
