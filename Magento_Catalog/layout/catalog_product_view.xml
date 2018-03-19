@@ -48,10 +48,17 @@
                             </container>
                     </container>
                     </referenceBlock>
+
+                    <block class="Magento\Catalog\Block\Product\View" name="product.column.right.benefits" template="Magento_Catalog::product/view/benefits.phtml" />
                 </referenceContainer>
             </container>
 
             <container name="product.tabs" htmlClass="product-view__tabs" htmlTag="div" />
+                <referenceBlock name="reviews.tab">
+                    <block class="Magento\Review\Block\Product\View\ListView" name="product.tabs.reviews" template="Magento_Review::product/view/list.phtml"/>
+
+                    <block class="Magento\Theme\Block\Html\Pager" name="product_review_list.toolbar"/>
+                </referenceBlock>
         </container>
 
         <!--Moved blocks-->
@@ -73,6 +80,7 @@
         <move element="view.addto.compare" destination="product.info.social" before="product.info.mailto" />
 
         <move element="product.info.details" destination="product.tabs" />
+        <move element="product.review.form" destination="reviews.tab" after="product_review_list.toolbar" />
 
         <move element="content.aside" destination="product.container" />
 
