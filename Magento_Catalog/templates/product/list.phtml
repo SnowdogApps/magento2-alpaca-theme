@@ -1,8 +1,5 @@
 <?php
 use Magento\Framework\App\Action\Action;
-
-// @codingStandardsIgnoreFile
-
 /**
  * Product list template
  *
@@ -39,8 +36,8 @@ use Magento\Framework\App\Action\Action;
         $pos = $block->getPositioned();
     ?>
 
+    <?php /** @var $_product \Magento\Catalog\Model\Product */ ?>
     <?php if($viewMode === 'products-list'): ?>
-        <?php /** @var $_product \Magento\Catalog\Model\Product */ ?>
         <?php foreach ($_productCollection as $_product): ?>
             <section class="catalog-list-item catalog-list__item">
                 <?php $productImage = $block->getImage($_product, $imageDisplayArea) ?>
@@ -137,102 +134,122 @@ use Magento\Framework\App\Action\Action;
                 </div>
             </section>
         <?php endforeach ?>
-    <?php endif ?>
 
-    <div class="container">
-        <ul class="<?php /* @escapeNotVerified */ echo $viewMode; ?>">
-            <?php /** @var $_product \Magento\Catalog\Model\Product */ ?>
+    <?php else: ?>
+        <ul class="catalog-grid">
             <?php foreach ($_productCollection as $_product): ?>
-                <li class="product-item product <?php /* @escapeNotVerified */ echo $viewMode; ?>__item">
-                    <div class="product-item-info" data-container="product-grid">
-                        <?php
-                            $productImage = $block->getImage($_product, $imageDisplayArea);
-                            if ($pos != null) {
-                                $position = ' style="left:' . $productImage->getWidth() . 'px;'
-                                    . 'top:' . $productImage->getHeight() . 'px;"';
-                            }
-                        ?>
-                        <a href="<?php /* @escapeNotVerified */ echo $_product->getProductUrl() ?>"
-                           class="product__link"
-                           title="<?php /* @escapeNotVerified */ echo $_helper->productAttribute($_product, $_product->getName(), 'name'); ?>"
+                <?php $productImage = $block->getImage($_product, $imageDisplayArea) ?>
+                <li class="catalog-grid-item catalog-grid__item">
+                    <!-- TODO: -->
+                    <?php if (true): ?>
+                        <div class="badge catalog-list-item__badge">
+                            <?= /* @escapeNotVerified */ __('NEW') ?>
+                        </div>
+                    <?php endif ?>
+                    <a
+                        href="<?= /* @escapeNotVerified */ $block->getProductUrl($_product) ?>"
+                        class="catalog-grid-item__link"
+                        title="<?= /* @escapeNotVerified */ $_product['name'] ?>"
+                    >
+                        <div class="catalog-grid-item__image-wrapper">
+                            <?= $productImage->toHtml() ?>
+                        </div>
+                    </a>
+                    <section class="catalog-grid-item__main">
+                        <h2 class="catalog-grid-item__name">
+                            <a
+                                href="<?= /* @escapeNotVerified */ $block->getProductUrl($_product) ?>"
+                                class="catalog-grid-item__link"
+                                title="<?= /* @escapeNotVerified */ $_product['name'] ?>"
+                            >
+                                <?= /* @escapeNotVerified */ $_product['name'] ?>
+                            </a>
+                        </h2>
+                        <div class="catalog-grid-item__price">
+                            <!-- TODO: -->
+                            <div class="price">
+                                <span class="price__value">
+                                    <?= /* @escapeNotVerified */ $block->getProductPrice($_product) ?>
+                                </span>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="catalog-grid-item__details">
+                        <div
+                            class="
+                                catalog-grid-item__name
+                                catalog-grid-item__name--one-line
+                            "
                         >
-                            <div class="product__img-box">
-                                <?php echo $productImage->toHtml(); ?>
+                            <a
+                                href="<?= /* @escapeNotVerified */ $block->getProductUrl($_product) ?>"
+                                class="catalog-grid-item__link"
+                            >
+                                <?= /* @escapeNotVerified */ $_product['name'] ?>
+                            </a>
+                        </div>
+                        <!-- TODO: -->
+                        <div class="rating catalog-grid-item__rating">
+                            <div class="rating__star">
+                                <span class="rating__indicator"></span>
                             </div>
-                            <h2 class="heading product__name">
-                                <?php /* @escapeNotVerified */ echo $_helper->productAttribute($_product, $_product->getName(), 'name'); ?>
-                            </h2>
-                        </a>
+                        </div>
 
-                        <div class="product-item-details product__details">
-                            <?php
-                                $_productNameStripped = $block->stripTags($_product->getName(), null, true);
-                            ?>
-                            <!-- reviews summary -->
-                            <?php echo $block->getReviewsSummaryHtml($_product, $templateType); ?>
-
-                            <div class="product__price">
-                                <?php /* @escapeNotVerified */ echo $block->getProductPrice($_product) ?>
+                        <!-- TODO: -->
+                        <div class="catalog-grid-item__price">
+                            <div class="price">
+                                <span class="price__value">
+                                    <?= /* @escapeNotVerified */ $block->getProductPrice($_product) ?>
+                                </span>
                             </div>
-
-                            <!-- configurable swatches -->
-                            <?php echo $block->getProductDetailsHtml($_product); ?>
-
-                            <div <?php echo strpos($pos, $viewMode . '-actions') ? $position : ''; ?>>
-                                <?php if ($_product->isSaleable()): ?>
-                                    <?php $postParams = $block->getAddToCartPostParams($_product); ?>
-                                    <form data-role="tocart-form"
-                                          action="<?php /* @escapeNotVerified */ echo $postParams['action']; ?>"
-                                          method="post"
-                                    >
-                                        <input type="hidden"
-                                               name="product"
-                                               value="<?php /* @escapeNotVerified */ echo $postParams['data']['product']; ?>"
-                                        >
-                                        <input type="hidden"
-                                               name="<?php /* @escapeNotVerified */ echo Action::PARAM_NAME_URL_ENCODED; ?>"
-                                               value="<?php /* @escapeNotVerified */ echo $postParams['data'][Action::PARAM_NAME_URL_ENCODED]; ?>"
-                                        >
-                                        <?php echo $block->getBlockHtml('formkey')?>
-                                        <button type="submit"
-                                                title="<?php echo $block->escapeHtml(__('Add to Cart')); ?>"
-                                                class="action tocart button button--fluid"
-                                        >
-                                            <span><?php /* @escapeNotVerified */ echo __('Add to Cart') ?></span>
-                                        </button>
-                                    </form>
-                                <?php else: ?>
-                                    <?php if ($_product->getIsSalable()): ?>
-                                        <div class="stock available">
-                                            <?php /* @escapeNotVerified */ echo __('In stock') ?>
-                                        </div>
-                                    <?php else: ?>
-                                        <div class="stock unavailable">
-                                            <?php /* @escapeNotVerified */ echo __('Out of stock') ?>
-                                        </div>
-                                    <?php endif; ?>
-                                <?php endif; ?>
-                                <div data-role="add-to-links"
-                                     class="product__actions-secondary"<?php echo strpos($pos, $viewMode . '-secondary') ? $position : ''; ?>
+                        </div>
+                        <div class="catalog-grid-item__actions">
+                            <?php if ($_product->isSaleable()): ?>
+                                <?php $postParams = $block->getAddToCartPostParams($_product) ?>
+                                <form
+                                    class="catalog-grid-item__primary-form"
+                                    data-role="tocart-form"
+                                    action="<?= /* @escapeNotVerified */ $postParams['action'] ?>"
+                                    method="post"
                                 >
-                                    <?php if ($addToBlock = $block->getChildBlock('addto')): ?>
-                                        <?php echo $addToBlock->setProduct($_product)->getChildHtml(); ?>
-                                    <?php endif; ?>
-                                </div>
-                            </div>
-                            <?php if ($showDescription):?>
-                                <div class="description product-item-description">
-                                    <?php /* @escapeNotVerified */ echo $_helper->productAttribute($_product, $_product->getShortDescription(), 'short_description') ?>
-                                    <?php /* @escapeNotVerified */ echo __('Learn More') ?>
-                                </div>
-                            <?php endif; ?>
-                       </div>
-                    </div>
+                                    <input
+                                        type="hidden"
+                                        name="product"
+                                        value="<?= /* @escapeNotVerified */ $postParams['data']['product'] ?>"
+                                    >
+                                    <input
+                                        type="hidden"
+                                        name="<?= /* @escapeNotVerified */ Action::PARAM_NAME_URL_ENCODED ?>"
+                                        value="<?= /* @escapeNotVerified */ $postParams['data'][Action::PARAM_NAME_URL_ENCODED] ?>"
+                                    >
+                                    <?= $block->getBlockHtml('formkey') ?>
+                                    <button
+                                        class="
+                                            button
+                                            button--secondary
+                                            catalog-grid-item__primary-action
+                                        "
+                                        type="submit"
+                                    >
+                                        <?= /* @escapeNotVerified */ __('Add to Cart') ?>
+                                    </button>
+                                </form>
+                            <?php else: ?>
+                                <?php if ($_product->getIsSalable()): ?>
+                                    <?= /* @escapeNotVerified */ __('In stock') ?>
+                                <?php else: ?>
+                                    <?= /* @escapeNotVerified */ __('Out of stock') ?>
+                                <?php endif ?>
+                            <?php endif ?>
+                            <?php if ($addToBlock = $block->getChildBlock('addto')): ?>
+                                <?= $addToBlock->setProduct($_product)->getChildHtml(); ?>
+                            <?php endif ?>
+                        </div>
+                    </section>
                 </li>
-            <?php endforeach; ?>
+            <?php endforeach ?>
         </ul>
-    </div>
-    <?php echo $block->getToolbarHtml() ?>
+    <?php endif ?>
     <?php if (!$block->isRedirectToCartEnabled()) : ?>
         <script type="text/x-magento-init">
         {
