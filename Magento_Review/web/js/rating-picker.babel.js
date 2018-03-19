@@ -10,6 +10,15 @@ define([], function() {
 
         oneRank.querySelector('.radio__field').checked = true;
         oneRank.classList.add('rating__rate-item--active');
+
+        for (let i = 0; i < ratingElements.length; i++) {
+          if (!ratingElements[i].classList.contains('rating__rate-item--active')) {
+            ratingElements[i].classList.add('rating__rate-item--active');
+          }
+          else {
+            return;
+          }
+        }
       });
     });
 
