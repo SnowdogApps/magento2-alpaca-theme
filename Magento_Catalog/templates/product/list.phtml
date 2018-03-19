@@ -16,11 +16,11 @@ use Magento\Framework\App\Action\Action;
 ?>
 <?php if (!$_productCollection->count()): ?>
     <div class="message info empty">
-        <?php /* @escapeNotVerified */ echo __('We can\'t find products matching the selection.') ?>
+        <?= /* @escapeNotVerified */ __('We can\'t find products matching the selection.') ?>
     </div>
 <?php else: ?>
-    <?php echo $block->getToolbarHtml() ?>
-    <?php echo $block->getAdditionalHtml() ?>
+    <?= $block->getToolbarHtml() ?>
+    <?= $block->getAdditionalHtml() ?>
     <?php
         if ($block->getMode() == 'grid') {
             $viewMode = 'products-grid';
@@ -38,6 +38,107 @@ use Magento\Framework\App\Action\Action;
          */
         $pos = $block->getPositioned();
     ?>
+
+    <?php if($viewMode === 'products-list'): ?>
+        <?php /** @var $_product \Magento\Catalog\Model\Product */ ?>
+        <?php foreach ($_productCollection as $_product): ?>
+            <section class="catalog-list-item catalog-list__item">
+                <?php $productImage = $block->getImage($_product, $imageDisplayArea) ?>
+                <a
+                    href="<?= /* @escapeNotVerified */ $block->getProductUrl($_product) ?>"
+                    class="
+                        catalog-list-item__image-wrapper
+                        catalog-list-item__link
+                    "
+                    title="<?= /* @escapeNotVerified */ $_product['name'] ?>"
+                >
+                    <?= $productImage->toHtml() ?>
+                </a>
+                <div class="catalog-list-item__main">
+                    <!-- TODO: -->
+                    <?php if (true): ?>
+                        <div class="badge catalog-list-item__badge">
+                            <?= /* @escapeNotVerified */ __('NEW') ?>
+                        </div>
+                    <?php endif ?>
+                    <div class="catalog-list-item__details">
+                        <h2 class="catalog-list-item__name">
+                            <a
+                                href="<?= /* @escapeNotVerified */ $block->getProductUrl($_product) ?>"
+                                class="catalog-list-item__link"
+                                title="<?= /* @escapeNotVerified */ $_product['name'] ?>"
+                            >
+                                <?= /* @escapeNotVerified */ $_product['name'] ?>
+                            </a>
+                        </h2>
+                        <!-- TODO: -->
+                        <div class="catalog-list-item__reviews">
+                            <div class="rating">
+                                <div class="rating__star">
+                                    <span class="rating__indicator"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="catalog-list-item__price">
+                        <!-- TODO: -->
+                        <div class="price">
+                            <span class="price__value">
+                                <?= /* @escapeNotVerified */ $block->getProductPrice($_product) ?>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="catalog-list-item__actions">
+                        <div class="catalog-list-item__actions-primary">
+                            <?php if ($_product->isSaleable()): ?>
+                                <?php $postParams = $block->getAddToCartPostParams($_product) ?>
+                                <form
+                                    data-role="tocart-form"
+                                    action="<?= /* @escapeNotVerified */ $postParams['action'] ?>"
+                                    method="post"
+                                >
+                                    <input
+                                        type="hidden"
+                                        name="product"
+                                        value="<?= /* @escapeNotVerified */ $postParams['data']['product'] ?>"
+                                    >
+                                    <input
+                                        type="hidden"
+                                        name="<?= /* @escapeNotVerified */ Action::PARAM_NAME_URL_ENCODED ?>"
+                                        value="<?= /* @escapeNotVerified */ $postParams['data'][Action::PARAM_NAME_URL_ENCODED] ?>"
+                                    >
+                                    <?= $block->getBlockHtml('formkey') ?>
+                                    <button
+                                        class="
+                                            button
+                                            button--secondary
+                                            catalog-list-item__actions-primary-button
+                                        "
+                                        type="submit"
+                                    >
+                                        <?= /* @escapeNotVerified */ __('Add to Cart') ?>
+                                    </button>
+                                </form>
+                            <?php else: ?>
+                                <?php if ($_product->getIsSalable()): ?>
+                                    <?= /* @escapeNotVerified */ __('In stock') ?>
+                                <?php else: ?>
+                                    <?= /* @escapeNotVerified */ __('Out of stock') ?>
+                                <?php endif ?>
+                            <?php endif ?>
+                        </div>
+                        <div class="catalog-list-item__actions-secondary">
+                            <?php if ($addToBlock = $block->getChildBlock('addto')): ?>
+                                <?= $addToBlock->setProduct($_product)->getChildHtml(); ?>
+                            <?php endif ?>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        <?php endforeach ?>
+    <?php endif ?>
+
     <div class="container">
         <ul class="<?php /* @escapeNotVerified */ echo $viewMode; ?>">
             <?php /** @var $_product \Magento\Catalog\Model\Product */ ?>
@@ -140,5 +241,5 @@ use Magento\Framework\App\Action\Action;
             }
         }
         </script>
-    <?php endif; ?>
-<?php endif; ?>
+    <?php endif ?>
+<?php endif ?>
