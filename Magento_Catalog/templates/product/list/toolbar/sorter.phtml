@@ -1,0 +1,51 @@
+<?php
+/**
+ * Product list toolbar
+ *
+ * @var $block \Magento\Catalog\Block\Product\ProductList\Toolbar
+ */
+use Magento\Catalog\Model\Product\ProductList\Toolbar;
+?>
+<div class="toolbar__sorter">
+    <div class="select toolbar__sorter-wrapper">
+        <label class="label toolbar__sorter-label" for="sort-by">
+            <?= /* @escapeNotVerified */ __('Sort By') ?>
+            <?php if ($block->getCurrentDirection() == 'desc'): ?>
+                <a
+                    title="<?= /* @escapeNotVerified */ __('Set Ascending Direction') ?>"
+                    href="#"
+                    data-role="direction-switcher"
+                    data-value="asc"
+                >
+                    (<?= /* @escapeNotVerified */ __('asc') ?>)
+                </a>
+            <?php else: ?>
+                <a
+                    title="<?= /* @escapeNotVerified */ __('Set Descending Direction') ?>"
+                    href="#"
+                    data-role="direction-switcher"
+                    data-value="desc"
+                >
+                    (<?= /* @escapeNotVerified */ __('desc') ?>)
+                </a>
+            <?php endif; ?>
+        </label>
+        <select
+            id="sort-by"
+            class="select__field select__field--native toolbar__sorter-select"
+            name="sort-by"
+            data-role="sorter"
+            onchange="document.location.href=this.value"
+            data-mage-init='{ "select": { } }'
+        >
+            <?php foreach ($block->getAvailableOrders() as $_key => $_order): ?>
+                <option
+                    value="<?= /* @escapeNotVerified */ $_key ?>"
+                    <?= ($block->isOrderCurrent($_key)) ? 'selected="selected"' : '' ?>
+                >
+                    <?= /* @escapeNotVerified */ __($_order) ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+</div>
