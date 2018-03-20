@@ -12,7 +12,8 @@ var config = {
             "noUiSlider"      : "Magento_Theme/js/lib/nouislider.min",
             "linksWrapper"    : "Magento_Theme/js/wrapper-collapsible",
             "select"          : "Magento_Theme/js/select.babel",
-            "popup"           : "Magento_Theme/js/popup.babel"
+            "popup"           : "Magento_Theme/js/popup.babel",
+            "filters"         : "Magento_Theme/js/filters.babel"
         }
     }
 };
