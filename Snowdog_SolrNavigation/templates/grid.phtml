@@ -1,0 +1,145 @@
+<?php
+use Snowdog\SolrNavigation\Helper\Data;
+/* @var $block \Snowdog\SolrNavigation\Block\Product\ListProduct */
+/** @var Data $solrDataHelper */
+$solrDataHelper = $this->helper('Snowdog\SolrNavigation\Helper\Data');
+?>
+
+<?php /** @var $_product \Magento\Catalog\Model\Product */ ?>
+
+<?php if ($block->getMode() == 'grid') : ?>
+    <?php if (count($block->getProducts()) == 0): ?>
+        <div class="message info empty">
+            <div>
+                <?= /* @escapeNotVerified */ __('We can\'t find products matching the selection.') ?>
+            </div>
+        </div>
+    <?php else: ?>
+        <ul class="catalog-grid">
+            <?php foreach ($block->getProducts() as $_product): ?>
+                <li class="catalog-grid-item catalog-grid__item">
+                    <?php if ($solrDataHelper->isProductNew($_product) === true): ?>
+                        <div class="badge catalog-grid-item__badge">
+                            <?= /* @escapeNotVerified */ __('NEW') ?>
+                        </div>
+                    <?php endif; ?>
+                    <a
+                        href="<?= /* @escapeNotVerified */ $block->getProductUrl($_product) ?>"
+                        class="catalog-grid-item__link"
+                        title="<?= /* @escapeNotVerified */ $_product['name'] ?>"
+                    >
+                        <div class="catalog-grid-item__image-wrapper">
+                            <img
+                                class="image catalog-grid-item__image lazyload"
+                                src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                                data-src="<?= $solrDataHelper->getImageUrl($_product['small_image'], 300, 300) ?>"
+                                alt="<?= /* @escapeNotVerified */ $_product['image_label'] ?>"
+                            />
+                        </div>
+                    </a>
+                    <section class="catalog-grid-item__main">
+                        <h2 class="catalog-grid-item__name">
+                            <a
+                                href="<?= /* @escapeNotVerified */ $block->getProductUrl($_product) ?>"
+                                class="catalog-grid-item__link"
+                                title="<?= /* @escapeNotVerified */ $_product['name'] ?>"
+                            >
+                                <?= /* @escapeNotVerified */ $_product['name'] ?>
+                            </a>
+                        </h2>
+                        <div class="catalog-grid-item__price">
+                            <div class="price">
+                                <span class="price__value">
+                                    <?= /* @escapeNotVerified */ $solrDataHelper->getPrice($_product) ?>
+                                </span>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="catalog-grid-item__details">
+                        <div
+                            class="
+                                catalog-grid-item__name
+                                catalog-grid-item__name--one-line
+                            "
+                        >
+                            <a
+                                href="<?= /* @escapeNotVerified */ $block->getProductUrl($_product) ?>"
+                                class="catalog-grid-item__link"
+                            >
+                                <?= /* @escapeNotVerified */ $_product['name'] ?>
+                            </a>
+                        </div>
+                        <div class="rating catalog-grid-item__rating">
+                            <div class="rating__star">
+                                <span class="rating__indicator"></span>
+                            </div>
+                        </div>
+                        <div class="catalog-grid-item__price">
+                            <div class="price">
+                                <span class="price__value">
+                                    <?= /* @escapeNotVerified */ $solrDataHelper->getPrice($_product) ?>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="catalog-grid-item__actions">
+                            <form
+                                class="catalog-grid-item__primary-form"
+                                action="<?= $block->escapeHtml($block->getAddToUrl('cart', $_product['entity_id'])) ?>"
+                                method="post"
+                                data-mage-init='{ "validation": {} }'
+                            >
+                                <button
+                                    class="
+                                        button
+                                        button--secondary
+                                        catalog-grid-item__primary-action
+                                    "
+                                    type="submit"
+                                >
+                                    <span class="catalog-grid-item__cart-text">
+                                        <?= /* @escapeNotVerified */ __('Add to Cart') ?>
+                                    </span>
+                                    <svg class="icon catalog-grid-item__cart-icon">
+                                        <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#shopping-cart') ?>"></use>
+                                    </svg>
+                                </button>
+                            </form>
+                            <form
+                                action="<?= $block->escapeHtml($block->getAddToUrl('wishlist', $_product['entity_id'])) ?>"
+                                method="post"
+                                data-mage-init='{ "validation": {} }'
+                            >
+                                <button
+                                    class="catalog-grid-item__secondary-action"
+                                    type="submit"
+                                    aria-label="<?= __('Add to wishlist') ?>"
+                                    title="<?= __('Add to wishlist') ?>"
+                                >
+                                    <svg class="icon">
+                                        <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#heart') ?>"></use>
+                                    </svg>
+                                </button>
+                            </form>
+                            <form
+                                action="<?= $block->escapeHtml($block->getAddToUrl('compare', $_product['entity_id'])) ?>"
+                                method="post"
+                                data-mage-init='{ "validation": {} }'
+                            >
+                                <button
+                                    class="catalog-grid-item__secondary-action"
+                                    type="submit"
+                                    aria-label="<?= __('Add to compare') ?>"
+                                    title="<?= __('Add to compare') ?>"
+                                >
+                                    <svg class="icon">
+                                        <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#compare') ?>"></use>
+                                    </svg>
+                                </button>
+                            </form>
+                        </div>
+                    </section>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
+<?php endif; ?>

@@ -12,6 +12,7 @@ var config = {
       "lory"            : "Magento_Theme/js/lib/lory",
       "select"          : "Magento_Theme/js/select.babel",
       "slider"          : "Magento_Theme/js/slider.babel",
+      "popup"           : "Magento_Theme/js/popup.babel",
       "tab"             : "Magento_Theme/js/tab.babel"
     }
   },

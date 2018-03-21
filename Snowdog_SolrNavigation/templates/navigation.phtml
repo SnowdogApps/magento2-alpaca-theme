@@ -1,0 +1,38 @@
+<?php
+/** @var \Snowdog\SolrNavigation\Block\Navigation $this */
+$facets = $this->getFacets();
+?>
+<?php if (count($facets) > 0): ?>
+    <button
+        type="button"
+        class="filters__switcher"
+        data-state-current="hidden"
+    >
+        <?= /* @escapeNotVerified */ __('Shopping Options') ?>
+        <svg class="icon filters__switcher-icon">
+            <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#angle-down') ?>"></use>
+        </svg>
+    </button>
+    <div
+        class="
+            filters__list
+            filters__list--mobile-hidden
+            dropdown-list
+            dropdown-list--secondary
+        "
+        data-mage-init='{ "filters": { } }'
+    >
+        <h2 class="filters__heading filters__heading--mobile-hidden">
+            <?= /* @escapeNotVerified */ __('Shopping Options') ?>
+        </h2>
+        <div class="divider filters__divider">
+            <span class="divider__left"></span>
+            <span class="divider__right"></span>
+        </div>
+        <ul class="dropdown-list__list">
+            <?php foreach ($facets as $attributeCode => $facetBlock): ?>
+                <?= $facetBlock->toHtml() ?>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+<?php endif; ?>

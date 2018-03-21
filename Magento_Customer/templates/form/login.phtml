@@ -9,69 +9,72 @@
  * @var $block \Magento\Customer\Block\Form\Login
  */
 ?>
-<div class="grid__column grid__column--1-2 login__column-left">
-    <h3 class="heading heading--third-level">
+<div class="grid__column grid__column--1-2 login__form-column">
+    <h3>
         <?= /* @escapeNotVerified */ __('Registered Customers') ?>
     </h3>
-    
-    <form class="form"
-          action="<?= /* @escapeNotVerified */ $block->getPostActionUrl() ?>"
-          method="post"
-          id="login-form"
-          data-mage-init='{"validation":{}}'
+    <div class="divider">
+        <span class="divider__left"></span>
+        <span class="divider__right"></span>
+    </div>
+    <p class="login__info">
+        <?= /* @escapeNotVerified */ __('If you have an account, sign in with your email address.') ?>
+    </p>
+    <form
+        class="login__form"
+        action="<?= /* @escapeNotVerified */ $block->getPostActionUrl() ?>"
+        method="post"
+        id="login-form"
+        data-mage-init='{"validation":{}}'
     >
-        <?= $block->getBlockHtml('formkey'); ?>
-        <p class="paragraph">
-            <?= /* @escapeNotVerified */ __('If you have an account, sign in with your email address.') ?>
-        </p>
-
-        <div class="input required">
-            <label class="input__label" for="email">
-                <?= /* @escapeNotVerified */ __('Email') ?>
-            </label>
-
-            <input name="login[username]"
-                   value="<?= $block->escapeHtml($block->getUsername()) ?>"
-                   <?=  ($block->isAutocompleteDisabled()) ? 'autocomplete="off"' : '' ?>
-                   id="email"
-                   type="email"
-                   class="input__field"
-                   title="<?= /* @escapeNotVerified */ __('Email') ?>"
-                   data-validate="{required:true, 'validate-email':true}"
-            >
-        </div>
-        
-        <div class="input required">
-            <label for="pass" class="input__label">
-               <?= /* @escapeNotVerified */ __('Password') ?>
-            </label>
-            <input name="login[password]"
-                   type="password"
-                   <?= ($block->isAutocompleteDisabled()) ?  'autocomplete="off"': '' ?>
-                   class="input__field"
-                   id="pass"
-                   title="<?= /* @escapeNotVerified */ __('Password') ?>"
-                   data-validate="{required:true}"
-            >
-        </div>
-
-        <?= $block->getChildHtml('form_additional_info'); ?>
-
-        <div>
-            <button type="submit"
-                    class="button"
-                    name="send"
-                    id="send2"
+        <fieldset class="fieldset login__fieldset">
+            <legend class="fieldset__legends login__legend"></legend>
+            <?= $block->getBlockHtml('formkey'); ?>
+            <div class="input login__input required">
+                <label for="email">
+                    <?= /* @escapeNotVerified */ __('Email') ?>
+                </label>
+                <input
+                    name="login[username]"
+                    value="<?= $block->escapeHtml($block->getUsername()) ?>"
+                    <?= ($block->isAutocompleteDisabled()) ? 'autocomplete="off"' : '' ?>
+                    id="email"
+                    type="email"
+                    class="input__field"
+                    title="<?= /* @escapeNotVerified */ __('Email') ?>"
+                    data-validate="{required:true, 'validate-email':true}"
+                >
+            </div>
+            <div class="input login__input required">
+                <label>
+                   <?= /* @escapeNotVerified */ __('Password') ?>
+                </label>
+                <input
+                    name="login[password]"
+                    type="password"
+                    <?= ($block->isAutocompleteDisabled()) ?  'autocomplete="off"': '' ?>
+                    class="input__field"
+                    id="pass"
+                    title="<?= /* @escapeNotVerified */ __('Password') ?>"
+                    data-validate="{required:true}"
+                >
+            </div>
+            <?= $block->getChildHtml('form_additional_info'); ?>
+        </fieldset>
+        <div class="login__actions">
+            <button
+                type="submit"
+                class="button login__button"
+                name="send"
+                id="send2"
             >
                 <?= /* @escapeNotVerified */ __('Sign In') ?>
             </button>
-        </div>
-
-        <div>
-            <a class="action remind"
-               href="<?= /* @escapeNotVerified */ $block->getForgotPasswordUrl() ?>"
+            <a
+                href="<?= /* @escapeNotVerified */ $block->getForgotPasswordUrl() ?>"
+                class="login__forgot-password"
             >
-                <?= /* @escapeNotVerified */ __('Forgot Your Password?') ?>
+                <?= /* @escapeNotVerified */ __('Forgot your password?') ?>
             </a>
         </div>
     </form>

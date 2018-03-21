@@ -7,135 +7,101 @@
     $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinimalPriceLessMsrp($product);
 ?>
 
-<div class="item products-list-item">
-    <a class="products-list-item__image"
-       href="<?= /* @escapeNotVerified */ $block->getProductUrl(); ?>"
+<div class="cart-list-item">
+    <a
+        class="cart-list-item__image"
+        href="<?= /* @escapeNotVerified */ $block->getProductUrl() ?>"
     >
-        <?= $block->getImage($block->getProductForThumbnail(), 'cart_page_product_thumbnail')->toHtml(); ?>
+        <?= $block->getImage($block->getProductForThumbnail(), 'cart_page_product_thumbnail')->toHtml() ?>
     </a>
-    <div class="products-list-item__details">
-        <div class="grid products-list-item__grid">
-            <div class="
-                     products-list-item__grid-item
-                     products-list-item__grid-item--data
-                 "
-            >
-                <?php if ($block->hasProductUrl()):?>
-                    <a href="<?= /* @escapeNotVerified */ $block->getProductUrl(); ?>"
-                       class="products-list-item__details-name"
-                    >
-                        <?= $block->escapeHtml($block->getProductName()); ?>
-                    </a>
-                <?php else: ?>
-                    <div class="products-list-item__details-name">
-                        <?= $block->escapeHtml($block->getProductName()); ?>
-                    </div>
-                <?php endif; ?>
-                <div class="products-list-item__details-price">
-                    <?php if ($canApplyMsrp): ?>
-                        <div class="col msrp"
-                             data-th="<?= $block->escapeHtml(__('Price')); ?>"
+    <div class="cart-list-item__info">
+        <div class="cart-list-item__data">
+            <?php if ($block->hasProductUrl()): ?>
+                <a
+                    href="<?= /* @escapeNotVerified */ $block->getProductUrl() ?>"
+                    class="link link--invert cart-list-item__name"
+                >
+                    <?= $block->escapeHtml($block->getProductName()) ?>
+                </a>
+            <?php else: ?>
+                <div class="link link--invert cart-list-item__name">
+                    <?= $block->escapeHtml($block->getProductName()) ?>
+                </div>
+            <?php endif; ?>
+            <div class="cart-list-item__details">
+                <div class="cart-list-item__qty">
+                    <div class="input cart-list-item__qty-wrapper">
+                        <label
+                            class="label label--hidden"
+                            for="cart-<?= /* @escapeNotVerified */ $_item->getId() ?>-qty"
                         >
-                            <span class="pricing msrp">
-                                <span class="msrp notice">
-                                    <?= /* @escapeNotVerified */ __('See price before order confirmation.'); ?>
-                                </span>
-                                <?php $helpLinkId = 'cart-msrp-help-' . $_item->getId(); ?>
-                                <a href="#"
-                                   class="action help map"
-                                   id="<?= /* @escapeNotVerified */ ($helpLinkId); ?>"
-                                   data-mage-init='{
-                                       "addToCart":{
-                                           "helpLinkId": "#<?= /* @escapeNotVerified */ $helpLinkId; ?>",
-                                           "productName": "<?= /* @escapeNotVerified */ $product->getName(); ?>",
-                                           "showAddToCart": false
-                                       }
-                                   }'
-                                >
-                                    <?= /* @escapeNotVerified */ __("What's this?"); ?>
-                                </a>
-                            </span>
-                        </div>
-                    <?php else: ?>
-                        <?= $block->getUnitPriceHtml($_item); ?>
-                    <?php endif; ?>
+                            <?= /* @escapeNotVerified */ __('Qty') ?>
+                        </label>
+                        <input
+                            id="cart-<?= /* @escapeNotVerified */ $_item->getId() ?>-qty"
+                            name="cart[<?= /* @escapeNotVerified */ $_item->getId() ?>][qty]"
+                            data-cart-item-id="<?= /* @escapeNotVerified */ $_item->getSku() ?>"
+                            value="<?= /* @escapeNotVerified */ $block->getQty() ?>"
+                            type="text"
+                            title="<?= $block->escapeHtml(__('Qty')) ?>"
+                            class="input__field cart-list-item__qty-input"
+                            maxlength="12"
+                            data-validate="{
+                                required: true,
+                                'validate-greater-than-zero': true
+                            }"
+                            data-role="cart-item-qty"
+                        >
+                    </div>
                 </div>
-                <?php if ($_options = $block->getOptionList()): ?>
-                    <dl class="
-                            list
-                            list--description
-                            products-list-item__attributes
-                        "
-                    >
-                        <?php foreach ($_options as $_option) : ?>
-                            <?php $_formatedOptionValue = $block->getFormatedOptionValue($_option) ?>
-                            <dt class="list__label">
-                                <?= $block->escapeHtml($_option['label']); ?>
-                            </dt>
-                            <dd class="list__value">
-                                <?php if (isset($_formatedOptionValue['full_view'])): ?>
-                                    <?= /* @escapeNotVerified */ $_formatedOptionValue['full_view']; ?>
-                                <?php else: ?>
-                                    <?= /* @escapeNotVerified */ $_formatedOptionValue['value']; ?>
-                                <?php endif; ?>
-                            </dd>
-                        <?php endforeach; ?>
-                    </dl>
-                <?php endif; ?>
-            </div>
-            <div class="products-list-item__grid-item">
-                <div class="input products-list-item__details-qty-wrapper">
-                    <label class="label label--hidden"
-                           for="cart-<?= /* @escapeNotVerified */ $_item->getId() ?>-qty"
-                    >
-                        <?= /* @escapeNotVerified */ __('Qty') ?>
-                    </label>
-                    <input id="cart-<?= /* @escapeNotVerified */ $_item->getId() ?>-qty"
-                           name="cart[<?= /* @escapeNotVerified */ $_item->getId() ?>][qty]"
-                           data-cart-item-id="<?= /* @escapeNotVerified */ $_item->getSku() ?>"
-                           value="<?= /* @escapeNotVerified */ $block->getQty() ?>"
-                           type="text"
-                           title="<?= $block->escapeHtml(__('Qty')); ?>"
-                           class="
-                               input__field
-                               products-list-item__details-qty-input
-                           "
-                           maxlength="12"
-                           data-validate="{
-                               required: true,
-                               'validate-greater-than-zero': true
-                           }"
-                           data-role="cart-item-qty"
-                    >
-                </div>
-                <div class="products-list-item__details-subtotal">
+                <div class="cart-list-item__price">
                     <?php if ($canApplyMsrp): ?>
                         --
                     <?php else: ?>
-                        <?= $block->getRowTotalHtml($_item); ?>
+                        <?= $block->getRowTotalHtml($_item) ?>
                     <?php endif; ?>
                 </div>
             </div>
-        </div>
-        <div class="products-list-item__actions">
-            <?= /* @escapeNotVerified */ $block->getActions($_item); ?>
-        </div>
-        <div class="products-list-item__messages">
-            <div class="product-item-details">
-                <?php if ($messages = $block->getMessages()): ?>
-                    <?php foreach ($messages as $message): ?>
-                        <div class="item message <?= /* @escapeNotVerified */ $message['type'] ?>">
-                            <div>
-                                <?= $block->escapeHtml($message['text']) ?>
+            <div class="products-list-item__messages">
+                <div class="product-item-details">
+                    <?php if ($messages = $block->getMessages()): ?>
+                        <?php foreach ($messages as $message): ?>
+                            <div class="item message <?= /* @escapeNotVerified */ $message['type'] ?>">
+                                <div>
+                                    <?= $block->escapeHtml($message['text']) ?>
+                                </div>
                             </div>
-                        </div>
-                    <?php endforeach; ?>
-                <?php endif; ?>
-                <?php $addInfoBlock = $block->getProductAdditionalInformationBlock(); ?>
-                <?php if ($addInfoBlock): ?>
-                    <?= $addInfoBlock->setItem($_item)->toHtml() ?>
-                <?php endif;?>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                    <?php $addInfoBlock = $block->getProductAdditionalInformationBlock() ?>
+                    <?php if ($addInfoBlock): ?>
+                        <?= $addInfoBlock->setItem($_item)->toHtml() ?>
+                    <?php endif; ?>
+                </div>
             </div>
+            <?php if ($_options = $block->getOptionList()): ?>
+                <dl class="
+                        list
+                        list--description
+                        cart-list-item__attributes
+                    "
+                >
+                    <?php foreach ($_options as $_option): ?>
+                        <?php $_formatedOptionValue = $block->getFormatedOptionValue($_option) ?>
+                        <dt class="list__label"><?= $block->escapeHtml($_option['label']) ?></dt>
+                        <dd class="list__value">
+                            <?php if (isset($_formatedOptionValue['full_view'])): ?>
+                                <?= /* @escapeNotVerified */ $_formatedOptionValue['full_view'] ?>
+                            <?php else: ?>
+                                <?= /* @escapeNotVerified */ $_formatedOptionValue['value'] ?>
+                            <?php endif; ?>
+                        </dd>
+                    <?php endforeach; ?>
+                </dl>
+            <?php endif; ?>
+        </div>
+        <div class="cart-list-item__actions">
+            <?= /* @escapeNotVerified */ $block->getActions($_item) ?>
         </div>
     </div>
 </div>

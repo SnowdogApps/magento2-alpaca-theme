@@ -1,0 +1,30 @@
+<?php
+/** @var \Snowdog\SolrNavigation\Block\Filters\Range $block */
+$_currencyHelper = $this->helper('Magento\Framework\Pricing\Helper\Data');
+?>
+<li class="active-filters__item list__item">
+    <a
+        href="<?= $block->getCleanUrl() ?>"
+        class="active-filters__remove"
+        aria-label="<?= __('Disable filter') ?>"
+        title="<?= __('Disable filter') ?>"
+    >
+        <svg class="icon active-filters__remove-icon">
+            <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#close') ?>"></use>
+        </svg>
+    </a>
+    <span class="active-filters__label">
+        <?= $block->getLabel() . '&nbsp;:&nbsp;' ?>
+    </span>
+    <span class="active-filters__value">
+        <?php if ($block->getMin()): ?>
+            <?= $_currencyHelper->currency($block->getMin(), true, false) ?>
+        <?php endif ?>
+        <?php if ($block->getMin() && $block->getMax()): ?>
+            <?= /* @escapeNotVerified */ '-' ?>
+        <?php endif ?>
+        <?php if ($block->getMax()): ?>
+            <?= $_currencyHelper->currency($block->getMax(), true, false) ?>
+        <?php endif ?>
+    </span>
+</li>

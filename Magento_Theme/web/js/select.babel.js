@@ -5,6 +5,7 @@ define(['choices'], function(Choices) {
         const defaultOptions = {
             placeholder: false,
             searchEnabled: false,
+            itemSelectText: '',
             position: 'bottom',
             sortFilter: (a, b) => {
               return a.label.localeCompare(b.label);
