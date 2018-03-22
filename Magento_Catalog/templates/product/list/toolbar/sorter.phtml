@@ -5,25 +5,6 @@ use Magento\Catalog\Model\Product\ProductList\Toolbar;
     <div class="select toolbar__sorter-wrapper">
         <label class="label toolbar__sorter-label" for="sort-by">
             <?= /* @escapeNotVerified */ __('Sort By') ?>
-            <?php if ($block->getCurrentDirection() == 'desc'): ?>
-                <a
-                    title="<?= /* @escapeNotVerified */ __('Set Ascending Direction') ?>"
-                    href="#"
-                    data-role="direction-switcher"
-                    data-value="asc"
-                >
-                    (<?= /* @escapeNotVerified */ __('asc') ?>)
-                </a>
-            <?php else: ?>
-                <a
-                    title="<?= /* @escapeNotVerified */ __('Set Descending Direction') ?>"
-                    href="#"
-                    data-role="direction-switcher"
-                    data-value="desc"
-                >
-                    (<?= /* @escapeNotVerified */ __('desc') ?>)
-                </a>
-            <?php endif; ?>
         </label>
         <select
             id="sort-by"
@@ -42,5 +23,32 @@ use Magento\Catalog\Model\Product\ProductList\Toolbar;
                 </option>
             <?php endforeach; ?>
         </select>
+        <?php if ($block->getCurrentDirection() == 'desc'): ?>
+            <div
+                class="toolbar__sorter-icon-wrapper"
+                title="<?= /* @escapeNotVerified */ __('Set Ascending Direction') ?>"
+                aria-label="<?= /* @escapeNotVerified */ __('Set Ascending Direction') ?>"
+                data-role="direction-switcher"
+                data-value="asc"
+                tabindex="0"
+            >
+                <svg class="toolbar__sorter-icon">
+                    <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#arrow-down') ?>"></use>
+                </svg>
+            </div>
+            <?php else: ?>
+            <div
+                class="toolbar__sorter-icon-wrapper"
+                title="<?= /* @escapeNotVerified */ __('Set Descending Direction') ?>"
+                aria-label="<?= /* @escapeNotVerified */ __('Set Descending Direction') ?>"
+                data-role="direction-switcher"
+                data-value="desc"
+                tabindex="0"
+            >
+                <svg class="toolbar__sorter-icon">
+                    <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#arrow-up') ?>"></use>
+                </svg>
+            </div>
+        <?php endif; ?>
     </div>
 </div>
