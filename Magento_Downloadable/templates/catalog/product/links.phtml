@@ -33,8 +33,8 @@
             <?php foreach ($_links as $_link): ?>
                 <?php $_linksLength++; ?>
 
-                <div class="checkbox" data-role="link">
-                    <?php if ($_linksPurchasedSeparately): ?>
+                <?php if ($_linksPurchasedSeparately): ?>
+                    <div class="checkbox" data-role="link">
                         <input
                             type="checkbox"
                             <?php if ($_isRequired): ?>
@@ -42,17 +42,35 @@
                             <?php endif; ?>
                             name="links[]"
                             class="checkbox__field"
-                            id="links_<?= /* @escapeNotVerified */ $_link->getId() ?>"
+                            id="links-<?= /* @escapeNotVerified */ $_link->getId() ?>"
                             value="<?= /* @escapeNotVerified */ $_link->getId() ?>"
                             <?= /* @escapeNotVerified */ $block->getLinkCheckedValue($_link) ?>
                         />
-                    <?php endif; ?>
 
-                    <svg class="checkbox__icon">
-                        <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#checked'); ?>"></use>
-                    </svg>
+                        <svg class="checkbox__icon">
+                            <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#checked'); ?>"></use>
+                        </svg>
 
-                    <label class="checkbox__label" for="links_<?= /* @escapeNotVerified */ $_link->getId() ?>">
+                        <label class="checkbox__label" for="links-<?= /* @escapeNotVerified */ $_link->getId() ?>">
+                            <?= $block->escapeHtml($_link->getTitle()) ?>
+
+                            <?php if ($_link->getSampleFile() || $_link->getSampleUrl()): ?>
+                                <a
+                                    class="link"
+                                    href="<?= /* @escapeNotVerified */ $block->getLinkSampleUrl($_link) ?>"
+                                    <?= $block->getIsOpenInNewWindow() ? 'target="_blank"' : '' ?>
+                                >
+                                    <?= /* @escapeNotVerified */ __('sample') ?>
+                                </a>
+                            <?php endif; ?>
+
+                            <?php if ($_linksPurchasedSeparately): ?>
+                                <?= /* @escapeNotVerified */ $block->getLinkPrice($_link) ?>
+                            <?php endif; ?>
+                        </label>
+                    </div>
+                <?php else: ?>
+                    <p>
                         <?= $block->escapeHtml($_link->getTitle()) ?>
 
                         <?php if ($_link->getSampleFile() || $_link->getSampleUrl()): ?>
@@ -64,12 +82,8 @@
                                 <?= /* @escapeNotVerified */ __('sample') ?>
                             </a>
                         <?php endif; ?>
-
-                        <?php if ($_linksPurchasedSeparately): ?>
-                            <?= /* @escapeNotVerified */ $block->getLinkPrice($_link) ?>
-                        <?php endif; ?>
-                    </label>
-                </div>
+                    </p>
+                <?php endif; ?>
             <?php endforeach; ?>
 
             <?php if ($_linksPurchasedSeparately && $_linksLength > 1): ?>
