@@ -35,7 +35,15 @@
                         <?= $block->escapeHtml(__('Your Rating')) ?>
                     </legend>
 
-                    <div class="rating rating--rate rating--review" data-mage-init='{ "ratingPicker": {} }'>
+                    <div
+                        class="rating rating--rate rating--review"
+                        data-mage-init='{
+                            "ratingPicker": {
+                                "submitButton": "reviewAddButton",
+                                "reviewError": "toogleReviewError"
+                            }
+                        }'
+                    >
                         <?php foreach ($block->getRatings() as $_rating): ?>
                             <?php $options = $_rating->getOptions(); ?>
 
@@ -49,11 +57,10 @@
                                             id="<?= $block->escapeHtmlAttr($_rating->getRatingCode()) ?>_<?= $block->escapeHtmlAttr($_option->getValue()) ?>"
                                             value="<?= $block->escapeHtmlAttr($_option->getId()) ?>"
                                             class="radio__field"
-                                            data-validate="{
-                                                required: true,
-                                                messages: { required: 'Please select one of each of the ratings above.' }
-                                            }"
-                                            aria-labelledby="<?= $block->escapeHtmlAttr($_rating->getRatingCode()) ?>_rating_label <?= $block->escapeHtmlAttr($_rating->getRatingCode()) ?>_<?= $block->escapeHtmlAttr($_option->getValue()) ?>_label"
+                                            aria-labelledby="
+                                                <?= $block->escapeHtmlAttr($_rating->getRatingCode()) ?>_rating_label
+                                                <?= $block->escapeHtmlAttr($_rating->getRatingCode()) ?>_<?= $block->escapeHtmlAttr($_option->getValue()) ?>_label
+                                            "
                                         />
 
                                         <span class="rating__indicator"></span>
@@ -61,6 +68,10 @@
                                 </div>
                             <?php endforeach; ?>
                         <?php endforeach; ?>
+                    </div>
+
+                    <div id="toogleReviewError" class="rating__error">
+                        <?= __('Please select one of each of the ratings above.') ?>
                     </div>
 
                     <input type="hidden" name="validate_rating" class="validate-rating" value="" />
@@ -107,14 +118,14 @@
                     id="review_field"
                     cols="5"
                     rows="3"
-                    class="input__field input__field--textarea "
+                    class="input__field input__field--textarea"
                     data-validate="{ required:true }"
                     data-bind="value: review().detail"
                 ></textarea>
             </div>
         </fieldset>
 
-        <button type="submit" class="button submit primary">
+        <button type="submit" id="reviewAddButton" class="button submit primary">
             <?= $block->escapeHtml(__('Submit Review')) ?>
         </button>
     </form>
