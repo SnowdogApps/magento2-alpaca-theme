@@ -22,7 +22,7 @@ use Magento\Framework\App\Action\Action;
             $viewMode = 'products-list';
             $imageDisplayArea = 'category_page_list';
             $showDescription = true;
-            $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::FULL_VIEW;
+            $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
         }
         /**
          * Position for actions regarding image size changing in vde if needed
@@ -61,15 +61,9 @@ use Magento\Framework\App\Action\Action;
                                 <?= /* @escapeNotVerified */ $_product['name'] ?>
                             </a>
                         </h2>
-                        <!-- TODO: -->
                         <div class="catalog-list-item__reviews">
-                            <div class="rating">
-                                <div class="rating__star">
-                                    <span class="rating__indicator"></span>
-                                </div>
-                            </div>
+                            <?= $block->getReviewsSummaryHtml($_product, $templateType) ?>
                         </div>
-
                     </div>
                     <div class="catalog-list-item__price">
                         <!-- TODO: -->
@@ -185,11 +179,8 @@ use Magento\Framework\App\Action\Action;
                                 <?= /* @escapeNotVerified */ $_product['name'] ?>
                             </a>
                         </div>
-                        <!-- TODO: -->
                         <div class="rating catalog-grid-item__rating">
-                            <div class="rating__star">
-                                <span class="rating__indicator"></span>
-                            </div>
+                            <?= $block->getReviewsSummaryHtml($_product, $templateType) ?>
                         </div>
 
                         <!-- TODO: -->
