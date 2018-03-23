@@ -126,7 +126,10 @@ use Magento\Framework\App\Action\Action;
         <ul class="catalog-grid">
             <?php foreach ($_productCollection as $_product): ?>
                 <?php $productImage = $block->getImage($_product, $imageDisplayArea) ?>
-                <li class="catalog-grid-item catalog-grid__item">
+                <li
+                    class="catalog-grid-item catalog-grid__item product-item-info"
+                    data-container="product-grid"
+                >
                     <a
                         href="<?= /* @escapeNotVerified */ $block->getProductUrl($_product) ?>"
                         class="catalog-grid-item__link"
@@ -181,6 +184,7 @@ use Magento\Framework\App\Action\Action;
                                 </span>
                             </div>
                         </div>
+                        <?= $block->getProductDetailsHtml($_product) ?>
                         <div class="catalog-grid-item__actions">
                             <?php if ($_product->isSaleable()): ?>
                                 <?php $postParams = $block->getAddToCartPostParams($_product) ?>
