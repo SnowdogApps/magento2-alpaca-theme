@@ -1,0 +1,58 @@
+<?php
+/** @var \Magento\Captcha\Block\Captcha\DefaultCaptcha $block */
+/** @var \Magento\Captcha\Model\DefaultModel $captcha */
+$captcha = $block->getCaptchaModel();
+?>
+<div class="input forgot-password__captcha-field">
+    <label
+        class="label"
+        for="captcha_<?= $block->escapeHtmlAttr($block->getFormId()) ?>"
+    >
+        <?= /* @escapeNotVerified */ __('Please type the letters below') ?>
+    </label>
+    <input
+        name="<?= $block->escapeHtmlAttr(\Magento\Captcha\Helper\Data::INPUT_NAME_FIELD_VALUE) ?>[<?= $block->escapeHtmlAttr($block->getFormId()) ?>]"
+        type="text"
+        class="input__field"
+        data-validate="{ required: true }"
+        id="captcha_<?= $block->escapeHtmlAttr($block->getFormId()) ?>"
+    />
+</div>
+
+<div
+    class="forgot-password__captcha-wrapper"
+    data-captcha="<?= $block->escapeHtmlAttr($block->getFormId()) ?>"
+    id="captcha-container-<?= $block->escapeHtmlAttr($block->getFormId()) ?>"
+    data-mage-init='{
+        "captcha": {
+            "url": "<?= $block->escapeUrl($block->getRefreshUrl()) ?>",
+            "imageLoader": "<?= $block->escapeUrl($block->getViewFileUrl('images/loader-2.gif')) ?>",
+            "type": "<?= $block->escapeHtmlAttr($block->getFormId()) ?>"
+        }
+    }'
+>
+    <img
+        alt="<?= /* @escapeNotVerified */ __('Please type the letters below') ?>"
+        class="
+            captcha-img
+            image
+            lazyload
+            forgot-password__image
+        "
+        height="<?= /* @noEscape */ (float) $block->getImgHeight() ?>"
+        data-src="<?= $block->escapeUrl($captcha->getImgSrc()) ?>"
+        src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw"
+    />
+    <button
+        type="button"
+        class="
+            button
+            button--secondary
+            reload
+            captcha-reload
+        "
+        title="<?= /* @escapeNotVerified */ __('Reload captcha') ?>"
+    >
+        <?= /* @escapeNotVerified */ __('Reload captcha') ?>
+    </button>
+</div>
