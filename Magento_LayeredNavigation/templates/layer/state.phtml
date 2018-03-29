@@ -1,0 +1,41 @@
+<?php $_filters = $block->getActiveFilters() ?>
+<?php if (!empty($_filters)): ?>
+    <h1 class="filters__heading">
+        <?= /* @escapeNotVerified */ __('Now Shopping by') ?>
+    </h1>
+    <div class="divider filters__divider">
+        <span class="divider__left"></span>
+        <span class="divider__right"></span>
+    </div>
+    <div class="filters__active">
+        <ul class="active-filters list">
+            <?php foreach ($_filters as $_filter): ?>
+                <li class="active-filters__item list__item">
+                    <a
+                        href="<?= /* @escapeNotVerified */ $_filter->getRemoveUrl() ?>"
+                        class="active-filters__remove"
+                        aria-label="<?= __('Disable filter') ?>"
+                        title="<?= __('Disable filter') ?>"
+                    >
+                        <svg class="icon active-filters__remove-icon">
+                            <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#close') ?>"></use>
+                        </svg>
+                    </a>
+                    <span class="active-filters__label">
+                        <?= $block->escapeHtml(__($_filter->getName())) . '&nbsp;:&nbsp;' ?>
+                    </span>
+                    <span class="active-filters__value">
+                        <?= /* @escapeNotVerified */ $block->stripTags($_filter->getLabel()) ?>
+                    </span>
+                </li>
+            <?php endforeach ?>
+            <a
+                href="<?= /* @escapeNotVerified */ $block->getClearUrl() ?>"
+                class="active-filters__clear-all"
+                title="<?= __('Clear all filters') ?>"
+            >
+                <?= /* @escapeNotVerified */ __('Clear All') ?>
+            </a>
+        </ul>
+    </div>
+<?php endif ?>

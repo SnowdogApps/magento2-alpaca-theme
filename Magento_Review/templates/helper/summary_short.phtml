@@ -7,36 +7,18 @@
 
 <?php if ($block->getReviewsCount()): ?>
     <?php $rating = $block->getRatingSummary(); ?>
-
-    <div class="rating short<?= /* @escapeNotVerified */ !$rating ? ' no-rating' : ''?>">
-        <?php if ($rating):?>
-            <div class="rating__summary">
-                <svg title="icon rating summary" class="rating__icon">
-                    <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#stars'); ?>"></use>
-                </svg>
-
-                <div class="rating__results"
-                     title="rating <?= /* @escapeNotVerified */ $rating; ?>%"
-                     style="width:<?= /* @escapeNotVerified */ $rating; ?>%"
-                >
-                    <svg title="icon rating results" class="rating__icon rating__icon--results">
-                        <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#stars'); ?>"></use>
-                    </svg>
-                </div>
-            </div>
-        <?php endif;?>
-
-        <a href="<?= /* @escapeNotVerified */ $url ?>">
-            <?= /* @escapeNotVerified */ $block->getReviewsCount() ?>
-            &nbsp;
-            <?= /* @escapeNotVerified */ ($block->getReviewsCount() == 1) ? __('Review') : __('Reviews') ?>
-        </a>
-    </div>
+    <?php if ($rating):?>
+        <div
+            class="rating__star"
+            title="rating <?= /* @escapeNotVerified */ $rating ?>%"
+            style="width:<?= /* @escapeNotVerified */ $rating ?>%"
+        >
+            <span class="rating__indicator"></span>
+        </div>
+    <?php endif; ?>
 <?php elseif ($block->getDisplayIfEmpty()): ?>
     <div class="product-reviews-summary short empty">
-        <a class="action add"
-           href="<?= /* @escapeNotVerified */  $urlForm; ?>"
-        >
+        <a class="action add" href="<?= /* @escapeNotVerified */  $urlForm ?>">
             <?= /* @escapeNotVerified */  __('Be the first to review this product') ?>
         </a>
     </div>
