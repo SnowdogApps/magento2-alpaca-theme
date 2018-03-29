@@ -10,7 +10,12 @@ All notable changes to this project will be documented in this file.
  - Social links
  - Login page
  - Minicart
+ - Forgot password page
  - Catalog (without solr)
+
+ ### Changed
+  - registration form to fit new components
+  - Update captcha appearance
 
 ## [0.1.2] - 2017-10-10
 ### Added
