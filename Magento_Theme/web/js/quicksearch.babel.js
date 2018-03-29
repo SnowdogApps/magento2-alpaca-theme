@@ -1,20 +1,22 @@
-define(['jquery'], function ($) {
+define(['jquery'], ($) => (config, element) => {
   'use strict';
 
-  var inputSearch = $('#search'),
-      solrWrapper = $('.quicksearch'),
-      solrClose = $('.quicksearch__close-button'),
-      destinationSearch = $('#search_autocomplete'),
-      ajaxUrl = inputSearch.attr('ajaxurl'),
-      searchVal = '',
+  const inputSearch = $(element),
+        form = $(config.formSelector),
+        solrWrapper = form.find('.quicksearch'),
+        solrClose = solrWrapper.find('.quicksearch__close-button'),
+        destinationSearch = $(config.destinationSelector),
+        ajaxUrl = config.url,
+        finaldoneTypingInterval = 250;
+
+  let searchVal = '',
+      typingTimer = {},
       searchValTmp = '',
       searchLength = 0,
-      minSearchLength = 3,
-      typingTimer = {},
-      finaldoneTypingInterval = 250;
+      minSearchLength = 3;
 
   function loadSearch(url) {
-    $.get(url, function (data) {
+    $.get(url, (data) => {
       solrWrapper.addClass('quicksearch--visible');
       destinationSearch.html(data);
     });
@@ -36,14 +38,14 @@ define(['jquery'], function ($) {
     inputSearch.val('');
   }
 
-  inputSearch.on('input', function () {
+  inputSearch.on('input', () => {
     clearTimeout(typingTimer);
-    typingTimer = setTimeout(function () {
+    typingTimer = setTimeout(() => {
       checkSearch();
     }, finaldoneTypingInterval);
   });
 
-  solrClose.on('click', function () {
+  solrClose.on('click', () => {
     closeSolrSearch();
   });
 });
