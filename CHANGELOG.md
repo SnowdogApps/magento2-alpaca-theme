@@ -9,13 +9,16 @@ All notable changes to this project will be documented in this file.
  - Newsletter module styles
  - Social links
  - Login page
- - Minicart
+ - Mini cart
+ - Forgot password page
+ - Catalog (without solr)
  - Templates for mega menu and side menu
 
- ### Changed
+### Changed
   - registration form to fit new components
   - homepage container
   - header borders
+  - captcha appearance
 
 ## [0.1.2] - 2017-10-10
 ### Added

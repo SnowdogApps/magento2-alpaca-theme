@@ -1,0 +1,54 @@
+<?php
+use Magento\Catalog\Model\Product\ProductList\Toolbar;
+?>
+<div class="toolbar__sorter">
+    <div class="select toolbar__sorter-wrapper">
+        <label class="label toolbar__sorter-label" for="sort-by">
+            <?= /* @escapeNotVerified */ __('Sort By') ?>
+        </label>
+        <select
+            id="sort-by"
+            class="select__field select__field--native toolbar__sorter-select"
+            name="sort-by"
+            data-role="sorter"
+            onchange="document.location.href=this.value"
+            data-mage-init='{ "select": { } }'
+        >
+            <?php foreach ($block->getAvailableOrders() as $_key => $_order): ?>
+                <option
+                    value="<?= /* @escapeNotVerified */ $_key ?>"
+                    <?= ($block->isOrderCurrent($_key)) ? 'selected="selected"' : '' ?>
+                >
+                    <?= /* @escapeNotVerified */ __($_order) ?>
+                </option>
+            <?php endforeach ?>
+        </select>
+        <?php if ($block->getCurrentDirection() == 'desc'): ?>
+            <div
+                class="toolbar__sorter-icon-wrapper"
+                title="<?= /* @escapeNotVerified */ __('Set Ascending Direction') ?>"
+                aria-label="<?= /* @escapeNotVerified */ __('Set Ascending Direction') ?>"
+                data-role="direction-switcher"
+                data-value="asc"
+                tabindex="0"
+            >
+                <svg class="toolbar__sorter-icon">
+                    <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#arrow-down') ?>"></use>
+                </svg>
+            </div>
+            <?php else: ?>
+            <div
+                class="toolbar__sorter-icon-wrapper"
+                title="<?= /* @escapeNotVerified */ __('Set Descending Direction') ?>"
+                aria-label="<?= /* @escapeNotVerified */ __('Set Descending Direction') ?>"
+                data-role="direction-switcher"
+                data-value="desc"
+                tabindex="0"
+            >
+                <svg class="toolbar__sorter-icon">
+                    <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#arrow-up') ?>"></use>
+                </svg>
+            </div>
+        <?php endif ?>
+    </div>
+</div>

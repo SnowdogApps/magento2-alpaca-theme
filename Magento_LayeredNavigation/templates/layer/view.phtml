@@ -1,0 +1,73 @@
+<?php if ($block->canShowBlock()): ?>
+    <?= $block->getChildHtml('state') ?>
+    <?php $isAnyFilterActive = false ?>
+    <?php foreach ($block->getFilters() as $filter) {
+        if ($filter->getItemsCount()) {
+            $isAnyFilterActive = true;
+            break;
+        }
+    } ?>
+    <?php if ($isAnyFilterActive): ?>
+        <button
+            type="button"
+            class="filters__switcher"
+            data-state-current="hidden"
+        >
+            <?= /* @escapeNotVerified */ __('Shopping Options') ?>
+            <svg class="icon filters__switcher-icon">
+                <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#angle-down') ?>"></use>
+            </svg>
+        </button>
+        <div
+            class="
+                filters__list
+                filters__list--mobile-hidden
+                dropdown-list
+                dropdown-list--secondary
+            "
+            data-mage-init='{
+                "filters": { },
+                "dropdownList": { }
+            }'
+        >
+            <h2 class="filters__heading filters__heading--mobile-hidden">
+                <?= /* @escapeNotVerified */ __('Shopping Options') ?>
+            </h2>
+            <div class="divider filters__divider">
+                <span class="divider__left"></span>
+                <span class="divider__right"></span>
+            </div>
+            <ul class="dropdown-list__list">
+                <?php foreach ($block->getFilters() as $filter): ?>
+                    <?php if ($filter->getItemsCount()): ?>
+                        <li
+                            class="
+                                dropdown-list__item
+                                dropdown-list__item--collapse
+                                filter
+                            "
+                        >
+                            <div
+                                class="dropdown-list__label filter__label"
+                                data-dropdown="checkbox"
+                            >
+                                <?= $block->escapeHtml(__($filter->getName())) ?>
+                                <svg class="icon dropdown-list__icon">
+                                    <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#angle-down') ?>"></use>
+                                </svg>
+                            </div>
+                            <div
+                                class="dropdown-list__content filter__content"
+                                data-content="checkbox"
+                                aria-hidden="true"
+                            >
+                                <?= /* @escapeNotVerified */ $block->getChildBlock('renderer')->render($filter) ?>
+                            </div>
+                        </li>
+                    <?php endif ?>
+                <?php endforeach ?>
+            </ul>
+        </div>
+    <?php endif ?>
+<?php endif ?>
+
