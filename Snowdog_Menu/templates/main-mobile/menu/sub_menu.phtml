@@ -1,0 +1,46 @@
+<?php /** @var \Snowdog\Menu\Block\Menu $block */ ?>
+<?php if ($block->getMenu()): ?>
+    <?php
+        $menuClass = $block->getMenu()->getCssClass();
+        $parentNode = $block->getParentNode();
+        $level = $block->getLevel();
+
+        $wrapperAttributes = [
+            'class' => [
+                $menuClass . '__inner-list ' . $menuClass . '__inner-list--level' . $level
+            ],
+            'data-dropdown' => 'dropdown-' . $parentNode->getNodeId(),
+            'id' => 'dropdown-' . $parentNode->getNodeId(),
+            'aria-hidden' => 'true'
+        ];
+    ?>
+
+    <ul<?= $block->buildAttrFromArray($wrapperAttributes) ?>>
+        <?php foreach ($block->getSubmenuNodes() as $node): ?>
+            <?php
+                $childrenLevel = $node->getLevel() + 1;
+                $children = $this->getNodes($childrenLevel, $node);
+                $node->setIsParent((bool) $children);
+
+                $nodeAttributes = [
+                    'class' => [
+                        $menuClass . '__inner-item',
+                        $menuClass . '__inner-item--level' . $level
+                    ]
+                ];
+
+                if ($children) {
+                    $nodeAttributes['class'][] = $menuClass . '__inner-item--parent';
+                }
+
+                if ($node->getClasses()) {
+                    $nodeAttributes['class'][] = $node->getClasses();
+                }
+            ?>
+            <li<?= $block->buildAttrFromArray($nodeAttributes) ?>>
+                <?= $block->renderMenuNode($node) ?>
+                <?= $block->renderSubmenu($children, $node, $childrenLevel) ?>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+<?php endif; ?>
