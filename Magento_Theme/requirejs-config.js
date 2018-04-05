@@ -2,6 +2,7 @@ var config = {
   map: {
     "*": {
       "closestPolyfill"    : "Magento_Theme/js/lib/closest-polyfill",
+      "cookieMessage"      : "Magento_Theme/js/cookie-message.babel",
       "dropdownList"       : "Magento_Theme/js/dropdown-list.babel",
       "dropdownListNested" : "Magento_Theme/js/dropdown-list-nested.babel",
       "fileUpload"         : "Magento_Theme/js/file-upload.babel",
