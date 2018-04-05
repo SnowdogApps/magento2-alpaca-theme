@@ -1,0 +1,66 @@
+<?php $_order = $block->getOrder() ?>
+
+<div class="dashboard-table dashboard-table--tab">
+    <div class="dashboard-table__header">
+        <h3 class="dashboard-table__title">
+            <?= /* @escapeNotVerified */ __('Invoice #') ?>
+            <?= /* @escapeNotVerified */ $_order->getIncrementId(); ?>
+        </h3>
+
+        <a href="<?= /* @escapeNotVerified */ $block->getPrintAllInvoicesUrl($_order) ?>"
+           class="link dashboard-table__link"
+           target="_blank"
+        >
+            <?= /* @escapeNotVerified */ __('Print All Invoices') ?>
+        </a>
+    </div>
+
+    <?php foreach ($_order->getInvoiceCollection() as $_invoice): ?>
+        <div class="dashboard-table__content">
+            <table class="table"
+                   id="my-invoice-table-<?= /* @escapeNotVerified */ $_invoice->getId(); ?>"
+            >
+                <thead>
+                    <tr>
+                        <th class="name">
+                            <?= /* @escapeNotVerified */ __('Product Name') ?>
+                        </th>
+
+                        <th class="sku">
+                            <?= /* @escapeNotVerified */ __('SKU') ?>
+                        </th>
+
+                        <th class="price">
+                            <?= /* @escapeNotVerified */ __('Price') ?>
+                        </th>
+
+                        <th class="qty">
+                            <?= /* @escapeNotVerified */ __('Qty Invoiced') ?>
+                        </th>
+
+                        <th class="subtotal">
+                            <?= /* @escapeNotVerified */ __('Subtotal') ?>
+                        </th>
+                    </tr>
+                </thead>
+
+                <?php $_items = $_invoice->getAllItems(); ?>
+                <?php $_count = count($_items) ?>
+
+                <?php foreach ($_items as $_item): ?>
+                    <?php if ($_item->getOrderItem()->getParentItem()): continue; endif; ?>
+
+                    <tbody>
+                        <?= /* @escapeNotVerified */ $block->getItemHtml($_item) ?>
+                    </tbody>
+                <?php endforeach; ?>
+
+                <tfoot>
+                    <?= /* @escapeNotVerified */ $block->getInvoiceTotalsHtml($_invoice) ?>
+                </tfoot>
+            </table>
+        </div>
+
+        <?= /* @escapeNotVerified */ $block->getInvoiceCommentsHtml($_invoice) ?>
+    <?php endforeach; ?>
+</div>

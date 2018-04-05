@@ -1,0 +1,101 @@
+<?php
+/**
+ * @see \Magento\Reward\Block\Customer\Reward\Info
+ */
+?>
+<?php
+    $helper     = $this->helper('Magento\Reward\Helper\Data');
+    $maxBalance = $block->getMaxBalance();
+    $minBalance = $block->getMinBalance();
+    $expireIn   = $block->getExpireIn();
+?>
+<div class="information">
+    <div class="dashboard-table__header">
+        <h3 class="dashboard-table__title">
+            <?= /* @escapeNotVerified */ __('Reward points balance Information'); ?>
+        </h3>
+
+        <a class="link dashboard-table__link more" href="<?= /* @escapeNotVerified */ $helper->getLandingPageUrl() ?>">
+            <?= /* @escapeNotVerified */ __('Learn more') ?>
+        </a>
+    </div>
+
+    <p class="information__text">
+        <?= /* @escapeNotVerified */
+            __('Your balance is %1.',
+               $helper->formatReward($block->getPointsBalance(),
+               $block->getCurrencyBalance())
+            )
+        ?>
+    </p>
+</div>
+
+<div class="information dashboard__item">
+    <p class="information__text">
+        <?= /* @escapeNotVerified */ __('Current exchange rates: ') ?>
+
+        <?php if ($block->getPtsToAmountRateAmount() || $block->getAmountToPtsRatePts()): ?>
+            <?php if ($block->getPtsToAmountRateAmount()): ?>
+                <?= /* @escapeNotVerified */
+                    __('%1 = %2',
+                       $helper->formatReward($block->getPtsToAmountRatePts(), null, null, '<strong>%s</strong>'),
+                       '<strong>' . $helper->formatAmount($block->getPtsToAmountRateAmount()) . '</strong>'
+                    )
+                ?>
+            <?php endif; ?>
+
+            <?php if ($block->getAmountToPtsRatePts()): ?>
+                <?= /* @escapeNotVerified */
+                    __('%1 spent = %2 earned',
+                       '<strong>' . $helper->formatAmount($block->getAmountToPtsRateAmount()) . '</strong>',
+                       $helper->formatReward($block->getAmountToPtsRatePts(), null, null, '<strong>%s</strong>')
+                    )
+                ?>
+            <?php endif; ?>
+        <?php else: ?>
+            <?= /* @escapeNotVerified */ __('None') ?>
+        <?php endif; ?>
+    </p>
+</div>
+
+<?php if ($maxBalance || $minBalance): ?>
+    <div class="information dashboard__item">
+        <?php if ($maxBalance): ?>
+            <p class="information__text">
+                <?= /* @escapeNotVerified */ __('Balance limit is %1.', $helper->formatReward($maxBalance)) ?>
+            </p>
+
+            <?php if ($block->getIsMaxBalanceReached()): ?>
+                <div class="message info empty">
+                    <?= /* @escapeNotVerified */ __('Maximum balance is reached') ?>
+                </div>
+            <?php endif; ?>
+        <?php endif; ?>
+
+        <?php if ($minBalance): ?>
+            <p class="information__text">
+                <?= /* @escapeNotVerified */ __('Minimum Balance in order to redeem: %1.', $helper->formatReward($minBalance)) ?>
+            </p>
+
+            <?php if (!$block->getIsMinBalanceReached()): ?>
+                <div class="message info empty">
+                    <?= /* @escapeNotVerified */ __('You need a higher balance to use your rewards points.') ?>
+                </div>
+            <?php endif; ?>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>
+
+<?php if ($expireIn): ?>
+    <div class="information dashboard__item">
+        <h4 class="information__title">
+            <?= /* @escapeNotVerified */ __('Each earned reward points award expires in %1 days.', $expireIn) ?>
+        </h4>
+
+        <?php if ($block->getIsHistoryPublished()): ?>
+            <p class="information__text">
+                <?= /* @escapeNotVerified */ __('Refer to reward points history to see when a specific record expires.') ?>
+            </p>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>

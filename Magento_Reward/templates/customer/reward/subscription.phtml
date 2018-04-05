@@ -1,0 +1,70 @@
+<?php
+/**
+ * @see \Magento\Reward\Block\Customer\Reward\Settings
+ */
+?>
+<form class="form reward-settings"
+      action="<?= /* @escapeNotVerified */ $block->getUrl('reward/customer/saveSettings') ?>"
+      method="post"
+      id="form-validate"
+>
+    <?= /* @escapeNotVerified */ $block->getBlockHtml('formkey') ?>
+
+    <h4 class="dashboard-form__title">
+        <?= /* @escapeNotVerified */ __('Email Notification Settings'); ?>
+    </h4>
+
+    <div class="dashboard-form__divider">
+        <?php
+            $getCheckedIcon = $block->getViewFileUrl('images/icons-sprite.svg#checked');
+        ?>
+
+        <div class="checkbox dashboard-form__divider choice">
+            <input type="checkbox"
+                   name="subscribe_updates"
+                   id="subscribe_updates"
+                   value="1"
+                   class="checkbox__field"
+                   title="<?= /* @escapeNotVerified */ __('Subscribe for Balance Updates') ?>"
+                   <?= $block->isSubscribedForUpdates() ? 'checked="checked"' : ''; ?>
+            />
+
+            <svg class="checkbox__icon">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="<?= /* @escapeNotVerified */ $getCheckedIcon; ?>"></use>
+            </svg>
+
+            <label class="checkbox__label" for="subscribe_updates">
+                <?= /* @escapeNotVerified */ __('Subscribe for Balance Updates') ?>
+            </label>
+        </div>
+
+        <div class="checkbox dashboard-form__divider choice">
+            <input type="checkbox"
+                   name="subscribe_warnings"
+                   id="subscribe_warnings"
+                   class="checkbox__field"
+                   value="1"
+                   <?= $block->isSubscribedForWarnings() ? 'checked="checked"' : ''; ?>
+            />
+
+            <svg class="checkbox__icon">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="<?= /* @escapeNotVerified */ $getCheckedIcon; ?>"></use>
+            </svg>
+
+            <label class="checkbox__label" for="subscribe_warnings">
+                <?= /* @escapeNotVerified */ __('Subscribe for Points Expiration Notifications') ?>
+            </label>
+        </div>
+    </div>
+
+    <div class="action dashboard__item">
+        <div class="action__handler">
+            <button type="submit"
+                    class="button action__button save primary"
+                    title="<?= /* @escapeNotVerified */ __('Save Subscription Settings') ?>"
+            >
+                <?= /* @escapeNotVerified */ __('Save Subscription Settings') ?>
+            </button>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,42 @@
+<div class="toolbar__sorter">
+    <div class="select toolbar__sorter-wrapper">
+        <label class="label toolbar__sorter-label" for="sort-by">
+            <?= /* @escapeNotVerified */ __('Sort By') ?>
+        </label>
+        <select
+            id="sort-by"
+            class="select__field select__field--native toolbar__sorter-select"
+            name="sort-by"
+            onchange="document.location.href=this.value"
+            data-mage-init='{ "select": { } }'
+        >
+            <?php foreach ($block->getAvailableOrders() as $_key => $_order): ?>
+                <?php if (!$block->getNavigationConfig()->isCombinedSort()): ?>
+                    <option
+                        value="<?= /* @escapeNotVerified */ $block->getOrderUrl($_key, "asc") ?>"
+                        <?= ($block->isOrderCurrent($_key) && $block->getCurrentDirection() == "asc") ? 'selected="selected"' : '' ?>
+                    >
+                        <?= /* @escapeNotVerified */ __($_order) . ' - ' . /* @escapeNotVerified */ __("asc") ?>
+                    </option>
+                    <option
+                        value="<?= /* @escapeNotVerified */ $block->getOrderUrl($_key, "desc") ?>"
+                        <?= ($block->isOrderCurrent($_key) && $block->getCurrentDirection() == "desc") ? 'selected="selected"' : '' ?>
+                    >
+                        <?= $block->escapeHtml(__($_order)) . ' - ' . /* @escapeNotVerified */ __("desc") ?>
+                    </option>
+                <?php else: ?>
+                    <option
+                        value="<?= /* @escapeNotVerified */ $block->getOrderUrl($_key, $_order) ?>"
+                        <?php if (isset($block->getNavigationConfig()->getSortingMap()[$_key]['direction'])): ?>
+                            data-dir="<?= $block->getNavigationConfig()->getSortingMap()[$_key]['direction'] ?>"
+                        <?php endif; ?>
+                        data-key="<?= $block->escapeHtml($_key) ?>"
+                        <?= ($block->isOrderCurrent($_key)) ? 'selected="selected"' : '' ?>
+                    >
+                        <?= $block->escapeHtml(__($_order)) ?>
+                    </option>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </select>
+    </div>
+</div>

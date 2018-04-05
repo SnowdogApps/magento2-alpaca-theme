@@ -1,0 +1,256 @@
+<script id="template-registrant" type="text/x-magento-template">
+    <input name="registrant[<%- data._index_ %>][person_id]" value="" id="registrant:person_id<%- data._index_ %>" type="hidden" />
+
+    <div class="input dashboard-form__divider required">
+        <label for="registrant:firstname<%- data._index_ %>" class="label">
+            <?= /* @escapeNotVerified */ __('First Name') ?>
+        </label>
+
+        <input name="registrant[<%- data._index_ %>][firstname]"
+               value=""
+               type="text"
+               class="input__field"
+               data-validate="{required:true}"
+               id="registrant:firstname<%- data._index_ %>"
+        />
+    </div>
+
+    <div class="input dashboard-form__divider required">
+        <label for="registrant:lastname<%- data._index_ %>" class="label">
+            <?= /* @escapeNotVerified */ __('Last Name') ?>
+        </label>
+
+        <input name="registrant[<%- data._index_ %>][lastname]"
+               value=""
+               type="text"
+               class="input__field"
+               data-validate="{required:true}"
+               id="registrant:lastname<%- data._index_ %>"
+        />
+    </div>
+
+    <div class="input dashboard-form__divider required">
+        <label for="registrant:email<%- data._index_ %>" class="label">
+            <?= /* @escapeNotVerified */ __('Email') ?>
+        </label>
+
+        <input name="registrant[<%- data._index_ %>][email]"
+               value=""
+               title="<?= /* @escapeNotVerified */ __('Email') ?>"
+               id="registrant:email<%- data._index_ %>"
+               type="email"
+               class="input__field"
+               data-validate="{required:true,'validate-email':true}"
+        />
+    </div>
+
+    <?php foreach ($block->getGroupedRegistrantAttributes() as $field => $data) : ?>
+        <?php $isRequired = $block->isAttributeRequired($data); ?>
+        <?php $isStatic = $block->isAttributeStatic($field); ?>
+
+        <?php
+            $name = $data['name'];
+            $id   = $data['id'];
+            $value = $this->getEntity()->getFieldValue($id);
+
+            switch ($data['type']) :
+                case 'country':
+                    $options = $block->getCountry();
+        ?>
+                    <div class="select dashboard-form__select required">
+                        <label for="<?= /* @escapeNotVerified */ $id; ?>" class="label">
+                            <?= /* @escapeNotVerified */ __($data['label']) ?>
+                        </label>
+
+                        <select data-validate="{required:true}"
+                                name="<?= /* @escapeNotVerified */ $id; ?>"
+                                id="<?= /* @escapeNotVerified */ $id; ?>"
+                                class="select__field select__field--native validate-select"
+                                data-mage-init='{"select": {}}'
+                        >
+                            <option value="" disabled selected>
+                                <?php /* @escapeNotVerified */  echo __('Please Select a country'); ?>
+                            </option>
+
+                            <?php foreach ($options as $option):?>
+                                <option value="<?= $option['value'] ?>">
+                                    <?php /* @escapeNotVerified */ echo __($option['label']) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+        <?php
+                    break;
+
+                case 'region':
+                    $options = $this->getRegionCollection()->toOptionArray();
+                    $value = $this->getEntity()->getFieldValue($id);
+        ?>
+                    <div class="select dashboard-form__select required">
+                        <label for="<?= /* @escapeNotVerified */ $id; ?>" class="label">
+                            <?= /* @escapeNotVerified */ __($data['label']) ?>
+                        </label>
+
+                        <select data-validate="{required:true}"
+                                name="<?= /* @escapeNotVerified */ $id; ?>"
+                                id="<?= /* @escapeNotVerified */ $id; ?>"
+                                class="select__field select__field--native validate-select"
+                                style="display:none"
+                                data-mage-init='{"select": {}}'
+                        >
+                            <option value="" disabled selected>
+                                <?php /* @escapeNotVerified */  echo __('Please Select a region, state or province'); ?>
+                            </option>
+
+                            <?php foreach ($options as $option):?>
+                                <option value="<?= $option['value'] ?>">
+                                    <?= /* @escapeNotVerified */ __($option['label']) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+
+                        <input type="text"
+                               id="<?= /* @escapeNotVerified */ $id.'_text'; ?>"
+                               name="<?= /* @escapeNotVerified */ $id.'_text'; ?>"
+                               value="<?= /* @escapeNotVerified */ $value; ?>"
+                               title="<?= /* @escapeNotVerified */ __('State/Province') ?>"
+                               class="input__field <?= /* @escapeNotVerified */ $block->getRegionValidationClass(); ?>"
+                               <?= (!$block->displayAll()) ? ' disabled="disabled"' : ''; ?>
+                               style="display:none"
+                        />
+                    </div>
+        <?php
+                    break;
+
+                case 'date':
+                    $formatType = \IntlDateFormatter::SHORT;
+        ?>
+                    <div class="
+                            input
+                            dashboard-form__divider
+                            <?php echo($isRequired ? ' required' : ''); ?>
+                            <?= /* @escapeNotVerified */ $field == 'event_date' ? ' date' : ''; ?>
+                         "
+                    >
+        <?php
+                        /* @escapeNotVerified */ echo $block->getCalendarDateHtml($name, $id, $formatType, $date, 'input__field');
+        ?>
+                    </div>
+        <?php
+                    break;
+
+                case 'select':
+                    $options = $block->getOptionsToArray($data['options']);
+        ?>
+                    <div class="select select--native dashboard-form__select required">
+                        <label for="<?= /* @escapeNotVerified */ $id; ?>" class="label">
+                            <?= /* @escapeNotVerified */ __($data['label']) ?>
+                        </label>
+
+                        <div class="select--native">
+                            <?= /* @escapeNotVerified */
+                                $this->getSelectHtml($options, $name, $id, $value, 'select__field select__field--native');
+                            ?>
+                        </div>
+                    </div>
+        <?php
+                    break;
+
+                case 'number':
+        ?>
+                    <div class="
+                            input
+                            dashboard-form__divider
+                            validate-digits
+                            <?php echo($isRequired ? ' required' : ''); ?>
+                         "
+                    >
+                        <label for="<?= /* @escapeNotVerified */ $field ?>" class="label">
+                            <?= /* @escapeNotVerified */ __($data['label']); ?>
+                        </label>
+
+                        <input type="number"
+                               class="input__field required-entry"
+                               name="<?= /* @escapeNotVerified */ $id; ?>"
+                               id="<?= /* @escapeNotVerified */ $id; ?>"
+                        />
+                    </div>
+        <?php
+                    break;
+
+                default:
+
+                    $class = 'input__field';
+                    $requiredField = ($isRequired ? ' required' : '');
+
+                    $template = $this->getLayout()->getBlock('giftregistry_edit')->getInputTypeTemplate('text');
+
+                    $this->setInputName(
+                        $name
+                    )->setInputId(
+                        $id
+                    )->setInputValue(
+                        $value
+                    )->setInputClass(
+                        $class
+                    );
+        ?>
+                    <div class="input dashboard-form__divider <?= /* @escapeNotVerified */ $requiredField; ?>">
+                        <label for="<?= /* @escapeNotVerified */ $field ?>" class="label">
+                            <?= /* @escapeNotVerified */ __($data['label']); ?>
+                        </label>
+
+                        <?=  /* @escapeNotVerified */ $this->fetchView($template); ?>
+                    </div>
+        <?php
+            endswitch;
+        ?>
+    <?php endforeach; ?>
+
+    <div class="action">
+        <div class="action__handler">
+            <button type="button" class="button action__button remove" id="btn-remove<%- data._index_ %>">
+                <?= /* @escapeNotVerified */ __('Remove') ?>
+            </button>
+        </div>
+    </div>
+</script>
+
+<h3 class="dashboard-form__title">
+    <?= /* @escapeNotVerified */ __('Registrant Information') ?>
+</h3>
+
+<div id="registrant-container"></div>
+
+<?php if ($block->getMaxRegistrant()): ?>
+    <div id="max-registrant-message" style="display:none;" class="message notice limit" role="alert">
+        <?= /* @escapeNotVerified */ __('Maximum %1 registrants.', $block->getMaxRegistrant()) ?>
+    </div>
+<?php endif; ?>
+
+<div class="action dashboard__item">
+    <div class="action__handler">
+        <?php if ($block->getMaxRegistrant() > 1): ?>
+            <button type="button" id="add-registrant-button" class="button action__button add">
+                <?= /* @escapeNotVerified */ __('Add Registrant') ?>
+            </button>
+        <?php endif; ?>
+    </div>
+</div>
+
+<script type="text/x-magento-init">
+    {
+        "#form-validate": {
+            "giftRegistry": {
+                "rowParentElem": "<div></div>",
+                "remEventSelector": "button",
+                "btnRemoveSelector": ".action__button.remove",
+                "additionalRowClass": "additional",
+                "maxRows": "<?= /* @escapeNotVerified */ $block->getMaxRegistrant() ?>",
+                "formDataPost": {
+                    "formData": <?= /* @escapeNotVerified */ json_encode($block->getRegistrantPresets($block->getEntity()->getId())); ?>
+                }
+            }
+        }
+    }
+</script>

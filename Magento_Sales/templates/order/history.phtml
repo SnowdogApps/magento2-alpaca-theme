@@ -1,0 +1,106 @@
+<?php $_orders = $block->getOrders(); ?>
+<?= /* @escapeNotVerified */ $block->getChildHtml('info'); ?>
+
+<?php if ($_orders && count($_orders)): ?>
+    <div class="dashboard-table">
+        <div class="dashboard-table__header">
+            <h3 class="dashboard-table__title">
+                <?= /* @escapeNotVerified */ __('My Orders') ?>
+            </h3>
+        </div>
+
+        <div class="dashboard-table__content">
+            <table class="table dashboard-table__table" id="my-orders-table">
+                <thead>
+                    <tr>
+                        <th scope="col" class="id">
+                            <?= /* @escapeNotVerified */ __('Order #') ?>
+                        </th>
+
+                        <th scope="col" class="date">
+                            <?= /* @escapeNotVerified */ __('Date') ?>
+                        </th>
+
+                        <?= /* @noEscape */ $block->getChildHtml('extra.column.header'); ?>
+
+                        <th scope="col" class="shipping">
+                            <?= /* @escapeNotVerified */ __('Ship To') ?>
+                        </th>
+
+                        <th scope="col" class="total">
+                            <?= /* @escapeNotVerified */ __('Order Total') ?>
+                        </th>
+
+                        <th scope="col" class="status">
+                            <?= /* @escapeNotVerified */ __('Status') ?>
+                        </th>
+
+                        <th scope="col" class="actions">
+                            &nbsp;
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <?php foreach ($_orders as $_order): ?>
+                        <tr>
+                            <td data-th="<?= /* @escapeNotVerified */ $block->escapeHtml(__('Order #')) ?>" class="id">
+                                <?= /* @escapeNotVerified */ $_order->getRealOrderId() ?>
+                            </td>
+
+                            <td data-th="<?= /* @escapeNotVerified */ $block->escapeHtml(__('Date')) ?>" class="date">
+                                <?= /* @escapeNotVerified */ $block->formatDate($_order->getCreatedAt()) ?>
+                            </td>
+
+                            <?php $extra = $block->getChildBlock('extra.container'); ?>
+                            <?php if ($extra): ?>
+                                <?php $extra->setOrder($_order); ?>
+                                <?php /* @noEscape */ echo $extra->getChildHtml() ?>
+                            <?php endif; ?>
+
+                            <td data-th="<?= /* @escapeNotVerified */ $block->escapeHtml(__('Ship To')) ?>" class="shipping">
+                                <?= /* @escapeNotVerified */
+                                    $_order->getShippingAddress()
+                                        ? $block->escapeHtml($_order->getShippingAddress()->getName())
+                                        : '&nbsp;'
+                                ?>
+                            </td>
+
+                            <td data-th="<?= /* @escapeNotVerified */ $block->escapeHtml(__('Order Total')) ?>" class="total">
+                                <?= /* @escapeNotVerified */ $_order->formatPrice($_order->getGrandTotal()) ?>
+                            </td>
+
+                            <td data-th="<?= /* @escapeNotVerified */ $block->escapeHtml(__('Status')) ?>" class="status">
+                                <?= /* @escapeNotVerified */ $_order->getStatusLabel() ?>
+                            </td>
+
+                            <td data-th="<?= /* @escapeNotVerified */ $block->escapeHtml(__('Actions')) ?>" class="actions">
+                                <a href="<?= /* @escapeNotVerified */ $block->getViewUrl($_order) ?>" class="link dashboard-table__link">
+                                    <?= /* @escapeNotVerified */ __('View Order') ?>
+                                </a>
+
+                                <?php if ($this->helper('Magento\Sales\Helper\Reorder')->canReorder($_order->getEntityId())) : ?>
+                                     |
+                                    <a href="#"
+                                       data-post='<?= /* @escapeNotVerified */ $this->helper(\Magento\Framework\Data\Helper\PostHelper::class)->getPostData($block->getReorderUrl($_order)); ?>'
+                                       class="link"
+                                    >
+                                        <?= /* @escapeNotVerified */ __('Reorder') ?>
+                                    </a>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <?php if ($block->getPagerHtml()): ?>
+        <?= /* @escapeNotVerified */ $block->getPagerHtml(); ?>
+    <?php endif ?>
+<?php else: ?>
+    <div class="message info empty">
+        <?= /* @escapeNotVerified */ __('You have placed no orders.'); ?>
+    </div>
+<?php endif; ?>

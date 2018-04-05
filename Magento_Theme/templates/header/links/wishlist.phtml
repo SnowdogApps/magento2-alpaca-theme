@@ -1,0 +1,33 @@
+<?php
+/* @var \Magento\Wishlist\Block\Link $block */
+?>
+
+<a class="header-button header-button--reset-margin"
+   aria-label="<?= /* @escapeNotVerified */ __('Wishlist') ?>"
+   data-bind="scope: 'wishlist'"
+   <?= /* @noEscape */ $block->getLinkAttributes() ?>
+>
+    <svg class="icon header-button__icon">
+        <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#heart'); ?>"></use>
+    </svg>
+    <span class="header-button__text">
+        <?= __('Wishlist') ?>
+    </span>
+    <!-- ko if: wishlist().counter -->
+        <span data-bind="text: wishlist().counter" class="counter qty"></span>
+    <!-- /ko -->
+</a>
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "wishlist": {
+                        "component": "Magento_Wishlist/js/view/wishlist"
+                    }
+                }
+            }
+        }
+    }
+</script>

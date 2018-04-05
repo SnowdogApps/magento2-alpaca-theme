@@ -1,0 +1,51 @@
+<?php $url = $block->getReviewsUrl() . '#reviews'; ?>
+<?php $urlForm = $block->getReviewsUrl() . '#review-form'; ?>
+
+<?php if ($block->getReviewsCount()): ?>
+    <?php $rating = $block->getRatingSummary(); ?>
+
+    <div class="review dashboard__item <?= /* @escapeNotVerified */ !$rating ? ' no-rating' : ''?>" 
+         itemprop="aggregateRating" 
+         itemscope 
+         itemtype="http://schema.org/AggregateRating"
+    >
+        <?php if ($rating):?>
+            <div class="review__divider">
+                <span class="review__description">
+                    <?= /* @escapeNotVerified */  __('Average Customer Rating:') ?>
+                </span>
+
+                <div class="rating__summary" title="<?= /* @escapeNotVerified */  $rating; ?>%">
+                    <span class="rating__fill" style="width:<?= /* @escapeNotVerified */  $rating; ?>%">
+                        <span>
+                            <?= /* @escapeNotVerified */  $rating; ?>%
+                        </span>
+                    </span>
+                </div>
+            </div>
+        <?php endif;?>
+        
+        <div class="review__divider action">
+            <div class="action__handler">
+                <a class="link view" href="<?= /* @escapeNotVerified */  $url ?>">
+                    <?= /* @escapeNotVerified */ $block->getReviewsCount() ?>
+                    <?= /* @escapeNotVerified */ ($block->getReviewsCount() == 1) ? __('Review') : __('Reviews') ?>
+                </a>
+            </div>
+
+            <div class="action__handler">
+                <a class="link add" href="<?= /* @escapeNotVerified */  $urlForm ?>">
+                    <?= /* @escapeNotVerified */  __('Add Your Review') ?>
+                </a>
+            </div>
+        </div>
+    </div>
+<?php elseif ($block->getDisplayIfEmpty()): ?>
+    <div class="review__divider empty">
+        <div class="reviews-actions">
+            <a class="action add" href="<?= /* @escapeNotVerified */  $urlForm; ?>">
+                <?= /* @escapeNotVerified */  __('Be the first to review this product') ?>
+            </a>
+        </div>
+    </div>
+<?php endif; ?>

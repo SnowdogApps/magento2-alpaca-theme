@@ -1,0 +1,17 @@
+<?php
+    /** @var \Magento\Catalog\Pricing\Render\FinalPriceBox $block */
+    /** @var \Magento\Catalog\Pricing\Price\ConfiguredPrice $configuredPrice */
+    $configuredPrice = $block->getPrice();
+    $schema = ($block->getZone() == 'item_view') ? true : false;
+    $priceLabel = ($block->getPriceLabel() !== null)
+        ? $block->getPriceLabel()
+        : '';
+?>
+<div class="product__price">
+    <?php /* @escapeNotVerified */ echo $block->renderAmount($configuredPrice->getAmount(), [
+        'display_label' => $priceLabel,
+        'price_id'      => $block->getPriceId('product-price-'),
+        'price_type'    => 'finalPrice',
+        'schema'        => $schema
+    ]); ?>
+</div>

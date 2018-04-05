@@ -1,0 +1,289 @@
+<?php
+    $addressHelper = $this->helper('Magento\Customer\Helper\Address');
+?>
+
+<h3 class="dashboard-form__title">
+    <?= /* @escapeNotVerified */  __('Shipping Address'); ?>
+</h3>
+
+<?php if ($block->customerHasAddresses()) : ?>
+    <div class="input dashboard-form__divider address">
+        <label for="address_type_or_id" class="label">
+            <?= /* @escapeNotVerified */  __('Select a shipping address from your address book or enter a new address.') ?>
+        </label>
+
+        <?php
+            /**
+             * Get all addresses from customer and list in select
+             *
+             */
+        ?>
+        <?php foreach ($this->getCustomer()->getAddresses() as $address): ?>
+            <?php $options[] = ['value' => $address->getId(), 'label' => $address->format('oneline')]; ?>
+        <?php endforeach; ?>
+
+        <?php
+            $getShippingAddress = $block->getEntity()->getShippingAddress() ? 'true' : 'false';
+        ?>
+
+        <div class="select dashboard-form__select"
+             data-shipping-address="<?= /* @escapeNotVerified */ $getShippingAddress; ?>"
+        >
+            <select data-validate="{required: true}"
+                    name="address_type_or_id"
+                    id="address_type_or_id"
+                    class="select__field select__field--native validate-select"
+                    data-mage-init='{"select": {}}'
+            >
+                <option value="none" selected>
+                    <?= /* @escapeNotVerified */  __('None'); ?>
+                </option>
+
+                <?php foreach ($options as $option): ?>
+                    <option value="<?= /* @escapeNotVerified */ $option['value'] ?>">
+                        <?= /* @escapeNotVerified */  $option['label'] ?>
+                    </option>
+                <?php endforeach; ?>
+
+                <option value="new">
+                    <?= /* @escapeNotVerified */  __('New Address'); ?>
+                </option>
+            </select>
+        </div>
+    </div>
+<?php endif ?>
+
+<div class="dashboard-form__divider"
+     id="shipping-new-address-form"
+     <?php if ($block->customerHasAddresses()): ?>
+        style="display: none;"
+     <?php endif ?>
+>
+    <?= /* @escapeNotVerified */
+        $block->getLayout()
+              ->createBlock('Magento\Customer\Block\Widget\Name')
+              ->setObject($block->getAddress())
+              ->setFieldNameFormat('address[%s]')
+              ->toHtml();
+    ?>
+
+    <div class="input dashboard-form__divider company">
+        <?php
+            $getCompanyVerifiedClass = $addressHelper->getAttributeValidationClass('company');
+        ?>
+
+        <label for="address:company" class="label">
+            <?= /* @escapeNotVerified */  __('Company'); ?>
+        </label>
+
+        <input type="text"
+               id="address:company"
+               name="address[company]"
+               value="<?= /* @escapeNotVerified */ $block->escapeHtml($block->getAddress()->getCompany()); ?>"
+               title="<?= /* @escapeNotVerified */  __('Company'); ?>"
+               class="input__field <?= /* @escapeNotVerified */ $getCompanyVerifiedClass ?>"
+        />
+    </div>
+
+    <?php
+        $_streetValidationClass = $addressHelper->getAttributeValidationClass('street');
+    ?>
+
+    <div class="input dashboard-form__divider address street required">
+        <label for="address:street1" class="label">
+            <?= /* @escapeNotVerified */  __('Address'); ?>
+        </label>
+
+        <input type="text"
+               title="<?= /* @escapeNotVerified */  __('Street Address') ?>"
+               name="address[street][]"
+               id="address:street1"
+               value="<?= /* @escapeNotVerified */ $block->escapeHtml($block->getAddress()->getStreetLine(1)) ?>"
+               class="input__field <?= /* @escapeNotVerified */  $_streetValidationClass ?>"
+        />
+    </div>
+
+        <?php
+            $_streetValidationClass = trim(str_replace('required-entry', '', $_streetValidationClass));
+            $getStreetLines         = $addressHelper->getStreetLines();
+        ?>
+
+        <?php for ($_i = 2, $_n = $getStreetLines; $_i <= $_n; $_i++): ?>
+            <div class="input dashboard-form__divider additional no-label">
+                <label for="address:street<?= /* @escapeNotVerified */  $_i ?>" class="label">
+                    <?= /* @escapeNotVerified */  __('Address %1', $_i); ?>
+                </label>
+
+                <input type="text"
+                       title="<?= /* @escapeNotVerified */  __('Street Address %1', $_i) ?>"
+                       name="address[street][]"
+                       id="address:street<?= /* @escapeNotVerified */  $_i ?>"
+                       value="<?= /* @escapeNotVerified */ $block->escapeHtml($block->getAddress()->getStreetLine($_i)) ?>"
+                       class="input__field <?= /* @escapeNotVerified */  $_streetValidationClass ?>"
+                />
+            </div>
+        <?php endfor; ?>
+
+    <div class="input dashboard-form__divider address city required"
+         data-mage-init='{
+            "countryList": {
+                "countrySelect"  : "address:country_id",
+                "regionSelect"   : "address:region_id",
+                "regionText"     : "address:region",
+                "regionContainer": "region_container",
+                "placeholder"    : "<?= /* @escapeNotVerified */  __('Please select a region, state or province.') ?>"
+            }
+         }'
+    >
+        <?php
+            $getCityValiadationClass = $addressHelper->getAttributeValidationClass('city');
+        ?>
+
+        <label for="address:city" class="label">
+            <?= /* @escapeNotVerified */  __('City') ?>
+        </label>
+
+        <input type="text"
+               title="<?= /* @escapeNotVerified */  __('City') ?>"
+               name="address[city]"
+               value="<?= /* @escapeNotVerified */ $block->escapeHtml($block->getAddress()->getCity()) ?>"
+               class="input__field <?= /* @escapeNotVerified */ $getCityValiadationClass ?>"
+               id="address:city"
+        />
+    </div>
+
+    <div id="region_container" class="select dashboard-form__select address region required">
+        <?php
+            $getRegionValiadationClass = $addressHelper->getAttributeValidationClass('region');
+        ?>
+
+        <label for="address:region_id" class="label">
+            <?= /* @escapeNotVerified */  __('State/Province') ?>
+        </label>
+
+        <select id="address:region_id"
+                name="address[region_id]"
+                title="<?= /* @escapeNotVerified */  __('State/Province') ?>"
+                class="select__field select__field--native validate-select"
+                data-mage-init='{"select": {}}'
+        >
+            <option value="" disabled>
+                <?= /* @escapeNotVerified */  __('Please select a region, state or province.') ?>
+            </option>
+        </select>
+
+        <input type="text"
+               id="address:region"
+               name="address[region]"
+               value="<?= /* @escapeNotVerified */ $block->escapeHtml($block->getAddress()->getRegion()) ?>"
+               title="<?= /* @escapeNotVerified */  __('State/Province') ?>"
+               class="input__field <?= /* @escapeNotVerified */  $getRegionValiadationClass ?>"
+        />
+    </div>
+
+    <div class="input dashboard-form__divider address postcode required">
+        <?php
+            $getPostcodeValiadationClass = $addressHelper->getAttributeValidationClass('postcode');
+        ?>
+        <label for="address:postcode" class="label">
+            <?= /* @escapeNotVerified */  __('Zip/Postal Code') ?>
+        </label>
+
+        <input type="text"
+               title="<?= /* @escapeNotVerified */  __('Zip/Postal Code') ?>"
+               name="address[postcode]"
+               id="address:postcode"
+               value="<?= /* @escapeNotVerified */ $block->escapeHtml($block->getAddress()->getPostcode()) ?>"
+               class="
+                    input__field
+                    validate-zip-international
+                    <?= /* @escapeNotVerified */  $getPostcodeValiadationClass ?>
+               "
+               data-validate="{'required': true, 'validate-zip-international': true}"
+        />
+    </div>
+
+    <div class="select dashboard-form__select required">
+        <label for="address:country_id" class="label">
+            <?= /* @escapeNotVerified */  __('Country') ?>
+        </label>
+
+        <?php $countryList = $block->getCountryCollection()->toOptionArray() ?>
+
+        <select data-validate="{required: true}"
+                name="address[country_id]"
+                id="address:country_id"
+                class="select__field select__field--native validate-select"
+                data-mage-init='{"select": {}}'
+        >
+            <option value="" disabled>
+                <?= /* @escapeNotVerified */  __('Please select a country.') ?>
+            </option>
+
+            <?php for ($i = 1, $n = count($countryList); $i < $n; $i++): ?>
+                <option
+                    value="<?= /* @escapeNotVerified */ $countryList[$i]['value'] ?>"
+                    <?php if ($block->getCountryId() === $countryList[$i]['value']) echo 'selected' ?>
+                >
+                    <?= /* @escapeNotVerified */ $countryList[$i]['label']; ?>
+                </option>
+            <?php endfor ?>
+        </select>
+    </div>
+
+    <div class="input dashboard-form__divider address telephone required">
+        <?php
+            $getPostcodeValiadationClass = $addressHelper->getAttributeValidationClass('telephone');
+        ?>
+
+        <label for="address:telephone" class="label">
+            <?= /* @escapeNotVerified */  __('Phone Number') ?>
+        </label>
+
+        <input type="text"
+               name="address[telephone]"
+               value="<?= /* @escapeNotVerified */ $block->escapeHtml($block->getAddress()->getTelephone()) ?>"
+               title="<?= /* @escapeNotVerified */  __('Phone Number') ?>"
+               class="input__field <?= /* @escapeNotVerified */  $getPostcodeValiadationClass ?>"
+               id="address:telephone"
+        />
+    </div>
+
+    <div class="input dashboard-form__divider address fax">
+        <?php
+            $getFaxValiadationClass = $addressHelper->getAttributeValidationClass('fax');
+        ?>
+
+        <label for="address:fax" class="label">
+            <?= /* @escapeNotVerified */  __('Fax') ?>
+        </label>
+
+        <input type="text"
+               name="address[fax]"
+               value="<?= /* @escapeNotVerified */ $block->escapeHtml($block->getAddress()->getFax()) ?>"
+               title="<?= /* @escapeNotVerified */  __('Fax') ?>"
+               class="input__field <?= /* @escapeNotVerified */  $getFaxValiadationClass ?>"
+               id="address:fax"
+        >
+    </div>
+</div>
+
+<script type="text/x-magento-init">
+    {
+        "#form-validate": {
+            "validation": {}
+        },
+        "#address\\:country_id": {
+            "regionUpdater": {
+                "optionalRegionAllowed": <?= /* @escapeNotVerified */ ($block->getConfig('general/region/display_all') ? 'true' : 'false'); ?>,
+                "regionListId": "#address\\:region_id",
+                "regionInputId": "#address\\:region",
+                "postcodeId": "#address\\:postcode",
+                "form": "#form-validate",
+                "regionJson": <?= /* @escapeNotVerified */  $this->helper('Magento\Directory\Helper\Data')->getRegionJson(); ?>,
+                "defaultRegion": "<?= /* @escapeNotVerified */  $block->getAddress()->getRegionId() ?>",
+                "countriesWithOptionalZip": <?= /* @escapeNotVerified */  $this->helper('Magento\Directory\Helper\Data')->getCountriesWithOptionalZip(true) ?>
+            }
+        }
+    }
+</script>

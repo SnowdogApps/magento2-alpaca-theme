@@ -1,0 +1,46 @@
+<?php $tokens = $block->getPaymentTokens(); ?>
+
+<div class="dashboard-table dashboard__item">
+    <div class="dashboard-table__header">
+        <h3 class="dashboard-table__title">
+            <?= /* @escapeNotVerified */ __('Stored Payment Methods') ?>
+        </h3>
+    </div>
+
+    <?php if (count($tokens) !== 0): ?>
+        <div class="dashboard-table__content">
+            <table class="table" id="my-orders-table">
+                <thead>
+                    <tr>
+                        <th scope="col" class="col card-number">
+                            <?php /* @noEscape */ echo __('Card Number') ?>
+                        </th>
+
+                        <th scope="col" class="col expire">
+                            <?php /* @noEscape */ echo __('Expiration Date') ?>
+                        </th>
+
+                        <th scope="col" class="col card-type">
+                            <?php /* @noEscape */ echo __('Type') ?>
+                        </th>
+
+                        <th scope="col" class="col actions">
+                            &nbsp;
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <?php foreach ($tokens as $token): ?>
+                        <?= /* @escapeNotVerified */ $block->renderTokenHtml($token); ?>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+
+    <?php elseif (!$block->isExistsCustomerTokens()): ?>
+        <div class="message empty">
+            <?php /* @noEscape */ echo __('You have no stored payment methods.'); ?>
+        </div>
+    <?php endif; ?>
+</div>

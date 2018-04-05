@@ -1,0 +1,138 @@
+<?php if ($block->getCollection()->getSize()): ?>
+    <?php if ($block->getUseContainer()): ?>
+        <div class="dashboard-toolbar grid">
+    <?php endif; ?>
+
+        <?php if ($block->getShowAmounts()): ?>
+            <div class="dashboard-toolbar__amount grid__column grid__column--1-2">
+                <p class="dashboard-toolbar__amount-info">
+                    <?php if ($block->getLastPageNum()>1): ?>
+                        <?php /* @escapeNotVerified */ echo __('Items %1 to %2 of %3 total', $block->getFirstNum(), $block->getLastNum(), $block->getTotalNum()) ?>
+                    <?php elseif ($block->getTotalNum() == 1): ?>
+                        <?php /* @escapeNotVerified */ echo __('%1 Item', $block->getTotalNum()) ?>
+                    <?php else: ?>
+                        <?php /* @escapeNotVerified */ echo __('%1 Item(s)', $block->getTotalNum()) ?>
+                    <?php endif; ?>
+                </p>
+            </div>
+        <?php endif; ?>
+
+        <?php if ($block->isShowPerPage()): ?>
+            <div class="dashboard-toolbar__limiter grid__column grid__column--1-2">
+                <span class="dashboard-toolbar__amount-info">
+                    <?php /* @escapeNotVerified */ echo __('Show') ?>
+                </span>
+
+                <div class="select dashboard-toolbar__select">
+                    <select id="limiter" 
+                            data-mage-init='
+                                {
+                                    "redirectUrl": {"event":"change"},
+                                    "select"     : {}
+                                }
+                            ' 
+                            class="select__field"
+                    >
+                        <?php foreach ($block->getAvailableLimit() as $_key => $_limit): ?>
+                            <option value="<?php /* @escapeNotVerified */ echo $block->getLimitUrl($_key) ?>"
+                                    <?php if ($block->isLimitCurrent($_key)): ?>
+                                        selected
+                                    <?php endif; ?>
+                            >
+                                <?php /* @escapeNotVerified */ echo $_limit ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
+                <span class="dashboard-toolbar__amount-info">
+                    <?php /* @escapeNotVerified */ echo __('per page') ?>
+                </span>
+            </div>
+        <?php endif; ?>
+
+        <?php if ($block->getLastPageNum()>1): ?>
+            <div class="pager dashboard-toolbar__pager grid__column">
+                <ul class="pager__list" aria-labelledby="paging-label">
+                    <?php if (!$block->isFirstPage()): ?>
+                        <li class="pager__item">
+                            <?php $text = $block->getAnchorTextForPrevious() ? $block->getAnchorTextForPrevious() : '';?>
+
+                            <a class="<?php /* @escapeNotVerified */ echo $text ? 'link ' : 'action '?> pager__link previous" 
+                               href="<?php /* @escapeNotVerified */ echo $block->getPreviousPageUrl() ?>" 
+                               title="<?php /* @escapeNotVerified */ echo $text ? $text : __('Previous') ?>"
+                            >
+                                <svg class="pager__icon">
+                                    <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#arrow-left'); ?>"></use>
+                                </svg>
+                            </a>
+                        </li>
+                    <?php endif; ?>
+
+                    <?php if ($block->canShowFirst()): ?>
+                        <li class="pager__item">
+                            <a class="pager__link link" href="<?php /* @escapeNotVerified */ echo $block->getFirstPageUrl() ?>">
+                                1
+                            </a>
+                        </li>
+                    <?php endif; ?>
+
+                    <?php if ($block->canShowPreviousJump()): ?>
+                        <li class="pager__item">
+                            <a class="pager__link link" title="" href="<?php /* @escapeNotVerified */ echo $block->getPreviousJumpUrl() ?>">
+                                <span>...</span>
+                            </a>
+                        </li>
+                    <?php endif; ?>
+
+                    <?php foreach ($block->getFramePages() as $_page): ?>
+                        <?php if ($block->isPageCurrent($_page)): ?>
+                            <li class="pager__item pager__item--current">
+                                <?php /* @escapeNotVerified */ echo $_page ?>
+                            </li>
+                        <?php else: ?>
+                            <li class="pager__item">
+                                <a href="<?php /* @escapeNotVerified */ echo $block->getPageUrl($_page) ?>" class="pager__link link">
+                                    <?php /* @escapeNotVerified */ echo $_page ?>
+                                </a>
+                            </li>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+
+                    <?php if ($block->canShowNextJump()): ?>
+                        <li class="pager__item">
+                            <a class="pager__link link" title="" href="<?php /* @escapeNotVerified */ echo $block->getNextJumpUrl() ?>">
+                                <span>...</span>
+                            </a>
+                        </li>
+                    <?php endif; ?>
+
+                    <?php if ($block->canShowLast()): ?>
+                    <li class="pager__item">
+                        <a class="pager__link link" href="<?php /* @escapeNotVerified */ echo $block->getLastPageUrl() ?>">
+                            <?php /* @escapeNotVerified */ echo $block->getLastPageNum() ?>
+                        </a>
+                    </li>
+                    <?php endif; ?>
+
+                    <?php if (!$block->isLastPage()): ?>
+                        <li class="pager__item">
+                            <?php $text = $block->getAnchorTextForNext() ? $block->getAnchorTextForNext() : '';?>
+                            <a class="<?php /* @escapeNotVerified */ echo $text ? 'link ' : 'action '?> pager__link next" 
+                               href="<?php /* @escapeNotVerified */ echo $block->getNextPageUrl() ?>" 
+                               title="<?php /* @escapeNotVerified */ echo $text ? $text : __('Next') ?>"
+                            >
+                                <svg class="pager__icon">
+                                    <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#arrow-right'); ?>"></use>
+                                </svg>
+                            </a>
+                        </li>
+                    <?php endif; ?>
+                </ul>
+            </div>
+        <?php endif; ?>
+
+    <?php if ($block->getUseContainer()): ?>
+        </div>
+    <?php endif; ?>
+<?php endif; ?>

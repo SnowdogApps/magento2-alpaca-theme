@@ -1,0 +1,35 @@
+<?php
+/** @var $block \Snowdog\SolrNavigation\Block\Product\Toolbar */
+?>
+
+<?php if ($block->getResponse()->getItemsFound()): ?>
+    <div
+        class="toolbar"
+        data-url="<?= $this->getPagerUrl(); ?>"
+        data-mage-init='{
+            "toolbar": {
+                "url":  "<?= $this->getPagerUrl(); ?>"
+            }
+        }'
+    >
+        <?php include($block->getTemplateFile('Snowdog_SolrNavigation::product/list/toolbar/view-switcher.phtml')); ?>
+        <?php include($block->getTemplateFile('Snowdog_SolrNavigation::product/list/toolbar/sorter.phtml')); ?>
+        <div class="toolbar__amount">
+            <span class="toolbar__amount-content">
+                <?php if ($block->getLastPageNum() > 1): ?>
+                    <?= /* @escapeNotVerified */ __(
+                        'Items %1 - %2 of %3',
+                        $block->getFirstNum(),
+                        $block->getLastNum(),
+                        $block->getTotalNum()
+                    ) ?>
+                <?php elseif ($block->getTotalNum() == 1): ?>
+                    <?= /* @escapeNotVerified */ __('%1 Item', $block->getTotalNum()) ?>
+                <?php else: ?>
+                    <?= /* @escapeNotVerified */ __('%1 Items', $block->getTotalNum()) ?>
+                <?php endif; ?>
+            </span>
+        </div>
+        <?php include($block->getTemplateFile('Snowdog_SolrNavigation::product/list/toolbar/limiter.phtml')); ?>
+    </div>
+<?php endif ?>

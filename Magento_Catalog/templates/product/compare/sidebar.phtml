@@ -1,0 +1,79 @@
+<div class="sidebar-nav-list"
+     data-bind="scope: 'compareProducts'"
+     data-role="compare-products-sidebar"
+>
+    <div class="block-title">
+        <strong id="block-compare-heading" role="heading" aria-level="2">
+            <?= /* @escapeNotVerified */ __('Compare Products') ?>
+        </strong>
+
+        <span class="counter qty no-display"
+              data-bind="
+                  text: compareProducts().countCaption,
+                  css: { 'no-display': !compareProducts().count }
+              "
+        ></span>
+    </div>
+
+    <!-- ko if: compareProducts().count -->
+        <div class="block-content no-display"
+             aria-labelledby="block-compare-heading"
+             data-bind="css: {'no-display': !compareProducts().count}"
+        >
+            <ol id="compare-items"
+                class="list sidebar-nav-list__list"
+                data-bind="foreach: compareProducts().items"
+            >
+                <li class="list__item">
+                    <input type="hidden" class="compare-item-id" data-bind="value: id" />
+
+                    <strong class="sidebar-nav-list__link">
+                        <a data-bind="attr: {href: product_url}, html: name"
+                           class="product-item-link"
+                        ></a>
+                    </strong>
+
+                    <a href="#"
+                       data-bind="attr: {'data-post': remove_url}"
+                       title="<?= /* @escapeNotVerified */ __('Remove This Item') ?>"
+                       class="link action"
+                    >
+                        <?= /* @escapeNotVerified */ __('Remove This Item') ?>
+                    </a>
+                </li>
+            </ol>
+
+            <div class="action">
+                <div class="action__handler">
+                    <a data-bind="attr: {'href': compareProducts().listUrl}"
+                       class="link action__link"
+                    >
+                        <?= /* @escapeNotVerified */ __('Compare') ?>
+                    </a>
+
+                    <a id="compare-clear-all"
+                       href="#"
+                       class="link action__link"
+                       data-post="<?= $block->escapeHtml($this->helper('Magento\Catalog\Helper\Product\Compare')->getPostDataClearList()) ?>"
+                    >
+                        <?= /* @escapeNotVerified */ __('Clear All') ?>
+                    </a>
+                </div>
+            </div>
+        </div>
+    <!-- /ko -->
+
+    <!-- ko ifnot: compareProducts().count -->
+        <div class="message empty">
+            <?= /* @escapeNotVerified */ __('You have no items to compare.') ?>
+        </div>
+    <!-- /ko -->
+</div>
+
+<script type="text/x-magento-init">
+    {
+        "[data-role=compare-products-sidebar]": {
+            "Magento_Ui/js/core/app": <?= /* @escapeNotVerified */ $block->getJsLayout() ?>
+        }
+    }
+</script>
