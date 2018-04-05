@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.2.1] - 2018-04-05
+### Fixed
+- Version in `composer.json`
+
 ## [0.2.0] - 2018-04-05
 ### Added
  - on dashboard order view - links to invoices, shipments and crmemo lists
