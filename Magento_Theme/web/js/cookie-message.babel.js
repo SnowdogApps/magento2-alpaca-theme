@@ -3,7 +3,6 @@
 class CookieMessage {
   constructor(wrapper) {
     this.cookies = wrapper;
-    console.log(this.cookies);
     this.closing = wrapper.querySelectorAll('.cookie-message__close');
 
     this.init();
