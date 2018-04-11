@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+## [0.2.1] - 2018-04-05
+### Fixed
+- Version in `composer.json`
+
+## [0.2.0] - 2018-04-05
 ### Added
  - Product page added
  - Swatches in product page
@@ -13,10 +19,16 @@ All notable changes to this project will be documented in this file.
  - Newsletter module styles
  - Social links
  - Login page
- - Minicart
+ - Mini cart
+ - Forgot password page
+ - Catalog (without solr)
+ - Templates for mega menu and side menu
 
- ### Changed
+### Changed
   - registration form to fit new components
+  - homepage container
+  - header borders
+  - captcha appearance
 
 ## [0.1.2] - 2017-10-10
 ### Added

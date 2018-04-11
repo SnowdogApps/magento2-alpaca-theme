@@ -1,0 +1,36 @@
+<?php
+use Magento\Catalog\Model\Product\ProductList\Toolbar;
+?>
+<?php if ($block->isEnabledViewSwitcher()): ?>
+    <div class="toolbar__mode">
+        <?php $_modes = $block->getModes() ?>
+        <?php if ($_modes && count($_modes) > 1): ?>
+            <?php foreach ($block->getModes() as $_code => $_label):
+                $_modeName    = strtolower($_code);
+                $_modeIconUrl = 'images/icons-sprite.svg#' . $_modeName;
+            ?>
+                <button
+                    type="button"
+                    class="toolbar__mode-button"
+                    data-value="<?= $_modeName ?>"
+                    title="<?= $_label ?>"
+                    aria-label="<?= $_label ?>"
+                    <?php if (!$block->isModeActive($_code)): ?>
+                        id="mode-<?= $_modeName ?>"
+                        data-role="mode-switcher"
+                    <?php endif ?>
+                >
+                    <svg
+                        class="
+                            icon
+                            toolbar__mode-icon
+                            <?= ($block->isModeActive($_code)) ? 'toolbar__mode-icon--active' : '' ?>
+                        "
+                    >
+                        <use xlink:href="<?= $block->getViewFileUrl($_modeIconUrl) ?>"></use>
+                    </svg>
+                </button>
+            <?php endforeach ?>
+        <?php endif ?>
+    </div>
+<?php endif ?>

@@ -1,0 +1,22 @@
+<?php /** @var \Snowdog\Menu\Block\NodeType\CmsPage $block */ ?>
+<?php
+    $nodeId = $block->getId();
+    $class = $block->getMenuClass();
+    $pageUrl = $block->getPageUrl($nodeId);
+    $pageUrl = $pageUrl ?: '#';
+    $dataAttribute = '';
+
+    $classLink = $block->getIsRoot() ? $class . '__link' : $class . '__inner-link';
+    $title = $block->getTitle();
+
+    if ($nodeId) {
+        $dataAttribute = ' data-menu="menu-' . $nodeId . '"';
+    }
+
+    if ($block->isCurrentPage($nodeId)) {
+        $classLink .= ' current';
+    }
+?>
+<a href="<?= $pageUrl ?>" class="<?= $classLink ?>"<?= $dataAttribute ?>>
+    <?= $title ?>
+</a>
