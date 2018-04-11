@@ -1,0 +1,114 @@
+<?php /* @var $block \Magento\Downloadable\Block\Catalog\Product\Links */ ?>
+<?php $_linksPurchasedSeparately = $block->getLinksPurchasedSeparately(); ?>
+
+<?php if ($block->getProduct()->isSaleable() && $block->hasLinks()):?>
+    <?php $_links = $block->getLinks(); ?>
+    <?php $_linksLength = 0; ?>
+    <?php $_isRequired = $block->getLinkSelectionRequired(); ?>
+
+    <div
+        class="
+            input
+            downloads
+            <?php if ($_isRequired) echo ' required' ?>
+            <?php if (!$_linksPurchasedSeparately) echo ' downloads-no-separately' ?>
+        "
+    >
+        <label class="product-view__swatch-option-title">
+            <?= /* @escapeNotVerified */ $block->getLinksTitle() ?>
+        </label>
+
+        <div
+            class="control"
+            id="downloadable-links-list"
+            data-mage-init='{
+                "downloadable": {
+                    "linkElement": "input:checkbox[value]",
+                    "allElements": "#links-all",
+                    "config":<?= /* @escapeNotVerified */ $block->getJsonConfig() ?>
+                }
+            }'
+            data-container-for="downloadable-links"
+        >
+            <?php foreach ($_links as $_link): ?>
+                <?php $_linksLength++; ?>
+
+                <?php if ($_linksPurchasedSeparately): ?>
+                    <div class="checkbox" data-role="link">
+                        <input
+                            type="checkbox"
+                            <?php if ($_isRequired): ?>
+                                data-validate="{ 'validate-one-checkbox-required-by-name': 'downloadable-links-list' }"
+                            <?php endif; ?>
+                            name="links[]"
+                            class="checkbox__field"
+                            id="links-<?= /* @escapeNotVerified */ $_link->getId() ?>"
+                            value="<?= /* @escapeNotVerified */ $_link->getId() ?>"
+                            <?= /* @escapeNotVerified */ $block->getLinkCheckedValue($_link) ?>
+                        />
+
+                        <svg class="checkbox__icon">
+                            <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#checked'); ?>"></use>
+                        </svg>
+
+                        <label class="checkbox__label" for="links-<?= /* @escapeNotVerified */ $_link->getId() ?>">
+                            <?= $block->escapeHtml($_link->getTitle()) ?>
+
+                            <?php if ($_link->getSampleFile() || $_link->getSampleUrl()): ?>
+                                <a
+                                    class="link"
+                                    href="<?= /* @escapeNotVerified */ $block->getLinkSampleUrl($_link) ?>"
+                                    <?= $block->getIsOpenInNewWindow() ? 'target="_blank"' : '' ?>
+                                >
+                                    <?= /* @escapeNotVerified */ __('sample') ?>
+                                </a>
+                            <?php endif; ?>
+
+                            <?php if ($_linksPurchasedSeparately): ?>
+                                <?= /* @escapeNotVerified */ $block->getLinkPrice($_link) ?>
+                            <?php endif; ?>
+                        </label>
+                    </div>
+                <?php else: ?>
+                    <p>
+                        <?= $block->escapeHtml($_link->getTitle()) ?>
+
+                        <?php if ($_link->getSampleFile() || $_link->getSampleUrl()): ?>
+                            <a
+                                class="link"
+                                href="<?= /* @escapeNotVerified */ $block->getLinkSampleUrl($_link) ?>"
+                                <?= $block->getIsOpenInNewWindow() ? 'target="_blank"' : '' ?>
+                            >
+                                <?= /* @escapeNotVerified */ __('sample') ?>
+                            </a>
+                        <?php endif; ?>
+                    </p>
+                <?php endif; ?>
+            <?php endforeach; ?>
+
+            <?php if ($_linksPurchasedSeparately && $_linksLength > 1): ?>
+                <div class="checkbox">
+                    <input
+                        type="checkbox"
+                        class="checkbox__field"
+                        data-notchecked="<?= /* @escapeNotVerified */ __('Select all') ?>"
+                        data-checked="<?= /* @escapeNotVerified */ __('Unselect all') ?>"
+                        id="links-all"
+                    />
+
+                    <svg class="checkbox__icon">
+                        <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#checked'); ?>"></use>
+                    </svg>
+
+                    <label class="checkbox__label" for="links-all">
+                        <?= /* @escapeNotVerified */ __('Select all') ?>
+                    </label>
+                </div>
+            <?php endif; ?>
+        </div>
+
+        <?php if ($_isRequired): ?>
+            <span id="links-advice-container"></span>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>
