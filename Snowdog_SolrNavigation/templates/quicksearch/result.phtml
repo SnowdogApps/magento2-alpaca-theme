@@ -1,4 +1,5 @@
-<?php
+<?php use Snowdog\CatalogImage\Helper\Data;
+
 /** @var \Snowdog\SolrNavigation\Block\QuickSearch\Result $this */
 $response = $this->getResponse();
 $categoryFacet = $response->getFacets('category');
@@ -42,18 +43,21 @@ $products = $response->getDocuments();
                                 <?= $product['name_static'] ?>
                             </h3>
                         </a>
-                        <div class="price">
+                        <!-- TODO: Add product prices -->
+                        <!-- <div class="price">
                             <span class="price__value price__value--old">
                                 $1 400.00
                             </span>
                             <span class="price__value price__value--special">
                                 $1 299.99
                             </span>
-                        </div>
+                        </div> -->
                     </div>
                 </li>
             <?php endforeach ?>
         </ul>
+    <?php else: ?>
+        <?= /* @escapeNotVerified */ __('No search results found.') ?>
     <?php endif ?>
 
     <?php if (!empty($categoryFacet) || !empty($manufacturerFacet)): ?>
@@ -72,7 +76,7 @@ $products = $response->getDocuments();
                                     class="link link--invert quicksearch__link"
                                 >
                                     <h3 class="quicksearch__name">
-                                        <?= implode(" > ", $categoryInfo['name_path']) ?>
+                                        <?= implode(" &raquo; ", $categoryInfo['name_path']) ?>
                                     </h3>
                                 </a>
                                 <?= /* @escapeNotVerified */ $categoryCount ?>
@@ -114,4 +118,4 @@ $products = $response->getDocuments();
     >
         <?= /* @escapeNotVerified */ __('See All') ?>
     </a>
-<? endif ?>
+<?php endif ?>
