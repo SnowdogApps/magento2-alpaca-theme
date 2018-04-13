@@ -1,0 +1,74 @@
+<?php
+// @codingStandardsIgnoreFile
+
+/** @var Magento\Review\Block\Product\View\ListView $block */
+
+$_items = $block->getReviewsCollection()->getItems();
+$format = $block->getDateFormat() ?: \IntlDateFormatter::SHORT;
+$urlForm = $block->getReviewsUrl() . '#review-form';
+?>
+
+<?php if (count($_items)): ?>
+    <p class="product-view__review-title">
+        <?= $block->escapeHtml(__('Customer Reviews')) ?>
+    </p>
+
+    <div class="product-view__wrapper">
+        <?php foreach ($_items as $_review):?>
+            <div
+                class="product-view__review-item grid"
+                itemscope
+                itemprop="review"
+                itemtype="http://schema.org/Review"
+            >
+                <div class="grid__column grid__column--1-5 product-view__review-details">
+                    <p class="product-view__review-author" itemprop="author">
+                        <?= $block->escapeHtml($_review->getNickname()) ?>
+                    </p>
+
+                    <p
+                        class="product-view__review-date"
+                        itemprop="datePublished"
+                        datetime="<?= $block->escapeHtmlAttr($block->formatDate($_review->getCreatedAt(), $format)) ?>"
+                    >
+                        <?= $block->escapeHtml($block->formatDate($_review->getCreatedAt(), $format)) ?>
+                    </p>
+
+                    <?php if (count($_review->getRatingVotes())): ?>
+                        <?php foreach ($_review->getRatingVotes() as $_vote): ?>
+                            <div
+                                class="rating"
+                                itemprop="reviewRating"
+                                itemscope
+                                itemtype="http://schema.org/Rating"
+                            >
+                                <meta itemprop="worstRating" content="1"/>
+
+                                <meta itemprop="bestRating" content="100"/>
+
+                                <div
+                                    class="rating__star"
+                                    style="width:<?= /* @escapeNotVerified */ $block->escapeHtmlAttr($_vote->getPercent()); ?>%"
+                                >
+                                    <span class="rating__indicator "></span>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </div>
+
+                <div class="grid__column grid__column--4-5 product-view__review-content" itemprop="description">
+                    <p class="product-view__review-content-title" itemprop="name">
+                        <?= $block->escapeHtml($_review->getTitle()) ?>
+                    </p>
+
+                    <p class="product-view__review-content-text">
+                        <?= nl2br($block->escapeHtml($_review->getDetail())) ?>
+                    </p>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+
+    <?= $block->getChildHtml('toolbar') ?>
+<?php endif;?>

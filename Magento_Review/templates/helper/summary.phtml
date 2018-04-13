@@ -4,48 +4,39 @@
 <?php if ($block->getReviewsCount()): ?>
     <?php $rating = $block->getRatingSummary(); ?>
 
-    <div class="review dashboard__item <?= /* @escapeNotVerified */ !$rating ? ' no-rating' : ''?>" 
-         itemprop="aggregateRating" 
-         itemscope 
+    <div class="product-view__rating-rates <?= /* @escapeNotVerified */ !$rating ? ' no-rating' : ''?>"
+         itemprop="aggregateRating"
+         itemscope
          itemtype="http://schema.org/AggregateRating"
     >
-        <?php if ($rating):?>
-            <div class="review__divider">
-                <span class="review__description">
-                    <?= /* @escapeNotVerified */  __('Average Customer Rating:') ?>
-                </span>
-
-                <div class="rating__summary" title="<?= /* @escapeNotVerified */  $rating; ?>%">
-                    <span class="rating__fill" style="width:<?= /* @escapeNotVerified */  $rating; ?>%">
-                        <span>
-                            <?= /* @escapeNotVerified */  $rating; ?>%
-                        </span>
-                    </span>
+        <?php if ($rating): ?>
+            <div class="rating">
+                <div class="rating__star" style="width:<?= /* @escapeNotVerified */  $rating; ?>%">
+                    <span class="rating__indicator"></span>
                 </div>
             </div>
-        <?php endif;?>
-        
-        <div class="review__divider action">
-            <div class="action__handler">
-                <a class="link view" href="<?= /* @escapeNotVerified */  $url ?>">
-                    <?= /* @escapeNotVerified */ $block->getReviewsCount() ?>
-                    <?= /* @escapeNotVerified */ ($block->getReviewsCount() == 1) ? __('Review') : __('Reviews') ?>
-                </a>
-            </div>
 
-            <div class="action__handler">
-                <a class="link add" href="<?= /* @escapeNotVerified */  $urlForm ?>">
-                    <?= /* @escapeNotVerified */  __('Add Your Review') ?>
-                </a>
-            </div>
-        </div>
+            <span class="product-view__link product-view__link--rating">
+                (<?= $block->getReviewsCount() ?>)
+            </span>
+        <?php endif; ?>
+    </div>
+
+    <div class="product-view__rating-actions">
+        <a
+            class="product-view__link product-view__link--add-review"
+            href="<?= /* @escapeNotVerified */  $urlForm ?>"
+        >
+            <?= /* @escapeNotVerified */  __('Add Your Review') ?>
+        </a>
     </div>
 <?php elseif ($block->getDisplayIfEmpty()): ?>
-    <div class="review__divider empty">
-        <div class="reviews-actions">
-            <a class="action add" href="<?= /* @escapeNotVerified */  $urlForm; ?>">
-                <?= /* @escapeNotVerified */  __('Be the first to review this product') ?>
-            </a>
-        </div>
+    <div class="product-view__rating-actions">
+        <a
+            class="product-view__link product-view__link--add-review"
+            href="<?= /* @escapeNotVerified */  $urlForm; ?>"
+        >
+            <?= /* @escapeNotVerified */  __('Be the first to review this product') ?>
+        </a>
     </div>
 <?php endif; ?>

@@ -1,0 +1,29 @@
+<?php
+/**
+ * Downloadable product links
+ *
+ * @var $block \Magento\Downloadable\Block\Catalog\Product\Samples
+ */
+?>
+
+<?php if ($block->hasSamples()): ?>
+    <dl class="list list--description">
+        <dt class="list__label">
+            <?= /* @escapeNotVerified */ $block->getSamplesTitle() ?>
+        </dt>
+
+        <?php $_samples = $block->getSamples() ?>
+
+        <?php foreach ($_samples as $_sample): ?>
+            <dd class="list__value">
+                <a
+                    href="<?= /* @escapeNotVerified */ $block->getSampleUrl($_sample) ?>"
+                    <?= $block->getIsOpenInNewWindow() ? 'onclick="this.target=\'_blank\'"' : '' ?>
+                    class="link"
+                >
+                    <?= $block->escapeHtml($_sample->getTitle()) ?>
+                </a>
+            </dd>
+        <?php endforeach; ?>
+    </dl>
+<?php endif; ?>
