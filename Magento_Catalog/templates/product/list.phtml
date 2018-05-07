@@ -32,7 +32,14 @@ use Magento\Framework\App\Action\Action;
     <?php /** @var $_product \Magento\Catalog\Model\Product */ ?>
     <?php if($viewMode === 'products-list'): ?>
         <?php foreach ($_productCollection as $_product): ?>
-            <section class="catalog-list-item catalog-list__item">
+            <section
+                class="
+                    catalog-list-item
+                    catalog-list__item
+                    product-item
+                    product-item-info
+                "
+            >
                 <?php $productImage = $block->getImage($_product, $imageDisplayArea) ?>
                 <a
                     href="<?= /* @escapeNotVerified */ $block->getProductUrl($_product) ?>"
@@ -68,6 +75,9 @@ use Magento\Framework\App\Action\Action;
                             </span>
                         </div>
                     </div>
+                    <div class="catalog-grid-item__options">
+                        <?= $block->getProductDetailsHtml($_product) ?>
+                    </div>
                     <div class="catalog-list-item__actions">
                         <div class="catalog-list-item__actions-primary">
                             <?php if ($_product->isSaleable()): ?>
@@ -77,11 +87,6 @@ use Magento\Framework\App\Action\Action;
                                     action="<?= /* @escapeNotVerified */ $postParams['action'] ?>"
                                     method="post"
                                 >
-                                    <input
-                                        type="hidden"
-                                        name="product"
-                                        value="<?= /* @escapeNotVerified */ $postParams['data']['product'] ?>"
-                                    >
                                     <input
                                         type="hidden"
                                         name="<?= /* @escapeNotVerified */ Action::PARAM_NAME_URL_ENCODED ?>"
