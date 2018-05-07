@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Added
+- Swatches to list mode in default catalog
+
+### Changed
+- Product images size
 
 ## [0.2.1] - 2018-04-05
 ### Fixed
