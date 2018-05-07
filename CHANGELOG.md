@@ -2,11 +2,14 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+## [0.3.0] - 2018-04-05
 ### Added
 - Swatches to list mode in default catalog
 
 ### Changed
 - Product images size
+- remove <move> entries leading to not existing block in 1column layout
 
 ## [0.2.1] - 2018-04-05
 ### Fixed
