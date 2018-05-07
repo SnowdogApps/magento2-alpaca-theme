@@ -16,7 +16,8 @@ define(['choices'], function(Choices) {
                 input         : 'select__field-input',
                 item          : 'select__field-item',
                 listSingle    : 'select__field-list--single'
-            }
+            },
+            itemSelectText: ''
         };
         options = Object.assign(defaultOptions, options);
         new Choices(select, options);
