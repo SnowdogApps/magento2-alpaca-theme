@@ -535,7 +535,7 @@ define([
               } else if (type === 2) {
                   // Image
                   html += '<div class="' + optionClass + ' image" ' + attr +
-                      ' style="background: url(' + value + ') no-repeat center; background-size: initial;">' + '' +
+                      ' style="background: url(' + value + ') no-repeat center; background-size: cover;">' + '' +
                       '</div>';
               } else if (type === 3) {
                   // Clear
