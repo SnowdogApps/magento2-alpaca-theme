@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Changed
+- Compare products page
 
 ## [0.3.1] - 2018-04-05
 ### Added
