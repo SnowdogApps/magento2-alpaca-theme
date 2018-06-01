@@ -1,5 +1,5 @@
 define(() => (config, element) => {
-  element.addEventListener('click', changeActiveTab());
+  element.addEventListener('click', changeActiveTab);
 
   function changeActiveTab() {
     const element = document.getElementById(config.reviewId);
