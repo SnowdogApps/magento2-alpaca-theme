@@ -1,12 +1,14 @@
 define(() => (config, element) => {
-  element.addEventListener('click', () => {
+  element.addEventListener('click', changeActiveTab());
+
+  function changeActiveTab() {
     const element = document.getElementById(config.reviewId);
 
     if (element) {
       const parentElement = findAncestor(element, 'tab__content');
       setActiveFormTab(parentElement, parentElement.dataset.content);
     }
-  });
+  }
 
   function findAncestor(element, containClass) {
     while ((element = element.parentElement) && !element.classList.contains(containClass));
