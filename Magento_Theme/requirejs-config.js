@@ -25,7 +25,6 @@ var config = {
     }
   },
   deps: [
-    "lory",
-    "slider"
+    "lory"
   ]
 };
