@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - Compare products page
 
+### Fixed
+- Update cart by enter
+
 ## [0.3.1] - 2018-04-05
 ### Added
 - Swatches to list mode in default catalog
