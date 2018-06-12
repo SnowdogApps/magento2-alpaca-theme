@@ -1,0 +1,180 @@
+<?php /* @var $block \Magento\Catalog\Block\Product\Compare\ListCompare */ ?>
+<?php $_total = $block->getItems()->getSize() ?>
+<?php if ($_total): ?>
+    <div class="container">
+        <div class="compare">
+            <table
+                class="compare__table"
+                id="product-comparison"
+                data-mage-init='{
+                    "compareList": {
+                        "windowPrintSelector": ".action.print",
+                        "productsInRow": "5",
+                        "selectors": {
+                            "productAddToCartSelector": "button.action.tocart"
+                        }
+                    }
+                }'
+            >
+                <thead>
+                    <tr>
+                        <?php $_i = 0; ?>
+                        <?php $_helper = $this->helper('Magento\Catalog\Helper\Output'); ?>
+                        <?php /** @var $_item \Magento\Catalog\Model\Product */ ?>
+                        <?php foreach ($block->getItems() as $_item): ?>
+                            <?php if ($_i++ === 0): ?>
+                                <th
+                                    scope="row"
+                                    class="compare__label"
+                                >
+                                    <?= /* @escapeNotVerified */ __('Product') ?>
+                                </th>
+                            <?php endif; ?>
+                            <td
+                                data-th="<?= $block->escapeHtml(__('Product')) ?>"
+                                class="compare__cell"
+                            >
+                                <div class="compare__product">
+                                    <a
+                                        class="compare__link"
+                                        href="<?= /* @escapeNotVerified */ $block->getProductUrl($_item) ?>"
+                                        title="<?= /* @escapeNotVerified */ $block->stripTags($_item->getName(), null, true) ?>"
+                                    >
+                                        <?= $block->getImage($_item, 'product_comparison_list')->toHtml() ?>
+                                    </a>
+                                    <a
+                                        class="compare__link"
+                                        href="<?= /* @escapeNotVerified */ $block->getProductUrl($_item) ?>"
+                                        title="<?= /* @escapeNotVerified */ $block->stripTags($_item->getName(), null, true) ?>"
+                                    >
+                                        <?= /* @escapeNotVerified */ $_helper->productAttribute($_item, $_item->getName(), 'name') ?>
+                                    </a>
+                                    <div class="rating compare__rating">
+                                        <?= $block->getReviewsSummaryHtml($_item, 'short') ?>
+                                    </div>
+                                    <?= /* @escapeNotVerified */ $block->getProductPrice($_item) ?>
+                                    <div class="compare__buttons-container">
+                                        <?php if ($_item->isSaleable()): ?>
+                                            <form
+                                                class="compare__form"
+                                                data-role="tocart-form"
+                                                action="<?= /* @escapeNotVerified */ $this->helper('Magento\Catalog\Helper\Product\Compare')->getAddToCartUrl($_item) ?>"
+                                                method="post"
+                                            >
+                                                <?= $block->getBlockHtml('formkey') ?>
+                                                <button
+                                                    type="submit"
+                                                    class="
+                                                        action
+                                                        tocart
+                                                        button
+                                                        button--secondary
+                                                        compare__cart
+                                                    "
+                                                    title="<?= /* @escapeNotVerified */ __('Add to Cart') ?>"
+                                                    aria-label="<?= /* @escapeNotVerified */ __('Add to Cart') ?>"
+                                                >
+                                                    <span class="compare__cart-text">
+                                                        <?= /* @escapeNotVerified */ __('Add to Cart') ?>
+                                                    </span>
+                                                    <svg class="icon compare__cart-icon">
+                                                        <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#shopping-cart') ?>"></use>
+                                                    </svg>
+                                                </button>
+                                            </form>
+                                        <?php else: ?>
+                                            <?php if ($_item->getIsSalable()): ?>
+                                                <?= /* @escapeNotVerified */ __('In stock') ?>
+                                            <?php else: ?>
+                                                <?= /* @escapeNotVerified */ __('Out of stock') ?>
+                                            <?php endif; ?>
+                                        <?php endif; ?>
+                                        <div class="compare__secondary-buttons">
+                                            <?php if ($this->helper('Magento\Wishlist\Helper\Data')->isAllow()) : ?>
+                                                <div data-role="add-to-links">
+                                                    <button
+                                                        class="action towishlist button button--icon compare__wishlist"
+                                                        type="button"
+                                                        data-post='<?= /* @escapeNotVerified */ $block->getAddToWishlistParams($_item) ?>'
+                                                        data-action="add-to-wishlist"
+                                                        title="<?= /* @escapeNotVerified */ __('Add to Wish List') ?>"
+                                                        aria-label="<?= /* @escapeNotVerified */ __('Add to Wish List') ?>"
+                                                    >
+                                                        <svg class="button__icon compare__wishlist-icon">
+                                                            <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#heart') ?>"></use>
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                            <?php endif; ?>
+                                            <?php $compareHelper = $this->helper('Magento\Catalog\Helper\Product\Compare');?>
+                                            <button
+                                                type="button"
+                                                data-post='<?= /* @escapeNotVerified */ $compareHelper->getPostDataRemove($_item) ?>'
+                                                class="action delete button button--icon compare__remove"
+                                                title="<?= /* @escapeNotVerified */ __('Remove from Compare') ?>"
+                                                aria-label="<?= /* @escapeNotVerified */ __('Remove from Compare') ?>"
+                                            >
+                                                <svg class="button__icon compare__remove-icon">
+                                                    <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#remove') ?>"></use>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        <?php endforeach; ?>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <?php foreach ($block->getAttributes() as $_attribute): ?>
+                        <tr>
+                            <?php $_i = 0 ?>
+                            <?php foreach ($block->getItems() as $_item): ?>
+                                <?php if ($_i++ === 0): ?>
+                                    <th
+                                        scope="row"
+                                        class="compare__label"
+                                    >
+                                        <?= $block->escapeHtml($_attribute->getStoreLabel() ? $_attribute->getStoreLabel() : __($_attribute->getFrontendLabel())) ?>
+                                    </th>
+                                <?php endif; ?>
+                                <td class="compare__cell">
+                                    <?php switch ($_attribute->getAttributeCode()) {
+                                        case "price": ?>
+                                            <?=
+                                                /* @escapeNotVerified */ $block->getProductPrice(
+                                                    $_item,
+                                                    '-compare-list-' . $_attribute->getCode()
+                                                )
+                                            ?>
+                                            <?php break;
+                                        case "small_image": ?>
+                                            <?php $block->getImage($_item, 'product_small_image')->toHtml(); ?>
+                                            <?php break;
+                                        default: ?>
+                                            <?= /* @escapeNotVerified */ $_helper->productAttribute($_item, $block->getProductAttributeValue($_item, $_attribute), $_attribute->getAttributeCode()) ?>
+                                        <?php break;
+                                    } ?>
+                                </td>
+                            <?php endforeach; ?>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <?php if (!$block->isRedirectToCartEnabled()) : ?>
+        <script type="text/x-magento-init">
+        {
+            "[data-role=tocart-form]": {
+                "catalogAddToCart": {}
+            }
+        }
+        </script>
+    <?php endif; ?>
+<?php else: ?>
+    <div class="message info empty">
+        <?= /* @escapeNotVerified */ __('You have no items to compare.') ?>
+    </div>
+<?php endif; ?>
