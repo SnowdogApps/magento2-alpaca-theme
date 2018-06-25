@@ -1021,8 +1021,13 @@ define([
                   .addClass($widget.options.classes.loader);
           } else {
               //Category View
-              $this.parents('.product-item-info').find('.product-image-photo')
-                  .addClass($widget.options.classes.loader);
+              $this.parents('.product-item-info')
+                  .find('.lazyload-wrapper')
+                  .append(`
+                    <div class="loader loader--visible">
+                      <div class="loader__circle"></div>
+                    </div>
+                  `);
           }
       },
 
@@ -1040,8 +1045,7 @@ define([
                   .removeClass($widget.options.classes.loader);
           } else {
               //Category View
-              $this.parents('.product-item-info').find('.product-image-photo')
-                  .removeClass($widget.options.classes.loader);
+              $this.parents('.product-item-info').find('.loader').remove();
           }
       },
 
