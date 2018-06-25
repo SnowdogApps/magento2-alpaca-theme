@@ -1223,7 +1223,9 @@ define([
                   parentInput.val(optionId);
                   parentInput.trigger('change');
               } else {
+                setTimeout(() => {
                   elem.trigger('click');
+                }, 300);
               }
           }, this));
       },
