@@ -4,9 +4,13 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Changed
 - Compare products page
+- Swatch option loader
+- Update cart button in product edit
 
 ### Fixed
 - Update cart by enter
+- Swatch selecting in product edit
+- Error in solr navigation
 
 ## [0.3.1] - 2018-04-05
 ### Added
