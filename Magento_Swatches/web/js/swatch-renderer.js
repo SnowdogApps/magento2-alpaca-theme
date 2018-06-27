@@ -524,17 +524,17 @@ define([
 
               if (type === 0) {
                   // Text
-                  html += '<div class="' + optionClass + ' text" ' + attr + '>' + (value ? value : label) +
-                      '</div>';
+                  html += '<div class="' + optionClass + ' ' + optionClass + '--text" ' +
+                  attr + '>' + (value ? value : label) + '</div>';
               } else if (type === 1) {
                   // Color
-                  html += '<div class="' + optionClass + ' color" ' + attr +
+                  html += '<div class="' + optionClass + ' ' + optionClass + '--color" ' + attr +
                       ' style="background: ' + value +
                       ' no-repeat center; background-size: initial;">' + '' +
                       '</div>';
               } else if (type === 2) {
                   // Image
-                  html += '<div class="' + optionClass + ' image" ' + attr +
+                  html += '<div class="' + optionClass + ' ' + optionClass + '--image" ' + attr +
                       ' style="background: url(' + value + ') no-repeat center; background-size: cover;">' + '' +
                       '</div>';
               } else if (type === 3) {
@@ -1021,8 +1021,13 @@ define([
                   .addClass($widget.options.classes.loader);
           } else {
               //Category View
-              $this.parents('.product-item-info').find('.product-image-photo')
-                  .addClass($widget.options.classes.loader);
+              $this.parents('.product-item-info')
+                  .find('.lazyload-wrapper')
+                  .append(`
+                    <div class="loader loader--visible">
+                      <div class="loader__circle"></div>
+                    </div>
+                  `);
           }
       },
 
@@ -1040,8 +1045,7 @@ define([
                   .removeClass($widget.options.classes.loader);
           } else {
               //Category View
-              $this.parents('.product-item-info').find('.product-image-photo')
-                  .removeClass($widget.options.classes.loader);
+              $this.parents('.product-item-info').find('.loader').remove();
           }
       },
 
@@ -1219,7 +1223,9 @@ define([
                   parentInput.val(optionId);
                   parentInput.trigger('change');
               } else {
+                setTimeout(() => {
                   elem.trigger('click');
+                }, 300);
               }
           }, this));
       },
