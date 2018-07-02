@@ -12,6 +12,10 @@ All notable changes to this project will be documented in this file.
 - Swatch selecting in product edit
 - Error in solr navigation
 
+## [0.3.3] - 2018-07-02
+### Removed
+- Remove package version from composer.json
+
 ## [0.3.2] - 2018-07-02
 ### Changed
 - snowdog/module-menu version (~2.4.0 to ^2.4.0)
