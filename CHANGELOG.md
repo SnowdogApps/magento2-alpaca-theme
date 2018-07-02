@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.3.2] - 2018-07-02
+### Changed
+- snowdog/module-menu version (~2.4.0 to ^2.4.0)
+
 ## [0.3.1] - 2018-04-05
 ### Added
 - Swatches to list mode in default catalog
