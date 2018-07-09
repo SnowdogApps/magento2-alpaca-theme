@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.3.4] - 2018-07-09
+### Changed
+ - module-alpaca-components version to 0.7.3
+
 ## [0.3.3] - 2018-07-02
 ### Removed
 - Remove package version from composer.json
