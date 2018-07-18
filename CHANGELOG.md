@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file.
 - Update cart by enter
 - Swatch selecting in product edit
 - Error in solr navigation
+- Product gallery
 
 ## [0.3.4] - 2018-07-09
 ### Changed
