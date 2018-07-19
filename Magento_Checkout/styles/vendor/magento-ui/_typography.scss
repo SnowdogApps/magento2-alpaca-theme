@@ -124,62 +124,6 @@
     }
 };
 
-// set adequant heading map
-
-@mixin lib-heading($_heading_level: h1) {
-    $map-type: $heading-default;
-
-    @if $_heading_level == h1 {
-        $map-type: $heading-h1;
-    }
-    @else if $_heading_level == h2 {
-        @if variable-exists(heading-h2) {
-            $map-type: $heading-h2;
-        }
-    }
-    @else if $_heading_level == h3 {
-        @if variable-exists(heading-h3) {
-            $map-type: $heading-h3;
-        }
-    }
-    @else if $_heading_level == h4 {
-        @if variable-exists(heading-h4) {
-            $map-type: $heading-h4;
-        }
-    }
-    @else if $_heading_level == h5 {
-        @if variable-exists(heading-h5) {
-            $map-type: $heading-h5;
-        }
-    }
-    @else if $_heading_level == h6 {
-        @if variable-exists(heading-h6) {
-            $map-type: $heading-h6;
-        }
-    }
-
-    $_font-color   : headings($map-type, color);
-    $_font-size    : headings($map-type, font-size);
-    $_font-family  : headings($map-type, font-family);
-    $_font-weight  : headings($map-type, font-weight);
-    $_line-height  : headings($map-type, line-height);
-    $_font-style   : headings($map-type, font-style);
-    $_margin-top   : headings($map-type, margin-top);
-    $_margin-bottom: headings($map-type, margin-bottom);
-
-    @include lib-typography(
-        $_font-size,
-        $_font-color,
-        $_font-family,
-        $_font-weight,
-        $_line-height,
-        $_font-style
-    );
-
-    margin-top: $font-size__base / 2;
-    margin-bottom: $font-size__base / 2;
-}
-
 //
 //  Base typography
 //  ---------------------------------------------
@@ -249,36 +193,6 @@
 
     dfn {
         font-style: $font-style__emphasis;
-    }
-}
-
-//
-//  Headings
-//  ---------------------------------------------
-
-@mixin lib-typography-headings() {
-    h1 {
-        @include lib-heading(h1);
-    }
-
-    h2 {
-        @include lib-heading(h2);
-    }
-
-    h3 {
-        @include lib-heading(h3);
-    }
-
-    h4 {
-        @include lib-heading(h4);
-    }
-
-    h5 {
-        @include lib-heading(h5);
-    }
-
-    h6 {
-        @include lib-heading(h6);
     }
 }
 
@@ -440,7 +354,6 @@
 
 @mixin lib-typography-all() {
     @include lib-typography__base();
-    @include lib-typography-headings();
     @include lib-typography-links();
     @include lib-typography-lists();
     @include lib-typography-code();
