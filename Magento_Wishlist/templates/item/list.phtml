@@ -3,16 +3,19 @@
 $columns = $block->getColumns();
 ?>
 
-<?php $iterator = 1; ?>
-
 <?php if (count($block->getItems())): ?>
-    <div class="grid wishlist-items">
+    <div class="catalog-list__products wishlist-items">
         <?php foreach ($block->getItems() as $item): ?>
-            <?= /* @escapeNotVerified */
-                ($iterator++ == 1)
-                ? '<div data-row="product-item" class="dashboard__wishlist-item grid__column grid__column--1-3" id="item_' . $item->getId() . '">'
-                : '</div><div class="dashboard__wishlist-item grid__column grid__column--1-3" id="item_' . $item->getId() . '">'
-            ?>
+            <div
+                data-row="product-item"
+                class="
+                    catalog-list-item
+                    catalog-list__item
+                    product-item
+                    product-item-info
+                "
+                id="item_<?= $item->getId(); ?>"
+            >
                 <div class="product dashboard__product">
                     <?php foreach ($columns as $column): ?>
                         <?php
@@ -21,7 +24,7 @@ $columns = $block->getColumns();
                         ?>
                     <?php endforeach; ?>
                 </div>
-            <?= /* @escapeNotVerified */ ($iterator == count($block->getItems())+1) ? '</div>' : '' ?>
+            </div>
         <?php endforeach; ?>
     </div>
 <?php else: ?>
