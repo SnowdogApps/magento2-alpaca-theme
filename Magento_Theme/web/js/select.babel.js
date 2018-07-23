@@ -1,8 +1,8 @@
 define(['choices'], function(Choices) {
   'use strict';
 
-  return function(options, select) {
-    const defaultOptions = {
+  return function(config, select) {
+    const options = {
       placeholder: false,
       searchEnabled: false,
       itemSelectText: '',
@@ -19,7 +19,11 @@ define(['choices'], function(Choices) {
       },
       itemSelectText: ''
     };
-    options = Object.assign(defaultOptions, options);
+    if (config.type === 'number') {
+      options.sortFilter = (a, b) => {
+        return a - b;
+      }
+    }
     new Choices(select, options);
   }
 });
