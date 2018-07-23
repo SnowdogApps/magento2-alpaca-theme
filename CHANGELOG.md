@@ -12,6 +12,9 @@ All notable changes to this project will be documented in this file.
 - Swatch selecting in product edit
 - Error in solr navigation
 - Product gallery
+- Discount in cart
+- Product image size in catalog (solr)
+- Swatch border
 
 ## [0.3.4] - 2018-07-09
 ### Changed
