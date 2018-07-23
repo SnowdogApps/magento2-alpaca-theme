@@ -538,9 +538,9 @@ define([
                   '' + '</div></div>';
               } else if (type === 2) {
                   // Image
-                  html += '<div class="' + optionContainerClass + '"><div class="' + optionClass + '" ' + attr +
-                  ' style="background: url(' + value + ') no-repeat center; background-size: cover;">' + '' +
-                  '</div></div>';
+                  html += '<div class="' + optionContainerClass + '"><div class="' + optionClass +
+                  ' ' + optionClass + '--image' + '" ' + attr +
+                  ' style="background: url(' + value + ')"></div></div>';
               } else if (type === 3) {
                   // Clear
                   html += '<div class="' + optionContainerClass + '"><div class="' + optionClass + '" ' + attr +
