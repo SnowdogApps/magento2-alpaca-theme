@@ -540,7 +540,7 @@ define([
                   // Image
                   html += '<div class="' + optionContainerClass + '"><div class="' + optionClass +
                   ' ' + optionClass + '--image' + '" ' + attr +
-                  ' style="background: url(' + value + ')"></div></div>';
+                  ' style="background-image: url(' + value + ')"></div></div>';
               } else if (type === 3) {
                   // Clear
                   html += '<div class="' + optionContainerClass + '"><div class="' + optionClass + '" ' + attr +
