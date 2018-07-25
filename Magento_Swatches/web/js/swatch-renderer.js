@@ -200,6 +200,7 @@ define([
               attributeOptionsWrapper: 'swatch__wrapper',
               attributeInput: 'swatch-input',
               optionClass: 'swatch__option',
+              optionContainerClass: 'swatch__container',
               selectClass: 'swatch-select',
               moreButton: 'swatch-more',
               loader: 'swatch-option-loading'
@@ -268,8 +269,11 @@ define([
           // tier prise selectors start
           tierPriceTemplateSelector: '#tier-prices-template',
           tierPriceBlockSelector: '[data-role="tier-price-block"]',
-          tierPriceTemplate: ''
+          tierPriceTemplate: '',
           // tier prise selectors end
+
+          // A price label selector
+          normalPriceLabelSelector: '.normal-price .price-label'
       },
 
       /**
@@ -473,6 +477,7 @@ define([
       _RenderSwatchOptions: function (config, controlId) {
           var optionConfig = this.options.jsonSwatchConfig[config.id],
               optionClass = this.options.classes.optionClass,
+              optionContainerClass = this.options.classes.optionContainerClass,
               moreLimit = parseInt(this.options.numberToShow, 10),
               moreClass = this.options.classes.moreButton,
               moreText = this.options.moreButtonText,
@@ -524,25 +529,26 @@ define([
 
               if (type === 0) {
                   // Text
-                  html += '<div class="' + optionClass + ' text" ' + attr + '>' + (value ? value : label) +
-                      '</div>';
+                  html += '<div class="' + optionContainerClass + '"><div class="' + optionClass + '" ' + attr
+                  + '>' + (value ? value : label) + '</div></div>';
               } else if (type === 1) {
                   // Color
-                  html += '<div class="' + optionClass + ' color" ' + attr +
-                      ' style="background: ' + value +
-                      ' no-repeat center; background-size: initial;">' + '' +
-                      '</div>';
+                  html += '<div class="' + optionContainerClass + '"><div class="' + optionClass + '" ' + attr +
+                  ' style="background: ' + value + ' no-repeat center; background-size: initial;">' +
+                  '' + '</div></div>';
               } else if (type === 2) {
                   // Image
-                  html += '<div class="' + optionClass + ' image" ' + attr +
-                      ' style="background: url(' + value + ') no-repeat center; background-size: cover;">' + '' +
-                      '</div>';
+                  html += '<div class="' + optionContainerClass + '"><div class="' + optionClass + '" ' + attr +
+                  ' style="background: url(' + value + ') no-repeat center; background-size: cover;">' + '' +
+                  '</div></div>';
               } else if (type === 3) {
                   // Clear
-                  html += '<div class="' + optionClass + '" ' + attr + '></div>';
+                  html += '<div class="' + optionContainerClass + '"><div class="' + optionClass + '" ' + attr +
+                  '></div></div>';
               } else {
                   // Default
-                  html += '<div class="' + optionClass + '" ' + attr + '>' + label + '</div>';
+                  html += '<div class="' + optionContainerClass + '"><div class="' + optionClass + '" ' + attr +
+                  '>' + label + '</div></div>';
               }
           });
 
@@ -612,8 +618,12 @@ define([
               options = this.options.classes,
               target;
 
-          $widget.element.on('click', '.' + options.optionClass, function () {
+          $widget.element.on('click', '.' + options.optionContainerClass, function () {
               return $widget._OnClick($(this), $widget);
+          });
+
+          $widget.element.on('emulateClick', '.' + options.optionContainerClass, function () {
+              return $widget._OnClick($(this), $widget, 'emulateClick');
           });
 
           $widget.element.on('change', '.' + options.selectClass, function () {
@@ -630,7 +640,7 @@ define([
               if (e.which === 13) {
                   target = $(e.target);
 
-                  if (target.is('.' + options.optionClass)) {
+                  if (target.is('.' + options.optionContainerClass)) {
                       return $widget._OnClick(target, $widget);
                   } else if (target.is('.' + options.selectClass)) {
                       return $widget._OnChange(target, $widget);
@@ -646,9 +656,10 @@ define([
       /**
        * Load media gallery using ajax or json config.
        *
+       * @param {String|undefined} eventName
        * @private
        */
-      _loadMedia: function () {
+      _loadMedia: function (eventName) {
           var $main = this.inProductList ?
                   this.element.parents('.product-item-info') :
                   this.element.parents('.column.main'),
@@ -656,14 +667,14 @@ define([
 
           if (this.options.useAjax) {
               this._debouncedLoadProductMedia();
-          }  else {
+          } else {
               images = this.options.jsonConfig.images[this.getProduct()];
 
               if (!images) {
                   images = this.options.mediaGalleryInitial;
               }
 
-              this.updateBaseImage(images, $main, !this.inProductList);
+              this.updateBaseImage(images, $main, !this.inProductList, eventName);
           }
       },
 
@@ -672,14 +683,16 @@ define([
        *
        * @param {Object} $this
        * @param {Object} $widget
+       * @param {String|undefined} eventName
        * @private
        */
-      _OnClick: function ($this, $widget) {
+      _OnClick: function ($this, $widget, eventName) {
           var $parent = $this.parents('.' + $widget.options.classes.attributeClass),
               $wrapper = $this.parents('.' + $widget.options.classes.attributeOptionsWrapper),
               $label = $parent.find('.' + $widget.options.classes.attributeSelectedOptionLabelClass),
               attributeId = $parent.attr('attribute-id'),
-              $input = $parent.find('.' + $widget.options.classes.attributeInput);
+              $input = $parent.find('.' + $widget.options.classes.attributeInput),
+              $option = $this.find('.' + $widget.options.classes.optionClass);
 
           if ($widget.inProductList) {
               $input = $widget.productForm.find(
@@ -695,14 +708,14 @@ define([
               $parent.removeAttr('option-selected').find('.selected').removeClass('selected');
               $input.val('');
               $label.text('');
-              $this.attr('aria-checked', false);
+              $option.attr('aria-checked', false);
           } else {
-              $parent.attr('option-selected', $this.attr('option-id')).find('.selected').removeClass('selected');
-              $label.text($this.attr('option-label'));
-              $input.val($this.attr('option-id'));
+              $parent.attr('option-selected', $option.attr('option-id')).find('.selected').removeClass('selected');
+              $label.text($option.attr('option-label'));
+              $input.val($option.attr('option-id'));
               $input.attr('data-attr-name', this._getAttributeCodeById(attributeId));
               $this.addClass('selected');
-              $widget._toggleCheckedAttributes($this, $wrapper);
+              $widget._toggleCheckedAttributes($option, $wrapper);
           }
 
           $widget._Rebuild();
@@ -713,7 +726,7 @@ define([
               $widget._UpdatePrice();
           }
 
-          $widget._loadMedia();
+          $widget._loadMedia(eventName);
           $input.trigger('change');
       },
 
@@ -739,7 +752,7 @@ define([
        */
       _toggleCheckedAttributes: function ($this, $wrapper) {
           $wrapper.attr('aria-activedescendant', $this.attr('id'))
-                  .find('.' + this.options.classes.optionClass).attr('aria-checked', false);
+                  .find('.' + this.options.classes.optionContainerClass).attr('aria-checked', false);
           $this.attr('aria-checked', true);
       },
 
@@ -924,6 +937,22 @@ define([
           } else {
               $(this.options.tierPriceBlockSelector).hide();
           }
+
+          $(this.options.normalPriceLabelSelector).hide();
+
+          _.each($('.' + this.options.classes.attributeOptionsWrapper), function (attribute) {
+            if ($(attribute).find('.' + this.options.classes.optionContainerClass + '.selected').length === 0) {
+              if ($(attribute).find('.' + this.options.classes.selectClass).length > 0) {
+                _.each($(attribute).find('.' + this.options.classes.selectClass), function (dropdown) {
+                  if ($(dropdown).val() === '0') {
+                    $(this.options.normalPriceLabelSelector).show();
+                  }
+                }.bind(this));
+              } else {
+                $(this.options.normalPriceLabelSelector).show();
+              }
+            }
+          }.bind(this));
       },
 
       /**
@@ -1021,8 +1050,13 @@ define([
                   .addClass($widget.options.classes.loader);
           } else {
               //Category View
-              $this.parents('.product-item-info').find('.product-image-photo')
-                  .addClass($widget.options.classes.loader);
+              $this.parents('.product-item-info')
+                  .find('.lazyload-wrapper')
+                  .append(`
+                    <div class="loader loader--visible">
+                      <div class="loader__circle"></div>
+                    </div>
+                  `);
           }
       },
 
@@ -1040,8 +1074,7 @@ define([
                   .removeClass($widget.options.classes.loader);
           } else {
               //Category View
-              $this.parents('.product-item-info').find('.product-image-photo')
-                  .removeClass($widget.options.classes.loader);
+              $this.parents('.product-item-info').find('.loader').remove();
           }
       },
 
@@ -1118,15 +1151,35 @@ define([
       },
 
       /**
+       * Start update base image process based on event name
+       * @param {Array} images
+       * @param {jQuery} context
+       * @param {Boolean} isInProductView
+       * @param {String|undefined} eventName
+       */
+      updateBaseImage: function (images, context, isInProductView, eventName) {
+        var gallery = context.find(this.options.mediaGallerySelector).data('gallery');
+
+        if (eventName === undefined) {
+          this.processUpdateBaseImage(images, context, isInProductView, gallery);
+        } else {
+          context.find(this.options.mediaGallerySelector).on('gallery:loaded', function (loadedGallery) {
+            loadedGallery = context.find(this.options.mediaGallerySelector).data('gallery');
+            this.processUpdateBaseImage(images, context, isInProductView, loadedGallery);
+          }.bind(this));
+        }
+      },
+
+      /**
        * Update [gallery-placeholder] or [product-image-photo]
        * @param {Array} images
        * @param {jQuery} context
        * @param {Boolean} isInProductView
+       * @param {Object} gallery
        */
-      updateBaseImage: function (images, context, isInProductView) {
+      processUpdateBaseImage: function (images, context, isInProductView, gallery) {
           var justAnImage = images[0],
               initialImages = this.options.mediaGalleryInitial,
-              gallery = context.find(this.options.mediaGallerySelector).data('gallery'),
               imagesToUpdate,
               isInitial;
 
@@ -1203,13 +1256,18 @@ define([
       /**
        * Emulate mouse click or selection change on all swatches that should be selected
        * @param {Object} [selectedAttributes]
+       * @param {String} triggerClick
        * @private
        */
-      _EmulateSelectedByAttributeId: function (selectedAttributes) {
+      _EmulateSelectedByAttributeId: function (selectedAttributes, triggerClick) {
           $.each(selectedAttributes, $.proxy(function (attributeId, optionId) {
               var elem = this.element.find('.' + this.options.classes.attributeClass +
                   '[attribute-id="' + attributeId + '"] [option-id="' + optionId + '"]'),
                   parentInput = elem.parent();
+
+              if (triggerClick === null || triggerClick === '') {
+                triggerClick = 'click';
+              }
 
               if (elem.hasClass('selected')) {
                   return;
@@ -1219,7 +1277,7 @@ define([
                   parentInput.val(optionId);
                   parentInput.trigger('change');
               } else {
-                  elem.trigger('click');
+                  elem.trigger(triggerClick);
               }
           }, this));
       },

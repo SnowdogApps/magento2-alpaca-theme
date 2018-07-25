@@ -2,6 +2,31 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Changed
+- Compare products page
+- Swatch option loader
+- Update cart button in product edit
+
+### Fixed
+- Update cart by enter
+- Swatch selecting in product edit
+- Error in solr navigation
+- Product gallery
+- Discount in cart
+- Product image size in catalog (solr)
+- Swatch border
+
+## [0.3.4] - 2018-07-09
+### Changed
+ - module-alpaca-components version to 0.7.3
+
+## [0.3.3] - 2018-07-02
+### Removed
+- Remove package version from composer.json
+
+## [0.3.2] - 2018-07-02
+### Changed
+- snowdog/module-menu version (~2.4.0 to ^2.4.0)
 
 ## [0.3.1] - 2018-04-05
 ### Added
