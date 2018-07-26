@@ -512,7 +512,7 @@ define([
               label = this.label ? this.label : '';
               attr =
                   ' id="' + controlId + '-item-' + id + '"' +
-                  ' aria-checked="false"' +
+                  ' aria-selected="false"' +
                   ' aria-describedby="' + controlId + '"' +
                   ' tabindex="0"' +
                   ' option-type="' + type + '"' +
@@ -702,7 +702,7 @@ define([
               $parent.removeAttr('option-selected').find('.selected').removeClass('selected');
               $input.val('');
               $label.text('');
-              $this.attr('aria-checked', false);
+              $this.attr('aria-selected', false);
           } else {
               $parent.attr('option-selected', $this.attr('option-id')).find('.selected').removeClass('selected');
               $label.text($this.attr('option-label'));
@@ -746,8 +746,8 @@ define([
        */
       _toggleCheckedAttributes: function ($this, $wrapper) {
           $wrapper.attr('aria-activedescendant', $this.attr('id'))
-                  .find('.' + this.options.classes.optionContainerClass).attr('aria-checked', false);
-          $this.attr('aria-checked', true);
+                  .find('.' + this.options.classes.optionContainerClass).attr('aria-selected', false);
+          $this.attr('aria-selected', true);
       },
 
       /**
