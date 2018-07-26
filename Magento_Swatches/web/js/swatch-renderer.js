@@ -425,7 +425,7 @@ define([
                            'aria-invalid="false" ' +
                            'aria-required="true" ' +
                            'role="listbox" ' + listLabel +
-                           'class="' + classes.attributeOptionsWrapper + ' clearfix">' +
+                           'class="' + classes.attributeOptionsWrapper + '">' +
                           options + select +
                       '</div>' + input +
                   '</div>'
