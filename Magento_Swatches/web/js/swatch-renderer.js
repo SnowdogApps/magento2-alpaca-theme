@@ -200,7 +200,7 @@ define([
               attributeOptionsWrapper: 'swatch__wrapper',
               attributeInput: 'swatch-input',
               optionClass: 'swatch__option',
-              optionContainerClass: 'swatch__container',
+              optionContainerClass: 'swatch__option-container',
               selectClass: 'swatch-select',
               moreButton: 'swatch-more',
               loader: 'swatch-option-loading'
