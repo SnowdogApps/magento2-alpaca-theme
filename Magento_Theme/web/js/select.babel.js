@@ -2,7 +2,7 @@ define(['choices'], function(Choices) {
   'use strict';
 
   return function(config, select) {
-    const options = {
+    const defaultOptions = {
       placeholder: false,
       searchEnabled: false,
       itemSelectText: '',
@@ -20,10 +20,11 @@ define(['choices'], function(Choices) {
       itemSelectText: ''
     };
     if (config.type === 'number') {
-      options.sortFilter = (a, b) => {
+      defaultOptions.sortFilter = (a, b) => {
         return a - b;
       }
     }
-    new Choices(select, options);
+    config.options = Object.assign(defaultOptions, config.options);
+    new Choices(select, config.options);
   }
 });
