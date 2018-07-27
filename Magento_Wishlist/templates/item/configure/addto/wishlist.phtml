@@ -1,0 +1,26 @@
+<?php
+/** @var \Magento\Wishlist\Block\Item\Configure $block */
+?>
+<?php if ($this->helper('Magento\Wishlist\Helper\Data')->isAllow()) : ?>
+    <button
+        class="
+            button
+            button--secondary
+            product-view__update-wishlist
+            action
+            towishlist
+            updated
+        "
+        data-post='<?= /* @noEscape */ $block->getUpdateParams() ?>'
+        data-action="add-to-wishlist"
+    >
+        <?= /* @escapeNotVerified */ __('Update Wish List') ?>
+    </button>
+<?php endif; ?>
+<script type="text/x-magento-init">
+    {
+        "body": {
+            "addToWishlist": <?= /* @noEscape */ $this->helper('Magento\Framework\Json\Helper\Data')->jsonEncode($block->getWishlistOptions()) ?>
+        }
+    }
+</script>
