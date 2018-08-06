@@ -533,7 +533,7 @@ define([
                   html += optionClass + '">' + (value ? value : label);
               } else if (type === 1) {
                   // Color
-                  html += optionClass + '" style="background-image: ' + value + '>';
+                  html += optionClass + '" style="background-color: ' + value + '">';
               } else if (type === 2) {
                   // Image
                   html += optionClass + ' ' + optionClass + '--image"' + ' style="background-image: url(' + value + ')">';
