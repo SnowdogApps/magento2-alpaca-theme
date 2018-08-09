@@ -200,7 +200,7 @@ define([
               attributeOptionsWrapper: 'swatch__wrapper',
               attributeInput: 'swatch-input',
               optionClass: 'swatch__option',
-              optionContainerClass: 'swatch__container',
+              optionContainerClass: 'swatch__option-container',
               selectClass: 'swatch-select',
               moreButton: 'swatch-more',
               loader: 'swatch-option-loading'
@@ -425,7 +425,7 @@ define([
                            'aria-invalid="false" ' +
                            'aria-required="true" ' +
                            'role="listbox" ' + listLabel +
-                           'class="' + classes.attributeOptionsWrapper + ' clearfix">' +
+                           'class="' + classes.attributeOptionsWrapper + '">' +
                           options + select +
                       '</div>' + input +
                   '</div>'
@@ -512,7 +512,7 @@ define([
               label = this.label ? this.label : '';
               attr =
                   ' id="' + controlId + '-item-' + id + '"' +
-                  ' aria-checked="false"' +
+                  ' aria-selected="false"' +
                   ' aria-describedby="' + controlId + '"' +
                   ' tabindex="0"' +
                   ' option-type="' + type + '"' +
@@ -527,29 +527,24 @@ define([
                   attr += ' option-empty="true"';
               }
 
+              html += '<div class="' + optionContainerClass + '" ' + attr + '><div class="';
               if (type === 0) {
                   // Text
-                  html += '<div class="' + optionContainerClass + '"><div class="' + optionClass + '" ' + attr
-                  + '>' + (value ? value : label) + '</div></div>';
+                  html += optionClass + '">' + (value ? value : label);
               } else if (type === 1) {
                   // Color
-                  html += '<div class="' + optionContainerClass + '"><div class="' + optionClass + '" ' + attr +
-                  ' style="background: ' + value + ' no-repeat center; background-size: initial;">' +
-                  '' + '</div></div>';
+                  html += optionClass + '" style="background-color: ' + value + '">';
               } else if (type === 2) {
                   // Image
-                  html += '<div class="' + optionContainerClass + '"><div class="' + optionClass + '" ' + attr +
-                  ' style="background: url(' + value + ') no-repeat center; background-size: cover;">' + '' +
-                  '</div></div>';
+                  html += optionClass + ' ' + optionClass + '--image"' + ' style="background-image: url(' + value + ')">';
               } else if (type === 3) {
                   // Clear
-                  html += '<div class="' + optionContainerClass + '"><div class="' + optionClass + '" ' + attr +
-                  '></div></div>';
+                  html += optionClass + '">';
               } else {
                   // Default
-                  html += '<div class="' + optionContainerClass + '"><div class="' + optionClass + '" ' + attr +
-                  '>' + label + '</div></div>';
+                  html += optionClass + '">' + label;
               }
+              html += '</div></div>'
           });
 
           return html;
@@ -691,8 +686,7 @@ define([
               $wrapper = $this.parents('.' + $widget.options.classes.attributeOptionsWrapper),
               $label = $parent.find('.' + $widget.options.classes.attributeSelectedOptionLabelClass),
               attributeId = $parent.attr('attribute-id'),
-              $input = $parent.find('.' + $widget.options.classes.attributeInput),
-              $option = $this.find('.' + $widget.options.classes.optionClass);
+              $input = $parent.find('.' + $widget.options.classes.attributeInput);
 
           if ($widget.inProductList) {
               $input = $widget.productForm.find(
@@ -708,14 +702,14 @@ define([
               $parent.removeAttr('option-selected').find('.selected').removeClass('selected');
               $input.val('');
               $label.text('');
-              $option.attr('aria-checked', false);
+              $this.attr('aria-selected', false);
           } else {
-              $parent.attr('option-selected', $option.attr('option-id')).find('.selected').removeClass('selected');
-              $label.text($option.attr('option-label'));
-              $input.val($option.attr('option-id'));
+              $parent.attr('option-selected', $this.attr('option-id')).find('.selected').removeClass('selected');
+              $label.text($this.attr('option-label'));
+              $input.val($this.attr('option-id'));
               $input.attr('data-attr-name', this._getAttributeCodeById(attributeId));
               $this.addClass('selected');
-              $widget._toggleCheckedAttributes($option, $wrapper);
+              $widget._toggleCheckedAttributes($this, $wrapper);
           }
 
           $widget._Rebuild();
@@ -752,8 +746,8 @@ define([
        */
       _toggleCheckedAttributes: function ($this, $wrapper) {
           $wrapper.attr('aria-activedescendant', $this.attr('id'))
-                  .find('.' + this.options.classes.optionContainerClass).attr('aria-checked', false);
-          $this.attr('aria-checked', true);
+                  .find('.' + this.options.classes.optionContainerClass).attr('aria-selected', false);
+          $this.attr('aria-selected', true);
       },
 
       /**
