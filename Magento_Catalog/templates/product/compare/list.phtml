@@ -49,9 +49,13 @@
                                     >
                                         <?= /* @escapeNotVerified */ $_helper->productAttribute($_item, $_item->getName(), 'name') ?>
                                     </a>
-                                    <div class="rating compare__rating">
-                                        <?= $block->getReviewsSummaryHtml($_item, 'short') ?>
-                                    </div>
+                                    <?php
+                                    $rating = $block->getReviewsSummaryHtml($_item, 'short');
+                                    if (trim($rating)): ?>
+                                        <div class="rating compare__rating">
+                                            <?= $rating ?>
+                                        </div>
+                                    <?php endif ?>
                                     <?= /* @escapeNotVerified */ $block->getProductPrice($_item) ?>
                                     <div class="compare__buttons-container">
                                         <?php if ($_item->isSaleable()): ?>

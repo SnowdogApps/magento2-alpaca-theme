@@ -6,11 +6,21 @@ All notable changes to this project will be documented in this file.
 - Compare products page
 - Swatch option loader
 - Update cart button in product edit
+- Aria attributes in swatches
 
 ### Fixed
 - Update cart by enter
 - Swatch selecting in product edit
 - Error in solr navigation
+- Product gallery
+- Discount in cart
+- Product image size in catalog (solr)
+- Swatch border
+- Sorting of numbers in limiter select
+- Rating display in compare page
+
+### Removed
+- Lazyload from minicart image
 
 ## [0.3.4] - 2018-07-09
 ### Changed

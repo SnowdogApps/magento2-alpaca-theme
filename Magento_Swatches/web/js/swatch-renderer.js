@@ -200,6 +200,7 @@ define([
               attributeOptionsWrapper: 'swatch__wrapper',
               attributeInput: 'swatch-input',
               optionClass: 'swatch__option',
+              optionContainerClass: 'swatch__option-container',
               selectClass: 'swatch-select',
               moreButton: 'swatch-more',
               loader: 'swatch-option-loading'
@@ -424,7 +425,7 @@ define([
                            'aria-invalid="false" ' +
                            'aria-required="true" ' +
                            'role="listbox" ' + listLabel +
-                           'class="' + classes.attributeOptionsWrapper + ' clearfix">' +
+                           'class="' + classes.attributeOptionsWrapper + '">' +
                           options + select +
                       '</div>' + input +
                   '</div>'
@@ -476,6 +477,7 @@ define([
       _RenderSwatchOptions: function (config, controlId) {
           var optionConfig = this.options.jsonSwatchConfig[config.id],
               optionClass = this.options.classes.optionClass,
+              optionContainerClass = this.options.classes.optionContainerClass,
               moreLimit = parseInt(this.options.numberToShow, 10),
               moreClass = this.options.classes.moreButton,
               moreText = this.options.moreButtonText,
@@ -510,7 +512,7 @@ define([
               label = this.label ? this.label : '';
               attr =
                   ' id="' + controlId + '-item-' + id + '"' +
-                  ' aria-checked="false"' +
+                  ' aria-selected="false"' +
                   ' aria-describedby="' + controlId + '"' +
                   ' tabindex="0"' +
                   ' option-type="' + type + '"' +
@@ -525,28 +527,24 @@ define([
                   attr += ' option-empty="true"';
               }
 
+              html += '<div class="' + optionContainerClass + '" ' + attr + '><div class="';
               if (type === 0) {
                   // Text
-                  html += '<div class="' + optionClass + ' ' + optionClass + '--text" ' +
-                  attr + '>' + (value ? value : label) + '</div>';
+                  html += optionClass + '">' + (value ? value : label);
               } else if (type === 1) {
                   // Color
-                  html += '<div class="' + optionClass + ' ' + optionClass + '--color" ' + attr +
-                      ' style="background: ' + value +
-                      ' no-repeat center; background-size: initial;">' + '' +
-                      '</div>';
+                  html += optionClass + '" style="background-color: ' + value + '">';
               } else if (type === 2) {
                   // Image
-                  html += '<div class="' + optionClass + ' ' + optionClass + '--image" ' + attr +
-                      ' style="background: url(' + value + ') no-repeat center; background-size: cover;">' + '' +
-                      '</div>';
+                  html += optionClass + ' ' + optionClass + '--image"' + ' style="background-image: url(' + value + ')">';
               } else if (type === 3) {
                   // Clear
-                  html += '<div class="' + optionClass + '" ' + attr + '></div>';
+                  html += optionClass + '">';
               } else {
                   // Default
-                  html += '<div class="' + optionClass + '" ' + attr + '>' + label + '</div>';
+                  html += optionClass + '">' + label;
               }
+              html += '</div></div>'
           });
 
           return html;
@@ -615,12 +613,12 @@ define([
               options = this.options.classes,
               target;
 
-          $widget.element.on('click', '.' + options.optionClass, function () {
+          $widget.element.on('click', '.' + options.optionContainerClass, function () {
               return $widget._OnClick($(this), $widget);
           });
 
-          $widget.element.on('emulateClick', '.' + options.optionClass, function () {
-            return $widget._OnClick($(this), $widget, 'emulateClick');
+          $widget.element.on('emulateClick', '.' + options.optionContainerClass, function () {
+              return $widget._OnClick($(this), $widget, 'emulateClick');
           });
 
           $widget.element.on('change', '.' + options.selectClass, function () {
@@ -637,7 +635,7 @@ define([
               if (e.which === 13) {
                   target = $(e.target);
 
-                  if (target.is('.' + options.optionClass)) {
+                  if (target.is('.' + options.optionContainerClass)) {
                       return $widget._OnClick(target, $widget);
                   } else if (target.is('.' + options.selectClass)) {
                       return $widget._OnChange(target, $widget);
@@ -704,7 +702,7 @@ define([
               $parent.removeAttr('option-selected').find('.selected').removeClass('selected');
               $input.val('');
               $label.text('');
-              $this.attr('aria-checked', false);
+              $this.attr('aria-selected', false);
           } else {
               $parent.attr('option-selected', $this.attr('option-id')).find('.selected').removeClass('selected');
               $label.text($this.attr('option-label'));
@@ -748,8 +746,8 @@ define([
        */
       _toggleCheckedAttributes: function ($this, $wrapper) {
           $wrapper.attr('aria-activedescendant', $this.attr('id'))
-                  .find('.' + this.options.classes.optionClass).attr('aria-checked', false);
-          $this.attr('aria-checked', true);
+                  .find('.' + this.options.classes.optionContainerClass).attr('aria-selected', false);
+          $this.attr('aria-selected', true);
       },
 
       /**
@@ -937,7 +935,7 @@ define([
           $(this.options.normalPriceLabelSelector).hide();
 
           _.each($('.' + this.options.classes.attributeOptionsWrapper), function (attribute) {
-            if ($(attribute).find('.' + this.options.classes.optionClass + '.selected').length === 0) {
+            if ($(attribute).find('.' + this.options.classes.optionContainerClass + '.selected').length === 0) {
               if ($(attribute).find('.' + this.options.classes.selectClass).length > 0) {
                 _.each($(attribute).find('.' + this.options.classes.selectClass), function (dropdown) {
                   if ($(dropdown).val() === '0') {
