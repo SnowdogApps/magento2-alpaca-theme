@@ -17,9 +17,12 @@ $wishlistHelper = $this->helper('Magento\Wishlist\Helper\Data');
 
         <!-- ko if: wishlist().counter -->
             <ol
-                class="list sidebar-block__list"
+                class="list sidebar-block__list sidebar-block__list--hidden"
                 id="wishlist-sidebar"
-                data-bind="foreach: wishlist().items"
+                data-bind="
+                    foreach: wishlist().items,
+                    css: {'sidebar-block__list--hidden': null}
+                "
             >
                 <li class="sidebar-block__wishlist-item">
                     <div class="sidebar-block__item sidebar-block__item--wishlist">
@@ -72,11 +75,16 @@ $wishlistHelper = $this->helper('Magento\Wishlist\Helper\Data');
             </a>
         <!-- /ko -->
 
-        <!-- ko ifnot: wishlist().counter -->
-            <div class="message empty">
-                <?= /* @escapeNotVerified */ __('You have no items in your wish list.') ?>
-            </div>
-        <!-- /ko -->
+        <div
+            class="sidebar-block__hidden"
+            data-bind="css: {'sidebar-block__hidden': null}"
+        >
+            <!-- ko ifnot: wishlist().counter -->
+                <div class="message empty">
+                    <?= /* @escapeNotVerified */ __('You have no items in your wish list.') ?>
+                </div>
+            <!-- /ko -->
+        </div>
     </div>
 
     <script type="text/x-magento-init">

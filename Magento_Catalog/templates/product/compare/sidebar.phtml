@@ -21,8 +21,11 @@
     <!-- ko if: compareProducts().count -->
         <ol
             id="compare-items"
-            class="list sidebar-block__list"
-            data-bind="foreach: compareProducts().items"
+            class="list sidebar-block__list sidebar-block__list--hidden"
+            data-bind="
+                foreach: compareProducts().items,
+                css: {'sidebar-block__list--hidden': null}
+            "
         >
             <li class="sidebar-block__item">
                 <input type="hidden" class="compare-item-id" data-bind="value: id"/>
@@ -64,11 +67,16 @@
         </div>
     <!-- /ko -->
 
-    <!-- ko ifnot: compareProducts().count -->
-        <div class="message empty">
-            <?= /* @escapeNotVerified */ __('You have no items to compare.') ?>
-        </div>
-    <!-- /ko -->
+    <div
+        class="sidebar-block__hidden"
+        data-bind="css: {'sidebar-block__hidden': null}"
+    >
+        <!-- ko ifnot: compareProducts().count -->
+            <div class="message empty">
+                <?= /* @escapeNotVerified */ __('You have no items to compare.') ?>
+            </div>
+        <!-- /ko -->
+    </div>
 </div>
 
 <script type="text/x-magento-init">
