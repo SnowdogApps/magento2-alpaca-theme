@@ -7,6 +7,10 @@ All notable changes to this project will be documented in this file.
 - Swatch option loader
 - Update cart button in product edit
 - Aria attributes in swatches
+- Updated sidebar blocks styles
+- Moved sidebar blocks from my account to catalog
+- Share wishlist page
+- Wishlist styles
 
 ### Fixed
 - Update cart by enter
