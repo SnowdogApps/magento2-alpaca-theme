@@ -40,7 +40,12 @@ $solrDataHelper = $this->helper('Snowdog\SolrNavigation\Helper\Data');
                         </div>
                     </a>
                     <section class="catalog-grid-item__details">
-                        <h2 class="catalog-grid-item__name">
+                        <h2
+                            class="
+                                catalog-grid-item__name
+                                <?= !$solrDataHelper->getPrice($_product) ? 'catalog-grid-item__name--bigger' : '' ?>
+                            "
+                        >
                             <a
                                 href="<?= /* @escapeNotVerified */ $block->getProductUrl($_product) ?>"
                                 class="catalog-grid-item__link catalog-grid-item__link--name"
@@ -49,13 +54,15 @@ $solrDataHelper = $this->helper('Snowdog\SolrNavigation\Helper\Data');
                                 <?= /* @escapeNotVerified */ $_product['name'] ?>
                             </a>
                         </h2>
-                        <div class="catalog-grid-item__price">
-                            <div class="price">
-                                <span class="price__value">
-                                    <?= /* @escapeNotVerified */ $solrDataHelper->getPrice($_product) ?>
-                                </span>
+                        <?php if($solrDataHelper->getPrice($_product)): ?>
+                            <div class="catalog-grid-item__price">
+                                <div class="price">
+                                    <span class="price__value">
+                                        <?= /* @escapeNotVerified */ $solrDataHelper->getPrice($_product) ?>
+                                    </span>
+                                </div>
                             </div>
-                        </div>
+                        <?php endif ?>
                         <div class="rating catalog-grid-item__rating">
                             <div class="rating__star">
                                 <span class="rating__indicator"></span>
