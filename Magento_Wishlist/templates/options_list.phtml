@@ -1,0 +1,23 @@
+<?php
+// @codingStandardsIgnoreFile
+
+/* @var \Magento\Wishlist\Block\Customer\Wishlist\Item\Options $block */
+?>
+
+<?php $options = $block->getOptionList(); ?>
+<?php if ($options): ?>
+    <dl class="list list--description wishlist__options">
+        <?php foreach ($options as $option): ?>
+        <dt class="list__label">
+            <?= $block->escapeHtml($option['label']) ?>
+        </dt>
+        <dd class="list__value">
+            <?php if (is_array($option['value'])): ?>
+            <?= /* @noEscape */ nl2br(implode("\n", $option['value'])) ?>
+            <?php else: ?>
+            <?= /* @noEscape */ $option['value'] ?>
+            <?php endif; ?>
+        </dd>
+        <?php endforeach; ?>
+    </dl>
+<?php endif ?>
