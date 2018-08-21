@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Added
+- Loaders to sidebar blocks
+- Border to white swatch
+
 ### Changed
 - Compare products page
 - Swatch option loader
@@ -11,6 +15,7 @@ All notable changes to this project will be documented in this file.
 - Moved sidebar blocks from my account to catalog
 - Share wishlist page
 - Wishlist styles
+- Catalog item improvements
 
 ### Fixed
 - Update cart by enter
@@ -22,6 +27,9 @@ All notable changes to this project will be documented in this file.
 - Swatch border
 - Sorting of numbers in limiter select
 - Rating display in compare page
+- Counter displaying in header buttons
+- Search results in catalog (solr)
+- Links to add review in product page
 
 ### Removed
 - Lazyload from minicart image

@@ -1,81 +1,95 @@
 <div
-    class="sidebar-block"
     data-bind="scope: 'compareProducts'"
     data-role="compare-products-sidebar"
 >
-    <p class="sidebar-block__heading">
-        <span class="sidebar-block__title">
-            <?= /* @escapeNotVerified */ __('Compare Products') ?>
-        </span>
-        <!-- ko if: compareProducts().count -->
-            <span
-                class="sidebar-block__counter"
-                data-bind="
-                    text: compareProducts().countCaption,
-                    css: { 'no-display': !compareProducts().count }
-                "
-            ></span>
-        <!-- /ko -->
-    </p>
-
-    <!-- ko if: compareProducts().count -->
-        <ol
-            id="compare-items"
-            class="list sidebar-block__list sidebar-block__list--hidden"
-            data-bind="
-                foreach: compareProducts().items,
-                css: {'sidebar-block__list--hidden': null}
-            "
-        >
-            <li class="sidebar-block__item">
-                <input type="hidden" class="compare-item-id" data-bind="value: id"/>
-                <button
-                    type="button"
-                    class="button sidebar-block__remove"
-                    aria-label="<?= /* @escapeNotVerified */ __('Remove product from compare') ?>"
-                    title="<?= /* @escapeNotVerified */ __('Remove product from compare') ?>"
-                    data-bind="attr: {'data-post': remove_url}"
-                >
-                    <svg class="icon sidebar-block__remove-icon">
-                        <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#close') ?>"></use>
-                    </svg>
-                </button>
-                <a
-                    class="link sidebar-block__link"
-                    data-bind="attr: {href: product_url}, html: name"
-                ></a>
-            </li>
-        </ol>
-
-        <div>
-            <a
-                data-bind="attr: {'href': compareProducts().listUrl}"
-                class="button button--link sidebar-block__action"
-            >
-                <?= /* @escapeNotVerified */ __('Compare') ?>
-            </a>
-            <button
-                id="compare-clear-all"
-                class="button sidebar-block__action"
-                data-post="<?= $block->escapeHtml($this
-                    ->helper('Magento\Catalog\Helper\Product\Compare')
-                    ->getPostDataClearList())
-                ?>"
-            >
-                <?= /* @escapeNotVerified */ __('Clear All') ?>
-            </button>
-        </div>
-    <!-- /ko -->
-
     <div
-        class="sidebar-block__hidden"
-        data-bind="css: {'sidebar-block__hidden': null}"
+        class="sidebar-block"
+        data-bind="css: { 'sidebar-block--loaded': !compareProducts().count }"
     >
-        <!-- ko ifnot: compareProducts().count -->
-            <div class="message empty sidebar-block__message">
-                <?= /* @escapeNotVerified */ __('You have no items to compare.') ?>
+        <p class="sidebar-block__heading">
+            <span class="sidebar-block__title">
+                <?= /* @escapeNotVerified */ __('Compare Products') ?>
+            </span>
+            <!-- ko if: compareProducts().count -->
+                <span
+                    class="sidebar-block__counter"
+                    data-bind="
+                        text: compareProducts().countCaption,
+                        css: { 'no-display': !compareProducts().count }
+                    "
+                ></span>
+            <!-- /ko -->
+        </p>
+
+        <div
+            class="loader loader--visible"
+            data-bind="css: { 'loader--visible': null }"
+        >
+            <div class="loader__circle"></div>
+        </div>
+
+        <!-- ko if: compareProducts().count -->
+            <ol
+                id="compare-items"
+                class="list sidebar-block__list sidebar-block__list--hidden"
+                data-bind="
+                    foreach: compareProducts().items,
+                    css: {'sidebar-block__list--hidden': null}
+                "
+            >
+                <li class="sidebar-block__item">
+                    <input type="hidden" class="compare-item-id" data-bind="value: id"/>
+                    <button
+                        type="button"
+                        class="button sidebar-block__remove"
+                        aria-label="<?= /* @escapeNotVerified */ __('Remove product from compare') ?>"
+                        title="<?= /* @escapeNotVerified */ __('Remove product from compare') ?>"
+                        data-bind="attr: {'data-post': remove_url}"
+                    >
+                        <svg class="icon sidebar-block__remove-icon">
+                            <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#close') ?>"></use>
+                        </svg>
+                    </button>
+                    <a
+                        class="link sidebar-block__link"
+                        data-bind="attr: {href: product_url}, html: name"
+                    ></a>
+                </li>
+            </ol>
+
+            <div
+                class="sidebar-block__hidden"
+                data-bind="css: { 'sidebar-block__hidden': null }"
+            >
+                <a
+                    data-bind="attr: {'href': compareProducts().listUrl}"
+                    class="button button--link sidebar-block__action"
+                >
+                    <?= /* @escapeNotVerified */ __('Compare') ?>
+                </a>
+                <button
+                    id="compare-clear-all"
+                    class="button sidebar-block__action"
+                    data-post="<?= $block->escapeHtml($this
+                        ->helper('Magento\Catalog\Helper\Product\Compare')
+                        ->getPostDataClearList())
+                    ?>"
+                >
+                    <?= /* @escapeNotVerified */ __('Clear All') ?>
+                </button>
             </div>
         <!-- /ko -->
+
+        <div
+            class="sidebar-block__hidden"
+            data-bind="css: {'sidebar-block__hidden': null}"
+        >
+            <!-- ko ifnot: compareProducts().count -->
+                <div class="message empty sidebar-block__message">
+                    <?= /* @escapeNotVerified */ __('You have no items to compare.') ?>
+                </div>
+            <!-- /ko -->
+        </div>
     </div>
 </div>
 
