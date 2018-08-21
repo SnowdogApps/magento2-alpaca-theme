@@ -22,13 +22,15 @@ $products = $response->getDocuments();
         <ul class="quicksearch__list quicksearch__list--column">
             <?php foreach ($products as $product): ?>
                 <li class="quicksearch__product">
-                    <a href="<?= $this->getProductUrl($product) ?>">
+                    <a
+                        href="<?= $this->getProductUrl($product) ?>"
+                        title="<?= $product['name_static'] ?>"
+                    >
                         <div class="lazyload-wrapper quicksearch__product-image-wrapper">
                             <img
                                 class="image lazyload quicksearch__product-image"
                                 src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
                                 data-src="<?= $this->getImageUrl($product['thumbnail_static'], 144, 144) ?>"
-                                title="<?= $product['name_static'] ?>"
                                 alt="<?= $product['name_static'] ?>"
                             />
                         </div>
@@ -37,6 +39,7 @@ $products = $response->getDocuments();
                         <a
                             href="<?= $this->getProductUrl($product) ?>"
                             class="link link--invert quicksearch__link"
+                            title="<?= $product['name_static'] ?>"
                         >
                             <h3 class="quicksearch__name quicksearch__name--thin">
                                 <?= $product['name_static'] ?>
@@ -66,6 +69,7 @@ $products = $response->getDocuments();
                                 <a
                                     href="<?= $this->getCategoryUrl($categoryId) ?>"
                                     class="link link--invert quicksearch__link"
+                                    title="<?= implode(" &raquo; ", $categoryInfo['name_path']) ?>"
                                 >
                                     <h3 class="quicksearch__name">
                                         <?= implode(" &raquo; ", $categoryInfo['name_path']) ?>
@@ -85,12 +89,10 @@ $products = $response->getDocuments();
                             <a
                                 href="<?= $this->getManufacturerUrl($manufacturerId) ?>"
                                 class="link link--invert quicksearch__link"
+                                title="<?= $this->getAttributeText('manufacturer', $manufacturerId) ?>"
                             >
                                 <h3 class="quicksearch__name">
-                                    <?= $this->getAttributeText(
-                                        'manufacturer',
-                                        $manufacturerId
-                                    ) ?>
+                                    <?= $this->getAttributeText('manufacturer', $manufacturerId) ?>
                                 </h3>
                             </a>
                             <?= /* @escapeNotVerified */ $manufacturerCount ?>
@@ -107,6 +109,7 @@ $products = $response->getDocuments();
     <a
         href="<?= $this->showAllResults() ?>"
         class="link link--invert quicksearch__more-link"
+        title="<?= /* @escapeNotVerified */ __('See All') ?>"
     >
         <?= /* @escapeNotVerified */ __('See All') ?>
     </a>

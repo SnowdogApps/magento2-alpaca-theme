@@ -17,7 +17,7 @@ var config = {
       "select"             : "Magento_Theme/js/select.babel",
       "slider"             : "Magento_Theme/js/slider.babel",
       "popup"              : "Magento_Theme/js/popup.babel",
-      "quickSearch"     : "Magento_Theme/js/quicksearch.babel",
+      "quickSearch"        : "Magento_Theme/js/quicksearch.babel",
       "tab"                : "Magento_Theme/js/tab.babel"
     }
   },
