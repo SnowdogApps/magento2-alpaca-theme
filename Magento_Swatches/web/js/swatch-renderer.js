@@ -527,22 +527,25 @@ define([
                   attr += ' option-empty="true"';
               }
 
-              html += '<div class="' + optionContainerClass + '" ' + attr + '><div class="';
+              html += '<div class="' + optionContainerClass + '" ' + attr + '><div class="' + optionClass;
               if (type === 0) {
                   // Text
-                  html += optionClass + '">' + (value ? value : label);
+                  html += '">' + (value ? value : label);
               } else if (type === 1) {
                   // Color
-                  html += optionClass + '" style="background-color: ' + value + '">';
+                  if  (value === '#ffffff') {
+                    html += ' ' + optionClass + '--white';
+                  }
+                  html += '" style="background-color: ' + value + '">';
               } else if (type === 2) {
                   // Image
-                  html += optionClass + ' ' + optionClass + '--image"' + ' style="background-image: url(' + value + ')">';
+                  html += ' ' + optionClass + '--image"' + ' style="background-image: url(' + value + ')">';
               } else if (type === 3) {
                   // Clear
-                  html += optionClass + '">';
+                  html += '">';
               } else {
                   // Default
-                  html += optionClass + '">' + label;
+                  html += '">' + label;
               }
               html += '</div></div>'
           });
