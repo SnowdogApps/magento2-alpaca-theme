@@ -29,13 +29,14 @@ define(['jquery'], ($) => (config, element) => {
     searchVal = searchVal.replace(/\s/g, '+');
     if (searchLength >= minSearchLength) {
       loadSearch(ajaxUrl + '?q=' + searchVal);
+    } else {
+      closeSolrSearch();
     }
   }
 
   function closeSolrSearch() {
     destinationSearch.html('');
     solrWrapper.removeClass('quicksearch--visible');
-    inputSearch.val('');
   }
 
   inputSearch.on('input', () => {
@@ -43,6 +44,10 @@ define(['jquery'], ($) => (config, element) => {
     typingTimer = setTimeout(() => {
       checkSearch();
     }, finaldoneTypingInterval);
+  });
+
+  inputSearch.on('focus', () => {
+    checkSearch();
   });
 
   solrClose.on('click', () => {
