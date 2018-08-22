@@ -2,48 +2,61 @@ $checkout-modal-popup__width: 800px !default;
 $modal-popup-breakpoint-screen__m: $screen__m + 1 !default;
 
 .modal-popup {
+    left: 0;
+
     .field-tooltip {
+        .action-help {
+            display: none;
+        }
+
         .field-tooltip-content {
             @extend .abs-checkout-tooltip-content-position-top;
         }
     }
-}
 
-.modal-inner-wrap {
-    background-color: #f7f7f9;
-    .field.street {
-        border: none;
-        padding: 0;
+    .modal-inner-wrap {
+        background-color: #f7f7f9;
+
+        @include min-screen($screen__l) {
+            margin-left: (-$checkout-modal-popup__width / 2);
+            width: $checkout-modal-popup__width;
+            left: 50%;
+        }
+
+        .field.street {
+            border: none;
+            padding: 0;
+        }
+
+        .modal__close-button {
+            display: none;
+        }
     }
 
-    .modal__close-button {
-        display: none;
+    .modal-header {
+        .modal-title {
+            padding-bottom: 10px;
+            border-bottom: 1px solid #d9d9d9;
+        }
     }
-}
 
-@include min-screen($screen__m) {
-    .modal-popup {
-        .modal-footer {
-            .action-save-address {
+    .modal-footer {
+        border-top: 1px solid #d9d9d9;
+
+        .action-save-address {
+            margin-bottom: 15px;
+
+            @include min-screen($screen__m) {
                 width: auto;
                 float: right;
                 margin: 0 0 0 $indent__s;
             }
-
-            .action-hide-popup {
-                width: auto;
-            }
         }
 
-    }
-}
-
-@include min-screen($screen__l) {
-    .modal-popup {
-        .modal-inner-wrap {
-            margin-left: (-$checkout-modal-popup__width / 2);
-            width: $checkout-modal-popup__width;
-            left: 50%;
+        .action-hide-popup {
+            @include min-screen($screen__m) {
+                width: auto;
+            }
         }
     }
 }
