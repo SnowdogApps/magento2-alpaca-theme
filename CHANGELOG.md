@@ -1,7 +1,38 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+## [0.4.0] - 2018-08-22
+### Added
+- Loaders to sidebar blocks
+- Border to white swatch
+
+### Changed
+- Compare products page
+- Swatch option loader
+- Update cart button in product edit
+- Aria attributes in swatches
+- Updated sidebar blocks styles
+- Moved sidebar blocks from my account to catalog
+- Share wishlist page
+- Wishlist styles
+- Catalog item improvements
+
+### Fixed
+- Update cart by enter
+- Swatch selecting in product edit
+- Error in solr navigation
+- Product gallery
+- Discount in cart
+- Product image size in catalog (solr)
+- Swatch border
+- Sorting of numbers in limiter select
+- Rating display in compare page
+- Counter displaying in header buttons
+- Search results in catalog (solr)
+- Links to add review in product page
+
+### Removed
+- Lazyload from minicart image
 
 ## [0.3.4] - 2018-07-09
 ### Changed

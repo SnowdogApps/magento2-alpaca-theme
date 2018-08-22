@@ -7,53 +7,59 @@
     data-mage-init='{"validation":{}}'
     class="form form-cart cart__products-list"
 >
-    <?= $block->getBlockHtml('formkey'); ?>
-    <?php foreach ($block->getItems() as $_item): ?>
-        <?= $block->getItemHtml($_item); ?>
-    <?php endforeach ?>
-    <div class="cart-actions">
-        <?php if ($block->getContinueShoppingUrl()): ?>
-            <a
-                class="
-                    button
-                    button--secondary
-                    button--link
-                    cart-actions__button
-                    cart-actions__button--continue
-                "
-                href="<?= $block->escapeUrl($block->getContinueShoppingUrl()) ?>"
-                title="<?= $block->escapeHtml(__('Continue Shopping')) ?>"
+    <?= $block->getBlockHtml('formkey') ?>
+    <div
+        id="shopping-cart-table"
+        data-mage-init='{"shoppingCart":{"emptyCartButton": "action.clear",
+        "updateCartActionContainer": "#update_cart_action_container"}}'
+    >
+        <?php foreach ($block->getItems() as $_item): ?>
+            <?= $block->getItemHtml($_item); ?>
+        <?php endforeach ?>
+        <div class="cart-actions">
+            <?php if ($block->getContinueShoppingUrl()): ?>
+                <a
+                    class="
+                        button
+                        button--secondary
+                        button--link
+                        cart-actions__button
+                        cart-actions__button--continue
+                    "
+                    href="<?= $block->escapeUrl($block->getContinueShoppingUrl()) ?>"
+                    title="<?= $block->escapeHtml(__('Continue Shopping')) ?>"
+                >
+                    <?= /* @escapeNotVerified */ __('Continue Shopping') ?>
+                </a>
+            <?php endif; ?>
+            <button
+                type="submit"
+                name="update_cart_action"
+                data-cart-empty=""
+                value="empty_cart"
+                title="<?= $block->escapeHtml(__('Clear Shopping Cart')) ?>"
+                class="button button--secondary cart-actions__button"
+                id="empty_cart_button"
             >
-                <?= /* @escapeNotVerified */ __('Continue Shopping') ?>
-            </a>
-        <?php endif; ?>
-        <button
-            type="submit"
-            name="update_cart_action"
-            data-cart-empty=""
-            value="empty_cart"
-            title="<?= $block->escapeHtml(__('Clear Shopping Cart')) ?>"
-            class="button button--secondary cart-actions__button"
-            id="empty_cart_button"
-        >
-            <?= /* @escapeNotVerified */ __('Clear Shopping Cart') ?>
-        </button>
-        <button
-            type="submit"
-            name="update_cart_action"
-            data-cart-item-update=""
-            value="update_qty"
-            title="<?= $block->escapeHtml(__('Update Shopping Cart')) ?>"
-            class="button button--secondary cart-actions__button"
-        >
-            <?= /* @escapeNotVerified */ __('Update Shopping Cart') ?>
-        </button>
-        <input
-            type="hidden"
-            value=""
-            id="update_cart_action_container"
-            data-cart-item-update=""
-        >
+                <?= /* @escapeNotVerified */ __('Clear Shopping Cart') ?>
+            </button>
+            <button
+                type="submit"
+                name="update_cart_action"
+                data-cart-item-update=""
+                value="update_qty"
+                title="<?= $block->escapeHtml(__('Update Shopping Cart')) ?>"
+                class="button button--secondary cart-actions__button"
+            >
+                <?= /* @escapeNotVerified */ __('Update Shopping Cart') ?>
+            </button>
+            <input
+                type="hidden"
+                value=""
+                id="update_cart_action_container"
+                data-cart-item-update=""
+            >
+        </div>
     </div>
 </form>
 <?= $block->getChildHtml('checkout.cart.order.actions'); ?>

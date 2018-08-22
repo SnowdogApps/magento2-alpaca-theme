@@ -28,13 +28,17 @@
                     </li>
                 <?php else: ?>
                     <li class="pager__item">
-                        <a
-                            class="pager__link link--invert"
-                            href="<?= /* @escapeNotVerified */ $block->getPageUrl($page['page']) ?>"
-                            title="<?= /* @escapeNotVerified */ __('Link to page ') . $page['label'] ?>"
-                        >
+                        <?php if ($page['label'] !== '...'): ?>
+                            <a
+                                class="pager__link link--invert"
+                                href="<?= /* @escapeNotVerified */ $block->getPageUrl($page['page']) ?>"
+                                title="<?= /* @escapeNotVerified */ __('Link to page ') . $page['label'] ?>"
+                            >
+                                <?= /* @escapeNotVerified */ $page['label'] ?>
+                            </a>
+                        <?php else: ?>
                             <?= /* @escapeNotVerified */ $page['label'] ?>
-                        </a>
+                        <?php endif; ?>
                     </li>
                 <?php endif; ?>
             <?php endforeach; ?>
