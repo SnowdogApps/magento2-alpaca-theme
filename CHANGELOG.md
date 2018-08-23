@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [Unreleased]
+### Changed
+- Product review details page
+- Moved theme styles to components
+
 ## [0.4.0] - 2018-08-22
 ### Added
 - Loaders to sidebar blocks
