@@ -28,62 +28,42 @@ $solrDataHelper = $this->helper('Snowdog\SolrNavigation\Helper\Data');
                         class="catalog-grid-item__link"
                         title="<?= /* @escapeNotVerified */ $_product['name'] ?>"
                     >
-                        <div
-                            class="
-                                lazyload-wrapper
-                                catalog-grid-item__image-wrapper
-                            "
-                        >
+                        <div class="lazyload-wrapper catalog-grid-item__image-wrapper">
                             <img
                                 class="image lazyload"
                                 src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-                                data-src="<?= $solrDataHelper->getImageUrl($_product['small_image'], 300, 300) ?>"
+                                data-src="<?= $solrDataHelper->getImageUrl($_product['small_image'], 564, 700) ?>"
                                 alt="<?= /* @escapeNotVerified */ $_product['image_label'] ?>"
                             />
                         </div>
                     </a>
-                    <section class="catalog-grid-item__main">
-                        <h2 class="catalog-grid-item__name">
+                    <section class="catalog-grid-item__details">
+                        <h2
+                            class="
+                                catalog-grid-item__name
+                                <?= !$solrDataHelper->getPrice($_product) ? 'catalog-grid-item__name--bigger' : '' ?>
+                            "
+                        >
                             <a
                                 href="<?= /* @escapeNotVerified */ $block->getProductUrl($_product) ?>"
-                                class="catalog-grid-item__link"
+                                class="catalog-grid-item__link catalog-grid-item__link--name"
                                 title="<?= /* @escapeNotVerified */ $_product['name'] ?>"
                             >
                                 <?= /* @escapeNotVerified */ $_product['name'] ?>
                             </a>
                         </h2>
-                        <div class="catalog-grid-item__price">
-                            <div class="price">
-                                <span class="price__value">
-                                    <?= /* @escapeNotVerified */ $solrDataHelper->getPrice($_product) ?>
-                                </span>
+                        <?php if($solrDataHelper->getPrice($_product)): ?>
+                            <div class="catalog-grid-item__price">
+                                <div class="price">
+                                    <span class="price__value">
+                                        <?= /* @escapeNotVerified */ $solrDataHelper->getPrice($_product) ?>
+                                    </span>
+                                </div>
                             </div>
-                        </div>
-                    </section>
-                    <section class="catalog-grid-item__details">
-                        <div
-                            class="
-                                catalog-grid-item__name
-                                catalog-grid-item__name--one-line
-                            "
-                        >
-                            <a
-                                href="<?= /* @escapeNotVerified */ $block->getProductUrl($_product) ?>"
-                                class="catalog-grid-item__link"
-                            >
-                                <?= /* @escapeNotVerified */ $_product['name'] ?>
-                            </a>
-                        </div>
+                        <?php endif ?>
                         <div class="rating catalog-grid-item__rating">
                             <div class="rating__star">
                                 <span class="rating__indicator"></span>
-                            </div>
-                        </div>
-                        <div class="catalog-grid-item__price">
-                            <div class="price">
-                                <span class="price__value">
-                                    <?= /* @escapeNotVerified */ $solrDataHelper->getPrice($_product) ?>
-                                </span>
                             </div>
                         </div>
                         <div class="catalog-grid-item__actions">

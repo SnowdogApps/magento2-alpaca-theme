@@ -1,44 +1,50 @@
 <?php $url = $block->getReviewsUrl() . '#reviews'; ?>
 <?php $urlForm = $block->getReviewsUrl() . '#review-form'; ?>
 
-<?php if ($block->getReviewsCount()): ?>
-    <?php $rating = $block->getRatingSummary(); ?>
-
-    <div class="product-view__rating-rates <?= /* @escapeNotVerified */ !$rating ? ' no-rating' : ''?>"
-         itemprop="aggregateRating"
-         itemscope
-         itemtype="http://schema.org/AggregateRating"
-    >
+<div>
+    <?php if ($block->getReviewsCount()): ?>
+        <?php $rating = $block->getRatingSummary(); ?>
         <?php if ($rating): ?>
-            <div class="rating">
-                <div class="rating__star" style="width:<?= /* @escapeNotVerified */  $rating; ?>%">
-                    <span class="rating__indicator"></span>
+            <div class="review__rating">
+                <div
+                    class="rating"
+                    aria-label="<?= /* @escapeNotVerified */ __('Average rating') . ': ' . $rating . '%' ?>"
+                    title="<?= /* @escapeNotVerified */ __('Average rating') . ': ' . $rating . '%' ?>"
+                    tabindex="0"
+                >
+                    <div
+                        class="rating__star"
+                        aria-hidden="true"
+                        style="width:<?= /* @escapeNotVerified */  $rating; ?>%"
+                    >
+                        <span class="rating__indicator"></span>
+                    </div>
                 </div>
+
+                <a
+                    href="<?= /* @escapeNotVerified */ $url ?>"
+                    class="review__amount"
+                    title="<?= /* @escapeNotVerified */ $block->getReviewsCount() . __(' reviews') ?>"
+                    data-mage-init='{ "goToReview": { "reviewId": "reviews" } }'
+                >
+                    (<?= $block->getReviewsCount() ?>)
+                </a>
             </div>
-
-            <span class="product-view__link product-view__link--rating">
-                (<?= $block->getReviewsCount() ?>)
-            </span>
         <?php endif; ?>
-    </div>
-
-    <div class="product-view__rating-actions">
         <a
-            class="product-view__link product-view__link--add-review"
             href="<?= /* @escapeNotVerified */  $urlForm ?>"
+            title="<?= /* @escapeNotVerified */  __('Add Your Review') ?>"
             data-mage-init='{ "goToReview": { "reviewId": "review-form" } }'
         >
             <?= /* @escapeNotVerified */  __('Add Your Review') ?>
         </a>
-    </div>
-<?php elseif ($block->getDisplayIfEmpty()): ?>
-    <div class="product-view__rating-actions">
+    <?php elseif ($block->getDisplayIfEmpty()): ?>
         <a
-            class="product-view__link product-view__link--add-review"
             href="<?= /* @escapeNotVerified */  $urlForm; ?>"
+            title="<?= /* @escapeNotVerified */  __('Be the first to review this product') ?>"
             data-mage-init='{ "goToReview": { "reviewId": "review-form" } }'
         >
             <?= /* @escapeNotVerified */  __('Be the first to review this product') ?>
         </a>
-    </div>
-<?php endif; ?>
+    <?php endif; ?>
+</div>
