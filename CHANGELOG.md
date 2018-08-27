@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 - Loaders to sidebar blocks
 - Border to white swatch
+- Quicksearch (solr)
 
 ### Changed
 - Compare products page
