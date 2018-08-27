@@ -22,7 +22,7 @@ var config = {
   },
   shim: {
     "slider": {
-       "deps": ["lory"]
+      "deps": ["lory"]
     }
   },
   deps: [
