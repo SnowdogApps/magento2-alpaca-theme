@@ -788,10 +788,6 @@ $form-element-validation__border-error     : lighten($form-validation-note__colo
                 float: none;
                 width: auto;
 
-                @include _lib-revert-type-block-label-align(
-                    $_type-block-label-align
-                );
-
                 @include _lib-revert-type-block-label-padding(
                     $_type-block-label-padding
                 );
@@ -865,80 +861,4 @@ $form-element-validation__border-error     : lighten($form-validation-note__colo
     @if $_type-block-label-padding == inherit {
         padding: 0;
     }
-}
-
-@mixin _lib-revert-type-block-label-align($_type-block-label-align) {
-    @if $_type-block-label-align == inherit {
-        text-align: left;
-    }
-}
-
-@mixin _lib-revert-type-inline-label-margin($_type-inline-label-margin) {
-    @if $_type-inline-label-margin == false {
-        margin: 0;
-    }
-}
-
-@mixin lib-form-hasrequired(
-    $_position   : top,
-    $_color      : $color-red10,
-    $_font-size  : $font-size__s,
-    $_font-family: inherit,
-    $_font-weight: inherit,
-    $_font-style : inherit,
-    $_line-height: inherit,
-    $_border     : none,
-    $_margin     : $indent__s 0 0,
-    $_padding    : inherit
-) {
-    @if $_position == "top" {
-        &:before {
-            @include _lib-form-hasrequired-position-any(
-                $_border,
-                $_margin,
-                $_padding,
-                $_font-size,
-                $_color,
-                $_font-family,
-                $_font-weight,
-                $_line-height,
-                $_font-style
-            );
-        }
-    }
-    @else if $_position == "bottom" {
-        &:after {
-            @include _lib-form-hasrequired-position-any(
-                $_border,
-                $_margin,
-                $_padding,
-                $_font-size,
-                $_color,
-                $_font-family,
-                $_font-weight,
-                $_line-height,
-                $_font-style
-            );
-        }
-    }
-}
-
-@mixin _lib-form-hasrequired-position-any(
-    $_border,
-    $_margin,
-    $_padding,
-    $_font-size,
-    $_color,
-    $_font-family,
-    $_font-weight,
-    $_line-height,
-    $_font-style
-) {
-    border: $_border;
-    margin: $_margin;
-    padding: $_padding;
-    content: attr(data-hasrequired);
-    display: block;
-    letter-spacing: normal;
-    word-spacing: normal;
 }
