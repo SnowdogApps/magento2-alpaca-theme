@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - Product review details page
 - Moved theme styles to components
+- Styles and markup for chackout page
 
 ## [0.4.0] - 2018-08-22
 ### Added
