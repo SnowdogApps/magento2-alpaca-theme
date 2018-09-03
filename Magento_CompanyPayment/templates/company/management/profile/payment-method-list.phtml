@@ -1,0 +1,40 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+/**
+ * @var \Magento\CompanyPayment\Block\Company\Profile\PaymentMethod $block
+ * @codingStandardsIgnoreFile
+ */
+?>
+
+<div class="block block-company-profile-payment-methods">
+    <div class="block-title">
+        <strong><?= $block->escapeHtml(__('Payment Information')) ?></strong>
+    </div>
+    <div class="block-content">
+        <?php
+        if ($block->hasPaymentMethods()): ?>
+            <div class="company-profile-payment-methods">
+                <span class="payment-methods-label">
+                    <?= $block->escapeHtml(__('Available Payment Methods')) ?>
+                </span>
+                <ul class="payment-methods-list">
+    <?php
+    foreach ($block->getPaymentMethods() as $paymentMethod):
+        ?><li><?= $block->escapeHtml($paymentMethod) ?></li><?php
+    endforeach; ?>
+                </ul>
+            </div>
+        <?php
+        else: ?>
+            <div class="message message-notice notice">
+                <div data-ui-id="messages-message-notice">
+                <?= $block->escapeHtml(__('This company has no payment methods. Please contact store administrator.')) ?>
+                </div>
+            </div>
+        <?php
+        endif; ?>
+    </div>
+</div>
