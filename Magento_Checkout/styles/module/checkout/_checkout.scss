@@ -1,20 +1,5 @@
-//
-//  Variables
-//  _____________________________________________
-
-$checkout-wrapper__margin             : $indent__base !default;
-$checkout-wrapper__columns            : 8 !default;
-
-$checkout-step-title__border          : $border-width__base solid $color-gray80 !default;
-$checkout-step-title__font-size       : 26px !default;
-$checkout-step-title__font-weight     : $font-weight__light !default;
-$checkout-step-title__padding         : $indent__s !default;
-
-$checkout-step-title-mobile__font-size: 18px !default;
-
-//
-//  Common
-//  _____________________________________________
+$checkout-wrapper__margin  : $indent__base !default;
+$checkout-wrapper__columns : 8 !default;
 
 .checkout-index-index,
 .checkout-onepage-success {
@@ -31,12 +16,14 @@ $checkout-step-title-mobile__font-size: 18px !default;
 .opc-wrapper {
     margin: 0 0 $checkout-wrapper__margin;
 
-    .opc {
-        @extend .abs-reset-list;
+    @include min-screen($screen__m) {
+        @extend .abs-add-box-sizing-desktop-m;
+        @include lib-layout-column(2, 1, $checkout-wrapper__columns);
+        padding-right: $indent__l;
     }
 
-    .step-title {
-        @extend .abs-checkout-title;
+    .opc {
+        @extend .abs-reset-list;
     }
 
     .step-content {
@@ -48,35 +35,5 @@ $checkout-step-title-mobile__font-size: 18px !default;
     .nav-sections,
     .nav-toggle {
         display: none;
-    }
-
-    .logo {
-        margin-left: 0;
-    }
-}
-
-//
-//  Mobile
-//  _____________________________________________
-
-@include max-screen($screen__s) {
-    .opc-wrapper {
-        .step-title {
-            font-size: $checkout-step-title-mobile__font-size;
-            border-bottom: 0;
-            padding-bottom: 0;
-        }
-    }
-}
-
-//
-//  Desktop
-//  _____________________________________________
-
-@include min-screen($screen__m) {
-    .opc-wrapper {
-        @extend .abs-add-box-sizing-desktop-m;
-        @include lib-layout-column(2, 1, $checkout-wrapper__columns);
-        padding-right: $indent__l;
     }
 }

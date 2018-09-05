@@ -1,10 +1,19 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [Unreleased]
+
+## [0.5.0] - 2018-09-05
+### Changed
+- Product review details page
+- Moved theme styles to components
+- Styles and markup for checkout page
+
 ## [0.4.0] - 2018-08-22
 ### Added
 - Loaders to sidebar blocks
 - Border to white swatch
+- Quicksearch (solr)
 
 ### Changed
 - Compare products page
