@@ -2,9 +2,21 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Added
+- Sidebar to search results
+- Classes for stock status in catalog
+
 ### Changed
 - Product review details page
 - Moved theme styles to components
+- Input classes
+- Sidebar blocks heading
+
+### Fixed
+- State select
+
+### Removed
+- Lazyload from captcha in forgot password page
 
 ## [0.4.0] - 2018-08-22
 ### Added
