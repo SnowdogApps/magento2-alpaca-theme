@@ -1,9 +1,4 @@
 <?php
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
-
 // @codingStandardsIgnoreFile
 ?>
 <?php
@@ -17,7 +12,11 @@ $itemsList =  $block->getRequisitionListItems();
 <div class="requisition-content" data-mage-init='{"requisitionActions":{ }}'>
     <?= $block->getChildHtml('requisition.management') ?>
     <?php if (empty($itemsList)): ?>
-        <div class="message info empty"><span><?= /* @noEscape */ __('You have no items in this requisition list.') ?></span></div>
+        <div class="message info empty">
+            <span>
+                <?= /* @noEscape */ __('You have no items in this requisition list.') ?>
+            </span>
+        </div>
     <?php else: ?>
         <div class="requisition-grid table-wrapper">
             <form
@@ -27,41 +26,55 @@ $itemsList =  $block->getRequisitionListItems();
                 method="post"
                 data-mage-init='{"validation":{}}'
                 id="form-requisition-list"
-                >
+            >
                 <table class="data-table table">
                     <thead>
-                    <tr class="headings">
-                        <th class="col number"><span>#</span></th>
-                        <th class="col product" colspan="2">
-                            <span data-print-label="<?= $block->escapeHtml(__('Product Name')) ?>">
-                                <?= $block->escapeHtml(__('Item')) ?>
-                            </span>
-                        </th>
-                        <th class="col price">
-                            <span><?= $block->escapeHtml(__('Price')) ?></span>
-                        </th>
-                        <th class="col qty">
-                            <span><?= $block->escapeHtml(__('Qty')) ?></span>
-                        </th>
-                        <th class="col subtotal action">
-                            <span><?= $block->escapeHtml(__('Subtotal')) ?></span>
-                        </th>
-                    </tr>
+                        <tr class="headings">
+                            <th class="col number">
+                                <span>#</span>
+                            </th>
+                            <th class="col product" colspan="2">
+                                <span
+                                    data-print-label="<?= $block->escapeHtml(__('Product Name')) ?>"
+                                >
+                                    <?= $block->escapeHtml(__('Item')) ?>
+                                </span>
+                            </th>
+                            <th class="col price">
+                                <span>
+                                    <?= $block->escapeHtml(__('Price')) ?>
+                                </span>
+                            </th>
+                            <th class="col qty">
+                                <span>
+                                    <?= $block->escapeHtml(__('Qty')) ?>
+                                </span>
+                            </th>
+                            <th class="col subtotal action">
+                                <span>
+                                    <?= $block->escapeHtml(__('Subtotal')) ?>
+                                </span>
+                            </th>
+                        </tr>
                     </thead>
                     <tbody>
-                    <?php $i = 0 ?>
-                    <?php foreach ($itemsList as $item):$i++ ?>
-                        <tr class="_<?= /* @noEscape */ ($i % 2) ? 'even' : 'odd' ?> item"
-                            data-product-id="<?= $block->escapeHtml($item->getId()) ?>">
-                            <td class="col number"><?= /* @noEscape */ $i ?></td>
-                            <?php
-                                $block->getChildBlock('requisition.list.item.view')
-                                    ->setItem($item)
-                                    ->setItemErrors($block->getItemErrors($item));
-                            ?>
-                            <?= /* @noEscape */ $block->getChildHtml('requisition.list.item.view', false) ?>
-                        </tr>
-                    <?php endforeach; ?>
+                        <?php $i = 0 ?>
+                        <?php foreach ($itemsList as $item):$i++ ?>
+                            <tr
+                                class="_<?= /* @noEscape */ ($i % 2) ? 'even' : 'odd' ?> item"
+                                data-product-id="<?= $block->escapeHtml($item->getId()) ?>"
+                            >
+                                <td class="col number">
+                                    <?= /* @noEscape */ $i ?>
+                                </td>
+                                <?php
+                                    $block->getChildBlock('requisition.list.item.view')
+                                        ->setItem($item)
+                                        ->setItemErrors($block->getItemErrors($item));
+                                ?>
+                                <?= /* @noEscape */ $block->getChildHtml('requisition.list.item.view', false) ?>
+                            </tr>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </form>
