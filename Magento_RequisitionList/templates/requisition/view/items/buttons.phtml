@@ -1,0 +1,71 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+?>
+
+<div class="actions-toolbar requisition-view-buttons" data-mage-init='{"requisitionActions":{ }}'>
+    <div class="primary">
+        <?php if ($block->getItemCount()): ?>
+        <!-- ko scope: 'requisition.list.items.massaction.addtocart' -->
+        <button type="button"
+                title="<?= $block->escapeHtml(__('Add to Cart')) ?>"
+                class="action primary disabled"
+                data-bind="
+                    css: {
+                        disabled: !isEnable()
+                    },
+                    click: applyAction.bind($data, {
+                        requisition_id: '<?= /* @noEscape */ $block->getRequest()->getParam('requisition_id') ?>'
+                    })"
+                data-mobile-label="<?= $block->escapeHtml(__('Add to Cart')) ?>">
+            <span><?= $block->escapeHtml(__('Add to Cart')) ?></span>
+        </button>
+        <!-- /ko -->
+        <script type="text/x-magento-init">
+            {
+                "*": {
+                    "Magento_Ui/js/core/app": {
+                        "components": {
+                            "requisition.list.items.massaction.addtocart": {
+                                "component": "Magento_RequisitionList/js/requisition/items/grid/massaction/add-to-cart",
+                                "selectProvider": "requisition.item.grid.selection.provider",
+                                "hasConfirm": true,
+                                "action": "<?= /* @noEscape */ $block->getUrl('requisition_list/item/addToCart') ?>"
+                            }
+                        }
+                    }
+                }
+            }
+        </script>
+        <button type="button"
+                title="<?= $block->escapeHtml(__('Update List')) ?>"
+                class="action secondary"
+                data-action="update-list"
+                data-mobile-label="<?= $block->escapeHtml(__('Update List')) ?>"
+                data-update-list='{
+                "updateUrl":"<?= $block->escapeUrl($block->getUrl('*/item/update', [
+                    'requisition_id' => $block->getRequest()->getParam('requisition_id')
+                ])) ?>"
+                }'>
+            <span><?= $block->escapeHtml(__('Update List')) ?></span>
+        </button>
+        <?php endif ?>
+        <button type="button"
+                title="<?= $block->escapeHtml(__('Delete Requisition List')) ?>"
+                class="action secondary delete"
+                data-action="remove-list"
+                data-mobile-label="<?= $block->escapeHtml(__('Delete Requisition List')) ?>"
+                data-delete-list='{
+                "deleteUrl":"<?= $block->escapeUrl($block->getUrl('*/requisition/delete', [
+                    'requisition_id' => $block->getRequest()->getParam('requisition_id')
+                ])) ?>",
+                "listName": "<?= $block->escapeHtml($block->getRequisitionList()->getName()) ?>"
+                }'>
+            <span><?= $block->escapeHtml(__('Delete Requisition List')) ?></span></a>
+        </button>
+    </div>
+</div>
