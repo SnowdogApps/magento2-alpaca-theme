@@ -7,8 +7,6 @@ All notable changes to this project will be documented in this file.
 - Classes for stock status in catalog
 
 ### Changed
-- Product review details page
-- Moved theme styles to components
 - Input classes
 - Sidebar blocks heading
 
@@ -17,6 +15,12 @@ All notable changes to this project will be documented in this file.
 
 ### Removed
 - Lazyload from captcha in forgot password page
+
+## [0.5.0] - 2018-09-05
+### Changed
+- Product review details page
+- Moved theme styles to components
+- Styles and markup for checkout page
 
 ## [0.4.0] - 2018-08-22
 ### Added

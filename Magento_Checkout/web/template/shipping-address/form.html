@@ -1,0 +1,30 @@
+<form
+    class="form form-shipping-address"
+    id="co-shipping-form"
+    data-bind="attr: {'data-hasrequired': $t('* Required Fields')}"
+>
+    <!-- ko foreach: getRegion('before-fields') -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+    <!--/ko-->
+    <div id="shipping-new-address-form" class="fieldset address">
+        <!-- ko foreach: getRegion('additional-fieldsets') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+        <!--/ko-->
+        <!-- ko if: (isCustomerLoggedIn) -->
+            <div class="field choice checkbox" data-bind="visible: !isFormInline">
+                <input
+                    type="checkbox"
+                    class="checkbox__field"
+                    id="shipping-save-in-address-book"
+                    data-bind="checked: saveInAddressBook"
+                >
+                <svg class="checkbox__icon">
+                    <use data-bind="attr: { 'xlink:href': require.toUrl('images/icons-sprite.svg#checked') }" xlink:href=''></use>
+                </svg>
+                <label class="label checkbox__label" for="shipping-save-in-address-book">
+                    <span data-bind="i18n: 'Save in address book'"></span>
+                </label>
+            </div>
+        <!-- /ko -->
+    </div>
+</form>
