@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.5.1] - 2018-09-06
+### Changed
+- Updated components version to version 0.9.1
+
 ## [0.5.0] - 2018-09-05
 ### Changed
 - Product review details page
