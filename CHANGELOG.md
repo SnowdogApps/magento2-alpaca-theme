@@ -9,6 +9,8 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - Input classes
 - Sidebar blocks heading
+- Catalog structure
+- Moved sidebar blocks to the bottom on mobile
 
 ### Fixed
 - State select
