@@ -14,6 +14,7 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 - State select
+- Nested links in mobile menu
 
 ### Removed
 - Lazyload from captcha in forgot password page
