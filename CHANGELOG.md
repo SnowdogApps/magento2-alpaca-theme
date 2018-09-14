@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file.
 - Sidebar blocks heading
 - Catalog structure
 - Moved sidebar blocks to the bottom on mobile
+- Category links styles in catalog (solr)
 
 ### Fixed
 - State select
