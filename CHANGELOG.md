@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+## [0.6.0] - 2018-09-18
 ### Added
 - Sidebar to search results
 - Classes for stock status in catalog
