@@ -7,7 +7,7 @@
 </h3>
 
 <?php if ($block->customerHasAddresses()) : ?>
-    <div class="input dashboard-form__divider address">
+    <div class="input address">
         <label for="address_type_or_id" class="label">
             <?= /* @escapeNotVerified */  __('Select a shipping address from your address book or enter a new address.') ?>
         </label>
@@ -33,7 +33,6 @@
                     name="address_type_or_id"
                     id="address_type_or_id"
                     class="select__field select__field--native validate-select"
-                    data-mage-init='{"select": {}}'
             >
                 <option value="none" selected>
                     <?= /* @escapeNotVerified */  __('None'); ?>
@@ -67,7 +66,7 @@
               ->toHtml();
     ?>
 
-    <div class="input dashboard-form__divider company">
+    <div class="input company">
         <?php
             $getCompanyVerifiedClass = $addressHelper->getAttributeValidationClass('company');
         ?>
@@ -89,7 +88,7 @@
         $_streetValidationClass = $addressHelper->getAttributeValidationClass('street');
     ?>
 
-    <div class="input dashboard-form__divider address street required">
+    <div class="input address street required">
         <label for="address:street1" class="label">
             <?= /* @escapeNotVerified */  __('Address'); ?>
         </label>
@@ -109,7 +108,7 @@
         ?>
 
         <?php for ($_i = 2, $_n = $getStreetLines; $_i <= $_n; $_i++): ?>
-            <div class="input dashboard-form__divider additional no-label">
+            <div class="input additional no-label">
                 <label for="address:street<?= /* @escapeNotVerified */  $_i ?>" class="label">
                     <?= /* @escapeNotVerified */  __('Address %1', $_i); ?>
                 </label>
@@ -124,17 +123,7 @@
             </div>
         <?php endfor; ?>
 
-    <div class="input dashboard-form__divider address city required"
-         data-mage-init='{
-            "countryList": {
-                "countrySelect"  : "address:country_id",
-                "regionSelect"   : "address:region_id",
-                "regionText"     : "address:region",
-                "regionContainer": "region_container",
-                "placeholder"    : "<?= /* @escapeNotVerified */  __('Please select a region, state or province.') ?>"
-            }
-         }'
-    >
+    <div class="input address city required">
         <?php
             $getCityValiadationClass = $addressHelper->getAttributeValidationClass('city');
         ?>
@@ -152,7 +141,7 @@
         />
     </div>
 
-    <div id="region_container" class="select dashboard-form__select address region required">
+    <div class="select dashboard-form__select address region required">
         <?php
             $getRegionValiadationClass = $addressHelper->getAttributeValidationClass('region');
         ?>
@@ -165,7 +154,7 @@
                 name="address[region_id]"
                 title="<?= /* @escapeNotVerified */  __('State/Province') ?>"
                 class="select__field select__field--native validate-select"
-                data-mage-init='{"select": {}}'
+                style="display:none;"
         >
             <option value="" disabled>
                 <?= /* @escapeNotVerified */  __('Please select a region, state or province.') ?>
@@ -181,7 +170,7 @@
         />
     </div>
 
-    <div class="input dashboard-form__divider address postcode required">
+    <div class="input address postcode required">
         <?php
             $getPostcodeValiadationClass = $addressHelper->getAttributeValidationClass('postcode');
         ?>
@@ -214,7 +203,6 @@
                 name="address[country_id]"
                 id="address:country_id"
                 class="select__field select__field--native validate-select"
-                data-mage-init='{"select": {}}'
         >
             <option value="" disabled>
                 <?= /* @escapeNotVerified */  __('Please select a country.') ?>
@@ -231,7 +219,7 @@
         </select>
     </div>
 
-    <div class="input dashboard-form__divider address telephone required">
+    <div class="input address telephone required">
         <?php
             $getPostcodeValiadationClass = $addressHelper->getAttributeValidationClass('telephone');
         ?>
@@ -249,7 +237,7 @@
         />
     </div>
 
-    <div class="input dashboard-form__divider address fax">
+    <div class="input address fax">
         <?php
             $getFaxValiadationClass = $addressHelper->getAttributeValidationClass('fax');
         ?>
