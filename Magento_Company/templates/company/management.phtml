@@ -1,0 +1,70 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php /** @var $block Magento\Company\Block\Company\Management */ ?>
+<?php if ($block->hasCustomerCompany()) : ?>
+    <div class="block block-dashboard-company">
+        <div class="block-title"><strong><?= $block->escapeHtml(__('Business Structure')) ?></strong></div>
+        <div class="block-content">
+            <div class="box-actions">
+                <button class="action expand" data-action="expand-tree" type="button">
+                    <span><?= $block->escapeHtml(__('Expand All')) ?></span>
+                </button>
+                <button class="action expand" data-action="collapse-tree" type="button">
+                    <span><?= $block->escapeHtml(__('Collapse All')) ?></span>
+                </button>
+                <?php if ($block->isSuperUser()) : ?>
+                    <button class="action add" id="add-customer" type="button" data-action="add-user">
+                        <?= $block->escapeHtml(__('Add User')) ?>
+                    </button>
+                    <button class="action add" id="add-team" type="button" data-action="add-team">
+                        <?= $block->escapeHtml(__('Add Team')) ?>
+                    </button>
+                    <button class="action edit" id="edit-selected" type="button"
+                            data-action="edit-selected-node"
+                            data-edit-team-url="<?= $block->escapeUrl($block->getUrl('*/team/get')) ?>"
+                            data-edit-customer-url="<?= $block->escapeUrl($block->getUrl('*/customer/get')) ?>"
+                    >
+                        <?= $block->escapeHtml(__('Edit Selected')) ?>
+                    </button>
+                    <button class="action delete" id="delete-selected" type="button"
+                            data-action="delete-selected-node"
+                            data-delete-team-url="<?= $block->escapeUrl($block->getUrl('*/team/delete')) ?>"
+                            data-delete-customer-url="<?= $block->escapeUrl($block->getUrl('*/customer/delete')) ?>"
+                    >
+                        <?= $block->escapeHtml(__('Delete Selected')) ?>
+                    </button>
+                    <button class="action _hidden" data-action="alert-modal" type="button">
+                        <?= $block->escapeHtml(__('Error')) ?>
+                    </button>
+                <?php endif; ?>
+            </div>
+            <div class="tree x-tree" id="company-tree" data-role="hierarchy-tree"
+                 data-mage-init='<?= $block->escapeHtml(
+                     $block->getJsonHelper()->jsonEncode($block->getTreeJsOptions())
+                 )?>'>
+            </div>
+        </div>
+    </div>
+
+    <div id="new-customers-container">
+        <div data-role="add-customer-dialog" class="modal-container">
+            <?= $block->getChildHtml('dialog.customer.add') ?>
+        </div>
+        <div data-role="add-team-dialog" class="modal-container">
+            <?= $block->getChildHtml('dialog.team.add') ?>
+        </div>
+        <div data-role="del-dialog" class="modal-container">
+            <?= $block->getChildHtml('dialog.delete.del') ?>
+        </div>
+        <div data-role="alert-dialog" class="modal-container">
+            <?= $block->getChildHtml('dialog.alert.alert') ?>
+        </div>
+    </div>
+<?php endif; ?>
