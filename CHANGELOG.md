@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.6.1] - 2018-09-24
+### Added
+- Link to log out
+
 ## [0.6.0] - 2018-09-18
 ### Added
 - Sidebar to search results
