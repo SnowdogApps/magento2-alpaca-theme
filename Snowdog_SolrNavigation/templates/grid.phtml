@@ -61,11 +61,22 @@ $solrDataHelper = $this->helper('Snowdog\SolrNavigation\Helper\Data');
                                 </div>
                             </div>
                         <?php endif ?>
-                        <div class="rating catalog-grid-item__rating">
-                            <div class="rating__star">
-                                <span class="rating__indicator"></span>
+                        <?php
+                        $reviews = $block->getProductReviewSummary($_product['entity_id']);
+                        $rating = $reviews['rating_summary'];
+                        ?>
+                        <?php if ($rating): ?>
+                            <div
+                                class="rating catalog-grid-item__rating"
+                                aria-label="<?= __('Average rating') ?>: <?= $rating ?>%"
+                                title="<?= __('Average rating') ?>: <?= $rating ?>%"
+                                tabindex="0"
+                            >
+                                <div class="rating__star" style="width: <?= $rating ?>%">
+                                    <span class="rating__indicator"></span>
+                                </div>
                             </div>
-                        </div>
+                        <?php endif ?>
                         <div class="catalog-grid-item__actions">
                             <form
                                 class="catalog-grid-item__primary-form"
