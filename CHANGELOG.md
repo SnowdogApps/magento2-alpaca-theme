@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Changed
+- refactor rating and reviews, a11y implementation
 
 ## [0.6.1] - 2018-09-24
 ### Added
