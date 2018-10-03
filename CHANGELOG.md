@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Changed
+- Refactor rating and reviews, a11y implementation
+
 ### Fixed
 - Rating stars in catalog (solr)
 
