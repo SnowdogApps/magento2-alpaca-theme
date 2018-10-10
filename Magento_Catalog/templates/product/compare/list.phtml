@@ -27,7 +27,7 @@
                                     scope="row"
                                     class="compare__label"
                                 >
-                                    <?= /* @escapeNotVerified */ __('Product') ?>
+                                    <?= __('Product') ?>
                                 </th>
                             <?php endif; ?>
                             <td
@@ -37,28 +37,32 @@
                                 <div class="compare__product">
                                     <a
                                         class="compare__link"
-                                        href="<?= /* @escapeNotVerified */ $block->getProductUrl($_item) ?>"
-                                        title="<?= /* @escapeNotVerified */ $block->stripTags($_item->getName(), null, true) ?>"
+                                        href="<?= $block->getProductUrl($_item) ?>"
+                                        title="<?= $block->stripTags($_item->getName(), null, true) ?>"
                                     >
                                         <?= $block->getImage($_item, 'product_comparison_list')->toHtml() ?>
                                     </a>
                                     <a
                                         class="compare__link"
-                                        href="<?= /* @escapeNotVerified */ $block->getProductUrl($_item) ?>"
-                                        title="<?= /* @escapeNotVerified */ $block->stripTags($_item->getName(), null, true) ?>"
+                                        href="<?= $block->getProductUrl($_item) ?>"
+                                        title="<?= $block->stripTags($_item->getName(), null, true) ?>"
                                     >
-                                        <?= /* @escapeNotVerified */ $_helper->productAttribute($_item, $_item->getName(), 'name') ?>
+                                        <?= $_helper->productAttribute($_item, $_item->getName(), 'name') ?>
                                     </a>
-                                    <div class="rating compare__rating">
-                                        <?= $block->getReviewsSummaryHtml($_item, 'short') ?>
-                                    </div>
-                                    <?= /* @escapeNotVerified */ $block->getProductPrice($_item) ?>
+                                    <?php
+                                    $rating = $block->getReviewsSummaryHtml($_item, 'short');
+                                    if (trim($rating)): ?>
+                                        <div class="rating compare__rating">
+                                            <?= $rating ?>
+                                        </div>
+                                    <?php endif ?>
+                                    <?= $block->getProductPrice($_item) ?>
                                     <div class="compare__buttons-container">
                                         <?php if ($_item->isSaleable()): ?>
                                             <form
                                                 class="compare__form"
                                                 data-role="tocart-form"
-                                                action="<?= /* @escapeNotVerified */ $this->helper('Magento\Catalog\Helper\Product\Compare')->getAddToCartUrl($_item) ?>"
+                                                action="<?= $this->helper('Magento\Catalog\Helper\Product\Compare')->getAddToCartUrl($_item) ?>"
                                                 method="post"
                                             >
                                                 <?= $block->getBlockHtml('formkey') ?>
@@ -71,11 +75,11 @@
                                                         button--secondary
                                                         compare__cart
                                                     "
-                                                    title="<?= /* @escapeNotVerified */ __('Add to Cart') ?>"
-                                                    aria-label="<?= /* @escapeNotVerified */ __('Add to Cart') ?>"
+                                                    title="<?= __('Add to Cart') ?>"
+                                                    aria-label="<?= __('Add to Cart') ?>"
                                                 >
                                                     <span class="compare__cart-text">
-                                                        <?= /* @escapeNotVerified */ __('Add to Cart') ?>
+                                                        <?= __('Add to Cart') ?>
                                                     </span>
                                                     <svg class="icon compare__cart-icon">
                                                         <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#shopping-cart') ?>"></use>
@@ -84,9 +88,9 @@
                                             </form>
                                         <?php else: ?>
                                             <?php if ($_item->getIsSalable()): ?>
-                                                <?= /* @escapeNotVerified */ __('In stock') ?>
+                                                <?= __('In stock') ?>
                                             <?php else: ?>
-                                                <?= /* @escapeNotVerified */ __('Out of stock') ?>
+                                                <?= __('Out of stock') ?>
                                             <?php endif; ?>
                                         <?php endif; ?>
                                         <div class="compare__secondary-buttons">
@@ -95,10 +99,10 @@
                                                     <button
                                                         class="action towishlist button button--icon compare__wishlist"
                                                         type="button"
-                                                        data-post='<?= /* @escapeNotVerified */ $block->getAddToWishlistParams($_item) ?>'
+                                                        data-post='<?= $block->getAddToWishlistParams($_item) ?>'
                                                         data-action="add-to-wishlist"
-                                                        title="<?= /* @escapeNotVerified */ __('Add to Wish List') ?>"
-                                                        aria-label="<?= /* @escapeNotVerified */ __('Add to Wish List') ?>"
+                                                        title="<?= __('Add to Wish List') ?>"
+                                                        aria-label="<?= __('Add to Wish List') ?>"
                                                     >
                                                         <svg class="button__icon compare__wishlist-icon">
                                                             <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#heart') ?>"></use>
@@ -109,10 +113,10 @@
                                             <?php $compareHelper = $this->helper('Magento\Catalog\Helper\Product\Compare');?>
                                             <button
                                                 type="button"
-                                                data-post='<?= /* @escapeNotVerified */ $compareHelper->getPostDataRemove($_item) ?>'
+                                                data-post='<?= $compareHelper->getPostDataRemove($_item) ?>'
                                                 class="action delete button button--icon compare__remove"
-                                                title="<?= /* @escapeNotVerified */ __('Remove from Compare') ?>"
-                                                aria-label="<?= /* @escapeNotVerified */ __('Remove from Compare') ?>"
+                                                title="<?= __('Remove from Compare') ?>"
+                                                aria-label="<?= __('Remove from Compare') ?>"
                                             >
                                                 <svg class="button__icon compare__remove-icon">
                                                     <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#remove') ?>"></use>
@@ -143,7 +147,7 @@
                                     <?php switch ($_attribute->getAttributeCode()) {
                                         case "price": ?>
                                             <?=
-                                                /* @escapeNotVerified */ $block->getProductPrice(
+                                                $block->getProductPrice(
                                                     $_item,
                                                     '-compare-list-' . $_attribute->getCode()
                                                 )
@@ -153,7 +157,7 @@
                                             <?php $block->getImage($_item, 'product_small_image')->toHtml(); ?>
                                             <?php break;
                                         default: ?>
-                                            <?= /* @escapeNotVerified */ $_helper->productAttribute($_item, $block->getProductAttributeValue($_item, $_attribute), $_attribute->getAttributeCode()) ?>
+                                            <?= $_helper->productAttribute($_item, $block->getProductAttributeValue($_item, $_attribute), $_attribute->getAttributeCode()) ?>
                                         <?php break;
                                     } ?>
                                 </td>
@@ -175,6 +179,6 @@
     <?php endif; ?>
 <?php else: ?>
     <div class="message info empty">
-        <?= /* @escapeNotVerified */ __('You have no items to compare.') ?>
+        <?= __('You have no items to compare.') ?>
     </div>
 <?php endif; ?>

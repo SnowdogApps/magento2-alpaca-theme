@@ -1,0 +1,116 @@
+<?php use Snowdog\CatalogImage\Helper\Data;
+
+/** @var \Snowdog\SolrNavigation\Block\QuickSearch\Result $this */
+$response = $this->getResponse();
+$categoryFacet = $response->getFacets('category');
+$manufacturerFacet = $response->getFacets('manufacturer');
+$attributeCode = $this->getNavigationConfig()->getMainNavigationAttribute();
+$attribute = $this->getAttributeManager()->getAttributeConfig($attributeCode);
+$attributeFacet = $response->getFacets($attributeCode);
+$products = $response->getDocuments();
+?>
+
+<p class="quicksearch__results">
+    <?= __('Results for your request') . ':' ?>
+    <span class="quicksearch__typed">
+        <?= $response->getRequest()->getQuery() ?>
+    </span>
+</p>
+
+<div class="quicksearch__content">
+    <?php if (!empty($products)): ?>
+        <ul class="quicksearch__list quicksearch__list--column">
+            <?php foreach ($products as $product): ?>
+                <li class="quicksearch__product">
+                    <a
+                        href="<?= $this->getProductUrl($product) ?>"
+                        title="<?= $product['name_static'] ?>"
+                    >
+                        <div class="lazyload-wrapper quicksearch__product-image-wrapper">
+                            <img
+                                class="image lazyload quicksearch__product-image"
+                                src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                                data-src="<?= $this->getImageUrl($product['thumbnail_static'], 144, 144) ?>"
+                                alt="<?= $product['name_static'] ?>"
+                            />
+                        </div>
+                    </a>
+                    <div class="quicksearch__product-details">
+                        <a
+                            href="<?= $this->getProductUrl($product) ?>"
+                            class="link link--invert quicksearch__link"
+                            title="<?= $product['name_static'] ?>"
+                        >
+                            <h3 class="quicksearch__name quicksearch__name--thin">
+                                <?= $product['name_static'] ?>
+                            </h3>
+                        </a>
+                    </div>
+                </li>
+            <?php endforeach ?>
+        </ul>
+    <?php else: ?>
+        <p class="quicksearch__empty">
+            <?= __('No search results found.') ?>
+        </p>
+    <?php endif ?>
+
+    <?php if (!empty($categoryFacet) || !empty($manufacturerFacet)): ?>
+        <div class="quicksearch__categories-column">
+            <?php if (!empty($categoryFacet)): ?>
+                <ul class="quicksearch__list">
+                    <?php foreach ($categoryFacet as $categoryId => $categoryCount): ?>
+                        <?php $categoryInfo = $this
+                            ->getAttributeManager()
+                            ->getCategoryInfo($categoryId)
+                        ?>
+                        <?php if (!empty($categoryInfo['name_path'])) : ?>
+                            <li class="quicksearch__category">
+                                <a
+                                    href="<?= $this->getCategoryUrl($categoryId) ?>"
+                                    class="link link--invert quicksearch__link"
+                                    title="<?= implode(" &raquo; ", $categoryInfo['name_path']) ?>"
+                                >
+                                    <h3 class="quicksearch__name">
+                                        <?= implode(" &raquo; ", $categoryInfo['name_path']) ?>
+                                    </h3>
+                                </a>
+                                <?= $categoryCount ?>
+                                <?= __(' item(s)') ?>
+                            </li>
+                        <?php endif ?>
+                    <?php endforeach ?>
+                </ul>
+            <?php endif ?>
+            <?php if (!empty($manufacturerFacet)): ?>
+                <ul class="quicksearch__list quicksearch__list--below">
+                    <?php foreach ($manufacturerFacet as $manufacturerId => $manufacturerCount): ?>
+                        <li class="quicksearch__manufacturer">
+                            <a
+                                href="<?= $this->getManufacturerUrl($manufacturerId) ?>"
+                                class="link link--invert quicksearch__link"
+                                title="<?= $this->getAttributeText('manufacturer', $manufacturerId) ?>"
+                            >
+                                <h3 class="quicksearch__name">
+                                    <?= $this->getAttributeText('manufacturer', $manufacturerId) ?>
+                                </h3>
+                            </a>
+                            <?= $manufacturerCount ?>
+                            <?= __(' item(s)') ?>
+                        </li>
+                    <?php endforeach ?>
+                </ul>
+            <?php endif ?>
+        </div>
+    <?php endif ?>
+</div>
+
+<?php if (!empty($products)): ?>
+    <a
+        href="<?= $this->showAllResults() ?>"
+        class="link link--invert quicksearch__more-link"
+        title="<?= __('See All') ?>"
+    >
+        <?= __('See All') ?>
+    </a>
+<?php endif ?>

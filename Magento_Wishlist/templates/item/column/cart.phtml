@@ -5,48 +5,60 @@
     $product = $item->getProduct();
 ?>
 <?php foreach ($block->getChildNames() as $childName): ?>
-    <?= /* @escapeNotVerified */ $block->getLayout()->renderElement($childName, false); ?>
+    <?= $block->getLayout()->renderElement($childName, false); ?>
 <?php endforeach; ?>
 
 <?php if ($item->canHaveQty() && $product->isVisibleInSiteVisibility()): ?>
-    <div class="input input--inline dashboard__input qty">
-        <label class="label dashboard__label" for="qty[<?= /* @escapeNotVerified */ $item->getId() ?>]">
-            <?= /* @escapeNotVerified */ __('Qty') ?>
+    <div class="
+        input
+        input--inline
+        wishlist__qty"
+    >
+        <label
+            for="qty[<?= $item->getId() ?>]"
+            class="label wishlist__label"
+        >
+            <?= __('Qty') ?>:
         </label>
-
-        <input type="number" 
-               data-role="qty" 
-               id="qty[<?= /* @escapeNotVerified */ $item->getId() ?>]" 
-               class="input__field dashboard__field-qty qty" 
-               data-validate="{'required-number':true,'validate-greater-than-zero':true}"
-               name="qty[<?= /* @escapeNotVerified */ $item->getId() ?>]" 
-               value="<?= /* @escapeNotVerified */ $block->getAddToCartQty($item) * 1 ?>"
+        <input
+            type="number"
+            data-role="qty"
+            id="qty[<?= $item->getId() ?>]"
+            class="input__field wishlist__field-qty qty"
+            data-validate="{'required-number':true,'validate-greater-than-zero':true}"
+            name="qty[<?= $item->getId() ?>]"
+            value="<?= $block->getAddToCartQty($item) * 1 ?>"
         />
     </div>
 <?php endif; ?>
 
 <?php if ($product->isSaleable()): ?>
-    <div class="action">
-        <div class="action__handler">
-            <button type="button" 
-                    data-role="tocart" 
-                    data-post='<?= /* @escapeNotVerified */ $block->getItemAddToCartParams($item) ?>' 
-                    title="<?= /* @escapeNotVerified */ __('Add to Cart') ?>" 
-                    data-item-id="<?= /* @escapeNotVerified */ $item->getId() ?>" 
-                    class="button action__button tocart primary"
-            >
-                <?= /* @escapeNotVerified */ __('Add to Cart') ?>
-            </button>
-        </div>
+    <div class="wishlist__item-actions wishlist__item-actions--to-cart">
+        <button
+            type="button"
+            data-role="tocart"
+            data-post='<?= $block->getItemAddToCartParams($item) ?>'
+            title="<?= __('Add to Cart') ?>"
+            data-item-id="<?= $item->getId() ?>"
+            class="
+                button
+                action__button
+                tocart
+                primary
+                wishlist__button
+            "
+        >
+            <?= __('Add to Cart') ?>
+        </button>
     </div>
 <?php else: ?>
     <?php if ($product->getIsSalable()): ?>
-        <p class="available stock" title="<?= /* @escapeNotVerified */ __('Availability') ?>">
-            <?= /* @escapeNotVerified */ __('In stock') ?>
+        <p class="available stock" title="<?= __('Availability') ?>">
+            <?= __('In stock') ?>
         </p>
     <?php else: ?>
-        <p class="unavailable stock" title="<?= /* @escapeNotVerified */ __('Availability') ?>">
-            <?= /* @escapeNotVerified */ __('Out of stock') ?>
+        <p class="unavailable stock" title="<?= __('Availability') ?>">
+            <?= __('Out of stock') ?>
         </p>
     <?php endif; ?>
 <?php endif; ?>

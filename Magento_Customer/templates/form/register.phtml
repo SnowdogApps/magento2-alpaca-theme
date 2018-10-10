@@ -4,7 +4,7 @@
     <?= $block->getChildHtml('customer.form.register.extra') ?>
     <form
         class="form registration__content"
-        action="<?= /* @escapeNotVerified */ $block->getPostActionUrl() ?>"
+        action="<?= $block->getPostActionUrl() ?>"
         method="post"
         id="form-validate"
         enctype="multipart/form-data"
@@ -13,7 +13,7 @@
         <?= /* @noEscape */ $block->getBlockHtml('formkey'); ?>
         <fieldset class="fieldset registration__fieldset">
             <legend class="form__legend fieldset__legend registration__legend">
-                <?= /* @escapeNotVerified */ __('Personal Information') ?>
+                <?= __('Personal Information') ?>
             </legend>
             <div class="divider registration__divider">
                 <span class="divider__left"></span>
@@ -22,12 +22,12 @@
             <input
                 type="hidden"
                 name="success_url"
-                value="<?= /* @escapeNotVerified */ $block->getSuccessUrl() ?>"
+                value="<?= $block->getSuccessUrl() ?>"
             >
             <input
                 type="hidden"
                 name="error_url"
-                value="<?= /* @escapeNotVerified */ $block->getErrorUrl() ?>"
+                value="<?= $block->getErrorUrl() ?>"
             >
             <?= $block->getLayout()
                 ->createBlock('Magento\Customer\Block\Widget\Name')
@@ -40,7 +40,7 @@
                     <input
                         type="checkbox"
                         name="is_subscribed"
-                        title="<?= /* @escapeNotVerified */ __('Sign Up for Newsletter') ?>"
+                        title="<?= __('Sign Up for Newsletter') ?>"
                         value="1"
                         id="is_subscribed"
                         class="checkbox__field registration__newsletter-checkbox-field"
@@ -61,7 +61,7 @@
                             registration__newsletter-checkbox-label
                         "
                     >
-                        <?= /* @escapeNotVerified */ __('Sign Up for Newsletter') ?>
+                        <?= __('Sign Up for Newsletter') ?>
                     </label>
                 </div>
                 <?php /* Extensions placeholder */ ?>
@@ -86,10 +86,10 @@
         </fieldset>
         <fieldset
             class="fieldset registration__fieldset"
-            data-hasrequired="<?= /* @escapeNotVerified */ __('* Required Fields') ?>"
+            data-hasrequired="<?= __('* Required Fields') ?>"
         >
             <legend class="form__legend fieldset__legend registration__legend">
-                <?= /* @escapeNotVerified */ __('Sign-in Information') ?>
+                <?= __('Sign-in Information') ?>
             </legend>
             <div class="divider registration__divider">
                 <span class="divider__left"></span>
@@ -97,7 +97,7 @@
             </div>
             <div class="input registration__input required">
                 <label for="email_address" class="input__label">
-                    <?= /* @escapeNotVerified */ __('Email') ?>
+                    <?= __('Email') ?>
                 </label>
                 <input
                     type="email"
@@ -105,7 +105,7 @@
                     autocomplete="email"
                     id="email_address"
                     value="<?= $block->escapeHtml($block->getFormData()->getEmail()) ?>"
-                    title="<?= /* @escapeNotVerified */ __('Email') ?>"
+                    title="<?= __('Email') ?>"
                     class="input__field"
                     data-validate="{required:true, 'validate-email':true}"
                 >
@@ -120,13 +120,13 @@
             >
                 <div class="input required">
                     <label for="password" class="input__label">
-                        <?= /* @escapeNotVerified */ __('Password') ?>
+                        <?= __('Password') ?>
                     </label>
                     <input
                         type="password"
                         name="password"
                         id="password"
-                        title="<?= /* @escapeNotVerified */ __('Password') ?>"
+                        title="<?= __('Password') ?>"
                         class="input__field"
                         data-password-min-length="<?= $block->escapeHtml($block->getMinimumPasswordLength()) ?>"
                         data-password-min-character-sets="<?= $block->escapeHtml($block->getRequiredCharacterClassesNumber()) ?>"
@@ -161,12 +161,12 @@
             </div>
             <div class="input registration__input required">
                 <label for="password-confirmation" class="input__label">
-                    <?= /* @escapeNotVerified */ __('Confirm Password') ?>
+                    <?= __('Confirm Password') ?>
                 </label>
                 <input
                     type="password"
                     name="password_confirmation"
-                    title="<?= /* @escapeNotVerified */ __('Confirm Password') ?>"
+                    title="<?= __('Confirm Password') ?>"
                     id="password-confirmation"
                     class="input__field"
                     data-validate="{required:true, equalTo:'#password'}"
@@ -178,9 +178,9 @@
         <button
             type="submit"
             class="button"
-            title="<?= /* @escapeNotVerified */ __('Create an Account') ?>"
+            title="<?= __('Create an Account') ?>"
         >
-            <?= /* @escapeNotVerified */ __('Create an Account') ?>
+            <?= __('Create an Account') ?>
         </button>
     </form>
 </div>
@@ -190,7 +190,7 @@
         'mage/mage'
     ], function($) {
         var dataForm = $('#form-validate'),
-            ignore = <?= /* @escapeNotVerified */ $_dob->isEnabled() ? '\'input[id$="full"]\'' : 'null' ?>;
+            ignore = <?= $_dob->isEnabled() ? '\'input[id$="full"]\'' : 'null' ?>;
 
         dataForm.mage('validation', {
             <?php if ($_dob->isEnabled()): ?>

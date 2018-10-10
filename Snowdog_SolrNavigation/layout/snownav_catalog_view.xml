@@ -1,48 +1,39 @@
 <?xml version="1.0"?>
 <page
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    layout="1column"
+    layout="2columns-left"
     xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd"
 >
     <body>
-        <referenceContainer name="content">
+        <referenceContainer name="main" htmlClass="catalog-list__products">
             <block
-                class="Magento\Framework\View\Element\Template"
-                name="content.catalog"
-                template="Snowdog_SolrNavigation::content-catalog.phtml"
-            >
-                <block
-                    class="Snowdog\SolrNavigation\Block\Filters"
-                    name="solr.filters"
-                    template="Snowdog_SolrNavigation::filters.phtml"
-                />
-                <block
-                    class="Snowdog\SolrNavigation\Block\Navigation"
-                    name="solr.navigation"
-                    template="Snowdog_SolrNavigation::navigation.phtml"
-                />
-                <block
-                    class="Snowdog\SolrNavigation\Block\Product\Toolbar"
-                    name="solr.toolbar"
-                    template="Snowdog_SolrNavigation::product/toolbar.phtml"
-                />
-                <block
-                    class="Snowdog\SolrNavigation\Block\Product\ListProduct"
-                    name="solr.category.products"
-                    template="Snowdog_SolrNavigation::list.phtml"
-                />
-                <block
-                    class="Snowdog\SolrNavigation\Block\Product\ListProduct"
-                    name="solr.category.products.grid"
-                    template="Snowdog_SolrNavigation::grid.phtml"
-                />
-                <block
-                    class="Snowdog\SolrNavigation\Block\Product\Toolbar"
-                    name="solr.pager"
-                    template="Snowdog_SolrNavigation::product/list/toolbar/pager.phtml"
-                />
-            </block>
+                class="Snowdog\SolrNavigation\Block\Product\Toolbar"
+                name="solr.toolbar"
+                template="Snowdog_SolrNavigation::product/toolbar.phtml"
+            />
+            <block
+                class="Snowdog\SolrNavigation\Block\Product\ListProduct"
+                name="solr.category.products"
+                template="Snowdog_SolrNavigation::list.phtml"
+            />
+            <block
+                class="Snowdog\SolrNavigation\Block\Product\ListProduct"
+                name="solr.category.products.grid"
+                template="Snowdog_SolrNavigation::grid.phtml"
+            />
+            <block
+                class="Snowdog\SolrNavigation\Block\Product\Toolbar"
+                name="solr.pager"
+                template="Snowdog_SolrNavigation::product/list/toolbar/pager.phtml"
+            />
         </referenceContainer>
-        <move element="solr.breadcrumbs" destination="page.top" before="-" />
+
+        <move element="solr.breadcrumbs" destination="page.top" before="-"/>
+
+        <referenceContainer name="columns" htmlClass="catalog-list"/>
+        <referenceContainer name="div.sidebar.main" htmlClass="catalog-list__sidebar"/>
+        <referenceContainer name="div.sidebar.additional" htmlClass="catalog-list__sidebar-additional" remove="false"/>
+
+        <referenceBlock name="solr.seo.category" remove="true"/>
     </body>
 </page>

@@ -11,7 +11,7 @@
 >
     <div data-role="title" class="shipping-estimation__title">
         <span class="shipping-estimation__title-text">
-            <?= /* @escapeNotVerified */ $block->getQuote()->isVirtual() ? __('Estimate Tax') : __('Estimate Shipping and Tax'); ?>
+            <?= $block->getQuote()->isVirtual() ? __('Estimate Tax') : __('Estimate Shipping and Tax'); ?>
         </span>
         <svg class="shipping-estimation__title-icon">
             <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#arrow-down'); ?>"></use>
@@ -26,20 +26,20 @@
         <script type="text/x-magento-init">
             {
                 "#block-summary": {
-                    "Magento_Ui/js/core/app": <?= /* @escapeNotVerified */ $block->getJsLayout(); ?>
+                    "Magento_Ui/js/core/app": <?= $block->getJsLayout(); ?>
                 }
             }
         </script>
         <script>
-            window.checkoutConfig = <?= /* @escapeNotVerified */ \Zend_Json::encode($block->getCheckoutConfig()); ?>;
+            window.checkoutConfig = <?= \Zend_Json::encode($block->getCheckoutConfig()); ?>;
             window.customerData = window.checkoutConfig.customerData;
             window.isCustomerLoggedIn = window.checkoutConfig.isCustomerLoggedIn;
             require([
                 'mage/url',
                 'Magento_Ui/js/block-loader'
             ], function(url, blockLoader) {
-                blockLoader("<?= /* @escapeNotVerified */ $block->getViewFileUrl('images/loader-1.gif'); ?>");
-                return url.setBaseUrl('<?= /* @escapeNotVerified */ $block->getBaseUrl(); ?>');
+                blockLoader("<?= $block->getViewFileUrl('images/loader-1.gif'); ?>");
+                return url.setBaseUrl('<?= $block->getBaseUrl(); ?>');
             })
         </script>
     </div>

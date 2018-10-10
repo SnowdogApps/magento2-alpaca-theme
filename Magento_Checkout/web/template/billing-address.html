@@ -1,0 +1,55 @@
+<div class="checkout-billing-address">
+    <div
+        class="billing-address-same-as-shipping-block field choice checkbox"
+        data-bind="visible: canUseShippingAddress()"
+    >
+        <input
+            type="checkbox"
+            name="billing-address-same-as-shipping"
+            class="checkbox__field"
+            data-bind="
+                checked: isAddressSameAsShipping,
+                click: useShippingAddress,
+                attr: {
+                    id: 'billing-address-same-as-shipping-' + getCode($parent)
+                }
+            "
+        >
+        <svg class="checkbox__icon">
+            <use data-bind="attr: { 'xlink:href': require.toUrl('images/icons-sprite.svg#checked') }" xlink:href=''></use>
+        </svg>
+        <label
+            class="checkbox__label"
+            data-bind="
+                attr: {
+                    for: 'billing-address-same-as-shipping-' + getCode($parent)
+                }
+            "
+        >
+            <span
+                data-bind="i18n: 'My billing and shipping address are the same'"
+            ></span>
+        </label>
+    </div>
+    <!-- ko template: 'Magento_Checkout/billing-address/details' --><!-- /ko -->
+    <fieldset class="fieldset" data-bind="visible: !isAddressDetailsVisible()">
+        <!-- ko template: 'Magento_Checkout/billing-address/list' --><!-- /ko -->
+        <!-- ko template: 'Magento_Checkout/billing-address/form' --><!-- /ko -->
+        <div class="actions-toolbar">
+            <button
+                class="button button--secondary"
+                type="button"
+                data-bind="click: updateAddress"
+            >
+                <span data-bind="i18n: 'Update'"></span>
+            </button>
+            <button
+                class="button button--secondary"
+                type="button"
+                data-bind="click: cancelAddressEdit"
+            >
+                <span data-bind="i18n: 'Cancel'"></span>
+            </button>
+        </div>
+    </fieldset>
+</div>

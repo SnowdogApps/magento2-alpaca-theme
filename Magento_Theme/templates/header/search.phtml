@@ -6,7 +6,7 @@ $helper = $this->helper('Magento\Search\Helper\Data');
 
 <form class="search-form"
       id="search_mini_form"
-      action="<?= /* @escapeNotVerified */ $helper->getResultUrl() ?>"
+      action="<?= $helper->getResultUrl() ?>"
       method="get"
 >
     <div class="input search-form__input-wrapper">
@@ -19,28 +19,43 @@ $helper = $this->helper('Magento\Search\Helper\Data');
                data-mage-init='{
                    "quickSearch": {
                        "formSelector": "#search_mini_form",
-                       "url": "<?= /* @escapeNotVerified */ $block->getUrl('search/ajax/suggest', ['_secure' => $block->getRequest()->isSecure()]); ?>",
+                       "url": "/snownav.php",
                        "destinationSelector": "#search_autocomplete"
                    }
                }'
                type="search"
-               name="<?= /* @escapeNotVerified */ $helper->getQueryParamName(); ?>"
-               value="<?= /* @escapeNotVerified */ $helper->getEscapedQueryText(); ?>"
-               placeholder="<?= /* @escapeNotVerified */ __('Search entire store here...'); ?>"
-               maxlength="<?= /* @escapeNotVerified */ $helper->getMaxQueryLength(); ?>"
+               name="<?= $helper->getQueryParamName(); ?>"
+               value="<?= $helper->getEscapedQueryText(); ?>"
+               placeholder="<?= __('Search entire store here...'); ?>"
+               maxlength="<?= $helper->getMaxQueryLength(); ?>"
                role="combobox"
                aria-haspopup="false"
                aria-autocomplete="none"
                autocomplete="off"
         >
+        <button
+            class="button button--icon search-form__button"
+            type="submit"
+            aria-label="<?= __('Search') ?>"
+        >
+            <svg class="button__icon" role="img">
+                <title><?= __('Search') ?></title>
+                <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#search') ?>"></use>
+            </svg>
+        </button>
     </div>
 
-    <button class="button button--icon search-form__button"
-            type="submit"
-            aria-label="<?= /* @escapeNotVerified */ __('Search') ?>"
-    >
-        <svg class="button__icon">
-            <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#search'); ?>"></use>
-        </svg>
-    </button>
+    <div class="quicksearch">
+        <button
+            class="button button--icon quicksearch__close-button"
+            type="button"
+            aria-label="Close quicksearch"
+        >
+            <svg class="button__icon quicksearch__close-icon" role="img">
+                <title><?= __('Close') ?></title>
+                <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#close') ?>"></use>
+            </svg>
+        </button>
+        <div id="search_autocomplete"></div>
+    </div>
 </form>

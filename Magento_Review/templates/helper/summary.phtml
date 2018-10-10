@@ -1,42 +1,58 @@
 <?php $url = $block->getReviewsUrl() . '#reviews'; ?>
 <?php $urlForm = $block->getReviewsUrl() . '#review-form'; ?>
 
-<?php if ($block->getReviewsCount()): ?>
-    <?php $rating = $block->getRatingSummary(); ?>
-
-    <div class="product-view__rating-rates <?= /* @escapeNotVerified */ !$rating ? ' no-rating' : ''?>"
-         itemprop="aggregateRating"
-         itemscope
-         itemtype="http://schema.org/AggregateRating"
-    >
+<div class="review review--summary">
+    <?php if ($block->getReviewsCount()): ?>
+        <?php
+            $rating = $block->getRatingSummary();
+            $reviewsCount = $block->getReviewsCount();
+        ?>
         <?php if ($rating): ?>
-            <div class="rating">
-                <div class="rating__star" style="width:<?= /* @escapeNotVerified */  $rating; ?>%">
-                    <span class="rating__indicator"></span>
+            <div class="review__summary-handle">
+                <div
+                    class="rating"
+                    aria-label="<?= __('Average rating') . ': ' . $rating . '%'; ?>"
+                    title="<?= __('Average rating') . ': ' . $rating . '%'; ?>"
+                    tabindex="0"
+                >
+                    <div
+                        class="rating__star"
+                        role="presentation"
+                        style="width:<?=  $rating; ?>%"
+                    >
+                        <span class="rating__indicator"></span>
+                    </div>
                 </div>
+
+                <a
+                    href="<?= $url ?>"
+                    class="review__amount"
+                    title="<?= $reviewsCount . __(' reviews'); ?>"
+                    data-mage-init='{ "goToReview": { "reviewId": "reviews" } }'
+                    aria-label="<?= __('See ') . $reviewsCount . __(' reviews'); ?>"
+                >
+                    (<?= $block->getReviewsCount() ?>)
+                </a>
+                <span class="review__amount-text">
+                    <?= $reviewsCount . __(' Reviews'); ?>
+                </span>
+                <a
+                    href="<?=  $urlForm ?>"
+                    title="<?=  __('Add Your Review') ?>"
+                    class="review__summary-add"
+                    data-mage-init='{ "goToReview": { "reviewId": "review-form" } }'
+                >
+                    <?=  __('Add Your Review') ?>
+                </a>
             </div>
-
-            <span class="product-view__link product-view__link--rating">
-                (<?= $block->getReviewsCount() ?>)
-            </span>
         <?php endif; ?>
-    </div>
-
-    <div class="product-view__rating-actions">
+    <?php elseif ($block->getDisplayIfEmpty()): ?>
         <a
-            class="product-view__link product-view__link--add-review"
-            href="<?= /* @escapeNotVerified */  $urlForm ?>"
+            href="<?=  $urlForm; ?>"
+            title="<?=  __('Be the first to review this product') ?>"
+            data-mage-init='{ "goToReview": { "reviewId": "review-form" } }'
         >
-            <?= /* @escapeNotVerified */  __('Add Your Review') ?>
+            <?=  __('Be the first to review this product') ?>
         </a>
-    </div>
-<?php elseif ($block->getDisplayIfEmpty()): ?>
-    <div class="product-view__rating-actions">
-        <a
-            class="product-view__link product-view__link--add-review"
-            href="<?= /* @escapeNotVerified */  $urlForm; ?>"
-        >
-            <?= /* @escapeNotVerified */  __('Be the first to review this product') ?>
-        </a>
-    </div>
-<?php endif; ?>
+    <?php endif; ?>
+</div>

@@ -17,7 +17,10 @@
                 <?= __('Cart') ?>
             </span>
             <!-- ko if: getCartParam('summary_count') -->
-                <span class="header-button__counter">
+                <span
+                    class="header-button__counter header-button__counter--hidden"
+                    data-bind="css: {'header-button__counter--hidden': null}"
+                >
                     <span class="header-button__counter-dot"></span>
                 </span>
             <!-- /ko -->
@@ -47,16 +50,16 @@
 </div>
 
 <script>
-    window.checkout = <?= /* @escapeNotVerified */ \Zend_Json::encode($block->getConfig()) ?>;
+    window.checkout = <?= \Zend_Json::encode($block->getConfig()) ?>;
 </script>
 
 <script type="text/x-magento-init">
 {
     "[data-block='minicart']": {
-        "Magento_Ui/js/core/app": <?= /* @escapeNotVerified */ $block->getJsLayout() ?>
+        "Magento_Ui/js/core/app": <?= $block->getJsLayout() ?>
     },
     "*": {
-        "Magento_Ui/js/block-loader": "<?= /* @escapeNotVerified */ $block->getViewFileUrl('images/loader-1.gif') ?>"
+        "Magento_Ui/js/block-loader": "<?= $block->getViewFileUrl('images/loader-1.gif') ?>"
     }
 }
 </script>

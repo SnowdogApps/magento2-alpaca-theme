@@ -1,0 +1,84 @@
+<?php
+/** @var \Magento\Wishlist\Block\Customer\Sharing $block */
+?>
+<form
+    class="dashboard-form form"
+    action="<?= $block->escapeUrl($block->getSendUrl()) ?>"
+    id="form-validate"
+    method="post"
+    data-hasrequired="<?= __('* Required Fields') ?>"
+    data-mage-init='{"validation": {}}'
+>
+    <?= $block->getBlockHtml('formkey') ?>
+    <h3 class="dashboard-form__title">
+        <?= __('Sharing Information') ?>
+    </h3>
+    <div class="dashboard-form__divider">
+        <div class="input">
+            <label class="label" for="email_address">
+                <?= __('Email addresses, separated by commas') ?>
+            </label>
+            <textarea
+                class="input__field input__field--textarea"
+                name="emails"
+                cols="60"
+                rows="5"
+                id="email_address"
+                data-validate="{required: true, 'validate-emails': true}"
+            >
+                <?= $block->getEnteredData('emails') ?>
+            </textarea>
+        </div>
+        <div class="input">
+            <label class="label" for="message">
+                <?= __('Message') ?>
+            </label>
+            <textarea
+                class="input__field input__field--textarea"
+                id="message"
+                name="message"
+                cols="60"
+                rows="5"
+            >
+                <?= $block->getEnteredData('message') ?>
+            </textarea>
+        </div>
+        <?php if ($this->helper('Magento\Wishlist\Helper\Rss')->isRssAllow()): ?>
+            <div class="checkbox">
+                <input
+                    type="checkbox"
+                    name="rss_url"
+                    id="rss_url"
+                    value="1"
+                    title="<?= __('Check here to link an RSS feed to your Wish List.') ?>"
+                    class="checkbox__field"
+                >
+                <svg class="checkbox__icon">
+                    <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#checked'); ?>"></use>
+                </svg>
+                <label class="checkbox__label" for="rss_url">
+                    <?= __('Check here to link an RSS feed to your Wish List.') ?>
+                </label>
+            </div>
+        <?php endif; ?>
+    </div>
+    <div class="action">
+        <div class="action__handler">
+            <button
+                type="submit"
+                title="<?= __('Share Wish List') ?>"
+                class="button action__button"
+            >
+                <?= __('Share Wish List') ?>
+            </button>
+        </div>
+        <div class="action__handler">
+            <a
+                class="action__link"
+                href="<?= $block->escapeUrl($block->getBackUrl()) ?>"
+            >
+                <?= __('Back') ?>
+            </a>
+        </div>
+    </div>
+</form>

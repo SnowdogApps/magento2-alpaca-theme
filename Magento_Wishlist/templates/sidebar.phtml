@@ -2,95 +2,108 @@
 $wishlistHelper = $this->helper('Magento\Wishlist\Helper\Data');
 ?>
 <?php if ($wishlistHelper->isAllow()) : ?>
-    <div class="sidebar-nav-list" data-bind="scope: 'wishlist'">
-        <div class="block-title">
-            <strong role="heading">
-                <?= /* @escapeNotVerified */ $block->getTitle(); ?>
-            </strong>
+    <div data-bind="scope: 'wishlist'">
+        <div
+            class="sidebar-block"
+            data-bind="css: { 'sidebar-block--loaded': !wishlist().counter }"
+        >
+            <div class="sidebar-block__heading">
+                <h2 class="heading--first-level sidebar-block__title">
+                    <?= $block->getTitle(); ?>
+                </h2>
+                <!-- ko if: wishlist().counter -->
+                <span
+                    data-bind="text: wishlist().counter"
+                    class="sidebar-block__counter"
+                ></span>
+                <!-- /ko -->
+            </div>
+
+            <div
+                class="loader loader--visible"
+                data-bind="css: { 'loader--visible': null }"
+            >
+                <div class="loader__circle"></div>
+            </div>
 
             <!-- ko if: wishlist().counter -->
-            <span data-bind="text: wishlist().counter" class="counter"></span>
-            <!-- /ko -->
-        </div>
-
-        <div class="block-content">
-            <!-- ko if: wishlist().counter -->
-                <ol class="list sidebar-nav-list__list no-display"
-                    id="wishlist-sidebar"
-                    data-bind="foreach: wishlist().items, css: {'no-display': null}"
+                <div
+                    class="divider sidebar-block__divider sidebar-block__hidden"
+                    data-bind="css: { 'sidebar-block__hidden': null }"
                 >
-                    <li class="list__item">
-                        <div class="product-item-info">
-                            <a class="link sidebar-nav-list__link" data-bind="attr: { href: product_url, title: product_name }">
-                                <!-- ko template: {name: $data.image.template, data: $data.image} --><!-- /ko -->
-                            </a>
-
-                            <div class="product-item-details">
-                                <strong class="product-item-name">
-                                    <a data-bind="attr: { href: product_url }"
-                                       class="sidebar-nav-list__link"
-                                    >
-                                        <span data-bind="text: product_name"></span>
-                                    </a>
-                                </strong>
-
-                                <div data-bind="html: product_price"></div>
-
-                                <div class="action">
-                                    <!-- ko if: product_is_saleable_and_visible -->
-                                        <div class="action__handler">
-                                            <!-- ko if: product_has_required_options -->
-                                                <a href="#"
-                                                   data-bind="attr: {'data-post': add_to_cart_params}"
-                                                   class="link action__link"
-                                                >
-                                                    <?= /* @escapeNotVerified */ __('Add to Cart') ?>
-                                                </a>
-                                            <!-- /ko -->
-
-                                            <!-- ko ifnot: product_has_required_options -->
-                                                <button type="button"
-                                                        class="button action__button sidebar-nav-list__button"
-                                                        data-bind="attr: {'data-post': add_to_cart_params}"
-                                                >
-                                                    <?= /* @escapeNotVerified */ __('Add to Cart') ?>
-                                                </button>
-                                            <!-- /ko -->
-                                        </div>
-                                    <!-- /ko -->
-
-                                    <div class="action__handler">
-                                        <a href="#"
-                                           data-bind="attr: {'data-post': delete_item_params}"
-                                           title="<?= /* @escapeNotVerified */ __('Remove This Item') ?>"
-                                           class="link action__link"
-                                        >
-                                            <?= /* @escapeNotVerified */ __('Remove This Item') ?>
-                                        </a>
-                                    </div>
-                                </div>
+                    <span class="divider__left"></span>
+                    <span class="divider__right"></span>
+                </div>
+                <ol
+                    class="list sidebar-block__list sidebar-block__list--hidden"
+                    id="wishlist-sidebar"
+                    data-bind="
+                        foreach: wishlist().items,
+                        css: {'sidebar-block__list--hidden': null}
+                    "
+                >
+                    <li class="sidebar-block__wishlist-item">
+                        <div class="sidebar-block__item sidebar-block__item--wishlist">
+                            <div class="sidebar-block__product-image">
+                                <a data-bind="attr: { href: product_url, title: product_name }">
+                                    <!-- ko template: {name: $data.image.template, data: $data.image} --><!-- /ko -->
+                                </a>
                             </div>
+
+                            <div class="sidebar-block__product-info">
+                                <a
+                                    data-bind="attr: { href: product_url }"
+                                    class="link sidebar-block__link"
+                                >
+                                    <span data-bind="text: product_name"></span>
+                                </a>
+                                <div data-bind="html: product_price"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <!-- ko if: product_is_saleable_and_visible -->
+                                <button
+                                    type="button"
+                                    class="button button--secondary sidebar-block__action"
+                                    title="<?= __('Add product to cart') ?>"
+                                    data-bind="attr: {'data-post': add_to_cart_params}"
+                                >
+                                    <?= __('Add to Cart') ?>
+                                </button>
+                            <!-- /ko -->
+
+                            <button
+                                type="button"
+                                class="button button--link button--secondary sidebar-block__action"
+                                title="<?= __('Remove product from wish list') ?>"
+                                data-bind="attr: {'data-post': delete_item_params}"
+                            >
+                                <?= __('Remove') ?>
+                            </button>
                         </div>
                     </li>
                 </ol>
 
-                <div class="action no-display" data-bind="css: {'no-display': null}">
-                    <div class="action__handler">
-                        <a class="link action__link"
-                           href="<?= /* @escapeNotVerified */ $wishlistHelper->getListUrl() ?>"
-                           title="<?= /* @escapeNotVerified */ __('Go to Wish List') ?>"
-                        >
-                            <?= /* @escapeNotVerified */ __('Go to Wish List') ?>
-                        </a>
-                    </div>
-                </div>
+                <a
+                    class="button button--link sidebar-block__hidden"
+                    href="<?= $wishlistHelper->getListUrl() ?>"
+                    title="<?= __('Go to Wish List') ?>"
+                    data-bind="css: { 'sidebar-block__hidden': null }"
+                >
+                    <?= __('Go to Wish List') ?>
+                </a>
             <!-- /ko -->
 
-            <!-- ko ifnot: wishlist().counter -->
-                <div class="message empty">
-                    <?= /* @escapeNotVerified */ __('You have no items in your wish list.') ?>
-                </div>
-            <!-- /ko -->
+            <div
+                class="sidebar-block__hidden"
+                data-bind="css: {'sidebar-block__hidden': null}"
+            >
+                <!-- ko ifnot: wishlist().counter -->
+                    <div class="message empty sidebar-block__message">
+                        <?= __('You have no items in your wish list.') ?>
+                    </div>
+                <!-- /ko -->
+            </div>
         </div>
     </div>
 

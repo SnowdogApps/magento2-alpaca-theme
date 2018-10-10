@@ -3,51 +3,51 @@
 
     <div class="dashboard-table__header">
         <h3 class="dashboard-table__title">
-            <?= /* @escapeNotVerified */ __('Refund #') ?>
-            <?= /* @escapeNotVerified */ $_order->getIncrementId(); ?>
+            <?= __('Refund #') ?>
+            <?= $_order->getIncrementId(); ?>
         </h3>
 
         <?php if (sizeof($_order->getItems()) > 0): ?>
             <a class="link dashboard-table__link"
-               href="<?= /* @escapeNotVerified */ $block->getPrintAllCreditmemosUrl($_order) ?>"
+               href="<?= $block->getPrintAllCreditmemosUrl($_order) ?>"
                onclick="this.target='_blank'"
             >
-                <?= /* @escapeNotVerified */ __('Print All Refunds') ?>
+                <?= __('Print All Refunds') ?>
             </a>
         <?php endif; ?>
     </div>
 
     <?php foreach ($_order->getCreditmemosCollection() as $_creditmemo): ?>
         <div class="dashboard-table__content">
-            <table class="table" id="my-refund-table-<?= /* @escapeNotVerified */ $_creditmemo->getId(); ?>">
+            <table class="table" id="my-refund-table-<?= $_creditmemo->getId(); ?>">
                 <thead>
                     <tr>
                         <th class="name">
-                            <?= /* @escapeNotVerified */ __('Product Name') ?>
+                            <?= __('Product Name') ?>
                         </th>
 
                         <th class="sku">
-                            <?= /* @escapeNotVerified */ __('SKU') ?>
+                            <?= __('SKU') ?>
                         </th>
 
                         <th class="price">
-                            <?= /* @escapeNotVerified */ __('Price') ?>
+                            <?= __('Price') ?>
                         </th>
 
                         <th class="qty">
-                            <?= /* @escapeNotVerified */ __('Qty') ?>
+                            <?= __('Qty') ?>
                         </th>
 
                         <th class="subtotal">
-                            <?= /* @escapeNotVerified */ __('Subtotal') ?>
+                            <?= __('Subtotal') ?>
                         </th>
 
                         <th class="discount">
-                            <?= /* @escapeNotVerified */ __('Discount Amount') ?>
+                            <?= __('Discount Amount') ?>
                         </th>
 
                         <th class="total">
-                            <?= /* @escapeNotVerified */ __('Row Total') ?>
+                            <?= __('Row Total') ?>
                         </th>
                     </tr>
                 </thead>
@@ -59,16 +59,16 @@
                     <?php if ($_item->getOrderItem()->getParentItem()): continue; endif; ?>
 
                     <tbody>
-                        <?= /* @escapeNotVerified */ $block->getItemHtml($_item) ?>
+                        <?= $block->getItemHtml($_item) ?>
                     </tbody>
                 <?php endforeach; ?>
 
                 <tfoot>
-                    <?= /* @escapeNotVerified */ $block->getTotalsHtml($_creditmemo); ?>
+                    <?= $block->getTotalsHtml($_creditmemo); ?>
                 </tfoot>
             </table>
         </div>
 
-        <?= /* @escapeNotVerified */ $block->getCommentsHtml($_creditmemo) ?>
+        <?= $block->getCommentsHtml($_creditmemo) ?>
     <?php endforeach; ?>
 </div>

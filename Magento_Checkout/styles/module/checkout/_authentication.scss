@@ -1,16 +1,7 @@
-//
-//  Variables
-//  _____________________________________________
-
 $block-auth__dropdown__padding         : $indent__m !default;
-$block-auth__dropdown__background-color: $color-white !default;
 $block-auth__or-label__size            : 36px !default;
 $block-auth__width                     : 0 !default;
-$block-auth__border                    : 1px solid $color-gray-light3 !default;
-
-//
-//  Common
-//  _____________________________________________
+$block-auth__border                    : 1px solid $gray-lighter !default;
 
 .authentication-dropdown {
     box-sizing: border-box;
@@ -20,8 +11,6 @@ $block-auth__border                    : 1px solid $color-gray-light3 !default;
     }
 }
 .authentication-wrapper {
-    float: right;
-    margin-top: -1.5 * $indent__xl;
     max-width: 50%;
     position: relative;
     z-index: 1;
@@ -29,28 +18,17 @@ $block-auth__border                    : 1px solid $color-gray-light3 !default;
     ._has-auth-shown & {
         z-index: $modal__z-index;
     }
-}
 
-.action-auth-toggle {
-    @extend .abs-action-button-as-link;
+    .popup-trigger {
+        width: 150px;
+    }
 }
 
 .block-authentication {
     .block-title {
-        font-size: $h3__font-size;
-        border-bottom: 0;
         margin-bottom: $indent__m;
-
-        strong {
-            font-weight: $font-weight__light;
-        }
     }
 
-    .field {
-        .label {
-            font-weight: $font-weight__regular;
-        }
-    }
 
     .actions-toolbar {
         margin-bottom: $indent__xs;
@@ -61,11 +39,6 @@ $block-auth__border                    : 1px solid $color-gray-light3 !default;
         }
     }
 
-    .action.action-register,
-    .action.action-login {
-        @extend .abs-button-l;
-    }
-
     .block[class] {
         margin: 0;
 
@@ -74,21 +47,13 @@ $block-auth__border                    : 1px solid $color-gray-light3 !default;
             padding-left: $indent__s;
         }
 
-        .field {
-            .control,
-            .label {
-                float: none;
-                width: auto;
-            }
-        }
-
         & + .block {
             border-top: 1px solid $color-gray-light5;
             margin-top: $indent__xl;
             padding-top: $indent__xl;
             position: relative;
 
-            &::before {
+            &:before {
                 height: $block-auth__or-label__size;
                 line-height: $block-auth__or-label__size - 2px;
                 margin: (-$block-auth__or-label__size / 2 + 1px) 0 0 (-$block-auth__or-label__size / 2);
@@ -112,16 +77,13 @@ $block-auth__border                    : 1px solid $color-gray-light3 !default;
     }
 }
 
-//
-//  Desktop
-//  _____________________________________________
-
 @include min-screen($screen__m) {
     .authentication-dropdown {
         position: absolute;
         top: 100%;
         width: 100%;
-        background-color: $block-auth__dropdown__background-color;
+        margin-top: 10px;
+        background-color: $gray-lightest;
         border: $block-auth__border;
         text-align: left;
         transform: scale(1, 0);
@@ -138,32 +100,9 @@ $block-auth__border                    : 1px solid $color-gray-light3 !default;
     }
 
     .authentication-wrapper {
-        @include lib-column-width($checkout-sidebar__columns);
+        float: right;
         text-align: right;
-    }
-
-    .block-authentication {
-        .block-title {
-            font-size: headings($heading-h2, font-size);
-            border-bottom: 0;
-            margin-bottom: $indent__m;
-        }
-
-        .actions-toolbar {
-            & > .primary {
-                float: right;
-                margin-right: 0;
-                .action {
-                    margin-right: 0;
-                }
-            }
-
-            & > .secondary {
-                float: left;
-                margin-right: 2rem;
-                padding-top: 1rem;
-            }
-        }
+        @include lib-column-width($checkout-sidebar__columns);
     }
 
     .popup-authentication {
