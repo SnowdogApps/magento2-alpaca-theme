@@ -4,16 +4,19 @@
         class="sidebar-block sidebar-block--hidden"
         data-bind="css: {'sidebar-block--hidden': !lastOrderedItems().items || lastOrderedItems().items.length === 0}"
     >
-        <p class="sidebar-block__heading">
-            <span class="sidebar-block__title">
-                <?= /* @escapeNotVerified */ __('Recently Ordered') ?>
-            </span>
-        </p>
-
+        <div class="sidebar-block__heading">
+            <h2 class="heading--first-level sidebar-block__title">
+                <?= __('Recently Ordered') ?>
+            </h2>
+        </div>
+        <div class="divider sidebar-block__divider">
+            <span class="divider__left"></span>
+            <span class="divider__right"></span>
+        </div>
         <form
             id="reorder-validate-detail"
             method="post"
-            action="<?= /* @escapeNotVerified */ $block->getFormActionUrl() ?>"
+            action="<?= $block->getFormActionUrl() ?>"
         >
             <ol
                 id="cart-sidebar-reorder"
@@ -35,18 +38,18 @@
                             type="checkbox"
                             name="order_items[]"
                             data-bind="attr: {id: 'reorder-item-' + id, value: id}"
-                            title="<?= /* @escapeNotVerified */ __('Add to Cart') ?>"
+                            title="<?= __('Add to Cart') ?>"
                             class="checkbox__field"
                             data-validate='{"validate-one-checkbox-required-by-name": true}'
                         />
                         <svg class="checkbox__icon">
-                            <use xlink:href="<?= /* @escapeNotVerified */ $block->getViewFileUrl('images/icons-sprite.svg#checked'); ?>"></use>
+                            <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#checked'); ?>"></use>
                         </svg>
                         <label
                             class="checkbox__label"
                             data-bind="attr: {'for': 'reorder-item-' + id}"
                         >
-                            <?= /* @escapeNotVerified */ __('Add to Cart') ?>
+                            <?= __('Add to Cart') ?>
                         </label>
                     </div>
                 </li>
@@ -59,14 +62,14 @@
                     type="submit"
                     class="button sidebar-block__action"
                 >
-                    <?= /* @escapeNotVerified */ __('Add to Cart') ?>
+                    <?= __('Add to Cart') ?>
                 </button>
 
                 <a
                     class="button button--link sidebar-block__action"
-                    href="<?= /* @escapeNotVerified */ $block->getUrl('customer/account') ?>"
+                    href="<?= $block->getUrl('customer/account') ?>"
                 >
-                    <?= /* @escapeNotVerified */ __('View All'); ?>
+                    <?= __('View All'); ?>
                 </a>
             </div>
         </form>

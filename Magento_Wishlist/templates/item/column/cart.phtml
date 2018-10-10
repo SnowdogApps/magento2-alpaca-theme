@@ -5,7 +5,7 @@
     $product = $item->getProduct();
 ?>
 <?php foreach ($block->getChildNames() as $childName): ?>
-    <?= /* @escapeNotVerified */ $block->getLayout()->renderElement($childName, false); ?>
+    <?= $block->getLayout()->renderElement($childName, false); ?>
 <?php endforeach; ?>
 
 <?php if ($item->canHaveQty() && $product->isVisibleInSiteVisibility()): ?>
@@ -15,19 +15,19 @@
         wishlist__qty"
     >
         <label
-            for="qty[<?= /* @escapeNotVerified */ $item->getId() ?>]"
+            for="qty[<?= $item->getId() ?>]"
             class="label wishlist__label"
         >
-            <?= /* @escapeNotVerified */ __('Qty') ?>:
+            <?= __('Qty') ?>:
         </label>
         <input
             type="number"
             data-role="qty"
-            id="qty[<?= /* @escapeNotVerified */ $item->getId() ?>]"
+            id="qty[<?= $item->getId() ?>]"
             class="input__field wishlist__field-qty qty"
             data-validate="{'required-number':true,'validate-greater-than-zero':true}"
-            name="qty[<?= /* @escapeNotVerified */ $item->getId() ?>]"
-            value="<?= /* @escapeNotVerified */ $block->getAddToCartQty($item) * 1 ?>"
+            name="qty[<?= $item->getId() ?>]"
+            value="<?= $block->getAddToCartQty($item) * 1 ?>"
         />
     </div>
 <?php endif; ?>
@@ -37,9 +37,9 @@
         <button
             type="button"
             data-role="tocart"
-            data-post='<?= /* @escapeNotVerified */ $block->getItemAddToCartParams($item) ?>'
-            title="<?= /* @escapeNotVerified */ __('Add to Cart') ?>"
-            data-item-id="<?= /* @escapeNotVerified */ $item->getId() ?>"
+            data-post='<?= $block->getItemAddToCartParams($item) ?>'
+            title="<?= __('Add to Cart') ?>"
+            data-item-id="<?= $item->getId() ?>"
             class="
                 button
                 action__button
@@ -48,17 +48,17 @@
                 wishlist__button
             "
         >
-            <?= /* @escapeNotVerified */ __('Add to Cart') ?>
+            <?= __('Add to Cart') ?>
         </button>
     </div>
 <?php else: ?>
     <?php if ($product->getIsSalable()): ?>
-        <p class="available stock" title="<?= /* @escapeNotVerified */ __('Availability') ?>">
-            <?= /* @escapeNotVerified */ __('In stock') ?>
+        <p class="available stock" title="<?= __('Availability') ?>">
+            <?= __('In stock') ?>
         </p>
     <?php else: ?>
-        <p class="unavailable stock" title="<?= /* @escapeNotVerified */ __('Availability') ?>">
-            <?= /* @escapeNotVerified */ __('Out of stock') ?>
+        <p class="unavailable stock" title="<?= __('Availability') ?>">
+            <?= __('Out of stock') ?>
         </p>
     <?php endif; ?>
 <?php endif; ?>

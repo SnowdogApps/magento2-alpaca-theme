@@ -3,8 +3,43 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Changed
+- Refactor rating and reviews, a11y implementation
+
+### Fixed
+- Rating stars in catalog (solr)
+
+## [0.6.1] - 2018-09-24
+### Added
+- Link to log out
+
+## [0.6.0] - 2018-09-18
+### Added
+- Sidebar to search results
+- Classes for stock status in catalog
+
+### Changed
+- Input classes
+- Sidebar blocks heading
+- Catalog structure
+- Moved sidebar blocks to the bottom on mobile
+- Category links styles in catalog (solr)
+
+### Fixed
+- State select
+- Nested links in mobile menu
+
+### Removed
+- Lazyload from captcha in forgot password page
+
+## [0.5.1] - 2018-09-06
+### Changed
+- Updated components version to version 0.9.1
+
+## [0.5.0] - 2018-09-05
+### Changed
 - Product review details page
 - Moved theme styles to components
+- Styles and markup for checkout page
 
 ## [0.4.0] - 2018-08-22
 ### Added

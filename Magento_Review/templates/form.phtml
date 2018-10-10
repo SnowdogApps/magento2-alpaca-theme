@@ -6,7 +6,7 @@
 <?php if ($block->getAllowWriteReviewFlag()): ?>
     <form
         action="<?= $block->escapeUrl($block->getAction()) ?>"
-        class="product-view__review"
+        class="product-view__review review review--add"
         method="post"
         id="review-form"
         data-role="product-review-form"
@@ -18,25 +18,38 @@
         <fieldset
             class="fieldset review__fieldset"
             data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
+            aria-labelledby="review-form-title"
         >
             <?php if ($block->getRatings() && $block->getRatings()->getSize()): ?>
-                <p class="product-view__review-title">
-                    <?= $block->escapeHtml(__("You're reviewing:")) ?>
-                </p>
-
-                <p class="product-view__review-product-name">
-                    <?= $block->escapeHtml($block->getProductInfo()->getName()) ?>
-                </p>
+                <h2
+                    id="review-form-title"
+                    class="review__title"
+                >
+                    <?= $block->escapeHtml(__("You're reviewing:")); ?>
+                    <span class="review__title-product">
+                        <?= $block->escapeHtml($block->getProductInfo()->getName()); ?>
+                    </span>
+                </h2>
 
                 <span id="input-message-box"></span>
 
-                <fieldset class="fieldset">
-                    <legend class="label">
+                <fieldset
+                    class="fieldset"
+                    aria-lebeledby="rating-label-legend"
+                >
+                    <legend
+                        id="rating-label-legend"
+                        class="review__rating-legend"
+                    >
                         <?= $block->escapeHtml(__('Your Rating')) ?>
                     </legend>
 
                     <div
-                        class="rating rating--rate rating--review"
+                        class="rating rating--rate"
+                        role="listbox"
+                        aria-required="true"
+                        aria-labelledby=""
+                        tabindex="0"
                         data-mage-init='{
                             "ratingPicker": {
                                 "submitButton": "reviewAddButton",
@@ -47,31 +60,41 @@
                         <?php foreach ($block->getRatings() as $_rating): ?>
                             <?php $options = $_rating->getOptions(); ?>
 
-                            <?php foreach ($options as $_option): ?>
-                                <div class="rating__rate-item">
+                            <?php foreach ($options as $_option):
+                                $_optionValue = $block->escapeHtmlAttr($_option->getValue());
+                                $_inputId = $block->escapeHtmlAttr($_rating->getRatingCode()) . $_optionValue;
+                            ?>
+                                <div
+                                    class="rating__rate-item"
+                                    role="option"
+                                    aria-selected="false"
+                                >
 
-                                    <div class="rating__star rating__star--rate">
+                                    <label
+                                        for="<?= $_inputId; ?>"
+                                        class="rating__star rating__star--rate"
+                                        aria-label="<?= __('Rate option ') . $_optionValue . __(' of 5. Click to vote'); ?>"
+                                    >
                                         <input
                                             type="radio"
-                                            name="ratings[<?= $block->escapeHtmlAttr($_rating->getId()) ?>]"
-                                            id="<?= $block->escapeHtmlAttr($_rating->getRatingCode()) ?>_<?= $block->escapeHtmlAttr($_option->getValue()) ?>"
-                                            value="<?= $block->escapeHtmlAttr($_option->getId()) ?>"
+                                            name="ratings[<?= $_optionValue; ?>]"
+                                            id="<?= $_inputId; ?>"
+                                            value="<?= $_optionValue; ?>"
                                             class="radio__field"
-                                            aria-labelledby="
-                                                <?= $block->escapeHtmlAttr($_rating->getRatingCode()) ?>_rating_label
-                                                <?= $block->escapeHtmlAttr($_rating->getRatingCode()) ?>_<?= $block->escapeHtmlAttr($_option->getValue()) ?>_label
-                                            "
                                         />
 
                                         <span class="rating__indicator"></span>
-                                    </div>
+                                    </label>
                                 </div>
                             <?php endforeach; ?>
                         <?php endforeach; ?>
                     </div>
 
-                    <div id="toogleReviewError" class="rating__error">
-                        <?= __('Please select one of each of the ratings above.') ?>
+                    <div
+                        id="toogleReviewError"
+                        class="rating__error"
+                    >
+                        <?= __('Please select one of each of the ratings above.'); ?>
                     </div>
 
                     <input type="hidden" name="validate_rating" class="validate-rating" value="" />
@@ -80,7 +103,7 @@
 
             <div class="input required">
                 <label for="nickname_field" class="label">
-                    <?= $block->escapeHtml(__('Nickname')) ?>
+                    <?= $block->escapeHtml(__('Nickname')); ?>
                 </label>
 
                 <input
@@ -95,7 +118,7 @@
 
             <div class="input required">
                 <label for="summary_field" class="label">
-                    <?= $block->escapeHtml(__('Summary')) ?>
+                    <?= $block->escapeHtml(__('Summary')); ?>
                 </label>
 
                 <input
@@ -110,7 +133,7 @@
 
             <div class="input review__field required">
                 <label for="review_field" class="input__label">
-                    <?= $block->escapeHtml(__('Review')) ?>
+                    <?= $block->escapeHtml(__('Review')); ?>
                 </label>
 
                 <textarea
@@ -126,7 +149,7 @@
         </fieldset>
 
         <button type="submit" id="reviewAddButton" class="button submit primary">
-            <?= $block->escapeHtml(__('Submit Review')) ?>
+            <?= $block->escapeHtml(__('Submit Review')); ?>
         </button>
     </form>
 

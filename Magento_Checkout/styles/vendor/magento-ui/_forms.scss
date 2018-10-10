@@ -222,203 +222,9 @@ $form-element-validation__border-error     : lighten($form-validation-note__colo
     }
 }
 
-@mixin lib-form-validation(
-    $_element-color-error       : inherit,
-    $_element-color-valid       : inherit,
-    $_element-border-color-error: lighten($error__color, 20%),
-    $_element-border-color-valid: inherit,
-    $_element-background-error  : inherit,
-    $_element-background-valid  : inherit
-) {
-    &.mage-error {
-        @include lib-form-element-color(
-            $_border-color: $_element-border-color-error,
-            $_background  : $_element-background-error,
-            $_color       : $_element-color-error
-        );
-    }
-
-    &.valid {
-        @include lib-form-element-color(
-            $_border-color: $_element-border-color-valid,
-            $_background  : $_element-background-valid,
-            $_color       : $_element-color-valid
-        );
-    }
-}
-
-@mixin lib-form-validation-note(
-    $_note-color                   : $error__color,
-    $_note-font-size               : $font-size__s,
-    $_note-font-family             : inherit,
-    $_note-font-style              : inherit,
-    $_note-font-weight             : inherit,
-    $_note-line-height             : inherit,
-    $_note-margin                  : 3px 0 0,
-    $_note-padding                 : inherit,
-    $_note-icon-use                : inherit,
-
-    $_note-icon-font-content       : $icon-pointer-up,
-    $_note-icon-font               : $icon-font,
-    $_note-icon-font-size          : $font-size__s * 2,
-    $_note-icon-font-line-height   : $font-size__s * 2,
-    $_note-icon-font-color         : $error__color,
-    $_note-icon-font-color-hover   : inherit,
-    $_note-icon-font-color-active  : inherit,
-    $_note-icon-font-margin        : inherit,
-    $_note-icon-font-vertical-align: $icon-font__vertical-align,
-    $_note-icon-font-position      : $icon-font__position,
-    $_note-icon-font-text-hide     : $icon-font__text-hide
-) {
-    @include lib-typography(
-        $_font-size  : $_note-font-size,
-        $_color      : $_note-color,
-        $_font-family: $_note-font-family,
-        $_font-weight: $_note-font-weight,
-        $_line-height: $_note-line-height,
-        $_font-style : $_note-font-style
-    );
-    @include _lib-form-validation-icon(
-        $_note-icon-use,
-        $_note-icon-font-content,
-        $_note-icon-font,
-        $_note-icon-font-size,
-        $_note-icon-font-line-height,
-        $_note-icon-font-color,
-        $_note-icon-font-color-hover,
-        $_note-icon-font-color-active,
-        $_note-icon-font-margin,
-        $_note-icon-font-vertical-align,
-        $_note-icon-font-position,
-        $_note-icon-font-text-hide
-    );
-}
-
-@mixin lib-form-validation-color(
-    $_element-border-color-error,
-    $_element-background-error,
-    $_element-color-error,
-    $_element-border-color-valid,
-    $_element-background-valid,
-    $_element-color-valid
-) {
-    &.mage-error {
-        @include lib-form-element-color(
-            $_border-color: $_element-border-color-error,
-            $_background  : $_element-background-error,
-            $_color       : $_element-color-error
-        );
-    }
-
-    &.valid {
-        @include lib-form-element-color(
-            $_border-color: $_element-border-color-valid,
-            $_background  : $_element-background-valid,
-            $_color       : $_element-color-valid
-        );
-    }
-}
-
-@mixin lib-form-element-all() {
-    input[type="text"],
-    input[type="password"],
-    input[type="url"],
-    input[type="tel"],
-    input[type="search"],
-    input[type="number"],
-    input[type="datetime"],
-    input[type="email"] {
-        @include lib-form-element-input($_type: input-text);
-    }
-
-    input[type="number"] {
-        @include lib-form-element-number-reset();
-    }
-
-    input[type="search"] {
-        @include lib-form-element-search-reset();
-    }
-
-    select {
-        @include lib-form-element-input($_type: select);
-    }
-
-    select[multiple="multiple"] {
-        height: auto;
-        background-image: none;
-    }
-
-    textarea {
-        @include lib-form-element-input($_type: textarea);
-        @include lib-form-element-textarea-resize();
-    }
-
-    input[type="checkbox"] {
-        @include lib-form-element-choice($_type: checkbox);
-    }
-
-    input[type="radio"] {
-        @include lib-form-element-choice($_type: radio);
-    }
-
-    input,
-    select,
-    textarea {
-        @include lib-form-validation();
-    }
-
-    div.mage-error[generated] {
-        @include lib-form-validation-note($_note-icon-font-margin: 0);
-    }
-
-    input[type="button"],
-    input[type="reset"],
-    input[type="submit"] {
-        cursor: pointer;
-        appearance: button;
-        overflow: visible;
-    }
-
-    input::-moz-focus-inner {
-        border: 0;
-        padding: 0;
-    }
-}
-
 //
 //  Internal use mixins
 //  ---------------------------------------------
-
-@mixin _lib-form-validation-icon(
-    $_note-icon-use,
-    $_note-icon-font-content,
-    $_note-icon-font,
-    $_note-icon-font-size,
-    $_note-icon-font-line-height,
-    $_note-icon-font-color,
-    $_note-icon-font-color-hover,
-    $_note-icon-font-color-active,
-    $_note-icon-font-margin,
-    $_note-icon-font-vertical-align,
-    $_note-icon-font-position,
-    $_note-icon-font-text-hide
-) {
-    @if $_note-icon-use {
-        @include lib-icon-font(
-            $_icon-font-content       : $_note-icon-font-content,
-            $_icon-font               : $_note-icon-font,
-            $_icon-font-size          : $_note-icon-font-size,
-            $_icon-font-line-height   : $_note-icon-font-line-height,
-            $_icon-font-color         : $_note-icon-font-color,
-            $_icon-font-color-hover   : $_note-icon-font-color-hover,
-            $_icon-font-color-active  : $_note-icon-font-color-active,
-            $_icon-font-margin        : $_note-icon-font-margin,
-            $_icon-font-vertical-align: $_note-icon-font-vertical-align,
-            $_icon-font-position      : $_note-icon-font-position,
-            $_icon-font-text-hide     : $_note-icon-font-text-hide
-        );
-    }
-}
 
 //  Only for states :disabled: :focus: placeholder
 @mixin _lib-form-element-focus(
@@ -593,15 +399,6 @@ $form-element-validation__border-error     : lighten($form-validation-note__colo
         box-sizing: border-box;
         float: left;
 
-        @include lib-typography(
-            $_font-size  : $_legend-font-size,
-            $_color      : $_legend-color,
-            $_font-family: $_legend-font-family,
-            $_font-weight: $_legend-font-weight,
-            $_line-height: $_legend-line-height,
-            $_font-style : $_legend-font-style
-        );
-
         & + br {
             clear: both;
             display: block;
@@ -650,7 +447,7 @@ $form-element-validation__border-error     : lighten($form-validation-note__colo
     $_label-asterisk-line-height   : inherit,
     $_label-asterisk-margin        : 0 0 0 $indent__xs,
 
-    $_note-color                   : $form-field-note__color,
+    $_note-color                   : inherit,
     $_note-font-size               : $font-size__s,
     $_note-font-family             : inherit,
     $_note-font-weight             : inherit,
@@ -659,7 +456,7 @@ $form-element-validation__border-error     : lighten($form-validation-note__colo
     $_note-margin                  : 3px 0 0,
     $_note-padding                 : 0,
 
-    $_note-icon-font               : $icon-font,
+    $_note-icon-font               : '',
     $_note-icon-font-content       : $icon-pointer-up,
     $_note-icon-font-size          : $font-size__s * 2,
     $_note-icon-font-line-height   : $font-size__s,
@@ -667,9 +464,9 @@ $form-element-validation__border-error     : lighten($form-validation-note__colo
     $_note-icon-font-color-hover   : inherit,
     $_note-icon-font-color-active  : inherit,
     $_note-icon-font-margin        : inherit,
-    $_note-icon-font-vertical-align: $icon-font__vertical-align,
-    $_note-icon-font-position      : $icon-font__position,
-    $_note-icon-font-text-hide     : $icon-font__text-hide
+    $_note-icon-font-vertical-align: '',
+    $_note-icon-font-position      : '',
+    $_note-icon-font-text-hide     : ''
 ) {
     border: $_border;
 
@@ -699,14 +496,6 @@ $form-element-validation__border-error     : lighten($form-validation-note__colo
     );
 
     > .label {
-        @include lib-typography(
-            $_font-size  : $_label-font-size,
-            $_color      : $_label-color,
-            $_font-family: $_label-font-family,
-            $_font-weight: $_label-font-weight,
-            $_line-height: $_label-line-height,
-            $_font-style : $_label-font-style
-        );
         & + br {
             display: none;
         }
@@ -928,14 +717,6 @@ $form-element-validation__border-error     : lighten($form-validation-note__colo
     &.required > .label {
         &:after {
             content: '*';
-            @include lib-typography(
-                $_font-size  : $_font-size,
-                $_color      : $_color,
-                $_font-family: $_font-family,
-                $_font-weight: $_font-weight,
-                $_line-height: $_line-height,
-                $_font-style : $_font-style
-            );
             margin: $_margin;
         }
     }
@@ -964,31 +745,9 @@ $form-element-validation__border-error     : lighten($form-validation-note__colo
     $_note-icon-font-text-hide
 ) {
     .note {
-        @include lib-typography(
-            $_font-size  : $_note-font-size,
-            $_color      : $_note-color,
-            $_font-family: $_note-font-family,
-            $_font-weight: $_note-font-weight,
-            $_line-height: $_note-line-height,
-            $_font-style : $_note-font-style
-        );
 
         margin: $_note-margin;
         padding: $_note-padding;
-
-        @include lib-icon-font(
-            $_icon-font-content       : $_note-icon-font-content,
-            $_icon-font               : $_note-icon-font,
-            $_icon-font-size          : $_note-icon-font-size,
-            $_icon-font-line-height   : $_note-icon-font-line-height,
-            $_icon-font-color         : $_note-icon-font-color,
-            $_icon-font-color-hover   : $_note-icon-font-color-hover,
-            $_icon-font-color-active  : $_note-icon-font-color-active,
-            $_icon-font-margin        : $_note-icon-font-margin,
-            $_icon-font-vertical-align: $_note-icon-font-vertical-align,
-            $_icon-font-position      : $_note-icon-font-position,
-            $_icon-font-text-hide     : $_note-icon-font-text-hide
-        );
     }
 }
 
@@ -1014,10 +773,6 @@ $form-element-validation__border-error     : lighten($form-validation-note__colo
                 box-sizing: content-box;
                 float: none;
                 width: auto;
-
-                @include _lib-revert-type-block-label-align(
-                    $_type-block-label-align
-                );
 
                 @include _lib-revert-type-block-label-padding(
                     $_type-block-label-padding
@@ -1092,88 +847,4 @@ $form-element-validation__border-error     : lighten($form-validation-note__colo
     @if $_type-block-label-padding == inherit {
         padding: 0;
     }
-}
-
-@mixin _lib-revert-type-block-label-align($_type-block-label-align) {
-    @if $_type-block-label-align == inherit {
-        text-align: left;
-    }
-}
-
-@mixin _lib-revert-type-inline-label-margin($_type-inline-label-margin) {
-    @if $_type-inline-label-margin == false {
-        margin: 0;
-    }
-}
-
-@mixin lib-form-hasrequired(
-    $_position   : top,
-    $_color      : $color-red10,
-    $_font-size  : $font-size__s,
-    $_font-family: inherit,
-    $_font-weight: inherit,
-    $_font-style : inherit,
-    $_line-height: inherit,
-    $_border     : none,
-    $_margin     : $indent__s 0 0,
-    $_padding    : inherit
-) {
-    @if $_position == "top" {
-        &:before {
-            @include _lib-form-hasrequired-position-any(
-                $_border,
-                $_margin,
-                $_padding,
-                $_font-size,
-                $_color,
-                $_font-family,
-                $_font-weight,
-                $_line-height,
-                $_font-style
-            );
-        }
-    }
-    @else if $_position == "bottom" {
-        &:after {
-            @include _lib-form-hasrequired-position-any(
-                $_border,
-                $_margin,
-                $_padding,
-                $_font-size,
-                $_color,
-                $_font-family,
-                $_font-weight,
-                $_line-height,
-                $_font-style
-            );
-        }
-    }
-}
-
-@mixin _lib-form-hasrequired-position-any(
-    $_border,
-    $_margin,
-    $_padding,
-    $_font-size,
-    $_color,
-    $_font-family,
-    $_font-weight,
-    $_line-height,
-    $_font-style
-) {
-    border: $_border;
-    margin: $_margin;
-    padding: $_padding;
-    content: attr(data-hasrequired);
-    display: block;
-    letter-spacing: normal;
-    word-spacing: normal;
-    @include lib-typography(
-        $_font-size  : $_font-size,
-        $_color      : $_color,
-        $_font-family: $_font-family,
-        $_font-weight: $_font-weight,
-        $_line-height: $_line-height,
-        $_font-style : $_font-style
-    );
 }

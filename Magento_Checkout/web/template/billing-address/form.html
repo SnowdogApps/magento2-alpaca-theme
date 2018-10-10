@@ -1,0 +1,31 @@
+<div class="billing-address-form" data-bind="fadeVisible: isAddressFormVisible">
+    <!-- ko foreach: getRegion('before-fields') -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+    <!--/ko-->
+    <form data-bind="attr: {'data-hasrequired': $t('* Required Fields')}">
+        <fieldset class="fieldset address">
+            <!-- ko foreach: getRegion('additional-fieldsets') -->
+                <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+            <!-- ko if: (isCustomerLoggedIn && customerHasAddresses) -->
+                <div class="choice field checkbox">
+                    <input
+                        type="checkbox"
+                        class="checkbox__field"
+                        id="billing-save-in-address-book"
+                        data-bind="checked: saveInAddressBook"
+                    >
+                    <svg class="checkbox__icon">
+                        <use data-bind="attr: { 'xlink:href': require.toUrl('images/icons-sprite.svg#checked') }" xlink:href=''></use>
+                    </svg>
+                    <label
+                        class="label checkbox__label"
+                        for="billing-save-in-address-book"
+                    >
+                        <span data-bind="i18n: 'Save in address book'"></span>
+                    </label>
+                </div>
+            <!-- /ko -->
+        </fieldset>
+    </form>
+</div>

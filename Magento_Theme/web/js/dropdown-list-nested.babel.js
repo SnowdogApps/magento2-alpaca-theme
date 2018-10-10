@@ -1,8 +1,8 @@
 'use-strict';
 
 define(() => (config, element) => {
-  const dropdownItem      = element.querySelectorAll('.dropdown-list__item--parent .dropdown-list__label'),
-        dropdownInnerItem = element.querySelectorAll('.dropdown-list__inner-item--parent .dropdown-list__inner-label'),
+  const dropdownItem      = element.querySelectorAll('.dropdown-list__item--parent > .dropdown-list__label'),
+        dropdownInnerItem = element.querySelectorAll('.dropdown-list__inner-item--parent > .dropdown-list__inner-label'),
         activeClass       = 'open',
         innerListLevel1   = '.dropdown-list__inner-list--level1',
         innerListLevel2   = '.dropdown-list__inner-list--level2';

@@ -7,17 +7,17 @@ $wishlistHelper = $this->helper('Magento\Wishlist\Helper\Data');
             class="sidebar-block"
             data-bind="css: { 'sidebar-block--loaded': !wishlist().counter }"
         >
-            <p class="sidebar-block__heading">
-                <span class="sidebar-block__title">
-                    <?= /* @escapeNotVerified */ $block->getTitle(); ?>
-                </span>
+            <div class="sidebar-block__heading">
+                <h2 class="heading--first-level sidebar-block__title">
+                    <?= $block->getTitle(); ?>
+                </h2>
                 <!-- ko if: wishlist().counter -->
                 <span
                     data-bind="text: wishlist().counter"
                     class="sidebar-block__counter"
                 ></span>
                 <!-- /ko -->
-            </p>
+            </div>
 
             <div
                 class="loader loader--visible"
@@ -27,6 +27,13 @@ $wishlistHelper = $this->helper('Magento\Wishlist\Helper\Data');
             </div>
 
             <!-- ko if: wishlist().counter -->
+                <div
+                    class="divider sidebar-block__divider sidebar-block__hidden"
+                    data-bind="css: { 'sidebar-block__hidden': null }"
+                >
+                    <span class="divider__left"></span>
+                    <span class="divider__right"></span>
+                </div>
                 <ol
                     class="list sidebar-block__list sidebar-block__list--hidden"
                     id="wishlist-sidebar"
@@ -58,20 +65,20 @@ $wishlistHelper = $this->helper('Magento\Wishlist\Helper\Data');
                                 <button
                                     type="button"
                                     class="button button--secondary sidebar-block__action"
-                                    title="<?= /* @escapeNotVerified */ __('Add product to cart') ?>"
+                                    title="<?= __('Add product to cart') ?>"
                                     data-bind="attr: {'data-post': add_to_cart_params}"
                                 >
-                                    <?= /* @escapeNotVerified */ __('Add to Cart') ?>
+                                    <?= __('Add to Cart') ?>
                                 </button>
                             <!-- /ko -->
 
                             <button
                                 type="button"
                                 class="button button--link button--secondary sidebar-block__action"
-                                title="<?= /* @escapeNotVerified */ __('Remove product from wish list') ?>"
+                                title="<?= __('Remove product from wish list') ?>"
                                 data-bind="attr: {'data-post': delete_item_params}"
                             >
-                                <?= /* @escapeNotVerified */ __('Remove') ?>
+                                <?= __('Remove') ?>
                             </button>
                         </div>
                     </li>
@@ -79,11 +86,11 @@ $wishlistHelper = $this->helper('Magento\Wishlist\Helper\Data');
 
                 <a
                     class="button button--link sidebar-block__hidden"
-                    href="<?= /* @escapeNotVerified */ $wishlistHelper->getListUrl() ?>"
-                    title="<?= /* @escapeNotVerified */ __('Go to Wish List') ?>"
+                    href="<?= $wishlistHelper->getListUrl() ?>"
+                    title="<?= __('Go to Wish List') ?>"
                     data-bind="css: { 'sidebar-block__hidden': null }"
                 >
-                    <?= /* @escapeNotVerified */ __('Go to Wish List') ?>
+                    <?= __('Go to Wish List') ?>
                 </a>
             <!-- /ko -->
 
@@ -93,7 +100,7 @@ $wishlistHelper = $this->helper('Magento\Wishlist\Helper\Data');
             >
                 <!-- ko ifnot: wishlist().counter -->
                     <div class="message empty sidebar-block__message">
-                        <?= /* @escapeNotVerified */ __('You have no items in your wish list.') ?>
+                        <?= __('You have no items in your wish list.') ?>
                     </div>
                 <!-- /ko -->
             </div>

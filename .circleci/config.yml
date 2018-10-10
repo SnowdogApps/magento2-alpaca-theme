@@ -1,0 +1,22 @@
+jobs:
+  build:
+    docker:
+      - image: circleci/php:7.1-fpm-node-browsers-legacy
+    environment:
+      - THEME_PATH: "vendor/snowdog/theme-frontend-alpaca"
+      - CONFIG_PATH: "vendor/snowdog/theme-frontend-alpaca/.circleci/frontools/config"
+    steps:
+      - checkout
+      - run: mkdir -p $THEME_PATH
+      - run: rsync -r --delete . $THEME_PATH
+      - run: cp "$THEME_PATH/composer.json" .
+      - run: composer remove magento/framework snowdog/module-menu --no-interaction
+      - run: composer update --no-interaction --prefer-dist
+      - run: mkdir -p dev/tools/frontools
+      - run: cp -r $CONFIG_PATH dev/tools/frontools
+      - run: sudo npm install -g gulp-cli
+      - run: cd vendor/snowdog/frontools && yarn && gulp setup
+      - run: cd tools && gulp inheritance
+      - run: cd tools && gulp sasslint --ci
+      - run: cd tools && gulp styles --ci --pipeline
+      - run: cd tools && gulp csslint --ci
