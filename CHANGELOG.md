@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 - Rating stars in catalog (solr)
+- 2 column layouts
 
 ## [0.6.1] - 2018-09-24
 ### Added
