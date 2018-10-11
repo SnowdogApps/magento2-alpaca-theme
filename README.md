@@ -1,15 +1,26 @@
-![Alpaca logo](/docs/assets/logo.svg)
+<p align="center">
+    <img src="docs/assets/logo.svg" alt="Alpaca logo" height="100" />
+</p>
 
-[![Packagist](https://img.shields.io/packagist/v/snowdog/theme-frontend-alpaca.svg)](https://packagist.org/packages/snowdog/theme-frontend-alpaca) [![Packagist](https://img.shields.io/packagist/dt/snowdog/theme-frontend-alpaca.svg)](https://packagist.org/packages/snowdog/theme-frontend-alpaca)
+<p align="center">
+    <a href="https://packagist.org/packages/snowdog/theme-frontend-alpaca" target="__blank">
+        <img src="https://img.shields.io/packagist/v/snowdog/theme-frontend-alpaca.svg" alt="Packagist version number" />
+    </a>
+    <a href="https://packagist.org/packages/snowdog/theme-frontend-alpaca" target="__blank">
+        <img src="https://img.shields.io/packagist/dt/snowdog/theme-frontend-alpaca.svg" alt="Packagist download count" />
+    </a>
+</p>
 
 ## Introduction
 Magento 2 theme created on top of components library. It is designed from scratch by SNOW.DOG front-end team following design sytem methodology principles.
 
-## Requirements
-- Magento 2.1 or 2.2
-- [Alpaca components library](https://github.com/SnowdogApps/magento2-alpaca-components)
-- [Snowdog Menu module](https://github.com/SnowdogApps/magento2-menu)
-- [Frontools](https://github.com/SnowdogApps/magento2-frontools)
+## Demo
+- Magento 2 Open Source + Alpaca theme - https://alpaca-ce-demo.snowdog.pro
+- Magento 2 Open Source + Alpaca theme + Solr based catalog* - https://alpaca-ce-solr-demo.snowdog.pro
+- Magento 2 Commerce + Alpaca theme - https://alpaca-demo.snowdog.pro
+- Magento 2 Commerce + Alpaca theme + Solr based catalog* - https://alpaca-solr-demo.snowdog.pro
+
+* Apache Solr based catalog is an internal Snowdog product, not open-sourced. If you are intrested in having it in your store, please contact us at hello@snow.dog
 
 ## Installation
 - [Install Magento using Composer](https://devdocs.magento.com/guides/v2.2/install-gde/composer.html)
@@ -33,16 +44,9 @@ This leads to 4 packages linked together to create custom theme based on Alpaca:
 
 Inheritance of components is solved on Frontools level, it's based on same rules as in Magento core - files from child overwrite the parent.
 
-## Workflow rules
-1. Do not create any non-magento specific styles inside your theme. Components are designed to work in isolated envairoment and be able to reflect your store UI, without having to run Magento instance. Implementing some part of UI directly inside theme will make components preview useleless and you will lose all benefits of writing UI in separation.
+## Workflow
+In the theme you should keep almost only templates and JS.
+Do not create any non-magento specific styles inside your theme. Components are designed to be able reflect your store UI, without having to run Magento instance. Implementing some part of UI directly inside theme will make components preview useleless and you will lose all benefits of writing UI in separation.
 
-## Workflow rules exceptions
-We don't want to mess with the checkout templates, nor styling, so this part is copy-pasted from the SASS Blank theme.
-
-## Demo
-- Magento 2 Open Source + Alpaca theme - https://alpaca-ce-demo.snowdog.pro
-- Magento 2 Open Source + Alpaca theme + Solr based catalog* - https://alpaca-ce-solr-demo.snowdog.pro
-- Magento 2 Commerce + Alpaca theme - https://alpaca-demo.snowdog.pro
-- Magento 2 Commerce + Alpaca theme + Solr based catalog* - https://alpaca-solr-demo.snowdog.pro
-
-* Apache Solr based catalog is an internal Snowdog product, not open-sourced. If you are intrested in having it in your store, please contact us at hello@snow.dog
+## Workflow exceptions
+We don't want to mess with the checkout templates, nor styling, so this part is copy-pasted from the [SASS Blank theme](https://github.com/SnowdogApps/magento2-theme-blank-sass).
