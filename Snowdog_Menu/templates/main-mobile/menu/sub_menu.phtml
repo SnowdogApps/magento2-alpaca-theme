@@ -1,46 +1,64 @@
 <?php /** @var \Snowdog\Menu\Block\Menu $block */ ?>
 <?php if ($block->getMenu()): ?>
     <?php
-        $menuClass = $block->getMenu()->getCssClass();
-        $parentNode = $block->getParentNode();
-        $level = $block->getLevel();
+    $menuClass = $block->getMenu()->getCssClass();
+    $parentNode = $block->getParentNode();
+    $level = $block->getLevel();
 
-        $wrapperAttributes = [
-            'class' => [
-                $menuClass . '__inner-list ' . $menuClass . '__inner-list--level' . $level
-            ],
-            'data-dropdown' => 'dropdown-' . $parentNode->getNodeId(),
-            'id' => 'dropdown-' . $parentNode->getNodeId(),
-            'aria-hidden' => 'true'
-        ];
+    $wrapperAttributes = [
+        'class' => [
+            $menuClass . '__content'
+        ],
+        'data-content' => 'dropdown-' . $parentNode->getNodeId(),
+        'id' => 'dropdown-' . $parentNode->getNodeId(),
+        'aria-hidden' => 'true'
+    ];
+
+    $contentAttributes = [
+        'class' => [
+            $menuClass,
+            $menuClass . '--inner'
+        ]
+    ];
+
+    $listAttributes = [
+        'class' => [
+            $menuClass . '__list',
+            $menuClass . '--inner'
+        ]
+    ];
+
     ?>
+    <div <?= $block->buildAttrFromArray($wrapperAttributes) ?>>
+        <div<?= $block->buildAttrFromArray($contentAttributes) ?>>
+            <ul<?= $block->buildAttrFromArray($listAttributes) ?>>
+                <?php foreach ($block->getSubmenuNodes() as $node): ?>
+                    <?php
+                    $childrenLevel = $node->getLevel() + 1;
+                    $children = $this->getNodes($childrenLevel, $node);
+                    $node->setIsParent((bool)$children);
 
-    <ul<?= $block->buildAttrFromArray($wrapperAttributes) ?>>
-        <?php foreach ($block->getSubmenuNodes() as $node): ?>
-            <?php
-                $childrenLevel = $node->getLevel() + 1;
-                $children = $this->getNodes($childrenLevel, $node);
-                $node->setIsParent((bool) $children);
+                    $nodeAttributes = [
+                        'class' => [
+                            $menuClass . '__item',
+                            $menuClass . '__item--level' . $level
+                        ]
+                    ];
 
-                $nodeAttributes = [
-                    'class' => [
-                        $menuClass . '__inner-item',
-                        $menuClass . '__inner-item--level' . $level
-                    ]
-                ];
+                    if ($children) {
+                        $nodeAttributes['class'][] = $menuClass . '__item--collapse';
+                    }
 
-                if ($children) {
-                    $nodeAttributes['class'][] = $menuClass . '__inner-item--parent';
-                }
-
-                if ($node->getClasses()) {
-                    $nodeAttributes['class'][] = $node->getClasses();
-                }
-            ?>
-            <li<?= $block->buildAttrFromArray($nodeAttributes) ?>>
-                <?= $block->renderMenuNode($node) ?>
-                <?= $block->renderSubmenu($children, $node, $childrenLevel) ?>
-            </li>
-        <?php endforeach; ?>
-    </ul>
+                    if ($node->getClasses()) {
+                        $nodeAttributes['class'][] = $node->getClasses();
+                    }
+                    ?>
+                    <li<?= $block->buildAttrFromArray($nodeAttributes) ?>>
+                        <?= $block->renderMenuNode($node) ?>
+                        <?= $block->renderSubmenu($children, $node, $childrenLevel) ?>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    </div>
 <?php endif; ?>
