@@ -12,7 +12,7 @@
 </p>
 
 ## Introduction
-Magento 2 theme created on top of components library. It is designed from scratch by SNOW.DOG front-end team following design system methodology principles.
+Magento 2 theme created on top of components library, designed from scratch by SNOW.DOG front-end team following design systems methodology principles.
 
 ## Demo
 - Magento 2 Open Source + Alpaca theme - https://alpaca-ce-demo.snowdog.pro
