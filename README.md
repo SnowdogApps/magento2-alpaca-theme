@@ -49,4 +49,4 @@ In the theme, you should keep almost only templates and JS.
 Do not create any non-magento specific styles inside your theme. Components are designed to be able to reflect your store UI, without having to run Magento instance. Implementing some part of UI directly inside theme will make components preview useless and you will lose all benefits of writing UI in separation.
 
 ## Workflow exceptions
-We don't want to mess with the checkout templates, nor styling, so this part is copy-pasted from the [SASS Blank theme](https://github.com/SnowdogApps/magento2-theme-blank-sass).
+We don't want to mess with the checkout and product gallery (Fotorama) templates, nor styling, so these two parts are copy-pasted from the [SASS Blank theme](https://github.com/SnowdogApps/magento2-theme-blank-sass).
