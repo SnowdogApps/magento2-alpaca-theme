@@ -2,46 +2,46 @@
 <?php $_orders = $block->getOrders(); ?>
     <div class="dashboard-table__header">
         <h3 class="dashboard-table__title">
-            <?= /* @escapeNotVerified */ __('Recent Orders') ?>
+            <?= __('Recent Orders') ?>
         </h3>
 
         <?php if (sizeof($_orders->getItems()) > 0): ?>
             <a class="link dashboard-table__link"
-               href="<?= /* @escapeNotVerified */ $block->getUrl('sales/order/history') ?>"
+               href="<?= $block->getUrl('sales/order/history') ?>"
             >
-                <?= /* @escapeNotVerified */ __('View All') ?>
+                <?= __('View All') ?>
             </a>
         <?php endif; ?>
     </div>
 
     <div class="dashboard-table__content">
-        <?= /* @escapeNotVerified */ $block->getChildHtml() ?>
+        <?= $block->getChildHtml() ?>
         <?php if (sizeof($_orders->getItems()) > 0): ?>
             <table class="table dashboard-table__table" id="my-orders-table">
                 <thead>
                     <tr>
                         <th scope="col" class="col id">
-                            <?= /* @escapeNotVerified */ __('Order #') ?>
+                            <?= __('Order #') ?>
                         </th>
 
                         <th scope="col" class="col date">
-                            <?= /* @escapeNotVerified */ __('Date') ?>
+                            <?= __('Date') ?>
                         </th>
 
                         <th scope="col" class="col shipping">
-                            <?= /* @escapeNotVerified */ __('Ship To') ?>
+                            <?= __('Ship To') ?>
                         </th>
 
                         <th scope="col" class="col total">
-                            <?= /* @escapeNotVerified */ __('Order Total') ?>
+                            <?= __('Order Total') ?>
                         </th>
 
                         <th scope="col" class="col status">
-                            <?= /* @escapeNotVerified */ __('Status') ?>
+                            <?= __('Status') ?>
                         </th>
 
                         <th scope="col" class="col actions">
-                            <?= /* @escapeNotVerified */ __('Action') ?>
+                            <?= __('Action') ?>
                         </th>
                     </tr>
                 </thead>
@@ -49,15 +49,15 @@
                 <tbody>
                     <?php foreach ($_orders as $_order): ?>
                         <tr>
-                            <td data-th="<?= /* @escapeNotVerified */ $block->escapeHtml(__('Order #')) ?>" class="col id">
-                                <?= /* @escapeNotVerified */ $_order->getRealOrderId() ?>
+                            <td data-th="<?= $block->escapeHtml(__('Order #')) ?>" class="col id">
+                                <?= $_order->getRealOrderId() ?>
                             </td>
 
-                            <td data-th="<?= /* @escapeNotVerified */ $block->escapeHtml(__('Date')) ?>" class="col date">
-                                <?= /* @escapeNotVerified */ $block->formatDate($_order->getCreatedAt()) ?>
+                            <td data-th="<?= $block->escapeHtml(__('Date')) ?>" class="col date">
+                                <?= $block->formatDate($_order->getCreatedAt()) ?>
                             </td>
 
-                            <td data-th="<?= /* @escapeNotVerified */ $block->escapeHtml(__('Ship To')) ?>" class="col shipping">
+                            <td data-th="<?= $block->escapeHtml(__('Ship To')) ?>" class="col shipping">
                                 <?= /* @escapeNotVerified */
                                     $_order->getShippingAddress()
                                         ? $block->escapeHtml($_order->getShippingAddress()->getName())
@@ -65,26 +65,26 @@
                                 ?>
                             </td>
 
-                            <td data-th="<?= /* @escapeNotVerified */ $block->escapeHtml(__('Order Total')) ?>" class="col total">
-                                <?= /* @escapeNotVerified */ $_order->formatPrice($_order->getGrandTotal()) ?>
+                            <td data-th="<?= $block->escapeHtml(__('Order Total')) ?>" class="col total">
+                                <?= $_order->formatPrice($_order->getGrandTotal()) ?>
                             </td>
 
-                            <td data-th="<?= /* @escapeNotVerified */ $block->escapeHtml(__('Status')) ?>" class="col status">
-                                <?= /* @escapeNotVerified */ $_order->getStatusLabel() ?>
+                            <td data-th="<?= $block->escapeHtml(__('Status')) ?>" class="col status">
+                                <?= $_order->getStatusLabel() ?>
                             </td>
 
-                            <td data-th="<?= /* @escapeNotVerified */ $block->escapeHtml(__('Actions')) ?>" class="col actions">
-                                <a href="<?= /* @escapeNotVerified */ $block->getViewUrl($_order) ?>" class="link dashboard-table__link">
-                                    <?= /* @escapeNotVerified */ __('View Order') ?>
+                            <td data-th="<?= $block->escapeHtml(__('Actions')) ?>" class="col actions">
+                                <a href="<?= $block->getViewUrl($_order) ?>" class="link dashboard-table__link">
+                                    <?= __('View Order') ?>
                                 </a>
 
                                 <?php if ($this->helper('Magento\Sales\Helper\Reorder')->canReorder($_order->getEntityId())): ?>
                                     |
                                     <a href="#"
-                                       data-post='<?= /* @escapeNotVerified */ $this->helper(\Magento\Framework\Data\Helper\PostHelper::class)->getPostData($block->getReorderUrl($_order)); ?>'
+                                       data-post='<?= $this->helper(\Magento\Framework\Data\Helper\PostHelper::class)->getPostData($block->getReorderUrl($_order)); ?>'
                                        class="link order"
                                     >
-                                        <?= /* @escapeNotVerified */ __('Reorder') ?>
+                                        <?= __('Reorder') ?>
                                     </a>
                                 <?php endif; ?>
                             </td>
@@ -94,7 +94,7 @@
             </table>
         <?php else: ?>
             <div class="message info empty">
-                <?= /* @escapeNotVerified */ __('You have placed no orders.'); ?>
+                <?= __('You have placed no orders.'); ?>
             </div>
         <?php endif; ?>
     </div>

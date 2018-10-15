@@ -1,8 +1,3 @@
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
-
 define([
   'jquery',
   'underscore',
@@ -1049,11 +1044,7 @@ define([
               //Category View
               $this.parents('.product-item-info')
                   .find('.lazyload-wrapper')
-                  .append(`
-                    <div class="loader loader--visible">
-                      <div class="loader__circle"></div>
-                    </div>
-                  `);
+                  .append('<div class="loader loader--visible"><div class="loader__circle"></div></div>');
           }
       },
 

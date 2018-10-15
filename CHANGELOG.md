@@ -3,6 +3,15 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.0.0] - 2018-10-15
+### Changed
+- Better docs
+- Refactor rating and reviews, a11y implementation
+
+### Fixed
+- Rating stars in catalog (solr)
+- 2 column layouts
+
 ## [0.6.1] - 2018-09-24
 ### Added
 - Link to log out

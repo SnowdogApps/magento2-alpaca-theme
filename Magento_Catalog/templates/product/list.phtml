@@ -7,7 +7,7 @@ use Magento\Framework\App\Action\Action;
 ?>
 <?php if (!$_productCollection->count()): ?>
     <div class="message info empty">
-        <?= /* @escapeNotVerified */ __('We can\'t find products matching the selection.') ?>
+        <?= __('We can\'t find products matching the selection.') ?>
     </div>
 <?php else: ?>
     <?= $block->getToolbarHtml() ?>
@@ -42,12 +42,12 @@ use Magento\Framework\App\Action\Action;
             >
                 <?php $productImage = $block->getImage($_product, $imageDisplayArea) ?>
                 <a
-                    href="<?= /* @escapeNotVerified */ $block->getProductUrl($_product) ?>"
+                    href="<?= $block->getProductUrl($_product) ?>"
                     class="
                         catalog-list-item__image-wrapper
                         catalog-list-item__link
                     "
-                    title="<?= /* @escapeNotVerified */ $_product['name'] ?>"
+                    title="<?= $_product['name'] ?>"
                 >
                     <?= $productImage->toHtml() ?>
                 </a>
@@ -55,11 +55,11 @@ use Magento\Framework\App\Action\Action;
                     <div class="catalog-list-item__details">
                         <h2 class="catalog-list-item__name">
                             <a
-                                href="<?= /* @escapeNotVerified */ $block->getProductUrl($_product) ?>"
+                                href="<?= $block->getProductUrl($_product) ?>"
                                 class="catalog-list-item__link"
-                                title="<?= /* @escapeNotVerified */ $_product['name'] ?>"
+                                title="<?= $_product['name'] ?>"
                             >
-                                <?= /* @escapeNotVerified */ $_product['name'] ?>
+                                <?= $_product['name'] ?>
                             </a>
                         </h2>
                         <div class="catalog-list-item__reviews">
@@ -71,7 +71,7 @@ use Magento\Framework\App\Action\Action;
                     <div class="catalog-list-item__price">
                         <div class="price">
                             <span class="price__value">
-                                <?= /* @escapeNotVerified */ $block->getProductPrice($_product) ?>
+                                <?= $block->getProductPrice($_product) ?>
                             </span>
                         </div>
                     </div>
@@ -84,13 +84,13 @@ use Magento\Framework\App\Action\Action;
                                 <?php $postParams = $block->getAddToCartPostParams($_product) ?>
                                 <form
                                     data-role="tocart-form"
-                                    action="<?= /* @escapeNotVerified */ $postParams['action'] ?>"
+                                    action="<?= $postParams['action'] ?>"
                                     method="post"
                                 >
                                     <input
                                         type="hidden"
-                                        name="<?= /* @escapeNotVerified */ Action::PARAM_NAME_URL_ENCODED ?>"
-                                        value="<?= /* @escapeNotVerified */ $postParams['data'][Action::PARAM_NAME_URL_ENCODED] ?>"
+                                        name="<?= Action::PARAM_NAME_URL_ENCODED ?>"
+                                        value="<?= $postParams['data'][Action::PARAM_NAME_URL_ENCODED] ?>"
                                     >
                                     <?= $block->getBlockHtml('formkey') ?>
                                     <button
@@ -104,7 +104,7 @@ use Magento\Framework\App\Action\Action;
                                         type="submit"
                                     >
                                         <span>
-                                            <?= /* @escapeNotVerified */ __('Add to Cart') ?>
+                                            <?= __('Add to Cart') ?>
                                         </span>
                                     </button>
                                 </form>
@@ -116,7 +116,7 @@ use Magento\Framework\App\Action\Action;
                                             catalog-list-item__stock-status--in-stock
                                         "
                                     >
-                                        <?= /* @escapeNotVerified */ __('In stock') ?>
+                                        <?= __('In stock') ?>
                                     </span>
                                 <?php else: ?>
                                     <span
@@ -125,7 +125,7 @@ use Magento\Framework\App\Action\Action;
                                             catalog-list-item__stock-status--out-of-stock
                                         "
                                     >
-                                        <?= /* @escapeNotVerified */ __('Out of stock') ?>
+                                        <?= __('Out of stock') ?>
                                     </span>
                                 <?php endif ?>
                             <?php endif ?>
@@ -145,18 +145,13 @@ use Magento\Framework\App\Action\Action;
             <?php foreach ($_productCollection as $_product): ?>
                 <?php $productImage = $block->getImage($_product, $imageDisplayArea) ?>
                 <li
-                    class="
-                        catalog-grid-item
-                        catalog-grid__item
-                        product-item
-                        product-item-info
-                    "
+                    class="catalog-grid-item product-item product-item-info"
                     data-container="product-grid"
                 >
                     <a
-                        href="<?= /* @escapeNotVerified */ $block->getProductUrl($_product) ?>"
+                        href="<?= $block->getProductUrl($_product) ?>"
                         class="catalog-grid-item__link"
-                        title="<?= /* @escapeNotVerified */ $_product['name'] ?>"
+                        title="<?= $_product['name'] ?>"
                     >
                         <div class="catalog-grid-item__image-wrapper">
                             <?= $productImage->toHtml() ?>
@@ -165,16 +160,16 @@ use Magento\Framework\App\Action\Action;
                     <section class="catalog-grid-item__details">
                         <div class="catalog-grid-item__name">
                             <a
-                                href="<?= /* @escapeNotVerified */ $block->getProductUrl($_product) ?>"
+                                href="<?= $block->getProductUrl($_product) ?>"
                                 class="catalog-grid-item__link catalog-grid-item__link--name"
                             >
-                                <?= /* @escapeNotVerified */ $_product['name'] ?>
+                                <?= $_product['name'] ?>
                             </a>
                         </div>
                         <div class="catalog-grid-item__price">
                             <div class="price">
                                 <span class="price__value">
-                                    <?= /* @escapeNotVerified */ $block->getProductPrice($_product) ?>
+                                    <?= $block->getProductPrice($_product) ?>
                                 </span>
                             </div>
                         </div>
@@ -190,13 +185,13 @@ use Magento\Framework\App\Action\Action;
                                 <form
                                     class="catalog-grid-item__primary-form"
                                     data-role="tocart-form"
-                                    action="<?= /* @escapeNotVerified */ $postParams['action'] ?>"
+                                    action="<?= $postParams['action'] ?>"
                                     method="post"
                                 >
                                     <input
                                         type="hidden"
-                                        name="<?= /* @escapeNotVerified */ Action::PARAM_NAME_URL_ENCODED ?>"
-                                        value="<?= /* @escapeNotVerified */ $postParams['data'][Action::PARAM_NAME_URL_ENCODED] ?>"
+                                        name="<?= Action::PARAM_NAME_URL_ENCODED ?>"
+                                        value="<?= $postParams['data'][Action::PARAM_NAME_URL_ENCODED] ?>"
                                     >
                                     <?= $block->getBlockHtml('formkey') ?>
                                     <button
@@ -210,7 +205,7 @@ use Magento\Framework\App\Action\Action;
                                         type="submit"
                                     >
                                         <span class="catalog-grid-item__cart-text">
-                                            <?= /* @escapeNotVerified */ __('Add to Cart') ?>
+                                            <?= __('Add to Cart') ?>
                                         </span>
                                         <svg class="icon catalog-grid-item__cart-icon">
                                             <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#shopping-cart') ?>"></use>
@@ -225,7 +220,7 @@ use Magento\Framework\App\Action\Action;
                                             catalog-list-item__stock-status--in-stock
                                         "
                                     >
-                                        <?= /* @escapeNotVerified */ __('In stock') ?>
+                                        <?= __('In stock') ?>
                                     </span>
                                 <?php else: ?>
                                     <span
@@ -234,7 +229,7 @@ use Magento\Framework\App\Action\Action;
                                             catalog-list-item__stock-status--out-of-stock
                                         "
                                     >
-                                        <?= /* @escapeNotVerified */ __('Out of stock') ?>
+                                        <?= __('Out of stock') ?>
                                     </span>
                                 <?php endif ?>
                             <?php endif ?>
