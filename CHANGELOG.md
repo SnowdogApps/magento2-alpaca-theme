@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Changed
 - Refactor rating and reviews, a11y implementation
+- Refactor dropdown list and nested list
 
 ### Fixed
 - Rating stars in catalog (solr)
