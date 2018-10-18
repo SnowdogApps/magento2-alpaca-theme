@@ -2,7 +2,12 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Fixed
+- missing class for product attributes
+
+## [1.0.0] - 2018-10-15
 ### Changed
+- Better docs
 - Refactor rating and reviews, a11y implementation
 - Refactor dropdown list and nested list
 
