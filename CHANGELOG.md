@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Added
 - Reset password styles
+- Email to a Friend page styles
 
 ### Fixed
 - Missing class for product attributes
