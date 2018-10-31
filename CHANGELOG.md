@@ -2,8 +2,11 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Added
+- Reset password styles
+
 ### Fixed
-- missing class for product attributes
+- Missing class for product attributes
 
 ## [1.0.0] - 2018-10-15
 ### Changed
