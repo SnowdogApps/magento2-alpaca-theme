@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 - Reset password styles
 - Email to a Friend page styles
+- Missing homepagge container class for top notifications
 
 ### Fixed
 - Missing class for product attributes
