@@ -1,0 +1,266 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+/**
+ * Create account form template
+ *
+ * @var $block \Magento\Company\Block\Company\Account\Create
+ */
+?>
+<form class="form create account form-create-account"
+      action="<?= /* @noEscape */ $block->getPostActionUrl() ?>"
+      method="post" id="form-validate"
+      enctype="multipart/form-data"
+      autocomplete="off">
+    <?= $block->getBlockHtml('formkey') ?>
+    <fieldset class="fieldset info">
+        <legend class="legend"><span><?= $block->escapeHtml(__('Company Information')) ?></span></legend><br>
+        <div class="field company-name _required">
+            <label class="label" for="company_name">
+                <span><?= $block->escapeHtml(__('Company Name')) ?></span>
+            </label>
+            <div class="control">
+                <input type="text" name="company[company_name]" id="company_name"
+                       value=""
+                       title="<?= $block->escapeHtml(__('Company Name')) ?>"
+                       class="input-text" data-validate="{required:true}">
+            </div>
+        </div>
+        <div class="field legal-name">
+            <label class="label" for="legal_name">
+                <span><?= $block->escapeHtml(__('Company Legal Name')) ?></span>
+            </label>
+            <div class="control">
+                <input type="text" name="company[legal_name]" id="legal_name"
+                       value=""
+                       title="<?= $block->escapeHtml(__('Company Legal Name')) ?>"
+                       class="input-text">
+            </div>
+        </div>
+        <div class="field company-email _required">
+            <label class="label" for="company_email">
+                <span><?= $block->escapeHtml(__('Company Email')) ?></span>
+            </label>
+            <div class="control">
+                <input type="email" name="company[company_email]" id="company_email"
+                       value=""
+                       title="<?= $block->escapeHtml(__('Company Email')) ?>"
+                       class="input-text"
+                       data-role="email"
+                       data-async-is-valid="true"
+                       data-mage-init='{"Magento_Company/js/form/element/async-validation": {
+                            "name": "company_email",
+                            "validateUrl": "<?= /* @escapeNotVerified */ $block->getUrl('company/account/validate') ?>"
+                       }}'
+                       data-validate="{required:true, 'validate-email': true, 'validate-async-company-email': true}">
+            </div>
+        </div>
+        <div class="field vat-tax-id">
+            <label class="label" for="vat_tax_id">
+                <span><?= $block->escapeHtml(__('VAT/TAX ID')) ?></span>
+            </label>
+            <div class="control">
+                <input type="text" name="company[vat_tax_id]" id="vat_tax_id"
+                       value=""
+                       title="<?= $block->escapeHtml(__('VAT/TAX ID')) ?>"
+                       class="input-text">
+            </div>
+        </div>
+        <div class="field reseller-id">
+            <label class="label" for="reseller_id">
+                <span><?= $block->escapeHtml(__('Re-seller ID')) ?></span>
+            </label>
+            <div class="control">
+                <input type="text" name="company[reseller_id]" id="reseller_id"
+                       value=""
+                       title="<?= $block->escapeHtml(__('Re-seller ID')) ?>"
+                       class="input-text">
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset class="fieldset info">
+        <legend class="legend"><span><?= $block->escapeHtml(__('Legal Address')) ?></span></legend><br>
+        <div class="field street _required">
+            <label class="label" for="street0">
+                <span><?= $block->escapeHtml(__('Street Address')) ?></span>
+            </label>
+            <div class="control">
+                <input type="text" name="company[street][0]" id="street0"
+                       value=""
+                       title="<?= $block->escapeHtml(__('Street Address')) ?>"
+                       class="input-text" data-validate="{required:true}">
+            </div>
+        </div>
+        <div class="field street">
+            <div class="control">
+                <input type="text" name="company[street][1]" id="street1"
+                       value=""
+                       title="<?= $block->escapeHtml(__('Street Address')) ?>"
+                       class="input-text">
+            </div>
+        </div>
+        <div class="field city _required">
+            <label class="label" for="city">
+                <span><?= $block->escapeHtml(__('City')) ?></span>
+            </label>
+            <div class="control">
+                <input type="text" name="company[city]" id="city"
+                       value=""
+                       title="<?= $block->escapeHtml(__('City')) ?>"
+                       class="input-text" data-validate="{required:true}">
+            </div>
+        </div>
+        <div class="field country_id _required">
+            <label class="label" for="country_id">
+                <span><?= $block->escapeHtml(__('Country')) ?></span>
+            </label>
+            <div class="control _required">
+                <?php $countryValue = $block->getDefaultCountryId(); ?>
+                <select name="company[country_id]" id="country_id"
+                        class="select"
+                        title="<?= $block->escapeHtml(__('Country')) ?>"
+                        data-validate="{required:true}">
+                    <option value=""></option>
+                    <?php $countries = $block->getCountriesList(); ?>
+                    <?php foreach($countries as $countryCode => $country): ?>
+                        <option value="<?= $block->escapeHtml($countryCode) ?>"
+                            <?= ($countryCode == $countryValue) ? ' selected' : '' ;?>>
+                            <?= $block->escapeHtml($country) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+        <div class="field region-id required">
+            <label class="label" for="region_id">
+                <span><?= $block->escapeHtml(__('State/Province')) ?></span>
+            </label>
+            <div class="control _required">
+                <select name="company[region_id]" id="region_id" data-validate="{required:true}" class="select">
+                    <option value=""><?= $block->escapeHtml(__('Please select a region, state or province.')) ?></option>
+                </select>
+                <input type="text" id="region" name="company[region]"
+                       value=""
+                       title="<?= $block->escapeHtml(__('State/Province')) ?>"
+                       class="input-text" style="display: none;">
+            </div>
+        </div>
+        <div class="field postcode required">
+            <label class="label" for="postcode">
+                <span><?= $block->escapeHtml(__('ZIP/Postal Code')) ?></span>
+            </label>
+            <div class="control">
+                <input type="text" name="company[postcode]" id="postcode"
+                       value=""
+                       title="<?= $block->escapeHtml(__('ZIP/Postal Code')) ?>"
+                       class="input-text validate-zip-international <?= /* @escapeNotVerified */ $block->getAttributeValidationClass('postcode') ?>"
+                       data-validate="{'required':true, 'validate-zip-international':true}" />
+            </div>
+        </div>
+
+        <div class="field telephone _required">
+            <label class="label" for="telephone">
+                <span><?= $block->escapeHtml(__('Phone Number')) ?></span>
+            </label>
+            <div class="control">
+                <input type="text" name="company[telephone]" id="telephone"
+                       value=""
+                       title="<?= $block->escapeHtml(__('Phone Number')) ?>"
+                       class="input-text" data-validate="{required:true}">
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset class="fieldset create info">
+        <legend class="legend"><span><?= /* @noEscape */ __('Company Administrator') ?></span></legend><br>
+
+        <div class="field legal-name">
+            <label class="label" for="job_title">
+                <span><?= $block->escapeHtml(__('Job Title')) ?></span>
+            </label>
+            <div class="control">
+                <input type="text" name="job_title" id="job_title"
+                       value=""
+                       title="<?= $block->escapeHtml(__('Job Title')) ?>"
+                       class="input-text">
+            </div>
+        </div>
+
+        <div class="field required">
+            <label for="email_address" class="label"><span><?= /* @noEscape */ __('Email') ?></span></label>
+            <div class="control">
+                <input type="email" name="email"
+                       autocomplete="email"
+                       id="email_address"
+                       value=""
+                       title="<?= /* @noEscape */ __('Email') ?>"
+                       class="input-text"
+                       data-async-is-valid="true"
+                       data-mage-init='{"Magento_Company/js/form/element/async-validation": {
+                            "name": "customer_email",
+                            "validateUrl": "<?= /* @escapeNotVerified */ $block->getUrl('company/account/validate') ?>"
+                       }}'
+                       data-validate="{required:true, 'validate-email':true, 'validate-async-customer-email': true}">
+            </div>
+        </div>
+
+        <?= $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Name')
+            ->setObject($block->getFormData())
+            ->setNoWrap(true)
+            ->setForceUseCustomerAttributes(true)
+            ->toHtml() ?>
+
+        <?php $gender = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Gender') ?>
+        <?= $gender->setGender($block->getFormData()->getGender())->toHtml() ?>
+
+        <?= $block->getChildHtml('form.additional.info') ?>
+    </fieldset>
+
+    <div class="actions-toolbar">
+        <div class="primary">
+            <button type="submit" class="action save primary" title="<?= $block->escapeHtml(__('Submit')) ?>">
+                <span><?= $block->escapeHtml(__('Submit')) ?></span>
+            </button>
+        </div>
+    </div>
+
+</form>
+<script>
+    require([
+        'jquery',
+        'mage/mage'
+    ], function($) {
+
+        var dataForm = $('#form-validate');
+        var ignore = null;
+
+        dataForm.mage('validation', {
+            ignore: ignore ? ':hidden:not(' + ignore + ')' : ':hidden'
+        }).find('input:text').attr('autocomplete', 'off');
+    });
+</script>
+<script type="text/x-magento-init">
+    {
+        "#country_id": {
+            "regionUpdater": {
+                "optionalRegionAllowed": <?= /* @noEscape */ ($block->getConfig('general/region/display_all') ? 'true' : 'false') ?>,
+                "regionListId": "#region_id",
+                "regionInputId": "#region",
+                "postcodeId": "#zip",
+                "form": "#form-validate",
+                "regionJson": <?= /* @noEscape */ $this->helper('Magento\Directory\Helper\Data')->getRegionJson() ?>,
+                "defaultRegion": "",
+                "countriesWithOptionalZip": <?= /* @noEscape */ $this->helper('Magento\Directory\Helper\Data')->getCountriesWithOptionalZip(true) ?>
+            }
+        }
+    }
+</script>
+
