@@ -233,80 +233,70 @@
             data-validate="{ required: true }"
         >
     </div>
-
-    <fieldset class="fieldset create info">
-        <legend class="legend">
-            <?= /* @noEscape */ __('Company Administrator') ?>
-        </legend>
-        <br>
-        <div class="field legal-name">
-            <label class="label" for="job_title">
-                <?= $block->escapeHtml(__('Job Title')) ?>
-            </label>
-            <div class="control">
-                <input
-                    type="text"
-                    name="job_title"
-                    id="job_title"
-                    value=""
-                    title="<?= $block->escapeHtml(__('Job Title')) ?>"
-                    class="input-text"
-                >
-            </div>
-        </div>
-
-        <div class="field required">
-            <label for="email_address" class="label">
-                <?= /* @noEscape */ __('Email') ?>
-            </label>
-            <div class="control">
-                <input
-                    type="email"
-                    name="email"
-                    autocomplete="email"
-                    id="email_address"
-                    value=""
-                    title="<?= /* @noEscape */ __('Email') ?>"
-                    class="input-text"
-                    data-async-is-valid="true"
-                    data-mage-init='{
-                        "Magento_Company/js/form/element/async-validation": {
-                            "name": "customer_email",
-                            "validateUrl": "<?= /* @escapeNotVerified */ $block->getUrl('company/account/validate') ?>"
-                       }
-                    }'
-                    data-validate="{
-                        required: true,
-                        'validate-email': true,
-                        'validate-async-customer-email': true
-                    }"
-                >
-            </div>
-        </div>
-        <?=
-            $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Name')
-                ->setObject($block->getFormData())
-                ->setNoWrap(true)
-                ->setForceUseCustomerAttributes(true)
-                ->toHtml()
-        ?>
-        <?php $gender = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Gender') ?>
-        <?= $gender->setGender($block->getFormData()->getGender())->toHtml() ?>
-        <?= $block->getChildHtml('form.additional.info') ?>
-    </fieldset>
-
-    <div class="actions-toolbar">
-        <div class="primary">
-            <button
-                type="submit"
-                class="action save primary"
-                title="<?= $block->escapeHtml(__('Submit')) ?>"
-            >
-                <?= $block->escapeHtml(__('Submit')) ?>
-            </button>
-        </div>
+    <h3>
+        <?= /* @noEscape */ __('Company Administrator') ?>
+    </h3>
+    <div class="divider registration__divider">
+        <span class="divider__left"></span>
+        <span class="divider__right"></span>
     </div>
+    <div class="input legal-name">
+        <label class="label" for="job_title">
+            <?= $block->escapeHtml(__('Job Title')) ?>
+        </label>
+        <input
+            type="text"
+            name="job_title"
+            id="job_title"
+            value=""
+            title="<?= $block->escapeHtml(__('Job Title')) ?>"
+            class="input__field"
+        >
+    </div>
+    <div class="input required">
+        <label for="email_address" class="label">
+            <?= /* @noEscape */ __('Email') ?>
+        </label>
+        <input
+            type="email"
+            name="email"
+            autocomplete="email"
+            id="email_address"
+            value=""
+            title="<?= /* @noEscape */ __('Email') ?>"
+            class="input__field"
+            data-async-is-valid="true"
+            data-mage-init='{
+                "Magento_Company/js/form/element/async-validation": {
+                    "name": "customer_email",
+                    "validateUrl": "<?= /* @escapeNotVerified */ $block->getUrl('company/account/validate') ?>"
+                }
+            }'
+            data-validate="{
+                required: true,
+                'validate-email': true,
+                'validate-async-customer-email': true
+            }"
+        >
+    </div>
+    <?=
+        $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Name')
+            ->setObject($block->getFormData())
+            ->setNoWrap(true)
+            ->setForceUseCustomerAttributes(true)
+            ->toHtml()
+    ?>
+    <?php $gender = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Gender') ?>
+    <?= $gender->setGender($block->getFormData()->getGender())->toHtml() ?>
+    <?= $block->getChildHtml('form.additional.info') ?>
 
+    <button
+        type="submit"
+        class="button save"
+        title="<?= $block->escapeHtml(__('Submit')) ?>"
+    >
+        <?= $block->escapeHtml(__('Submit')) ?>
+    </button>
 </form>
 <script>
     require([
