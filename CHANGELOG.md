@@ -2,8 +2,16 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Added
+- Reset password styles
+- Email to a Friend page styles
+- Missing homepagge container class for top notifications
+
 ### Fixed
-- missing class for product attributes
+- Missing class for product attributes
+
+### Changed
+- Refactor dropdown list and nested list
 
 ## [1.0.0] - 2018-10-15
 ### Changed
