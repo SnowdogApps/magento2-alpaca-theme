@@ -1,0 +1,64 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+/** @var $block \Magento\Company\Block\Company\Role\Edit */
+
+$role = $block->getRole();
+?>
+
+<form class="form form-edit-role" method="post" id="role-edit-form"
+      action="<?= $block->escapeUrl($block->getUrl('*/*/editPost', ['id' => $role->getId()])) ?>"
+      data-mage-init='{"validation":{}}'>
+    <?= $block->getBlockHtml('formkey') ?>
+
+    <fieldset class="fieldset info">
+        <legend class="legend"><span><?= $block->escapeHtml(__('Role Information')) ?></span></legend>
+        <div class="field role-name _required">
+            <label class="label" for="role_name">
+                <span><?= $block->escapeHtml(__('Role Name')) ?></span>
+            </label>
+            <div class="control">
+                <input type="text" name="role_name" id="role_name"
+                       value="<?= $block->escapeHtml($role->getRoleName()) ?>"
+                       title="<?= $block->escapeHtml(__('Role Name')) ?>"
+                       data-async-is-valid="true"
+                       data-mage-init='{"Magento_Company/js/form/element/async-validation": {
+                            "name": "company_role_name",
+                            "validateUrl": "<?= /* @escapeNotVerified */ $block->getUrl('company/role/validate') ?>"
+                       }}'
+                       data-validate="{required:true, 'validate-async-company-role-name': true}"
+                       class="input-text">
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset class="fieldset info">
+        <legend class="legend"><span><?= $block->escapeHtml(__('Role Permissions')) ?></span></legend>
+        <div class="box-actions">
+            <button class="action expand" data-action="expand-tree" type="button">
+                <span><?= $block->escapeHtml(__('Expand All')) ?></span>
+            </button>
+            <button class="action expand" data-action="collapse-tree" type="button">
+                <span><?= $block->escapeHtml(__('Collapse All')) ?></span>
+            </button>
+        </div>
+        <div class="tree x-tree" id="role-tree" data-role="role-tree"
+             data-mage-init='<?= $block->escapeHtml(
+                 $block->getJsonHelper()->jsonEncode($block->getTreeJsOptions())
+             )?>'>
+        </div>
+        <input type="hidden" name="role_permissions" />
+    </fieldset>
+
+    <div class="actions-toolbar">
+        <div class="primary">
+            <button type="submit" class="action save primary" title="<?= $block->escapeHtml(__('Save Role')) ?>">
+                <span><?= $block->escapeHtml(__('Save Role')) ?></span>
+            </button>
+        </div>
+    </div>
+</form>
