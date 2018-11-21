@@ -7,8 +7,8 @@
 $company = $block->getCustomerCompany();
 ?>
 
-<?php if ($block->isViewAccountAllowed()) : ?>
-    <div class="block block-company-profile-account dashboard-items">
+<?php if ($block->isViewAccountAllowed()): ?>
+    <div class="block-company-profile-account dashboard-items">
         <h3 class="dashboard-items__title">
             <?= $block->escapeHtml(__('Account Information')) ?>
         </h3>
@@ -21,30 +21,30 @@ $company = $block->getCustomerCompany();
                             ? ' (' . $block->escapeHtml($company->getLegalName()) . ')' : '';
                     ?>
                     <p>
-                        <?= /* @escapeNotVerified */ $companyName ?>
+                        <?= /* @escapeNotVerified */ $companyName ?>§§
                     </p>
                     <?php if (!empty($company->getCompanyEmail())): ?>
                         <p>
                             <?= $block->escapeHtml($company->getCompanyEmail()) ?>
                         </p>
-                    <?php endif; ?>
+                    <?php endif ?>
                     <?php if (!empty($company->getVatTaxId())): ?>
                         <p>
-                            <?= $block->escapeHtml(__('VAT/TAX ID: ')). $block->escapeHtml($company->getVatTaxId()); ?>
+                            <?= $block->escapeHtml(__('VAT/TAX ID: ')). $block->escapeHtml($company->getVatTaxId()) ?>
                         </p>
-                    <?php endif; ?>
+                    <?php endif ?>
                     <?php if (!empty($company->getResellerId())): ?>
                         <p>
-                            <?= $block->escapeHtml(__('Re-seller ID: ')) . $block->escapeHtml($company->getResellerId()); ?>
+                            <?= $block->escapeHtml(__('Re-seller ID: ')) . $block->escapeHtml($company->getResellerId()) ?>
                         </p>
-                    <?php endif; ?>
+                    <?php endif ?>
                 </div>
             </div>
         </div>
     </div>
-<?php endif; ?>
-<?php if ($block->isViewAddressAllowed()) : ?>
-    <div class="block block-company-profile-address dashboard-items">
+<?php endif ?>
+<?php if ($block->isViewAddressAllowed()): ?>
+    <div class="block-company-profile-address dashboard-items">
         <h3 class="dashboard-items__title">
             <?= $block->escapeHtml(__('Legal Address')) ?>
         </h3>
@@ -52,14 +52,14 @@ $company = $block->getCustomerCompany();
             <div class="box box-address-information dashboard-items__item">
                 <div class="box-content">
                     <address>
-                        <?php if(!$block->isCompanyAddressDisplayed($company)): ?>
-                            <?= $block->escapeHtml(__('You have no other address entries in your address book.')); ?><br />
+                        <?php if (!$block->isCompanyAddressDisplayed($company)): ?>
+                            <?= $block->escapeHtml(__('You have no other address entries in your address book.')) ?><br>
                         <?php else: ?>
                             <?php if (!empty($company->getStreet())): ?>
-                                <?= /* @escapeNotVerified */ $block->getCompanyStreetLabel($company) ?><br />
+                                <?= /* @escapeNotVerified */ $block->getCompanyStreetLabel($company) ?><br>
                             <?php endif; ?>
-                            <?= $block->escapeHtml($block->getCompanyAddressString($company)) ?><br />
-                            <?= $block->escapeHtml($block->getCompanyCountryLabel($company)) ?><br />
+                            <?= $block->escapeHtml($block->getCompanyAddressString($company)) ?><br>
+                            <?= $block->escapeHtml($block->getCompanyCountryLabel($company)) ?><br>
                             <?= $block->escapeHtml(__('T: %1', $company->getTelephone())) ?>
                         <?php endif; ?>
                         <br />
@@ -68,9 +68,9 @@ $company = $block->getCustomerCompany();
             </div>
         </div>
     </div>
-<?php endif; ?>
+<?php endif ?>
 <?php if ($block->isViewContactsAllowed()) : ?>
-    <div class="block block-company-profile-contacts dashboard-items">
+    <div class="block-company-profile-contacts dashboard-items">
         <h3 class="dashboard-items__title">
             <?= $block->escapeHtml(__('Contacts')) ?>
         </h3>
@@ -80,23 +80,23 @@ $company = $block->getCustomerCompany();
                     <?= $block->escapeHtml(__('Company Administrator')) ?>
                 </h4>
                 <div class="box-content">
-                    <?= $block->escapeHtml($block->getCompanyAdminName($company)) ?><br />
+                    <?= $block->escapeHtml($block->getCompanyAdminName($company)) ?><br>
                     <?php $companyAdminJobTitle = $block->getCompanyAdminJobTitle($company); ?>
                     <?php if (!empty($companyAdminJobTitle)): ?>
-                        <?= $block->escapeHtml($companyAdminJobTitle) ?><br />
+                        <?= $block->escapeHtml($companyAdminJobTitle) ?><br>
                     <?php endif; ?>
                     <?= $block->escapeHtml($block->getCompanyAdminEmail($company)) ?>
                 </div>
             </div>
-            <div class="box box-contact-information dashboard-items__item grid__column grid__column--1-2">
+            <div class="dashboard-items__item grid__column grid__column--1-2">
                 <h4>
                     <?= $block->escapeHtml(__('Sales Representative')) ?>
                 </h4>
                 <div class="box-content">
-                    <?= $block->escapeHtml($block->getSalesRepresentativeName($company)) ?><br />
+                    <?= $block->escapeHtml($block->getSalesRepresentativeName($company)) ?><br>
                     <?= $block->escapeHtml($block->getSalesRepresentativeEmail($company)) ?>
                 </div>
             </div>
         </div>
     </div>
-<?php endif; ?>
+<?php endif ?>
