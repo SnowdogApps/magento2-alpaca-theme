@@ -1,5 +1,4 @@
 <?php
-
     // @codingStandardsIgnoreFile
     /**
      * @var \Magento\Company\Block\Company\CompanyProfile $block
@@ -21,9 +20,11 @@
 <?php endif ?>
 
 <form
-    class="form form-edit-company dashboard-form " method="post" id="company-edit-form"
+    class="form form-edit-company dashboard-form"
+    method="post"
+    id="company-edit-form"
     action="<?= $block->escapeUrl($block->getUrl('*/profile/editPost')) ?>"
-    data-mage-init='{ "validation":{} }'
+    data-mage-init='{ "validation": {} }'
 >
     <?= $block->getBlockHtml('formkey') ?>
     <?php if ($block->isEditAccountAllowed()): ?>
@@ -160,9 +161,9 @@
                     >
                         <option value=""></option>
                         <?php foreach($countries as $countryCode => $country): ?>
-                            <option value="<?= /* @escapeNotVerified */ $countryCode ?>"
+                            <option value="<?= $countryCode ?>"
                                 <?= ($countryCode == $countryValue) ? ' selected' : '' ;?>>
-                                <?= /* @escapeNotVerified */ $country ?>
+                                <?= $country ?>
                             </option>
                         <?php endforeach ?>
                     </select>
@@ -180,7 +181,7 @@
                         data-validate="{ required: true }"
                     >
                         <option value="">
-                            <?= /* @escapeNotVerified */ __('Please select a region, state or province.') ?>
+                            <?= __('Please select a region, state or province.') ?>
                         </option>
                     </select>
                     <input
@@ -218,7 +219,7 @@
                     value="<?= $block->escapeHtml($company->getTelephone()) ?>"
                     title="<?= $block->escapeHtml(__('Phone Number')) ?>"
                     class="input-text input__field"
-                    data-validate="{ required:true }"
+                    data-validate="{ required: true }"
                 >
             </div>
         </fieldset>
@@ -248,9 +249,9 @@
                 "regionInputId": "#region",
                 "postcodeId": "#postcode",
                 "form": "#company-edit-form",
-                "regionJson": <?= /* @escapeNotVerified */ $this->helper('Magento\Directory\Helper\Data')->getRegionJson() ?>,
-                "defaultRegion": "<?= /* @escapeNotVerified */ $regionValue ?>",
-                "countriesWithOptionalZip": <?= /* @escapeNotVerified */ $this->helper('Magento\Directory\Helper\Data')->getCountriesWithOptionalZip(true) ?>
+                "regionJson": <?= $this->helper('Magento\Directory\Helper\Data')->getRegionJson() ?>,
+                "defaultRegion": "<?= $regionValue ?>",
+                "countriesWithOptionalZip": <?= $this->helper('Magento\Directory\Helper\Data')->getCountriesWithOptionalZip(true) ?>
             }
         }
     }
