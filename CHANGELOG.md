@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 - Refactor dropdown list and nested list
+- Grid classes in whole project
 
 ## [1.0.0] - 2018-10-15
 ### Changed
