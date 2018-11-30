@@ -4,21 +4,17 @@
 
     <nav class="<?= $menuClass ?>" data-action="navigation">
         <ul class="<?= $menuClass ?>__list container">
-            <?php
-                $iteration = 0;
-                foreach ($block->getNodes() as $node):
-                $iteration++;
-            ?>
+            <?php foreach ($block->getNodes() as $idx => $node): ?>
                 <?php
                     $childrenLevel = $node->getLevel() + 1;
                     $children = $this->getNodes($childrenLevel, $node);
                     $node->setIsParent((bool) $children);
-                    $node->setIterationNo($iteration);
+                    $node->setIterationNo($idx + 1);
                     $parentClass = $children ? ' ' . $menuClass . '__item--parent' : '';
                     $additionalClasses = $node->getClasses() ? ' ' . $node->getClasses() : '';
                     $itemClasses = $parentClass . $additionalClasses;
                 ?>
-                <li class="<?= $menuClass ?>__item<?= $itemClasses ?> nav-<?= $iteration ?>">
+                <li class="<?= $menuClass ?>__item<?= $itemClasses ?> nav-<?= $idx + 1 ?>">
                     <?= $block->renderMenuNode($node) ?>
                     <?= $block->renderSubmenu($children, $node, $childrenLevel) ?>
                 </li>

@@ -15,24 +15,19 @@
         ];
     ?>
     <ul<?= $block->buildAttrFromArray($wrapperAttributes) ?>>
-        <?php
-            $iteration = 0;
-            foreach ($block->getSubmenuNodes() as $node):
-            $iteration++;
-        ?>
+        <?php foreach ($block->getSubmenuNodes() as $idx => $node): ?>
             <?php
                 $childrenLevel = $node->getLevel() + 1;
                 $children = $this->getNodes($childrenLevel, $node);
                 $node->setIsParent((bool) $children);
-                $node->setIterationNo($parentNode->getIterationNo() . '-' . $iteration);
+                $node->setIterationNo($parentNode->getIterationNo() . '-' . ($idx + 1));
 
                 $nodeAttributes = [
                     'class' => [
                         $level > 1 ? 'list__item' : '',
                         $menuClass . '__inner-item',
                         $menuClass . '__inner-item--level' . $level,
-                        'nav-' . $node->getIterationNo(),
-                        'category-item'
+                        'nav-' . $node->getIterationNo()
                     ]
                 ];
 
