@@ -1,17 +1,33 @@
 <div
     class="block items-in-cart checkout-products"
-    data-bind="mageInit: {'collapsible':{'openedState': 'active', 'active': isItemsBlockExpanded()}}"
+    data-bind="
+        mageInit: {
+            'collapsible': {
+                'openedState': 'active', 'active': isItemsBlockExpanded()
+            }
+        }
+    "
 >
     <div class="title checkout-products__title" data-role="title">
         <span class="checkout-products__title-text">
-            <translate args="maxCartItemsToDisplay" if="maxCartItemsToDisplay < getCartLineItemsCount()"/>
+            <translate
+                args="maxCartItemsToDisplay"
+                if="maxCartItemsToDisplay < getCartLineItemsCount()"
+            />
             <translate args="'of'" if="maxCartItemsToDisplay < getCartLineItemsCount()"/>
             <span data-bind="text: getCartLineItemsCount()"></span>
             <translate args="'Item in Cart'" if="getCartLineItemsCount() === 1"/>
             <translate args="'Items in Cart'" if="getCartLineItemsCount() > 1"/>
         </span>
         <svg class="checkout-products__title-icon">
-            <use data-bind="attr: { 'xlink:href': require.toUrl('images/icons-sprite.svg#arrow-down') }" xlink:href=''></use>
+            <use
+                data-bind="
+                    attr: {
+                        'xlink:href': require.toUrl('images/icons-sprite.svg#arrow-down')
+                    }
+                "
+                xlink:href=''
+            ></use>
         </svg>
     </div>
     <div class="content minicart-items" data-role="content">
@@ -19,7 +35,7 @@
             <div class="minicart-items">
                 <each args="items()">
                     <div class="product-item">
-                        <div class="minicart-product">
+                        <div class="row row--no-margins minicart-product">
                             <each args="$parent.elems()" render=""/>
                         </div>
                     </div>
@@ -27,7 +43,10 @@
             </div>
         </div>
     </div>
-    <div class="actions-toolbar" if="maxCartItemsToDisplay < getCartLineItemsCount()">
+    <div
+        class="actions-toolbar"
+        if="maxCartItemsToDisplay < getCartLineItemsCount()"
+    >
         <div class="secondary">
             <a class="action viewcart" data-bind="attr: {href: cartUrl}">
                 <span data-bind="i18n: 'View and Edit Cart'"></span>
