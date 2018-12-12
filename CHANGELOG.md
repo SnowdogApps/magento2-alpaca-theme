@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 - Email to a Friend page styles
 - Missing homepagge container class for top notifications
 - Templates for product's page breadcrumbs
+- Confirmation link page styles
 
 ### Fixed
 - Missing class for product attributes
