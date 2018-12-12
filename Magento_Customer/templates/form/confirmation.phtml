@@ -3,38 +3,33 @@
 ?>
 <form
     method="post"
+    class="confirmation-link"
     id="form-validate"
     data-mage-init='{"validation": {}}'
 >
-    <fieldset
-        class="fieldset"
-        data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
-    >
-        <p class="field note">
-            <?= __('Please enter your email below and we will send you the confirmation link.') ?>
-        </p>
-        <div class="field email required">
-            <label for="email_address">
-                <?= __('Email') ?>
-            </label>
-            <div class="input">
-                <input
-                    type="email"
-                    name="email"
-                    id="email_address"
-                    class="input__field"
-                    value="<?= $block->escapeHtmlAttr($block->getEmail()) ?>"
-                    data-validate="{required: true, 'validate-email': true}"
-                >
-            </div>
-        </div>
-    </fieldset>
+    <p>
+        <?= __('Please enter your email below and we will send you the confirmation link.') ?>
+    </p>
+    <div class="input required">
+        <label for="email_address">
+            <?= __('Email') ?>
+        </label>
+        <input
+            type="email"
+            name="email"
+            id="email_address"
+            class="input__field"
+            value="<?= $block->escapeHtmlAttr($block->getEmail()) ?>"
+            data-validate="{required: true, 'validate-email': true}"
+        >
+    </div>
     <button type="submit" class="button">
         <?= __('Send confirmation link') ?>
     </button>
-    <div>
-        <a href="<?= $block->escapeUrl($block->getLoginUrl()) ?>">
-            <?= $block->escapeHtml(__('Back to Sign In')) ?>
-        </a>
-    </div>
+    <a
+        href="<?= $block->escapeUrl($block->getLoginUrl()) ?>"
+        class="confirmation-link__link"
+    >
+        <?= __('Back to Sign In') ?>
+    </a>
 </form>
