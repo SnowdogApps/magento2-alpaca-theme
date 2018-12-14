@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 - Missing class for product attributes
+- Customer save password/email action
 
 ### Changed
 - Refactor dropdown list and nested list
