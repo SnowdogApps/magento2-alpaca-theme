@@ -12,7 +12,7 @@ $item = $block->getItem();
         class="input-checkbox"
         type="checkbox"
         data-item-id="<?= $block->escapeHtml($item->getId()) ?>"
-        data-item-has-errors="<?= /* @noEscape */ (int)!empty($item->getItemErrors()) ?>"
+        data-item-has-errors="<?= (int)!empty($item->getItemErrors()) ?>"
         data-action="requisition-item-check"
         data-role="select-item"
         value="1"
@@ -22,20 +22,20 @@ $item = $block->getItem();
     <div class="product-item-description">
         <?php if ($block->getRequisitionListProduct()): ?>
             <span class="product-item-name">
-                <a href="<?= /* @noEscape */ $block->getProductUrlByItem() ?>">
+                <a href="<?= $block->getProductUrlByItem() ?>">
                     <?= $block->escapeHtml($block->getRequisitionListProduct()->getName()) ?>
                 </a>
             </span>
         <?php endif ?>
         <div class="product-item-sku">
             <b><?= $block->escapeHtml(__('SKU')) ?>:</b>
-            <span><?= /* @noEscape */ $item->getSku() ?></span>
+            <span><?= $item->getSku() ?></span>
         </div>
         <?php $block->getChildBlock('requisition.list.item.options')->setItem($item); ?>
-        <?= /* @noEscape */ $block->getChildHtml('requisition.list.item.options', false) ?>
+        <?= $block->getChildHtml('requisition.list.item.options', false) ?>
         <?php if ($block->getItemError()): ?>
             <div class="message error item-error">
-                <span><?= /* @noEscape */ $block->getItemError() ?></span>
+                <span><?= $block->getItemError() ?></span>
             </div>
         <?php endif ?>
     </div>
@@ -45,11 +45,11 @@ $item = $block->getItem();
 </td>
 <td class="col price" data-th="<?= $block->escapeHtml(__('Price')) ?>">
     <?php if (!$block->isOptionsUpdated() && $block->getRequisitionListProduct()): ?>
-        <?= /* @noEscape */ $block->getFormattedPrice() ?>
+        <?= $block->getFormattedPrice() ?>
         <?php if ($block->displayBothPrices()): ?>
             <span class="price-excluding-tax"
                   data-label="<?= $block->escapeHtml(__('Excl. Tax')) ?>">
-                <?= /* @noEscape */ $block->getFormattedPriceExcludingTax() ?>
+                <?= $block->getFormattedPriceExcludingTax() ?>
             </span>
         <?php endif ?>
     <?php endif ?>
@@ -78,10 +78,10 @@ $item = $block->getItem();
 <td class="col subtotal action" data-th="<?= $block->escapeHtml(__('Subtotal')) ?>">
     <div class="product-item-subtotal">
         <?php if (!$block->isOptionsUpdated() && $block->getRequisitionListProduct()): ?>
-            <?= /* @noEscape */ $block->getFormattedSubtotal() ?>
+            <?= $block->getFormattedSubtotal() ?>
             <?php if ($block->displayBothPrices()): ?>
                 <span class="price-excluding-tax" data-label="<?= $block->escapeHtml(__('Excl. Tax')) ?>">
-                    <?= /* @noEscape */ $block->getFormattedSubtotalExcludingTax() ?>
+                    <?= $block->getFormattedSubtotalExcludingTax() ?>
                 </span>
             <?php endif ?>
         <?php endif ?>
