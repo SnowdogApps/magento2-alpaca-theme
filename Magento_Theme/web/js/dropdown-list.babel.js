@@ -44,28 +44,15 @@ class DropdownList {
     }
   }
 
-  closeInnerdDropdowns(item) {
-    const subDropDowns = [...item.querySelectorAll(`${this.dropdownCollapseLabel}[aria-expanded="true"]`)];
-    subDropDowns.forEach(key => {
-      const dropdownId      = key.getAttribute('aria-controls'),
-            dropdownItem    = key.parentNode,
-            dropdownContent = dropdownItem.querySelector(`.${this.contentClass}[data-content="${dropdownId}"]`);
-      this.setAriaAttributes(key, dropdownContent, true);
-    });
-  }
-
-  toggleContent(item) {
-    const dropdownId      = item.getAttribute('aria-controls'),
-          dropdownItem    = item.parentNode,
-          dropdownContent = dropdownItem.querySelector(`.${this.contentClass}[data-content="${dropdownId}"]`),
-          dropdownBlock   = item.closest('.dropdown-list');
+  toggleContent(trigger, dropdownContent, closing) {
+    const dropdownBlock = trigger.closest('.dropdown-list');
 
     if (!this.isMediumOpen(dropdownBlock)) {
       if (dropdownContent.clientHeight > 0) {
-        this.setAriaAttributes(item, dropdownContent, true);
-      }
-      else {
-        this.setAriaAttributes(item, dropdownContent, false);
+        this.setAriaAttributes(trigger, dropdownContent, true);
+        trigger.focus();
+      } else if (!closing) {
+        this.setAriaAttributes(trigger, dropdownContent, false);
       }
     }
   }
@@ -78,12 +65,22 @@ class DropdownList {
   }
 
   init() {
-    this.dropdownItem.forEach(
-      key => key.addEventListener('click', (e) => {
+    this.dropdownItem.forEach(key => {
+      const dropdownId = key.getAttribute('aria-controls'),
+        dropdownContent = document.getElementById(dropdownId);
+
+      key.addEventListener('click', e => {
         e.preventDefault();
-        this.toggleContent(key);
-      }, false)
-    );
+        this.toggleContent(key, dropdownContent);
+      }, false);
+
+      [key, dropdownContent].forEach(el => el.addEventListener('keydown', e => {
+        if (e.key === "Escape") {
+          this.toggleContent(key, dropdownContent, true);
+        }
+      }));
+    });
+
     this.setMediumOpen();
 
     window.addEventListener('resize', () => {
