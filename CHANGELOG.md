@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 - Missing homepagge container class for top notifications
 - Templates for product's page breadcrumbs
 - Confirmation link page styles
+- Support for escape key in dropdown script
 
 ### Fixed
 - Missing class for product attributes
@@ -16,6 +17,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - Refactor dropdown list and nested list
 - Refactor menu and submenu templates
+- Refactor filters and accessibility improvements
 
 ## [1.0.0] - 2018-10-15
 ### Changed
