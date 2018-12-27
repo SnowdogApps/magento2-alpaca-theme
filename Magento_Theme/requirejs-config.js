@@ -10,7 +10,6 @@ var config = {
       "svg4everybody"      : "Magento_Theme/js/lib/svg4everybody",
       "cookieMessage"      : "Magento_Theme/js/cookie-message.babel",
       "dropdownList"       : "Magento_Theme/js/dropdown-list.babel",
-      "dropdownListNested" : "Magento_Theme/js/dropdown-list-nested.babel",
       "fileUpload"         : "Magento_Theme/js/file-upload.babel",
       "filters"            : "Magento_Theme/js/filters.babel",
       "linksWrapper"       : "Magento_Theme/js/wrapper-collapsible",
