@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 - Missing homepagge container class for top notifications
 - Templates for product's page breadcrumbs
 - Confirmation link page styles
+- Support for bundle products
 
 ### Fixed
 - Missing class for product attributes

@@ -1,0 +1,83 @@
+<?php
+$idSuffix = $block->getIdSuffix() ? $block->getIdSuffix() : '';
+/** @var \Magento\Bundle\Pricing\Render\FinalPriceBox $block */
+/** @var \Magento\Bundle\Pricing\Price\FinalPrice $finalPriceModel */
+$finalPriceModel = $block->getPrice();
+$minimalPrice = $finalPriceModel->getMinimalPrice();
+$maximalPrice = $finalPriceModel->getMaximalPrice();
+/** ex: \Magento\Bundle\Pricing\Price\BundleRegularPrice */
+/** @var \Magento\Framework\Pricing\Price\PriceInterface $regularPriceModel */
+$regularPriceModel = $block->getPriceType('regular_price');
+$maximalRegularPrice = $regularPriceModel->getMaximalPrice();
+$minimalRegularPrice = $regularPriceModel->getMinimalPrice();
+?>
+
+<?php if ($block->getSaleableItem()->getPriceView()): ?>
+    <span class="minimal-price price__value">
+        <span class="price__text">
+            <?= __('As low as') ?>
+        </span>
+        <?= $block->renderAmount($minimalPrice, [
+            'price_id' => $block->getPriceId('from-')
+        ]); ?>
+        <?php if ($minimalPrice < $minimalRegularPrice): ?>
+            <span class="old-price price__value price__value--old">
+                <?= $block->renderAmount($minimalRegularPrice, [
+                    'price_id'         => $block->getPriceId('old-price-' . $idSuffix),
+                    'skip_adjustments' => true
+                ]); ?>
+            </span>
+        <?php endif ?>
+    </span>
+<?php else: ?>
+    <?php if ($block->showRangePrice()): ?>
+        <span class="price-from price__value price__value--between">
+            <span class="price__text">
+                <?= __('From') ?>
+            </span>
+            <?= $block->renderAmount($minimalPrice, [
+                'price_id'   => $block->getPriceId('from-'),
+                'price_type' => 'minPrice'
+            ]); ?>
+            <?php if ($minimalPrice < $minimalRegularPrice): ?>
+                <span class="old-price price__value price__value--old">
+                    <?= $block->renderAmount($minimalRegularPrice, [
+                        'price_id'         => $block->getPriceId('old-price-' . $idSuffix),
+                        'skip_adjustments' => true
+                    ]); ?>
+                </span>
+            <?php endif ?>
+        </span>
+        <span class="price-to price__value price__value--between">
+            <span class="price__text">
+                <?= __('To') ?>
+            </span>
+            <?= $block->renderAmount($maximalPrice, [
+                'price_id'   => $block->getPriceId('to-'),
+                'price_type' => 'maxPrice'
+            ]); ?>
+            <?php if ($maximalPrice < $maximalRegularPrice): ?>
+                <span class="old-price price__value price__value--old">
+                    <?= $block->renderAmount($maximalRegularPrice, [
+                        'price_id'         => $block->getPriceId('old-price-' . $idSuffix),
+                        'skip_adjustments' => true
+                    ]); ?>
+                </span>
+            <?php endif ?>
+        </span>
+    <?php else: ?>
+        <span class="price__value">
+            <?= $block->renderAmount($minimalPrice, [
+                'price_id' => $block->getPriceId('product-price-')
+            ]); ?>
+            <?php if ($minimalPrice < $minimalRegularPrice): ?>
+                <span class="old-price price__value price__value--old">
+                    <?= $block->renderAmount($minimalRegularPrice, [
+                        'price_id'         => $block->getPriceId('old-price-' . $idSuffix),
+                        'skip_adjustments' => true
+                    ]); ?>
+                </span>
+            <?php endif ?>
+        </span>
+    <?php endif ?>
+<?php endif ?>
