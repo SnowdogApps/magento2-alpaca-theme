@@ -7,12 +7,18 @@ All notable changes to this project will be documented in this file.
 - Email to a Friend page styles
 - Missing homepagge container class for top notifications
 - Support for B2B module
+- Templates for product's page breadcrumbs
+- Confirmation link page styles
+- Support for bundle products
 
 ### Fixed
 - Missing class for product attributes
+- Customer save password/email action
 
 ### Changed
 - Refactor dropdown list and nested list
+- Grid classes in whole project
+- Refactor menu and submenu templates
 
 ## [1.0.0] - 2018-10-15
 ### Changed
