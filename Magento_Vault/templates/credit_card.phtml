@@ -1,46 +1,56 @@
 <?php $ccNumberView = $block->escapeHtml($block->getNumberLast4Digits()); ?>
 <tr>
-    <td data-th="<?= $block->escapeHtml(__('Card Number')) ?>" class="col card-number">
+    <td
+        data-th="<?= $block->escapeHtml(__('Card Number')) ?>"
+        class="col card-number"
+    >
         <?= $block->escapeHtml(__('ending ')); ?>
         <?= $ccNumberView ?>
     </td>
 
-    <td data-th="<?= $block->escapeHtml(__('Expiration Date')) ?>" class="col card-expire">
+    <td
+        data-th="<?= $block->escapeHtml(__('Expiration Date')) ?>"
+        class="col card-expire"
+    >
         <?= $block->escapeHtml($block->getExpDate()); ?>
     </td>
 
     <td data-th="<?= $block->escapeHtml(__('Type')) ?>" class="col card-type">
-        <img src="<?= $block->getIconUrl(); ?>"
-             width="<?= $block->getIconWidth(); ?>"
-             height="<?= $block->getIconHeight(); ?>"
-        />
+        <img
+            src="<?= $block->getIconUrl(); ?>"
+            width="<?= $block->getIconWidth(); ?>"
+            height="<?= $block->getIconHeight(); ?>"
+        >
     </td>
 
     <td data-th="<?= $block->escapeHtml(__('Actions')) ?>" class="col actions">
-        <form class="form"
-              action="<?= $block->escapeUrl($block->getUrl('vault/cards/deleteaction')); ?>"
-              method="post"
+        <form
+            class="form"
+            action="<?= $block->escapeUrl($block->getUrl('vault/cards/deleteaction')) ?>"
+            method="post"
         >
             <?= $block->getBlockHtml('formkey') ?>
 
-            <input name="<?= PaymentTokenInterface::PUBLIC_HASH ?>"
-                   value="<?= $block->getToken()->getPublicHash() ?>"
-                   type="hidden"
-            />
+            <input
+                name="<?= PaymentTokenInterface::PUBLIC_HASH ?>"
+                value="<?= $block->getToken()->getPublicHash() ?>"
+                type="hidden"
+            >
 
-            <button type="submit"
-                    class="button delete"
-                    data-mage-init='{
-                        "Magento_Vault/js/customer_account/deleteWidget":{
-                            "type": "popup",
-                            "modalClass": "my-credit-cards-popup",
-                            "toggleEvent": "click",
-                            "title": "<?= $block->escapeHtml(__('Delete')) ?>",
-                            "content": "
-                                Are you sure you want to delete this card: <?= $ccNumberView; ?>?
-                            "
-                        }
-                    }'
+            <button
+                type="submit"
+                class="button delete"
+                data-mage-init='{
+                    "Magento_Vault/js/customer_account/deleteWidget":{
+                        "type": "popup",
+                        "modalClass": "my-credit-cards-popup",
+                        "toggleEvent": "click",
+                        "title": "<?= $block->escapeHtml(__('Delete')) ?>",
+                        "content": "
+                            Are you sure you want to delete this card: <?= $ccNumberView ?>?
+                        "
+                    }
+                }'
             >
                 <?= $block->escapeHtml(__('Delete')) ?>
             </button>
