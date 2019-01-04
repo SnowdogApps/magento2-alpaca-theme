@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 - Templates for product's page breadcrumbs
 - Confirmation link page styles
 - Support for bundle products
+- Support for grouped products
 
 ### Fixed
 - Missing class for product attributes
