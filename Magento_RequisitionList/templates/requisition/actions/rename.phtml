@@ -1,0 +1,63 @@
+<div
+    class="requisition-list-title title-wrapper"
+    data-bind="scope: 'requisition.action.edit.rename'"
+>
+    <h1 class="heading heading--page">
+        <?= $block->escapeHtml($block->getRequisitionList()->getName()) ?>
+    </h1>
+    <div class="title-wrapper__actions">
+        <button
+            type="button"
+            title="<?= $block->escapeHtml(__('Rename')) ?>"
+            class="action edit button button--secondary"
+            data-bind='click: edit.bind($data, {
+                id: "<?= $block->escapeHtml($block->getRequisitionList()->getId()) ?>",
+                name: "<?= $block->escapeJs($block->getRequisitionList()->getName()) ?>",
+                description: "<?= $block->escapeJs($block->getRequisitionList()->getDescription()) ?>"
+            })'
+        >
+            <span>
+                <?= $block->escapeHtml(__('Rename')) ?>
+            </span>
+        </button>
+    </div>
+</div>
+<div class="requisition-list-view__description">
+    <?= $block->escapeHtml($block->getRequisitionList()->getDescription()) ?>
+</div>
+<div data-bind="scope: 'rename_requisition_list_popup'">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+</div>
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "requisition.action.edit.rename": {
+                        "component": "Magento_RequisitionList/js/requisition/action/edit",
+                        "editModuleName": "requisition_rename.edit"
+                    },
+                    "rename_requisition_list_popup": {
+                        "component": "Magento_RequisitionList/js/requisition/list/edit/modal",
+                        "options": {
+                            "title": "<?= $block->escapeHtml(__('Rename Requisition List')) ?>"
+                        },
+                        "children": {
+                            "form": {
+                                "component": "Magento_RequisitionList/js/requisition/list/edit/form",
+                                "template": "Magento_RequisitionList/requisition-list/form"
+                            }
+                        }
+                    },
+                    "requisition_rename.edit": {
+                        "component": "Magento_RequisitionList/js/requisition/list/edit",
+                        "modal": "rename_requisition_list_popup",
+                        "saveUrl": "<?= $block->getUrl('rest/V1/requisition_lists') ?>"
+                    }
+                }
+            }
+        }
+    }
+
+</script>

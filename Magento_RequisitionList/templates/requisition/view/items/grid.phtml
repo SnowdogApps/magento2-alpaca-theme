@@ -1,0 +1,92 @@
+<?php
+// @codingStandardsIgnoreFile
+?>
+<?php
+/**
+ * @var $block \Magento\RequisitionList\Block\Requisition\View\Items\Grid
+ */
+
+$itemsList =  $block->getRequisitionListItems();
+
+?>
+<div
+    class="requisition-list-view"
+    data-mage-init='{ "requisitionActions": {} }'
+>
+    <?= $block->getChildHtml('requisition.management') ?>
+    <?php if (empty($itemsList)): ?>
+        <div class="message info empty">
+            <?= __('You have no items in this requisition list.') ?>
+        </div>
+    <?php else: ?>
+        <div class="requisition-grid table-wrapper">
+            <form
+                action="<?= $block->escapeUrl($block->getUrl('*/item/update', [
+                    'requisition_id' => $block->getRequest()->getParam('requisition_id')
+                ])) ?>"
+                method="post"
+                data-mage-init='{"validation":{}}'
+                id="form-requisition-list"
+            >
+                <table class="data-table table">
+                    <thead>
+                        <tr class="headings">
+                            <th class="col number">
+                                <span>#</span>
+                            </th>
+                            <th class="col product" colspan="2">
+                                <span
+                                    data-print-label="<?= $block->escapeHtml(__('Product Name')) ?>"
+                                >
+                                    <?= $block->escapeHtml(__('Item')) ?>
+                                </span>
+                            </th>
+                            <th class="col price">
+                                <?= $block->escapeHtml(__('Price')) ?>
+                            </th>
+                            <th class="col qty">
+                                <?= $block->escapeHtml(__('Qty')) ?>
+                            </th>
+                            <th class="col subtotal action">
+                                <?= $block->escapeHtml(__('Subtotal')) ?>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php $i = 0 ?>
+                        <?php foreach ($itemsList as $item):$i++ ?>
+                            <tr
+                                class="_<?= ($i % 2) ? 'even' : 'odd' ?> item"
+                                data-product-id="<?= $block->escapeHtml($item->getId()) ?>"
+                            >
+                                <td class="col number">
+                                    <?= $i ?>
+                                </td>
+                                <?php
+                                    $block->getChildBlock('requisition.list.item.view')
+                                        ->setItem($item)
+                                        ->setItemErrors($block->getItemErrors($item));
+                                ?>
+                                <?= $block->getChildHtml('requisition.list.item.view', false) ?>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    <?php endif; ?>
+</div>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "requisition.item.grid.selection.provider": {
+                        "component": "Magento_RequisitionList/js/requisition/items/grid/selection-provider",
+                        "selectionSelector": "[data-action='requisition-item-check']"
+                    }
+                }
+            }
+        }
+    }
+</script>

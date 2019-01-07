@@ -1,0 +1,169 @@
+<?php
+/**
+ * Send to friend form
+ */
+/** @var \Magento\SendFriend\Block\Send $block */
+?>
+<script id="add-recipient-tmpl" type="text/x-magento-template">
+    <fieldset class="fieldset email-to-friend__inner-fieldset">
+        <div class="input required">
+            <label
+                for="recipients-name<%- data._index_ %>"
+                class="input__label"
+            >
+                <?= $block->escapeJs(__('Name')) ?>
+            </label>
+            <input
+                name="recipients[name][<%- data._index_ %>]"
+                type="text"
+                title="<?= __('Name') ?>"
+                class="input__field"
+                id="recipients-name<%- data._index_ %>"
+                data-validate="{ required: true }"
+            />
+        </div>
+
+        <div class="input required">
+            <label
+                for="recipients-email<%- data._index_ %>"
+                class="input__label"
+            >
+                <?= $block->escapeJs(__('Email')) ?>
+            </label>
+            <input
+                name="recipients[email][<%- data._index_ %>]"
+                title="<?= __('Email') ?>"
+                id="recipients-email<%- data._index_ %>"
+                type="email"
+                class="input__field"
+                data-validate="{ required: true, 'validate-email': true }"
+            />
+        </div>
+        <button
+            type="button"
+            id="btn-remove<%- data._index_ %>"
+            class="button button--secondary remove email-to-friend__remove"
+            title="<?= __('Remove Recipent') ?>"
+        >
+            <?= $block->escapeJs(__('Remove')) ?>
+        </button>
+    </fieldset>
+</script>
+
+<form
+    action="<?= $block->escapeUrl($block->getSendUrl()) ?>"
+    method="post"
+    id="product-sendtofriend-form"
+    data-mage-init='{
+        "rowBuilder": {
+            "rowTemplate":"#add-recipient-tmpl",
+            "rowContainer":"#recipients-options",
+            "rowParentElem":"<div></div>",
+            "remEventSelector":"button",
+            "btnRemoveSelector":".button.remove",
+            "maxRows":"<?= (int)$block->getMaxRecipients() ?>",
+            "maxRowsMsg":"#max-recipient-message",
+            "addRowBtn":"#add-recipient-button",
+            "additionalRowClass":"additional"
+        },
+        "validation": { }
+    }'
+    class="email-to-friend"
+    data-hasRequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
+>
+    <fieldset
+        class="fieldset email-to-friend__sender-wrapper"
+        id="sender_options"
+    >
+        <?= $block->getBlockHtml('formkey') ?>
+        <legend class="heading heading--second-level">
+            <?= $block->escapeHtml(__('Sender')) ?>
+        </legend>
+        <div class="input required">
+            <label for="sender-name" class="label">
+                <?= $block->escapeHtml(__('Name')) ?>
+            </label>
+            <input
+                name="sender[name]"
+                value="<?= $block->escapeHtmlAttr($block->getUserName()) ?>"
+                title="<?= __('Name') ?>"
+                id="sender-name"
+                type="text"
+                class="input__field"
+                data-validate="{ required: true }"
+            />
+        </div>
+        <div class="input required">
+            <label for="sender-email" class="label">
+                <?= __('Email') ?>
+            </label>
+            <input
+                name="sender[email]"
+                value="<?= $block->escapeHtmlAttr($block->getEmail()) ?>"
+                title="<?= __('Email') ?>"
+                id="sender-email"
+                type="text"
+                class="input__field"
+                data-validate="{ required: true, 'validate-email': true }"
+            />
+        </div>
+        <div class="input required">
+            <label for="sender-message" class="label">
+                <?= __('Message') ?>
+            </label>
+            <textarea
+                name="sender[message]"
+                class="input__field input__field--textarea"
+                id="sender-message"
+                cols="3"
+                data-validate="{ required: true}"
+            ><?= $block->escapeHtml($block->getMessage()) ?></textarea>
+        </div>
+    </fieldset>
+
+    <fieldset class="fieldset email-to-friend__fieldset">
+        <?= $block->getBlockHtml('formkey') ?>
+        <legend class="heading heading--second-level">
+            <?= __('Invitee') ?>
+        </legend>
+        <div class="email-to-friend__options" id="recipients-options"></div>
+        <?php if ($block->getMaxRecipients()): ?>
+            <div
+                id="max-recipient-message"
+                style="display: none"
+                class="message notice limit"
+                role="alert"
+            >
+                <?= __('Maximum %1 email addresses allowed.', $block->getMaxRecipients()) ?>
+            </div>
+        <?php endif ?>
+        <?php if (1 < $block->getMaxRecipients()): ?>
+            <button
+                type="button"
+                id="add-recipient-button"
+                class="button button--secondary add"
+            >
+                <?= __('Add Invitee') ?>
+            </button>
+        <?php endif ?>
+        <?= $block->getChildHtml('form_additional_info') ?>
+    </fieldset>
+    <button
+        type="submit"
+        class="button email-to-friend__submit"
+        <?= !$block->canSend() ? 'disabled' : '' ?>
+    >
+        <?= __('Send Email') ?>
+    </button>
+    <span class="link email-to-friend__back" role="back">
+        <?= __('Back') ?>
+    </span>
+</form>
+
+<script type="text/x-magento-init">
+    {
+        "span[role='back']": {
+            "Magento_SendFriend/back-event": { }
+        }
+    }
+</script>

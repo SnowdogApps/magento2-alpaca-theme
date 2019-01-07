@@ -1,0 +1,40 @@
+<?php
+// @codingStandardsIgnoreFile
+
+/** @var $block \Magento\RequisitionList\Block\Requisition\View\Details */
+?>
+<div
+    class="block block-requisition-list link-button"
+    data-bind="scope: 'copy_items_to_requisition'"
+>
+    <!-- ko template: getTemplate() --><!-- /ko -->
+</div>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "copy_items_massaction": {
+                        "component": "Magento_RequisitionList/js/requisition/items/grid/massaction",
+                        "selectProvider": "requisition.item.grid.selection.provider",
+                        "action": "<?= $block->getUrl('requisition_list/item/copy') ?>"
+                    },
+                    "copy_items_to_requisition": {
+                        "component": "Magento_RequisitionList/js/requisition/action/items/massaction",
+                        "editModuleName": "copy_items_to_requisition.edit",
+                        "gridMassactionName": "copy_items_massaction",
+                        "currentListId": "<?= $block->escapeJs($block->getRequest()->getParam('requisition_id')) ?>",
+                        "title": "<?= __('Copy Selected') ?>",
+                        "mobileLabel": "<?= __('Copy') ?>"
+                    },
+                    "copy_items_to_requisition.edit": {
+                        "component": "Magento_RequisitionList/js/requisition/list/edit",
+                        "modal": "add_to_requisition_popup",
+                        "saveUrl": "<?= $block->getUrl('rest/V1/requisition_lists') ?>"
+                    }
+                }
+            }
+        }
+    }
+</script>
+

@@ -1,0 +1,45 @@
+<div class="dashboard-table">
+    <div class="dashboard-table__content" data-role="grid-wrapper">
+        <table
+            class="data-grid dashboard-table__table table"
+            data-role="grid"
+            css="getTableClass()"
+            tabindex="0"
+            role="table"
+        >
+            <caption
+                class="table__caption"
+                translate="'Table of requisitions'"
+            ></caption>
+            <thead>
+                <tr
+                    role="row"
+                    each="data: getVisible(), as: '$col'"
+                    render="getHeader()"
+                ></tr>
+            </thead>
+            <tbody>
+                <tr
+                    class="data-row"
+                    role="row"
+                    repeat="foreach: rows, item: '$row'"
+                    css="'_odd-row': $index % 2"
+                >
+                    <td
+                        outerfasteach="data: getVisible(), as: '$col'"
+                        css="getFieldClass()"
+                        click="getFieldHandler($row())"
+                        template="getBody()"
+                        attr="'data-th': $col.label"
+                    ></td>
+                </tr>
+                <tr ifnot="hasData()" class="data-grid-tr-no-data">
+                    <td
+                        attr="colspan: countVisible()"
+                        translate="'We couldn\'t find any records.'"
+                    ></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

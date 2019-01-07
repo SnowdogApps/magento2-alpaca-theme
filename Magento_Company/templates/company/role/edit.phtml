@@ -1,0 +1,85 @@
+<?php
+// @codingStandardsIgnoreFile
+/** @var $block \Magento\Company\Block\Company\Role\Edit */
+
+$role = $block->getRole();
+?>
+
+<form
+    class="form form-edit-role dashboard-form"
+    method="post"
+    id="role-edit-form"
+    action="<?= $block->escapeUrl($block->getUrl('*/*/editPost', ['id' => $role->getId()])) ?>"
+    data-mage-init='{"validation": {}}'
+>
+    <?= $block->getBlockHtml('formkey') ?>
+    <fieldset class="fieldset info dashboard-form__divider">
+        <h3 class="dashboard-form__title">
+            <?= $block->escapeHtml(__('Role Information')) ?>
+        </h3>
+        <div class="input role-name _required">
+            <label class="label" for="role_name">
+                <?= $block->escapeHtml(__('Role Name')) ?>
+            </label>
+            <input
+                type="text"
+                name="role_name"
+                id="role_name"
+                value="<?= $block->escapeHtml($role->getRoleName()) ?>"
+                title="<?= $block->escapeHtml(__('Role Name')) ?>"
+                data-async-is-valid="true"
+                data-mage-init='{
+                    "Magento_Company/js/form/element/async-validation": {
+                        "name": "company_role_name",
+                        "validateUrl": "<?= $block->getUrl('company/role/validate') ?>"
+                    }
+                }'
+                data-validate="{
+                    required: true,
+                    'validate-async-company-role-name': true
+                }"
+                class="input__field"
+            >
+        </div>
+    </fieldset>
+    <fieldset class="fieldset info dashboard-form__divider">
+        <h3 class="dashboard-form__title">
+            <?= $block->escapeHtml(__('Role Permissions')) ?>
+        </h3>
+        <div class="box-actions">
+            <button
+                class="button button--secondary expand"
+                data-action="expand-tree"
+                type="button"
+            >
+                <?= $block->escapeHtml(__('Expand All')) ?>
+            </button>
+            <button
+                class="button button--secondary expand"
+                data-action="collapse-tree"
+                type="button"
+            >
+                <?= $block->escapeHtml(__('Collapse All')) ?>
+            </button>
+        </div>
+        <div
+            class="tree x-tree"
+            id="role-tree"
+            data-role="role-tree"
+            data-mage-init='
+                <?=
+                    $block->escapeHtml($block->getJsonHelper()->jsonEncode($block->getTreeJsOptions()))
+                ?>
+            '
+        >
+        </div>
+        <input type="hidden" name="role_permissions">
+    </fieldset>
+    <button
+        type="submit"
+        class="button save"
+        title="<?= $block->escapeHtml(__('Save Role')) ?>"
+    >
+        <?= $block->escapeHtml(__('Save Role')) ?>
+    </button>
+</form>
