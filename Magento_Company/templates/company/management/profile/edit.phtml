@@ -1,0 +1,258 @@
+<?php
+    // @codingStandardsIgnoreFile
+    /**
+     * @var \Magento\Company\Block\Company\CompanyProfile $block
+     * @var \Magento\Framework\DataObject $formSelectOptionsData
+     */
+    $formMessages = $block->getFormMessages();
+    $countries = $block->getCountriesList();
+    $company = $block->getCustomerCompany();
+?>
+
+<?php if (!empty($formMessages)): ?>
+    <div id="company_edit_form_messages">
+        <?php foreach($formMessages as $formMessage): ?>
+            <div class="message error">
+                <?= $block->escapeHtml($formMessage) ?>
+            </div>
+        <?php endforeach ?>
+    </div>
+<?php endif ?>
+
+<form
+    class="form form-edit-company dashboard-form"
+    method="post"
+    id="company-edit-form"
+    action="<?= $block->escapeUrl($block->getUrl('*/profile/editPost')) ?>"
+    data-mage-init='{ "validation": {} }'
+>
+    <?= $block->getBlockHtml('formkey') ?>
+    <?php if ($block->isEditAccountAllowed()): ?>
+        <h3 class="dashboard-form__title">
+            <?= $block->escapeHtml(__('Account Information')) ?>
+        </h3>
+        <fieldset class="fieldset dashboard-form__divider">
+            <div class="dashboard__input company-name input _required">
+                <label class="label" for="company_name">
+                    <?= $block->escapeHtml(__('Company Name')) ?>
+                </label>
+                <input
+                    type="text"
+                    name="company_name"
+                    id="company_name"
+                    value="<?= $block->escapeHtml($company->getCompanyName()) ?>"
+                    title="<?= $block->escapeHtml(__('Company Name')) ?>"
+                    class="input__field"
+                    data-validate="{ required:true }"
+                >
+            </div>
+            <div class="dashboard__input input legal-name">
+                <label class="label" for="legal_name">
+                    <?= $block->escapeHtml(__('Company Legal Name')) ?>
+                </label>
+                <input
+                    type="text"
+                    name="legal_name"
+                    id="legal_name"
+                    value="<?= $block->escapeHtml($company->getLegalName()) ?>"
+                    title="<?= $block->escapeHtml(__('Company Legal Name')) ?>"
+                    class="input__field"
+                >
+            </div>
+            <div class="dashboard__input input company-email">
+                <label class="label" for="company_email">
+                    <?= $block->escapeHtml(__('Company Email')) ?>
+                </label>
+                <input
+                    type="email"
+                    name="company_email"
+                    id="company_email"
+                    value="<?= $block->escapeHtml($company->getCompanyEmail()) ?>"
+                    title="<?= $block->escapeHtml(__('Company Email')) ?>"
+                    data-role="email"
+                    class="input-text input__field"
+                    data-validate="{ 'validate-email':true }"
+                >
+            </div>
+            <div class="dashboard__input input vat-tax-id">
+                <label class="label" for="vat_tax_id">
+                    <?= $block->escapeHtml(__('VAT/TAX ID')) ?>
+                </label>
+                <input
+                    type="text"
+                    name="vat_tax_id"
+                    id="vat_tax_id"
+                    value="<?= $block->escapeHtml($company->getVatTaxId()) ?>"
+                    title="<?= $block->escapeHtml(__('VAT/TAX ID')) ?>"
+                    class="input-text input__field"
+                >
+            </div>
+            <div class="dashboard__input input reseller-id">
+                <label class="label" for="reseller_id">
+                    <?= $block->escapeHtml(__('Re-seller ID')) ?>
+                </label>
+                <input
+                    type="text"
+                    name="reseller_id"
+                    id="reseller_id"
+                    value="<?= $block->escapeHtml($company->getResellerId()) ?>"
+                    title="<?= $block->escapeHtml(__('Re-seller ID')) ?>"
+                    class="input-text input__field"
+                >
+            </div>
+        </fieldset>
+    <?php endif ?>
+    <?php if ($block->isEditAddressAllowed()): ?>
+        <h3 class="dashboard-form__title">
+            <?= $block->escapeHtml(__('Legal Address')) ?>
+        </h3>
+        <fieldset class="fieldset dashboard-form__divider">
+            <?php $street = $company->getStreet(); ?>
+            <div class="dashboard__input input street _required">
+                <label class="label" for="street0">
+                    <?= $block->escapeHtml(__('Street Address')) ?>
+                </label>
+                <input
+                    type="text"
+                    name="street[0]"
+                    id="street0"
+                    value="<?= (!empty($street[0])) ? $block->escapeHtml($street[0]) : ''; ?>"
+                    title="<?= $block->escapeHtml(__('Street Address')) ?>"
+                    class="input-text input__field"
+                    data-validate="{ required: true }"
+                >
+            </div>
+            <div class="dashboard__input input street">
+                <input
+                    type="text"
+                    name="street[1]"
+                    id="street1"
+                    value="<?= (!empty($street[1])) ? $block->escapeHtml($street[1]) : ''; ?>"
+                    title="<?= $block->escapeHtml(__('Street Address')) ?>"
+                    class="input-text input__field"
+                >
+            </div>
+            <div class="dashboard__input input city _required">
+                <label class="label" for="city">
+                    <?= $block->escapeHtml(__('City')) ?>
+                </label>
+                <input
+                    type="text"
+                    name="city"
+                    id="city"
+                    value="<?= $block->escapeHtml($company->getCity()) ?>"
+                    title="<?= $block->escapeHtml(__('City')) ?>"
+                    class="input-text input__field"
+                    data-validate="{ required: true }"
+                >
+            </div>
+            <div class="dashboard__input country_id _required">
+                <label class="label" for="country_id">
+                    <?= $block->escapeHtml(__('Country')) ?>
+                </label>
+                <div class="control select _required">
+                    <?php $countryValue = $company->getCountryId(); ?>
+                    <select
+                        name="country_id"
+                        id="country_id"
+                        class="select__field select__field--native"
+                        title="<?= $block->escapeHtml(__('Country')) ?>"
+                        data-validate="{ required: true }"
+                    >
+                        <option value=""></option>
+                        <?php foreach($countries as $countryCode => $country): ?>
+                            <option value="<?= $countryCode ?>"
+                                <?= ($countryCode == $countryValue) ? ' selected' : '' ;?>>
+                                <?= $country ?>
+                            </option>
+                        <?php endforeach ?>
+                    </select>
+                </div>
+            </div>
+            <div class="dashboard__input region-id required">
+                <label class="label" for="region_id">
+                    <?= $block->escapeHtml(__('State/Province')) ?>
+                </label>
+                <div class="control select _required">
+                    <select
+                        name="region_id"
+                        id="region_id"
+                        class="select__field select__field--native"
+                        data-validate="{ required: true }"
+                    >
+                        <option value="">
+                            <?= __('Please select a region, state or province.') ?>
+                        </option>
+                    </select>
+                    <input
+                        type="text"
+                        id="region"
+                        name="region"
+                        value="<?= $block->escapeHtml($company->getRegion()) ?>"
+                        title="<?= $block->escapeHtml(__('State/Province')) ?>"
+                        class="input-text input__field"
+                        style="display: none;"
+                    >
+                </div>
+            </div>
+            <div class="dashboard__input input postcode required">
+                <label class="label" for="postcode">
+                    <?= $block->escapeHtml(__('ZIP/Postal Code')) ?>
+                </label>
+                <input
+                    type="text"
+                    name="postcode"
+                    id="postcode"
+                    value="<?= $block->escapeHtml($company->getPostcode()) ?>"
+                    title="<?= $block->escapeHtml(__('ZIP/Postal Code')) ?>"
+                    class="input-text input__field"
+                >
+            </div>
+            <div class="dashboard__input input telephone _required">
+                <label class="label" for="telephone">
+                    <?= $block->escapeHtml(__('Phone Number')) ?>
+                </label>
+                <input
+                    type="text"
+                    name="telephone"
+                    id="telephone"
+                    value="<?= $block->escapeHtml($company->getTelephone()) ?>"
+                    title="<?= $block->escapeHtml(__('Phone Number')) ?>"
+                    class="input-text input__field"
+                    data-validate="{ required: true }"
+                >
+            </div>
+        </fieldset>
+    <?php endif ?>
+    <div class="action">
+        <div class="action__handler">
+            <button
+                type="submit"
+                class="action save primary button action__button"
+                title="<?= $block->escapeHtml(__('Save')) ?>"
+            >
+                <?= $block->escapeHtml(__('Save')) ?>
+            </button>
+        </div>
+    </div>
+</form>
+<?php $regionValue = ((int)$company->getRegionId()) ? (int)$company->getRegionId() : ''; ?>
+<script type="text/x-magento-init">
+    {
+        "#company-edit-form": {
+            "validation": {}
+        },
+        "#country_id": {
+            "regionUpdater": {
+                "optionalRegionAllowed": "true",
+                "regionListId": "#region_id",
+                "regionInputId": "#region",
+                "postcodeId": "#postcode",
+                "form": "#company-edit-form",
+                "regionJson": <?= $this->helper('Magento\Directory\Helper\Data')->getRegionJson() ?>,
+                "defaultRegion": "<?= $regionValue ?>",
+                "countriesWithOptionalZip": <?= $this->helper('Magento\Directory\Helper\Data')->getCountriesWithOptionalZip(true) ?>
+            }
+        }
+    }
+</script>

@@ -1,0 +1,33 @@
+<?php
+
+// @codingStandardsIgnoreFile
+
+/**
+ * @var $block \Magento\RequisitionList\Block\Requisition\View\Details
+ */
+?>
+<div class="block-requisition-management">
+    <?= $block->getChildHtml('requisition.list.title') ?>
+    <?php if ($block->getParentBlock()->getItemErrorCount()): ?>
+        <div class="message error">
+            <span>
+                <?= (int)$block->getParentBlock()->getItemErrorCount() ?>
+                <?= $block->escapeHtml(__('product(s) require your attention')) ?>
+            </span>
+        </div>
+    <?php endif ?>
+    <?php if ($block->getItemCount()): ?>
+        <?= $block->getChildHtml('requisition.list.print') ?>
+        <div class="requisition-info">
+            <span class="counter qty">
+                <?= (int)$block->getItemCount() ?>
+                <?php if ($block->getItemCount() > 1): ?>
+                    <?= $block->escapeHtml(__('items')) ?>
+                <?php else: ?>
+                    <?= $block->escapeHtml(__('item')) ?>
+                <?php endif ?>
+            </span>
+        </div>
+        <?= $block->getChildHtml('toolbar') ?>
+    <?php endif ?>
+</div>

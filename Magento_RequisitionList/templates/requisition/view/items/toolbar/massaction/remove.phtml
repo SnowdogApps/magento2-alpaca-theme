@@ -1,0 +1,41 @@
+<?php
+// @codingStandardsIgnoreFile
+
+/**
+ * @var $block \Magento\RequisitionList\Block\Requisition\View\Details
+ */
+?>
+<!-- ko scope: 'remove_items_massaction' -->
+<button
+    type="button"
+    title="<?= $block->escapeHtml(__('Remove Selected')) ?>"
+    data-mobile-label="<?= $block->escapeHtml(__('Remove')) ?>"
+    class="action remove-selected"
+    data-bind="click: applyAction.bind($data, {
+        requisition_id: '<?= $block->getRequest()->getParam('requisition_id') ?>'
+    })"
+>
+    <?= $block->escapeHtml(__('Remove Selected')) ?>
+</button>
+<!-- /ko -->
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "remove_items_massaction": {
+                        "component": "Magento_RequisitionList/js/requisition/items/grid/massaction",
+                        "selectProvider": "requisition.item.grid.selection.provider",
+                        "hasConfirm": true,
+                        "confirmConfig": {
+                            "content": "Are you sure you would like to remove selected items from the requisition list?",
+                            "modalClass": "requisition-popup modal-slide",
+                            "confirmLabel": "<?= __('Delete') ?>"
+                        },
+                        "action": "<?= $block->getUrl('requisition_list/item/delete') ?>"
+                    }
+                }
+            }
+        }
+    }
+</script>

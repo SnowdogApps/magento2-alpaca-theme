@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 - Reset password styles
 - Email to a Friend page styles
 - Missing homepagge container class for top notifications
+- Support for B2B module
 - Templates for product's page breadcrumbs
 - Confirmation link page styles
 - Support for bundle products
