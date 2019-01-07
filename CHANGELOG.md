@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+## [1.1.0] - 2019-01-07
 ### Added
 - Reset password styles
 - Email to a Friend page styles
