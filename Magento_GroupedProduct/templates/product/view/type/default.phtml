@@ -1,0 +1,16 @@
+<?php /* @var $block \Magento\Catalog\Block\Product\View\AbstractView */ ?>
+<?php $_product               = $block->getProduct(); ?>
+<?php $_associatedProducts    = $block->getAssociatedProducts(); ?>
+<?php $_hasAssociatedProducts = count($_associatedProducts) > 0; ?>
+
+<?php if ($block->displayProductStockStatus()): ?>
+    <?php if ($_product->isAvailable() && $_hasAssociatedProducts): ?>
+        <div class="product-view__stock-status">
+            <?= __('In stock') ?>
+        </div>
+    <?php else: ?>
+        <div class="product-view__stock-status product-view__stock-status--alert">
+            <?= __('Out of stock') ?>
+        </div>
+    <?php endif; ?>
+<?php endif; ?>
