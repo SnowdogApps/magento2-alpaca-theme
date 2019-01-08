@@ -1,0 +1,49 @@
+<?php /* @var $block \Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\Checkbox */ ?>
+<?php $_option = $block->getOption() ?>
+<?php $_selections = $_option->getSelections() ?>
+
+<div class="bundle-option">
+    <h4
+        class="
+            bundle-option__title
+            <?= ($_option->getRequired()) ? 'bundle-option__title--required': '' ?>
+        "
+    >
+        <?= $block->escapeHtml($_option->getTitle()) ?>
+    </h4>
+    <?php if ($block->showSingle()): ?>
+        <?= $block->getSelectionQtyTitlePrice($_selections[0]) ?>
+        <input
+            type="hidden"
+            class="bundle option"
+            name="bundle_option[<?= $_option->getId() ?>]"
+            value="<?= $_selections[0]->getSelectionId() ?>"
+        >
+    <?php else: ?>
+        <?php foreach($_selections as $_selection): ?>
+            <div class="checkbox">
+                <input
+                    class="checkbox__field bundle option"
+                    id="bundle-option-<?= $_option->getId() ?>-<?= $_selection->getSelectionId() ?>"
+                    type="checkbox"
+                    <?php if ($_option->getRequired()) echo 'data-validate="{\'validate-one-required-by-name\':\'input[name^=&quot;bundle_option[' . $_option->getId() . ']&quot;]:checked\'}"'?>
+                    name="bundle_option[<?= $_option->getId() ?>][<?= $_selection->getId() ?>]"
+                    data-selector="bundle_option[<?= $_option->getId() ?>][<?= $_selection->getId() ?>]"
+                    <?php if ($block->isSelected($_selection)) echo ' checked="checked"' ?>
+                    <?php if (!$_selection->isSaleable()) echo ' disabled="disabled"' ?>
+                    value="<?= $_selection->getSelectionId() ?>"
+                >
+                <svg class="checkbox__icon" title="Checked">
+                    <title><?= __('Checked') ?></title>
+                    <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#checked') ?>"></use>
+                </svg>
+                <label
+                    class="checkbox__label"
+                    for="bundle-option-<?= $_option->getId() ?>-<?= $_selection->getSelectionId() ?>"
+                >
+                    <?= $block->getSelectionQtyTitlePrice($_selection) ?>
+                </label>
+            </div>
+        <?php endforeach; ?>
+    <?php endif; ?>
+</div>

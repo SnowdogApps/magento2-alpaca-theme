@@ -9,8 +9,8 @@
 <?php $_product = $block->getProduct(); ?>
 
 <form
-    data-product-sku="<?= /* @NoEscape */ $_product->getSku() ?>"
-    action="<?= /* @NoEscape */ $block->getSubmitUrl($_product) ?>"
+    data-product-sku="<?= $_product->getSku() ?>"
+    action="<?= $block->getSubmitUrl($_product) ?>"
     method="post"
     class="product-view__form"
     id="product_addtocart_form"<?php if ($_product->getOptions()): ?>
@@ -25,7 +25,9 @@
 
     <?php if ($block->hasOptions()): ?>
         <?= $block->getChildHtml('product.column.right.options'); ?>
-    <?php endif; ?>
+    <?php else: ?>
+        <?= $block->getChildHtml('product.info.form.content'); ?>
+    <?php endif ?>
 
     <?= $block->getChildHtml('product.column.right.actions') ?>
 </form>

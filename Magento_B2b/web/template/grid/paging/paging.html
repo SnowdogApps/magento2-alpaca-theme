@@ -1,0 +1,56 @@
+<div class="quotes-grid-toolbar toolbar bottom">
+    <div class="pager">
+        <p class="toolbar-amount">
+            <span class="toolbar-number">
+                <span
+                    text="totalRecords + $t(' Item(s)')"
+                    if="isFirst() && isLast()"
+                />
+                <span
+                    text="$t('Items ') + getFirstNum() + $t(' to ') + getLastNum() + $t(' of ') + totalRecords + $t(' total')"
+                    if="pages > 1"
+                />
+            </span>
+        </p>
+    </div>
+    <div class="pages" if="pages > 1">
+        <strong class="label pages-label" text="$t('Page')" />
+        <ul class="items pages-items" aria-labelledby="paging-label">
+            <li class="item pages-item-previous" ifnot="isFirst()">
+                <a
+                    class="action previous"
+                    click="prev"
+                    attr="title: $t('Previous')"
+                >
+                    <span class="label" text="$t('Page')" />
+                    <span text="$t('Previous')" />
+                </a>
+            </li>
+            <each args="data: getPages(), as: '$page'">
+                <li
+                    class="item"
+                    click="$parent.setPage.bind($parent)"
+                    ifnot="$page === $parent.current"
+                >
+                    <a class="page" text="$page" />
+                </li>
+                <li class="item current" if="$page === $parent.current">
+                    <strong class="page">
+                        <span
+                            class="label"
+                            text="$t('You\'re currently reading page')"
+                        />
+                        <span text="$page" />
+                    </strong>
+                </li>
+            </each>
+            <li class="item pages-item-next" ifnot="isLast()">
+                <a class="action next" click="next" attr="title: $t('Next')">
+                    <span class="label" text="$t('Page')" />
+                    <span text="$t('Next')" />
+                </a>
+            </li>
+        </ul>
+    </div>
+    <scope args="sizes" render=""/>
+</div>

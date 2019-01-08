@@ -1,0 +1,47 @@
+<?php /* @var $block \Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\Multi */ ?>
+<?php $_option = $block->getOption() ?>
+<?php $_selections = $_option->getSelections() ?>
+
+<div class="bundle-option">
+    <h4
+        class="
+            bundle-option__title
+            <?= ($_option->getRequired()) ? 'bundle-option__title--required': '' ?>
+        "
+    >
+        <?= $block->escapeHtml($_option->getTitle()) ?>
+    </h4>
+    <?php if ($block->showSingle()): ?>
+        <?= $block->getSelectionQtyTitlePrice($_selections[0]) ?>
+        <input
+            type="hidden"
+            name="bundle_option[<?= $_option->getId() ?>]"
+            value="<?= $_selections[0]->getSelectionId() ?>"
+        >
+    <?php else: ?>
+        <select
+            multiple="multiple"
+            size="5"
+            id="bundle-option-<?= $_option->getId() ?>"
+            name="bundle_option[<?= $_option->getId() ?>][]"
+            data-selector="bundle_option[<?= $_option->getId() ?>][]"
+            class="bundle option"
+            <?php if ($_option->getRequired()) echo 'data-validate={required:true}' ?>
+        >
+            <?php if(!$_option->getRequired()): ?>
+                <option value="">
+                    <?= __('None') ?>
+                </option>
+            <?php endif; ?>
+            <?php foreach ($_selections as $_selection): ?>
+                <option
+                    value="<?= $_selection->getSelectionId() ?>"
+                    <?php if ($block->isSelected($_selection)) echo ' selected="selected"' ?>
+                    <?php if (!$_selection->isSaleable()) echo ' disabled="disabled"' ?>
+                >
+                    <?= $block->getSelectionQtyTitlePrice($_selection, false) ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+    <?php endif; ?>
+</div>

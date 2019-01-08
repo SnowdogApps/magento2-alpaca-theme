@@ -1,0 +1,44 @@
+<?php $_product = $block->getProduct();?>
+<?php if ($_product->isSaleable() && $block->hasOptions()): ?>
+    <div
+        id="bundleSummary"
+        data-mage-init='{
+            "sticky": {
+                "container": ".product-add-form"
+            }
+        }'
+    >
+        <div class="product-view__summary">
+            <div class="product-view__summary-price">
+                <?= $block->getChildHtml('', true) ?>
+                <span class="product-view__summary-unit">
+                    / <?= __('bundle') ?>
+                </span>
+            </div>
+            <div class="bundle-summary">
+                <div class="product-view__summary-title">
+                    <?= __('Summary') ?>:
+                </div>
+                <div id="bundle-summary" data-container="product-summary">
+                    <ul
+                        class="product-view__summary-list list"
+                        data-mage-init='{"productSummary": []}'>
+                    </ul>
+                    <script data-template="bundle-summary" type="text/x-magento-template">
+                        <li class="product-view__summary-item list__item">
+                            <span class="product-view__summary-item-title">
+                                <%- data._label_ %>:
+                            </span>
+                            <div data-container="options"></div>
+                        </li>
+                    </script>
+                    <script data-template="bundle-option" type="text/x-magento-template">
+                        <div>
+                            <?= __('%1 x %2', '<%- data._quantity_ %>', '<%- data._label_ %>') ?>
+                        </div>
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>

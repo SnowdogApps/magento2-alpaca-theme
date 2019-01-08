@@ -3,12 +3,18 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Added
+- Support for escape key in dropdown script
+
+## [1.1.0] - 2019-01-07
+### Added
 - Reset password styles
 - Email to a Friend page styles
 - Missing homepagge container class for top notifications
+- Support for B2B module
 - Templates for product's page breadcrumbs
 - Confirmation link page styles
-- Support for escape key in dropdown script
+- Support for bundle products
+- Support for grouped products
 
 ### Fixed
 - Missing class for product attributes
@@ -16,6 +22,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 - Refactor dropdown list and nested list
+- Grid classes in whole project
 - Refactor menu and submenu templates
 - Refactor filters and accessibility improvements
 

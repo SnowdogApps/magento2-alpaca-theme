@@ -1,0 +1,66 @@
+<?php /* @var $block \Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\Select */ ?>
+<?php $_option      = $block->getOption(); ?>
+<?php $_selections  = $_option->getSelections(); ?>
+<?php $_default     = $_option->getDefaultSelection(); ?>
+<?php list($_defaultQty, $_canChangeQty) = $block->getDefaultValues(); ?>
+
+<div class="bundle-option">
+    <h4
+        class="
+            bundle-option__title
+            <?= ($_option->getRequired()) ? 'bundle-option__title--required': '' ?>
+        "
+    >
+        <?= $block->escapeHtml($_option->getTitle()) ?>
+    </h4>
+    <?php if ($block->showSingle()): ?>
+        <?= $block->getSelectionTitlePrice($_selections[0]) ?>
+        <input
+            type="hidden"
+            class="bundle option"
+            name="bundle_option[<?= $_option->getId() ?>]"
+            value="<?= $_selections[0]->getSelectionId() ?>"
+        >
+    <?php else: ?>
+        <div class="select bundle-option__select">
+            <select
+                id="bundle-option-<?= $_option->getId() ?>"
+                name="bundle_option[<?= $_option->getId() ?>]"
+                data-selector="bundle_option[<?= $_option->getId() ?>]"
+                class="select__field select__field--native bundle option"
+                <?php if ($_option->getRequired()) echo 'data-validate = {required: true}' ?>
+                data-mage-init='{"select": {}}'
+            >
+                <option value="" disabled selected hidden>
+                    <?= __('Choose a selection...') ?>
+                </option>
+                <?php foreach ($_selections as $_selection): ?>
+                    <option value="<?= $_selection->getSelectionId() ?>"
+                        <?php if ($block->isSelected($_selection)) echo ' selected="selected"' ?>
+                        <?php if (!$_selection->isSaleable()) echo ' disabled="disabled"' ?>>
+                        <?= $block->getSelectionTitlePrice($_selection, false) ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+    <?php endif; ?>
+
+    <div class="input bundle-option__qty">
+        <label
+            class="label bundle-option__label"
+            for="bundle-option-<?= $_option->getId() ?>-qty-input"
+        >
+            <?= __('Qty') ?>:
+        </label>
+        <input
+            <?php if (!$_canChangeQty) echo ' disabled="disabled"' ?>
+            id="bundle-option-<?= $_option->getId() ?>-qty-input"
+            class="input__field bundle-option__qty-input qty"
+            type="number"
+            name="bundle_option_qty[<?= $_option->getId() ?>]"
+            data-selector="bundle_option_qty[<?= $_option->getId() ?>]"
+            value="<?= $_defaultQty ?>"
+            min="0"
+        >
+    </div>
+</div>
