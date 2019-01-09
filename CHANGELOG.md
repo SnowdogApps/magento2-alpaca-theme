@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 ### Added
 - Support for escape key in dropdown script
 
+### Changed
+- Refactor filters and accessibility improvements
+
 ### Fixed
 - Duplicated `email` id on company users view
 
@@ -27,7 +30,6 @@ All notable changes to this project will be documented in this file.
 - Refactor dropdown list and nested list
 - Grid classes in whole project
 - Refactor menu and submenu templates
-- Refactor filters and accessibility improvements
 
 ## [1.0.0] - 2018-10-15
 ### Changed
