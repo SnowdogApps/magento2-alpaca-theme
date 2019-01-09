@@ -44,15 +44,17 @@ class DropdownList {
     }
   }
 
-  toggleContent(trigger, dropdownContent, closing) {
-    const dropdownBlock = trigger.closest('.dropdown-list');
+  toggleContent(trigger, dropdownContent, opening) {
+    const dropdownBlock = trigger.closest('.dropdown-list'),
+          focusableElements = dropdownContent.querySelectorAll('button:not([disabled]), a[href], area[href] input:not([disabled]), select:not([disabled]), textarea:not([disabled]), *[tabindex]:not([tabindex="-1"]), object, embed, *[contenteditable]');
 
     if (!this.isMediumOpen(dropdownBlock)) {
       if (dropdownContent.clientHeight > 0) {
         this.setAriaAttributes(trigger, dropdownContent, true);
         trigger.focus();
-      } else if (!closing) {
+      } else if (opening) {
         this.setAriaAttributes(trigger, dropdownContent, false);
+        focusableElements[0].focus();
       }
     }
   }
@@ -71,12 +73,12 @@ class DropdownList {
 
       key.addEventListener('click', e => {
         e.preventDefault();
-        this.toggleContent(key, dropdownContent);
+        this.toggleContent(key, dropdownContent, true);
       }, false);
 
       [key, dropdownContent].forEach(el => el.addEventListener('keydown', e => {
         if (e.key === "Escape") {
-          this.toggleContent(key, dropdownContent, true);
+          this.toggleContent(key, dropdownContent, false);
         }
       }));
     });
