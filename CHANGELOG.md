@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 ### Added
 - Support for escape key in dropdown script
 
+### Fixed
+- Duplicated `email` id on company users view
+
 ## [1.1.0] - 2019-01-07
 ### Added
 - Reset password styles
