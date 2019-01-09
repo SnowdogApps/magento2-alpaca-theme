@@ -10,54 +10,61 @@ $subCategories = $block->getSubCategories(2)
             filter
         "
     >
-        <div
+        <button
+            type="button"
             class="dropdown-list__label filter__label"
-            aria-controls="checkbox"
+            aria-controls="filter-categories"
+            aria-expanded="false"
         >
-            <?= __('Category') ?>
-            <svg class="icon dropdown-list__icon">
+            <h3 class="filter__label-title">
+                <?= __('Category') ?>
+            </h3>
+            <svg class="icon dropdown-list__icon" role="presentation">
                 <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#angle-down') ?>"></use>
             </svg>
-        </div>
+        </button>
         <div
-            id="checkbox"
+            id="filter-categories"
             class="dropdown-list__content filter__content"
-            data-content="checkbox"
             aria-hidden="true"
         >
-            <ul class="list filters__category-list">
+            <ul class="list filter__category-list">
                 <?php foreach ($subCategories as $id => $subCategory): ?>
-                    <li class="list__item">
+                    <li class="list__item filter__category-item">
                         <a
-                            class="filters__link"
+                            class="link filter__category-link"
                             href="<?= $block->getCategoryUrl($id) ?>"
                             title="<?= $subCategory['name'] ?>"
                         >
                             <?= $subCategory['name'] ?>
                         </a>
                         <?php if ($subCategory['child']): ?>
-                            <ul class="list list--nested">
+                            <ul class="list filter__category-list--nested">
                                 <?php foreach ($subCategory['child'] as $id => $item): ?>
-                                    <a
-                                        class="filters__link"
-                                        href="<?= $block->getCategoryUrl($id) ?>"
-                                        title="<?= $item['name'] ?>"
-                                    >
-                                        <?= $item['name'] ?>
-                                    </a>
-                                    <?php if ($item['child']): ?>
-                                        <ul class="list list--nested">
-                                            <?php foreach ($item['child'] as $id => $item): ?>
-                                                <a
-                                                    class="filters__link"
-                                                    href="<?= $block->getCategoryUrl($id) ?>"
-                                                    title="<?= $item['name'] ?>"
-                                                >
-                                                    <?= $item['name'] ?>
-                                                </a>
-                                            <?php endforeach ?>
-                                        </ul>
-                                    <?php endif ?>
+                                    <li class="filter__category-item">
+                                        <a
+                                            class="link filter__category-link"
+                                            href="<?= $block->getCategoryUrl($id) ?>"
+                                            title="<?= $item['name'] ?>"
+                                        >
+                                            <?= $item['name'] ?>
+                                        </a>
+                                        <?php if ($item['child']): ?>
+                                            <ul class="list filter__category-list--nested-second-level">
+                                                <?php foreach ($item['child'] as $id => $item): ?>
+                                                    <li class="filter__category-item">
+                                                        <a
+                                                            class="link filter__category-link"
+                                                            href="<?= $block->getCategoryUrl($id) ?>"
+                                                            title="<?= $item['name'] ?>"
+                                                        >
+                                                            <?= $item['name'] ?>
+                                                        </a>
+                                                    </li>
+                                                <?php endforeach ?>
+                                            </ul>
+                                        <?php endif ?>
+                                    </li>
                                 <?php endforeach ?>
                             </ul>
                         <?php endif ?>

@@ -1,25 +1,26 @@
 <?php $swatchData = $block->getSwatchData(); ?>
-<div
+<ul
     attribute-code="<?= $swatchData['attribute_code'] ?>"
     attribute-id="<?= $swatchData['attribute_id'] ?>"
-    class="filter__swatch-wrapper"
+    class="list filter__list"
 >
     <?php foreach ($swatchData['options'] as $option => $label): ?>
         <?php if (isset($swatchData['swatches'][$option]['type'])): ?>
             <?php switch ($swatchData['swatches'][$option]['type']) {
                 case '3':
                 ?>
-                    <a
-                        href="<?= $label['link'] ?>"
-                        aria-label="<?= $label['label'] ?>"
-                    >
-                        <div
-                            tabindex="-1"
-                            option-type="3"
-                            option-id="<?= $option ?>"
-                            option-label="<?= $label['label'] ?>"
-                        ></div>
-                    </a>
+                    <li>
+                        <a
+                            href="<?= $label['link'] ?>"
+                            aria-label="<?= $label['label'] ?>"
+                        >
+                            <div
+                                option-type="3"
+                                option-id="<?= $option ?>"
+                                option-label="<?= $label['label'] ?>"
+                            ></div>
+                        </a>
+                    </li>
                 <?php
                 break;
                 case '2':
@@ -28,61 +29,64 @@
                     $swatchData['swatches'][$option]['value']); ?>
                     <?php $swatchImagePath = $block->getSwatchPath('swatch_image',
                     $swatchData['swatches'][$option]['value']); ?>
-                    <a
-                        href="<?= $label['link'] ?>"
-                        aria-label="<?= $label['label'] ?>"
-                    >
-                        <div
-                            tabindex="-1"
-                            option-type="2"
-                            option-id="<?= $option ?>"
-                            option-label="<?= $label['label'] ?>"
-                            option-tooltip-thumb="<?= $swatchThumbPath ?>"
-                            style="background: url(<?= $swatchImagePath ?>) no-repeat center; background-size: cover;"
-                        ></div>
-                    </a>
+                    <li>
+                        <a
+                            href="<?= $label['link'] ?>"
+                            aria-label="<?= $label['label'] ?>"
+                        >
+                            <div
+                                option-type="2"
+                                option-id="<?= $option ?>"
+                                option-label="<?= $label['label'] ?>"
+                                option-tooltip-thumb="<?= $swatchThumbPath ?>"
+                                style="background: url(<?= $swatchImagePath ?>) no-repeat center; background-size: cover;"
+                                title="<?= $label['label'] ?>"
+                            ></div>
+                        </a>
+                    </li>
                 <?php
                 break;
                 case '1':
                 ?>
-                    <a
-                        href="<?= $label['link'] ?>"
-                        aria-label="<?= $label['label'] ?>"
-                        class="filter__color-option"
-                    >
-                        <div
-                            class="filter__color-sample"
-                            tabindex="-1"
-                            option-type="1"
-                            option-id="<?= $option ?>"
-                            option-label="<?= $label['label'] ?>"
-                            option-tooltip-value="<?= $swatchData['swatches'][$option]['value'] ?>"
-                            style="background: <?= $swatchData['swatches'][$option]['value'] ?>"
-                        ></div>
-                        <span class="filter__color-label">
-                            <?= $label['label'] ?>
-                        </span>
-                    </a>
+                    <li class="filter__color-item">
+                        <a
+                            href="<?= $label['link'] ?>"
+                            class="filter__color-option"
+                        >
+                            <div
+                                class="filter__color-sample"
+                                option-type="1"
+                                option-id="<?= $option ?>"
+                                option-label="<?= $label['label'] ?>"
+                                option-tooltip-value="<?= $swatchData['swatches'][$option]['value'] ?>"
+                                style="background: <?= $swatchData['swatches'][$option]['value'] ?>"
+                            ></div>
+                            <span class="filter__color-label">
+                                <?= $label['label'] ?>
+                            </span>
+                        </a>
+                    </li>
                 <?php
                 break;
                 case '0':
                 default:
                 ?>
-                    <a
-                        href="<?= $label['link'] ?>"
-                        aria-label="<?= $label['label'] ?>"
-                        class="filter__swatch-option"
-                        option-type="0"
-                        option-id="<?= $option ?>"
-                        option-label="<?= $label['label'] ?>"
-                    >
-                        <?= $swatchData['swatches'][$option]['value'] ?>
-                    </a>
+                    <li class="filter__swatch-item">
+                        <a
+                            href="<?= $label['link'] ?>"
+                            class="filter__swatch-option"
+                            option-type="0"
+                            option-id="<?= $option ?>"
+                            option-label="<?= $label['label'] ?>"
+                        >
+                            <?= $swatchData['swatches'][$option]['value'] ?>
+                        </a>
+                    </li>
                 <?php break ?>
             <?php } ?>
         <?php endif ?>
     <?php endforeach ?>
-</div>
+</ul>
 
 <script>
     require(["jquery", "jquery/ui", "Magento_Swatches/js/swatch-renderer"], function ($) {

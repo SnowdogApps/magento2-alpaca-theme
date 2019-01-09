@@ -7,41 +7,46 @@
         filter
     "
 >
-    <div
+    <button
+        type="button"
         class="dropdown-list__label filter__label"
-        aria-controls="checkbox"
+        aria-controls="filter-checkbox"
+        aria-expanded="false"
     >
-        <?= $block->getAttributeLabel() ?>
-        <svg class="icon dropdown-list__icon">
+        <h3 class="filter__label-title">
+            <?= $block->getAttributeLabel() ?>
+        </h3>
+        <svg class="icon dropdown-list__icon" role="presentation">
             <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#angle-down') ?>"></use>
         </svg>
-    </div>
+    </button>
     <div
-        id="checkbox"
+        id="filter-checkbox"
         class="dropdown-list__content filter__content"
-        data-content="checkbox"
         aria-hidden="true"
     >
-        <?php foreach ($block->getItems() as $_item): ?>
-            <a
-                href="<?= $block->getNavigationUrl($block->getAttributeCode(), $_item['value_id']) ?>"
-                class="
-                    checkbox
-                    checkbox--link
-                    <?= $block->isActive($_item['value_id']) ? 'checkbox--link-checked' : '' ?>
-                "
-                title="<?= $_item['label'] ?>"
-            >
-                <svg
-                    class="checkbox__icon"
-                >
-                    <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#checked') ?>"></use>
-                </svg>
-                <span class="checkbox__label">
-                    <?= $_item['label'] ?>
-                </span>
-            </a>
-        <?php endforeach; ?>
+        <ul class="list">
+            <?php foreach ($block->getItems() as $_item): ?>
+                <li>
+                    <a
+                        href="<?= $block->getNavigationUrl($block->getAttributeCode(), $_item['value_id']) ?>"
+                        class="
+                            checkbox
+                            checkbox--link
+                            <?= $block->isActive($_item['value_id']) ? 'checkbox--link-checked' : '' ?>
+                        "
+                        title="<?= $_item['label'] ?>"
+                    >
+                        <svg class="checkbox__icon" role="presentation">
+                            <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#checked') ?>"></use>
+                        </svg>
+                        <span class="checkbox__label">
+                            <?= $_item['label'] ?>
+                        </span>
+                    </a>
+                </li>
+            <?php endforeach; ?>
+        </ul>
         <div class="filter__divider"></div>
     </div>
 </li>
