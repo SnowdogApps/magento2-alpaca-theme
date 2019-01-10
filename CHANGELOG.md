@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 - Duplicated `email` id on company users view
+- Duplicated `My wishlist` section in sidebar
 
 ## [1.1.0] - 2019-01-07
 ### Added
