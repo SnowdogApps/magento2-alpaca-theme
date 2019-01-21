@@ -1,0 +1,30 @@
+<?php /** @var \Snowdog\Menu\Block\Menu $block */ ?>
+<?php if ($block->getMenu()): ?>
+    <?php $menuClass = $block->getMenu()->getCssClass() ?>
+    <div
+        class="
+            <?= $menuClass ?>
+            <?= $menuClass ?>@screen-m
+            <?= $menuClass ?>--is-open@screen-m
+            <?= $menuClass ?>--dark
+        "
+        data-mage-init='{ "dropdownList": {} }'
+    >
+        <ul class="<?= $menuClass ?>__list">
+            <?php foreach ($block->getNodes() as $node): ?>
+                <?php
+                    $childrenLevel = $node->getLevel() + 1;
+                    $children = $this->getNodes($childrenLevel, $node);
+                    $node->setIsParent((bool) $children);
+                    $parentClass = $children ? ' ' . $menuClass . '__item--collapse' : '';
+                    $additionalClasses = $node->getClasses() ? ' ' . $node->getClasses() : '';
+                    $itemClasses = $parentClass . $additionalClasses;
+                ?>
+                <li class="<?= $menuClass ?>__item<?= $itemClasses ?>">
+                    <?= $block->renderMenuNode($node) ?>
+                    <?= $block->renderSubmenu($children, $node, $childrenLevel) ?>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+<?php endif ?>

@@ -1,0 +1,32 @@
+<?php /** @var \Snowdog\Menu\Block\NodeType\CmsPage $block */ ?>
+<?php
+    $nodeId = $block->getId();
+    $class = $block->getMenuClass();
+    $pageUrl = $block->getPageUrl($nodeId);
+    $pageUrl = $pageUrl ?: '#';
+    $dataAttribute = '';
+
+    $classLink = $block->getIsRoot() ? $class . '__label' : 'link footer__link';
+    $title = $block->getTitle();
+
+    if ($nodeId) {
+        $dataAttribute = ' aria-controls="dropdown-' . $nodeId . '"';
+    }
+
+    if ($block->isCurrentPage($nodeId)) {
+        $classLink .= ' footer__link--current';
+    }
+?>
+
+<?php if ($block->getIsRoot()): ?>
+    <button type="button" class="<?= $classLink ?>" <?= $dataAttribute ?>>
+        <?= $title ?>
+        <svg class="dropdown-list__icon" role="presentation">
+            <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#angle-down') ?>"></use>
+        </svg>
+    </button>
+<?php else: ?>
+    <a href="<?= $pageUrl ?>" class="<?= $classLink ?>">
+        <?= $title ?>
+    </a>
+<?php endif; ?>

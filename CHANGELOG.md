@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 - Refactor filters and accessibility improvements
+- Connect footer links with module-menu
 
 ### Fixed
 - Duplicated `email` id on company users view
