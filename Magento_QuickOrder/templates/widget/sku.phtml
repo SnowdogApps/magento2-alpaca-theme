@@ -1,61 +1,59 @@
 <?php
 /**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
-
-// @codingStandardsIgnoreFile
-
-?>
-<?php
-/**
  * Order by SKU widget template
  *
  * @var $block \Magento\QuickOrder\Block\Sku
  */
 ?>
-ELO
-<div id="<?= /* @noEscape */ $block->getUniqueId() ?>" class="widget block block-addbysku"
-     data-role="block-addbysku"
-     data-mage-init='{
+<div
+    id="<?= $block->getUniqueId() ?>"
+    class="widget block block-addbysku"
+    data-role="block-addbysku"
+    data-mage-init='{
         "quickOrderItemTable":{
-                "addBlockData":{"widgetId":"<?= /* @noEscape */ $block->getUniqueId() ?>"},
-                "addEvent":"addNewRow",
-                "addSelector":"[data-role=new-block]"
+            "addBlockData":{"widgetId":"<?= $block->getUniqueId() ?>"},
+            "addEvent":"addNewRow",
+            "addSelector":"[data-role=new-block]"
         }
-     }'>
-    <div data-role="show-errors" class="wrap-sum-errors" data-mage-init='{
-        "countingErrors":{
-                "wrapError":"[data-role=block-addbysku]",
-                "nameErrorBlock":"[data-role=error-message]"
-        }
-     }'></div>
+    }'
+>
+    <div
+        data-role="show-errors"
+        class="wrap-sum-errors"
+        data-mage-init='{
+            "countingErrors":{
+                    "wrapError":"[data-role=block-addbysku]",
+                    "nameErrorBlock":"[data-role=error-message]"
+            }
+        }'
+    ></div>
     <?php if (!$block->getIsTitleHidden()): ?>
         <div class="block-title">
-            <strong role="heading" aria-level="2"><?= $block->escapeHtml(__('Order by SKU')) ?></strong>
+            <strong role="heading" aria-level="2">
+                <?= __('Order by SKU') ?>
+            </strong>
         </div>
     <?php endif ?>
     <div class="block-content">
         <form
             class="form form-addbysku"
-            action="<?= /* @noEscape */ $block->getUrl('quickorder/sku/uploadfile') ?>"
+            action="<?= $block->getUrl('quickorder/sku/uploadfile') ?>"
             method="post"
             data-role="send-sku"
             data-mage-init='{"validation":{}, "quickOrderAddToCart":{}}'
             <?php if ($block->getIsMultipart()): ?> enctype="multipart/form-data"<?php endif; ?>
-            >
+        >
             <div class="box box-items">
                 <fieldset class="fieldset" data-container="items">
-
                     <div class="fields additional deletable-item-title">
                         <div class="field sku required">
                             <label class="label">
-                                <span><?= $block->escapeHtml(__('Enter SKU or Product Name')) ?></span>
+                                <?= __('Enter SKU or Product Name') ?>
                             </label>
                         </div>
                         <div class="field qty required">
                             <label class="label">
-                                <span><?= $block->escapeHtml(__('Qty')) ?></span>
+                                <?= __('Qty') ?>
                             </label>
                         </div>
                     </div>
@@ -70,78 +68,93 @@ ELO
             <?php endif; ?>
             <div class="actions-toolbar">
                 <div class="primary">
-                    <button type="submit"
-                            title="<?= $block->escapeHtml(__('Add to Cart')) ?>"
-                            class="action tocart primary"
-                            data-action="submit-sku"
-                            disabled>
-                        <span><?= $block->escapeHtml(__('Add to Cart')) ?></span>
+                    <button
+                        type="submit"
+                        title="<?= __('Add to Cart') ?>"
+                        class="action tocart primary"
+                        data-action="submit-sku"
+                        disabled
+                    >
+                        <?= __('Add to Cart') ?>
                     </button>
                 </div>
             </div>
             <?php if ($block->getLink()): ?>
-                <?= /* @noEscape */ $block->getLink() ?>
+                <?= $block->getLink() ?>
             <?php endif; ?>
         </form>
         <script data-template="add-block" type="text/x-magento-template">
-            <div class="fields additional deletable-item" data-role="new-block"
-                 data-mage-init='{
-                     "deletableItem":{},
-                     "productSkuItem":{
+            <div
+                class="fields additional deletable-item"
+                data-role="new-block"
+                data-mage-init='{
+                    "deletableItem":{},
+                    "productSkuItem":{
                         "rowIndex": "<%- data.rowIndex %>",
                         "tableWigetSelector":"[data-role=block-addbysku]",
-                        "urlSku":"<?= /* @noEscape */ $block->getUrl('quickorder/ajax/search') ?>"}}'>
+                        "urlSku":"<?= $block->getUrl('quickorder/ajax/search') ?>"
+                    }
+                }'
+            >
                 <div class="field sku required ui-front">
                     <label class="label">
-                        <span><?= $block->escapeHtml(__('Enter SKU or Product Name')) ?></span>
+                        <?= __('Enter SKU or Product Name') ?>
                     </label>
                     <div class="control">
-                        <input type="text"
-                               name="items[<%- data.rowIndex %>][sku]"
-                               id="id-items<%- data.widgetId %><%- data.rowIndex %>sku"
-                               data-id="<%- data.widgetId %><%- data.rowIndex %>sku"
-                               data-sku="true"
-                               aria-required="true"
-                               data-mage-init='{
-                                    "Magento_QuickOrder/js/sku/autocomplete": {
-                                        "sourceUrl": "<?= /* @noEscape */ $block->getUrl('quickorder/ajax/product_suggest') ?>"
-                                    }
-                               }'
-                               data-validate='{
-                                    "required-if-all-sku-empty-and-file-not-loaded": {
-                                        specifiedId: "#customer_sku_csv",
-                                        dataSku: "data-sku"
-                                        }
-                               }'
-                               data-role="product-sku"/>
-
+                        <input
+                            type="text"
+                            name="items[<%- data.rowIndex %>][sku]"
+                            id="id-items<%- data.widgetId %><%- data.rowIndex %>sku"
+                            data-id="<%- data.widgetId %><%- data.rowIndex %>sku"
+                            data-sku="true"
+                            aria-required="true"
+                            data-mage-init='{
+                                "Magento_QuickOrder/js/sku/autocomplete": {
+                                    "sourceUrl": "<?= $block->getUrl('quickorder/ajax/product_suggest') ?>"
+                                }
+                            }'
+                            data-validate='{
+                                "required-if-all-sku-empty-and-file-not-loaded": {
+                                    specifiedId: "#customer_sku_csv",
+                                    dataSku: "data-sku"
+                                }
+                            }'
+                            data-role="product-sku"
+                        >
                     </div>
                     <div class="product-block" data-role="product-block"></div>
                 </div>
                 <div class="field qty required">
                     <label class="label">
-                        <span><?= $block->escapeHtml(__('Qty')) ?></span>
+                        <?= __('Qty') ?>
                     </label>
                     <div class="control">
-                        <input type="number"
-                               name="items[<%- data.rowIndex %>][qty]"
-                               id="id-items<%- data.widgetId %><%- data.rowIndex %>qty"
-                               class="qty"
-                               maxlength="13"
-                               aria-required="true"
-                               data-validate='{
-                                    "required-number-if-specified": "[data-id=<%- data.widgetId %><%- data.rowIndex %>sku]",
-                                    "validate-number": true,
-                                    "validate-greater-than-zero": true,
-                                    "validate-number-range": "0.0001-99999999.9999"
-                                    }'
-                                    data-role="product-qty"/>
+                        <input
+                            type="number"
+                            name="items[<%- data.rowIndex %>][qty]"
+                            id="id-items<%- data.widgetId %><%- data.rowIndex %>qty"
+                            class="qty"
+                            maxlength="13"
+                            aria-required="true"
+                            data-validate='{
+                                "required-number-if-specified": "[data-id=<%- data.widgetId %><%- data.rowIndex %>sku]",
+                                "validate-number": true,
+                                "validate-greater-than-zero": true,
+                                "validate-number-range": "0.0001-99999999.9999"
+                            }'
+                            data-role="product-qty"
+                        >
                     </div>
                 </div>
                 <div class="actions-toolbar">
                     <div class="secondary">
-                        <button type="button" class="action remove" title="<?= $block->escapeHtml(__('Remove Row')) ?>" data-role="delete">
-                            <span><?= $block->escapeHtml(__('Remove Row')) ?></span>
+                        <button
+                            type="button"
+                            class="action remove"
+                            title="<?= __('Remove Row') ?>"
+                            data-role="delete"
+                        >
+                            <?= __('Remove Row') ?>
                         </button>
                     </div>
                 </div>
