@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Added
 - Support for escape key in dropdown script
+- Quickorder page styles
 
 ### Changed
 - Refactor filters and accessibility improvements
