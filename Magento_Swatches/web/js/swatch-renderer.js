@@ -193,7 +193,7 @@ define([
               attributeLabelClass: 'swatch__title product-view__swatch-option-title',
               attributeSelectedOptionLabelClass: 'swatch__selected-option',
               attributeOptionsWrapper: 'swatch__wrapper',
-              attributeInput: 'swatch-input',
+              attributeInput: 'swatch__input',
               optionClass: 'swatch__option',
               optionContainerClass: 'swatch__option-container',
               selectClass: 'swatch-select',
