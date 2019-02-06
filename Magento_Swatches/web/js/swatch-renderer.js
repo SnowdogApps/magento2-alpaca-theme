@@ -62,6 +62,8 @@ define([
    *  - option-label (string)
    *  - option-tooltip-thumb
    *  - option-tooltip-value
+   *  - thumb - width
+   *  - thumb - height
    */
   $.widget('mage.SwatchRendererTooltip', {
       options: {
@@ -81,11 +83,13 @@ define([
               label = $this.attr('option-label'),
               thumb = $this.attr('option-tooltip-thumb'),
               value = $this.attr('option-tooltip-value'),
+              width = $this.attr('thumb-width'),
+              height = $this.attr('thumb-height'),
               $image,
               $title,
               $corner;
 
-          if (!$element.size()) {
+          if (!$element.length) {
               $element = $('<div class="' +
                   $widget.options.tooltipClass +
                   '"><div class="image"></div><div class="title"></div><div class="corner"></div></div>'
@@ -110,7 +114,9 @@ define([
                               // Image
                               $image.css({
                                   'background': 'url("' + thumb + '") no-repeat center', //Background case
-                                  'background-size': 'initial'
+                                  'background-size': 'initial',
+                                  'width': width + 'px',
+                                  'height': height + 'px'
                               });
                               $image.show();
                           } else if (type === 1) {
@@ -231,7 +237,7 @@ define([
           controlLabelId: '',
 
           // text for more button
-          moreButtonText: 'More',
+          moreButtonText: $t('More'),
 
           // Callback url for media
           mediaCallback: '',
@@ -615,10 +621,6 @@ define([
               return $widget._OnClick($(this), $widget);
           });
 
-          $widget.element.on('emulateClick', '.' + options.optionContainerClass, function () {
-              return $widget._OnClick($(this), $widget, 'emulateClick');
-          });
-
           $widget.element.on('change', '.' + options.selectClass, function () {
               return $widget._OnChange($(this), $widget);
           });
@@ -649,10 +651,9 @@ define([
       /**
        * Load media gallery using ajax or json config.
        *
-       * @param {String|undefined} eventName
        * @private
        */
-      _loadMedia: function (eventName) {
+      _loadMedia: function () {
           var $main = this.inProductList ?
                   this.element.parents('.product-item-info') :
                   this.element.parents('.column.main'),
@@ -667,7 +668,7 @@ define([
                   images = this.options.mediaGalleryInitial;
               }
 
-              this.updateBaseImage(images, $main, !this.inProductList, eventName);
+              this.updateBaseImage(images, $main, !this.inProductList);
           }
       },
 
@@ -676,10 +677,9 @@ define([
        *
        * @param {Object} $this
        * @param {Object} $widget
-       * @param {String|undefined} eventName
        * @private
        */
-      _OnClick: function ($this, $widget, eventName) {
+      _OnClick: function ($this, $widget) {
           var $parent = $this.parents('.' + $widget.options.classes.attributeClass),
               $wrapper = $this.parents('.' + $widget.options.classes.attributeOptionsWrapper),
               $label = $parent.find('.' + $widget.options.classes.attributeSelectedOptionLabelClass),
@@ -718,7 +718,7 @@ define([
               $widget._UpdatePrice();
           }
 
-          $widget._loadMedia(eventName);
+          $widget._loadMedia();
           $input.trigger('change');
       },
 
@@ -815,7 +815,7 @@ define([
           $widget._Rewind(controls);
 
           // done if nothing selected
-          if (selected.size() <= 0) {
+          if (selected.length <= 0) {
               return;
           }
 
@@ -825,7 +825,7 @@ define([
                   id = $this.attr('attribute-id'),
                   products = $widget._CalcProducts(id);
 
-              if (selected.size() === 1 && selected.first().attr('attribute-id') === id) {
+              if (selected.length === 1 && selected.first().attr('attribute-id') === id) {
                   return;
               }
 
@@ -1037,7 +1037,7 @@ define([
       _EnableProductMediaLoader: function ($this) {
           var $widget = this;
 
-          if ($('body.catalog-product-view').size() > 0) {
+          if ($('body.catalog-product-view').length > 0) {
               $this.parents('.column.main').find('.photo.image')
                   .addClass($widget.options.classes.loader);
           } else {
@@ -1057,7 +1057,7 @@ define([
       _DisableProductMediaLoader: function ($this) {
           var $widget = this;
 
-          if ($('body.catalog-product-view').size() > 0) {
+          if ($('body.catalog-product-view').length > 0) {
               $this.parents('.column.main').find('.photo.image')
                   .removeClass($widget.options.classes.loader);
           } else {
@@ -1139,35 +1139,15 @@ define([
       },
 
       /**
-       * Start update base image process based on event name
-       * @param {Array} images
-       * @param {jQuery} context
-       * @param {Boolean} isInProductView
-       * @param {String|undefined} eventName
-       */
-      updateBaseImage: function (images, context, isInProductView, eventName) {
-        var gallery = context.find(this.options.mediaGallerySelector).data('gallery');
-
-        if (eventName === undefined) {
-          this.processUpdateBaseImage(images, context, isInProductView, gallery);
-        } else {
-          context.find(this.options.mediaGallerySelector).on('gallery:loaded', function (loadedGallery) {
-            loadedGallery = context.find(this.options.mediaGallerySelector).data('gallery');
-            this.processUpdateBaseImage(images, context, isInProductView, loadedGallery);
-          }.bind(this));
-        }
-      },
-
-      /**
        * Update [gallery-placeholder] or [product-image-photo]
        * @param {Array} images
        * @param {jQuery} context
        * @param {Boolean} isInProductView
-       * @param {Object} gallery
        */
-      processUpdateBaseImage: function (images, context, isInProductView, gallery) {
+      updateBaseImage: function (images, context, isInProductView) {
           var justAnImage = images[0],
               initialImages = this.options.mediaGalleryInitial,
+              gallery = context.find(this.options.mediaGallerySelector).data('gallery'),
               imagesToUpdate,
               isInitial;
 
@@ -1236,26 +1216,9 @@ define([
        */
       _EmulateSelected: function (selectedAttributes) {
           $.each(selectedAttributes, $.proxy(function (attributeCode, optionId) {
-              this.element.find('.' + this.options.classes.attributeClass +
-                  '[attribute-code="' + attributeCode + '"] [option-id="' + optionId + '"]').trigger('click');
-          }, this));
-      },
-
-      /**
-       * Emulate mouse click or selection change on all swatches that should be selected
-       * @param {Object} [selectedAttributes]
-       * @param {String} triggerClick
-       * @private
-       */
-      _EmulateSelectedByAttributeId: function (selectedAttributes, triggerClick) {
-          $.each(selectedAttributes, $.proxy(function (attributeId, optionId) {
               var elem = this.element.find('.' + this.options.classes.attributeClass +
-                  '[attribute-id="' + attributeId + '"] [option-id="' + optionId + '"]'),
+                  '[attribute-code="' + attributeCode + '"] [option-id="' + optionId + '"]'),
                   parentInput = elem.parent();
-
-              if (triggerClick === null || triggerClick === '') {
-                triggerClick = 'click';
-              }
 
               if (elem.hasClass('selected')) {
                   return;
@@ -1265,9 +1228,31 @@ define([
                   parentInput.val(optionId);
                   parentInput.trigger('change');
               } else {
-                  elem.trigger(triggerClick);
+                  elem.trigger('click');
               }
           }, this));
+      },
+
+      /**
+        * Emulate mouse click or selection change on all swatches that should be selected
+        * @param {Object} [selectedAttributes]
+        * @private
+        */
+      _EmulateSelectedByAttributeId: function (selectedAttributes) {
+        $.each(selectedAttributes, $.proxy(function (attributeId, optionId) {
+          var elem = this.element.find('.' + this.options.classes.attributeClass +
+              '[attribute-id="' + attributeId + '"] [option-id="' + optionId + '"]'),
+          parentInput = elem.parent();
+          if (elem.hasClass('selected')) {
+            return;
+          }
+          if (parentInput.hasClass(this.options.classes.selectClass)) {
+            parentInput.val(optionId);
+            parentInput.trigger('change');
+          } else {
+            elem.trigger('click');
+          }
+        }, this));
       },
 
       /**
