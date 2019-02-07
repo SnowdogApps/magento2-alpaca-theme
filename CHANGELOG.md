@@ -14,6 +14,8 @@ All notable changes to this project will be documented in this file.
 - Duplicated `email` id on company users view
 - Duplicated `My wishlist` section in sidebar
 - Login form for disabled 'Guest Checkout'
+- Swatches in catalog and product page for magento 2.3.0
+- Details dropdown in minicart
 
 ## [1.1.0] - 2019-01-07
 ### Added
