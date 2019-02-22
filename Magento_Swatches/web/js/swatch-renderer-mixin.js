@@ -33,7 +33,7 @@ define([
         //selector of product images gallery wrapper
         mediaGallerySelector: '[data-gallery-role=gallery-placeholder]',
         // selector of category product tile wrapper
-        selectorProductTile: '.product-item',
+        selectorProductTile: '.product-item-details',
         // number of controls to show (false or zero = show all)
         numberToShow: false,
         // show only swatch controls
@@ -301,7 +301,7 @@ define([
             .addClass($widget.options.classes.loader);
         } else {
           //Category View
-          $this.parents('.product-item-info')
+          $this.parents('.product-item-details')
             .find('.lazyload-wrapper')
             .append('<div class="loader loader--visible"><div class="loader__circle"></div></div>');
         }
@@ -314,7 +314,7 @@ define([
             .removeClass($widget.options.classes.loader);
         } else {
           //Category View
-          $this.parents('.product-item-info').find('.loader').remove();
+          $this.parents('.product-item-details').find('.loader').remove();
         }
       }
     });
