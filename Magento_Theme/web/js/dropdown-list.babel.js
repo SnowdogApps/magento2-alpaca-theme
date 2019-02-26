@@ -54,7 +54,9 @@ class DropdownList {
         trigger.focus();
       } else if (opening) {
         this.setAriaAttributes(trigger, dropdownContent, false);
-        focusableElements[0].focus();
+        if (focusableElements[0]) {
+          focusableElements[0].focus();
+        }
       }
     }
   }
