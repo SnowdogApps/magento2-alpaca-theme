@@ -9,30 +9,27 @@ $finalPriceModel = $block->getPriceType('final_price');
 
 $idSuffix = $block->getIdSuffix() ? $block->getIdSuffix() : '';
 $schema = ($block->getZone() == 'item_view') ? true : false;
-$normalPrice = $block->renderAmount($finalPriceModel->getAmount(), [
-    'display_label' => __('From'),
-    'price_id'   => $block->getPriceId('product-price-' . $idSuffix),
-    'price_type' => 'finalPrice',
-    'include_container' => true,
-    'schema' => $schema
-]);
 ?>
 
-<?php if (!$block->isProductList() && $block->hasSpecialPrice()):
-    $oldPrice = $block->renderAmount($priceModel->getAmount(), [
-        'price_id' => $block->getPriceId('old-price-' . $idSuffix),
-        'price_type' => 'oldPrice',
-        'include_container' => true,
-        'skip_adjustments' => true
-    ]);
-?>
+<?php if (!$block->isProductList() && $block->hasSpecialPrice()): ?>
     <span class="sly-old-price price__value price__value--old">
-        <?= $oldPrice ?>
+        <?= $block->renderAmount($priceModel->getAmount(), [
+            'price_id' => $block->getPriceId('old-price-' . $idSuffix),
+            'price_type' => 'oldPrice',
+            'include_container' => true,
+            'skip_adjustments' => true
+        ]); ?>
     </span>
 <?php endif; ?>
 
 <span class="normal-price">
-    <?= $normalPrice ?>
+    <?= $block->renderAmount($finalPriceModel->getAmount(), [
+        'display_label' => __('From'),
+        'price_id'   => $block->getPriceId('product-price-' . $idSuffix),
+        'price_type' => 'finalPrice',
+        'include_container' => true,
+        'schema' => $schema
+    ]); ?>
 </span>
 
 <?php if ($block->showMinimalPrice()): ?>
