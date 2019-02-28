@@ -13,31 +13,37 @@ $idSuffix = $block->getIdSuffix() ? $block->getIdSuffix() : '';
 $schema = ($block->getZone() == 'item_view') ? true : false;
 ?>
 
-<?php if ($block->hasSpecialPrice()): ?>
-    <span class="price__value price__value--old">
-        <?= $block->renderAmount($priceModel->getAmount(), [
-            'price_id'          => $block->getPriceId('old-price-' . $idSuffix),
-            'price_type'        => 'oldPrice',
-            'include_container' => true,
-            'skip_adjustments'  => true
-        ]); ?>
-    </span>
-    <span class="price__value price__value--special">
-        <?= $block->renderAmount($finalPriceModel->getAmount(), [
-            'price_id'          => $block->getPriceId('product-price-' . $idSuffix),
-            'price_type'        => 'finalPrice',
-            'include_container' => true,
-            'schema' => $schema
-        ]); ?>
-    </span>
-<?php else: ?>
-    <?= $block->renderAmount($finalPriceModel->getAmount(), [
-        'price_id'          => $block->getPriceId('product-price-' . $idSuffix),
-        'price_type'        => 'finalPrice',
-        'include_container' => true,
-        'schema' => $schema
-    ]); ?>
-<?php endif; ?>
+<div class="price">
+    <?php if ($block->hasSpecialPrice()): ?>
+        <span class="price__value price__value--old">
+            <?= $block->renderAmount($priceModel->getAmount(), [
+                'display_label'     => false,
+                'price_id'          => $block->getPriceId('old-price-' . $idSuffix),
+                'price_type'        => 'oldPrice',
+                'include_container' => false,
+                'skip_adjustments'  => true
+            ]); ?>
+        </span>
+        <span class="price__value price__value--special">
+            <?= $block->renderAmount($finalPriceModel->getAmount(), [
+                'display_label'     => false,
+                'price_id'          => $block->getPriceId('product-price-' . $idSuffix),
+                'price_type'        => 'finalPrice',
+                'include_container' => false,
+                'schema' => $schema
+            ]); ?>
+        </span>
+    <?php else: ?>
+        <span class="price__value">
+            <?= $block->renderAmount($finalPriceModel->getAmount(), [
+                'price_id'          => $block->getPriceId('product-price-' . $idSuffix),
+                'price_type'        => 'finalPrice',
+                'include_container' => true,
+                'schema' => $schema
+            ]); ?>
+        </span>
+    <?php endif; ?>
+</div>
 
 <?php if ($block->showMinimalPrice()): ?>
     <?php if ($block->getUseLinkForAsLowAs()): ?>
