@@ -9,11 +9,15 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - Refactor filters and accessibility improvements
 - Connect footer links with module-menu
+- Price rendering for simple and configurable products
 
 ### Fixed
 - Duplicated `email` id on company users view
 - Duplicated `My wishlist` section in sidebar
 - Login form for disabled 'Guest Checkout'
+- Swatches in catalog and product page for magento 2.3.0
+- Details dropdown in minicart
+- Price updating in configurable products
 
 ## [1.1.0] - 2019-01-07
 ### Added
