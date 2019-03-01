@@ -61,8 +61,10 @@
                             <?php $options = $_rating->getOptions(); ?>
 
                             <?php foreach ($options as $_option):
-                                $_optionValue = $block->escapeHtmlAttr($_option->getValue());
-                                $_inputId = $block->escapeHtmlAttr($_rating->getRatingCode()) . $_optionValue;
+                                $_optionValue = $block->escapeHtmlAttr($_option->getId());
+                                $_inputId =
+                                    $block->escapeHtmlAttr(str_replace(' ', '_', $_rating->getRatingCode())) . '_' .
+                                    $block->escapeHtmlAttr($_option->getValue());
                             ?>
                                 <div
                                     class="rating__rate-item"
