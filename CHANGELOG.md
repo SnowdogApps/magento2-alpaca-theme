@@ -18,6 +18,7 @@ All notable changes to this project will be documented in this file.
 - Swatches in catalog and product page for magento 2.3.0
 - Details dropdown in minicart
 - Price updating in configurable products
+- Related products slider in product page
 
 ## [1.1.0] - 2019-01-07
 ### Added
