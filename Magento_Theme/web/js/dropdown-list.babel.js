@@ -36,61 +36,27 @@ class DropdownList {
           dropdownContent = dropdownItem.querySelector(`.${this.contentClass}`);
 
     if (window.matchMedia(this.mq).matches) {
-      dropdownContent.style.height = 'auto';
       this.removeAriaAttributes(item, dropdownContent);
     }
     else {
-      dropdownContent.style.height = 0;
       this.setAriaAttributes(item, dropdownContent, true);
       item.disabled = false;
     }
   }
 
-  getContentHeight(item) {
-    return [...item.children]
-      .map(elem => elem.clientHeight)
-      .reduce((a, b) => a + b, 0) + 'px';
-  }
-
-  closeInnerdDropdowns(item) {
-    const subDropDowns = [...item.querySelectorAll(`${this.dropdownCollapseLabel}[aria-expanded="true"]`)];
-    subDropDowns.forEach(key => {
-      const dropdownId      = key.getAttribute('aria-controls'),
-            dropdownItem    = key.parentNode,
-            dropdownContent = dropdownItem.querySelector(`.${this.contentClass}[data-content="${dropdownId}"]`);
-      this.setAriaAttributes(key, dropdownContent, true);
-      dropdownContent.style.height = 0;
-    });
-  }
-
-  toggleContent(item) {
-    const dropdownId      = item.getAttribute('aria-controls'),
-          dropdownItem    = item.parentNode,
-          dropdownContent = dropdownItem.querySelector(`.${this.contentClass}[data-content="${dropdownId}"]`),
-          dropdownBlock   = item.closest('.dropdown-list');
+  toggleContent(trigger, dropdownContent, opening) {
+    const dropdownBlock = trigger.closest('.dropdown-list'),
+          focusableElements = dropdownContent.querySelectorAll('button:not([disabled]), a[href], area[href] input:not([disabled]), select:not([disabled]), textarea:not([disabled]), *[tabindex]:not([tabindex="-1"]), object, embed, *[contenteditable]');
 
     if (!this.isMediumOpen(dropdownBlock)) {
       if (dropdownContent.clientHeight > 0) {
-        const sectionHeight     = this.getContentHeight(dropdownContent),
-              elementTransition = dropdownContent.style.transition;
-        dropdownContent.style.transition = '';
-        this.setAriaAttributes(item, dropdownContent, true);
-        requestAnimationFrame(() => {
-          dropdownContent.style.height = sectionHeight;
-          dropdownContent.style.transition = elementTransition;
-          requestAnimationFrame(() => {
-            dropdownContent.style.height = 0;
-            this.closeInnerdDropdowns(dropdownContent);
-          });
-        });
-      }
-      else {
-        const openedDropdowns = [...document.querySelectorAll('.dropdown-list__content[aria-hidden="false"]')];
-        dropdownContent.style.height = this.getContentHeight(dropdownContent);
-        openedDropdowns.map(openedDropdown => {
-          openedDropdown.style.height = 'auto';
-        });
-        this.setAriaAttributes(item, dropdownContent, false);
+        this.setAriaAttributes(trigger, dropdownContent, true);
+        trigger.focus();
+      } else if (opening) {
+        this.setAriaAttributes(trigger, dropdownContent, false);
+        if (focusableElements[0]) {
+          focusableElements[0].focus();
+        }
       }
     }
   }
@@ -103,12 +69,22 @@ class DropdownList {
   }
 
   init() {
-    this.dropdownItem.forEach(
-      key => key.addEventListener('click', (e) => {
+    this.dropdownItem.forEach(key => {
+      const dropdownId = key.getAttribute('aria-controls'),
+        dropdownContent = document.getElementById(dropdownId);
+
+      key.addEventListener('click', e => {
         e.preventDefault();
-        this.toggleContent(key);
-      }, false)
-    );
+        this.toggleContent(key, dropdownContent, true);
+      }, false);
+
+      [key, dropdownContent].forEach(el => el.addEventListener('keydown', e => {
+        if (e.key === "Escape") {
+          this.toggleContent(key, dropdownContent, false);
+        }
+      }));
+    });
+
     this.setMediumOpen();
 
     window.addEventListener('resize', () => {

@@ -1,0 +1,46 @@
+<?php
+/**
+ * @var $block \Magento\Framework\View\Element\Template
+ */
+$fieldNameFile = \Magento\AdvancedCheckout\Model\Import::FIELD_NAME_SOURCE_FILE;
+$fieldImportedFlagFile = \Magento\AdvancedCheckout\Helper\Data::REQUEST_PARAMETER_SKU_FILE_IMPORTED_FLAG;
+$extErrorText = __(
+    'The file could not be uploaded because it is in the wrong format. Please select a CSV file to upload.'
+);
+?>
+<li class="list__item quickorder__list-item">
+    <p>
+        <?= __('Add from File') ?>
+    </p>
+    <div
+        class="control"
+        data-mage-init='{
+            "fieldsetControls": {},
+            "fileChooser": {
+                "fileNameSelector": "[name=<?= $block->escapeHtml($fieldNameFile) ?>]",
+                "fileNameIndicatorSelector": "[name=<?= $block->escapeHtml($fieldImportedFlagFile) ?>]"
+            },
+            "quickOrderFile":{
+                "fileNameSelector": "[name=<?= $block->escapeHtml($fieldNameFile) ?>]",
+                "extErrorText": "<?= $block->escapeHtml($extErrorText) ?>",
+                "urlSku":"<?= $block->escapeHtml($block->getUrl('quickorder/ajax/search')) ?>"
+            }
+        }'>
+        <p>
+            <?= __('File must be in .csv format and include "SKU" and "QTY" columns'); ?>
+            <?= $block->getChildHtml('quick_order_download_template_link') ?>
+        </p>
+        <div class="upload-container">
+            <label for="customer_sku_csv">
+                <?= __('Choose File') ?>
+            </label>
+            <input
+                id="customer_sku_csv"
+                type="file"
+                data-reset="true"
+                accept=".csv"
+                name="<?= $block->escapeHtml($fieldNameFile) ?>"
+            >
+        </div>
+    </div>
+</li>

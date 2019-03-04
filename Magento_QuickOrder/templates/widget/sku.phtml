@@ -1,0 +1,135 @@
+<?php
+/**
+ * Order by SKU widget template
+ *
+ * @var $block \Magento\QuickOrder\Block\Sku
+ */
+?>
+<div
+    id="<?= $block->getUniqueId() ?>"
+    data-role="block-addbysku"
+    data-mage-init='{
+        "quickOrderItemTable": {
+            "addBlockData": {"widgetId":"<?= $block->getUniqueId() ?>"},
+            "addEvent": "addNewRow",
+            "addSelector": "[data-role=new-block]"
+        }
+    }'
+>
+    <div
+        data-role="show-errors"
+        data-mage-init='{
+            "countingErrors": {
+                "wrapError": "[data-role=block-addbysku]",
+                "nameErrorBlock": "[data-role=error-message]"
+            }
+        }'
+    ></div>
+    <?php if (!$block->getIsTitleHidden()): ?>
+        <div class="block-title">
+            <strong role="heading" aria-level="2">
+                <?= __('Order by SKU') ?>
+            </strong>
+        </div>
+    <?php endif ?>
+    <div class="quickorder">
+        <form
+            action="<?= $block->getUrl('quickorder/sku/uploadfile') ?>"
+            method="post"
+            data-role="send-sku"
+            data-mage-init='{"validation": {}, "quickOrderAddToCart": {}}'
+            <?php if ($block->getIsMultipart()): ?> enctype="multipart/form-data"<?php endif; ?>
+        >
+            <ul class="list">
+                <div data-container="items"></div>
+                <?php if ($block->getChildHtml()): ?>
+                    <?= $block->getChildHtml() ?>
+                <?php endif; ?>
+                <button
+                    type="submit"
+                    class="button tocart"
+                    data-action="submit-sku"
+                    disabled
+                >
+                    <?= __('Add to Cart') ?>
+                </button>
+                <?php if ($block->getLink()): ?>
+                    <?= $block->getLink() ?>
+                <?php endif; ?>
+            </ul>
+        </form>
+        <script data-template="add-block" type="text/x-magento-template">
+            <li
+                class="list__item quickorder__list-item deletable-item"
+                data-role="new-block"
+                data-mage-init='{
+                    "deletableItem": {},
+                    "productSkuItem": {
+                        "rowIndex": "<%- data.rowIndex %>",
+                        "tableWigetSelector":"[data-role=block-addbysku]",
+                        "urlSku":"<?= $block->getUrl('quickorder/ajax/search') ?>"
+                    }
+                }'
+            >
+                <div class="input required">
+                    <label class="label" for="id-items<%- data.widgetId %><%- data.rowIndex %>sku">
+                        <?= __('Enter SKU or Product Name') ?>
+                    </label>
+                    <input
+                        class="input__field"
+                        type="text"
+                        name="items[<%- data.rowIndex %>][sku]"
+                        id="id-items<%- data.widgetId %><%- data.rowIndex %>sku"
+                        data-id="<%- data.widgetId %><%- data.rowIndex %>sku"
+                        data-sku="true"
+                        aria-required="true"
+                        data-mage-init='{
+                            "Magento_QuickOrder/js/sku/autocomplete": {
+                                "sourceUrl": "<?= $block->getUrl('quickorder/ajax/product_suggest') ?>"
+                            }
+                        }'
+                        data-validate='{
+                            "required-if-all-sku-empty-and-file-not-loaded": {
+                                specifiedId: "#customer_sku_csv",
+                                dataSku: "data-sku"
+                            }
+                        }'
+                        data-role="product-sku"
+                    >
+                </div>
+                <div data-role="product-block"></div>
+                <div class="input required">
+                    <label
+                        class="label"
+                        for="id-items<%- data.widgetId %><%- data.rowIndex %>qty"
+                    >
+                        <?= __('Qty') ?>
+                    </label>
+                    <input
+                        type="number"
+                        name="items[<%- data.rowIndex %>][qty]"
+                        id="id-items<%- data.widgetId %><%- data.rowIndex %>qty"
+                        class="input__field quickorder__qty-field"
+                        min="0"
+                        maxlength="13"
+                        aria-required="true"
+                        data-validate='{
+                            "required-number-if-specified": "[data-id=<%- data.widgetId %><%- data.rowIndex %>sku]",
+                            "validate-number": true,
+                            "validate-greater-than-zero": true,
+                            "validate-number-range": "0.0001-99999999.9999"
+                        }'
+                        data-role="product-qty"
+                    >
+                </div>
+                <button
+                    type="button"
+                    class="button button--secondary"
+                    data-role="delete"
+                >
+                    <?= __('Remove Row') ?>
+                </button>
+            </div>
+        </script>
+    </div>
+</div>

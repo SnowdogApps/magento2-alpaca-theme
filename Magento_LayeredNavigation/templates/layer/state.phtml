@@ -1,8 +1,15 @@
 <?php $_filters = $block->getActiveFilters() ?>
+<button
+    class="button button--secondary filters__skip-button"
+    type="button"
+    data-mage-init='{"skipFilters": {}}'
+>
+    <?= __('Skip to products') ?>
+</button>
 <?php if (!empty($_filters)): ?>
-    <h1 class="filters__heading">
+    <h2 class="filters__heading">
         <?= __('Now Shopping by') ?>
-    </h1>
+    </h2>
     <div class="divider filters__divider">
         <span class="divider__left"></span>
         <span class="divider__right"></span>
@@ -14,10 +21,20 @@
                     <a
                         href="<?= $_filter->getRemoveUrl() ?>"
                         class="active-filters__remove"
-                        aria-label="<?= __('Disable filter') ?>"
-                        title="<?= __('Disable filter') ?>"
+                        aria-label="<?= __('Disable filter')
+                            . ': '
+                            . $block->escapeHtml(__($_filter->getName()))
+                            . ' - '
+                            . $block->stripTags($_filter->getLabel())
+                        ?>"
+                        title="<?= __('Disable filter')
+                            . ': '
+                            . $block->escapeHtml(__($_filter->getName()))
+                            . ' - '
+                            . $block->stripTags($_filter->getLabel())
+                        ?>"
                     >
-                        <svg class="icon active-filters__remove-icon">
+                        <svg class="icon active-filters__remove-icon" role="presentation">
                             <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#close') ?>"></use>
                         </svg>
                     </a>
@@ -29,13 +46,15 @@
                     </span>
                 </li>
             <?php endforeach ?>
-            <a
-                href="<?= $block->getClearUrl() ?>"
-                class="active-filters__clear-all"
-                title="<?= __('Clear all filters') ?>"
-            >
-                <?= __('Clear All') ?>
-            </a>
+            <li>
+                <a
+                    href="<?= $block->getClearUrl() ?>"
+                    class="active-filters__clear-all"
+                    title="<?= __('Clear all filters') ?>"
+                >
+                    <?= __('Clear All') ?>
+                </a>
+            </li>
         </ul>
     </div>
 <?php endif ?>

@@ -3,6 +3,25 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.2.0] - 2019-03-04
+### Added
+- Support for escape key in dropdown script
+- Quickorder page styles
+
+### Changed
+- Refactor filters and accessibility improvements
+- Connect footer links with module-menu
+- Price rendering for simple and configurable products
+
+### Fixed
+- Duplicated `email` id on company users view
+- Duplicated `My wishlist` section in sidebar
+- Login form for disabled 'Guest Checkout'
+- Swatches in catalog and product page for magento 2.3.0
+- Details dropdown in minicart
+- Price updating in configurable products
+- Related products slider in product page
+
 ## [1.1.0] - 2019-01-07
 ### Added
 - Reset password styles

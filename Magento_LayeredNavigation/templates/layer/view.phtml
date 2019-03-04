@@ -14,7 +14,7 @@
             data-state-current="hidden"
         >
             <?= __('Shopping Options') ?>
-            <svg class="icon filters__switcher-icon">
+            <svg class="icon filters__switcher-icon" role="presentation">
                 <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#angle-down') ?>"></use>
             </svg>
         </button>
@@ -47,21 +47,27 @@
                                 filter
                             "
                         >
-                            <div
+                            <button
+                                type="button"
                                 class="dropdown-list__label filter__label"
-                                aria-controls="checkbox"
+                                aria-controls="filter-<?= __($filter->getName()) ?>"
+                                aria-expanded="false"
                             >
-                                <?= $block->escapeHtml(__($filter->getName())) ?>
-                                <svg class="icon dropdown-list__icon">
+                                <h3 class="filter__label-title">
+                                    <?= $block->escapeHtml(__($filter->getName())) ?>
+                                </h3>
+                                <svg class="icon dropdown-list__icon" role="presentation">
                                     <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#angle-down') ?>"></use>
                                 </svg>
-                            </div>
+                            </button>
                             <div
+                                id="filter-<?= __($filter->getName()) ?>"
                                 class="dropdown-list__content filter__content"
-                                data-content="checkbox"
                                 aria-hidden="true"
                             >
-                                <?= $block->getChildBlock('renderer')->render($filter) ?>
+                                <ul class="list">
+                                    <?= $block->getChildBlock('renderer')->render($filter) ?>
+                                </ul>
                             </div>
                         </li>
                     <?php endif ?>
@@ -70,4 +76,3 @@
         </div>
     <?php endif ?>
 <?php endif ?>
-

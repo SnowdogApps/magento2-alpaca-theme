@@ -14,6 +14,7 @@ var config = {
       "filters"            : "Magento_Theme/js/filters.babel",
       "linksWrapper"       : "Magento_Theme/js/wrapper-collapsible",
       "select"             : "Magento_Theme/js/select.babel",
+      "skipFilters"        : "Magento_Theme/js/skip-filters.babel",
       "slider"             : "Magento_Theme/js/slider.babel",
       "popup"              : "Magento_Theme/js/popup.babel",
       "tab"                : "Magento_Theme/js/tab.babel"
