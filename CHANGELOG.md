@@ -3,6 +3,14 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.3.0] - 2019-04-17
+### Changed
+- Wishlist and catalog elements for focus state
+- Catalog grid item link class name
+
+### Fixed
+- Fotorama video styles
+
 ## [1.2.0] - 2019-03-04
 ### Added
 - Support for escape key in dropdown script
