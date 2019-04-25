@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 - Fotorama video styles
+- Aria attributes do not have valid values
 
 ## [1.2.0] - 2019-03-04
 ### Added
