@@ -2,8 +2,15 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+## [1.3.0] - 2019-04-17
 ### Changed
-- wishlist and catalog elements for focus state
+- Wishlist and catalog elements for focus state
+- Catalog grid item link class name
+
+### Fixed
+- Fotorama video styles
+- Aria attributes do not have valid values
 
 ## [1.2.0] - 2019-03-04
 ### Added
