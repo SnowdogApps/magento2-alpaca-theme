@@ -2,103 +2,74 @@
 
 class MegaMenu {
   constructor(element) {
-    this.menu = document.querySelector('#mega-menu');
-    this.menuItems = document.querySelectorAll('.mega-menu__item');
+    this.menu = element;
     this.focusable = 'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), object, embed, *[tabindex], *[contenteditable]';
     this.focusableChildren = Array.from(this.menu.querySelectorAll(this.focusable));
-    this.setListeners();
-    this.setFocusable(-1);
+    this.firstLevelLinks = Array.from(this.menu.querySelectorAll('.mega-menu__link'));
+    this.content = document.getElementById('contentarea');
+    this.removeInnerFocus();
+    this.childrenLinksSelector = '.mega-menu__inner-link';
+    this.setKeyboardListeners();
   }
 
-  setListeners() {
-    this.menuItems.forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        console.log(el);
-        this.open(el);
-      })
-
-      el.addEventListener('mouseleave', () => {
-        if (this.isOpen()) {
-          this.close(el);
-        }
-      })
-    })
-  }
-
-  open(elem) {
-    this.setAria(true, elem);
-    window.addEventListener(
-      'keydown',
-      this.keyboardClose.bind(this)
-    );
-    this.menu.addEventListener('keydown', (e) => {
-      this.trap(e);
-    });
-    this.setFocusable(0);
-    this.menu.classList.add('mega-menu--is-open');
-    elem.classList.add('mega-menu__item--active');
-  }
-
-  close(elem) {
-    this.setAria(false, elem);
-    this.setFocusable(-1);
-    this.menu.classList.remove('mega-menu--is-open');
-    elem.classList.remove('mega-menu__item--active');
-  }
-
-  isOpen() {
-    return this.menu.classList.contains('mega-menu--is-open');
-  }
-
-  setFocusable(value) {
+  removeInnerFocus() {
     this.focusableChildren.forEach(item => {
-      item.setAttribute('tabindex', value);
-    })
-  }
-
-  keyboardClose(event) {
-    if (event.which === 27) {
-      if (this.isOpen()) {
-        event.preventDefault();
-        this.menuItems.forEach(el => {
-          el.classList.remove('mega-menu__item--active');
-        })
+      if (!item.parentNode.classList.contains('mega-menu__item')) {
+        item.setAttribute('tabindex', -1);
       }
-    }
+    });
   }
 
-  setAria(isOpen, elem) {
-    if (isOpen) {
-      this.menu.setAttribute('aria-hidden', false);
-      elem.setAttribute('aria-expanded', true);
-      this.focusableChildren[0].focus();
+  moveFocusForward(array, focusIndex) {
+    if (focusIndex === array.length - 1) {
+      array[0].focus();
     }
     else {
-      this.menu.setAttribute('aria-hidden', true);
-      elem.setAttribute('aria-expanded', false);
-      this.menuItems[0].focus();
+      array[focusIndex + 1].focus();
     }
   }
-
-  trap(e) {
-    if (e.which == 9) {
-      let currentFocus = document.activeElement,
-          totalOfFocusable = this.focusableChildren.length,
-          focusedIndex = this.focusableChildren.indexOf(currentFocus);
-
-      if (e.shiftKey) {
-        if (focusedIndex === 0) {
-          e.preventDefault();
-          this.focusableChildren[totalOfFocusable - 1].focus();
-        }
-      }
-      else {
-        if (focusedIndex == totalOfFocusable - 1) {
-          e.preventDefault();
-          this.focusableChildren[0].focus();
-        }
-      }
+  moveFocusBack(array, focusIndex) {
+    if (focusIndex === 0) {
+      array[array.length - 1].focus();
     }
+    else {
+      array[focusIndex - 1].focus();
+    }
+  }
+  setKeyboardListeners() {
+    this.menu.addEventListener('keydown', (e) => {
+      if (e.which === 27) {
+        e.preventDefault();
+        this.content.focus();
+      }
+    });
+    this.firstLevelLinks.forEach(link => {
+      link.parentNode.addEventListener('keydown', (e) => {
+        let focusableInners = Array.from(link.parentNode.querySelectorAll(this.childrenLinksSelector)),
+          indexInInners = focusableInners.indexOf(e.target),
+          indexInFirsts = this.firstLevelLinks.indexOf(e.target);
+        if (e.which === 40 && focusableInners.length) {
+          e.preventDefault();
+          this.moveFocusForward(focusableInners, indexInInners);
+        }
+        else if (e.which === 38 && focusableInners.length) {
+          e.preventDefault();
+          this.moveFocusBack(focusableInners, indexInInners);
+        }
+        else if (e.which === 39) {
+          if (indexInFirsts !== -1) {
+            e.preventDefault();
+            this.moveFocusForward(this.firstLevelLinks, indexInFirsts);
+          }
+        }
+        else if (e.which === 37) {
+          if (indexInFirsts !== -1) {
+            e.preventDefault();
+            this.moveFocusBack(this.firstLevelLinks, indexInFirsts);
+          }
+        }
+      });
+    });
   }
 }
 

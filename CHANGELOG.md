@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Added
+- Focus & keyboard support for mega-menu
 
 ## [1.3.0] - 2019-04-17
 ### Changed
