@@ -4,8 +4,8 @@ class MegaMenu {
   constructor(element) {
     this.menu = element;
     this.focusable = 'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), object, embed, *[tabindex], *[contenteditable]';
-    this.focusableChildren = Array.from(this.menu.querySelectorAll(this.focusable));
-    this.firstLevelLinks = Array.from(this.menu.querySelectorAll('.mega-menu__link'));
+    this.focusableChildren = [...this.menu.querySelectorAll(this.focusable)];
+    this.firstLevelLinks = [...this.menu.querySelectorAll('.mega-menu__link')];
     this.content = document.getElementById('contentarea');
     this.removeInnerFocus();
     this.childrenLinksSelector = '.mega-menu__inner-link';
@@ -45,7 +45,7 @@ class MegaMenu {
     });
     this.firstLevelLinks.forEach(link => {
       link.parentNode.addEventListener('keydown', (e) => {
-        let focusableInners = Array.from(link.parentNode.querySelectorAll(this.childrenLinksSelector)),
+        let focusableInners = [...link.parentNode.querySelectorAll(this.childrenLinksSelector)],
           indexInInners = focusableInners.indexOf(e.target),
           indexInFirsts = this.firstLevelLinks.indexOf(e.target);
         if (e.which === 40 && focusableInners.length) {
