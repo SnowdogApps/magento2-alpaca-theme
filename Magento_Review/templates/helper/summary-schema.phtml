@@ -1,0 +1,18 @@
+<?php if ($reviewsCount = $block->getReviewsCollection()->getSize()): ?>
+    <?php
+    $rating = $block->getProduct()->getRatingSummary()->getRatingSummary();
+    ?>
+    <?php if ($rating): ?>
+        <div
+            itemprop="aggregateRating"
+            itemscope
+            itemtype="http://schema.org/AggregateRating"
+        >
+            <meta itemprop="ratingValue" content="<?php echo $rating . '%'; ?>"/>
+            <meta
+                itemprop="reviewCount"
+                content="<?= $reviewsCount ?>"
+            />
+        </div>
+    <?php endif; ?>
+<?php endif; ?>
