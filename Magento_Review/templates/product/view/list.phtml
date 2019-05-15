@@ -43,6 +43,9 @@ $urlForm = $block->getReviewsUrl() . '#review-form';
 
                             <?php if (count($_review->getRatingVotes())): ?>
                                 <?php
+                                    $dislayLabel = count($_review->getRatingVotes()) > 1;
+                                ?>
+                                <?php
                                     foreach ($_review->getRatingVotes() as $_vote):
                                         $_votePercetage = $block->escapeHtmlAttr($_vote->getPercent());
                                 ?>
@@ -54,6 +57,12 @@ $urlForm = $block->getReviewsUrl() . '#review-form';
                                         aria-label="<?= __('Rating') . $_votePercetage; ?>%"
                                         tabindex="0"
                                     >
+                                        <?php if ($dislayLabel): ?>
+                                            <span class="label rating__label">
+                                                <?= $block->escapeHtml($_vote->getRatingCode()) ?>
+                                            </span>
+                                        <?php endif; ?>
+
                                         <meta itemprop="worstRating" content="1"/>
 
                                         <meta itemprop="bestRating" content="100"/>

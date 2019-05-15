@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Added
 - Focus & keyboard support for mega-menu
+### Fixed
+- fix multiple rating
 
 ## [1.3.0] - 2019-04-17
 ### Changed
