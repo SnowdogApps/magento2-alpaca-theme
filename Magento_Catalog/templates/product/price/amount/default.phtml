@@ -1,31 +1,47 @@
-<?php
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
-
-// @codingStandardsIgnoreFile
-
-?>
-
 <?php /** @var \Magento\Framework\Pricing\Render\Amount $block */ ?>
-
-<span class="price-container <?= /* @escapeNotVerified */ $block->getAdjustmentCssClasses() ?>"
-    <?= $block->getSchema() ? ' itemprop="offers" itemscope itemtype="http://schema.org/Offer"' : '' ?>>
+<?php
+// TODO: get currentProduct
+$productUrl = "http://alpaca-ce.com/bess-yoga-short.html"; // currentProduct->getUrl()
+$priceValidUntil = "2029-12-11T22:00:00+00:00"; // currentProduct->getSpecialToDate()
+$displayProductStockStatus = true; // currentProduct->displayProductStockStatus()
+$isAvailable = true; // currentProduct->isAvailable()
+?>
+<span
+    class="price-container <?= /* @escapeNotVerified */ $block->getAdjustmentCssClasses() ?>"
+    <?= $block->getSchema() ? ' itemprop="offers" itemscope itemtype="http://schema.org/Offer"' : '' ?>
+>
     <?php if ($block->getDisplayLabel()): ?>
-        <span class="price-label"><?= /* @escapeNotVerified */ $block->getDisplayLabel() ?></span>
+        <span class="price-label">
+            <?= /* @escapeNotVerified */ $block->getDisplayLabel() ?>
+        </span>
     <?php endif; ?>
-    <span <?php if ($block->getPriceId()): ?> id="<?= /* @escapeNotVerified */ $block->getPriceId() ?>"<?php endif;?>
+    <span
+        <?php if ($block->getPriceId()): ?>
+            id="<?= /* @escapeNotVerified */ $block->getPriceId() ?>"
+        <?php endif; ?>
         <?= ($block->getPriceDisplayLabel()) ? 'data-label="' . $block->getPriceDisplayLabel() . $block->getPriceDisplayInclExclTaxes() . '"' : '' ?>
         data-price-amount="<?= /* @escapeNotVerified */ $block->getDisplayValue() ?>"
         data-price-type="<?= /* @escapeNotVerified */ $block->getPriceType() ?>"
         class="price-wrapper <?= /* @escapeNotVerified */ $block->getPriceWrapperCss() ?>"
-    ><?= /* @escapeNotVerified */ $block->formatCurrency($block->getDisplayValue(), (bool)$block->getIncludeContainer()) ?></span>
+    >
+        <?= /* @escapeNotVerified */ $block->formatCurrency($block->getDisplayValue(), (bool)$block->getIncludeContainer()) ?>
+    </span>
     <?php if ($block->hasAdjustmentsHtml()): ?>
         <?= $block->getAdjustmentsHtml() ?>
     <?php endif; ?>
     <?php if ($block->getSchema()): ?>
-        <meta itemprop="price" content="<?= /* @escapeNotVerified */ $block->getDisplayValue() ?>" />
-        <meta itemprop="priceCurrency" content="<?= /* @escapeNotVerified */ $block->getDisplayCurrencyCode() ?>" />
+        <meta itemprop="price" content="<?= /* @escapeNotVerified */ $block->getDisplayValue() ?>"/>
+        <meta itemprop="priceCurrency" content="<?= /* @escapeNotVerified */ $block->getDisplayCurrencyCode() ?>"/>
+        <meta itemprop="url" content="<?= /* @escapeNotVerified */$productUrl ?>"/>
+        <?php if ($priceValidUntil): ?>
+            <meta itemprop="priceValidUntil" content="<?= /* @escapeNotVerified */$priceValidUntil ?>"/>
+        <?php endif; ?>
+        <?php if ($displayProductStockStatus): ?>
+            <?php if ($isAvailable): ?>
+                <link itemprop="availability" href="http://schema.org/InStock"/>
+            <?php else: ?>
+                <link itemprop="availability" href="http://schema.org/OutOfStock"/>
+            <?php endif; ?>
+        <?php endif; ?>
     <?php endif; ?>
 </span>
