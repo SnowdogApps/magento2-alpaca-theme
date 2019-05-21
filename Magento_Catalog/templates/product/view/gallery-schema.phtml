@@ -1,0 +1,20 @@
+<?php
+/**
+ * Product media schema data template
+ *
+ * @var $block \Magento\Catalog\Block\Product\View\Gallery
+ */
+?>
+<?php
+$images = $block->getGalleryImages();
+$mainImage = null;
+foreach ($images as $image) {
+    if ($block->isMainImage($image)) {
+        $mainImage = $image->getData('medium_image_url');
+        break;
+    }
+}
+?>
+<?php if ($mainImage): ?>
+    <meta itemprop="image" content="<?= $mainImage ?>"/>
+<?php endif; ?>
