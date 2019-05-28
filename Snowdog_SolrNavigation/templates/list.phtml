@@ -74,10 +74,16 @@ $solrDataHelper = $this->helper('Snowdog\SolrNavigation\Helper\Data');
                     <div class="catalog-list-item__actions">
                         <div class="catalog-list-item__actions-primary">
                             <form
-                                action="<?= $block->escapeHtml($block->getAddToUrl('cart', $_product['entity_id'])) ?>"
+                                action="<?= $block->escapeUrl($block->getAddToUrl('cart', $_product['entity_id'])) ?>"
                                 method="post"
-                                data-mage-init='{ "validation": {} }'
+                                data-role="tocart-form"
                             >
+                                <input
+                                    type="hidden"
+                                    name="form_key"
+                                    value=""
+                                >
+
                                 <button
                                     class="
                                         button
@@ -86,7 +92,9 @@ $solrDataHelper = $this->helper('Snowdog\SolrNavigation\Helper\Data');
                                     "
                                     type="submit"
                                 >
-                                    <?= __('Add to Cart') ?>
+                                    <span>
+                                        <?= __('Add to Cart') ?>
+                                    </span>
                                 </button>
                             </form>
                         </div>
@@ -130,3 +138,11 @@ $solrDataHelper = $this->helper('Snowdog\SolrNavigation\Helper\Data');
         <?php endforeach; ?>
     <?php endif; ?>
 <?php endif; ?>
+
+<script type="text/x-magento-init">
+    {
+        "[data-role=tocart-form], .form.map.checkout": {
+            "solrAddToCart": {}
+        }
+    }
+</script>
