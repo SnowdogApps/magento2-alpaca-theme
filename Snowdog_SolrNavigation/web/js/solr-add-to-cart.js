@@ -4,7 +4,7 @@ define([
 ], function ($, $t) {
   'use strict';
 
-  $.widget('snowdog.catalogAddToCart', {
+  $.widget('snowdog.solrAddToCart', {
     options: {
       processStart: null,
       processStop: null,
@@ -139,5 +139,5 @@ define([
     }
   });
 
-  return $.snowdog.catalogAddToCart;
+  return $.snowdog.solrAddToCart;
 });
