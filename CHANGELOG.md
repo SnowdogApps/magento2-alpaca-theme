@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Fixed
+- Add-to-cart for solr templates with updated form_key
+
 ### Added
 - Focus & keyboard support for mega-menu
 ### Fixed
