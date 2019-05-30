@@ -2,10 +2,17 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Fixed
+- Add-to-cart for solr templates with updated form_key
+
 ### Added
 - Focus & keyboard support for mega-menu
 ### Fixed
 - fix multiple rating
+
+## [1.3.1] - 2019-05-30
+### Fixed
+- Add-to-cart for solr templates with updated form_key
 
 ## [1.3.0] - 2019-04-17
 ### Changed
