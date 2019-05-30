@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Fixed
+- Add-to-cart for solr templates with updated form_key
+
 ## [1.3.0] - 2019-04-17
 ### Changed
 - Wishlist and catalog elements for focus state
