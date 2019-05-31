@@ -77,24 +77,30 @@ $solrDataHelper = $this->helper('Snowdog\SolrNavigation\Helper\Data');
                                 </div>
                             </div>
                         <?php endif ?>
+
                         <div class="catalog-grid-item__actions">
                             <form
                                 class="catalog-grid-item__primary-form"
                                 action="<?= $block->escapeUrl($block->getAddToUrl('cart', $_product['entity_id'])) ?>"
                                 method="post"
                                 data-mage-init='{ "solrAddToCart": {} }'
+                                data-product-sku="<?= $_product['sku'] ?>"
                             >
                                 <input
                                     type="hidden"
-                                    name="form_key"
-                                    value=""
-                                >
+                                    name="product"
+                                    value="<?= $_product['entity_id'] ?>"
+                                />
+
+                                <?= $block->getBlockHtml('formkey') ?>
 
                                 <button
                                     class="
                                         button
                                         button--secondary
                                         catalog-grid-item__primary-action
+                                        action
+                                        tocart
                                     "
                                     type="submit"
                                 >
