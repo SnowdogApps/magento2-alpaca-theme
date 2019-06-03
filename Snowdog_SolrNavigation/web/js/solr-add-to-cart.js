@@ -6,6 +6,14 @@ define([
 ], function($, idsResolver, customerData) {
 
   $.widget('snowdog.solrAddToCart', $.mage.catalogAddToCart, {
+    _create: function() {
+      this._bindSubmit();
+
+      // It's necessary to block add-to-cart buttons until page load
+      // issue: https://github.com/magento/magento2/pull/21007
+      $(this.options.addToCartButtonSelector).attr('disabled', false);
+    },
+
     reloadCustomerData: function () {
       var sections = [ 'cart' ];
 
