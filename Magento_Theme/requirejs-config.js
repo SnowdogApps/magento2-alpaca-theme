@@ -17,7 +17,8 @@ var config = {
       "skipFilters"        : "Magento_Theme/js/skip-filters.babel",
       "slider"             : "Magento_Theme/js/slider.babel",
       "popup"              : "Magento_Theme/js/popup.babel",
-      "tab"                : "Magento_Theme/js/tab.babel"
+      "tab"                : "Magento_Theme/js/tab.babel",
+      "scrollTop"          : "Magento_Theme/js/scroll-top.babel"
     }
   },
   shim: {
