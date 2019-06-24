@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+### Added
+- Adding data-testid attributes for autometed tests Cypress.io 
+
 ### Fixed
 - Add-to-cart for solr templates with updated form_key
 
