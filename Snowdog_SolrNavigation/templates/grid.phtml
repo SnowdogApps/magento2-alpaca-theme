@@ -17,7 +17,10 @@ $solrDataHelper = $this->helper('Snowdog\SolrNavigation\Helper\Data');
     <?php else: ?>
         <ul class="catalog-grid">
             <?php foreach ($block->getProducts() as $_product): ?>
-                <li class="catalog-grid-item">
+                <li
+                    class="catalog-grid-item"
+                    data-testid="catalog-grid-item"
+                >
                     <?php if ($solrDataHelper->isProductNew($_product) === true): ?>
                         <div class="badge catalog-grid-item__badge">
                             <?= __('NEW') ?>
@@ -27,6 +30,7 @@ $solrDataHelper = $this->helper('Snowdog\SolrNavigation\Helper\Data');
                         href="<?= $block->getProductUrl($_product) ?>"
                         class="catalog-grid-item__link"
                         title="<?= $_product['name'] ?>"
+                        data-testid="catalog-grid-item__link"
                     >
                         <div class="lazyload-wrapper catalog-grid-item__image-wrapper">
                             <img
@@ -34,6 +38,7 @@ $solrDataHelper = $this->helper('Snowdog\SolrNavigation\Helper\Data');
                                 src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
                                 data-src="<?= $solrDataHelper->getImageUrl($_product['small_image'], 564, 700) ?>"
                                 alt="<?= $_product['image_label'] ?>"
+                                data-testid="catalog-grid-item__image"
                             />
                         </div>
                     </a>
@@ -43,6 +48,7 @@ $solrDataHelper = $this->helper('Snowdog\SolrNavigation\Helper\Data');
                                 catalog-grid-item__name
                                 <?= !$solrDataHelper->getPrice($_product) ? 'catalog-grid-item__name--bigger' : '' ?>
                             "
+                            data-testid="catalog-grid-item__name"
                         >
                             <a
                                 href="<?= $block->getProductUrl($_product) ?>"
@@ -54,7 +60,10 @@ $solrDataHelper = $this->helper('Snowdog\SolrNavigation\Helper\Data');
                         </h2>
                         <?php if($solrDataHelper->getPrice($_product)): ?>
                             <div class="catalog-grid-item__price">
-                                <div class="price">
+                                <div
+                                    class="price"
+                                    data-testid="catalog-grid-item__price"
+                                >
                                     <span class="price__value">
                                         <?= $solrDataHelper->getPrice($_product) ?>
                                     </span>
@@ -72,7 +81,11 @@ $solrDataHelper = $this->helper('Snowdog\SolrNavigation\Helper\Data');
                                 title="<?= __('Average rating') ?>: <?= $rating ?>%"
                                 tabindex="0"
                             >
-                                <div class="rating__star" style="width: <?= $rating ?>%">
+                                <div
+                                    class="rating__star"
+                                    style="width: <?= $rating ?>%"
+                                    data-testid="rating__star"
+                                >
                                     <span class="rating__indicator"></span>
                                 </div>
                             </div>
@@ -104,6 +117,7 @@ $solrDataHelper = $this->helper('Snowdog\SolrNavigation\Helper\Data');
                                     "
                                     type="submit"
                                     disabled
+                                    data-testid="add-to-cart-button"
                                 >
                                     <span class="catalog-grid-item__cart-text">
                                         <?= __('Add to Cart') ?>
@@ -124,6 +138,7 @@ $solrDataHelper = $this->helper('Snowdog\SolrNavigation\Helper\Data');
                                         "data": { "product": <?= $_product['entity_id'] ?> }
                                     }'
                                     data-action="add-to-wishlist"
+                                    data-testid="add-to-wishlist-button"
                                 >
                                     <svg class="button__icon">
                                         <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#heart') ?>"></use>
@@ -141,6 +156,7 @@ $solrDataHelper = $this->helper('Snowdog\SolrNavigation\Helper\Data');
                                         "data": { "product": <?= $_product['entity_id'] ?> }
                                     }'
                                     data-action="add-to-compare"
+                                    data-testid="add-to-compare-button"
                                 >
                                     <svg class="button__icon">
                                         <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#compare') ?>"></use>
