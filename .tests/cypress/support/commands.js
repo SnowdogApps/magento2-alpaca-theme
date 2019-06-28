@@ -32,7 +32,7 @@ Cypress.Commands.add('login', () => {
 })
 
 Cypress.Commands.add('account', () => {
-  cy.visit('https://alpaca-ce-solr-demo.snowdog.pro/')
+  cy.visit('/')
   cy.get('[data-testid=customer-account-link]').click()
   cy.url().should('include', '/customer/account/')
   cy.get('.login__form').should('be.visible')
@@ -80,13 +80,4 @@ Cypress.Commands.add('addproducttocart', () => {
 Cypress.Commands.add('MassageSuccess', () => {
   cy.get('[data-ui-id=message-success]').should('be.visible')
     .log('product added to cart')
-})
-
-Cypress.Commands.add('gotocheckout', () => {
-  cy.get('[data-testid=minicart-link]').click()
-  cy.get('[data-testid=view-cart-link]').should('be.visible').click()
-  cy.get('#coupon_code')
-  cy.get('#cart-totals').should('have.class', '.table-wrapper')
-  cy.get('.base')
-  cy.get('[data-testid=proceed-to-checkout-button]').click('center', { force: true })
 })
