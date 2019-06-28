@@ -1,9 +1,4 @@
 jobs:
-  lint-tests:
-    steps:
-      - checkout
-      - cd .tests
-      - yarn lint
   lint-theme:
     docker:
       - image: circleci/php:7.1-fpm-node-browsers-legacy
@@ -25,3 +20,17 @@ jobs:
       - run: cd tools && gulp sasslint --ci
       - run: cd tools && gulp styles --ci --pipeline
       - run: cd tools && gulp csslint --ci
+  lint-tests:
+    docker:
+      - image: circleci/node:lts
+    steps:
+      - checkout
+      - run: cd .tests && yarn
+      - run: cd .tests && yarn lint
+
+workflows:
+  version: 2
+  lint:
+    jobs:
+      - lint-theme
+      - lint-tests
