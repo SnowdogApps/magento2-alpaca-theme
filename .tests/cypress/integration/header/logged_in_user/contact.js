@@ -12,5 +12,4 @@ describe('HEADER - Contact header link as Logged In user', () => {
     cy.get('#contact-form').should('be.visible')
     cy.get('#email').should('have.value', 'qwe@qwe.com')
   })
-
 })

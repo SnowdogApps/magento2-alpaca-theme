@@ -1,5 +1,4 @@
 describe('CATALOG - Sort By Product name ascending test', () => {
-
   it('selects sorting by Product name ascending', () => {
     cy.select_first_menu()
     cy.get('.toolbar__sorter').should('be.visible')
@@ -17,5 +16,4 @@ describe('CATALOG - Sort By Product name ascending test', () => {
     cy.previous_page()
     cy.get('select[id="sort-by"]').should('be.visible')
   })
-
 })

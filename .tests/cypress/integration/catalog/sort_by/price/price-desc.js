@@ -1,5 +1,4 @@
 describe('CATALOG - Sort By Price descending test', () => {
-
   it('selects sorting by price descending', () => {
     cy.select_first_menu()
     cy.get('div[class="select__field"]').first().click()
@@ -16,5 +15,4 @@ describe('CATALOG - Sort By Price descending test', () => {
     cy.previous_page()
     cy.url().should('include', '?order=price&dir=desc')
   })
-
 })

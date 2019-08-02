@@ -1,5 +1,4 @@
 describe('CATALOG - Sort By Product name descending test', () => {
-
   it('selects sorting by Product name descending', () => {
     cy.select_first_menu()
     cy.get('div[class="select__field"]').first().click()
@@ -18,5 +17,4 @@ describe('CATALOG - Sort By Product name descending test', () => {
     cy.get('select[id="sort-by"]').should('be.visible')
     cy.url().should('include', '?dir=desc')
   })
-
 })

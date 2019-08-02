@@ -1,5 +1,4 @@
 describe('CATALOG - Sort By Best sellers ascending test', () => {
-
   it('selects sorting by Best sellers ascending', () => {
     cy.select_first_menu()
     cy.get('div[class="select__field"]').first().click()
@@ -16,5 +15,4 @@ describe('CATALOG - Sort By Best sellers ascending test', () => {
     cy.previous_page()
     cy.url().should('include', '?order=category.category')
   })
-
 })

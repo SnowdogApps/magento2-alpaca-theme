@@ -16,5 +16,4 @@ describe('Valid credentials login test', () => {
     cy.get('div[class="dashboard-nav"]').should('be.visible')
     cy.get('div[class="dashboard-items"]').should('be.visible')
   })
-
 })

@@ -1,5 +1,4 @@
 describe('CATALOG - product limiter test', () => {
-
   it('checks that limiter is displayed', () => {
     cy.select_first_menu()
     cy.get('.toolbar__limiter').should('be.visible')
@@ -17,5 +16,4 @@ describe('CATALOG - product limiter test', () => {
         expect($el).to.have.length(15)
       })
   })
-
 })

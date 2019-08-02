@@ -1,5 +1,4 @@
 describe('Homepage test', () => {
-
   it('checks homepage is visible.', () => {
     cy.visit('/')
     cy.get('div[class="home"]').should('be.visible')
@@ -22,5 +21,4 @@ describe('Homepage test', () => {
   it('checks footer is visble in homepage.', () => {
     cy.get('.footer').should('be.visible')
   })
-
 })

@@ -1,5 +1,4 @@
 describe('CATALOG - Pagination test', () => {
-
   it('checks that pagination is visible', () => {
     cy.select_first_menu()
     cy.get('.pager').should('be.visible')
@@ -15,5 +14,4 @@ describe('CATALOG - Pagination test', () => {
     cy.previous_page()
     cy.url().should('not.include', '?p=2')
   })
-
 })

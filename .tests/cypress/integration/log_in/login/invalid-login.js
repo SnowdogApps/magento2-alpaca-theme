@@ -14,5 +14,4 @@ describe('Invalid credentials login test', () => {
   it('displays login error message', () => {
     cy.get('[data-ui-id="message-error"]').should('be.visible')
   })
-
 })

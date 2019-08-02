@@ -15,5 +15,4 @@ describe('HEADER - Wishlist header link as Logged In user', () => {
     cy.get('li[class="nav item current"]').children('strong')
       .should('have.text', 'My Account')
   })
-
 })

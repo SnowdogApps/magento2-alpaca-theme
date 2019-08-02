@@ -30,5 +30,4 @@ describe('Registration test', () => {
     cy.url().should('include', '/customer/account/index/')
     cy.get('div[class="row"]').should('be.visible')
   })
-
 })

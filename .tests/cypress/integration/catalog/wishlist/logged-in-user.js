@@ -1,4 +1,4 @@
-function pickRandomItem(item) {
+function pickRandomItem (item) {
   return item[Math.floor(Math.random() * item.length)]
 }
 
@@ -7,7 +7,6 @@ describe('CATALOG - Add to Wishlist by Logged in user', () => {
     cy.setCookie('permission-cookies', 'true')
     cy.setCookie('permission-profiling', 'true')
     cy.setCookie('mage-cache-sessid', 'true')
-
 
     Cypress.Cookies.defaults({
       whitelist: [
@@ -52,5 +51,4 @@ describe('CATALOG - Add to Wishlist by Logged in user', () => {
     cy.clearCookie('X-Magento-Vary')
     cy.clearCookie('frontend')
   })
-
 })

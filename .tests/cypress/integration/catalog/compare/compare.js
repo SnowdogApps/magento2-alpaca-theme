@@ -1,9 +1,8 @@
-function pickRandomItem(item) {
+function pickRandomItem (item) {
   return item[Math.floor(Math.random() * item.length)]
 }
 
 describe('CATALOG - Compare metric test', () => {
-
   it('hovers over product', () => {
     cy.select_first_menu()
     cy.get('[data-testid="catalog-grid-item"]').first().trigger('mouseover')
@@ -18,5 +17,4 @@ describe('CATALOG - Compare metric test', () => {
       })
     cy.get('div[data-ui-id="message-success"]').should('be.visible')
   })
-
 })

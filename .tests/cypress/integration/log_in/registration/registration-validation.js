@@ -76,5 +76,4 @@ describe('Registration validation', () => {
     cy.get('#password-confirmation-error').should('be.visible')
       .and('have.text', 'Please enter the same value again.')
   })
-
 })

@@ -31,5 +31,4 @@ describe('Login validation test', () => {
     cy.get('#email-error').should('be.visible')
       .and('have.text', 'This is a required field.')
   })
-
 })

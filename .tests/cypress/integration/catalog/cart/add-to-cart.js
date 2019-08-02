@@ -1,5 +1,4 @@
 describe('CATALOG - Add to cart test', () => {
-
   it('Go to catalog view', () => {
     cy.select_first_menu()
   })
@@ -8,5 +7,4 @@ describe('CATALOG - Add to cart test', () => {
     cy.get('[data-testid="add-to-cart-button"]').first().trigger('mouseover').click()
     cy.get('div[class="product-view container"]').should('be.visible')
   })
-
 })

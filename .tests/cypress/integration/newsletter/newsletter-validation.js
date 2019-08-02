@@ -64,5 +64,4 @@ describe('Newsletter validation', () => {
     cy.clearCookie('X-Magento-Vary')
     cy.clearCookie('frontend')
   })
-
 })
