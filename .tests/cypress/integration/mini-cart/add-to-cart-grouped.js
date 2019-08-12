@@ -1,7 +1,5 @@
-describe('Grouped product', function () {
-
+describe('Grouped product', function (){
   before(() => {
-
     // Hide premissions popup
     cy.setCookie('permission-cookies', 'true')
     cy.setCookie('permission-profiling', 'true')
@@ -13,7 +11,7 @@ describe('Grouped product', function () {
         'X-Magento-Vary',
         'permission-profiling',
         'PHPSESSID',
-        'form_key',
+        'form_key'
       ]
     })
   })
@@ -34,7 +32,6 @@ describe('Grouped product', function () {
     cy.get('[data-testid=product-tab__title]').contains('Details').should('be.visible')
     cy.get('[data-testid=product-tab__title]').contains('Reviews').should('be.visible')
     cy.get('.fotorama__img')
-
   })
 
   it('Test grouped product table', () => {
@@ -87,5 +84,4 @@ describe('Grouped product', function () {
     cy.clearCookie('PHPSESSID')
     cy.clearCookie('mage-cache-sessid')
   })
-
 })

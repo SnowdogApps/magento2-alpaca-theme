@@ -1,7 +1,5 @@
-describe('Configurable product', function () {
-
-  before(() => {
-
+describe('Configurable product', function (){
+  before(() =>{
     // Hide premissions popup
     cy.setCookie('permission-cookies', 'true')
     cy.setCookie('permission-profiling', 'true')
@@ -13,7 +11,7 @@ describe('Configurable product', function () {
         'X-Magento-Vary',
         'permission-profiling',
         'PHPSESSID',
-        'form_key',
+        'form_key'
       ]
     })
   })
@@ -34,7 +32,6 @@ describe('Configurable product', function () {
     cy.get('.product-view__extra-actions').should('be.visible')
     cy.get('[data-testid=product-tab__title]').contains('Details').should('be.visible')
     cy.get('[data-testid=product-tab__title]').contains('Reviews').should('be.visible')
-
   })
 
   it('Test reviews tab', () => {

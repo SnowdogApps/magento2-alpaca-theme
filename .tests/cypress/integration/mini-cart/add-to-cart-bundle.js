@@ -1,5 +1,4 @@
-describe('Bundle product', function () {
-
+describe('Bundle product',function(){
   before(() => {
     // Hide premissions popup
     cy.setCookie('permission-cookies', 'true')
@@ -12,12 +11,12 @@ describe('Bundle product', function () {
         'X-Magento-Vary',
         'permission-profiling',
         'PHPSESSID',
-        'form_key',
+        'form_key'
       ]
     })
   })
 
-  it('Visits product', () => {
+  it('Visits product',() => {
     cy.visit('https://alpaca-ce-solr-demo.snowdog.pro/sprite-yoga-companion-kit')
     cy.get('.breadcrumbs__list').should('be.visible')
   })
@@ -36,7 +35,7 @@ describe('Bundle product', function () {
     cy.get('[data-testid=product-tab__title]').contains('Reviews').should('be.visible')
   })
 
-  it('Test product options', () => {
+  it('Test product options',() => {
     cy.get('#product-options-wrapper').should('be.visible')
       .then((elements) => {
         cy.log(elements.length)
@@ -54,7 +53,7 @@ describe('Bundle product', function () {
     cy.wait('@addToCart')
   })
 
-  it('Check if mini-cart is not empty', () => {
+  it('Check if mini-cart is not empty',() => {
     cy.get('[data-testid=minicart-link]').click()
     cy.get('#minicart-content-wrapper')
     cy.contains('You have no items in your shopping cart.').should('not.be.visible')
