@@ -1,4 +1,4 @@
-describe('Grouped product', function (){
+describe('Grouped product', function () {
   before(() => {
     // Hide premissions popup
     cy.setCookie('permission-cookies', 'true')

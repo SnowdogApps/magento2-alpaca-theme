@@ -1,4 +1,4 @@
-describe('Simple product', function (){
+describe('Simple product', function () {
   before(() => {
     // Hide premissions popup
     cy.setCookie('permission-cookies', 'true')
@@ -49,7 +49,6 @@ describe('Simple product', function (){
   })
 
   it('Change product qty in cart', () => {
-
     cy.get('.cart-item-qty').clear().type('4')
     cy.get('.minicart-product__info').contains('Update').focus().click()
     // cy.server({ whitelist: () => false })

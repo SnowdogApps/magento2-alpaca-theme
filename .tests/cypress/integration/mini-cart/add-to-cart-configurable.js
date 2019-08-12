@@ -1,5 +1,5 @@
-describe('Configurable product', function (){
-  before(() =>{
+describe('Configurable product', function () {
+  before(() => {
     // Hide premissions popup
     cy.setCookie('permission-cookies', 'true')
     cy.setCookie('permission-profiling', 'true')

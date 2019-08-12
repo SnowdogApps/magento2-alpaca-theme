@@ -1,4 +1,4 @@
-describe('Bundle product delete', function (){
+describe('Bundle product delete', function () {
   before(() => {
     // Hide premissions popup
     cy.setCookie('permission-cookies', 'true')

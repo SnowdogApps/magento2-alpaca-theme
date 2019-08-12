@@ -1,4 +1,4 @@
-describe('Simple product', function (){
+describe('Simple product', function () {
   before(() => {
     // Hide premissions popup
     cy.setCookie('permission-cookies', 'true')
