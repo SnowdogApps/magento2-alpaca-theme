@@ -34,7 +34,6 @@ describe('Simple product', function () {
         cy.get('.product-view__extra-actions').should('be.visible')
         cy.get('[data-testid=product-tab__title]').contains('Details').should('be.visible')
         cy.get('[data-testid=product-tab__title]').contains('Reviews').should('be.visible')
-
     })
 
     it('Add product to cart', () => {
@@ -61,13 +60,11 @@ describe('Simple product', function () {
             })
     })
 
-
     it('Is cart empty', () => {
         cy.get('[data-testid=minicart-link]').click()
         cy.get('#minicart-content-wrapper')
         cy.contains('You have no items in your shopping cart.').should('be.visible')
     })
-
 
     after(() => {
         // Clear cookie after tests to enable running test several times

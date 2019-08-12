@@ -94,6 +94,4 @@ describe('Delate Configurable product', function () {
         cy.clearCookie('PHPSESSID')
         cy.clearCookie('mage-cache-sessid')
     })
-
-
 })
