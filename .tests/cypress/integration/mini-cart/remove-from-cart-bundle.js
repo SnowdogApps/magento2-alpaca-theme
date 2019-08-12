@@ -1,7 +1,5 @@
-describe('Bundle product delete', function () {
-
+describe('Bundle product delete', function (){
   before(() => {
-
     // Hide premissions popup
     cy.setCookie('permission-cookies', 'true')
     cy.setCookie('permission-profiling', 'true')
@@ -13,7 +11,7 @@ describe('Bundle product delete', function () {
         'X-Magento-Vary',
         'permission-profiling',
         'PHPSESSID',
-        'form_key',
+        'form_key'
       ]
     })
   })
