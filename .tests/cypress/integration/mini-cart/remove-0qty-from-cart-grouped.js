@@ -1,7 +1,5 @@
-describe('Grouped product', function () {
-
+describe('Grouped product', function (){
   before(() => {
-
     // Hide premissions popup
     cy.setCookie('permission-cookies', 'true')
     cy.setCookie('permission-profiling', 'true')
@@ -13,7 +11,7 @@ describe('Grouped product', function () {
         'X-Magento-Vary',
         'permission-profiling',
         'PHPSESSID',
-        'form_key',
+        'form_key'
       ]
     })
   })
@@ -62,7 +60,6 @@ describe('Grouped product', function () {
         multiple: true
       })
       .clear()
-
     cy.get('.input__field.input-text.qty').eq(0).type('1')
     cy.get('.input__field.input-text.qty').eq(1).type('1')
     cy.get('.input__field.input-text.qty').eq(2).type('1')
