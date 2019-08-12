@@ -33,8 +33,8 @@ describe('Virtual product', function () {
         cy.get('#product-addtocart-button').should('be.visible')
         cy.get('.product-view__extra-actions').should('be.visible')
         cy.get('[data-testid=product-tab__title]').contains('Reviews').should('be.visible')
-
     })
+
     it('Add product to cart', () => {
         cy.get('#product-addtocart-button').first().click()
         cy.server()
@@ -54,12 +54,10 @@ describe('Virtual product', function () {
         cy.get('.minicart-product__info').contains('Update').click()
     })
 
-    it('Qty check', () => {    
+    it('Qty check', () => {
         cy.get('[data-testid=minicart-link]').click()
         cy.get('.cart-item-qty').should('have.value','2')
     })
-
-
 
     after(() => {
         // Clear cookie after tests to enable running test several times
