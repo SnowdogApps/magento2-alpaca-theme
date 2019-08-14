@@ -71,8 +71,8 @@ describe('Grouped product', function () {
       whitelist: () => false
     })
     cy.get('#product-addtocart-button').click()
-    cy.route('checkout/cart/add/uenc/*/product/2049/').as('addToCart')
-    cy.wait('@addToCart')
+    cy.route('/customer/section/load/?sections=cart*').as('getTotals')
+    cy.wait('@getTotals')
   })
 
   after(() => {
