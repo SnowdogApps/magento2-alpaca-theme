@@ -1,3 +1,6 @@
+// Disbale clearing localstorage
+Cypress.LocalStorage.clear = function () {}
+
 describe('Grouped product', function () {
   before(() => {
     // Hide premissions popup
@@ -55,24 +58,17 @@ describe('Grouped product', function () {
 
   it('Choose product from table', () => {
     cy.get('#super-product-table')
-    cy.get('.input__field.input-text.qty')
-      .click({
-        multiple: true
-      })
-      .clear()
-
-    cy.get('.input__field.input-text.qty').eq(0).type('1')
-    cy.get('.input__field.input-text.qty').eq(1).type('1')
-    cy.get('.input__field.input-text.qty').eq(2).type('1')
+    cy.get('.input__field.input-text.qty').each(el => cy.get(el).clear().type('1'))
   })
 
   it('Add product to cart', () => {
-    cy.server({
-      whitelist: () => false
-    })
+    cy.server({ whitelist: () => false })
+    cy.route('POST', '/checkout/cart/add/uenc/*/product/*/').as('addToCart')
+    cy.route('/customer/section/load/?sections=cart,messages*').as('getCartAndMessages')
     cy.get('#product-addtocart-button').click()
-    cy.route('/customer/section/load/?sections=cart*').as('getTotals')
-    cy.wait('@getTotals')
+    cy.wait('@addToCart')
+    cy.wait('@getCartAndMessages')
+    cy.get('.messages').contains('You added Grouped Product to your shopping cart.')
   })
 
   after(() => {
