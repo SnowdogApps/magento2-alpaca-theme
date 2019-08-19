@@ -68,13 +68,15 @@ describe('Configurable product', function () {
   })
 
   it('Check cart view', () => {
-    cy.get('[data-testid=view-cart-link]').click().url('should.have','/cart')
+    cy.get('[data-testid=view-cart-link]').click().url('should.have', '/cart')
     cy.get('.cart-list-item').contains('Configurable Product')
     cy.get('.cart-list-item__data')
   })
 
   it('Are totals displayed', () => {
-    cy.server({ whitelist: () => false })
+    cy.server({
+      whitelist: () => false
+    })
     cy.route('/customer/section/load/?sections=cart*').as('getTotals')
     cy.route('/static/*/frontend/Snowdog/alpaca/*/Magento_Checkout/template/cart/totals.html').as('getTotalsTemplate')
     cy.route('/static/*/frontend/Snowdog/alpaca/*/Magento_Tax/template/checkout/cart/totals/grand-total.html').as('getGrandTotalTemplate')

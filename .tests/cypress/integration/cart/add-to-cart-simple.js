@@ -49,7 +49,7 @@ describe('Simple product', function () {
   })
 
   it('Check cart view', () => {
-    cy.get('[data-testid=view-cart-link]').click().url('should.have','/cart')
+    cy.get('[data-testid=view-cart-link]').click().url('should.have', '/cart')
     cy.get('.cart-list-item').contains('Configurable Product')
     cy.get('.cart-list-item__data')
   })

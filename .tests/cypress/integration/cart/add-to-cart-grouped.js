@@ -73,11 +73,10 @@ describe('Grouped product', function () {
     cy.get('#product-addtocart-button').click()
     cy.route('/customer/section/load/?sections=cart*').as('getTotals')
     cy.wait('@getTotals')
-
   })
 
   it('Check cart view', () => {
-    cy.get('[data-testid=view-cart-link]').click().url('should.have','/cart')
+    cy.get('[data-testid=view-cart-link]').click().url('should.have', '/cart')
     cy.get('.cart-list-item').contains('Configurable Product')
     cy.get('.cart-list-item__data')
   })
@@ -93,8 +92,6 @@ describe('Grouped product', function () {
 
     cy.get('#cart-totals').find('.cart-totals__row-value--total')
   })
-
-  after
 
   after(() => {
     // Clear cookie after tests to enable running test several times
