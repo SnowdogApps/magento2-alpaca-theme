@@ -1,6 +1,6 @@
 /// <reference types="Cypress" />
 
-function pickRandomitem(items) {
+function pickRandomitem (items) {
   return items[Math.floor(Math.random() * items.length)]
 }
 
@@ -17,19 +17,19 @@ describe('CATALOG - Add to cart test', () => {
     cy.route('customer/section/load/?sections*').as('waitGallery')
     cy.wait('@waitGallery')
 
-    //choose size
+    // choose size
     cy.get('.swatch-opt').should('be.visible').find('.size')
     cy.get('.size').find('.swatch__option').then(items => {
       pickRandomitem(items)
         .click()
     })
 
-    //choose color
+    // choose color
     cy.get('.color').find('.swatch__option').then(items => {
       pickRandomitem(items)
         .click()
     })
-    //add to cart
+    // add to cart
     cy.get('#product-addtocart-button').click()
 
     cy.route('customer/section/load/?sections=cart*').as('addToCart')
