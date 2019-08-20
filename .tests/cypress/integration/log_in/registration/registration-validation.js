@@ -10,11 +10,11 @@ describe('Registration validation', () => {
   })
 
   it('checks that Create an Account button is visble', () => {
-    cy.get('[data-testid="create-customer-account-link"]').should('be.visible')
+    cy.get('[data-testid=create-customer-account-link]').should('be.visible')
   })
 
   it('clicks on Create an Account button', () => {
-    cy.get('[data-testid="create-customer-account-link"]').click()
+    cy.get('[data-testid=create-customer-account-link]').click()
   })
 
   it('redirects to create account page', () => {

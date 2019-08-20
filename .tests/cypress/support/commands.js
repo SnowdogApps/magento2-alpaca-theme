@@ -83,20 +83,20 @@ Cypress.Commands.add('MassageSuccess', () => {
 })
 
 Cypress.Commands.add('next_page', () => {
-  cy.get('[data-testid="pager-next-link"]').click()
+  cy.get('[data-testid=pager-next-link]').click()
 })
 
 Cypress.Commands.add('previous_page', () => {
-  cy.get('[data-testid="pager-prev-link"]').click()
+  cy.get('[data-testid=pager-prev-link]').click()
 })
 
 Cypress.Commands.add('submit_reg_form', () => {
-  cy.get('[data-testid="create-account-button"]').click()
+  cy.get('[data-testid=create-account-button]').click()
   cy.get('.mage-error').should('be.visible')
 })
 
 Cypress.Commands.add('submit_login_form', () => {
-  cy.get('[data-testid="submit-login-button"]').click()
+  cy.get('[data-testid=submit-login-button]').click()
 })
 
 Cypress.Commands.add('select_first_menu', () => {

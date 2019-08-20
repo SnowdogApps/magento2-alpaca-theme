@@ -10,11 +10,11 @@ describe('Registration test', () => {
   })
 
   it('checks that Create an Account button is visble', () => {
-    cy.get('[data-testid="create-customer-account-link"]').should('be.visible')
+    cy.get('[data-testid=create-customer-account-link]').should('be.visible')
   })
 
   it('redirects to create account page', () => {
-    cy.get('[data-testid="create-customer-account-link"]').click()
+    cy.get('[data-testid=create-customer-account-link]').click()
     cy.url().should('include', '/customer/account/create/')
   })
 
@@ -26,7 +26,7 @@ describe('Registration test', () => {
     cy.get('#email_address').type(faker.internet.email())
     cy.get('#password').type('Password123')
     cy.get('#password-confirmation').type('Password123')
-    cy.get('[data-testid="create-account-button"]').click()
+    cy.get('[data-testid=create-account-button]').click()
     cy.url().should('include', '/customer/account/index/')
     cy.get('div[class="row"]').should('be.visible')
   })

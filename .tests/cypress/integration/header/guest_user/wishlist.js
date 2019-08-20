@@ -1,7 +1,7 @@
 describe('HEADER - Wishlist header link as Guest user', () => {
   it('clicks on wushlist header link', () => {
     cy.visit('/')
-    cy.get('[data-testid="wishlist-link"]').click()
+    cy.get('[data-testid=wishlist-link]').click()
   })
 
   it('redirects guest to customer login page.', () => {

@@ -4,7 +4,7 @@ describe('HEADER - Wishlist header link as Logged In user', () => {
   })
 
   it('clicks on wishlist header link', () => {
-    cy.get('[data-testid="wishlist-link"]').click()
+    cy.get('[data-testid=wishlist-link]').click()
   })
 
   it('redirects user to wishlist page.', () => {

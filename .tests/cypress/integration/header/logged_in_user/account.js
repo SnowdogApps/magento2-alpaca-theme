@@ -4,7 +4,7 @@ describe('HEADER - Wishlist header link as Logged In user', () => {
   })
 
   it('clicks on account header link', () => {
-    cy.get('[data-testid="customer-account-link"]').click()
+    cy.get('[data-testid=customer-account-link]').click()
     cy.url().should('include', '/customer/account/')
   })
 

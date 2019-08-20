@@ -10,7 +10,7 @@ describe('CATALOG - Add to cart test', () => {
   })
 
   it('click on add to cart button and redirect user to product page.', () => {
-    cy.get('[data-testid="add-to-cart-button"]').first().trigger('mouseover').click()
+    cy.get('[data-testid=add-to-cart-button]').first().trigger('mouseover').click()
     cy.get('.product-view').should('be.visible')
 
     cy.server()

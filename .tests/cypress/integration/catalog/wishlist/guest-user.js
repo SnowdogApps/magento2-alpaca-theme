@@ -5,7 +5,7 @@ function pickRandomItem (item) {
 describe('CATALOG - Guest user Add to Wishlist test', () => {
   it('clicks on wishlist button', () => {
     cy.select_first_menu()
-    cy.get('[data-testid="add-to-wishlist-button"]')
+    cy.get('[data-testid=add-to-wishlist-button]')
       .then(item => {
         pickRandomItem(item)
           .click()

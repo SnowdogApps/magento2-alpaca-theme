@@ -8,7 +8,7 @@ describe('Login validation test', () => {
   it('checks login form is visble', () => {
     cy.get('.login__form').should('be.visible')
     cy.get('[data-testid="forgot-password-link"').should('be.visible')
-    cy.get('[data-testid="submit-login-button"]').should('be.visible')
+    cy.get('[data-testid=submit-login-button]').should('be.visible')
   })
 
   it('submits of empty form', () => {
