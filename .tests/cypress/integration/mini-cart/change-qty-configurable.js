@@ -17,7 +17,7 @@ describe('Configurable product', function () {
   })
 
   it('Visits product', () => {
-    cy.visit('https://alpaca-ce-solr-demo.snowdog.pro/configurable-product')
+    cy.visit('/configurable-product')
     cy.get('.breadcrumbs__list').should('be.visible')
   })
 
@@ -64,7 +64,7 @@ describe('Configurable product', function () {
 
   it('Check if mini-cart is not empty', () => {
     cy.get('[data-testid=minicart-link]').click()
-    cy.get('#minicart-content-wrapper')
+    cy.get('#minicart-content-wrapper').should('be.visible')
     cy.contains('You have no items in your shopping cart.').should('not.be.visible')
   })
 

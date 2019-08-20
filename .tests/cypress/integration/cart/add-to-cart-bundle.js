@@ -17,7 +17,7 @@ describe('Bundle product', function () {
   })
 
   it('Visits product', () => {
-    cy.visit('https://alpaca-ce-solr-demo.snowdog.pro/sprite-yoga-companion-kit')
+    cy.visit('/sprite-yoga-companion-kit')
     cy.get('.breadcrumbs__list').should('be.visible')
   })
 
@@ -55,14 +55,14 @@ describe('Bundle product', function () {
 
   it('Check if mini-cart is not empty', () => {
     cy.get('[data-testid=minicart-link]').click()
-    cy.get('#minicart-content-wrapper')
+    cy.get('#minicart-content-wrapper').should('be.visible')
     cy.contains('You have no items in your shopping cart.').should('not.be.visible')
   })
 
   it('Check cart view', () => {
     cy.get('[data-testid=view-cart-link]').click().url('should.have', '/cart')
     cy.get('.cart-list-item').contains('Sprite Yoga Companion Kit')
-    cy.get('.cart-list-item__data')
+    cy.get('.cart-list-item__data').should('be.visible')
   })
 
   it('Are totals displayed', () => {

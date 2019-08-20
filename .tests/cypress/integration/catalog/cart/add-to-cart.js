@@ -38,7 +38,7 @@ describe('CATALOG - Add to cart test', () => {
 
   it('Check if mini-cart is not empty', () => {
     cy.get('[data-testid=minicart-link]').click()
-    cy.get('#minicart-content-wrapper')
+    cy.get('#minicart-content-wrapper').should('be.visible')
     cy.contains('You have no items in your shopping cart.').should('not.be.visible')
   })
 })

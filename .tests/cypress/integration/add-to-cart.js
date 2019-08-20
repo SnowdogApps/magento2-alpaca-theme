@@ -18,7 +18,7 @@ describe('Add to cart', function () {
   })
 
   it('Visits product', () => {
-    cy.visit('https://alpaca-ce-solr-demo.snowdog.pro/women')
+    cy.visit('/women')
   })
 
   it('addproducttocart', () => {

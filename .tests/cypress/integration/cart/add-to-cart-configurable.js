@@ -1,3 +1,9 @@
+/// <reference types="Cypress" />
+
+function pickRandomitem(items) {
+  return items[Math.floor(Math.random() * items.length)]
+}
+
 describe('Configurable product', function () {
   before(() => {
     // Hide premissions popup
@@ -17,7 +23,7 @@ describe('Configurable product', function () {
   })
 
   it('Visits product', () => {
-    cy.visit('https://alpaca-ce-solr-demo.snowdog.pro/configurable-product')
+    cy.visit('/configurable-product')
     cy.get('.breadcrumbs__list').should('be.visible')
   })
 
@@ -43,16 +49,16 @@ describe('Configurable product', function () {
   it('Checks configurable options', () => {
     cy.get('.swatch-opt').should('be.visible').find('.size')
     cy.get('.size').find('.swatch__option')
-      .then((elements) => {
-        cy.log(elements)
-        elements[Math.floor(Math.random() * elements.length)]
-          .click(elements)
+      .then((items) => {
+        cy.log(items)
+        pickRandomitem(items)
+          .click(items)
       })
     cy.get('.color').find('.swatch__option')
-      .then((elements) => {
-        cy.log(elements)
-        elements[Math.floor(Math.random() * elements.length)]
-          .click(elements)
+      .then((items) => {
+        cy.log(items)
+        pickRandomitem(items)
+          .click(items)
       })
     cy.get('#product-addtocart-button').first()
       .click()
@@ -63,14 +69,14 @@ describe('Configurable product', function () {
 
   it('Check if mini-cart is not empty', () => {
     cy.get('[data-testid=minicart-link]').click()
-    cy.get('#minicart-content-wrapper')
+    cy.get('#minicart-content-wrapper').should('be.visible')
     cy.contains('You have no items in your shopping cart.').should('not.be.visible')
   })
 
   it('Check cart view', () => {
     cy.get('[data-testid=view-cart-link]').click().url('should.have', '/cart')
     cy.get('.cart-list-item').contains('Configurable Product')
-    cy.get('.cart-list-item__data')
+    cy.get('.cart-list-item__data').should('be.visible')
   })
 
   it('Are totals displayed', () => {

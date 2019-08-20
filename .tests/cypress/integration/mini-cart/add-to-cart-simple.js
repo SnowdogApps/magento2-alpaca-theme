@@ -17,7 +17,7 @@ describe('Simple product', function () {
   })
 
   it('Visits product', () => {
-    cy.visit('https://alpaca-ce-solr-demo.snowdog.pro/joust-duffle-bag')
+    cy.visit('/joust-duffle-bag')
     cy.get('.breadcrumbs__list').should('be.visible')
   })
 
@@ -35,12 +35,18 @@ describe('Simple product', function () {
   })
 
   it('Add product to cart', () => {
+    cy.get('[data-testid=product-gallery-placeholder]').should('be.visible')
+    cy.server({
+      whitelist: () => false
+    })
+    cy.route('/customer/section/load/?sections=cart*').as('getTotals')
     cy.get('#product-addtocart-button').first().click()
+    cy.wait('@getTotals')
   })
 
   it('Check if mini-cart is not empty', () => {
     cy.get('[data-testid=minicart-link]').click()
-    cy.get('#minicart-content-wrapper')
+    cy.get('#minicart-content-wrapper').should('be.visible')
     cy.contains('You have no items in your shopping cart.').should('not.be.visible')
   })
 

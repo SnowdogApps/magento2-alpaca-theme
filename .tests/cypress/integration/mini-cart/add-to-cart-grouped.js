@@ -20,7 +20,7 @@ describe('Grouped product', function () {
   })
 
   it('Visits product', () => {
-    cy.visit('https://alpaca-ce-solr-demo.snowdog.pro/grouped-product-test')
+    cy.visit('/grouped-product-test')
     cy.get('.breadcrumbs__list').should('be.visible')
   })
 
