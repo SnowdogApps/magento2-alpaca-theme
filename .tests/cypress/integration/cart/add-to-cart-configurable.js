@@ -1,6 +1,6 @@
 /// <reference types="Cypress" />
 
-function pickRandomitem(items) {
+function pickRandomitem (items) {
   return items[Math.floor(Math.random() * items.length)]
 }
 
