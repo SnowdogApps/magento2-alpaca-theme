@@ -1,7 +1,7 @@
 describe('CATALOG - Sort By Price ascending test', () => {
   it('selects sorting by price ascending', () => {
     cy.select_first_menu()
-    cy.get('div[class="select__field"]').first().click()
+    cy.get('.choices').first().click()
     cy.get('#choices-sort-by-item-choice-3').click()
     cy.url().should('include', '?order=price')
   })

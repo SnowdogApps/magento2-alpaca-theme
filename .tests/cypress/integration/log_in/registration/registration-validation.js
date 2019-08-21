@@ -22,7 +22,7 @@ describe('Registration validation', () => {
   })
 
   it('checks that registration form is visible', () => {
-    cy.get('form[id="form-validate"]').should('be.visible')
+    cy.get('#form-validate').should('be.visible')
   })
 
   it('checks error message in submission of empty form', () => {
@@ -40,7 +40,7 @@ describe('Registration validation', () => {
   })
 
   it('select ONLY Sign Up for Newsletter checkbox and submits form', () => {
-    cy.get('div[class="checkbox registration__newsletter-checkbox"]').click()
+    cy.get('.registration__newsletter-checkbox').click()
     cy.submit_reg_form()
   })
 

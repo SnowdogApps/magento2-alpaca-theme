@@ -5,16 +5,16 @@ describe('Login validation test', () => {
     cy.account()
   })
 
-  it('checks login form is visble', () => {
+  it('checks login form is visible', () => {
     cy.get('.login__form').should('be.visible')
-    cy.get('[data-testid="forgot-password-link"').should('be.visible')
+    cy.get('[data-testid=forgot-password-link').should('be.visible')
     cy.get('[data-testid=submit-login-button]').should('be.visible')
   })
 
   it('submits of empty form', () => {
     cy.submit_login_form()
-    cy.get('.email-error').should('be.visible')
-    cy.get('.pass-error').should('be.visible')
+    cy.get('#email-error').should('be.visible')
+    cy.get('#pass-error').should('be.visible')
   })
 
   it('fills ONLY email address and submits form', () => {

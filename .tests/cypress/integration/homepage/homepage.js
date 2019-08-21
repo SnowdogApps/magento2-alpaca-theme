@@ -1,7 +1,7 @@
 describe('Homepage test', () => {
   it('checks homepage is visible.', () => {
     cy.visit('/')
-    cy.get('div[class="home"]').should('be.visible')
+    cy.get('.home').should('be.visible')
   })
 
   it('checks header is visble in homepage.', () => {
@@ -13,7 +13,7 @@ describe('Homepage test', () => {
   })
 
   it('checks banner is visble in homepage.', () => {
-    cy.get('a[class="banner "]').should('be.visible')
+    cy.get('.banner ').should('be.visible')
   })
   it('checks containers is visble in homepage.', () => {
     cy.get('.container').should('be.visible')

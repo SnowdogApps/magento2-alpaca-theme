@@ -1,10 +1,12 @@
+/// <reference types="Cypress" />
+
 function pickRandomItem (item) {
   return item[Math.floor(Math.random() * item.length)]
 }
 
 describe('CATALOG - Compare metric test', () => {
   it('hovers over product', () => {
-    cy.select_first_menu()
+    cy.visit('/men/tops-men')
     cy.get('[data-testid=catalog-grid-item]').first().trigger('mouseover')
     cy.get('[data-testid=add-to-compare-button]').should('be.visible')
   })
@@ -15,6 +17,11 @@ describe('CATALOG - Compare metric test', () => {
         pickRandomItem(item)
           .click()
       })
-    cy.get('div[data-ui-id="message-success"]').should('be.visible')
+    cy.server()
+    cy.route('/customer/section/load/?sections*').as('getMessages')
+    cy.route('/customer/section/load/?sections=cart*').as('getCart')
+    cy.wait('@getMessages')
+    cy.wait('@getCart')
+    cy.get('[data-ui-id=message-success]').should('be.visible')
   })
 })

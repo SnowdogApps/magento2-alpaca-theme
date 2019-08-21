@@ -12,8 +12,8 @@ describe('Valid credentials login test', () => {
   })
 
   it('checks user dashboard is visible', () => {
-    cy.get('div[class="row"]').should('be.visible')
-    cy.get('div[class="dashboard-nav"]').should('be.visible')
-    cy.get('div[class="dashboard-items"]').should('be.visible')
+    cy.get('.row').should('be.visible')
+    cy.get('.dashboard-nav').should('be.visible')
+    cy.get('.dashboard-items').should('be.visible')
   })
 })

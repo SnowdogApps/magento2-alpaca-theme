@@ -1,3 +1,5 @@
+/// <reference types="Cypress" />
+
 describe('HEADER - Wishlist header link as Guest user', () => {
   it('clicks on wushlist header link', () => {
     cy.visit('/')
