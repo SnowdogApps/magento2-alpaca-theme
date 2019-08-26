@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 - Add-to-cart for solr templates with updated form_key
 - fix multiple rating
 - fixed swatches images in catalog
+- Details dropdown id in minicart
 
 ### Added
 - Focus & keyboard support for mega-menu
