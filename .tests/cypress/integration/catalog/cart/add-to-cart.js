@@ -1,7 +1,7 @@
 /// <reference types="Cypress" />
 
-function pickRandomitem (items) {
-  return items[Math.floor(Math.random() * items.length)]
+function pickRandomitem (item) {
+  return item[Math.floor(Math.random() * item.length)]
 }
 
 describe('CATALOG - Add to cart test', () => {
@@ -19,14 +19,14 @@ describe('CATALOG - Add to cart test', () => {
 
     // choose size
     cy.get('.swatch-opt').should('be.visible').find('.size')
-    cy.get('.size').find('.swatch__option').then(items => {
-      pickRandomitem(items)
+    cy.get('.size').find('.swatch__option').then(item => {
+      pickRandomitem(item)
         .click()
     })
 
     // choose color
-    cy.get('.color').find('.swatch__option').then(items => {
-      pickRandomitem(items)
+    cy.get('.color').find('.swatch__option').then(item => {
+      pickRandomitem(item)
         .click()
     })
     // add to cart
@@ -39,7 +39,7 @@ describe('CATALOG - Add to cart test', () => {
     cy.get('[data-testid=minicart-link]').click()
     cy.get('#minicart-content-wrapper')
       .should('be.visible')
-      .contains('You have no items in your shopping cart.')
+      .contains('You have no item in your shopping cart.')
       .should('not.be.visible')
   })
 })

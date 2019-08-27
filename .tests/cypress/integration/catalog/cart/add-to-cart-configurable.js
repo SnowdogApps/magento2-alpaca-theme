@@ -1,7 +1,7 @@
 /// <reference types="Cypress" />
 
-function pickRandomitem (items) {
-  return items[Math.floor(Math.random() * items.length)]
+function pickRandomitem (item) {
+  return item[Math.floor(Math.random() * item.length)]
 }
 
 describe('CATALOG - Add to cart configurable test', () => {
@@ -14,16 +14,16 @@ describe('CATALOG - Add to cart configurable test', () => {
       .then(() => {
         cy.get('.catalog-grid-item__options').should('be.visible').find('.size')
         cy.get('.swatch-opt-1033').children('.swatch.size').find('.swatch__option')
-          .then((items) => {
-            cy.log(items)
-            pickRandomitem(items)
-              .click(items)
+          .then((item) => {
+            cy.log(item)
+            pickRandomitem(item)
+              .click(item)
           })
         cy.get('.swatch-opt-1033').children('.swatch.color').find('.swatch__option')
-          .then((items) => {
-            cy.log(items)
-            pickRandomitem(items)
-              .click(items)
+          .then((item) => {
+            cy.log(item)
+            pickRandomitem(item)
+              .click(item)
           })
         cy.get('.tocart').first().click()
       })
@@ -35,6 +35,6 @@ describe('CATALOG - Add to cart configurable test', () => {
   it('Checks if mini-cart is not empty', () => {
     cy.get('[data-testid=minicart-link]').click()
     cy.get('#minicart-content-wrapper').should('be.visible')
-    cy.contains('You have no items in your shopping cart.').should('not.be.visible')
+    cy.contains('You have no item in your shopping cart.').should('not.be.visible')
   })
 })

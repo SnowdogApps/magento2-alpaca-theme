@@ -43,16 +43,16 @@ describe('Grouped product', function () {
         cy.log(elements.length)
       })
     cy.get('.product-view__grouped-product-name')
-      .then((productsname) => {
-        cy.log(productsname.length)
+      .then((productName) => {
+        cy.log(productName.length)
       })
     cy.get('[data-price-type=finalPrice]')
-      .then((productsname) => {
-        cy.log(productsname.length)
+      .then((finalPrice) => {
+        cy.log(finalPrice.length)
       })
     cy.get('.qty')
-      .then((productsname) => {
-        cy.log(productsname.length)
+      .then((quantity) => {
+        cy.log(quantity.length)
       })
   })
 
