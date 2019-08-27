@@ -1,3 +1,7 @@
+function pickRandomitem (item) {
+  return item[Math.floor(Math.random() * item.length)]
+}
+
 describe('Configurable product', function () {
   before(() => {
     // Hide premissions popup
@@ -39,14 +43,12 @@ describe('Configurable product', function () {
     cy.get('.size').find('.swatch__option')
       .then((elements) => {
         cy.log(elements)
-        elements[Math.floor(Math.random() * elements.length)]
-          .click(elements)
+        pickRandomitem(elements).click()
       })
     cy.get('.color').find('.swatch__option')
       .then((elements) => {
         cy.log(elements)
-        elements[Math.floor(Math.random() * elements.length)]
-          .click(elements)
+        pickRandomitem(elements).click()
       })
     cy.get('#product-addtocart-button').first()
       .click()

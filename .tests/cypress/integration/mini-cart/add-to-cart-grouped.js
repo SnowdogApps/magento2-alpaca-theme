@@ -34,7 +34,7 @@ describe('Grouped product', function () {
     cy.get('.product-view__extra-actions').should('be.visible')
     cy.get('[data-testid=product-tab__title]').contains('Details').should('be.visible')
     cy.get('[data-testid=product-tab__title]').contains('Reviews').should('be.visible')
-    cy.get('.fotorama__img')
+    cy.get('.fotorama__img').should('be.visible')
   })
 
   it('Test grouped product table', () => {

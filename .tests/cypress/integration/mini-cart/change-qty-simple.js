@@ -51,13 +51,6 @@ describe('Simple product', function () {
   it('Change product qty in cart', () => {
     cy.get('.cart-item-qty').clear().type('4')
     cy.get('.minicart-product__info').contains('Update').focus().click()
-    // cy.server({ whitelist: () => false })
-    // cy.route('/customer/section/load/?sections=cart*').as('getTotals')
-    // cy.route('/static/*/frontend/Snowdog/alpaca/*/Magento_Checkout/template/minicart/subtotal.html').as('getSubtotal')
-    // cy.route('/static/*/frontend/Snowdog/alpaca/*/Magento_Tax/template/checkout/minicart/subtotal/totals.html').as('getTotals')
-    // cy.wait('@getSubtotal')
-    // cy.wait('@getTotals')
-    // cy.wait('@updateItemQty')
   })
 
   after(() => {

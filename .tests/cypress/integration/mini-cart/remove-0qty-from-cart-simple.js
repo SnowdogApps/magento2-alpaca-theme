@@ -45,10 +45,6 @@ describe('Simple product', function () {
   })
 
   it('Change product qty in cart', () => {
-    // cy.server()
-    // cy.route('/static/*/frontend/Snowdog/alpaca/*/Magento_Tax/template/checkout/minicart/subtotal/totals.html').as('getTotals')
-    // cy.wait('@getTotals')
-    // cy.get('[data-testid=minicart-link]').click()
     // We should not be able to remove product from cart by typing 0
     cy.get('.cart-item-qty').clear().type('0')
     cy.get('.minicart-product__info').contains('Update').should('not.be.visible')

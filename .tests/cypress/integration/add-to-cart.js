@@ -1,3 +1,7 @@
+function pickRandomitem (item) {
+  return item[Math.floor(Math.random() * item.length)]
+}
+
 describe('Add to cart', function () {
   before(() => {
     // Hide premissions popup
@@ -21,12 +25,11 @@ describe('Add to cart', function () {
     cy.visit('/women')
   })
 
-  it('addproducttocart', () => {
+  it('adds product to cart', () => {
     cy.get('[data-testid=catalog-grid-item__link]')
       .then((elements) => {
         cy.log(elements)
-        elements[Math.floor(Math.random() * elements.length)]
-          .click(elements)
+        pickRandomitem(elements).click()
       })
 
     cy.get('[data-testid=product-gallery-placeholder]').should('be.visible')
@@ -35,14 +38,12 @@ describe('Add to cart', function () {
     cy.get('.size').find('.swatch__option')
       .then((elements) => {
         cy.log(elements)
-        elements[Math.floor(Math.random() * elements.length)]
-          .click(elements)
+        pickRandomitem(elements).click()
       })
     cy.get('.color').find('.swatch__option')
       .then((elements) => {
         cy.log(elements)
-        elements[Math.floor(Math.random() * elements.length)]
-          .click(elements)
+        pickRandomitem(elements).click()
       })
     cy.get('#product-addtocart-button').first()
       .click()

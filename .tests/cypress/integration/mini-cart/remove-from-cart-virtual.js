@@ -37,7 +37,6 @@ describe('Virtual product', function () {
     cy.get('#product-addtocart-button').first().click()
     cy.server()
     cy.route('/customer/section/load/?sections=cart*').as('addToCart')
-    cy.wait(4000)
     cy.wait('@addToCart')
   })
 

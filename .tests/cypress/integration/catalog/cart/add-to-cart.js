@@ -31,14 +31,15 @@ describe('CATALOG - Add to cart test', () => {
     })
     // add to cart
     cy.get('#product-addtocart-button').click()
-
     cy.route('customer/section/load/?sections=cart*').as('addToCart')
     cy.wait('@addToCart')
   })
 
   it('Check if mini-cart is not empty', () => {
     cy.get('[data-testid=minicart-link]').click()
-    cy.get('#minicart-content-wrapper').should('be.visible')
-    cy.contains('You have no items in your shopping cart.').should('not.be.visible')
+    cy.get('#minicart-content-wrapper')
+      .should('be.visible')
+      .contains('You have no items in your shopping cart.')
+      .should('not.be.visible')
   })
 })
