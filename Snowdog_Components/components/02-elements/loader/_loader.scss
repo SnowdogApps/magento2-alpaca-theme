@@ -1,0 +1,75 @@
+$loader__size                : 100%;
+$loader__icon-size           : 40px;
+$loader__circle-border       : 2px solid $gray-lightest;
+$loader__circle-border-top   : 2px solid $color-primary;
+$loader__circle-border-radius: 50%;
+$loader__circle-animation    : rotate 1s infinite linear;
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.loader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    width: $loader__size;
+    height: $loader__size;
+    background-color: inherit;
+    transform: perspective(1px) translateZ(0);
+
+    &--visible {
+        display: block;
+    }
+
+    &__bird {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: $loader__icon-size;
+        height: $loader__icon-size;
+        margin: auto;
+        .base {
+            fill: $gray-light;
+        }
+        rect {
+            fill: $color-primary;
+            transform: translateY(100%);
+            animation: loading 3s infinite;
+        }
+    }
+    &__circle {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: $loader__icon-size;
+        height: $loader__icon-size;
+        margin: auto;
+        border: $loader__circle-border;
+        border-top: $loader__circle-border-top;
+        border-radius: $loader__circle-border-radius;
+        animation: $loader__circle-animation;
+    }
+}
+
+@keyframes loading {
+    0% {
+        transform: translateY(100%);
+    }
+    50% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(100%);
+    }
+}
