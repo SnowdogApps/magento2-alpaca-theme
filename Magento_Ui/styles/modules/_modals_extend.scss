@@ -1,0 +1,145 @@
+$modal-title__color                   : $font-color-base  !default;
+$modal-title__border                  : 1px solid #d3d3d3 !default;
+$modal-popup-title__font-size         : 26px !default;
+$modal-popup-title-mobile__font-size  : $font-size-base !default;
+$modal-popup-breakpoint-screen__m     : $screen-m !default;
+$modal-slide__first__indent-left      : 44px !default;
+$modal-slide-mobile__background-color : $white !default;
+$modal-overlay__background-color      : rgba($gray-lightest, 0.8) !default;
+$modal-action-close__color            : $color-primary !default;
+$modal-action-close__font-size        : 32px !default;
+$modal-action-close__hover__color     : darken($color-primary, 10%) !default;
+$modal-slide-action-close__padding    : $modal-slide-header__padding-vertical - 16px $modal-popup__padding - 16px !default;
+$minicart-icons-color                 : $black !default;
+$minicart-icons-color-hover           : $color-primary !default;
+$modal-margin                         : 20px;
+
+.modal-custom,
+.modal-popup,
+.modal-slide {
+    .action-close {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        border: none;
+        background: transparent;
+
+        &:hover {
+            &:before {
+                color: $modal-action-close__hover__color;
+            }
+        }
+    }
+}
+
+.modal-popup {
+    &.modal-slide {
+        .modal-inner-wrap[class] {
+            background-color: $modal-slide-mobile__background-color;
+        }
+        &._inner-scroll {
+            &._show {
+                // sass-lint:disable no-vendor-prefixes
+                -webkit-overflow-scrolling: touch;
+                // sass-lint:enable no-vendor-prefixes
+                overflow-y: auto;
+            }
+            .modal-inner-wrap {
+                height: auto;
+                min-height: 100%;
+            }
+        }
+    }
+    @include mq($modal-popup-breakpoint-screen__m) {
+        &.modal-slide {
+            &._inner-scroll {
+                .modal-inner-wrap {
+                    min-height: 0;
+                }
+            }
+            .modal-footer {
+                border-top: $modal-title__border;
+                text-align: right;
+            }
+        }
+        .action-close {
+            padding: $modal-popup__padding;
+        }
+    }
+
+    .heading--page {
+        margin-top: 0;
+    }
+
+    .action {
+        &.primary,
+        &.secondary {
+            width: auto;
+        }
+    }
+}
+.modal-slide {
+    .action-close {
+        padding: $modal-slide-action-close__padding;
+    }
+    .page-main-actions {
+        margin-bottom: $modal-slide-header__padding-vertical - ($modal-popup__padding / 2);
+        margin-top: $modal-slide-header__padding-vertical;
+    }
+}
+.modals-overlay {
+    background-color: $modal-overlay__background-color;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+}
+
+body {
+    &._has-modal-custom {
+        height: 100vh;
+        overflow: hidden;
+        width: 100vw;
+        .modal-custom-overlay {
+            background-color: $modal-overlay__background-color;
+        }
+    }
+
+    @include mq($screen-m) {
+        &._has-modal-custom {
+            height: 100%;
+            overflow: hidden;
+            width: 100%;
+
+            .modal-custom-overlay {
+                height: 100vh;
+                left: 0;
+                position: fixed;
+                top: 0;
+                width: 100vw;
+                z-index: $modal-popup__z-index - 1;
+            }
+        }
+    }
+}
+
+@include mq($max-screen: $screen-m) {
+    .custom-slide {
+        @include lib-modal();
+        @include lib-modal-slide();
+        &._show {
+            // sass-lint:disable no-vendor-prefixes
+            -webkit-overflow-scrolling: touch;
+            // sass-lint:enable no-vendor-prefixes
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        .modal-inner-wrap {
+            background-color: $modal-slide-mobile__background-color;
+            box-sizing: border-box;
+            height: auto;
+            min-height: 100%;
+        }
+    }
+}
