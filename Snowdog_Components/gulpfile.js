@@ -119,7 +119,7 @@ gulp.task('watch', () => {
     runSequence('js-lint');
   });
 
-  gulp.watch(fractal.components.get('path') + '/01-globals/icons/files/*.svg', () => {
+  gulp.watch(fractal.components.get('path') + '/Atoms/icons/files/*.svg', () => {
     runSequence('svg-sprite');
   });
 });
@@ -221,7 +221,7 @@ gulp.task('js-lint', () => {
 });
 
 gulp.task('svg-sprite', () => {
-  return gulp.src(fractal.components.get('path') + '/01-globals/icons/files/*.svg')
+  return gulp.src(fractal.components.get('path') + '/Atoms/icons/files/*.svg')
     .pipe(svgSprite({
       mode: {
         symbol: {
