@@ -1,6 +1,4 @@
-$button__size     : 48px;
-$button__icon-size: 24px;
-$button__padding  : 0 $spacer--large;
+@import 'button-variables';
 
 .button {
     position: relative;
@@ -8,74 +6,73 @@ $button__padding  : 0 $spacer--large;
     align-items: center;
     justify-content: center;
 
-    min-height: $button__size;
-    min-width: $button__size;
-    padding: 0 $spacer--large;
+    min-height: $button__min-size;
+    min-width: $button__min-size;
+    padding: $button__padding;
 
-    background-color: $color-primary;
-    border: none;
-    border-radius: 0;
-    outline: none;
+    background-color: $button__background;
+    border: $button__border;
+    border-radius: $button__border-radius;
+    outline: $button__outline;
 
-    font-family: $font-family-base;
-    font-size: $font-size-base;
-    font-weight: $font-weight-bold;
-    line-height: 1;
-    color: $white;
+    font-family: $button__font-family;
+    font-size: $button__font-size;
+    font-weight: $button__font-weight;
+    line-height: $button__line-height;
+    color: $button__text-color;
 
     cursor: pointer;
-    text-transform: uppercase;
-    text-decoration: none;
-    transform: perspective(1px) translateZ(0);
-    transition: all 0.5s ease-in-out;
+    text-transform: $button__text-transform;
+    text-decoration: $button__text-decoration;
+    transform: $button__transform;
+    transition: $button__transition;
 
     &:before {
-        content: '';
-        display: block;
+        content: $button__before-content;
+        display: $button__before-display;
         position: absolute;
-        width: 100%;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        background-color: $color-primary;
-        transform: scaleX(0);
-        transform-origin: 0 50%;
-        transition: all 0.5s ease-in-out;
+        width: $button__before-width;
+        left: $button__before-position-left;
+        top: $button__before-position-top;
+        bottom: $button__before-position-bottom;
+        background-color: $button__before-background;
+        transform: $button__before-transform;
+        transform-origin: $button__before-transform-origin;
+        transition: $button__transition;
     }
 
     &:after {
-        content: url("../images/icons/arrow-right.svg");
-        display: block;
+        content: $button__after-content;
+        display: $button__after-display;
         position: absolute;
-        left: 20%;
-        top: 50%;
+        left: $button__after-position-left;
+        top: $button__after-position-top;
         width: $button__icon-size;
         height: $button__icon-size;
         padding: $icon__padding;
-        z-index: 1;
-        opacity: 0;
-        transform: translateY(-50%);
-        transition: opacity 0.5s ease-in-out, left 0.5s ease-in-out;
+        z-index: $button__after-z-index;
+        opacity: $button__after-opacity;
+        transform: $button__after-transform;
+        transform-origin: $button__after-transform-origin;
+        transition: $button__transition;
     }
 
 
     &:hover {
         &:before {
-            transform: scaleX(1);
+            transform: $button__before-transform-hover;
         }
         &:after {
-            left: calc(50% - 12px);
-            opacity: 1;
+            left: $button__after-position-left-hover;
+            opacity: $button__after-opacity-hover;
         }
     }
 
     &:disabled {
-        background-color: $gray-dark;
+        background-color: $button__background-disabled;
         cursor: not-allowed;
 
         &:hover {
-            padding: 0;
-            white-space: initial;
             &:before,
             &:after {
                 display: none;
@@ -84,19 +81,18 @@ $button__padding  : 0 $spacer--large;
     }
 
     &--secondary {
-        color: $color-primary;
-        background-color: $white;
-        border: $border-base;
+        color: $button__color--secondary;
+        background-color: $button__background--secondary;
+        border: $button__border--secondary;
 
         &:hover {
-            color: $white;
-            padding: $button__padding;
-            white-space: initial;
+            color: $button__color-hover--secondary;
+            background-color: $button__background-hover--secondary;
             &:before {
-                z-index: -1;
+                z-index: $button__before-z-index-hover--secondary;
             }
             &:after {
-                display: none;
+                display: $button__after-display-hover--secondary;
             }
 
         }
@@ -104,8 +100,8 @@ $button__padding  : 0 $spacer--large;
 
     &--secondary-light {
         @extend .button--secondary;
-        font-weight: $font-weight-normal;
-        text-transform: none;
+        font-weight: $button__font-weight--secondary-light;
+        text-transform: $button__text-transform--secondary-light;
     }
 
     &--fluid {
@@ -113,44 +109,55 @@ $button__padding  : 0 $spacer--large;
     }
 
     &--link {
-        color: $color-primary;
-        background: transparent;
-        text-transform: none;
-        text-decoration: underline;
+        color: $button__color--link;
+        background: $button__background--link;
+        text-transform: $button__text-transform--link;
+        text-decoration: $button__text-decoration--link;
 
         &:hover {
-            color: $blue;
-            background: transparent;
-            padding: $button__padding;
-            &:after,
+            color: $button__color-hover--link;
+            background: $button__background-hover--link;
             &:before {
-                display: none;
+                display: $button__before-display-hover--link;
+            }
+            &:after {
+                display: $button__after-display-hover--link;
             }
         }
     }
 
     &--icon {
-        min-width: 48px;
-        min-height: 48px;
-        padding: 0 $spacer;
+        min-width: $button__min-size;
+        min-height: $button__min-size;
+        padding: $button__padding;
 
         .icon,
         .button__icon {
             width: $button__icon-size;
             height: $button__icon-size;
-            fill: $white;
-            transition: $transition-base;
+            fill: $button__icon-fill;
+            transition: $button__icon-transition;
             pointer-events: none;
         }
 
         .button__text {
-            padding: 0 $spacer--medium;
+            padding: $button__padding;
         }
     }
 
     &--add-to-icon {
+        overflow: hidden;
         &:after {
-            content: url("../images/icons/plus.svg");
+            content: $button__after-content--add-to-icon;
+            top: $button__after-position-top--add-to-icon;
+            left: $button__after-position-left--add-to-icon;
+            transform: $button__after-transform--add-to-icon;
+        }
+
+        &:hover {
+            &:after {
+                transform: $button__after-transform-hover--add-to-icon;
+            }
         }
     }
 }
