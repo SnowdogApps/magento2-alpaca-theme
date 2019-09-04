@@ -1,0 +1,81 @@
+$breadcrumbs__margin                 : $spacer !default;
+$breadcrumbs__padding                : $spacer--medium $spacer !default;
+$breadcrumbs__color                  : $gray-dark !default;
+$breadcrumbs__font-family            : $font-family-base !default;
+$breadcrumbs__color--active          : $blue !default;
+$breadcrumbs__font-family--active    : $font-family-base !default;
+$breadcrumbs__font-size              : $font-size-small !default;
+$breadcrumbs__text-decoration--active: none !default;
+$breadcrumbs__min-height             : 50px !default;
+
+.breadcrumbs {
+    display: none;
+
+    @include mq($screen-m) {
+        display: block;
+        min-height: $breadcrumbs__min-height;
+    }
+
+    &__list {
+        @include mq($screen-m) {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0;
+            padding: 0;
+        }
+    }
+
+    &__item {
+        display: flex;
+        align-items: stretch;
+        color: $breadcrumbs__color;
+        font-size: $breadcrumbs__font-size;
+
+        &:after {
+            content: '/';
+            display: flex;
+            align-items: center;
+            margin: 0 $breadcrumbs__margin;
+            color: $breadcrumbs__color;
+        }
+
+        &:first-of-type {
+            .breadcrumbs__link {
+                padding-left: 0;
+            }
+        }
+
+        &:last-child {
+            &:not(:first-child) {
+                align-items: center;
+                padding: $breadcrumbs__padding;
+                font-family: $breadcrumbs__font-family--active;
+                color: $breadcrumbs__color--active;
+                text-decoration: $breadcrumbs__text-decoration--active;
+            }
+
+            &:after {
+                display: none;
+            }
+        }
+    }
+
+    &__link {
+        display: flex;
+        align-items: center;
+        padding: $breadcrumbs__padding;
+        font-family: $breadcrumbs__font-family;
+        text-decoration: none;
+        background-clip: content-box;
+
+        &:focus {
+            @include focus-inline();
+        }
+    }
+
+    & + .page-main {
+        .heading--page {
+            margin-top: 0;
+        }
+    }
+}
