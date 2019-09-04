@@ -1,18 +1,4 @@
-$marketing-bar__padding                : $spacer !default;
-$marketing-bar__background-color       : $color-primary !default;
-
-$marketing-bar__text-padding           : 0 32px 0 0 !default;
-$marketing-bar__text-padding--medium   : 0 !default;
-$marketing-bar__text-font-size         : $font-size-base !default;
-$marketing-bar__text-font-color        : $gray-darker !default;
-$marketing-bar__text-font-weight       : $font-weight-bold !default;
-
-$marketing-bar__button-size            : 32px !default;
-$marketing-bar__button-icon-color      : $gray-darker !default;
-$marketing-bar__button-icon-color-hover: $white !default;
-$marketing-bar__button-icon-size       : 18px !default;
-$marketing-bar__button-icon-padding    : 2px !default;
-$marketing-bar__button-transition      : $transition-base !default;
+@import 'marketing-bar-variables';
 
 .marketing-bar {
     position: relative;
@@ -21,9 +7,12 @@ $marketing-bar__button-transition      : $transition-base !default;
     justify-content: center;
     padding: $marketing-bar__padding;
     background-color: $marketing-bar__background-color;
+    overflow: hidden;
+
     @include mq($screen-m) {
         text-align: center;
     }
+
     &--closed {
         display: none;
     }
@@ -31,33 +20,42 @@ $marketing-bar__button-transition      : $transition-base !default;
     &__container {
         position: relative;
         width: 100%;
+        margin: 0;
     }
 
     &__text {
         padding: $marketing-bar__text-padding;
         font-size: $marketing-bar__text-font-size;
         font-weight: $marketing-bar__text-font-weight;
+        line-height: $marketing-bar__text-line-height;
         color: $marketing-bar__text-font-color;
+        text-transform: $marketing-bar__text-transform;
+
         @include mq($screen-m) {
-            padding: $marketing-bar__text-padding--medium;
+            padding: $marketing-bar__text-padding\@medium;
+            font-size: $marketing-bar__text-font-size\@medium;
+            line-height: $marketing-bar__text-line-height\@medium;
         }
     }
 
     &__close {
         position: absolute;
-        top: 0;
-        bottom: 0;
-        right: 0;
+        top: $marketing-bar__button-top;
+        bottom: $marketing-bar__button-bottom;
+        right: $marketing-bar__button-right;
+        min-height: 0;
         height: $marketing-bar__button-size;
         min-width: $marketing-bar__button-size;
-        margin: auto;
+        margin: $marketing-bar__button-margin;
+        padding: $marketing-bar__button-padding;
         border: none;
-        background-color: transparent;
+        background-color: $marketing-bar__button-background-color;
         transition: $marketing-bar__button-transition;
 
         &:focus,
         &:hover {
             background-color: transparent;
+
             .marketing-bar__close-icon {
                 fill: $marketing-bar__button-icon-color-hover;
             }
