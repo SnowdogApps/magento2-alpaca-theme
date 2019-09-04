@@ -1,0 +1,300 @@
+@import 'table-variables';
+
+.table {
+    width: $table__width;
+    margin: $table__margin;
+    padding: $table__padding;
+    background: $table__background;
+    border: $table__border;
+    border-radius: $table__border-radius;
+    border-collapse: $table__border-collapse;
+    border-spacing: $table__border-spacing;
+    color: $table__color;
+    font-size: $table__font-size;
+    line-height: $table__line-height;
+
+    @include mq($screen-m) {
+        font-size: $table__font-size\@medium;
+    }
+
+    &--odd-even {
+        tbody {
+            tr {
+                &:nth-child(odd) {
+                    background: $table__background-odd--odd-even;
+                }
+
+                &:nth-child(even) {
+                    background: $table__background-even--odd-even;
+                }
+
+                &:first-child {
+                    border-top-left-radius: $table__border-top-left-radius-first-child--odd-even;
+                    border-top-right-radius: $table__border-top-right-radius-first-child--odd-even;
+
+                    @include mq($screen-m) {
+                        border-top-left-radius: $table__border-top-left-radius-first-child--odd-even\@medium;
+                        border-top-right-radius: $table__border-top-right-radius-first-child--odd-even\@medium;
+                    }
+                }
+            }
+
+            td {
+                background-color: $table__td-background--odd-even;
+            }
+        }
+    }
+
+    &--clean {
+        margin: 0;
+        border: 0;
+        border-radius: 0;
+
+        thead {
+            tr {
+                padding: 0;
+                border-bottom: 0;
+            }
+        }
+
+        th {
+            border-bottom: 0;
+            border-right: 0;
+            background: $table__th-background--clean;
+            text-align: left;
+            font-weight: $table__th-font-weight--clean;
+        }
+
+        td {
+            border-bottom: 0;
+            border-right: 0;
+            background: $table__th-background--clean;
+        }
+
+        tbody {
+            tr {
+                &:nth-child(odd) {
+                    background: $table__background-odd--clean;
+                }
+
+                &:nth-child(even) {
+                    background: $table__background-even--clean;
+                }
+            }
+        }
+    }
+
+    &--scope-row {
+        border-width: $table__border-width--scope-row;
+
+        tbody {
+            tr {
+                padding: $table__tr-padding--scope-row;
+
+                &:nth-child(even) {
+                    th[scope="row"],
+                    td {
+                        background-color: $table__tr-background-even--scope-row;
+                    }
+                }
+                @include mq($screen-s) {
+                    th {
+                        &[scope="row"] + td {
+                            &:before {
+                                margin-bottom: 0;
+                            }
+                        }
+                    }
+                }
+            }
+
+            th {
+                font-weight: $table__th-font-wieght--scope-row;
+            }
+        }
+    }
+
+    &__caption,
+    &__visually-hidden {
+        @include visually-hidden();
+    }
+
+    &__heading-wrapper {
+        display: flex;
+        align-items: center;
+    }
+
+    tr {
+        display: block;
+        padding: $table__tr-padding;
+        border-bottom: $table__tr-border-bottom;
+
+        @include mq($screen-m) {
+            display: table-row;
+            padding: $table__tr-padding\@medium;
+            border-bottom: $table__tr-border-bottom\@medium;
+        }
+    }
+
+    th {
+        display: none;
+        padding: $table__th-padding;
+        background: $table__th-background;
+        text-align: $table__th-text-align;
+
+        @include mq($screen-m) {
+            display: table-cell;
+            padding: $table__th-padding\@medium;
+            border-bottom: $table__th-border-bottom\@medium;
+            border-right: $table__th-border-right\@medium;
+        }
+
+        &:last-child {
+            border-right: 0;
+        }
+
+        &[scope="row"] {
+            padding: $table__th-padding-row;
+            border-width: $table__th-border-width-row;
+            background: $table__th-background-row;
+            text-align: $table__th-text-align-row;
+            width: $table__th-width-row;
+
+            & + td {
+                flex-flow: column nowrap;
+                padding: $spacer--medium;
+
+                @include mq($screen-s) {
+                    flex-flow: row nowrap;
+                }
+
+                &:before {
+                    max-width: 100%;
+                    width: 100%;
+                    margin-bottom: $spacer;
+
+                    @include mq($screen-s) {
+                        max-width: 50%;
+                        width: 50%;
+                    }
+                }
+            }
+        }
+
+    }
+
+    td {
+        display: flex;
+        padding: $table__td-padding;
+        background: $table__td-background;
+
+        &:before {
+            display: block;
+            content: attr(data-th);
+            font-weight: $table__td-font-weight-before;
+            margin-right: $table__td-margin-right-before;
+            max-width: $table__td-max-width-before;
+            width: $table__td-width-before;
+
+            @include mq($screen-m) {
+                display: none;
+            }
+        }
+
+        &:last-child {
+            @include mq($screen-m) {
+                border-right: 0;
+            }
+        }
+
+        @include mq($screen-m) {
+            display: table-cell;
+            padding: $table__td-padding\@medium;
+            border-bottom: $table__td-border-bottom\@medium;
+            border-right: $table__td-border-right\@medium;
+        }
+    }
+
+    thead {
+        tr {
+            padding: 0;
+            border-bottom: 0;
+
+            @include mq($screen-m) {
+                border-top-left-radius: $table__border-radius;
+                border-top-right-radius: $table__border-radius;
+            }
+        }
+
+        th {
+            &:first-child {
+                @include mq($screen-m) {
+                    border-top-left-radius: $table__border-radius;
+                }
+            }
+
+            &:last-child {
+                @include mq($screen-m) {
+                    border-top-right-radius: $table__border-radius;
+                }
+            }
+        }
+    }
+
+    tbody {
+        tr {
+            &:last-child {
+                td {
+                    &:first-child {
+                        @include mq($screen-m) {
+                            border-bottom-left-radius: $table__border-radius;
+                        }
+                    }
+
+                    &:last-child {
+                        @include mq($screen-m) {
+                            border-bottom-right-radius: $table__border-radius;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    tfoot {
+        tr {
+            &:last-child {
+                border-bottom: 0;
+
+                td {
+                    border-bottom: 0;
+
+                    &:first-child {
+                        @include mq($screen-m) {
+                            border-bottom-left-radius: $table__border-radius;
+                        }
+                    }
+
+                    &:last-child {
+                        @include mq($screen-m) {
+                            border-bottom-right-radius: $table__border-radius;
+                        }
+                    }
+                }
+            }
+        }
+
+        td {
+            display: block;
+            padding: $table__tfoot-td-padding;
+            background: $table__tfoot-td-background;
+
+            @include mq($screen-m) {
+                display: table-cell;
+                padding: $table__tfoot-td-padding\@medium;
+                background: $table__tfoot-td-background\@medium;
+                border-right: $table__tfoot-td-border-right\@medium;
+            }
+        }
+    }
+}
