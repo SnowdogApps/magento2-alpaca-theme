@@ -1,0 +1,139 @@
+$select__margin-bottom                   : $spacer--medium !default;
+$select__padding                         : 0 $spacer--medium 0 $spacer--medium !default;
+$select__border                          : $form-elements-border !default;
+$select__height                          : 48px !default;
+$select__border-radius                   : $form-elements-radius !default;
+$select__line-height                     : $select__height !default;
+$select__input-border-color              : $form-elements-border-color !default;
+$select__field-background                : $white !default;
+$select__field-list-border-radius--single: $form-elements-radius !default;
+$select__field-font-size                 : $font-size-base !default;
+$select__label-color-focus               : $color-primary !default;
+$select__transition                      : $transition-base !default;
+
+// Choices
+$select__dropdown-max-width              : 150px !default;
+$select__choices-item-padding-right      : $spacer--medium !default;
+$select__choices-option-bg-highlighted   : $gray-light !default;
+
+.select {
+    margin-bottom: $select__margin-bottom;
+
+    &:focus-within {
+        .select__label {
+            color: $select__label-color-focus;
+        }
+    }
+
+    &__field {
+        position: relative;
+        background: $select__field-background;
+
+        &--native {
+            width: 100%;
+            height: $select__height;
+            padding: $select__padding;
+            border: $select__border;
+            border-radius: $select__border-radius;
+            appearance: none;
+            transition: $select__transition;
+
+            &.focus-visible {
+                @include focus-input();
+            }
+        }
+    }
+
+    &__field-item {
+        position: relative;
+        height: $select__height;
+        line-height: $select__line-height;
+        padding: $select__padding;
+        font-size: $select__field-font-size;
+        cursor: pointer;
+    }
+
+    &__field-list {
+        &--single {
+            height: $select__height;
+            line-height: $select__line-height;
+            padding: 0;
+            border: $select__border;
+            border-radius: $select__border-radius;
+        }
+    }
+
+    &__field-input {
+        transition: $select__transition;
+
+        &:focus {
+            outline: $outline-base;
+        }
+    }
+}
+
+// Choices.js lib styles overwrites
+.choices {
+    &.is-open {
+        .select__field-list {
+            &--single {
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+                border-top-left-radius: $select__field-list-border-radius--single;
+                border-top-right-radius: $select__field-list-border-radius--single;
+                border-bottom: 0;
+            }
+        }
+    }
+
+    &.is-focused {
+        .select__field-list--single {
+            @include focus-input();
+        }
+    }
+
+    &__list--dropdown {
+        max-height: $select__dropdown-max-width;
+        overflow: auto;
+
+        .is-open & {
+            border-radius: 0 0 $select__border-radius $select__border-radius;
+            border-color: $select__input-border-color;
+        }
+
+        & .choices__item--selectable {
+            padding-right: $select__choices-item-padding-right;
+
+            &.is-highlighted {
+                background-color: $select__choices-option-bg-highlighted;
+            }
+        }
+    }
+
+    &[data-type*="select-one"] {
+        &:after {
+            content: "";
+            height: 10px;
+            width: 10px;
+            border-style: solid;
+            border-color: transparent $color-secondary $color-secondary transparent;
+            border-width: 2px;
+            position: absolute;
+            right: 20px;
+            top: 35%;
+            margin-top: 0;
+            pointer-events: none;
+            display: block;
+            transform: rotate(45deg);
+            transition: $select__transition;
+        }
+        &.is-open {
+            &:after {
+                top: 50%;
+                border-color: transparent $color-secondary $color-secondary transparent;
+                margin-top: 0;
+                transform: rotate(225deg);
+            }
+        }
+    }
+}
