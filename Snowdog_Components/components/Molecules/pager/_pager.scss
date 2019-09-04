@@ -1,0 +1,91 @@
+$pager__list-padding                        : $spacer !default;
+$pager__item-margin                         : 0 $spacer !default;
+$pager__item-after-height--current          : 2px !default;
+$pager__item-after-background-color--current: $color-primary !default;
+$pager__item-after-transition--current      : $transition-base  !default;
+$pager__item-size                           : $spacer--extra-large !default;
+$pager__item--current                       : $font-color-base !default;
+$pager__item-text-decoration--current       : none !default;
+$pager__item-font-size                      : $font-size-medium !default;
+$pager__icon-size                           : 24px !default;
+$pager__link-fill                           : $color-secondary !default;
+$pager__link-fill-disabled                  : $gray !default;
+$pager__link-color                          : $color-secondary !default;
+
+.pager {
+    width: 100%;
+    text-align: center;
+
+    &__list {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        list-style-type: none;
+        padding: $pager__list-padding;
+        margin: 0;
+    }
+
+    &__item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-basis: $pager__item-size;
+        height: $pager__item-size;
+        margin: $pager__item-margin;
+        font-size: $pager__item-font-size;
+        padding: 0;
+
+        &:first-child {
+            margin-left: 0;
+        }
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        &--current {
+            color: $pager__item--current;
+            position: relative;
+            text-decoration: $pager__item-text-decoration--current;
+
+            &:after {
+                content: '';
+                position: absolute;
+                bottom: -0;
+                left: 0;
+                width: 100%;
+                height: $pager__item-after-height--current;
+                background-color: $pager__item-after-background-color--current;
+                z-index: -1;
+                transition: $pager__item-after-transition--current;
+                transform-origin: left;
+            }
+        }
+    }
+
+    &__link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: $pager__item-size;
+        color: $pager__link-color;
+        text-decoration: none;
+
+        &[disabled] {
+            fill: $pager__link-fill-disabled;
+            pointer-events: none;
+            cursor: default;
+        }
+
+        &--prev,
+        &--next {
+            fill: $pager__link-fill;
+        }
+    }
+
+    &__icon {
+        width: $pager__icon-size;
+        height: $pager__icon-size;
+    }
+}

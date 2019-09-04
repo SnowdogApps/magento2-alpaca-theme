@@ -1,0 +1,48 @@
+<nav class="pager {{ class }}" {{{attributes}}}>
+    <ul class="pager__list">
+        <li class="pager__item">
+            <a href="#"
+               class="pager__link pager__link--prev"
+               aria-label="{{ ariaLabelLeft }}"
+               {{#unless arrowLeftActive}}disabled tabindex="-1"{{/unless}}
+            >
+                <svg class="pager__icon" aria-hidden="true">
+                    <use xlink:href="{{ svg 'arrow-left' }}"></use>
+                </svg>
+            </a>
+        </li>
+
+        {{#each pages as |page|}}
+            {{#if this.active}}
+                <li
+                    class="pager__item pager__item--current"
+                    aria-current="page"
+                    aria-label="Page {{ pageNo }}, current page"
+                >
+                    {{ pageNo }}
+                </li>
+            {{else}}
+                <li class="pager__item">
+                    <a href="#"
+                       class="pager__link {{ class }}"
+                       aria-label="{{ ariaLabel }}"
+                    >
+                        {{ pageNo }}
+                    </a>
+                </li>
+            {{/if}}
+        {{/each}}
+
+        <li class="pager__item">
+            <a href="#"
+               class="pager__link pager__link--next"
+               aria-label="{{ ariaLabelRight }}"
+               {{#unless arrowRightActive}}disabled tabindex="-1"{{/unless}}
+            >
+                <svg class="pager__icon" aria-hidden="true">
+                    <use xlink:href="{{ svg 'arrow-right' }}"></use>
+                </svg>
+            </a>
+        </li>
+    </ul>
+</nav>
