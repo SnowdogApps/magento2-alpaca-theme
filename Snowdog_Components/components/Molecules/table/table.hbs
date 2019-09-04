@@ -1,0 +1,38 @@
+<table
+    class="table {{ class }}"
+    tabindex="0"
+    role="table"
+    {{{ additionalAttributes }}}
+>
+    {{#if captionText}}
+        <caption class="table__caption">
+            {{ captionText }}
+        </caption>
+    {{/if}}
+    {{#each mainTags }}
+        <{{{ mainTag }}} {{{mainAttributes}}}>
+            {{#each rowTags}}
+                <{{{ rowTag }}} {{{ rowTagAttributes }}}>
+                    {{#each childTags}}
+                        <{{{ childTag }}}
+                             class="{{ childTagClasses }}"
+                             {{{ childTagAttributes }}}
+                        >
+                            {{#if contentVisuallyHidden}}
+                                <span class="table__visually-hidden">
+                                    {{{ content }}}
+                                </span>
+                            {{else}}
+                                {{#if contentComponent}}
+                                    {{ render (component contentComponent) contentContext }}
+                                {{else}}
+                                    {{{ content }}}
+                                {{/if}}
+                            {{/if}}
+                        </{{{ childTag }}}>
+                    {{/each}}
+                </{{{ rowTag }}}>
+            {{/each}}
+        </{{{ mainTag }}}>
+    {{/each}}
+</table>
