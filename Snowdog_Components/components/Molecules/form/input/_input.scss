@@ -1,0 +1,90 @@
+$input__field-padding                : 0 $spacer--medium !default;
+$input__field-padding--textarea      : $spacer--medium !default;
+$input__field-spacing                : 48px !default;
+$input__field-border                 : $form-elements-border !default;
+$input__field-border-radius          : $form-elements-radius !default;
+$input__field-border-radius--textarea: $form-elements-radius--small !default;
+$input__field-line-height--textarea  : $font-line-height !default;
+$input__margin-bottom                : $spacer--medium !default;
+$input__placeholder-color            : $gray !default;
+$input__label-margin-right           : $spacer--medium !default;
+$input__min-height--textarea         : 100px !default;
+$input__date-background-image        : url("../images/icons/calendar.svg") !default;
+$input__date-background-size         : 25px 25px !default;
+$input__date-background-repeat       : no-repeat !default;
+$input__date-background-position     : center center !default;
+$input__transition                   : $transition-base !default;
+$input__white-space--inline          : nowrap !default;
+
+.input {
+    margin-bottom: $input__margin-bottom;
+    &:focus-within {
+        .input__label {
+            color: $color-primary;
+        }
+    }
+
+    &--inline {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        .input__label {
+            @extend .label--inline;
+            margin-right: $input__label-margin-right;
+            white-space: $input__white-space--inline;
+        }
+    }
+
+    &__field {
+        width: 100%;
+        height: $input__field-spacing;
+        line-height: normal;
+        padding: $input__field-padding;
+        border: $input__field-border;
+        border-radius: $input__field-border-radius;
+        transition: $input__transition;
+
+        &::placeholder {
+            color: $input__placeholder-color;
+        }
+
+        &.focus-visible {
+            @include focus-input();
+        }
+
+        &--textarea {
+            display: block;
+            border-radius: $input__field-border-radius--textarea;
+            min-width: 100%;
+            max-width: 100%;
+            min-height: $input__min-height--textarea;
+            padding: $input__field-padding--textarea;
+            line-height: $input__field-line-height--textarea;
+        }
+    }
+
+    &__label {
+        transition: $input__transition;
+    }
+
+    .ui-datepicker-trigger {
+        @extend .button;
+        @extend .button--icon;
+        background-image: $input__date-background-image;
+        background-size: $input__date-background-size;
+        background-repeat: $input__date-background-repeat;
+        background-position: $input__date-background-position;
+
+        &:hover,
+        &.focus-visible {
+            background-image: $input__date-background-image;
+            background-size: $input__date-background-size;
+            background-repeat: $input__date-background-repeat;
+            background-position: $input__date-background-position;
+        }
+
+        span {
+            display: none;
+        }
+    }
+}
