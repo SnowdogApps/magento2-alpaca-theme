@@ -1,0 +1,97 @@
+$radio__size              : 20px !default;
+$radio__dot-size          : 10px !default;
+$radio__margin            : 0 0 $spacer--medium 0 !default;
+$radio__label-font-size   : $font-size-base !default;
+$radio__label-color       : $color-primary !default;
+$radio__label-color-active: $color-primary !default;
+$radio__label-line-height : $font-line-height !default;
+$radio__icon-margin-right : $spacer !default;
+$radio__icon-border       : $border-base !default;
+$radio__icon-background   : $color-primary !default;
+$radio__icon-transition   : $transition-base !default;
+$radio__legend-margin     : $radio__margin !default;
+
+.radio {
+    position: relative;
+    margin: $radio__margin;
+
+    &__fieldset {
+        border: 0;
+        padding: 0;
+        margin: 0;
+    }
+
+    &__legend {
+        margin: $radio__legend-margin;
+    }
+
+    &__handler {
+        position: relative;
+    }
+
+    &__field {
+        position: absolute;
+        left: 0;
+        height: $radio__size;
+        width: $radio__size;
+        opacity: 0;
+        z-index: -1;
+
+        &:checked + .radio__label {
+            color: $radio__label-color-active;
+            .radio__icon {
+                &:before {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+            }
+        }
+
+        &.focus-visible + .radio__label {
+            @include focus();
+        }
+    }
+
+    &__label {
+        position: relative;
+        display: flex;
+        flex-flow: row nowrap;
+        height: auto;
+        width: 100%;
+        line-height: $radio__label-line-height;
+        font-size: $radio__label-font-size;
+        color: $radio__label-color;
+        cursor: pointer;
+    }
+
+    &__icon {
+        position: relative;
+        display: inline-block;
+        border: $radio__icon-border;
+        border-radius: $radio__size;
+        width: $radio__size;
+        height: $radio__size;
+        margin-right: $radio__icon-margin-right;
+
+        &::before {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            content: '';
+            width: $radio__dot-size;
+            height: $radio__dot-size;
+            border-radius: $radio__dot-size;
+            margin: auto;
+            opacity: 0;
+            transform: scale(0);
+            background-color: $radio__icon-background;
+            transition: $radio__icon-transition;
+        }
+    }
+
+    &__text {
+        width: calc(100% - #{$radio__icon-margin-right + $radio__size});
+    }
+}
