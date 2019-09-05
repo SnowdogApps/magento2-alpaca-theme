@@ -57,7 +57,7 @@ module.exports = {
         icon: {
           id: 'close',
           title: 'Close',
-          class: 'button__icon',
+          class: 'button__icon'
         },
         attributes: 'type="button" aria-label="Close"'
       }

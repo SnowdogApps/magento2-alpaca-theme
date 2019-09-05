@@ -13,7 +13,7 @@ module.exports = {
         title: 'Close',
         class: 'button__icon marketing-bar__close-icon'
       },
-      attributes: 'type="button" aria-label="Close marketing bar"',
+      attributes: 'type="button" aria-label="Close marketing bar"'
     },
   },
 };

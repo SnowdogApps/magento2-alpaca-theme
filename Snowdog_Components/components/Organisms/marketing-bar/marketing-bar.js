@@ -15,7 +15,7 @@ class MarketingBar {
     localStorage.setItem(dataType, 'closed');
     // after closing message box move focus on first visible focusable element on the page
     if (focusable.length) {
-      let firstFocusable = [ ...focusable].find(el => {
+      let firstFocusable = [...focusable].find(el => {
         return el.offsetParent !== null
       })
       firstFocusable.focus();
