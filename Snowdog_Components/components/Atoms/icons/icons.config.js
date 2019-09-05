@@ -218,6 +218,16 @@ module.exports = {
         class: 'icons__single-icon'
       },
       {
+        id: 'visibility',
+        title: 'Visibility',
+        class: 'icons__single-icon'
+      },
+      {
+        id: 'visibility-off',
+        title: 'Visibility off',
+        class: 'icons__single-icon'
+      },
+      {
         id: 'warning',
         title: 'Warning exclamation mark',
         class: 'icons__single-icon'

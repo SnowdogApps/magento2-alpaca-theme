@@ -15,6 +15,12 @@ $input__date-background-repeat       : no-repeat !default;
 $input__date-background-position     : center center !default;
 $input__transition                   : $transition-base !default;
 $input__white-space--inline          : nowrap !default;
+// Input password
+$input__button-pass-bg               : transparent !default;
+$input__button-pass-top              : 30px !default;
+$input__button-pass-right            : $form-element-border-width !default;
+$input__button-pass-height           : $input__field-spacing - (4 * $form-element-border-width) !default;
+$input__button-pass-icon-fill        : $color-secondary !default;
 
 .input {
     margin-bottom: $input__margin-bottom;
@@ -32,6 +38,16 @@ $input__white-space--inline          : nowrap !default;
             @extend .label--inline;
             margin-right: $input__label-margin-right;
             white-space: $input__white-space--inline;
+        }
+    }
+
+    &--password {
+        position: relative;
+
+        &:focus-within {
+            .input__field {
+                @include focus-input();
+            }
         }
     }
 
@@ -65,6 +81,35 @@ $input__white-space--inline          : nowrap !default;
 
     &__label {
         transition: $input__transition;
+    }
+
+    &__button-pass {
+        position: absolute;
+        top: $input__button-pass-top;
+        right: $input__button-pass-right;
+        height:  $input__button-pass-height;
+        background: $input__button-pass-bg;
+        &:after,
+        &:before {
+            display: none;
+        }
+
+        & > .icon {
+            fill: $input__button-pass-icon-fill;
+        }
+
+        .input__button-pass-icon-hide {
+            display: none;
+        }
+
+        &--active {
+            .input__button-pass-icon-hide {
+                display: block;
+            }
+            .input__button-pass-icon-view {
+                display: none;
+            }
+        }
     }
 
     .ui-datepicker-trigger {
