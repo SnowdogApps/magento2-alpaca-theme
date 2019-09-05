@@ -33,13 +33,13 @@ module.exports = {
         },
         buttonAttributes: 'aria-label="Show/hide password"',
         passwordIconView: {
-          id: 'visibility',
+          id: 'visibility-off',
           title: 'view password icon',
           attributes: 'aria-hidden="true"',
           class: 'icon--secondary input__button-pass-icon-view'
         },
         passwordIconHide: {
-          id: 'visibility-off',
+          id: 'visibility',
           title: 'hide password icon',
           attributes: 'aria-hidden="true"',
           class: 'icon--secondary input__button-pass-icon-hide'
