@@ -42,6 +42,12 @@ module.exports = {
           }
         ]
       }
+    },
+    {
+      name: 'small',
+      context: {
+        class: 'rating--small'
+      }
     }
   ]
 }
