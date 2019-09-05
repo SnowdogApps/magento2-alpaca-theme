@@ -7,32 +7,32 @@ module.exports = {
   },
   variants: [
     {
-       name: 'Week',
-       context: {
-         strengthIndicatorClass: 'password-weak',
-         noPassword: 'Weak'
-       }
+      name: 'Week',
+      context: {
+        strengthIndicatorClass: 'password-weak',
+        noPassword: 'Weak'
+      }
     },
     {
-       name: 'Medium',
-       context: {
-         strengthIndicatorClass: 'password-medium',
-         noPassword: 'Medium'
-       }
+      name: 'Medium',
+      context: {
+        strengthIndicatorClass: 'password-medium',
+        noPassword: 'Medium'
+      }
     },
     {
-       name: 'Strong',
-       context: {
-         strengthIndicatorClass: 'password-strong',
-         noPassword: 'Strong'
-       }
+      name: 'Strong',
+      context: {
+        strengthIndicatorClass: 'password-strong',
+        noPassword: 'Strong'
+      }
     },
     {
-       name: 'Very Strong',
-       context: {
-         strengthIndicatorClass: 'password-very-strong',
-         noPassword: 'Very Strong'
-       }
+      name: 'Very Strong',
+      context: {
+        strengthIndicatorClass: 'password-very-strong',
+        noPassword: 'Very Strong'
+      }
     }
   ]
 }
