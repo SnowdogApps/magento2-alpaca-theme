@@ -10,7 +10,7 @@
         justify-content: center;
         list-style-type: none;
         padding: $pager__list-padding;
-        margin: 0;
+        margin: $pager__list-margin;
     }
 
     &__item {
@@ -25,28 +25,28 @@
 
         &:first-child {
             margin-left: 0;
-            margin-right: 24px;
+            margin-right: $spacer--semi-medium;
         }
 
         &:last-child {
-            margin-left: 24px;
+            margin-left: $spacer--semi-medium;
             margin-right: 0;
         }
 
         &--current {
-            color: $pager__item--current;
             position: relative;
+            color: $pager__item--current;
             text-decoration: $pager__item-text-decoration--current;
 
             &:after {
                 content: '';
                 position: absolute;
-                bottom: -0;
+                bottom: 0;
                 left: 0;
-                width: 100%;
+                z-index: -1;
+                width: $pager__item-after-width--current;
                 height: $pager__item-after-height--current;
                 background-color: $pager__item-after-background-color--current;
-                z-index: -1;
                 transition: $pager__item-after-transition--current;
                 transform-origin: left;
             }
@@ -57,10 +57,15 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 100%;
-        height: $pager__item-size;
+        width: $pager__link-width;
+        height: $pager__link-size;
         color: $pager__link-color;
         text-decoration: none;
+
+        &:hover {
+            color: $color-primary;
+            fill: $color-primary;
+        }
 
         &[disabled] {
             fill: $pager__link-fill-disabled;
