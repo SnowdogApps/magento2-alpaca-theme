@@ -208,6 +208,11 @@ module.exports = {
         class: 'icons__single-icon'
       },
       {
+        id: 'unchecked',
+        title: 'Unchecked',
+        class: 'icons__single-icon'
+      },
+      {
         id: 'user',
         title: 'User',
         class: 'icons__single-icon'

@@ -7,7 +7,10 @@ module.exports = {
       text: 'Checkbox field',
       class: ''
     },
-    icon: {
+    iconChecked: {
+      class: ''
+    },
+    iconUnchecked: {
       class: ''
     },
     input: {
