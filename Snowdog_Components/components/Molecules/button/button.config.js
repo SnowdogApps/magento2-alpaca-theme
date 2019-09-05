@@ -49,6 +49,20 @@ module.exports = {
       }
     },
     {
+      name: 'rotate-icon',
+      view: 'button--icon.hbs',
+      context: {
+        text: '',
+        class: 'button--rotate-icon',
+        icon: {
+          id: 'close',
+          title: 'Close',
+          class: 'button__icon'
+        },
+        attributes: 'type="button" aria-label="Close"'
+      }
+    },
+    {
       name: 'icon-before',
       view: 'button--icon.hbs',
       context: {
