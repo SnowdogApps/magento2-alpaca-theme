@@ -1,200 +1,65 @@
-$contact-bar__height                    : 40px;
-$contact-bar__margin                    : 0 0 $spacer;
-$contact-bar__background                : transparent;
-$contact-bar__background\@large         : $gray-light;
-
-$contact-bar__padding\@large            : 0;
-$contact-bar__max-width                 : 548px;
-$contact-bar__max-width\@large          : 100%;
-$contact-bar__list-width                : 100%;
-
-$contact-bar__list-padding              : 0 $spacer--medium;
-$contact-bar__list-margin               : 0;
-
-$contact-bar__item-padding              : 0 $spacer--medium 0 0;
-$contact-bar__item-font-size            : $font-size-small;
-$contact-bar__item-font-weight          : $font-weight-bold;
-$contact-bar__item-color                : $color-primary;
-
-$contact-bar__link-background--active   : $gray;
-$contact-bar__link-text-decoration      : underline;
-$contact-bar__link-line-height          : 40px;
-
-$contact-bar__phone-margin              : 0 $spacer 0 0;
-$contact-bar__phone-title-letter-spacing: 1.17px;
-$contact-bar__phone-title-text-transform: uppercase;
-
-$contact-bar__icon-padding              : 0;
-$contact-bar__icon-margin               : 0 $spacer--medium 0 0;
-$contact-bar__icon-fill                 : $color-secondary;
+@import 'contact-bar-variables';
 
 .contact-bar {
-    display: flex;
+    display: none;
+
+    border-top: $contact-bar__border-top;
+    border-bottom: $contact-bar__border-bottom;
     min-height: $contact-bar__height;
     margin: $contact-bar__margin;
     background: $contact-bar__background;
+    padding: 0;
 
-    @include mq($screen-l) {
-        background: $contact-bar__background\@large;
+    @include mq($contact-bar__display-from) {
+        display: flex;
     }
 
     &__container {
         display: flex;
-        flex-flow: column nowrap;
-        align-items: flex-start;
-        margin: 0 auto;
-        width: 100%;
-        max-width: $contact-bar__max-width;
-
-        @include mq($screen-l) {
-            flex-direction: row-reverse;
-            padding: $contact-bar__padding\@large;
-            max-width: $max-content-width;
-        }
+        width: $contact-bar__container-width;
+        justify-content: $contact-bar__container-justify;
+        flex-direction: $contact-bar__container-direction;
     }
 
     &__list {
         display: flex;
-        justify-content: center;
-        flex-direction: column;
-        width: $contact-bar__list-width;
-        margin: $contact-bar__list-margin;
-        padding: 0;
-
-        &:first-child {
-            margin: $spacer--medium 0;
-            padding-bottom: $spacer--extra-large;
-            border-bottom: 1px solid $gray;
-
-            @include mq($screen-l) {
-                margin: 0;
-                padding-bottom: 0;
-            }
-
-            .contact-bar__item {
-                font-size: $font-size-base;
-            }
-        }
-
-        &:last-child {
-            @include mq($screen-m) {
-                flex-direction: row;
-                justify-content: space-around;
-            }
-
-            .contact-bar__item {
-                &:first-child {
-                    padding-left: $spacer;
-                    @include mq($screen-xl) {
-                        padding-left: 0;
-                    }
-                }
-            }
-            .contact-bar__link {
-                &:focus {
-                    .icon {
-                        fill: $white;
-                        transition: $transition-base;
-                    }
-                }
-            }
-        }
-
-        @include mq($screen-l) {
-            flex-flow: row nowrap;
-
-            &:first-child {
-                justify-content: flex-end;
-                .contact-bar__item {
-                    font-size: $contact-bar__item-font-size;
-                }
-            }
-
-            &:last-child {
-                justify-content: flex-start;
-
-                .contact-bar__link {
-                    &:focus {
-                        .icon {
-                            fill: $color-primary;
-                        }
-                    }
-                }
-            }
-        }
-
-
     }
 
     &__item {
         display: flex;
-        align-items: center;
-        padding: $spacer--medium 0;
-        font-size: $contact-bar__item-font-size;
-        font-weight: $contact-bar__item-font-weight;
-        color: $contact-bar__item-color;
-        list-style-type: none;
+        margin: $contact-bar__item-margin;
+        padding: $contact-bar__item-padding;
 
-        @include mq($screen-l) {
-            padding: 0;
+        &:first-child {
+            margin-left: 0;
         }
 
-        .icon {
-            padding: $contact-bar__icon-padding;
-            fill: $contact-bar__icon-fill;
+        &:last-child {
+            margin-right: 0;
         }
     }
 
     &__link {
         display: flex;
-        align-items: center;
-        color: $contact-bar__item-color;
-        font-weight: $contact-bar__item-font-weight;
-        text-decoration: none;
+        padding: $contact-bar__link-padding;
+        font-size: $contact-bar__link-font-size;
+        line-height: $contact-bar__link-line-height;
+        text-transform: $contact-bar__link-text-transform;
+        color: $contact-bar__link-color;
+        text-decoration: $contact-bar__link-text-decoration;
+        align-items: $contact-bar__link-align-items;
 
-        &:hover {
-            color: $contact-bar__item-color;
-            text-decoration: $contact-bar__link-text-decoration;
-
-            @include mq($screen-l) {
-                background-color: $contact-bar__link-background--active;
-            }
-        }
-
-        &:focus {
+        &.focus-visible {
             @include focus-inline();
         }
 
-        @include mq($screen-l) {
-            padding: $contact-bar__item-padding;
-            line-height: $contact-bar__link-line-height;
-
-            &:focus {
-                background: $contact-bar__link-background--active;
-                color: $font-color-base;
-            }
-        }
-    }
-
-    &__phone-item {
-        margin: $contact-bar__phone-margin;
-
-        &:nth-child(2) {
-            text-transform: $contact-bar__phone-title-text-transform;
-            letter-spacing: $contact-bar__phone-title-letter-spacing;
-        }
-
-        &:last-child {
-            font-weight: $font-weight-bold;
+        &:hover {
+            text-decoration: $contact-bar__link-hover-text-decoration;
+            background: $contact-bar__link-hover-background;
         }
     }
 
     &__icon {
-        margin: $contact-bar__icon-margin;
-    }
-
-    &__phone-link {
-        display: flex;
-        align-items: center;
+        margin: 0 $spacer 0 0;
     }
 }

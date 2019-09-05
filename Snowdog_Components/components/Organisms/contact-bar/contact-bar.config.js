@@ -1,31 +1,27 @@
 module.exports = {
   context: {
     class: '',
-    attributes: '"',
+    attributes: '',
     phone: {
       icon: {
         class: '',
-        iconId: 'phone',
-        iconTitle: 'Phone'
+        id: 'phone',
+        title: 'Phone'
       },
-      text: 'Call us toll free',
-      number: '800 - 266 - 9590'
+      text: 'Call us for free 800 - 266 - 9590',
+      number: '8002669590'
     },
     email: {
       icon: {
         class: '',
-        iconId: 'mail',
-        iconTitle: 'Email'
+        id: 'envelope',
+        title: 'Email'
       },
       text: 'Email Us',
       address: 'test@test.com'
     },
     menu: {
       items: [
-        {
-          text: 'Telescope User Guide',
-          link: '#'
-        },
         {
           text: 'Account',
           link: '#'
