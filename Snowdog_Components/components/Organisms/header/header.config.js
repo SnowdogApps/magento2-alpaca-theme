@@ -61,6 +61,29 @@ module.exports = {
       popupTrigger: false,
       content: 'minicart-content',
       script: true
+    },
+    briefInfo: {
+      items: [
+        {
+          iconLabel: 'Delivery',
+          icon: {
+            class: 'brief-info__icon',
+            id: 'delivery',
+            title: 'Free shipping icon',
+            hidden: true
+          },
+          title: {
+            class: '',
+            tag: 'h3',
+            text: 'Free Shipping'
+          },
+          subtitle: {
+            class: '',
+            tag: 'p',
+            text: 'On Hundreds of Products'
+          }
+        }
+      ]
     }
   }
 }
