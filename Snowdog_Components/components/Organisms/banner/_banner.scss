@@ -16,12 +16,6 @@
                     width: 100%;
                 }
             }
-
-            &__icon {
-                .icon {
-                    animation: $banner__icon-animation;
-                }
-            }
         }
     }
 
@@ -33,12 +27,21 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: $spacer $banner__content-padding;
+        padding: $banner__content-padding;
         border-bottom: $banner__content-border;
         background: $banner__content-background;
 
         @include mq($screen-m) {
             padding: $banner__content-padding\@medium;
+        }
+
+        &--category {
+            display: none;
+            padding: $banner__content-padding--category;
+
+            @include mq($screen-m) {
+                padding: $banner__content-padding--category\@medium;
+            }
         }
 
         &:after {
@@ -74,6 +77,74 @@
 
         @include mq($screen-m) {
             display: flex;
+        }
+    }
+
+    &__image-wrapper {
+        position: relative;
+    }
+
+    &__button {
+        &:after,
+        &:before {
+            display: none;
+        }
+
+        &-more {
+            &:hover {
+                color: $banner__button-more-hover-color;
+            }
+        }
+
+        &-collapse {
+            @include mq($screen-m) {
+                position: $banner__button-collapse-position;
+                left: $banner__button-collapse-left;
+                bottom: $banner__button-collapse-bottom;
+                right: $banner__button-collapse-right;
+            }
+        }
+
+        .icon {
+            margin: $banner__button-icon-margin;
+            fill: $banner__button-icon-fill;
+        }
+    }
+
+    &__actions-wrapper {
+        display: flex;
+        flex-direction: column;
+        padding: $banner__actions-wrapper-padding;
+
+        @include mq($screen-m) {
+            flex-direction: row;
+            justify-content: space-between;
+        }
+    }
+
+    &--category {
+        position: static;
+
+        .banner__image-wrapper {
+            display: flex;
+            flex-direction: column;
+
+            @include mq($screen-m) {
+                display: block;
+                flex-direction: initial;
+            }
+        }
+    }
+
+    &--is-open {
+        .banner__content--category {
+            display: block;
+        }
+
+        .banner__button-collapse {
+            .icon {
+                transform: $banner__button-collapse-transform;
+            }
         }
     }
 }
