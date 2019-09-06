@@ -31,8 +31,8 @@ module.exports = {
       view: 'banner--secondary.hbs',
       context: {
         icon: {
-          id: 'plus',
-          title: 'Plus icon'
+          id: 'arrow-right',
+          title: 'Arrow right icon'
         },
         text: 'Clothing'
       }
