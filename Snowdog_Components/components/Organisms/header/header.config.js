@@ -23,12 +23,12 @@ module.exports = {
       href: '#'
     },
     searchInput: {
-      class: 'search-form__input-wrapper',
+      class: 'search-form__input-wrapper margin-0',
       label: {
         hidden: true
       },
       field: {
-        class: 'search-form__input',
+        class: 'search-form__input border-color-light',
         id: 'search',
         name: 'search',
         type: 'search',

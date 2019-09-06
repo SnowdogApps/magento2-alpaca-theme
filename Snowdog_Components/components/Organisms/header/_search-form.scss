@@ -8,25 +8,25 @@ $search-form__font-size         : $font-size-small !default;
 
 $search-form__input-height      : 32px !default;
 
-$search-form__button-size       : 18px !default;
+$search-form__button-size       : 24px !default;
 $search-form__button-margin     : 0 !default;
-$search-form__button-border     : none !default;
+$search-form__button-border     : 1px solid $gray !default;
 $search-form__button-background : transparent !default;
-$search-form__button-icon-color : $gray-dark !default;
-$search-form__button-fill-hover : $color-primary !default;
+$search-form__button-icon-color : $color-primary !default;
+$search-form__button-fill-hover : $color-secondary !default;
 
 $search-form__placeholder-color : $gray !default;
 
 .search-form {
     position: relative;
     width: $search-form__width;
-    height: $search-form__height;
+    // height: $search-form__height;
     align-self: $search-form__alignment;
-    margin: $search-form__margin;
-    border: $search-form__border;
-    border-radius: $search-form__height;
+    // margin: $search-form__margin;
+    // border: $search-form__border;
+    // border-radius: $search-form__height;
     z-index: 1;
-    line-height: normal;
+    line-height: $font-line-height;
 
     @include mq($screen-xl) {
         width: $search-form__width--extra-large;
@@ -34,14 +34,18 @@ $search-form__placeholder-color : $gray !default;
 
     &__input-wrapper {
         position: relative;
+        // &:focus-within {
+        //     .search-form__button {
+        //         border-color: $color-primary
+        //     }
+        // }
+
     }
 
     &__input {
         width: 100%;
-        height: $search-form__input-height;
-        border: none;
-        border-radius: $search-form__height;
-        font-size: $search-form__font-size;
+        // height: $search-form__input-height;
+        // font-size: $search-form__font-size;
 
         &::placeholder {
             color: $search-form__placeholder-color;
@@ -55,11 +59,15 @@ $search-form__placeholder-color : $gray !default;
         right: 0;
         height: $search-form__input-height;
         margin: $search-form__button-margin;
-        border: $search-form__button-border;
-        border-radius: $search-form__height;
+        border-left: $search-form__button-border;
         background-color: $search-form__button-background;
 
-        &:focus,
+        &:after,
+        &:before {
+            display: none;
+        }
+
+        &.focus-visible,
         &:hover {
             background-color: $search-form__button-background;
 
