@@ -1,14 +1,14 @@
 $header__border-color                   : $gray-light !default;
 
-$header__wrapper-padding                : 0 !default;
-$header__wrapper-padding\@medium        : 12px 0 !default;
+$header__wrapper-padding                : 0 0 $spacer !default;
+$header__wrapper-padding\@medium        : $spacer--medium 0 !default;
 
-$header__logo-padding                   : 12px 0 12px $spacer !default;
-$header__logo-padding\@medium           : 0 0 0 $spacer !default;
+$header__logo-padding                   : $spacer--small 0 $spacer--small $spacer !default;
+$header__logo-padding\@medium           : 0 !default;
 
 $header__buttons-width                  : calc(100% - #{$logo__max-width})  !default;
-$header__buttons-width\@medium          : calc(4 * 48px + 3 * #{$spacer}) !default;
-$header__buttons-width\@extra-large     : calc(4 * 48px + 3 * #{$spacer--medium}) !default;
+$header__buttons-width\@medium          : calc(2 * 48px + 1 * #{$spacer}) !default;
+$header__buttons-width\@extra-large     : calc(2 * 48px + 1 * #{$spacer--medium}) !default;
 
 $header__search-wrapper-padding         : 0 0 0 $spacer !default;
 $header__search-wrapper-padding\@medium : 0 24px !default;
@@ -27,6 +27,7 @@ $header__search-wrapper-padding\@medium : 0 24px !default;
         flex-flow: row wrap;
         padding: $header__wrapper-padding;
         @include mq($screen-m) {
+            flex-wrap: nowrap;
             padding: $header__wrapper-padding\@medium;
         }
 
@@ -36,10 +37,10 @@ $header__search-wrapper-padding\@medium : 0 24px !default;
     }
 
     &__logo {
-        // order: 3;
         padding: $header__logo-padding;
         border-top: 1px solid $header__border-color;
         @include mq($screen-m) {
+            order: 2;
             padding: $header__logo-padding\@medium;
             border-top: none;
         }
@@ -49,11 +50,11 @@ $header__search-wrapper-padding\@medium : 0 24px !default;
         display: flex;
         flex-flow: column nowrap;
         flex: 1 50%;
-        // order: 5;
+        order: 3;
         justify-content: center;
         padding: $header__search-wrapper-padding;
         @include mq($screen-m) {
-            order: 3;
+            order: 2;
             flex-direction: column;
             justify-content: center;
             padding: $header__search-wrapper-padding\@medium;
@@ -63,6 +64,10 @@ $header__search-wrapper-padding\@medium : 0 24px !default;
 
     &__minicart {
         position: relative;
+        @include mq($screen-m) {
+            border: 1px solid $gray;
+            border-width: 0 0 0 1px;
+        }
     }
 
     &__minicart-content {
@@ -75,14 +80,13 @@ $header__search-wrapper-padding\@medium : 0 24px !default;
 
     &__buttons {
         display: flex;
-        // order: 2;
         flex: 1 $header__buttons-width;
         max-width: $header__buttons-width;
         flex-wrap: nowrap;
         align-items: center;
         justify-content: flex-end;
         @include mq($screen-m) {
-            order: 4;
+            order: 3;
             flex: 1 $header__buttons-width\@medium;
             max-width: $header__buttons-width\@medium;
         }
@@ -91,5 +95,9 @@ $header__search-wrapper-padding\@medium : 0 24px !default;
             flex: 1 $header__buttons-width\@extra-large;
             max-width: $header__buttons-width\@extra-large;
         }
+    }
+
+    .side-menu {
+        order: 1;
     }
 }

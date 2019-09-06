@@ -4,7 +4,7 @@ module.exports = {
     buttons: [
       {
         ariaLabel: 'Wishlist',
-        class: 'header-button--reset-margin',
+        class: 'margin-right-xs',
         icon: {
           id: 'heart',
           title: 'Heart',
