@@ -1,0 +1,79 @@
+@import 'banner-variables';
+
+.banner {
+    position: relative;
+    display: block;
+    width: $banner__width;
+    text-decoration: $banner__text-decoration;
+
+    &:hover,
+    &.focus-visible {
+        text-decoration: $banner__text-decoration;
+
+        .banner {
+            &__content {
+                &:after {
+                    width: 100%;
+                }
+            }
+
+            &__icon {
+                .icon {
+                    animation: $banner__icon-animation;
+                }
+            }
+        }
+    }
+
+    &__image {
+        width: $banner__image-width;
+    }
+
+    &__content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: $spacer $banner__content-padding;
+        border-bottom: $banner__content-border;
+        background: $banner__content-background;
+
+        @include mq($screen-m) {
+            padding: $banner__content-padding\@medium;
+        }
+
+        &:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: $banner__content-after-height;
+            background: $banner__content-after-background;
+            transition: $banner__content-after-transition;
+        }
+    }
+
+    &__text {
+        margin: $banner__text-margin;
+        font-size: $banner__text-font-size;
+        font-weight: $banner__text-font-weight;
+        line-height: $banner__text-line-height;
+        text-transform: $banner__text-text-transform;
+
+        @include mq($screen-m) {
+            font-size: $banner__text-font-size\@medium;
+        }
+    }
+
+    &__icon {
+        display: none;
+        justify-content: center;
+        align-items: center;
+        width: $banner__icon-size;
+        height: $banner__icon-size;
+
+        @include mq($screen-m) {
+            display: flex;
+        }
+    }
+}
