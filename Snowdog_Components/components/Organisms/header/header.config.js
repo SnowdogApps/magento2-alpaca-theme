@@ -60,7 +60,18 @@ module.exports = {
       popupId: 'popup-minicart',
       popupTrigger: false,
       content: 'minicart-content',
-      script: true
+      script: true,
+      buttonClose: {
+        tag: 'button',
+        text: '',
+        class: 'button--rotate-icon popup__close-button',
+        icon: {
+          id: 'close',
+          title: 'Close',
+          class: 'button__icon popup__close-button-icon'
+        },
+        attributes: 'type="button" aria-label="close popup button, click to close the popup"'
+      }
     },
     briefInfo: {
       items: [

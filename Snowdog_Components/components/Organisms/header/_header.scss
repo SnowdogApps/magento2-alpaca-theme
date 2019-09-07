@@ -1,23 +1,15 @@
-$header__border-color                   : $gray-light !default;
 
-$header__wrapper-padding                : 0 0 $spacer !default;
-$header__wrapper-padding\@medium        : $spacer--medium 0 !default;
-
-$header__logo-padding                   : $spacer--small 0 $spacer--small $spacer !default;
-$header__logo-padding\@medium           : 0 !default;
-
-$header__buttons-width                  : calc(100% - #{$logo__max-width})  !default;
-$header__buttons-width\@medium          : calc(2 * 48px + 1 * #{$spacer}) !default;
-$header__buttons-width\@extra-large     : calc(2 * 48px + 1 * #{$spacer--medium}) !default;
-
-$header__search-wrapper-padding         : 0 0 0 $spacer !default;
-$header__search-wrapper-padding\@medium : 0 24px !default;
+@import 'header-variables';
+@import 'button';
+@import 'search-form';
 
 .header {
     position: relative;
-    border-bottom: 1px solid $header__border-color;
+    border: $header__border;
+    border-width: $header__border-width;
+
     @include mq($screen-l) {
-        border-bottom: none;
+        border: none;
     }
 
     &__wrapper {
@@ -32,17 +24,16 @@ $header__search-wrapper-padding\@medium : 0 24px !default;
         }
 
         @include mq($screen-l) {
-            border-bottom: 1px solid $header__border-color;
+            border: $header__border;
+            border-width: $header__border-width;
         }
     }
 
     &__logo {
         padding: $header__logo-padding;
-        border-top: 1px solid $header__border-color;
         @include mq($screen-m) {
-            order: 2;
+            order: $header__logo-order\@medium;
             padding: $header__logo-padding\@medium;
-            border-top: none;
         }
     }
 
@@ -50,41 +41,52 @@ $header__search-wrapper-padding\@medium : 0 24px !default;
         display: flex;
         flex-flow: column nowrap;
         flex: 1 50%;
-        order: 3;
+        order: $header__search-wrapper-order;
         justify-content: center;
         padding: $header__search-wrapper-padding;
         @include mq($screen-m) {
-            order: 2;
+            order: $header__search-wrapper-order\@medium;
             flex-direction: column;
             justify-content: center;
             padding: $header__search-wrapper-padding\@medium;
-            border-top: none;
         }
 
         @include mq($screen-l) {
-            padding: 0 $spacer--medium;
-            max-width: 350px;
+            padding: $header__search-wrapper-padding\@large;
+            max-width: $header__search-wrapper-max-width\@large;
         }
 
         @include mq($screen-xl) {
-            padding: 0 $spacer--large;
-            max-width: 600px;
+            padding: $header__search-wrapper-padding\@extra-large;
+            max-width: $header__search-wrapper-max-width\@extra-large;
         }
     }
 
     &__minicart {
         position: relative;
         @include mq($screen-m) {
-            border: 1px solid $gray;
-            border-width: 0 0 0 1px;
+            border: $header__minicart-border\@medium;
+            border-width: $header__minicart-border-width\@medium;
         }
     }
 
     &__minicart-content {
-        top: calc(100% - 1px);
+        top: $header__minicart-content-top;
         &.popup {
             position: absolute;
-            right: 0;
+            right: $header__minicart-content-right;
+
+            @include mq($screen-m) {
+                width: $header__minicart-content-width\@medium;
+            }
+            @include mq($screen-l) {
+                width: $header__minicart-content-width\@large;
+            }
+        }
+        .popup__close-button {
+            top: $header__minicart-close-button-top;
+            right: $header__minicart-close-button-right;
+            background-color: $header__minicart-close-button-bg;
         }
     }
 
@@ -96,7 +98,8 @@ $header__search-wrapper-padding\@medium : 0 24px !default;
         align-items: center;
         justify-content: flex-end;
         @include mq($screen-m) {
-            order: 3;
+            order: $header__buttons-order\@medium;
+            flex-wrap: nowrap;
             flex: 1 $header__buttons-width\@medium;
             max-width: $header__buttons-width\@medium;
         }
@@ -108,14 +111,14 @@ $header__search-wrapper-padding\@medium : 0 24px !default;
     }
 
     &__brief-info {
-        order: 3;
+        order: $header__brief-info-order;
 
         .brief-info__subtitle {
-            font-size: $font-size-small;
+            font-size: $header__brief-info-subtitle-font-size;
         }
     }
 
     .side-menu {
-        order: 1;
+        order: $header__side-menu-order;
     }
 }
