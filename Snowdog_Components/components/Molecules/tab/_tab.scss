@@ -13,22 +13,22 @@
     &__title {
         position: relative;
         display: block;
-        width: 100%;
+        width: $tab__title-width;
         height: $tab__title-size;
         padding: $tab__title-padding;
         border-bottom: $tab__title-border;
-        border-width: 0 0 $tab__border-width 0;
+        border-width: $tab__title-border-width;
         background: $tab__title-background;
-        text-align: $tab__title-text-align;
-        text-transform: $tab__title-text-transform;
+        color: $tab__title-color;
         font-family: $font-family-base;
         font-size: $tab__title-font-size;
         font-weight: $font-weight-normal;
-        color: $tab__title-color;
+        text-align: $tab__title-text-align;
+        text-transform: $tab__title-text-transform;
         cursor: pointer;
 
         @include mq($screen-m) {
-            max-width: 440px;
+            max-width: $tab__title-max-width\@medium;
         }
 
         @include mq($screen-m) {
@@ -37,30 +37,29 @@
         }
 
         .tab__icon {
-            fill: $tab__icon-color;
+            fill: $tab__icon-fill;
             pointer-events: none;
         }
 
         &:hover,
         &.focus-visible,
         &--active {
-            border-bottom: $tab__title-border;
             background: $tab__title-background--active;
             color: $tab__title-color--active;
-            font-weight: $tab__title-font-weight--large-active;
+            font-weight: $tab__title-font-weight--active;
 
             @include mq($screen-m) {
                 z-index: 1;
             }
 
             .tab__icon {
-                fill: $color-primary;
+                fill: $tab__icon-fill--active;
             }
         }
 
         &--active {
             .tab__icon {
-                transform: rotate(180deg);
+                transform: $tab__icon-transform--active;
             }
         }
 
@@ -75,15 +74,13 @@
         }
     }
 
+
     &__icon {
         position: absolute;
-        right: 15px;
         top: 0;
         bottom: 0;
-        margin: auto;
-        width: $tab__icon-size;
-        height: $tab__icon-size;
-        padding: $tab__icon-padding;
+        right: $tab__icon-right;
+        margin: $tab__icon-margin;
 
         @include mq($screen-m) {
             display: none;
@@ -93,17 +90,24 @@
     &__content {
         position: relative;
         display: none;
-        width: 100%;
-        padding: $tab__content-padding;
-        font-size: $font-size-medium;
         z-index: -1;
+        width: $tab__content-width;
+        padding: $tab__content-padding;
         opacity: 0;
         overflow: hidden;
 
         @include mq($screen-m) {
-            padding: $tab__content-padding--large;
+            padding: $tab__content-padding\@medium;
             flex-basis: 100%;
             z-index: 1;
+        }
+
+        @include mq($screen-l) {
+            padding: $tab__content-padding\@large;
+        }
+
+        @include mq($screen-xl) {
+            padding: $tab__content-padding\@extra-large;
         }
 
         &--active {

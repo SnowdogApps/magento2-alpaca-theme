@@ -28,6 +28,7 @@
       elem.setAttribute('aria-selected', true);
     });
   }
+
   function keyboardForward(currentTitleIndex) {
     if (currentTitleIndex === titles.length - 1) {
       titles[0].focus();
