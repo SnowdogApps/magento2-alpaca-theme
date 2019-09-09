@@ -5,23 +5,6 @@ function pickRandomitem (items) {
 }
 
 describe('Configurable product', function () {
-  before(() => {
-    // Hide premissions popup
-    cy.setCookie('permission-cookies', 'true')
-    cy.setCookie('permission-profiling', 'true')
-    cy.setCookie('mage-cache-sessid', 'true')
-    // Keep cookies beween tests
-    Cypress.Cookies.defaults({
-      whitelist: [
-        'frontend',
-        'X-Magento-Vary',
-        'permission-profiling',
-        'PHPSESSID',
-        'form_key'
-      ]
-    })
-  })
-
   it('Visits product', () => {
     cy.visit('/configurable-product')
     cy.get('.breadcrumbs__list').should('be.visible')
@@ -90,15 +73,5 @@ describe('Configurable product', function () {
     cy.wait('@getTotalsTemplate')
     cy.wait('@getGrandTotalTemplate')
     cy.get('#cart-totals').find('.cart-totals__row-value--total')
-  })
-
-  after(() => {
-    // Clear cookie after tests to enable running test several times
-    cy.clearCookie('frontend')
-    cy.clearCookie('permission-cookies')
-    cy.clearCookie('permission-profiling')
-    cy.clearCookie('form_key')
-    cy.clearCookie('PHPSESSID')
-    cy.clearCookie('mage-cache-sessid')
   })
 })

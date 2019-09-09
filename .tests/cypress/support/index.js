@@ -1,20 +1,29 @@
-// ***********************************************************
-// This example support/index.js is processed and
-// loaded automatically before your test files.
-//
-// This is a great place to put global configuration and
-// behavior that modifies Cypress.
-//
-// You can change the location of this file or turn off
-// automatically serving support files with the
-// 'supportFile' configuration option.
-//
-// You can read more here:
-// https://on.cypress.io/configuration
-// ***********************************************************
-
-// Import commands.js using ES2015 syntax:
 import './commands'
 
-// Alternatively you can use CommonJS syntax:
-// require('./commands')
+before(() => {
+  // Hide premissions popup
+  cy.setCookie('permission-cookies', 'true')
+  cy.setCookie('permission-profiling', 'true')
+  cy.setCookie('mage-cache-sessid', 'true')
+  // Keep cookies beween tests
+  Cypress.Cookies.defaults({
+    whitelist: [
+      'frontend',
+      'X-Magento-Vary',
+      'permission-cookies',
+      'permission-profiling',
+      'PHPSESSID',
+      'form_key'
+    ]
+  })
+})
+
+after(() => {
+  // Clear cookie after tests to enable running test several times
+  cy.clearCookie('frontend')
+  cy.clearCookie('permission-cookies')
+  cy.clearCookie('permission-profiling')
+  cy.clearCookie('form_key')
+  cy.clearCookie('PHPSESSID')
+  cy.clearCookie('mage-cache-sessid')
+})

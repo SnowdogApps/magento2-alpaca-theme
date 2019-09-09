@@ -1,21 +1,4 @@
 describe('Grouped product', function () {
-  before(() => {
-    // Hide premissions popup
-    cy.setCookie('permission-cookies', 'true')
-    cy.setCookie('permission-profiling', 'true')
-    cy.setCookie('mage-cache-sessid', 'true')
-    // Keep cookies beween tests
-    Cypress.Cookies.defaults({
-      whitelist: [
-        'frontend',
-        'X-Magento-Vary',
-        'permission-profiling',
-        'PHPSESSID',
-        'form_key'
-      ]
-    })
-  })
-
   it('Visits product', () => {
     cy.visit('/grouped-product-test')
     cy.get('.breadcrumbs__list').should('be.visible')
@@ -81,15 +64,5 @@ describe('Grouped product', function () {
     cy.get('.minicart-product__info').contains('Update').should('not.be.visible')
     cy.contains('See Details').click()
     cy.get('.cart-item-qty').should('have.value', '1')
-  })
-
-  after(() => {
-    // Clear cookie after tests to enable running test several times
-    cy.clearCookie('frontend')
-    cy.clearCookie('permission-cookies')
-    cy.clearCookie('permission-profiling')
-    cy.clearCookie('form_key')
-    cy.clearCookie('PHPSESSID')
-    cy.clearCookie('mage-cache-sessid')
   })
 })

@@ -1,25 +1,6 @@
-var faker = require('faker')
+import faker from 'faker'
 
 describe('Newsletter validation', () => {
-  before(() => {
-    cy.setCookie('permission-cookies', 'true')
-    cy.setCookie('permission-profiling', 'true')
-    cy.setCookie('mage-cache-sessid', 'true')
-
-    Cypress.Cookies.defaults({
-      whitelist: [
-        'frontend',
-        'PHPSESSID',
-        'form_key',
-        'mage-cache-sessid',
-        'permission-cookies',
-        'permission-profiling',
-        'X-Magento-Vary'
-      ]
-    })
-    cy.visit('/')
-  })
-
   it('checks newsletter functionality in footer.', () => {
     cy.get('.footer').should('be.visible')
     cy.get('#newsletter-validate-detail').should('be.visible')
@@ -55,13 +36,5 @@ describe('Newsletter validation', () => {
     cy.get('#newsletter').type(faker.internet.email())
     cy.get('[data-testid=submit-newsletter-button]').click()
     cy.get('#newsletterAgrrement-error').should('have.text', 'This is a required field.')
-  })
-
-  after(() => {
-    cy.clearCookie('PHPSESSID')
-    cy.clearCookie('form_key')
-    cy.clearCookie('mage-cache-sessid')
-    cy.clearCookie('X-Magento-Vary')
-    cy.clearCookie('frontend')
   })
 })

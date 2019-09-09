@@ -4,22 +4,6 @@ function pickRandomItem (item) {
 
 describe('CATALOG - Add to Wishlist by Logged in user', () => {
   before(() => {
-    cy.setCookie('permission-cookies', 'true')
-    cy.setCookie('permission-profiling', 'true')
-    cy.setCookie('mage-cache-sessid', 'true')
-
-    Cypress.Cookies.defaults({
-      whitelist: [
-        'frontend',
-        'PHPSESSID',
-        'form_key',
-        'mage-cache-sessid',
-        'permission-cookies',
-        'permission-profiling',
-        'X-Magento-Vary'
-      ]
-    })
-
     cy.login()
   })
 
@@ -42,13 +26,5 @@ describe('CATALOG - Add to Wishlist by Logged in user', () => {
 
   it('remove product from wishlist', () => {
     cy.get('button[class="button button--icon wishlist__remove"]').dblclick()
-  })
-
-  after(() => {
-    cy.clearCookie('PHPSESSID')
-    cy.clearCookie('form_key')
-    cy.clearCookie('mage-cache-sessid')
-    cy.clearCookie('X-Magento-Vary')
-    cy.clearCookie('frontend')
   })
 })

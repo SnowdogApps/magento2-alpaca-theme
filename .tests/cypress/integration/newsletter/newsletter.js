@@ -1,4 +1,4 @@
-var faker = require('faker')
+import faker from 'faker'
 
 describe('Newsletter', () => {
   it('submits newsletter form', () => {

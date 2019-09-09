@@ -1,4 +1,4 @@
-var faker = require('faker')
+import faker from 'faker'
 
 describe('Login validation test', () => {
   before(() => {
