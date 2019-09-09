@@ -12,14 +12,14 @@ describe('Login validation test', () => {
   })
 
   it('submits of empty form', () => {
-    cy.submit_login_form()
+    cy.get('[data-testid=submit-login-button]').click()
     cy.get('#email-error').should('be.visible')
     cy.get('#pass-error').should('be.visible')
   })
 
   it('fills ONLY email address and submits form', () => {
     cy.get('#email').type(faker.internet.email())
-    cy.submit_login_form()
+    cy.get('[data-testid=submit-login-button]').click()
     cy.get('#pass-error').should('be.visible')
       .and('have.text', 'This is a required field.')
   })
@@ -27,7 +27,7 @@ describe('Login validation test', () => {
   it('fills ONLY password and submits form', () => {
     cy.get('#email').clear()
     cy.get('#pass').type(faker.internet.password())
-    cy.submit_login_form()
+    cy.get('[data-testid=submit-login-button]').click()
     cy.get('#email-error').should('be.visible')
       .and('have.text', 'This is a required field.')
   })

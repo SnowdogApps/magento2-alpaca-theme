@@ -24,6 +24,11 @@
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
+Cypress.Commands.add('account', () => {
+  cy.visit('/customer/account/')
+  cy.get('.login__form').should('be.visible')
+})
+
 Cypress.Commands.add('login', () => {
   cy.account()
   cy.get('#email').type('qwe@qwe.com').should('have.value', 'qwe@qwe.com')
@@ -31,75 +36,47 @@ Cypress.Commands.add('login', () => {
   cy.get('[data-testid=submit-login-button]').click()
 })
 
-Cypress.Commands.add('account', () => {
+Cypress.Commands.add('randomCategory', () => {
   cy.visit('/')
-  cy.get('[data-testid=customer-account-link]').click()
-  cy.url().should('include', '/customer/account/')
-  cy.get('.login__form').should('be.visible')
-})
-
-Cypress.Commands.add('randomcategory', () => {
   cy.get('.mega-menu__link')
     .then((elements) => {
-      cy.log(elements)
-      elements[Math.floor(Math.random() * elements.length)]
-        .click(elements)
+      elements[Math.floor(Math.random() * elements.length)].click(elements)
     })
 })
 
-Cypress.Commands.add('gotoproductpage', () => {
+Cypress.Commands.add('goToProductPage', () => {
   cy.get('[data-testid=catalog-grid-item__link]')
     .then((elements) => {
-      cy.log(elements)
-      elements[Math.floor(Math.random() * elements.length)]
-        .click(elements)
+      elements[Math.floor(Math.random() * elements.length)].click(elements)
     })
 })
 
-Cypress.Commands.add('addproducttocart', () => {
+Cypress.Commands.add('addProductToCart', () => {
+  cy.randomCategory()
+  cy.goToProductPage()
   cy.get('.breadcrumbs__item')
 
   cy.get('.size').find('.swatch__option').as('Size')
     .then((elements) => {
-      cy.log(elements)
-      elements[Math.floor(Math.random() * elements.length)]
-        .click(elements)
+      elements[Math.floor(Math.random() * elements.length)].click(elements)
     })
 
   cy.get('.color').find('.swatch__option')
     .then((elements) => {
-      cy.log(elements)
-      elements[Math.floor(Math.random() * elements.length)]
-        .click(elements)
+      elements[Math.floor(Math.random() * elements.length)].click(elements)
     })
 
-  cy.get('#product-addtocart-button').first()
-    .click()
-})
+  cy.get('#product-addtocart-button').first().click()
 
-Cypress.Commands.add('MassageSuccess', () => {
-  cy.get('[data-ui-id=message-success]').should('be.visible')
+  cy.get('[data-ui-id=message-success]')
+    .should('be.visible')
     .log('product added to cart')
 })
 
-Cypress.Commands.add('next_page', () => {
+Cypress.Commands.add('nextPage', () => {
   cy.get('[data-testid=pager-next-link]').click()
 })
 
-Cypress.Commands.add('previous_page', () => {
+Cypress.Commands.add('previousPage', () => {
   cy.get('[data-testid=pager-prev-link]').click()
-})
-
-Cypress.Commands.add('submit_reg_form', () => {
-  cy.get('[data-testid=create-account-button]').click()
-  cy.get('.mage-error').should('be.visible')
-})
-
-Cypress.Commands.add('submit_login_form', () => {
-  cy.get('[data-testid=submit-login-button]').click()
-})
-
-Cypress.Commands.add('select_first_menu', () => {
-  cy.visit('/')
-  cy.get('.mega-menu__link').first().click()
 })

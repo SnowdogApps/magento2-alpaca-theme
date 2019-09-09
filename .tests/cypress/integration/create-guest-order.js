@@ -23,10 +23,7 @@ describe('Create order as guest', function () {
   })
 
   it('Add product to cart', () => {
-    cy.randomcategory()
-    cy.gotoproductpage()
-    cy.addproducttocart()
-    cy.MassageSuccess()
+    cy.addProductToCart()
   })
 
   it('Can navigate to cart from minicart', () => {

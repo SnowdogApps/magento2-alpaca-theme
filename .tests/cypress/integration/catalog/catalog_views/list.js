@@ -1,6 +1,6 @@
 describe('CATALOG - product list view test', () => {
   it('changes catalog product view to list view', () => {
-    cy.select_first_menu()
+    cy.randomCategory()
     cy.get('#mode-list').click()
   })
 
@@ -11,7 +11,7 @@ describe('CATALOG - product list view test', () => {
     })
 
     it('Goes to the next page', () => {
-      cy.next_page()
+      cy.nextPage()
     })
   }
 })

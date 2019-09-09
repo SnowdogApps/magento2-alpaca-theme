@@ -24,7 +24,7 @@ describe('CATALOG - Add to Wishlist by Logged in user', () => {
   })
 
   it('clicks on wishlist button', () => {
-    cy.select_first_menu()
+    cy.randomCategory()
     cy.get('[data-testid=add-to-wishlist-button]')
       .then(item => {
         pickRandomItem(item)

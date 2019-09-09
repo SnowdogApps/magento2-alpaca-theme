@@ -1,6 +1,6 @@
 describe('CATALOG - product grid view test', () => {
   it('selects the first menu option', () => {
-    cy.select_first_menu()
+    cy.randomCategory()
   })
 
   for (var i = 0; i < 3; i++) {
@@ -10,7 +10,7 @@ describe('CATALOG - product grid view test', () => {
     })
 
     it('Goes to the next page', () => {
-      cy.next_page()
+      cy.nextPage()
     })
   }
 })
