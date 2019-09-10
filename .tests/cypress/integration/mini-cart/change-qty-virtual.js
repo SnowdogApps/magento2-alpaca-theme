@@ -24,7 +24,6 @@ describe('Virtual product', function() {
       .click()
     cy.server()
     cy.route('/customer/section/load/?sections=cart*').as('addToCart')
-    cy.wait(4000)
     cy.wait('@addToCart')
   })
 
