@@ -1,0 +1,37 @@
+<div class="swatch {{ class }}">
+    {{#if heading}}
+        <{{{ heading.tag }}}
+            id="{{ heading.id }}"
+            class="swatch__title {{ heading.class }}"
+        >
+            {{ heading.text }}
+        </{{{ heading.tag }}}>
+    {{/if}}
+
+    <div
+        class="swatch__wrapper"
+        {{{ wrapper.attributes }}}
+    >
+        {{#each options }}
+            <div
+                class="swatch__option-container {{ this.class }}"
+                id="{{ this.id }}"
+                {{{ this.attributes }}}
+                {{#if this.headingId}}
+                    aria-describedby="{{ this.headingId }}"
+                {{/if}}
+            >
+                <div
+                    class="swatch__option {{ this.option.class}}"
+                    {{{ this.option.attributes }}}
+                >
+                    {{ this.text }}
+                </div>
+            </div>
+        {{/each }}
+    </div>
+</div>
+
+{{#if script}}
+    <script src="{{static 'swatch.js' }}"></script>
+{{/if}}
