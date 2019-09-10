@@ -1,4 +1,4 @@
-describe('Simple product', function () {
+describe('Simple product', function() {
   it('Visits product', () => {
     cy.visit('/joust-duffle-bag')
     cy.get('.breadcrumbs__list').should('be.visible')
@@ -13,12 +13,18 @@ describe('Simple product', function () {
     cy.get('.quantity-update').should('be.visible')
     cy.get('#product-addtocart-button').should('be.visible')
     cy.get('.product-view__extra-actions').should('be.visible')
-    cy.get('[data-testid=product-tab__title]').contains('Details').should('be.visible')
-    cy.get('[data-testid=product-tab__title]').contains('Reviews').should('be.visible')
+    cy.get('[data-testid=product-tab__title]')
+      .contains('Details')
+      .should('be.visible')
+    cy.get('[data-testid=product-tab__title]')
+      .contains('Reviews')
+      .should('be.visible')
   })
 
   it('Add product to cart', () => {
-    cy.get('#product-addtocart-button').first().click()
+    cy.get('#product-addtocart-button')
+      .first()
+      .click()
     cy.server()
     cy.route('/customer/section/load/?sections=cart*').as('getTotals')
     cy.wait('@getTotals')
@@ -27,11 +33,18 @@ describe('Simple product', function () {
   it('Check if mini-cart is not empty', () => {
     cy.get('[data-testid=minicart-link]').click()
     cy.get('#minicart-content-wrapper').should('be.visible')
-    cy.contains('You have no items in your shopping cart.').should('not.be.visible')
+    cy.contains('You have no items in your shopping cart.').should(
+      'not.be.visible'
+    )
   })
 
   it('Change product qty in cart', () => {
-    cy.get('.cart-item-qty').clear().type('4')
-    cy.get('.minicart-product__info').contains('Update').focus().click()
+    cy.get('.cart-item-qty')
+      .clear()
+      .type('4')
+    cy.get('.minicart-product__info')
+      .contains('Update')
+      .focus()
+      .click()
   })
 })

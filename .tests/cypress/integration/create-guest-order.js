@@ -1,5 +1,4 @@
-
-describe('Create order as guest', function () {
+describe('Create order as guest', function() {
   it('Visits product', () => {
     cy.visit('/women')
   })
@@ -10,7 +9,9 @@ describe('Create order as guest', function () {
 
   it('Can navigate to cart from minicart', () => {
     cy.get('[data-testid=minicart-link]').click()
-    cy.get('[data-testid=view-cart-link]').should('be.visible').click()
+    cy.get('[data-testid=view-cart-link]')
+      .should('be.visible')
+      .click()
   })
 
   it('Is cupon code input visible', () => {
@@ -20,8 +21,12 @@ describe('Create order as guest', function () {
   it('Are totals displayed', () => {
     cy.server({ whitelist: () => false })
     cy.route('/customer/section/load/?sections=cart*').as('getTotals')
-    cy.route('/static/*/frontend/Snowdog/alpaca/*/Magento_Checkout/template/cart/totals.html').as('getTotalsTemplate')
-    cy.route('/static/*/frontend/Snowdog/alpaca/*/Magento_Tax/template/checkout/cart/totals/grand-total.html').as('getGrandTotalTemplate')
+    cy.route(
+      '/static/*/frontend/Snowdog/alpaca/*/Magento_Checkout/template/cart/totals.html'
+    ).as('getTotalsTemplate')
+    cy.route(
+      '/static/*/frontend/Snowdog/alpaca/*/Magento_Tax/template/checkout/cart/totals/grand-total.html'
+    ).as('getGrandTotalTemplate')
 
     cy.wait('@getTotals')
     cy.wait('@getTotalsTemplate')

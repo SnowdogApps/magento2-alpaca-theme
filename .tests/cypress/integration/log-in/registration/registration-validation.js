@@ -64,15 +64,22 @@ describe('Registration validation', () => {
     cy.get('#email_address').type('test@')
     cy.get('[data-testid=create-account-button]').click()
     cy.get('.mage-error').should('be.visible')
-    cy.get('#email_address-error').should('be.visible')
-      .and('have.text', 'Please enter a valid email address (Ex: johndoe@domain.com).')
+    cy.get('#email_address-error')
+      .should('be.visible')
+      .and(
+        'have.text',
+        'Please enter a valid email address (Ex: johndoe@domain.com).'
+      )
   })
 
   it('fills password less than 8 characters and submits form', () => {
-    cy.get('#password').clear().type('Pass')
+    cy.get('#password')
+      .clear()
+      .type('Pass')
     cy.get('[data-testid=create-account-button]').click()
     cy.get('.mage-error').should('be.visible')
-    cy.get('#password-error').should('be.visible')
+    cy.get('#password-error')
+      .should('be.visible')
       .and(
         'have.text',
         'Minimum length of this field must be equal or greater than 8 symbols. Leading and trailing spaces will be ignored.'
@@ -80,11 +87,14 @@ describe('Registration validation', () => {
   })
 
   it('fills wrong passsword in Confirm Password field and submits form', () => {
-    cy.get('#password').clear().type('Password123')
+    cy.get('#password')
+      .clear()
+      .type('Password123')
     cy.get('#password-confirmation').type('Password124')
     cy.get('[data-testid=create-account-button]').click()
     cy.get('.mage-error').should('be.visible')
-    cy.get('#password-confirmation-error').should('be.visible')
+    cy.get('#password-confirmation-error')
+      .should('be.visible')
       .and('have.text', 'Please enter the same value again.')
   })
 })

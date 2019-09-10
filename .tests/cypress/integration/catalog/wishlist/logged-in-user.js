@@ -1,4 +1,4 @@
-function pickRandomItem (item) {
+function pickRandomItem(item) {
   return item[Math.floor(Math.random() * item.length)]
 }
 
@@ -9,11 +9,9 @@ describe('CATALOG - Add to Wishlist by Logged in user', () => {
 
   it('clicks on wishlist button', () => {
     cy.randomCategory()
-    cy.get('[data-testid=add-to-wishlist-button]')
-      .then(item => {
-        pickRandomItem(item)
-          .click()
-      })
+    cy.get('[data-testid=add-to-wishlist-button]').then(item => {
+      pickRandomItem(item).click()
+    })
     cy.url().should('include', '/wishlist/')
     cy.get('[data-ui-id="message-success"]').should('be.visible')
   })

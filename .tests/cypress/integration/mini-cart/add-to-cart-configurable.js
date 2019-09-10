@@ -1,8 +1,8 @@
-function pickRandomitem (item) {
+function pickRandomitem(item) {
   return item[Math.floor(Math.random() * item.length)]
 }
 
-describe('Configurable product', function () {
+describe('Configurable product', function() {
   it('Visits product', () => {
     cy.visit('/configurable-product')
     cy.get('.breadcrumbs__list').should('be.visible')
@@ -17,29 +17,40 @@ describe('Configurable product', function () {
     cy.get('.quantity-update').should('be.visible')
     cy.get('#product-addtocart-button').should('be.visible')
     cy.get('.product-view__extra-actions').should('be.visible')
-    cy.get('[data-testid=product-tab__title]').contains('Details').should('be.visible')
-    cy.get('[data-testid=product-tab__title]').contains('Reviews').should('be.visible')
+    cy.get('[data-testid=product-tab__title]')
+      .contains('Details')
+      .should('be.visible')
+    cy.get('[data-testid=product-tab__title]')
+      .contains('Reviews')
+      .should('be.visible')
   })
 
   it('Test reviews tab', () => {
-    cy.get('[data-testid=product-tab__title]').contains('Reviews').click()
+    cy.get('[data-testid=product-tab__title]')
+      .contains('Reviews')
+      .click()
     cy.get('.product-review__title').contains('Customers reviews')
     cy.get('#review-form').should('be.visible')
     cy.get('#reviewAddButton').should('be.visible')
   })
   it('Checks configurable options', () => {
-    cy.get('.swatch-opt').should('be.visible').find('.size')
-    cy.get('.size').find('.swatch__option')
-      .then((elements) => {
+    cy.get('.swatch-opt')
+      .should('be.visible')
+      .find('.size')
+    cy.get('.size')
+      .find('.swatch__option')
+      .then(elements => {
         cy.log(elements)
         pickRandomitem(elements).click()
       })
-    cy.get('.color').find('.swatch__option')
-      .then((elements) => {
+    cy.get('.color')
+      .find('.swatch__option')
+      .then(elements => {
         cy.log(elements)
         pickRandomitem(elements).click()
       })
-    cy.get('#product-addtocart-button').first()
+    cy.get('#product-addtocart-button')
+      .first()
       .click()
     cy.server()
     cy.route('/customer/section/load/?sections=cart*').as('addToCart')
@@ -49,6 +60,8 @@ describe('Configurable product', function () {
   it('Check if mini-cart is not empty', () => {
     cy.get('[data-testid=minicart-link]').click()
     cy.get('#minicart-content-wrapper').should('be.visible')
-    cy.contains('You have no items in your shopping cart.').should('not.be.visible')
+    cy.contains('You have no items in your shopping cart.').should(
+      'not.be.visible'
+    )
   })
 })

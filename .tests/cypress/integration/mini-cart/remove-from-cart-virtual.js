@@ -1,4 +1,4 @@
-describe('Virtual product', function () {
+describe('Virtual product', function() {
   it('Visits product', () => {
     cy.visit('/virtual-product-test')
     cy.get('.breadcrumbs__list').should('be.visible')
@@ -13,11 +13,15 @@ describe('Virtual product', function () {
     cy.get('.quantity-update').should('be.visible')
     cy.get('#product-addtocart-button').should('be.visible')
     cy.get('.product-view__extra-actions').should('be.visible')
-    cy.get('[data-testid=product-tab__title]').contains('Reviews').should('be.visible')
+    cy.get('[data-testid=product-tab__title]')
+      .contains('Reviews')
+      .should('be.visible')
   })
 
   it('Add product to cart', () => {
-    cy.get('#product-addtocart-button').first().click()
+    cy.get('#product-addtocart-button')
+      .first()
+      .click()
     cy.server()
     cy.route('/customer/section/load/?sections=cart*').as('addToCart')
     cy.wait('@addToCart')
@@ -26,14 +30,20 @@ describe('Virtual product', function () {
   it('Check if mini-cart is not empty', () => {
     cy.get('[data-testid=minicart-link]').click()
     cy.get('#minicart-content-wrapper').should('be.visible')
-    cy.contains('You have no items in your shopping cart.').should('not.be.visible')
+    cy.contains('You have no items in your shopping cart.').should(
+      'not.be.visible'
+    )
   })
 
   it('Delate item form cart', () => {
     cy.get('[data-testid=delete-item-link]').click()
-    cy.get('.modal-inner-wrap').find('.modal-footer')
+    cy.get('.modal-inner-wrap')
+      .find('.modal-footer')
       .then(() => {
-        cy.get('.modal-footer').find('button').eq(1).click()
+        cy.get('.modal-footer')
+          .find('button')
+          .eq(1)
+          .click()
         cy.go('forward')
         cy.server()
         cy.request('/checkout/cart/').as('cartStatus')

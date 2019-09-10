@@ -1,7 +1,9 @@
 describe('CATALOG - Sort By Product name descending test', () => {
   it('selects sorting by Product name descending', () => {
     cy.randomCategory()
-    cy.get('.choices').first().click()
+    cy.get('.choices')
+      .first()
+      .click()
     cy.get('#choices-sort-by-item-choice-6').click()
     cy.url().should('include', '?dir=desc')
   })

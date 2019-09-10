@@ -2,7 +2,9 @@ describe('CATALOG - Sort By Product name ascending test', () => {
   it('selects sorting by Product name ascending', () => {
     cy.randomCategory()
     cy.get('.toolbar__sorter').should('be.visible')
-    cy.get('.choices').first().click()
+    cy.get('.choices')
+      .first()
+      .click()
     cy.get('#choices-sort-by-item-choice-5').click()
   })
 
