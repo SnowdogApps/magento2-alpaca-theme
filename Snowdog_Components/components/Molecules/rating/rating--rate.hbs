@@ -1,0 +1,53 @@
+<fieldset
+    class="fieldset"
+    aria-labelledby="rating-field-label"
+>
+    <legend
+        id="rating-field-label"
+        class="rating-rate-legend {{ legendClass }}"
+    >
+        Your rating
+    </legend>
+    <div
+        class="rating rating--rate {{ class }}"
+        role="listbox"
+        aria-required="true"
+        aria-labelledby="rating-field-label"
+        {{{ attributes }}}
+        tabindex="0"
+    >
+        {{#each rateItems as |item|}}
+            <div
+                class="rating__rate-item {{ item.class }}"
+                role="option"
+                aria-selected="false"
+                {{{ item.attributes }}}
+            >
+                <label
+                    for="{{ item.id }}"
+                    class="rating__star rating__star--rate {{ star.class }}"
+                    aria-label="{{ labelText }}"
+                    {{{ item.labelAttributes }}}
+                >
+                    <span
+                        class="
+                            rating__indicator
+                            {{ item.indicator.class }}
+                        "
+                        {{{ item.indicator.attributes }}}
+                    ></span>
+                </label>
+                <input
+                    type="radio"
+                    name="{{ item.name }}"
+                    id="{{ item.id }}"
+                    value="16"
+                    class="radio__field"
+                >
+            </div>
+        {{/each}}
+    </div>
+</fieldset>
+{{#if script}}
+    <script src="{{static 'rating-rate.js' }}"></script>
+{{/if}}
