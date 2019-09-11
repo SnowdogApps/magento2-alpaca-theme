@@ -3,10 +3,10 @@ module.exports = {
     handlerClass: 'container',
     scrollToTop: {
       tag: 'button',
-      class: 'button--secondary footer__scroll-top',
+      class: 'footer__scroll-top',
       icon: {
         title: 'Scroll to top',
-        iconId: 'back'
+        id: 'arrow-up'
       }
     },
     bottomBar: {
@@ -165,7 +165,7 @@ module.exports = {
       ]
     },
     socialListSubtitle: 'LETS GET SOCIAL!',
-    copyrightText: 'Copyright © 2018 Highpoint Scientific',
+    copyrightText: 'Copyright © 2019 Colibri',
     socialIconList: {
       listTag: 'ul',
       elementTag: 'li',
@@ -173,7 +173,7 @@ module.exports = {
       elements: [
         {
           icon: {
-            iconId: 'facebook',
+            id: 'facebook',
             iconTitle: 'Facebook logo',
             class: 'footer__social-icon',
           },
@@ -182,22 +182,18 @@ module.exports = {
         },
         {
           icon: {
-            iconId: 'instagram',
-            iconTitle: 'Instagram logo',
+            id: 'twitter',
+            iconTitle: 'Twitter logo',
             class: 'footer__social-icon',
           },
           iconItemLink: '#',
-          linkAttributes: 'aria-label="Check Highpointscientific on Instagram"'
+          linkAttributes: 'aria-label="Check Highpointscientific on Twitter"'
         }
       ]
     },
     paymentsList: {
       class: '',
       elements: [
-        {
-          imageSrc: '/images/footer/bread.png',
-          imageAlt: 'Bread'
-        },
         {
           imageSrc: '/images/footer/visa.svg',
           imageAlt: 'Visa'

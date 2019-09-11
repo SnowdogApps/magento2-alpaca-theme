@@ -3,11 +3,7 @@ module.exports = {
   context: {
     heading: {
       title: 'JOIN OUR EMAIL LIST',
-      subtitle: 'Sign up for savings and product announcements',
-      icon: {
-        src: '/images/footer/news.svg',
-        alt: 'Paper plane'
-      }
+      subtitle: 'Sign up for savings and product announcements'
     },
     input: {
       class: 'newsletter__input',
