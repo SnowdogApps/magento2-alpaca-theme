@@ -1,7 +1,8 @@
+version: 2.1
 jobs:
   lint-theme:
     docker:
-      - image: circleci/php:7.1-fpm-node-browsers-legacy
+      - image: circleci/php:7.1-fpm-node-browsers
     environment:
       - THEME_PATH: "vendor/snowdog/theme-frontend-alpaca"
       - CONFIG_PATH: "vendor/snowdog/theme-frontend-alpaca/.circleci/frontools/config"
@@ -25,12 +26,39 @@ jobs:
       - image: circleci/node:lts
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - alpaca-theme-tests-{{ checksum ".tests/yarn.lock" }}
+            - alpaca-theme-tests-
       - run: cd .tests && yarn
       - run: cd .tests && yarn lint
+      - save_cache:
+          key: alpaca-theme-tests-{{ checksum ".tests/yarn.lock" }}
+          paths:
+            - ~/.tests/node_modules
+  cypress:
+    docker:
+      - image: circleci/node:lts-browsers
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - alpaca-theme-tests-{{ checksum ".tests/yarn.lock" }}
+            - alpaca-theme-tests-
+      - run: cd .tests && yarn
+      - run: cd .tests && yarn test --config video=false
+      - save_cache:
+          key: alpaca-theme-tests-{{ checksum ".tests/yarn.lock" }}
+          paths:
+            - ~/.tests/node_modules
 
 workflows:
-  version: 2
-  lint:
+  theme:
     jobs:
       - lint-theme
+  e2e:
+    jobs:
       - lint-tests
+      - cypress:
+          requires:
+            - lint-tests
