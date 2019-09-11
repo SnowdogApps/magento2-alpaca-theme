@@ -1,9 +1,10 @@
 # Dropdown list
 
 ## Variants and Usage
-* `default` - Used in: Minicart, Footer
+* `default` - Used in: Footer
 * `secondary` - Used in: Filters
 * `with-nested` - Used in: Sidebar
+* `with-inner` - Used in: Minicart
 
 ## Accessibility:
 * Buttons (reactive elements, which open dropdown) should have following aria attributes:
