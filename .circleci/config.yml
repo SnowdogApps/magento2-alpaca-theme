@@ -1,11 +1,13 @@
+version: 2.1
 jobs:
-  build:
+  lint-theme:
     docker:
-      - image: circleci/php:7.1-fpm-node-browsers-legacy
+      - image: circleci/php:7.1-fpm-node-browsers
     environment:
       - THEME_PATH: "vendor/snowdog/theme-frontend-alpaca"
       - CONFIG_PATH: "vendor/snowdog/theme-frontend-alpaca/.circleci/frontools/config"
     steps:
+      - run: sudo apt-get install rsync
       - checkout
       - run: mkdir -p $THEME_PATH
       - run: rsync -r --delete . $THEME_PATH
@@ -14,9 +16,49 @@ jobs:
       - run: composer update --no-interaction --prefer-dist
       - run: mkdir -p dev/tools/frontools
       - run: cp -r $CONFIG_PATH dev/tools/frontools
-      - run: sudo npm install -g gulp-cli
-      - run: cd vendor/snowdog/frontools && yarn && gulp setup
-      - run: cd tools && gulp inheritance
-      - run: cd tools && gulp sasslint --ci
-      - run: cd tools && gulp styles --ci --pipeline
-      - run: cd tools && gulp csslint --ci
+      - run: cd vendor/snowdog/frontools && yarn && yarn setup
+      - run: cd tools && yarn inheritance
+      - run: cd tools && yarn sasslint --ci
+      - run: cd tools && yarn styles --ci --pipeline
+      - run: cd tools && yarn csslint --ci
+  lint-tests:
+    docker:
+      - image: circleci/node:lts
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - alpaca-theme-tests-{{ checksum ".tests/yarn.lock" }}
+            - alpaca-theme-tests-
+      - run: cd .tests && yarn
+      - run: cd .tests && yarn lint
+      - save_cache:
+          key: alpaca-theme-tests-{{ checksum ".tests/yarn.lock" }}
+          paths:
+            - ~/.tests/node_modules
+  cypress:
+    docker:
+      - image: circleci/node:lts-browsers
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - alpaca-theme-tests-{{ checksum ".tests/yarn.lock" }}
+            - alpaca-theme-tests-
+      - run: cd .tests && yarn
+      - run: cd .tests && yarn test --config video=false
+      - save_cache:
+          key: alpaca-theme-tests-{{ checksum ".tests/yarn.lock" }}
+          paths:
+            - ~/.tests/node_modules
+
+workflows:
+  theme:
+    jobs:
+      - lint-theme
+  e2e:
+    jobs:
+      - lint-tests
+      - cypress:
+          requires:
+            - lint-tests
