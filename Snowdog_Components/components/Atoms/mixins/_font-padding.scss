@@ -1,0 +1,33 @@
+@mixin font-padding(
+    $font-size,
+    $height,
+    $right: 0,
+    $left: 0,
+    $line-height: $font-line-height
+) {
+    $font-size: $font-size;
+    $vertical: $height - round($font-size * $line-height);
+
+    @if $vertical > 0 {
+        $vertical: $vertical / 2;
+    } @else {
+        $vertical: 0;
+    }
+
+    @if $left == $right {
+        $left: $left * 1px;
+        padding: $vertical $left;
+    } @else {
+        @if $right != 0 {
+            $right: $right * 1px;
+        }
+
+        @if $left != 0 {
+            $left: $left * 1px;
+        }
+
+        padding: $vertical $right $vertical $left;
+    }
+
+    line-height: $line-height;
+}
