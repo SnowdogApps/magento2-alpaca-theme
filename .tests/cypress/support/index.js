@@ -1,4 +1,5 @@
 import './commands'
+import './local-storage'
 
 before(() => {
   // Hide premissions popup
