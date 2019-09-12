@@ -1,12 +1,14 @@
 <div class="quicksearch__wrapper">
     <div class="quicksearch quicksearch--visible">
-        {{ render '@button--icon' close }}
-        <p class="quicksearch__results">
-            {{ results.text }}
-            <span class="quicksearch__typed">
-                {{ results.typed }}
-            </span>
-        </p>
+        <div class="quicksearch__results">
+            <p class="margin-bottom-0">
+                {{ results.text }}
+                <span class="quicksearch__typed">
+                    {{ results.typed }}
+                </span>
+            </p>
+            {{ render '@button--rotate-icon' close }}
+        </div>
         <div class="quicksearch__content">
             {{#if noresults.visible }}
                 <p class="quicksearch__empty">
@@ -22,7 +24,7 @@
                         <div class="quicksearch__product-details">
                             <a
                                 href="#"
-                                class="link link--invert quicksearch__link"
+                                class="link quicksearch__link"
                                 title="{{ name.text }}"
                             >
                                 {{ render '@heading' name }}
@@ -34,30 +36,34 @@
             </ul>
             <div class="quicksearch__categories-column">
                 <ul class="quicksearch__list">
-                    {{#each category }}
+                    <h2 class="quicksearch__category-title">
+                        {{ category.title }}
+                    </h2>
+                    {{#each category.items }}
                         <li class="quicksearch__category">
                             <a
                                 href="#"
-                                class="link link--invert quicksearch__link"
+                                class="link quicksearch__link"
                                 title="{{ name.text }}"
                             >
-                                {{ render '@heading' name }}
+                                {{ name.text }}
                             </a>
-                            {{ items }}
                         </li>
                     {{/each }}
                 </ul>
                 <ul class="quicksearch__list quicksearch__list--below">
-                    {{#each manufacturer }}
+                    <h2 class="quicksearch__manufacturer-title">
+                        {{ manufacturer.title }}
+                    </h2>
+                    {{#each manufacturer.items }}
                         <li class="quicksearch__manufacturer">
                             <a
                                 href="#"
-                                class="link link--invert quicksearch__link"
+                                class="link quicksearch__link"
                                 title="{{ name.text }}"
                             >
-                                {{ render '@heading' name }}
+                                {{ name.text }}
                             </a>
-                            {{ items }}
                         </li>
                     {{/each }}
                 </ul>

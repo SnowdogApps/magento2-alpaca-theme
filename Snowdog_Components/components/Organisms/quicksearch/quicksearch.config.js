@@ -10,11 +10,11 @@ module.exports = {
     },
     close: {
       tag: 'button',
-      class: 'button--icon quicksearch__close-button',
+      class: 'button--rotate-icon quicksearch__close-button',
       icon: {
         id: 'close',
         title: 'Close',
-        iconClass: 'button__icon quicksearch__close-icon'
+        class: 'button__icon quicksearch__close-icon'
       },
       attributes: 'type="button" aria-label="Close quicksearch"',
     },
@@ -68,68 +68,60 @@ module.exports = {
         }
       }
     ],
-    category: [
-      {
-        name: {
-          class: 'quicksearch__name',
-          tag: 'h3',
-          text: 'Category name'
+    category: {
+      title: 'Category',
+      items: [
+        {
+          name: {
+            class: 'quicksearch__name',
+            tag: 'h3',
+            text: 'Category 1'
+          }
         },
-        items: '598 item(s)'
-      },
-      {
-        name: {
-          class: 'quicksearch__name',
-          tag: 'h3',
-          text: 'Category name'
+        {
+          name: {
+            class: 'quicksearch__name',
+            tag: 'h3',
+            text: 'Category 2'
+          }
+        }
+      ]
+    },
+    manufacturer: {
+      title: 'Manufacturer',
+      items: [
+        {
+          name: {
+            class: 'quicksearch__name',
+            tag: 'h3',
+            text: 'Nike'
+          }
         },
-        items: '598 item(s)'
-      },
-      {
-        name: {
-          class: 'quicksearch__name',
-          tag: 'h3',
-          text: 'Category name'
+        {
+          name: {
+            class: 'quicksearch__name',
+            tag: 'h3',
+            text: 'Nike SB'
+          }
         },
-        items: '598 item(s)'
-      }
-    ],
-    manufacturer: [
-      {
-        name: {
-          class: 'quicksearch__name',
-          tag: 'h3',
-          text: 'Manufacturer name'
+        {
+          name: {
+            class: 'quicksearch__name',
+            tag: 'h3',
+            text: 'Nike sportswear'
+          }
         },
-        items: '598 item(s)'
-      },
-      {
-        name: {
-          class: 'quicksearch__name',
-          tag: 'h3',
-          text: 'Manufacturer name'
-        },
-        items: '598 item(s)'
-      },
-      {
-        name: {
-          class: 'quicksearch__name',
-          tag: 'h3',
-          text: 'Manufacturer name'
-        },
-        items: '598 item(s)'
-      },
-      {
-        name: {
-          class: 'quicksearch__name',
-          tag: 'h3',
-          text: 'Manufacturer name'
-        },
-        items: '598 item(s)'
-      }
-    ],
+        {
+          name: {
+            class: 'quicksearch__name',
+            tag: 'h3',
+            text: 'Nixon'
+          }
+        }
+      ]
+    },
     more: {
-      class: 'link--invert quicksearch__more-link',
+      class: 'button quicksearch__more-link',
       href: '#',
       text: 'See All'
     }
