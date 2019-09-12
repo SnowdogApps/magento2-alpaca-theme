@@ -9,6 +9,20 @@ module.exports = {
   },
   variants: [
     {
+      name: 'secondary',
+      context: {
+        class: 'button--secondary',
+        text: 'I am button secondary'
+      }
+    },
+    {
+      name: 'secondary-light',
+      context: {
+        class: 'button--secondary-light',
+        text: 'I am button secondary light'
+      }
+    },
+    {
       name: 'icon',
       context: {
         text: '',
@@ -31,36 +45,21 @@ module.exports = {
           title: 'Add to Cart',
           class: 'button__icon',
         },
-        attributes: 'type="button" aria-label="click to do something"'
+        attributes: 'type="button" aria-label="Add to cart"'
       }
     },
     {
-      name: 'secondary',
+      name: 'rotate-icon',
+      view: 'button--icon.hbs',
       context: {
-        class: 'button--secondary',
-        text: 'I am button secondary'
-      }
-    },
-    {
-      name: 'secondary-light',
-      context: {
-        class: 'button--secondary-light',
-        text: 'I am button secondary light'
-      }
-    },
-    {
-      name: 'link',
-      context: {
-        tag: 'a',
-        class: 'button--link',
-        attributes: 'href="#" title="I am a link button"',
-        text: 'I am a link button'
-      }
-    },
-    {
-      name: 'fluid',
-      context: {
-        class: 'button--fluid'
+        text: '',
+        class: 'button--rotate-icon',
+        icon: {
+          id: 'close',
+          title: 'Close',
+          class: 'button__icon'
+        },
+        attributes: 'type="button" aria-label="Close"'
       }
     },
     {
@@ -91,5 +90,28 @@ module.exports = {
         attributes: 'type="button" aria-label="click to do something"'
       }
     },
+    {
+      name: 'link',
+      context: {
+        tag: 'a',
+        class: 'button--link',
+        attributes: 'href="#" title="I am a link button"',
+        text: 'I am a link button'
+      }
+    },
+    {
+      name: 'fluid',
+      context: {
+        class: 'button--fluid',
+        text: 'I am a fluid button'
+      }
+    },
+    {
+      name: 'disabled',
+      context: {
+        attributes: 'disabled',
+        text: 'I am a disabled button'
+      }
+    }
   ]
 };

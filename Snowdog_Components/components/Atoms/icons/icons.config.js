@@ -53,6 +53,11 @@ module.exports = {
         class: 'icons__single-icon'
       },
       {
+        id: 'bigstar',
+        title: 'Big Star',
+        class: 'icons__single-icon'
+      },
+      {
         id: 'check',
         title: 'Checked',
         class: 'icons__single-icon'
@@ -75,6 +80,11 @@ module.exports = {
       {
         id: 'curved-arrows',
         title: 'Curved 2 arrows in form of circle',
+        class: 'icons__single-icon'
+      },
+      {
+        id: 'delivery',
+        title: 'Delivery',
         class: 'icons__single-icon'
       },
       {
@@ -163,6 +173,16 @@ module.exports = {
         class: 'icons__single-icon'
       },
       {
+        id: 'return',
+        title: 'Return 30 days',
+        class: 'icons__single-icon'
+      },
+      {
+        id: 'reviews',
+        title: 'Reviews',
+        class: 'icons__single-icon'
+      },
+      {
         id: 'search',
         title: 'Search',
         class: 'icons__single-icon'
@@ -208,8 +228,23 @@ module.exports = {
         class: 'icons__single-icon'
       },
       {
+        id: 'unchecked',
+        title: 'Unchecked',
+        class: 'icons__single-icon'
+      },
+      {
         id: 'user',
         title: 'User',
+        class: 'icons__single-icon'
+      },
+      {
+        id: 'visibility',
+        title: 'Visibility',
+        class: 'icons__single-icon'
+      },
+      {
+        id: 'visibility-off',
+        title: 'Visibility off',
         class: 'icons__single-icon'
       },
       {
