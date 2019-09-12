@@ -1,6 +1,3 @@
-// Disbale clearing localstorage
-Cypress.LocalStorage.clear = function() {}
-
 describe('Grouped product', function() {
   it('Visits product', () => {
     cy.visit('/grouped-product-test')
