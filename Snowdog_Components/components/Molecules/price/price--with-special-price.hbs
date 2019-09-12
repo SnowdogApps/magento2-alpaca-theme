@@ -1,0 +1,44 @@
+<div class="price {{ class }} {{{ attributes }}}">
+{{#if specialPrice }}
+    <span class="price__value price__value--old {{ oldPriceClass }}">
+        <del aria-label="Price reduced from: {{#if prefix.text}}{{prefix.text}}{{/if}}{{regularPrice}}{{#if suffix.text}}{{suffix.text}}{{/if}}">
+            {{#if prefix.tag}}
+                <{{prefix.tag}}>
+            {{/if}}
+                {{prefix.text}}
+            {{#if prefix.tag}}
+                </{{tag}}>
+            {{/if}}
+            {{regularPrice}}
+            {{#if suffix.tag}}
+                <{{suffix.tag}}>
+            {{/if}}
+                {{suffix.text}}
+            {{#if suffix.tag}}
+                </{{suffix.tag}}>
+            {{/if}}
+        </del>
+    </span>
+    <span class="price__value price__value--special {{ specialPriceClass }}">
+        <ins aria-label="On sale at: {{#if prefix.text}}{{prefix.text}}{{/if}}{{specialPrice}}{{#if suffix.text}}{{suffix.text}}{{/if}}">
+            {{prefix.tag}}
+                {{prefix.text}}
+            {{prefix.closingTag}}
+            {{specialPrice}}
+            {{suffix.tag}}
+                {{suffix.text}}
+            {{suffix.closingTag}}
+        </ins>
+    </span>
+{{else}}
+    <span class="price__value {{ regularPriceClass }}">
+        {{prefix.tag}}
+            {{prefix.text}}
+        {{prefix.closingTag}}
+        {{regularPrice}}
+        {{suffix.tag}}
+            {{suffix.text}}
+        {{suffix.closingTag}}
+    </span>
+{{/if}}
+</div>
