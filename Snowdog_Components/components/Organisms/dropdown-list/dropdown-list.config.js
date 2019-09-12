@@ -362,15 +362,36 @@ module.exports = {
       }
     },
     {
-      name: 'screen-m',
+      name: 'with-breakpoint',
       context: {
-        class: 'dropdown-list@screen-m dropdown-list--is-open@screen-m',
+        class: 'dropdown-list--with-breakpoint',
       }
     },
     {
       name: 'inner',
       context: {
         class: 'dropdown-list--inner'
+      }
+    },
+    {
+      name: 'Detailed content',
+      context: {
+        class: 'dropdown-list--detailed-content',
+        dropdowns: [
+          {
+            itemTag: 'a',
+            itemAttributes: 'href="#" aria-expanded="false"',
+            title: 'dropdown title',
+            id: 'dropdown-detailed-content',
+            collapse: {
+              id: 'angle-down',
+              title: 'Arrow Down',
+              class: 'dropdown-list__icon',
+              attributes: 'aria-hidden="true"'
+            },
+            contentElement: 'list'
+          }
+        ]
       }
     }
   ]
