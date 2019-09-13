@@ -47,9 +47,10 @@ jobs:
             - alpaca-theme-tests-
       - run: cd .tests && yarn
       - run: cd .tests && yarn test --config video=false
-      - run: cd .tests && yarn cypress-test-report
+      - run: cd .tests && yarn cypress-test-report && mkdir test_results
       - store_artifacts:
           path: ~/.tests/mochawesome-report/mochawesome.html
+          destination: ~/.tests/test_results
       - save_cache:
           key: alpaca-theme-tests-{{ checksum ".tests/yarn.lock" }}
           paths:
