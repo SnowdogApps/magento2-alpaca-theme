@@ -85,3 +85,17 @@ $swatch__option-image-width--small\@large
 ## Accessibility
 Components are tested with [axe-core](https://github.com/dequelabs/axe-core). The results are displayed as a console output in browser tools.
 A11y test files you can find in `/public/tests/`
+
+## Common js files
+General concept for js files is that we load them inside component .hbs file using:
+1) `<script src="{{static 'component-name.js' }}"></script>`
+If component that contains js file is required by other compontent we are using `script` variable to avoid problems with duplicated declaration of js files. This variable can be defined in config.js file and js script is loaded in .hbs file using:
+2) `{{#if script}}
+    <script src="{{static 'component-name.js' }}"></script>
+{{/if}}`
+Above method is recommended for most js scripts used in components, but requires additional config which can be complex, especially in the `Templates` views where current compontent that contains js file is loaded multiple times. Good example of that kind compontent type is `dropdown-list` which on one view is loaded in: sidemenu, header minicart, filters and in footer.
+To avoid problems with complex config and duplicated declaration of js files `common-js` component is created in `Atoms`.
+This component contain only common-js.hbs file where js scripts created in components can be loaded globally using:
+3) `<script src="{{static '../component-name/component-name.js' }}"></script>`
+This component is used in `_preview.hbs` file after lib js files are loaded.
+Do not use `common-js` component for libs files and for js scripts created in components that are not loaded multiple time on one view.

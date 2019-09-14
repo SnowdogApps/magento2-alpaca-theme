@@ -1,0 +1,91 @@
+@import 'quantity-update-variables';
+
+.quantity-update {
+    position: relative;
+    display: flex;
+
+    &__input {
+        flex-grow: 1;
+        border-top: $quantity-update__input-border;
+        border-bottom: $quantity-update__input-border;
+        border-width: $quantity-update__input-border-width;
+        border-radius: $quantity-update__input-border-radius;
+        width: $quantity-update__input-width;
+        height: $quantity-update__input-height;
+        color: $quantity-update__input-color;
+        font-size: $quantity-update__input-font-size;
+        text-align: center;
+        appearance: none;
+
+        &.focus-visible {
+            outline: none;
+        }
+    }
+
+    &__button {
+        width: $quantity-update__button-size;
+        height: $quantity-update__button-size;
+        margin: $quantity-update__button-margin;
+        border: $quantity-update__button-border;
+        background: $quantity-update__button-background;
+
+        &:hover,
+        &.focus-visible {
+            background: $quantity-update__button-background-hover;
+
+            .quantity-update__icon {
+                fill: $quantity-update__icon-fill-hover;
+            }
+        }
+
+        &:before,
+        &:after {
+            display: none;
+        }
+
+        .quantity-update__icon {
+            fill: $quantity-update__icon-fill;
+        }
+
+        &--plus {
+            border-left: 0;
+        }
+
+        &--minus {
+            border-right: 0;
+        }
+
+        &--disabled {
+            pointer-events: none;
+
+            &:hover,
+            &.focus-visible {
+                background: $quantity-update__button-background-hover--disabled;
+
+                .quantity-update__icon {
+                    fill: $quantity-update__button-fill-hover--disabled;
+                }
+            }
+
+            .quantity-update__icon {
+                fill: $quantity-update__button-fill-hover--disabled;
+            }
+        }
+    }
+
+    // Disable spin buttons in number input type
+    input[type="number"]::-webkit-outer-spin-button, // sass-lint:disable-line no-vendor-prefixes
+    input[type="number"]::-webkit-inner-spin-button { // sass-lint:disable-line no-vendor-prefixes
+        -webkit-appearance: none; // sass-lint:disable-line no-vendor-prefixes
+        margin: 0;
+    }
+
+    input[type="number"] { // sass-lint:disable-line no-vendor-prefixes
+        -moz-appearance: textfield; // sass-lint:disable-line no-vendor-prefixes
+    }
+
+    div.mage-error {
+        position: absolute;
+        bottom: -$spacer--medium;
+    }
+}
