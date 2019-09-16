@@ -44,9 +44,9 @@ module.exports = {
       }
     },
     {
-      name: 'small',
+      name: 'secondary',
       context: {
-        class: 'rating--small'
+        class: 'rating--secondary'
       }
     }
   ]
