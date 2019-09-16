@@ -1,0 +1,38 @@
+{{#if trigger }}
+    {{ render '@modal-trigger' modalTrigger }}
+{{/if}}
+<div role="dialog"
+     aria-hidden="true"
+     id="{{ modal.id }}"
+     data-modal="{{ modal.id }}"
+     class="modal {{ modal.class }}"
+     {{{ modal.attributes }}}
+ >
+    <div role="document"
+         class="modal__content {{ modalContent.class }}"
+         {{{ modalContent.attribtues }}}
+         tabindex="0"
+     >
+        {{#if header.text }}
+            <{{header.tag}} class="{{header.class}}" {{{ header.attributes }}}">
+               {{header.text}}
+            </{{header.tag}}>
+        {{/if}}
+        {{#if description.text }}
+            <{{description.tag}} class="modal__description {{description.class}}"
+                                 {{{ attributes }}}"
+            >
+               {{description.text}}
+            </{{description.tag}}>
+        {{/if}}
+        {{#if main.content }}
+            {{ render (component main.content) main.contentContext }}
+        {{/if}}
+        {{#if buttonClose }}
+            {{ render '@button--icon' buttonClose merge=true}}
+        {{/if}}
+    </div>
+</div>
+{{#if script }}
+    <script src="{{static 'modal.js' }}"></script>
+{{/if}}

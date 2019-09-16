@@ -1,0 +1,78 @@
+$modal__padding                      : 0 !default;
+$modal__background-color             : rgba(0, 0, 0, 0.7) !default;
+
+$modal__description-margin           : 0 0 $spacer 0 !default;
+
+$modal__content-width                : calc(100% - (2 * #{$spacer--medium})) !default;
+$modal__content-width\@extra-large   : 80% !default;
+$modal__content-max-width            : 900px !default;
+$modal__content-background-color     : $white !default;
+$modal__content-border               : none !default;
+$modal__content-box-shadow           : 0 4px 6px 0 rgba(0, 0, 0, 0.3) !default;
+
+$modal__close-button-top             : $spacer !default;
+$modal__close-button-right           : $spacer !default;
+$modal__close-button-border          : none !default;
+$modal__close-button-background-color: transparent !default;
+$modal__close-button-icon-color      : $color-primary !default;
+
+.modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 99;
+    display: none;
+    width: 100%;
+    height: 100%;
+    padding: $modal__padding;
+    background-color: $modal__background-color;
+    &--active {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &__description {
+        margin: $modal__description-margin;
+    }
+
+    &__content {
+        position: relative;
+        display: block;
+        width: $modal__content-width;
+        max-width: $modal__content-max-width;
+        padding: $spacer;
+        border: $modal__content-border;
+        box-shadow: $modal__content-box-shadow ;
+        background-color: $modal__content-background-color;
+        overflow-y: auto;
+        animation-name: animatetop;
+        animation-duration: 0.4s;
+        @include mq($screen-xl) {
+            width: $modal__content-width\@extra-large;
+        }
+    }
+
+    &__close-button {
+        position: absolute;
+        top: $modal__close-button-top;
+        right: $modal__close-button-right;
+        border: $modal__close-button-border;
+        background-color: $modal__close-button-background-color;
+        &-icon {
+            fill: $modal__close-button-icon-color;
+        }
+    }
+
+    @keyframes animatetop {
+        from {
+            top: -300px;
+            opacity: 0;
+        }
+        to {
+            top: 0;
+            opacity: 1;
+        }
+    }
+}
