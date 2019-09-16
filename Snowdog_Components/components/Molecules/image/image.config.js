@@ -20,7 +20,7 @@ module.exports = {
           },
           {
             src: '/images/banner/banner-992_254.png',
-            mediaQuery: '(max-width: 992px)'
+            mediaQuery: '(max-width: 1024px)'
           },
           {
             src: '/images/banner/banner-1170_300.png',

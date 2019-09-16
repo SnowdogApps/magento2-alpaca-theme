@@ -7,7 +7,7 @@ class DropdownList {  // eslint-disable-line
     this.dropdownItem = [...this.element.querySelectorAll(this.dropdownCollapseLabel)];
     this.contentClass = 'dropdown-list__content';
     this.mq = '(min-width: 768px)';
-    this.mqClass = 'dropdown-list--is-open@screen-m';
+    this.mqClass = 'dropdown-list--with-breakpoint';
     this.dropdownMediumOpen = this.element.classList.contains(this.mqClass);
     this.init();
   }
@@ -30,7 +30,7 @@ class DropdownList {  // eslint-disable-line
   }
 
   isMediumOpen(dropdownBlock) {
-    return (dropdownBlock.classList.contains('dropdown-list--is-open@screen-m')) && window.matchMedia(this.mq).matches;
+    return (dropdownBlock.classList.contains(this.mqClass)) && window.matchMedia(this.mq).matches;
   }
 
   resetMqMediumOpen(item) {

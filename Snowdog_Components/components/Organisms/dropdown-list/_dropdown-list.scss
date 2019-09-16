@@ -71,6 +71,72 @@
         }
     }
 
+    &--with-breakpoint {
+        @include mq($dropdown-list__screen--breakpoint) {
+            // from $dropdown-list__screen--breakpoint dropdown list displays inline and with opened list
+            .dropdown-list__list {
+                display: flex;
+                flex-flow: row nowrap;
+            }
+
+            .dropdown-list__item {
+                width: 25%;
+                cursor: default;
+            }
+
+            .dropdown-list__label {
+                cursor: default;
+
+                &:hover,
+                &:focus {
+                    color: $dropdown-list__item-color;
+                    background-color: $dropdown-list__item-bg-color--breakpoint;
+                }
+            }
+
+            .dropdown-list__icon {
+                display: none;
+            }
+
+            .dropdown-list__content {
+                margin: $dropdown-list__content-margin--breakpoint;
+                height: auto;
+            }
+        }
+    }
+
+    &--detailed-content {
+        .dropdown-list {
+            &__list {
+                display: inline-block;
+                width: $dropdown-list__width--detailed-content;
+            }
+
+            &__label {
+                font-size: $dropdown-list__label-font-size--detailed-content;
+                font-weight: $dropdown-list__label-font-weight--detailed-content;
+                text-transform: $dropdown-list__label-text-transform--detailed-content;
+                text-decoration: $dropdown-list__label-text-decoration--detailed-content;
+                color: $dropdown-list__label-color--detailed-content;
+
+                @include font-padding(
+                    $dropdown-list__label-font-size--detailed-content,
+                    $dropdown-list__label-height--detailed-content,
+                    $dropdown-list__label-padding-right--detailed-content,
+                    $dropdown-list__label-padding-left--detailed-content
+                );
+            }
+
+            &__item {
+                border-bottom: $dropdown-list__item-border-bottom--detailed-content;
+            }
+
+            &__icon {
+                right: $dropdown-list__icon-right--detailed-content;
+            }
+        }
+    }
+
     &__list {
         display: block;
         width: $dropdown-list__list-width;
@@ -153,41 +219,6 @@
 
         &[aria-hidden="true"] {
             display: none;
-        }
-    }
-
-    @include mq($screen-m) {
-
-        // from $screen-m dropdown list displays inline and with opened list
-        &--is-open\@screen-m {
-            .dropdown-list__list {
-                display: flex;
-                flex-flow: row nowrap;
-            }
-
-            .dropdown-list__item {
-                width: 25%;
-                cursor: default;
-            }
-
-            .dropdown-list__label {
-                cursor: default;
-
-                &:hover,
-                &:focus {
-                    color: $dropdown-list__item-color;
-                    background-color: $dropdown-list__item-bg-color\@medium;
-                }
-            }
-
-            .dropdown-list__icon {
-                display: none;
-            }
-
-            .dropdown-list__content {
-                margin: $dropdown-list__content-margin--screen-m;
-                height: auto;
-            }
         }
     }
 }
