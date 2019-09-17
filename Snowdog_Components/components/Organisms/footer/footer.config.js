@@ -13,8 +13,8 @@ module.exports = {
       handlerClass: 'container'
     },
     linkList: {
-      script: true,
-      class: 'dropdown-list@screen-m dropdown-list--is-open@screen-m dropdown-list--dark',
+      id: 'dropdown-footer',
+      class: 'dropdown-list--with-breakpoint',
       dropdowns: [
         {
           itemTag: 'button',

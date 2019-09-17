@@ -10,11 +10,12 @@
         position: relative;
         display: flex;
         flex-direction: column;
-        margin: 0 auto $footer__padding;
+        // margin: 0;
         padding: $footer__handler__padding;
 
         @include mq($screen-m) {
-            margin: 0 auto;
+            // margin: 0 auto;
+            padding: $footer__handler__padding\@medium;
         }
 
         @include mq($screen-l) {
@@ -22,15 +23,20 @@
             flex-flow: row wrap;
             padding: $footer__handler__padding\@large;
         }
+
+        @include mq($screen-xl) {
+            padding: $footer__handler__padding\@extra-large;
+        }
     }
 
     &__newsletter {
-        padding: $footer__newsletter-padding;
+        // margin: $footer__newsletter-margin;
         border-bottom: $footer__newsletter-border;
 
         @include mq($screen-l) {
             width: $footer__newsletter-width\@large;
             padding: $footer__newsletter-padding\@large;
+            margin: $footer__newsletter-margin\@large;
         }
 
         @include mq($screen-xl) {
@@ -49,14 +55,7 @@
             }
 
             &__label {
-                font-family: $footer__links-label-font-family;
-                font-size: $footer__links-label-font-size;
                 background-color: $footer__links-background;
-                text-transform: uppercase;
-
-                @include mq($screen-l) {
-                    font-size: $footer__links-label-font-size\@large;
-                }
             }
 
             &__content {
@@ -64,10 +63,20 @@
             }
 
             &__list {
-                padding: $footer__links-padding;
+                margin: $footer__links-margin;
+                border-bottom: 4px solid #eaeaea;
 
                 @include mq($screen-m) {
                     padding: $footer__links-padding\@medium;
+                }
+
+                @include mq($screen-l) {
+                    padding: $footer__links-padding\@large;
+                    border: none;
+                }
+
+                @include mq($screen-xl) {
+                    padding: $footer__links-padding\@extra-large;
                 }
             }
 
@@ -80,14 +89,19 @@
                     }
                 }
 
-                @include mq($screen-l) {
-                    border-bottom: 0;
+                &:last-child {
+                    border: none;
                 }
+
+                @include mq($screen-m) {
+                    border: none;
+                }
+
             }
         }
 
         .list__item  {
-            padding: 0 0 $spacer--large 0;
+            padding: 0 0 $spacer--semi-medium 0;
 
             @include mq($screen-m) {
                 min-width: 208px;
@@ -100,14 +114,6 @@
         flex-wrap: wrap;
         flex-direction: column;
         padding-bottom: $footer__padding;
-
-        @include mq($screen-m) {
-            max-height: 384px;
-        }
-
-        @include mq($screen-l) {
-            max-height: 288px;
-        }
     }
 
     &__link {
@@ -119,11 +125,6 @@
             color: $footer__link-color;
             text-decoration: underline;
         }
-
-        &:focus {
-            @include focus-inline();
-        }
-
     }
 
     &__bottom-bar {
@@ -133,29 +134,39 @@
 
     &__bottom-bar-handler {
         display: flex;
-        flex-wrap: wrap;
         align-items: center;
-        justify-content: center;
+        flex-direction: column;
         min-height: 80px;
 
         @include mq($screen-m) {
             justify-content: space-between;
+            flex-direction: row;
+            padding: 0 $spacer--semi-large;
+        }
+
+        @include mq($screen-m) {
+            padding: 0 $spacer--large;
+        }
+
+        @include mq($screen-xl) {
+            padding: 0;
         }
     }
 
     &__social {
         &-handler {
             display: flex;
-            justify-content: space-between;
-            padding: $footer__social-handler-padding;
+            flex-direction: column;
+            align-items: flex-start;
+            // padding: $footer__social-handler-padding;
             margin: $footer__social-handler-margin;
             order: 1;
 
             @include mq($screen-m) {
                 display: flex;
                 align-items: center;
-                justify-content: flex-start;
-                padding: $footer__social-handler-padding\@medium;
+                flex-direction: row;
+                // padding: $footer__social-handler-padding\@medium;
                 margin: $footer__social-handler-margin\@medium;
             }
 
@@ -187,7 +198,7 @@
             align-items: center;
 
             @include mq($screen-m) {
-                margin: $footer__social-list-margin\@medium;
+                // margin: $footer__social-list-margin\@medium;
             }
 
             @include mq($screen-l) {
@@ -202,6 +213,7 @@
                 font-size: $footer__social-list-subtitle-font-size;
                 font-weight: $footer__social-list-subtitle-font-weight;
                 text-transform: uppercase;
+                margin-bottom: $spacer--medium;
 
                 @include mq($screen-m) {
                     margin: $footer__social-list-subtitle-margin\@medium;
@@ -210,7 +222,6 @@
                 @include mq($screen-l) {
                     align-self: flex-start;
                     margin: $footer__social-list-subtitle-margin\@large;
-                    font-size: $footer__social-list-subtitle-font-size\@large;
                 }
             }
 
@@ -231,7 +242,7 @@
                     padding: 0;
 
                     &:hover,
-                    &:focus {
+                    &.focus-visible {
                         border-color: $footer__social-icon-link-color--active;
                         background: $footer__social-icon-link-color--active;
 
@@ -299,6 +310,12 @@
         }
     }
 
+    &__column {
+        &--hidden {
+            display: none;
+        }
+    }
+
     &__scroll-top {
         position: absolute;
         right: $footer__scroll-top-right;
@@ -309,7 +326,11 @@
         padding: $footer__scroll-top-padding;
         line-height: $footer__scroll-top-size;
 
-        @include mq(1328px) {
+        @include mq($screen-l) {
+            right: $spacer--large;
+        }
+
+        @include mq($screen-xl) {
             right: 0;
         }
 
@@ -319,7 +340,7 @@
         }
 
         &:hover,
-        &:focus {
+        &.focus-visible {
             .icon {
                 fill: $footer__icon-fill-hover;
             }
