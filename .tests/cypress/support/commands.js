@@ -21,13 +21,6 @@ Cypress.Commands.add('login', () => {
     })
 })
 
-Cypress.Commands.add('randomCategory', () => {
-  cy.visit('/')
-  cy.get('.mega-menu__link').then(elements => {
-    elements[Math.floor(Math.random() * elements.length)].click(elements)
-  })
-})
-
 Cypress.Commands.add('goToProductPage', () => {
   cy.get('[data-testid=catalog-grid-item__link]').then(elements => {
     elements[Math.floor(Math.random() * elements.length)].click(elements)

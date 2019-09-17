@@ -1,6 +1,6 @@
 describe('CATALOG - Pagination test', () => {
   it('checks that pagination is visible', () => {
-    cy.randomCategory()
+    cy.visit('/gear')
     cy.get('.pager').should('be.visible')
   })
 

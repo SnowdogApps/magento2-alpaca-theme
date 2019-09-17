@@ -1,4 +1,4 @@
-describe('HEADER - Wishlist header link as Logged In user', () => {
+describe('HEADER - Account header link as Logged In user', () => {
   before(() => {
     cy.login()
   })

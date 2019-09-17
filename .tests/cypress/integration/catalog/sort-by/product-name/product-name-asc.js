@@ -1,6 +1,6 @@
 describe('CATALOG - Sort By Product name ascending test', () => {
   it('selects sorting by Product name ascending', () => {
-    cy.randomCategory()
+    cy.visit('/gear')
     cy.get('.toolbar__sorter').should('be.visible')
     cy.get('.choices')
       .first()
