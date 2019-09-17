@@ -1,8 +1,3 @@
-Cypress.Commands.add('account', () => {
-  cy.visit('/customer/account/')
-  cy.get('.login__form').should('be.visible')
-})
-
 Cypress.Commands.add('login', () => {
   cy.visit('/customer/account/login/')
   cy.get('input[name="form_key"]')
