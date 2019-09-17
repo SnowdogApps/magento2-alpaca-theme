@@ -4,14 +4,21 @@ Cypress.Commands.add('account', () => {
 })
 
 Cypress.Commands.add('login', () => {
-  cy.account()
-  cy.get('#email')
-    .type('qwe@qwe.com')
-    .should('have.value', 'qwe@qwe.com')
-  cy.get('#pass')
-    .type('Qweqwe_1')
-    .should('have.value', 'Qweqwe_1')
-  cy.get('[data-testid=submit-login-button]').click()
+  cy.visit('/customer/account/login/')
+  cy.get('input[name="form_key"]')
+    .invoke('val')
+    .then(form_key => {
+      cy.request({
+        method: 'POST',
+        url: '/customer/account/loginPost',
+        form: true,
+        body: {
+          form_key: form_key,
+          'login[username]': 'qwe@qwe.com',
+          'login[password]': 'Qweqwe_1'
+        }
+      })
+    })
 })
 
 Cypress.Commands.add('randomCategory', () => {
