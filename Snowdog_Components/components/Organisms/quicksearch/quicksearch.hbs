@@ -1,16 +1,19 @@
+<a href="#">Link</a>
+<br/>
 <div class="quicksearch__wrapper">
-    <div class="quicksearch quicksearch--visible">
-        <section
-            class="quicksearch__results"
-            tabindex="0"
-        >
+    <section
+        class="quicksearch quicksearch--visible"
+        tabindex="0"
+        aria-label="Quicksearch results"
+    >
+        <div class="quicksearch__results">
             <h2 class="quicksearch__results-heading margin-bottom-0">
                 {{ results.text }}
                 <span class="quicksearch__typed">
                     {{ results.typed }}
                 </span>
             </h2>
-        </section>
+        </div>
         <div class="quicksearch__content">
             {{#if noresults.visible }}
                 <h2 class="quicksearch__empty">
@@ -39,13 +42,16 @@
                     </li>
                 {{/each }}
             </ul>
-            <div class="quicksearch__categories-column">
-                <ul class="quicksearch__list">
-                    <h3 class="quicksearch__category-title">
-                        {{ category.title }}
-                    </h3>
+            <div class="quicksearch__sidebar-column">
+                <h3
+                    id="qs-category-title"
+                    class="quicksearch__sidebar-title"
+                >
+                    {{ category.title }}
+                </h3>
+                <ul class="quicksearch__list quicksearch__sidebar-list" aria-labelledby="qs-category-title">
                     {{#each category.items }}
-                        <li class="quicksearch__category">
+                        <li class="quicksearch__sidebar-item">
                             <a
                                 href="#"
                                 class="link quicksearch__link"
@@ -56,12 +62,15 @@
                         </li>
                     {{/each }}
                 </ul>
-                <ul class="quicksearch__list quicksearch__list--below">
-                    <h3 class="quicksearch__manufacturer-title">
-                        {{ manufacturer.title }}
-                    </h3>
+                <h3
+                    id="qs-manufacturer-title"
+                    class="quicksearch__sidebar-title"
+                >
+                    {{ manufacturer.title }}
+                </h3>
+                <ul class="quicksearch__list quicksearch__sidebar-list" aria-labelledby="qs-manufacturer-title">
                     {{#each manufacturer.items }}
-                        <li class="quicksearch__manufacturer">
+                        <li class="quicksearch__sidebar-item">
                             <a
                                 href="#"
                                 class="link quicksearch__link"
@@ -76,5 +85,5 @@
         </div>
         {{ render '@link' more }}
         {{ render '@button--rotate-icon' close }}
-    </div>
+    </section>
 </div>
