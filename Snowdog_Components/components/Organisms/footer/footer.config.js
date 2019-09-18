@@ -26,41 +26,51 @@ module.exports = {
             iconId: 'expand-down',
             iconTitle: 'Arrow down'
           },
-          contentElement: 'list--link',
+          contentElement: 'list--columns',
           contentContext: {
             listTag: 'ul',
             elementTag: 'li',
             class: 'footer__links-list',
-            elements: [
+            columns: [
               {
-                text: 'Login to My Account',
-                linkClass: 'footer__link',
-                link: '#',
-                linkAttributes: 'title="Sign in"'
+                class: 'footer__links-column--hidden',
+                elements: [
+                  {
+                    text: 'Login to My Account',
+                    linkClass: 'footer__link',
+                    link: '#',
+                    linkAttributes: 'title="Sign in"'
+                  },
+                  {
+                    text: 'Create an Account',
+                    linkClass: 'footer__link',
+                    link: '#',
+                    linkAttributes: 'title="Sign up"'
+                  },
+                  {
+                    text: 'My Orders',
+                    linkClass: 'footer__link',
+                    link: '#',
+                    linkAttributes: 'title="My Orders"'
+                  }
+                ]
               },
               {
-                text: 'Create an Account',
-                linkClass: 'footer__link',
-                link: '#',
-                linkAttributes: 'title="Sign up"'
-              },
-              {
-                text: 'My Orders',
-                linkClass: 'footer__link',
-                link: '#',
-                linkAttributes: 'title="My Orders"'
-              },
-              {
-                text: 'My Cart',
-                linkClass: 'footer__link',
-                link: '#',
-                linkAttributes: 'title="My Cart"'
-              },
-              {
-                text: 'Checkout',
-                linkClass: 'footer__link',
-                link: '#',
-                linkAttributes: 'title="Checkout"'
+                class: 'footer__links-column--hidden',
+                elements: [
+                  {
+                    text: 'My Cart',
+                    linkClass: 'footer__link',
+                    link: '#',
+                    linkAttributes: 'title="My Cart"'
+                  },
+                  {
+                    text: 'Checkout',
+                    linkClass: 'footer__link',
+                    link: '#',
+                    linkAttributes: 'title="Checkout"'
+                  }
+                ]
               }
             ]
           }
@@ -75,89 +85,97 @@ module.exports = {
             iconId: 'expand-down',
             iconTitle: 'Arrow down'
           },
-          contentElement: 'list--link',
+          contentElement: 'list--columns',
           contentContext: {
             listTag: 'ul',
             elementTag: 'li',
             class: 'footer__links-list',
-            elements: [
+            columns: [
               {
-                text: 'Hours',
-                linkClass: 'footer__link',
-                link: '#',
-                linkAttributes: 'title="Hours"'
+                class: 'footer__links-column--hidden',
+                elements: [
+                  {
+                    text: 'Hours',
+                    linkClass: 'footer__link',
+                    link: '#',
+                    linkAttributes: 'title="Hours"'
+                  },
+                  {
+                    text: 'About Us',
+                    linkClass: 'footer__link',
+                    link: '#',
+                    linkAttributes: 'title="About Us"'
+                  },
+                  {
+                    text: 'Contact Us',
+                    linkClass: 'footer__link',
+                    link: '#',
+                    linkAttributes: 'title="Contact Us"'
+                  }
+                ]
               },
               {
-                text: 'About Us',
-                linkClass: 'footer__link',
-                link: '#',
-                linkAttributes: 'title="About Us"'
+                class: 'footer__links-column--hidden',
+                elements: [
+                  {
+                    text: 'Job Openings',
+                    linkClass: 'footer__link',
+                    link: '#',
+                    linkAttributes: 'title="Job Openings"'
+                  },
+                  {
+                    text: 'Returns',
+                    linkClass: 'footer__link',
+                    link: '#',
+                    linkAttributes: 'title="Returns"'
+                  },
+                  {
+                    text: 'Shipping',
+                    linkClass: 'footer__link',
+                    link: '#',
+                    linkAttributes: 'title="Shipping"'
+                  }
+                ]
               },
               {
-                text: 'Contact Us',
-                linkClass: 'footer__link',
-                link: '#',
-                linkAttributes: 'title="Contact Us"'
+                class: 'footer__links-column--hidden',
+                elements: [
+                  {
+                    text: 'Privacy Policy',
+                    linkClass: 'footer__link',
+                    link: '#',
+                    linkAttributes: 'title="Privacy Policy"'
+                  },
+                  {
+                    text: 'Terms & Conditions',
+                    linkClass: 'footer__link',
+                    link: '#',
+                    linkAttributes: 'title="Terms & Conditions"'
+                  },
+                  {
+                    text: 'Site Map',
+                    linkClass: 'footer__link',
+                    link: '#',
+                    linkAttributes: 'title="Site Map"'
+                  },
+                ]
               },
               {
-                text: 'Job Openings',
-                linkClass: 'footer__link',
-                link: '#',
-                linkAttributes: 'title="Job Openings"'
-              },
-              {
-                text: 'Returns',
-                linkClass: 'footer__link',
-                link: '#',
-                linkAttributes: 'title="Returns"'
-              },
-              {
-                text: 'Shipping',
-                linkClass: 'footer__link',
-                link: '#',
-                linkAttributes: 'title="Shipping"'
-              },
-              {
-                text: 'Privacy Policy',
-                linkClass: 'footer__link',
-                link: '#',
-                linkAttributes: 'title="Privacy Policy"'
-              },
-              {
-                text: 'Terms & Conditions',
-                linkClass: 'footer__link',
-                link: '#',
-                linkAttributes: 'title="Terms & Conditions"'
-              },
-              {
-                text: 'Site Map',
-                linkClass: 'footer__link',
-                link: '#',
-                linkAttributes: 'title="Site Map"'
-              },
-              {
-                text: 'High Point Scientific Reviews',
-                linkClass: 'footer__link',
-                link: '#',
-                linkAttributes: 'title="High Point Scientific Reviews"'
-              },
-              {
-                text: 'First Time Telescope User\'s Guide',
-                linkClass: 'footer__link',
-                link: '#',
-                linkAttributes: 'title="First Time Telescope User\'s Guide"'
-              },
-              {
-                text: 'Bread Financing',
-                linkClass: 'footer__link',
-                link: '#',
-                linkAttributes: 'title="Bread Financing"'
-              },
-              {
-                text: 'Email Us!',
-                linkClass: 'footer__link',
-                link: '#',
-                linkAttributes: 'title="Email Us!"'
+                class: 'footer__links-column--hidden',
+                elements: [
+                  {
+                    text: 'Reviews',
+                    linkClass: 'footer__link',
+                    link: '#',
+                    linkAttributes: 'title="Reviews"'
+                  },
+                  {
+                    text: 'Email Us!',
+                    linkClass: 'footer__link',
+                    link: '#',
+                    linkAttributes: 'title="Email Us!"'
+                  }
+                ]
               }
             ]
           }
