@@ -33,7 +33,8 @@ module.exports = {
             class: 'footer__links-list',
             columns: [
               {
-                class: 'footer__links-column--hidden',
+                text: 'Column 1',
+                class: 'list__column--hidden',
                 elements: [
                   {
                     text: 'Login to My Account',
@@ -56,7 +57,8 @@ module.exports = {
                 ]
               },
               {
-                class: 'footer__links-column--hidden',
+                text: 'Column 2',
+                class: 'list__column--hidden',
                 elements: [
                   {
                     text: 'My Cart',
@@ -92,7 +94,8 @@ module.exports = {
             class: 'footer__links-list',
             columns: [
               {
-                class: 'footer__links-column--hidden',
+                text: 'Column 1',
+                class: 'list__column--hidden',
                 elements: [
                   {
                     text: 'Hours',
@@ -115,7 +118,8 @@ module.exports = {
                 ]
               },
               {
-                class: 'footer__links-column--hidden',
+                text: 'Column 2',
+                class: 'list__column--hidden',
                 elements: [
                   {
                     text: 'Job Openings',
@@ -138,7 +142,8 @@ module.exports = {
                 ]
               },
               {
-                class: 'footer__links-column--hidden',
+                text: 'Column 3',
+                class: 'list__column--hidden',
                 elements: [
                   {
                     text: 'Privacy Policy',
@@ -161,7 +166,8 @@ module.exports = {
                 ]
               },
               {
-                class: 'footer__links-column--hidden',
+                text: 'Column 4',
+                class: 'list__column--hidden',
                 elements: [
                   {
                     text: 'Reviews',
