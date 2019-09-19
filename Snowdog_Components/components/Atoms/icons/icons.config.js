@@ -128,6 +128,11 @@ module.exports = {
         class: 'icons__single-icon'
       },
       {
+        id: 'info',
+        title: 'Info',
+        class: 'icons__single-icon'
+      },
+      {
         id: 'instagram',
         title: 'Instagram logo',
         class: 'icons__single-icon'
