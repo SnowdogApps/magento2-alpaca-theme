@@ -85,6 +85,63 @@ module.exports = {
           }
         }
       }
+    },
+    {
+      name: 'wishlist',
+      context: {
+        class: 'product-grid-item--wishlist',
+        wisthlistComment: {
+          class: 'product-grid-item__wishlist-comment',
+          label: {
+            text: 'Comment',
+            hidden: true
+          },
+          field: {
+            id: 'wishlist-comment-product-1',
+            name: 'wishlist-comment-product-1',
+            placeholder: 'Comment',
+            type: 'text'
+          }
+        },
+        wishlistQtyLabel: {
+          text: 'Quantity:',
+          for: 'qty-product-1'
+        },
+        wishlistQtyUpdate: {
+          input: {
+            id: 'qty-product-1',
+            name: 'qty-product-1'
+          }
+        },
+        secondaryActions: {
+          edit: {
+            tag: 'a',
+            class: '',
+            icon: {
+              id: 'edit',
+              title: 'edit',
+              class: 'button__icon'
+            },
+            attributes: 'href="#" aria-label="Edit product"',
+          },
+          remove: {
+            tag: 'button',
+            class: '',
+            icon: {
+              id: 'remove',
+              title: 'Remove',
+              class: 'button__icon'
+            },
+            attributes: 'type="button" aria-label="Remove product from wishlist"'
+          }
+        },
+        wishlistAddToCart: {
+          tag: 'button',
+          class: '',
+          text: 'Add to cart',
+          attributes: 'type="button"'
+        }
+      }
     }
   ]
 };
