@@ -197,6 +197,92 @@ module.exports = {
           }
         ]
       }
+    },
+    {
+      name: 'columns',
+      context: {
+        columns: [
+          {
+            text: 'Column 1',
+            class: 'list__column--hidden',
+            elements: [
+              {
+                linkClass: '',
+                text: 'Lorem ipsum',
+                link: '#'
+              },
+              {
+                linkClass: '',
+                text: 'Lorem ipsum',
+                link: '#'
+              },
+              {
+                linkClass: '',
+                text: 'Lorem ipsum',
+                link: '#'
+              }
+            ]
+          },
+          {
+            text: 'Column 2',
+            class: 'list__column--hidden',
+            elements: [
+              {
+                linkClass: '',
+                text: 'Lorem ipsum',
+                link: '#'
+              },
+              {
+                linkClass: '',
+                text: 'Lorem ipsum',
+                link: '#'
+              }
+            ]
+          },
+          {
+            text: 'Column 3',
+            class: 'list__column--hidden',
+            elements: [
+              {
+                linkClass: '',
+                text: 'Lorem ipsum',
+                link: '#'
+              },
+              {
+                linkClass: '',
+                text: 'Lorem ipsum',
+                link: '#'
+              },
+              {
+                linkClass: '',
+                text: 'Lorem ipsum',
+                link: '#'
+              },
+              {
+                linkClass: '',
+                text: 'Lorem ipsum',
+                link: '#'
+              }
+            ]
+          },
+          {
+            text: 'Column 4',
+            class: 'list__column--hidden',
+            elements: [
+              {
+                linkClass: '',
+                text: 'Lorem ipsum',
+                link: '#'
+              },
+              {
+                linkClass: '',
+                text: 'Lorem ipsum',
+                link: '#'
+              }
+            ]
+          }
+        ]
+      }
     }
   ]
 };
