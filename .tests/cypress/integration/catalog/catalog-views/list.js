@@ -1,5 +1,3 @@
-/// <reference types="Cypress" />
-
 describe('CATALOG - product list view test', () => {
   Cypress._.times(3, () => {
     it('checks that products are displayed in list view', () => {

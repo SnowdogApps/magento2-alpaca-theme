@@ -1,5 +1,3 @@
-/// <reference types="Cypress" />
-
 describe('HEADER - Cart header link', () => {
   it('clicks on cart button.', () => {
     cy.visit('/')

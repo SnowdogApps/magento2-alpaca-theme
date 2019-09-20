@@ -1,5 +1,3 @@
-/// <reference types="Cypress" />
-
 describe('CATALOG - product grid view test', () => {
   Cypress._.times(3, () => {
     it('checks that products are displayed in grid view ', () => {
