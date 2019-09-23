@@ -2,13 +2,23 @@
 
 .mega-menu {
     display: none;
-    background: $mega-menu__background-color;
-    color: $mega-menu__font-color;
     position: relative;
     margin: $mega-menu__margin;
-    border-bottom: $mega-menu__border-bottom;
-    @include mq($screen-xl) {
+
+    @include mq($mega-menu__breakpoint) {
         display: block;
+    }
+
+    &:before {
+        display: block;
+        position: absolute;
+        content: '';
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: $mega-menu__background-color;
+        z-index: $mega-menu__z-index;
     }
 
     &__list {
@@ -17,116 +27,203 @@
         flex-wrap: nowrap;
         justify-content: $mega-menu__list-justify-content;
         padding: $mega-menu__list-padding;
+        margin: $mega-menu__list-margin;
         list-style: none;
         background-color: $mega-menu__list-background-color;
     }
 
     &__inner-list {
+        display: flex;
+        flex-direction: column;
         padding: $mega-menu__inner-list-padding;
+        margin: $mega-menu__inner-list-margin;
         background-color: $mega-menu__inner-list-background-color;
         list-style: none;
+
         &--level1 {
             display: none;
             position: absolute;
             top: 100%;
             left: 0;
-            z-index: 4;
-            width: 100%;
-            border-top: $mega-menu__inner-list-border--level1;
+            z-index: $mega-menu__z-index - 1;
+            width: $mega-menu__inner-list-width--level1;
+            padding: $mega-menu__inner-list-padding--level1;
+            margin: $mega-menu__inner-list-margin--level1;
             box-shadow: $mega-menu__inner-list-box-shadow--level1;
         }
     }
 
     &__item {
-        &--parent {
-            &:hover,
-            &:focus {
-                .mega-menu__inner-list--level1 {
-                    display: flex;
-                }
-            }
+        display: flex;
 
-            // support for keyboard focus, for different browsers
-            & > .mega-menu__inner-list--level1:focus {
+        &:hover,
+        &:active,
+        .focus-visible {
+            .mega-menu__inner-list--level1 {
                 display: flex;
             }
 
-            &:focus-within {
-                .mega-menu__inner-list--level1 {
-                    display: flex;
-                }
+            .mega-menu__link {
+                background-color: $white;
+                color: $mega-menu__link-color--hover;
+                text-decoration: $mega-menu__link-text-decoration--hover;
+                background-color: $mega-menu__link-background-color--hover;
+            }
+        }
+
+        // support for keyboard focus, for different browsers
+
+        & > .mega-menu__inner-list--level1:focus {
+            display: flex;
+        }
+
+        &:focus-within {
+            .mega-menu__inner-list--level1 {
+                display: flex;
             }
 
-            & > .mega-menu__link:focus + .mega-menu__inner-list--level1 {
-                display: flex;
+            .mega-menu__link {
+                background-color: $white;
+                color: $mega-menu__link-color--hover;
+                text-decoration: $mega-menu__link-text-decoration--hover;
+                background-color: $mega-menu__link-background-color--hover;
+            }
+        }
+
+        & > .mega-menu__link:focus + .mega-menu__inner-list--level1 {
+            display: flex;
+        }
+
+        &--secondary {
+            position: relative;
+
+            > .mega-menu__inner-list {
+                width: $mega-menu__inner-list-width--secondary;
+                padding: $mega-menu__inner-list-padding--secondary;
+            }
+
+            &:last-child {
+                > .mega-menu__inner-list {
+                    left: auto;
+                    right: 0;
+                }
+            }
+        }
+
+        &--rows {
+            > .mega-menu__inner-list {
+                padding: $mega-menu__inner-list-padding--rows;
+
+                > .mega-menu__inner-item {
+                    padding: $mega-menu__inner-item-padding--rows;
+                    border-bottom: $mega-menu__inner-item-border--rows;
+
+                    &:first-child {
+                        padding-top: 0;
+                    }
+
+                    &:last-child {
+                        border-bottom: 0;
+                        padding-bottom: 0;
+                    }
+                }
             }
         }
     }
 
     &__inner-item {
-        &--parent {
-            padding: $mega-menu__inner-item-padding--parent;
-            & > .mega-menu__inner-link {
-                display: inline-block;
-                margin: $mega-menu__inner-item-maargin--parent-child;
-                padding:  $mega-menu__inner-item-padding--parent-child;
-                font-size: $mega-menu__font-size;
-                font-weight: $mega-menu__font-weight;
+        padding: $mega-menu__inner-item-padding;
+        margin: $mega-menu__inner-item-margin;
+
+        &--inline {
+            > .mega-menu__inner-list {
+                flex-direction: row;
+                justify-content: flex-start;
+
+                > .mega-menu__inner-item {
+                    > .mega-menu__inner-link {
+                        font-weight: $mega-menu__inner-link-font-weight--inline;
+                    }
+                }
             }
         }
 
-        &--image {
-            display: flex;
-            flex-basis: 100%;
-            justify-content: flex-end;
-            padding: $mega-menu__inner-item-padding--image;
+        &--images {
+            > .mega-menu__inner-list {
+                flex-direction: row;
+                justify-content: space-between;
 
-            .mega-menu__inner-link {
-                display: block;
-                &:focus {
-                    @include focus();
-                    background-color: transparent;
-                    color: $mega-menu__inner-link-color--image-focus;
+                > .mega-menu__inner-item {
+                    > .mega-menu__inner-link {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: $mega-menu__inner-link-align-items--images;
+                        font-weight: $mega-menu__inner-link-font-weight--images;
+                    }
                 }
             }
+        }
 
-            img {
-                width: auto;
+        &--columns {
+            > .mega-menu__inner-list {
+                flex-direction: row;
+
+                > .mega-menu__inner-item {
+                    flex-grow: 1;
+                    flex-basis: 0;
+                }
+            }
+        }
+
+        &--children {
+            > .mega-menu__inner-list {
+                > .mega-menu__inner-item {
+                    > .mega-menu__inner-link {
+                        padding: $mega-menu__inner-link-padding--children;
+                        font-weight: $mega-menu__inner-link-font-weight--children;
+                        font-size: $mega-menu__inner-link-font-size--children;
+                        color: $mega-menu__inner-link-color--children;
+
+                        &:hover,
+                        .focus-visible {
+                            color: $mega-menu__inner-link-color-hover--children;
+                        }
+                    }
+                }
             }
         }
     }
 
     &__link {
-        display: block;
-        margin: $mega-menu__link-margin;
+        display: flex;
         padding: $mega-menu__link-padding;
-        font-size: $mega-menu__font-size--large;
-        font-weight: $mega-menu__font-weight;
+        position: relative;
+        align-items: center;
+        height: $mega-menu__link-height;
+        z-index: $mega-menu__z-index + 1;
         color: $mega-menu__link-color;
         text-decoration: $mega-menu__link-text-decoration;
-        &:focus,
-        &:hover {
-            text-decoration: $mega-menu__link-text-decoration;
-            color: $mega-menu__link-color--active;
-        }
+        text-transform: $mega-menu__link-text-transform;
+        background-color: $mega-menu__link-background-color;
+        font-weight: $mega-menu__link-font-weight;
+        font-size: $mega-menu__link-font-size;
     }
 
     &__inner-link {
-        margin: $mega-menu__inner-link-margin;
+        display: flex;
+        align-items: center;
+        min-height: $mega-menu__inner-link-min-height;
         padding: $mega-menu__inner-link-padding;
-        white-space: nowrap;
-        font-size: $mega-menu__font-size;
+        margin: $mega-menu__inner-link-margin;
+        font-size: $mega-menu__inner-link-font-size;
         font-weight: $mega-menu__inner-link-font-weight;
         color: $mega-menu__inner-link-color;
         text-decoration: $mega-menu__inner-link-text-decoration;
 
-        &:hover {
-            text-decoration: $mega-menu__inner-link-text-decoration;
-            color: $mega-menu__inner-link-color--active;
-        }
-
-        &:focus {
-            @include focus-inline();
+        &:hover,
+        .focus-visible {
+            text-decoration: $mega-menu__inner-link-text-decoration--hover;
+            color: $mega-menu__inner-link-color--hover;
         }
     }
 

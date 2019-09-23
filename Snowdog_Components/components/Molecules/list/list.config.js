@@ -133,22 +133,21 @@ module.exports = {
           {
             linkClass: '',
             text: 'Lorem ipsum',
-            link: '#'
-          },
-          {
-            linkClass: '',
-            text: 'Lorem ipsum',
-            link: '#'
-          },
-          {
-            linkClass: '',
-            text: 'Lorem ipsum',
-            link: '#'
-          },
-          {
-            linkClass: '',
-            text: 'Lorem ipsum',
-            link: '#'
+            link: '#',
+            isNested: false,
+            content: 'list--link',
+            contentContext: {
+              listTag: 'ul',
+              elementTag: 'li',
+              elements: [
+                {
+                  text: 'Nested Lorem ipsum'
+                },
+                {
+                  text: 'Nested Lorem ipsum'
+                }
+              ]
+            }
           }
         ]
       }

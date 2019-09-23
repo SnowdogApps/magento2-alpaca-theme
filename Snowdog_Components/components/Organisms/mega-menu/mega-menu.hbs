@@ -1,10 +1,15 @@
 <div class="mega-menu">
     <ul class="mega-menu__list container">
-        {{#each list}}
-            <li class="{{ class }}">
+        {{#each menulist as |menuitem| }}
+            <li class="mega-menu__item {{ class }}">
                 <a href="{{ link }}" class="mega-menu__link">
                     {{ text }}
                 </a>
+
+                {{#if menuitem.list}}
+                    {{ render '@list--link' menuitem.list merge=true }}
+                {{/if}}
+
                 {{#if nestedList}}
                     <ul class="mega-menu__inner-list mega-menu__inner-list--level1">
                         {{#each nestedList as |item| }}
@@ -35,4 +40,6 @@
         {{/each}}
     </ul>
 </div>
-<script src="{{static 'mega-menu.js' }}"></script>
+{{#if script }}
+    <script src="{{static 'mega-menu.js' }}"></script>
+{{/if}}
