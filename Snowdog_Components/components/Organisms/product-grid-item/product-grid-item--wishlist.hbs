@@ -1,0 +1,55 @@
+<{{{ tag }}} class="product-grid-item {{ class }}" tabindex="0">
+    {{#if badge}}
+        {{ render (component badge.name) badge.context }}
+    {{/if}}
+
+    <a
+        href="#"
+        class="product-grid-item__link"
+        tabindex="-1"
+    >
+        {{ render '@image' image merge=true }}
+    </a>
+
+    <section class="product-grid-item__details">
+        {{#if rating }}
+            {{ render '@rating' rating merge=true }}
+        {{/if }}
+        <h2 class="product-grid-item__name">
+            <a
+                href="#"
+                class="product-grid-item__name-link"
+            >
+                {{ name }}
+            </a>
+        </h2>
+
+        <div class="product-grid-item__price">
+            {{ render (component price.name) price.context }}
+        </div>
+        <div class="product-grid-item__wishlist-action">
+            {{ render '@input--textarea' wisthlistComment merge=true }}
+            <div class="product-grid-item__wishlist-qty">
+                {{ render '@label' wishlistQtyLabel }}
+                {{ render '@quantity-update' wishlistQtyUpdate merge=true }}
+            </div>
+            <div class="product-grid-item__secondary-action">
+                {{
+                    render '@button--icon'
+                    secondaryActions.edit
+                    merge=true
+                }}
+
+                {{
+                    render '@button--icon'
+                    secondaryActions.remove
+                    merge=true
+                }}
+            </div>
+            <div action="#" class="product-grid-item__primary-action">
+                {{ render '@button' wishlistAddToCart }}
+            </div>
+        </div>
+
+    </section>
+</{{{ tag }}}>
