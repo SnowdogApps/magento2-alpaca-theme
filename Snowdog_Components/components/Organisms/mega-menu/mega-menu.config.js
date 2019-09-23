@@ -54,7 +54,7 @@ module.exports = {
         }
       },
       {
-        class: 'mega-menu__item--rows',
+        class: 'mega-menu__item--parent mega-menu__item--rows',
         text: 'Clothing',
         link: '/clothing',
         list: {
@@ -370,7 +370,7 @@ module.exports = {
         link: '/shoes'
       },
       {
-        class: 'mega-menu__item--parent',
+        class: '',
         text: 'Furniture',
         link: '/furniture',
       },
