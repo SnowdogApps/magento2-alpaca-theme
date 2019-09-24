@@ -11,7 +11,7 @@ module.exports = {
     },
     image: {
       wrapperClass: 'product-grid-item__image-wrapper',
-      dataSrc: '/images/product-grid-item/product-320_480.jpg'
+      dataSrc: '/images/product/product-320_480.jpg'
     },
     name: 'Long product name can have maximum 50 caractere...',
     price: {
@@ -29,9 +29,9 @@ module.exports = {
         }
       }
     },
-    rating: {
-      class: 'rating--secondary product-grid-item__rating'
-    },
+    // rating: {
+    //   class: 'product-grid-item__rating'
+    // },
     secondaryActions: {
       wishlist: {
         tag: 'button',
