@@ -1,0 +1,60 @@
+$catalog-list__sidebar-width      : 306px;
+$catalog-list__products-width     : calc(100% - #{$catalog-list__sidebar-width + $spacer--medium});
+
+.catalog-list {
+    display: flex;
+    flex-flow: column wrap;
+    margin: 0 0 100px;
+
+    @include mq($screen-l) {
+        flex-flow: row wrap;
+    }
+
+    &__products {
+        @include mq($screen-l) {
+            flex-grow: 1;
+            flex-shrink: 0;
+            flex-basis: $catalog-list__products-width;
+            max-width: $catalog-list__products-width;
+        }
+
+        .contact-message,
+        .catalog-list-item {
+            margin-bottom: $spacer--large;
+        }
+
+        .catalog-list--heading {
+            font-size: $font-size-extra-large;
+            margin: 0;
+        }
+    }
+
+    &__sidebar {
+        @include mq($screen-l) {
+            flex: 1 0 $catalog-list__sidebar-width;
+            max-width: $catalog-list__sidebar-width;
+            margin: 0 $spacer--medium 0 0;
+            // necessary for tooltip proper visibility
+            z-index: 1;
+        }
+    }
+
+    &__banner {
+        flex: 1 100%;
+        margin-bottom: $spacer--medium;
+    }
+
+    &__category-description {
+        padding: 72px 0 $spacer--medium 0;
+
+        p {
+            line-height: 2;
+        }
+    }
+
+    &__category-review {
+        @extend .paragraph;
+
+        font-weight: $font-weight-bold;
+    }
+}
