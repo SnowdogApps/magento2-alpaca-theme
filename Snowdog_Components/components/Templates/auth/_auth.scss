@@ -1,6 +1,6 @@
-.login {
-    margin-bottom: 80px;
+@import 'auth-variables';
 
+.auth {
     &__links {
         display: flex;
         justify-content: center;
@@ -12,14 +12,8 @@
         }
 
         &:first-of-type {
-            .login__link {
+            .auth__link {
                 border-width: 0 0 $border-width-base;
-            }
-        }
-
-        &--registration {
-            .login__link--registration {
-                display: flex;
             }
         }
     }
@@ -27,38 +21,38 @@
     &__link {
         position: relative;
         justify-content: flex-start;
-        width: 100%;
-        height: 72px;
-        border: $border-base;
-        border-width: $border-width-base 0;
-        color: $color-secondary;
-        font-size: $font-size-large;
-        font-weight: $font-weight-normal;
-        text-decoration: none;
-        text-transform: uppercase;
+        width: $auth__link-width;
+        height: $auth__link-height;
+        border: $auth__link-border;
+        border-width: $auth__link-border-width;
+        color: $auth__link-color;
+        font-size: $auth__link-font-size;
+        font-weight: $auth__link-font-weight;
+        text-decoration: $auth__link-text-decoration;
+        text-transform: $auth__link-text-transform;
 
         @include mq($screen-m) {
             justify-content: center;
-            width: 440px;
+            width: $auth__link-width\@medium;
         }
 
         &:hover,
-        &:focus,
+        &.focus-visible,
         &--active {
-            color: $gray-darker;
+            color: $auth__link-color--active;
         }
 
         &--active {
-            background: $gray-light;
-            font-weight: $font-weight-bold;
+            background: $auth__link-background--active;
+            font-weight: $auth__link-font-weight--active;
 
             &:hover,
-            &:focus {
-                background: $gray-light;
+            &.focus-visible {
+                background: $auth__link-background--active;
             }
 
-            .login__icon {
-                transform: rotate(180deg);
+            .auth__icon {
+                transform: $auth__icon-transform--active;
             }
         }
 
@@ -92,10 +86,18 @@
     }
 
     &__heading {
-        margin: $spacer--extra-large 0 $spacer--semi-large;
+        margin: $auth__heading-margin;
 
         @include mq($screen-m) {
-            margin: 120px 0 72px;
+            margin: $auth__heading-margin\@medium;
+        }
+    }
+
+    &--registration {
+        .auth__link {
+            &--registration-mobile {
+                display: none;
+            }
         }
     }
 }
