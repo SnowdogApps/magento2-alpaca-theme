@@ -1,0 +1,117 @@
+$range__padding               : $spacer 0 0 0;
+$range__margin                : 0 0 $spacer--medium 0;
+$range__height                : 8px;
+$range__handler-width         : 24px;
+$range__handler-height        : 24px;
+$range__handler-bg-color      : $white;
+$range__handler-border        : none;
+$range__handler-border-radius : 50%;
+$range__handler-box-shadow    : 0 2px 4px 0 rgba(51, 51, 51, 0.5);
+$range__handler-offset-top    : -1 * $range__height;
+$range__track-bg-color        : $gray;
+$range__track-bg-color--active: $color-primary;
+$range__track-border-radius   : $border-radius;
+$range__track-border          : none;
+$range__track-box-shadow      : none;
+$range__dash-padding          : 0 $spacer--medium 0 $spacer;
+$range__suffix-padding        : 0 $spacer;
+$range__button-padding        : 0 $spacer--extra-large;
+$range__button-margin         : 0 0 $spacer--medium 0;
+
+.range-filter {
+    padding: $range__padding;
+    overflow: hidden;
+
+    &__slider {
+        margin: $range__margin;
+    }
+
+    &__inputs-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__dash {
+        text-align: center;
+        padding: $range__dash-padding;
+    }
+
+    &__suffix {
+        padding: $range__suffix-padding;
+    }
+
+    &__label {
+        @include visually-hidden();
+    }
+
+    &__input {
+        width: auto;
+        flex-grow: 1;
+        margin: 0;
+    }
+
+    &__button {
+        @extend .button--fluid;
+        margin: $spacer 0;
+        height: 48px;
+    }
+}
+
+.noUi-connect {
+    background-color: $range__track-bg-color--active;
+    border-radius: 0;
+}
+
+.noUi-tooltip {
+    display: none;
+}
+
+.noUi-target {
+    background-color: $range__track-bg-color;
+    box-shadow: $range__track-box-shadow;
+    border: $range__track-border;
+    border-radius: $range__track-border-radius;
+    height: $range__height;
+}
+
+.noUi-handle {
+    &:hover {
+        cursor: pointer;
+    }
+
+    .noUi-horizontal & {
+        border-radius: $range__handler-border-radius;
+        background: $range__handler-bg-color;
+        width: $range__handler-width;
+        height: $range__handler-height;
+        border: $range__handler-border;
+        box-shadow: $range__handler-box-shadow;
+        top: $range__handler-offset-top;
+
+        &:before,
+        &:after {
+            display: none;
+        }
+
+        &:focus {
+            outline: none;
+
+            .noUi-tooltip {
+                display: block;
+            }
+        }
+    }
+}
+
+.noUi-extended {
+    padding-right: $spacer--large;
+}
+
+.noUi-extended .noUi-handle {
+    left: 0;
+}
+
+.noUi-extended .noUi-origin  {
+    right: -24px;
+}
