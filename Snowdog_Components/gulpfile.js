@@ -95,7 +95,7 @@ gulp.task('a11y', () => {
 function setA11yViewsPreview(args, done) {
   const app = this.fractal;
   for (let item of app.components.flatten()) {
-    if (item.viewPath.includes('04-views')) {
+    if (item.viewPath.includes('Templates')) {
       item.preview = a11yPreview;
     }
   }

@@ -1,16 +1,21 @@
 <{{{ listTag }}} class="list {{ class }}" {{{ attributes }}}>
     {{# each elements }}
-        <{{{ ../elementTag }}} class="list__item {{ this.class }}">
-            <a
-                href="{{ link }}"
-                class="
-                    link
-                    {{ linkClass }}
-                "
-                {{{ linkAttributes }}}
-            >
-                {{ text }}
-            </a>
-        </{{{ ../elementTag }}}>
+        {{#if text}}
+            <{{{ ../elementTag }}} class="list__item {{ this.class }}">
+                <a
+                    href="{{ link }}"
+                    class="
+                        link
+                        {{ linkClass }}
+                    "
+                    {{{ linkAttributes }}}
+                >
+                    {{ text }}
+                </a>
+                {{#if this.isNested}}
+                    {{ render (component content) contentContext }}
+                {{/if}}
+            </{{{ ../elementTag }}}>
+        {{/if}}
     {{/ each }}
 </{{{ listTag }}}>

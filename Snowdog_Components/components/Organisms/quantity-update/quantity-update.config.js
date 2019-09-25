@@ -3,6 +3,7 @@ module.exports = {
     input: {
       id: 'qty',
       min: '1',
+      name: 'qty',
       defaultValue: '1',
       ariaLabel: 'Change the quantity'
     },
