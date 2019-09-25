@@ -1,12 +1,14 @@
+@import 'filters-variables';
+
 .filters {
     ::-webkit-scrollbar {
-        width: 8px;
-        background: $gray-light;
+        width: $filters__scrollbar-width;
+        background-color: $filters__scrollbar-bg-color;
         -webkit-appearance: none;
     }
 
     ::-webkit-scrollbar-thumb {
-        background: $color-secondary;
+        background: $filters__scrollbar-thumb-color;
     }
 
     &__item {
@@ -21,7 +23,8 @@
 
         &:first-child {
             .filters__trigger--open {
-                border-top: $border-base;
+                border: $filters__trigger-first-child-border;
+                border-width: $filters__trigger-first-child-border-width;
             }
         }
     }
@@ -29,21 +32,21 @@
     &__content-wrapper {
         position: fixed;
         right: 100%;
-        top: 154px;
+        top: $filters__content-wrapper-position-top;
         visibility: hidden;
         opacity: 0;
         width: 100%;
-        z-index: 998;
-        height: calc(100% - 154px);
-        padding: $spacer--medium;
+        z-index: $filters__content-wrapper-z-index;
+        height: calc(100% - #{$filters__content-wrapper-position-top});
+        padding: $filters__content-wrapper-padding;
         transform: translateX(0);
-        transition: all 0.3s ease-in-out, outline-offset 1ms;
-        background: $white;
-        box-shadow: $shadow;
+        transition: $filters__content-wrapper-transition;
+        background-color: $filters__content-wrapper-bg-color;
+        box-shadow: $filters__content-wrapper-shadow;
 
         @include mq($screen-m) {
-            top: 106px;
-            height: calc(100% - 106px);
+            top: $filters__content-wrapper-position-top\@medium;
+            height: calc(100% - #{$filters__content-wrapper-position-top\@medium});
         }
 
         @include mq($screen-l) {
@@ -61,79 +64,80 @@
         position: relative;
 
         @include mq($screen-m) {
-            width: 67%;
-            margin: $spacer--medium auto;
+            width: $filters__content-width\@medium;
+            margin: $filters__content-margin\@medium;
         }
 
         @include mq($screen-l) {
-            width: 100%;
-            margin: 0;
+            width: $filters__content-width\@large;
+            margin: $filters__content-margin\@large;
         }
     }
 
     &__trigger {
-        padding: 0;
-        background: transparent;
+        padding: $filters__trigger-padding;
+        background-color: $filters__trigger-bg-color;
         min-width: auto;
         min-height: auto;
         height: auto;
 
         .button__text {
-            color: $black;
-            padding: 0;
-        }
-
-        &:focus {
-            background: transparent;
-
-            @include focus();
+            color: $filters__trigger-text-color;
+            padding: $filters__trigger-text-padding;
         }
 
         &:hover {
             background: transparent;
+            &:before,
+            &:after {
+                content: '';
+                display: none;
+            }
         }
     }
 
     &__heading,
     &__trigger--open {
-        font-family: $font-family-base;
-        font-size: $font-size-large;
+        font-family: $filter__heading-font-family;
+        font-size: $filter__heading-font-size;
+        font-weight: $filter__heading-font-weight;
         margin: 0;
-        border-bottom: $border-base;
+        border: $filter__heading-border;
+        border-width: $filter__heading-border-width;
 
         @include mq($screen-m) {
-            font-size: $font-size-extra-large;
+            font-size: $filter__heading-font-size\@medium;
         }
     }
 
     &__heading {
-        padding: $spacer--medium 0;
+        padding: $filter__heading-padding;
     }
 
     &__trigger--open {
         justify-content: space-between;
         width: 100%;
-        padding: $spacer--medium;
+        padding: $filters__trigger-padding--open;
 
         > * {
             pointer-events: none;
         }
 
         .icon {
-            width: 14px;
-            height: 14px;
-            fill: $gray-dark;
+            width: $filters__trigger-icon-size--open;
+            height: $filters__trigger-icon-size--open;
+            fill: $filters__trigger-icon-fill--open;
         }
     }
 
     &__trigger--close {
         position: absolute;
-        top: 16px;
+        top: $filters__trigger-position-top--close;
         right: 0;
-        padding: $spacer;
+        padding: $filters__trigger-padding--close;
 
         .icon {
-            fill: $color-primary;
+            fill: $filters__trigger-icon-fill--close;
         }
     }
 
@@ -142,9 +146,5 @@
         @include mq($screen-l) {
             display: none;
         }
-    }
-
-    &__divider {
-        margin-bottom: $spacer--medium;
     }
 }

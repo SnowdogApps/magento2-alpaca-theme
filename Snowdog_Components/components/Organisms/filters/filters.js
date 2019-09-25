@@ -96,3 +96,5 @@ class Filters {
 }
 
 new Filters(document.querySelector('.filters'));
+
+// TODO addvfocus trap

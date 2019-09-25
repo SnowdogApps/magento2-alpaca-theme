@@ -1,30 +1,33 @@
 module.exports = {
   name: 'filters',
   context: {
+    dropdownListId: 'test-id',
     closeButton: {
       class: 'filters__trigger filters__trigger--close',
       tag: 'button',
-      attributes: 'type="button" aria-label="button" tabindex="0"',
+      attributes: 'type="button" aria-label="button"',
       icon: {
-        iconId: 'close'
+        id: 'close'
       }
     },
     openButton: {
       class: 'filters__trigger filters__trigger--open',
       tag: 'button',
-      attributes: 'type="button" aria-label="button" tabindex="0"',
+      attributes: 'type="button" aria-label="button"',
       text: 'Category',
       iconAfter: {
-        iconId: 'angle-right'
+        id: 'angle-right',
+        hidden: true
       }
     },
     openButtonFilters: {
       class: 'filters__trigger filters__trigger--open',
       tag: 'button',
-      attributes: 'type="button" aria-label="button" tabindex="0"',
+      attributes: 'type="button" aria-label="button"',
       text: 'Filters',
       iconAfter: {
-        iconId: 'angle-right'
+        id: 'angle-right',
+        hidden: true
       }
     },
     divider: {
