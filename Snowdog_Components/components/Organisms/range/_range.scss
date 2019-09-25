@@ -1,29 +1,27 @@
-$range__padding               : $spacer 0 0 0;
-$range__margin                : 0 0 $spacer--medium 0;
-$range__height                : 8px;
-$range__handler-width         : 24px;
-$range__handler-height        : 24px;
-$range__handler-bg-color      : $white;
-$range__handler-border        : none;
-$range__handler-border-radius : 50%;
-$range__handler-box-shadow    : 0 2px 4px 0 rgba(51, 51, 51, 0.5);
-$range__handler-offset-top    : -1 * $range__height;
-$range__track-bg-color        : $gray;
-$range__track-bg-color--active: $color-primary;
-$range__track-border-radius   : $border-radius;
-$range__track-border          : none;
-$range__track-box-shadow      : none;
-$range__dash-padding          : 0 $spacer--medium 0 $spacer;
-$range__suffix-padding        : 0 $spacer;
-$range__button-padding        : 0 $spacer--extra-large;
-$range__button-margin         : 0 0 $spacer--medium 0;
+$range__padding               : $spacer--medium 0 0 0 !default;
+$range__slider-margin         : 0 0 $spacer--semi-large 0 !default;
+$range__handler-size          : 24px !default;
+$range__handler-bg-color      : $white !default;
+$range__handler-border        : $border-secondary !default;
+$range__handler-border-radius : 50% !default;
+$range__handler-box-shadow    : none !default;
+$range__handler-offset-top    : -10px !default;
+$range__track-height          : 4px !default;
+$range__track-bg-color        : $gray !default;
+$range__track-bg-color--active: $color-primary !default;
+$range__track-border-radius   : $border-radius !default;
+$range__track-border          : none !default;
+$range__track-box-shadow      : none !default;
+$range__dash-padding          : 0 $spacer--medium 0 $spacer !default;
+$range__suffix-padding        : 0 $spacer !default;
 
 .range-filter {
     padding: $range__padding;
     overflow: hidden;
+    margin: 100px;
 
     &__slider {
-        margin: $range__margin;
+        margin: $range__slider-margin;
     }
 
     &__inputs-wrapper {
@@ -50,12 +48,6 @@ $range__button-margin         : 0 0 $spacer--medium 0;
         flex-grow: 1;
         margin: 0;
     }
-
-    &__button {
-        @extend .button--fluid;
-        margin: $spacer 0;
-        height: 48px;
-    }
 }
 
 .noUi-connect {
@@ -72,7 +64,7 @@ $range__button-margin         : 0 0 $spacer--medium 0;
     box-shadow: $range__track-box-shadow;
     border: $range__track-border;
     border-radius: $range__track-border-radius;
-    height: $range__height;
+    height: $range__track-height;
 }
 
 .noUi-handle {
@@ -82,9 +74,9 @@ $range__button-margin         : 0 0 $spacer--medium 0;
 
     .noUi-horizontal & {
         border-radius: $range__handler-border-radius;
-        background: $range__handler-bg-color;
-        width: $range__handler-width;
-        height: $range__handler-height;
+        background-color: $range__handler-bg-color;
+        width: $range__handler-size;
+        height: $range__handler-size;
         border: $range__handler-border;
         box-shadow: $range__handler-box-shadow;
         top: $range__handler-offset-top;
@@ -94,9 +86,7 @@ $range__button-margin         : 0 0 $spacer--medium 0;
             display: none;
         }
 
-        &:focus {
-            outline: none;
-
+        &.focus-visible {
             .noUi-tooltip {
                 display: block;
             }
