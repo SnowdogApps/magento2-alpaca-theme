@@ -4,10 +4,11 @@ module.exports = {
     id: 'checkbox',
     collapseIcon: {
       class: 'dropdown-list__icon',
-      iconId: 'expand-down',
-      iconTitle: 'Arrow down',
-      attributes: 'aria-hidden="true"'
+      id: 'angle-down',
+      title: 'Arrow down',
+      hidden: true
     },
+    contentClass: 'margin-xs',
     checkboxes: [
       {
         class: '',
@@ -37,6 +38,12 @@ module.exports = {
       name: 'range',
       context: {
         id: 'range'
+      }
+    },
+    {
+      name: 'category',
+      context: {
+        class: 'margin-vc-m'
       }
     }
   ]
