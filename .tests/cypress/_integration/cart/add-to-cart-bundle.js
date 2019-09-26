@@ -23,14 +23,13 @@ describe('Bundle product', function() {
   })
 
   it('Test product options', () => {
-    cy.get('#product-options-wrapper')
-      .should('be.visible')
+    cy.get('#product-options-wrapper').should('be.visible')
+
     // TODO: Use better selectors to not use "multiple"
     cy.get('.radio__fieldset')
       .find('.radio__label')
-      .click({
-        multiple: true
-      })
+      .click({ multiple: true })
+
     cy.get('#product-addtocart-button')
       .first()
       .click()

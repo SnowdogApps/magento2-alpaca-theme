@@ -31,11 +31,12 @@ describe('Grouped product', function() {
 
   it('Choose product from table', () => {
     cy.get('#super-product-table')
+
+    // TODO: Use better selector to avoid using "multiple"
     cy.get('.input__field.input-text.qty')
-      .click({
-        multiple: true
-      })
+      .click({ multiple: true })
       .clear()
+
     cy.get('.input__field.input-text.qty')
       .eq(0)
       .type('1')
