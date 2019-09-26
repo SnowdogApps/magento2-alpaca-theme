@@ -2,6 +2,8 @@ module.exports = {
   name: 'filters',
   context: {
     dropdownListId: 'test-id',
+    categoryHeading: 'Category',
+    filtersHeading: 'Shopping options',
     closeButton: {
       class: 'filters__trigger filters__trigger--close',
       tag: 'button',
@@ -24,14 +26,11 @@ module.exports = {
       class: 'filters__trigger filters__trigger--open',
       tag: 'button',
       attributes: 'type="button" aria-label="button"',
-      text: 'Filters',
+      text: 'Shopping Options',
       iconAfter: {
         id: 'angle-right',
         hidden: true
       }
-    },
-    divider: {
-      class: 'filters__divider'
     },
     filterDropdown: {
       script: true,

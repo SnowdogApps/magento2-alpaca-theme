@@ -1,22 +1,22 @@
 @import 'filters-variables';
 
 .filters {
-    ::-webkit-scrollbar { // sass-lint:disable-line no-vendor-prefixes
-        width: $filters__scrollbar-width;
-        background-color: $filters__scrollbar-bg-color;
-        -webkit-appearance: none; // sass-lint:disable-line no-vendor-prefixes
-    }
-
-    ::-webkit-scrollbar-thumb { // sass-lint:disable-line no-vendor-prefixes
-        background: $filters__scrollbar-thumb-color;
-    }
-
     &__item {
         &--is-open {
             .filters__content-wrapper {
                 visibility: visible;
                 opacity: 1;
                 transform: translateX(100%);
+                overflow-y: hidden;
+                height: $filters__content-wrapper-height;
+
+                @include mq($screen-m) {
+                    height: $filters__content-wrapper-height\@medium;
+                }
+            }
+
+            .filters__content {
+                max-height: $filters__content-max-height;
                 overflow-y: auto;
             }
         }
@@ -26,26 +26,23 @@
         position: fixed;
         right: 100%;
         top: $filters__content-wrapper-position-top;
-        visibility: hidden;
-        opacity: 0;
         width: 100%;
-        z-index: $filters__content-wrapper-z-index;
-        height: calc(100% - #{$filters__content-wrapper-position-top});
         padding: $filters__content-wrapper-padding;
-        transform: translateX(0);
-        transition: $filters__content-wrapper-transition;
         background-color: $filters__content-wrapper-bg-color;
         box-shadow: $filters__content-wrapper-shadow;
+        visibility: hidden;
+        opacity: 0;
+        z-index: $filters__content-wrapper-z-index;
+        transform: translateX(0);
+        transition: $filters__content-wrapper-transition;
 
         @include mq($screen-m) {
             top: $filters__content-wrapper-position-top\@medium;
-            height: calc(100% - #{$filters__content-wrapper-position-top\@medium});
         }
 
         @include mq($screen-l) {
             position: static;
             visibility: visible;
-            height: auto;
             opacity: 1;
             height: auto;
             padding: 0;

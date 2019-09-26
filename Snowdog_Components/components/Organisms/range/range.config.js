@@ -49,7 +49,7 @@ module.exports = {
       }
     },
     apply: {
-      class: 'range-filter__button button--fluid margin--vc-sm',
+      class: 'range-filter__button button--fluid margin-vc-sm',
       tag: 'button',
       text: 'Apply',
       attributes: 'type="button" data-min="0" data-max="1000" data-attribute="price" href="#" data-filter-url="#"'
