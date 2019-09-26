@@ -21,14 +21,12 @@ describe('CATALOG - Add to cart configurable test', () => {
           .children('.swatch.size')
           .find('.swatch__option')
           .then(item => {
-            cy.log(item)
             pickRandomitem(item).click(item)
           })
         cy.get('.swatch-opt-1033')
           .children('.swatch.color')
           .find('.swatch__option')
           .then(item => {
-            cy.log(item)
             pickRandomitem(item).click(item)
           })
         cy.get('.tocart')

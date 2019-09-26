@@ -41,13 +41,11 @@ describe('Delate Configurable product', function() {
     cy.get('.size')
       .find('.swatch__option')
       .then(elements => {
-        cy.log(elements)
         pickRandomitem(elements).click()
       })
     cy.get('.color')
       .find('.swatch__option')
       .then(elements => {
-        cy.log(elements)
         pickRandomitem(elements).click()
       })
     cy.get('#product-addtocart-button')

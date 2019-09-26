@@ -26,21 +26,7 @@ describe('Grouped product', function() {
   })
 
   it('Test grouped product table', () => {
-    cy.get('#super-product-table')
-      .should('be.visible')
-      .find('>tbody')
-      .then(elements => {
-        cy.log(elements.length)
-      })
-    cy.get('.product-view__grouped-product-name').then(productName => {
-      cy.log(productName.length)
-    })
-    cy.get('[data-price-type=finalPrice]').then(finalPrice => {
-      cy.log(finalPrice.length)
-    })
-    cy.get('.qty').then(quantity => {
-      cy.log(quantity.length)
-    })
+    cy.get('#super-product-table').should('be.visible')
   })
 
   it('Choose product from table', () => {

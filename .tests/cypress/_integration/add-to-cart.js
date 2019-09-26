@@ -9,7 +9,6 @@ describe('Add to cart', function() {
 
   it('adds product to cart', () => {
     cy.get('[data-testid=catalog-grid-item__link]').then(elements => {
-      cy.log(elements)
       pickRandomitem(elements).click()
     })
 
@@ -21,18 +20,15 @@ describe('Add to cart', function() {
     cy.get('.size')
       .find('.swatch__option')
       .then(elements => {
-        cy.log(elements)
         pickRandomitem(elements).click()
       })
     cy.get('.color')
       .find('.swatch__option')
       .then(elements => {
-        cy.log(elements)
         pickRandomitem(elements).click()
       })
     cy.get('#product-addtocart-button')
       .first()
       .click()
-      .debug()
   })
 })
