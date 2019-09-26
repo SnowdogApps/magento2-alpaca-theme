@@ -4,21 +4,23 @@ Cypress.Commands.add('account', () => {
 })
 
 Cypress.Commands.add('login', () => {
-  cy.visit('/customer/account/login/')
-  cy.get('input[name="form_key"]')
-    .invoke('val')
-    .then(formKey => {
-      cy.request({
-        method: 'POST',
-        url: '/customer/account/loginPost',
-        form: true,
-        body: {
-          form_key: formKey,
-          'login[username]': 'qwe@qwe.com',
-          'login[password]': 'Qweqwe_1'
-        }
+  cy.fixture('user.json').then(({ login, password }) => {
+    cy.visit('/customer/account/login/')
+    cy.get('input[name="form_key"]')
+      .invoke('val')
+      .then(formKey => {
+        cy.request({
+          method: 'POST',
+          url: '/customer/account/loginPost',
+          form: true,
+          body: {
+            form_key: formKey,
+            'login[username]': login,
+            'login[password]': password
+          }
+        })
       })
-    })
+  })
 })
 
 Cypress.Commands.add('goToProductPage', () => {

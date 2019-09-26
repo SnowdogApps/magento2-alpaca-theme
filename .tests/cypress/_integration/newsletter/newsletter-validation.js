@@ -22,7 +22,10 @@ describe('Newsletter validation', () => {
   })
 
   it('Submit already subcribed user to newsletter', () => {
-    cy.get('#newsletter').type('qwe@qwe.com')
+    // TODO: Use fixtures for storing data
+    cy.fixture('user.json').then(({ login }) => {
+      cy.get('#newsletter').type(login)
+    })
     cy.get('#newsletterAgrrement').click()
     cy.get('[data-testid=submit-newsletter-button]').click()
     cy.get('[data-ui-id="message-error"]').should('be.visible')
