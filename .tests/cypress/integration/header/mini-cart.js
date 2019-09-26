@@ -1,3 +1,4 @@
+// TODO: It's not a link, but a button that opens the minicart dropdown
 describe('HEADER - Cart header link', () => {
   it('clicks on cart button.', () => {
     cy.visit('/')

@@ -16,8 +16,8 @@ describe('Login validation test', () => {
       .as('loginButton')
       .click()
     cy.server()
-    cy.route('/customer/section/load/?sections*').as('sectionsGet')
-    cy.wait('@sectionsGet')
+    cy.route('/customer/section/load/?sections*').as('getMessages')
+    cy.wait('@getMessages')
     cy.get('[data-ui-id=message-error]').should('be.visible')
   })
 

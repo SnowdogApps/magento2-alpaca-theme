@@ -10,8 +10,6 @@ describe('HEADER - Wishlist header link as Logged In user', () => {
   it('redirects user to wishlist page.', () => {
     cy.url().should('include', '/wishlist/')
     cy.get('.dashboard-nav').should('be.visible')
-    cy.get('.current')
-      .children('strong')
-      .should('have.text', 'My Wish List')
+    cy.get('.current strong').should('have.text', 'My Wish List')
   })
 })

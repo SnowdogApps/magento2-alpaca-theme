@@ -15,9 +15,11 @@ describe('Homepage test', () => {
   it('checks banner is visble in homepage.', () => {
     cy.get('.banner ').should('be.visible')
   })
+
   it('checks containers is visble in homepage.', () => {
     cy.get('.container').should('be.visible')
   })
+
   it('checks footer is visble in homepage.', () => {
     cy.get('.footer').should('be.visible')
   })
