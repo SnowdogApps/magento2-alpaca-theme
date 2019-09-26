@@ -29,9 +29,6 @@ module.exports = {
         }
       }
     },
-    // rating: {
-    //   class: 'product-grid-item__rating'
-    // },
     secondaryActions: {
       wishlist: {
         tag: 'button',
