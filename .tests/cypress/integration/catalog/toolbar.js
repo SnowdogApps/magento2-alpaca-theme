@@ -53,16 +53,29 @@ describe('Category toolbar', () => {
   })
 
   describe('View modes', () => {
-    it('Grid mode', () => {
-      cy.get('.catalog-grid').should('be.visible')
-      cy.get('[data-testid=catalog-grid-item]').should('be.visible')
+    it('List mode switch', () => {
+      // There is no way to check if button releated to view mode switching is already initalized, so we will just wait :(
+      cy.wait(5000) // eslint-disable-line cypress/no-unnecessary-waiting
+      // TODO: Add data-testid
+      cy.get('.toolbar__mode-button[data-value="list"]').click()
+      cy.url().should('include', 'mode=list')
+      cy.get(
+        '.toolbar__mode-button[data-value="list"] .toolbar__mode-icon--active'
+      ).should('be.visible')
+      cy.get('.catalog-list-item').should('be.visible')
     })
 
-    it('List mode', () => {
+    it('Grid mode switch', () => {
+      // There is no way to check if button releated to view mode switching is already initalized, so we will just wait :(
+      cy.wait(5000) // eslint-disable-line cypress/no-unnecessary-waiting
       // TODO: Add data-testid
-      cy.get('.toolbar__mode-button[data-value="list"]').click({ force: true })
-      cy.url().should('include', 'mode=list')
-      cy.get('.catalog-list-item').should('be.visible')
+      cy.get('.toolbar__mode-button[data-value="grid"]').click()
+      cy.url().should('not.include', 'mode=list')
+      cy.get(
+        '.toolbar__mode-button[data-value="grid"] .toolbar__mode-icon--active'
+      ).should('be.visible')
+      cy.get('.catalog-grid').should('be.visible')
+      cy.get('[data-testid=catalog-grid-item]').should('be.visible')
     })
   })
 
