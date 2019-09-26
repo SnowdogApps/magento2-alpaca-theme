@@ -45,8 +45,8 @@ module.exports = {
         class: 'toolbar__sorter-label margin-right-s margin-bottom-0'
       },
       field: {
-        id: 'sort-by',
-        name: 'sort-by',
+        id: 'sorter',
+        name: 'sorter',
         class: 'toolbar__sorter-select'
       },
       options: [
@@ -69,8 +69,8 @@ module.exports = {
           class: 'toolbar__limiter-label margin-right-s margin-bottom-0'
         },
         field: {
-          id: 'sort-by',
-          name: 'sort-by',
+          id: 'limiter',
+          name: 'limiter',
           class: 'toolbar__limiter-select'
         },
         options: [
