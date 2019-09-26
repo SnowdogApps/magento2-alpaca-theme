@@ -1,13 +1,34 @@
-$catalog-list__sidebar-width      : 306px;
-$catalog-list__products-width     : calc(100% - #{$catalog-list__sidebar-width + $spacer--medium});
+$catalog-list__sidebar-width             : 306px !default;
+$catalog-list__products-width            : calc(100% - #{$catalog-list__sidebar-width + $spacer--medium}) !default;
+$catalog-list__banner-padding            : $spacer--large 0 !default;
+$catalog-list__banner-padding\@medium    : $spacer--medium 0 !default;
+$catalog-list__banner-padding\@large     : 0 !default;
+$catalog-list__banner-margin\@large      : 0 0 $spacer--medium 0;
+$catalog-list__banner-border             : $border-base !default;
+$catalog-list__banner-border-width       : 0 0 1px 0 !default;
+$catalog-list__banner-border-width\@large: 0 !default;
 
 .catalog-list {
     display: flex;
     flex-flow: column wrap;
-    margin: 0 0 100px;
+    margin: 0 0 $spacer--extra-large;
 
     @include mq($screen-l) {
         flex-flow: row wrap;
+    }
+
+    &__banner {
+        padding: $catalog-list__banner-padding;
+        border: $catalog-list__banner-border;
+        border-width: $catalog-list__banner-border-width;
+        @include mq($screen-m) {
+            padding: $catalog-list__banner-padding\@medium;
+        }
+        @include mq($screen-l) {
+            padding: $catalog-list__banner-padding\@large;
+            border-width: $catalog-list__banner-border-width\@large;
+            margin: $catalog-list__banner-margin\@large;
+        }
     }
 
     &__products {
@@ -39,13 +60,8 @@ $catalog-list__products-width     : calc(100% - #{$catalog-list__sidebar-width +
         }
     }
 
-    &__banner {
-        flex: 1 100%;
-        margin-bottom: $spacer--medium;
-    }
-
     &__category-description {
-        padding: 72px 0 $spacer--medium 0;
+        padding: $spacer--extra-large 0 $spacer--medium 0;
 
         p {
             line-height: 2;

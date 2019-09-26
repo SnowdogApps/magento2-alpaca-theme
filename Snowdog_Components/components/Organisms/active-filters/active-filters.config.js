@@ -1,6 +1,5 @@
 module.exports = {
   context: {
-    class: 'margin-vc-m',
     heading: {
       tag: 'h2',
       class: 'active-filters__heading',
