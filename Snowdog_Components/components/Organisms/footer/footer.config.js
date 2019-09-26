@@ -23,8 +23,8 @@ module.exports = {
           id: 'dropdown-customers',
           collapse: {
             class: 'dropdown-list__icon dropdown-list__icon--inner',
-            iconId: 'expand-down',
-            iconTitle: 'Arrow down'
+            id: 'angle-down',
+            title: 'Arrow down'
           },
           contentElement: 'list--columns',
           contentContext: {
@@ -84,8 +84,8 @@ module.exports = {
           id: 'dropdown-information',
           collapse: {
             class: 'dropdown-list__icon dropdown-list__icon--inner',
-            iconId: 'expand-down',
-            iconTitle: 'Arrow down'
+            id: 'angle-down',
+            title: 'Arrow down'
           },
           contentElement: 'list--columns',
           contentContext: {
@@ -198,7 +198,7 @@ module.exports = {
         {
           icon: {
             id: 'facebook',
-            iconTitle: 'Facebook logo',
+            title: 'Facebook logo',
             class: 'footer__social-icon',
           },
           iconItemLink: '#',
@@ -207,7 +207,7 @@ module.exports = {
         {
           icon: {
             id: 'twitter',
-            iconTitle: 'Twitter logo',
+            title: 'Twitter logo',
             class: 'footer__social-icon',
           },
           iconItemLink: '#',
