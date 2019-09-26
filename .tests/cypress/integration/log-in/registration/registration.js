@@ -2,7 +2,7 @@ import faker from 'faker'
 
 describe('Registration test', () => {
   before(() => {
-    cy.account()
+    cy.visit('/customer/account/')
   })
 
   it('redirects to create account page', () => {

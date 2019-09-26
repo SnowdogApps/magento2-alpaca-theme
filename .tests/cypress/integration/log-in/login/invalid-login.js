@@ -2,7 +2,7 @@ import faker from 'faker'
 
 describe('Invalid credentials login test', () => {
   before(() => {
-    cy.account()
+    cy.visit('/customer/account/')
   })
 
   it('submits invalid credentials login form', () => {

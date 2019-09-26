@@ -2,7 +2,7 @@ import faker from 'faker'
 
 describe('Login validation test', () => {
   before(() => {
-    cy.account()
+    cy.visit('/customer/account/')
   })
 
   it('checks login form is visible', () => {

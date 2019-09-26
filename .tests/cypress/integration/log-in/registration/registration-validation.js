@@ -2,7 +2,7 @@ import faker from 'faker'
 
 describe('Registration validation', () => {
   before(() => {
-    cy.account()
+    cy.visit('/customer/account/')
   })
 
   it('checks New Customer header title is visible', () => {

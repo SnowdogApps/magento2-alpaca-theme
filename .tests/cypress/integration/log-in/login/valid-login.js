@@ -1,6 +1,6 @@
 describe('Valid credentials login test', () => {
   before(() => {
-    cy.account()
+    cy.visit('/customer/account/')
   })
 
   it('redirects user to account page', () => {
