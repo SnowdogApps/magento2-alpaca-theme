@@ -10,25 +10,18 @@ describe('CATALOG - Add to cart configurable test', () => {
   })
 
   it('Checks configurable options and adds to cart', () => {
+    // TODO: Why is this chained that way?
     cy.get('[data-testid=list-product-item]')
       .first()
       .focus()
       .then(() => {
-        cy.get('.catalog-grid-item__options')
-          .should('be.visible')
-          .find('.size')
-        cy.get('.swatch-opt-1033')
-          .children('.swatch.size')
-          .find('.swatch__option')
-          .then(item => {
-            pickRandomitem(item).click(item)
-          })
-        cy.get('.swatch-opt-1033')
-          .children('.swatch.color')
-          .find('.swatch__option')
-          .then(item => {
-            pickRandomitem(item).click(item)
-          })
+        cy.get('.catalog-grid-item__options').should('be.visible')
+        cy.get('.swatch-opt-1033 .swatch.size .swatch__option').then(item => {
+          pickRandomitem(item).click(item)
+        })
+        cy.get('.swatch-opt-1033 .swatch.color .swatch__option').then(item => {
+          pickRandomitem(item).click(item)
+        })
         cy.get('.tocart')
           .first()
           .click()

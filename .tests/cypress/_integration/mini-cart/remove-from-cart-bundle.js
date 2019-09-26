@@ -26,9 +26,7 @@ describe('Bundle product delete', function() {
     cy.get('#product-options-wrapper').should('be.visible')
 
     // TODO: Use better selector to avoid using "multiple"
-    cy.get('.radio__fieldset')
-      .find('.radio__label')
-      .click({ multiple: true })
+    cy.get('.radio__fieldset .radio__label').click({ multiple: true })
 
     cy.get('#product-addtocart-button')
       .first()
@@ -48,20 +46,18 @@ describe('Bundle product delete', function() {
 
   it('Delate item form cart', () => {
     cy.get('[data-testid=delete-item-link]').click()
-    cy.get('.modal-inner-wrap')
-      .find('.modal-footer')
-      .then(() => {
-        cy.get('.modal-footer')
-          .find('button')
-          .eq(1)
-          .click()
-        cy.go('forward')
-        cy.server()
-        cy.request('/checkout/cart/').as('cartStatus')
-        cy.request('/customer/section/load/?sections=cart*').as('cartSection')
-        cy.route('/checkout/sidebar/removeItem/').as('removeItem')
-        cy.wait('@removeItem')
-      })
+    // TODO: Why is this chained that way?
+    cy.get('.modal-inner-wrap .modal-footer').then(() => {
+      cy.get('.modal-footer button')
+        .eq(1)
+        .click()
+      cy.go('forward')
+      cy.server()
+      cy.request('/checkout/cart/').as('cartStatus')
+      cy.request('/customer/section/load/?sections=cart*').as('cartSection')
+      cy.route('/checkout/sidebar/removeItem/').as('removeItem')
+      cy.wait('@removeItem')
+    })
   })
 
   it('Is cart empty', () => {

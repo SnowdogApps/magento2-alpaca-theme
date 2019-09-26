@@ -36,19 +36,14 @@ describe('Configurable product', function() {
     cy.get('#reviewAddButton')
   })
   it('Checks configurable options', () => {
-    cy.get('.swatch-opt')
-      .should('be.visible')
-      .find('.size')
-    cy.get('.size')
-      .find('.swatch__option')
-      .then(items => {
-        pickRandomitem(items).click(items)
-      })
-    cy.get('.color')
-      .find('.swatch__option')
-      .then(items => {
-        pickRandomitem(items).click(items)
-      })
+    cy.get('.swatch-opt').should('be.visible')
+
+    cy.get('.size .swatch__option').then(items => {
+      pickRandomitem(items).click(items)
+    })
+    cy.get('.color .swatch__option').then(items => {
+      pickRandomitem(items).click(items)
+    })
     cy.get('#product-addtocart-button')
       .first()
       .click()
@@ -87,6 +82,6 @@ describe('Configurable product', function() {
     cy.wait('@getTotals')
     cy.wait('@getTotalsTemplate')
     cy.wait('@getGrandTotalTemplate')
-    cy.get('#cart-totals').find('.cart-totals__row-value--total')
+    cy.get('#cart-totals .cart-totals__row-value--total')
   })
 })

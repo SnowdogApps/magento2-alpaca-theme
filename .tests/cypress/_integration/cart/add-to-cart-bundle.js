@@ -26,9 +26,7 @@ describe('Bundle product', function() {
     cy.get('#product-options-wrapper').should('be.visible')
 
     // TODO: Use better selectors to not use "multiple"
-    cy.get('.radio__fieldset')
-      .find('.radio__label')
-      .click({ multiple: true })
+    cy.get('.radio__fieldset .radio__label').click({ multiple: true })
 
     cy.get('#product-addtocart-button')
       .first()
@@ -68,6 +66,6 @@ describe('Bundle product', function() {
     cy.wait('@getTotals')
     cy.wait('@getTotalsTemplate')
     cy.wait('@getGrandTotalTemplate')
-    cy.get('#cart-totals').find('.cart-totals__row-value--total')
+    cy.get('#cart-totals .cart-totals__row-value--total')
   })
 })

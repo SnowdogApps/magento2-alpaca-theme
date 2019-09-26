@@ -59,6 +59,6 @@ describe('Simple product', function() {
     cy.wait('@getTotals')
     cy.wait('@getTotalsTemplate')
     cy.wait('@getGrandTotalTemplate')
-    cy.get('#cart-totals').find('.cart-totals__row-value--total')
+    cy.get('#cart-totals .cart-totals__row-value--total')
   })
 })

@@ -29,18 +29,15 @@ Cypress.Commands.add('addProductToCart', () => {
   cy.goToProductPage()
   cy.get('.breadcrumbs__item')
 
-  cy.get('.size')
-    .find('.swatch__option')
+  cy.get('.size .swatch__option')
     .as('Size')
     .then(elements => {
       elements[Math.floor(Math.random() * elements.length)].click(elements)
     })
 
-  cy.get('.color')
-    .find('.swatch__option')
-    .then(elements => {
-      elements[Math.floor(Math.random() * elements.length)].click(elements)
-    })
+  cy.get('.color .swatch__option').then(elements => {
+    elements[Math.floor(Math.random() * elements.length)].click(elements)
+  })
 
   cy.get('#product-addtocart-button')
     .first()

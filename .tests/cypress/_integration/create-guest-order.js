@@ -32,7 +32,7 @@ describe('Create order as guest', function() {
     cy.wait('@getTotalsTemplate')
     cy.wait('@getGrandTotalTemplate')
 
-    cy.get('#cart-totals').find('.cart-totals__row-value--total')
+    cy.get('#cart-totals .cart-totals__row-value--total')
   })
 
   it('Can naviage to checkout from cart', () => {

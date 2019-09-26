@@ -35,19 +35,14 @@ describe('Configurable product', function() {
   })
 
   it('Checks configurable options', () => {
-    cy.get('.swatch-opt')
-      .should('be.visible')
-      .find('.size')
-    cy.get('.size')
-      .find('.swatch__option')
-      .then(elements => {
-        pickRandomitem(elements).click()
-      })
-    cy.get('.color')
-      .find('.swatch__option')
-      .then(elements => {
-        pickRandomitem(elements).click()
-      })
+    cy.get('.swatch-opt').should('be.visible')
+
+    cy.get('.size .swatch__option').then(elements => {
+      pickRandomitem(elements).click()
+    })
+    cy.get('.color .swatch__option').then(elements => {
+      pickRandomitem(elements).click()
+    })
     cy.get('#product-addtocart-button')
       .first()
       .click()

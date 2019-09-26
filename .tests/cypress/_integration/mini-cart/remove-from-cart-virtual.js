@@ -37,20 +37,18 @@ describe('Virtual product', function() {
 
   it('Delate item form cart', () => {
     cy.get('[data-testid=delete-item-link]').click()
-    cy.get('.modal-inner-wrap')
-      .find('.modal-footer')
-      .then(() => {
-        cy.get('.modal-footer')
-          .find('button')
-          .eq(1)
-          .click()
-        cy.go('forward')
-        cy.server()
-        cy.request('/checkout/cart/').as('cartStatus')
-        cy.request('/customer/section/load/?sections=cart*').as('cartSection')
-        cy.route('/checkout/sidebar/removeItem/').as('removeItem')
-        cy.wait('@removeItem')
-      })
+    // TODO: Why is this chained that way?
+    cy.get('.modal-inner-wrap .modal-footer').then(() => {
+      cy.get('.modal-footer button')
+        .eq(1)
+        .click()
+      cy.go('forward')
+      cy.server()
+      cy.request('/checkout/cart/').as('cartStatus')
+      cy.request('/customer/section/load/?sections=cart*').as('cartSection')
+      cy.route('/checkout/sidebar/removeItem/').as('removeItem')
+      cy.wait('@removeItem')
+    })
   })
 
   it('Is cart empty', () => {
