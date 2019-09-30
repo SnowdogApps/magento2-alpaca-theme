@@ -16,7 +16,7 @@ module.exports = {
     },
     mainHeading: {
       text: 'Send us an email',
-      class: 'margin--top-sm text-center'
+      class: 'margin-top-sm text-center'
     },
     form: {
       legend: 'General',
