@@ -2,7 +2,7 @@ module.exports = {
   context: {
     title: {
       tag: 'h2',
-      class: 'heading--first-level sidebar-block__title',
+      class: 'heading--second-level sidebar-block__title',
       text: 'Compare Products',
     },
     qty: '3 items',
@@ -41,7 +41,7 @@ module.exports = {
     ],
     compareLink: {
       tag: 'a',
-      class: 'sidebar-block__action',
+      class: 'button--secondary margin-bottom-s sidebar-block__action',
       attributes: 'href="#"',
       text: 'Compare'
     },
@@ -66,7 +66,7 @@ module.exports = {
         wishlistItemClass: 'margin-bottom-m',
         addToCart: {
           tag: 'button',
-          class: 'button--add-to-icon sidebar-block__action',
+          class: 'button--secondary margin-bottom-s sidebar-block__action',
           attributes: 'type="button"',
           text: '<span class="button__text">Add to Cart</span>'
         },
@@ -107,7 +107,7 @@ module.exports = {
         ],
         goToWishlist: {
           tag: 'a',
-          class: 'button button--secondary button--fluid',
+          class: 'button button--fluid',
           attributes: 'href="#"',
           text: 'Go to Wish List'
         }
@@ -160,7 +160,7 @@ module.exports = {
         ],
         addToCart: {
           tag: 'button',
-          class: 'button--add-to-icon sidebar-block__action',
+          class: 'button--secondary margin-bottom-s sidebar-block__action',
           attributes: 'type="button"',
           text: '<span class="button__text">Add to Cart</span>'
         },

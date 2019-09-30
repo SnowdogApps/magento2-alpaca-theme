@@ -1,20 +1,37 @@
-$catalog-list__sidebar-width             : 306px !default;
-$catalog-list__products-width            : calc(100% - #{$catalog-list__sidebar-width + $spacer--medium}) !default;
-$catalog-list__banner-padding            : $spacer--large 0 !default;
-$catalog-list__banner-padding\@medium    : $spacer--medium 0 !default;
-$catalog-list__banner-padding\@large     : 0 !default;
-$catalog-list__banner-margin\@large      : 0 0 $spacer--medium 0;
-$catalog-list__banner-border             : $border-base !default;
-$catalog-list__banner-border-width       : 0 0 1px 0 !default;
-$catalog-list__banner-border-width\@large: 0 !default;
+$catalog-list__margin                         : 0 0 $spacer--extra-large !default;
+
+$catalog-list__banner-padding                 : $spacer--large 0 !default;
+$catalog-list__banner-padding\@medium         : $spacer--medium 0 !default;
+$catalog-list__banner-padding\@large          : 0 !default;
+$catalog-list__banner-margin\@large           : 0 0 $spacer--medium 0;
+$catalog-list__banner-border                  : $border-base !default;
+$catalog-list__banner-border-width            : 0 0 1px 0 !default;
+$catalog-list__banner-border-width\@large     : 0 !default;
+
+$catalog-list__sidebar-width                  : 250px !default;
+$catalog-list__sidebar-width\@xl              : 310px !default;
+$catalog-list__sidebar-margin\@large          : 0 $spacer--medium 0 0 !default;
+$catalog-list__sidebar-additionl-margin\@large: $spacer--medium $spacer--medium 0 0 !default;
+
+$catalog-list__products-width                 : calc(100% - #{$catalog-list__sidebar-width + $spacer--medium}) !default;
+
 
 .catalog-list {
     display: flex;
     flex-flow: column wrap;
-    margin: 0 0 $spacer--extra-large;
+    margin: $catalog-list__margin;
 
     @include mq($screen-l) {
-        flex-flow: row wrap;
+        display: grid;
+        grid-template-columns: $catalog-list__sidebar-width 1fr 1fr;
+        grid-template-areas:
+            'banner banner banner'
+            'sidebar products products'
+            'sidebar2 products products';
+        }
+
+    @include mq($screen-xl) {
+        grid-template-columns: $catalog-list__sidebar-width\@xl 1fr 1fr;
     }
 
     &__banner {
@@ -25,36 +42,23 @@ $catalog-list__banner-border-width\@large: 0 !default;
             padding: $catalog-list__banner-padding\@medium;
         }
         @include mq($screen-l) {
+            grid-area: banner;
             padding: $catalog-list__banner-padding\@large;
-            border-width: $catalog-list__banner-border-width\@large;
             margin: $catalog-list__banner-margin\@large;
+            border-width: $catalog-list__banner-border-width\@large;
         }
     }
 
     &__products {
         @include mq($screen-l) {
-            flex-grow: 1;
-            flex-shrink: 0;
-            flex-basis: $catalog-list__products-width;
-            max-width: $catalog-list__products-width;
-        }
-
-        .contact-message,
-        .catalog-list-item {
-            margin-bottom: $spacer--large;
-        }
-
-        .catalog-list--heading {
-            font-size: $font-size-extra-large;
-            margin: 0;
+            grid-area: products;
         }
     }
 
     &__sidebar {
         @include mq($screen-l) {
-            flex: 1 0 $catalog-list__sidebar-width;
-            max-width: $catalog-list__sidebar-width;
-            margin: 0 $spacer--medium 0 0;
+            grid-area: sidebar;
+            margin: $catalog-list__sidebar-margin\@large;
             // necessary for tooltip proper visibility
             z-index: $z-index-normal;
         }
@@ -68,16 +72,11 @@ $catalog-list__banner-border-width\@large: 0 !default;
         }
     }
 
-    &__category-review {
-        @extend .paragraph;
-
-        font-weight: $font-weight-bold;
-    }
 
     &__sidebar-additional {
-        order: 2;
         @include mq($screen-l) {
-            clear: left;
+            grid-area: sidebar2;
+            margin: $catalog-list__sidebar-additionl-margin\@large;
         }
     }
 }
