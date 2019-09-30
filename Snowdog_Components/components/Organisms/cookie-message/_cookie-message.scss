@@ -1,0 +1,80 @@
+@import 'cookie-message-variables';
+
+.cookie-message {
+    display: none;
+    align-items: stretch;
+    width: $cookie-message__width;
+    padding: $cookie-message__padding;
+    background-color: $cookie-message__background-color;
+    font-size: $cookie-message__font-size;
+    font-family: $cookie-message__font-family;
+    line-height: $cookie-message__line-height;
+
+    &__container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        min-width: 100%;
+
+        @include mq($screen-m) {
+            flex-wrap: nowrap;
+            justify-content: space-between;
+        }
+    }
+
+    &__text {
+        flex-basis: 100%;
+        color: $cookie-message__text-color;
+        text-align: justify;
+        padding: $cookie-message__text-padding;
+        margin: $cookie-message__text-margin;
+        font-size: inherit;
+        font-family: inherit;
+        letter-spacing: $cookie-message__text-letter-spacing;
+
+
+        @include mq($screen-m) {
+            text-align: left;
+            flex-basis: auto;
+        }
+    }
+
+    &__link {
+        &.focus-visible {
+            @include focus-inline();
+        }
+    }
+
+    &__close {
+        padding: $cookie-message__close-padding;
+        margin: $cookie-message__close-margin;
+        color: $cookie-message__close-color;
+        height: $cookie-message__close-height;
+        background: $cookie-message__close-background;
+        border: $cookie-message__close-border;
+        min-height: 0;
+        font-weight: $cookie-message__close-font-weight;
+        text-transform: $cookie-message__close-text-transform;
+
+        &:before,
+        &:after {
+            display: none;
+        }
+    }
+
+    &__close-icon {
+        .button--icon & {
+            fill: $cookie-message__close-icon-fill;
+            width: $cookie-message__close-icon-size;
+            height: $cookie-message__close-icon-size;
+        }
+    }
+
+    &--open {
+        display: flex;
+    }
+}
+
+.cookie-message__text > a {
+    @extend .cookie-message__link;
+}

@@ -1,4 +1,13 @@
 @import 'list-variables';
+%bullet:before {
+    content: "";
+    position: absolute;
+    top: $list__item-before-top--native;
+    left: $list__item-before-left--native;
+    width: $list__item-width--native;
+    height: $list__item-height--native;
+    background-color: $list__item-background-color--native;
+}
 
 .list {
     margin: $list__margin;
@@ -86,18 +95,9 @@
 
     &--native {
         .list__item {
+            @extend %bullet;
             position: relative;
             padding: $list__item-padding--native;
-
-            &:before {
-                content: "";
-                position: absolute;
-                top: $list__item-before-top--native;
-                left: $list__item-before-left--native;
-                width: $list__item-width--native;
-                height: $list__item-height--native;
-                background-color: $list__item-background-color--native;
-            }
         }
     }
 
@@ -131,5 +131,39 @@
 
     &__content {
         padding-left: $list__content-padding-left;
+    }
+
+    &__columns {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+
+        @include mq($screen-m) {
+            flex-direction: row;
+        }
+    }
+
+    &__column {
+        padding: $list__column-padding;
+
+        &:last-child {
+            padding: $list__column-last-child-padding;
+        }
+
+        &--hidden {
+            & > .link {
+                display: none;
+            }
+        }
+    }
+
+    &__column-item {
+        &:first-child {
+            padding-top: $list__column-item-fist-child-padding-top;
+        }
+
+        &:last-child {
+            padding-bottom: $list__column-item-last-child-padding-bottom;
+        }
     }
 }

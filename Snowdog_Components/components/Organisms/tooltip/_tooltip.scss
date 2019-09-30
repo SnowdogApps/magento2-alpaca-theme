@@ -1,0 +1,127 @@
+$tooltip__icon-size                 : 24px !default;
+
+$tooltip__content-wrapper-z-index   : 999 !default;
+$tooltip__content-wrapper-width     : 320px !default;
+$tooltip__content-wrapper-background: $color-primary !default;
+$tooltip__content-wrapper-color     : $gray-lighter !default;
+
+$tooltip__after--is-open-background : $tooltip__content-wrapper-background !default;
+
+.tooltip {
+    position: relative;
+    display: flex;
+    justify-content: center;
+
+    &:after {
+        content: '';
+        display: none;
+    }
+
+    &--text {
+        .tooltip {
+            &__trigger-button {
+                color: $color-primary;
+
+                &:hover,
+                &.focus-visible {
+                    text-decoration: underline;
+                }
+
+                .button__text {
+                    margin: 0;
+                }
+            }
+        }
+    }
+
+    &__content-wrapper {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: $tooltip__content-wrapper-z-index;
+        display: none;
+        width: $tooltip__content-wrapper-width;
+        height: auto;
+        padding: $spacer--medium $spacer--large $spacer--large;
+        background: $tooltip__content-wrapper-background;
+        color: $tooltip__content-wrapper-color;
+        font-size: $font-size-medium;
+        text-transform: initial;
+        transform: translate(0%, -100%);
+        overflow: hidden;
+
+        p {
+            color: $gray-lighter;
+        }
+
+        @include mq($screen-m) {
+            left: 50%;
+            transform: translate(-50%, -100%);
+        }
+    }
+
+    &__heading {
+        margin-top: $spacer;
+        font-family: $font-family-sans-serif;
+        font-size: $font-size-large;
+        font-weight: $font-weight-bold;
+        color: $gray-lighter;
+        text-transform: initial;
+    }
+
+    &__trigger-button,
+    &__close-button {
+        background: transparent;
+    }
+
+    &__trigger-button {
+        z-index: 1;
+
+        .icon {
+            fill: $color-primary;
+        }
+
+        &:before,
+        &:after {
+            display: none;
+        }
+    }
+
+    &__close-button {
+        position: absolute;
+        right: $spacer--small;
+        top: $spacer--small;
+        margin: 0;
+
+        .icon {
+            fill: $gray-lighter;
+        }
+
+        &:before,
+        &:after {
+            display: none;
+        }
+    }
+
+    &--is-open {
+        &:after {
+            position: absolute;
+            display: block;
+            width: $tooltip__icon-size;
+            height: $tooltip__icon-size;
+            background: $tooltip__after--is-open-background;
+            transform: rotate(45deg);
+            bottom: calc(100% - #{$spacer});
+
+            @include isIE() {
+                left: $spacer--small;
+            }
+        }
+
+        .tooltip {
+            &__content-wrapper {
+                display: block;
+            }
+        }
+    }
+}
