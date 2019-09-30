@@ -1,57 +1,94 @@
-$modal__padding                      : 0 !default;
-$modal__background-color             : rgba(0, 0, 0, 0.7) !default;
-
-$modal__description-margin           : 0 0 $spacer 0 !default;
-
-$modal__content-width                : calc(100% - (2 * #{$spacer--medium})) !default;
-$modal__content-width\@extra-large   : 80% !default;
-$modal__content-max-width            : 900px !default;
-$modal__content-background-color     : $white !default;
-$modal__content-border               : none !default;
-$modal__content-box-shadow           : 0 4px 6px 0 rgba(0, 0, 0, 0.3) !default;
-
-$modal__close-button-top             : $spacer !default;
-$modal__close-button-right           : $spacer !default;
-$modal__close-button-border          : none !default;
-$modal__close-button-background-color: transparent !default;
-$modal__close-button-icon-color      : $color-primary !default;
+@import 'modal-variables';
 
 .modal {
+    display: none;
     position: fixed;
     left: 0;
     top: 0;
-    z-index: 99;
-    display: none;
+    z-index: $modal__z-index;
     width: 100%;
     height: 100%;
     padding: $modal__padding;
     background-color: $modal__background-color;
+
     &--active {
         display: flex;
-        justify-content: center;
         flex-direction: column;
-        align-items: center;
+        justify-content: $modal__justify-content;
+        align-items: $modal__align-items;
     }
 
-    &__description {
-        margin: $modal__description-margin;
+    &--secondary {
+        justify-content: $modal__justify-content--secondary;
+        align-items: $modal__align-items--secondary;
+
+        .modal__container {
+            height: $modal__container-height--secondary;
+            width: $modal__container-width--secondary;
+            max-width: $modal__container-max-width--secondary;
+            animation: $modal__container-animation--secondary;
+
+            @include mq($screen-l) {
+                max-width: $modal__container-max-width--secondary\@large;
+            }
+        }
+    }
+
+    &--tertiary {
+        justify-content: $modal__justify-content--tertiary;
+        align-items: $modal__align-items--tertiary;
+
+        .modal__container {
+            height: $modal__container-height--tertiary;
+            width: $modal__container-width--tertiary;
+            max-width: $modal__container-max-width--tertiary;
+            animation: $modal__container-animation--tertiary;
+
+            @include mq($screen-l) {
+                max-width: $modal__container-max-width--tertiary\@large;
+            }
+        }
+    }
+
+    &__container {
+        position: relative;
+        display: block;
+        width: $modal__container-width;
+        max-width: $modal__container-max-width;
+        max-height: 100%;
+        padding: $modal__container-padding;
+        border: $modal__container-border;
+        box-shadow: $modal__container-box-shadow;
+        background-color: $modal__container-background-color;
+        animation: $modal__container-animation;
     }
 
     &__content {
-        position: relative;
-        display: block;
-        width: $modal__content-width;
-        max-width: $modal__content-max-width;
-        padding: $spacer;
-        border: $modal__content-border;
-        box-shadow: $modal__content-box-shadow ;
-        background-color: $modal__content-background-color;
+        display: flex;
+        flex-direction: column;
+        max-height: 100%;
+    }
+
+    &__top {
+        padding: $modal__top-padding;
+        margin: $modal__top-margin;
+        border: $modal__top-border;
+        border-width: $modal__top-border-width;
+    }
+
+    &__middle {
+        padding: $modal__middle-padding;
+        margin: $modal__middle-margin;
+        border: $modal__middle-border;
+        border-width: $modal__middle-border-width;
         overflow-y: auto;
-        animation-name: animatetop;
-        animation-duration: 0.4s;
-        @include mq($screen-xl) {
-            width: $modal__content-width\@extra-large;
-        }
+    }
+
+    &__bottom {
+        padding: $modal__bottom-padding;
+        margin: $modal__bottom-margin;
+        border: $modal__bottom-border;
+        border-width: $modal__bottom-border-width;
     }
 
     &__close-button {
@@ -60,19 +97,86 @@ $modal__close-button-icon-color      : $color-primary !default;
         right: $modal__close-button-right;
         border: $modal__close-button-border;
         background-color: $modal__close-button-background-color;
-        &-icon {
+    }
+
+    &__close-button-icon {
+        .button--icon & {
             fill: $modal__close-button-icon-color;
         }
     }
 
-    @keyframes animatetop {
-        from {
-            top: -300px;
-            opacity: 0;
+    &__heading {
+        font-size: $modal__heading-font-size;
+        font-weight: $modal__heading-font-weight;
+        margin: $modal__heading-margin;
+
+        @include font-padding(
+            $modal__heading-font-size,
+            $modal__heading-height,
+            $modal__heading-padding-right,
+            $modal__heading-padding-left
+        );
+    }
+
+    &__subheading {
+        font-size: $modal__subheading-font-size;
+        font-weight: $modal__subheading-font-weight;
+        margin: $modal__subheading-margin;
+
+        @include font-padding(
+            $modal__subheading-font-size,
+            $modal__subheading-height,
+            $modal__subheading-padding-right,
+            $modal__subheading-padding-left
+        );
+    }
+
+    &__bottom-heading {
+        font-size: $modal__bottom-heading-font-size;
+        font-weight: $modal__bottom-heading-font-weight;
+        margin: $modal__bottom-heading-margin;
+
+        @include font-padding(
+            $modal__bottom-heading-font-size,
+            $modal__bottom-heading-height
+        );
+    }
+
+    &__bottom-subheading {
+        font-size: $modal__bottom-subheading-font-size;
+        font-weight: $modal__bottom-subheading-font-weight;
+        margin: $modal__bottom-subheading-margin;
+
+        @include font-padding(
+            $modal__bottom-subheading-font-size,
+            $modal__bottom-subheading-height
+        );
+    }
+
+    &__description {
+        margin: $modal__description-margin;
+    }
+
+    &__bottom-actions {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: $modal__bottom-actions-justify-content;
+        padding: $modal__bottom-actions-padding;
+        margin: $modal__bottom-actions-margin;
+        max-width: $modal__bottom-actions-max-width;
+    }
+
+    &__bottom-action {
+        padding: $modal__bottom-action-padding;
+        margin: $modal__bottom-action-margin;
+        flex-basis: $modal__bottom-action-width;
+
+        &:last-child {
+            margin-bottom: 0;
         }
-        to {
-            top: 0;
-            opacity: 1;
+
+        .button {
+            width: $modal__bottom-action-button-width;
         }
     }
 }

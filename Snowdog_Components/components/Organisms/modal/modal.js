@@ -50,7 +50,7 @@ class Modal {
       modal.triggerId   = trigger.dataset.modalTrigger,
       modal.el          = document.querySelector(`.modal[data-modal=${modal.triggerId}]`),
       modal.content     = modal.el.querySelector('.modal__content'),
-      modal.closeButton = [...modal.el.querySelectorAll('.modal__js-close-button')],
+      modal.closeButton = [...modal.el.querySelectorAll('.modal__close-button')],
       modal.activeClass = 'modal--active',
       modal.focusable   = 'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), object, embed, *[tabindex], *[contenteditable]',
       modal.focused     = '';

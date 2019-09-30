@@ -1,6 +1,7 @@
 module.exports = {
   context: {
-    modalContent: {
+    script: true,
+    modalContainer: {
       class: '',
     },
     modal: {
@@ -18,26 +19,10 @@ module.exports = {
         attributes: 'data-modal-trigger="myDialog" type="button"'
       }
     },
-    header: {
-      attributes: 'id="myTitle"',
-      tag: 'h3',
-      class: 'heading heading--third-level',
-      text: 'Save "untitled" document?'
-    },
-    description: {
-      attributes: 'id="myDesc"',
-      class: '',
-      tag: 'div',
-      text: 'You have made changes to "untitled.txt" that have not been saved. What do you want to do?'
-    },
-    main: {
-      content: '',
-      contentContext: ''
-    },
     buttonClose: {
       tag: 'button',
       text: '',
-      class: 'button--icon modal__js-close-button modal__close-button',
+      class: 'button--rotate-icon modal__close-button',
       icon: {
         id: 'close',
         title: 'Close',
@@ -45,6 +30,70 @@ module.exports = {
       },
       attributes: 'type="button" aria-label="close modal button, click to close the modal"'
     },
-    script: true
+    modalTop: {
+      heading: {
+        attributes: 'id="myTitle"',
+        tag: 'h3',
+        class: 'heading heading--third-level',
+        text: 'Save "untitled" document?'
+      },
+      subheading: {
+        tag: 'p',
+        class: '',
+        text: 'Some text'
+      }
+    },
+    modalDescription: {
+      attributes: 'id="myDesc"',
+      class: '',
+      tag: 'div',
+      text: 'You have made changes to "untitled.txt" that have not been saved. What do you want to do?'
+    },
+    modalComponent: {
+      content: 'button',
+      contentContext: ''
+    },
+    modalBottom: {
+      class: '',
+      textClass: '',
+      heading: {
+        tag: 'div',
+        class: '',
+        text: 'Bottom title'
+      },
+      subheading: {
+        tag: 'div',
+        class: '',
+        text: 'Bottom subtitle'
+      }
+    },
+    modalBottomActions: [
+      {
+        content: 'button--secondary',
+        contentContext: ''
+      },
+      {
+        content: 'button',
+        contentContext: ''
+      }
+    ]
   },
+  variants: [
+    {
+      name: 'secondary',
+      context: {
+        modal: {
+          class: 'modal--secondary'
+        }
+      }
+    },
+    {
+      name: 'tertiary',
+      context: {
+        modal: {
+          class: 'modal--tertiary'
+        }
+      }
+    }
+  ]
 };
