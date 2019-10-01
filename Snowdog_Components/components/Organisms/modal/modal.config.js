@@ -42,7 +42,7 @@ module.exports = {
       class: '',
       text: 'Some text'
     },
-    modalMiddle: false,
+    modalMiddle: true,
     modalDescription: {
       attributes: 'id="myDesc"',
       class: '',
