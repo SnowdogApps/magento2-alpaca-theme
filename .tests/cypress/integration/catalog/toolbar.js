@@ -54,8 +54,11 @@ describe('Category toolbar', () => {
 
   describe('View modes', () => {
     it('List mode switch', () => {
-      // There is no way to check if button releated to view mode switching is already initalized, so we will just wait :(
-      cy.wait(5000) // eslint-disable-line cypress/no-unnecessary-waiting
+      // Wait for the slowest part to be sure that the page is fully loaded
+      cy.server()
+      cy.route('/customer/section/load/?sections=*').as('getCustomerData')
+      cy.wait('@getCustomerData')
+
       // TODO: Add data-testid
       cy.get('.toolbar__mode-button[data-value="list"]').click()
       cy.url().should('include', 'mode=list')
@@ -66,8 +69,11 @@ describe('Category toolbar', () => {
     })
 
     it('Grid mode switch', () => {
-      // There is no way to check if button releated to view mode switching is already initalized, so we will just wait :(
-      cy.wait(5000) // eslint-disable-line cypress/no-unnecessary-waiting
+      // Wait for the slowest part to be sure that the page is fully loaded
+      cy.server()
+      cy.route('/customer/section/load/?sections=*').as('getCustomerData')
+      cy.wait('@getCustomerData')
+
       // TODO: Add data-testid
       cy.get('.toolbar__mode-button[data-value="grid"]').click()
       cy.url().should('not.include', 'mode=list')
