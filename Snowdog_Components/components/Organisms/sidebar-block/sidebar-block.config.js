@@ -129,7 +129,7 @@ module.exports = {
             checkbox: {
               id: 'reorder-item-1',
               class: 'sidebar-block__checkbox',
-              name: 'order-items',
+              name: 'order-item-1',
               label: {
                 text: 'Add to Cart'
               }
@@ -140,7 +140,7 @@ module.exports = {
             checkbox: {
               id: 'reorder-item-2',
               class: 'sidebar-block__checkbox',
-              name: 'order-items',
+              name: 'order-item-2',
               label: {
                 text: 'Add to Cart'
               }
@@ -151,7 +151,7 @@ module.exports = {
             checkbox: {
               id: 'reorder-item-3',
               class: 'sidebar-block__checkbox',
-              name: 'order-items',
+              name: 'order-item-3',
               label: {
                 text: 'Add to Cart'
               }
