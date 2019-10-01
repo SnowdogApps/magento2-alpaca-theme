@@ -27,10 +27,11 @@ describe('Registration validation', () => {
   })
 
   it('checks error message in submission of empty form', () => {
-    cy.get('[data-testid=create-account-button]').click()
     cy.server()
-    cy.route('/customer/section/load/?sections*').as('sectionsGet')
-    cy.wait('@sectionsGet')
+    cy.route('/customer/section/load/?sections*').as('getCustomerData')
+
+    cy.get('[data-testid=create-account-button]').click()
+    cy.wait('@getCustomerData')
     cy.get('.mage-error').should('be.visible')
   })
 
