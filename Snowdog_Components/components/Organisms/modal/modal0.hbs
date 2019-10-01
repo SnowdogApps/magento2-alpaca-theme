@@ -1,0 +1,112 @@
+{{#if trigger }}
+    {{ render '@modal-trigger' modalTrigger }}
+{{/if}}
+<div
+    role="dialog"
+    aria-hidden="true"
+    id="{{ modal.id }}"
+    data-modal="{{ modal.id }}"
+    class="modal {{ modal.class }}"
+    {{{ modal.attributes }}}
+ >
+    <div
+        role="document"
+        class="modal__container {{ modalContainer.class }}"
+        {{{ modalContainer.attribtues }}}
+        tabindex="0"
+     >
+        <div
+            class="modal__content {{ modalContent.class }}"
+            {{{ modalContent.attribtues }}}
+        >
+            {{#if modalTop }}
+                <div class="modal__top {{ modalTop.class }}">
+                    {{#if modalTop.heading.text }}
+                        <{{ modalTop.heading.tag }}
+                            class="modal__heading {{ modalTop.heading.class }}"
+                            {{{ modalTop.heading.attributes }}}
+                        >
+                            {{ modalTop.heading.text }}
+                        </{{ modalTop.heading.tag }}>
+                    {{/if}}
+
+                    {{#if modalTop.subheading.text }}
+                        <{{ modalTop.subheading.tag }}
+                            class="modal__subheading {{ modalTop.subheading.class }}"
+                            {{{ modalTop.subheading.attributes }}}
+                        >
+                            {{ modalTop.subheading.text }}
+                        </{{ modalTop.subheading.tag }}>
+                    {{/if}}
+                </div>
+            {{/if}}
+
+            <div class="modal__middle">
+                {{#if modalDescription.text }}
+                    <{{ modalDescription.tag }}
+                        class="modal__description {{ modalDescription.class }}"
+                        {{{ modalDescription.attributes }}}
+                    >
+                        {{ modalDescription.text }}
+                    </{{ modalDescription.tag }}>
+                {{/if}}
+
+                {{#if modalComponent.content }}
+                    {{ render (component modalComponent.content) modalComponent.contentContext }}
+                {{/if}}
+            </div>
+
+            {{#if modalBottom }}
+                <div class="modal__bottom {{ modalBottom.class }}">
+                    <div class="modal__bottom-text {{ modalBottom.textClass }}">
+                        {{#if modalBottom.heading.text }}
+                            <{{ modalBottom.heading.tag }}
+                                class="
+                                    modal__bottom-heading
+                                    {{ modalBottom.heading.class }}
+                                "
+                                {{{ modalBottom.heading.attributes }}}
+                            >
+                                {{ modalBottom.heading.text }}
+                            </{{ modalBottom.heading.tag }}>
+                        {{/if}}
+
+                        {{#if modalBottom.subheading.text }}
+                            <{{ modalBottom.subheading.tag }}
+                                class="
+                                    modal__bottom-subheading
+                                    {{ modalBottom.subheading.class }}
+                                "
+                                {{{ modalBottom.subheading.attributes }}}
+                            >
+                                {{ modalBottom.subheading.text }}
+                            </{{ modalBottom.subheading.tag }}>
+                        {{/if}}
+                    </div>
+
+                    {{#if modalBottomActions }}
+                        <div class="modal__bottom-actions">
+                            {{#each modalBottomActions as |action| }}
+                                <div
+                                    class="
+                                        modal__bottom-action
+                                        {{ action.class }}
+                                    "
+                                >
+                                    {{ render (component action.content) action.contentContext }}
+                                </div>
+                            {{/each}}
+                        </div>
+                    {{/if}}
+                </div>
+            {{/if}}
+        </div>
+
+        {{#if buttonClose }}
+            {{ render '@button--rotate-icon' buttonClose merge=true}}
+        {{/if}}
+    </div>
+</div>
+{{#if script }}
+    <script src="{{static 'modal.js' }}"></script>
+{{/if}}

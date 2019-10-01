@@ -30,19 +30,19 @@ module.exports = {
       },
       attributes: 'type="button" aria-label="close modal button, click to close the modal"'
     },
-    modalTop: {
-      heading: {
-        attributes: 'id="myTitle"',
-        tag: 'h3',
-        class: 'heading heading--third-level',
-        text: 'Save "untitled" document?'
-      },
-      subheading: {
-        tag: 'p',
-        class: '',
-        text: 'Some text'
-      }
+    modalTop: true,
+    heading: {
+      attributes: 'id="myTitle"',
+      tag: 'h3',
+      class: 'heading heading--third-level',
+      text: 'Save "untitled" document?'
     },
+    subheading: {
+      tag: 'p',
+      class: '',
+      text: 'Some text'
+    },
+    modalMiddle: false,
     modalDescription: {
       attributes: 'id="myDesc"',
       class: '',
@@ -53,28 +53,19 @@ module.exports = {
       content: 'button',
       contentContext: ''
     },
-    modalBottom: {
-      class: '',
-      textClass: '',
-      heading: {
-        tag: 'div',
-        class: '',
-        text: 'Bottom title'
-      },
-      subheading: {
-        tag: 'div',
-        class: '',
-        text: 'Bottom subtitle'
-      }
-    },
+    modalBottom: true,
     modalBottomActions: [
       {
         content: 'button--secondary',
-        contentContext: ''
+        contentContext: {
+          text: 'Cancel'
+        }
       },
       {
         content: 'button',
-        contentContext: ''
+        contentContext: {
+          text: 'Save'
+        }
       }
     ]
   },
