@@ -12,7 +12,7 @@ module.exports = {
       total: '12'
     },
     gridMode: {
-      class: 'toolbar__mode-button toolbar__mode-button--active',
+      class: 'toolbar__mode-button button--icon-light toolbar__mode-button--active',
       attributes: 'aria-label="grid view"',
       icon: {
         id: 'grid',
@@ -21,7 +21,7 @@ module.exports = {
       }
     },
     listMode: {
-      class: 'toolbar__mode-button',
+      class: 'toolbar__mode-button button--icon-light',
       attributes: 'aria-label="list view"',
       icon: {
         id: 'list',
