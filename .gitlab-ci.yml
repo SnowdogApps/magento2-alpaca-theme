@@ -1,76 +1,65 @@
+image: circleci/php:7.1-stretch-node
+
 stages:
-  - components
-  - theme
+  - test
+  - deploy
 
 variables:
   NOW_PROJECT: $CI_PROJECT_NAME
-  COMPONENTS_PATH: "vendor/snowdog/theme-frontend-colibti/Snowdog_Components"
-  THEME_PATH: "vendor/snowdog/theme-frontend-colibti/"
-  CONFIG_PATH: "vendor/snowdog/theme-frontend-colibti/tests/config"
+  COMPONENTS_PATH: "vendor/snowdog/theme-frontend-colibri/Snowdog_Components"
+  THEME_PATH: "vendor/snowdog/theme-frontend-colibri"
 
-components:
-  stage: components
+before_script:
+  - cd Snowdog_Components
+  - yarn
+  - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@lab.snowdog.pro/internal/now-deployment.git
+  - chmod +x now-deployment/now-deploy.sh
+  - . ./now-deployment/now-deploy.sh
+
+production:
+  stage: deploy
   variables:
-    NOW_URL_COMPONENTS: https://${CI_PROJECT_NAME}-${CI_BUILD_REF_SLUG}-components.now.sh
-  before_script:
-    - mkdir -p $COMPONENTS_PATH
-    - rsync -r --delete --exclude '/vendor' . $COMPONENTS_PATH
-    - composer config minimum-stability dev
-    - composer config prefer-stable true
-    - composer config repositories.snowdog composer https://repo.snowdog.pro/
-    - composer config repositories.magento composer https://repo.magento.com/
-    - composer require snowdog/module-bebio-frontools --no-interaction --prefer-dist --no-progress --ignore-platform-reqs
-    - mkdir -p dev/tools/frontools
-    - cp -r $CONFIG_PATH dev/tools/frontools
-    - cd vendor/snowdog/frontools
-    - yarn
-    - yarn setup
-    - cd ../../../
-    - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@lab.snowdog.pro/internal/now-deployment.git
-    - chmod +x now-deployment/now-deploy.sh
-    - . ./now-deployment/now-deploy.sh
+    NOW_URL: https://${CI_PROJECT_NAME}.now.sh
   script:
-    - components
+    - deploy
   environment:
-    name: components/$CI_BUILD_REF_SLUG
-    url: $NOW_URL_COMPONENTS
+    name: production
+    url: $NOW_URL
+  only:
+    - master
+
+lints:
+  stage: test
+  variables:
+    NOW_URL: https://${CI_PROJECT_NAME}.now.sh
+  script:
+    - yarn now-build
+
+review:
+  stage: deploy
+  variables:
+    NOW_URL: https://${CI_PROJECT_NAME}-${CI_BUILD_REF_SLUG}.now.sh
+  script:
+    - deploy
+  environment:
+    name: review/$CI_BUILD_REF_SLUG
+    url: $NOW_URL
     on_stop: stop_review
   only:
     - branches
-
-theme:
-  stage: theme
-  variables:
-    NOW_URL_THEME: https://${CI_PROJECT_NAME}-${CI_BUILD_REF_SLUG}-theme.now.sh
-  before_script:
-    - mkdir -p $THEME_PATH
-    - rsync -r --delete --exclude '/vendor' . $THEME_PATH
-    - composer config minimum-stability dev
-    - composer config prefer-stable true
-    - composer config repositories.snowdog composer https://repo.snowdog.pro/
-    - composer config repositories.magento composer https://repo.magento.com/
-    - composer require snowdog/module-bebio-frontools --no-interaction --prefer-dist --no-progress --ignore-platform-reqs
-    - mkdir -p dev/tools/frontools
-    - cp -r $CONFIG_PATH dev/tools/frontools
-    - cd vendor/snowdog/frontools
-    - yarn
-    - gulp setup
-  script:
-    - gulp inheritance --theme colibri
-    - gulp sasslint --theme colibri --ci
-    - gulp styles --theme colibri --ci --pipeline
-    - gulp csslint --theme colibri --ci
-  environment:
-    name: theme/$CI_BUILD_REF_SLUG
-    url: $NOW_URL_THEME
-    on_stop: stop_review
-  only:
-    - branches
+  except:
+    - master
 
 stop_review:
+  stage: deploy
+  variables:
+    NOW_URL: https://${CI_PROJECT_NAME}-${CI_BUILD_REF_SLUG}.now.sh
   script:
     - stop
   when: manual
+  environment:
+    name: review/$CI_BUILD_REF_SLUG
+    action: stop
   only:
     - branches
   except:
