@@ -11,9 +11,10 @@ describe('Valid credentials login test', () => {
       cy.get('#pass')
         .type(password)
         .should('have.value', password)
-      cy.get('[data-testid=submit-login-button]').click()
-      cy.url().should('include', '/customer/account/index')
     })
+
+    cy.get('[data-testid=submit-login-button]').click()
+    cy.url().should('include', '/customer/account/index')
   })
 
   it('checks user dashboard is visible', () => {

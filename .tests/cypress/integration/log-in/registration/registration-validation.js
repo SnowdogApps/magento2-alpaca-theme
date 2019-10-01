@@ -6,6 +6,7 @@ describe('Registration validation', () => {
   })
 
   it('checks New Customer header title is visible', () => {
+    // TODO: Don't use text as selector
     cy.contains('New Customers').should('be.visible')
   })
 

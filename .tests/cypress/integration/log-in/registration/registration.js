@@ -6,6 +6,7 @@ describe('Registration test', () => {
   })
 
   it('redirects to create account page', () => {
+    // TODO: Don't use text as selector
     cy.contains('New Customers').should('be.visible')
     cy.get('[data-testid=create-customer-account-link]').click()
     cy.url().should('include', '/customer/account/create/')

@@ -18,17 +18,18 @@ describe('Configurable product', function() {
     cy.get('#product-addtocart-button').should('be.visible')
     cy.get('.product-view__extra-actions').should('be.visible')
     cy.get('[data-testid=product-tab__title]')
-      .contains('Details')
+      .contains('Details') // TODO: Don't use text as selector
       .should('be.visible')
     cy.get('[data-testid=product-tab__title]')
-      .contains('Reviews')
+      .contains('Reviews') // TODO: Don't use text as selector
       .should('be.visible')
   })
 
   it('Test reviews tab', () => {
     cy.get('[data-testid=product-tab__title]')
-      .contains('Reviews')
+      .contains('Reviews') // TODO: Don't use text as selector
       .click()
+    // TODO: Don't use text as selector
     cy.get('.product-review__title').contains('Customers reviews')
     cy.get('#review-form').should('be.visible')
     cy.get('#reviewAddButton').should('be.visible')
@@ -53,6 +54,7 @@ describe('Configurable product', function() {
   it('Check if mini-cart is not empty', () => {
     cy.get('[data-testid=minicart-link]').click()
     cy.get('#minicart-content-wrapper').should('be.visible')
+    // TODO: Don't use text as selector
     cy.contains('You have no items in your shopping cart.').should(
       'not.be.visible'
     )

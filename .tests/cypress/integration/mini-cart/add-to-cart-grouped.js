@@ -17,10 +17,10 @@ describe('Grouped product', function() {
     cy.get('#product-addtocart-button').should('be.visible')
     cy.get('.product-view__extra-actions').should('be.visible')
     cy.get('[data-testid=product-tab__title]')
-      .contains('Details')
+      .contains('Details') // TODO: Don't use text as selector
       .should('be.visible')
     cy.get('[data-testid=product-tab__title]')
-      .contains('Reviews')
+      .contains('Reviews') // TODO: Don't use text as selector
       .should('be.visible')
     cy.get('.fotorama__img').should('be.visible')
   })
@@ -48,6 +48,7 @@ describe('Grouped product', function() {
     cy.get('#product-addtocart-button').click()
     cy.wait('@addToCart')
     cy.wait('@getCartAndMessages')
+    // TODO: Don't use text as selector
     cy.get('.messages').contains(
       'You added Grouped Product to your shopping cart.'
     )
