@@ -5,26 +5,23 @@ before(() => {
   // Hide premissions popup
   cy.setCookie('permission-cookies', 'true')
   cy.setCookie('permission-profiling', 'true')
-  cy.setCookie('mage-cache-sessid', 'true')
+
   // Keep cookies beween tests
   Cypress.Cookies.defaults({
     whitelist: [
-      'frontend',
-      'X-Magento-Vary',
+      'form_key',
       'permission-cookies',
       'permission-profiling',
       'PHPSESSID',
-      'form_key'
+      'section_data_ids',
+      'X-Magento-Vary'
     ]
   })
 })
 
 after(() => {
   // Clear cookie after tests to enable running test several times
-  cy.clearCookie('frontend')
-  cy.clearCookie('permission-cookies')
-  cy.clearCookie('permission-profiling')
   cy.clearCookie('form_key')
   cy.clearCookie('PHPSESSID')
-  cy.clearCookie('mage-cache-sessid')
+  cy.clearCookie('section_data_ids')
 })
