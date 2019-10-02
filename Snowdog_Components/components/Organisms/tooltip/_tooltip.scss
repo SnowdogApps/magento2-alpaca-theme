@@ -1,11 +1,28 @@
-$tooltip__icon-size                 : 24px !default;
+$tooltip__icon-size                     : 24px !default;
 
-$tooltip__content-wrapper-z-index   : 999 !default;
-$tooltip__content-wrapper-width     : 320px !default;
-$tooltip__content-wrapper-background: $color-primary !default;
-$tooltip__content-wrapper-color     : $gray-lighter !default;
+$tooltip__content-wrapper-z-index       : $z-index-high !default;
+$tooltip__content-wrapper-width         : 320px !default;
+$tooltip__content-background            : $color-primary !default;
+$tooltip__content-color                 : $gray-lighter !default;
+$tooltip__content-text-transform        : initial !default;
 
-$tooltip__after--is-open-background : $tooltip__content-wrapper-background !default;
+$tooltip__after--is-open-background     : $tooltip__content-background !default;
+
+$tooltip__heading-margin                : $spacer 0 !default;
+$tooltip__heading-font-family           : $font-family-base !default;
+$tooltip__heading-font-size             : $font-size-large !default;
+$tooltip__heading-font-weight           : $font-weight-bold !default;
+$tooltip__heading-text-transform        : initial !default;
+
+$tooltip__trigger-color--text           : $color-primary !default;
+$tooltip__trigger-decoration-hover--text: underline !default;
+$tooltip__trigger-bg-color              : transparent !default;
+$tooltip__trigger-icon-fill             : $color-primary !default;
+$tooltip__trigger-icon-fill-hover       : $color-secondary !default;
+
+$tooltip__close-bg-color                : transparent !default;
+$tooltip__close-icon-fill               : $color-secondary !default;
+$tooltip__close-icon-fill-hover         : $color-focus !default;
 
 .tooltip {
     position: relative;
@@ -18,18 +35,16 @@ $tooltip__after--is-open-background : $tooltip__content-wrapper-background !defa
     }
 
     &--text {
-        .tooltip {
-            &__trigger-button {
-                color: $color-primary;
+        .tooltip__trigger-button {
+            color: $tooltip__trigger-color--text;
 
-                &:hover,
-                &.focus-visible {
-                    text-decoration: underline;
-                }
+            &:hover,
+            &.focus-visible {
+                text-decoration: $tooltip__trigger-decoration-hover--text;
+            }
 
-                .button__text {
-                    margin: 0;
-                }
+            .button__text {
+                margin: 0;
             }
         }
     }
@@ -43,15 +58,15 @@ $tooltip__after--is-open-background : $tooltip__content-wrapper-background !defa
         width: $tooltip__content-wrapper-width;
         height: auto;
         padding: $spacer--medium $spacer--large $spacer--large;
-        background: $tooltip__content-wrapper-background;
-        color: $tooltip__content-wrapper-color;
+        background: $tooltip__content-background;
+        color: $tooltip__content-color;
         font-size: $font-size-medium;
-        text-transform: initial;
+        text-transform: $tooltip__content-text-transform;
         transform: translate(0%, -100%);
         overflow: hidden;
 
         p {
-            color: $gray-lighter;
+            color: $tooltip__content-color;
         }
 
         @include mq($screen-m) {
@@ -61,29 +76,31 @@ $tooltip__after--is-open-background : $tooltip__content-wrapper-background !defa
     }
 
     &__heading {
-        margin-top: $spacer;
-        font-family: $font-family-sans-serif;
-        font-size: $font-size-large;
-        font-weight: $font-weight-bold;
-        color: $gray-lighter;
-        text-transform: initial;
-    }
-
-    &__trigger-button,
-    &__close-button {
-        background: transparent;
+        margin: $tooltip__heading-margin;
+        font-family: $tooltip__heading-font-family;
+        font-size: $tooltip__heading-font-size;
+        font-weight: $tooltip__heading-font-weight;
+        color: $tooltip__content-color;
+        text-transform: $tooltip__heading-text-transform;
     }
 
     &__trigger-button {
         z-index: 1;
+        background-color: $tooltip__trigger-bg-color;
 
         .icon {
-            fill: $color-primary;
+            fill: $tooltip__trigger-icon-fill;
         }
 
         &:before,
         &:after {
             display: none;
+        }
+
+        &:hover {
+            .icon {
+                fill: $tooltip__trigger-icon-fill-hover;
+            }
         }
     }
 
@@ -92,14 +109,21 @@ $tooltip__after--is-open-background : $tooltip__content-wrapper-background !defa
         right: $spacer--small;
         top: $spacer--small;
         margin: 0;
+        background-color: $tooltip__close-bg-color;
 
         .icon {
-            fill: $gray-lighter;
+            fill: $tooltip__close-icon-fill;
         }
 
         &:before,
         &:after {
             display: none;
+        }
+
+        &:hover {
+            .icon {
+                fill: $tooltip__close-icon-fill-hover;
+            }
         }
     }
 

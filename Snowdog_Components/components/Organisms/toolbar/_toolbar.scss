@@ -1,0 +1,119 @@
+@import 'toolbar-variables';
+
+.toolbar {
+    position: relative;
+    display: flex;
+    flex: 0 0 auto;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: $toolbar__padding;
+    border-style: $toolbar__border-style;
+    border-color: $toolbar__border-color;
+    border-width: $toolbar__border-width;
+
+    @include mq($screen-m) {
+        align-items: center;
+        justify-content: flex-start;
+        padding: $toolbar__padding\@medium;
+    }
+
+    @include mq($screen-l) {
+        padding: $toolbar__padding\@large;
+    }
+
+    &__mode,
+    &__limiter,
+    &__amount,
+    &__sorter {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+    }
+
+    &__mode {
+        display: flex;
+        flex: 0 0 auto;
+        margin: $toolbar__mode-margin;
+    }
+
+    &__mode-button {
+        background-color: $white;
+        &:after {
+            display: $toolbar__mode-button-bg;
+        }
+
+        &:hover {
+            .icon {
+                fill: $toolbar__mode-button-icon-fill-hover;
+            }
+        }
+
+        .icon {
+            width: $toolbar__mode-button-icon-size;
+            height: $toolbar__mode-button-icon-size;
+            fill: $toolbar__mode-button-icon-fill;
+            z-index: $z-index-normal;
+        }
+
+        &--active {
+            .icon {
+                fill: $toolbar__mode-button-icon-fill--active;
+            }
+        }
+    }
+
+    &__amount {
+        display: none;
+        @include mq($screen-m) {
+            display: flex;
+            flex-grow: 1;
+            justify-content: center;
+            color: $toolbar__amount-color;
+        }
+    }
+
+
+    &__sorter {
+        order: $toolbar__sorter-order;
+        width: $toolbar__sorter-width;
+        padding: $toolbar__sorter-padding;
+        margin: $toolbar__sorter-margin;
+        border-style: $toolbar__border-style;
+        border-color: $toolbar__border-color;
+        border-width: $toolbar__sorter-border-width;
+
+        @include mq($screen-m) {
+            order: $toolbar__sorter-order\@medium;
+            width: $toolbar__sorter-width\@medium;
+            padding: $toolbar__sorter-padding\@medium;
+            margin: $toolbar__sorter-margin\@medium;
+            border-width: $toolbar__sorter-border-width\@medium;
+        }
+        .choices {
+            flex-grow: 1;
+            min-width: $toolbar__sorter-select-min-width;
+        }
+
+    }
+
+    // TODO check on theme implementation if needed
+    .pager {
+        display: none;
+    }
+
+    ~ .toolbar {
+        border-bottom: 0;
+        .pager {
+            display: block;
+        }
+        .toolbar {
+            &__mode,
+            &__sorter,
+            &__amount,
+            &__limiter {
+                display: none;
+            }
+        }
+    }
+}
