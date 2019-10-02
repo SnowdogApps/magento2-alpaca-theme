@@ -45,7 +45,7 @@ module.exports = {
     modalMiddle: true,
     modalDescription: {
       attributes: 'id="myDesc"',
-      class: '',
+      class: 'margin-bottom-xs',
       tag: 'div',
       text: 'You have made changes to "untitled.txt" that have not been saved. What do you want to do?'
     },
