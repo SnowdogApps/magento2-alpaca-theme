@@ -1,5 +1,6 @@
 import faker from 'faker'
 
+// TODO: Form validation should be part of registaion view test, there is literaly nothing else on this page, just a form
 describe('Registration validation', () => {
   // TODO: It's not related to testing te registation itself
   before(() => {

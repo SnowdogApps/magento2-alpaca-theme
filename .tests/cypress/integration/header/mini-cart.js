@@ -1,4 +1,5 @@
 // TODO: It's not a link, but a button that opens the minicart dropdown
+// TODO: These tests are way too simple
 describe('HEADER - Cart header link', () => {
   it('clicks on cart button.', () => {
     cy.visit('/')

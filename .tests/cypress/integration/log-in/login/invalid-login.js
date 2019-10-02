@@ -1,5 +1,6 @@
 import faker from 'faker'
 
+// TODO: There is no point to load the login page, just to test invalid data, should be part of singe login view tests
 describe('Invalid credentials login test', () => {
   before(() => {
     cy.visit('/customer/account/')

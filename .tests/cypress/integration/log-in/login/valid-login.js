@@ -1,3 +1,4 @@
+// TODO: It should be part of the login page tests, there is no point to execute this tests separetly, other than wasting time
 describe('Valid credentials login test', () => {
   before(() => {
     cy.visit('/customer/account/')

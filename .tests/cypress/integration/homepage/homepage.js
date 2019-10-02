@@ -1,3 +1,4 @@
+// TODO: These tests are not chcking the home page, but generic elements, that exist on every page
 describe('Homepage test', () => {
   it('checks homepage is visible.', () => {
     cy.visit('/')

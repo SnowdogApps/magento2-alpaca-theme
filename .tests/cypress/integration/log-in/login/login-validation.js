@@ -1,5 +1,6 @@
 import faker from 'faker'
 
+// TODO: It should be part of the login page tests, there is no point to execute this tests separetly, other than wasting time
 describe('Login validation test', () => {
   before(() => {
     cy.visit('/customer/account/')
