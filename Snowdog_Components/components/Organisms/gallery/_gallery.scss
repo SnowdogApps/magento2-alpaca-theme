@@ -1,0 +1,125 @@
+@import 'gallery-variables';
+
+.gallery {
+    display: flex;
+    flex-flow: nowrap;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: $gallery__width;
+    margin: $gallery__margin;
+    padding: $gallery__padding;
+    list-style-type: none;
+
+    &--vertical {
+        @include mq($screen-m) {
+            flex-direction: row;
+        }
+    }
+
+    &__frame {
+        position: relative;
+    }
+
+    &__stage {
+        order: 1;
+        margin-bottom: $gallery__stage-margin-bottom;
+
+        &--vertical {
+            @include mq($screen-m) {
+                order: 2;
+                width: calc(100% - (#{$gallery__nav-vertical-margin-right\@medium} + #{$gallery__thumb-width}));
+            }
+            @include mq($screen-l) {
+                width: calc(100% - (#{$gallery__nav-vertical-margin-right} + #{$gallery__thumb-width--large}));
+            }
+        }
+
+        &--horizontal {
+            order: 1;
+        }
+    }
+
+    &__nav {
+        order: 2;
+        display: flex;
+        align-items: center;
+
+        &--vertical {
+            @include mq($screen-m) {
+                margin-right: $gallery__nav-vertical-margin-right\@medium;
+                flex-direction: column;
+                order: 1;
+            }
+
+            @include mq($screen-l) {
+                margin-right: $gallery__nav-vertical-margin-right;
+            }
+        }
+    }
+
+    &__thumb {
+        overflow: hidden;
+        margin-right: $gallery__thumb-spacing;
+        border: $gallery__thumb-border;
+        width: $gallery__thumb-width;
+        height: $gallery__thumb-height;
+
+        @include mq($screen-m) {
+            margin-bottom: $gallery__thumb-spacing;
+            margin-right: 0;
+        }
+
+        @include mq($screen-l) {
+            width: $gallery__thumb-width--large;
+            height: $gallery__thumb-height--large;
+        }
+
+        &:hover,
+        &:focus {
+            cursor: pointer;
+        }
+
+        &--active {
+            border: $gallery__thumb-border--active;
+        }
+    }
+
+    &__thumb-arr {
+        display: flex !important; // sass-lint:disable-line no-important
+        justify-content: center;
+        align-items: center;
+        width: $gallery__thumb-arrow-width;
+        height: $gallery__thumb-arrow-height;
+        margin: 0 auto;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+    }
+
+    &__icon-arrow {
+        width: $gallery__icon-arrow-width;
+        height: $gallery__icon-arrow-height;
+        transform: rotate(-90deg);
+        fill: $gallery__icon-arrow-color;
+
+        &--vertical {
+            @include mq($screen-m) {
+                transform: none;
+            }
+        }
+    }
+
+    &__product-label {
+        position: absolute;
+        left: $gallery__label-offset-left;
+        top: $gallery__label-offset-top;
+    }
+
+    &-placeholder {
+        position: relative;
+
+        .loader {
+            position: static;
+        }
+    }
+}
