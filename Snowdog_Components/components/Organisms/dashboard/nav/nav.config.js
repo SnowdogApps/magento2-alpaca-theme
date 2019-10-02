@@ -2,7 +2,6 @@ module.exports = {
   label: 'Nav',
   name: 'dashboard-nav',
   context: {
-    title: 'My Account',
     actualPage: 'Account Dashboard',
     list: {
       class: 'dashboard-nav__list',

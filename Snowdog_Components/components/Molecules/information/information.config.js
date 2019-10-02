@@ -4,12 +4,12 @@ module.exports = {
       {
         title: 'Balance',
         text: 'Your balance is: $0.00',
-        headingTag: 'h5'
+        headingTag: 'h3'
       },
       {
         title: 'Redeem Gift Card',
         text: 'Have a gift card? Click here to redeem it.',
-        headingTag: 'h5'
+        headingTag: 'h3'
       }
     ]
   }

@@ -1,5 +1,24 @@
 module.exports = {
   context: {
+    breadcrumbs: {
+      categories: [
+        {
+          name: 'Home',
+          href: '#',
+          linkClass: 'breadcrumbs__link'
+        },
+        {
+          name: 'My orders',
+          href: '#',
+          linkClass: 'breadcrumbs__link'
+        }
+      ]
+    },
+    heading: {
+      tag: 'h1',
+      class: 'heading dashboard__content-heading',
+      text: 'My Dashboard'
+    },
     action: {
       sides: [
         {
@@ -445,25 +464,25 @@ module.exports = {
         orderInfo: {
           informations: [
             {
-              headingTag: 'h4',
+              headingTag: 'h3',
               title: 'Shipping Address',
               class: 'col-sm-3',
               text: 'Lorem Ipsum Shipping Address example 1'
             },
             {
-              headingTag: 'h4',
+              headingTag: 'h3',
               title: 'Shipping Method',
               class: 'col-sm-3',
               text: 'United Parcel Service - Ground'
             },
             {
-              headingTag: 'h4',
+              headingTag: 'h3',
               title: 'Billing Address',
               class: 'col-sm-3',
               text: 'Lorem Ipsum Billing Address example 1'
             },
             {
-              headingTag: 'h4',
+              headingTag: 'h3',
               title: 'Payment Method',
               class: 'col-sm-3',
               text: 'Check / Money order'
@@ -490,25 +509,25 @@ module.exports = {
         info: {
           informations: [
             {
-              headingTag: 'h4',
+              headingTag: 'h3',
               class: 'col-sm-6',
               title: 'Order Id',
               text: '#0000003'
             },
             {
-              headingTag: 'h4',
+              headingTag: 'h3',
               class: 'col-sm-6',
               title: 'Email',
               text: 'test@test.com'
             },
             {
-              headingTag: 'h4',
+              headingTag: 'h3',
               class: 'col-sm-6',
               title: 'Order Shipping Address',
               text: 'Lorem ipsmum example order shipping address'
             },
             {
-              headingTag: 'h4',
+              headingTag: 'h3',
               class: 'col-sm-6',
               title: 'Customer Name',
               text: 'Test Test'
