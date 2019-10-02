@@ -6,7 +6,7 @@
         {{ render '@heading' mainHeading merge=true }}
 
         <div class="row cart">
-            <div class="col-xs-12 col-lg-4 col-xl-3 cart__summary">
+            <div class="col-xs-12 col-lg-4 cart__summary">
                 <div class="cart-summary">
                     {{ render '@heading' summary.heading }}
 
@@ -42,14 +42,106 @@
                 </div>
             </div>
 
-            <div class="col-xs-12 col-lg-8 col-xl-9">
-                <div class="cart__product-grid">
+            <div class="col-xs-12 col-lg-8">
+                <div class="cart-grid">
+                    <div class="cart-grid__header">
+                        <span
+                            class="
+                                cart-grid__header-label
+                                cart-grid__header-items
+                            "
+                        >
+                            {{ grid.header.item }}
+                        </span>
 
+                        <span
+                            class="
+                                cart-grid__header-label
+                                cart-grid__header-price
+                            "
+                        >
+                            {{ grid.header.price }}
+                        </span>
 
-                    {{ render '@button--secondary' items.updateCart }}
+                        <span
+                            class="
+                                cart-grid__header-label
+                                cart-grid__header-qty
+                            "
+                        >
+                            {{ grid.header.qty }}
+                        </span>
+
+                        <span
+                            class="
+                                cart-grid__header-label
+                                cart-grid__header-subtotal
+                            "
+                        >
+                            {{ grid.header.subtotal }}
+                        </span>
+                    </div>
+
+                    {{#each grid.items }}
+                        <div class="cart-grid__item">
+                            <div class="cart-grid__item-left">
+                                {{ render '@image--picture' image }}
+
+                                <div class="cart-grid__item-content">
+                                    {{ render '@heading' productName }}
+
+                                    <div class="cart-grid__attributes margin-bottom-xs">
+                                        {{#each attributes }}
+                                            <span class="cart-grid__attribute">
+                                                {{ this }}
+                                            </span>
+                                        {{/each}}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="cart-grid__item-right">
+                                <div class="cart-grid__item-details">
+                                    <div class="cart-grid__wrapper">
+                                        <span class="cart-grid__item-label margin-right-xs">
+                                            {{ price.label }}
+                                        </span>
+
+                                        <span class="cart-grid__item-price">
+                                            {{ price.amount }}
+                                        </span>
+                                    </div>
+
+                                    {{ render '@input' qty }}
+
+                                    <div class="cart-grid__wrapper">
+                                        <span class="cart-grid__item-label margin-right-xs">
+                                            {{ total.label }}
+                                        </span>
+
+                                        <span class="cart-grid__item-total">
+                                            {{ total.amount }}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="cart-grid__actions">
+                                    {{ render '@button--icon' edit }}
+
+                                    {{ render '@button--icon' delete }}
+                                </div>
+                            </div>
+                        </div>
+                    {{/each}}
+
+                    <div class="cart-grid__footer">
+                        {{ render '@button--secondary' grid.updateCart }}
+                    </div>
                 </div>
 
-                {{ render '@dropdown-list' dropdownList }}
+                <div class="cart-discount">
+                    {{ render '@dropdown-list' dropdownList }}
+                </div>
             </div>
         </div>
     </div>
