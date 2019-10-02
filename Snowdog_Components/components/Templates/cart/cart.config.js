@@ -54,10 +54,33 @@ module.exports = {
         text: 'Esimate Shipping and Tax',
         class: 'cart-summary__subtitle'
       },
+      items: [
+        {
+          label: 'Subtotal',
+          value: '$159.95'
+        },
+        {
+          label: 'TAX',
+          value: '$159.95'
+        },
+      ],
       total: {
         tag: 'h4',
         text: 'Order Total',
         class: 'cart-summary__title-total'
+      },
+      amount: '$159.95',
+      button: {
+        tag: 'button',
+        class: 'button--fluid margin-bottom-m',
+        attributes: 'type="button" aria-label="Click to go to checkout"',
+        text: 'Proceed to Checkout'
+      },
+      link: {
+        tag: 'a',
+        class: 'button--link button--fluid cart-summary__link text-center',
+        attributes: 'href="#" title="Check Out with Multiple Addresses"',
+        text: 'Check Out with Multiple Addresses'
       }
     }
   }

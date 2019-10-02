@@ -6,33 +6,43 @@
         {{ render '@heading' mainHeading merge=true }}
 
         <div class="row cart">
-            <div
-                class="
-                    col-xs-12
-                    col-lg-3
-                    cart-summary
-                "
-            >
-                {{ render '@heading' summary.heading }}
+            <div class="col-xs-12 col-lg-4 col-xl-3 cart__summary">
+                <div class="cart-summary">
+                    {{ render '@heading' summary.heading }}
 
-                <div class="cart-summary__total">
-                    {{ render '@heading' summary.estimate }}
+                    <div class="cart-summary__details">
+                        {{ render '@heading' summary.estimate }}
 
-                    <div class="cart-summary__wrapper">
-                        {{ render '@list--columns' summary.list }}
+                         <ul class="cart-summary__list">
+                            {{#each summary.items }}
+                                <li class="cart-summary__list-item">
+                                    <span class="cart-summary__label">
+                                        {{ label }}
+                                    </span>
+
+                                    <span class="cart-summary__value">
+                                        {{ value }}
+                                    </span>
+                                </li>
+                            {{/each}}
+                        </ul>
                     </div>
+
+                    <div class="cart-summary__total">
+                        {{ render '@heading' summary.total }}
+
+                        <span class="cart-summary__amount text-right">
+                            {{ summary.amount }}
+                        </span>
+                    </div>
+
+                    {{ render '@button' summary.button }}
+
+                    {{ render '@button--link' summary.link }}
                 </div>
-
-                <div class="cart-summary__total">
-                    {{ render '@heading' summary.total }}
-                </div>
-
-                {{ render '@button' }}
-
-                {{ render '@button--link' }}
             </div>
 
-            <div class="col-xs-12 col-lg-9">
+            <div class="col-xs-12 col-lg-8 col-xl-9">
                 <div class="cart__product-grid">
 
 
