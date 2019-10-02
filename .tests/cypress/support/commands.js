@@ -55,3 +55,9 @@ Cypress.Commands.add('nextPage', () => {
 Cypress.Commands.add('previousPage', () => {
   cy.get('[data-testid=pager-prev-link]').click()
 })
+
+Cypress.Commands.add('waitForCustomerData', () => {
+  cy.server()
+  cy.route('/customer/section/load/?sections=*').as('getCustomerData')
+  cy.wait('@getCustomerData')
+})

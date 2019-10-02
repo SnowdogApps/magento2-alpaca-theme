@@ -29,6 +29,9 @@ describe('Registration validation', () => {
   })
 
   it('checks that registration form is visible', () => {
+    // Wait for the slowest part to be sure that the page is fully loaded
+    cy.waitForCustomerData()
+
     cy.get('#form-validate').should('be.visible')
   })
 

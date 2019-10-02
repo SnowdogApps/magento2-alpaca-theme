@@ -55,9 +55,7 @@ describe('Category toolbar', () => {
   describe('View modes', () => {
     it('List mode switch', () => {
       // Wait for the slowest part to be sure that the page is fully loaded
-      cy.server()
-      cy.route('/customer/section/load/?sections=*').as('getCustomerData')
-      cy.wait('@getCustomerData')
+      cy.waitForCustomerData()
 
       // TODO: Add data-testid
       cy.get('.toolbar__mode-button[data-value="list"]').click()
@@ -70,9 +68,7 @@ describe('Category toolbar', () => {
 
     it('Grid mode switch', () => {
       // Wait for the slowest part to be sure that the page is fully loaded
-      cy.server()
-      cy.route('/customer/section/load/?sections=*').as('getCustomerData')
-      cy.wait('@getCustomerData')
+      cy.waitForCustomerData()
 
       // TODO: Add data-testid
       cy.get('.toolbar__mode-button[data-value="grid"]').click()
