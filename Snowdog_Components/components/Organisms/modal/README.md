@@ -9,18 +9,25 @@ During implementation, please add to `div[role="dialog"]` two aria attributes wh
 **Code example**:
 
 ```html
-<div role="dialog"
-     aria-hidden="true"
-     id="myDialog"
-     data-modal="myDialog"
-     class="modal"
-     tabindex="-1"
-     aria-labelledby="myTitle"
-     aria-describedby="myDesc"
+<div
+    role="dialog"
+    aria-hidden="true"
+    id="myDialog"
+    data-modal="myDialog"
+    class="modal"
+    tabindex="-1"
+    aria-labelledby="myTitle"
+    aria-describedby="myDesc"
  >
-    <div role="document" class="modal__content" tabindex="0">
+    <div
+        role="document"
+        class="modal__content"
+        tabindex="0"
+    >
          <div id="myTitle">Save "untitled" document?</div>
-         <div id="myDesc">You have made changes to "untitled.txt" that have not been saved. What do you want to do?</div>
+         <div id="myDesc">
+             You have made changes to "untitled.txt" that have not been saved. What do you want to do?
+         </div>
          <button id="saveMe" type="button">Save changes</button>
          <button id="discardMe" type="button">Discard changes</button>
          <button id="neverMind" type="button">Cancel</button>
