@@ -1,6 +1,7 @@
 module.exports = {
   context: {
     total: 'Cart Subtotal',
+    heading: 'Shopping cart',
     counter: '2 items',
     price: '$ 200.00',
     editButton: {

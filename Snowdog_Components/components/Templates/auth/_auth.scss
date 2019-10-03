@@ -1,0 +1,102 @@
+@import 'auth-variables';
+
+.auth {
+    &__links {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+
+        @include mq($screen-m) {
+            flex-direction: row;
+        }
+
+        &:first-of-type {
+            .auth__link {
+                border-width: 0 0 $border-width-base;
+            }
+        }
+    }
+
+    &__link {
+        position: relative;
+        justify-content: flex-start;
+        width: $auth__link-width;
+        height: $auth__link-height;
+        border: $auth__link-border;
+        border-width: $auth__link-border-width;
+        color: $auth__link-color;
+        font-size: $auth__link-font-size;
+        font-weight: $auth__link-font-weight;
+        text-decoration: $auth__link-text-decoration;
+        text-transform: $auth__link-text-transform;
+
+        @include mq($screen-m) {
+            justify-content: center;
+            width: $auth__link-width\@medium;
+        }
+
+        &:hover,
+        &.focus-visible,
+        &--active {
+            color: $auth__link-color--active;
+        }
+
+        &--active {
+            background: $auth__link-background--active;
+            font-weight: $auth__link-font-weight--active;
+
+            &:hover,
+            &.focus-visible {
+                background: $auth__link-background--active;
+            }
+
+            .auth__icon {
+                transform: $auth__icon-transform--active;
+            }
+        }
+
+        &--registration {
+            display: none;
+
+            @include mq($screen-m) {
+                display: flex;
+            }
+
+            &-mobile {
+                @include mq($screen-m) {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    &__icon {
+        position: absolute;
+        right: $spacer--medium;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        fill: $color-secondary;
+
+        @include mq($screen-m) {
+            display: none;
+        }
+    }
+
+    &__heading {
+        margin: $auth__heading-margin;
+
+        @include mq($screen-m) {
+            margin: $auth__heading-margin\@medium;
+        }
+    }
+
+    &--registration {
+        .auth__link {
+            &--registration-mobile {
+                display: none;
+            }
+        }
+    }
+}

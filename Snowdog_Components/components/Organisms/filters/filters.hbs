@@ -1,0 +1,56 @@
+<div class="filters">
+    {{ render '@active-filters' }}
+    <div class="filters__item">
+        {{ render '@button--icon' openButton }}
+
+        <div
+            class="filters__content-wrapper"
+            aria-hidden="true"
+        >
+            <div class="filters__content">
+                {{ render '@button--icon' closeButton }}
+
+                <h2 class="filters__heading">
+                    {{ categoryHeading }}
+                </h2>
+                {{ render '@filter--category' }}
+            </div>
+        </div>
+    </div>
+
+    <div class="filters__item">
+        {{ render '@button--icon' openButtonFilters }}
+
+        <div
+            class="filters__content-wrapper"
+            aria-hidden="true"
+        >
+            <div class="filters__content">
+                {{ render '@button--icon' closeButton }}
+
+                <h2 class="filters__heading">
+                    {{ filtersHeading }}
+                </h2>
+                <div
+                    class="dropdown-list filters__dropdown"
+                    id="{{ dropdownListId }}"
+                >
+                    <ul class="dropdown-list__list">
+                        {{ render '@filter--color' }}
+                        {{ render '@filter--swatch' }}
+                        {{ render '@filter--checkbox' }}
+                        {{ render '@filter--range' }}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{{ static 'filters.js' }}" defer></script>
+<!-- required only for components display -->
+{{#if dropdownListId }}
+    <script type="text/javascript">
+        new DropdownList(document.getElementById('{{ dropdownListId }}'));
+    </script>
+{{/if}}
