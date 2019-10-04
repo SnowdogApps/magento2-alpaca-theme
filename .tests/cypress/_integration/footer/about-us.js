@@ -1,3 +1,4 @@
+// TODO: This tests proves that if you click a link it will load the url from the link + it's heavily dependent on the content, which can be easily changed via admin - this should be just removed
 describe('FOOTER - About-us footer link test', () => {
   it('clicks on about-us footer link', () => {
     cy.visit('/')

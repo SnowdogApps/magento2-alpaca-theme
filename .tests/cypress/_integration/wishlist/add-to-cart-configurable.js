@@ -1,5 +1,3 @@
-/// <reference types="Cypress" />
-
 function pickRandomitem(item) {
   return item[Math.floor(Math.random() * item.length)]
 }
@@ -10,20 +8,21 @@ describe('CATALOG - Add to cart configurable test', () => {
   })
 
   it('Checks configurable options and adds to cart', () => {
-    // TODO: Why is this chained that way?
     cy.get('[data-testid=list-product-item]')
       .first()
       .focus()
       .then(() => {
         cy.get('.catalog-grid-item__options').should('be.visible')
+        // TODO: Hardcoded option ID
         cy.get('.swatch-opt-1033 .swatch.size .swatch__option').then(item => {
           pickRandomitem(item).click(item)
         })
+        // TODO: Hardcoded option ID
         cy.get('.swatch-opt-1033 .swatch.color .swatch__option').then(item => {
           pickRandomitem(item).click(item)
         })
         cy.get('.tocart')
-          .first()
+          .first() // TODO: Avoind using first, use more precise selectors
           .click()
       })
     cy.server()

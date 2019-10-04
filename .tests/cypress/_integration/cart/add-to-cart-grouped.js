@@ -4,6 +4,7 @@ describe('Grouped product', function() {
     cy.get('.breadcrumbs__list').should('be.visible')
   })
 
+  // TODO: You don't need to check visibility of the page elements to test adding to cart
   it('Check visiblility of content', () => {
     cy.get('.product-view__main-details').should('be.visible')
     cy.get('[data-ui-id=page-title-wrapper]').should('be.visible')
@@ -25,11 +26,14 @@ describe('Grouped product', function() {
     cy.get('.fotorama__img')
   })
 
+  // TODO: This is not testiing anything
   it('Test grouped product table', () => {
     cy.get('#super-product-table').should('be.visible')
   })
 
+  // TODO: Missleading name, it set quantity for multiple products, not just one
   it('Choose product from table', () => {
+    // TODO: It do nothing
     cy.get('#super-product-table')
 
     // TODO: Use better selector to avoid using "multiple"
@@ -49,14 +53,19 @@ describe('Grouped product', function() {
   })
 
   it('Add product to cart', () => {
+    // TODO: Overriding `whitelist` property of sever configuration is required only to wait for non-XHR requests, for example .html templates
     cy.server({
       whitelist: () => false
     })
     cy.get('#product-addtocart-button').click()
+    // TODO: Alias name is missleading, beacause in this tests you need to wait for cart data, not totals
     cy.route('/customer/section/load/?sections=cart*').as('getTotals')
     cy.wait('@getTotals')
   })
 
+  // TODO: Lack of checking if the product was accualy added to the cart or not
+
+  // TODO: This is test of adding to cart, not the cart itself, it shouldn't be the part of this test
   it('Check cart view', () => {
     cy.get('[data-testid=view-cart-link]')
       .click()
@@ -65,6 +74,7 @@ describe('Grouped product', function() {
     cy.get('.cart-list-item__data').should('be.visible')
   })
 
+  // TODO: This is test of adding to cart, not the cart itself, it shouldn't be the part of this test
   it('Are totals displayed', () => {
     cy.server({ whitelist: () => false })
     cy.route('/customer/section/load/?sections=cart*').as('getTotals')

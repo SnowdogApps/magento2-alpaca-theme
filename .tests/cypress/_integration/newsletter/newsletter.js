@@ -1,5 +1,6 @@
 import faker from 'faker'
 
+// TODO: There is no point to do this test separetly
 describe('Newsletter', () => {
   it('submits newsletter form', () => {
     cy.visit('/')

@@ -14,6 +14,7 @@ describe('HEADER - Account header link as Logged In user', () => {
     cy.get('.row').should('be.visible')
     cy.get('.dashboard-nav').should('be.visible')
     cy.get('.dashboard-items').should('be.visible')
+    // TODO: Too generic selector + checking the text
     cy.get('.current strong').should('have.text', 'My Account')
   })
 })

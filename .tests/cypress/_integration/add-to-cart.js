@@ -1,3 +1,4 @@
+// TODO: IDK what is this testing, would say that it should be removed
 function pickRandomitem(item) {
   return item[Math.floor(Math.random() * item.length)]
 }

@@ -4,6 +4,7 @@ describe('Simple product', function() {
     cy.get('.breadcrumbs__list').should('be.visible')
   })
 
+  // TODO: You don't need to check visibility of the page elements to test adding to cart
   it('Check visiblility of content', () => {
     cy.get('.product-view__main-details').should('be.visible')
     cy.get('[data-ui-id=page-title-wrapper]').should('be.visible')
@@ -34,11 +35,14 @@ describe('Simple product', function() {
   it('Check if mini-cart is not empty', () => {
     cy.get('[data-testid=minicart-link]').click()
     cy.get('#minicart-content-wrapper').should('be.visible')
+
+    // TODO: Check the `.tests/cypress/integration/catalog/add-to-cart.js` file to get the proper way of checking if there is something in the cart
     cy.contains('You have no items in your shopping cart.').should(
       'not.be.visible'
     )
   })
 
+  // TODO: This is test of adding to cart, not the cart itself, it shouldn't be the part of this test
   it('Check cart view', () => {
     cy.get('[data-testid=view-cart-link]')
       .click()
@@ -47,6 +51,7 @@ describe('Simple product', function() {
     cy.get('.cart-list-item__data').should('be.visible')
   })
 
+  // TODO: This is test of adding to cart, not the cart itself, it shouldn't be the part of this test
   it('Are totals displayed', () => {
     cy.server({ whitelist: () => false })
     cy.route('/customer/section/load/?sections=cart*').as('getTotals')

@@ -4,6 +4,7 @@ describe('Virtual product', function() {
     cy.get('.breadcrumbs__list').should('be.visible')
   })
 
+  // TODO: You don't need to check visibility of the page elements to test adding to cart
   it('Check visiblility of content', () => {
     cy.get('.product-view__main-details').should('be.visible')
     cy.get('[data-ui-id=page-title-wrapper]').should('be.visible')
@@ -20,10 +21,11 @@ describe('Virtual product', function() {
 
   it('Add product to cart', () => {
     cy.get('#product-addtocart-button')
-      .first()
+      .first() // TODO: Avoid using first, use more precise selector instead
       .click()
     cy.server()
     cy.route('/customer/section/load/?sections=cart*').as('addToCart')
+    // TODO: This is not a request that is adding the prodcut to cart, but to gets the currect state of user session that includes cart data to update the UI
     cy.wait('@addToCart')
   })
 
