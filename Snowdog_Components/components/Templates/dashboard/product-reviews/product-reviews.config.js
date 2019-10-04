@@ -145,10 +145,10 @@ module.exports = {
           tag: 'div',
           class: 'dashboard__product',
           image: {
-            dataSrc: '/images/catalog-grid-item/product-1_320_312.jpg'
+            dataSrc: '/images/catalog-grid-item/product-color-swatch-image-1-32_40.jpg'
           },
           name: {
-            tag: 'h2',
+            wrapperClass: 'text-center',
             class: 'product-reviews__name',
             text: 'Juno Jacket'
           }

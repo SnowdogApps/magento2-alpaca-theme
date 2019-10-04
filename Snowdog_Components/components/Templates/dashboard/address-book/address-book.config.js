@@ -309,7 +309,7 @@ module.exports = {
           checkboxes: [
             {
               checkbox: {
-                class: 'dashboard-form__divider',
+                class: '',
                 id: 'defaultBillingAddress',
                 label: {
                   text: 'Use as my default billing address'
@@ -318,7 +318,7 @@ module.exports = {
             },
             {
               checkbox: {
-                class: 'dashboard-form__divider',
+                class: '',
                 id: 'defaultShippingAddress',
                 label: {
                   text: 'Use as my default shipping address'

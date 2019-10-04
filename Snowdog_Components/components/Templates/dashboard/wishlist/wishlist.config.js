@@ -23,7 +23,7 @@ module.exports = {
       {
         product: {
           image: {
-            dataSrc: '/images/catalog-grid-item/product-1_320_312.jpg'
+            dataSrc: '/images/catalog-grid-item/product-color-swatch-image-1-32_40.jpg'
           },
           name: {
             href: '#',
@@ -59,7 +59,7 @@ module.exports = {
         editIcon: {
           tag: 'a',
           attributes: 'href="#" aria-label="Edit product parameters"',
-          class: 'button--icon',
+          class: 'button--icon no-pseudoelements',
           icon: {
             id: 'edit',
             title: 'Edit',
@@ -69,7 +69,7 @@ module.exports = {
         removeIcon: {
           tag: 'button',
           attributes: 'type="button" aria-label="Remove product from wishlist"',
-          class: 'button--icon wishlist__remove',
+          class: 'button--icon wishlist__remove no-pseudoelements',
           icon: {
             id: 'remove',
             title: 'Remove',
@@ -85,7 +85,7 @@ module.exports = {
       {
         product: {
           image: {
-            dataSrc: '/images/catalog-grid-item/product-1_320_312.jpg'
+            dataSrc: '/images/catalog-grid-item/product-color-swatch-image-1-32_40.jpg'
           },
           name: {
             href: '#',
@@ -121,7 +121,7 @@ module.exports = {
         editIcon: {
           tag: 'a',
           attributes: 'href="#" aria-label="Edit product parameters"',
-          class: 'button--icon',
+          class: 'button--icon no-pseudoelements',
           icon: {
             id: 'edit',
             title: 'Edit',
@@ -131,7 +131,7 @@ module.exports = {
         removeIcon: {
           tag: 'button',
           attributes: 'href="#" aria-label="Remove product from wishlist"',
-          class: 'button--icon wishlist__remove',
+          class: 'button--icon wishlist__remove no-pseudoelements',
           icon: {
             id: 'remove',
             title: 'Remove',
