@@ -1,6 +1,7 @@
 module.exports = {
   context: {
     name: 'radio1',
+    fieldsetClass: '',
     legend: 'Choose option',
     legendId: 'legend-id',
     options: [
