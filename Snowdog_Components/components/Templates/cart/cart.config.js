@@ -18,24 +18,6 @@ module.exports = {
       text: 'Shopping Cart',
       class: 'margin-top-sm text-center'
     },
-    dropdownList: {
-      id: 'discount-dropdown',
-      dropdowns: [
-        {
-          itemTag: 'button',
-          itemAttributes: 'aria-expanded="false"',
-          title: 'Apply Discount Code',
-          id: 'dropdown-1',
-          collapse: {
-            class: 'dropdown-list__icon',
-            id: 'angle-down',
-            title: 'Arrow down',
-            attributes: 'aria-hidden="true"'
-          },
-          contentElement: 'paragraph'
-        },
-      ]
-    },
     summary: {
       heading: {
         tag: 'h3',
@@ -83,234 +65,35 @@ module.exports = {
         qty: 'Qty',
         subtotal: 'Subtotal'
       },
-      items: [
-        {
-          image: {
-            class: 'cart-grid__item-image',
-            defaultSrc: '/images/cart-view/product-64x96.jpg',
-            sources: [
-              {
-                src: '/images/cart-view/product-64x96.jpg',
-                mediaQuery: '(max-width: 480px)'
-              },
-              {
-                src: '/images/cart-view/product-80x120.jpg',
-                mediaQuery: '(max-width: 768px)'
-              },
-              {
-                src: '/images/cart-view/product-128x192.jpg',
-                mediaQuery: ''
-              }
-            ],
-            alt: 'Image of product Bluzka \'ONLSANSA SINGLET WVN\''
-          },
-          productName: {
-            tag: 'h4',
-            text: 'Bluzka \'ONLSANSA SINGLET WVN\'',
-            class: 'cart-grid__item-name'
-          },
-          attributes: [
-            'Size: XXL',
-            'Color: Red'
-          ],
-          price: {
-            label: 'Price:',
-            amount: '$159.95'
-          },
-          qty: {
-            class: 'input--inline cart-grid__item-qty',
-            label: {
-              class: 'cart-grid__item-label',
-              attributes: '',
-              text: 'Qty',
-              hidden: false
-            },
-            field: {
-              class: 'cart-grid__item-input text-center',
-              id: 'qty',
-              name: 'qty',
-              type: 'number',
-              attributes: 'value="1"'
-            }
-          },
-          total: {
-            label: 'Subtotal:',
-            amount: '$159.95'
-          },
-          edit: {
-            tag: 'button',
-            class: 'button button--icon cart-grid__action',
-            icon: {
-              id: 'edit',
-              title: 'Edit product',
-              class: 'button__icon cart-grid__action-icon'
-            },
-            attributes: 'type="button" aria-label="Clickt to edit this product"'
-          },
-          delete: {
-            tag: 'button',
-            class: 'button button--icon cart-grid__action',
-            icon: {
-              id: 'remove',
-              title: 'Remove product',
-              class: 'button__icon cart-grid__action-icon'
-            },
-            attributes: 'type="button" aria-label="Click to remove this product"'
-          }
-        },
-        {
-          image: {
-            class: 'cart-grid__item-image',
-            defaultSrc: '/images/cart-view/product-64x96.jpg',
-            sources: [
-              {
-                src: '/images/cart-view/product-64x96.jpg',
-                mediaQuery: '(max-width: 480px)'
-              },
-              {
-                src: '/images/cart-view/product-80x120.jpg',
-                mediaQuery: '(max-width: 768px)'
-              },
-              {
-                src: '/images/cart-view/product-128x192.jpg',
-                mediaQuery: ''
-              }
-            ],
-            alt: 'Image of product Bluzka \'ONLSANSA SINGLET WVN\''
-          },
-          productName: {
-            tag: 'h4',
-            text: 'Bluzka \'ONLSANSA SINGLET WVN\'',
-            class: 'cart-grid__item-name'
-          },
-          attributes: [
-            'Size: XXL',
-            'Color: Red'
-          ],
-          price: {
-            label: 'Price:',
-            amount: '$159.95'
-          },
-          qty: {
-            class: 'input--inline cart-grid__item-qty',
-            label: {
-              class: 'cart-grid__item-label',
-              attributes: '',
-              text: 'Qty',
-              hidden: false
-            },
-            field: {
-              class: 'cart-grid__item-input text-center',
-              id: 'qty',
-              name: 'qty',
-              type: 'number',
-              attributes: 'value="1"'
-            }
-          },
-          total: {
-            label: 'Subtotal:',
-            amount: '$159.95'
-          },
-          edit: {
-            tag: 'button',
-            class: 'button button--icon cart-grid__action',
-            icon: {
-              id: 'edit',
-              title: 'Edit product',
-              class: 'button__icon cart-grid__action-icon'
-            },
-            attributes: 'type="button" aria-label="Clickt to edit this product"'
-          },
-          delete: {
-            tag: 'button',
-            class: 'button button--icon cart-grid__action',
-            icon: {
-              id: 'remove',
-              title: 'Remove product',
-              class: 'button__icon cart-grid__action-icon'
-            },
-            attributes: 'type="button" aria-label="Click to remove this product"'
-          }
-        },
-        {
-          image: {
-            class: 'cart-grid__item-image',
-            defaultSrc: '/images/cart-view/product-64x96.jpg',
-            sources: [
-              {
-                src: '/images/cart-view/product-64x96.jpg',
-                mediaQuery: '(max-width: 480px)'
-              },
-              {
-                src: '/images/cart-view/product-80x120.jpg',
-                mediaQuery: '(max-width: 768px)'
-              },
-              {
-                src: '/images/cart-view/product-128x192.jpg',
-                mediaQuery: ''
-              }
-            ],
-            alt: 'Image of product Bluzka \'ONLSANSA SINGLET WVN\''
-          },
-          productName: {
-            tag: 'h4',
-            text: 'Bluzka \'ONLSANSA SINGLET WVN\'',
-            class: 'cart-grid__item-name'
-          },
-          attributes: [
-            'Size: XXL',
-            'Color: Red'
-          ],
-          price: {
-            label: 'Price:',
-            amount: '$159.95'
-          },
-          qty: {
-            class: 'input--inline cart-grid__item-qty',
-            label: {
-              class: 'cart-grid__item-label',
-              attributes: '',
-              text: 'Qty',
-              hidden: false
-            },
-            field: {
-              class: 'cart-grid__item-input text-center',
-              id: 'qty',
-              name: 'qty',
-              type: 'number',
-              attributes: 'value="1"'
-            }
-          },
-          total: {
-            label: 'Subtotal:',
-            amount: '$159.95'
-          },
-          edit: {
-            tag: 'button',
-            class: 'button button--icon cart-grid__action',
-            icon: {
-              id: 'edit',
-              title: 'Edit product',
-              class: 'button__icon cart-grid__action-icon'
-            },
-            attributes: 'type="button" aria-label="Clickt to edit this product"'
-          },
-          delete: {
-            tag: 'button',
-            class: 'button button--icon cart-grid__action',
-            icon: {
-              id: 'remove',
-              title: 'Remove product',
-              class: 'button__icon cart-grid__action-icon'
-            },
-            attributes: 'type="button" aria-label="Click to remove this product"'
-          }
-        }
-      ],
       updateCart: {
         class: 'button--secondary cart-grid__button margin-top-sm margin-bottom-l',
         tag: 'button',
         text: 'Update shopping cart'
+      }
+    },
+    discount: {
+      title: 'Apply Discount Code',
+      icon: {
+        id: 'angle-down',
+        title: 'Arrow down',
+        class: 'cart-discount__title-icon'
+      },
+      button: {
+        tag: 'button',
+        text: 'Apply Discount',
+        class: 'cart-discount__button'
+      },
+      input: {
+        class: 'cart-discount__input',
+        label: {
+          class: 'label--hidden'
+        },
+        field: {
+          placeholder: 'Enter discount code',
+          id: 'discount-code',
+          name: 'cart-discount-code',
+          class: 'cart-discount__field'
+        }
       }
     }
   }
