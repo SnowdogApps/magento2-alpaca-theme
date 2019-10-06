@@ -55,23 +55,23 @@ module.exports = {
       link: '/cart',
       ariaLabel: 'Shopping cart dropdown trigger'
     },
-    minicartPopup: {
-      class: 'header__minicart-content',
-      popupId: 'popup-minicart',
-      popupTrigger: false,
-      content: 'minicart-content',
+    minicartModal: {
+      trigger: false,
+      modal: {
+        id: 'modal-minicart',
+        attributes: 'aria-labelledby="Minicart content" aria-describedby="Minicart content"'
+      },
+      modalComponent: {
+        content: 'minicart-content',
+        contentContext: ''
+      },
+      modalContent: {
+        class: 'modal__content--block'
+      },
       script: true,
-      buttonClose: {
-        tag: 'button',
-        text: '',
-        class: 'button--rotate-icon popup__close-button',
-        icon: {
-          id: 'close',
-          title: 'Close',
-          class: 'button__icon popup__close-button-icon'
-        },
-        attributes: 'type="button" aria-label="close popup button, click to close the popup"'
-      }
+      modalTop: false,
+      modalMiddle: false,
+      modalBottom: false
     },
     briefInfo: {
       items: [
