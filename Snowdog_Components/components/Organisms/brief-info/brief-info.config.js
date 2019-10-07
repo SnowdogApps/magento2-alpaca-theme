@@ -3,6 +3,7 @@ module.exports = {
     items: [
       {
         iconLabel: 'Delivery',
+        iconWrapperClass: 'margin-right-xs',
         icon: {
           class: 'brief-info__icon',
           id: 'delivery',
@@ -22,6 +23,7 @@ module.exports = {
       },
       {
         class: 'brief-info__icon',
+        iconWrapperClass: 'margin-right-xs',
         iconLabel: 'Big Star',
         icon: {
           class: 'brief-info__icon',
@@ -45,7 +47,7 @@ module.exports = {
         items: [
           {
             iconLabel: 'Return policy',
-            iconWrapperClass: '',
+            iconWrapperClass: 'margin-right-xs',
             icon: {
               class: 'brief-info__icon',
               id: 'return',
@@ -65,7 +67,7 @@ module.exports = {
           },
           {
             iconLabel: 'Lorem Ipsum is simply',
-            iconWrapperClass: '',
+            iconWrapperClass: 'margin-right-xs',
             icon: {
               class: 'brief-info__icon',
               id: 'bigstar',
@@ -85,7 +87,7 @@ module.exports = {
           },
           {
             iconLabel: 'Our Customers Are Talking',
-            iconWrapperClass: '',
+            iconWrapperClass: 'margin-right-xs',
             icon: {
               class: 'brief-info__icon',
               id: 'reviews',
