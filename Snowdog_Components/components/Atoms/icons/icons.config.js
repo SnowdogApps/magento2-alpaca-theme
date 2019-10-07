@@ -261,6 +261,21 @@ module.exports = {
         id: 'youtube',
         title: 'Youtube logo',
         class: 'icons__single-icon'
+      },
+      {
+        id: 'share',
+        title: 'Share',
+        class: 'icons__single-icon'
+      },
+      {
+        id: 'thumb-up',
+        title: 'Thumb up',
+        class: 'icons__single-icon'
+      },
+      {
+        id: 'thumb-down',
+        title: 'Thumb down',
+        class: 'icons__single-icon'
       }
     ]
   }
