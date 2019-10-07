@@ -4,18 +4,83 @@ module.exports = {
     dropdownListId: 'test-id',
     categoryHeading: 'Category',
     filtersHeading: 'Shopping options',
-    closeButton: {
-      class: 'filters__trigger filters__trigger--close',
-      tag: 'button',
-      attributes: 'type="button" aria-label="button"',
-      icon: {
-        id: 'close'
-      }
+    filterCategoryModal: {
+      modal: {
+        class: 'filters__modal modal--tertiary',
+        id: 'filters-category',
+        attributes: 'aria-lebelledby="filters-categories-title"'
+      },
+      modalContainer: {
+        class: 'filters__container'
+      },
+      modalContent: {
+        class: 'filters__content'
+      },
+      trigger: false,
+      buttonClose: {
+        class: 'button--rotate-icon modal__close-button',
+        tag: 'button',
+        attributes: 'type="button" aria-label="Close filters modal"',
+        icon: {
+          id: 'close',
+          class: 'button__icon modal__close-button-icon',
+          hidden: true
+        }
+      },
+      modalTop: true,
+      heading: {
+        attributes: 'id="filters-categories-title"',
+        tag: 'h2',
+        class: 'filters__heading',
+        text: 'Category'
+      },
+      modalMiddle: true,
+      modalComponent: {
+        content: 'filter--category'
+      },
+      modalBottom: false,
+    },
+    filterOptionsModal: {
+      script: true,
+      modal: {
+        class: 'filters__modal modal--tertiary',
+        id: 'filters-options',
+        attributes: 'aria-lebelledby="filters-option-title"'
+      },
+      modalContainer: {
+        class: 'filters__container'
+      },
+      modalContent: {
+        class: 'filters__content'
+      },
+      trigger: false,
+      buttonClose: {
+        class: 'button--rotate-icon modal__close-button',
+        tag: 'button',
+        attributes: 'type="button" aria-label="Close filters modal"',
+        icon: {
+          id: 'close',
+          class: 'button__icon modal__close-button-icon',
+          hidden: true
+        }
+      },
+      modalTop: true,
+      heading: {
+        attributes: 'id="filters-option-title"',
+        tag: 'h2',
+        class: 'filters__heading',
+        text: 'Shopping options'
+      },
+      modalMiddle: true,
+      modalComponent: {
+        content: 'filters-content'
+      },
+      modalBottom: false,
     },
     openButton: {
-      class: 'filters__trigger filters__trigger--open',
+      class: 'modal-trigger filters__trigger',
       tag: 'button',
-      attributes: 'type="button" aria-label="button"',
+      attributes: 'type="button" aria-label="Open categories filter" data-modal-trigger="filters-category" aria-expanded="true"',
       text: 'Category',
       iconAfter: {
         id: 'angle-right',
@@ -23,9 +88,9 @@ module.exports = {
       }
     },
     openButtonFilters: {
-      class: 'filters__trigger filters__trigger--open',
+      class: 'modal-trigger filters__trigger filters__trigger--open',
       tag: 'button',
-      attributes: 'type="button" aria-label="button"',
+      attributes: 'type="button" aria-label="Open shopping options" data-modal-trigger="filters-options" aria-expanded="true"',
       text: 'Shopping Options',
       iconAfter: {
         id: 'angle-right',

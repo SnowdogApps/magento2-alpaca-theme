@@ -1,7 +1,8 @@
-class Modal {
-  constructor() {
-    this.triggers = document.querySelectorAll('.modal-trigger');
-    this.init();
+'use strict';
+
+class Modal { // eslint-disable-line
+  constructor(modalTrigger) {
+    this.setListeners(modalTrigger);
   }
 
   trap(e, modal) {
@@ -30,6 +31,7 @@ class Modal {
   openModal(modal) {
     modal.focused = document.activeElement;
     modal.el.setAttribute('aria-hidden', false);
+    modal.trigger.setAttribute('aria-expanded', true);
     modal.el.classList.add(modal.activeClass);
     modal.focusableChildren = Array.from(modal.el.querySelectorAll(modal.focusable));
     modal.focusableChildren[0].focus();
@@ -40,59 +42,44 @@ class Modal {
 
   closeModal(modal) {
     modal.el.setAttribute('aria-hidden', true);
+    modal.trigger.setAttribute('aria-expanded', false);
     modal.el.classList.remove(modal.activeClass);
     modal.focused.focus();
   }
-
-  setListeners() {
-    this.triggers.forEach(trigger => {
-      const modal = {};
-      modal.triggerId   = trigger.dataset.modalTrigger,
-      modal.el          = document.querySelector(`.modal[data-modal=${modal.triggerId}]`),
-      modal.content     = modal.el.querySelector('.modal__content'),
-      modal.closeButton = [...modal.el.querySelectorAll('.modal__close-button')],
-      modal.activeClass = 'modal--active',
-      modal.focusable   = 'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), object, embed, *[tabindex], *[contenteditable]',
-      modal.focused     = '';
-
-      /// When the user clicks on trigger, open the modal
-      trigger.addEventListener('click',
-        () => this.openModal(modal)
+  setListeners(modalTrigger) {
+    const modal = {};
+    modal.trigger = modalTrigger,
+    modal.el = document.querySelector(`.modal[data-modal=${modal.trigger.dataset.modalTrigger}]`),
+    modal.content     = modal.el.querySelector('.modal__content'),
+    modal.closeButton = modal.el.querySelector('.modal__close-button'),
+    modal.activeClass = 'modal--active',
+    modal.focusable   = 'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), object, embed, *[tabindex], *[contenteditable]',
+    modal.focused     = '';
+    modal.trigger.addEventListener('click',
+      () => this.openModal(modal)
+    );
+    // clicking on button (x) closes the modal
+    if (modal.closeButton) {
+      modal.closeButton.addEventListener('click',
+        () => this.closeModal(modal)
       );
-
-      // When the user clicks on button (x), close the modal
-      if (modal.closeButton.length > 0) {
-        modal.closeButton.forEach(closeButton => {
-          closeButton.addEventListener('click',
-            () => this.closeModal(modal)
-          );
-        });
+    }
+    // clicking anywhere outside of the modal closes the modal
+    window.addEventListener('click', (e) => {
+      if (e.target === modal.el
+        && modal.el.classList.contains(modal.activeClass)
+        && !modal.content.contains(e.target)
+      ) {
+        this.closeModal(modal)
       }
-
-      // When the user clicks anywhere outside of the modal, close the modal
-      window.addEventListener('click', (e) => {
-        if (e.target === modal.el
-          && modal.el.classList.contains(modal.activeClass)
-          && !modal.content.contains(e.target)
-        ) {
-          this.closeModal(modal)
-        }
-      });
-
-      // When the user push escape, close the modal
-      window.addEventListener('keydown', (e) => {
-        if (e.which === 27
-          && modal.el.classList.contains(modal.activeClass)
-        ) {
-          this.closeModal(modal)
-        }
-      });
-    })
-  }
-
-  init() {
-    this.setListeners();
+    });
+    // escape key closes the modal
+    window.addEventListener('keydown', (e) => {
+      if (e.which === 27
+        && modal.el.classList.contains(modal.activeClass)
+      ) {
+        this.closeModal(modal)
+      }
+    });
   }
 }
-
-new Modal();
