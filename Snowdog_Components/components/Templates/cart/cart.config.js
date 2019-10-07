@@ -65,6 +65,29 @@ module.exports = {
         qty: 'Qty',
         subtotal: 'Subtotal'
       },
+      items: [
+        {
+          qty: {
+            field: {
+              id: 'qty1',
+            }
+          }
+        },
+        {
+          qty: {
+            field: {
+              id: 'qty2',
+            }
+          }
+        },
+        {
+          qty: {
+            field: {
+              id: 'qty3',
+            }
+          }
+        }
+      ],
       updateCart: {
         class: 'button--secondary cart-grid__button margin-top-sm margin-bottom-l',
         tag: 'button',
