@@ -32,7 +32,12 @@ module.exports = {
         title: {
           class: '',
           tag: 'span',
-          text: 'Favorites lorem ipsum'
+          text: 'Return Policy'
+        },
+        subtitle: {
+          class: '',
+          tag: 'p',
+          text: 'Lorem Ipsum is simply'
         }
       }
     ]
