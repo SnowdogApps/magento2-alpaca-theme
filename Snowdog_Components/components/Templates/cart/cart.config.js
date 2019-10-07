@@ -20,12 +20,12 @@ module.exports = {
     },
     summary: {
       heading: {
-        tag: 'h3',
+        tag: 'h2',
         text: 'Summary',
         class: 'cart-summary__title'
       },
       estimate: {
-        tag: 'h4',
+        tag: 'h3',
         text: 'Esimate Shipping and Tax',
         class: 'cart-summary__subtitle'
       },
@@ -40,7 +40,7 @@ module.exports = {
         },
       ],
       total: {
-        tag: 'h4',
+        tag: 'h3',
         text: 'Order Total',
         class: 'cart-summary__title-total'
       },
