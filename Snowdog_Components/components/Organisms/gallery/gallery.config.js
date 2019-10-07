@@ -39,10 +39,16 @@ module.exports = {
     {
       name: 'with-label',
       context: {
-        productLabel: {
-          class: 'badge--new gallery__product-label',
-          text: 'new'
-        }
+        productLabels: [
+          {
+            class: '',
+            text: '-15%'
+          },
+          {
+            class: 'badge--new',
+            text: 'new'
+          }
+        ]
       }
     }
   ]
