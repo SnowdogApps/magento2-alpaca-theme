@@ -60,7 +60,7 @@ module.exports = {
     },
     edit: {
       tag: 'button',
-      class: 'button button--icon cart-list-item__action',
+      class: 'button button--icon button--icon-light cart-list-item__action',
       icon: {
         id: 'edit',
         title: 'Edit product',
@@ -70,7 +70,7 @@ module.exports = {
     },
     delete: {
       tag: 'button',
-      class: 'button button--icon cart-list-item__action',
+      class: 'button button--icon button--icon-light cart-list-item__action',
       icon: {
         id: 'remove',
         title: 'Remove product',

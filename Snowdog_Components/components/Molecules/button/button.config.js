@@ -35,6 +35,20 @@ module.exports = {
       }
     },
     {
+      name: 'icon-light',
+      view: 'button--icon.hbs',
+      context: {
+        text: '',
+        class: 'button--icon-light',
+        icon: {
+          id: 'arrow-left',
+          title: 'Arrow left',
+          class: 'button__icon',
+        },
+        attributes: 'type="button" aria-label="click to do something"'
+      }
+    },
+    {
       name: 'add-to-icon',
       view: 'button--icon.hbs',
       context: {
