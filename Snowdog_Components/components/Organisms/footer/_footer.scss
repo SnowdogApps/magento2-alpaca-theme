@@ -2,32 +2,33 @@
 
 .footer {
     flex-shrink: 0;
-    margin-top: $footer__margin-top;
+    border: $footer__border;
+    border-width: $footer__border-width;
     background-color: $footer__background-color;
-    border-top: $footer__border;
 
     &__handler {
         position: relative;
         display: flex;
         flex-direction: column;
-        padding: $footer__handler__padding;
+        padding: $footer__handler-padding;
 
         @include mq($screen-m) {
-            padding: $footer__handler__padding\@medium;
+            padding: $footer__handler-padding\@medium;
         }
 
         @include mq($screen-l) {
             flex-flow: row wrap;
-            padding: $footer__handler__padding\@large;
+            padding: $footer__handler-padding\@large;
         }
 
         @include mq($screen-xl) {
-            padding: $footer__handler__padding\@extra-large;
+            padding: $footer__handler-padding\@extra-large;
         }
     }
 
     &__newsletter {
-        border-bottom: $footer__newsletter-border;
+        border: $footer__newsletter-border;
+        border-width: $footer__newsletter-border-width;
 
         @include mq($screen-l) {
             width: $footer__newsletter-width\@large;
@@ -40,71 +41,71 @@
         width: $footer__links-width;
 
         @include mq($screen-l) {
-            padding: 0 0 $spacer--large;
+            padding: $footer__links-padding\@medium;
         }
 
         .dropdown-list {
-            background-color: $footer__links-background;
+            background-color: $footer__links-dropdown-background;
 
             @include mq($screen-m) {
-                padding: 0;
+                padding: $footer__links-dropdown-padding\@medium;
             }
 
             &__label {
-                background-color: $footer__links-background;
+                background-color: $footer__links-label-background;
             }
 
             &__content {
-                margin: 0;
+                margin: $footer__links-content-margin;
             }
 
             &__list {
-                margin: $footer__links-margin;
-                border-bottom: 4px solid #eaeaea;
+                margin: $footer__links-dropdown-list-margin;
+                border: $footer__links-dropdown-list-border;
+                border-width: $footer__links-dropdown-list-border-width;
 
                 @include mq($screen-m) {
-                    padding: $footer__links-padding\@medium;
+                    padding: $footer__links-dropdown-list-padding\@medium;
                 }
 
                 @include mq($screen-l) {
-                    padding: $footer__links-padding\@large;
-                    border: none;
+                    padding: $footer__links-dropdown-list-padding\@large;
+                    border-width: $footer__links-dropdown-list-border-width\@large;
                 }
 
                 @include mq($screen-xl) {
-                    padding: $footer__links-padding\@extra-large;
+                    padding: $footer__links-dropdown-list-padding\@extra-large;
                 }
             }
 
             &__item {
-                width: 100%;
+                width: $footer__links-dropdown-list-item-width;
+
+                @include mq($screen-m) {
+                    border: none;
+                }
 
                 &:first-child {
                     @include mq($screen-m) {
-                        width: 50%;
+                        width: $footer__links-dropdown-list-item-width-first-child\@medium;
                     }
                 }
 
                 &:last-child {
                     border: none;
                 }
-
-                @include mq($screen-m) {
-                    border: none;
-                }
-
             }
         }
 
         .list__item  {
             @include mq($screen-m) {
-                min-width: 204px;
+                min-width: $footer__links-list-item-min-width\@medium;
             }
         }
     }
 
     &__links-list {
-        padding-bottom: $footer__padding;
+        padding-bottom: $footer__links-list-padding;
     }
 
     &__link {
@@ -114,35 +115,10 @@
 
         &:hover {
             color: $footer__link-color;
-            text-decoration: underline;
         }
     }
 
-    &__bottom-bar {
-        color: $footer__bottom-bar-color;
-        background-color: $footer__bottom-bar-background;
-    }
 
-    &__bottom-bar-handler {
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        min-height: 80px;
-
-        @include mq($screen-m) {
-            justify-content: space-between;
-            flex-direction: row;
-            padding: 0 $spacer--semi-large;
-        }
-
-        @include mq($screen-m) {
-            padding: 0 $spacer--large;
-        }
-
-        @include mq($screen-xl) {
-            padding: 0;
-        }
-    }
 
     &__social-handler {
         display: flex;
@@ -178,29 +154,21 @@
     }
 
     &__social-list {
-        display: flex;
-        align-items: center;
-
         @include mq($screen-l) {
             align-self: flex-start;
-            margin: $footer__social-list-margin\@large;
         }
 
         .list__item  {
             padding: $footer__social-list__item-padding;
+            margin: $footer__social-list__item-margin;
 
-            &:first-child {
-                margin: $footer__social-list__item-margin;
+            &:last-child {
+                margin: $footer__social-list__item-margin-last-child;
             }
 
             .list__icon-link {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                width: $footer__social-icon-link-width;
-                height: $footer__social-icon-link-width;
                 border: $footer__social-icon-link-border;
-                padding: 0;
+                padding: $footer__social-icon-link-padding;
 
                 &:hover,
                 &.focus-visible {
@@ -215,28 +183,49 @@
         }
     }
 
-    &__social-list-subtitle {
+    &__social-list-title {
         display: flex;
         align-items: center;
-        color: $footer__social-list-subtitle-color;
-        font-size: $footer__social-list-subtitle-font-size;
-        font-weight: $footer__social-list-subtitle-font-weight;
-        text-transform: uppercase;
-        margin-bottom: $spacer--medium;
+        color: $footer__social-list-title-color;
+        font-family: $footer__social-list-title-font-family;
+        font-size: $footer__social-list-title-font-size;
+        font-weight: $footer__social-list-title-font-weight;
+        margin: $footer__social-list-title-margin;
 
         @include mq($screen-m) {
-            margin: $footer__social-list-subtitle-margin\@medium;
+            margin: $footer__social-list-title-margin\@medium;
         }
 
         @include mq($screen-l) {
             align-self: flex-start;
-            margin: $footer__social-list-subtitle-margin\@large;
+            margin: $footer__social-list-title-margin\@large;
         }
     }
 
     &__social-icon {
-        padding: 0;
         fill: $footer__social-icon-color;
+    }
+
+    &__bottom-bar {
+        color: $footer__bottom-bar-color;
+        background-color: $footer__bottom-bar-background;
+    }
+
+    &__bottom-bar-handler {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        min-height: $footer__bottom-min-height;
+
+        @include mq($screen-m) {
+            justify-content: space-between;
+            flex-direction: row;
+            padding: $footer__bottom-padding\@medium;
+        }
+
+        @include mq($screen-xl) {
+            padding: $footer__bottom-padding\@large;
+        }
     }
 
     &__copyright {
@@ -253,39 +242,26 @@
     }
 
     &__payments-list {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
         justify-content: space-around;
-        order: 1;
-        list-style-type: none;
-        padding: 0;
+        margin: $footer__payments-list-margin;
 
         @include mq($screen-m) {
+            margin: $footer__payments-list-margin\@medium;
             order: 2;
         }
     }
 
-    &__payments-list-item {
-        &:not(:last-child) {
-            @include mq($screen-l) {
-                padding-right: $footer__payments-list-item-padding;
-            }
-        }
-    }
-
     &__payments-list-icon {
-        width: 64px;
-        height: 48px;
-        padding: 0;
-        fill: $gray-lighter;
+        width: $footer__payments-list-icon-width;
+        height: $footer__payments-list-icon-height;
+        fill: $footer__payments-list-icon-fill;
 
         &--visa {
-            width: 68px;
+            width: $footer__payments-list-icon-width--visa;
         }
 
         &--paypal {
-            width: 96px;
+            width: $footer__payments-list-icon-width--paypal;
         }
     }
 
@@ -293,36 +269,13 @@
         position: absolute;
         right: $footer__scroll-top-right;
         top: $footer__scroll-top-top;
-        align-items: center;
-        min-width: $footer__scroll-top-size;
-        height: $footer__scroll-top-size;
-        padding: $footer__scroll-top-padding;
-        line-height: $footer__scroll-top-size;
 
         @include mq($screen-l) {
-            right: $spacer--large;
+            right: $footer__scroll-top-right\@large;
         }
 
         @include mq($screen-xl) {
-            right: 0;
-        }
-
-        &:after,
-        &:before {
-            display: none;
-        }
-
-        &:hover,
-        &.focus-visible {
-            .icon {
-                fill: $footer__icon-fill-hover;
-            }
-        }
-
-        .icon {
-            width: $footer__icon-size;
-            height: $footer__icon-size;
-            fill: $footer__icon-fill;
+            right: $footer__scroll-top-right\@xl;
         }
     }
 }

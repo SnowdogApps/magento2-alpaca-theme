@@ -1,12 +1,15 @@
 module.exports = {
   context: {
+    class: 'margin-top-xl',
     handlerClass: 'container',
     scrollToTop: {
       tag: 'button',
       class: 'footer__scroll-top',
+      attributes: 'type="button" aria-label="scroll to top"',
       icon: {
         title: 'Scroll to top',
-        id: 'arrow-up'
+        id: 'arrow-up',
+        hidden: true,
       }
     },
     bottomBar: {
@@ -219,24 +222,29 @@ module.exports = {
       class: '',
       elements: [
         {
-          imageSrc: '/images/footer/visa.svg',
-          imageAlt: 'Visa'
+          id: 'visa',
+          title: 'Visa',
+          class: 'footer__payments-list-icon footer__payments-list-icon--visa'
         },
         {
-          imageSrc: '/images/footer/master-card.svg',
-          imageAlt: 'Master Card'
+          id: 'master-card',
+          title: 'Master Card',
+          class: 'footer__payments-list-icon'
         },
         {
-          imageSrc: '/images/footer/discover.svg',
-          imageAlt: 'Discover'
+          id: 'discover',
+          title: 'Discover',
+          class: 'footer__payments-list-icon'
         },
         {
-          imageSrc: '/images/footer/american-express.svg',
-          imageAlt: 'American Express'
+          id: 'american-express',
+          title: 'American Express',
+          class: 'footer__payments-list-icon'
         },
         {
-          imageSrc: '/images/footer/paypal.svg',
-          imageAlt: 'PayPal'
+          id: 'paypal',
+          title: 'PayPal',
+          class: 'footer__payments-list-icon footer__payments-list-icon--paypal'
         }
       ]
     }
