@@ -50,7 +50,7 @@ module.exports = {
         buttonCollapse: {
           tag: 'button',
           class: 'banner__button banner__button-collapse',
-          attributes: 'type="button" aria-label="see category description" aria-epanded="true"',
+          attributes: 'type="button" aria-label="see category description" aria-expanded="true"',
           text: 'More about test',
           iconAfter: {
             id: 'angle-down',
