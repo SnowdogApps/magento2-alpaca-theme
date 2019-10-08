@@ -35,11 +35,6 @@ module.exports = {
           tag: 'button',
           text: '<span class="compare__cart-text">Add to Cart</span>',
           class: 'button--secondary compare__cart',
-          icon: {
-            id: 'shopping-cart',
-            title: 'Shopping Cart',
-            class: 'button__icon compare__cart-icon'
-          },
           attributes: 'type="submit" aria-label="Add to Cart"'
         },
         wishlist: {
@@ -79,11 +74,6 @@ module.exports = {
           tag: 'button',
           text: '<span class="compare__cart-text">Add to Cart</span>',
           class: 'button--secondary compare__cart',
-          icon: {
-            id: 'shopping-cart',
-            title: 'Shopping cart',
-            class: 'icon compare__cart-icon',
-          },
           attributes: 'type="submit" aria-label="Add to Cart"'
         },
         wishlist: {
