@@ -25,11 +25,15 @@ module.exports = {
       text: 'Bluzka \'ONLSANSA SINGLET WVN\'',
       class: 'cart-list-item__name'
     },
-    attributes: [
-      'Size: XXL',
-      'Color: Red'
-    ],
+    productAttributes: {
+      class: 'margin-bottom-xs',
+      items: [
+        'Size: XXL',
+        'Color: Red'
+      ],
+    },
     price: {
+      labelClass: 'margin-right-xs',
       label: 'Price:',
       amount: '$159.95'
     },
@@ -50,6 +54,7 @@ module.exports = {
       }
     },
     total: {
+      labelClass: 'margin-right-xs',
       label: 'Subtotal:',
       amount: '$159.95'
     },
