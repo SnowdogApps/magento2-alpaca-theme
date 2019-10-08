@@ -1,149 +1,72 @@
-$side-menu__trigger-wrapper-border      : 1px solid $gray-light !default;
-$side-menu__bq-visibility-max: $screen-l !default;
-
-$side-menu__trigger-size                : 48px !default;
-$side-menu__trigger-margin              : 0 !default;
-$side-menu__trigger-padding             : 0 !default;
-$side-menu__trigger-padding\@medium   : 0 $spacer 0 0 !default;
-$side-menu__trigger-border              : none !default;
-$side-menu__trigger-background-color    : $white !default;
-
-$side-menu__trigger-text-font-size      : 10px !default;
-$side-menu__trigger-text-line-height    : 10px !default;
-$side-menu__trigger-text-alignment      : center !default;
-$side-menu__trigger-text-color          : $gray !default;
-$side-menu__trigger-icon-size           : 24px !default;
-$side-menu__trigger-icon-margin         : 0 !default;
-$side-menu__trigger-icon-margin\@medium : 0 !default;
-$side-menu__trigger-icon-padding        : 0 !default;
-$side-menu__trigger-icon-color          : $gray-darker !default;
-$side-menu__trigger-icon-color--hover   : $color-primary !default;
-
-$side-menu__content-top                 : 0 !default;
-$side-menu__content-bottom              : 0 !default;
-$side-menu__content-right               : calc(100% + 2px) !default;
-$side-menu__content-height              : 100% !default;
-$side-menu__content-max-width           : 280px !default;
-$side-menu__content-max-width\@medium   : 400px !default;
-$side-menu__content-max-height          : 100vh !default;
-$side-menu__content-transform           : translateX(0) !default;
-$side-menu__content-transform--open     : translateX($side-menu__content-right) !default;
-$side-menu__content-padding             : 0 !default;
-$side-menu__content-background-color    : $white !default;
-$side-menu__content-transition          : $transition-base !default;
-$side-menu__content-box-shadow          : 0 2px 4px 0 rgba(0, 0, 0, 0.5) !default;
-
-$side-menu__dropdown-width              : 100% !default;
-$side-menu__dropdown-margin             : 0 !default;
-
-$side-menu__overlay-background-color    : rgba(0, 0, 0, 0.6) !default;
+@import 'side-menu-variables';
 
 .side-menu {
     @include mq($side-menu__bq-visibility-max) {
         display: none;
     }
 
-    &--is-open {
-        .side-menu__content {
-            opacity: 1;
-            transform: $side-menu__content-transform--open;
-            visibility: visible;
-        }
-
-        .side-menu__overlay {
-            width: 100%;
-            opacity: 1;
-        }
-    }
-
-    &__trigger-wrapper {
-        display: flex;
-        justify-content: flex-end;
-        border-bottom: $side-menu__trigger-wrapper-border;
-    }
-
     &__trigger {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: $side-menu__trigger-size;
-        min-width: $side-menu__trigger-size;
-        margin: $side-menu__trigger-margin;
-        padding: $side-menu__trigger-padding;
-        border: $side-menu__trigger-border;
-        background-color: $side-menu__trigger-background-color;
-        cursor: pointer;
-
-        @include mq($screen-m) {
-            border: 1px solid $gray;
-            border-width: 0 1px 0 0;
-            padding: $side-menu__trigger-padding\@medium;
-        }
-
-        &:focus,
-        &:hover {
-            .side-menu__trigger-icon {
-                fill: $side-menu__trigger-icon-color--hover;
+        &:hover,
+        &.focus-visible {
+            &:after,
+            &:before {
+                display: none;
             }
         }
-    }
-
-    &__trigger-text {
-        font-size: $side-menu__trigger-text-font-size;
-        line-height: $side-menu__trigger-text-line-height;
-        text-align: $side-menu__trigger-text-alignment;
-        color: $side-menu__trigger-text-color;
-    }
-
-    &__trigger-icon {
-        width: $side-menu__trigger-icon-size;
-        height: $side-menu__trigger-icon-size;
-        margin: $side-menu__trigger-icon-margin;
-        padding: $side-menu__trigger-icon-padding;
-        fill: $side-menu__trigger-icon-color;
         @include mq($screen-m) {
-            margin: $side-menu__trigger-icon-margin\@medium;
+            border: $side-menu__trigger-border\@medium;
+            border-width: $side-menu__trigger-border-width\@medium;
+            padding: $side-menu__trigger-padding\@medium;
         }
     }
 
-    &__content {
-        position: fixed;
-        top: $side-menu__content-top;
-        bottom: $side-menu__content-bottom;
-        right: $side-menu__content-right;
-        width: $side-menu__content-height;
-        height: $side-menu__content-height;
-        max-width: $side-menu__content-max-width;
-        max-height: $side-menu__content-max-height;
-        padding: $side-menu__content-padding;
-        z-index: 100;
-        overflow-y: auto;
-        background: $side-menu__content-background-color;
-        box-shadow: $side-menu__content-box-shadow;
-        opacity: 1;
-        transform: $side-menu__content-transform;
-        transition: $side-menu__content-transition;
-        visibility: hidden;
-        @include mq($screen-m) {
-            max-width: $side-menu__content-max-width\@medium;
-        }
+    &__modal {
+        background: $side-menu__bg-color;
     }
 
-    &__overlay {
-        position: fixed;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        z-index: 5;
-        background-color: $side-menu__overlay-background-color;
-        @include mq($screen-xl) {
-            display: none;
+    .modal {
+        &__container {
+            margin-top: $side-menu__modal-container-top;
+            max-width: $side-menu__modal-container-max-width;
+            box-shadow: $side-menu__modal-container-box-shadow;
+            padding: $side-menu__modal-container-padding;
+            max-height: $side-menu__modal-container-max-height;
+            @include mq($screen-m) {
+                max-height: $side-menu__modal-container-max-height\@medium;
+                margin-top: $side-menu__modal-container-top\@medium;
+            }
         }
-    }
 
-    &__dropdown {
-        margin: $side-menu__dropdown-margin;
-        width: $side-menu__dropdown-width;
+        &__content {
+            max-width: $side-menu__modal-content-max-width;
+            margin: $side-menu__modal-content-margin;
+        }
+
+        &__middle {
+            padding: $side-menu__modal-middle-padding;
+        }
+
+        &__bottom {
+            border: $side-menu__modal-bottom-border;
+        }
+
+        &__bottom-actions {
+            max-width: $side-menu__modal-bottom-actions-max-width;
+            margin: $side-menu__modal-bottom-actions-margin;
+        }
+
+        &__bottom-action {
+            width: $side-menu__modal-bottom-action-width;
+            flex-basis: $side-menu__modal-bottom-action-width;
+        }
+
+        &__close-button {
+            top: $side-menu__modal-close-button-top;
+            left: $side-menu__modal-close-button-left;
+            background: $side-menu__modal-close-button-bg;
+            @include mq($screen-m) {
+                left: $side-menu__modal-close-button-left\@medium;
+            }
+        }
     }
 }

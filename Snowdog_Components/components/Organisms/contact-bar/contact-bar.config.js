@@ -36,5 +36,13 @@ module.exports = {
         }
       ]
     }
-  }
+  },
+  variants: [
+    {
+      name: 'side-menu',
+      context: {
+        class: 'contact-bar--side-menu'
+      }
+    }
+  ]
 };
