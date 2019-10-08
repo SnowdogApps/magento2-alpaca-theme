@@ -97,27 +97,33 @@ module.exports = {
       }
     },
     discount: {
-      title: 'Apply Discount Code',
+      button: {
+        title: 'Apply Discount Code',
+        attributes: 'type="button" aria-expanded="false"'
+      },
       icon: {
         id: 'angle-down',
         title: 'Arrow down',
-        class: 'cart-discount__title-icon'
+        class: 'cart-discount__button-icon'
       },
-      button: {
-        tag: 'button',
-        text: 'Apply Discount',
-        class: 'cart-discount__button'
-      },
-      input: {
-        class: 'cart-discount__input',
-        label: {
-          class: 'label--hidden'
+      content: {
+        attributes: 'aria-hidden="true"',
+        submit: {
+          tag: 'button',
+          text: 'Apply Discount',
+          class: 'cart-discount__content-button'
         },
-        field: {
-          placeholder: 'Enter discount code',
-          id: 'discount-code',
-          name: 'cart-discount-code',
-          class: 'cart-discount__field'
+        input: {
+          class: 'cart-discount__content-input',
+          label: {
+            class: 'label--hidden'
+          },
+          field: {
+            placeholder: 'Enter discount code',
+            id: 'discount-code',
+            name: 'cart-discount-code',
+            class: 'cart-discount__content-field'
+          }
         }
       }
     }
