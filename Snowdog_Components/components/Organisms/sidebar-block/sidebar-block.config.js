@@ -40,15 +40,14 @@ module.exports = {
       }
     ],
     compareLink: {
-      tag: 'a',
-      class: 'button--secondary margin-bottom-s sidebar-block__action',
-      attributes: 'href="#"',
+      href: '#',
+      class: 'sidebar-block__action',
       text: 'Compare'
     },
-    clearLink: {
-      tag: 'a',
-      class: 'button--secondary sidebar-block__action',
-      attributes: 'href="#"',
+    clearButton: {
+      tag: 'button',
+      attributes: 'type="button"',
+      class: 'button--link sidebar-block__action',
       text: 'Clear all'
     }
   },
@@ -63,17 +62,17 @@ module.exports = {
         },
         compareLink: false,
         clearLink: false,
-        wishlistItemClass: 'margin-bottom-m',
+        wishlistListItemClass: 'margin-bottom-m',
         addToCart: {
           tag: 'button',
-          class: 'button--secondary margin-bottom-s sidebar-block__action',
+          class: 'button--link sidebar-block__action',
           attributes: 'type="button"',
-          text: '<span class="button__text">Add to Cart</span>'
+          text: 'Add to Cart'
         },
         removeFromWishlist: {
-          tag: 'a',
-          class: 'button--secondary sidebar-block__action',
-          attributes: 'href="#"',
+          tag: 'button',
+          class: 'button--link sidebar-block__action',
+          attributes: 'type="button"',
           text: 'Remove this item'
         },
         product: [
@@ -107,7 +106,7 @@ module.exports = {
         ],
         goToWishlist: {
           tag: 'a',
-          class: 'button button--fluid',
+          class: 'button--secondary button--fluid',
           attributes: 'href="#"',
           text: 'Go to Wish List'
         }
@@ -160,16 +159,69 @@ module.exports = {
         ],
         addToCart: {
           tag: 'button',
-          class: 'button--secondary margin-bottom-s sidebar-block__action',
+          class: 'button--link sidebar-block__action',
           attributes: 'type="button"',
-          text: '<span class="button__text">Add to Cart</span>'
+          text: 'Add to Cart'
         },
         viewAll: {
-          tag: 'a',
-          class: 'button--secondary sidebar-block__action',
-          attributes: 'href="#"',
+          href: '#',
+          class: 'sidebar-block__action',
           text: 'View All'
         }
+      }
+    },
+    {
+      name: 'Recently viewed',
+      context: {
+        title: {
+          tag: 'h2',
+          class: 'sidebar-block__title',
+          text: 'Recently Viewed',
+        },
+        compareLink: false,
+        clearLink: false,
+        wishlistItemClass: 'margin-bottom-m',
+        addToCart: {
+          tag: 'button',
+          class: 'button--link margin-bottom-s sidebar-block__action',
+          attributes: 'type="button"',
+          text: 'Add to Cart'
+        },
+        removeFromWishlist: {
+          tag: 'button',
+          class: 'button--link sidebar-block__action',
+          attributes: 'type="button"',
+          text: 'Remove this item'
+        },
+        product: [
+          {
+            name: 'Chaz Kangeroo Hoodie',
+            iconLabel: 'Remove product from compare',
+            icon: {
+              id: 'close',
+              title: 'Close',
+              class: 'sidebar-block__remove-icon'
+            }
+          },
+          {
+            name: 'Bruno Compete Hoodie',
+            iconLabel: 'Remove product from compare',
+            icon: {
+              id: 'close',
+              title: 'Close',
+              class: 'sidebar-block__remove-icon'
+            }
+          },
+          {
+            name: 'Hero Hoodie',
+            iconLabel: 'Remove product from compare',
+            icon: {
+              id: 'close',
+              title: 'Close',
+              class: 'sidebar-block__remove-icon'
+            }
+          }
+        ],
       }
     }
   ]
