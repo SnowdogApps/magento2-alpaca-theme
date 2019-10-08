@@ -21,9 +21,11 @@ module.exports = {
     summary: {
       heading: {
         tag: 'h2',
+        attributes: 'id="summary"',
         text: 'Summary',
         class: 'cart-summary__title'
       },
+      attributes: 'aria-labelledby="summary"',
       estimate: {
         tag: 'h3',
         text: 'Esimate Shipping and Tax',
