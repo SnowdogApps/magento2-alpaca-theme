@@ -25,6 +25,7 @@ module.exports = {
     searchInput: {
       class: 'search-form__input-wrapper margin-0',
       label: {
+        text: 'Search products',
         hidden: true
       },
       field: {
@@ -38,7 +39,7 @@ module.exports = {
     searchButton: {
       tag: 'button',
       text: '',
-      class: 'button--icon search-form__button',
+      class: 'button--icon button--icon-light search-form__button',
       icon: {
         id: 'search',
         title: 'Search',
@@ -59,7 +60,7 @@ module.exports = {
       trigger: false,
       modal: {
         id: 'modal-minicart',
-        attributes: 'aria-labelledby="Minicart content" aria-describedby="Minicart content"'
+        attributes: 'aria-labelledby="minicart-title" aria-describedby="minicart-products"'
       },
       modalComponent: {
         content: 'minicart-content',

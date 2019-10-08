@@ -1,28 +1,41 @@
-@import 'newsletter-variables';
+// @import 'newsletter-variables';
+$newsletter__margin                      : 0 !default;
+$newsletter__padding                     : $spacer--large 0 !default;
+
+$newsletter__heading-font-size           : $font-size-base !default;
+$newsletter__heading-font-weight         : $font-weight-bold !default;
+$newsletter__heading-line-height         : 1.2 !default;
+$newsletter__heading-padding             : $spacer 0 !default;
+$newsletter__heading-margin\@medium      : 0 $spacer--large 0 0 !default;
+$newsletter__heading-margin\@extra-large : 0 $spacer--extra-large * 2 0 0 !default;
+$newsletter__heading-padding\@extra-large: 0 !default;
+$newsletter__heading-color               : $color-primary !default;
+$newsletter__title-margin                : 0 0 $spacer--medium !default;
+$newsletter__title-font-family           : $font-family-sans-serif !default;
+$newsletter__title-font-size             : $font-size-large !default;
+$newsletter__title-font-weight           : $font-weight-bold !default;
+$newsletter__title-line-height           : 48px !default;
+$newsletter__controls-width              : 96px !default;
+$newsletter__controls-height             : 48px !default;
+$newsletter__controls-margin             : 0 0 $spacer !default;
+$newsletter__controls-margin\@medium     : 0 0 $spacer--medium !default;
+$newsletter__button-padding              : 0 $spacer--medium !default;
+
+$newsletter__checkbox-label-padding      : $spacer $spacer--medium $spacer--small $spacer--extra-large !default;
 
 .newsletter {
     display: flex;
     flex-direction: column;
-    margin: $newsletter-margin;
-    padding: $newsletter-padding;
+    margin: $newsletter__margin;
+    padding: $newsletter__padding;
 
     @include mq($screen-m) {
         flex-direction: row;
     }
 
-    @include mq($screen-xl) {
-        align-items: flex-start;
-    }
-
     &__heading {
         display: flex;
-        height: auto;
-        padding: $newsletter__heading-padding;
-        font-size: $newsletter__font-size;
-        font-weight: $font-weight-bold;
-        line-height: $newsletter__line-height;
-        text-align: left;
-        color: $newsletter__heading-color;
+        flex-flow: column nowrap;
 
         @include mq($screen-m) {
             margin: $newsletter__heading-margin\@medium;
@@ -30,18 +43,6 @@
 
         @include mq($screen-xl) {
             margin: $newsletter__heading-margin\@extra-large;
-            padding: $newsletter__heading-padding\@extra-large;
-        }
-    }
-
-    &__logo {
-        margin: $newsletter__logo-margin;
-        width: $newsletter__logo-size;
-        height: $newsletter__logo-size;
-        fill: $orange;
-
-        @include mq($screen-xl) {
-            margin: $newsletter__logo-margin\@extra-large;
         }
     }
 
@@ -59,7 +60,6 @@
 
     &__controls {
         display: flex;
-        height: auto;
         margin: $newsletter__controls-margin;
 
         @include mq($screen-m) {
@@ -72,16 +72,7 @@
     }
 
     &__button {
-        width: $newsletter__controls-width;
-        height: $newsletter__controls-height;
-        line-height: $newsletter__controls-height;
         padding: $newsletter__button-padding;
-
-        &:hover,
-        &:focus {
-            cursor: pointer;
-            outline: none;
-        }
     }
 
     &__input {
@@ -89,26 +80,8 @@
         margin: 0;
     }
 
-    &__label {
-        @include visually-hidden;
-    }
-
     &__field {
-        background: $newsletter__input-background;
-        padding: $newsletter__field-padding;
-        margin: 0;
-        height: $newsletter__field-height;
-        color: $newsletter__input-color;
-        line-height: $newsletter__field-height;
         border-right: none;
-
-        &.focus-visible {
-            border-right: none;
-        }
-
-        &::placeholder {
-            color: $newsletter__input-color--placeholder;
-        }
     }
 
     &__agreements {
@@ -116,46 +89,7 @@
         margin-left: $spacer;
     }
 
-    .checkbox__icon {
-        top: $newsletter__checkbox-icon-position-top;
-        left: 0;
-        border-radius: $newsletter__checkbox-icon-border-radius;
-    }
-
-    .checkbox__field {
-        &:checked ~ .checkbox__label:before {
-            background: none;
-        }
-    }
-
     .checkbox__label {
-        width: 100%;
-        opacity: 1;
         padding: $newsletter__checkbox-label-padding;
-        margin-left: $newsletter__checkbox-label-margin-left;
-        font-size: $newsletter__font-size--agreements;
-        line-height: $newsletter__checkbox-label-line-height;
-        text-align: left;
-
-        &:before {
-            top: $newsletter__checkbox-icon-position-top;
-            width: $newsletter__checkbox-icon-size;
-            height: $newsletter__checkbox-icon-size;
-            background: $newsletter__checkbox-bg-color;
-        }
-
-        & > a {
-            color: $newsletter__checkbox-label-color;
-            text-decoration: none;
-
-            &:hover {
-                color: $newsletter__checkbox-label-color;
-                text-decoration: underline;
-            }
-
-            &:focus {
-                color: $white;
-            }
-        }
     }
 }

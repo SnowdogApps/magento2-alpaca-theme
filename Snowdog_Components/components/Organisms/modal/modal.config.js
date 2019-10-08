@@ -27,7 +27,7 @@ module.exports = {
         title: 'Close',
         class: 'button__icon modal__close-button-icon'
       },
-      attributes: 'type="button" aria-label="close modal button, click to close the modal"'
+      attributes: 'type="button" aria-label="click to close the modal"'
     },
     modalTop: true,
     heading: {

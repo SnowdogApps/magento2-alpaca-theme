@@ -12,8 +12,32 @@ module.exports = {
         hidden: true,
       }
     },
-    bottomBar: {
-      handlerClass: 'container'
+    socialListTitle: 'Let\'s get social!',
+    socialHandlerClass: '',
+    socialIconList: {
+      listTag: 'ul',
+      elementTag: 'li',
+      class: 'list--with-icon list--horizontal footer__social-list',
+      elements: [
+        {
+          icon: {
+            id: 'facebook',
+            title: 'Facebook logo',
+            class: 'footer__social-icon',
+          },
+          iconItemLink: '#',
+          linkAttributes: 'aria-label="Go to Our Facebook Page"'
+        },
+        {
+          icon: {
+            id: 'twitter',
+            title: 'Twitter logo',
+            class: 'footer__social-icon',
+          },
+          iconItemLink: '#',
+          linkAttributes: 'aria-label="Check Our on Twitter"'
+        }
+      ]
     },
     linkList: {
       id: 'dropdown-footer',
@@ -191,32 +215,9 @@ module.exports = {
         }
       ]
     },
-    socialListSubtitle: 'LETS GET SOCIAL!',
     copyrightText: 'Copyright © 2019 Colibri',
-    socialIconList: {
-      listTag: 'ul',
-      elementTag: 'li',
-      class: 'list--with-icon list--horizontal footer__social-list',
-      elements: [
-        {
-          icon: {
-            id: 'facebook',
-            title: 'Facebook logo',
-            class: 'footer__social-icon',
-          },
-          iconItemLink: '#',
-          linkAttributes: 'aria-label="Go to Highpointscientific Facebook Page"'
-        },
-        {
-          icon: {
-            id: 'twitter',
-            title: 'Twitter logo',
-            class: 'footer__social-icon',
-          },
-          iconItemLink: '#',
-          linkAttributes: 'aria-label="Check Highpointscientific on Twitter"'
-        }
-      ]
+    bottomBar: {
+      handlerClass: 'container'
     },
     paymentsList: {
       class: '',
