@@ -7,10 +7,10 @@ $dashboard-nav-margin : $spacer--medium !default;
     &__mobile {
         display: block;
         position: relative;
-        border-width: 1px 0;
-        border-color: $gray-dark;
-        border-style: solid;
-        padding: $dashboard-nav-padding 0;
+        border: $border-base;
+        border-width: 0 0 1px;
+        padding: $spacer--semi-medium 0;
+        font-weight: $font-weight-bold;
         cursor: pointer;
 
         @include mq($screen-l) {
@@ -18,19 +18,20 @@ $dashboard-nav-margin : $spacer--medium !default;
         }
 
         &:after {
-            content: '\25bc';
+            content: '';
             position: absolute;
-            width: 15px;
-            height: 15px;
-            right: 15px;
+            width: 24px;
+            height: 24px;
+            right: $spacer--medium;
             top: 0;
             bottom: 0;
             margin: auto;
+            background-image: svg-uri("<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24'><path fill='#{$color-secondary}' d='M16.6 8.6L12 13.16 7.4 8.6 6 10l6 6 6-6z'/></svg>");
         }
 
         &--active {
             &:after {
-                content: '\25b2';
+                background-image: svg-uri("<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24'><path fill='#{$color-secondary}' d='M7.4 16l4.6-4.58L16.6 16l1.4-1.4-6-6-6 6z'/></svg>");
             }
         }
     }
@@ -63,6 +64,54 @@ $dashboard-nav-margin : $spacer--medium !default;
         display: block;
         padding: $spacer--medium $spacer--semi-medium;
         text-decoration: none;
+    }
+
+    &__actions {
+        display: flex;
+        justify-content: center;
+        margin: $spacer--large 0 0;
+
+        @include mq($screen-l) {
+            margin: $spacer--medium 0 0;
+        }
+    }
+
+    &__button {
+        width: 100%;
+
+        @include mq($screen-m) {
+            width: auto;
+            min-width: 320px;
+        }
+
+        @include mq($screen-l) {
+            width: 100%;
+            min-width: auto;
+        }
+    }
+
+    &__compare,
+    &__wishlist {
+        display: none;
+        margin: $spacer--extra-large 0 0;
+
+        @include mq($screen-l) {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    &__compare-title,
+    &__wishlist-title {
+        padding: 0 0 $spacer--medium;
+        border: $border-base;
+        border-width: 0 0 1px;
+        letter-spacing: 1px;
+    }
+
+    &__compare-info,
+    &__wishlist-info {
+        margin: $spacer--semi-medium 0 0;
     }
 
     // This class is changing by Magento

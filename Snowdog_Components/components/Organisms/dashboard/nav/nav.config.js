@@ -69,6 +69,28 @@ module.exports = {
           link: '#'
         }
       ]
+    },
+    signOutButton: {
+      tag: 'a',
+      class: 'dashboard-nav__button',
+      attributes: 'type="button" aria-label="button"',
+      text: 'Sign out'
+    },
+    compare: {
+      heading: {
+        tag: 'h3',
+        class: 'dashboard-nav__compare-title',
+        text: 'Compare Products'
+      },
+      text: 'You have no items to compare.'
+    },
+    wishlist: {
+      heading: {
+        tag: 'h3',
+        class: 'dashboard-nav__wishlist-title',
+        text: 'My Wish List'
+      },
+      text: 'You have no items in your wish list.'
     }
   }
 }
