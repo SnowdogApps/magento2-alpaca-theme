@@ -1,5 +1,6 @@
 module.exports = {
   context: {
+    attributes: 'aria-label="product in your shopping cart"',
     image: {
       class: 'cart-list-item__image',
       defaultSrc: '/images/cart-view/product-64x96.jpg',
