@@ -41,7 +41,7 @@ module.exports = {
       },
       reload: {
         tag: 'button',
-        class: 'forgot-password__captcha',
+        class: 'button--secondary forgot-password__captcha',
         attributes: 'type="button"',
         text: 'Reload Captcha'
       },
