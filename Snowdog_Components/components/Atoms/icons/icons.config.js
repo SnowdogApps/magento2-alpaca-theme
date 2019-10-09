@@ -13,6 +13,11 @@ module.exports = {
         class: 'icons__single-icon'
       },
       {
+        id: 'american-express',
+        title: 'American Express',
+        class: 'icons__single-icon'
+      },
+      {
         id: 'angle-down',
         title: 'Arrow down',
         class: 'icons__single-icon'
@@ -93,6 +98,11 @@ module.exports = {
         class: 'icons__single-icon'
       },
       {
+        id: 'discover',
+        title: 'Discover',
+        class: 'icons__single-icon'
+      },
+      {
         id: 'edit',
         title: 'Edit pencil',
         class: 'icons__single-icon'
@@ -153,6 +163,11 @@ module.exports = {
         class: 'icons__single-icon'
       },
       {
+        id: 'master-card',
+        title: 'Master Card',
+        class: 'icons__single-icon'
+      },
+      {
         id: 'minus',
         title: 'Minus mark',
         class: 'icons__single-icon'
@@ -160,6 +175,16 @@ module.exports = {
       {
         id: 'mobile-menu',
         title: 'Mobile menu',
+        class: 'icons__single-icon'
+      },
+      {
+        id: 'news',
+        title: 'News',
+        class: 'icons__single-icon'
+      },
+      {
+        id: 'paypal',
+        title: 'Paypal',
         class: 'icons__single-icon'
       },
       {
@@ -240,6 +265,11 @@ module.exports = {
       {
         id: 'user',
         title: 'User',
+        class: 'icons__single-icon'
+      },
+      {
+        id: 'visa',
+        title: 'Visa',
         class: 'icons__single-icon'
       },
       {

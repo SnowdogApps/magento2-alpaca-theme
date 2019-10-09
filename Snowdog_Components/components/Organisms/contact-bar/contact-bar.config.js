@@ -36,5 +36,13 @@ module.exports = {
         }
       ]
     }
-  }
+  },
+  variants: [
+    {
+      name: 'vertical',
+      context: {
+        class: 'contact-bar--vertical'
+      }
+    }
+  ]
 };

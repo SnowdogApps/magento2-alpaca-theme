@@ -1,6 +1,5 @@
 module.exports = {
   context: {
-    script: true,
     modalContainer: {
       class: '',
     },
@@ -16,7 +15,7 @@ module.exports = {
         tag: 'button',
         class: 'modal-trigger',
         text: 'Modal trigger button',
-        attributes: 'data-modal-trigger="myDialog" type="button"'
+        attributes: 'data-modal-trigger="myDialog" type="button" aria-expanded="false"'
       }
     },
     buttonClose: {
@@ -28,7 +27,7 @@ module.exports = {
         title: 'Close',
         class: 'button__icon modal__close-button-icon'
       },
-      attributes: 'type="button" aria-label="close modal button, click to close the modal"'
+      attributes: 'type="button" aria-label="click to close the modal"'
     },
     modalTop: true,
     heading: {
