@@ -3,6 +3,7 @@ module.exports = {
   name: 'dashboard-form',
   context: {
     title: 'Account Information',
+    titleClass: 'margin-bottom-m',
     fields: [
       {
         input: {

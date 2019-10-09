@@ -6,7 +6,7 @@ module.exports = {
     link: 'View All',
     table: {
       captionText: 'This is a table. Binded text in caption should explain what kind of data this table presents. Can be also a longer text with inline HTML elements inside',
-      class: 'dashboard-table__table',
+      class: 'margin-0',
       mainTags: [
         {
           mainTag: 'thead',

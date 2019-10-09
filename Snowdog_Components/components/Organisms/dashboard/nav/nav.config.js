@@ -79,7 +79,7 @@ module.exports = {
     compare: {
       heading: {
         tag: 'h3',
-        class: 'dashboard-nav__compare-title',
+        class: 'dashboard-nav__section-title',
         text: 'Compare Products'
       },
       text: 'You have no items to compare.'
@@ -87,7 +87,7 @@ module.exports = {
     wishlist: {
       heading: {
         tag: 'h3',
-        class: 'dashboard-nav__wishlist-title',
+        class: 'dashboard-nav__section-title',
         text: 'My Wish List'
       },
       text: 'You have no items in your wish list.'
