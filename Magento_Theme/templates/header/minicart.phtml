@@ -1,0 +1,66 @@
+<?php
+/** @var $block \Magento\Checkout\Block\Cart\Sidebar */
+?>
+<div data-block="minicart">
+    <div class="header__minicart">
+        <button
+            class="header-button popup-trigger"
+            aria-label="<?= __('Cart trigger') ?>"
+            data-testid="minicart-link"
+            data-bind="scope: 'minicart_content'"
+            data-popuptrigger="popup-minicart"
+            data-mage-init='{ "popup": { } }'
+        >
+            <svg class="icon header-button__icon">
+                <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#shopping-cart'); ?>"></use>
+            </svg>
+            <span class="header-button__text">
+                <?= __('Cart') ?>
+            </span>
+            <!-- ko if: getCartParam('summary_count') -->
+                <span
+                    class="header-button__counter header-button__counter--hidden"
+                    data-bind="css: {'header-button__counter--hidden': null}"
+                >
+                    <span class="header-button__counter-dot"></span>
+                </span>
+            <!-- /ko -->
+        </button>
+    </div>
+    <?php if ($block->getIsNeedToDisplaySideBar()): ?>
+        <dialog
+            data-popup="popup-minicart"
+            class="popup header__minicart-content"
+            role="alertdialog"
+        >
+            <div class="popup__handler">
+                <div class="popup__content" tabindex="0" role="document">
+                    <div class="minicart-content__bar"></div>
+                    <div
+                        id="minicart-content-wrapper"
+                        class="minicart-content"
+                        data-bind="scope: 'minicart_content'"
+                    >
+                        <!-- ko template: getTemplate() --><!-- /ko -->
+                    </div>
+                    <?= $block->getChildHtml('minicart.addons') ?>
+                </div>
+            </div>
+        </dialog>
+    <?php endif; ?>
+</div>
+
+<script>
+    window.checkout = <?= \Zend_Json::encode($block->getConfig()) ?>;
+</script>
+
+<script type="text/x-magento-init">
+{
+    "[data-block='minicart']": {
+        "Magento_Ui/js/core/app": <?= $block->getJsLayout() ?>
+    },
+    "*": {
+        "Magento_Ui/js/block-loader": "<?= $block->getViewFileUrl('images/loader-1.gif') ?>"
+    }
+}
+</script>

@@ -1,0 +1,136 @@
+<?php if ($block->getCollection()->getSize()): ?>
+    <?php if ($block->getUseContainer()): ?>
+        <div class="toolbar">
+    <?php endif; ?>
+
+        <?php if ($block->getShowAmounts()): ?>
+            <div class="toolbar__amount--visible">
+                <span class="toolbar__amount-content">
+                    <?php if ($block->getLastPageNum()>1): ?>
+                        <?= __('Items %1 to %2 of %3 total', $block->getFirstNum(), $block->getLastNum(), $block->getTotalNum()) ?>
+                    <?php elseif ($block->getTotalNum() == 1): ?>
+                        <?= __('%1 Item', $block->getTotalNum()) ?>
+                    <?php else: ?>
+                        <?= __('%1 Item(s)', $block->getTotalNum()) ?>
+                    <?php endif; ?>
+                </span>
+            </div>
+        <?php endif; ?>
+
+        <?php if ($block->isShowPerPage()): ?>
+            <div class="toolbar__limiter--relative">
+                <label class="label toolbar__limiter-label">
+                    <?= __('Show') ?>
+                </label>
+
+                <div class="select toolbar__limiter-wrapper">
+                    <select id="limiter"
+                            data-mage-init='
+                                {
+                                    "redirectUrl": {"event":"change"},
+                                    "select"     : {}
+                                }
+                            '
+                            class="select__field select__field--native"
+                    >
+                        <?php foreach ($block->getAvailableLimit() as $_key => $_limit): ?>
+                            <option value="<?= $block->getLimitUrl($_key) ?>"
+                                    <?php if ($block->isLimitCurrent($_key)): ?>
+                                        selected
+                                    <?php endif; ?>
+                            >
+                                <?= $_limit ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+        <?php endif; ?>
+
+        <?php if ($block->getLastPageNum() > 1): ?>
+            <div class="pager toolbar__pager">
+                <ul class="pager__list" aria-labelledby="paging-label">
+                    <?php if (!$block->isFirstPage()): ?>
+                        <li class="pager__item">
+                            <?php $text = $block->getAnchorTextForPrevious() ? $block->getAnchorTextForPrevious() : '';?>
+
+                            <a
+                                class="<?= $text ? 'link ' : 'action '?> pager__link previous"
+                                href="<?= $block->getPreviousPageUrl() ?>"
+                                title="<?= $text ? $text : __('Previous') ?>"
+                            >
+                                <svg class="pager__icon">
+                                    <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#arrow-left'); ?>"></use>
+                                </svg>
+                            </a>
+                        </li>
+                    <?php endif; ?>
+
+                    <?php if ($block->canShowFirst()): ?>
+                        <li class="pager__item">
+                            <a class="pager__link link" href="<?= $block->getFirstPageUrl() ?>">
+                                1
+                            </a>
+                        </li>
+                    <?php endif; ?>
+
+                    <?php if ($block->canShowPreviousJump()): ?>
+                        <li class="pager__item">
+                            <a class="pager__link link" title="" href="<?= $block->getPreviousJumpUrl() ?>">
+                                <span>...</span>
+                            </a>
+                        </li>
+                    <?php endif; ?>
+
+                    <?php foreach ($block->getFramePages() as $_page): ?>
+                        <?php if ($block->isPageCurrent($_page)): ?>
+                            <li class="pager__item pager__item--current">
+                                <?= $_page ?>
+                            </li>
+                        <?php else: ?>
+                            <li class="pager__item">
+                                <a href="<?= $block->getPageUrl($_page) ?>" class="pager__link link">
+                                    <?= $_page ?>
+                                </a>
+                            </li>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+
+                    <?php if ($block->canShowNextJump()): ?>
+                        <li class="pager__item">
+                            <a class="pager__link link" title="" href="<?= $block->getNextJumpUrl() ?>">
+                                <span>...</span>
+                            </a>
+                        </li>
+                    <?php endif; ?>
+
+                    <?php if ($block->canShowLast()): ?>
+                        <li class="pager__item">
+                            <a class="pager__link link" href="<?= $block->getLastPageUrl() ?>">
+                                <?= $block->getLastPageNum() ?>
+                            </a>
+                        </li>
+                    <?php endif; ?>
+
+                    <?php if (!$block->isLastPage()): ?>
+                        <li class="pager__item">
+                            <?php $text = $block->getAnchorTextForNext() ? $block->getAnchorTextForNext() : '';?>
+                            <a
+                                class="<?= $text ? 'link ' : 'action '?> pager__link next"
+                                href="<?= $block->getNextPageUrl() ?>"
+                                title="<?= $text ? $text : __('Next') ?>"
+                            >
+                                <svg class="pager__icon">
+                                    <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#arrow-right'); ?>"></use>
+                                </svg>
+                            </a>
+                        </li>
+                    <?php endif; ?>
+                </ul>
+            </div>
+        <?php endif; ?>
+
+    <?php if ($block->getUseContainer()): ?>
+        </div>
+    <?php endif; ?>
+<?php endif; ?>

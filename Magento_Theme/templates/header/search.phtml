@@ -1,0 +1,62 @@
+<?php
+/** @var $block \Magento\Framework\View\Element\Template */
+/** @var $helper \Magento\Search\Helper\Data */
+$helper = $this->helper('Magento\Search\Helper\Data');
+?>
+
+<form class="search-form"
+      id="search_mini_form"
+      action="<?= $helper->getResultUrl() ?>"
+      method="get"
+>
+    <div class="input search-form__input-wrapper">
+        <label class="label label--hidden" for="search">
+            <?= __('Search') ?>
+        </label>
+
+        <input class="input__field search-form__input"
+               id="search"
+               data-mage-init='{
+                   "quickSearch": {
+                       "formSelector": "#search_mini_form",
+                       "url": "/snownav.php",
+                       "destinationSelector": "#search_autocomplete"
+                   }
+               }'
+               type="search"
+               name="<?= $helper->getQueryParamName(); ?>"
+               value="<?= $helper->getEscapedQueryText(); ?>"
+               placeholder="<?= __('Search entire store here...'); ?>"
+               maxlength="<?= $helper->getMaxQueryLength(); ?>"
+               role="combobox"
+               aria-haspopup="false"
+               aria-autocomplete="none"
+               autocomplete="off"
+        >
+        <button
+            class="button button--icon search-form__button"
+            type="submit"
+            aria-label="<?= __('Search') ?>"
+            data-testid="search-link"
+        >
+            <svg class="button__icon" role="img">
+                <title><?= __('Search') ?></title>
+                <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#search') ?>"></use>
+            </svg>
+        </button>
+    </div>
+
+    <div class="quicksearch">
+        <button
+            class="button button--icon quicksearch__close-button"
+            type="button"
+            aria-label="Close quicksearch"
+        >
+            <svg class="button__icon quicksearch__close-icon" role="img">
+                <title><?= __('Close') ?></title>
+                <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#close') ?>"></use>
+            </svg>
+        </button>
+        <div id="search_autocomplete"></div>
+    </div>
+</form>

@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<page
+    layout="1column"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd"
+>
+    <update handle="default_head_blocks" />
+    <body>
+        <referenceContainer name="page.wrapper">
+            <!-- Header -->
+            <block
+                class="Magento\Framework\View\Element\Template"
+                name="header.content"
+                template="Magento_Theme::header/header.phtml"
+                before="main.content"
+            >
+                <block
+                    class="Magento\Framework\View\Element\Template"
+                    name="marketing-bar"
+                    template="Magento_Theme::header/marketing-bar.phtml"
+                />
+
+                <block
+                    class="Magento\Wishlist\Block\Link"
+                    name="wish-list-link"
+                    template="Magento_Theme::header/links/wishlist.phtml"
+                />
+
+                <block
+                    class="Magento\Customer\Block\Account\Link"
+                    name="account-link"
+                    template="Magento_Theme::header/links/account.phtml"
+                />
+
+                <block
+                    class="Magento\Framework\View\Element\Template"
+                    name="contact-link"
+                    template="Magento_Theme::header/links/contact.phtml"
+                />
+
+                <block name="menu-main-desktop" class="Snowdog\Menu\Block\Menu">
+                    <arguments>
+                        <argument name="menu" xsi:type="string">main-desktop</argument>
+                    </arguments>
+                </block>
+
+                <block name="menu-main-mobile" class="Snowdog\Menu\Block\Menu">
+                    <arguments>
+                        <argument name="menu" xsi:type="string">main-mobile</argument>
+                    </arguments>
+                </block>
+
+                <referenceBlock name="minicart" template="Magento_Theme::header/minicart.phtml" />
+                <referenceBlock name="logo" template="Magento_Theme::header/logo.phtml" />
+                <referenceBlock name="top.search" template="Magento_Theme::header/search.phtml" />
+            </block>
+            <!-- Header end -->
+
+            <!-- Footer -->
+            <block
+                class="Magento\Framework\View\Element\Template"
+                name="footer.content"
+                template="Magento_Theme::footer/footer.phtml"
+                after="main.content"
+            >
+                <block name="footer-menu" class="Snowdog\Menu\Block\Menu">
+                    <arguments>
+                        <argument name="menu" xsi:type="string">main-footer</argument>
+                    </arguments>
+                </block>
+
+                <block
+                    class="Magento\Newsletter\Block\Subscribe"
+                    name="footer-newsletter"
+                    template="Magento_Newsletter::subscribe.phtml"
+                />
+
+                <block
+                    class="Magento\Framework\View\Element\Template"
+                    name="social-links"
+                    template="Magento_Theme::footer/social-links.phtml"
+                />
+            </block>
+            <!-- Footer end -->
+        </referenceContainer>
+
+        <container
+            name="footer-container"
+            as="footer"
+            before="before.body.end"
+            label="Page Footer Container"
+            htmlTag="footer"
+            htmlClass="footer"
+        />
+
+        <!-- Move -->
+        <move element="footer.content" destination="footer-container" before="-"/>
+        <move element="page.top" destination="page.wrapper" after="header.content" />
+
+        <!--Removed blocks-->
+        <referenceBlock name="report.bugs" remove="true"/>
+        <referenceBlock name="navigation.sections" remove="true" />
+        <referenceBlock name="form.subscribe" remove="true"/>
+        <referenceBlock name="copyright" remove="true"/>
+        <referenceBlock name="sale.reorder.sidebar" remove="true"/>
+        <referenceBlock name="wishlist_sidebar" remove="true"/>
+        <referenceBlock name="catalog.compare.sidebar" remove="true"/>
+
+        <!--Removed constainers-->
+        <referenceContainer name="header.container" remove="true" />
+        <referenceContainer name="footer" remove="true" />
+
+        <!--Moved blocks-->
+        <move element="logo" destination="header.content" />
+        <move element="top.search" destination="header.content" as="search" />
+        <move element="minicart" destination="header.content" />
+
+        <move element="catalog.compare.link" destination="top.links" after="-"/>
+    </body>
+</page>
