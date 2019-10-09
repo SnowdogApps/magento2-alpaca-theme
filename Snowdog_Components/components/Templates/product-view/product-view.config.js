@@ -1,6 +1,7 @@
 module.exports = {
   context: {
     title: 'Bluzka ONLSANSA SINGLET WVN',
+    sku: 'SKU: CEL-31145',
     submitBtn: {
       tag: 'button',
       class: 'product-view__submit-btn',

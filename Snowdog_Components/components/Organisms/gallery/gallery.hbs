@@ -1,4 +1,5 @@
-<div class="
+<div
+    class="
          gallery
          {{ class }}
          {{#if typeHorizontal }}
@@ -9,7 +10,8 @@
      "
      {{{ attributes }}}
 >
-    <div class="
+    <div
+        class="
              gallery__stage
              {{ stage.class }}
              {{#if typeHorizontal }}
@@ -30,58 +32,39 @@
         </div>
     </div>
 
-    <div class="gallery__nav
-                {{#if typeHorizontal }}
-                    gallery__nav--horizontal
-                {{else}}
-                    gallery__nav--vertical
-                {{/if}}
-                {{ nav.class }}
+    <div
+        class="
+            gallery__nav
+            {{#if typeHorizontal }}
+                gallery__nav--horizontal
+            {{else}}
+                gallery__nav--vertical
+            {{/if}}
+            {{ nav.class }}
          "
    >
-        <button
-            type="button"
-            class="gallery__thumb-arr"
-        >
-            <svg class="
-                     gallery__icon-arrow
-                     {{#if typeHorizontal }}
-                         gallery__icon-arrow--horizontal
-                     {{else}}
-                         gallery__icon-arrow--vertical
-                     {{/if}}
-            ">
-                <use xlink:href="{{ svg 'angle-up' }}"></use>
-            </svg>
-        </button>
+        {{#if typeHorizontal }}
+            {{ render '@button--icon' thumbArrowLeft }}
+        {{else}}
+            {{ render '@button--icon' thumbArrowUp }}
+        {{/if}}
 
         {{#each thumbs }}
             <div class="
-                     gallery__thumb
-                     {{#if imageThumb.active}}
-                         gallery__thumb--active
-                     {{/if}}
-                 "
+                    gallery__thumb
+                    {{#if imageThumb.active}}
+                        gallery__thumb--active
+                    {{/if}}
+                "
             >
                 {{ render '@image' imageThumb }}
             </div>
         {{/each}}
 
-        <button
-            type="button"
-            class="gallery__thumb-arr"
-        >
-            <svg class="
-                     gallery__icon-arrow
-                     {{#if typeHorizontal }}
-                         gallery__icon-arrow--horizontal
-                     {{else}}
-                         gallery__icon-arrow--vertical
-                     {{/if}}
-                 "
-            >
-                <use xlink:href="{{ svg 'angle-down' }}"></use>
-            </svg>
-        </button>
+        {{#if typeHorizontal }}
+            {{ render '@button--icon' thumbArrowRight }}
+        {{ else }}
+            {{ render '@button--icon' thumbArrowDown }}
+        {{/if}}
     </div>
 </div>
