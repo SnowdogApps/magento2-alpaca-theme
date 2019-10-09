@@ -5,6 +5,9 @@ module.exports = {
     gallery: {
       class: 'gallery--dots'
     },
+    colorSwatch: {
+      class: 'margin-bottom-m'
+    },
     sizeOption: {
       class: 'product-view__size-option required',
       label: {
