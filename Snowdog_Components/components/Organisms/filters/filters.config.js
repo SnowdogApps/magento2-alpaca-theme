@@ -28,6 +28,7 @@ module.exports = {
         }
       },
       modalTop: true,
+      modalTopClass: 'filters__content-top',
       heading: {
         attributes: 'id="filters-categories-title"',
         tag: 'h2',
@@ -35,6 +36,7 @@ module.exports = {
         text: 'Category'
       },
       modalMiddle: true,
+      modalMiddleClass: 'filters__content-middle',
       modalComponent: {
         content: 'filter--category'
       },
@@ -55,7 +57,7 @@ module.exports = {
       },
       trigger: false,
       buttonClose: {
-        class: 'button--rotate-icon modal__close-button',
+        class: 'button--rotate-icon modal__close-button filters__close-button',
         tag: 'button',
         attributes: 'type="button" aria-label="Close filters modal"',
         icon: {

@@ -18,20 +18,30 @@ module.exports = {
         id: 'side-menu',
         class: 'modal--tertiary side-menu__modal'
       },
+      modalContainer: {
+        class: 'side-menu__container'
+      },
+      modalContent: {
+        class: 'side-menu__content'
+      },
       modalMiddle: true,
+      modalMiddleClass: 'side-menu__content-middle',
       modalComponent: {
         content: 'dropdown-list--with-nested'
       },
       modalBottom: true,
+      modalBottomClass: 'side-menu__content-bottom',
+      modalBottomActionsClass: 'side-menu__bottom-actions',
       modalBottomActions: [
         {
-          content: 'contact-bar--vertical'
+          content: 'contact-bar--vertical',
+          class: 'side-menu__bottom-action'
         }
       ],
       buttonClose: {
         tag: 'button',
         text: '',
-        class: 'button--rotate-icon modal__close-button',
+        class: 'button--rotate-icon modal__close-button side-menu__close-button',
         icon: {
           id: 'close',
           title: 'Close',
