@@ -2,6 +2,47 @@ module.exports = {
   context: {
     title: 'Bluzka ONLSANSA SINGLET WVN',
     sku: 'SKU: CEL-31145',
+    gallery: {
+      class: 'gallery--dots'
+    },
+    sizeOption: {
+      class: 'product-view__size-option required',
+      label: {
+        text: 'Size'
+      },
+      field: {
+        id: 'size',
+        name: 'size',
+        class: 'select--native',
+        attributes: 'required'
+      },
+      options: [
+        {
+          value: '',
+          text: 'Choose your size'
+        },
+        {
+          value: 'xs',
+          text: 'XS'
+        },
+        {
+          value: 's',
+          text: 'S'
+        },
+        {
+          value: 'm',
+          text: 'M'
+        },
+        {
+          value: 'l',
+          text: 'L'
+        },
+        {
+          value: 'xl',
+          text: 'XL'
+        }
+      ]
+    },
     submitBtn: {
       tag: 'button',
       class: 'product-view__submit-btn',
@@ -17,7 +58,7 @@ module.exports = {
         title: 'Arrow left',
         class: 'button__icon',
       },
-      attributes: 'type="button" aria-label="click to do something"'
+      attributes: 'type="button" aria-label="Add product to wishlist"'
     },
     compareBtn: {
       tag: 'button',
@@ -28,7 +69,7 @@ module.exports = {
         title: 'Add to compare list',
         class: 'button__icon',
       },
-      attributes: 'type="button" aria-label="click to do something"'
+      attributes: 'type="button" aria-label="Compare product"'
     },
     tab: {
       script: true,

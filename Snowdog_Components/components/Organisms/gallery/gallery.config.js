@@ -9,7 +9,7 @@ module.exports = {
     thumbArrowLeft: {
       tag: 'button',
       class: 'gallery__thumb-arr',
-      attributes: 'type="button"',
+      attributes: 'type="button" aria-label="check more images"',
       icon: {
         id: 'angle-up',
         class: 'gallery__icon-arrow gallery__icon-arrow--horizontal',
@@ -19,7 +19,7 @@ module.exports = {
     thumbArrowUp: {
       tag: 'button',
       class: 'gallery__thumb-arr',
-      attributes: 'type="button"',
+      attributes: 'type="button" aria-label="check more images"',
       icon: {
         id: 'angle-up',
         class: 'gallery__icon-arrow gallery__icon-arrow--vertical',
@@ -29,7 +29,7 @@ module.exports = {
     thumbArrowRight: {
       tag: 'button',
       class: 'gallery__thumb-arr',
-      attributes: 'type="button"',
+      attributes: 'type="button" aria-label="check more images"',
       icon: {
         id: 'angle-down',
         class: 'gallery__icon-arrow gallery__icon-arrow--horizontal',
@@ -39,7 +39,7 @@ module.exports = {
     thumbArrowDown: {
       tag: 'button',
       class: 'gallery__thumb-arr',
-      attributes: 'type="button"',
+      attributes: 'type="button" aria-label="check more images"',
       icon: {
         id: 'angle-down',
         class: 'gallery__icon-arrow gallery__icon-arrow--vertical',
