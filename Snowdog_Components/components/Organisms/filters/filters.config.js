@@ -18,7 +18,7 @@ module.exports = {
       },
       trigger: false,
       buttonClose: {
-        class: 'button--rotate-icon modal__close-button',
+        class: 'button--rotate-icon filters__close-button modal__close-button',
         tag: 'button',
         attributes: 'type="button" aria-label="Close filters modal"',
         icon: {
