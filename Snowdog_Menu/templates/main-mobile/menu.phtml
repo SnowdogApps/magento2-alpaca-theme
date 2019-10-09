@@ -1,0 +1,54 @@
+<?php /** @var \Snowdog\Menu\Block\Menu $block */ ?>
+<?php if ($block->getMenu()): ?>
+    <?php $menuClass = $block->getMenu()->getCssClass() ?>
+    <div class="side-menu" data-mage-init='{ "sideMenu": { } }'>
+        <button
+            class="side-menu__trigger"
+            type="button"
+            aria-label="<?= __('Side menu open') ?>"
+        >
+            <svg class="side-menu__trigger-icon">
+                <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#mobile-menu') ?>"></use>
+            </svg>
+            <span class="side-menu__trigger-text">
+                <?=  __('Menu') ?>
+            </span>
+        </button>
+        <div class="side-menu__content">
+            <div class="side-menu__trigger-wrapper">
+                <button
+                    class="side-menu__trigger"
+                    type="button"
+                    aria-label="<?= __('Side menu close') ?>"
+                >
+                    <svg class="icon side-menu__trigger-icon">
+                        <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#close') ?>"></use>
+                    </svg>
+                    <span class="header-button__text">
+                        <?=  __('Menu') ?>
+                    </span>
+                </button>
+            </div>
+             <nav class="<?= $menuClass ?>" data-mage-init='{ "dropdownList": {} }'>
+                <ul class="<?= $menuClass ?>__list">
+                    <?php foreach ($block->getNodes() as $node): ?>
+                        <?php
+                            $childrenLevel = $node->getLevel() + 1;
+                            $children = $this->getNodes($childrenLevel, $node);
+                            $node->setIsParent((bool) $children);
+                            $parentClass = $children ? ' ' . $menuClass . '__item--collapse' : '';
+                            $additionalClasses = $node->getClasses() ? ' ' . $node->getClasses() : '';
+                            $itemClasses = $parentClass . $additionalClasses;
+                        ?>
+                        <li class="<?= $menuClass ?>__item<?= $itemClasses ?>">
+                            <?= $block->renderMenuNode($node) ?>
+                            <?= $block->renderSubmenu($children, $node, $childrenLevel) ?>
+                        </li>
+                    <?php endforeach ?>
+                </ul>
+                <div class="<?= $menuClass ?>__mobile-bg"></div>
+            </nav>
+        </div>
+        <div class="side-menu__overlay"></div>
+    </div>
+<?php endif; ?>

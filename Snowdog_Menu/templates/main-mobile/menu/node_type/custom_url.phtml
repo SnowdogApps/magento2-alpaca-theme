@@ -1,0 +1,32 @@
+<?php /** @var \Snowdog\Menu\Block\NodeType\CustomUrl $block */ ?>
+<?php
+    $attributes = [];
+    $class = $block->getMenuClass();
+    $classLink = $block->getIsRoot() ? $class . '__label link--invert' : $class . '__inner-label';
+    $title = $block->getTitle();
+    $isContent = $block->getIsParent();
+
+    if ($block->getId() && $isContent) {
+        $attributes[] = 'aria-controls="dropdown-' . $block->getId() . '"';
+    }
+
+    $attributes[] = 'class="' . $classLink . '"';
+
+    if ($block->getTarget()) {
+        $attributes[] = 'target="__blank" rel="noopener"';
+    }
+?>
+<a href="<?= $block->getContent() ?>" <?= implode(' ', $attributes) ?>>
+    <?= $title ?>
+    <?php if ($block->getIsParent()): ?>
+        <?php if ($block->getLevel() == 0): ?>
+            <svg title="view more" class="icon <?= $class ?>__icon">
+                <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#angle-down') ?>"></use>
+            </svg>
+        <?php else: ?>
+            <svg title="view more" class="icon <?= $class ?>__icon <?= $class ?>__icon--inner">
+                <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#angle-down') ?>"></use>
+            </svg>
+        <?php endif ?>
+    <?php endif ?>
+</a>

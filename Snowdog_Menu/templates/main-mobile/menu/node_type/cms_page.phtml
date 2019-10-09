@@ -1,0 +1,37 @@
+<?php /** @var \Snowdog\Menu\Block\NodeType\CmsPage $block */ ?>
+<?php
+    $nodeId = $block->getId();
+    $class = $block->getMenuClass();
+    $pageUrl = $block->getPageUrl($nodeId);
+    $pageUrl = $pageUrl ?: '#';
+    $dataAttribute = '';
+    $isContent = $block->getIsParent();
+
+    $classLink = $block->getIsRoot() ? $class . '__label link--invert' : $class . '__inner-label';
+    $title = $block->getTitle();
+
+    if ($nodeId && $isContent) {
+        $dataAttribute = ' aria-controls="dropdown-' . $nodeId . '"';
+    }
+
+    if ($block->isCurrentPage($nodeId)) {
+        $classLink .= ' current';
+    }
+
+?>
+<a href="<?= $pageUrl ?>"
+   class="<?= $classLink ?>"<?= $dataAttribute ?>
+>
+    <?= $title ?>
+    <?php if ($block->getIsParent()): ?>
+        <?php if ($block->getLevel() == 0): ?>
+            <svg title="view more" class="icon <?= $class ?>__icon">
+                <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#angle-down') ?>"></use>
+            </svg>
+        <?php else: ?>
+            <svg title="view more" class="icon <?= $class ?>__icon <?= $class ?>__icon--inner">
+                <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#angle-down') ?>"></use>
+            </svg>
+        <?php endif ?>
+    <?php endif ?>
+</a>
