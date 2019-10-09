@@ -17,12 +17,13 @@ module.exports = {
     },
     closeButton: {
       tag: 'button',
-      class: 'tooltip__close-button',
+      class: 'button--rotate-icon tooltip__close-button',
       attributes: 'type="button" aria-label="Close tooltip"',
       text: null,
       icon: {
         title: 'Close tooltip',
-        id: 'close'
+        id: 'close',
+        hidden: true
       }
     }
   },

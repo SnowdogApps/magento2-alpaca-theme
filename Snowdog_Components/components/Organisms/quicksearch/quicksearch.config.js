@@ -23,10 +23,10 @@ module.exports = {
         image: {
           wrapperClass: 'quicksearch__product-image-wrapper',
           class: 'quicksearch__product-image',
-          dataSrc: '/images/catalog-grid-item/product-1_320_312.jpg'
+          dataSrc: '/images/product/minicart-product-64x96.jpeg'
         },
         name: {
-          class: 'quicksearch__name quicksearch__name--thin',
+          class: 'quicksearch__name',
           tag: 'h3',
           text: 'Lorem Ipsum is simply dummy...'
         }
@@ -35,10 +35,10 @@ module.exports = {
         image: {
           wrapperClass: 'quicksearch__product-image-wrapper',
           class: 'quicksearch__product-image',
-          dataSrc: '/images/catalog-grid-item/product-1_320_312.jpg'
+          dataSrc: '/images/product/minicart-product-64x96.jpeg'
         },
         name: {
-          class: 'quicksearch__name quicksearch__name--thin',
+          class: 'quicksearch__name',
           tag: 'h3',
           text: 'Lorem Ipsum is simply dummy...'
         }
@@ -47,10 +47,10 @@ module.exports = {
         image: {
           wrapperClass: 'quicksearch__product-image-wrapper',
           class: 'quicksearch__product-image',
-          dataSrc: '/images/catalog-grid-item/product-1_320_312.jpg'
+          dataSrc: '/images/product/minicart-product-64x96.jpeg'
         },
         name: {
-          class: 'quicksearch__name quicksearch__name--thin',
+          class: 'quicksearch__name',
           tag: 'h3',
           text: 'Lorem Ipsum is simply dummy...'
         }
@@ -59,10 +59,10 @@ module.exports = {
         image: {
           wrapperClass: 'quicksearch__product-image-wrapper',
           class: 'quicksearch__product-image',
-          dataSrc: '/images/catalog-grid-item/product-1_320_312.jpg'
+          dataSrc: '/images/product/minicart-product-64x96.jpeg'
         },
         name: {
-          class: 'quicksearch__name quicksearch__name--thin',
+          class: 'quicksearch__name',
           tag: 'h3',
           text: 'Lorem Ipsum is simply dummy...'
         }
@@ -72,18 +72,10 @@ module.exports = {
       title: 'Category',
       items: [
         {
-          name: {
-            class: 'quicksearch__name',
-            tag: 'h3',
-            text: 'Category 1'
-          }
+          name: 'Category 1'
         },
         {
-          name: {
-            class: 'quicksearch__name',
-            tag: 'h3',
-            text: 'Category 2'
-          }
+          name: 'Category 2'
         }
       ]
     },
@@ -91,37 +83,21 @@ module.exports = {
       title: 'Manufacturer',
       items: [
         {
-          name: {
-            class: 'quicksearch__name',
-            tag: 'h3',
-            text: 'Nike'
-          }
+          name: 'Nike'
         },
         {
-          name: {
-            class: 'quicksearch__name',
-            tag: 'h3',
-            text: 'Nike SB'
-          }
+          name: 'Nike SB'
         },
         {
-          name: {
-            class: 'quicksearch__name',
-            tag: 'h3',
-            text: 'Nike sportswear'
-          }
+          name: 'Nike sportswear'
         },
         {
-          name: {
-            class: 'quicksearch__name',
-            tag: 'h3',
-            text: 'Nixon'
-          }
+          name: 'Nixon'
         }
       ]
     },
     more: {
-      class: 'button quicksearch__more-link',
+      class: 'button button--fluid quicksearch__more-link',
       href: '#',
       text: 'See All'
     }

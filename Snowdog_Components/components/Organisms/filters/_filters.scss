@@ -1,52 +1,24 @@
 @import 'filters-variables';
 
 .filters {
-    &__item {
-        &--is-open {
-            .filters__content-wrapper {
-                visibility: visible;
-                opacity: 1;
-                transform: translateX(100%);
-                overflow-y: hidden;
-                height: $filters__content-wrapper-height;
-
-                @include mq($screen-m) {
-                    height: $filters__content-wrapper-height\@medium;
-                }
-            }
-
-            .filters__content {
-                max-height: $filters__content-max-height;
-                overflow-y: auto;
+    &__container {
+        .modal & {
+            @include mq($screen-l) {
+                height: auto;
+                animation: none;
             }
         }
     }
 
-    &__content-wrapper {
-        position: fixed;
-        right: 100%;
-        top: $filters__content-wrapper-position-top;
-        width: 100%;
-        padding: $filters__content-wrapper-padding;
-        background-color: $filters__content-wrapper-bg-color;
-        box-shadow: $filters__content-wrapper-shadow;
-        visibility: hidden;
-        opacity: 0;
-        z-index: $filters__content-wrapper-z-index;
-        transform: translateX(0);
-        transition: $filters__content-wrapper-transition;
-
-        @include mq($screen-m) {
-            top: $filters__content-wrapper-position-top\@medium;
-        }
-
+    &__modal {
         @include mq($screen-l) {
+            display: block;
             position: static;
             visibility: visible;
             opacity: 1;
             height: auto;
             padding: 0;
-            box-shadow: none;
+            background-color: $white;
         }
     }
 
@@ -65,11 +37,26 @@
     }
 
     &__trigger {
+        width: 100%;
+        justify-content: space-between;
         padding: $filters__trigger-padding;
+        border: $filters__trigger-border;
+        border-width: $filters__trigger-border-width;
         background-color: $filters__trigger-bg-color;
-        min-width: auto;
-        min-height: auto;
-        height: auto;
+
+        @include mq($screen-l) {
+            display: none;
+        }
+
+        > * {
+            pointer-events: none;
+        }
+
+        .icon {
+            width: $filters__trigger-icon-size--open;
+            height: $filters__trigger-icon-size--open;
+            fill: $filters__trigger-icon-fill--open;
+        }
 
         .button__text {
             color: $filters__trigger-text-color;
@@ -87,52 +74,29 @@
     }
 
     &__heading,
-    &__trigger--open {
-        font-family: $filter__heading-font-family;
-        font-size: $filter__heading-font-size;
-        font-weight: $filter__heading-font-weight;
-        margin: 0;
-        border: $filter__heading-border;
-        border-width: $filter__heading-border-width;
+    &__trigger {
+        font-family: $filters__heading-font-family;
+        font-size: $filters__heading-font-size;
+        font-weight: $filters__heading-font-weight;
+        margin: $filters__heading-margin;
 
         @include mq($screen-m) {
-            font-size: $filter__heading-font-size\@medium;
+            font-size: $filters__heading-font-size\@medium;
         }
     }
 
-    &__heading {
-        padding: $filter__heading-padding;
+    &__content-top {
+        padding: $filters__modal-top-padding;
     }
 
-    &__trigger--open {
-        justify-content: space-between;
-        width: 100%;
-        padding: $filters__trigger-padding--open;
-
-        > * {
-            pointer-events: none;
-        }
-
-        .icon {
-            width: $filters__trigger-icon-size--open;
-            height: $filters__trigger-icon-size--open;
-            fill: $filters__trigger-icon-fill--open;
+    &__content-middle {
+        padding: $filters__modal-middle-padding;
+        @include mq($screen-l) {
+            overflow: initial;
         }
     }
 
-    &__trigger--close {
-        position: absolute;
-        top: $filters__trigger-position-top--close;
-        right: 0;
-        padding: $filters__trigger-padding--close;
-
-        .icon {
-            fill: $filters__trigger-icon-fill--close;
-        }
-    }
-
-    &__trigger--open,
-    &__trigger--close {
+    &__close-button {
         @include mq($screen-l) {
             display: none;
         }

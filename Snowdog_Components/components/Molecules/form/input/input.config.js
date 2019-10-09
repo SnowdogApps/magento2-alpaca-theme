@@ -35,13 +35,13 @@ module.exports = {
         passwordIconView: {
           id: 'visibility-off',
           title: 'view password icon',
-          attributes: 'aria-hidden="true"',
+          hidden: true,
           class: 'icon--secondary input__button-pass-icon-view'
         },
         passwordIconHide: {
           id: 'visibility',
           title: 'hide password icon',
-          attributes: 'aria-hidden="true"',
+          hidden: true,
           class: 'icon--secondary input__button-pass-icon-hide'
         },
         script: true
