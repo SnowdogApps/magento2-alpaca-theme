@@ -39,9 +39,9 @@ module.exports = {
   },
   variants: [
     {
-      name: 'side-menu',
+      name: 'vertical',
       context: {
-        class: 'contact-bar--side-menu'
+        class: 'contact-bar--vertical'
       }
     }
   ]

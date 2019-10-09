@@ -25,7 +25,7 @@ module.exports = {
       modalBottom: true,
       modalBottomActions: [
         {
-          content: 'contact-bar--side-menu'
+          content: 'contact-bar--vertical'
         }
       ],
       buttonClose: {
