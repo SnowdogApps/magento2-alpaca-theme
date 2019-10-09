@@ -1,7 +1,7 @@
 <div class="page-wrapper">
     {{ render '@header' }}
 
-    <main class="container">
+    <main class="container" id="maincontent">
         {{ render '@breadcrumbs' }}
 
         <div class="catalog-list">
@@ -14,15 +14,9 @@
             <div class="catalog-list__products">
                 {{ render '@toolbar' }}
                 <ul class="list">
-                    {{ render '@product-list-item' listItem merge=true }}
-                    {{ render '@product-list-item' listItem merge=true }}
-                    {{ render '@product-list-item--special-price' listItemSpecial merge=true }}
-                    {{ render '@product-list-item' listItem merge=true }}
-                    {{ render '@product-list-item' listItem merge=true }}
-                    {{ render '@product-list-item--special-price' listItemSpecial merge=true }}
-                    {{ render '@product-list-item--special-price' listItemSpecial merge=true }}
-                    {{ render '@product-list-item' listItem merge=true }}
-                    {{ render '@product-list-item' listItem merge=true }}
+                    {{#each items as |item|}}
+                        {{ render '@product-list-item' item merge=true }}
+                    {{/each}}
                 </ul>
                 {{ render '@pager' pager merge=true }}
                 <div class="catalog-list__category-description">
@@ -33,6 +27,7 @@
                 {{ render '@sidebar-block' }}
                 {{ render '@sidebar-block--recently-ordered' }}
                 {{ render '@sidebar-block--wishlist' }}
+                {{ render '@sidebar-block--recently-viewed' }}
             </div>
         </div>
     </main>

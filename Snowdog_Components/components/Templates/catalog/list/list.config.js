@@ -4,18 +4,149 @@ module.exports = {
     banner: {
       class: 'catalog-list__banner'
     },
-    listItem: {
-      tag: 'li'
-    },
-    listItemSpecial: {
-      tag: 'li',
-      price: {
-        name: 'price--with-special-price',
-        context: {
-          attributes: 'aria-label="Product price" tabindex="0"',
+    items: [
+      {
+        tag: 'li'
+      },
+      {
+        tag: 'li',
+        price: {
+          name: 'price--with-special-price',
+          context: {
+            attributes: 'aria-label="Product price" tabindex="0"',
+          }
+        },
+        stockButton: {
+          attributes: 'type="button" data-modal-trigger="shipping-latency-2"'
+        },
+        shippingLatencyModal: {
+          modal: {
+            id: 'shipping-latency-2',
+            attributes: 'aria-labbeledny="shipping-latency-title-2"'
+          },
+          heading: {
+            attributes: 'id="shipping-latency-title-2"',
+          }
         }
-      }
-    },
+      },
+      {
+        tag: 'li',
+        stockButton: {
+          attributes: 'type="button" data-modal-trigger="shipping-latency-3"'
+        },
+        shippingLatencyModal: {
+          modal: {
+            id: 'shipping-latency-3',
+            attributes: 'aria-labbeledny="shipping-latency-title-3"'
+          },
+          heading: {
+            attributes: 'id="shipping-latency-title-3"',
+          }
+        }
+      },
+      {
+        tag: 'li',
+        stockButton: {
+          attributes: 'type="button" data-modal-trigger="shipping-latency-4"'
+        },
+        shippingLatencyModal: {
+          modal: {
+            id: 'shipping-latency-4',
+            attributes: 'aria-labbeledny="shipping-latency-title-4"'
+          },
+          heading: {
+            attributes: 'id="shipping-latency-title-4"',
+          }
+        }
+      },
+      {
+        tag: 'li',
+        price: {
+          name: 'price--with-special-price',
+          context: {
+            attributes: 'aria-label="Product price" tabindex="0"',
+          }
+        },
+        stockButton: {
+          attributes: 'type="button" data-modal-trigger="shipping-latency-5"'
+        },
+        shippingLatencyModal: {
+          modal: {
+            id: 'shipping-latency-5',
+            attributes: 'aria-labbeledny="shipping-latency-title-5"'
+          },
+          heading: {
+            attributes: 'id="shipping-latency-title-5"',
+          }
+        }
+      },
+      {
+        tag: 'li',
+        price: {
+          name: 'price--with-special-price',
+          context: {
+            attributes: 'aria-label="Product price" tabindex="0"',
+          }
+        },
+        stockButton: {
+          attributes: 'type="button" data-modal-trigger="shipping-latency-6"'
+        },
+        shippingLatencyModal: {
+          modal: {
+            id: 'shipping-latency-6',
+            attributes: 'aria-labbeledny="shipping-latency-title-6"'
+          },
+          heading: {
+            attributes: 'id="shipping-latency-title-6"',
+          }
+        }
+      },
+      {
+        tag: 'li',
+        stockButton: {
+          attributes: 'type="button" data-modal-trigger="shipping-latency-7"'
+        },
+        shippingLatencyModal: {
+          modal: {
+            id: 'shipping-latency-7',
+            attributes: 'aria-labbeledny="shipping-latency-title-7"'
+          },
+          heading: {
+            attributes: 'id="shipping-latency-title-7"',
+          }
+        }
+      },
+      {
+        tag: 'li',
+        stockButton: {
+          attributes: 'type="button" data-modal-trigger="shipping-latency-8"'
+        },
+        shippingLatencyModal: {
+          modal: {
+            id: 'shipping-latency-8',
+            attributes: 'aria-labbeledny="shipping-latency-title-8"'
+          },
+          heading: {
+            attributes: 'id="shipping-latency-title-8"',
+          }
+        }
+      },
+      {
+        tag: 'li',
+        stockButton: {
+          attributes: 'type="button" data-modal-trigger="shipping-latency-9"'
+        },
+        shippingLatencyModal: {
+          modal: {
+            id: 'shipping-latency-9',
+            attributes: 'aria-labbeledny="shipping-latency-title-9"'
+          },
+          heading: {
+            attributes: 'id="shipping-latency-title-9"',
+          }
+        }
+      },
+    ],
     pager: {
       class: 'margin-vc-xl'
     },
