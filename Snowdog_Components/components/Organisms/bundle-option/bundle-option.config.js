@@ -6,14 +6,14 @@ module.exports = {
       message: 'Sprite Stasis Ball'
     },
     qty: {
-      class: 'bundle-option__qty',
+      class: 'bundle-option__qty margin-bottom-0',
       label: {
-        class: 'bundle-option__label',
+        class: 'bundle-option__qty-label margin-0',
         text: 'Qty:'
       },
       field: {
         type: 'number',
-        class: 'bundle-option__qty-input',
+        class: 'bundle-option__qty-input margin-left-xs text-center',
         id: 'qty1',
         name: 'qty1',
         placeholder: '',
@@ -22,7 +22,7 @@ module.exports = {
     },
     radio: {
       legend: false,
-      class: 'bundle-option__radio',
+      class: 'bundle-option__radio margin-bottom-xs',
       options: [
         {
           id: 'id1',
@@ -74,7 +74,7 @@ module.exports = {
           tag: 'h4'
         },
         select: {
-          class: 'bundle-option__select',
+          class: 'bundle-option__select margin-bottom-m',
           label: {
             class: 'label--hidden'
           },
