@@ -44,7 +44,7 @@ module.exports = {
       tag: 'a',
       attributes: 'href="#" aria-label="edit product in your shopping cart"',
       text: '',
-      class: 'button--icon minicart-product__button',
+      class: 'button--icon-light minicart-product__button',
       icon: {
         id: 'edit',
         title: 'Edit pencil',
@@ -55,7 +55,7 @@ module.exports = {
       tag: 'a',
       attributes: 'href="#" aria-label="remove this product from your shopping cart"',
       text: '',
-      class: 'button--icon minicart-product__button',
+      class: 'button--icon-light minicart-product__button',
       icon: {
         id: 'remove',
         title: 'Trash bin',

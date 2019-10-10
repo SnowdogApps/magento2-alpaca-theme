@@ -1,6 +1,11 @@
 module.exports = {
   context: {
     total: 'Cart Subtotal',
+    heading: {
+      tag: 'h2',
+      class: 'minicart-content__heading',
+      text: 'Shopping cart'
+    },
     counter: '2 items',
     price: '$ 200.00',
     editButton: {

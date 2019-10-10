@@ -19,8 +19,40 @@ module.exports = {
     },
     sku: 'SKU: CEL-31145',
     stockButton: {
-      class: 'button--link product-list-item__stock',
-      text: 'In stock'
+      class: 'button--link modal-trigger product-list-item__stock',
+      text: 'In stock',
+      attributes: 'type="button" data-modal-trigger="shipping-latency-1"'
+    },
+    shippingLatencyModal: {
+      modal: {
+        id: 'shipping-latency-1',
+        attributes: 'aria-labbeledny="shipping-latency-title-1"'
+      },
+      buttonClose: {
+        tag: 'button',
+        text: '',
+        class: 'button--rotate-icon modal__close-button',
+        icon: {
+          id: 'close',
+          title: 'Close',
+          class: 'button__icon modal__close-button-icon'
+        },
+        attributes: 'type="button" aria-label="click to close the modal"'
+      },
+      modalTop: true,
+      heading: {
+        tag: 'h2',
+        class: 'heading heading--third-level',
+        attributes: 'id="shipping-latency-title-1"',
+        text: 'Shipping Latency Modal'
+      },
+      modalMiddle: true,
+      modalDescription: {
+        attributes: '',
+        class: 'margin-bottom-xs',
+        tag: 'p',
+        text: 'This is a shipping latency modal. Inside we have some text from shippig latency module.'
+      }
     },
     price: {
       name: 'price',
@@ -31,7 +63,7 @@ module.exports = {
     },
     secondaryActions: {
       wishlist: {
-        class: 'product-list-item__button-action',
+        class: 'button--icon-light product-list-item__button-action',
         icon: {
           id: 'heart',
           title: 'Heart',
@@ -40,7 +72,7 @@ module.exports = {
         attributes: 'type="button" aria-label="Add to Wish List"',
       },
       compare: {
-        class: 'product-list-item__button-action',
+        class: 'button--icon-light product-list-item__button-action',
         icon: {
           id: 'compare',
           title: 'Compare',

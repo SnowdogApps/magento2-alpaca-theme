@@ -77,6 +77,14 @@ module.exports = {
       }
     },
     {
+      name: 'icon-light',
+      view: 'button--icon.hbs',
+      context: {
+        text: '',
+        class: 'button--icon-light',
+      }
+    },
+    {
       name: 'icon-before',
       view: 'button--icon.hbs',
       context: {

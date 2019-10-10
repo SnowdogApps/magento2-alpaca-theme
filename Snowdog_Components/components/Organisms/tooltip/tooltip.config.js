@@ -2,7 +2,6 @@ module.exports = {
   preview: '@docs-only-styles',
   name: 'tooltip',
   context: {
-    script: true,
     class: '',
     title: 'Example title',
     content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam venenatis nisl quis imperdiet tincidunt. Nulla massa diam, aliquet vitae laoreet a, fermentum eu velit. Quisque ornare erat in orci hendrerit feugiat at sit amet neque. Fusce elementum semper feugiat. Curabitur egestas neque in leo finibus ultricies.',
@@ -18,12 +17,13 @@ module.exports = {
     },
     closeButton: {
       tag: 'button',
-      class: 'tooltip__close-button',
+      class: 'button--rotate-icon tooltip__close-button',
       attributes: 'type="button" aria-label="Close tooltip"',
       text: null,
       icon: {
         title: 'Close tooltip',
-        id: 'close'
+        id: 'close',
+        hidden: true
       }
     }
   },

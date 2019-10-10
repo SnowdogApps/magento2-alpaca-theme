@@ -28,9 +28,10 @@ module.exports = {
         type: 'email'
       }
     },
+    passwordWrapClass: 'margin-bottom-sm',
     password: {
       attributes: '',
-      class: 'margin-bottom-sm',
+      class: 'margin-bottom-m',
       label: {
         attributes: '',
         text: 'Password *',

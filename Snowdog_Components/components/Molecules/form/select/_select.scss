@@ -31,8 +31,8 @@
     &__field-item {
         position: relative;
         height: $select__height;
-        line-height: $select__line-height;
         padding: $select__padding;
+        line-height: $select__line-height;
         font-size: $select__field-font-size;
         cursor: pointer;
     }
@@ -40,10 +40,10 @@
     &__field-list {
         &--single {
             height: $select__height;
-            line-height: $select__line-height;
             padding: 0;
             border: $select__border;
             border-radius: $select__border-radius;
+            line-height: $select__line-height;
         }
     }
 
@@ -79,6 +79,7 @@
     &__list--dropdown {
         max-height: $select__dropdown-max-width;
         overflow: auto;
+        z-index: $z-index-normal;
 
         .is-open & {
             border-radius: 0 0 $select__border-radius $select__border-radius;
@@ -95,29 +96,9 @@
     }
 
     &[data-type*="select-one"] {
-        &:after {
-            content: "";
-            height: 10px;
-            width: 10px;
-            border-style: solid;
-            border-color: transparent $color-secondary $color-secondary transparent;
-            border-width: 2px;
-            position: absolute;
-            right: 20px;
-            top: 35%;
-            margin-top: 0;
-            pointer-events: none;
-            display: block;
-            transform: rotate(45deg);
-            transition: $select__transition;
-        }
+        @extend %arrow;
         &.is-open {
-            &:after {
-                top: 50%;
-                border-color: transparent $color-secondary $color-secondary transparent;
-                margin-top: 0;
-                transform: rotate(225deg);
-            }
+            @extend %arrow-active;
         }
     }
 }

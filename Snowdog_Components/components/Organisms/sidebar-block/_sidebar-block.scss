@@ -1,0 +1,98 @@
+@import 'sidebar-block-variables';
+
+.sidebar-block {
+    position: relative;
+    padding: $sidebar-block__padding;
+    min-height: $sidebar-block__min-height;
+
+    &--hidden {
+        display: none;
+    }
+
+    &--loaded {
+        min-height: $sidebar-block__min-height--loaded;
+    }
+
+    &__heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__title {
+        font-family: $sidebar-block__title-font-family;
+        font-weight: $sidebar-block__title-font-weight;
+    }
+
+    &__list {
+        margin: $sidebar-block__list-margin;
+        counter-reset: sidebarIndex;
+        &--hidden {
+            display: none;
+        }
+    }
+
+    &__item {
+        display: flex;
+        align-items: center;
+        &:before {
+            content: counter(sidebarIndex) ".";
+            counter-increment: sidebarIndex;
+            margin: $sidebar-block__index-margin;
+            min-width: $sidebar-block__index-min-width;
+            font-weight: $sidebar-block__index-font-weight;
+        }
+    }
+
+    &__remove {
+        &:hover,
+        &.focus-visible {
+            .icon {
+                fill: $sidebar-block__icon-fill--active;
+            }
+        }
+
+        .icon {
+            fill: $sidebar-block__icon-fill;
+        }
+
+    }
+
+    &__product-image {
+        width: $sidebar-block__product-image-max-width;
+        margin: $sidebar-block__product-image-margin;
+    }
+
+    &__counter {
+        white-space: nowrap;
+    }
+
+
+    &__hidden {
+        display: none;
+    }
+
+    &__actions {
+        display: flex;
+    }
+
+    &__action {
+        @include font-padding($font-size-medium, 48px);
+        display: inline-block;
+        min-height: initial;
+        margin: $sidebra-block__action-margin;
+        font-size: $sidebra-block__action-font-size;
+        font-weight: $sidebra-block__action-font-weight;
+        text-decoration: $sidebra-block__action-text-decoration;
+        text-align: $sidebra-block__action-text-align;
+
+        &:hover {
+            text-decoration: $sidebra-block__action-text-decoration-hover;
+        }
+    }
+
+    .price-as-configured {
+        margin: $sidebar-block__price-margin;
+        font-weight: $sidebar-block__price-font-weight;
+    }
+}

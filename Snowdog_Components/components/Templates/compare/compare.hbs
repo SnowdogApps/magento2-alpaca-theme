@@ -1,0 +1,68 @@
+<div class="page-wrapper">
+    {{ render '@header' }}
+    <div class="container">
+        {{ render '@breadcrumbs' breadcrumbs }}
+        {{ render '@heading' mainHeading merge=true }}
+
+        <div class="row compare">
+             <table class="compare__table">
+                <thead>
+                    <tr>
+                        <th class="compare__label">
+                            Product
+                        </th>
+
+                        {{#each products}}
+                            <td class="compare__cell">
+                                <div class="compare__product">
+                                    <a href="#" class="compare__link">
+                                        {{ render '@image' img }}
+                                    </a>
+
+                                    <a href="#" class="compare__link">
+                                        {{ name }}
+                                    </a>
+
+                                    {{ render '@rating' rating merge=true }}
+
+                                    <span class="price">
+                                        {{ price }}
+                                    </span>
+
+                                    <div class="compare__buttons-container">
+                                        <form class="compare__form">
+                                            {{ render '@button' cart }}
+                                        </form>
+
+                                        <div class="compare__secondary-buttons">
+                                            {{ render '@button--icon' wishlist }}
+                                            {{ render '@button--icon' remove }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        {{/each}}
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {{#each attributes}}
+                        <tr>
+                            <th class="compare__label">
+                                {{ label }}
+                            </th>
+
+                            {{#each products}}
+                                <td class="compare__cell">
+                                    {{ this }}
+                                </td>
+                            {{/each}}
+                        </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{{ render '@footer' }}

@@ -77,8 +77,9 @@
 
     &__link {
         display: flex;
-        justify-content: center;
-        flex: 1 1 auto;
+        flex-flow: column nowrap;
+        justify-content: flex-start;
+        flex: 0 1 auto;
         align-items: center;
         align-self: stretch;
     }
@@ -128,7 +129,7 @@
 
     &__price {
         width: 100%;
-        @include mq($screen-l) {
+        @include mq($screen-m) {
             width: 50%;
         }
         .price {
@@ -146,10 +147,16 @@
     &__details {
         padding: $product-grid-item__details-padding;
         margin: $product-grid-item__details-margin;
-        @include mq($screen-l) {
-            display: flex;
-            flex-flow: row wrap;
-        }
+        flex-grow: 1;
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: space-between;
+    }
+
+    &__details-bottom {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
     }
 
     &__actions {
@@ -157,7 +164,7 @@
         align-items: center;
         justify-content: flex-end;
         width: 100%;
-        @include mq($screen-l) {
+        @include mq($screen-m) {
             width: 50%;
         }
     }
@@ -166,30 +173,11 @@
         margin: $catalog-gird-item__primary-margin;
     }
 
-    &__secondary-action {
-        .button {
-            background: $product-grid-item__action-background;
-            &:after {
-                display: none;
-            }
-            &:hover {
-                &:before {
-                    z-index: -1;
-                }
-                .button__icon {
-                    fill: $product-grid-item__action-icon-fill-hover;
-                }
-            }
-            .button__icon {
-                fill: $product-grid-item__action-icon-fill;
-            }
-        }
-    }
-
-    &__wishlist {
+    &__action-wishlist {
         position: absolute;
         top: 0;
         right: 0;
+        background: $product-grid-item__action-wishlist-background;
     }
 
     // elements from product-grid-item--wishlist variant
