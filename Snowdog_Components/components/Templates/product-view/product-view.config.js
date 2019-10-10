@@ -85,7 +85,7 @@ module.exports = {
     submitBtn: {
       tag: 'button',
       class: 'product-view__submit-btn',
-      attributes: 'type="button" aria-label="button"',
+      attributes: 'type="button" id="submit-add-to-cart-main" aria-label="Add to cart"',
       text: 'Add to cart'
     },
     heartBtn: {
@@ -174,7 +174,7 @@ module.exports = {
     },
     tab: {
       script: true,
-      tabSticky: true,
+      attributes: 'id="product-tabs"',
       class: 'product-view__tab',
       icon: {
         class: 'tab__icon',
@@ -185,12 +185,14 @@ module.exports = {
         {
           tabId: 'tab-1',
           title: 'Description',
+          titleId: 'tab-title-1',
           content: 'Etiam orci ex, tristique at tempor quis, bibendum vel diam. Nullam vel mollis leo. Etiam facilisis mattis tortor, a ullamcorper nulla congue sed. Morbi non odio neque. In ut leo a elit consectetur fermentum aliquet non eros. In elementum vitae nulla sed semper. Nulla lacinia fermentum quam eu scelerisque. Sed et bibendum augue. Etiam sagittis enim eu ex aliquet ornare. Donec congue facilisis neque.'
         },
         {
           active: true,
           tabId: 'tab-2',
           title: 'Specifications',
+          titleId: 'tab-title-2',
           class: {
             content: 'product-view__table',
           },
@@ -199,10 +201,12 @@ module.exports = {
         {
           tabId: 'tab-3',
           title: 'What\'s in the box',
+          titleId: 'tab-title-3',
           content: 'Etiam orci ex, tristique at tempor quis, bibendum vel diam. Nullam vel mollis leo. Etiam facilisis mattis tortor, a ullamcorper nulla congue sed. Morbi non odio neque. In ut leo a elit consectetur fermentum aliquet non eros. In elementum vitae nulla sed semper. Nulla lacinia fermentum quam eu scelerisque. Sed et bibendum augue. Etiam sagittis enim eu ex aliquet ornare. Donec congue facilisis neque.'
         },
         {
           tabId: 'tab-4',
+          titleId: 'tab-title-4',
           title: 'Reviews (34)',
           contentElement: 'product-review'
         }

@@ -1,8 +1,6 @@
 @import 'add-to-cart-variables';
 
 .add-to-cart {
-    visibility: hidden;
-    opacity: 0;
     z-index: $add-to-cart__z-index;
     position: fixed;
     bottom: 0;
@@ -13,7 +11,14 @@
     border-width: $add-to-cart__border-width;
     border-style: $add-to-cart__border-style;
     background: $add-to-cart__background;
-    transition: $add-to-cart__transition;
+
+    // keep component sticky & visible for up to '$screen-m'
+    html:not(.no-js) &[data-aos^='fade'][data-aos^='fade'] {
+        @include mq($max-screen: $screen-m) {
+            opacity: 1;
+            transform: none;
+        }
+    }
 
     &--active {
         visibility: visible;

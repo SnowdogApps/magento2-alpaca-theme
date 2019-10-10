@@ -10,7 +10,7 @@ module.exports = {
         title: 'Add to Cart',
         class: 'button__icon',
       },
-      attributes: 'type="button" aria-label="Add to cart"'
+      attributes: 'type="submit" aria-label="Add to cart"'
     }
   }
 };
