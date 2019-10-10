@@ -4,10 +4,10 @@
         <section class="footer__newsletter">
             {{ render '@newsletter' }}
         </section>
-        <div class="footer__social-handler {{ bottomBar.socialHandler }}">
-            <span class="footer__social-list-subtitle">
-                {{ socialListSubtitle }}
-            </span>
+        <div class="footer__social-handler {{ socialHandlerClass }}">
+            <h3 class="footer__social-list-title">
+                {{ socialListTitle }}
+            </h3>
             {{ render '@list--icon' socialIconList }}
         </div>
         <section class="footer__links">
@@ -22,14 +22,17 @@
             <small class="footer__copyright">
                 {{ copyrightText }}
             </small>
-            <ul class="footer__payments-list {{ paymentsList.class }}">
+            <ul
+                class="
+                    footer__payments-list
+                    list
+                    list--horizontal
+                    {{ paymentsList.class }}
+                "
+            >
                 {{#each paymentsList.elements as |element|}}
-                    <li class="footer__payments-list-item">
-                        <img
-                            class="lazyload"
-                            data-src="{{ element.imageSrc }}"
-                            alt="{{ element.imageAlt }}"
-                        >
+                    <li class="list__item">
+                        {{ render '@icon' element }}
                     </li>
                 {{/each}}
             </ul>

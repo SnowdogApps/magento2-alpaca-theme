@@ -11,7 +11,7 @@ module.exports = {
     },
     image: {
       wrapperClass: 'product-grid-item__image-wrapper',
-      dataSrc: '/images/product/product-320_480.jpg'
+      dataSrc: '/images/product/product-368_552.jpg'
     },
     name: 'Long product name can have maximum 50 caractere...',
     price: {
@@ -32,7 +32,7 @@ module.exports = {
     secondaryActions: {
       wishlist: {
         tag: 'button',
-        class: 'product-grid-item__wishlist',
+        class: 'button--icon-light product-grid-item__action-wishlist',
         icon: {
           id: 'heart',
           title: 'Heart',
@@ -42,7 +42,7 @@ module.exports = {
       },
       compare: {
         tag: 'button',
-        class: 'button--icon',
+        class: 'button--icon-light',
         icon: {
           id: 'compare',
           title: 'Compare',

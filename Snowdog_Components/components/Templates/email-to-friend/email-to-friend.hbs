@@ -1,0 +1,64 @@
+<div class="page-wrapper">
+    {{ render '@header' }}
+
+    <div class="container">
+        {{ render '@breadcrumbs' breadcrumbs }}
+        {{ render '@heading' mainHeading merge=true }}
+
+        <div class="row email-to-friend">
+            <div class="col-xs-12">
+                <form class="email-to-friend__form">
+                    <fieldset class="fieldset email-to-friend__fieldset">
+                        <legend
+                            class="
+                                heading
+                                heading--second-level
+                                email-to-friend__legend
+                            "
+                        >
+                            {{ sender.label }}
+                        </legend>
+
+                        {{ render '@input' sender.name }}
+                        {{ render '@input' sender.email }}
+                        {{ render '@input--textarea' sender.message }}
+                    </fieldset>
+
+                    <fieldset class="fieldset email-to-friend__fieldset">
+                        <legend
+                            class="
+                                heading
+                                heading--second-level
+                                email-to-friend__legend
+                            "
+                        >
+                            {{ invitee.label }}
+                        </legend>
+
+                        <div class="email-to-friend__options">
+                            {{#each invitee.fieldsets }}
+                                <div class="{{ class }}">
+                                    <fieldset class="fieldset email-to-friend__inner-fieldset">
+                                        {{ render '@input' name }}
+                                        {{ render '@input' email }}
+                                        {{ render '@button' remove }}
+                                    </fieldset>
+                                </div>
+                            {{/each }}
+                        </div>
+
+                        {{ render '@button' invitee.add }}
+                    </fieldset>
+
+                    {{ render '@button' send }}
+
+                    <span class="link email-to-friend__back">
+                        {{ back }}
+                    </span>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{ render '@footer' }}
