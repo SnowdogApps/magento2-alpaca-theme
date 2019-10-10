@@ -5,6 +5,42 @@ module.exports = {
     gallery: {
       class: 'gallery--dots'
     },
+    stockButton: {
+      class: 'button--link modal-trigger product-view__stock',
+      text: 'In stock',
+      attributes: 'type="button" data-modal-trigger="shipping-latency-product"'
+    },
+    shippingLatencyModal: {
+      modal: {
+        id: 'shipping-latency-product',
+        attributes: 'aria-labbeledny="shipping-latency-title-product"'
+      },
+      buttonClose: {
+        tag: 'button',
+        text: '',
+        class: 'button--rotate-icon modal__close-button',
+        icon: {
+          id: 'close',
+          title: 'Close',
+          class: 'button__icon modal__close-button-icon'
+        },
+        attributes: 'type="button" aria-label="click to close the modal"'
+      },
+      modalTop: true,
+      heading: {
+        tag: 'h2',
+        class: 'heading heading--third-level',
+        attributes: 'id="shipping-latency-title-product"',
+        text: 'Shipping Latency Modal'
+      },
+      modalMiddle: true,
+      modalDescription: {
+        attributes: '',
+        class: 'margin-bottom-xs',
+        tag: 'p',
+        text: 'This is a shipping latency modal. Inside we have some text from shippig latency module.'
+      }
+    },
     colorSwatch: {
       class: 'margin-bottom-m'
     },
@@ -73,6 +109,68 @@ module.exports = {
         class: 'button__icon',
       },
       attributes: 'type="button" aria-label="Compare product"'
+    },
+    briefInfoModal1: {
+      modal: {
+        id: 'modal-info-1',
+        attributes: 'aria-labbeledny="modal-info-1-title"'
+      },
+      buttonClose: {
+        tag: 'button',
+        text: '',
+        class: 'button--rotate-icon modal__close-button',
+        icon: {
+          id: 'close',
+          title: 'Close',
+          class: 'button__icon modal__close-button-icon'
+        },
+        attributes: 'type="button" aria-label="click to close the modal"'
+      },
+      modalTop: true,
+      heading: {
+        tag: 'h2',
+        class: 'heading heading--third-level',
+        attributes: 'id="modal-info-1-title"',
+        text: 'Free shipping - Brief Info Modal 1'
+      },
+      modalMiddle: true,
+      modalDescription: {
+        attributes: '',
+        class: 'margin-bottom-xs',
+        tag: 'p',
+        text: 'This is info modal on product page. We can use here some fixed text (the same on every product page) or if we want to put here some product specific text we should use attribute value for this modal content.'
+      }
+    },
+    briefInfoModal2: {
+      modal: {
+        id: 'modal-info-2',
+        attributes: 'aria-labbeledny="modal-info-2-title"'
+      },
+      buttonClose: {
+        tag: 'button',
+        text: '',
+        class: 'button--rotate-icon modal__close-button',
+        icon: {
+          id: 'close',
+          title: 'Close',
+          class: 'button__icon modal__close-button-icon'
+        },
+        attributes: 'type="button" aria-label="click to close the modal"'
+      },
+      modalTop: true,
+      heading: {
+        tag: 'h2',
+        class: 'heading heading--third-level',
+        attributes: 'id="modal-info-2-title"',
+        text: 'Return Policy - Brief Info Modal 2'
+      },
+      modalMiddle: true,
+      modalDescription: {
+        attributes: '',
+        class: 'margin-bottom-xs',
+        tag: 'p',
+        text: 'This is info modal on product page. We can use here some fixed text (the same on every product page) or if we want to put here some product specific text we should use attribute value for this modal content.'
+      }
     },
     tab: {
       script: true,

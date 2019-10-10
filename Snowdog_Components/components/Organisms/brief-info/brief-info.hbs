@@ -1,35 +1,49 @@
 <div class="brief-info {{ class }}">
     <ul class="list brief-info__items-container">
         {{#each items as |item|}}
-            <li class="brief-info__item">
-                <span
-                    class="
-                        brief-info__icon-wrapper
-                        {{ item.iconWrapperClass }}
-                    "
-                    aria-label="{{ item.iconLabel }}"
-                >
-                    {{ render '@icon' item.icon }}
-                </span>
-                <div class="brief-info__content">
-                    <{{ item.title.tag }}
-                        class="brief-info__title {{ item.title.class }}"
-                        {{{ item.title.attributes }}}
+            {{#if item.isButton}}
+                <li class="brief-info__list-item list__item">
+                    <button
+                        class="brief-info__item {{ item.buttonClass }}"
+                        type="button"
+                        {{{ item.buttonAttributes }}}
                     >
-                        {{ item.title.text }}
-                    </{{ item.title.tag }}>
-                    {{#if item.subtitle.tag }}
-                        <{{ item.subtitle.tag }}
-                            class="brief-info__subtitle
-                            {{ item.subtitle.class }}
+            {{else}}
+                <li class="brief-info__item">
+            {{/if}}
+                    <span
+                        class="
+                            brief-info__icon-wrapper
+                            {{ item.iconWrapperClass }}
                         "
-                            {{{ item.subtitle.attributes }}}
+                        aria-label="{{ item.iconLabel }}"
+                    >
+                        {{ render '@icon' item.icon }}
+                    </span>
+                    <div class="brief-info__content">
+                        <{{ item.title.tag }}
+                            class="brief-info__title {{ item.title.class }}"
+                            {{{ item.title.attributes }}}
                         >
-                            {{ item.subtitle.text }}
-                        </{{ item.subtitle.tag }}>
-                    {{/if}}
-                </div>
-            </li>
+                            {{ item.title.text }}
+                        </{{ item.title.tag }}>
+                        {{#if item.subtitle.tag }}
+                            <{{ item.subtitle.tag }}
+                                class="brief-info__subtitle
+                                {{ item.subtitle.class }}
+                            "
+                                {{{ item.subtitle.attributes }}}
+                            >
+                                {{ item.subtitle.text }}
+                            </{{ item.subtitle.tag }}>
+                        {{/if}}
+                    </div>
+                {{#if item.isButton}}
+                    </button>
+                    </li>
+                {{else}}
+                    </li>
+                {{/if}}
         {{/each}}
     </ul>
 </div>
