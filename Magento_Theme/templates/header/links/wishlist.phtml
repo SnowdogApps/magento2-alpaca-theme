@@ -1,24 +1,34 @@
 <?php
 /* @var \Magento\Wishlist\Block\Link $block */
 ?>
-
-<a 
-    class="header-button header-button--reset-margin"
-    data-testid="wishlist-link"   
-    aria-label="<?= __('Wishlist') ?>"
+<a
+    class="
+        header-button
+        button
+        button--icon
+        button--icon-light
+        margin-right-xs
+    "
+    data-testid="wishlist-link"
+    aria-label="<?= $block->escapeHtmlAttr(__('Wishlist')) ?>"
     data-bind="scope: 'wishlist'"
     <?= $block->getLinkAttributes() ?>
 >
-    <svg class="icon header-button__icon">
-        <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#heart'); ?>"></use>
+    <svg class="icon header-button__icon" role="img">
+        <title><?= __('Heart') ?></title>
+        <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#heart')); ?>"></use>
     </svg>
-    <span class="header-button__text">
-        <?= __('Wishlist') ?>
-    </span>
     <!-- ko if: wishlist().counter -->
         <span
-            class="header-button__counter header-button__counter--hidden"
-            data-bind="css: {'header-button__counter--hidden': null}"
+            class="
+                header-button__counter
+                header-button__counter--hidden
+            "
+            data-bind="
+                css: {
+                    'header-button__counter--hidden': null
+                }
+            "
         >
             <span class="header-button__counter-dot"></span>
         </span>

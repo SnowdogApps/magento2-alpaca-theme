@@ -15,11 +15,11 @@ var config = {
       "filters"        : "Magento_Theme/js/filters.babel",
       "linksWrapper"   : "Magento_Theme/js/wrapper-collapsible",
       "marketingBar"   : "Magento_Theme/js/marketing-bar.babel",
+      "modal"          : "Magento_Theme/js/modal.babel",
       "select"         : "Magento_Theme/js/select.babel",
       "skipFilters"    : "Magento_Theme/js/skip-filters.babel",
       "skipNav"        : "Magento_Theme/js/skip-nav.babel",
       "slider"         : "Magento_Theme/js/slider.babel",
-      "popup"          : "Magento_Theme/js/popup.babel",
       "tab"            : "Magento_Theme/js/tab.babel",
       "scrollTop"      : "Magento_Theme/js/scroll-top.babel"
     }

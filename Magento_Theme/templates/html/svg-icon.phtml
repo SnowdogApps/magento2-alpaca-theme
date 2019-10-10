@@ -1,18 +1,19 @@
 <?php
     $svgIcon = $block->getIcon();
-    $svgIconClass = $block->getIconClass();
-    $svgIconTitle = $block->getIconTitle();
+    $svgClass = $block->getIconClass();
+    $svgTitle = $block->getTitle();
+    $svgRole = $block->getRole();
 ?>
 <?php if ($svgIcon): ?>
     <svg
         class="
             icon
-            <?= $block->escapeHtmlAttr($svgIconClass) ?>
+            <?= $block->escapeHtmlAttr($svgClass) ?>
         "
-        role="img"
+        role="<?= $svgRole ? $svgRole : 'img' ?>"
     >
-        <?php if ($svgIconTitle): ?>
-            <title><?= $block->escapeHtml($svgIconTitle) ?></title>
+        <?php if ($svgTitle): ?>
+            <title><?= $block->escapeHtml($svgTitle) ?></title>
         <?php endif ?>
         <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl("images/icons-sprite.svg#" . $svgIcon)) ?>"></use>
     </svg>
