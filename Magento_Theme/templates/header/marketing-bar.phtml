@@ -1,17 +1,28 @@
-<div class="marketing-bar" data-testid="marketing-bar-message">
-    <div class="container marketing-bar__container">
-        <div class="marketing-bar__text">
-            <!-- TODO: Move to CMS block -->
-            Subscribe and get 10$ for Shopping!
-        </div>
-        
-        <button class="button button--icon marketing-bar__close"
+<?php if ($marketingBar = $this->getChildHtml('marketing-bar-block')): ?>
+    <div
+        class="marketing-bar marketing-bar--closed"
+        data-type="marketing-bar"
+        data-mage-init='{ "marketingBar": {} }'
+    >
+        <div class="container marketing-bar__container">
+            <div class="marketing-bar__text">
+                <?= $marketingBar ?>
+            </div>
+            <button
+                class="
+                    button
+                    button--icon
+                    button--rotate-icon
+                    marketing-bar__close
+                "
                 type="button"
-                aria-label="Close marketing bar"
-        >
-            <svg class="marketing-bar__close-icon">
-                <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#close') ?>"></use>
-            </svg>
-        </button>
+                aria-label="<?= $block->escapeHtmlAttr(__('Close marketing bar')) ?>"
+            >
+                <svg class="icon button__icon marketing-bar__close-icon" role="img">
+                    <title><?= __('Close') ?></title>
+                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#close')) ?>"></use>
+                </svg>
+            </button>
+        </div>
     </div>
-</div>
+<?php endif; ?>
