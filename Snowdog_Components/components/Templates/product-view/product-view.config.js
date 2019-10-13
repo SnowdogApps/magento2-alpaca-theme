@@ -45,7 +45,7 @@ module.exports = {
       class: 'margin-bottom-m'
     },
     sizeOption: {
-      class: 'product-view__size-option required',
+      class: 'product-view__select-option required',
       label: {
         text: 'Size'
       },
@@ -82,16 +82,21 @@ module.exports = {
         }
       ]
     },
-    submitBtn: {
+    addToCartBtn: {
       tag: 'button',
-      class: 'product-view__submit-btn',
-      attributes: 'type="button" id="submit-add-to-cart-main" aria-label="Add to cart"',
-      text: 'Add to cart'
+      text: 'Add to cart',
+      class: 'button--add-to-icon product-view__add-to-cart',
+      iconAfter: {
+        id: 'shopping-cart',
+        title: 'Add to Cart',
+        class: 'button__icon',
+      },
+      attributes: 'id="submit-add-to-cart-main" type="submit" aria-label="Add to cart"'
     },
     heartBtn: {
       tag: 'button',
       text: '',
-      class: 'button--icon-light',
+      class: 'button--icon-light product-view__button',
       icon: {
         id: 'heart',
         title: 'Arrow left',
@@ -102,7 +107,7 @@ module.exports = {
     compareBtn: {
       tag: 'button',
       text: '',
-      class: 'button--icon-light',
+      class: 'button--icon-light product-view__button',
       icon: {
         id: 'compare',
         title: 'Add to compare list',
