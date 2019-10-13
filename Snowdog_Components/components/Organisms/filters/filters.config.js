@@ -67,6 +67,7 @@ module.exports = {
         }
       },
       modalTop: true,
+      modalTopClass: 'filters__content-top',
       heading: {
         attributes: 'id="filters-option-title"',
         tag: 'h2',
@@ -74,6 +75,7 @@ module.exports = {
         text: 'Shopping options'
       },
       modalMiddle: true,
+      modalMiddleClass: 'filters__content-middle',
       modalComponent: {
         content: 'filters-content'
       },
