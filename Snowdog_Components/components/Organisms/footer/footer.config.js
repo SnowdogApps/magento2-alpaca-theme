@@ -1,16 +1,43 @@
 module.exports = {
   context: {
+    class: 'margin-top-xl',
     handlerClass: 'container',
     scrollToTop: {
       tag: 'button',
       class: 'footer__scroll-top',
+      attributes: 'type="button" aria-label="scroll to top"',
       icon: {
         title: 'Scroll to top',
-        id: 'arrow-up'
+        id: 'arrow-up',
+        hidden: true,
       }
     },
-    bottomBar: {
-      handlerClass: 'container'
+    socialListTitle: 'Let\'s get social!',
+    socialHandlerClass: '',
+    socialIconList: {
+      listTag: 'ul',
+      elementTag: 'li',
+      class: 'list--with-icon list--horizontal footer__social-list',
+      elements: [
+        {
+          icon: {
+            id: 'facebook',
+            title: 'Facebook logo',
+            class: 'footer__social-icon',
+          },
+          iconItemLink: '#',
+          linkAttributes: 'aria-label="Go to Our Facebook Page"'
+        },
+        {
+          icon: {
+            id: 'twitter',
+            title: 'Twitter logo',
+            class: 'footer__social-icon',
+          },
+          iconItemLink: '#',
+          linkAttributes: 'aria-label="Check Our on Twitter"'
+        }
+      ]
     },
     linkList: {
       id: 'dropdown-footer',
@@ -188,55 +215,37 @@ module.exports = {
         }
       ]
     },
-    socialListSubtitle: 'LETS GET SOCIAL!',
     copyrightText: 'Copyright © 2019 Colibri',
-    socialIconList: {
-      listTag: 'ul',
-      elementTag: 'li',
-      class: 'list--with-icon list--horizontal footer__social-list',
-      elements: [
-        {
-          icon: {
-            id: 'facebook',
-            title: 'Facebook logo',
-            class: 'footer__social-icon',
-          },
-          iconItemLink: '#',
-          linkAttributes: 'aria-label="Go to Highpointscientific Facebook Page"'
-        },
-        {
-          icon: {
-            id: 'twitter',
-            title: 'Twitter logo',
-            class: 'footer__social-icon',
-          },
-          iconItemLink: '#',
-          linkAttributes: 'aria-label="Check Highpointscientific on Twitter"'
-        }
-      ]
+    bottomBar: {
+      handlerClass: 'container'
     },
     paymentsList: {
       class: '',
       elements: [
         {
-          imageSrc: '/images/footer/visa.svg',
-          imageAlt: 'Visa'
+          id: 'visa',
+          title: 'Visa',
+          class: 'footer__payments-list-icon footer__payments-list-icon--visa'
         },
         {
-          imageSrc: '/images/footer/master-card.svg',
-          imageAlt: 'Master Card'
+          id: 'master-card',
+          title: 'Master Card',
+          class: 'footer__payments-list-icon'
         },
         {
-          imageSrc: '/images/footer/discover.svg',
-          imageAlt: 'Discover'
+          id: 'discover',
+          title: 'Discover',
+          class: 'footer__payments-list-icon'
         },
         {
-          imageSrc: '/images/footer/american-express.svg',
-          imageAlt: 'American Express'
+          id: 'american-express',
+          title: 'American Express',
+          class: 'footer__payments-list-icon'
         },
         {
-          imageSrc: '/images/footer/paypal.svg',
-          imageAlt: 'PayPal'
+          id: 'paypal',
+          title: 'PayPal',
+          class: 'footer__payments-list-icon footer__payments-list-icon--paypal'
         }
       ]
     }
