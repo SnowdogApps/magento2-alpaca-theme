@@ -73,7 +73,7 @@ module.exports = {
     signOutButton: {
       tag: 'a',
       class: 'dashboard-nav__button',
-      attributes: 'type="button" aria-label="button"',
+      attributes: 'title="Sign out"',
       text: 'Sign out'
     },
     compare: {

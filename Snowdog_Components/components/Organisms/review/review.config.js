@@ -63,14 +63,16 @@ module.exports = {
         submitReview: {
           class: 'review__submit-btn',
           text: 'Add Your Review'
-        }
+        },
+        requiredInfo: '* Required fields'
       }
     },
     {
       name: 'summary',
       context: {
         amountLink: true,
-        reviewsQty: '(32)'
+        reviewsQty: '(32)',
+        buttonText: 'Add your review'
       }
     }
   ]
