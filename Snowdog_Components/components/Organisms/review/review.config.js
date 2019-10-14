@@ -7,16 +7,32 @@ module.exports = {
       },
       class: 'review__rating'
     },
-    author: 'anna Maria',
+    author: 'Anna Maria',
+    authorDescription: 'Verified Buyer',
+    shareText: 'Share',
+    reviewText: 'Was This Review Helpful?',
     title: 'Review title',
     content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus lacus odio, rutrum a augue nec, varius vehicula odio. Praesent at nibh vehicula libero pellentesque vulputate. Ut malesuada dolor eget purus condimentum, eget porttitor est luctus. Donec tristique, tortor a iaculis mollis, ex erat gravida nunc, quis viverra tortor neque quis eros. Pellentesque lorem sapien, consequat non vestibulum ac, pellentesque vitae risus. Nunc eleifend magna id fringilla semper. ',
-    date: '07/08/2018'
+    date: '07/08/2018',
+    icons: {
+      thumbUp: {
+        id: 'thumb-up',
+        title: 'Thumb up'
+      },
+      thumbDown: {
+        id: 'thumb-down',
+        title: 'Thumb down'
+      },
+      share: {
+        id: 'share'
+      }
+    }
   },
   variants: [
     {
       name: 'add',
       context: {
-        addTitle: 'You\'re reviewing',
+        addTitle: 'Write a review',
         productTitle: 'Product name',
         rate: {
           legendClass: 'review__rating-legend'
@@ -62,7 +78,7 @@ module.exports = {
         },
         submitReview: {
           class: 'review__submit-btn',
-          text: 'Add Your Review'
+          text: 'Post'
         },
         requiredInfo: '* Required fields'
       }
@@ -70,9 +86,8 @@ module.exports = {
     {
       name: 'summary',
       context: {
-        amountLink: true,
-        reviewsQty: '(32)',
-        buttonText: 'Add your review'
+        reviewsQty: '32 Reviews',
+        reviewsText: 'Reviews'
       }
     }
   ]
