@@ -1,0 +1,125 @@
+<div class="page-wrapper">
+    {{ render '@header' }}
+
+    <div class="container">
+        {{ render '@breadcrumbs' breadcrumbs }}
+        {{ render '@heading' mainHeading merge=true }}
+
+        <div class="row cart">
+            <div class="col-xs-12 col-lg-4 cart__summary">
+                <section class="cart-summary" {{{ summary.attributes }}}>
+                    {{ render '@heading' summary.heading }}
+
+                    <div class="cart-summary__details">
+                        {{ render '@heading' summary.estimate }}
+
+                         <ul class="cart-summary__list">
+                            {{#each summary.items }}
+                                <li class="cart-summary__list-item">
+                                    <span class="cart-summary__label">
+                                        {{ label }}
+                                    </span>
+
+                                    <span class="cart-summary__value">
+                                        {{ value }}
+                                    </span>
+                                </li>
+                            {{/each}}
+                        </ul>
+                    </div>
+
+                    <div class="cart-summary__total">
+                        {{ render '@heading' summary.total }}
+
+                        <span class="cart-summary__amount text-right">
+                            {{ summary.amount }}
+                        </span>
+                    </div>
+
+                    {{ render '@button' summary.button }}
+
+                    {{ render '@button--link' summary.link }}
+                </section>
+            </div>
+
+            <div class="col-xs-12 col-lg-8">
+                <div class="cart-grid">
+                    <div class="cart-grid__header">
+                        <span
+                            class="
+                                cart-grid__header-label
+                                cart-grid__header-items
+                            "
+                        >
+                            {{ grid.header.item }}
+                        </span>
+
+                        <span
+                            class="
+                                cart-grid__header-label
+                                cart-grid__header-price
+                            "
+                        >
+                            {{ grid.header.price }}
+                        </span>
+
+                        <span
+                            class="
+                                cart-grid__header-label
+                                cart-grid__header-qty
+                            "
+                        >
+                            {{ grid.header.qty }}
+                        </span>
+
+                        <span
+                            class="
+                                cart-grid__header-label
+                                cart-grid__header-subtotal
+                            "
+                        >
+                            {{ grid.header.subtotal }}
+                        </span>
+                    </div>
+
+                    {{#each grid.items }}
+                        {{ render '@cart-list-item' this merge=true }}
+                    {{/each}}
+
+                    <div class="cart-grid__footer">
+                        {{ render '@button--secondary' grid.updateCart }}
+                    </div>
+                </div>
+
+                <div class="cart-discount">
+                    <button
+                        class="cart-discount__button"
+                        {{{ discount.button.attributes }}}
+                    >
+                        <span class="cart-discount__button-text">
+                            {{ discount.button.title }}
+                        </span>
+
+                        {{ render '@icon' discount.icon }}
+                    </button>
+
+                    <div
+                        class="cart-discount__content"
+                        {{{ discount.content.attributes }}}
+                    >
+                        <form>
+                            <div class="cart-discount__controls">
+                                {{ render '@input' discount.content.input }}
+                                {{ render '@button' discount.content.submit }}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{ render '@footer' }}
+
+<script src="{{static 'cart.js'}}" defer></script>
