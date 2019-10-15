@@ -3,6 +3,20 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.4.0] - 2019-10-15
+### Added
+- Adding data-testid attributes for autometed tests Cypress.io
+
+### Fixed
+- Add-to-cart for solr templates with updated form_key
+- fix multiple rating
+- fixed swatches images in catalog
+- Details dropdown id in minicart
+
+### Added
+- Focus & keyboard support for mega-menu
+- add scroll to top button
+
 ## [1.3.1] - 2019-05-30
 ### Fixed
 - Add-to-cart for solr templates with updated form_key
@@ -14,6 +28,7 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 - Fotorama video styles
+- Aria attributes do not have valid values
 
 ## [1.2.0] - 2019-03-04
 ### Added

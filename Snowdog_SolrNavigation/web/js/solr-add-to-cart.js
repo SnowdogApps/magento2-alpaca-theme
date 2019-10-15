@@ -1,57 +1,43 @@
 define([
   'jquery',
-  'mage/translate'
-], function ($, $t) {
-  'use strict';
+  'Magento_Catalog/js/product/view/product-ids-resolver',
+  'Magento_Customer/js/customer-data',
+  'Magento_Catalog/js/catalog-add-to-cart'
+], function($, idsResolver, customerData) {
 
-  $.widget('snowdog.solrAddToCart', {
-    options: {
-      processStart: null,
-      processStop: null,
-      bindSubmit: true,
-      minicartSelector: '[data-block="minicart"]',
-      messagesSelector: '[data-placeholder="messages"]',
-      productStatusSelector: '.stock.available'
+  $.widget('snowdog.solrAddToCart', $.mage.catalogAddToCart, {
+    _create: function() {
+      this._bindSubmit();
+
+      // It's necessary to block add-to-cart buttons until page load
+      // issue: https://github.com/magento/magento2/pull/21007
+      $(this.options.addToCartButtonSelector).attr('disabled', false);
     },
 
-    _create: function () {
-      if (this.options.bindSubmit) {
-        this._bindSubmit();
-      }
+    reloadCustomerData: function () {
+      var sections = [ 'cart' ];
+
+      customerData.invalidate(sections);
+      customerData.reload(sections, true);
     },
 
-    _bindSubmit: function () {
-      var self = this;
-
-      this.element.on('submit', function (e) {
-        e.preventDefault();
-        self.submitForm($(this));
-      });
-    },
-
-    isLoaderEnabled: function () {
-      return this.options.processStart && this.options.processStop;
-    },
-
-    submitForm: function (form) {
-      var self           = this,
-          cookieFormKey  = $.cookie('form_key'),
-          action         = form.attr('action'),
-          currentFormKey = form.find('[name="form_key"]').val();
-
-      if (cookieFormKey !== '' && cookieFormKey !== null) {
-        form.find('[name="form_key"]').val(cookieFormKey);
-        action = action.replace(currentFormKey, cookieFormKey);
-      }
+    ajaxSubmit: function (form) {
+      var self = this,
+          productIds = idsResolver(form),
+          formData;
 
       $(self.options.minicartSelector).trigger('contentLoading');
       self.disableAddToCartButton(form);
+      formData = new FormData(form[0]);
 
       $.ajax({
-        url: action,
-        data: form.serialize(),
+        url: form.attr('action'),
+        data: formData,
         type: 'post',
         dataType: 'json',
+        cache: false,
+        contentType: false,
+        processData: false,
 
         beforeSend: function () {
           if (self.isLoaderEnabled()) {
@@ -60,10 +46,11 @@ define([
         },
 
         success: function (res) {
-          var eventData,
-              parameters;
+          var eventData, parameters;
 
           $(document).trigger('ajax:addToCart', {
+            'sku': form.data().productSku,
+            'productIds': productIds,
             'form': form,
             'response': res
           });
@@ -85,7 +72,8 @@ define([
               parameters.push(eventData.redirectParameters.join('&'));
               res.backUrl = parameters.join('#');
             }
-            window.location = res.backUrl;
+
+            self._redirect(res.backUrl);
 
             return;
           }
@@ -106,36 +94,27 @@ define([
               .find('span')
               .html(res.product.statusText);
           }
+
+          // Reload customer data - minicart product update
+          self.reloadCustomerData();
           self.enableAddToCartButton(form);
+        },
+
+        error: function (res) {
+          $(document).trigger('ajax:addToCart:error', {
+            'sku': form.data().productSku,
+            'productIds': productIds,
+            'form': form,
+            'response': res
+          });
+        },
+
+        complete: function (res) {
+          if (res.state() === 'rejected') {
+            location.reload();
+          }
         }
       });
-    },
-
-    disableAddToCartButton: function (form) {
-      var addToCartButtonTextWhileAdding = $t('Adding...'),
-          addToCartButton                = $(form).find('button[type=submit]');
-
-      addToCartButton.prop('disabled', true);
-      addToCartButton.addClass('disabled');
-      addToCartButton.find('span').text(addToCartButtonTextWhileAdding);
-      addToCartButton.attr('title', addToCartButtonTextWhileAdding);
-    },
-
-    enableAddToCartButton: function (form) {
-      var addToCartButtonTextAdded = $t('Added'),
-          addToCartButton          = $(form).find('button[type=submit]');
-
-      addToCartButton.find('span').text(addToCartButtonTextAdded);
-      addToCartButton.attr('title', addToCartButtonTextAdded);
-
-      setTimeout(function () {
-        var addToCartButtonTextDefault = $t('Add to Cart');
-
-        addToCartButton.prop('disabled', false);
-        addToCartButton.removeClass('disabled');
-        addToCartButton.find('span').text(addToCartButtonTextDefault);
-        addToCartButton.attr('title', addToCartButtonTextDefault);
-      }, 2500);
     }
   });
 
