@@ -8,7 +8,7 @@ module.exports = {
       iconAfter: {
         id: 'shopping-cart',
         title: 'Add to Cart',
-        class: 'button__icon',
+        class: 'button__icon'
       },
       attributes: 'type="submit" aria-label="Add to cart"'
     }

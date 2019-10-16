@@ -8,6 +8,9 @@ module.exports = {
       class: 'review__rating'
     },
     author: 'Anna Maria',
+    authorDescription: 'Verified Buyer',
+    shareText: 'Share',
+    reviewText: 'Was This Review Helpful?',
     title: 'Review title',
     content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus lacus odio, rutrum a augue nec, varius vehicula odio. Praesent at nibh vehicula libero pellentesque vulputate. Ut malesuada dolor eget purus condimentum, eget porttitor est luctus. Donec tristique, tortor a iaculis mollis, ex erat gravida nunc, quis viverra tortor neque quis eros. Pellentesque lorem sapien, consequat non vestibulum ac, pellentesque vitae risus. Nunc eleifend magna id fringilla semper. ',
     date: '07/08/2018',
@@ -76,13 +79,15 @@ module.exports = {
         submitReview: {
           class: 'review__submit-btn',
           text: 'Post'
-        }
+        },
+        requiredInfo: '* Required fields'
       }
     },
     {
       name: 'summary',
       context: {
-        reviewsQty: '32 Reviews'
+        reviewsQty: '32 Reviews',
+        reviewsText: 'Reviews'
       }
     }
   ]

@@ -82,6 +82,7 @@ module.exports = {
         }
       ]
     },
+    qtyLabel: 'Quantity',
     addToCartBtn: {
       tag: 'button',
       text: 'Add to cart',
@@ -89,7 +90,7 @@ module.exports = {
       iconAfter: {
         id: 'shopping-cart',
         title: 'Add to Cart',
-        class: 'button__icon',
+        class: 'button__icon'
       },
       attributes: 'id="submit-add-to-cart-main" type="submit" aria-label="Add to cart"'
     },
@@ -100,7 +101,7 @@ module.exports = {
       icon: {
         id: 'heart',
         title: 'Arrow left',
-        class: 'button__icon',
+        class: 'button__icon'
       },
       attributes: 'type="button" aria-label="Add product to wishlist"'
     },
@@ -111,7 +112,7 @@ module.exports = {
       icon: {
         id: 'compare',
         title: 'Add to compare list',
-        class: 'button__icon',
+        class: 'button__icon'
       },
       attributes: 'type="button" aria-label="Compare product"'
     },
@@ -199,9 +200,9 @@ module.exports = {
           title: 'Specifications',
           titleId: 'tab-title-2',
           class: {
-            content: 'product-view__table',
+            content: 'product-view__table'
           },
-          contentElement: 'table--scope-row',
+          contentElement: 'table--scope-row'
         },
         {
           tabId: 'tab-3',

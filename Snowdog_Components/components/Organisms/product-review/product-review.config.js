@@ -4,7 +4,7 @@ module.exports = {
       tag: 'button',
       attributes: 'type="button" aria-label="button"',
       text: 'Write a review',
-      class: 'button--secondary-light product-review__write-btn',
+      class: 'button--secondary-light product-review__write-btn'
     },
     summary: {
       amountLink: false,
@@ -88,7 +88,7 @@ module.exports = {
         title: 'Not recomennded',
         content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus lacus odio, rutrum a augue nec, varius vehicula odio. Praesent at nibh vehicula libero pellentesque vulputate. Ut malesuada dolor eget purus condimentum, eget porttitor est luctus. Donec tristique, tortor a iaculis mollis, ex erat gravida nunc, quis viverra tortor neque quis eros. Pellentesque lorem sapien, consequat non vestibulum ac, pellentesque vitae risus. Nunc eleifend magna id fringilla semper. ',
         date: '07/06/2018'
-      },
+      }
     ]
   }
 }

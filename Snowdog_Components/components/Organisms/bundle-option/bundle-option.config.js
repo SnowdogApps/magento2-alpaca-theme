@@ -52,14 +52,14 @@ module.exports = {
             id: 'checkbox-1',
             name: 'checkbox-name-1',
             label: {
-              text: '1 x Sprite Yoga Strap 6 foot',
+              text: '1 x Sprite Yoga Strap 6 foot'
             }
           },
           {
             id: 'checkbox-2',
             name: 'checkbox-name-2',
             label: {
-              text: '1 x Sprite Yoga Strap 8 foot',
+              text: '1 x Sprite Yoga Strap 8 foot'
             }
           }
         ],
