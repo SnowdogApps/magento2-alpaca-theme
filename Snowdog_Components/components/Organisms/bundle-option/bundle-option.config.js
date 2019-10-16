@@ -3,7 +3,9 @@ module.exports = {
   context: {
     title: {
       tag: 'h4',
-      message: 'Sprite Stasis Ball'
+      class: 'bundle-option__title',
+      text: 'Sprite Stasis Ball',
+      attributes: 'id="radio-options-title"'
     },
     qty: {
       class: 'bundle-option__qty margin-bottom-0',
@@ -22,6 +24,7 @@ module.exports = {
     },
     radio: {
       legend: false,
+      legendId: 'radio-options-title',
       class: 'bundle-option__radio margin-bottom-xs',
       options: [
         {
@@ -44,8 +47,9 @@ module.exports = {
       name: 'checkbox',
       context: {
         title: {
-          message: 'Sprite Yoga Strap',
-          tag: 'h4'
+          text: 'Sprite Yoga Strap',
+          tag: 'h4',
+          attributes: ''
         },
         checkboxes: [
           {
@@ -70,8 +74,9 @@ module.exports = {
       name: 'select',
       context: {
         title: {
-          message: 'Sprite Foam Roller',
-          tag: 'h4'
+          text: 'Sprite Foam Roller',
+          tag: 'h4',
+          attributes: ''
         },
         select: {
           class: 'bundle-option__select margin-bottom-m',
@@ -93,6 +98,12 @@ module.exports = {
               attributes: false
             }
           ]
+        },
+        qty: {
+          field: {
+            id: 'qty2',
+            name: 'qty2'
+          }
         }
       }
     }

@@ -331,8 +331,8 @@ module.exports = {
                           hidden: true
                         },
                         field: {
-                          id: 'field-id-1',
-                          name: 'field-name-1',
+                          id: 'field-id-2',
+                          name: 'field-name-2',
                           type: 'number',
                           attributes: 'min="0" value="0"'
                         }
@@ -360,8 +360,8 @@ module.exports = {
                           hidden: true
                         },
                         field: {
-                          id: 'field-id-1',
-                          name: 'field-name-1',
+                          id: 'field-id-3',
+                          name: 'field-name-3',
                           type: 'number',
                           attributes: 'min="0" value="0"'
                         }
