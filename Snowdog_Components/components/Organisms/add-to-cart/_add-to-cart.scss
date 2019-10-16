@@ -1,0 +1,64 @@
+@import 'add-to-cart-variables';
+
+.add-to-cart {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    min-height: $add-to-cart__min-height;
+    border: $add-to-cart__border;
+    border-width: $add-to-cart__border-width;
+    background: $add-to-cart__background;
+    z-index: $add-to-cart__z-index;
+    box-shadow: $add-to-cart__shadow;
+
+    // keep component sticky & visible for up to '$screen-m'
+    html:not(.no-js) &[data-aos^='fade'][data-aos^='fade'] {
+        @include mq($max-screen: $add-to-cart__display-always-max-screen) {
+            opacity: 1;
+            transform: none;
+        }
+    }
+
+    &--active {
+        visibility: visible;
+        opacity: 1;
+        transition: $add-to-cart__transition--active;
+    }
+
+    &__wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: $add-to-cart__wrapper-max-width;
+        margin: $add-to-cart__wrapper-margin;
+        padding: $add-to-cart__wrapper-padding;
+    }
+
+    &__title {
+        .heading {
+            font-size: $add-to-cart__title-font-size;
+            text-transform: $add-to-cart__title-text-transform;
+            margin: $add-to-cart__title-margin;
+
+            @include mq($screen-l) {
+                font-size: $add-to-cart__title-font-size\@large;
+            }
+        }
+    }
+
+    &__button {
+        .button__text {
+            display: none;
+        }
+
+        @include mq($screen-m) {
+            padding: $add-to-cart__button-padding\@medium;
+
+            .button__text {
+                display: block;
+                padding: $add-to-cart__button-text-padding\@medium;
+            }
+        }
+    }
+}

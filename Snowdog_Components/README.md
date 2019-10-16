@@ -99,3 +99,6 @@ This component contain only common-js.hbs file where js scripts created in compo
 3) `<script src="{{static '../component-name/component-name.js' }}"></script>`
 This component is used in `_preview.hbs` file after lib js files are loaded.
 Do not use `common-js` component for libs files and for js scripts created in components that are not loaded multiple time on one view.
+
+## Show on scroll elements
+To show sticky elements on product page (tabs header & `add-to-cart` component) we use [aos lib](https://github.com/michalsnik/aos/tree/v2)
