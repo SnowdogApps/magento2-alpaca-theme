@@ -1,0 +1,141 @@
+.fotorama {
+    .fotorama__nav-wrap {
+        display: flex;
+
+        @include mq($screen-m) {
+            display: block;
+        }
+
+        &--vertical,
+        &--horizontal {
+            .fotorama__nav__frame--thumb {
+                @extend .gallery__thumb;
+            }
+
+            .fotorama__active {
+                @extend .gallery__thumb--active;
+
+                box-sizing: border-box;
+            }
+
+            .fotorama__arr--disabled {
+                display: none !important;
+            }
+
+            .fotorama__thumb__arr {
+                @extend .gallery__thumb-arr;
+
+                background-color: #fff;
+
+                @include mq($screen-m) {
+                    width: 100%;
+                }
+
+                &--left {
+                    .fotorama__thumb {
+                        &--icon {
+                            background-image: url('../images/fotorama/angle-up.svg');
+                        }
+                    }
+                }
+
+                &--right {
+                    .fotorama__thumb {
+                        &--icon {
+                            background-image: url('../images/fotorama/angle-down.svg');
+                        }
+                    }
+                }
+
+                &--left,
+                &--right {
+                    .fotorama__thumb--icon {
+                        @extend .gallery__icon-arrow;
+                        @extend .gallery__icon-arrow--vertical;
+
+                        position: relative;
+                        top: 0;
+                        left: 0;
+                        height: 12px;
+                        width: 12px;
+                        padding: 0;
+                        margin: 0;
+                        background-position: 0 0;
+                    }
+                }
+            }
+        }
+    }
+
+    .fotorama__stage {
+        padding-bottom: $spacer--medium;
+
+        @include mq($screen-m) {
+            padding-bottom: 0;
+        }
+    }
+
+    .fotorama__stage,
+    .fotorama__nav {
+        &.fotorama__shadows {
+            &--top,
+            &--bottom,
+            &--right,
+            &--left {
+                &:before {
+                    background-image: none;
+                }
+
+                &:after {
+                    background-image: none;
+                }
+            }
+        }
+    }
+
+    .fotorama-video-container {
+        cursor: pointer;
+
+        &.video-unplayed {
+            &:after {
+                content: '';
+                position: absolute;
+                top: 12px;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                width: 100px;
+                height: 100px;
+                margin: auto;
+                opacity: 0.8;
+                background: url(../Magento_ProductVideo/img/gallery-sprite.png) bottom right;
+            }
+
+            &:hover {
+                &:after {
+                    opacity: 1;
+                }
+            }
+        }
+
+        &.fotorama__product-video--loaded {
+            .product-video {
+                display: block;
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        .product-video {
+            display: none;
+        }
+
+        .fotorama__img {
+            pointer-events: none;
+        }
+    }
+
+    .fotorama__thumb-border {
+        display: none;
+    }
+}

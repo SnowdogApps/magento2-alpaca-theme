@@ -1,0 +1,40 @@
+<?php // @codingStandardsIgnoreFile ?>
+<?php if ($detailedInfoGroup = $block->getGroupChildNames('detailed_info', 'getChildHtml')): ?>
+    <div class="tab" data-mage-init='{ "tab" : {} }'>
+        <?php
+            $layout = $block->getLayout();
+            $tabId = 1;
+        ?>
+
+        <?php foreach ($detailedInfoGroup as $name):?>
+            <?php
+                $html = $layout->renderElement($name);
+                if (!trim($html)) {
+                    continue;
+                }
+                $alias = $layout->getElementAlias($name);
+                $label = $block->getChildData($alias, 'title');
+            ?>
+
+            <div
+                class="tab__title <?= ($tabId == 1) ? 'tab__title--active' : ''; ?>"
+                data-tab="tab-<?= $tabId; ?>"
+                data-testid="product-tab__title"
+            >
+                <?= $label; ?>
+
+                <svg class="icon tab__icon">
+                    <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#angle-down'); ?>"></use>
+                </svg>
+            </div>
+
+            <div
+                class="tab__content <?= ($tabId == 1) ? 'tab__content--active' : ''; ?>"
+                data-content="tab-<?= $tabId; ?>"
+            >
+                <?= $html; ?>
+            </div>
+            <?php $tabId++; ?>
+        <?php endforeach; ?>
+    </div>
+<?php endif; ?>

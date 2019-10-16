@@ -1,0 +1,148 @@
+<?xml version="1.0"?>
+<page
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd"
+>
+    <body>
+        <referenceContainer name="main.content" htmlClass="page-main" />
+        <referenceContainer name="page.messages" htmlClass="page messages container" />
+
+        <container name="product.container" htmlClass="product-view container" htmlTag="div">
+            <container name="product.wrapper" htmlClass="product-view__wrapper product-info-main" htmlTag="section">
+                <container name="product.column.left" htmlClass="product-view__gallery" htmlTag="div">
+                    <referenceContainer name="product.info.media" htmlClass="gallery galler--vertical" />
+                </container>
+
+                <container
+                    name="product.column.right.upper"
+                    htmlClass="product-view__main-details"
+                    htmlTag="div"
+                >
+                    <referenceBlock name="page.main.title">
+                        <arguments>
+                            <argument name="css_class" xsi:type="string">product-view__title</argument>
+                        </arguments>
+                    </referenceBlock>
+
+                    <referenceBlock name="product.info.sku" template="Magento_Catalog::product/view/getSku.phtml" />
+
+                    <referenceContainer name="product.info.price" htmlClass="product-view__price" />
+
+                    <container name="product.column.right.review" htmlClass="product-view__rating" htmlTag="div">
+                        <referenceBlock name="product.info.review" />
+                    </container>
+                </container>
+
+                <referenceContainer name="product.info.main" htmlClass="product-view__secondary-details">
+                    <referenceBlock name="product.info.downloadable.samples" />
+
+                    <referenceBlock
+                        name="product.info.overview"
+                        template="Magento_Catalog::product/view/shortDescription.phtml"
+                    />
+
+                    <referenceBlock name="product.info">
+                        <container
+                            name="product.column.right.options"
+                            htmlClass="product-view__options"
+                            htmlTag="div"
+                        />
+
+                        <container
+                            name="product.column.right.actions"
+                            htmlClass="product-view__main-actions"
+                            htmlTag="div"
+                        >
+                            <block
+                                class="Magento\Catalog\Block\Product\View"
+                                name="product.column.right.qty"
+                                template="Magento_Catalog::product/view/qty.phtml"
+                            />
+
+                            <container
+                                name="product.column.right.extra.actions"
+                                htmlClass="product-view__action-elements"
+                                htmlTag="div"
+                            >
+                                <referenceBlock name="product.info.addtocart"/>
+
+                                <referenceContainer
+                                    name="product.info.social"
+                                    htmlClass="product-view__extra-actions"
+                                    htmlTag="div"
+                                />
+                            </container>
+                    </container>
+                    </referenceBlock>
+
+                    <block
+                        class="Magento\Catalog\Block\Product\View"
+                        name="product.column.right.benefits"
+                        template="Magento_Catalog::product/view/benefits.phtml"
+                    />
+                </referenceContainer>
+            </container>
+
+            <container name="product.tabs" htmlClass="product-view__tabs" htmlTag="div">
+                <referenceBlock name="reviews.tab">
+                    <block
+                        class="Magento\Catalog\Block\Product\View"
+                        name="product.review.summary"
+                        template="Magento_Catalog::product/view/review.phtml"
+                        before="-"
+                    />
+                    <block
+                        class="Magento\Review\Block\Product\View\ListView"
+                        name="product.tabs.reviews"
+                        template="Magento_Review::product/view/list.phtml"
+                    />
+                    <block
+                        class="Magento\Theme\Block\Html\Pager"
+                        name="product_review_list.toolbar"
+                    />
+
+                </referenceBlock>
+            </container>
+
+            <container
+                name="product.cms.content"
+                htmlTag="div"
+                htmlClass="additional-content product-view__additional-content"
+            >
+                <block
+                    class="Magento\Catalog\Block\Product\View"
+                    name="product.cms.content.text"
+                    template="Magento_Catalog::product/view/content.phtml"
+                />
+            </container>
+        </container>
+
+        <!--Moved blocks-->
+        <move element="product.container" destination="content" before="-" />
+        <move element="product.info.media" destination="product.column.left" />
+
+        <move element="page.main.title" destination="product.column.right.upper" before="-" />
+        <move element="product.info.sku" destination="product.column.right.upper" after="page.main.title" />
+        <move element="product.info.price" destination="product.column.right.upper" after="page.main.title" />
+        <move element="product.info.type" destination="product.column.right.upper" after="product.info.price" />
+        <move element="product.info.review" destination="product.column.right.review" />
+
+        <move element="product.info.options.wrapper" destination="product.column.right.options" />
+        <move element="product.info.main" destination="product.wrapper"/>
+        <move element="product.info" destination="product.info.main" after="product.info.overview" />
+        <move element="product.info.addtocart" destination="product.column.right.extra.actions" />
+        <move element="product.info.social" destination="product.column.right.extra.actions" />
+        <move element="view.addto.wishlist" destination="product.info.social" before="-" />
+        <move element="view.addto.compare" destination="product.info.social" before="product.info.mailto" />
+
+        <move element="product.info.details" destination="product.tabs" />
+        <move element="product.review.form" destination="reviews.tab" after="product_review_list.toolbar" />
+
+        <move element="content.aside" destination="product.container" />
+
+        <move element="product.cms.content" destination="product.container" after="content.aside" />
+
+        <!-- Removed blocks -->
+        <referenceBlock name="product.info.addto" remove="true" />
+    </body>
+</page>

@@ -1,0 +1,41 @@
+<?php
+/** @var $block \Magento\Catalog\Block\Product\View */
+?>
+
+<?php $_product = $block->getProduct(); ?>
+<?php $buttonTitle = __('Add to Cart'); ?>
+
+<?php if ($_product->isSaleable()): ?>
+    <div class="product-view__add-to-cart">
+        <button
+            type="submit"
+            title="<?= $buttonTitle ?>"
+            class="button product-view__add-to-cart-btn action tocart"
+            id="product-addtocart-button"
+        >
+            <span><?= $buttonTitle ?></span>
+        </button>
+
+        <?= $block->getChildHtml('', true) ?>
+    </div>
+<?php endif; ?>
+
+<?php if ($block->isRedirectToCartEnabled()) : ?>
+    <script type="text/x-magento-init">
+        {
+            "#product_addtocart_form": {
+                "Magento_Catalog/product/view/validation": {
+                    "radioCheckboxClosest": ".nested"
+                }
+            }
+        }
+    </script>
+<?php else: ?>
+    <script type="text/x-magento-init">
+        {
+            "#product_addtocart_form": {
+                "Magento_Catalog/js/validate-product": {}
+            }
+        }
+    </script>
+<?php endif; ?>
