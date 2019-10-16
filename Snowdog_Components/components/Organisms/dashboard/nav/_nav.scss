@@ -1,0 +1,130 @@
+@import 'nav-variables';
+
+.dashboard-nav {
+    margin: $dashboard-nav__margin;
+
+    &__mobile {
+        display: block;
+        position: relative;
+        border: $dashboard-nav__mobile-border;
+        border-width: $dashboard-nav__mobile-border-width;
+        padding: $dashboard-nav__mobile-padding;
+        font-weight: $dashboard-nav__mobile-font-weight;
+        cursor: pointer;
+
+        @include mq($screen-l) {
+            display: none;
+        }
+
+        @extend %arrow;
+
+        &--active {
+            @extend %arrow-active;
+        }
+    }
+
+    &__content {
+        display: none;
+
+        &--visible {
+            display: block;
+        }
+
+        @include mq($screen-l) {
+            display: block;
+        }
+    }
+
+    &__item {
+        padding: $dashboard-nav__item-padding;
+        transition: $dashboard-nav__item-transition;
+    }
+
+    &__item > a,
+    &__link {
+        display: block;
+        padding: $dashboard-nav__link-padding;
+        text-decoration: $dashboard-nav__link-text-decoration;
+    }
+
+    &__actions {
+        display: flex;
+        justify-content: center;
+        margin: $dashboard-nav__actions-margin;
+
+        @include mq($screen-l) {
+            margin: $dashboard-nav__actions-margin\@large;
+        }
+    }
+
+    &__button {
+        width: 100%;
+
+        @include mq($screen-m) {
+            width: auto;
+            min-width: $dashboard-nav__button-min-width\@medium;
+        }
+
+        @include mq($screen-l) {
+            width: 100%;
+            min-width: auto;
+        }
+    }
+
+    &__section {
+        display: none;
+        margin: $dashboard-nav__section-margin;
+
+        @include mq($screen-l) {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    &__section-title {
+        padding: $dashboard-nav__section-title-padding;
+        border: $dashboard-nav__section-title-border;
+        border-width: $dashboard-nav__section-title-border-width;
+        font-family: $dashboard-nav__section-title-font-family;
+        font-size: $dashboard-nav__section-title-font-size;
+        letter-spacing: $dashboard-nav__section-title-letter-spacing;
+    }
+
+    &__section-info {
+        margin: $dashboard-nav__section-info-margin;
+    }
+
+    // This class is changing by Magento
+    .current {
+        position: relative;
+        background: $gray-light;
+
+        .dashboard-nav__link {
+            font-weight: $font-weight-bold;
+
+            &:hover {
+                color: initial;
+            }
+        }
+    }
+
+    // This clases to disabled links module
+    .nav.item {
+        @extend .list__item;
+        @extend .dashboard-nav__item;
+    }
+
+    .nav.item.current {
+        @extend .current;
+    }
+
+    .nav.item.current {
+        & > a {
+            color: $red;
+        }
+    }
+
+    .nav.item > a {
+        @extend .link--invert;
+    }
+}
