@@ -1,0 +1,73 @@
+<?php /** @var \Snowdog\Menu\Block\Menu $block */ ?>
+<?php if ($block->getMenu()): ?>
+    <?php
+        $menuClass = $block->getMenu()->getCssClass();
+        $parentNode = $block->getParentNode();
+        $level = $block->getLevel();
+
+        $wrapperAttributes = [
+            'class' => [
+                $menuClass . '__content',
+            ],
+            'id' => 'dropdown-' . $parentNode->getNodeId()
+        ];
+    ?>
+    <?php if($level > 1): ?>
+        <ul class="list">
+            <?php foreach ($block->getSubmenuNodes() as $node): ?>
+                <?php
+                    $childrenLevel = $node->getLevel() + 1;
+                    $children = $this->getNodes($childrenLevel, $node);
+                    $node->setIsParent((bool) $children);
+
+                    $nodeAttributes = [
+                        'class' => [
+                            'list__item',
+                            'list__column-item'
+                        ]
+                    ];
+
+                    if ($node->getClasses()) {
+                        $nodeAttributes['class'][] = $node->getClasses();
+                    }
+                ?>
+                <li <?= $block->buildAttrFromArray($nodeAttributes) ?>>
+                    <?= $block->renderMenuNode($node) ?>
+                    <?= $block->renderSubmenu($children, $node, $childrenLevel) ?>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    <?php else: ?>
+        <div <?= $block->buildAttrFromArray($wrapperAttributes) ?> data-level="<?= $level ?>">
+            <ul
+                class="
+                    list
+                    list__columns
+                    footer__links-list
+                "
+            >
+                <?php foreach ($block->getSubmenuNodes() as $node): ?>
+                    <?php
+                        $childrenLevel = $node->getLevel() + 1;
+                        $children = $this->getNodes($childrenLevel, $node);
+                        $node->setIsParent((bool) $children);
+
+                        $nodeAttributes = [
+                            'class' => [
+                                'list__item'
+                            ]
+                        ];
+
+                        if ($node->getClasses()) {
+                            $nodeAttributes['class'][] = $node->getClasses();
+                        }
+                    ?>
+                    <li <?= $block->buildAttrFromArray($nodeAttributes) ?>>
+                        <?= $block->renderMenuNode($node) ?>
+                        <?= $block->renderSubmenu($children, $node, $childrenLevel) ?>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    <?php endif; ?>
+<?php endif; ?>

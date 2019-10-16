@@ -1,0 +1,30 @@
+<?php if ($crumbs && is_array($crumbs)): ?>
+    <nav
+        class="breadcrumbs container"
+        role="navigation"
+        aria-label="<?= $block->escapeHtml(__('Breadcrumbs navigation')) ?>"
+    >
+        <ol class="breadcrumbs__list">
+            <?php foreach ($crumbs as $crumbName => $crumbInfo): ?>
+                <?php if ($crumbInfo['link']): ?>
+                    <li class="breadcrumbs__item">
+                        <a
+                            href="<?= /* @escapeNotVerified */ $crumbInfo['link'] ?>"
+                            class="breadcrumbs__link link--invert"
+                            title="<?= $block->escapeHtml($crumbInfo['title']) ?>"
+                        >
+                            <?= $block->escapeHtml($crumbInfo['label']) ?>
+                        </a>
+                    </li>
+                <?php else: ?>
+                    <li
+                        class="breadcrumbs__item"
+                        aria-current="true"
+                    >
+                        <?= $block->escapeHtml($crumbInfo['label']) ?>
+                    </li>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </ol>
+    </nav>
+<?php endif; ?>

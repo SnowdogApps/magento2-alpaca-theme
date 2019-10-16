@@ -1,0 +1,19 @@
+<?php /** @var \Snowdog\Menu\Block\NodeType\Wrapper $block */ ?>
+<?php
+$attributes = [];
+$class = $block->getMenuClass();
+$level = $block->getLevel();
+if ($block->getIsViewAllLink()) {
+    $classLink = $class . '__inner-link';
+} else {
+    $classLink = $block->getIsRoot() ? $class . '__link' : $class . '__inner-link';
+    if ($block->getId()) {
+        $attributes[] = 'data-menu="menu-' . $block->getId() . '"';
+    }
+}
+$attributes[] = 'class="' . $classLink . '"';
+
+?>
+<?php if(!$level > 1): ?>
+    <div <?= implode(' ', $attributes) ?>></div>
+<?php endif; ?>

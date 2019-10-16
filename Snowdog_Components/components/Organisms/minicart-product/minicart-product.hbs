@@ -2,19 +2,38 @@
     <div class="minicart-product__image">
         {{ render '@image' productImage }}
     </div>
-    <div class="minicart-product__info">
-        <h3 class="minicart-product__name">
-            <a class="link link--invert minicart-product__link" href="#">
-                {{ productName }}
-            </a>
-        </h3>
-        {{#if configurable }}
-            <!-- render '@dropdown-list' attributes -->
-        {{/if}}
+    <div class="minicart-product__data">
+        <div class="minicart-product__info">
+            <h3 class="minicart-product__name">
+                <a
+                    class="
+                        link
+                        link--invert
+                        minicart-product__link
+                    "
+                    href="#"
+                >
+                    {{ productName }}
+                </a>
+            </h3>
+
+            {{#if configurable }}
+                {{ render '@list--description' attributes merge="true" }}
+            {{/if}}
+
+            <div class="minicart-product__qty">
+                {{ render '@input' productQty }}
+                {{#if updateQty }}
+                    {{ render '@button' updateQty }}
+                {{/if}}
+            </div>
+        </div>
+
         <div class="minicart-product__bottom">
             <div class="minicart-product__price">
-                {{ productPrice }}
+                {{ render '@price--with-special-price' }}
             </div>
+
             <div class="minicart-product__actions">
                 {{ render '@button--icon' editIcon }}
                 {{ render '@button--icon' removeIcon }}
