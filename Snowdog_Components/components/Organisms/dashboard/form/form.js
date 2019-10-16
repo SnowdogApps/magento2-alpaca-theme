@@ -1,74 +1,80 @@
-'use strict'
+// this script is only for for components, it mirrors the dashboard form change password behavior,
+// we don't use it in Theme implementation
+'use strict';
 
-const checkboxPassword = document.querySelector('input#changePassword'),
-      checkboxEmail    = document.querySelector('input#changeEmail'),
-      confirmPassword  = document.querySelector('.confirmPassword'),
-      email            = document.querySelector('.email'),
-      fields           = document.querySelector('.dashboard-form__fields'),
-      newPassword      = document.querySelector('.newPassword'),
-      password         = document.querySelector('.password'),
-      title            = document.querySelector('.dashboard-form__title-form'),
-      toggledClass     = 'dashboard-form--hidden';
+class DashboardForm {
+  constructor(checkboxPassword) {
+    this.checkboxPassword = checkboxPassword;
+    this.checkboxEmail    = document.querySelector('input#changeEmail'),
+    this.confirmPassword  = document.querySelector('.confirmPassword'),
+    this.email            = document.querySelector('.email'),
+    this.fields           = document.querySelector('.dashboard-form__fields'),
+    this.newPassword      = document.querySelector('.newPassword'),
+    this.password         = document.querySelector('.password'),
+    this.title            = document.querySelector('.dashboard-form__title-form'),
+    this.toggledClass     = 'dashboard-form--hidden';
 
-if (checkboxEmail) {
-  checkboxEmail.addEventListener('change', () => {
-    if (checkboxPassword.checked && checkboxEmail.checked) {
-      title.innerHTML = 'Change Email and Password';
+    if (this.checkboxEmail) {
+      this.checkboxEmail.addEventListener('change', () => {
+        if (this.checkboxPassword.checked && this.checkboxEmail.checked) {
+          this.title.innerHTML = 'Change Email and Password';
 
-      toggleElements(4);
+          this.toggleElements(4);
+        }
+        else if (this.checkboxPassword.checked && !this.checkboxEmail.checked) {
+          this.title.innerHTML = 'Change Password';
+
+          this.toggleElements(1);
+        }
+        else {
+          this.fields.classList.toggle(this.toggledClass);
+          this.title.innerHTML = 'Change Email';
+
+          this.toggleElements(2);
+        }
+      });
     }
-    else if (checkboxPassword.checked && !checkboxEmail.checked) {
-      title.innerHTML = 'Change Password';
+    if (this.checkboxPassword) {
+      this.checkboxPassword.addEventListener('change', () => {
+        if (this.checkboxEmail.checked && this.checkboxPassword.checked) {
+          this.title.innerHTML = 'Change Email and Password';
 
-      toggleElements(1);
+          this.toggleElements(4);
+        }
+        else if (this.checkboxEmail.checked && !this.checkboxPassword.checked) {
+          this.title.innerHTML = 'Change Email';
+
+          this.toggleElements(2);
+        }
+        else {
+          this.fields.classList.toggle(this.toggledClass);
+          this.title.innerHTML = 'Change Password';
+
+          this.toggleElements(1);
+        }
+      });
     }
-    else {
-      fields.classList.toggle(toggledClass);
-      title.innerHTML = 'Change Email';
-
-      toggleElements(2);
-    }
-  });
-}
-
-if (checkboxPassword) {
-  checkboxPassword.addEventListener('change', () => {
-    if (checkboxEmail.checked && checkboxPassword.checked) {
-      title.innerHTML = 'Change Email and Password';
-
-      toggleElements(4);
-    }
-    else if (checkboxEmail.checked && !checkboxPassword.checked) {
-      title.innerHTML = 'Change Email';
-
-      toggleElements(2);
-    }
-    else {
-      fields.classList.toggle(toggledClass);
-      title.innerHTML = 'Change Password';
-
-      toggleElements(1);
-    }
-  });
-}
-
-function toggleElements(elements) {
-  if (elements === 4) {
-    email.classList.remove(toggledClass);
-    password.classList.remove(toggledClass);
-    newPassword.classList.remove(toggledClass);
-    confirmPassword.classList.remove(toggledClass);
   }
-  else if (elements === 2) {
-    email.classList.remove(toggledClass);
-    password.classList.remove(toggledClass);
-    newPassword.classList.add(toggledClass);
-    confirmPassword.classList.add(toggledClass);
-  }
-  else if (elements === 1) {
-    email.classList.add(toggledClass);
-    password.classList.remove(toggledClass);
-    newPassword.classList.remove(toggledClass);
-    confirmPassword.classList.remove(toggledClass);
+
+  toggleElements(elements) {
+    if (elements === 4) {
+      this.email.classList.remove(this.toggledClass);
+      this.password.classList.remove(this.toggledClass);
+      this.newPassword.classList.remove(this.toggledClass);
+      this.confirmPassword.classList.remove(this.toggledClass);
+    }
+    else if (elements === 2) {
+      this.email.classList.remove(this.toggledClass);
+      this.password.classList.remove(this.toggledClass);
+      this.newPassword.classList.add(this.toggledClass);
+      this.confirmPassword.classList.add(this.toggledClass);
+    }
+    else if (elements === 1) {
+      this.email.classList.add(this.toggledClass);
+      this.password.classList.remove(this.toggledClass);
+      this.newPassword.classList.remove(this.toggledClass);
+      this.confirmPassword.classList.remove(this.toggledClass);
+    }
   }
 }
+new DashboardForm(document.querySelector('input#changePassword'));

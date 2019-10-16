@@ -2,6 +2,7 @@ module.exports = {
   label: 'Form',
   name: 'dashboard-form',
   context: {
+    script: true,
     title: 'Account Information',
     titleClass: 'margin-bottom-m',
     contentClass: 'margin-bottom-sm',

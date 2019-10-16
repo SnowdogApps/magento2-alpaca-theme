@@ -163,6 +163,7 @@ module.exports = {
       title: 'Add/Edit',
       context: {
         contactInfo: {
+          script: false,
           title: 'Contact Information',
           class: 'col-sm-6 dashboard__form',
           fields: [
@@ -239,6 +240,7 @@ module.exports = {
           ]
         },
         address: {
+          script: false,
           title: 'Address',
           class: 'col-sm-6 dashboard__form',
           fields: [
