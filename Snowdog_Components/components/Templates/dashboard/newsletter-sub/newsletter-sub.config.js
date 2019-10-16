@@ -1,5 +1,8 @@
 module.exports = {
   context: {
+    class: 'margin-vc-m',
+    sidebarClass: 'dashboard__sidebar margin-top-sl',
+    contentClass: 'dashboard__content margin-top-sl',
     breadcrumbs: {
       categories: [
         {
@@ -24,7 +27,7 @@ module.exports = {
       checkboxes: [
         {
           checkbox: {
-            class: 'dashboard-form__divider',
+            class: 'margin-bottom-sm',
             id: 'subscription',
             label: {
               text: 'General Subscription'

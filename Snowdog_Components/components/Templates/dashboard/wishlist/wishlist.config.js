@@ -1,5 +1,8 @@
 module.exports = {
   context: {
+    class: 'margin-vc-m',
+    sidebarClass: 'dashboard__sidebar margin-top-sl',
+    contentClass: 'dashboard__content margin-top-sl',
     breadcrumbs: {
       categories: [
         {
@@ -36,11 +39,15 @@ module.exports = {
           }
         },
         textarea: {
-          class: 'wishlist__comment',
+          class: 'margin-0',
           field: {
             id: 'comment',
             name: 'comment',
             placeholder: 'Comment'
+          },
+          label: {
+            text: 'Comment',
+            hidden: true
           }
         },
         qty: {
@@ -59,21 +66,21 @@ module.exports = {
         editIcon: {
           tag: 'a',
           attributes: 'href="#" aria-label="Edit product parameters"',
-          class: 'button--icon',
+          class: '',
           icon: {
             id: 'edit',
             title: 'Edit',
-            class: 'button__icon'
+            class: ''
           }
         },
         removeIcon: {
           tag: 'button',
           attributes: 'type="button" aria-label="Remove product from wishlist"',
-          class: 'button--icon wishlist__remove',
+          class: 'margin-left-xs',
           icon: {
             id: 'remove',
             title: 'Remove',
-            class: 'button__icon '
+            class: ' '
           }
         },
         addToCart: {
@@ -98,11 +105,15 @@ module.exports = {
           }
         },
         textarea: {
-          class: 'wishlist__comment',
+          class: 'margin-0',
           field: {
-            id: 'comment',
+            id: 'comment2',
             name: 'comment',
             placeholder: 'Comment'
+          },
+          label: {
+            text: 'Comment',
+            hidden: true
           }
         },
         qty: {
@@ -112,7 +123,7 @@ module.exports = {
             class: 'wishlist__label'
           },
           field: {
-            id: 'qty',
+            id: 'qty2',
             name: 'qty',
             type: 'number',
             class: 'wishlist__field-qty'
@@ -121,21 +132,21 @@ module.exports = {
         editIcon: {
           tag: 'a',
           attributes: 'href="#" aria-label="Edit product parameters"',
-          class: 'button--icon',
+          class: '',
           icon: {
             id: 'edit',
             title: 'Edit',
-            class: 'button__icon'
+            class: ''
           }
         },
         removeIcon: {
           tag: 'button',
           attributes: 'href="#" aria-label="Remove product from wishlist"',
-          class: 'button--icon wishlist__remove',
+          class: 'margin-left-xs',
           icon: {
             id: 'remove',
             title: 'Remove',
-            class: 'button__icon'
+            class: ''
           }
         },
         addToCart: {

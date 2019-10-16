@@ -1,5 +1,8 @@
 module.exports = {
   context: {
+    class: 'margin-vc-m',
+    sidebarClass: 'dashboard__sidebar margin-top-sl',
+    contentClass: 'dashboard__content margin-top-sl',
     breadcrumbs: {
       categories: [
         {
@@ -21,7 +24,7 @@ module.exports = {
     },
     reviews: {
       title: 'My Product Reviews',
-      class: 'dashboard__item',
+      class: 'margin-bottom-l',
       table: {
         mainTags: [
           {
@@ -136,6 +139,7 @@ module.exports = {
     {
       name: 'details',
       context: {
+        detailsClass: 'margin-bottom-m',
         title: {
           tag: 'h2',
           class: 'heading--fourth-level dashboard__title',

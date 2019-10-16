@@ -4,33 +4,45 @@ module.exports = {
   context: {
     title: 'Account Information',
     titleClass: 'margin-bottom-m',
+    contentClass: 'margin-bottom-sm',
+    fieldsClass: 'margin-bottom-sm',
     fields: [
       {
         input: {
-          class: 'dashboard-form__divider',
+          class: 'margin-bottom-sm',
           field: {
             id: 'firstName',
             name: 'firstName',
             placeholder: 'Firist name'
+          },
+          label: {
+            attributes: '',
+            text: 'Firist name'
           }
         }
       },
       {
         input: {
-          class: 'dashboard-form__divider',
+          class: 'margin-bottom-sm',
           field: {
             id: 'secondName',
             name: 'secondName',
             placeholder: 'Second name'
+          },
+          label: {
+            attributes: '',
+            text: 'Second name'
           }
         }
       }
     ],
     formTitle: 'Change',
+    formTitleClass: 'margin-bottom-sm',
     checkboxes: [
       {
         checkbox: {
           id: 'changeEmail',
+          name: 'changeEmail',
           label: {
             text: 'Change Email'
           }
@@ -38,8 +50,9 @@ module.exports = {
       },
       {
         checkbox: {
-          class: 'dashboard-form__divider',
+          class: 'margin-bottom-sm',
           id: 'changePassword',
+          name: 'changePassword',
           label: {
             text: 'Change Password'
           }
@@ -49,7 +62,7 @@ module.exports = {
     hiddenFields: [
       {
         hiddenField: {
-          class: 'dashboard-form__divider dashboard-form--hidden email',
+          class: 'margin-bottom-sm dashboard-form--hidden email',
           label: {
             text: 'Email',
           },
@@ -61,37 +74,43 @@ module.exports = {
       },
       {
         hiddenField: {
-          class: 'dashboard-form__divider dashboard-form--hidden password',
+          password: true,
+          class: 'margin-bottom-sm dashboard-form--hidden password',
           label: {
-            text: 'Current Passwords',
+            text: 'Current Password',
           },
           field: {
             id: 'password',
-            name: 'password'
+            name: 'password',
+            placeholder: 'Current Password'
           }
         }
       },
       {
         hiddenField: {
-          class: 'dashboard-form__divider dashboard-form--hidden newPassword',
+          password: true,
+          class: 'margin-bottom-sm dashboard-form--hidden newPassword',
           label: {
             text: 'New Password'
           },
           field: {
             id: 'newPassword',
-            name: 'newPassword'
+            name: 'newPassword',
+            placeholder: 'New Password'
           }
         }
       },
       {
         hiddenField: {
-          class: 'dashboard-form__divider dashboard-form--hidden confirmPassword',
+          password: true,
+          class: 'margin-bottom-sm dashboard-form--hidden confirmPassword',
           label: {
             text: 'Confirm New Password'
           },
           field: {
             id: 'confirmPassword',
-            name: 'confirmPassword'
+            name: 'confirmPassword',
+            placeholder: 'Confirm New Password'
           }
         }
       }

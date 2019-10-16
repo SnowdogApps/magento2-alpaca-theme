@@ -6,45 +6,48 @@
     <fieldset
         class="
             fieldset
-            dashboard-form__divider
             {{ contentClass }}
         "
     >
         {{#each fields }}
-            {{> '@input' input }}
+            {{ render '@input' input }}
         {{/each}}
 
         {{#each textareas }}
-            {{> '@input--textarea' textarea }}
+            {{ render '@input--textarea' textarea }}
         {{/each}}
 
         {{#each selects }}
-            {{> '@select' select }}
+            {{ render '@select' select }}
         {{/each}}
 
         {{#each checkboxes }}
-            {{> '@checkbox' checkbox }}
+            {{ render '@checkbox' checkbox }}
         {{/each}}
 
         <div
             class="
-                dashboard-form__divider
                 dashboard-form__fields
                 dashboard-form--hidden
+                {{ fieldsClass }}
              "
         >
             <h2
                 class="
                     heading
                     dashboard-form__title-form
-                    dashboard-form__divider
+                    {{ formTitleClass }}
                 "
             >
                 {{ formTitle }}
             </h2>
 
             {{#each hiddenFields}}
-                {{> '@input' hiddenField }}
+                {{#if hiddenField.password }}
+                    {{ render '@input--password' hiddenField merge=true }}
+                {{else}}
+                    {{ render '@input' hiddenField }}
+                {{/if}}
             {{/each}}
         </div>
     </fieldset>

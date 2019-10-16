@@ -4,7 +4,7 @@ module.exports = {
   context: {
     actualPage: 'Account Dashboard',
     list: {
-      class: 'dashboard-nav__list',
+      class: '',
       listTag: 'ul',
       elementTag: 'li',
       elements: [

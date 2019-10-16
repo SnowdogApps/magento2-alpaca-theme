@@ -1,5 +1,8 @@
 module.exports = {
   context: {
+    class: 'margin-vc-m',
+    sidebarClass: 'dashboard__sidebar margin-top-sl',
+    contentClass: 'dashboard__content margin-top-sl',
     breadcrumbs: {
       categories: [
         {
@@ -165,51 +168,71 @@ module.exports = {
           fields: [
             {
               input: {
-                class: 'dashboard__input',
+                class: 'margin-bottom-l',
                 field: {
                   id: 'firstName',
                   name: 'firstName',
                   placeholder: 'First Name'
+                },
+                label: {
+                  text: 'First name',
+                  hidden: true
                 }
               }
             },
             {
               input: {
-                class: 'dashboard__input',
+                class: 'margin-bottom-l',
                 field: {
                   id: 'lastName',
                   name: 'lastName',
                   placeholder: 'Last Name'
+                },
+                label: {
+                  text: 'Last name',
+                  hidden: true
                 }
               }
             },
             {
               input: {
-                class: 'dashboard__input',
+                class: 'margin-bottom-l',
                 field: {
                   id: 'company',
                   name: 'company',
                   placeholder: 'Company'
+                },
+                label: {
+                  text: 'Company',
+                  hidden: true
                 }
               }
             },
             {
               input: {
-                class: 'dashboard__input',
+                class: 'margin-bottom-l',
                 field: {
                   id: 'phoneNumber',
                   name: 'phoneNumber',
                   placeholder: 'Phone Number'
+                },
+                label: {
+                  text: 'Phone Number',
+                  hidden: true
                 }
               }
             },
             {
               input: {
-                class: 'dashboard__input',
+                class: 'margin-bottom-l',
                 field: {
                   id: 'fax',
                   name: 'fax',
                   placeholder: 'Fax'
+                },
+                label: {
+                  text: 'Fax',
+                  hidden: true
                 }
               }
             }
@@ -221,41 +244,57 @@ module.exports = {
           fields: [
             {
               input: {
-                class: 'dashboard__input',
+                class: 'margin-bottom-l',
                 field: {
                   id: 'address',
                   name: 'address',
                   placeholder: 'Street Address'
+                },
+                label: {
+                  text: 'Street Address',
+                  hidden: true
                 }
               }
             },
             {
               input: {
-                class: 'dashboard__input',
+                class: 'margin-bottom-l',
                 field: {
                   id: 'address2',
                   name: 'address2',
                   placeholder: 'Street Address vol.2'
+                },
+                label: {
+                  text: 'Street Address vol.2',
+                  hidden: true
                 }
               }
             },
             {
               input: {
-                class: 'dashboard__input',
+                class: 'margin-bottom-l',
                 field: {
                   id: 'city',
                   name: 'city',
                   placeholder: 'City'
+                },
+                label: {
+                  text: 'City',
+                  hidden: true
                 }
               }
             },
             {
               input: {
-                class: 'dashboard__input',
+                class: 'margin-bottom-l',
                 field: {
                   id: 'zipCode',
                   name: 'zipCode',
                   placeholder: 'Zip/Postal Code'
+                },
+                label: {
+                  text: 'Zip/Postal Code',
+                  hidden: true
                 }
               }
             }
@@ -263,7 +302,7 @@ module.exports = {
           selects: [
             {
               select: {
-                class: 'dashboard__address dashboard-form__select',
+                class: 'dashboard__address margin-bottom-sm',
                 label: {
                   text: 'State/Province',
                 },
@@ -285,7 +324,7 @@ module.exports = {
             },
             {
               select: {
-                class: 'dashboard__address dashboard-form__select',
+                class: 'dashboard__address margin-bottom-sm',
                 label: {
                   text: 'Country'
                 },
@@ -311,6 +350,7 @@ module.exports = {
               checkbox: {
                 class: '',
                 id: 'defaultBillingAddress',
+                name: 'defaultBillingAddress',
                 label: {
                   text: 'Use as my default billing address'
                 }
@@ -320,6 +360,7 @@ module.exports = {
               checkbox: {
                 class: '',
                 id: 'defaultShippingAddress',
+                name: 'defaultShippingAddress',
                 label: {
                   text: 'Use as my default shipping address'
                 }

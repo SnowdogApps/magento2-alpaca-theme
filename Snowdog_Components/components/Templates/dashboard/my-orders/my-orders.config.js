@@ -1,5 +1,8 @@
 module.exports = {
   context: {
+    class: 'margin-vc-m',
+    sidebarClass: 'dashboard__sidebar margin-top-sl',
+    contentClass: 'dashboard__content margin-top-sl',
     breadcrumbs: {
       categories: [
         {
@@ -49,9 +52,10 @@ module.exports = {
       name: 'details',
       context: {
         orderNumber: 'Order #0000003',
+        orderNumberClass: 'margin-right-l',
         orderStatus: 'Pending',
         orderActions: {
-          class: 'dashboard__item',
+          class: 'margin-bottom-l',
           sides: [
             {
               action: [
@@ -559,11 +563,15 @@ module.exports = {
           ]
         },
         contactEmailAddress: {
-          class: 'dashboard__item',
+          class: 'margin-bottom-l',
           field: {
             id: 'email',
             name: 'email',
             placeholder: 'Contact Email Address'
+          },
+          label: {
+            text: 'Contact Email Address',
+            hidden: true
           }
         },
         form: {
@@ -572,7 +580,7 @@ module.exports = {
           fields: [
             {
               input: {
-                class: 'dashboard-form__divider col-sm-6',
+                class: 'margin-bottom-sm col-sm-6',
                 label: {
                   text: 'Quantity to Return'
                 },
@@ -587,7 +595,7 @@ module.exports = {
           selects: [
             {
               select: {
-                class: 'dashboard__address col-sm-6 dashboard-form__select',
+                class: 'dashboard__address col-sm-6 margin-bottom-sm',
                 label: {
                   text: 'Item',
                 },
@@ -601,7 +609,7 @@ module.exports = {
             },
             {
               select: {
-                class: 'dashboard__address col-sm-6 dashboard-form__select',
+                class: 'dashboard__address col-sm-6 margin-bottom-sm',
                 label: {
                   text: 'Resolution'
                 },
@@ -623,7 +631,7 @@ module.exports = {
             },
             {
               select: {
-                class: 'dashboard__adddress col-sm-6 dashboard-form__select',
+                class: 'dashboard__adddress col-sm-6 margin-bottom-sm',
                 label: {
                   text: 'Item Condition'
                 },
@@ -668,15 +676,19 @@ module.exports = {
           ]
         },
         comments: {
-          class: 'dashboard__item',
+          class: 'margin-bottom-l',
           field: {
             id: 'comments',
             name: 'comments',
             placeholder: 'Comments'
+          },
+          label: {
+            text: 'Comments',
+            hidden: true
           }
         },
         addReturnItem: {
-          class: 'dashboard__item',
+          class: 'margin-bottom-l',
           sides: [
             {
               action: [

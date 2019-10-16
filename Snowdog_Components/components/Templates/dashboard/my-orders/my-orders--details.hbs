@@ -3,17 +3,39 @@
 
     <main
         id="maincontent"
-        class="dashboard container"
+        class="
+            dashboard
+            container
+            {{ class }}
+        "
     >
         {{ render '@breadcrumbs' breadcrumbs }}
         <div class="row">
-            <div class="col-xs-12 col-lg-3 dashboard__sidebar">
+            <div
+                class="
+                    col-xs-12
+                    col-lg-3
+                    {{ sidebarClass }}
+                "
+            >
                 {{ render '@dashboard-nav' }}
             </div>
-            <div class="col-xs-12 col-lg-9 dashboard__content">
+            <div
+                class="
+                    col-xs-12
+                    col-lg-9
+                    {{ contentClass }}
+                "
+            >
                 {{ render '@heading' heading }}
                 <div class="dashboard__handler">
-                    <h2 class="heading dashboard__title--wrapped">
+                    <h2
+                        class="
+                            heading
+                            dashboard__title--wrapped
+                            {{ orderNumberClass }}
+                        "
+                    >
                         {{ orderNumber }}
                     </h2>
 
@@ -22,23 +44,23 @@
                     </span>
                 </div>
 
-                {{> '@action' orderActions }}
+                {{ render '@actions-group' orderActions }}
 
-                {{> '@dashboard-table' itemsOrdered }}
+                {{ render '@dashboard-table' itemsOrdered }}
 
-                {{> '@dashboard-table' invoice }}
+                {{ render '@dashboard-table' invoice }}
 
-                {{> '@dashboard-table' orderShipment }}
+                {{ render '@dashboard-table' orderShipment }}
 
                 <h2 class="heading dashboard__title">
                     {{ orderInfoTitle }}
                 </h2>
 
                 <div class="row">
-                    {{> '@information' orderInfo }}
+                    {{ render '@information' orderInfo }}
                 </div>
 
-                {{> '@action' action }}
+                {{ render '@actions-group' action }}
             </div>
         </div>
     </main>
