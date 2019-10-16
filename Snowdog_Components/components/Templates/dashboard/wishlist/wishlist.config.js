@@ -59,7 +59,7 @@ module.exports = {
         editIcon: {
           tag: 'a',
           attributes: 'href="#" aria-label="Edit product parameters"',
-          class: 'button--icon no-pseudoelements',
+          class: 'button--icon',
           icon: {
             id: 'edit',
             title: 'Edit',
@@ -69,7 +69,7 @@ module.exports = {
         removeIcon: {
           tag: 'button',
           attributes: 'type="button" aria-label="Remove product from wishlist"',
-          class: 'button--icon wishlist__remove no-pseudoelements',
+          class: 'button--icon wishlist__remove',
           icon: {
             id: 'remove',
             title: 'Remove',
@@ -121,7 +121,7 @@ module.exports = {
         editIcon: {
           tag: 'a',
           attributes: 'href="#" aria-label="Edit product parameters"',
-          class: 'button--icon no-pseudoelements',
+          class: 'button--icon',
           icon: {
             id: 'edit',
             title: 'Edit',
@@ -131,7 +131,7 @@ module.exports = {
         removeIcon: {
           tag: 'button',
           attributes: 'href="#" aria-label="Remove product from wishlist"',
-          class: 'button--icon wishlist__remove no-pseudoelements',
+          class: 'button--icon wishlist__remove',
           icon: {
             id: 'remove',
             title: 'Remove',
