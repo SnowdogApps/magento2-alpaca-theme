@@ -6,18 +6,18 @@ module.exports = {
       tag: 'button',
       class: 'button--icon slider__navigation-icon slider__prev',
       icon: {
-        id: 'arrow-left'
+        id: 'arrow-left',
+        class: 'button__icon slider__icon'
       },
-      iconClass: 'button__icon slider__icon',
       attributes: 'type="button" aria-label="Previous slide"'
     },
     iconNext: {
       tag: 'button',
       class: 'slider__navigation-icon slider__next',
       icon: {
-        id: 'arrow-right'
+        id: 'arrow-right',
+        class: 'button__icon slider__icon'
       },
-      iconClass: 'button__icon slider__icon',
       attributes: 'type="button" aria-label="Next slide"'
     },
     slides: [

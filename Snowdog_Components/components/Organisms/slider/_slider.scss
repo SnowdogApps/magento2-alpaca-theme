@@ -30,9 +30,9 @@
             display: flex;
             flex-flow: row nowrap;
             justify-content: center;
-            padding: $slider__margin;
-            min-width: $slider__item-width;
-            max-width: $slider__item-width;
+            padding: $slider__item-padding--products;
+            min-width: $slider__item-width--products;
+            max-width: $slider__item-width--products;
 
             @include mq($screen-m) {
                 min-width: $slider__item-width\@medium--products;
@@ -40,8 +40,8 @@
             }
 
             @include mq($screen-l) {
-                min-width: $slider__item-width\@large;
-                max-width: $slider__item-width\@large;
+                min-width: $slider__item-width\@large--products;
+                max-width: $slider__item-width\@large--products;
             }
 
             &:first-child {
@@ -55,7 +55,7 @@
 
         .slider__navigation {
             display: none;
-            top: calc(50% - #{$slider__navigation-icon-size});
+            top: calc(50% - #{$slider__navigation-top});
 
             @include mq($screen-m) {
                 display: flex;
@@ -81,7 +81,8 @@
 
     &__item {
         position: relative;
-        min-width: 100%;
+        min-width: $slider__item-width;
+        max-width: $slider__item-width;
     }
 
     &__navigation {
@@ -94,12 +95,12 @@
             position: absolute;
             display: flex;
             justify-content: space-between;
-            top: calc(50% - #{$slider__navigation-icon-size / 2});
-            height: $slider__navigation-height;
+            top: calc(50% - #{$slider__navigation-top / 2});
+            height: $slider__navigation-height\@medium;
             margin-top: 0;
 
             @include isIE() {
-                top: calc(50% - #{$slider__navigation-icon-size});
+                top: calc(50% - #{$slider__navigation-top});
             }
         }
     }
@@ -109,24 +110,13 @@
         justify-content: center;
         align-items: center;
         background-color: $slider__navigation-icon-background;
-        border: 0;
 
         .icon {
             fill: $slider__icon-fill;
         }
 
         @include mq($screen-m) {
-            border: $slider__navigation-icon-border;
-        }
-
-        &:hover,
-        &:active,
-        &.focus-visible {
-            background-color: $slider__navigation-icon-background;
-
-            .slider__icon {
-                fill: $slider__icon-fill-hover;
-            }
+            border: $slider__navigation-icon-border\@medium;
         }
     }
 
