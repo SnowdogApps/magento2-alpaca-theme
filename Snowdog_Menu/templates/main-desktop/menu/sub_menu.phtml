@@ -1,0 +1,49 @@
+<?php /** @var \Snowdog\Menu\Block\Menu $block */ ?>
+<?php if ($block->getMenu()): ?>
+    <?php
+        $menuClass = $block->getMenu()->getCssClass();
+        $parentNode = $block->getParentNode();
+        $level = $block->getLevel();
+
+        $wrapperAttributes = [
+            'class' => [
+                $level > 1 ? 'list' : '',
+                $menuClass . '__inner-list',
+                $menuClass . '__inner-list--level' . $level
+            ],
+            'data-menu' => 'menu-' . $parentNode->getNodeId()
+        ];
+    ?>
+    <ul<?= $block->buildAttrFromArray($wrapperAttributes) ?>>
+        <?php foreach ($block->getSubmenuNodes() as $idx => $node): ?>
+            <?php
+                $childrenLevel = $node->getLevel() + 1;
+                $children = $this->getNodes($childrenLevel, $node);
+                $node->setIsParent((bool) $children);
+                $node->setIterationNo($parentNode->getIterationNo() . '-' . ($idx + 1));
+
+                $nodeAttributes = [
+                    'class' => [
+                        $level > 1 ? 'list__item' : '',
+                        $menuClass . '__inner-item',
+                        $menuClass . '__inner-item--level' . $level,
+                        'nav-' . $node->getIterationNo(),
+                        'category-item'
+                    ]
+                ];
+
+                if ($children) {
+                    $nodeAttributes['class'][] = $menuClass . '__inner-item--parent';
+                }
+
+                if ($node->getClasses()) {
+                    $nodeAttributes['class'][] = $node->getClasses();
+                }
+            ?>
+            <li<?= $block->buildAttrFromArray($nodeAttributes) ?>>
+                <?= $block->renderMenuNode($node) ?>
+                <?= $block->renderSubmenu($children, $node, $childrenLevel) ?>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+<?php endif; ?>
