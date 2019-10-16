@@ -5,12 +5,12 @@ module.exports = {
         action: [
           {
             button: {
-              class: 'action__button'
+              class: 'actions-group__button'
             }
           },
           {
             button: {
-              class: 'action__button'
+              class: 'actions-group__button'
             }
           }
         ]
@@ -19,17 +19,17 @@ module.exports = {
         action: [
           {
             link: {
-              class: 'action__link'
+              class: 'actions-group__link'
             }
           },
           {
             link: {
-              class: 'action__link'
+              class: 'actions-group__link'
             }
           },
           {
             link: {
-              class: 'action__link'
+              class: 'actions-group__link'
             }
           }
         ]
