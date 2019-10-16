@@ -23,158 +23,60 @@
         <?= $this->getChildHtml('footer-newsletter') ?>
     </section>
 
-    <div class="footer__social-handler ">
-        <h3 class="footer__social-list-title">
-            <?= __('Let\'s get social!') ?>
-        </h3>
-        <ul
-            class="
-                list
-                list--with-icon
-                list--horizontal
-                footer__social-list
-            "
-        >
-            <li class="list__item">
-                <a
-                    href="#"
-                    class="list__icon-link"
-                    aria-label="<?= $block->escapeHtmlAttr(__('Go to Our Facebook Page')) ?>"
-                >
-                    <svg
-                        class="
-                            icon
-                            footer__social-icon
-                        "
-                        role="img"
-                    >
-                        <title><?= __('Facebook logo') ?></title>
-                        <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#facebook')) ?>"></use>
-                    </svg>
-                </a>
-            </li>
-            <li class="list__item">
-                <a
-                    href="#"
-                    class="list__icon-link"
-                    aria-label="<?= $block->escapeHtmlAttr(__('Check our Twitter')) ?>"
-                >
-                    <svg
-                        class="
-                            icon
-                            footer__social-icon
-                        "
-                        role="img"
-                    >
-                        <title><?= __('Twitter logo') ?></title>
-                        <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#twitter')) ?>"></use>
-                    </svg>
-                </a>
-            </li>
-        </ul>
-    </div>
+    <?php if ($footerSocial = $this->getChildHtml('footer-social')): ?>
+        <div class="footer__social-handler">
+            <?= $footerSocial ?>
+        </div>
+    <?php endif; ?>
 
     <section class="footer__links">
         <?= $this->getChildHtml('footer-menu') ?>
     </section>
 </div>
 
-<section class="footer__bottom-bar ">
-    <?php // $this->getChildHtml('social-links') TO DO MOVE TO CMS BLOCK ?>
-    <div class="footer__bottom-bar-handler container">
-        <small class="footer__copyright">
-            Copyright © 2019 Colibri
-        </small>
-        <ul
-            class="
-                footer__payments-list
-                list
-                list--horizontal
-            "
-        >
-            <li class="list__item">
-                <svg
-                    class="
-                        icon
-                        footer__payments-list-icon
-                        footer__payments-list-icon--visa
-                    "
-                    role="img"
-                >
-                    <title>Visa</title>
-                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#visa')) ?>"></use>
-                </svg>
-            </li>
-            <li class="list__item">
-                <svg
-                    class="
-                        icon
-                        footer__payments-list-icon
-                    "
-                    role="img"
-                >
-                    <title>Master Card</title>
-                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#master-card')) ?>"></use>
-                </svg>
-            </li>
-            <li class="list__item">
-                <svg class="icon footer__payments-list-icon" role="img">
-                    <title>Discover</title>
-                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#discover')) ?>"></use>
-                </svg>
-            </li>
-            <li class="list__item">
-                <svg class="icon footer__payments-list-icon" role="img">
-                    <title>American Express</title>
-                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#american-express')) ?>"></use>
-                </svg>
-            </li>
-            <li class="list__item">
-                <svg class="icon footer__payments-list-icon footer__payments-list-icon--paypal" role="img">
-                    <title>PayPal</title>
-                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#paypal')) ?>"></use>
-                </svg>
-            </li>
-        </ul>
-    </div>
-</section>
+<?php if ($bottomBar = $this->getChildHtml('footer-bottom-bar')): ?>
+    <section class="footer__bottom-bar ">
+        <div class="footer__bottom-bar-handler container">
+            <?= $bottomBar ?>
+        </div>
+    </section>
+<?php endif; ?>
 
-<?php // $this->getChildHtml('cookie-message') TO DO MOVE TO CMS BLOCK ?>
-<div
-    class="cookie-message"
-    data-type="cookie"
-    tabindex="0"
-    aria-label="Cookie policy message"
-    data-mage-init='{ "cookieMessage": { } }'
->
+<?php if ($cookieMessage = $this->getChildHtml('footer-cookie-message')): ?>
+    <div
+        class="cookie-message"
+        data-type="cookie"
+        tabindex="0"
+        aria-label="<?= $block->escapeHtmlAttr(__('Cookie policy message')) ?>"
+        data-mage-init='{ "cookieMessage": { } }'
+    >
 
-    <div class="cookie-message__container">
-        <p class="cookie-message__text">
-            <a href="#" class="link--invert">Example link</a> Find out more about their purpose and settings in your browser. By browsing the site you are agreeing to use cookies according to your browser settings.
-        </p>
+        <div class="cookie-message__container">
+            <?= $cookieMessage ?>
 
-        <button
-            class="
-                button
-                button--icon
-                cookie-message__close
-                button--rotate-icon
-            "
-            type="button"
-            aria-label="Close cookie message"
-        >
-            <svg
+            <button
                 class="
-                    icon
-                    button__icon
-                    cookie-message__close-icon
+                    button
+                    button--icon
+                    cookie-message__close
+                    button--rotate-icon
                 "
-                role="presentation"
-                focusable="false"
+                type="button"
+                aria-label="<?= $block->escapeHtmlAttr(__('Close cookie message')) ?>"
             >
-                <title>Close</title>
-                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#close')) ?>"></use>
-            </svg>
-        </button>
+                <svg
+                    class="
+                        icon
+                        button__icon
+                        cookie-message__close-icon
+                    "
+                    role="presentation"
+                    focusable="false"
+                >
+                    <title><?= __('Close') ?></title>
+                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#close')) ?>"></use>
+                </svg>
+            </button>
+        </div>
     </div>
-</div>
+<?php endif; ?>
