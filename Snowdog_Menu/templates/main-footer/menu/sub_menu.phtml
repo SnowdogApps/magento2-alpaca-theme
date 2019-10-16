@@ -12,8 +12,8 @@
             'id' => 'dropdown-' . $parentNode->getNodeId()
         ];
     ?>
-    <div <?= $block->buildAttrFromArray($wrapperAttributes) ?>>
-        <ul class="list footer__links-list">
+    <?php if($level > 1): ?>
+        <ul class="list">
             <?php foreach ($block->getSubmenuNodes() as $node): ?>
                 <?php
                     $childrenLevel = $node->getLevel() + 1;
@@ -22,7 +22,8 @@
 
                     $nodeAttributes = [
                         'class' => [
-                            'list__item'
+                            'list__item',
+                            'list__column-item'
                         ]
                     ];
 
@@ -36,5 +37,37 @@
                 </li>
             <?php endforeach; ?>
         </ul>
-    </div>
+    <?php else: ?>
+        <div <?= $block->buildAttrFromArray($wrapperAttributes) ?> data-level="<?= $level ?>">
+            <ul
+                class="
+                    list
+                    list__columns
+                    footer__links-list
+                "
+            >
+                <?php foreach ($block->getSubmenuNodes() as $node): ?>
+                    <?php
+                        $childrenLevel = $node->getLevel() + 1;
+                        $children = $this->getNodes($childrenLevel, $node);
+                        $node->setIsParent((bool) $children);
+
+                        $nodeAttributes = [
+                            'class' => [
+                                'list__item'
+                            ]
+                        ];
+
+                        if ($node->getClasses()) {
+                            $nodeAttributes['class'][] = $node->getClasses();
+                        }
+                    ?>
+                    <li <?= $block->buildAttrFromArray($nodeAttributes) ?>>
+                        <?= $block->renderMenuNode($node) ?>
+                        <?= $block->renderSubmenu($children, $node, $childrenLevel) ?>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    <?php endif; ?>
 <?php endif; ?>
