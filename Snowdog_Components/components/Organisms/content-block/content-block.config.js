@@ -37,7 +37,7 @@ module.exports = {
         class: 'content-block--2-columns',
         columns: [
           {
-            class: 'col-xs-12 col-md-4',
+            class: 'col-xs-12 col-lg-4',
             elements: [
               {
                 contentElement: 'heading',
@@ -50,7 +50,7 @@ module.exports = {
             ]
           },
           {
-            class: 'col-xs-12 col-md-8',
+            class: 'col-xs-12 col-lg-8',
             elements: [
               {
                 contentElement: 'paragraph',
