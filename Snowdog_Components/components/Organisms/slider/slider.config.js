@@ -24,6 +24,7 @@ module.exports = {
       {
         content: 'image--picture',
         contentContext: {
+          defaultSrc: '/images/slider/slider-304_392.jpg',
           sources: [
             {
               src: '/images/slider/slider-304_392.jpg',
@@ -48,6 +49,7 @@ module.exports = {
       {
         content: 'image--picture',
         contentContext: {
+          defaultSrc: '/images/slider/slider-304_392.jpg',
           sources: [
             {
               src: '/images/slider/slider-304_392.jpg',
@@ -72,6 +74,7 @@ module.exports = {
       {
         content: 'image--picture',
         contentContext: {
+          defaultSrc: '/images/slider/slider-304_392.jpg',
           sources: [
             {
               src: '/images/slider/slider-304_392.jpg',
@@ -96,6 +99,7 @@ module.exports = {
       {
         content: 'image--picture',
         contentContext: {
+          defaultSrc: '/images/slider/slider-304_392.jpg',
           sources: [
             {
               src: '/images/slider/slider-304_392.jpg',
