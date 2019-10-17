@@ -11,7 +11,9 @@ var config = {
       "marketingBar"   : "Magento_Theme/js/marketing-bar.babel",
       "modal"          : "Magento_Theme/js/modal.babel",
       "scrollTop"      : "Magento_Theme/js/scroll-top.babel",
-      "skipNav"        : "Magento_Theme/js/skip-nav.babel"
+      "skipNav"        : "Magento_Theme/js/skip-nav.babel",
+      "choices"        : "Magento_Theme/js/lib/choices",
+      "select"         : "Magento_Theme/js/select.babel"
     }
   }
 };

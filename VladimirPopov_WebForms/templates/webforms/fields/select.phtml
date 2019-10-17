@@ -1,0 +1,48 @@
+    <select name='<?php echo $this->getFieldName() ?><?php if($this->getMultiselect()) echo '[]'?>' id='<?php echo $this->getFieldId() ?>'
+            class='select__field select__field--native <?php echo $this->getFieldClass() ?>'
+            <?php if ($this->getField()->getHideLabel()) { ?>aria-label="<?php echo $this->getField()->getName() ?>"
+        <?php } else { ?> aria-labelledby="label_<?php echo $this->getFieldId() ?>" <?php } ?>
+            <?php if ($this->getField()->getRequired()) { ?>aria-required="true"<?php } ?>
+            <?php if($this->getField()->getBrowserAutocomplete()) { ?>autocomplete="<?php echo $this->getField()->getBrowserAutocomplete()?>" <?php }?>
+            style='<?php echo $this->getFieldStyle() ?>' <?php if ($this->getField()->getDisabled()) { ?> disabled <?php } ?>
+            <?php if ($this->getMultiselect()) echo 'multiple'?> <?php echo htmlspecialchars($this->getField()->getCustomAttributes())?>
+            data-mage-init='{"select": {"options": {"shouldSort": false}}}'
+    >
+
+        <?php
+        foreach ($this->getFieldOptions() as $option) {
+            $checked = false;
+            $disabled = false;
+            if ($option["checked"]) {
+                $checked = 'selected';
+            }
+            if ($option["disabled"]) {
+                $disabled = 'disabled';
+            }
+            if (isset($option["value"])) {
+                $value = htmlspecialchars($option["value"]);
+                if ($option['null']) {
+                    $value = '';
+                }
+                if (!empty($option['optgroup']) && !empty($option['label'])) {
+                    ?>
+                    <optgroup label="<?php echo $option['label'] ?>">
+                    <?php
+                } elseif (!empty($option['optgroup_close'])) {
+                    ?>
+                    </optgroup>
+                    <?php
+                } else {
+                    ?>
+
+                    <option value="<?php echo $value ?>" <?php echo $checked ?> <?php echo $disabled ?>><?php echo $option['label'] ?></option>
+
+                    <?php
+                }
+            }
+        }
+
+        ?>
+
+    </select>
+
