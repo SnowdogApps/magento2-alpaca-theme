@@ -16,6 +16,13 @@
     &__image-link {
         margin: $product-list-item__image-margin;
         text-decoration: $product-list-item__image-link-decoration;
+        flex-basis: $product-list-item__image-width;
+        max-width: $product-list-item__image-width;
+        @include mq($screen-m) {
+            margin: $product-list-item__image-margin\@medium;
+            flex-basis: $product-list-item__image-width\@medium;
+            max-width: $product-list-item__image-width\@medium;
+        }
     }
 
     &__badge {
@@ -31,13 +38,13 @@
     &__main {
         flex-grow: 1;
         flex-shrink: 1;
-        flex-basis: calc(100% - #{$product-list-item__image-width});
-        max-width: calc(100% - #{$product-list-item__image-width});
+        flex-basis: calc(100% - #{$product-list-item__image-width} - #{$product-list-item__image-margin-right});
+        max-width: calc(100% - #{$product-list-item__image-width} - #{$product-list-item__image-margin-right});
 
         @include mq($screen-m) {
             display: flex;
-            flex-basis: calc(100% - #{$product-list-item__image-width\@medium});
-            max-width: calc(100% - #{$product-list-item__image-width\@medium});
+            flex-basis: calc(100% - #{$product-list-item__image-width\@medium} - #{$product-list-item__image-margin-right\@medium});
+            max-width: calc(100% - #{$product-list-item__image-width\@medium} - #{$product-list-item__image-margin-right\@medium});
         }
     }
 
@@ -71,9 +78,19 @@
     &__sku {
         font-size: $product-list-item__sku-font-size;
         color: $product-list-item__sku-color;
+        margin: $product-list-item__sku-margin;
 
         @include mq($screen-m) {
             font-size: $product-list-item__sku-font-size\@medium;
+        }
+    }
+
+    &__description {
+        color: $product-list-item__description-color;
+        font-size: $product-list-item__description-font-size;
+        margin: $product-list-item__description-margin;
+        @include mq($screen-m) {
+            font-size: $product-list-item__description-font-size\@medium;
         }
     }
 
@@ -120,10 +137,25 @@
         }
     }
 
+    &__actions-inner {
+        width: 100%;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: flex-end;
+    }
+
     &__price {
         display: flex;
         flex-flow: column nowrap;
         width: $product-list-item__price-width;
+
+        .price__value {
+            font-size: $product-list-item__price-font-size;
+
+            &--old {
+                font-size: $product-list-item__price-old-font-size;
+            }
+        }
 
         @include mq($screen-m) {
             margin: $product-list-item__price-margin\@medium;
@@ -139,19 +171,42 @@
         }
     }
 
-    &__add-to-button {
-        .button__text {
-            display: $product-list-item__add-to-button-text-display;
+
+    &__add-to-action {
+        flex-grow: 1;
+        max-width: 250px;
+
+        @include mq($screen-m) {
+            flex-grow: 0;
         }
 
-        @include mq($screen-xl) {
-            .button__text {
-                display: $product-list-item__add-to-button-text-display\@medium;
+        .button__text {
+            font-size: $font-size-small;
+            padding: 0 $spacer;
+
+            @include mq($screen-s) {
+                font-size: $font-size-base;
             }
-            .button__icon {
-                display: $product-list-item__add-to-button-icon-display\@medium;
+            @include mq($screen-m) {
+                display: none;
+            }
+            @include mq($screen-xl) {
+                display: block;
+                padding: 0 $spacer--medium;
             }
         }
+
+        .button__icon {
+            display: none;
+            @include mq($screen-m) {
+                display: block;
+            }
+            @include mq($screen-xl) {
+                display: none;
+            }
+        }
+
+
     }
 
     &__stock {
@@ -163,8 +218,8 @@
         text-decoration: $product-list-item__stock-decoration;
 
         @include mq($screen-m) {
-            justify-content: $product-list-item__stock-text-aligment\@medium;
             display: $product-list-item__stock-display\@medium;
+            justify-content: $product-list-item__stock-text-aligment\@medium;
         }
 
         &:hover {
