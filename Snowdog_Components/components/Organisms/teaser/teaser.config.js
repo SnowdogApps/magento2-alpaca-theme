@@ -1,10 +1,10 @@
 module.exports = {
   context: {
-    class: 'teaser-left',
+    class: '',
     image: {
-      src: '/images/home/teaser/teaser-small-girl_304-304.jpg',
-      wrapperClass: 'teaser__image',
-      defaultSrc: '/images/home/teaser/teaser-small-girl_304-304.jpg',
+      src: '/images/home/teaser/teaser-small-girl_768-768.jpg',
+      class: 'teaser__image',
+      defaultSrc: '/images/home/teaser/teaser-small-girl_768-768.jpg',
       sources: [
         {
           src: '/images/home/teaser/teaser-medium-girl_376-432.jpg',
@@ -22,5 +22,13 @@ module.exports = {
       alt: 'Teaser girl image'
     },
     contentElement: 'content-block'
-  }
+  },
+  variants: [
+    {
+      name: 'teaser--secondary',
+      context: {
+        class: 'teaser--secondary'
+      }
+    }
+  ]
 }
