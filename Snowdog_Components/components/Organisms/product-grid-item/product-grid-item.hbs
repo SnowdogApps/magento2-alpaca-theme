@@ -15,6 +15,7 @@
         {{#if rating }}
             {{ render '@rating' rating merge=true }}
         {{/if }}
+
         <h2 class="product-grid-item__name">
             <a
                 href="#"
@@ -25,29 +26,35 @@
         </h2>
 
         <div class="product-grid-item__details-bottom">
-            <div class="product-grid-item__price">
+            <div class="product-grid-item__price {{ price.class }}">
                 {{ render (component price.name) price.context }}
             </div>
 
-            <div class="product-grid-item__actions">
+            <div class="product-grid-item__actions {{ secondaryActions.class }}">
                 <div class="product-grid-item__secondary-action">
-                    {{
-                        render '@button--icon'
-                        secondaryActions.wishlist
-                        merge=true
-                    }}
+                    {{#if secondaryActions.wishlist }}
+                        {{
+                            render '@button--icon'
+                            secondaryActions.wishlist
+                            merge=true
+                        }}
+                    {{/if}}
 
-                    {{
-                        render '@button--icon'
-                        secondaryActions.compare
-                        merge=true
-                    }}
+                    {{#if secondaryActions.compare }}
+                        {{
+                            render '@button--icon'
+                            secondaryActions.compare
+                            merge=true
+                        }}
+                    {{/if}}
                 </div>
-                <form action="#" class="product-grid-item__primary-action">
-                    {{ render '@button--add-to-icon' }}
-                </form>
+
+                {{#if secondaryActions.addToCart }}
+                    <form action="#" class="product-grid-item__primary-action">
+                        {{ render '@button--add-to-icon' }}
+                    </form>
+                {{/if}}
             </div>
         </div>
-
     </section>
 </{{{ tag }}}>

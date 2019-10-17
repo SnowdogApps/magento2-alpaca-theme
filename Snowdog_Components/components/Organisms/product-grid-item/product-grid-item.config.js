@@ -139,6 +139,19 @@ module.exports = {
           attributes: 'type="button"'
         }
       }
+    },
+    {
+      name: 'slider-item',
+      context: {
+        class: 'product-grid-item--slider-item',
+        rating: {
+          class: 'product-grid-item__rating'
+        },
+        secondaryActions: {
+          compare: false,
+          addToCart: true
+        }
+      }
     }
   ]
 };
