@@ -18,7 +18,8 @@ module.exports = {
       text: 'Some product name - very long name because that\'s important'
     },
     sku: 'SKU: CEL-31145',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
+    description: false,
+    bulletList: true,
     stockButton: {
       class: 'button--link modal-trigger product-list-item__stock',
       text: 'In stock',
@@ -105,6 +106,13 @@ module.exports = {
             attributes: 'aria-label="Product price" tabindex="0"',
           }
         }
+      }
+    },
+    {
+      name: 'description',
+      context: {
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
+        bulletList: false
       }
     }
   ]
