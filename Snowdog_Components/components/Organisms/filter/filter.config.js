@@ -8,7 +8,7 @@ module.exports = {
       title: 'Arrow down',
       hidden: true
     },
-    contentClass: 'margin-xs',
+    contentClass: '',
     title: {
       tag: 'h3',
       class: 'filter__heading',
@@ -16,24 +16,24 @@ module.exports = {
     },
     checkboxes: [
       {
-        class: '',
+        class: 'margin-left-s',
         href: '#',
         label: {
           text: 'Value 1',
         }
       },
       {
-        class: 'checkbox--link-checked',
+        class: 'margin-left-s checkbox--link-checked',
         href: '#',
         label: {
           text: 'Value 2'
         }
       },
       {
-        class: '',
+        class: 'margin-left-s',
         href: '#',
         label: {
-          text: 'Value 3',
+          text: 'Value 3'
         }
       }
     ]
