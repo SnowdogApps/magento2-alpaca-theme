@@ -53,7 +53,7 @@ module.exports = {
     {
       name: 'category',
       context: {
-        class: 'margin-vc-xl'
+        class: ''
       }
     },
     {
