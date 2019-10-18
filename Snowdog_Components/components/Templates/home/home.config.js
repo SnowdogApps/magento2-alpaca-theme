@@ -119,6 +119,12 @@ module.exports = {
       tag: 'h2',
       class: 'home__heading',
       text: 'Top brands'
+    },
+    seeAllBrandsLink: {
+      href: '#',
+      title: 'See all Brands',
+      text: 'See all Brands',
+      class: 'home__brands-link'
     }
   }
 }
