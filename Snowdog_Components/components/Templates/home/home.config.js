@@ -7,7 +7,7 @@ module.exports = {
     },
     clothingBanner: {
       text: 'Clothing',
-      class: 'col-xs-6 col-lg-3 home__category-banner',
+      class: 'col-xs-6 col-lg-3 home__category-banner margin-bottom-l',
       image: {
         defaultSrc: '/images/home/banners/category-clothing-144_200.jpg',
         sources: [
@@ -24,7 +24,7 @@ module.exports = {
     },
     shoesBanner: {
       text: 'Shoes',
-      class: 'col-xs-6 col-lg-3 home__category-banner',
+      class: 'col-xs-6 col-lg-3 home__category-banner margin-bottom-l',
       image: {
         defaultSrc: '/images/home/banners/category-shoes-144_200.jpg',
         sources: [
@@ -41,7 +41,7 @@ module.exports = {
     },
     accessoriesBanner: {
       text: 'Accessories',
-      class: 'col-xs-6 col-lg-3 home__category-banner',
+      class: 'col-xs-6 col-lg-3 home__category-banner margin-bottom-l',
       image: {
         defaultSrc: '/images/home/banners/category-accessories-144_200.jpg',
         sources: [
@@ -58,7 +58,7 @@ module.exports = {
     },
     newInBanner: {
       text: 'New In',
-      class: 'col-xs-6 col-lg-3 home__category-banner',
+      class: 'col-xs-6 col-lg-3 home__category-banner margin-bottom-l',
       image: {
         defaultSrc: '/images/home/banners/category-new-in-144_200.jpg',
         sources: [
