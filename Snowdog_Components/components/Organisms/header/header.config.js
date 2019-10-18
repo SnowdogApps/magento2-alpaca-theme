@@ -16,7 +16,7 @@ module.exports = {
       class: 'header__logo',
       logoSVG: true,
       ariaLabel: 'Home page link',
-      imageAlt: 'Alpaca Logo',
+      imageAlt: 'Colibri Logo',
       imageAttributes: '',
       imageClass: '',
       imageSrc: '/images/logo/logo.svg',

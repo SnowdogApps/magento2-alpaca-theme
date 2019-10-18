@@ -1,0 +1,178 @@
+@import 'gallery-variables';
+
+.gallery {
+    display: flex;
+    flex-flow: nowrap;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: $gallery__width;
+    margin: $gallery__margin;
+    padding: $gallery__padding;
+    list-style-type: none;
+
+    &--vertical {
+        @include mq($screen-m) {
+            flex-direction: row;
+        }
+    }
+
+    &--dots {
+        .gallery {
+            &__thumb-arr {
+                display: none;
+
+                @include mq($screen-m) {
+                    display: inline-flex;
+                }
+            }
+
+            &__thumb {
+                @extend %dot;
+                position: relative;
+                border: $gallery__thumb-border--dots;
+                height: $gallery__thumb-height--dots;
+                margin: $gallery__thumb-margin--dots;
+
+                .lazyload-wrapper,
+                image {
+                    display: none;
+                }
+
+                @include mq($screen-m) {
+                    border: inherit;
+                    margin: inherit;
+                    height: auto;
+                    &:after {
+                        display: none;
+                    }
+                    .lazyload-wrapper,
+                    image {
+                        display: block;
+                    }
+                }
+
+                &--active {
+                    &:after {
+                        background-color: $gallery__thumb-dot-bg-color-active--dots;
+                    }
+                }
+            }
+        }
+    }
+
+    &__frame {
+        position: relative;
+    }
+
+    &__stage {
+        order: 1;
+        margin: $gallery__stage-margin;
+
+        &--vertical {
+            @include mq($screen-m) {
+                order: 2;
+                width: calc(100% - (#{$gallery__nav-margin-right--vertical\@medium} + #{$gallery__thumb-width\@medium}));
+            }
+        }
+
+        &--horizontal {
+            order: 1;
+        }
+    }
+
+    &__nav {
+        order: 2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &--vertical {
+            @include mq($screen-m) {
+                margin: $gallery__nav-margin--vertical\@medium;
+                justify-content: flex-start;
+                flex-direction: column;
+                order: 1;
+            }
+
+            @include mq($screen-l) {
+                margin: $gallery__nav-margin--vertical\@large;
+            }
+
+            .gallery__thumb {
+                @include mq($screen-m) {
+                    margin: $gallery__thumb-margin\@medium;
+                }
+            }
+        }
+    }
+
+    &__thumb {
+        overflow: hidden;
+        margin: $gallery__thumb-margin;
+        border: $gallery__thumb-border;
+        width: $gallery__thumb-width;
+
+        @include mq($screen-m) {
+            width: $gallery__thumb-width\@medium;
+        }
+
+        &:hover,
+        &.focus-visible {
+            cursor: pointer;
+        }
+
+        &:last-of-type {
+            margin: 0;
+        }
+
+        &--active {
+            border: $gallery__thumb-border--active;
+        }
+    }
+
+    &__thumb-arr {
+        background: $white;
+
+        // TO DO: consult icon hover state
+        &:hover {
+            &:after,
+            &:before {
+                display: none;
+            }
+            .gallery__icon-arrow {
+                fill: $gallery__icon-arrow-color-hover;
+            }
+        }
+
+        .gallery__icon-arrow {
+            fill: $gallery__icon-arrow-color;
+            transform: rotate(-90deg);
+            &--vertical {
+                @include mq($screen-m) {
+                    transform: none;
+                }
+            }
+        }
+    }
+
+    &__labels {
+        z-index: $gallery__labels-index;
+        position: absolute;
+        left: $gallery__labels-offset-left;
+        top: $gallery__labels-offset-top;
+        display: flex;
+        flex-direction: column;
+
+        .badge {
+            margin: $gallery__labels-badge-margin;
+        }
+    }
+
+    &-placeholder {
+        position: relative;
+
+        .loader {
+            position: static;
+        }
+    }
+}

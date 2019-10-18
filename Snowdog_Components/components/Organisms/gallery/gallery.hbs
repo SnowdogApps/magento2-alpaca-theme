@@ -1,0 +1,70 @@
+<div
+    class="
+         gallery
+         {{ class }}
+         {{#if typeHorizontal }}
+             gallery--horizontal
+         {{else}}
+             gallery--vertical
+         {{/if}}
+     "
+     {{{ attributes }}}
+>
+    <div
+        class="
+             gallery__stage
+             {{ stage.class }}
+             {{#if typeHorizontal }}
+                 gallery__stage--horizontal
+             {{else}}
+                 gallery__stage--vertical
+             {{/if}}
+         "
+    >
+        <div class="gallery__frame">
+            <div class="gallery__labels">
+                {{#each productLabels as |label| }}
+                    {{ render '@badge' label }}
+                {{/each}}
+            </div>
+
+            {{ render '@image' imageMain }}
+        </div>
+    </div>
+
+    <div
+        class="
+            gallery__nav
+            {{#if typeHorizontal }}
+                gallery__nav--horizontal
+            {{else}}
+                gallery__nav--vertical
+            {{/if}}
+            {{ nav.class }}
+         "
+   >
+        {{#if typeHorizontal }}
+            {{ render '@button--icon' thumbArrowLeft }}
+        {{else}}
+            {{ render '@button--icon' thumbArrowUp }}
+        {{/if}}
+
+        {{#each thumbs }}
+            <div class="
+                    gallery__thumb
+                    {{#if imageThumb.active}}
+                        gallery__thumb--active
+                    {{/if}}
+                "
+            >
+                {{ render '@image' imageThumb }}
+            </div>
+        {{/each}}
+
+        {{#if typeHorizontal }}
+            {{ render '@button--icon' thumbArrowRight }}
+        {{ else }}
+            {{ render '@button--icon' thumbArrowDown }}
+        {{/if}}
+    </div>
+</div>

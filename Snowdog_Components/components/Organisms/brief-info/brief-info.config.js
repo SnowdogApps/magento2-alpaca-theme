@@ -34,7 +34,12 @@ module.exports = {
         title: {
           class: '',
           tag: 'span',
-          text: 'Favorites lorem ipsum'
+          text: 'Return Policy'
+        },
+        subtitle: {
+          class: '',
+          tag: 'p',
+          text: 'Lorem Ipsum is simply'
         }
       }
     ]
@@ -103,6 +108,60 @@ module.exports = {
               class: '',
               tag: 'p',
               text: 'Check out our reviews!'
+            }
+          }
+        ]
+      }
+    },
+    {
+      name: 'buttons',
+      context: {
+        items: [
+          {
+            isButton: true,
+            buttonClass: 'modal-trigger',
+            buttonAttributes: 'data-modal-trigger="modal-info-1"',
+            iconLabel: 'Delivery',
+            iconWrapperClass: 'margin-right-xs',
+            icon: {
+              class: 'brief-info__icon',
+              id: 'delivery',
+              title: 'Free shipping icon',
+              hidden: true
+            },
+            title: {
+              class: '',
+              tag: 'h3',
+              text: 'Free Shipping'
+            },
+            subtitle: {
+              class: '',
+              tag: 'p',
+              text: 'On Hundreds of Products'
+            }
+          },
+          {
+            isButton: true,
+            buttonClass: 'modal-trigger',
+            buttonAttributes: 'data-modal-trigger="modal-info-2"',
+            class: 'brief-info__icon',
+            iconWrapperClass: 'margin-right-xs',
+            iconLabel: 'Big Star',
+            icon: {
+              class: 'brief-info__icon',
+              id: 'bigstar',
+              title: 'Big Star',
+              hidden: true
+            },
+            title: {
+              class: '',
+              tag: 'span',
+              text: 'Return Policy'
+            },
+            subtitle: {
+              class: '',
+              tag: 'p',
+              text: 'Lorem Ipsum is simply'
             }
           }
         ]

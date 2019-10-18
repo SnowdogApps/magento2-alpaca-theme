@@ -1,0 +1,21 @@
+<?php
+    $svgIcon = $block->getIcon();
+    $svgClass = $block->getIconClass();
+    $svgTitle = $block->getTitle();
+    $svgRole = $block->getRole();
+?>
+<?php if ($svgIcon): ?>
+    <svg
+        class="
+            icon
+            <?= $block->escapeHtmlAttr($svgClass) ?>
+        "
+        role="<?= $svgRole ? $svgRole : 'img' ?>"
+        <?= ($svgRole === 'presentation') ? 'focusable="false"' : '' ?>
+    >
+        <?php if ($svgTitle): ?>
+            <title><?= $block->escapeHtml($svgTitle) ?></title>
+        <?php endif ?>
+        <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl("images/icons-sprite.svg#" . $svgIcon)) ?>"></use>
+    </svg>
+<?php endif ?>
