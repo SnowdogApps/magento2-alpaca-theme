@@ -1,0 +1,47 @@
+<?php
+/** @var $block \Magento\Review\Block\Customer\Recent */
+?>
+
+<?php if ($block->getReviews() && count($block->getReviews())): ?>
+    <div class="dashboard-items">
+        <div class="dashboard-table__header">
+            <h3 class="dashboard-table__title">
+                <?=  __('My Recent Reviews') ?>
+            </h3>
+
+            <a class="link dashboard-table__link"
+               href="<?=  $block->getAllReviewsUrl() ?>"
+            >
+               <?=  __('View All') ?>
+            </a>
+        </div>
+
+        <div class="row dashboard-items__content">
+            <?php foreach ($block->getReviews() as $_review): ?>
+                <div class="col-sm-3 dashboard-items__item">
+                    <h4>
+                        <a href="<?=  $block->getReviewUrl($_review->getReviewId()) ?>">
+                            <?= $block->escapeHtml($_review->getName()) ?>
+                        </a>
+                    </h4>
+
+                    <?php if ($_review->getSum()): ?>
+                        <?php $rating = $_review->getSum() / $_review->getCount() ?>
+
+                        <span class="review__description">
+                            <?=  __('Rating') ?>:
+                        </span>
+
+                        <div class="rating__summary" title="<?=  $rating; ?>%">
+                            <span class="rating__fill" style="width:<?=  $rating; ?>%">
+                                <span>
+                                    <?= $rating; ?>%
+                                </span>
+                            </span>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+<?php endif; ?>

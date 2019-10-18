@@ -1,0 +1,103 @@
+<?php
+// @codingStandardsIgnoreFile
+
+/** @var Magento\Review\Block\Product\View\ListView $block */
+
+$_items = $block->getReviewsCollection()->getItems();
+$format = $block->getDateFormat() ?: \IntlDateFormatter::SHORT;
+$urlForm = $block->getReviewsUrl() . '#review-form';
+?>
+
+<?php if (count($_items)): ?>
+
+    <div
+        class="product-review__reviews"
+        id="reviews"
+        tabindex="0"
+        aria-label="<?= __('Reviews list'); ?>"
+    >
+        <ul class="list">
+            <?php foreach ($_items as $_review): ?>
+                <li class="list__item">
+                    <div
+                        class="review"
+                        itemscope
+                        itemprop="review"
+                        itemtype="http://schema.org/Review"
+                    >
+                        <div class="review__details">
+                            <h3
+                                class="review__author"
+                                itemprop="author"
+                            >
+                                <?= $block->escapeHtml($_review->getNickname()); ?>
+                            </h3>
+
+                            <time
+                                class="review__date"
+                                itemprop="datePublished"
+                                datetime="<?= $block->escapeHtmlAttr($block->formatDate($_review->getCreatedAt(), $format)); ?>"
+                            >
+                                <?= $block->escapeHtml($block->formatDate($_review->getCreatedAt(), $format)); ?>
+                            </time>
+
+                            <?php if (count($_review->getRatingVotes())): ?>
+                                <?php
+                                    $dislayLabel = count($_review->getRatingVotes()) > 1;
+                                ?>
+                                <?php
+                                    foreach ($_review->getRatingVotes() as $_vote):
+                                        $_votePercetage = $block->escapeHtmlAttr($_vote->getPercent());
+                                ?>
+                                    <div
+                                        class="rating review__rating"
+                                        itemprop="reviewRating"
+                                        itemscope
+                                        itemtype="http://schema.org/Rating"
+                                        aria-label="<?= __('Rating') . $_votePercetage; ?>%"
+                                        tabindex="0"
+                                    >
+                                        <?php if ($dislayLabel): ?>
+                                            <span class="label rating__label">
+                                                <?= $block->escapeHtml($_vote->getRatingCode()) ?>
+                                            </span>
+                                        <?php endif; ?>
+
+                                        <meta itemprop="worstRating" content="1"/>
+
+                                        <meta itemprop="bestRating" content="100"/>
+
+                                        <div
+                                            class="rating__star"
+                                            style="width:<?= $_votePercetage; ?>%"
+                                            data-testid="product-rating-star"
+                                        >
+                                            <span class="rating__indicator "></span>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </div>
+
+                        <div
+                            class="review__details"
+                            itemprop="description"
+                        >
+                            <h4
+                                class="review__title"
+                                itemprop="name"
+                            >
+                                <?= $block->escapeHtml($_review->getTitle()); ?>
+                            </h4>
+
+                            <p class="product-view__review-content-text">
+                                <?= nl2br($block->escapeHtml($_review->getDetail())); ?>
+                            </p>
+                        </div>
+                    </div>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+    <?= $block->getChildHtml('toolbar'); ?>
+<?php endif;?>

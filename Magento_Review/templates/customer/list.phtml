@@ -1,0 +1,116 @@
+<?php if ($block->getReviews() && count($block->getReviews())): ?>
+    <div class="dashboard-table">
+        <div class="dashboard-table__header">
+            <h3 class="dashboard-table__title">
+                <?= __('Product Reviews') ?>
+            </h3>
+        </div>
+
+        <div class="dashboard-table__content">
+            <table class="table dashboard-table__table" id="my-reviews-table">
+                <thead>
+                    <tr>
+                        <th scope="col" class="col date">
+                            <?= __('Created') ?>
+                        </th>
+
+                        <th scope="col" class="col item">
+                            <?= __('Product Name') ?>
+                        </th>
+
+                        <th scope="col" class="col summary">
+                            <?= __('Rating') ?>
+                        </th>
+
+                        <th scope="col" class="col description">
+                            <?= __('Review') ?>
+                        </th>
+
+                        <th scope="col" class="col actions">
+                            &nbsp;
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <?php foreach ($block->getReviews() as $_review): ?>
+                        <?php
+                            $getDetails     = $this->helper('Magento\Review\Helper\Data')
+                                                   ->getDetailHtml($_review->getDetail());
+                            $getProductLink = $block->getProductLink() . 'id/' . $_review->getEntityPkValue();
+                            $getDetailsLink = $block->getReviewLink() . 'id/' . $_review->getReviewId();
+                        ?>
+
+                        <tr>
+                            <td data-th="<?= $block->escapeHtml(__('Created')) ?>"
+                                class="col date"
+                            >
+                                <?= $block->dateFormat($_review->getReviewCreatedAt()); ?>
+                            </td>
+
+                            <td data-th="<?= $block->escapeHtml(__('Product Name')) ?>"
+                                class="col item"
+                            >
+                                <strong class="product-name">
+                                    <a href="<?= $getProductLink ?>" class="link">
+                                        <?= $block->escapeHtml($_review->getName()) ?>
+                                    </a>
+                                </strong>
+                            </td>
+
+                            <td data-th="<?= $block->escapeHtml(__('Rating')) ?>"
+                                class="col summary"
+                            >
+                                <?php if ($_review->getSum()): ?>
+                                    <?php $getPercentRating = ($_review->getSum() / $_review->getCount()).'%'; ?>
+
+                                    <div class="rating__summary">
+                                        <span class="rating__fill"
+                                              style="width:<?php $getPercentRating; ?>;"
+                                        >
+                                            <span>
+                                                <?= $getPercentRating; ?>
+                                            </span>
+                                        </span>
+                                    </div>
+                                <?php endif; ?>
+                            </td>
+
+                            <td data-th="<?= $block->escapeHtml(__('Review')) ?>"
+                                class="col description"
+                            >
+                                <?= $getDetails; ?>
+                            </td>
+
+                            <td data-th="<?= $block->escapeHtml(__('Actions')) ?>"
+                                class="col actions"
+                            >
+                                <a href="<?= $getDetailsLink ?>" class="link more">
+                                    <?= __('See Details') ?>
+                                </a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <?php if ($block->getToolbarHtml()): ?>
+        <?= /* @escapeNotVerified */$block->getToolbarHtml() ?>
+    <?php endif; ?>
+<?php else: ?>
+    <div class="message info empty">
+        <?= __('You have submitted no reviews.') ?>
+    </div>
+<?php endif; ?>
+
+<div class="action">
+    <div class="action__handler">
+        <a class="link action__link back"
+           href="<?= $block->escapeUrl($block->getBackUrl()) ?>"
+        >
+            <?= __('Back') ?>
+        </a>
+    </div>
+</div>

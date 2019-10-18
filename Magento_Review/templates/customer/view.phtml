@@ -1,0 +1,96 @@
+<?php
+    $product = $block->getProductData();
+?>
+<?php if ($product->getId()): ?>
+    <h2 class="heading--fourth-level dashboard__title">
+        <?=  __('Review Details') ?>
+    </h2>
+
+    <a
+        class="product-reviews__image"
+        href="<?= $product->getProductUrl() ?>"
+        title="<?= $product->getName() ?>"
+    >
+        <?= /* @escapeNotVerified */
+            $block->getImage(
+                $block->getProductData(),
+                'customer_account_product_review_page'
+            )->toHtml()
+        ?>
+    </a>
+
+    <div class="product-reviews__details">
+        <a
+            href="<?= $product->getProductUrl() ?>"
+            title="<?= $product->getName() ?>"
+        >
+            <h2 class="product-reviews__name">
+                <?= $product->getName() ?>
+            </h2>
+        </a>
+
+        <?php if ($block->getRating() && $block->getRating()->getSize()): ?>
+            <?= $block->getReviewsSummaryHtml($product) ?>
+        <?php endif; ?>
+    </div>
+
+    <h2 class="heading--fourth-level dashboard__title">
+        <?= __('Your Review'); ?>
+    </h2>
+
+    <div class="review">
+        <?php if ($block->getRating() && $block->getRating()->getSize()): ?>
+            <?php foreach ($block->getRating() as $_rating): ?>
+                <?php if ($_rating->getPercent()): ?>
+                    <?php $rating = ceil($_rating->getPercent()) ?>
+
+                    <div class="review__divider">
+                        <div class="review__rating review__rating--average">
+                            <span class="review__rating-label">
+                                <?= __('Your rating') . ':' ?>
+                            </span>
+                            <div
+                                class="rating"
+                                aria-label="<?= __('Your rating') . ': ' . $rating . '%' ?>"
+                                title="<?= __('Your rating') . ': ' .  $rating . '%' ?>"
+                                tabindex="0"
+                            >
+                                <div
+                                    class="rating__star"
+                                    aria-hidden="true"
+                                    style="width:<?=  $rating; ?>%"
+                                >
+                                    <span class="rating__indicator"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        <?php endif; ?>
+
+        <h3 class="heading--fourth-level review__title">
+            <?= $block->getReviewData()->getTitle() ?>
+        </h3>
+
+        <div class="review__divider">
+            <?= nl2br($block->escapeHtml($block->getReviewData()->getDetail())) ?>
+        </div>
+
+        <div class="review__divider review__date">
+            <?= /* @escapeNotVerified */
+                __('Submitted on %1', '<time class="date">' . $block->dateFormat($block->getReviewData()->getCreatedAt()) . '</time>')
+            ?>
+        </div>
+    </div>
+
+    <div class="action">
+        <div class="action__handler">
+            <a class="link action__link back"
+               href="<?= $block->getBackUrl() ?>"
+            >
+                <?=  __('Back to My Reviews') ?>
+            </a>
+        </div>
+    </div>
+<?php endif; ?>
