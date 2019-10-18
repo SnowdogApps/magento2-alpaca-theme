@@ -1,0 +1,61 @@
+<?php
+/** @var \Magento\Catalog\Pricing\Render\FinalPriceBox $block */
+
+/** ex: \Magento\Catalog\Pricing\Price\RegularPrice */
+/** @var \Magento\Framework\Pricing\Price\PriceInterface $priceModel */
+$priceModel = $block->getPriceType('regular_price');
+
+/** ex: \Magento\Catalog\Pricing\Price\FinalPrice */
+/** @var \Magento\Framework\Pricing\Price\PriceInterface $finalPriceModel */
+$finalPriceModel = $block->getPriceType('final_price');
+
+$idSuffix = $block->getIdSuffix() ? $block->getIdSuffix() : '';
+$schema = ($block->getZone() == 'item_view') ? true : false;
+?>
+
+<div class="price">
+    <?php if ($block->hasSpecialPrice()): ?>
+        <span class="price__value price__value--old">
+            <?= $block->renderAmount($priceModel->getAmount(), [
+                'display_label'     => false,
+                'price_id'          => $block->getPriceId('old-price-' . $idSuffix),
+                'price_type'        => 'oldPrice',
+                'include_container' => false,
+                'skip_adjustments'  => true
+            ]); ?>
+        </span>
+        <span class="price__value price__value--special">
+            <?= $block->renderAmount($finalPriceModel->getAmount(), [
+                'display_label'     => false,
+                'price_id'          => $block->getPriceId('product-price-' . $idSuffix),
+                'price_type'        => 'finalPrice',
+                'include_container' => false,
+                'schema' => $schema
+            ]); ?>
+        </span>
+    <?php else: ?>
+        <span class="price__value">
+            <?= $block->renderAmount($finalPriceModel->getAmount(), [
+                'price_id'          => $block->getPriceId('product-price-' . $idSuffix),
+                'price_type'        => 'finalPrice',
+                'include_container' => true,
+                'schema' => $schema
+            ]); ?>
+        </span>
+    <?php endif; ?>
+</div>
+
+<?php if ($block->showMinimalPrice()): ?>
+    <?php if ($block->getUseLinkForAsLowAs()): ?>
+        <a
+            href="<?= $block->getSaleableItem()->getProductUrl() ?>"
+            class="minimal-price-link"
+        >
+            <?= $block->renderAmountMinimal() ?>
+        </a>
+    <?php else: ?>
+        <span class="minimal-price-link">
+            <?= $block->renderAmountMinimal() ?>
+        </span>
+    <?php endif ?>
+<?php endif; ?>

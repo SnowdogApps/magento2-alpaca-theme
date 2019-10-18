@@ -4,42 +4,77 @@
     xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd"
 >
     <body>
-        <referenceContainer name="main.content" htmlClass="page-main" />
-        <referenceContainer name="page.messages" htmlClass="page messages container" />
+        <referenceContainer
+            name="main.content"
+            htmlClass="page-main"
+        />
+        <referenceContainer
+            name="page.messages"
+            htmlClass="page messages container"
+        />
 
-        <container name="product.container" htmlClass="product-view container" htmlTag="div">
-            <container name="product.wrapper" htmlClass="product-view__wrapper product-info-main" htmlTag="section">
-                <container name="product.column.left" htmlClass="product-view__gallery" htmlTag="div">
-                    <referenceContainer name="product.info.media" htmlClass="gallery galler--vertical" />
-                </container>
-
+        <container
+            name="product.container"
+            htmlClass="product-view container"
+            htmlTag="div"
+        >
+            <container
+                name="product.wrapper"
+                htmlClass="product-view__wrapper product-info-main"
+                htmlTag="section"
+            >
                 <container
                     name="product.column.right.upper"
-                    htmlClass="product-view__main-details"
-                    htmlTag="div"
-                >
+                    htmlClass="product-view__description"
+                    htmlTag="div">
+                    <referenceBlock
+                        name="product.info.sku"
+                        template="Magento_Catalog::product/view/getSku.phtml"
+                    />
+
                     <referenceBlock name="page.main.title">
                         <arguments>
                             <argument name="css_class" xsi:type="string">product-view__title</argument>
                         </arguments>
                     </referenceBlock>
-
-                    <referenceBlock name="product.info.sku" template="Magento_Catalog::product/view/getSku.phtml" />
-
-                    <referenceContainer name="product.info.price" htmlClass="product-view__price" />
-
-                    <container name="product.column.right.review" htmlClass="product-view__rating" htmlTag="div">
-                        <referenceBlock name="product.info.review" />
-                    </container>
                 </container>
 
-                <referenceContainer name="product.info.main" htmlClass="product-view__secondary-details">
-                    <referenceBlock name="product.info.downloadable.samples" />
+                <container
+                    name="product.column.left"
+                    htmlClass="product-view__gallery"
+                    htmlTag="div"
+                >
+                    <referenceContainer
+                        name="product.info.media"
+                        htmlClass="gallery galler--vertical"
+                    />
+                </container>
+
+                <referenceContainer name="product.info.main" htmlClass="product-view__details">
+                    <container name="product.column.right.review"
+                        htmlClass="product-view__rating"
+                        htmlTag="div">
+                        <referenceBlock name="product.info.review" />
+                        <block
+                            class="Magento\Catalog\Block\Product\View"
+                            name="product.info.freeshipping"
+                            template="Magento_Catalog::product/view/shipping-latency.phtml"
+                            after="product.info.review"
+                        />
+                    </container>
+
+                    <referenceContainer
+                        name="product.info.price"
+                        htmlClass="product-view__price"
+                    />
 
                     <referenceBlock
                         name="product.info.overview"
                         template="Magento_Catalog::product/view/shortDescription.phtml"
                     />
+
+                    <referenceBlock name="product.info.downloadable.samples" />
+
 
                     <referenceBlock name="product.info">
                         <container
@@ -61,7 +96,7 @@
 
                             <container
                                 name="product.column.right.extra.actions"
-                                htmlClass="product-view__action-elements"
+                                htmlClass="product-view__buttons"
                                 htmlTag="div"
                             >
                                 <referenceBlock name="product.info.addtocart"/>
@@ -72,7 +107,7 @@
                                     htmlTag="div"
                                 />
                             </container>
-                    </container>
+                        </container>
                     </referenceBlock>
 
                     <block
@@ -83,7 +118,11 @@
                 </referenceContainer>
             </container>
 
-            <container name="product.tabs" htmlClass="product-view__tabs" htmlTag="div">
+            <container
+                name="product.tabs"
+                htmlClass="product-view__tabs"
+                htmlTag="div"
+            >
                 <referenceBlock name="reviews.tab">
                     <block
                         class="Magento\Catalog\Block\Product\View"
@@ -100,7 +139,6 @@
                         class="Magento\Theme\Block\Html\Pager"
                         name="product_review_list.toolbar"
                     />
-
                 </referenceBlock>
             </container>
 
@@ -118,29 +156,95 @@
         </container>
 
         <!--Moved blocks-->
-        <move element="product.container" destination="content" before="-" />
-        <move element="product.info.media" destination="product.column.left" />
+        <move
+            element="product.container"
+            destination="content" before="-"
+        />
+        <move
+            element="product.info.media"
+            destination="product.column.left"
+        />
 
-        <move element="page.main.title" destination="product.column.right.upper" before="-" />
-        <move element="product.info.sku" destination="product.column.right.upper" after="page.main.title" />
-        <move element="product.info.price" destination="product.column.right.upper" after="page.main.title" />
-        <move element="product.info.type" destination="product.column.right.upper" after="product.info.price" />
-        <move element="product.info.review" destination="product.column.right.review" />
+        <move
+            element="page.main.title"
+            destination="product.column.right.upper"
+            before="-"
+        />
+        <move
+            element="product.info.review"
+            destination="product.column.right.review"
+            before="-"
+        />
+        <move
+            element="product.column.right.review"
+            destination="product.info.main"
+            before="product.info.price"
+        />
 
-        <move element="product.info.options.wrapper" destination="product.column.right.options" />
-        <move element="product.info.main" destination="product.wrapper"/>
-        <move element="product.info" destination="product.info.main" after="product.info.overview" />
-        <move element="product.info.addtocart" destination="product.column.right.extra.actions" />
-        <move element="product.info.social" destination="product.column.right.extra.actions" />
-        <move element="view.addto.wishlist" destination="product.info.social" before="-" />
-        <move element="view.addto.compare" destination="product.info.social" before="product.info.mailto" />
-
-        <move element="product.info.details" destination="product.tabs" />
-        <move element="product.review.form" destination="reviews.tab" after="product_review_list.toolbar" />
-
-        <move element="content.aside" destination="product.container" />
-
-        <move element="product.cms.content" destination="product.container" after="content.aside" />
+        <move
+            element="product.info.options.wrapper"
+            destination="product.column.right.options"
+        />
+        <move
+            element="product.info.main"
+            destination="product.wrapper"
+        />
+        <move
+            element="product.info.addtocart"
+            destination="product.column.right.extra.actions"
+        />
+        <move
+            element="product.info.social"
+            destination="product.column.right.extra.actions"
+        />
+        <move
+            element="view.addto.wishlist"
+            destination="product.info.social"
+            before="-"
+        />
+        <move
+            element="view.addto.compare"
+            destination="product.info.social"
+            before="product.info.mailto"
+        />
+        <move
+            element="product.info.sku"
+            destination="product.column.right.upper"
+            before="page.main.title"
+        />
+        <move
+            element="product.info.price"
+            destination="product.info.main"
+            before="product.info"
+        />
+        <move
+            element="product.info.overview"
+            destination="product.info.main"
+            after="product.info.price"
+        />
+        <move
+            element="product.info.type"
+            destination="product.info.main"
+            before="product.info"
+        />
+        <move
+            element="product.info.details"
+            destination="product.tabs"
+        />
+        <move
+            element="product.review.form"
+            destination="reviews.tab"
+            after="product_review_list.toolbar"
+        />
+        <move
+            element="content.aside"
+            destination="product.container"
+        />
+        <move
+            element="product.cms.content"
+            destination="product.container"
+            after="content.aside"
+        />
 
         <!-- Removed blocks -->
         <referenceBlock name="product.info.addto" remove="true" />

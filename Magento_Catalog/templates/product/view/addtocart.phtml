@@ -6,18 +6,34 @@
 <?php $buttonTitle = __('Add to Cart'); ?>
 
 <?php if ($_product->isSaleable()): ?>
-    <div class="product-view__add-to-cart">
         <button
             type="submit"
             title="<?= $buttonTitle ?>"
-            class="button product-view__add-to-cart-btn action tocart"
+            class="
+                button
+                button--icon
+                button--add-to-icon
+                product-view__add-to-cart
+                action
+                tocart
+            "
             id="product-addtocart-button"
+            aria-label="<?= $block->escapeHtmlAttr($buttonTitle) ?>"
         >
-            <span><?= $buttonTitle ?></span>
+            <span class="button__text">
+                <?= $buttonTitle ?>
+            </span>
+            <svg
+                class="icon button__icon"
+                role="presentation"
+                focusable="false"
+            >
+                <title>Add to Cart</title>
+                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#shopping-cart')); ?>"></use>
+            </svg>
         </button>
 
         <?= $block->getChildHtml('', true) ?>
-    </div>
 <?php endif; ?>
 
 <?php if ($block->isRedirectToCartEnabled()) : ?>

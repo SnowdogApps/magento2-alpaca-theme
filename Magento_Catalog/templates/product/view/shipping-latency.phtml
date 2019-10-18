@@ -1,0 +1,81 @@
+<?php /* @var $block \Magento\Catalog\Block\Product\View\AbstractView */?>
+<?php
+$_product = $block->getProduct();
+$shippingLatencyHelper = $this->helper('Snowdog\ShippingLatency\Helper\Data');
+$productQty = $_product->getExtensionAttributes()->getStockItem()->getQty();
+$isShownInStock = (float) ($productQty) > 0 || $_product->getData('display_instock_frontend');
+?>
+
+<?php if($shippingLatencyHelper): ?>
+    <button
+        class="
+            button
+            button--link
+            modal-trigger
+            product-view__stock
+        "
+        type="button"
+        aria-expanded="false"
+        data-modal-trigger="shipping-latency-popup"
+        data-mage-init='{ "modal" : {} }'
+    >
+        <?php if ($isShownInStock): ?>
+            <?= __('In stock') ?>
+        <?php else: ?>
+            <?= $_product->getAttributeText('shipping_latency'); ?>
+        <?php endif; ?>
+    </button>
+    <div
+        id="shipping-latency-popup"
+        role="dialog"
+        aria-hidden="true"
+        data-modal="shipping-latency-popup"
+        aria-labelledby="shipping-latency-title"
+        class="modal"
+    >
+        <div
+            class="modal__container"
+            role="document"
+            tabindex="0"
+        >
+            <div class="modal__content">
+                <?php if ($isShownInStock): ?>
+                    <h3 id="shipping-latency-title">
+                        <?= __('Ships in one day') ?>
+                    </h3>
+                    Modal content goes here
+                    <!-- <?//= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('one-day-shipping')->toHtml(); ?> -->
+                <?php else: ?>
+                    <h3 id="shipping-latency-title">
+                        <?= $_product->getAttributeText('shipping_latency'); ?>
+                    </h3>
+                    Modal content goes here
+                    <!-- <?//= $shippingLatencyHelper->getProductPopupHtml($_product->getData()); ?> -->
+                <?php endif ?>
+            </div>
+            <button
+                class="
+                    button
+                    button--icon
+                    button--rotate-icon
+                    modal__close-button
+                "
+                type="button"
+                aria-label="<?= $block->escapeHtmlAttr(__('Close modal')) ?>"
+            >
+                <svg
+                    class="
+                        icon
+                        button__icon
+                        modal__close-button-icon
+                    "
+                    role="presentation"
+                    focusable="false"
+                >
+                    <title><?= __('Close') ?></title>
+                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#close')); ?>"></use>
+                </svg>
+            </button>
+        </div>
+    </div>
+<?php endif; ?>

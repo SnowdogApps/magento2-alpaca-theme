@@ -10,15 +10,27 @@
     $_product = $block->getProduct();
 ?>
 <?php if ($_additional = $block->getAdditionalData()): ?>
-    <table class="table table--clean" id="product-attribute-specs-table">
+    <table
+        class="table table--scope-row"
+        id="product-attribute-specs-table"
+    >
+        <caption class="table__caption">
+            <?= __('Product specification details') ?>
+        </caption>
         <tbody>
             <?php foreach ($_additional as $_data): ?>
-                <tr>
-                    <th class="label" scope="row">
+                <tr role="row">
+                    <th
+                        scope="row"
+                        role="rowheader"
+                    >
                         <?= $block->escapeHtml(__($_data['label'])) ?>
                     </th>
 
-                    <td class="data" data-th="<?= $block->escapeHtml(__($_data['label'])) ?>">
+                    <td
+                        role="gridcell"
+                        data-th="<?= $block->escapeHtmlAttr(__($_data['label'])) ?>"
+                    >
                         <?= $_helper->productAttribute($_product, $_data['value'], $_data['code']) ?>
                     </td>
                 </tr>
