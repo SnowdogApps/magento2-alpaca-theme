@@ -25,7 +25,7 @@ module.exports = {
   },
   variants: [
     {
-      name: 'teaser--secondary',
+      name: 'secondary',
       context: {
         class: 'teaser--secondary'
       }
