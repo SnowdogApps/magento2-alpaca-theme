@@ -73,8 +73,37 @@ module.exports = {
         ]
       }
     },
-    banner: {
-      class: 'col-xs-12 col-lg-6 home__banner'
+    bannerOne: {
+      class: 'col-xs-12 col-lg-6 home__banner',
+      image: {
+        defaultSrc: '/images/home/banners/banner-small-women-now-304_128.jpg',
+        sources: [
+          {
+            src: '/images/home/banners/banner-medium-women-now-656_264.jpg',
+            mediaQuery: '(max-width: 768px)'
+          },
+          {
+            src: '/images/home/banners/banner-medium-women-now-656_264.jpg',
+            mediaQuery: ''
+          }
+        ]
+      }
+    },
+    bannerSecond: {
+      class: 'col-xs-12 col-lg-6 home__banner',
+      image: {
+        defaultSrc: '/images/home/banners/banner-small-men-now-304_128.jpg',
+        sources: [
+          {
+            src: '/images/home/banners/banner-medium-men-now-656_264.jpg',
+            mediaQuery: '(max-width: 768px)'
+          },
+          {
+            src: '/images/home/banners/banner-medium-men-now-656_264.jpg',
+            mediaQuery: ''
+          }
+        ]
+      }
     },
     popularProductsHeading: {
       tag: 'h2',
