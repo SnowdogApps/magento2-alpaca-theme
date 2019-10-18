@@ -10,6 +10,15 @@ module.exports = {
       text: 'In stock',
       attributes: 'type="button" data-modal-trigger="shipping-latency-product"'
     },
+    shortDescription: {
+      class: 'margin-top-m',
+      heading: {
+        tag: 'h2',
+        class: 'product-view__short-description-heading margin-bottom-xs',
+        text: 'Short description:'
+      },
+      text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry. Lorem Ipsum has been the industry.'
+    },
     shippingLatencyModal: {
       modal: {
         id: 'shipping-latency-product',
