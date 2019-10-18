@@ -1,16 +1,35 @@
-    <select name='<?php echo $this->getFieldName() ?><?php if($this->getMultiselect()) echo '[]'?>' id='<?php echo $this->getFieldId() ?>'
-            class='select__field select__field--native <?php echo $this->getFieldClass() ?>'
-            <?php if ($this->getField()->getHideLabel()) { ?>aria-label="<?php echo $this->getField()->getName() ?>"
-        <?php } else { ?> aria-labelledby="label_<?php echo $this->getFieldId() ?>" <?php } ?>
-            <?php if ($this->getField()->getRequired()) { ?>aria-required="true"<?php } ?>
-            <?php if($this->getField()->getBrowserAutocomplete()) { ?>autocomplete="<?php echo $this->getField()->getBrowserAutocomplete()?>" <?php }?>
-            style='<?php echo $this->getFieldStyle() ?>' <?php if ($this->getField()->getDisabled()) { ?> disabled <?php } ?>
-            <?php if ($this->getMultiselect()) echo 'multiple'?> <?php echo htmlspecialchars($this->getField()->getCustomAttributes())?>
-            data-mage-init='{"select": {"options": {"shouldSort": false}}}'
-    >
+<select
+    name='<?= $this->getFieldName() ?><?php if ($this->getMultiselect()) echo '[]' ?>'
+    id='<?= $this->getFieldId() ?>'
+    class='
+        select__field
+        select__field--native
+        <?= $this->getFieldClass() ?>
+    '
+    style='<?= $this->getFieldStyle() ?>'
+    data-mage-init='{"select": {"options": {"shouldSort": false}}}'
+    <?php if ($this->getField()->getHideLabel()): ?>
+        aria-label="<?= $this->getField()->getName() ?>"
+    <?php else: ?>
+        aria-labelledby="label_<?= $this->getFieldId() ?>"
+    <?php endif; ?>
+    <?php if ($this->getField()->getRequired()): ?>
+        aria-required="true"
+    <?php endif; ?>
+    <?php if ($this->getField()->getBrowserAutocomplete()): ?>
+        autocomplete="<?= $this->getField()->getBrowserAutocomplete() ?>"
+    <?php endif; ?>
+    <?php if ($this->getField()->getDisabled()): ?>
+        disabled
+    <?php endif; ?>
+    <?php if ($this->getMultiselect()): ?>
+        multiple
+    <?php endif; ?>
+    <?= htmlspecialchars($this->getField()->getCustomAttributes()) ?>
+>
 
+    <?php foreach ($this->getFieldOptions() as $option): ?>
         <?php
-        foreach ($this->getFieldOptions() as $option) {
             $checked = false;
             $disabled = false;
             if ($option["checked"]) {
@@ -19,30 +38,27 @@
             if ($option["disabled"]) {
                 $disabled = 'disabled';
             }
-            if (isset($option["value"])) {
+        ?>
+        <?php if (isset($option["value"])): ?>
+            <?php
                 $value = htmlspecialchars($option["value"]);
                 if ($option['null']) {
                     $value = '';
                 }
-                if (!empty($option['optgroup']) && !empty($option['label'])) {
-                    ?>
-                    <optgroup label="<?php echo $option['label'] ?>">
-                    <?php
-                } elseif (!empty($option['optgroup_close'])) {
-                    ?>
-                    </optgroup>
-                    <?php
-                } else {
-                    ?>
-
-                    <option value="<?php echo $value ?>" <?php echo $checked ?> <?php echo $disabled ?>><?php echo $option['label'] ?></option>
-
-                    <?php
-                }
-            }
-        }
-
-        ?>
-
-    </select>
-
+            ?>
+            <?php if (!empty($option['optgroup']) && !empty($option['label'])): ?>
+                <optgroup label="<?= $option['label'] ?>">
+            <?php elseif (!empty($option['optgroup_close'])): ?>
+                </optgroup>
+            <?php else: ?>
+                <option
+                    value="<?= $value ?>"
+                    <?= $checked ?>
+                    <?= $disabled ?>
+                >
+                    <?= $option['label'] ?>
+                </option>
+            <?php endif; ?>
+        <?php endif; ?>
+    <?php endforeach; ?>
+</select>

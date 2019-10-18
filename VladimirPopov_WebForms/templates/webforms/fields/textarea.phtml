@@ -1,9 +1,29 @@
 <?php $placeholder = htmlspecialchars(trim($this->getPlaceholder())); ?>
-<textarea name='<?php echo $this->getFieldName()?>' id='<?php echo $this->getFieldId()?>'
-          class='input__field input__field--textarea <?php echo $this->getFieldClass()?>'
-          <?php if ($this->getField()->getHideLabel()) { ?>aria-label="<?php echo $this->getField()->getName() ?>"
-    <?php } else { ?> aria-labelledby="label_<?php echo $this->getFieldId() ?>" <?php } ?>
-          <?php if($this->getField()->getRequired()) {?>aria-required="true"<?php }?>
-          <?php if($this->getField()->getBrowserAutocomplete()) { ?>autocomplete="<?php echo $this->getField()->getBrowserAutocomplete()?>" <?php }?>
-          style='<?php echo $this->getFieldStyle()?>' <?php if ($this->getField()->getDisabled()) { ?> disabled <?php } ?>
-          placeholder="<?php echo $placeholder?>" <?php echo htmlspecialchars($this->getField()->getCustomAttributes())?>><?php echo $this->getFieldValue(); ?></textarea>
+<textarea
+    name='<?= $this->getFieldName() ?>'
+    id='<?= $this->getFieldId() ?>'
+    class='
+        input__field
+        input__field--textarea
+        <?= $this->getFieldClass() ?>
+    '
+    placeholder="<?= $placeholder ?>"
+    style='<?= $this->getFieldStyle() ?>'
+    <?php if ($this->getField()->getHideLabel()): ?>
+        aria-label="<?= $this->getField()->getName() ?>"
+    <?php else: ?>
+        aria-labelledby="label_<?= $this->getFieldId() ?>"
+    <?php endif; ?>
+    <?php if ($this->getField()->getRequired()): ?>
+        aria-required="true"
+    <?php endif; ?>
+    <?php if ($this->getField()->getBrowserAutocomplete()): ?>
+        autocomplete="<?= $this->getField()->getBrowserAutocomplete() ?>"
+    <?php endif ?>
+    <?php if ($this->getField()->getDisabled()): ?>
+        disabled
+    <?php endif ?>
+    <?= htmlspecialchars($this->getField()->getCustomAttributes()) ?>
+>
+    <?= $this->getFieldValue(); ?>
+</textarea>

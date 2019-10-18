@@ -1,7 +1,6 @@
 <?php
 /** @var \Magento\Contact\Block\ContactForm $block */
 ?>
-
 <div class="row center-xs">
     <div class="col-xs-12 col-md-8 col-lg-6 start-xs">
         <form
@@ -16,9 +15,13 @@
                 <legend class="fieldset__legend fieldset__legend--hidden">
                     <?= __('Write Us') ?>
                 </legend>
-                <p class="contact-us__description text-center">
-                    <?= __('Jot us a note and we’ll get back to you as quickly as possible.') ?>
-                </p>
+                <div class="contact-us__description text-center">
+                    <?= $block->getLayout()
+                        ->createBlock('Magento\Cms\Block\Block')
+                        ->setBlockId('contact-form-description')
+                        ->toHtml();
+                    ?>
+                </div>
                 <div class="input required">
                     <label
                         class="label input__label"
@@ -47,7 +50,7 @@
                         name="email"
                         id="email"
                         title="<?= $block->escapeHtmlAttr(__('Email')) ?>"
-                        value="<?= $block->escapeHtmlAttr($this->helper(\Magento\Contact\Helper\Data::class)->getPostValue('email') ?: $this->helper(\Magento\Contact\Helper\Data::class)->getUserEmail()) ?>"
+                        value="<?= $block->escapeHtmlAttr($this->helper(\Magento\Contact\Helper\Data::class)->getPostValue('email') ? : $this->helper(\Magento\Contact\Helper\Data::class)->getUserEmail()) ?>"
                         class="input__field"
                         type="email"
                         data-validate="{required:true, 'validate-email':true}"
@@ -81,7 +84,6 @@
                         id="comment"
                         title="<?= $block->escapeHtmlAttr(__('Comments/Questions')) ?>"
                         class="input__field input__field--textarea"
-                        cols="5"
                         rows="3"
                         data-validate="{required:true}"
                     >
@@ -95,9 +97,9 @@
                 <button
                     type="submit"
                     title="<?= $block->escapeHtmlAttr(__('Submit')) ?>"
-                    class="button contact-us__button action submit primary"
+                    class="button contact-us__button"
                 >
-                    <?= $block->escapeHtml(__('Submit Message')) ?>
+                    <?= __('Submit Message') ?>
                 </button>
             </div>
             <p class="contact-us__tips">

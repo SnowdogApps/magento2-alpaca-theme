@@ -1,12 +1,31 @@
 <?php $hint = htmlspecialchars(trim($this->getField()->getHint())); ?>
-<input type='number' name='<?php echo $this->getFieldName() ?>' id='<?php echo $this->getFieldId() ?>'
-       class='input__field <?php echo $this->getFieldClass() ?>' style='<?php echo $this->getFieldStyle() ?>'
-       value="<?php echo htmlspecialchars($this->getFieldValue()); ?>"
-       <?php if ($this->getField()->getHideLabel()) { ?>aria-label="<?php echo $this->getField()->getName() ?>"
-    <?php } else { ?> aria-labelledby="label_<?php echo $this->getFieldId() ?>" <?php } ?>
-       <?php if ($this->getField()->getRequired()) { ?>aria-required="true"<?php } ?>
-       <?php if($this->getField()->getBrowserAutocomplete()) { ?>autocomplete="<?php echo $this->getField()->getBrowserAutocomplete()?>" <?php }?>
-        <?php if (strlen($this->getMin())) echo "min=" . $this->getMin(); ?>
-    <?php if (strlen($this->getMax())) echo "max=" . $this->getMax(); ?>
-    <?php if ($this->getField()->getDisabled()) { ?> disabled <?php } ?>
-       placeholder="<?php echo $hint?>" <?php echo htmlspecialchars($this->getField()->getCustomAttributes())?>/>
+<input
+    type='number'
+    name='<?= $this->getFieldName() ?>'
+    id='<?= $this->getFieldId() ?>'
+    class='input__field <?= $this->getFieldClass() ?>'
+    style='<?= $this->getFieldStyle() ?>'
+    value="<?= htmlspecialchars($this->getFieldValue()); ?>"
+    placeholder="<?= $hint ?>"
+    <?php if ($this->getField()->getHideLabel()): ?>
+        aria-label="<?= $this->getField()->getName() ?>"
+    <?php else: ?>
+        aria-labelledby="label_<?= $this->getFieldId() ?>"
+    <?php endif; ?>
+    <?php if ($this->getField()->getRequired()): ?>
+        aria-required="true"
+    <?php endif; ?>
+    <?php if ($this->getField()->getBrowserAutocomplete()): ?>
+        autocomplete="<?= $this->getField()->getBrowserAutocomplete() ?>"
+    <?php endif; ?>
+    <?php if (strlen($this->getMin())): ?>
+        min="<?= $this->getMin() ?>"
+    <?php endif; ?>
+    <?php if (strlen($this->getMax())): ?>
+        max="<?= $this->getMax() ?>"
+    <?php endif; ?>
+    <?php if ($this->getField()->getDisabled()): ?>
+        disabled
+    <?php endif; ?>
+    <?= htmlspecialchars($this->getField()->getCustomAttributes()) ?>
+/>
