@@ -335,6 +335,114 @@ module.exports = {
           }
         ]
       }
-    }
+    },
+    {
+      name: 'brands',
+      context: {
+        class: 'slider--brands',
+        slides: [
+          {
+            itemClass: 'slider__slide-item',
+            content: 'image--picture'
+            contentContext: {
+              src: '/images/home/brand/brand-nike_208-208.jpg',
+              class: 'slider__image',
+              defaultSrc: '/images/home/brand/brand-nike_208-208.jpg',
+              sources: [
+                {
+                  src: '/images/home/brand/brand-nike_144-144.jpg',
+                  mediaQuery: '(max-width: 1024px)'
+                },
+                {
+                  src: '/images/home/brand/brand-nike_208-208.jpg',
+                  mediaQuery: ''
+                }
+              ],
+              alt: 'Brand nike'
+            },
+          },
+          {
+            itemClass: 'slider__slide-item',
+            content: 'image--picture'
+            contentContext: {
+              src: '/images/home/brand/brand-adidas_208-208.jpg',
+              class: 'slider__image',
+              defaultSrc: '/images/home/brand/brand-adidas_208-208.jpg',
+              sources: [
+                {
+                  src: '/images/home/brand/brand-adidas_144-144.jpg',
+                  mediaQuery: '(max-width: 1024px)'
+                },
+                {
+                  src: '/images/home/brand/brand-adidas_208-208.jpg',
+                  mediaQuery: ''
+                }
+              ],
+              alt: 'Brand adidas'
+            },
+          },
+          {
+            itemClass: 'slider__slide-item',
+            content: 'image--picture'
+            contentContext: {
+              src: '/images/home/brand/brand-nike_208-208.jpg',
+              class: 'slider__image',
+              defaultSrc: '/images/home/brand/brand-nike_208-208.jpg',
+              sources: [
+                {
+                  src: '/images/home/brand/brand-nike_144-144.jpg',
+                  mediaQuery: '(max-width: 1024px)'
+                },
+                {
+                  src: '/images/home/brand/brand-nike_208-208.jpg',
+                  mediaQuery: ''
+                }
+              ],
+              alt: 'Brand nike'
+            },
+          },
+          {
+            itemClass: 'slider__slide-item',
+            content: 'image--picture'
+            contentContext: {
+              src: '/images/home/brand/brand-armani_208-208.jpg',
+              class: 'slider__image',
+              defaultSrc: '/images/home/brand/brand-armani_208-208.jpg',
+              sources: [
+                {
+                  src: '/images/home/brand/brand-armani_144-144.jpg',
+                  mediaQuery: '(max-width: 1024px)'
+                },
+                {
+                  src: '/images/home/brand/brand-armani_208-208.jpg',
+                  mediaQuery: ''
+                }
+              ],
+              alt: 'Brand armani'
+            },
+          },
+          {
+            itemClass: 'slider__slide-item',
+            content: 'image--picture'
+            contentContext: {
+              src: '/images/home/brand/brand-adidas_208-208.jpg',
+              class: 'slider__image',
+              defaultSrc: '/images/home/brand/brand-adidas_208-208.jpg',
+              sources: [
+                {
+                  src: '/images/home/brand/brand-adidas_144-144.jpg',
+                  mediaQuery: '(max-width: 1024px)'
+                },
+                {
+                  src: '/images/home/brand/brand-adidas_208-208.jpg',
+                  mediaQuery: ''
+                }
+              ],
+              alt: 'Brand adidas'
+            },
+          },
+        ]
+      }
+    },
   ]
 }
