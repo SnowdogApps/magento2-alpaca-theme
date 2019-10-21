@@ -1,7 +1,7 @@
 <?php
 /** @var VladimirPopov\WebForms\Block\Form $this */
 
-if ($this->getRegistry()->registry('redirect_url')) { ?>
+if ($this->getRegistry()->registry('redirect_url')): ?>
     <meta
         http-equiv="refresh"
         content="0;url=<?= $this->getRegistry()->registry('redirect_url') ?>"
@@ -9,8 +9,9 @@ if ($this->getRegistry()->registry('redirect_url')) { ?>
     <script type="text/javascript">
         window.location = '<?= $this->getRegistry()->registry('redirect_url') ?>';
     </script>
-<?php }
+<?php endif; ?>
 
+<?php
 $tmpData = $this->getSession()->getData('webform_result_tmp_' . $this->getForm()->getId());
 $tmpResult = new \Magento\Framework\DataObject;
 $_uid = $this->getUid();
@@ -19,34 +20,28 @@ if (!empty($tmpData['field']) && is_array($tmpData['field'])) {
         $tmpResult->setData('field_' . $field_id, $value);
     }
 }
-if ($this->getForm()->getIsActive() == \VladimirPopov\WebForms\Model\Form::STATUS_DISABLED || !$this->isDirectAvailable()) {
-    echo $this->getNotAvailableMessage();
-} else { ?>
-
-    <?php if ($this->isAjax()) { ?>
+if ($this->getForm()->getIsActive() == \VladimirPopov\WebForms\Model\Form::STATUS_DISABLED || !$this->isDirectAvailable()): ?>
+    <?= $this->getNotAvailableMessage(); ?>
+<?php else: ?>
+    <?php if ($this->isAjax()): ?>
         <div
             id="webform_<?= $_uid ?>_success_text"
-            class="std webforms-success-text"
+            class="message message--success"
             style="display:none">
         </div>
-    <?php } ?>
+    <?php endif; ?>
 
-    <?php
-        if ($this->getSuccess()) {
-            ?>
+    <?php if ($this->getSuccess()): ?>
         <div class="webforms-success-text">
             <?= $this->getSuccessText() ?>
         </div>
-    <?php
-        }
-        if (!$this->getSuccess() || $this->getData('after_submission_form')) {
-            ?>
-        <?php if ($messages = $this->getErrorMessages()) : ?>
+    <?php endif; ?>
+    <?php if (!$this->getSuccess() || $this->getData('after_submission_form')): ?>
+        <?php if ($messages = $this->getErrorMessages()): ?>
             <div class="message error">
                 <div>
-                    <?php foreach ($messages as $message) : ?>
-                        <?php /* @escapeNotVerified */
-                                        echo $message ?><br />
+                    <?php foreach ($messages as $message): ?>
+                        <?= $message ?>
                     <?php endforeach; ?>
                 </div>
             </div>
@@ -62,13 +57,13 @@ if ($this->getForm()->getIsActive() == \VladimirPopov\WebForms\Model\Form::STATU
             id="webform_<?= $_uid ?>_form"
             class="webforms" <?= $aria_describedby ?>
         >
-            <?php if ($this->getDescription()) { ?>
+            <?php if ($this->getDescription()): ?>
                 <div id="<?= $_uid ?>form_description">
                     <?= $this->getDescription(); ?>
                 </div>
-            <?php } ?>
+            <?php endif; ?>
 
-            <?php if ($this->isAjax()) { ?>
+            <?php if ($this->isAjax()): ?>
                 <iframe
                     title="<?= $this->getForm()->getName() ?>"
                     id="webform_<?= $_uid ?>_iframe"
@@ -76,7 +71,7 @@ if ($this->getForm()->getIsActive() == \VladimirPopov\WebForms\Model\Form::STATU
                     role="none"
                     style="width:0;height:0;border:0;position:absolute">
                 </iframe>
-            <?php } ?>
+            <?php endif; ?>
 
             <form
                 class="form"
@@ -86,13 +81,13 @@ if ($this->getForm()->getIsActive() == \VladimirPopov\WebForms\Model\Form::STATU
                 id="webform_<?= $_uid ?>"
                 enctype="<?= $this->getEnctype() ?>"
                 class="webforms-<?= $this->getForm()->getCode() ?>"
-                <?php if ($this->getDescription()) { ?>
+                <?php if ($this->getDescription()): ?>
                     aria-describedby="<?= $_uid ?>form_description"
-                 <?php } ?>
+                 <?php endif ?>
                  aria-label="<?= $this->getForm()->getName() ?>"
-                 <?php if ($this->isAjax()) { ?>
+                 <?php if ($this->isAjax()): ?>
                     target="webform_<?= $_uid ?>_iframe"
-                <?php } ?>
+                <?php endif ?>
                 role="none">
 
                 <input
@@ -111,11 +106,15 @@ if ($this->getForm()->getIsActive() == \VladimirPopov\WebForms\Model\Form::STATU
                     value="<?= $this->getForm()->getId() ?>"
                 />
 
-                <?php if (is_array($this->getData('hidden'))) {
-                    foreach ($this->getData('hidden') as $key => $value) { ?>
-                        <input type="hidden" name="<?= $key ?>" value="<?= $value ?>" />
-                    <?php } ?>
-                <?php } ?>
+                <?php if (is_array($this->getData('hidden'))): ?>
+                    <?php foreach ($this->getData('hidden') as $key => $value): ?>
+                        <input
+                            type="hidden"
+                            name="<?= $key ?>"
+                            value="<?= $value ?>"
+                        />
+                    <?php endforeach; ?>
+                <?php endif; ?>
 
                 <?php if (count($this->getForm()->_getHidden())) {
                     foreach ($this->getForm()->_getHidden() as $field) {
@@ -123,7 +122,7 @@ if ($this->getForm()->getIsActive() == \VladimirPopov\WebForms\Model\Form::STATU
                     }
                 } ?>
 
-                <?php foreach ($this->getForm()->_getFieldsToFieldsets() as $fieldset_id => $fieldset) { ?>
+                <?php foreach ($this->getForm()->_getFieldsToFieldsets() as $fieldset_id => $fieldset): ?>
                     <fieldset
                         id="fieldset_<?= $_uid . $fieldset_id ?>"
                         class="fieldset fieldset-<?= $fieldset_id ?>
@@ -131,18 +130,18 @@ if ($this->getForm()->getIsActive() == \VladimirPopov\WebForms\Model\Form::STATU
                         style="<?php if (!empty($fieldset['css_style'])) echo $fieldset['css_style'] . ";"; ?>
                         <?php if ($fieldset['logic_visibility'] == \VladimirPopov\WebForms\Model\Logic::VISIBILITY_HIDDEN) echo 'display:none'; ?>"
                         role="group"
-                        <?php if ($fieldset_id) { ?>
+                        <?php if ($fieldset_id): ?>
                             aria-labelledby="legend_<?= $_uid . $fieldset_id ?>"
-                        <?php } ?>
+                        <?php endif; ?>
                     >
-                        <?php if (!empty($fieldset['name'])) { ?>
+                        <?php if (!empty($fieldset['name'])): ?>
                             <legend
                                 class="fieldset__legend fieldset__legend--hidden"
                                 id="legend_<?= $_uid . $fieldset_id ?>"
                             >
                                 <?= $fieldset['name'] ?>
                             </legend>
-                        <?php } ?>
+                        <?php endif ?>
 
                         <?php foreach ($fieldset['fields'] as $field) {
                             // set temporary value
@@ -174,7 +173,7 @@ if ($this->getForm()->getIsActive() == \VladimirPopov\WebForms\Model\Form::STATU
                                 <?= $aria_describedby ?>
                                 <?php if ($field->getData('logic_visibility') == \VladimirPopov\WebForms\Model\Logic::VISIBILITY_HIDDEN) echo 'style="display:none"'; ?>
                             >
-                                <?php if ($field->getType() != 'html' && $field->getType() != 'subscribe' && !$field->getHideLabel()) { ?>
+                                <?php if ($field->getType() != 'html' && $field->getType() != 'subscribe' && !$field->getHideLabel()): ?>
                                     <label class="label" id="label_field<?= $this->getFieldUid($field->getId()) ?>" <?= $label_for ?>>
                                         <?= $field->getName() ?>
                                         <?php
@@ -187,7 +186,7 @@ if ($this->getForm()->getIsActive() == \VladimirPopov\WebForms\Model\Form::STATU
                                             }
                                         ?>
                                     </label>
-                                <?php } ?>
+                                <?php endif; ?>
 
                                 <div
                                     class="control"
@@ -196,7 +195,7 @@ if ($this->getForm()->getIsActive() == \VladimirPopov\WebForms\Model\Form::STATU
                                 >
                                     <?= $field->toHtml(); ?>
 
-                                    <?php if ($field->getValidationAdvice()) { ?>
+                                    <?php if ($field->getValidationAdvice()): ?>
                                         <div
                                             style="display:none"
                                             class="validation-advice"
@@ -204,9 +203,9 @@ if ($this->getForm()->getIsActive() == \VladimirPopov\WebForms\Model\Form::STATU
                                         >
                                             <?= $field->getValidationAdvice() ?>
                                         </div>
-                                    <?php } ?>
+                                    <?php endif; ?>
 
-                                    <?php if ($field->getComment()) { ?>
+                                    <?php if ($field->getComment()): ?>
                                         <p
                                             class="webforms-fields-comment"
                                             id="comment_field<?= $this->getFieldUid($field->getId()) ?>"
@@ -214,12 +213,12 @@ if ($this->getForm()->getIsActive() == \VladimirPopov\WebForms\Model\Form::STATU
                                         >
                                             <?= nl2br($field->getComment()) ?>
                                         </p>
-                                    <?php } ?>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         <?php } ?>
                     </fieldset>
-                <?php } ?>
+                <?php endforeach; ?>
 
                 <?= $this->getLayout()->createBlock(
                         'VladimirPopov\WebForms\Block\Script\Gdpr',
@@ -229,21 +228,20 @@ if ($this->getForm()->getIsActive() == \VladimirPopov\WebForms\Model\Form::STATU
                         ]]
                     )->setForm($this->getForm())->toHtml();
                 ?>
-
                 <div
                     id="submit<?= $_uid ?>"
-                    <?php if ($this->getSubmitVisibility() == 'hidden') { ?>
+                    <?php if ($this->getSubmitVisibility() == 'hidden'): ?>
                         style="display: none"
-                    <?php } ?>
+                    <?php endif; ?>
                 >
-                    <?php if ($this->getForm()->useCaptcha()) { ?>
+                    <?php if ($this->getForm()->useCaptcha()): ?>
                         <div class="recaptcha">
                             <?= $this->getCaptcha()->getHTML() ?>
                         </div>
-                    <?php } ?>
+                    <?php endif; ?>
 
-                    <?php if ($this->honeypot()) {
-                        echo $this->getLayout()->createBlock(
+                    <?php if ($this->honeypot()): ?>
+                        <?= $this->getLayout()->createBlock(
                             'Magento\Framework\View\Element\Template',
                             null,
                             [
@@ -252,8 +250,8 @@ if ($this->getForm()->getIsActive() == \VladimirPopov\WebForms\Model\Form::STATU
                                     'template' => 'VladimirPopov_WebForms::webforms/scripts/honeypot.phtml'
                                 ]
                             ]
-                        )->toHtml();
-                    } ?>
+                        )->toHtml(); ?>
+                    <?php endif; ?>
                     <div class="primary">
                         <button
                             type="submit"
@@ -304,6 +302,5 @@ if ($this->getForm()->getIsActive() == \VladimirPopov\WebForms\Model\Form::STATU
                 ]]
             )->setForm($this->getForm())->toHtml();
         ?>
-<?php
-    }
-}
+    <?php endif; ?>
+<?php endif; ?>
