@@ -14,48 +14,40 @@ module.exports = {
         }
       ]
     },
-    mainHeading: {
-      tag: 'h1',
-      text: 'Blog',
-      class: 'heading heading--page'
-    },
-    recommendedHeading: {
-      tag: 'h2',
-      text: 'Recommended',
-      class: 'heading blog__heading'
-    },
-    categoryHeading: {
-      tag: 'h2',
-      text: 'Categories',
-      class: 'heading blog__heading'
-    },
-    categories: {
-      class: 'list--native list--fancy',
+    articlesClass: 'col-md-8',
+    asideClass: 'col-md-3',
+    articlesList: {
+      listTag: 'ul',
+      elementTag: 'li',
+      class: 'blog__articles-list',
       elements: [
         {
-          linkClass: 'blog__category-link',
-          text: 'Lorem ipsum',
-          link: '#'
+          text: false,
+          class: 'blog__article-item',
+          component: {
+            content: 'article-item'
+          }
         },
         {
-          linkClass: 'blog__category-link',
-          text: 'Lorem ipsum',
-          link: '#'
+          text: false,
+          class: 'blog__article-item',
+          component: {
+            content: 'article-item'
+          }
         },
         {
-          linkClass: 'blog__category-link',
-          text: 'Lorem ipsum',
-          link: '#'
+          text: false,
+          class: 'blog__article-item',
+          component: {
+            content: 'article-item'
+          }
         },
         {
-          linkClass: 'blog__category-link',
-          text: 'Lorem ipsum',
-          link: '#'
-        },
-        {
-          linkClass: 'blog__category-link',
-          text: 'Lorem ipsum',
-          link: '#'
+          text: false,
+          class: 'blog__article-item',
+          component: {
+            content: 'article-item'
+          }
         }
       ]
     }
