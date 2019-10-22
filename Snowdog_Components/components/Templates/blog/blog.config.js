@@ -15,7 +15,7 @@ module.exports = {
       ]
     },
     articlesClass: 'col-md-8',
-    asideClass: 'col-md-3',
+    navClass: 'col-md-4 col-lg-3',
     articlesList: {
       listTag: 'ul',
       elementTag: 'li',
@@ -50,6 +50,22 @@ module.exports = {
           }
         }
       ]
+    },
+    recommendedHeading: {
+      tag: 'h3',
+      class: 'blog__nav-heading heading--font-secondary',
+      text: 'Recent Posts'
+    },
+    recommendedList: {
+      class: 'blog__nav-list'
+    },
+    categoryHeading: {
+      tag: 'h3',
+      class: 'blog__nav-heading heading--font-secondary',
+      text: 'Categories'
+    },
+    categoriesList: {
+      class: 'blog__nav-list'
     }
   }
 }

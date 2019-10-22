@@ -9,12 +9,12 @@ module.exports = {
     footerClass: '',
     articleTitle: {
       tag: 'h2',
-      class: 'article-item__title',
+      class: 'article-item__title heading--font-secondary',
       text: 'Lorem Ipsum is simply dummy text of the printing'
     },
     articleSubtitle: {
-      tag: 'h4',
-      class: 'article-item__sub-title',
+      tag: 'h3',
+      class: 'article-item__sub-title heading--font-secondary',
       text: 'August 8, 2019'
     },
     articleBanner: {
