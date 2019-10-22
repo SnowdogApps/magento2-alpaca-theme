@@ -67,5 +67,15 @@ module.exports = {
     categoriesList: {
       class: 'blog__nav-list'
     }
-  }
+  },
+  variants: [
+    {
+      name: 'article',
+      context: {
+        articleSingle: {
+          class: 'article-item--single col-md-8 col-lg-9'
+        }
+      }
+    }
+  ]
 }
