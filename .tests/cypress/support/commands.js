@@ -61,3 +61,9 @@ Cypress.Commands.add('waitForCustomerData', () => {
   cy.route('/customer/section/load/?sections=*').as('getCustomerData')
   cy.wait('@getCustomerData')
 })
+
+Cypress.Commands.add('waitForCartData', () => {
+  cy.server()
+  cy.route('/customer/section/load/?sections=cart*').as('getCartData')
+  cy.wait('@getCartData')
+})
