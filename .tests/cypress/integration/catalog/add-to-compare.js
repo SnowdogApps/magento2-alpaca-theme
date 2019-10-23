@@ -11,7 +11,7 @@ describe('Catalog - Adding product to comparison list', () => {
         pickRandomItem(item).click()
       })
       cy.get('[data-ui-id=message-success]').should('be.visible')
-      //confirms that compare product is displayed in view
+      //  confirms that compare product is displayed in view
       cy.get('#compare-items').should('be.visible')
     })
   })
