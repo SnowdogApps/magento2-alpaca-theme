@@ -1,4 +1,3 @@
-/// <reference types="Cypress" />
 function pickRandomItem(item) {
   return item[Math.floor(Math.random() * item.length)]
 }
