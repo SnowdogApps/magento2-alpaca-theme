@@ -1,0 +1,86 @@
+<?php $mergedCells = ($this->helper('Magento\Tax\Helper\Data')->displayCartBothPrices() ? 2 : 1); ?>
+<?= $block->getChildHtml('form_before') ?>
+
+<form
+    action="<?= $block->getUrl('checkout/cart/updatePost') ?>"
+    method="post"
+    id="form-validate"
+    data-mage-init='{"validation":{}}'
+    class="form form-cart"
+>
+    <?= $block->getBlockHtml('formkey') ?>
+    <div
+        id="shopping-cart-table"
+        class="cart-grid"
+        data-mage-init='{
+            "shoppingCart":{
+                "emptyCartButton": "action.clear",
+                "updateCartActionContainer": "#update_cart_action_container"
+            }
+        }'
+    >
+        <div class="cart-grid__header">
+            <span class="
+                cart-grid__header-label
+                cart-grid__header-items
+            ">
+                <?= /* @escapeNotVerified */ __('Item') ?>
+            </span>
+
+            <span class="
+                cart-grid__header-label
+                cart-grid__header-price
+            ">
+                <?= /* @escapeNotVerified */ __('Price') ?>
+            </span>
+
+            <span class="
+                cart-grid__header-label
+                cart-grid__header-qty
+            ">
+                <?= /* @escapeNotVerified */ __('Quantity') ?>
+            </span>
+
+            <span class="
+                cart-grid__header-label
+                cart-grid__header-subtotal
+            ">
+                <?= /* @escapeNotVerified */ __('Subtotal') ?>
+            </span>
+        </div>
+
+        <?php foreach ($block->getItems() as $_item): ?>
+            <?= $block->getItemHtml($_item); ?>
+        <?php endforeach ?>
+
+        <div class="cart-grid__footer">
+            <button
+                type="submit"
+                name="update_cart_action"
+                data-cart-item-update=""
+                value="update_qty"
+                title="<?= $block->escapeHtml(__('Update Shopping Cart')) ?>"
+                class="
+                    button
+                    button--secondary
+                    cart-grid__button
+                    margin-top-sm
+                    margin-bottom-l
+                "
+                data-testid="update-cart-button"
+            >
+                <?= __('Update Shopping Cart') ?>
+            </button>
+
+            <input
+                type="hidden"
+                value=""
+                id="update_cart_action_container"
+                data-cart-item-update=""
+            >
+        </div>
+    </div>
+</form>
+
+<?= $block->getChildHtml('checkout.cart.order.actions'); ?>
+<?= $block->getChildHtml('shopping.cart.table.after'); ?>
