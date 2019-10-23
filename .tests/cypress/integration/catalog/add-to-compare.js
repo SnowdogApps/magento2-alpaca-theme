@@ -2,8 +2,8 @@ function pickRandomItem(item) {
   return item[Math.floor(Math.random() * item.length)]
 }
 
-describe('CATALOG - Compare metric test', () => {
-  it('adds product to comparison list', () => {
+describe('Catalog - Adding product to comparison list', () => {
+  it('adds a product', () => {
     cy.fixture('urls.json').then(({ men }) => {
       cy.visit(men)
       cy.waitForCustomerData()
@@ -11,10 +11,8 @@ describe('CATALOG - Compare metric test', () => {
         pickRandomItem(item).click()
       })
       cy.get('[data-ui-id=message-success]').should('be.visible')
+      //confirms that compare product is displayed in view
+      cy.get('#compare-items').should('be.visible')
     })
-  })
-
-  it('confirms that compare product is displayed in catalog view', () => {
-    cy.get('#compare-items').should('be.visible')
   })
 })
