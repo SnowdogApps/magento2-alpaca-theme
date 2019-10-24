@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<page
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd"
+>
+    <body>
+        <referenceContainer name="main.content" htmlClass="page-main container dashboard margin-vc-m"/>
+        <referenceContainer name="columns" htmlClass="row"/>
+        <referenceContainer
+            name="div.sidebar.main"
+            htmlClass="col-xs-12 col-lg-3 dashboard__sidebar margin-top-sl"
+        />
+        <referenceContainer name="sidebar.main">
+            <block
+                class="Magento\Framework\View\Element\Template"
+                name="customer_account_navigation_block"
+                template="Magento_Customer::account/navigation.phtml"
+                before="-"
+            >
+                <block
+                    class="Magento\Framework\View\Element\Html\Links"
+                    name="customer_account_navigation"
+                    before="-"
+                >
+                    <arguments>
+                        <argument name="css_class" xsi:type="string">list</argument>
+                    </arguments>
+                </block>
+                <block
+                    class="Magento\Framework\View\Element\Template"
+                    name="customer-account-navigation-magento-logout"
+                    template="Magento_Customer::account/link/logout.phtml"
+                />
+            </block>
+        </referenceContainer>
+
+        <referenceContainer
+            name="main"
+            htmlTag="div"
+            htmlClass="col-xs-12 col-lg-9 dashboard__content margin-top-sl"
+        />
+
+        <referenceBlock name="page.main.title">
+            <arguments>
+                <argument name="css_class" xsi:type="string">dashboard__content-heading</argument>
+            </arguments>
+        </referenceBlock>
+
+        <referenceBlock name="breadcrumbs">
+            <action method="addCrumb">
+                <argument name="crumbName" xsi:type="string">Home</argument>
+                <argument name="crumbInfo" xsi:type="array">
+                    <item name="title" translate="true" xsi:type="string">Home</item>
+                    <item name="label" translate="true" xsi:type="string">Home</item>
+                    <item name="link" xsi:type="string">/</item>
+                </argument>
+            </action>
+            <action method="addCrumb">
+                <argument name="crumbName" xsi:type="string">Account</argument>
+                <argument name="crumbInfo" xsi:type="array">
+                    <item name="title" translate="true" xsi:type="string">Account</item>
+                    <item name="label" translate="true" xsi:type="string">Account</item>
+                </argument>
+            </action>
+        </referenceBlock>
+
+        <move element="div.sidebar.main" destination="columns" before="main"/>
+        <move element="page.main.title" destination="main" before="content" />
+
+        <referenceBlock name="div.sidebar.additional" remove="true"/>
+    </body>
+</page>

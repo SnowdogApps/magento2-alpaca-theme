@@ -1,0 +1,67 @@
+<div class="dashboard-items margin-bottom-xl">
+    <h2 class="dashboard-items__title ">
+        <?= __('Account Information') ?>
+    </h2>
+
+    <div class="row dashboard-items__content">
+        <div class="col-sm-6 dashboard-items__item">
+            <h3 class="heading dashboard-items__subtitle">
+                <?= __('Contact Information') ?>
+            </h3>
+
+            <div class="margin-bottom-m">
+                <?= $block->escapeHtml($block->getName()) ?>
+                <br>
+                <?= $block->escapeHtml($block->getCustomer()->getEmail()) ?>
+            </div>
+
+            <div class="actions-group">
+                <div class="actions-group__handler">
+                    <a
+                        href="<?= $block->escapeUrl($block->getUrl('customer/account/edit')) ?>"
+                        class="link actions-group__link dashboard__link"
+                    >
+                        <?= __('Edit') ?>
+                    </a>
+
+                    <a
+                        href="<?= $block->escapeUrl($block->getChangePasswordUrl()) ?>"
+                        class="link actions-group__link"
+                    >
+                        <?= __('Change Password') ?>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <?php if ($block->isNewsletterEnabled()): ?>
+            <div class="col-sm-6 dashboard-items__item">
+                <h3 class="heading dashboard-items__subtitle">
+                    <?= __('Newsletters') ?>
+                </h3>
+
+                <div class="margin-bottom-m">
+                    <?php if ($block->getIsSubscribed()): ?>
+                        <?= __('You subscribe to "General Subscription".') ?>
+                    <?php else: ?>
+                        <?= __('You don\'t subscribe to our newsletter.') ?>
+                    <?php endif; ?>
+
+                    <?php /* Extensions placeholder */ ?>
+                    <?= $block->getChildHtml('customer.account.dashboard.info.extra') ?>
+                </div>
+
+                <div class="actions-group">
+                    <div class="actions-group__handler">
+                        <a
+                            class="link actions-group__link"
+                            href="<?= $block->escapeUrl($block->getUrl('newsletter/manage')) ?>"
+                        >
+                           <?= __('Edit') ?>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
+    </div>
+</div>
