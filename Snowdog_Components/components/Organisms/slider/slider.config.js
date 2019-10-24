@@ -338,6 +338,7 @@ module.exports = {
     },
     {
       name: 'brands',
+      view: 'slider--products.hbs',
       context: {
         class: 'slider--brands',
         slides: [
