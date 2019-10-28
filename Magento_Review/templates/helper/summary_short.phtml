@@ -1,0 +1,37 @@
+<?php $url = $block->escapeUrl($block->getReviewsUrl()) . '#reviews'; ?>
+<?php $urlForm = $block->escapeUrl($block->getReviewsUrl()) . '#review-form'; ?>
+
+<?php if ($block->getReviewsCount()): ?>
+    <?php $rating = $block->escapeHtmlAttr($block->getRatingSummary()); ?>
+    <?php if ($rating):?>
+        <div
+            class="rating rating--secondary"
+            aria-label="<?= __('Average rating') . ': ' . $rating . '%'; ?>"
+            title="<?= __('Average rating') . ': ' . $rating . '%'; ?>"
+            tabindex="0"
+        >
+            <div
+                class="rating__star"
+                role="presentation"
+                style="width:<?= $rating ?>%"
+            >
+                <span class="rating__indicator"></span>
+            </div>
+        </div>
+    <?php endif; ?>
+<?php elseif ($block->getDisplayIfEmpty()): ?>
+    <div
+        class="
+            product-reviews-summary
+            short
+            empty
+        "
+    >
+        <a
+            class="action add"
+            href="<?=  $urlForm ?>"
+        >
+            <?=  __('Be the first to review this product') ?>
+        </a>
+    </div>
+<?php endif; ?>
