@@ -1,7 +1,13 @@
 <{{{ listTag }}} class="list {{ class }}" {{{ attributes }}}>
     {{# each elements }}
         <{{{ ../elementTag }}} class="list__item {{ this.class }}">
-            {{{ text }}}
+            {{#if text}}
+                {{{ text }}}
+            {{/if}}
+
+            {{#if component}}
+                {{ render (component component.content) component.context merge=true }}
+            {{/if}}
         </{{{ ../elementTag }}}>
     {{/ each }}
 </{{{ listTag }}}>
