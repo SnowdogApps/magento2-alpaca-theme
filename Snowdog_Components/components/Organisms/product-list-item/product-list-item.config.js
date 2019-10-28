@@ -19,7 +19,27 @@ module.exports = {
     },
     sku: 'SKU: CEL-31145',
     description: false,
-    bulletList: true,
+    bulletList: {
+      attributes: '',
+      elements: [
+        {
+          label: 'Attribute',
+          value: 'Value'
+        },
+        {
+          label: 'Attribute',
+          value: 'Value'
+        },
+        {
+          label: 'Attribute',
+          value: 'Value'
+        },
+        {
+          label: 'Attribute',
+          value: 'Value'
+        }
+      ]
+    },
     stockButton: {
       class: 'button--link modal-trigger product-list-item__stock',
       text: 'In stock',
