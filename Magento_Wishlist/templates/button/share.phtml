@@ -1,0 +1,21 @@
+<?php
+/** @var $block \Magento\Wishlist\Block\Customer\Wishlist\Button */
+
+$getWishlistItems = $block->getWishlist()->getItemsCount();
+$getWishlistShared = $block->getWishlist()->getShared();
+$getWishlistEmailLimit = $block->getConfig()->getSharingEmailLimit();
+?>
+<?php if ($getWishlistItems && $getWishlistShared < $getWishlistEmailLimit): ?>
+    <button
+        type="submit"
+        name="save_and_share"
+        title="<?= $block->escapeHtmlAttr(__('Share Wish List')) ?>"
+        class="
+            button
+            button--secondary
+            actions-group__button
+        "
+    >
+        <?= __('Share Wish List') ?>
+    </button>
+<?php endif;?>
