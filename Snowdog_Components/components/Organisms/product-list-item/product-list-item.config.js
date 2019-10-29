@@ -18,6 +18,28 @@ module.exports = {
       text: 'Some product name - very long name because that\'s important'
     },
     sku: 'SKU: CEL-31145',
+    description: false,
+    bulletList: {
+      attributes: '',
+      elements: [
+        {
+          label: 'Attribute',
+          value: 'Value'
+        },
+        {
+          label: 'Attribute',
+          value: 'Value'
+        },
+        {
+          label: 'Attribute',
+          value: 'Value'
+        },
+        {
+          label: 'Attribute',
+          value: 'Value'
+        }
+      ]
+    },
     stockButton: {
       class: 'button--link modal-trigger product-list-item__stock',
       text: 'In stock',
@@ -83,13 +105,14 @@ module.exports = {
     },
     addToButton: {
       text: 'Add to cart',
-      class: 'button--add-to-icon product-list-item__add-to-button',
+      class: 'button--add-to-icon product-list-item__add-to-button button--fluid',
+      attributes: 'type="button" aria-label="Add to cart"',
       iconBefore: {
         id: 'shopping-cart',
-        title: 'Add to Cart',
+        title: 'Add to cart',
         class: 'button__icon',
-      },
-      attributes: 'type="button" aria-label="Add to cart"'
+        hidden: true
+      }
     }
   },
   variants: [
@@ -103,6 +126,13 @@ module.exports = {
             attributes: 'aria-label="Product price" tabindex="0"',
           }
         }
+      }
+    },
+    {
+      name: 'description',
+      context: {
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
+        bulletList: false
       }
     }
   ]
