@@ -13,6 +13,15 @@ module.exports = {
         }
       }
     },
+    gridItemSpecialLogName: {
+      name: 'Long product name can have maximum 50 caractere...',
+      price: {
+        name: 'price--with-special-price',
+        context: {
+          attributes: 'aria-label="Product price" tabindex="0"',
+        }
+      }
+    },
     banner: {
       class: 'catalog-list__banner'
     },
