@@ -125,6 +125,15 @@ module.exports = {
       title: 'See all Brands',
       text: 'See all Brands',
       class: 'home__brands-link'
+    },
+    mainSlider: {
+      script: false
+    },
+    productsSlider: {
+      script: false
+    },
+    productsWithoutCartSlider: {
+      script: false
     }
   }
 }
