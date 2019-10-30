@@ -1,0 +1,86 @@
+<?php
+$pageTitle = $this->getChildHtml('page.main.title');
+$categoryImage = $this->getChildHtml('category.image');
+$categoryDescription = $this->getChildHtml('category.description');
+$categoryCms = $this->getChildHtml('category.cms');
+?>
+<?php if ($categoryImage && $categoryDescription): ?>
+    <div
+        class="
+            banner
+            banner--category
+            catalog-list__banner
+        "
+        data-mage-init='{ "banner": {} }'
+    >
+        <div class="banner__image-wrapper">
+            <?= $categoryImage ?>
+
+            <button
+                class="
+                    button
+                    button--icon
+                    banner__button
+                    banner__button-collapse
+                "
+                type="button"
+                aria-label="<?= $block->escapeHtmlAttr(__('check category description')) ?>"
+                aria-expanded="false"
+            >
+                <span class="button__text">
+                    <?= __('More') ?>
+                </span>
+
+                <svg
+                    class="icon"
+                    role="presentation"
+                    focusable="false"
+                >
+                    <title><?= __('Arrow down') ?></title>
+                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#angle-down')) ?>"></use>
+                </svg>
+            </button>
+        </div>
+
+        <div
+            class="banner__content--category"
+            tabindex="-1"
+            aria-hidden="false"
+        >
+            <?= $categoryDescription ?>
+
+            <div class="banner__actions-wrapper">
+                <button
+                    class="
+                        button
+                        button--icon
+                        banner__button
+                        button--icon-light
+                        button--secondary
+                        banner__button-close
+                        margin-vc-xs
+                    "
+                    type="button"
+                    aria-label="<?= $block->escapeHtmlAttr(__('hide details')) ?>"
+                >
+                    <span class="button__text ">
+                        <?= __('Hide details') ?>
+                    </span>
+
+                    <svg
+                        class="icon margin-right-m"
+                        role="presentation"
+                        focusable="false"
+                    >
+                        <title><?= __('Arrow down') ?></title>
+                        <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#angle-up')) ?>"></use>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+<?php else: ?>
+    <?= $pageTitle ?>
+<?php endif; ?>
+
+<?= $categoryCms ?>
