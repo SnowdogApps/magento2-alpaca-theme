@@ -4,7 +4,7 @@
   'use strict';
 
   const sliders = [...document.querySelectorAll('.slider')];
-  debugger
+
   class Slider {
     constructor(slider, dataValues) {
 
@@ -19,12 +19,11 @@
       this.dataValues = dataValues;
       this.slider = slider;
       this.items = this.slider.querySelectorAll('.slider__item').length;
-      this.navigationContainer = this.slider.querySelector('.slider__navigation');
       this.dotsContainer = this.slider.querySelector('.slider__dots');
 
       this.slider.addEventListener('on.lory.resize', () => {
         this.lorySlider.slideTo(0);
-        this.handleDotEvent.bind(this)
+        this.handleDotEvent.bind(this);
       });
 
       this.slider.addEventListener('before.lory.init', this.handleDotEvent.bind(this));
@@ -51,9 +50,6 @@
         return false;
       }
 
-      console.log(e.type);
-      console.log(this)
-
       let dot = document.createElement('li');
 
       if (e.type === 'before.lory.init') {
@@ -62,26 +58,22 @@
           clone.className = 'slider__dot'
           this.dotsContainer.appendChild(clone);
         }
-        this.dotsContainer.firstCHild.classList.add('active');
+        this.dotsContainer.firstChild.classList.add('active');
       }
-      if (e.type === 'after.lory.init') {
-        for (let j = 0, len = this.items; j < len; j++) {
-          this.dotsContainer.childNodes[j].addEventListener('click', (e) => {
-            this.lorySlider.slideTo(Array.prototype.indexOf.call(this.dotsContainer.childNodes, e.target));
-          });
-        }
-      }
+
       if (e.type === 'after.lory.slide') {
         for (let i = 0, len = this.dotsContainer.childNodes.length; i < len; i++) {
-          this.dotsContainer.firstChild.classList.remove('active');
+          this.dotsContainer.childNodes[i].classList.remove('active');
         }
-        this.dotsContainer.childNodes[e.detail.currentSlide - 1].classList.add('active');
+
+        this.dotsContainer.childNodes[e.detail.currentSlide].classList.add('active');
       }
+
       if (e.type === 'on.lory.resize') {
         for (let i = 0, len = this.dotsContainer.childNodes.length; i < len; i++) {
           this.dotsContainer.childNodes[i].classList.remove('active');
         }
-        this.dotsContainer.childNodes[0].classList.add('active');
+        this.dotsContainer.firstChild.classList.add('active');
       }
     }
   }
