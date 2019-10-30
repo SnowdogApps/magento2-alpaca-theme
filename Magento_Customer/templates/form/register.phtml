@@ -1,0 +1,350 @@
+<div class="container auth">
+    <div class="auth__links auth__links--registration">
+        <a
+            href="<?= $block->escapeUrl($block->getUrl('customer/account/login')); ?>"
+            class="
+                button
+                button--link
+                auth__link
+            "
+        >
+            <?= __('Login') ?>
+            <svg
+                class="icon auth__icon"
+                aria-hidden="true"
+            >
+                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#expand-down')); ?>"></use>
+            </svg>
+        </a>
+        <a
+            href="#"
+            class="
+                button
+                button--link
+                auth__link
+                auth__link--active
+            "
+        >
+            <?= __('Create account') ?>
+            <svg
+                class="icon auth__icon"
+                aria-hidden="true"
+            >
+                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#expand-down')); ?>"></use>
+            </svg>
+        </a>
+    </div>
+    <div class="account-form">
+        <p class="account-form__info">
+            <?= __('Creating an account has many benefits: check out faster, keep more than one address, track orders and more.') ?>
+        </p>
+        <?= $block->getChildHtml('form_fields_before') ?>
+        <?= $block->getChildHtml('customer.form.register.extra') ?>
+        <form
+            class="account-form__form"
+            action="<?= $block->escapeUrl($block->getPostActionUrl()); ?>"
+            method="post"
+            id="form-validate"
+            enctype="multipart/form-data"
+        >
+            <?= $block->getBlockHtml('formkey'); ?>
+            <fieldset class="fieldset account-form__fieldset">
+                <legend class="fieldset__legend account-form__legend">
+                    <?= __('Personal information') ?>
+                </legend>
+                <input
+                    type="hidden"
+                    name="success_url"
+                    value="<?= $block->escapeUrl($block->getSuccessUrl()); ?>"
+                >
+                <input
+                    type="hidden"
+                    name="error_url"
+                    value="<?= $block->escapeUrl($block->getErrorUrl()); ?>"
+                >
+                <?= $block->getLayout()
+                    ->createBlock('Magento\Customer\Block\Widget\Name')
+                    ->setObject($block->getFormData())
+                    ->setForceUseCustomerAttributes(true)
+                    ->toHtml()
+                ?>
+                <?php if ($block->isNewsletterEnabled()) : ?>
+                    <div class="checkbox account-form__newsletter-checkbox">
+                        <input
+                            type="checkbox"
+                            id="is_subscribed"
+                            name="is_subscribed"
+                            title="<?= $block->escapeHtmlAttr(__('Sign Up for Newsletter')); ?>"
+                            value="1"
+                            class="
+                                checkbox__field
+                                account-form__newsletter-checkbox-field
+                            "
+                            <?= ($block->getFormData()->getIsSubscribed()) ? 'checked="checked"' : '' ?>
+                        >
+                        <svg
+                            class="
+                                checkbox__icon
+                                checkbox__icon--checked
+                            "
+                            role="presentation"
+                            focusable="false"
+                        >
+                            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#checked')) ?>"></use>
+                        </svg>
+                        <svg
+                            class="
+                                checkbox__icon
+                                checkbox__icon--unchecked
+                            "
+                            role="presentation"
+                            focusable="false"
+                        >
+                            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#unchecked')) ?>"></use>
+                        </svg>
+                        <label
+                            for="is_subscribed"
+                            class="
+                                checkbox__label
+                                account-form__newsletter-checkbox-label
+                            "
+                        >
+                            <?= __('Sign Up for Newsletter') ?>
+                        </label>
+                    </div>
+                    <?php /* Extensions placeholder */ ?>
+                    <?= $block->getChildHtml('customer.form.register.newsletter') ?>
+                <?php endif ?>
+                <?php $_dob = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Dob') ?>
+                <?php if ($_dob->isEnabled()) : ?>
+                    <?= $_dob->setDate($block->getFormData()->getDob())
+                        ->setHtmlClass('input__field')
+                        ->toHtml();
+                    ?>
+                <?php endif; ?>
+                <?php $_taxvat = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Taxvat') ?>
+                <?php if ($_taxvat->isEnabled()) : ?>
+                    <?= $_taxvat->setTaxvat($block->getFormData()->getTaxvat())->toHtml() ?>
+                <?php endif; ?>
+                <?php $_gender = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Gender') ?>
+                <?php if ($_gender->isEnabled()) : ?>
+                    <?= $_gender->setGender($block->getFormData()->getGender())->toHtml() ?>
+                <?php endif; ?>
+            </fieldset>
+            <fieldset class="fieldset account-form__fieldset">
+                <legend class="account-form__legend">
+                    <?= __('Sign-In information') ?>
+                </legend>
+                <div class="input account-form__input required">
+                    <label
+                        class="label"
+                        for="email_address"
+                    >
+                        <?= __('Email') ?>
+                    </label>
+                    <input
+                        type="email"
+                        name="email"
+                        autocomplete="email"
+                        id="email_address"
+                        value="<?= $block->escapeHtmlAttr($block->getFormData()->getEmail()); ?>"
+                        title="<?= $block->escapeHtmlAttr(__('Email')); ?>"
+                        class="input__field"
+                        aria-required="true"
+                        data-validate="{required:true, 'validate-email':true}"
+                    >
+                </div>
+                <div
+                    data-mage-init='{
+                        "passwordStrengthIndicator": {
+                            "defaultClassName": "password-strength--"
+                        }
+                    }'
+                >
+                    <div
+                        class="
+                            input
+                            input--password
+                            required
+                        "
+                    >
+                        <label
+                            class="label input__label"
+                            for="password"
+                        >
+                            <?= __('Password') ?>
+                        </label>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            title="<?= $block->escapeHtmlAttr(__('Password')); ?>"
+                            class="input__field"
+                            data-password-min-length="<?= $block->escapeHtml($block->getMinimumPasswordLength()); ?>"
+                            data-password-min-character-sets="<?= $block->escapeHtml($block->getRequiredCharacterClassesNumber()); ?>"
+                            data-validate="{
+                                required: true,
+                                'validate-customer-password': true
+                            }"
+                            autocomplete="off"
+                            aria-required="true"
+                        >
+                        <button
+                            type="button"
+                            class="
+                                button
+                                button--icon
+                                input__button-pass
+                            "
+                            aria-label="<?= $block->escapeHtmlAttr(__('Show/hide password')) ?>"
+                            data-mage-init='{"passwordTrigger": {}}'
+                        >
+                            <svg
+                                class="
+                                    icon
+                                    icon--secondary
+                                    input__button-pass-icon-view
+                                "
+                                role="presentation"
+                                focusable="false"
+                            >
+                                <title><?= __('View password icon') ?></title>
+                                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#visibility-off')); ?>"></use>
+                            </svg>
+
+                            <svg
+                                class="
+                                    icon
+                                    icon--secondary
+                                    input__button-pass-icon-hide
+                                "
+                                role="presentation"
+                                focusable="false"
+                            >
+                                <title><?= __('Hide password icon') ?></title>
+                                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#visibility')); ?>"></use>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="password-strength margin-bottom-m">
+                        <div
+                            class="password-none"
+                            data-role="password-strength-meter"
+                        >
+                            <div class="password-strength__handle">
+                                <?= __('Password Strength') ?>:
+                                <span
+                                    class="password-strength__indicator"
+                                    data-role="password-strength-meter-label"
+                                    aria-live="polite"
+                                >
+                                    <?= __('No Password') ?>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="
+                        input
+                        input--password
+                        required
+                    "
+                >
+                    <label
+                        class="label input__label"
+                        for="password_confirmation"
+                    >
+                        <?= __('Confirm password') ?>
+                    </label>
+                    <input
+                        type="password"
+                        name="password_confirmation"
+                        title="<?= $block->escapeHtmlAttr(__('Confirm password')); ?>"
+                        id="password_confirmation"
+                        class="input__field"
+                        data-validate="{required:true, equalTo:'#password'}"
+                        autocomplete="off"
+                        aria-required="true"
+                    >
+                    <button
+                        type="button"
+                        class="
+                            button
+                            button--icon
+                            input__button-pass
+                        "
+                        aria-label="<?= $block->escapeHtmlAttr(__('Show/hide password')) ?>"
+                    >
+                        <svg
+                            class="
+                                icon
+                                icon--secondary
+                                input__button-pass-icon-view
+                            "
+                            role="presentation"
+                            focusable="false"
+                        >
+                            <title><?= __('View password icon') ?></title>
+                            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#visibility-off')); ?>"></use>
+                        </svg>
+
+                        <svg
+                            class="
+                                icon
+                                icon--secondary
+                                input__button-pass-icon-hide
+                            "
+                            role="presentation"
+                            focusable="false"
+                        >
+                            <title><?= __('Hide password icon') ?></title>
+                            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#visibility')); ?>"></use>
+                        </svg>
+                    </button>
+                </div>
+                <?= $block->getChildHtml('form_additional_info'); ?>
+            </fieldset>
+            <div class="account-form__actions">
+                <button
+                    type="submit"
+                    class="button account-form__button"
+                >
+                    <?= __('Create an Account') ?>
+                </button>
+            </div>
+            <div class="account-form__validation-tips">
+                * <?= __('Required Fields') ?>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    require([
+        'jquery',
+        'mage/mage'
+    ], function($) {
+        var dataForm = $('#form-validate'),
+            ignore = <?= $_dob->isEnabled() ? '\'input[id$="full"]\'' : 'null' ?>;
+
+        dataForm.mage('validation', {
+            <?php if ($_dob->isEnabled()) : ?>
+                errorPlacement: function(error, element) {
+                    if (element.prop('id').search('full') !== -1) {
+                        var dobElement = $(element).parents('.customer-dob'),
+                            errorClass = error.prop('class');
+                        error.insertAfter(element.parent());
+                        dobElement.find('.validate-custom').addClass(errorClass)
+                            .after('<div class="' + errorClass + '"></div>');
+                    } else {
+                        error.insertAfter(element);
+                    }
+                },
+                ignore: ':hidden:not(' + ignore + ')'
+            <?php else : ?>
+                ignore: ignore ? ':hidden:not(' + ignore + ')' : ':hidden'
+            <?php endif ?>
+        });
+    });
+</script>
