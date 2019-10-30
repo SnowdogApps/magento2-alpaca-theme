@@ -4,6 +4,7 @@
   'use strict';
 
   const sliders = [...document.querySelectorAll('.slider')];
+  const dot = document.createElement('li');
 
   class Slider {
     constructor(slider, dataValues) {
@@ -27,9 +28,7 @@
       });
 
       this.slider.addEventListener('before.lory.init', this.handleDotEvent.bind(this));
-      this.slider.addEventListener('after.lory.init', this.handleDotEvent.bind(this));
       this.slider.addEventListener('after.lory.slide', this.handleDotEvent.bind(this));
-
 
       Object.keys(this.dataValues).map((objectKey) => {
         if (objectKey !== 'slidesToScroll') {
@@ -50,31 +49,40 @@
         return false;
       }
 
-      let dot = document.createElement('li');
-
       if (e.type === 'before.lory.init') {
         for (let i = 0, len = this.items; i < len; i++) {
-          let clone = dot.cloneNode();
-          clone.className = 'slider__dot'
-          this.dotsContainer.appendChild(clone);
+          this.addDotClone()
         }
-        this.dotsContainer.firstChild.classList.add('active');
+        this.addActiveClassToSlide(0)
       }
 
       if (e.type === 'after.lory.slide') {
         for (let i = 0, len = this.dotsContainer.childNodes.length; i < len; i++) {
-          this.dotsContainer.childNodes[i].classList.remove('active');
+          this.removeActiveClassFromSlide(i)
         }
-
-        this.dotsContainer.childNodes[e.detail.currentSlide].classList.add('active');
+        this.addActiveClassToSlide(e.detail.currentSlide)
       }
 
       if (e.type === 'on.lory.resize') {
         for (let i = 0, len = this.dotsContainer.childNodes.length; i < len; i++) {
-          this.dotsContainer.childNodes[i].classList.remove('active');
+          this.removeActiveClassFromSlide(i)
         }
-        this.dotsContainer.firstChild.classList.add('active');
+        this.addActiveClassToSlide(0)
       }
+    }
+
+    addDotClone() {
+      let clone = dot.cloneNode();
+      clone.className = 'slider__dot';
+      this.dotsContainer.appendChild(clone);
+    }
+
+    addActiveClassToSlide(index) {
+      this.dotsContainer.childNodes[index].classList.add('active');
+    }
+
+    removeActiveClassFromSlide(index) {
+      this.dotsContainer.childNodes[index].classList.remove('active');
     }
   }
 
