@@ -43,28 +43,45 @@
             {{ nav.class }}
          "
    >
-        {{#if typeHorizontal }}
-            {{ render '@button--icon' thumbArrowLeft }}
-        {{else}}
-            {{ render '@button--icon' thumbArrowUp }}
+
+        {{#unless dots}}
+            {{#if typeHorizontal }}
+                {{ render '@button--icon' thumbArrowLeft }}
+            {{else}}
+                {{ render '@button--icon' thumbArrowUp }}
+            {{/if}}
+            {{#each thumbs }}
+                <div class="
+                        gallery__thumb
+                        {{#if imageThumb.active}}
+                            gallery__thumb--active
+                        {{/if}}
+                    "
+                >
+                    {{ render '@image' imageThumb }}
+                </div>
+            {{/each}}
+            {{#if typeHorizontal }}
+                {{ render '@button--icon' thumbArrowRight }}
+            {{ else }}
+                {{ render '@button--icon' thumbArrowDown }}
+            {{/if}}
+        {{/unless}}
+        {{#if dots}}
+            {{#each thumbs}}
+                <div
+                    class="
+                        gallery__thumb-dot
+                        {{#if dotThumb.active}}
+                            gallery__thumb-dot--active
+                        {{/if}}
+                    "
+                >
+                    <div class="gallery__dot"></div>
+                </div>
+            {{/each}}
         {{/if}}
 
-        {{#each thumbs }}
-            <div class="
-                    gallery__thumb
-                    {{#if imageThumb.active}}
-                        gallery__thumb--active
-                    {{/if}}
-                "
-            >
-                {{ render '@image' imageThumb }}
-            </div>
-        {{/each}}
 
-        {{#if typeHorizontal }}
-            {{ render '@button--icon' thumbArrowRight }}
-        {{ else }}
-            {{ render '@button--icon' thumbArrowDown }}
-        {{/if}}
     </div>
 </div>

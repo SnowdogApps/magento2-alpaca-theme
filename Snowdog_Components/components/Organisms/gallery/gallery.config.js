@@ -2,7 +2,7 @@ module.exports = {
   title: 'Product grid item',
   context: {
     typeVertical: false,
-    dotsBreakpoint: false,
+    dots: false,
     imageMain: {
       dataSrc: '/images/product/product_432x648.jpg'
     },
@@ -95,8 +95,7 @@ module.exports = {
     {
       name: 'dots-breakpoint',
       context: {
-        class: 'gallery--dots',
-        dotsBreakpoint: true
+        dots: true
       }
     }
   ]

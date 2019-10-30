@@ -13,9 +13,14 @@
             }
 
             .fotorama__active {
-                @extend .gallery__thumb--active;
-
                 box-sizing: border-box;
+                &.fotorama__nav__frame--thumb {
+                    @extend .gallery__thumb--active;
+                }
+                &.fotorama__nav__frame--dot {
+                    @extend .gallery__thumb-dot--active;
+                }
+
             }
 
             .fotorama__arr--disabled {
@@ -25,11 +30,7 @@
             .fotorama__thumb__arr {
                 @extend .gallery__thumb-arr;
 
-                background-color: #fff;
-
-                @include mq($screen-m) {
-                    width: 100%;
-                }
+                background-color: $white;
 
                 &--left {
                     .fotorama__thumb {
@@ -54,16 +55,37 @@
                         @extend .gallery__icon-arrow--vertical;
 
                         position: relative;
-                        top: 0;
-                        left: 0;
-                        height: 12px;
-                        width: 12px;
+                        height: 24px;
+                        width: 24px;
                         padding: 0;
-                        margin: 0;
-                        background-position: 0 0;
+                        margin: auto;
+                        background-position: center;
+                        fill: $gallery__icon-arrow-color;
                     }
                 }
             }
+        }
+
+        &--vertical {
+            .fotorama__nav__frame--thumb {
+                @extend .gallery__thumb--vertical;
+            }
+        }
+    }
+
+    &__fullscreen-icon {
+        background-image: url('../images/fotorama/close.svg');
+        background-position: center;
+        background-size: 40%;
+        transition: $button__transition;
+
+        &:hover {
+            // background-color: $gray-lighter;
+            transform: rotate(360deg);
+        }
+
+        .focus-visible {
+            @include focus();
         }
     }
 
