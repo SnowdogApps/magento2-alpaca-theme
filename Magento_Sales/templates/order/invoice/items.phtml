@@ -1,0 +1,70 @@
+<?php $_order = $block->getOrder() ?>
+
+<div class="dashboard-table">
+    <div class="dashboard-table__header">
+        <h2 class="heading dashboard-table__title">
+            <?= __('Invoice #') ?>
+            <?= $_order->getIncrementId(); ?>
+        </h2>
+
+        <a
+            href="<?= $block->escapeUrl($block->getPrintAllInvoicesUrl($_order)) ?>"
+            class="link dashboard-table__link"
+            target="_blank"
+        >
+            <?= __('Print All Invoices') ?>
+        </a>
+    </div>
+
+    <?php foreach ($_order->getInvoiceCollection() as $_invoice): ?>
+        <div class="dashboard-table__content">
+            <table
+                class="table"
+                tabindex="0"
+                role="table"
+            >
+                <thead>
+                    <tr>
+                        <th>
+                            <?= __('Product Name') ?>
+                        </th>
+
+                        <th>
+                            <?= __('SKU') ?>
+                        </th>
+
+                        <th>
+                            <?= __('Price') ?>
+                        </th>
+
+                        <th>
+                            <?= __('Qty Invoiced') ?>
+                        </th>
+
+                        <th>
+                            <?= __('Subtotal') ?>
+                        </th>
+                    </tr>
+                </thead>
+
+                <?php $_items = $_invoice->getAllItems(); ?>
+
+                <?php $_count = count($_items) ?>
+
+                <?php foreach ($_items as $_item): ?>
+                    <?php if ($_item->getOrderItem()->getParentItem()): continue; endif; ?>
+
+                    <tbody>
+                        <?= $block->getItemHtml($_item) ?>
+                    </tbody>
+                <?php endforeach; ?>
+
+                <tfoot>
+                    <?= $block->getInvoiceTotalsHtml($_invoice) ?>
+                </tfoot>
+            </table>
+        </div>
+
+        <?= $block->getInvoiceCommentsHtml($_invoice) ?>
+    <?php endforeach; ?>
+</div>
