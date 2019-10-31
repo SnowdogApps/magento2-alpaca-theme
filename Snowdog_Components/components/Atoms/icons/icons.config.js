@@ -88,11 +88,6 @@ module.exports = {
         class: 'icons__single-icon'
       },
       {
-        id: 'delivery',
-        title: 'Delivery',
-        class: 'icons__single-icon'
-      },
-      {
         id: 'delivery-truck',
         title: 'Delivery truck',
         class: 'icons__single-icon'
