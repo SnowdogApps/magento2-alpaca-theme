@@ -289,8 +289,8 @@ switch ($type = $block->getType()) {
                                             <?php endif; ?>
                                             <?php if ($showCart): ?>
                                                 <?php if ($_item->isSaleable()): ?>
-                                                    <div class="product-grid-item__primary-action">
-                                                        <?php if ($_item->getTypeInstance()->hasRequiredOptions($_item)): ?>
+                                                    <?php if ($_item->getTypeInstance()->hasRequiredOptions($_item)): ?>
+                                                        <div class="product-grid-item__primary-action">
                                                             <button
                                                                 class="
                                                                     button
@@ -316,21 +316,41 @@ switch ($type = $block->getType()) {
                                                                     <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#shopping-cart')) ?>"></use>
                                                                 </svg>
                                                             </button>
-                                                        <?php else: ?>
-                                                            <?php
+                                                        </div>
+                                                    <?php else: ?>
+                                                        <!-- Adding to cart with ajax when product has required option and is available -->
+                                                        <?php
                                                             $postDataHelper = $this->helper('Magento\Framework\Data\Helper\PostHelper');
-                                                            $postData = $postDataHelper->getPostData($block->getAddToCartUrl($_item), ['product' => $_item->getEntityId()])
-                                                            ?>
+                                                            $postParamsString = $postDataHelper->getPostData($block->getAddToCartUrl($_item), ['product' => $_item->getEntityId()]);
+                                                            $postParams = json_decode($postParamsString, true);
+                                                        ?>
+                                                        <form
+                                                            class="product-grid-item__primary-action"
+                                                            data-role="tocart-form"
+                                                            data-product-sku="<?= $block->escapeHtmlAttr($_item->getSku()) ?>"
+                                                            action="<?= $block->escapeUrl($postParams['action']) ?>"
+                                                            method="post"
+                                                        >
+                                                            <input
+                                                                type="hidden"
+                                                                name="product"
+                                                                value="<?= /* @noEscape */ $postParams['data']['product'] ?>"
+                                                            >
+                                                            <input
+                                                                type="hidden"
+                                                                name="<?= /* @noEscape */ Magento\Framework\App\Action\Action::PARAM_NAME_URL_ENCODED ?>"
+                                                                value="<?= /* @noEscape */ $postParams['data'][Magento\Framework\App\Action\Action::PARAM_NAME_URL_ENCODED] ?>"
+                                                            >
+                                                            <?= $block->getBlockHtml('formkey') ?>
+
                                                             <button
                                                                 class="
                                                                     button
-                                                                    dwa
                                                                     button--icon button--add-to-icon
                                                                     tocart
                                                                     action
                                                                 "
-                                                                data-post='<?= $postData ?>'
-                                                                type="button"
+                                                                type="submit"
                                                                 aria-label="<?= $block->escapeHtmlAttr(__('Add to Cart')) ?>"
                                                                 data-testid="add-to-cart-button"
                                                             >
@@ -342,8 +362,19 @@ switch ($type = $block->getType()) {
                                                                     <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#shopping-cart')) ?>"></use>
                                                                 </svg>
                                                             </button>
+                                                        </form>
+                                                        <?php if (!$block->isRedirectToCartEnabled()) :?>
+                                                            <script type="text/x-magento-init">
+                                                            {
+                                                                "[data-role=tocart-form], .form.map.checkout": {
+                                                                    "catalogAddToCart": {
+                                                                        "product_sku": "<?= $block->escapeJs($_item->getSku()) ?>"
+                                                                    }
+                                                                }
+                                                            }
+                                                            </script>
                                                         <?php endif; ?>
-                                                        </div>
+                                                    <?php endif; ?>
                                                 <?php else: ?>
                                                     <?php if ($_item->getIsSalable()): ?>
                                                         <div class="stock available">
