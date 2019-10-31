@@ -4,7 +4,7 @@
   'use strict';
 
   const sliders = [...document.querySelectorAll('.slider')];
-  const dot = document.createElement('li');
+  const dot = document.createElement('span');
 
   class Slider {
     constructor(slider, dataValues) {
