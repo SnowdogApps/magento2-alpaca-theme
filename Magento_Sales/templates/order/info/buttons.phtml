@@ -1,0 +1,23 @@
+<div class="actions">
+    <?php $_order = $block->getOrder() ?>
+
+    <?php if ($this->helper(\Magento\Sales\Helper\Reorder::class)->canReorder($_order->getEntityId())) : ?>
+        <a
+            class="action order"
+            href="#"
+            data-post='<?= $this->helper(\Magento\Framework\Data\Helper\PostHelper::class)->getPostData($block->getReorderUrl($_order)) ?>'
+        >
+            <?= $block->escapeHtml(__('Reorder')) ?>
+        </a>
+    <?php endif ?>
+
+    <a
+        class="action print"
+        href="<?= $block->escapeUrl($block->getPrintUrl($_order)) ?>"
+        onclick="this.target='_blank';"
+    >
+        <?= $block->escapeHtml(__('Print Order')) ?>
+    </a>
+
+    <?= $block->getChildHtml() ?>
+</div>
