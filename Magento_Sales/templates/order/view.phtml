@@ -1,0 +1,47 @@
+<?php $_order = $block->getOrder() ?>
+
+<?= $block->getChildHtml('order_links') ?>
+<?= $block->getChildHtml('order_items') ?>
+
+<?php
+    $isMessageAllowed = $this->helper('Magento\GiftMessage\Helper\Message')->isMessagesAllowed('order', $_order);
+?>
+
+<?php if ($isMessageAllowed && $_order->getGiftMessageId()): ?>
+    <div class="dashboard__handler">
+        <h4 class="dashboard__title--wrapped">
+            <?= __('Gift Message for This Order') ?>
+        </h4>
+    </div>
+
+    <?php
+        $_giftMessage = $this->helper('Magento\GiftMessage\Helper\Message')->getGiftMessageForEntity($_order);
+        $getGiftMessage = $this->helper('Magento\GiftMessage\Helper\Message')->getEscapedGiftMessage($_order);
+    ?>
+
+    <div class="row">
+        <div class="col-sm-6 information">
+            <h5 class="information__title">
+                <?= __('From') ?>
+            </h5>
+
+            <p class="information__text">
+                <?= $block->escapeHtml($_giftMessage->getSender()) ?>
+            </p>
+        </div>
+
+        <div class="col-sm-6 information">
+            <h5 class="information__title">
+                <?= __('To') ?>
+            </h5>
+
+            <p class="information__text">
+                <?= $block->escapeHtml($_giftMessage->getRecipient()) ?>
+            </p>
+
+            <p class="information__text">
+                <?= $getGiftMessage; ?>
+            </p>
+        </div>
+    </div>
+<?php endif; ?>

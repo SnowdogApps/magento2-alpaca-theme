@@ -1,0 +1,58 @@
+<?php $_item = $block->getItem() ?>
+
+<tr id="order-item-row-<?= $_item->getId() ?>">
+    <td data-th="<?= $block->escapeHtml(__('Product Name')); ?>">
+        <?= $block->escapeHtml($_item->getName()) ?>
+
+        <?php if ($_options = $block->getItemOptions()): ?>
+            <ul class="list">
+                <?php foreach ($_options as $_option) : ?>
+                    <li>
+                        <?= $block->escapeHtml($_option['label']) ?>:&nbsp;
+
+                        <?php if (!$block->getPrintStatus()): ?>
+                            <?php $_formatedOptionValue = $block->getFormatedOptionValue($_option) ?>
+
+                            <?= $_formatedOptionValue['value'] ?>:&nbsp;
+
+                            <?php if (isset($_formatedOptionValue['full_view'])): ?>
+                                <strong>
+                                    <?= $block->escapeHtml($_option['label']) ?>:&nbsp;
+                                    <?= $_formatedOptionValue['full_view'] ?>
+                                </strong>
+                            <?php endif; ?>
+                        <?php else: ?>
+                            <strong>
+                                <?= $block->escapeHtml((isset($_option['print_value']) ? $_option['print_value'] : $_option['value'])) ?>
+                            <strong>
+                        <?php endif; ?>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        <?php endif; ?>
+
+        <?php $addInfoBlock = $block->getProductAdditionalInformationBlock(); ?>
+
+        <?php if ($addInfoBlock) :?>
+            <?= $addInfoBlock->setItem($_item->getOrderItem())->toHtml(); ?>
+        <?php endif; ?>
+
+        <?= $block->escapeHtml($_item->getDescription()) ?>
+    </td>
+
+    <td data-th="<?= $block->escapeHtml(__('SKU')); ?>">
+        <?= $block->prepareSku($block->getSku()) ?>
+    </td>
+
+    <td data-th="<?= $block->escapeHtml(__('Price')); ?>">
+        <?= $block->getItemPriceHtml(); ?>
+    </td>
+
+    <td data-th="<?= $block->escapeHtml(__('Qty Invoiced')); ?>">
+        <?= $_item->getQty()*1 ?>
+    </td>
+
+    <td data-th="<?= $block->escapeHtml(__('Subtotal')); ?>">
+        <?= $block->getItemRowTotalHtml(); ?>
+    </td>
+</tr>

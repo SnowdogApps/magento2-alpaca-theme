@@ -126,6 +126,7 @@ module.exports = {
       text: 'Send Email',
       class: 'button'
     },
-    back: 'Back'
+    back: 'Back',
+    legendClass: 'email-to-friend__legend text-center'
   }
 }

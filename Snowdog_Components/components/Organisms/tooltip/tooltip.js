@@ -15,15 +15,6 @@ class Tooltip {
     this.triggerButton.addEventListener('click', this.onToggleEvent);
   }
 
-  toggle() {
-    if (this.element.classList.contains(this.openClass)) {
-      this.close();
-    }
-    else {
-      this.open();
-    }
-  }
-
   open() {
     this.element.classList.add(this.openClass);
     this.contentWrapper.setAttribute('aria-hidden', 'false');
