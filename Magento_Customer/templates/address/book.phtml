@@ -1,0 +1,166 @@
+<?php
+/**
+ * Temlate for \Magento\Customer\Block\Address\Book block
+ * @var $block \Magento\Customer\Block\Address\Book
+ */
+?>
+<div class="dashboard-items">
+    <h2 class="dashboard-items__title">
+        <?= __('Default Addresses') ?>
+    </h2>
+
+    <div class="row dashboard-items__content">
+        <?php if ($_pAddsses = $block->getDefaultBilling()): ?>
+            <div class="col-sm-6 dashboard-items__item">
+                <h3 class="dashboard-items__subtitle">
+                    <?= __('Default Billing Address') ?>
+                </h3>
+
+                <div class="margin-bottom-m">
+                    <address>
+                        <?= $block->getAddressHtml($block->getAddressById($_pAddsses)) ?>
+                    </address>
+                </div>
+
+                <div class="actions-group">
+                    <div class="actions-group__handler">
+                        <a
+                            class="link actions-group__link"
+                            href="<?= $block->escapeUrl($block->getAddressEditUrl($_pAddsses)) ?>"
+                        >
+                            <?= __('Change Billing Address') ?>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        <?php else: ?>
+            <div class="col-sm-6 dashboard-items__item">
+                <h3 class="dashboard-items__subtitle">
+                    <?= __('Default Billing Address') ?>
+                </h3>
+
+                <div class="margin-bottom-m">
+                    <p>
+                        <?= __('You have no default billing address in your address book.') ?>
+                    </p>
+                </div>
+            </div>
+        <?php endif ?>
+
+        <?php if ($_pAddsses = $block->getDefaultShipping()): ?>
+            <div class="col-sm-6 dashboard-items__item">
+                <h3 class="dashboard-items__subtitle">
+                    <?= __('Default Shipping Address') ?>
+                </h3>
+
+                <div class="margin-bottom-m">
+                    <address>
+                        <?= $block->getAddressHtml($block->getAddressById($_pAddsses)) ?>
+                    </address>
+                </div>
+
+                <div class="actions-group">
+                    <div class="actions-group__handler">
+                        <a
+                            class="link actions-group__link"
+                            href="<?= $block->escapeUrl($block->getAddressEditUrl($_pAddsses)) ?>"
+                        >
+                            <?= __('Change Shipping Address') ?>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        <?php else: ?>
+            <div class="col-sm-6 dashboard-items__item">
+                <h3 class="dashboard-items__subtitle">
+                    <?= __('Default Shipping Address') ?>
+                </h3>
+
+                <div class="margin-bottom-m">
+                    <p>
+                        <?= __('You have no default shipping address in your address book.') ?>
+                    </p>
+                </div>
+            </div>
+        <?php endif ?>
+    </div>
+</div>
+
+<div class="dashboard-items dashboard-form__divider">
+    <h2 class="dashboard-items__title">
+        <?= __('Additional Address Entries') ?>
+    </h2>
+
+    <div class="row dashboard-items__content ">
+        <?php if ($_pAddsses = $block->getAdditionalAddresses()): ?>
+            <div class="col-sm-6 dashboard-items__item">
+                <?php foreach ($_pAddsses as $_address): ?>
+                    <div class="margin-bottom-m">
+                        <address>
+                            <?= $block->getAddressHtml($_address) ?>
+                        </address>
+                    </div>
+
+                    <div class="actions-group margin-bottom-m">
+                        <div class="actions-group__handler">
+                            <a
+                                class="link actions-group__link"
+                                href="<?= $block->escapeUrl($block->getUrl('customer/address/edit', ['id' => $_address->getId()])) ?>"
+                            >
+                                <?= __('Edit Address') ?>
+                            </a>
+
+                            <a
+                                class="link actions-group__link"
+                                href="#"
+                                role="delete-address"
+                                data-address="<?= $block->escapeHtmlAttr($_address->getId()) ?>"
+                            >
+                                <?= __('Delete Address') ?>
+                            </a>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        <?php else: ?>
+            <div class="message empty">
+                <?= __('You have no other address entries in your address book.') ?>
+            </div>
+        <?php endif; ?>
+    </div>
+</div>
+
+<div class="actions-group">
+    <div class="actions-group__handler">
+        <button
+            type="button"
+            role="add-address"
+            title="<?= $block->escapeHtmlAttr(__('Add New Address')) ?>"
+            class="button actions-group__button"
+        >
+            <?= __('Add New Address') ?>
+        </button>
+    </div>
+
+    <div class="actions-group__handler">
+        <a
+            class="link actions-group__link"
+            href="<?= $block->escapeUrl($block->getBackUrl()) ?>"
+        >
+            <?= __('Back') ?>
+        </a>
+    </div>
+</div>
+
+<script type="text/x-magento-init">
+    {
+        ".page-main": {
+            "address": {
+                "deleteAddress": ".dashboard-items__item a[role='delete-address']",
+                "deleteUrlPrefix": "<?= $block->getDeleteUrl() ?>id/",
+                "addAddress": "button[role='add-address']",
+                "addAddressLocation": "<?= $block->getAddAddressUrl() ?>"
+            }
+        }
+    }
+</script>
