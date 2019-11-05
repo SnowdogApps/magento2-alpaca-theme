@@ -1,6 +1,7 @@
 var config = {
   map: {
     "*": {
+      "aos"            : "Magento_Theme/js/lib/aos",
       "choices"        : "Magento_Theme/js/lib/choices",
       "closestPolyfill": "Magento_Theme/js/lib/closest-polyfill",
       "focusVisible"   : "Magento_Theme/js/lib/focus-visible",

@@ -1,19 +1,10 @@
 @import 'product-view-variables';
 
 .product-view {
-    padding: $product-view__padding;
-    margin: $product-view__margin;
-
-    @include mq($screen-m) {
-        margin: $product-view__margin\@medium;
-    }
-
-    @include mq($screen-l) {
-        max-width: $product-view__max-width\@large;
-    }
 
     &__wrapper {
         margin: $product-view__wrapper-margin;
+        max-width: $product-view__wrapper-max-width;
 
         &:after {
             content: '';
@@ -30,9 +21,14 @@
             margin: $product-view__details-margin\@medium;
         }
 
-        @include mq($screen-xxl) {
-            width: $product-view__details-width\@xxl;
-            margin: $product-view__details-margin\@xxl;
+        @include mq($screen-l) {
+            width: $product-view__details-width\@large;
+            margin: $product-view__details-margin\@large;
+        }
+
+        @include mq($screen-xl) {
+            width: $product-view__details-width\@xl;
+            margin: $product-view__details-margin\@xl;
         }
     }
 
@@ -118,9 +114,13 @@
     }
 
     &__buttons {
-        display: flex;
-        justify-content: flex-end;
-        width: 100%;
+        display: none;
+        @include mq($product-view__buttons-mq-display) {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            align-items: center;
+        }
     }
 
     &__button {
@@ -135,22 +135,6 @@
         flex-grow: 1;
         height: $product-view__add-to-cart-height;
         padding: $product-view__add-to-cart-padding;
-
-        @include mq($screen-s) {
-            flex-grow: 0;
-            margin: $product-view__add-to-cart-margin\@small;
-        }
-
-        @include mq($screen-m) {
-            padding: $product-view__add-to-cart-padding\@medium;
-        }
-        .button__text {
-            padding: $product-view__add-to-cart-text-padding;
-
-            @include mq($screen-m) {
-                padding: $product-view__add-to-cart-text-padding\@medium;
-            }
-        }
     }
 
     &__select-option {
@@ -248,6 +232,7 @@
     }
 
     &__tabs {
+        max-width: $product-view__wrapper-max-width;
         .tab__title {
             height: $product-view__tabs-title-height;
             padding: $product-view__tabs-title-padding;

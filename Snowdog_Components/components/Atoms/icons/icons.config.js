@@ -173,6 +173,11 @@ module.exports = {
         class: 'icons__single-icon'
       },
       {
+        id: 'more',
+        title: 'more',
+        class: 'icons__single-icon'
+      },
+      {
         id: 'news',
         title: 'News',
         class: 'icons__single-icon'

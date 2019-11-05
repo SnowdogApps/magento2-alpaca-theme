@@ -95,12 +95,7 @@ module.exports = {
     addToCartBtn: {
       tag: 'button',
       text: 'Add to cart',
-      class: 'button--add-to-icon product-view__add-to-cart',
-      iconAfter: {
-        id: 'shopping-cart',
-        title: 'Add to Cart',
-        class: 'button__icon'
-      },
+      class: 'product-view__add-to-cart',
       attributes: 'id="submit-add-to-cart-main" type="submit" aria-label="Add to cart"'
     },
     heartBtn: {

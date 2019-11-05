@@ -106,9 +106,47 @@
 
                                 <referenceContainer
                                     name="product.info.social"
-                                    htmlClass="product-view__extra-actions"
+                                    htmlClass="product-view__extra-actions margin-left-xs"
                                     htmlTag="div"
                                 />
+                            </container>
+                            <container name="product.addto.sticky">
+                                <block
+                                    class="Magento\Catalog\Block\Product\View"
+                                    name="product.info.addtocart.sticky"
+                                    as="addtocartsticky"
+                                    template="Magento_Catalog::product/view/addtocart-sticky.phtml"
+                                >
+                                    <block
+                                        class="Magento\Catalog\Pricing\Render"
+                                        name="product.price.final.sticky"
+                                    >
+                                        <arguments>
+                                            <argument name="price_render" xsi:type="string">product.price.render.default</argument>
+                                            <argument name="price_type_code" xsi:type="string">final_price</argument>
+                                            <argument name="zone" xsi:type="string">item_view</argument>
+                                        </arguments>
+                                    </block>
+                                    <block
+                                        class="Magento\Wishlist\Block\Catalog\Product\View\AddTo\Wishlist"
+                                        name="view.addto.wishlist.sticky"
+                                        template="Magento_Wishlist::catalog/product/view/addto/wishlist.phtml"
+                                    />
+                                    <block
+                                        class="Magento\Catalog\Block\Product\View\AddTo\Compare"
+                                        name="view.addto.compare.sticky"
+                                        template="Magento_Catalog::product/view/addto/compare.phtml"
+                                    >
+                                        <arguments>
+                                            <argument
+                                                name="addToCompareViewModel"
+                                                xsi:type="object"
+                                            >
+                                                Magento\Catalog\ViewModel\Product\Checker\AddToCompareAvailability
+                                            </argument>
+                                        </arguments>
+                                    </block>
+                                </block>
                             </container>
                         </container>
                     </referenceBlock>

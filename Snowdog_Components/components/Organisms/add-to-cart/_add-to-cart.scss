@@ -14,16 +14,12 @@
 
     // keep component sticky & visible for up to '$screen-m'
     html:not(.no-js) &[data-aos^='fade'][data-aos^='fade'] {
+        pointer-events: all;
+
         @include mq($max-screen: $add-to-cart__display-always-max-screen) {
             opacity: 1;
             transform: none;
         }
-    }
-
-    &--active {
-        visibility: visible;
-        opacity: 1;
-        transition: $add-to-cart__transition--active;
     }
 
     &__wrapper {
@@ -33,17 +29,70 @@
         max-width: $add-to-cart__wrapper-max-width;
         margin: $add-to-cart__wrapper-margin;
         padding: $add-to-cart__wrapper-padding;
+
+        @include mq($screen-m) {
+            padding: $add-to-cart__wrapper-padding\@medium;
+        }
+
+        @include mq($screen-l) {
+            padding: $add-to-cart__wrapper-padding\@large;
+        }
+
+        @include mq($screen-xl) {
+            padding: $add-to-cart__wrapper-padding\@xl;
+        }
     }
 
     &__title {
         .heading {
+            margin: $add-to-cart__title-margin;
+            font-family: $add-to-cart__title-font-family;
             font-size: $add-to-cart__title-font-size;
             text-transform: $add-to-cart__title-text-transform;
-            margin: $add-to-cart__title-margin;
 
             @include mq($screen-l) {
                 font-size: $add-to-cart__title-font-size\@large;
             }
+        }
+    }
+
+    &__button-more {
+        @include mq($add-to-cart__sticky-always-mq) {
+            display: none;
+        }
+
+        &[aria-expanded="false"] + .add-to-cart__action-secondary {
+            display: none;
+            @include mq($add-to-cart__sticky-always-mq) {
+                display: flex;
+            }
+        }
+        &[aria-expanded="true"] + .add-to-cart__action-secondary {
+            display: flex;
+        }
+    }
+
+    &__action {
+        display: flex;
+        flex-flow: $add-to-cart__action-flex-flow;
+
+        @include mq($screen-m) {
+            flex-flow: $add-to-cart__action-flex-flow\@medium;
+        }
+    }
+
+    &__action-secondary {
+        position: $add-to-cart__action-secondary-position;
+        top: $add-to-cart__action-secondary-position-top;
+        display: flex;
+        flex-flow: $add-to-cart__action-secondary-flex-flow;
+        align-items: center;
+
+        @include mq($screen-m) {
+            position: $add-to-cart__action-secondary-position\@medium;
+            top: initial;
+            flex-flow: $add-to-cart__action-secondary-flex-flow\@medium;
+            margin: $add-to-cart__action-secondary-margin\@medium;
         }
     }
 
@@ -54,10 +103,14 @@
 
         @include mq($screen-m) {
             padding: $add-to-cart__button-padding\@medium;
+            height: $add-to-cart__button-height\@medium;
 
             .button__text {
                 display: block;
-                padding: $add-to-cart__button-text-padding\@medium;
+            }
+
+            .button__icon {
+                display: none;
             }
         }
     }
