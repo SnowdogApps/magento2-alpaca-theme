@@ -13,15 +13,15 @@
         aria-expanded="false"
         data-role="title"
     >
-        <span
-            class="cart-discount__button-text"
-            data-testid="apply-discount-title"
-        >
+        <span class="cart-discount__button-text">
             <?= __('Apply Discount Code') ?>
         </span>
 
-        <svg class="icon cart-discount__button-icon" role="img">
-            <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#angle-down') ?>"></use>
+        <svg
+            class="icon cart-discount__button-icon"
+            role="img"
+        >
+            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#angle-down')) ?>"></use>
         </svg>
     </button>
 
@@ -33,14 +33,14 @@
         <form
             id="discount-coupon-form"
             class="form"
-            action="<?= $block->getUrl('checkout/cart/couponPost') ?>"
+            action="<?= $block->escapeUrl($block->getUrl('checkout/cart/couponPost')) ?>"
             method="post"
             data-mage-init='{
                 "discountCode":{
                     "couponCodeSelector": "#coupon_code",
                     "removeCouponSelector": "#remove-coupon",
-                    "applyButton": "button.action.apply",
-                    "cancelButton": "button.action.cancel"
+                    "applyButton": ".cart-discount__content-button--apply",
+                    "cancelButton": ".cart-discount__content-button--cancel"
                 }
             }'
         >
@@ -50,14 +50,19 @@
                     <?php strlen($block->getCouponCode()) ? 'applied' : '' ?>
                 "
             >
-                <input type="hidden" name="remove" id="remove-coupon" value="0">
+                <input
+                    type="hidden"
+                    name="remove"
+                    id="remove-coupon"
+                    value="0"
+                >
 
                 <div class="input cart-discount__content-input">
                     <label
                         for="coupon_code"
                         class="label label--hidden input__label"
                     >
-                        <?= __('Enter discount code'); ?>
+                        <?= __('Enter discount code') ?>
                     </label>
 
                     <input
@@ -65,8 +70,8 @@
                         class="input__field cart-discount__content-field"
                         id="coupon_code"
                         name="coupon_code"
-                        value="<?= $block->escapeHtml($block->getCouponCode()); ?>"
-                        placeholder="<?= $block->escapeHtml(__('Enter discount code')) ?>"
+                        value="<?= $block->escapeHtmlAttr($block->getCouponCode()) ?>"
+                        placeholder="<?= $block->escapeHtmlAttr(__('Enter discount code')) ?>"
                     >
                 </div>
 
@@ -75,14 +80,12 @@
                         class="
                             button
                             cart-discount__content-button
-                            action
-                            apply
+                            cart-discount__content-button--apply
                         "
                         type="button"
-                        value="<?= __('Apply Discount') ?>"
-                        data-testid="apply-discount-button"
+                        value="<?= $block->escapeHtmlAttr(__('Apply Discount')) ?>"
                     >
-                        <?= __('Apply Discount'); ?>
+                        <?= __('Apply Discount') ?>
                     </button>
                 <?php else: ?>
                     <button
@@ -90,10 +93,9 @@
                         class="
                             button
                             cart-discount__content-button
-                            action
-                            cancel
+                            cart-discount__content-button--cancel
                         "
-                        value="<?= __('Cancel Coupon') ?>"
+                        value="<?= $block->escapeHtmlAttr(__('Cancel Coupon')) ?>"
                     >
                         <?= __('Cancel Coupon') ?>
                     </button>

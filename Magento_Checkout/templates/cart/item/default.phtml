@@ -46,7 +46,6 @@
                         <?php endforeach; ?>
                     <?php endif; ?>
 
-
                     <?php if ($addInfoBlock): ?>
                         <span class="cart-list-item__attribute">
                             <?= $addInfoBlock->setItem($_item)->toHtml() ?>
@@ -88,22 +87,36 @@
                 </span>
             </div>
 
-            <div class="input input--inline cart-list-item__qty">
+            <div
+                class="
+                    input
+                    input--inline
+                    cart-list-item__qty
+                "
+            >
                 <label
-                    class="label input__label cart-list-item__label"
-                    for="cart-<?= $_item->getId() ?>-qty"
+                    class="
+                        label
+                        input__label
+                        cart-list-item__label
+                    "
+                    for="cart-<?= $block->escapeHtmlAttr($_item->getId()) ?>-qty"
                 >
                     <?= __('Qty') ?>
                 </label>
 
                 <input
-                    id="cart-<?= $_item->getId() ?>-qty"
-                    name="cart[<?= $_item->getId() ?>][qty]"
-                    data-cart-item-id="<?= $_item->getSku() ?>"
-                    value="<?= $block->getQty() ?>"
+                    id="cart-<?= $block->escapeHtmlAttr($_item->getId()) ?>-qty"
+                    name="cart[<?= $block->escapeHtmlAttr($_item->getId()) ?>][qty]"
+                    data-cart-item-id="<?= $block->escapeHtmlAttr($_item->getSku()) ?>"
+                    value="<?= $block->escapeHtmlAttr($block->getQty()) ?>"
                     type="text"
-                    title="<?= $block->escapeHtml(__('Qty')) ?>"
-                    class="input__field cart-list-item__input text-center"
+                    title="<?= $block->escapeHtmlAttr(__('Qty')) ?>"
+                    class="
+                        input__field
+                        cart-list-item__input
+                        text-center
+                    "
                     maxlength="12"
                     data-validate="{
                         required: true,
