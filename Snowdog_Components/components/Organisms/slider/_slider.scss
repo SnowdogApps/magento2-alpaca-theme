@@ -21,6 +21,47 @@
         }
     }
 
+    &--brands {
+        .slider__item {
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: center;
+            padding: $slider__item-padding--brands;
+            min-width: $slider__item-width--brands;
+            max-width: $slider__item-width--brands;
+
+            @include mq($screen-m) {
+                min-width: $slider__item-width\@medium--brands;
+                max-width: $slider__item-width\@medium--brands;
+            }
+
+            @include mq($screen-l) {
+                min-width: $slider__item-width\@large--brands;
+                max-width: $slider__item-width\@large--brands;
+            }
+
+            &:first-child {
+                margin-left: 0;
+            }
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+
+        .slider__navigation {
+            display: none;
+
+            @include mq($screen-m) {
+                display: flex;
+            }
+
+            &--up {
+                top: 0;
+            }
+        }
+    }
+
     &--products {
         @include mq($screen-l) {
             margin: $slider__margin\@large--products;
@@ -115,7 +156,6 @@
         }
     }
 
-
     &__prev,
     &__next {
         position: absolute;
@@ -124,9 +164,48 @@
 
     &__prev {
         left: 0;
+
+        &:before {
+            transform-origin: 100% 0;
+        }
+
+        &:after {
+            content: $slider__prev-after-content;
+        }
+
+        &:hover {
+            fill: $slider__prev-fill-hover;
+            opacity: 1;
+        }
     }
 
     &__next {
         right: 0;
+    }
+
+    &__dots {
+        display: flex;
+        justify-content: center;
+        margin: $slider__dots-margin;
+
+        @include mq($slider__dots-mq-hiding) {
+            display: none;
+        }
+    }
+
+    &__dot {
+        width: $slider__dot-size;
+        height: $slider__dot-size;
+        background-color: $slider__dot-background-color;
+        margin-right: $slider__dot-margin-right;
+        border-radius: 10px;
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        &.active {
+            background-color: $slider__dot-background-color--active;
+        }
     }
 }
