@@ -1,0 +1,280 @@
+<?php if ($block->canShowBlock()) : ?>
+<?php
+$filtersCollection = $block->getFilters();
+$categoryFilter = 'category';
+$isAnyFilterActive = false;
+?>
+    <div
+        class="filters"
+        id="layered-filter-block"
+    >
+        <?= $block->getChildHtml('state') ?>
+
+        <?php foreach ($filtersCollection as $filter): ?>
+            <?php
+            $filterId = $block->escapeHtmlAttr(
+                str_replace(
+                    ' ',
+                    '-',
+                    mb_strtolower($filter->getName(), 'UTF-8')
+                )
+            );
+            ?>
+            <?php if ($filter->getItemsCount()): ?>
+                <?php if ($filterId === $categoryFilter): ?>
+                    <div class="filters__item">
+                        <?= $block->getChildBlock('renderer')->render($filter); ?>
+                    </div>
+                <?php else: ?>
+                    <?php
+                    $isAnyFilterActive = true;
+                    break;
+                    ?>
+                <?php endif; ?>
+            <?php endif; ?>
+        <?php endforeach; ?>
+
+        <?php if ($isAnyFilterActive): ?>
+            <div class="filters__item">
+                <button
+                    class="
+                        button
+                        button--icon
+                        modal-trigger
+                        filters__trigger
+                        filters__trigger--open
+                    "
+                    type="button"
+                    aria-label="<?= $block->escapeHtmlAttr(__('Open shopping options')) ?>"
+                    data-modal-trigger="filters-options"
+                    aria-expanded="false"
+                    data-mage-init='{ "modal": {} }'
+                >
+                    <span class="button__text">
+                        <?= __('Shopping Options') ?>
+                    </span>
+                    <svg
+                        class="icon"
+                        role="presentation"
+                        focusable="false"
+                    >
+                        <title><?= __('Arrow right') ?></title>
+                        <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#angle-right')); ?>"></use>
+                    </svg>
+                </button>
+
+                <div
+                    class="
+                        modal
+                        modal--tertiary
+                        filters__modal
+                    "
+                    role="dialog"
+                    aria-hidden="true"
+                    id="filters-options"
+                    data-modal="filters-options"
+                    aria-lebelledby="filters-option-title"
+                >
+                    <div
+                        role="document"
+                        class="
+                            modal__container
+                            filters__container
+                        "
+                        tabindex="0"
+                    >
+                        <div
+                            class="
+                                modal__content
+                                filters__content
+                            "
+                        >
+                            <div
+                                class="
+                                    modal__top
+                                    filters__content-top
+                                "
+                            >
+                                <h2
+                                    class="
+                                        modal__heading
+                                        filters__heading
+                                    "
+                                    id="filters-option-title"
+                                >
+                                    <?= __('Shopping options') ?>
+                                </h2>
+                            </div>
+
+                            <div
+                                class="
+                                    modal__middle
+                                    filters__content-middle
+                                "
+                            >
+                                <div
+                                    class="
+                                        dropdown-list
+                                        filters__dropdown
+                                    "
+                                    id="filters-dropdown"
+                                    data-mage-init='{ "dropdownList": {} }'
+                                >
+                                    <ul class="dropdown-list__list">
+                                        <?php foreach ($block->getFilters() as $filter): ?>
+                                            <?php
+                                            $filterId = $block->escapeHtmlAttr(
+                                                str_replace(
+                                                    ' ',
+                                                    '-',
+                                                    mb_strtolower($filter->getName(), 'UTF-8')
+                                                )
+                                            );
+                                            ?>
+                                            <?php if ($filter->getItemsCount() && $filterId != $categoryFilter): ?>
+                                                <li
+                                                    class="
+                                                        dropdown-list__item
+                                                        dropdown-list__item--collapse
+                                                        filter
+                                                        filter--checkbox
+                                                    "
+                                                >
+                                                    <div
+                                                        class="
+                                                            dropdown-list__label-wrapper
+                                                            filter__label-wrapper
+                                                        "
+                                                    >
+                                                        <button
+                                                            type="button"
+                                                            class="dropdown-list__label"
+                                                            aria-controls="filter-<?= $filterId ?>"
+                                                            aria-expanded="true"
+                                                        >
+                                                            <h3 class="filter__heading">
+                                                                <?= $block->escapeHtml(__($filter->getName())) ?>
+                                                            </h3>
+                                                            <svg
+                                                                class="
+                                                                    icon
+                                                                    dropdown-list__icon
+                                                                "
+                                                                role="presentation"
+                                                                focusable="false"
+                                                            >
+                                                                <title><?= __('Arrow down') ?></title>
+                                                                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#angle-down')); ?>"></use>
+                                                            </svg>
+                                                        </button>
+                                                    </div>
+
+                                                    <div
+                                                        class="
+                                                            dropdown-list__content
+                                                            filter__content
+                                                        "
+                                                        id="filter-<?= $filterId ?>"
+                                                        aria-hidden="false"
+                                                    >
+                                                        <div class="more-info">
+                                                            <!--TO DO - get data from module -->
+                                                            <button
+                                                                class="
+                                                                    button
+                                                                    button--icon
+                                                                    button--fluid
+                                                                    more-info__trigger
+                                                                "
+                                                                type="button"
+                                                                aria-expanded="false"
+                                                            >
+                                                                <span class="button__text ">
+                                                                    <?= __('More information') ?>
+                                                                </span>
+                                                                <svg
+                                                                    class="
+                                                                        icon
+                                                                        button__icon
+                                                                    "
+                                                                    role="presentation"
+                                                                    focusable="false"
+                                                                >
+                                                                    <title><?= __('Show tooltip') ?></title>
+                                                                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#info')); ?>"></use>
+                                                                </svg>
+                                                            </button>
+
+                                                            <div
+                                                                class="more-info__content-wrapper"
+                                                                aria-hidden="true"
+                                                            >
+                                                                <div class="more-info__content">
+                                                                    <h3 class="more-info__heading">
+                                                                        Example title
+                                                                    </h3>
+
+                                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam venenatis nisl quis imperdiet tincidunt. Nulla massa diam, aliquet vitae laoreet a, fermentum eu velit. Quisque ornare erat in orci hendrerit feugiat at sit amet neque. Fusce elementum semper feugiat. Curabitur egestas neque in leo finibus ultricies.
+
+                                                                    <button
+                                                                        class="
+                                                                            button
+                                                                            button--icon
+                                                                            button--rotate-icon
+                                                                            more-info__close
+                                                                        "
+                                                                        type="button"
+                                                                        aria-label="<?= $block->escapeHtmlAttr(__('Close more information')) ?>"
+                                                                    >
+                                                                        <svg
+                                                                            class="icon"
+                                                                            role="presentation"
+                                                                            focusable="false"
+                                                                        >
+                                                                            <title><?= __('Close') ?></title>
+                                                                            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#close')); ?>"></use>
+                                                                        </svg>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <?= $block->getChildBlock('renderer')->render($filter) ?>
+                                                    </div>
+                                                </li>
+                                            <?php endif; ?>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button
+                            class="
+                                button
+                                button--icon
+                                button--rotate-icon
+                                modal__close-button
+                                filters__close-button
+                            "
+                            type="button"
+                            aria-label="<?= $block->escapeHtmlAttr(__('Close filters modal')) ?>"
+                        >
+                            <svg
+                                class="
+                                    icon
+                                    button__icon
+                                    modal__close-button-icon
+                                "
+                                role="img"
+                            >
+                                <title><?= __('Close') ?></title>
+                                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#close')); ?>"></use>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>

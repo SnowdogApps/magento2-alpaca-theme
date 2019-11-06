@@ -1,0 +1,114 @@
+<?php $swatchData = $block->getSwatchData(); ?>
+<ul
+    class="
+        list
+        filter__list
+    "
+    attribute-code="<?= $block->escapeHtmlAttr($swatchData['attribute_code']) ?>"
+    attribute-id="<?= $block->escapeHtmlAttr($swatchData['attribute_id']) ?>"
+>
+    <?php foreach ($swatchData['options'] as $option => $label): ?>
+        <?php if (isset($swatchData['swatches'][$option]['type'])): ?>
+            <?php
+                switch ($swatchData['swatches'][$option]['type']):
+                case '3':
+            ?>
+                <li>
+                    <a
+                        href="<?= $block->escapeUrl($label['link']) ?>"
+                        aria-label="<?= $block->escapeHtmlAttr($label['label']) ?>"
+                    >
+                        <div
+                            option-type="3"
+                            option-id="<?= $block->escapeHtmlAttr($option) ?>"
+                            option-label="<?= $block->escapeHtmlAttr($label['label']) ?>"
+                        ></div>
+                    </a>
+                </li>
+            <?php
+                break;
+                case '2':
+            ?>
+                <?php $swatchThumbPath = $block->getSwatchPath('swatch_thumb',
+                $swatchData['swatches'][$option]['value']); ?>
+                <?php $swatchImagePath = $block->getSwatchPath('swatch_image',
+                $swatchData['swatches'][$option]['value']); ?>
+                <li>
+                    <a
+                        href="<?= $block->escapeUrl($label['link']) ?>"
+                        aria-label="<?= $block->escapeHtmlAttr($label['label']) ?>"
+                    >
+                        <div
+                            option-type="2"
+                            option-id="<?= $block->escapeHtmlAttr($option) ?>"
+                            option-label="<?= $block->escapeHtmlAttr($label['label']) ?>"
+                            option-tooltip-thumb="<?= $block->escapeHtmlAttr($swatchThumbPath) ?>"
+                            style="
+                                background: url(<?= $block->escapeUrl($swatchImagePath) ?>) no-repeat center;
+                                background-size: cover;
+                            "
+                            title="<?= $block->escapeHtmlAttr($label['label']) ?>"
+                        ></div>
+                    </a>
+                </li>
+            <?php
+                break;
+                case '1':
+            ?>
+                <li class="filter__color-item">
+                    <a
+                        href="<?= $block->escapeUrl($label['link']) ?>"
+                        class="filter__color-option"
+                    >
+                        <div
+                            class="filter__color-sample"
+                            option-type="1"
+                            option-id="<?= $block->escapeHtmlAttr($option) ?>"
+                            option-label="<?= $block->escapeHtmlAttr($label['label']) ?>"
+                            option-tooltip-value="<?= $block->escapeHtmlAttr($swatchData['swatches'][$option]['value']) ?>"
+                            style="background: <?= $block->escapeHtmlAttr($swatchData['swatches'][$option]['value']) ?>"
+                        ></div>
+                        <span class="filter__color-label">
+                            <?= $label['label'] ?>
+                        </span>
+                    </a>
+                </li>
+            <?php
+                break;
+                case '0':
+                default:
+            ?>
+                <li class="filter__swatch-item">
+                    <a
+                        href="<?= $block->escapeUrl($label['link']) ?>"
+                        class="filter__swatch-option"
+                        option-type="0"
+                        option-id="<?= $block->escapeHtmlAttr($option) ?>"
+                        option-label="<?= $block->escapeHtmlAttr($label['label']) ?>"
+                    >
+                        <?= $swatchData['swatches'][$option]['value'] ?>
+                    </a>
+                </li>
+            <?php
+                break;
+                endswitch;
+            ?>
+        <?php endif; ?>
+    <?php endforeach; ?>
+</ul>
+
+<script>
+    require(
+        [
+            "jquery",
+            "jquery/ui",
+            "Magento_Swatches/js/swatch-renderer"
+        ],
+        function ($)
+        {
+            $('.swatch-layered.<?= $block->escapeHtmlAttr($swatchData['attribute_code']) ?>')
+            .find('[option-type="1"], [option-type="2"], [option-type="0"], [option-type="3"]')
+            .SwatchRendererTooltip();
+        }
+    );
+</script>
