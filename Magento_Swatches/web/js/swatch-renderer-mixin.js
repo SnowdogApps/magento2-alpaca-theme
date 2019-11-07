@@ -21,7 +21,8 @@ define([
           optionContainerClass: 'swatch__option-container',
           selectClass: 'select__field',
           moreButton: 'swatch-more',
-          loader: 'swatch-option-loading'
+          loader: 'swatch-option-loading',
+          initLoader: 'loader'
         },
         // option's json config
         jsonConfig: {},
@@ -79,8 +80,7 @@ define([
           minimumResultsForSearch: Infinity,
           width: null,
           position: 'bottom'
-        },
-        emptySelectOption: ' Out of stock'
+        }
       },
       _RenderControls: function () {
         var $widget = this,
@@ -97,7 +97,8 @@ define([
             select = $widget._RenderSwatchSelect(item, chooseText),
             input = $widget._RenderFormInput(item),
             listLabel = '',
-            label = '';
+            label = '',
+            initLoader = $('.' + $widget.options.classes.initLoader);
 
           // Show only swatch controls
           if ($widget.options.onlySwatches && !$widget.options.jsonSwatchConfig.hasOwnProperty(item.id)) {
@@ -121,6 +122,10 @@ define([
           }
 
           // Create new control
+
+          if (initLoader.hasClass('loader--visible')) {
+            initLoader.removeClass('loader--visible');
+          }
           container.append(
             '<div class="' + classes.attributeClass + ' ' + item.code + '" ' +
                   'attribute-code="' + item.code + '" ' +
@@ -388,12 +393,6 @@ define([
             var $element = $(this),
               option = $element.attr('option-id');
 
-            // Remove empty option text from select options label
-            if ($element.text().indexOf($widget.options.emptySelectOption) >= 0) {
-              var cleanLabel = $element.text().replace($widget.options.emptySelectOption, '');
-              $element.text(cleanLabel);
-            }
-
             if (!$widget.optionsMap.hasOwnProperty(id) || !$widget.optionsMap[id].hasOwnProperty(option) ||
               $element.hasClass('selected') ||
               $element.is(':selected')) {
@@ -403,13 +402,6 @@ define([
             if (_.intersection(products, $widget.optionsMap[id][option].products).length <= 0) {
               $element.attr('disabled', true).addClass('disabled');
 
-              // Add empty option text to select options label where needed
-              if ($($element).is('option')) {
-                var optionLabel = $($element).text();
-                if (optionLabel.indexOf($widget.options.emptySelectOption) === -1) {
-                  $($element).text( optionLabel + $widget.options.emptySelectOption);
-                }
-              }
               // rebuild select with select2 lib to set disabled options
               var selectSwatch = $widget.element.find('.' + $widget.options.classes.selectClass);
               $(selectSwatch).select2($widget.options.select2options);
@@ -487,7 +479,7 @@ define([
           //Category View
           $this.parents('.product-item-details')
             .find('.lazyload-wrapper')
-            .append('<div class="loader loader--visible"><div class="loader__circle"></div></div>');
+            .append('<div class="loader loader--visible"><div class="loader__icon"></div></div>');
         }
       },
       _DisableProductMediaLoader: function ($this) {
