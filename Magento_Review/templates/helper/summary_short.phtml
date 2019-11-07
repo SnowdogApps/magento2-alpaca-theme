@@ -1,0 +1,38 @@
+<?php
+/** @var \Magento\Review\Block\Product\ReviewRenderer $block */
+
+$url = $block->getReviewsUrl() . '#reviews';
+$urlForm = $block->getReviewsUrl() . '#review-form';
+?>
+<?php if ($block->isReviewEnabled() && $block->getReviewsCount()): ?>
+    <?php $rating = $block->getRatingSummary(); ?>
+    <div class="product-reviews-summary short<?= !$rating ? ' no-rating' : '' ?>">
+        <?php if ($rating): ?>
+            <div
+                class="rating product-grid-item__rating"
+                aria-label="<?= __('Average rating') ?>: <?= $rating ?>%"
+                title="<?= __('Average rating') ?>: <?= $rating ?>%"
+                tabindex="0"
+            >
+                <div
+                    class="rating__star"
+                    role="presentation"
+                    style="width: <?= $rating ?>%"
+                >
+                    <span class="rating__indicator"></span>
+                </div>
+            </div>
+        <?php endif;?>
+    </div>
+<?php elseif ($block->isReviewEnabled() && $block->getDisplayIfEmpty()): ?>
+    <div class="product-reviews-summary">
+        <div class="reviews-actions">
+            <a
+                class="action add"
+                href="<?= $block->escapeUrl($urlForm) ?>"
+            >
+                <?= __('Be the first to review this product') ?>
+            </a>
+        </div>
+    </div>
+<?php endif; ?>

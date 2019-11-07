@@ -183,6 +183,7 @@ switch ($type = $block->getType()) {
                     class="
                         button
                         button--icon
+                        button--icon-light
                         slider__navigation-icon
                         slider__prev
                     "
@@ -197,6 +198,7 @@ switch ($type = $block->getType()) {
                         "
                         role="img"
                     >
+                        <title><?= __('Previous slide') ?></title>
                         <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#arrow-left')) ?>"></use>
                     </svg>
                 </button>
@@ -205,6 +207,7 @@ switch ($type = $block->getType()) {
                     class="
                         button
                         button--icon
+                        button--icon-light
                         slider__navigation-icon
                         slider__next
                     "
@@ -219,6 +222,7 @@ switch ($type = $block->getType()) {
                         "
                         role="img"
                     >
+                        <title><?= __('Next slide') ?></title>
                         <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#arrow-right')) ?>"></use>
                     </svg>
                 </button>
@@ -239,11 +243,24 @@ switch ($type = $block->getType()) {
                             tabindex="0"
                         >
                             <?php
-                            // var_dump($block->getReviewsSummaryHtml($_item, $templateType)); die;
+                            $now = new DateTime();
+                            $newsFromDate = new DateTime($_item->getNewsFromDate());
+                            $newsToDate = new DateTime($_item->getNewsToDate());
+
+                            $isProductNew = $now >= $newsFromDate && $now <= $newsToDate;
                             ?>
-                            <div class="badge badge badge--new product-grid-item__badge">
-                                NEW
-                            </div>
+                            <?php if ($isProductNew): ?>
+                                <div
+                                    class="
+                                        badge
+                                        badge
+                                        badge--new
+                                        product-grid-item__badge
+                                    "
+                                >
+                                    <?= __('New') ?>
+                                </div>
+                            <?php endif; ?>
                             <?= '<!-- ' . $image . '-->' ?>
 
                             <a
@@ -257,11 +274,7 @@ switch ($type = $block->getType()) {
                             </a>
 
                             <section class="product-grid-item__details">
-                                <div class="rating product-grid-item__rating" aria-label="Average rating: 72%" title="Average rating: 72%" tabindex="0">
-                                    <div class="rating__star" role="presentation" style="width: 72%">
-                                        <span class="rating__indicator"></span>
-                                    </div>
-                                </div>
+                                <?= $block->getReviewsSummaryHtml($_item, $templateType) ?>
                                 <h3 class="product-grid-item__name">
                                     <a
                                         href="<?= $block->getProductUrl($_item) ?>"
@@ -274,15 +287,16 @@ switch ($type = $block->getType()) {
                                 <div class="product-grid-item__details-bottom">
                                     <div class="product-grid-item__price">
                                         <?= $block->getProductPrice($_item) ?>
-                                        <?php
-                                        var_dump($block->getProductPrice($_item)); die;
-                                        ?>
                                     </div>
-                                    <?php if ($templateType): ?>
-                                        <?= $block->getReviewsSummaryHtml($_item, $templateType) ?>
-                                    <?php endif; ?>
                                     <?php if ($showAddTo || $showCart): ?>
                                         <div class="product-grid-item__actions">
+                                            <?php if ($showAddTo): ?>
+                                                <?php if ($addToBlock = $block->getChildBlock('addto')): ?>
+                                                    <div class="product-grid-item__secondary-action">
+                                                        <?= $addToBlock->setProduct($_item)->getChildHtml() ?>
+                                                    </div>
+                                                <?php endif; ?>
+                                            <?php endif; ?>
                                             <?php if ($showCart): ?>
                                                 <?php if ($_item->isSaleable()): ?>
                                                     <div class="product-grid-item__primary-action">
@@ -340,14 +354,6 @@ switch ($type = $block->getType()) {
                                                             <?= __('Out of stock') ?>
                                                         </div>
                                                     <?php endif; ?>
-                                                <?php endif; ?>
-                                            <?php endif; ?>
-
-                                            <?php if ($showAddTo): ?>
-                                                <?php if ($addToBlock = $block->getChildBlock('addto')): ?>
-                                                    <div class="product-grid-item__secondary-action">
-                                                        <?= $addToBlock->setProduct($_item)->getChildHtml() ?>
-                                                    </div>
                                                 <?php endif; ?>
                                             <?php endif; ?>
                                         </div>
