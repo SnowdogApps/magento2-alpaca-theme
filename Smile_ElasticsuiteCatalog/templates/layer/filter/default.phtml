@@ -4,140 +4,139 @@
  *
  * @var $block \Smile\ElasticsuiteCatalog\Block\Navigation\FilterRenderer
  */
+
 ?>
-<?php if ($block->getFilterType() === 'category'): ?>
-    <button
-        class="
-            button
-            button--icon
-            modal-trigger
-            filters__trigger
-        "
-        type="button"
-        aria-label="<?= $block->escapeHtmlAttr(__('Open categories filter')) ?>"
-        data-modal-trigger="filters-category"
-        aria-expanded="true"
-        data-mage-init='{ "modal": {} }'
+<button
+    class="
+        button
+        button--icon
+        modal-trigger
+        filters__trigger
+    "
+    type="button"
+    aria-label="<?= $block->escapeHtmlAttr(__('Open categories filter')) ?>"
+    data-modal-trigger="filters-category"
+    aria-expanded="true"
+    data-mage-init='{ "modal": {} }'
+>
+    <span class="button__text ">
+        <?= __('Category') ?>
+    </span>
+
+    <svg
+        class="icon"
+        role="presentation"
+        focusable="false"
     >
-        <span class="button__text ">
-            <?= __('Category') ?>
-        </span>
+        <title><?= __('Arrow right') ?></title>
+        <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#angle-right')); ?>"></use>
+    </svg>
+</button>
 
-        <svg
-            class="icon"
-            role="presentation"
-            focusable="false"
-        >
-            <title><?= __('Arrow right') ?></title>
-            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#angle-right')); ?>"></use>
-        </svg>
-    </button>
-
+<div
+    class="
+        modal
+        modal--tertiary
+        filters__modal
+    "
+    role="dialog"
+    aria-hidden="true"
+    id="filters-category"
+    data-modal="filters-category"
+    aria-lebelledby="filters-categories-title"
+>
     <div
+        role="document"
         class="
-            modal
-            modal--tertiary
-            filters__modal
+            modal__container
+            filters__container
         "
-        role="dialog"
-        aria-hidden="true"
-        id="filters-category"
-        data-modal="filters-category"
-        aria-lebelledby="filters-categories-title"
+        tabindex="0"
     >
         <div
-            role="document"
             class="
-                modal__container
-                filters__container
+                modal__content
+                filters__content
             "
-            tabindex="0"
         >
             <div
                 class="
-                    modal__content
-                    filters__content
+                    modal__top
+                    filters__content-top
                 "
             >
-                <div
+                <h2
                     class="
-                        modal__top
-                        filters__content-top
+                        modal__heading
+                        filters__heading
                     "
+                    id="filters-categories-title"
                 >
-                    <h2
-                        class="
-                            modal__heading
-                            filters__heading
-                        "
-                        id="filters-categories-title"
-                    >
-                        <?= __('Category') ?>
-                    </h2>
-                </div>
-
-                <div
-                    class="
-                        modal__middle
-                        filters__content-middle
-                    "
-                >
-                    <div
-                        class="
-                            filter
-                            filter--category
-                        "
-                    >
-                        <ul class="list categories-list">
-                            <?php foreach ($filterItems as $filterItem): ?>
-                                <li
-                                    class="
-                                        list__item
-                                        categories-list__item
-                                    "
-                                >
-                                    <?php if ($filterItem->getCount() > 0): ?>
-                                        <a
-                                            href="<?= $block->escapeUrl($filterItem->getUrl()) ?>"
-                                            class="
-                                                link
-                                                categories-list__link
-                                            "
-                                        >
-
-                                            <?= $block->escapeHtml($filterItem->getLabel()) ?>
-                                        </a>
-                                    <?php endif; ?>
-                                </li>
-                            <?php endforeach ?>
-                        </ul>
-                    </div>
-                </div>
+                    <?= __('Category') ?>
+                </h2>
             </div>
 
-            <button
+            <div
                 class="
-                    button
-                    button--icon
-                    button--rotate-icon
-                    filters__close-button
-                    modal__close-button
+                    modal__middle
+                    filters__content-middle
                 "
-                type="button"
-                aria-label="<?= $block->escapeHtmlAttr(__('Close filters modal')) ?>"
             >
-                <svg
+                <div
                     class="
-                        icon
-                        button__icon
-                        modal__close-button-icon
+                        filter
+                        filter--category
                     "
-                    role="img"
                 >
-                    <title><?= __('Close') ?></title>
-                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#close')); ?>"></use>
-                </svg>
-            </button>
+                    <ul class="list categories-list">
+                        <?php foreach ($filterItems as $filterItem): ?>
+                            <li
+                                class="
+                                    list__item
+                                    categories-list__item
+                                "
+                            >
+                                <?php if ($filterItem->getCount() > 0): ?>
+                                    <a
+                                        href="<?= $block->escapeUrl($filterItem->getUrl()) ?>"
+                                        class="
+                                            link
+                                            categories-list__link
+                                        "
+                                    >
+
+                                        <?= $block->escapeHtml($filterItem->getLabel()) ?>
+                                    </a>
+                                <?php endif; ?>
+                            </li>
+                        <?php endforeach ?>
+                    </ul>
+                </div>
+            </div>
         </div>
+
+        <button
+            class="
+                button
+                button--icon
+                button--rotate-icon
+                filters__close-button
+                modal__close-button
+            "
+            type="button"
+            aria-label="<?= $block->escapeHtmlAttr(__('Close filters modal')) ?>"
+        >
+            <svg
+                class="
+                    icon
+                    button__icon
+                    modal__close-button-icon
+                "
+                role="img"
+            >
+                <title><?= __('Close') ?></title>
+                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#close')); ?>"></use>
+            </svg>
+        </button>
     </div>
-<?php endif; ?>
+</div>
