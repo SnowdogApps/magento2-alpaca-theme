@@ -8,20 +8,80 @@
 <?php
 $datascope = $block->escapeHtmlAttr($this->getFilter()->getRequestVar()) . 'Filter';
 ?>
-<?php if (!empty($filterItems)): ?>
-    <div data-bind="scope: '<?= $datascope; ?>'">
-        <!-- ko template: getTemplate() --> <!-- /ko -->
-    </div>
+<div class="more-info">
+    <!--TO DO - get data from module -->
+    <button
+        class="
+            button
+            button--icon
+            button--fluid
+            more-info__trigger
+        "
+        type="button"
+        aria-expanded="false"
+    >
+        <span class="button__text">
+            <?= __('More information') ?>
+        </span>
+        <svg
+            class="
+                icon
+                button__icon
+            "
+            role="presentation"
+            focusable="false"
+        >
+            <title><?= __('Show tooltip') ?></title>
+            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#info')); ?>"></use>
+        </svg>
+    </button>
 
-    <script type="text/x-magento-init">
-        {
-            "*" : {
-                "Magento_Ui/js/core/app": {
-                    "components": {
-                        "<?= $datascope; ?>": <?= /* @escapeNotVerified */ $this->getJsLayout(); ?>
-                    }
+    <div
+        class="more-info__content-wrapper"
+        aria-hidden="true"
+    >
+        <div class="more-info__content">
+            <h3 class="more-info__heading">
+                Example title
+            </h3>
+
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam venenatis nisl quis imperdiet tincidunt. Nulla massa diam, aliquet vitae laoreet a, fermentum eu velit. Quisque ornare erat in orci hendrerit feugiat at sit amet neque. Fusce elementum semper feugiat. Curabitur egestas neque in leo finibus ultricies.
+
+            <button
+                class="
+                    button
+                    button--icon
+                    button--rotate-icon
+                    more-info__close
+                "
+                type="button"
+                aria-label="<?= $block->escapeHtmlAttr(__('Close more information')) ?>"
+            >
+                <svg
+                    class="icon"
+                    role="presentation"
+                    focusable="false"
+                >
+                    <title><?= __('Close') ?></title>
+                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#close')); ?>"></use>
+                </svg>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div data-bind="scope: '<?= $datascope; ?>'">
+    <!-- ko template: getTemplate() --> <!-- /ko -->
+</div>
+
+<script type="text/x-magento-init">
+    {
+        "*" : {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "<?= $datascope; ?>": <?= /* @escapeNotVerified */ $this->getJsLayout(); ?>
                 }
             }
         }
-    </script>
-<?php endif; ?>
+    }
+</script>

@@ -123,11 +123,12 @@ $isAnyFilterActive = false;
                                     <ul class="dropdown-list__list">
                                         <?php foreach ($block->getFilters() as $filter): ?>
                                             <?php
+                                            $filterName = $block->escapeHtml($filter->getName());
                                             $filterId = $block->escapeHtmlAttr(
                                                 str_replace(
                                                     ' ',
                                                     '-',
-                                                    mb_strtolower($filter->getName(), 'UTF-8')
+                                                    mb_strtolower($filterName, 'UTF-8')
                                                 )
                                             );
                                             ?>
@@ -153,7 +154,7 @@ $isAnyFilterActive = false;
                                                             aria-expanded="true"
                                                         >
                                                             <h3 class="filter__heading">
-                                                                <?= $block->escapeHtml(__($filter->getName())) ?>
+                                                                <?= $filterName ?>
                                                             </h3>
                                                             <svg
                                                                 class="
@@ -177,68 +178,6 @@ $isAnyFilterActive = false;
                                                         id="filter-<?= $filterId ?>"
                                                         aria-hidden="false"
                                                     >
-                                                        <div class="more-info">
-                                                            <!--TO DO - get data from module -->
-                                                            <button
-                                                                class="
-                                                                    button
-                                                                    button--icon
-                                                                    button--fluid
-                                                                    more-info__trigger
-                                                                "
-                                                                type="button"
-                                                                aria-expanded="false"
-                                                            >
-                                                                <span class="button__text ">
-                                                                    <?= __('More information') ?>
-                                                                </span>
-                                                                <svg
-                                                                    class="
-                                                                        icon
-                                                                        button__icon
-                                                                    "
-                                                                    role="presentation"
-                                                                    focusable="false"
-                                                                >
-                                                                    <title><?= __('Show tooltip') ?></title>
-                                                                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#info')); ?>"></use>
-                                                                </svg>
-                                                            </button>
-
-                                                            <div
-                                                                class="more-info__content-wrapper"
-                                                                aria-hidden="true"
-                                                            >
-                                                                <div class="more-info__content">
-                                                                    <h3 class="more-info__heading">
-                                                                        Example title
-                                                                    </h3>
-
-                                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam venenatis nisl quis imperdiet tincidunt. Nulla massa diam, aliquet vitae laoreet a, fermentum eu velit. Quisque ornare erat in orci hendrerit feugiat at sit amet neque. Fusce elementum semper feugiat. Curabitur egestas neque in leo finibus ultricies.
-
-                                                                    <button
-                                                                        class="
-                                                                            button
-                                                                            button--icon
-                                                                            button--rotate-icon
-                                                                            more-info__close
-                                                                        "
-                                                                        type="button"
-                                                                        aria-label="<?= $block->escapeHtmlAttr(__('Close more information')) ?>"
-                                                                    >
-                                                                        <svg
-                                                                            class="icon"
-                                                                            role="presentation"
-                                                                            focusable="false"
-                                                                        >
-                                                                            <title><?= __('Close') ?></title>
-                                                                            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#close')); ?>"></use>
-                                                                        </svg>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
                                                         <?= $block->getChildBlock('renderer')->render($filter) ?>
                                                     </div>
                                                 </li>
