@@ -1,179 +1,226 @@
 <?php
 $swatchData = $block->getSwatchData();
-$swatchCode = $swatchData['attribute_code'];
+$swatchCode = $swatchData['attribute_code'] . 'Filter';
+$swatchLabel = $swatchData['attribute_label'];
 ?>
-<div class="more-info">
-    <!--TO DO - get data from module -->
-    <button
+<li
+    class="
+        dropdown-list__item
+        dropdown-list__item--collapse
+        filter
+    "
+>
+    <div
         class="
-            button
-            button--icon
-            button--fluid
-            more-info__trigger
+            dropdown-list__label-wrapper
+            filter__label-wrapper
         "
-        type="button"
-        aria-expanded="false"
     >
-        <span class="button__text">
-            <?= __('More information') ?>
-        </span>
-        <svg
-            class="
-                icon
-                button__icon
-            "
-            role="presentation"
-            focusable="false"
+        <button
+            type="button"
+            class="dropdown-list__label"
+            aria-controls="<?= $swatchCode ?>"
+            aria-expanded="true"
         >
-            <title><?= __('Show tooltip') ?></title>
-            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#info')); ?>"></use>
-        </svg>
-    </button>
+            <h3 class="filter__heading">
+                <?= $swatchLabel; ?>
+            </h3>
+            <svg
+                class="
+                    icon
+                    dropdown-list__icon
+                "
+                role="presentation"
+                focusable="false"
+            >
+                <title><?= __('Arrow down') ?></title>
+                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#angle-down')); ?>"></use>
+            </svg>
+        </button>
+    </div>
 
     <div
-        class="more-info__content-wrapper"
-        aria-hidden="true"
+        class="
+            dropdown-list__content
+            filter__content
+        "
+        id="<?= $swatchCode ?>"
+        aria-hidden="false"
     >
-        <div class="more-info__content">
-            <h3 class="more-info__heading">
-                Example title
-            </h3>
-
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam venenatis nisl quis imperdiet tincidunt. Nulla massa diam, aliquet vitae laoreet a, fermentum eu velit. Quisque ornare erat in orci hendrerit feugiat at sit amet neque. Fusce elementum semper feugiat. Curabitur egestas neque in leo finibus ultricies.
-
+        <div class="more-info">
+            <!--TO DO - get data from module -->
             <button
                 class="
                     button
                     button--icon
-                    button--rotate-icon
-                    more-info__close
+                    button--fluid
+                    more-info__trigger
                 "
                 type="button"
-                aria-label="<?= $block->escapeHtmlAttr(__('Close more information')) ?>"
+                aria-expanded="false"
             >
+                <span class="button__text">
+                    <?= __('More information') ?>
+                </span>
                 <svg
-                    class="icon"
+                    class="
+                        icon
+                        button__icon
+                    "
                     role="presentation"
                     focusable="false"
                 >
-                    <title><?= __('Close') ?></title>
-                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#close')); ?>"></use>
+                    <title><?= __('Show tooltip') ?></title>
+                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#info')); ?>"></use>
                 </svg>
             </button>
+
+            <div
+                class="more-info__content-wrapper"
+                aria-hidden="true"
+            >
+                <div class="more-info__content">
+                    <h3 class="more-info__heading">
+                        Example title
+                    </h3>
+
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam venenatis nisl quis imperdiet tincidunt. Nulla massa diam, aliquet vitae laoreet a, fermentum eu velit. Quisque ornare erat in orci hendrerit feugiat at sit amet neque. Fusce elementum semper feugiat. Curabitur egestas neque in leo finibus ultricies.
+
+                    <button
+                        class="
+                            button
+                            button--icon
+                            button--rotate-icon
+                            more-info__close
+                        "
+                        type="button"
+                        aria-label="<?= $block->escapeHtmlAttr(__('Close more information')) ?>"
+                    >
+                        <svg
+                            class="icon"
+                            role="presentation"
+                            focusable="false"
+                        >
+                            <title><?= __('Close') ?></title>
+                            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#close')); ?>"></use>
+                        </svg>
+                    </button>
+                </div>
+            </div>
         </div>
+
+        <ul
+            class="
+                list
+                filter__list
+            "
+            attribute-code="<?= $block->escapeHtmlAttr($swatchCode) ?>"
+            attribute-id="<?= $block->escapeHtmlAttr($swatchData['attribute_id']) ?>"
+        >
+            <?php foreach ($swatchData['options'] as $option => $label): ?>
+                <?php if (isset($swatchData['swatches'][$option]['type'])): ?>
+                    <?php
+                        switch ($swatchData['swatches'][$option]['type']):
+                        case '3':
+                    ?>
+                        <li>
+                            <a
+                                href="<?= $block->escapeUrl($label['link']) ?>"
+                                aria-label="<?= $block->escapeHtmlAttr($label['label']) ?>"
+                            >
+                                <div
+                                    option-type="3"
+                                    option-id="<?= $block->escapeHtmlAttr($option) ?>"
+                                    option-label="<?= $block->escapeHtmlAttr($label['label']) ?>"
+                                ></div>
+                            </a>
+                        </li>
+                    <?php
+                        break;
+                        case '2':
+                    ?>
+                        <?php $swatchThumbPath = $block->getSwatchPath('swatch_thumb',
+                        $swatchData['swatches'][$option]['value']); ?>
+                        <?php $swatchImagePath = $block->getSwatchPath('swatch_image',
+                        $swatchData['swatches'][$option]['value']); ?>
+                        <li>
+                            <a
+                                href="<?= $block->escapeUrl($label['link']) ?>"
+                                aria-label="<?= $block->escapeHtmlAttr($label['label']) ?>"
+                            >
+                                <div
+                                    option-type="2"
+                                    option-id="<?= $block->escapeHtmlAttr($option) ?>"
+                                    option-label="<?= $block->escapeHtmlAttr($label['label']) ?>"
+                                    option-tooltip-thumb="<?= $block->escapeHtmlAttr($swatchThumbPath) ?>"
+                                    style="
+                                        background: url(<?= $block->escapeUrl($swatchImagePath) ?>) no-repeat center;
+                                        background-size: cover;
+                                    "
+                                    title="<?= $block->escapeHtmlAttr($label['label']) ?>"
+                                ></div>
+                            </a>
+                        </li>
+                    <?php
+                        break;
+                        case '1':
+                    ?>
+                        <li class="filter__color-item">
+                            <a
+                                href="<?= $block->escapeUrl($label['link']) ?>"
+                                class="filter__color-option"
+                            >
+                                <div
+                                    class="filter__color-sample"
+                                    option-type="1"
+                                    option-id="<?= $block->escapeHtmlAttr($option) ?>"
+                                    option-label="<?= $block->escapeHtmlAttr($label['label']) ?>"
+                                    option-tooltip-value="<?= $block->escapeHtmlAttr($swatchData['swatches'][$option]['value']) ?>"
+                                    style="background: <?= $block->escapeHtmlAttr($swatchData['swatches'][$option]['value']) ?>"
+                                ></div>
+                                <span class="filter__color-label">
+                                    <?= $label['label'] ?>
+                                </span>
+                            </a>
+                        </li>
+                    <?php
+                        break;
+                        case '0':
+                        default:
+                    ?>
+                        <li class="filter__swatch-item">
+                            <a
+                                href="<?= $block->escapeUrl($label['link']) ?>"
+                                class="filter__swatch-option"
+                                option-type="0"
+                                option-id="<?= $block->escapeHtmlAttr($option) ?>"
+                                option-label="<?= $block->escapeHtmlAttr($label['label']) ?>"
+                            >
+                                <?= $swatchData['swatches'][$option]['value'] ?>
+                            </a>
+                        </li>
+                    <?php
+                        break;
+                        endswitch;
+                    ?>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </ul>
+
+        <script>
+            require(
+                [
+                    "jquery",
+                    "jquery/ui",
+                    "Magento_Swatches/js/swatch-renderer"
+                ],
+                function ($)
+                {
+                    $('.swatch-layered.<?= $block->escapeHtmlAttr($swatchCode) ?>')
+                    .find('[option-type="1"], [option-type="2"], [option-type="0"], [option-type="3"]')
+                    .SwatchRendererTooltip();
+                }
+            );
+        </script>
     </div>
-</div>
-
-<ul
-    class="
-        list
-        filter__list
-    "
-    attribute-code="<?= $block->escapeHtmlAttr($swatchCode) ?>"
-    attribute-id="<?= $block->escapeHtmlAttr($swatchData['attribute_id']) ?>"
->
-    <?php foreach ($swatchData['options'] as $option => $label): ?>
-        <?php if (isset($swatchData['swatches'][$option]['type'])): ?>
-            <?php
-                switch ($swatchData['swatches'][$option]['type']):
-                case '3':
-            ?>
-                <li>
-                    <a
-                        href="<?= $block->escapeUrl($label['link']) ?>"
-                        aria-label="<?= $block->escapeHtmlAttr($label['label']) ?>"
-                    >
-                        <div
-                            option-type="3"
-                            option-id="<?= $block->escapeHtmlAttr($option) ?>"
-                            option-label="<?= $block->escapeHtmlAttr($label['label']) ?>"
-                        ></div>
-                    </a>
-                </li>
-            <?php
-                break;
-                case '2':
-            ?>
-                <?php $swatchThumbPath = $block->getSwatchPath('swatch_thumb',
-                $swatchData['swatches'][$option]['value']); ?>
-                <?php $swatchImagePath = $block->getSwatchPath('swatch_image',
-                $swatchData['swatches'][$option]['value']); ?>
-                <li>
-                    <a
-                        href="<?= $block->escapeUrl($label['link']) ?>"
-                        aria-label="<?= $block->escapeHtmlAttr($label['label']) ?>"
-                    >
-                        <div
-                            option-type="2"
-                            option-id="<?= $block->escapeHtmlAttr($option) ?>"
-                            option-label="<?= $block->escapeHtmlAttr($label['label']) ?>"
-                            option-tooltip-thumb="<?= $block->escapeHtmlAttr($swatchThumbPath) ?>"
-                            style="
-                                background: url(<?= $block->escapeUrl($swatchImagePath) ?>) no-repeat center;
-                                background-size: cover;
-                            "
-                            title="<?= $block->escapeHtmlAttr($label['label']) ?>"
-                        ></div>
-                    </a>
-                </li>
-            <?php
-                break;
-                case '1':
-            ?>
-                <li class="filter__color-item">
-                    <a
-                        href="<?= $block->escapeUrl($label['link']) ?>"
-                        class="filter__color-option"
-                    >
-                        <div
-                            class="filter__color-sample"
-                            option-type="1"
-                            option-id="<?= $block->escapeHtmlAttr($option) ?>"
-                            option-label="<?= $block->escapeHtmlAttr($label['label']) ?>"
-                            option-tooltip-value="<?= $block->escapeHtmlAttr($swatchData['swatches'][$option]['value']) ?>"
-                            style="background: <?= $block->escapeHtmlAttr($swatchData['swatches'][$option]['value']) ?>"
-                        ></div>
-                        <span class="filter__color-label">
-                            <?= $label['label'] ?>
-                        </span>
-                    </a>
-                </li>
-            <?php
-                break;
-                case '0':
-                default:
-            ?>
-                <li class="filter__swatch-item">
-                    <a
-                        href="<?= $block->escapeUrl($label['link']) ?>"
-                        class="filter__swatch-option"
-                        option-type="0"
-                        option-id="<?= $block->escapeHtmlAttr($option) ?>"
-                        option-label="<?= $block->escapeHtmlAttr($label['label']) ?>"
-                    >
-                        <?= $swatchData['swatches'][$option]['value'] ?>
-                    </a>
-                </li>
-            <?php
-                break;
-                endswitch;
-            ?>
-        <?php endif; ?>
-    <?php endforeach; ?>
-</ul>
-
-<script>
-    require(
-        [
-            "jquery",
-            "jquery/ui",
-            "Magento_Swatches/js/swatch-renderer"
-        ],
-        function ($)
-        {
-            $('.swatch-layered.<?= $block->escapeHtmlAttr($swatchCode) ?>')
-            .find('[option-type="1"], [option-type="2"], [option-type="0"], [option-type="3"]')
-            .SwatchRendererTooltip();
-        }
-    );
-</script>
+</li>

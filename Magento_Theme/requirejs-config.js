@@ -4,6 +4,7 @@ var config = {
       "closestPolyfill": "Magento_Theme/js/lib/closest-polyfill",
       "focusVisible"   : "Magento_Theme/js/lib/focus-visible",
       "lazysizes"      : "Magento_Theme/js/lib/lazysizes",
+      "noUiSlider"     : "Magento_Theme/js/lib/nouislider.min",
       "picturefill"    : "Magento_Theme/js/lib/picturefill",
       "svg4everybody"  : "Magento_Theme/js/lib/svg4everybody",
       "banner"         : "Magento_Theme/js/banner.babel",

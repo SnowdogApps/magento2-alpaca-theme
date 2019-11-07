@@ -8,80 +8,127 @@
 <?php
 $datascope = $block->escapeHtmlAttr($this->getFilter()->getRequestVar()) . 'Filter';
 ?>
-<div class="more-info">
-    <!--TO DO - get data from module -->
-    <button
+<li
+    class="
+        dropdown-list__item
+        dropdown-list__item--collapse
+        filter
+        filter--checkbox
+    "
+>
+    <div
         class="
-            button
-            button--icon
-            button--fluid
-            more-info__trigger
+            dropdown-list__label-wrapper
+            filter__label-wrapper
         "
-        type="button"
-        aria-expanded="false"
     >
-        <span class="button__text">
-            <?= __('More information') ?>
-        </span>
-        <svg
-            class="
-                icon
-                button__icon
-            "
-            role="presentation"
-            focusable="false"
+        <button
+            type="button"
+            class="dropdown-list__label"
+            aria-controls="<?= $datascope ?>"
+            aria-expanded="true"
         >
-            <title><?= __('Show tooltip') ?></title>
-            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#info')); ?>"></use>
-        </svg>
-    </button>
+            <h3 class="filter__heading">
+                <?= $block->escapeHtml($this->getFilter()->getName()); ?>
+            </h3>
+            <svg
+                class="
+                    icon
+                    dropdown-list__icon
+                "
+                role="presentation"
+                focusable="false"
+            >
+                <title><?= __('Arrow down') ?></title>
+                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#angle-down')); ?>"></use>
+            </svg>
+        </button>
+    </div>
 
     <div
-        class="more-info__content-wrapper"
-        aria-hidden="true"
+        class="
+            dropdown-list__content
+            filter__content
+        "
+        id="<?= $datascope ?>"
+        aria-hidden="false"
     >
-        <div class="more-info__content">
-            <h3 class="more-info__heading">
-                Example title
-            </h3>
-
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam venenatis nisl quis imperdiet tincidunt. Nulla massa diam, aliquet vitae laoreet a, fermentum eu velit. Quisque ornare erat in orci hendrerit feugiat at sit amet neque. Fusce elementum semper feugiat. Curabitur egestas neque in leo finibus ultricies.
-
+        <div class="more-info">
+            <!--TO DO - get data from module -->
             <button
                 class="
                     button
                     button--icon
-                    button--rotate-icon
-                    more-info__close
+                    button--fluid
+                    more-info__trigger
                 "
                 type="button"
-                aria-label="<?= $block->escapeHtmlAttr(__('Close more information')) ?>"
+                aria-expanded="false"
             >
+                <span class="button__text">
+                    <?= __('More information') ?>
+                </span>
                 <svg
-                    class="icon"
+                    class="
+                        icon
+                        button__icon
+                    "
                     role="presentation"
                     focusable="false"
                 >
-                    <title><?= __('Close') ?></title>
-                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#close')); ?>"></use>
+                    <title><?= __('Show tooltip') ?></title>
+                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#info')); ?>"></use>
                 </svg>
             </button>
+
+            <div
+                class="more-info__content-wrapper"
+                aria-hidden="true"
+            >
+                <div class="more-info__content">
+                    <h3 class="more-info__heading">
+                        Example title
+                    </h3>
+
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam venenatis nisl quis imperdiet tincidunt. Nulla massa diam, aliquet vitae laoreet a, fermentum eu velit. Quisque ornare erat in orci hendrerit feugiat at sit amet neque. Fusce elementum semper feugiat. Curabitur egestas neque in leo finibus ultricies.
+
+                    <button
+                        class="
+                            button
+                            button--icon
+                            button--rotate-icon
+                            more-info__close
+                        "
+                        type="button"
+                        aria-label="<?= $block->escapeHtmlAttr(__('Close more information')) ?>"
+                    >
+                        <svg
+                            class="icon"
+                            role="presentation"
+                            focusable="false"
+                        >
+                            <title><?= __('Close') ?></title>
+                            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#close')); ?>"></use>
+                        </svg>
+                    </button>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
 
-<div data-bind="scope: '<?= $datascope; ?>'">
-    <!-- ko template: getTemplate() --> <!-- /ko -->
-</div>
+        <div data-bind="scope: '<?= $datascope; ?>'">
+            <!-- ko template: getTemplate() --> <!-- /ko -->
+        </div>
 
-<script type="text/x-magento-init">
-    {
-        "*" : {
-            "Magento_Ui/js/core/app": {
-                "components": {
-                    "<?= $datascope; ?>": <?= /* @escapeNotVerified */ $this->getJsLayout(); ?>
+        <script type="text/x-magento-init">
+            {
+                "*" : {
+                    "Magento_Ui/js/core/app": {
+                        "components": {
+                            "<?= $datascope; ?>": <?= /* @escapeNotVerified */ $this->getJsLayout(); ?>
+                        }
+                    }
                 }
             }
-        }
-    }
-</script>
+        </script>
+    </div>
+</li>
