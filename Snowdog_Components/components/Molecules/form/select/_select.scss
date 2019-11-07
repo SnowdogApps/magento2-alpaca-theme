@@ -4,7 +4,7 @@
     margin-bottom: $select__margin-bottom;
 
     &:focus-within {
-        .select__label {
+        .label {
             color: $select__label-color-focus;
         }
     }
@@ -12,19 +12,17 @@
     &__field {
         position: relative;
         background: $select__field-background;
+        width: 100%;
+        height: $select__height;
+        padding: $select__padding;
+        border: $select__border;
+        border-radius: $select__border-radius;
+        appearance: none;
+        transition: $select__transition;
+        font-family: $font-family-base;
 
-        &--native {
-            width: 100%;
-            height: $select__height;
-            padding: $select__padding;
-            border: $select__border;
-            border-radius: $select__border-radius;
-            appearance: none;
-            transition: $select__transition;
-
-            &.focus-visible {
-                @include focus-input();
-            }
+        &.focus-visible {
+            @include focus-input();
         }
     }
 
@@ -56,49 +54,75 @@
     }
 }
 
-// Choices.js lib styles overwrites
-.choices {
-    &.is-open {
-        .select__field-list {
-            &--single {
-                border-bottom-left-radius: 0;
-                border-bottom-right-radius: 0;
-                border-top-left-radius: $select__field-list-border-radius--single;
-                border-top-right-radius: $select__field-list-border-radius--single;
-                border-bottom: 0;
+// select2 overwrite styles
+.select2 {
+    width: 100%;
+}
+.select2-container {
+    .select2-selection--single {
+        height: $select__height;
+        width: 100%;
+        border: $select__border;
+        border-radius: $select__border-radius;
+
+        .select2-selection__rendered {
+            width: 100%;
+            padding: $select__field-padding;
+            line-height: $select__height;
+        }
+
+        .select2-selection__arrow {
+            height: $select__height;
+            top: $select__arrow-position-top;
+            right: $select__arrow-position-right;
+            b {
+                padding: $select__arrow-padding;
+                border-color: $select__arrow-bg-color;
+                border-width: $select__arrow-border-width;
+                margin-top: $select__arrow-margin-top;
+                pointer-events: none;
+                transform: $select__arrow-transform;
+                transition: $select__arrow-transition;
             }
         }
     }
-
-    &.is-focused {
-        .select__field-list--single {
+    &.select2-container--open {
+        .select2-selection--single {
             @include focus-input();
-        }
-    }
-
-    &__list--dropdown {
-        max-height: $select__dropdown-max-width;
-        overflow: auto;
-        z-index: $z-index-normal;
-
-        .is-open & {
-            border-radius: 0 0 $select__border-radius $select__border-radius;
-            border-color: $select__input-border-color;
-        }
-
-        & .choices__item--selectable {
-            padding-right: $select__choices-item-padding-right;
-
-            &.is-highlighted {
-                background-color: $select__choices-option-bg-highlighted;
+            .select2-selection__arrow b {
+                border-color: $select__arrow-bg-color;
+                border-width: $select__arrow-border-width;
+                transform: $select__arrow-transform--open;
             }
         }
     }
 
-    &[data-type*="select-one"] {
-        @extend %arrow;
-        &.is-open {
-            @extend %arrow-active;
+    .select2-results {
+        &__options {
+            max-height: 300px;
         }
+
+        &__option {
+            position: relative;
+            height: $select__height;
+            line-height: $select__height;
+            padding: $select__option-padding;
+            font-size: $select__option-font-size;
+            &[aria-selected=true] {
+                background-color: $white;
+            }
+
+            &--highlighted[aria-selected] {
+                background-color: $select__option-bg-color--highlighted;
+                color: $select__option-color--highlighted;
+            }
+        }
+    }
+
+    .select2-dropdown {
+        border: $select__border;
+        border-radius: $select__border-radius;
+        border-width: $select__dropdown-border-width;
+        box-shadow: $select__option-list-shadow;
     }
 }
