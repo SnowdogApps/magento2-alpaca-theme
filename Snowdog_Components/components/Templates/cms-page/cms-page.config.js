@@ -8,14 +8,14 @@ module.exports = {
           linkClass: 'breadcrumbs__link'
         },
         {
-          name: 'About Us',
+          name: 'CMS page',
           href: '#',
           linkClass: 'breadcrumbs__link'
         }
       ]
     },
     mainHeading: {
-      text: 'About us',
+      text: 'CMS Page View',
       class: 'margin-top-xl text-center'
     }
   }
