@@ -1,0 +1,106 @@
+<?php
+/* @var $block \Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\Radio */
+$_option = $block->getOption();
+$_selections = $_option->getSelections();
+$_default = $_option->getDefaultSelection();
+$_optionId = $_option->getId();
+list($_defaultQty, $_canChangeQty) = $block->getDefaultValues();
+?>
+
+<div class="bundle-option">
+    <h4
+        id="bundle-option-title-<?= $_optionId ?>"
+        class="
+            bundle-option__title
+            <?= ($_option->getRequired()) ? 'bundle-option__title--required': '' ?>
+        "
+    >
+        <?= $block->escapeHtml($_option->getTitle()) ?>
+    </h4>
+    <div
+        class="
+            radio
+            bundle-option__radio
+            margin-bottom-xs
+        "
+    >
+        <fieldset
+            class="fieldset"
+            aria-labelledby="bundle-option-title-<?= $_optionId ?>"
+        >
+            <?php if ($block->showSingle()): ?>
+                <?= $block->getSelectionTitlePrice($_selections[0]) ?>
+                <input
+                    type="hidden"
+                    class="bundle option"
+                    name="bundle_option[<?= (int)$_optionId ?>]"
+                    value="<?= (int)$_selections[0]->getSelectionId() ?>"
+                    id="bundle-option-<?= (int)$_optionId ?>-<?= (int)$_selections[0]->getSelectionId() ?>"
+                    checked="checked"
+                >
+            <?php else:?>
+                <?php if (!$_option->getRequired()): ?>
+                    <div class="radio__handler">
+                        <input
+                            type="radio"
+                            class="radio__field bundle option"
+                            id="bundle-option-<?= $_optionId ?>"
+                            name="bundle_option[<?= $_optionId ?>]"
+                            data-selector="bundle_option[<?= $_optionId ?>]"
+                            <?= ($_default && $_default->isSalable())?'':' checked="checked" ' ?>
+                            value=""
+                        >
+                        <label
+                            class="radio__label"
+                            for="bundle-option-<?= $_optionId ?>"
+                        >
+                            <span class="radio__icon"></span>
+                            <?= __('None') ?>
+                        </label>
+                    </div>
+                <?php endif; ?>
+                <?php foreach ($_selections as $_selection): ?>
+                    <div class="radio__handler">
+                        <input
+                            type="radio"
+                            class="radio__field bundle option"
+                            id="bundle-option-<?= $_optionId ?>-<?= $_selection->getSelectionId() ?>"
+                            <?php if ($_option->getRequired()) echo 'data-validate="{\'validate-one-required-by-name\':true}"'?>
+                            name="bundle_option[<?= $_optionId ?>]"
+                            data-selector="bundle_option[<?= $_optionId ?>]"
+                            <?php if ($block->isSelected($_selection)) echo ' checked="checked"' ?>
+                            <?php if (!$_selection->isSaleable()) echo ' disabled="disabled"' ?>
+                            value="<?= $_selection->getSelectionId() ?>"
+                        >
+                        <label
+                            class="radio__label"
+                            for="bundle-option-<?= $_optionId ?>-<?= $_selection->getSelectionId() ?>"
+                        >
+                            <span class="radio__icon"></span>
+                            <?= $block->getSelectionTitlePrice($_selection) ?>
+                        </label>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </fieldset>
+    </div>
+
+    <div class="input bundle-option__qty">
+        <label
+            class="label margin-right-s"
+            for="bundle-option-<?= $_option->getId() ?>-qty-input"
+        >
+            <?= __('Qty') ?>:
+        </label>
+        <input
+            <?php if (!$_canChangeQty) echo ' disabled="disabled"' ?>
+            id="bundle-option-<?= $_option->getId() ?>-qty-input"
+            class="input__field bundle-option__qty-input qty"
+            type="number"
+            name="bundle_option_qty[<?= $_option->getId() ?>]"
+            data-selector="bundle_option_qty[<?= $_option->getId() ?>]"
+            value="<?= $_defaultQty ?>"
+            min="0"
+        >
+    </div>
+</div>
