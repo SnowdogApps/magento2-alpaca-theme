@@ -1,0 +1,45 @@
+<?php
+$sourceImages = $block->getSourceImages();
+$imgClass = $block->getImgClass();
+
+$pictureClass = $block->getPictureLinkClass();
+$pictureDefault = $block->getPictureDefault();
+$pictureAlt = $block->getPictureAlt();
+
+$pictureAspectRatio = $block->getPictureAspectRatio();
+
+$mediaUrl = $this->helper('Magento\Cms\Helper\Wysiwyg\Images')->getBaseUrl();
+
+if ($pictureAspectRatio) {
+    $pictureClass .= ' ratio-container';
+}
+?>
+
+<picture
+    class="image <?= $block->escapeHtmlAttr($pictureClass) ?>"
+    <?php if($pictureAspectRatio): ?>
+        style="padding-bottom: <?= $pictureAspectRatio . '%'; ?>"
+    <?php endif; ?>
+>
+    <?php foreach($sourceImages as $sourceImage): ?>
+        <?php if ($sourceImage['1x']): ?>
+        <source
+            data-srcset="
+                <?= $block->escapeUrl($sourceImage['1x']) ?>
+                <?php if ($sourceImage['2x']): ?>
+                    <?= ' 1x, ' . $block->escapeUrl($sourceImage['2x']) . ' 2x' ?>
+                <?php endif; ?>
+            "
+            <?php if ($sourceImage['media']): ?>
+                media="(<?= $block->escapeHtmlAttr($sourceImage['media'] . '-width: ' . $sourceImage['width'] . 'px') ?>)"
+            <?php endif; ?>
+        />
+    <?php endif; ?>
+    <?php endforeach; ?>
+    <img
+        class="lazyload <?= $block->escapeHtmlAttr($imgClass) ?>"
+        data-src="<?= $block->escapeUrl($pictureDefault) ?>"
+        alt="<?= $block->escapeHtmlAttr($pictureAlt) ?>"
+        src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAABCAQAAABN/Pf1AAAAC0lEQVR42mNkwAIAACoAAgu1Hc4AAAAASUVORK5CYII="
+    />
+</picture>

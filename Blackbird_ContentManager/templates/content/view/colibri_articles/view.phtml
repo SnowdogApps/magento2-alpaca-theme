@@ -1,0 +1,167 @@
+<?php
+
+/**
+ * @see \Blackbird\ContentManager\Block\View
+ */
+?>
+<?php
+/*
+ *
+ *
+ * AVAILABLE METHODS
+ *
+ * Get all raw values as an array
+ * $content->getData();
+ *
+ * Get a specific value by his field identifier
+ * $content->getData('field_identifier');
+ * $content->getFieldIdentifier();
+ * $content->getAttributeText('field_identifier');
+ *
+ * Get content type model
+ * $content->getContentType();
+ *
+ * Get image URL for an image field type.
+ * $content->getImage($attributeName, $width, $height, $keepRatio, $cropped = false);
+ *
+ * Get file absolute URL, for a file field typ
+ * $content->getFile($field_identifier);
+ *
+ * Get content url
+ * $content->getLinkUrl();
+ *
+ * Render a field in HTML
+ * $content->render($element, $params);
+ *
+ * See the complete documentation and more examples at:
+ * http://www.advancedcontentmanager.com/documentation/
+ *
+ */
+?>
+<?php
+/** @var \Blackbird\ContentManager\Model\Content $content */
+$content = $block->getContent();
+$ctPrefix = 'cb_article_';
+$ctPicPrefix = 'cb_pic_';
+$date = new DateTime($content->getData($ctPrefix . 'date'));
+$dateFormatted = $date->format('F j\,\ Y');
+$title = $content->getData($ctPrefix . 'title');
+
+$imageAttributes = [
+    $ctPicPrefix . 'alt',
+    $ctPicPrefix . 'default',
+    $ctPicPrefix . 'max_480',
+    $ctPicPrefix . 'max_768',
+    $ctPicPrefix . 'max_1024',
+    $ctPicPrefix . 'max_1328'
+];
+
+$imageId = (int) explode(',', $content->getData($ctPrefix . 'image'))[0];
+$imagesContent = $content->getContentCollection($ctPrefix . 'image', $imageAttributes);
+$imageDefault = '';
+$imageAlt = '';
+$image = null;
+
+$images = $imagesContent->getItems();
+
+if (!empty($images[$imageId])) {
+    $image = $images[$imageId];
+}
+
+if (!empty($image)) {
+    $imageDefault = $block->escapeUrl($image->getFile($ctPicPrefix . 'default'));
+    $image480 = $block->escapeUrl($image->getFile($ctPicPrefix . 'max_480'));
+    $image768 = $block->escapeUrl($image->getFile($ctPicPrefix . 'max_768'));
+    $image1024 = $block->escapeUrl($image->getFile($ctPicPrefix . 'max_1024'));
+    $image1328 = $block->escapeUrl($image->getFile($ctPicPrefix . 'max_1328'));
+    $imageAlt = $image->getData($ctPicPrefix . 'alt');
+
+
+    $block->getChildBlock('colibri-article-image')->setData([
+        'picture_class' => 'article__image',
+        'picture_full_url' => true,
+        'img_default' => $imageDefault,
+        'img_480' => $image480,
+        'img_768' => $image768,
+        'img_1024' => $image1024,
+        'img_1328' => $image1328,
+        'picture_alt' => $imageAlt
+    ]);
+}
+
+$authorAttributes = [
+    $ctPrefix . 'author_name',
+    $ctPrefix . 'author_surname',
+    $ctPrefix . 'author_avatar'
+];
+
+$authorId = (int) explode(',', $content->getData($ctPrefix . 'author'))[0];
+$authorsContent = $content->getContentCollection($ctPrefix . 'author', $authorAttributes);
+
+$authors = $authorsContent->getItems();
+$author = $authors[$authorId];
+$authorName = $author->getData($ctPrefix . 'author_name');
+$authorSurname = $author->getData($ctPrefix . 'author_surname');
+$authorAvatar = $block->escapeUrl($author->getFile($ctPrefix . 'author_avatar'));
+
+$tags = explode(',', $content->getData('tw_article_tag'));
+
+$filtersBlock = $block->getChildBlock('blog-filter');
+$filters = $filtersBlock->getFilters();
+?>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="row__content">
+            <article>
+                <div class="article__wrapper">
+                    <div class="article__image">
+                        <div class="lazyload-wrapper">
+                            <?= $block->getChildHtml('colibri-article-image', false); ?>
+                        </div>
+                    </div>
+                    <div class="article__content">
+                        <span class="article__date">
+                            <?= $dateFormatted ?>
+                        </span>
+                        <h1 class="article__title">
+                            <?= $title ?>
+                        </h1>
+
+                        <div class="avatar">
+                            <div class="avatar__image">
+                                <div class="lazyload-wrapper ">
+                                    <img
+                                        class="image lazyloaded"
+                                        src="<?= $authorAvatar ?>"
+                                        data-src="<?= $authorAvatar ?>"
+                                        alt="<?= $block->escapeHtmlAttr(__('Author avatar')) ?>"
+                                    />
+                                </div>
+                            </div>
+                            <span class="avatar__name">
+                                <?= $authorName . ' ' . $authorSurname ?>
+                            </span>
+                        </div>
+
+                        <p class="article__text">
+                            <?= $content->render($ctPrefix . 'text'); ?>
+                        </p>
+                        <?php foreach ($filters as $filter): ?>
+                            <?php foreach ($filter->getAllOptions() as $option): ?>
+                                <?php if (in_array($option['value'], $tags)): ?>
+                                    <a
+                                        class="tag"
+                                        href="<?= $block->escapeUrl('/blog?' . $filter->getIdentifier() . '=' . $option['value']) ?>"
+                                        title="<?= $block->escapeHtmlAttr($option['label']) ?>"
+                                    >
+                                        <?= $option['label'] ?>
+                                    </a>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+</div>
