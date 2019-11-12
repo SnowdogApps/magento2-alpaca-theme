@@ -1,16 +1,42 @@
 <?php // @codingStandardsIgnoreFile ?>
 <?php if ($detailedInfoGroup = $block->getGroupChildNames('detailed_info', 'getChildHtml')): ?>
+    <?php
+        $layout = $block->getLayout();
+        $tabId = 1;
+    ?>
     <div
-        id="product-tab"
+        class="product-view__tabs-sticky-wrap"
+        data-aos="fade-down"
+        data-aos-anchor="#tab-title-<?= $tabId; ?>"
+        data-aos-anchor-placement="bottom-top"
+    >
+        <div class="product-view__tabs-sticky">
+            <?php foreach ($detailedInfoGroup as $name):?>
+                <?php
+                $alias = $layout->getElementAlias($name);
+                $label = $block->getChildData($alias, 'title');
+                ?>
+                <a
+                    href="#tab-title-<?= $tabId ?>"
+                    class="
+                        tab__title
+                        tab__title--sticky
+                    "
+                >
+                    <?= $label ?>
+                </a>
+                <?php $tabId++; ?>
+            <?php endforeach; ?>
+            <?php $tabId = 1; ?>
+        </div>
+    </div>
+
+    <div
+        id="product-tabs"
         class="tab product-view__tab"
         role="tablist"
         data-mage-init='{ "tab" : {} }'
     >
-        <?php
-            $layout = $block->getLayout();
-            $tabId = 1;
-        ?>
-
         <?php foreach ($detailedInfoGroup as $name):?>
             <?php
                 $html = $layout->renderElement($name);
