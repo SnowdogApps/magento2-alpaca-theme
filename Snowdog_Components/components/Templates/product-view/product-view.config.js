@@ -227,7 +227,8 @@ module.exports = {
       rating: {
         class: 'rating--secondary'
       }
-    }
+    },
+    additionalBlockClass : 'margin-vc-l'
   },
   variants: [
     {
