@@ -1,6 +1,7 @@
 <?php
 /* @var $block \Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\Multi */
 $_option = $block->getOption();
+$_optionId = $_option->getId();
 $_selections = $_option->getSelections();
 ?>
 
@@ -17,19 +18,25 @@ $_selections = $_option->getSelections();
         <?= $block->getSelectionQtyTitlePrice($_selections[0]) ?>
         <input
             type="hidden"
-            name="bundle_option[<?= $_option->getId() ?>]"
-            value="<?= $_selections[0]->getSelectionId() ?>"
+            name="bundle_option[<?= $block->escapeHtmlAttr($_optionId) ?>]"
+            value="<?= $block->escapeHtmlAttr($_selections[0]->getSelectionId()) ?>"
         >
     <?php else: ?>
         <select
             multiple="multiple"
             size="5"
-            id="bundle-option-<?= $_option->getId() ?>"
-            name="bundle_option[<?= $_option->getId() ?>][]"
-            data-selector="bundle_option[<?= $_option->getId() ?>][]"
-            class="bundle option"
-            aria-label=" <?= $block->escapeHtml($_option->getTitle()) ?>"
-            <?php if ($_option->getRequired()) echo 'data-validate={required:true}' ?>
+            id="bundle-option-<?= $block->escapeHtmlAttr($_optionId) ?>"
+            name="bundle_option[<?= $block->escapeHtmlAttr($_optionId) ?>][]"
+            data-selector="bundle_option[<?= $block->escapeHtmlAttr($_optionId) ?>][]"
+            class="
+                bundle-option-<?= $block->escapeHtmlAttr($_optionId) ?>
+                bundle
+                option
+            "
+            aria-label="<?= $block->escapeHtmlAttr($_option->getTitle()) ?>"
+            <?php if ($_option->getRequired()): ?>
+                data-validate="{'required':'true'}" ?>
+            <?php endif ?>
         >
             <?php if(!$_option->getRequired()): ?>
                 <option value="">
@@ -38,9 +45,13 @@ $_selections = $_option->getSelections();
             <?php endif; ?>
             <?php foreach ($_selections as $_selection): ?>
                 <option
-                    value="<?= $_selection->getSelectionId() ?>"
-                    <?php if ($block->isSelected($_selection)) echo ' selected="selected"' ?>
-                    <?php if (!$_selection->isSaleable()) echo ' disabled="disabled"' ?>
+                    value="<?= $block->escapeHtmlAttr($_selection->getSelectionId()) ?>"
+                    <?php if ($block->isSelected($_selection)): ?>
+                        selected="selected"
+                    <?php endif; ?>
+                    <?php if (!$_selection->isSaleable()): ?>
+                        disabled="disabled"
+                    <?php endif; ?>
                 >
                     <?= $block->getSelectionQtyTitlePrice($_selection, false) ?>
                 </option>
