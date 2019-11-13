@@ -1,0 +1,122 @@
+<?php
+/**
+ * @see \Magento\GiftCardAccount\Block\Checkout\Cart\Giftcardaccount
+ * @var \Magento\GiftCardAccount\Block\Checkout\Cart\Giftcardaccount $block
+ */
+?>
+<div
+    class="cart-discount"
+    data-mage-init='{
+        "collapsible":{
+            "openedState": "active",
+            "saveState": false
+        }
+    }'
+>
+    <button
+        class="cart-discount__button"
+        type="button"
+        aria-expanded="false"
+        data-role="title"
+    >
+        <span
+            class="cart-discount__button-text"
+            data-testid="apply-gift-card-title"
+        >
+            <?= __('Gift Cards') ?>
+        </span>
+
+        <svg
+            class="icon cart-discount__button-icon"
+            role="presentation"
+            focusable="false"
+        >
+            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#angle-down')) ?>"></use>
+        </svg>
+    </button>
+
+    <div
+        class="cart-discount__content"
+        data-role="content"
+        aria-hidden="true"
+        aria-labelledby="block-giftcard-heading"
+    >
+        <div id="giftcard-balance-lookup"></div>
+
+        <span
+            id="gc-please-wait"
+            class="
+                please-wait
+                load
+                indicator
+                display-none
+            "
+            data-text="<?= $block->escapeHtmlAttr(__('This won\'t take long . . .')) ?>"
+        >
+            <?= __('This won\'t take long . . .') ?>
+        </span>
+
+        <?php
+            $getGiftCardStatusUrl = $block->escapeHtml($block->getUrl('magento_giftcardaccount/cart/quickCheck',  ['_secure' => true]));
+        ?>
+
+        <form
+            id="giftcard-form"
+            action="<?= $block->escapeUrl($block->getUrl('magento_giftcardaccount/cart/add')); ?>"
+            method="post"
+            class="form"
+            data-mage-init='{
+                "validation": {"errorClass": "form__error"},
+                "giftCard": {
+                    "giftCardCodeSelector": "#giftcard-code",
+                    "checkStatus": ".action.check",
+                    "giftCardStatusUrl": "<?= $getGiftCardStatusUrl ?>",
+                    "giftCardStatusId": "#giftcard-balance-lookup",
+                    "giftCardSpinnerId": "#gc-please-wait",
+                    "messages": ".page.messages .messages"
+                }
+            }'
+        >
+            <div class="cart-discount__controls">
+                <div class="input cart-discount__content-input">
+                    <label
+                        for="giftcard-code"
+                        class="
+                            label
+                            label--hidden
+                            input__label
+                        "
+                    >
+                        <?= __('Enter the gift card code') ?>
+                    </label>
+
+                    <input
+                        id="giftcard-code"
+                        type="text"
+                        class="input__field cart-discount__content-field"
+                        name="giftcard_code"
+                        data-validate="{'required-entry':true}"
+                        value=""
+                        placeholder="<?= $block->escapeHtmlAttr(__('Enter the gift card code')) ?>"
+                    >
+                </div>
+
+                <button
+                    class="button cart-discount__content-button"
+                    type="submit"
+                    value="<?= $block->escapeHtmlAttr(__('Add Gift Card')) ?>"
+                >
+                    <?= __('Add Gift Card') ?>
+                </button>
+            </div>
+
+            <button
+                class="button cart-discount__content-button"
+                type="button"
+                value="<?= $block->escapeHtmlAttr(__('Check Gift Card status and balance')) ?>"
+            >
+                <?= __('Check Gift Card status and balance') ?>
+            </button>
+        </form>
+    </div>
+</div>

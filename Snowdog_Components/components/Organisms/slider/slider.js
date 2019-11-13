@@ -50,9 +50,10 @@
       }
 
       if (e.type === 'before.lory.init') {
-        for (let i = 0, len = this.items; i < len; i++) {
+        for (let i = 1, len = this.items; i < len; i++) {
           this.addDotClone()
         }
+        this.addDotListeners()
         this.addActiveClassToSlide(0)
       }
 
@@ -75,6 +76,21 @@
       let clone = dot.cloneNode();
       clone.className = 'slider__dot';
       this.dotsContainer.appendChild(clone);
+    }
+
+    addDotListeners() {
+      const dots = this.dotsContainer.childNodes;
+
+      dots.forEach(dot => {
+        dot.addEventListener('click', (event) => {
+          if (event.target.parentNode === dot) {
+            this.lorySlider.slideTo(Array.prototype.indexOf.call(dots, event.target.parentNode))
+          }
+          else {
+            this.lorySlider.slideTo(Array.prototype.indexOf.call(dots, event.target))
+          }
+        })
+      })
     }
 
     addActiveClassToSlide(index) {
