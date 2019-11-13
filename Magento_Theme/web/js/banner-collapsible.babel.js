@@ -1,6 +1,6 @@
 'use strict';
 
-class Banner {
+class BannerCollapsible {
   constructor(element) {
     this.element = element;
     this.triggerButton = element.querySelector('.banner__button-collapse');
@@ -61,6 +61,6 @@ class Banner {
 
 define(function () {
   return function (config, element) {
-    new Banner(element);
+    new BannerCollapsible(element);
   };
 });

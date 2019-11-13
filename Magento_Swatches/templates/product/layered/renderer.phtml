@@ -51,7 +51,7 @@ $swatchLabel = $swatchData['attribute_label'];
             class="more-info"
             data-mage-init='{ "moreInfo": { } }'
         >
-            <!--TO DO - get data from module -->
+            <!--TO DO - get data from module snowdog/module-product-attribute-description (#60916)-->
             <button
                 class="
                     button
@@ -124,10 +124,11 @@ $swatchLabel = $swatchData['attribute_label'];
                 <?php if (isset($swatchData['swatches'][$option]['type'])): ?>
                     <?php
                         switch ($swatchData['swatches'][$option]['type']):
-                        case '3':
+                        case '3': //other swatches
                     ?>
-                        <li>
+                        <li class="filter__swatch-item">
                             <a
+                                class="filter__swatch-option"
                                 href="<?= $block->escapeUrl($label['link']) ?>"
                                 aria-label="<?= $block->escapeHtmlAttr($label['label']) ?>"
                             >
@@ -140,18 +141,20 @@ $swatchLabel = $swatchData['attribute_label'];
                         </li>
                     <?php
                         break;
-                        case '2':
+                        case '2': //color swatch with image background
                     ?>
                         <?php $swatchThumbPath = $block->getSwatchPath('swatch_thumb',
                         $swatchData['swatches'][$option]['value']); ?>
                         <?php $swatchImagePath = $block->getSwatchPath('swatch_image',
                         $swatchData['swatches'][$option]['value']); ?>
-                        <li>
+                        <li class="filter__color-item">
                             <a
                                 href="<?= $block->escapeUrl($label['link']) ?>"
                                 aria-label="<?= $block->escapeHtmlAttr($label['label']) ?>"
+                                class="filter__color-option"
                             >
                                 <div
+                                    class="filter__color-sample"
                                     option-type="2"
                                     option-id="<?= $block->escapeHtmlAttr($option) ?>"
                                     option-label="<?= $block->escapeHtmlAttr($label['label']) ?>"
@@ -162,11 +165,14 @@ $swatchLabel = $swatchData['attribute_label'];
                                     "
                                     title="<?= $block->escapeHtmlAttr($label['label']) ?>"
                                 ></div>
+                                <span class="filter__color-label">
+                                    <?= $label['label'] ?>
+                                </span>
                             </a>
                         </li>
                     <?php
                         break;
-                        case '1':
+                        case '1': //color swatch with #hex background
                     ?>
                         <li class="filter__color-item">
                             <a
@@ -188,7 +194,7 @@ $swatchLabel = $swatchData['attribute_label'];
                         </li>
                     <?php
                         break;
-                        case '0':
+                        case '0': //text swatch
                         default:
                     ?>
                         <li class="filter__swatch-item">
