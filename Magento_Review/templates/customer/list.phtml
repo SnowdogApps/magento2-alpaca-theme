@@ -7,7 +7,10 @@
         </div>
 
         <div class="dashboard-table__content">
-            <table class="table dashboard-table__table" id="my-reviews-table">
+            <table
+                class="table dashboard-table__table"
+                id="my-reviews-table"
+            >
                 <thead>
                     <tr>
                         <th scope="col" class="col date">
@@ -42,31 +45,38 @@
                         ?>
 
                         <tr>
-                            <td data-th="<?= $block->escapeHtml(__('Created')) ?>"
+                            <td
+                                data-th="<?= $block->escapeHtmlAttr(__('Created')) ?>"
                                 class="col date"
                             >
                                 <?= $block->dateFormat($_review->getReviewCreatedAt()); ?>
                             </td>
 
-                            <td data-th="<?= $block->escapeHtml(__('Product Name')) ?>"
+                            <td
+                                data-th="<?= $block->escapeHtmlAttr(__('Product Name')) ?>"
                                 class="col item"
                             >
                                 <strong class="product-name">
-                                    <a href="<?= $getProductLink ?>" class="link">
+                                    <a
+                                        href="<?= $block->escapeUrl($getProductLink) ?>"
+                                        class="link"
+                                    >
                                         <?= $block->escapeHtml($_review->getName()) ?>
                                     </a>
                                 </strong>
                             </td>
 
-                            <td data-th="<?= $block->escapeHtml(__('Rating')) ?>"
+                            <td
+                                data-th="<?= $block->escapeHtmlAttr(__('Rating')) ?>"
                                 class="col summary"
                             >
                                 <?php if ($_review->getSum()): ?>
                                     <?php $getPercentRating = ($_review->getSum() / $_review->getCount()).'%'; ?>
 
                                     <div class="rating__summary">
-                                        <span class="rating__fill"
-                                              style="width:<?php $getPercentRating; ?>;"
+                                        <span
+                                            class="rating__fill"
+                                            style="width:<?= $getPercentRating; ?>;"
                                         >
                                             <span>
                                                 <?= $getPercentRating; ?>
@@ -76,16 +86,21 @@
                                 <?php endif; ?>
                             </td>
 
-                            <td data-th="<?= $block->escapeHtml(__('Review')) ?>"
+                            <td
+                                data-th="<?= $block->escapeHtmlAttr(__('Review')) ?>"
                                 class="col description"
                             >
                                 <?= $getDetails; ?>
                             </td>
 
-                            <td data-th="<?= $block->escapeHtml(__('Actions')) ?>"
+                            <td
+                                data-th="<?= $block->escapeHtmlAttr(__('Actions')) ?>"
                                 class="col actions"
                             >
-                                <a href="<?= $getDetailsLink ?>" class="link more">
+                                <a
+                                    href="<?= $block->escapeUrl($getDetailsLink) ?>"
+                                    class="link more"
+                                >
                                     <?= __('See Details') ?>
                                 </a>
                             </td>
@@ -107,8 +122,13 @@
 
 <div class="action">
     <div class="action__handler">
-        <a class="link action__link back"
-           href="<?= $block->escapeUrl($block->getBackUrl()) ?>"
+        <a
+            class="
+                link
+                action__link
+                back
+            "
+            href="<?= $block->escapeUrl($block->getBackUrl()) ?>"
         >
             <?= __('Back') ?>
         </a>

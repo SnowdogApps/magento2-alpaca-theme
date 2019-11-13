@@ -20,9 +20,9 @@ $isShownInStock = (float) ($productQty) > 0 || $_product->getData('display_insto
         data-mage-init='{ "modal" : {} }'
     >
         <?php if ($isShownInStock): ?>
-            <?= __('In stock') ?>
+            <?= $block->escapeHtml(__('In stock')) ?>
         <?php else: ?>
-            <?= $_product->getAttributeText('shipping_latency'); ?>
+            <?= $block->escapeHtml($_product->getAttributeText('shipping_latency')); ?>
         <?php endif; ?>
     </button>
     <div
@@ -41,16 +41,14 @@ $isShownInStock = (float) ($productQty) > 0 || $_product->getData('display_insto
             <div class="modal__content">
                 <?php if ($isShownInStock): ?>
                     <h3 id="shipping-latency-title">
-                        <?= __('Ships in one day') ?>
+                        <?= $block->escapeHtml(__('Ships in one day')) ?>
                     </h3>
-                    Modal content goes here
-                    <!-- <?//= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('one-day-shipping')->toHtml(); ?> -->
+                    <?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('one-day-shipping')->toHtml(); ?>
                 <?php else: ?>
                     <h3 id="shipping-latency-title">
-                        <?= $_product->getAttributeText('shipping_latency'); ?>
+                        <?= $block->escapeHtml($_product->getAttributeText('shipping_latency')); ?>
                     </h3>
-                    Modal content goes here
-                    <!-- <?//= $shippingLatencyHelper->getProductPopupHtml($_product->getData()); ?> -->
+                    <?= $shippingLatencyHelper->getProductPopupHtml($_product->getData()); ?>
                 <?php endif ?>
             </div>
             <button

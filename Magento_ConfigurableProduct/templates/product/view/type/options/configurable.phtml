@@ -5,18 +5,21 @@ $_attributes = $block->decorateArray($block->getAllowAttributes());
 ?>
 <?php if ($_product->isSaleable() && count($_attributes)) :?>
     <?php foreach ($_attributes as $_attribute) : ?>
+        <?php
+            $_attributeId = $_attribute->getAttributeId();
+        ?>
         <div class="select field configurable required">
             <label
                 class="label"
-                for="attribute<?= $block->escapeHtmlAttr($_attribute->getAttributeId()) ?>"
+                for="attribute<?= $block->escapeHtmlAttr($_attributeId) ?>"
             >
                 <?= $block->escapeHtml($_attribute->getProductAttribute()->getStoreLabel()) ?>
             </label>
             <select
-                name="super_attribute[<?= $block->escapeHtmlAttr($_attribute->getAttributeId()) ?>]"
-                data-selector="super_attribute[<?= $block->escapeHtmlAttr($_attribute->getAttributeId()) ?>]"
+                name="super_attribute[<?= $block->escapeHtmlAttr($_attributeId) ?>]"
+                data-selector="super_attribute[<?= $block->escapeHtmlAttr($_attributeId) ?>]"
                 data-validate="{required:true}"
-                id="attribute<?= $block->escapeHtmlAttr($_attribute->getAttributeId()) ?>"
+                id="attribute<?= $block->escapeHtmlAttr($_attributeId) ?>"
                 class="
                     select__field
                     select__field--native

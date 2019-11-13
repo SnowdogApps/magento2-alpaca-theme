@@ -9,16 +9,36 @@
 <?php $_product = $block->getProduct(); ?>
 
 <form
-    data-product-sku="<?= $_product->getSku() ?>"
-    action="<?= $block->getSubmitUrl($_product) ?>"
+    data-product-sku="<?= $block->escapeHtmlAttr($_product->getSku()) ?>"
+    action="<?= $block->escapeUrl($block->getSubmitUrl($_product)) ?>"
     method="post"
     class="product-view__form"
-    id="product_addtocart_form"<?php if ($_product->getOptions()): ?>
-    enctype="multipart/form-data"<?php endif; ?>
+    id="product_addtocart_form"
+    <?php if ($_product->getOptions()): ?>
+        enctype="multipart/form-data"
+    <?php endif; ?>
 >
-    <input type="hidden" name="product" value="<?= $_product->getId() ?>" />
-    <input type="hidden" name="selected_configurable_option" value="" />
-    <input type="hidden" name="related_product" id="related-products-field" value="" />
+    <input
+        type="hidden"
+        name="product"
+        value="<?= (int)$_product->getId() ?>"
+    />
+    <input
+        type="hidden"
+        name="selected_configurable_option"
+        value=""
+    />
+    <input
+        type="hidden"
+        name="related_product"
+        id="related-products-field"
+        value=""
+    />
+    <input
+        type="hidden"
+        name="item"
+        value="<?= (int)$block->getRequest()->getParam('id') ?>"
+    />
 
     <?= $block->getBlockHtml('formkey') ?>
     <?= $block->getChildHtml('form_top') ?>
