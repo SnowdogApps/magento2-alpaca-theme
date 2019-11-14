@@ -4,7 +4,7 @@
     <?php endif; ?>
 
         <?php if ($block->getShowAmounts()): ?>
-            <div class="toolbar__amount--visible">
+            <div class="toolbar__amount">
                 <span class="toolbar__amount-content">
                     <?php if ($block->getLastPageNum()>1): ?>
                         <?= __('Items %1 to %2 of %3 total', $block->getFirstNum(), $block->getLastNum(), $block->getTotalNum()) ?>
@@ -18,18 +18,21 @@
         <?php endif; ?>
 
         <?php if ($block->isShowPerPage()): ?>
-            <div class="toolbar__limiter--relative">
+            <div class="select toolbar__limiter margin-0">
                 <label
                     class="
                         label
+                        select__label
                         toolbar__limiter-label
+                        margin-right-s
+                        margin-bottom-0
                     "
                     for="limiter"
                 >
                     <?= __('Show') ?>
                 </label>
 
-                <div class="select toolbar__limiter-wrapper">
+                <div class="select__field">
                     <select
                         id="limiter"
                         data-mage-init='
@@ -46,10 +49,11 @@
                         "
                     >
                         <?php foreach ($block->getAvailableLimit() as $_key => $_limit): ?>
-                            <option value="<?= $block->getLimitUrl($_key) ?>"
-                                    <?php if ($block->isLimitCurrent($_key)): ?>
-                                        selected
-                                    <?php endif; ?>
+                            <option
+                                value="<?= $block->getLimitUrl($_key) ?>"
+                                <?php if ($block->isLimitCurrent($_key)): ?>
+                                    selected
+                                <?php endif; ?>
                             >
                                 <?= $_limit ?>
                             </option>
@@ -60,7 +64,7 @@
         <?php endif; ?>
 
         <?php if ($block->getLastPageNum() > 1): ?>
-            <div class="pager margin-vc-xl">
+            <div class="pager toolbar__pager margin-vc-xl">
                 <ul
                     class="pager__list"
                     aria-labelledby="paging-label"

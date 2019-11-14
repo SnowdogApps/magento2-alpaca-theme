@@ -1,0 +1,63 @@
+<!-- ko if: ifShowValue() && !ifShowDetails() -->
+    <li class="cart-summary__list-item">
+        <span
+            data-bind="text: title"
+            class="cart-summary__label"
+        />
+
+        <span
+            class="cart-summary__value"
+            data-bind="text: getValue()"
+        />
+    </li>
+<!-- /ko -->
+
+<!-- ko if: ifShowValue() && ifShowDetails() -->
+    <li
+        class="cart-summary__list-item"
+        data-bind="mageInit: {
+            'toggleAdvanced':{
+                'selectorsToggleClass': 'shown',
+                'baseToggleClass': 'expanded',
+                'toggleContainers': '.totals-tax-details'
+            }
+        }"
+    >
+        <span
+            class="cart-summary__label"
+            data-bind="text: title"
+        />
+
+        <span
+            class="cart-summary__value"
+            data-bind="text: getValue()"
+        />
+    </li>
+
+    <!-- ko foreach: getDetails() -->
+        <!-- ko foreach: rates -->
+            <li class="cart-summary__list-item">
+                <!-- ko if: percent -->
+                    <span
+                        class="cart-summary__label"
+                        data-bind="text: title + ' (' + percent + '%)'"
+                    />
+                <!-- /ko -->
+
+                <!-- ko if: !percent -->
+                    <span
+                        class="cart-summary__label"
+                        data-bind="text: title"
+                    />
+                <!-- /ko -->
+
+                <!-- ko if: $index() == 0 -->
+                    <span
+                        class="cart-summary__value"
+                        data-bind="text: $parents[1].formatPrice($parents[0].amount)"
+                    />
+                <!-- /ko -->
+            </li>
+        <!-- /ko -->
+    <!-- /ko -->
+<!-- /ko -->

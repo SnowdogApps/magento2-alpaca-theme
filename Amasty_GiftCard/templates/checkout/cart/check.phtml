@@ -1,0 +1,30 @@
+<?php /** @var $block \Amasty\GiftCard\Block\Checkout\Cart\CheckCard */?>
+
+<?php
+$card = $block->getCard();
+$currentBalance = $block->getCurrentBalance($card->getCurrentValue());
+if ($card->getExpiredDate()) {
+    $_validTill = $block->getExpiredDate($card->getExpiredDate());
+} else {
+    $_validTill = __('Unlimited');
+}
+?>
+<?php if ($card && $card->getId()): ?>
+    <div class="amgiftcard-info">
+        <div class="information">
+            <p class="information__text">
+                <?= __("Status: %1", $card->getStatus()) ?>
+            </p>
+            <p class="information__text">
+                <?= __('Current Balance: %1', $currentBalance) ?>
+            </p>
+            <p class="information__text">
+                <?= __('Valid till: %1', $_validTill) ?>
+            </p>
+        </div>
+    </div>
+<?php else: ?>
+    <div class="message message--error">
+        <?= __('Wrong Gift Card Code.') ?>
+    </div>
+<?php endif; ?>

@@ -32,6 +32,9 @@ module.exports = {
       class: '',
       loginClass: 'auth__link--active',
       loginText: 'Login',
+      loginTag: 'button',
+      registerTag: 'a',
+      registerAttributes: 'href="#"',
       registerClass: 'auth__link--registration',
       registerMobileClass: 'auth__link--registration-mobile',
       registerText: 'Create account'
@@ -46,9 +49,13 @@ module.exports = {
           name: 'account-form--registration'
         },
         authLinks: {
-          loginClass: '',
           class: '',
-          registerClass: 'auth__link--active'
+          loginClass: '',
+          loginTag: 'a',
+          loginAttributes: 'href="#"',
+          registerClass: 'auth__link--active',
+          registerTag: 'button',
+          registerAttributes: ''
         }
       }
     }
