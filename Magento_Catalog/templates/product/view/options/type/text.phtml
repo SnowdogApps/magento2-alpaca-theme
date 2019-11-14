@@ -1,0 +1,73 @@
+<?php // @codingStandardsIgnoreFile ?>
+<?php
+$_option = $block->getOption();
+$_optionId = $_option->getId();
+$class = ($_option->getIsRequire()) ? ' required' : '';
+$isTextarea = \Magento\Catalog\Api\Data\ProductCustomOptionInterface::OPTION_TYPE_AREA;
+$isTextField = \Magento\Catalog\Api\Data\ProductCustomOptionInterface::OPTION_TYPE_FIELD;
+
+$_textValidate = null;
+
+if ($_option->getIsRequire()) {
+    $_textValidate['required'] = true;
+}
+
+if ($_option->getMaxCharacters()) {
+    $_textValidate['maxlength'] = $_option->getMaxCharacters();
+}
+?>
+
+<div
+    class="
+        input
+        <?php if ($_option->getType() == $isTextarea): ?>
+            textarea
+        <?php endif; ?>
+        <?= $class ?>
+    "
+>
+    <label
+        class="label"
+        for="options_<?= $block->escapeHtmlAttr($_optionId) ?>_text"
+    >
+        <?= $block->escapeHtml($_option->getTitle()) ?>
+
+        <?= $block->getFormatedPrice() ?>
+    </label>
+
+    <?php if ($_option->getType() == $isTextField): ?>
+        <input
+            type="text"
+            id="options_<?= $block->escapeHtmlAttr($_optionId) ?>_text"
+            class="input__field"
+            <?php if (!empty($_textValidate)) {?>
+                data-validate="<?= $block->escapeHtmlAttr(json_encode($_textValidate)) ?>"
+            <?php } ?>
+            name="options[<?= $block->escapeHtmlAttr($_optionId) ?>]"
+            data-selector="options[<?= $block->escapeHtmlAttr($_optionId) ?>]"
+            value="<?= $block->escapeHtmlAttr($block->getDefaultValue()) ?>"
+        />
+    <?php elseif ($_option->getType() == $isTextarea): ?>
+        <textarea
+            id="options_<?=  $block->escapeHtmlAttr($_optionId) ?>_text"
+            class="input__field input__field--textarea"
+            <?php if (!empty($_textValidate)) {?>
+                data-validate="<?= $block->escapeHtml(json_encode($_textValidate)) ?>"
+            <?php } ?>
+            name="options[<?= $block->escapeHtmlAttr($_optionId) ?>]"
+            data-selector="options[<?= $block->escapeHtmlAttr($_optionId) ?>]"
+            rows="5"
+            cols="25"
+        ><?= $block->escapeHtml($block->getDefaultValue()) ?></textarea>
+    <?php endif; ?>
+
+    <?php if ($_option->getMaxCharacters()): ?>
+        <p>
+            <?= __('Maximum number of characters:') ?>
+
+            <strong>
+                <?= $_option->getMaxCharacters() ?>
+            </strong>
+        </p>
+    <?php endif; ?>
+</div>

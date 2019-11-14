@@ -1,0 +1,101 @@
+<?php
+/** @var $block \Magento\Catalog\Block\Product\View */
+?>
+
+<?php $_product = $block->getProduct(); ?>
+<?php $buttonTitle = __('Add to Cart'); ?>
+
+<?php if ($_product->isSaleable()): ?>
+<div
+    class="add-to-cart aos-init"
+    data-aos="fade-up"
+    data-aos-anchor="#product-addtocart-button"
+    data-aos-anchor-placement="bottom-top"
+>
+    <div class="add-to-cart__wrapper">
+        <div class="add-to-cart__title">
+            <h2 class="heading heading--page">
+                <?= $block->escapeHtml($_product->getName()) ?>
+            </h2>
+            <?= $block->getChildHtml('product.price.final.sticky') ?>
+        </div>
+
+        <div class="add-to-cart__action">
+            <button
+                type="submit"
+                title="<?= $block->escapeHtmlAttr($buttonTitle) ?>"
+                class="
+                    button
+                    button--icon
+                    button--add-to-icon
+                    add-to-cart__button
+                    action
+                    tocart
+                "
+                id="product-addtocart-button-sticky"
+                aria-label="<?= $block->escapeHtmlAttr($buttonTitle) ?>"
+            >
+                <span class="button__text">
+                    <?= $buttonTitle ?>
+                </span>
+                <svg
+                    class="icon button__icon"
+                    role="presentation"
+                    focusable="false"
+                >
+                    <title><?= $block->escapeHtml(__('Add to Cart')) ?></title>
+                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#shopping-cart')); ?>"></use>
+                </svg>
+            </button>
+
+            <button
+                class="
+                    button
+                    button--icon
+                    button--icon-light
+                    add-to-cart__button-more
+                "
+                type="button"
+                aria-expanded="false"
+                data-mage-init='{"addToCartMore": {} }'
+            >
+                <svg
+                    class="
+                        icon
+                        button__icon
+                    "
+                    role="presentation"
+                    focusable="false"
+                >
+                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#more')); ?>"></use>
+                </svg>
+            </button>
+            <div class="add-to-cart__action-secondary">
+                <?= $block->getChildHtml('view.addto.wishlist.sticky') ?>
+                <?= $block->getChildHtml('view.addto.compare.sticky') ?>
+            </div>
+        </div>
+
+    </div>
+</div>
+<?php endif; ?>
+
+<?php if ($block->isRedirectToCartEnabled()) : ?>
+    <script type="text/x-magento-init">
+        {
+            "#product_addtocart_form": {
+                "Magento_Catalog/product/view/validation": {
+                    "radioCheckboxClosest": ".nested"
+                }
+            }
+        }
+    </script>
+<?php else: ?>
+    <script type="text/x-magento-init">
+        {
+            "#product_addtocart_form": {
+                "Magento_Catalog/js/validate-product": {}
+            }
+        }
+    </script>
+<?php endif; ?>

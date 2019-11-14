@@ -1,30 +1,24 @@
-define(['choices'], function(Choices) {
+define([
+  'jquery',
+  'select2',
+  'domReady!'
+], function($, select2) {
   'use strict';
-
+  function sorterFilter() {
+    data => data.sort((a, b) => a.text.localeCompare(b.text));
+  }
   return function(config, select) {
-    const defaultOptions = {
-      placeholder: false,
-      searchEnabled: false,
-      itemSelectText: '',
-      position: 'bottom',
-      sortFilter: (a, b) => {
-        return a.label.localeCompare(b.label);
-      },
-      classNames: {
-        containerInner: 'select__field',
-        list          : 'select__field-list',
-        input         : 'select__field-input',
-        item          : 'select__field-item',
-        listSingle    : 'select__field-list--single'
-      },
-      itemSelectText: ''
-    };
+    const selectId = select.id,
+      defaultOptions = {
+        minimumResultsForSearch: Infinity,
+        width: null,
+        position: 'bottom',
+        debug: true
+      };
     if (config.type === 'number') {
-      defaultOptions.sortFilter = (a, b) => {
-        return a - b;
-      }
+      defaultOptions.sorter = sorterFilter();
     }
     config.options = Object.assign(defaultOptions, config.options);
-    new Choices(select, config.options);
-  }
+    $(`#${selectId}`).select2(config.options);
+  };
 });

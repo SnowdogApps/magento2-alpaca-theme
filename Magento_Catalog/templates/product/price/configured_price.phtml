@@ -1,0 +1,55 @@
+<?php
+/** @var \Magento\Catalog\Pricing\Render\FinalPriceBox $block */
+$schema = ($block->getZone() == 'item_view') ? true : false;
+$idSuffix = $block->getIdSuffix() ? $block->getIdSuffix() : '';
+/** @var \Magento\Catalog\Pricing\Price\ConfiguredPrice $configuredPrice */
+$configuredPrice = $block->getPrice();
+/** @var \Magento\Catalog\Pricing\Price\ConfiguredRegularPrice $configuredRegularPrice */
+$configuredRegularPrice = $block->getPriceType(
+    \Magento\Catalog\Pricing\Price\ConfiguredPriceInterface::CONFIGURED_REGULAR_PRICE_CODE
+);
+?>
+<?php if ($configuredPrice->getAmount()->getValue() < $configuredRegularPrice->getAmount()->getValue()) : ?>
+    <span class="price__value price__value--old">
+        <?= /* @noEscape */ $block->renderAmount(
+            $configuredRegularPrice->getAmount(),
+            [
+                'display_label'     => $block->escapeHtml(__('Regular Price')),
+                'price_id'          => $block->escapeHtml($block->getPriceId('old-price-' . $idSuffix)),
+                'price_type'        => 'oldPrice',
+                'include_container' => true,
+                'skip_adjustments'  => true,
+            ]
+        ); ?>
+    </span>
+    <span class="price__value price__value--special">
+        <?= /* @noEscape */ $block->renderAmount(
+            $configuredPrice->getAmount(),
+            [
+                'display_label'     => $block->escapeHtml(__('Special Price')),
+                'price_id'          => $block->escapeHtml($block->getPriceId('product-price-' . $idSuffix)),
+                'price_type'        => 'finalPrice',
+                'include_container' => true,
+                'schema' => $schema,
+            ]
+        ); ?>
+    </span>
+<?php else : ?>
+    <?php
+    $priceLabel = ($block->getPriceLabel() !== null)
+        ? $block->getPriceLabel()
+        : '';
+    ?>
+    <span class="price__value">
+        <?= /* @noEscape */ $block->renderAmount(
+            $configuredPrice->getAmount(),
+            [
+                'display_label'     => $block->escapeHtml($priceLabel),
+                'price_id'          => $block->escapeHtml($block->getPriceId('product-price-' . $idSuffix)),
+                'price_type'        => 'finalPrice',
+                'include_container' => true,
+                'schema' => $schema,
+            ]
+        ); ?>
+    </span>
+<?php endif; ?>

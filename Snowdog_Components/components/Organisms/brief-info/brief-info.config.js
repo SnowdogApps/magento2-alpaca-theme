@@ -125,7 +125,7 @@ module.exports = {
             iconWrapperClass: 'margin-right-xs',
             icon: {
               class: 'brief-info__icon',
-              id: 'delivery',
+              id: 'delivery-truck',
               title: 'Free shipping icon',
               hidden: true
             },
@@ -149,8 +149,8 @@ module.exports = {
             iconLabel: 'Big Star',
             icon: {
               class: 'brief-info__icon',
-              id: 'bigstar',
-              title: 'Big Star',
+              id: 'return',
+              title: 'return',
               hidden: true
             },
             title: {

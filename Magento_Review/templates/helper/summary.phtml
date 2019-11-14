@@ -1,42 +1,61 @@
 <?php
-
 /** @var \Magento\Review\Block\Product\ReviewRenderer $block */
 
+$url = $block->getReviewsUrl() . '#reviews';
 $urlForm = $block->getReviewsUrl() . '#review-form';
+
 ?>
-<?php if ($block->isReviewEnabled() && $block->getReviewsCount()): ?>
-    <?php $rating = $block->getRatingSummary(); ?>
-    <div
-        class="product-reviews-summary<?= !$rating ? ' no-rating' : '' ?>"
-        itemprop="aggregateRating"
-        itemscope itemtype="http://schema.org/AggregateRating"
-    >
+<?php if ($block->isReviewEnabled() && $block->getReviewsCount()) : ?>
+    <?php
+        $reviewsCount = $block->getReviewsCount();
+        $rating = $block->getRatingSummary();
+    ?>
+    <div class="review review--summary">
         <?php if ($rating): ?>
-            <div
-                class="rating product-grid-item__rating"
-                aria-label="<?= $block->escapeHtmlAttr(__('Average rating')) ?>: <?= $rating ?>%"
-                title="<?= $block->escapeHtmlAttr(__('Average rating')) ?>: <?= $rating ?>%"
-                tabindex="0"
-            >
+            <div class="review__summary-handle">
                 <div
-                    class="rating__star"
-                    role="presentation"
-                    style="width: <?= $rating ?>%"
+                    class="rating rating--secondary"
+                    aria-label="<?= __('Average rating') . ': ' . $rating . '%'; ?>"
+                    title="<?= __('Average rating') . ': ' . $rating . '%'; ?>"
+                    tabindex="0"
                 >
-                    <span class="rating__indicator"></span>
+                    <div
+                        class="rating__star"
+                        role="presentation"
+                        style="width:<?=  $rating; ?>%"
+                    >
+                        <span class="rating__indicator"></span>
+                    </div>
                 </div>
+
+                <a
+                    href="<?= $url ?>"
+                    class="review__amount"
+                    title="<?= $reviewsCount . __(' reviews'); ?>"
+                    data-mage-init='{ "goToReview": { "reviewId": "reviews" } }'
+                    aria-label="<?= __('See ') . $reviewsCount . __(' reviews'); ?>"
+                >
+                    <?= $reviewsCount . __(' Reviews'); ?>
+                </a>
+                <a
+                    href="<?=  $urlForm ?>"
+                    title="<?=  __('Add Your Review') ?>"
+                    class="review__summary-add"
+                    data-mage-init='{ "goToReview": { "reviewId": "review-form" } }'
+                >
+                    <?=  __('Add Your Review') ?>
+                </a>
             </div>
-        <?php endif;?>
+        <?php endif; ?>
     </div>
-<?php elseif ($block->isReviewEnabled() && $block->getDisplayIfEmpty()): ?>
-    <div class="product-reviews-summary">
-        <div class="reviews-actions">
-            <a
-                class="action add"
-                href="<?= $block->escapeUrl($urlForm) ?>"
-            >
-                <?= __('Be the first to review this product') ?>
-            </a>
-        </div>
+<?php elseif ($block->getDisplayIfEmpty()): ?>
+    <div class="review review--summary empty">
+        <a
+            href="<?=  $urlForm; ?>"
+            title="<?=  __('Be the first to review this product') ?>"
+            data-mage-init='{ "goToReview": { "reviewId": "review-form" } }'
+        >
+            <?=  __('Be the first to review this product') ?>
+        </a>
     </div>
 <?php endif; ?>

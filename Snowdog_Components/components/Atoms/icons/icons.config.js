@@ -88,11 +88,6 @@ module.exports = {
         class: 'icons__single-icon'
       },
       {
-        id: 'delivery',
-        title: 'Delivery',
-        class: 'icons__single-icon'
-      },
-      {
         id: 'delivery-truck',
         title: 'Delivery truck',
         class: 'icons__single-icon'
@@ -175,6 +170,11 @@ module.exports = {
       {
         id: 'mobile-menu',
         title: 'Mobile menu',
+        class: 'icons__single-icon'
+      },
+      {
+        id: 'more',
+        title: 'more',
         class: 'icons__single-icon'
       },
       {

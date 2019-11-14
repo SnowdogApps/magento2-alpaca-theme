@@ -79,7 +79,6 @@ module.exports = {
     price: {
       name: 'price',
       context: {
-        class: 'product-list-item__price',
         attributes: 'aria-label="Product price" tabindex="0"',
       }
     },

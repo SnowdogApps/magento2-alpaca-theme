@@ -1,0 +1,46 @@
+<?php
+/**
+ * Product view template
+ *
+ * @see \Magento\Catalog\Block\Product\View\Description
+ */
+?>
+<?php
+$_helper = $this->helper('Magento\Catalog\Helper\Output');
+$_product = $block->getProduct();
+$_call = $block->getAtCall();
+$_code = $block->getAtCode();
+$_attributeLabel = $block->getAtLabel();
+$_attributeType = $block->getAtType();
+
+if ($_attributeLabel && $_attributeLabel == 'default') {
+    $_attributeLabel = $_product->getResource()->getAttribute($_code)->getStoreLabel();
+}
+if ($_attributeType && $_attributeType == 'text') {
+    $_attributeValue = ($_helper->productAttribute($_product, $_product->$_call(), $_code)) ? $_product->getAttributeText($_code) : '';
+} else {
+    $_attributeValue = $_helper->productAttribute($_product, $_product->$_call(), $_code);
+}
+?>
+
+<?php if ($_attributeValue): ?>
+<div
+    class="
+        product-view__short-description
+        margin-top-m
+    "
+>
+    <?php if ($_attributeLabel != 'none'): ?>
+        <h2
+            class="
+                product-view__short-description-heading
+                margin-bottom-xs
+            "
+        >
+            <?= $_attributeLabel ?>
+        </h2>
+    <?php endif; ?>
+
+    <?= $_attributeValue ?>
+</div>
+<?php endif; ?>
