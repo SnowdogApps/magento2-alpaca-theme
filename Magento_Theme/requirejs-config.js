@@ -8,7 +8,6 @@ var config = {
       "noUiSlider"     : "Magento_Theme/js/lib/nouislider.min",
       "picturefill"    : "Magento_Theme/js/lib/picturefill",
       "svg4everybody"  : "Magento_Theme/js/lib/svg4everybody",
-      "choices"        : "Magento_Theme/js/lib/choices",
       "lory"           : "Magento_Theme/js/lib/lory",
       "cookieMessage"  : "Magento_Theme/js/cookie-message.babel",
       "dropdownList"   : "Magento_Theme/js/dropdown-list.babel",
@@ -18,13 +17,16 @@ var config = {
       "select"         : "Magento_Theme/js/select.babel",
       "scrollTop"      : "Magento_Theme/js/scroll-top.babel",
       "skipNav"        : "Magento_Theme/js/skip-nav.babel",
-      "select"         : "Magento_Theme/js/select.babel",
-      "slider"         : "Magento_Theme/js/slider.babel"
+      "slider"         : "Magento_Theme/js/slider.babel",
+      "tab"            : "Magento_Theme/js/tab.babel"
     }
   },
   shim: {
     "slider": {
       "deps": ["lory"]
+    },
+    "select2":{
+      "deps": ["jquery"]
     }
   },
   deps: [
