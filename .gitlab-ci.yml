@@ -33,11 +33,11 @@ components:
   variables:
     NOW_URL: https://${CI_PROJECT_NAME}-${CI_BUILD_REF_SLUG}.now.sh
   before_script:
-  - cd Snowdog_Components
-  - yarn
-  - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@lab.snowdog.pro/internal/now-deployment.git
-  - chmod +x now-deployment/now-deploy.sh
-  - . ./now-deployment/now-deploy.sh
+    - cd Snowdog_Components
+    - yarn
+    - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@lab.snowdog.pro/internal/now-deployment.git
+    - chmod +x now-deployment/now-deploy.sh
+    - . ./now-deployment/now-deploy.sh
   script:
     - deploy
   environment:
@@ -53,6 +53,12 @@ production:
   stage: deploy
   variables:
     NOW_URL: https://${CI_PROJECT_NAME}.now.sh
+  before_script:
+    - cd Snowdog_Components
+    - yarn
+    - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@lab.snowdog.pro/internal/now-deployment.git
+    - chmod +x now-deployment/now-deploy.sh
+    - . ./now-deployment/now-deploy.sh
   script:
     - deploy
   environment:
@@ -65,6 +71,10 @@ stop_review:
   stage: deploy
   variables:
     NOW_URL: https://${CI_PROJECT_NAME}-${CI_BUILD_REF_SLUG}.now.sh
+  before_script:
+    - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@lab.snowdog.pro/internal/now-deployment.git
+    - chmod +x now-deployment/now-deploy.sh
+    - . ./now-deployment/now-deploy.sh
   script:
     - stop
   when: manual
