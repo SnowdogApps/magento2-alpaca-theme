@@ -9,7 +9,7 @@ module.exports = {
       href: '#',
       text: 'Clear All',
       title: 'Clear all filters',
-      class: 'button button--fluid button--secondary margin-top-l margin-bottom-m'
+      class: 'button button--fluid button--secondary margin-top-l'
     },
     removeIcon: {
       id: 'close',

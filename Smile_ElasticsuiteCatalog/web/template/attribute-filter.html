@@ -1,0 +1,88 @@
+<ol
+    class="
+        list
+        items
+    "
+    data-bind="foreach: getDisplayedItems()"
+>
+    <li>
+        <a
+            class="
+                checkbox
+                checkbox--link
+                margin-left-s
+            "
+            data-bind="
+                attr: {
+                    href:url
+                },
+                visible: count >= 1
+            "
+        >
+            <input
+                class="checkbox__field"
+                type="checkbox"
+                data-bind="
+                    checked: is_selected,
+                    attr: {
+                        id: id
+                    }
+                "
+                onclick="this.parentNode.click();"
+            />
+            <svg
+                class="
+                    checkbox__icon
+                    checkbox__icon--checked
+                "
+                role="presentation"
+                focusable="false"
+            >
+                <use
+                    data-bind="
+                        attr: {
+                            'xlink:href': require.toUrl('images/icons-sprite.svg#checked')
+                        }
+                    "
+                    xlink:href=''
+                ></use>
+            </svg>
+            <svg
+                class="
+                    checkbox__icon
+                    checkbox__icon--unchecked
+                "
+                role="presentation"
+                focusable="false"
+            >
+                <use
+                    data-bind="
+                        attr: {
+                            'xlink:href': require.toUrl('images/icons-sprite.svg#unchecked')
+                        }
+                    "
+                    xlink:href=''
+                ></use>
+            </svg>
+
+            <label
+                class="checkbox__label"
+                data-bind="
+                    attr: {
+                        for: id
+                    },
+                    html: label
+                "
+            ></label>
+        </a>
+
+        <div data-bind="visible: count < 1">
+            <span
+                class="checkbox__label"
+                data-bind="html: label"
+            ></span>
+        </div>
+    </li>
+</ol>
+
+<div data-bind="visible: onShowMore()"></div>

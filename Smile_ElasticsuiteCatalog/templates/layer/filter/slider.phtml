@@ -1,0 +1,234 @@
+<?php
+/**
+ * Template for filter items block
+ *
+ * @var $block \Smile\ElasticsuiteCatalog\Block\Navigation\Renderer\Slider
+ */
+?>
+<?php
+$currencyHelper = $this->helper('Magento\Framework\Pricing\Helper\Data');
+
+$filter = $block->getFilter();
+$filterCode = $block->escapeHtmlAttr($filter->getRequestVar());
+$filterName = $block->escapeHtml($filter->getName());
+$filterConfig = json_decode($block->getJsonConfig(), true);
+
+$filterMinValue = $filterConfig['minValue'];
+$filterMaxValue = $filterConfig['maxValue'];
+$filterMinValueNumber = number_format($filterMinValue, 2);
+$filterMaxValueNumber = number_format($filterMaxValue, 2);
+$filterCurrentValueFrom = $block->escapeHtmlAttr($filterConfig['currentValue']['from']);
+$filterCurrentValueTo = $block->escapeHtmlAttr($filterConfig['currentValue']['to']);
+$filterUrl = $filterConfig['urlTemplate'];
+$filterSymbolPattern = $block->escapeHtml($filterConfig['fieldFormat']['pattern']);
+$filterSymbol = str_replace('%s', '', $filterSymbolPattern);
+?>
+<?php if (!($filterMinValueNumber === $filterMaxValueNumber)): ?>
+<li
+    class="
+        dropdown-list__item
+        dropdown-list__item--collapse
+        filter
+        filter--range
+    "
+>
+    <div
+        class="
+            dropdown-list__label-wrapper
+            filter__label-wrapper
+        "
+    >
+        <button
+            type="button"
+            class="dropdown-list__label"
+            aria-controls="<?= $filterCode; ?>Filter"
+            aria-expanded="true"
+        >
+            <h3 class="filter__heading">
+                <?= $filterName; ?>
+            </h3>
+
+            <svg
+                class="
+                    icon
+                    dropdown-list__icon
+                "
+                role="presentation"
+                focusable="false"
+            >
+                <title><?= __('Arrow down') ?></title>
+                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#angle-down')); ?>"></use>
+            </svg>
+        </button>
+    </div>
+
+    <div
+        id="<?= $filterCode; ?>Filter"
+        class="
+            dropdown-list__content
+            filter__content
+        "
+        aria-hidden="false"
+        data-mage-init='{ "range": { } }'
+    >
+        <div
+            class="more-info"
+            data-mage-init='{ "moreInfo": { } }'
+        >
+            <!--TO DO - get data from module snowdog/module-product-attribute-description (#60916)-->
+            <button
+                class="
+                    button
+                    button--icon
+                    button--fluid
+                    more-info__trigger
+                "
+                type="button"
+                aria-expanded="false"
+            >
+                <span class="button__text">
+                    <?= __('More information') ?>
+                </span>
+                <svg
+                    class="
+                        icon
+                        button__icon
+                    "
+                    role="presentation"
+                    focusable="false"
+                >
+                    <title><?= __('Show tooltip') ?></title>
+                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#info')); ?>"></use>
+                </svg>
+            </button>
+
+            <div
+                class="more-info__content-wrapper"
+                aria-hidden="true"
+            >
+                <div class="more-info__content">
+                    <h3 class="more-info__heading">
+                        Example title
+                    </h3>
+
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam venenatis nisl quis imperdiet tincidunt. Nulla massa diam, aliquet vitae laoreet a, fermentum eu velit. Quisque ornare erat in orci hendrerit feugiat at sit amet neque. Fusce elementum semper feugiat. Curabitur egestas neque in leo finibus ultricies.
+
+                    <button
+                        class="
+                            button
+                            button--icon
+                            button--rotate-icon
+                            more-info__close
+                        "
+                        type="button"
+                        aria-label="<?= $block->escapeHtmlAttr(__('Close more information')) ?>"
+                    >
+                        <svg
+                            class="icon"
+                            role="presentation"
+                            focusable="false"
+                        >
+                            <title><?= __('Close') ?></title>
+                            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#close')); ?>"></use>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="range-filter filter__range">
+            <div
+                class="range-filter__slider"
+                data-min="<?= $block->escapeHtmlAttr($filterMinValue) ?>"
+                data-max="<?= $block->escapeHtmlAttr($filterMaxValue) ?>"
+            >
+            </div>
+            <div class="range-filter__inputs-wrapper ">
+                <div
+                    class="
+                        input
+                        range-filter__input
+                        range-filter__input--lower
+                    "
+                >
+                    <label
+                        class="
+                            label
+                            range-filter__label
+                        "
+                        for="<?= $filterCode ?>-lower"
+                    >
+                        <?= __('Minimum value') ?>
+                    </label>
+                    <input
+                        class="
+                            input__field
+                            range-filter__field
+                            range-filter__field--lower
+                        "
+                        id="<?= $filterCode ?>-lower"
+                        name="range-filter-min"
+                        type="number"
+                        value="<?= $filterCurrentValueFrom ?>"
+                        placeholder="<?= $filterCurrentValueFrom ?>"
+                    >
+                </div>
+                <span class="range-filter__suffix">
+                    <?= $filterSymbol ?>
+                </span>
+                <span class="range-filter__dash">-</span>
+                <div
+                    class="
+                        input
+                        range-filter__input
+                        range-filter__input--upper
+                    "
+                >
+                    <label
+                        class="
+                            label
+                            range-filter__label
+                        "
+                        for="<?= $filterCode ?>-upper"
+                    >
+                        <?= __('Maximum value') ?>
+                    </label>
+                    <input
+                        class="
+                            input__field
+                            range-filter__field
+                            range-filter__field--upper
+                        "
+                        id="<?= $filterCode ?>-upper"
+                        name="range-filter-max"
+                        type="number"
+                        value="<?= $filterCurrentValueTo ?>"
+                        placeholder="<?= $filterCurrentValueTo ?>"
+                    >
+                </div>
+                <span class="range-filter__suffix">
+                    <?= $filterSymbol ?>
+                </span>
+            </div>
+        </div>
+        <button
+            class="
+                button
+                range-filter__button
+                button--fluid
+                margin-vc-sm
+            "
+            type="button"
+            id="<?= $filterCode ?>-filter"
+            data-filter-url="<?= $block->escapeUrl($filterUrl) ?>"
+            href="<?= $block->escapeUrl($filterUrl) ?>"
+            data-min="<?= $block->escapeHtmlAttr($filterMinValueNumber) ?>"
+            data-max="<?= $block->escapeHtmlAttr($filterMaxValueNumber) ?>"
+            data-attribute="<?= $filterCode ?>"
+            data-mage-init='{ "priceRange": { } }'
+        >
+            <?= __('Apply') ?>
+        </button>
+    </div>
+</li>
+<?php endif ?>

@@ -35,7 +35,7 @@ module.exports = {
     secondaryActions: {
       wishlist: {
         tag: 'button',
-        class: 'button--icon-light product-grid-item__action-wishlist',
+        class: 'button--icon-light add-to-wishlist',
         icon: {
           id: 'heart',
           title: 'Heart',
@@ -52,6 +52,16 @@ module.exports = {
           class: 'button__icon'
         },
         attributes: 'type="button" aria-label="Add to compare"',
+      },
+      addToCart: {
+        tag: 'button',
+        class: 'button--add-to-icon',
+        icon: {
+          id: 'shopping-cart',
+          title: 'Add to cart',
+          class: 'button__icon'
+        },
+        attributes: 'type="submit" aria-label="Add to cart"',
       }
     }
   },
