@@ -1,30 +1,37 @@
-<?php $url = $block->getReviewsUrl() . '#reviews'; ?>
-<?php $urlForm = $block->getReviewsUrl() . '#review-form'; ?>
+<?php
+/** @var \Magento\Review\Block\Product\ReviewRenderer $block */
 
-<?php if ($block->getReviewsCount()): ?>
-    <?php $rating = $block->getRatingSummary(); ?>
-    <?php if ($rating):?>
-        <div
-            class="rating__star"
-            aria-label="<?= __('Average rating') . ': ' . $rating . '%'; ?>"
-            title="<?= __('Average rating') . ': ' . $rating . '%'; ?>"
-            style="width:<?= $rating ?>%"
-        >
-            <span class="rating__indicator"></span>
+$urlForm = $block->escapeUrl($block->getReviewsUrl()) . '#review-form';
+?>
+<?php if ($block->isReviewEnabled() && $block->getReviewsCount()): ?>
+    <?php $rating = $block->escapeHtmlAttr($block->getRatingSummary()); ?>
+    <div class="product-reviews-summary short<?= !$rating ? ' no-rating' : '' ?>">
+        <?php if ($rating): ?>
+            <div
+                class="rating rating--secondary"
+                aria-label="<?= $block->escapeHtmlAttr(__('Average rating')) ?>: <?= $rating ?>%"
+                title="<?= $block->escapeHtmlAttr(__('Average rating')) ?>: <?= $rating ?>%"
+                tabindex="0"
+            >
+                <div
+                    class="rating__star"
+                    role="presentation"
+                    style="width: <?= $rating ?>%"
+                >
+                    <span class="rating__indicator"></span>
+                </div>
+            </div>
+        <?php endif;?>
+    </div>
+<?php elseif ($block->isReviewEnabled() && $block->getDisplayIfEmpty()): ?>
+    <div class="product-reviews-summary">
+        <div class="reviews-actions">
+            <a
+                class="action add"
+                href="<?= $urlForm ?>"
+            >
+                <?= __('Be the first to review this product') ?>
+            </a>
         </div>
-    <?php endif; ?>
-<?php elseif ($block->getDisplayIfEmpty()): ?>
-    <div
-        class="
-            rating
-            rating--empty
-            "
-        >
-        <a
-            class="action add"
-            href="<?=  $urlForm ?>"
-        >
-            <?=  __('Be the first to review this product') ?>
-        </a>
     </div>
 <?php endif; ?>

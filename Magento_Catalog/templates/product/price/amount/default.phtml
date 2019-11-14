@@ -1,22 +1,17 @@
 <?php /** @var $block \Magento\Framework\Pricing\Render\Amount */ ?>
 
 <span
-    class="
-        price-container
-        <?= $block->escapeHtmlAttr($block->getAdjustmentCssClasses()) ?>
-    "
+    class="price-container <?= $block->escapeHtmlAttr($block->getAdjustmentCssClasses()) ?>"
     <?= $block->getSchema() ? ' itemprop="offers" itemscope itemtype="http://schema.org/Offer"' : '' ?>
 >
-    <?php if ($block->getDisplayLabel()) :?>
-        <span class="price__label">
-            <?= $block->escapeHtml($block->getDisplayLabel()) ?>
-        </span>
-    <?php endif; ?>
     <span
-        <?php if ($block->getPriceId()) :?>
+        <?php if ($block->getPriceId()): ?>
             id="<?= $block->escapeHtmlAttr($block->getPriceId()) ?>"
         <?php endif;?>
-        <?= ($block->getPriceDisplayLabel()) ? 'data-label="' . $block->escapeHtmlAttr($block->getPriceDisplayLabel() . $block->getPriceDisplayInclExclTaxes()) . '"' : '' ?>
+        <?= ($block->getPriceDisplayLabel()) ?
+            'data-label="' . $block->escapeHtmlAttr($block->getPriceDisplayLabel() . $block->getPriceDisplayInclExclTaxes()) . '"' :
+            ''
+        ?>
         data-price-amount="<?= $block->escapeHtmlAttr($block->getDisplayValue()) ?>"
         data-price-type="<?= $block->escapeHtmlAttr($block->getPriceType()) ?>"
         class="<?= $block->escapeHtmlAttr($block->getPriceWrapperCss()) ?>"
@@ -26,8 +21,14 @@
     <?php if ($block->hasAdjustmentsHtml()) :?>
         <?= $block->getAdjustmentsHtml() ?>
     <?php endif; ?>
-    <?php if ($block->getSchema()) :?>
-        <meta itemprop="price" content="<?= $block->escapeHtmlAttr($block->getDisplayValue()) ?>" />
-        <meta itemprop="priceCurrency" content="<?= $block->escapeHtmlAttr($block->getDisplayCurrencyCode()) ?>" />
+    <?php if ($block->getSchema()): ?>
+        <meta
+            itemprop="price"
+            content="<?= $block->escapeHtmlAttr($block->getDisplayValue()) ?>"
+        />
+        <meta
+            itemprop="priceCurrency"
+            content="<?= $block->escapeHtmlAttr($block->getDisplayCurrencyCode()) ?>"
+        />
     <?php endif; ?>
 </span>

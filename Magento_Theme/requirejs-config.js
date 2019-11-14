@@ -5,9 +5,11 @@ var config = {
       "closestPolyfill": "Magento_Theme/js/lib/closest-polyfill",
       "focusVisible"   : "Magento_Theme/js/lib/focus-visible",
       "lazysizes"      : "Magento_Theme/js/lib/lazysizes",
-      "lory"           : "Magento_Theme/js/lib/lory",
+      "noUiSlider"     : "Magento_Theme/js/lib/nouislider.min",
       "picturefill"    : "Magento_Theme/js/lib/picturefill",
       "svg4everybody"  : "Magento_Theme/js/lib/svg4everybody",
+      "choices"        : "Magento_Theme/js/lib/choices",
+      "lory"           : "Magento_Theme/js/lib/lory",
       "cookieMessage"  : "Magento_Theme/js/cookie-message.babel",
       "dropdownList"   : "Magento_Theme/js/dropdown-list.babel",
       "marketingBar"   : "Magento_Theme/js/marketing-bar.babel",
@@ -16,8 +18,8 @@ var config = {
       "select"         : "Magento_Theme/js/select.babel",
       "scrollTop"      : "Magento_Theme/js/scroll-top.babel",
       "skipNav"        : "Magento_Theme/js/skip-nav.babel",
-      "slider"         : "Magento_Theme/js/slider.babel",
-      "tab"            : "Magento_Theme/js/tab.babel"
+      "select"         : "Magento_Theme/js/select.babel",
+      "slider"         : "Magento_Theme/js/slider.babel"
     }
   },
   shim: {

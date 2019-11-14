@@ -4,8 +4,7 @@ define([
   'mage/template',
   'mage/translate',
   'priceUtils',
-  'select2'
-], function ($, _, mageTemplate, $t, priceUtils, select2) {
+], function ($, _, mageTemplate, $t, priceUtils) {
   'use strict';
 
   return function (widget) {
@@ -19,10 +18,9 @@ define([
           attributeInput: 'swatch__input',
           optionClass: 'swatch__option',
           optionContainerClass: 'swatch__option-container',
-          selectClass: 'select__field',
+          selectClass: 'swatch-select',
           moreButton: 'swatch-more',
-          loader: 'swatch-option-loading',
-          initLoader: 'loader'
+          loader: 'swatch-option-loading'
         },
         // option's json config
         jsonConfig: {},
@@ -73,112 +71,7 @@ define([
         tierPriceTemplate: '',
         // tier prise selectors end
         // A price label selector
-        normalPriceLabelSelector: '.normal-price .price-label',
-
-        // option for select2 lib
-        select2options: {
-          minimumResultsForSearch: Infinity,
-          width: null,
-          position: 'bottom'
-        }
-      },
-      _RenderControls: function () {
-        var $widget = this,
-          container = this.element,
-          classes = this.options.classes,
-          chooseText = this.options.jsonConfig.chooseText;
-
-        $widget.optionsMap = {};
-
-        $.each(this.options.jsonConfig.attributes, function () {
-          var item = this,
-            controlLabelId = 'option-label-' + item.code + '-' + item.id,
-            options = $widget._RenderSwatchOptions(item, controlLabelId),
-            select = $widget._RenderSwatchSelect(item, chooseText),
-            input = $widget._RenderFormInput(item),
-            listLabel = '',
-            label = '',
-            initLoader = $('.' + $widget.options.classes.initLoader);
-
-          // Show only swatch controls
-          if ($widget.options.onlySwatches && !$widget.options.jsonSwatchConfig.hasOwnProperty(item.id)) {
-            return;
-          }
-
-          if ($widget.options.enableControlLabel) {
-            label +=
-              '<span id="' + controlLabelId + '" class="' + classes.attributeLabelClass + '">' +
-              $('<i></i>').text(item.label).html() +
-              '</span>' +
-              '<span class="' + classes.attributeSelectedOptionLabelClass + '"></span>';
-          }
-
-          if ($widget.inProductList) {
-            $widget.productForm.append(input);
-            input = '';
-            listLabel = 'aria-label="' + $('<i></i>').text(item.label).html() + '"';
-          } else {
-            listLabel = 'aria-labelledby="' + controlLabelId + '"';
-          }
-
-          // Create new control
-
-          if (initLoader.hasClass('loader--visible')) {
-            initLoader.removeClass('loader--visible');
-          }
-          container.append(
-            '<div class="' + classes.attributeClass + ' ' + item.code + '" ' +
-                  'attribute-code="' + item.code + '" ' +
-                  'attribute-id="' + item.id + '">' +
-                label +
-                '<div aria-activedescendant="" ' +
-                      'tabindex="0" ' +
-                      'aria-invalid="false" ' +
-                      'aria-required="true" ' +
-                      'role="listbox" ' + listLabel +
-                      'class="' + classes.attributeOptionsWrapper + ' clearfix">' +
-                    options + select +
-                '</div>' + input +
-            '</div>'
-          );
-
-          $widget.optionsMap[item.id] = {};
-
-          // Aggregate options array to hash (key => value)
-          $.each(item.options, function () {
-            if (this.products.length > 0) {
-              $widget.optionsMap[item.id][this.id] = {
-                price: parseInt(
-                  $widget.options.jsonConfig.optionPrices[this.products[0]].finalPrice.amount,
-                  10
-                ),
-                products: this.products
-              };
-            }
-          });
-        });
-
-        // Connect Tooltip
-        container
-          .find('[option-type="1"], [option-type="2"], [option-type="0"], [option-type="3"]')
-          .SwatchRendererTooltip();
-
-        // Hide all elements below more button
-        $('.' + classes.moreButton).nextAll().hide();
-
-        // Handle events like click or change
-        $widget._EventListener();
-
-        // Rewind options
-        $widget._Rewind(container);
-
-        //Emulate click on all swatches from Request
-        $widget._EmulateSelected($.parseQuery());
-        $widget._EmulateSelected($widget._getSelectedAttributes());
-
-        var selectSwatch = $(container.find('.' + $widget.options.classes.selectClass));
-
-        $(selectSwatch).select2($widget.options.select2options);
+        normalPriceLabelSelector: '.normal-price .price-label'
       },
       _RenderSwatchOptions: function (config, controlId) {
         var optionConfig = this.options.jsonSwatchConfig[config.id],
@@ -255,32 +148,6 @@ define([
           }
           html += '</div></div>'
         });
-
-        return html;
-      },
-      _RenderSwatchSelect: function (config, chooseText) {
-        var html;
-
-        if (this.options.jsonSwatchConfig.hasOwnProperty(config.id)) {
-          return '';
-        }
-
-        html =
-            '<select class="' + this.options.classes.selectClass + ' ' + config.code + '">' +
-            '<option value="0" option-id="0">' + chooseText + '</option>';
-
-        $.each(config.options, function () {
-          var label = this.label,
-              attr = ' value="' + this.id + '" option-id="' + this.id + '"';
-
-          if (!this.hasOwnProperty('products') || this.products.length <= 0) {
-            attr += ' option-empty="true"';
-          }
-
-          html += '<option ' + attr + '>' + label + '</option>';
-        });
-
-        html += '</select>';
 
         return html;
       },
@@ -366,49 +233,6 @@ define([
           .find('.' + this.options.classes.optionContainerClass).attr('aria-selected', false);
         $this.attr('aria-selected', true);
       },
-      _Rebuild: function () {
-        var $widget = this,
-          controls = $widget.element.find('.' + $widget.options.classes.attributeClass + '[attribute-id]'),
-          selected = controls.filter('[option-selected]');
-
-        // Enable all options
-        $widget._Rewind(controls);
-
-        // done if nothing selected
-        if (selected.length <= 0) {
-          return;
-        }
-
-        // Disable not available options
-        controls.each(function () {
-          var $this = $(this),
-            id = $this.attr('attribute-id'),
-            products = $widget._CalcProducts(id);
-
-          if (selected.length === 1 && selected.first().attr('attribute-id') === id) {
-            return;
-          }
-
-          $this.find('[option-id]').each(function () {
-            var $element = $(this),
-              option = $element.attr('option-id');
-
-            if (!$widget.optionsMap.hasOwnProperty(id) || !$widget.optionsMap[id].hasOwnProperty(option) ||
-              $element.hasClass('selected') ||
-              $element.is(':selected')) {
-              return;
-            }
-
-            if (_.intersection(products, $widget.optionsMap[id][option].products).length <= 0) {
-              $element.attr('disabled', true).addClass('disabled');
-
-              // rebuild select with select2 lib to set disabled options
-              var selectSwatch = $widget.element.find('.' + $widget.options.classes.selectClass);
-              $(selectSwatch).select2($widget.options.select2options);
-            }
-          });
-        });
-      },
       _UpdatePrice: function () {
         var $widget = this,
           $product = $widget.element.parents($widget.options.selectorProduct),
@@ -479,7 +303,7 @@ define([
           //Category View
           $this.parents('.product-item-details')
             .find('.lazyload-wrapper')
-            .append('<div class="loader loader--visible"><div class="loader__icon"></div></div>');
+            .append('<div class="loader loader--visible"><div class="loader__circle"></div></div>');
         }
       },
       _DisableProductMediaLoader: function ($this) {
@@ -496,5 +320,5 @@ define([
     });
 
     return $.mage.SwatchRenderer;
-  };
+  }
 });
