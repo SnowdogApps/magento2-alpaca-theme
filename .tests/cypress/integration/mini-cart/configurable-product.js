@@ -27,8 +27,10 @@ describe('Configurable product change qty in minicart', function() {
   it('Change product qty in cart', () => {
     cy.get('[data-testid=minicart-link]').click()
     cy.get('.cart-item-qty')
+      .click()
       .clear()
       .type('2')
+      .click()
     cy.get('.minicart-product__info')
       .contains('Update')
       .click()
