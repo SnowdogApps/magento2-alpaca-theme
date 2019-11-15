@@ -1,7 +1,11 @@
 describe('Adding simple product to cart', function () {
   it('Visits product', () => {
-    cy.visit('/joust-duffle-bag')
-    cy.waitForCustomerData()
+    cy.fixture('urls.json').then(({
+      simpleProduct
+    }) => {
+      cy.visit(simpleProduct)
+      cy.waitForCustomerData()
+    })
   })
 
   it('Add product to cart', () => {

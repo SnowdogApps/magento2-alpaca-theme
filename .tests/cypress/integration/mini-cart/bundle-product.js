@@ -1,8 +1,11 @@
-describe('Bundle product add to cart', function() {
+describe('Bundle product add to cart', function () {
   it('Visits product', () => {
-    cy.visit('/sprite-yoga-companion-kit')
-    cy.get('.breadcrumbs__list').should('be.visible')
-    cy.waitForCustomerData()
+    cy.fixture('urls.json').then(({
+      bundleProduct
+    }) => {
+      cy.visit(bundleProduct)
+      cy.waitForCustomerData()
+    })
   })
 
   it('Test product options', () => {
@@ -11,10 +14,10 @@ describe('Bundle product add to cart', function() {
       .click()
     cy.server()
     cy.waitForCartData()
-  }) 
+  })
 })
 
-describe('Bundle product change qty in cart', function() {
+describe('Bundle product change qty in cart', function () {
   it('Change product qty in cart', () => {
     cy.get('[data-testid=minicart-link]').click()
     cy.get('.cart-item-qty')
@@ -23,14 +26,14 @@ describe('Bundle product change qty in cart', function() {
     cy.get('.minicart-product__info')
       .contains('Update')
       .click()
-      cy.waitForCartData()
-  }) 
+    cy.waitForCartData()
+  })
 })
 
 describe('Removing product from cart', () => {
   it('Delate item form cart', () => {
     cy.get('[data-testid=delete-item-link]').click()
-    // TODO: Why is this chained that way? - Its the only way i found to click "ok" button in popup that shows after remove button.
+    // TODO: Why is this chained that way? - Its the only way I found to click "ok" button in popup
     cy.get('.modal-inner-wrap .modal-footer').then(() => {
       cy.get('.modal-footer button')
         .eq(1)
