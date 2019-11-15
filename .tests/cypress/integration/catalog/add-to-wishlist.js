@@ -2,39 +2,47 @@ function pickRandomItem(item) {
   return item[Math.floor(Math.random() * item.length)]
 }
 
-describe('Catalog - Add to Wishlist by logged in user', () => {
-  it('adds a product to wishlist', () => {
-    cy.fixture('urls.json').then(({ men }) => {
-      cy.login()
-      cy.visit(men)
+describe('Catalog - Add to Wishlist by guest user', () => {
+  before(() => {
+    cy.fixture('urls.json').then(({ categoryWithConfigurableProducts }) => {
+      cy.visit(categoryWithConfigurableProducts)
       cy.waitForCustomerData()
-      cy.get('[data-testid=add-to-wishlist-button]').then(item => {
-        pickRandomItem(item).click()
-      })
-      cy.waitForCustomerData()
-      cy.waitForCartData()
-      // checks product visibility on wishlist page
-      cy.get('[data-row="product-item"]').should('be.visible')
-      cy.get('.wishlist__action').should('be.visible')
     })
   })
+  it('adds a product to wishlist', () => {
+    cy.get('[data-testid=add-to-wishlist-button]').then(item => {
+      pickRandomItem(item).click()
+    })
 
-  it('removes product from wishlist', () => {
-    cy.get('.wishlist__remove').click()
-    cy.get('[data-ui-id="message-success"]').should('be.visible')
-    cy.get('[data-testid=log-out-link]').click()
+    // should be redirected to login page.
+    cy.url().should('include', '/customer/account/login/')
+
+    // should notify user to login or register to add item to wishlist
+    cy.get('[data-ui-id="message-error"]').should('be.visible')
   })
 })
 
-describe('Catalog - Add to Wishlist by guest user', () => {
-  it('adds a product to wishlist', () => {
-    cy.fixture('urls.json').then(({ men }) => {
-      cy.visit(men)
+describe('Catalog - Add to Wishlist by logged in user', () => {
+  before(() => {
+    cy.fixture('urls.json').then(({ categoryWithConfigurableProducts }) => {
+      cy.login()
+      cy.visit(categoryWithConfigurableProducts)
       cy.waitForCustomerData()
-      cy.get('[data-testid=add-to-wishlist-button]').then(item => {
-        pickRandomItem(item).click()
-      })
-      cy.get('[data-ui-id="message-error"]').should('be.visible')
     })
+  })
+  it('adds a product to wishlist', () => {
+    cy.get('[data-testid=add-to-wishlist-button]').then(item => {
+      pickRandomItem(item).click()
+    })
+
+    // should be redirected to wishlist page.
+    cy.url().should('include', '/wishlist/index/index/wishlist_id')
+
+    cy.waitForCustomerData()
+    cy.waitForCartData()
+
+    // checks product visibility on wishlist page
+    cy.get('[data-row="product-item"]').should('be.visible')
+    cy.get('.wishlist__action').should('be.visible')
   })
 })
