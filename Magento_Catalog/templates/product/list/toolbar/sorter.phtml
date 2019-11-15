@@ -1,0 +1,39 @@
+<?php
+use Magento\Catalog\Model\Product\ProductList\Toolbar;
+?>
+<div class="select toolbar__sorter">
+    <label
+        class="
+            label
+            select__label
+            toolbar__sorter-label
+            margin-right-s
+            margin-bottom-0
+        "
+        for="sort-by"
+    >
+        <?= __('Sort By') ?>
+    </label>
+
+    <select
+        id="sort-by"
+        class="
+            select__field
+            select__field--native
+            toolbar__sorter-select
+        "
+        name="sort-by"
+        data-role="sorter"
+        onchange="document.location.href=this.value"
+        data-mage-init='{ "select": {} }'
+    >
+        <?php foreach ($block->getAvailableOrders() as $_key => $_order): ?>
+            <option
+                value="<?= $_key ?>"
+                <?= ($block->isOrderCurrent($_key)) ? 'selected="selected"' : '' ?>
+            >
+                <?= __($_order) ?>
+            </option>
+        <?php endforeach ?>
+    </select>
+</div>

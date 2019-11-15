@@ -1,0 +1,123 @@
+<?php
+/* @var $block \Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\Radio */
+$_option = $block->getOption();
+$_selections = $_option->getSelections();
+$_default = $_option->getDefaultSelection();
+$_optionId = $_option->getId();
+list($_defaultQty, $_canChangeQty) = $block->getDefaultValues();
+?>
+
+<div class="bundle-option">
+    <h4
+        id="bundle-option-title-<?= $block->escapeHtmlAttr($_optionId) ?>"
+        class="
+            bundle-option__title
+            <?= ($_option->getRequired()) ? 'bundle-option__title--required': '' ?>
+        "
+    >
+        <?= $block->escapeHtml($_option->getTitle()) ?>
+    </h4>
+    <div
+        class="
+            radio
+            bundle-option__radio
+            margin-bottom-xs
+        "
+    >
+        <fieldset
+            class="fieldset nested"
+            aria-labelledby="bundle-option-title-<?= $block->escapeHtmlAttr($_optionId) ?>"
+        >
+            <?php if ($block->showSingle()): ?>
+                <?= /* @noEscape */ $block->getSelectionTitlePrice($_selections[0]) ?>
+                <?= /* @noEscape */ $block->getTierPriceRenderer()->renderTierPrice($_selections[0]) ?>
+                <input
+                    type="hidden"
+                    class="bundle-option-<?= (int)$_option->getId() ?> bundle option"
+                    name="bundle_option[<?= (int)$_optionId ?>]"
+                    value="<?= (int)$_selections[0]->getSelectionId() ?>"
+                    id="bundle-option-<?= (int)$_option->getId() ?>-<?= (int)$_selections[0]->getSelectionId() ?>"
+                    checked="checked"
+                >
+            <?php else:?>
+                <?php if (!$_option->getRequired()): ?>
+                    <div class="radio__handler">
+                        <input
+                            type="radio"
+                            class="radio__field bundle option"
+                            id="bundle-option-<?= $block->escapeHtmlAttr($_optionId) ?>"
+                            name="bundle_option[<?= $block->escapeHtmlAttr($_optionId) ?>]"
+                            data-selector="bundle_option[<?= $block->escapeHtmlAttr($_optionId) ?>]"
+                            <?= ($_default && $_default->isSalable()) ? '' : ' checked="checked" ' ?>
+                            value=""
+                        >
+                        <label
+                            class="radio__label"
+                            for="bundle-option-<?= $block->escapeHtmlAttr($_optionId) ?>"
+                        >
+                            <span class="radio__icon"></span>
+                            <?= __('None') ?>
+                        </label>
+                    </div>
+                <?php endif; ?>
+                <?php foreach ($_selections as $_selection): ?>
+                    <?php
+                        $_selectionId = $_selection->getSelectionId();
+                    ?>
+                    <div class="radio__handler">
+                        <input
+                            type="radio"
+                            class="radio__field bundle option"
+                            id="bundle-option-<?= $block->escapeHtmlAttr($_optionId) ?>-<?= $block->escapeHtmlAttr($_selectionId) ?>"
+                            <?php if ($_option->getRequired()): ?>
+                                data-validate="{'validate-one-required-by-name':true}"
+                            <?php endif; ?>
+                            name="bundle_option[<?= $block->escapeHtmlAttr($_optionId) ?>]"
+                            data-selector="bundle_option[<?= $block->escapeHtmlAttr($_optionId) ?>]"
+                            <?php if ($block->isSelected($_selection)): ?>
+                                checked="checked"
+                            <?php endif; ?>
+                            <?php if (!$_selection->isSaleable()): ?>
+                                disabled="disabled"
+                            <?php endif; ?>
+                            value="<?= $block->escapeHtmlAttr($_selectionId) ?>"
+                        >
+                        <label
+                            class="radio__label"
+                            for="bundle-option-<?= $block->escapeHtmlAttr($_optionId) ?>-<?= $block->escapeHtmlAttr($_selectionId) ?>"
+                        >
+                            <span class="radio__icon"></span>
+                            <?= $block->getSelectionTitlePrice($_selection) ?>
+                            <?= /* @noEscape */ $block->getTierPriceRenderer()->renderTierPrice($_selection) ?>
+                        </label>
+                    </div>
+                <?php endforeach; ?>
+                <div id="bundle-option-<?= $block->escapeHtmlAttr($_optionId) ?>-container"></div>
+            <?php endif; ?>
+        </fieldset>
+    </div>
+
+    <div class="input bundle-option__qty">
+        <label
+            class="label margin-right-s"
+            for="bundle-option-<?= $block->escapeHtmlAttr($_optionId) ?>-qty-input"
+        >
+            <?= $block->escapeHtml(__('Qty')) ?>:
+        </label>
+        <input
+            <?php if (!$_canChangeQty): ?>
+                disabled="disabled"
+            <?php endif; ?>
+            id="bundle-option-<?= $block->escapeHtmlAttr($_optionId) ?>-qty-input"
+            class="
+                input__field
+                bundle-option__qty-input qty
+            "
+            type="number"
+            name="bundle_option_qty[<?= $block->escapeHtmlAttr($_optionId) ?>]"
+            data-selector="bundle_option_qty[<?= $block->escapeHtmlAttr($_optionId) ?>]"
+            value="<?= $block->escapeHtmlAttr($_defaultQty) ?>"
+            min="0"
+        >
+    </div>
+</div>

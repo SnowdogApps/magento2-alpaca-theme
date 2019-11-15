@@ -10,6 +10,15 @@ module.exports = {
       text: 'In stock',
       attributes: 'type="button" data-modal-trigger="shipping-latency-product"'
     },
+    shortDescription: {
+      class: 'margin-top-m',
+      heading: {
+        tag: 'h2',
+        class: 'product-view__short-description-heading margin-bottom-xs',
+        text: 'Short description:'
+      },
+      text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry. Lorem Ipsum has been the industry.'
+    },
     shippingLatencyModal: {
       modal: {
         id: 'shipping-latency-product',
@@ -86,12 +95,7 @@ module.exports = {
     addToCartBtn: {
       tag: 'button',
       text: 'Add to cart',
-      class: 'button--add-to-icon product-view__add-to-cart',
-      iconAfter: {
-        id: 'shopping-cart',
-        title: 'Add to Cart',
-        class: 'button__icon'
-      },
+      class: 'product-view__add-to-cart',
       attributes: 'id="submit-add-to-cart-main" type="submit" aria-label="Add to cart"'
     },
     heartBtn: {
@@ -223,7 +227,8 @@ module.exports = {
       rating: {
         class: 'rating--secondary'
       }
-    }
+    },
+    additionalBlockClass : 'margin-vc-l'
   },
   variants: [
     {

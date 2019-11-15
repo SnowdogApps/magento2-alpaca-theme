@@ -1,0 +1,95 @@
+<?php
+/* @var $block \Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\Checkbox */
+$_option = $block->getOption();
+$_optionId = $_option->getId();
+$_selections = $_option->getSelections();
+?>
+
+<div class="bundle-option <?= ($_option->getRequired()) ? ' required': '' ?>">
+
+    <h4
+        class="
+            bundle-option__title
+            <?= ($_option->getRequired()) ? 'bundle-option__title--required': '' ?>
+        "
+    >
+        <?= $block->escapeHtml($_option->getTitle()) ?>
+    </h4>
+    <?php if ($block->showSingle()): ?>
+        <?= /* @noEscape */ $block->getSelectionQtyTitlePrice($_selections[0]) ?>
+        <?= /* @noEscape */ $block->getTierPriceRenderer()->renderTierPrice($_selections[0]) ?>
+        <input
+            type="hidden"
+            class="
+                bundle-option-<?= $block->escapeHtmlAttr($_optionId) ?>
+                bundle
+                option
+            "
+            name="bundle_option[<?= $block->escapeHtmlAttr($_optionId) ?>]"
+            value="<?= $block->escapeHtmlAttr($_selections[0]->getSelectionId()) ?>"
+        >
+    <?php else: ?>
+        <?php foreach($_selections as $_selection): ?>
+            <?php
+                $_selectionId = $_selection->getSelectionId();
+            ?>
+            <div class="checkbox nested">
+                <input
+                    class="
+                        checkbox__field
+                        bundle-option-<?= $block->escapeHtmlAttr($_optionId) ?>
+                        product
+                        bundle
+                        option
+                    "
+                    id="bundle-option-<?= $block->escapeHtmlAttr($_optionId) ?>-<?= $block->escapeHtmlAttr($_selectionId) ?>"
+                    type="checkbox"
+                    <?php if ($_option->getRequired()): ?>
+                        data-validate="
+                            {
+                                'validate-one-required-by-name':'input[name^=&quot;bundle_option[<?= $block->escapeHtmlAttr($_optionId) ?>]&quot;]:checked'
+                            }
+                        "
+                    <?php endif; ?>
+                    name="bundle_option[<?= $block->escapeHtmlAttr($_optionId) ?>][<?= $block->escapeHtmlAttr($_selection->getId()) ?>]"
+                    data-selector="bundle_option[<?= $block->escapeHtmlAttr($_optionId) ?>][<?= $block->escapeHtmlAttr($_selection->getId()) ?>]"
+                    <?php if ($block->isSelected($_selection)): ?>
+                        checked="checked"
+                    <?php endif; ?>
+                    <?php if (!$_selection->isSaleable()): ?>
+                        disabled="disabled"
+                    <?php endif; ?>
+                    value="<?= $block->escapeHtmlAttr($_selectionId) ?>"
+                >
+                <svg
+                    class="
+                        checkbox__icon
+                        checkbox__icon--checked
+                    "
+                    role="presentation"
+                    focusable="false"
+                >
+                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#checked')) ?>"></use>
+                </svg>
+                <svg
+                    class="
+                        checkbox__icon
+                        checkbox__icon--unchecked
+                    "
+                    role="presentation"
+                    focusable="false"
+                >
+                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#unchecked')) ?>"></use>
+                </svg>
+                <label
+                    class="checkbox__label"
+                    for="bundle-option-<?= $block->escapeHtmlAttr($_optionId) ?>-<?= $block->escapeHtmlAttr($_selectionId) ?>"
+                >
+                    <?= /* @noEscape */ $block->getSelectionQtyTitlePrice($_selection) ?>
+                    <?= /* @noEscape */ $block->getTierPriceRenderer()->renderTierPrice($_selection) ?>
+                </label>
+            </div>
+        <?php endforeach; ?>
+         <div id="bundle-option-<?= $block->escapeHtmlAttr($_optionId) ?>-container"></div>
+    <?php endif; ?>
+</div>

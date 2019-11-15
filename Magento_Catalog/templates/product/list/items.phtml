@@ -1,0 +1,412 @@
+<?php
+// @codingStandardsIgnoreFile
+
+/* @var $block \Magento\Catalog\Block\Product\AbstractProduct */
+?>
+
+<?php
+switch ($type = $block->getType()) {
+    case 'related-rule':
+        if ($exist = $block->hasItems()) {
+            $type = 'related';
+            $class = $type;
+
+            $image = 'related_products_list';
+            $title = __('Related Products');
+            $items = $block->getAllItems();
+            $limit = $block->getPositionLimit();
+            $shuffle = (int) $block->isShuffled();
+            $canItemsAddToCart = $block->canItemsAddToCart();
+
+            $showAddTo = true;
+            $showCart = true;
+            $templateType = null;
+            $description = false;
+        }
+    break;
+
+    case 'related':
+        /** @var \Magento\Catalog\Block\Product\ProductList\Related $block */
+        if ($exist = $block->getItems()->getSize()) {
+            $type = 'related';
+            $class = $type;
+
+            $image = 'related_products_list';
+            $title = __('Related Products');
+            $items = $block->getItems();
+            $limit = 0;
+            $shuffle = 0;
+            $canItemsAddToCart = $block->canItemsAddToCart();
+
+            $showAddTo = true;
+            $showCart = true;
+            $templateType = null;
+            $description = false;
+        }
+    break;
+
+    case 'upsell-rule':
+        if ($exist = $block->hasItems()) {
+            $type = 'upsell';
+            $class = $type;
+
+            $image = 'upsell_products_list';
+            $title = __('You may also like');
+            $items = $block->getAllItems();
+            $limit = $block->getPositionLimit();
+            $shuffle = (int) $block->isShuffled();
+
+            $showAddTo = true;
+            $showCart = true;
+            $templateType = null;
+            $description = false;
+            $canItemsAddToCart = false;
+        }
+    break;
+
+    case 'upsell':
+        /** @var \Magento\Catalog\Block\Product\ProductList\Upsell $block */
+        if ($exist = count($block->getItemCollection()->getItems())) {
+            $type = 'upsell';
+            $class = $type;
+
+            $image = 'upsell_products_list';
+            $title = __('You may also like');
+            $items = $block->getItemCollection()->getItems();
+            $limit = $block->getItemLimit('upsell');
+            $shuffle = 0;
+
+            $showAddTo = true;
+            $showCart = true;
+            $templateType = null;
+            $description = false;
+            $canItemsAddToCart = false;
+        }
+    break;
+
+    case 'crosssell-rule':
+        /** @var \Magento\Catalog\Block\Product\ProductList\Crosssell $block */
+        if ($exist = $block->hasItems()) {
+            $type = 'crosssell';
+            $class = $type;
+
+            $image = 'cart_cross_sell_products';
+            $title = __('More Choices:');
+            $items = $block->getItemCollection();
+
+            $showAddTo = true;
+            $showCart = true;
+            $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+            $description = false;
+            $canItemsAddToCart = false;
+        }
+    break;
+
+    case 'crosssell':
+        /** @var \Magento\Catalog\Block\Product\ProductList\Crosssell $block */
+        if ($exist = count($block->getItems())) {
+            $type = 'crosssell';
+            $class = $type;
+
+            $image = 'cart_cross_sell_products';
+            $title = __('More Choices:');
+            $items = $block->getItems();
+
+            $showAddTo = true;
+            $showCart = true;
+            $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+            $description = false;
+            $canItemsAddToCart = false;
+        }
+    break;
+
+    case 'new':
+        if ($exist = $block->getProductCollection()) {
+            $type = 'new';
+            $mode = 'grid';
+            $type = $type . ' ' . $mode;
+
+            $class = 'widget' . ' ' . $type;
+
+            $image = 'new_products_content_widget_grid';
+            $title = __('New Products');
+            $items = $exist;
+
+            $showAddTo = true;
+            $showCart = true;
+            $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+            $description = ($mode == 'list') ? true : false;
+            $canItemsAddToCart = false;
+        }
+    break;
+
+    case 'other':
+    break;
+}
+?>
+
+<?php if ($exist): ?>
+    <?php if ($type == 'related' || $type == 'upsell'): ?>
+        <?php if ($type == 'related'): ?>
+            <div
+                class="product-view__slider <?= $class ?>"
+                data-limit="<?= $limit ?>"
+                data-shuffle="<?= $shuffle ?>"
+            >
+        <?php else: ?>
+            <div
+                class="product-view__slider <?= $class ?>"
+                data-mage-init='{ "upsellProducts": {} }'
+                data-limit="<?= $limit ?>"
+                data-shuffle="<?= $shuffle ?>"
+            >
+        <?php endif; ?>
+    <?php else: ?>
+        <div class="product-view__slider <?= $class ?>">
+    <?php endif; ?>
+
+        <h2
+            id="block-<?= $class ?>-heading"
+            class="text-center"
+        >
+            <?= $title ?>
+        </h2>
+        <div
+            class="slider slider--products"
+            data-rewind="true"
+            data-enable-mouse-events="true"
+            data-mage-init='{ "slider": {} }'
+            aria-labelledby="block-<?= $class ?>-heading"
+        >
+            <div class="slider__navigation">
+                <button
+                    class="
+                        button
+                        button--icon
+                        button--icon-light
+                        slider__navigation-icon
+                        slider__prev
+                    "
+                    type="button"
+                    aria-label="<?= $block->escapeHtmlAttr(__('Previous slide')) ?>"
+                >
+                    <svg
+                        class="
+                            icon
+                            button__icon
+                            slider__icon
+                        "
+                        role="img"
+                    >
+                        <title><?= __('Previous slide') ?></title>
+                        <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#arrow-left')) ?>"></use>
+                    </svg>
+                </button>
+
+                <button
+                    class="
+                        button
+                        button--icon
+                        button--icon-light
+                        slider__navigation-icon
+                        slider__next
+                    "
+                    type="button"
+                    aria-label="<?= $block->escapeHtmlAttr(__('Next slide')) ?>"
+                >
+                    <svg
+                        class="
+                            icon
+                            button__icon
+                            slider__icon
+                        "
+                        role="img"
+                    >
+                        <title><?= __('Next slide') ?></title>
+                        <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#arrow-right')) ?>"></use>
+                    </svg>
+                </button>
+            </div>
+            <div class="slider__handler">
+                <div class="slider__slides">
+                    <?php foreach ($items as $key => $_item): ?>
+                        <div
+                            class="
+                                slider__item
+                                slider__slide-item
+                                <?= $key + 1 === 1 ? 'active' : '' ?>
+                            "
+                        >
+                            <div
+                                class="product-grid-item product-grid-item--slider-item"
+                                tabindex="0"
+                            >
+                                <?php
+                                $now = new DateTime();
+                                $newsFromDate = new DateTime($_item->getNewsFromDate());
+                                $newsToDate = new DateTime($_item->getNewsToDate());
+
+                                $isProductNew = $now >= $newsFromDate && $now <= $newsToDate;
+                                ?>
+                                <?php if ($isProductNew): ?>
+                                    <div
+                                        class="
+                                            badge
+                                            badge
+                                            badge--new
+                                            product-grid-item__badge
+                                        "
+                                    >
+                                        <?= __('New') ?>
+                                    </div>
+                                <?php endif; ?>
+                                <?= '<!-- ' . $image . '-->' ?>
+
+                                <a
+                                    href="<?= $block->getProductUrl($_item) ?>"
+                                    class="product-grid-item__link"
+                                    tabindex="-1"
+                                >
+                                    <div class="product-grid-item__image-wrapper">
+                                        <?= $block->getImage($_item, $image)->toHtml() ?>
+                                    </div>
+                                </a>
+
+                                <section class="product-grid-item__details">
+                                    <?= $block->getReviewsSummaryHtml($_item, $templateType) ?>
+                                    <h3 class="product-grid-item__name">
+                                        <a
+                                            href="<?= $block->getProductUrl($_item) ?>"
+                                            class="product-grid-item__name-link"
+                                            title="<?= $block->escapeHtmlAttr($_item->getName()) ?>"
+                                        >
+                                            <?= $block->escapeHtml($_item->getName()) ?>
+                                        </a>
+                                    </h3>
+                                    <div class="product-grid-item__details-bottom">
+                                        <div class="product-grid-item__price">
+                                            <?= $block->getProductPrice($_item) ?>
+                                        </div>
+                                        <?php if ($showAddTo || $showCart): ?>
+                                            <div class="product-grid-item__actions">
+                                                <?php if ($showAddTo): ?>
+                                                    <?php if ($addToBlock = $block->getChildBlock('addto')): ?>
+                                                        <div class="product-grid-item__secondary-action">
+                                                            <?= $addToBlock->setProduct($_item)->getChildHtml() ?>
+                                                        </div>
+                                                    <?php endif; ?>
+                                                <?php endif; ?>
+                                                <?php if ($showCart): ?>
+                                                    <?php if ($_item->isSaleable()): ?>
+                                                        <div class="product-grid-item__primary-action">
+                                                            <?php if ($_item->getTypeInstance()->hasRequiredOptions($_item)): ?>
+                                                                <button
+                                                                    class="
+                                                                        button
+                                                                        button--icon
+                                                                        button--add-to-icon
+                                                                        tocart
+                                                                    "
+                                                                    data-mage-init='{
+                                                                        "redirectUrl": {
+                                                                            "url": "<?= $block->getAddToCartUrl($_item) ?>"
+                                                                        }
+                                                                    }'
+                                                                    type="button"
+                                                                    aria-label="<?= $block->escapeHtmlAttr(__('Add to Cart')) ?>"
+                                                                >
+                                                                    <svg
+                                                                        class="
+                                                                            icon
+                                                                            button__icon
+                                                                        "
+                                                                        role="presentation"
+                                                                        focusable="false"
+                                                                    >
+                                                                        <title><?= __('Add to Cart') ?></title>
+                                                                        <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#shopping-cart')) ?>"></use>
+                                                                    </svg>
+                                                                </button>
+                                                            <?php else: ?>
+                                                                <!-- Adding to cart with ajax when product has required option and is available -->
+                                                                <?php
+                                                                    $postDataHelper = $this->helper('Magento\Framework\Data\Helper\PostHelper');
+                                                                    $postParamsString = $postDataHelper->getPostData($block->getAddToCartUrl($_item), ['product' => $_item->getEntityId()]);
+                                                                    $postParams = json_decode($postParamsString, true);
+                                                                ?>
+                                                                <form
+                                                                    class="product-grid-item__primary-action"
+                                                                    data-role="tocart-form"
+                                                                    data-product-sku="<?= $block->escapeHtmlAttr($_item->getSku()) ?>"
+                                                                    action="<?= $block->escapeUrl($postParams['action']) ?>"
+                                                                    method="post"
+                                                                >
+                                                                    <input
+                                                                        type="hidden"
+                                                                        name="product"
+                                                                        value="<?= /* @noEscape */ $postParams['data']['product'] ?>"
+                                                                    >
+                                                                    <input
+                                                                        type="hidden"
+                                                                        name="<?= /* @noEscape */ Magento\Framework\App\Action\Action::PARAM_NAME_URL_ENCODED ?>"
+                                                                        value="<?= /* @noEscape */ $postParams['data'][Magento\Framework\App\Action\Action::PARAM_NAME_URL_ENCODED] ?>"
+                                                                    >
+                                                                    <?= $block->getBlockHtml('formkey') ?>
+                                                                    <button
+                                                                        class="
+                                                                            button
+                                                                            button--icon button--add-to-icon
+                                                                            tocart
+                                                                            action
+                                                                        "
+                                                                        type="submit"
+                                                                        aria-label="<?= $block->escapeHtmlAttr(__('Add to Cart')) ?>"
+                                                                        data-testid="add-to-cart-button"
+                                                                    >
+                                                                        <svg
+                                                                            class="icon button__icon"
+                                                                            role="presentation"
+                                                                            focusable="false"
+                                                                        >
+                                                                            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#shopping-cart')) ?>"></use>
+                                                                        </svg>
+                                                                    </button>
+                                                                </form>
+                                                                <?php if (!$block->isRedirectToCartEnabled()) :?>
+                                                                    <script type="text/x-magento-init">
+                                                                    {
+                                                                        "[data-role=tocart-form], .form.map.checkout": {
+                                                                            "catalogAddToCart": {
+                                                                                "product_sku": "<?= $block->escapeJs($_item->getSku()) ?>"
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                    </script>
+                                                                <?php endif; ?>
+                                                            <?php endif; ?>
+                                                        </div>
+                                                    <?php else: ?>
+                                                        <?php if ($_item->getIsSalable()): ?>
+                                                            <div class="stock available">
+                                                                <?= __('In stock') ?>
+                                                            </div>
+                                                        <?php else: ?>
+                                                            <div class="stock unavailable">
+                                                                <?= __('Out of stock') ?>
+                                                            </div>
+                                                        <?php endif; ?>
+                                                    <?php endif; ?>
+                                                <?php endif; ?>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+            <div class="slider__dots"></div>
+        </div>
+    </div>
+<?php endif; ?>

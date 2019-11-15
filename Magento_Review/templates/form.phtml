@@ -1,0 +1,226 @@
+<?php
+// @codingStandardsIgnoreFile
+
+/** @var \Magento\Review\Block\Form $block */
+?>
+<?php if ($block->getAllowWriteReviewFlag()): ?>
+    <form
+        action="<?= $block->escapeUrl($block->getAction()) ?>"
+        class="
+            product-view__review
+            review review--add
+        "
+        method="post"
+        id="review-form"
+        data-role="product-review-form"
+        data-bind="scope: 'review-form'"
+    >
+        <?= $block->getBlockHtml('formkey') ?>
+        <?= $block->getChildHtml('form_fields_before') ?>
+
+        <fieldset
+            class="fieldset review__fieldset"
+            data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
+            aria-labelledby="review-form-title"
+        >
+            <?php if ($block->getRatings() && $block->getRatings()->getSize()): ?>
+                <h2
+                    id="review-form-title"
+                    class="review__title"
+                >
+                    <?= $block->escapeHtml(__("You're reviewing:")); ?>
+                    <span class="review__title-product">
+                        <?= $block->escapeHtml($block->getProductInfo()->getName()); ?>
+                    </span>
+                </h2>
+
+                <span id="input-message-box"></span>
+
+                <fieldset
+                    class="fieldset"
+                    aria-lebeledby="rating-label-legend"
+                >
+                    <legend
+                        id="rating-label-legend"
+                        class="review__rating-legend"
+                    >
+                        <?= $block->escapeHtml(__('Your Rating')) ?>
+                    </legend>
+                    <?php
+                        $dislayLabel = count($block->getRatings()) > 1;
+                    ?>
+                    <?php foreach ($block->getRatings() as $_rating): ?>
+                        <?php $options = $_rating->getOptions(); ?>
+                        <?php if ($dislayLabel): ?>
+                            <label
+                                class="review__rating-legend"
+                                id="<?= $block->escapeHtmlAttr($_rating->getRatingCode()) ?>_rating_label"
+                            >
+                                <?= $block->escapeHtml($_rating->getRatingCode()) ?>
+                            </label>
+                        <?php endif; ?>
+                        <div
+                            class="rating rating--rate"
+                            role="listbox"
+                            aria-required="true"
+                            aria-labelledby=""
+                            tabindex="0"
+                            data-mage-init='{
+                                "ratingPicker": {
+                                    "submitButton": "reviewAddButton",
+                                    "reviewError": "toogleReviewError"
+                                }
+                            }'
+                        >
+                            <?php foreach ($options as $_option):
+                                $_optionValue = $block->escapeHtmlAttr($_option->getId());
+                                $_inputId =
+                                    $block->escapeHtmlAttr(str_replace(' ', '_', $_rating->getRatingCode())) . '_' .
+                                    $block->escapeHtmlAttr($_option->getValue());
+                                ?>
+                                <div
+                                    class="rating__rate-item"
+                                    role="option"
+                                    aria-selected="false"
+                                >
+
+                                    <label
+                                        for="<?= $block->escapeHtmlAttr($_inputId); ?>"
+                                        class="
+                                            rating__star
+                                            rating__star--rate
+                                        "
+                                        aria-label="<?= $block->escapeHtmlAttr(__('Rate option ') . $_optionValue . __(' of 5. Click to vote')); ?>"
+                                    >
+                                        <input
+                                            type="radio"
+                                            name="ratings[<?= $block->escapeHtmlAttr($_optionValue); ?>]"
+                                            id="<?= $block->escapeHtmlAttr($_inputId); ?>"
+                                            value="<?= $block->escapeHtmlAttr($_optionValue); ?>"
+                                            class="radio__field"
+                                        />
+
+                                        <span class="rating__indicator"></span>
+                                    </label>
+                                </div>
+                            <?php endforeach ?>
+                        </div>
+                    <?php endforeach ?>
+
+                    <div
+                        id="toogleReviewError"
+                        class="rating__error"
+                    >
+                        <?= __('Please select one of each of the ratings above.'); ?>
+                    </div>
+
+                    <input
+                        type="hidden"
+                        name="validate_rating"
+                        class="validate-rating"
+                        value=""
+                    />
+                </fieldset>
+            <?php endif ?>
+
+            <div class="input required">
+                <label
+                    for="nickname_field"
+                    class="label"
+                >
+                    <?= $block->escapeHtml(__('Nickname')); ?>
+                </label>
+
+                <input
+                    type="text"
+                    name="nickname"
+                    id="nickname_field"
+                    class="input__field"
+                    data-validate="{ required:true }"
+                    data-bind="value: nickname()"
+                />
+            </div>
+
+            <div class="input required">
+                <label
+                    for="summary_field"
+                    class="label"
+                >
+                    <?= $block->escapeHtml(__('Summary')); ?>
+                </label>
+
+                <input
+                    type="text"
+                    name="title"
+                    id="summary_field"
+                    class="input__field"
+                    data-validate="{ required:true }"
+                    data-bind="value: review().title"
+                />
+            </div>
+
+            <div
+                class="
+                    input
+                    review__field
+                    required
+                "
+            >
+                <label
+                    for="review_field"
+                    class="input__label"
+                >
+                    <?= $block->escapeHtml(__('Review')); ?>
+                </label>
+
+                <textarea
+                    name="detail"
+                    id="review_field"
+                    cols="5"
+                    rows="3"
+                    class="
+                        input__field
+                        input__field--textarea
+                    "
+                    data-validate="{ required:true }"
+                    data-bind="value: review().detail"
+                ></textarea>
+            </div>
+        </fieldset>
+
+        <button
+            type="submit"
+            id="reviewAddButton"
+            class="
+                button
+                submit
+                primary
+            "
+        >
+            <?= $block->escapeHtml(__('Submit Review')); ?>
+        </button>
+    </form>
+
+    <script type="text/x-magento-init">
+    {
+        "[data-role=product-review-form]": {
+            "Magento_Ui/js/core/app": <?= $block->getJsLayout() ?>
+        },
+        "#review-form": {
+            "Magento_Review/js/error-placement": {}
+        }
+    }
+
+    </script>
+<?php else: ?>
+    <div class="message notlogged" id="review-form">
+        <?=
+        $block->escapeHtml(
+            __('Only registered users can write reviews. Please <a href="%1">Sign in</a> or <a href="%2">create an account</a>',
+                $block->getLoginLink(),
+                $block->getRegisterUrl()),
+            ['a']
+        )
+        ?>
+    </div>
+<?php endif ?>

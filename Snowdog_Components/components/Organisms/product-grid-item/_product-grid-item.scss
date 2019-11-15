@@ -72,8 +72,6 @@
     }
 
     &--slider-item {
-        border: $product-grid-item__border--slider-item;
-
         @include isIE() {
             display: block;
             width: 100%;
@@ -102,13 +100,6 @@
             &--full-width {
                 @include mq($screen-m) {
                     width: 100%;
-                }
-            }
-
-            .price {
-                @include mq($screen-m) {
-                    flex-flow: row wrap;
-                    align-items: center;
                 }
             }
         }
@@ -195,31 +186,21 @@
 
     &__price {
         width: 100%;
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+
         @include mq($screen-m) {
             width: 50%;
-        }
-        .price {
-            display: flex;
-            flex-flow: column nowrap;
         }
         .price-label {
             font-weight: $product-grid-item__price-label-font-weight;
         }
-        .price__value {
+        .price__value:not(.price__value--between) {
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: center;
             white-space: nowrap;
-            font-size: $product-grid-item__price-font-size;
-
-            &--old {
-                font-size: $product-grid-item__price-old-font-size;
-            }
-
-            @include mq($screen-m) {
-                font-size: $product-grid-item__price-font-size\@medium;
-
-                &--old {
-                    font-size: $product-grid-item__price-old-font-size\@medium;
-                }
-            }
         }
     }
 
@@ -246,17 +227,14 @@
         @include mq($screen-m) {
             width: 50%;
         }
+
+        .tocompare {
+            display: none;
+        }
     }
 
     &__primary-action {
         margin: $catalog-gird-item__primary-margin;
-    }
-
-    &__action-wishlist {
-        position: absolute;
-        top: 0;
-        right: 0;
-        background: $product-grid-item__action-wishlist-background;
     }
 
     // elements from product-grid-item--wishlist variant
@@ -291,5 +269,12 @@
         @include mq($screen-xl) {
             width: $product-grid-item__qty-width--wishlist\@xl;
         }
+    }
+
+    .add-to-wishlist {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: $product-grid-item__action-wishlist-background;
     }
 }
