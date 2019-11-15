@@ -16,7 +16,7 @@ module.exports = {
     },
     mainHeading: {
       text: 'CMS Page View',
-      class: 'margin-top-xl text-center'
+      class: 'margin-vc-xl text-center'
     }
   }
 }
