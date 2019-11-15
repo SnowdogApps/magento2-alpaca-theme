@@ -4,8 +4,8 @@ function pickRandomitem(item) {
 
 describe('Configurable product add to minicart', function() {
   it('Visits product', () => {
-    cy.fixture('urls.json').then(({ configurableproduct }) => {
-      cy.visit(configurableproduct)
+    cy.fixture('urls.json').then(({ configurableProduct }) => {
+      cy.visit(configurableProduct)
       cy.waitForCustomerData()
     })
   })

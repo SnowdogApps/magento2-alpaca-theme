@@ -21,6 +21,7 @@ describe('Bundle product change qty in cart', function() {
     cy.get('.cart-item-qty')
       .clear()
       .type('2')
+      .click()
     cy.get('.minicart-product__info')
       .contains('Update')
       .click()
