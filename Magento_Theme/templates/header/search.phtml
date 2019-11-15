@@ -28,13 +28,6 @@ $helper = $this->helper('Magento\Search\Helper\Data');
                 border-color-light
             "
             id="search"
-            data-mage-init='{
-                "quickSearch": {
-                    "formSelector": "#search_mini_form",
-                    "url": "<?= $block->escapeUrl($helper->getSuggestUrl())?>",
-                    "destinationSelector": "#search_autocomplete"
-                }
-            }'
             type="search"
             name="<?= $block->escapeHtmlAttr($helper->getQueryParamName()); ?>"
             value="<?= $block->escapeHtmlAttr($helper->getEscapedQueryText()); ?>"
@@ -93,3 +86,19 @@ $helper = $this->helper('Magento\Search\Helper\Data');
         </button>
     </div>
 </form>
+
+<script type="text/x-magento-init">
+{
+    "#search" :
+    {
+        "quickSearch" :
+        {
+            "formSelector":"#search_mini_form",
+            "url":"<?php /* @escapeNotVerified */ echo $block->getUrl('search/ajax/suggest'); ?>",
+            "destinationSelector":"#search_autocomplete",
+            "templates": <?php /* @noEscape */ echo $block->getJsonSuggestRenderers();?>,
+            "priceFormat" : <?php /* @noEscape */ echo $block->getJsonPriceFormat();?>
+        }
+    }
+}
+</script>
