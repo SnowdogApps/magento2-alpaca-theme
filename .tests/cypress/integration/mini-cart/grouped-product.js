@@ -1,8 +1,6 @@
-describe('Grouped product add to cart', function () {
+describe('Grouped product add to cart', function() {
   it('Visits product', () => {
-    cy.fixture('urls.json').then(({
-      groupedProduct
-    }) => {
+    cy.fixture('urls.json').then(({ groupedProduct }) => {
       cy.visit(groupedProduct)
       cy.waitForCustomerData()
     })
@@ -10,9 +8,10 @@ describe('Grouped product add to cart', function () {
 
   it('Choose product from table', () => {
     cy.get('.input__field.input-text.qty').each(el =>
-      cy.get(el)
-      .clear()
-      .type('1')
+      cy
+        .get(el)
+        .clear()
+        .type('1')
     )
   })
 
@@ -22,13 +21,14 @@ describe('Grouped product add to cart', function () {
   })
 })
 
-describe('Grouped product change qty', function () {
+describe('Grouped product change qty', function() {
   it('Change product qty in cart', () => {
     cy.get('[data-testid=minicart-link]').click()
     cy.get('.cart-item-qty').each(el =>
-      cy.get(el)
-      .clear()
-      .type('2')
+      cy
+        .get(el)
+        .clear()
+        .type('2')
     )
     cy.get('.minicart-product__info')
       .contains('Update')
@@ -36,9 +36,11 @@ describe('Grouped product change qty', function () {
   })
 })
 
-describe('Grouped product change qty', function () {
+describe('Grouped product change qty', function() {
   it('Delate item form cart', () => {
-    cy.get('[data-testid=delete-item-link]').first().click()
+    cy.get('[data-testid=delete-item-link]')
+      .first()
+      .click()
     // TODO: Why is this chained that way?
     cy.get('.modal-inner-wrap .modal-footer').then(() => {
       cy.get('.modal-footer button')

@@ -1,8 +1,6 @@
-describe('Bundle product add to cart', function () {
+describe('Bundle product add to cart', function() {
   it('Visits product', () => {
-    cy.fixture('urls.json').then(({
-      bundleProduct
-    }) => {
+    cy.fixture('urls.json').then(({ bundleProduct }) => {
       cy.visit(bundleProduct)
       cy.waitForCustomerData()
     })
@@ -17,7 +15,7 @@ describe('Bundle product add to cart', function () {
   })
 })
 
-describe('Bundle product change qty in cart', function () {
+describe('Bundle product change qty in cart', function() {
   it('Change product qty in cart', () => {
     cy.get('[data-testid=minicart-link]').click()
     cy.get('.cart-item-qty')

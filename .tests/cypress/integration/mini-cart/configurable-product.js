@@ -2,11 +2,9 @@ function pickRandomitem(item) {
   return item[Math.floor(Math.random() * item.length)]
 }
 
-describe('Configurable product add to minicart', function () {
+describe('Configurable product add to minicart', function() {
   it('Visits product', () => {
-    cy.fixture('urls.json').then(({
-      configurableproduct
-    }) => {
+    cy.fixture('urls.json').then(({ configurableproduct }) => {
       cy.visit(configurableproduct)
       cy.waitForCustomerData()
     })
@@ -20,13 +18,12 @@ describe('Configurable product add to minicart', function () {
     cy.get('.color .swatch__option').then(elements => {
       pickRandomitem(elements).click()
     })
-    cy.get('#product-addtocart-button')
-      .click()
+    cy.get('#product-addtocart-button').click()
     cy.waitForCartData()
   })
 })
 
-describe('Configurable product change qty in minicart', function () {
+describe('Configurable product change qty in minicart', function() {
   it('Change product qty in cart', () => {
     cy.get('[data-testid=minicart-link]').click()
     cy.get('.cart-item-qty')
@@ -38,7 +35,7 @@ describe('Configurable product change qty in minicart', function () {
   })
 })
 
-describe('Configurable product remove in minicart', function () {
+describe('Configurable product remove in minicart', function() {
   it('Delate item form cart', () => {
     cy.get('[data-testid=delete-item-link]').click()
     // TODO: Why is this chained that way?

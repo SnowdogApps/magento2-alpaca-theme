@@ -1,21 +1,18 @@
-describe('Virtual product', function () {
+describe('Virtual product', function() {
   it('Visits product', () => {
-    cy.fixture('urls.json').then(({
-      virtualProduct
-    }) => {
+    cy.fixture('urls.json').then(({ virtualProduct }) => {
       cy.visit(virtualProduct)
       cy.waitForCustomerData()
     })
   })
 
   it('Add product to cart', () => {
-    cy.get('#product-addtocart-button')
-      .click()
+    cy.get('#product-addtocart-button').click()
     cy.waitForCartData()
   })
 })
 
-describe('Change qty of virtual product', function () {
+describe('Change qty of virtual product', function() {
   it('Change product qty in cart', () => {
     cy.get('[data-testid=minicart-link]').click()
     cy.get('.cart-item-qty')
@@ -27,7 +24,7 @@ describe('Change qty of virtual product', function () {
   })
 })
 
-describe('Remove virtual product ', function () {
+describe('Remove virtual product ', function() {
   it('Delate item form cart', () => {
     cy.get('[data-testid=delete-item-link]').click()
     // TODO: Why is this chained that way?
