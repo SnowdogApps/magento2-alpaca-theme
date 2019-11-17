@@ -38,15 +38,6 @@ module.exports = {
       attributes: 'type="button" aria-label="Compare product"'
     },
     addToCartBtn: {
-      tag: 'button',
-      text: 'Add to cart',
-      class: 'button--add-to-icon add-to-cart__button',
-      iconAfter: {
-        id: 'shopping-cart',
-        title: 'Add to Cart',
-        class: 'button__icon',
-        hidden: true
-      },
       attributes: 'type="submit" aria-label="Add to cart"'
     }
   }

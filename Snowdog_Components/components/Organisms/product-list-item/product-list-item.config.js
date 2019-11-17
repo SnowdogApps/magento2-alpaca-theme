@@ -104,7 +104,7 @@ module.exports = {
     },
     addToButton: {
       text: 'Add to cart',
-      class: 'button--add-to-icon product-list-item__add-to-button button--fluid',
+      class: 'button--add-to product-list-item__add-to-button button--fluid',
       attributes: 'type="button" aria-label="Add to cart"',
       iconBefore: {
         id: 'shopping-cart',

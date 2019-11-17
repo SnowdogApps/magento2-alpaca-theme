@@ -55,7 +55,7 @@ module.exports = {
       },
       addToCart: {
         tag: 'button',
-        class: 'button--add-to-icon',
+        class: 'button--add-to',
         icon: {
           id: 'shopping-cart',
           title: 'Add to cart',
