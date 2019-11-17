@@ -35,20 +35,6 @@ module.exports = {
       }
     },
     {
-      name: 'add-to-icon',
-      view: 'button--icon.hbs',
-      context: {
-        text: '',
-        class: 'button--add-to-icon',
-        icon: {
-          id: 'shopping-cart',
-          title: 'Add to Cart',
-          class: 'button__icon',
-        },
-        attributes: 'type="button" aria-label="Add to cart"'
-      }
-    },
-    {
       name: 'rotate-icon',
       view: 'button--icon.hbs',
       context: {
@@ -96,6 +82,50 @@ module.exports = {
           hidden: true
         },
         attributes: 'type="button" aria-label="click to do something"'
+      }
+    },
+    {
+      name: 'icon-before-light',
+      view: 'button--icon.hbs',
+      context: {
+        class: 'button--icon-light',
+        text: 'Button Icon before',
+        iconBefore: {
+          id: 'arrow-left',
+          title: 'Arrow left',
+          class: 'button__icon',
+          hidden: true
+        },
+        attributes: 'type="button" aria-label="click to do something"'
+      }
+    },
+    {
+      name: 'icon-after-light',
+      view: 'button--icon.hbs',
+      context: {
+        class: 'button--icon-light',
+        text: 'Button Icon after',
+        iconAfter: {
+          id: 'arrow-right',
+          title: 'Arrow Right',
+          class: 'button__icon',
+          hidden: true
+        },
+        attributes: 'type="button" aria-label="click to do something"'
+      }
+    },
+    {
+      name: 'add-to',
+      view: 'button--add-to.hbs',
+      context: {
+        class: '',
+        text: 'Add to cart',
+        icon: {
+          id: 'shopping-cart',
+          title: 'Add to Cart',
+          class: 'button__icon',
+        },
+        attributes: 'type="button" aria-label="Add to cart"'
       }
     },
     {
