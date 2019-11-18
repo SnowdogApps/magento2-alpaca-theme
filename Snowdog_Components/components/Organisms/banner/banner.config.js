@@ -32,7 +32,8 @@ module.exports = {
       context: {
         icon: {
           id: 'arrow-right',
-          title: 'Arrow right icon'
+          title: 'Arrow right icon',
+          hidden: true
         },
         text: 'Clothing'
       }

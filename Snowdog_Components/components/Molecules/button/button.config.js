@@ -30,6 +30,7 @@ module.exports = {
           id: 'arrow-left',
           title: 'Arrow left',
           class: 'button__icon',
+          hidden: true
         },
         attributes: 'type="button" aria-label="click to do something"'
       }
@@ -43,7 +44,8 @@ module.exports = {
         icon: {
           id: 'close',
           title: 'Close',
-          class: 'button__icon'
+          class: 'button__icon',
+          hidden: true
         },
         attributes: 'type="button" aria-label="Close"'
       }
@@ -54,6 +56,14 @@ module.exports = {
       context: {
         text: '',
         class: 'button--icon-light',
+      }
+    },
+    {
+      name: 'icon-border',
+      view: 'button--icon.hbs',
+      context: {
+        text: '',
+        class: 'button--icon-border',
       }
     },
     {
@@ -124,6 +134,7 @@ module.exports = {
           id: 'shopping-cart',
           title: 'Add to Cart',
           class: 'button__icon',
+          hidden: true
         },
         attributes: 'type="button" aria-label="Add to cart"'
       }

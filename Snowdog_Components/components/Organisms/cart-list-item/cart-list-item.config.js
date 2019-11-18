@@ -64,7 +64,8 @@ module.exports = {
       icon: {
         id: 'edit',
         title: 'Edit product',
-        class: 'button__icon cart-list-item__action-icon'
+        class: 'button__icon cart-list-item__action-icon',
+        hidden: true
       },
       attributes: 'type="button" aria-label="Clickt to edit this product"'
     },
@@ -74,7 +75,8 @@ module.exports = {
       icon: {
         id: 'remove',
         title: 'Remove product',
-        class: 'button__icon cart-list-item__action-icon'
+        class: 'button__icon cart-list-item__action-icon',
+        hidden: true
       },
       attributes: 'type="button" aria-label="Click to remove this product"'
     }
