@@ -1,5 +1,5 @@
 describe('Grouped product add to cart', function() {
-  it('Visits product', () => {
+  before(() => {
     cy.fixture('urls.json').then(({ groupedProduct }) => {
       cy.visit(groupedProduct)
       cy.waitForCustomerData()

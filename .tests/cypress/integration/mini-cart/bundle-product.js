@@ -1,5 +1,5 @@
 describe('Bundle product add to cart', function() {
-  it('Visits product', () => {
+  before(() => {
     cy.fixture('urls.json').then(({ bundleProduct }) => {
       cy.visit(bundleProduct)
       cy.waitForCustomerData()

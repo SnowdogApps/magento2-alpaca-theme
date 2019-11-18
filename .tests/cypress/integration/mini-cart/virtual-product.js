@@ -1,5 +1,5 @@
 describe('Virtual product', function() {
-  it('Visits product', () => {
+  before(() => {
     cy.fixture('urls.json').then(({ virtualProduct }) => {
       cy.visit(virtualProduct)
       cy.waitForCustomerData()
