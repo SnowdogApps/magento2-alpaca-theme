@@ -1,17 +1,28 @@
 @import "compare-variables";
 
 .compare {
+    position: relative;
     margin: $compare__margin;
-    overflow-x: auto;
     border: 1px solid #d8d8d8;
+    overflow-y: hidden;
+
+    &__inner {
+        overflow-x: auto;
+        width: calc(100% - #{$compare__label-width});
+        margin-left: $compare__label-width;
+
+
+        @include mq($screen-m) {
+            width: calc(100% - #{$compare__label-width\@medium});
+            margin-left: $compare__label-width\@medium;
+        }
+    }
 
     &__table {
         border-collapse: collapse;
         border-spacing: 0;
-        border: $compare__border;
 
         @include mq($screen-m) {
-            width: $compare__table-width;
             table-layout: fixed;
         }
     }
@@ -20,20 +31,41 @@
         width: $compare__label-width;
         padding: $compare__label-padding;
         background-color: $compare__label-background;
-        border-bottom: $compare__border;
+        border: $compare__border;
+        border-width: 1px 1px 1px 0;
+        position: absolute;
+        left: 0;
+        height: 100%;
 
         @include mq($screen-m) {
+            width: $compare__label-width\@medium;
             padding: $compare__label-padding\@medium;
+        }
+    }
+
+    &__row {
+        &:first-child {
+            .compare__label {
+                border-width: 0 1px 1px 0;
+            }
         }
     }
 
     &__cell {
         position: relative;
         padding: $compare__cell-padding;
-        min-width: $compare__cell-min-width;
         border-left: $compare__border;
         border-bottom: $compare__border;
-        width: 320px;
+        min-width: $compare__cell-min-width;
+        vertical-align: top;
+
+        @include mq($screen-m) {
+            min-width: $compare__cell-min-width\@medium;
+        }
+
+        &:first-of-type {
+            border-left: none;
+        }
 
         ul {
             padding-left: $compare__cell-list-padding-left;
@@ -77,11 +109,21 @@
     &__buttons-container {
         display: flex;
         justify-content: space-between;
+        flex-direction: column;
         width: 100%;
+
+        @include mq($screen-m) {
+            flex-direction: row;
+        }
     }
 
     &__secondary-buttons {
         display: flex;
+        margin: 0 0 $spacer;
+
+        @include mq($screen-m) {
+            margin: 0;
+        }
     }
 
     &__wishlist {
