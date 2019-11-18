@@ -1,25 +1,28 @@
-describe('Header - header links as Guest user', () => {
-  it('clicking account link navigates to a new url.', () => {
+describe('Header - click header links as Guest user', () => {
+  before(() => {
     cy.visit('/')
+  })
+  it('checks "account" link navigates to login page.', () => {
     cy.get('[data-testid=customer-account-link]').click()
     cy.url().should('include', '/customer/account/login')
   })
 
-  it('clicking wishlist link navigates to a new url.', () => {
+  it('checks "wishlist" link navigates to  login page.', () => {
     cy.get('[data-testid=wishlist-link]').click()
     cy.url().should('include', '/customer/account/login')
   })
 })
 
-describe('Header - header links as logged in user', () => {
-  it('clicking account link navigates to a new url', () => {
-    cy.visit('/')
+describe('Header - click header links as logged in user', () => {
+  before(() => {
     cy.login()
+  })
+  it('checks "account" link navigates to customer page', () => {
     cy.get('[data-testid=customer-account-link]').click()
     cy.url().should('include', '/customer/account/')
   })
 
-  it('clicking wishlist link navigates to a new url.', () => {
+  it('checks "wishlist" link navigates to wishlist page.', () => {
     cy.get('[data-testid=wishlist-link]').click()
     cy.url().should('include', '/wishlist/')
   })
