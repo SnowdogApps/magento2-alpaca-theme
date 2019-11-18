@@ -10,7 +10,6 @@ describe('Newsletter tests', () => {
     cy.get('#newsletter').type(faker.internet.email())
     cy.get('#newsletterAgrrement').click()
     cy.get('[data-testid=submit-newsletter-button]').click()
-    cy.waitForCustomerData()
 
     // success message should be displayed
     cy.get('[data-ui-id=message-success]').should('be.visible')
@@ -32,7 +31,6 @@ describe('Newsletter tests', () => {
     })
     cy.get('#newsletterAgrrement').click()
     cy.get('[data-testid=submit-newsletter-button]').click()
-    cy.waitForCustomerData()
 
     // error message should be displayed
     cy.get('[data-ui-id="message-error"]').should('be.visible')
