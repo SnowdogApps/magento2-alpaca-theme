@@ -16,19 +16,32 @@
     </div>
     <div class="minicart-product__data">
         <div class="minicart-product__info">
-            <h3 class="minicart-product__name">
-                <a
-                    data-bind="
-                        attr: {
-                            href: product_url,
-                            title: product_name
-                        }
-                    "
-                    class="link link--invert minicart-product__link"
-                >
-                    <!-- ko text: product_name --><!-- /ko -->
-                </a>
-            </h3>
+            <div class="minicart-product__name-wrapper">
+                <h3 class="minicart-product__name">
+                    <a
+                        data-bind="
+                            attr: {
+                                href: product_url,
+                                title: product_name
+                            }
+                        "
+                        class="
+                            link
+                            link--invert
+                            minicart-product__link
+                        "
+                    >
+                        <!-- ko text: product_name --><!-- /ko -->
+                    </a>
+                </h3>
+                <!-- ko ifnot: canApplyMsrp -->
+                    <div class="minicart-product__price margin-bottom-xs">
+                        <!-- ko foreach: $parent.getRegion('priceSidebar') -->
+                            <!-- ko template: {name: getTemplate(), data: item.product_price, as: 'price'} --><!-- /ko -->
+                        <!-- /ko -->
+                    </div>
+                <!-- /ko -->
+            </div>
             <!-- ko if: options.length -->
                 <dl
                     class="
@@ -98,7 +111,6 @@
                 </div>
             <!-- /ko -->
         </div>
-
         <div class="minicart-product__bottom">
             <div class="minicart-product__qty">
                 <div
@@ -106,10 +118,16 @@
                         input
                         input--inline
                         minicart-product__input
+                        margin-bottom-0
+                        margin-right-m
                     "
                 >
                     <label
-                        class="label minicart-product__label"
+                        class="
+                            label
+                            minicart-product__label
+                            margin-right-xs
+                        "
                         data-bind="
                             attr: { for: 'cart-item-'+item_id+'-qty' }
                         "
@@ -156,15 +174,6 @@
                     <span data-bind="i18n: 'Update'"></span>
                 </button>
             </div>
-
-            <!-- ko ifnot: canApplyMsrp -->
-                <div class="minicart-product__price">
-                    <!-- ko foreach: $parent.getRegion('priceSidebar') -->
-                        <!-- ko template: {name: getTemplate(), data: item.product_price, as: 'price'} --><!-- /ko -->
-                    <!-- /ko -->
-                </div>
-            <!-- /ko -->
-
             <div class="minicart-product__actions">
                 <!-- ko if: is_visible_in_site_visibility -->
                     <a
