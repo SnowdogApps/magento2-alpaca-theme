@@ -4,7 +4,7 @@ module.exports = {
     moreBtn: {
       tag: 'button',
       text: '',
-      class: ' button--icon-light add-to-cart__button-more',
+      class: 'add-to-cart__button-more',
       icon: {
         id: 'more',
         title: 'More',
@@ -16,7 +16,7 @@ module.exports = {
     wishlistBtn: {
       tag: 'button',
       text: '',
-      class: 'button--icon-light product-view__button',
+      class: 'product-view__button',
       icon: {
         id: 'heart',
         title: 'Arrow left',
@@ -28,7 +28,7 @@ module.exports = {
     compareBtn: {
       tag: 'button',
       text: '',
-      class: 'button--icon-light product-view__button',
+      class: 'product-view__button',
       icon: {
         id: 'compare',
         title: 'Add to compare list',
