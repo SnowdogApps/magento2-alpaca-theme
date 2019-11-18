@@ -9,14 +9,15 @@ describe('Catalog - Adding product to comparison list', () => {
       cy.waitForCustomerData()
     })
   })
-  it('adds a product', () => {
+  it('adds a product and displays success massage.', () => {
     cy.get('[data-testid=add-to-compare-button]').then(item => {
       pickRandomItem(item).click()
     })
-    // shows successful notification of aaded product to comapare
+
+    // Check if the success message is displayed
     cy.get('[data-ui-id=message-success]').should('be.visible')
 
-    //  confirms that compare product is displayed in view
+    // checks that compare product is displayed in view
     cy.get('#compare-items').should('be.visible')
   })
 })

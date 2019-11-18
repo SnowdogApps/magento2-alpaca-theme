@@ -1,7 +1,8 @@
 describe('Category toolbar', () => {
   it('Open category page ', () => {
-    // TODO: Store categories URLs in fixtures
-    cy.visit('/women')
+    cy.fixture('urls.json').then(({ categoryWithConfigurableProducts }) => {
+      cy.visit(categoryWithConfigurableProducts)
+    })
   })
 
   describe('Sorting', () => {
