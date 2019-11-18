@@ -1,7 +1,9 @@
 describe('Virtual product', function() {
-  it('Visits product', () => {
-    cy.visit('/virtual-product-test')
-    cy.get('.breadcrumbs__list').should('be.visible')
+  before(() => {
+    cy.fixture('urls.json').then(({ virtualProduct }) => {
+      cy.visit(virtualProduct)
+      cy.waitForCustomerData()
+    })
   })
 
   it('Add product to cart', () => {
