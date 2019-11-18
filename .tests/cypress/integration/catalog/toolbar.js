@@ -1,7 +1,7 @@
 describe('Category toolbar', () => {
   it('Open category page ', () => {
-    cy.fixture('urls.json').then(({ women }) => {
-      cy.visit(women)
+    cy.fixture('urls.json').then(({ categoryWithConfigurableProducts }) => {
+      cy.visit(categoryWithConfigurableProducts)
     })
   })
 
