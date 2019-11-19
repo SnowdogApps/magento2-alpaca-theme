@@ -59,6 +59,21 @@ module.exports = {
       }
     },
     {
+      name: 'icon-fill',
+      view: 'button--icon.hbs',
+      context: {
+        text: '',
+        class: 'button--icon-fill',
+        icon: {
+          id: 'heart',
+          title: 'wishlist',
+          class: 'button__icon',
+          hidden: true
+        },
+        attributes: 'aria=label"Add to wishlist"'
+      }
+    },
+    {
       name: 'icon-border',
       view: 'button--icon.hbs',
       context: {
