@@ -17,7 +17,6 @@ describe('Simple product', function() {
     cy.fixture('urls.json').then(({ cartView }) => {
       cy.visit(cartView)
     })
-    cy.waitForCartData()
     cy.get('.cart-list-item')
   })
 })
