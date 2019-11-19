@@ -57,7 +57,8 @@ module.exports = {
         icon: {
           id: 'close',
           title: 'Close',
-          class: 'button__icon modal__close-button-icon'
+          class: 'button__icon modal__close-button-icon',
+          hidden: true
         },
         attributes: 'type="button" aria-label="click to close the modal"'
       },
@@ -84,20 +85,22 @@ module.exports = {
     },
     secondaryActions: {
       wishlist: {
-        class: 'button--icon-light product-list-item__button-action',
+        class: 'product-list-item__button-action',
         icon: {
           id: 'heart',
           title: 'Heart',
-          class: 'button__icon'
+          class: 'button__icon',
+          hidden: true
         },
         attributes: 'type="button" aria-label="Add to Wish List"',
       },
       compare: {
-        class: 'button--icon-light product-list-item__button-action',
+        class: 'product-list-item__button-action',
         icon: {
           id: 'compare',
           title: 'Compare',
-          class: 'button__icon'
+          class: 'button__icon',
+          hidden: true
         },
         attributes: 'type="button" aria-label="Add to compare"',
       }

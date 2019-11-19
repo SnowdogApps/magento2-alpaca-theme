@@ -35,21 +35,23 @@ module.exports = {
     secondaryActions: {
       wishlist: {
         tag: 'button',
-        class: 'button--icon-light add-to-wishlist',
+        class: 'button--icon-fill add-to-wishlist',
         icon: {
           id: 'heart',
           title: 'Heart',
-          class: 'button__icon'
+          class: 'button__icon',
+          hidden: true
         },
         attributes: 'type="button" aria-label="Add to Wish List"',
       },
       compare: {
         tag: 'button',
-        class: 'button--icon-light',
+        class: '',
         icon: {
           id: 'compare',
           title: 'Compare',
-          class: 'button__icon'
+          class: 'button__icon',
+          hidden: true
         },
         attributes: 'type="button" aria-label="Add to compare"',
       },
@@ -59,7 +61,8 @@ module.exports = {
         icon: {
           id: 'shopping-cart',
           title: 'Add to cart',
-          class: 'button__icon'
+          class: 'button__icon',
+          hidden: true
         },
         attributes: 'type="submit" aria-label="Add to cart"',
       }
@@ -130,7 +133,8 @@ module.exports = {
             icon: {
               id: 'edit',
               title: 'edit',
-              class: 'button__icon'
+              class: 'button__icon',
+              hidden: true
             },
             attributes: 'href="#" aria-label="Edit product"',
           },
@@ -140,7 +144,8 @@ module.exports = {
             icon: {
               id: 'remove',
               title: 'Remove',
-              class: 'button__icon'
+              class: 'button__icon',
+              hidden: true
             },
             attributes: 'type="button" aria-label="Remove product from wishlist"'
           }
