@@ -35,7 +35,7 @@ module.exports = {
     secondaryActions: {
       wishlist: {
         tag: 'button',
-        class: 'button--icon-fill add-to-wishlist',
+        class: 'add-to-wishlist',
         icon: {
           id: 'heart',
           title: 'Heart',
