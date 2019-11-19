@@ -3,18 +3,17 @@
 .compare {
     position: relative;
     margin: $compare__margin;
-    border: 1px solid #d8d8d8;
+    border: $compare__border;
     overflow-y: hidden;
 
     &__inner {
         overflow-x: auto;
-        width: calc(100% - #{$compare__label-width});
-        margin-left: $compare__label-width;
-
+        width: $compare__inner-width;
+        margin: $compare__inner-margin;
 
         @include mq($screen-m) {
-            width: calc(100% - #{$compare__label-width\@medium});
-            margin-left: $compare__label-width\@medium;
+            width: $compare__inner-width\@medium;
+            margin: $compare__inner-margin\@medium;
         }
     }
 
@@ -28,14 +27,14 @@
     }
 
     &__label {
+        position: absolute;
+        left: 0;
         width: $compare__label-width;
+        height: $compare__label-height;
         padding: $compare__label-padding;
         background-color: $compare__label-background;
         border: $compare__border;
-        border-width: 1px 1px 1px 0;
-        position: absolute;
-        left: 0;
-        height: 100%;
+        border-width: $compare__label-border-width;
 
         @include mq($screen-m) {
             width: $compare__label-width\@medium;
@@ -46,7 +45,13 @@
     &__row {
         &:first-child {
             .compare__label {
-                border-width: 0 1px 1px 0;
+                border-width: 0 $border-width-base $border-width-base 0;
+            }
+        }
+
+        &:last-child {
+            .compare__cell {
+                border-bottom: none;
             }
         }
     }
@@ -81,9 +86,11 @@
         flex-direction: column;
     }
 
+    &__caption {
+        @include visually-hidden();
+    }
+
     .image {
-        width: $compare__image-size;
-        height: $compare__image-size;
         max-width: $compare__image-max-size;
         max-height: $compare__image-max-size;
     }
@@ -110,7 +117,7 @@
         display: flex;
         justify-content: space-between;
         flex-direction: column;
-        width: 100%;
+        width: $compare__buttons-container-width;
 
         @include mq($screen-m) {
             flex-direction: row;
@@ -119,10 +126,10 @@
 
     &__secondary-buttons {
         display: flex;
-        margin: 0 0 $spacer;
+        margin: $compare__secondary-buttons-margin;
 
         @include mq($screen-m) {
-            margin: 0;
+            margin: $compare__secondary-buttons-margin\@medium;
         }
     }
 
