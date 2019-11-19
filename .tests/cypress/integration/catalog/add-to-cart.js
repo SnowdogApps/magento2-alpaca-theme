@@ -1,32 +1,39 @@
-describe('Catalog - Adding to cart', () => {
-  it('Configurable product', () => {
-    // TODO: Store categories URLs in fixtures
-    cy.visit('/women')
-    cy.get('[data-testid=add-to-cart-button]')
-      .first() // TODO: Avoid using 'first`, write more precise selector instead
-      .trigger('mouseover')
-      .click()
-    cy.get('.product-view').should('be.visible')
+function pickRandomItem(item) {
+  return item[Math.floor(Math.random() * item.length)]
+}
+
+describe('Catalog - Add configurable product to cart', () => {
+  before(() => {
+    cy.fixture('urls.json').then(({ categoryWithConfigurableProducts }) => {
+      cy.visit(categoryWithConfigurableProducts)
+      cy.waitForCustomerData()
+    })
   })
 
-  it('Simple product', () => {
-    cy.server()
-    cy.route('POST', '/checkout/cart/add/product/*').as('addToCart')
-    cy.route('/customer/section/load/?sections=cart*').as('getMinicart')
+  it('Add configurable product from catalog', () => {
+    cy.get('[data-testid=add-to-cart-button]').then(item => {
+      pickRandomItem(item).click()
+    })
+    cy.waitForCustomerData()
+    cy.get('.message.message--notice').should('be.visible')
+  })
+})
 
-    // TODO: Store categories URLs in fixtures
-    cy.visit('/gear')
-    cy.get('[data-testid=add-to-cart-button]')
-      .first() // TODO: Avoid using 'first`, write more precise selector instead
-      .trigger('mouseover')
-      .click()
+describe('Catalog - add Simple product from catalog', () => {
+  before(() => {
+    cy.fixture('urls.json').then(({ categoryWithSimpleProducts }) => {
+      cy.visit(categoryWithSimpleProducts)
+      cy.waitForCustomerData()
+    })
+  })
 
-    cy.wait('@addToCart')
-    cy.wait('@getMinicart')
-
+  it('Add configurable product from catalog', () => {
+    cy.get('[data-testid=add-to-cart-button]').then(item => {
+      pickRandomItem(item).click()
+    })
+    cy.waitForCartData()
     // Check if the success message is displayed
     cy.get('.message.message--success').should('be.visible')
-
     // Check if there are some items in the cart
     cy.get('.header-button__counter').should('be.visible')
   })
