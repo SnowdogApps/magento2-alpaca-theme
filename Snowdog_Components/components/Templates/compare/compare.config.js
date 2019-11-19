@@ -34,12 +34,12 @@ module.exports = {
         cart: {
           tag: 'button',
           text: '<span class="compare__cart-text">Add to Cart</span>',
-          class: 'button--secondary compare__cart',
+          class: 'compare__cart',
           attributes: 'type="submit" aria-label="Add to Cart"'
         },
         wishlist: {
           tag: 'button',
-          class: 'button--icon compare__wishlist',
+          class: 'button--icon-light compare__wishlist',
           icon: {
             id: 'heart',
             title: 'Heart',
@@ -49,7 +49,7 @@ module.exports = {
         },
         remove: {
           tag: 'button',
-          class: 'button--icon compare__remove',
+          class: 'button--icon-light compare__remove',
           icon: {
             id: 'remove',
             title: 'Trash bin',
@@ -73,12 +73,12 @@ module.exports = {
         cart: {
           tag: 'button',
           text: '<span class="compare__cart-text">Add to Cart</span>',
-          class: 'button--secondary compare__cart',
+          class: 'compare__cart',
           attributes: 'type="submit" aria-label="Add to Cart"'
         },
         wishlist: {
           tag: 'button',
-          class: 'button--icon compare__wishlist',
+          class: 'button--icon-light compare__wishlist',
           icon: {
             id: 'heart',
             title: 'Heart',
@@ -88,7 +88,7 @@ module.exports = {
         },
         remove: {
           tag: 'button',
-          class: 'button--icon compare__remove',
+          class: 'button--icon-light compare__remove',
           icon: {
             id: 'remove',
             title: 'Trash bin',
