@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<page
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd"
+>
+    <body>
+        <referenceContainer name="content" htmlClass="home">
+            <!-- Main slider -->
+            <block
+                class="Blackbird\ContentManager\Block\Content\Widget\ContentList"
+                name="colibri-home-slider"
+                template="Blackbird_ContentManager::content/view/colibri_sliders/list.phtml"
+            >
+                <arguments>
+                    <argument name="slider_picture_block" xsi:type="string">colibri-homepage-picture</argument>
+                    <argument name="slider_class" xsi:type="string">slider</argument>
+                </arguments>
+                <action method="setCtType">
+                    <argument name="type" xsi:type="string">colibri_sliders</argument>
+                </action>
+                <action method="setPager">
+                    <argument name="pager" xsi:type="boolean">false</argument>
+                </action>
+                <action method="setLimitDisplay">
+                    <argument name="limit_display" xsi:type="string">1</argument>
+                </action>
+                <action method="addAttributeToFilter">
+                    <argument name="attribute" xsi:type="string">cb_slider_id</argument>
+                    <argument name="condition" xsi:type="string">eq</argument>
+                    <argument name="value" xsi:type="string">colibri-home-slider</argument>
+                </action>
+
+                <block
+                    class="Magento\Framework\View\Element\Template"
+                    name="colibri-homepage-picture"
+                    template="Magento_Theme::html/picture.phtml"
+                />
+            </block>
+
+        </referenceContainer>
+        <!-- removed blocks -->
+        <referenceBlock name="page.main.title" remove="true" />
+    </body>
+</page>

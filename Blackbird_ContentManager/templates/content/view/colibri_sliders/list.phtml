@@ -1,0 +1,148 @@
+<?php
+$collection = $block->getCollection();
+$sliderClassName = $block->getSliderClass();
+$bannersArray = [];
+$sliderBlockName = $block->getSliderPictureBlock();
+
+// banners attrubutes to show
+$_bannersAttributes = ['*'];
+?>
+
+<?php foreach ($collection as $content) : ?>
+    <?php
+    $_banners = $content->getContentCollection('cb_slider_banners', $_bannersAttributes);
+
+    foreach ($_banners as $index => $_banner) {
+        $bannersArray[$index]['title'] = $_banner->getData('cb_pic_title');
+        $bannersArray[$index]['alt'] = $_banner->getData('cb_pic_alt');
+        $bannersArray[$index]['url'] = $_banner->getData('cb_pic_url');
+        $bannersArray[$index]['url_target'] = $_banner->getData('cb_pic_url_target');
+        $bannersArray[$index]['is_main'] = $_banner->getData('cb_pic_main_image');
+        $bannersArray[$index]['order'] = $_banner->getData('cb_pic_order');
+        $bannersArray[$index]['default'] = $_banner->getFile('cb_pic_default');
+        $bannersArray[$index]['max_480'] =
+            $_banner->getData('cb_pic_max_480') ? $_banner->getFile('cb_pic_max_480') : false;
+        $bannersArray[$index]['max_768'] =
+            $_banner->getData('cb_pic_max_768') ? $_banner->getFile('cb_pic_max_768') : false;
+        $bannersArray[$index]['max_1024'] =
+            $_banner->getData('cb_pic_max_1024') ? $_banner->getFile('cb_pic_max_1024') : false;
+        $bannersArray[$index]['max_1328'] =
+            $_banner->getData('cb_pic_max_1328') ? $_banner->getFile('cb_pic_max_1328') : false;
+        $bannersArray[$index]['full'] =
+            $_banner->getData('cb_pic_full') ? $_banner->getFile('cb_pic_full') : $bannersArray[$index]['default'];
+        //2x
+        $bannersArray[$index]['max_480_2x'] =
+            $_banner->getData('cb_pic_max_480_2x') ? $_banner->getFile('cb_pic_max_480_2x') : false;
+        $bannersArray[$index]['max_768_2x'] =
+            $_banner->getData('cb_pic_max_768_2x') ? $_banner->getFile('cb_pic_max_768_2x') : false;
+        $bannersArray[$index]['max_1024_2x'] =
+            $_banner->getData('cb_pic_max_1024_2x') ? $_banner->getFile('cb_pic_max_1024_2x') : false;
+        $bannersArray[$index]['max_1328_2x'] =
+            $_banner->getData('cb_pic_max_1328_2x') ? $_banner->getFile('cb_pic_max_1328_2x') : false;
+        $bannersArray[$index]['full_2x'] =
+            $_banner->getData('cb_pic_full_2x') ? $_banner->getFile('cb_pic_full_2x') : $bannersArray[$index]['default'];
+    }
+
+    // sorting banners collection by order
+    usort($bannersArray, function ($a, $b) {
+        return $a['order'] - $b['order'];
+    });
+
+    ?>
+
+    <div
+        class="<?= $sliderClassName ?>"
+        data-rewind="true"
+        data-enable-mouse-events="true"
+        data-mage-init='{ "slider": {} }'
+    >
+        <div class="slider__navigation">
+            <button
+                class="
+                    button
+                    button--icon
+                    button--icon-light
+                    slider__navigation-icon
+                    slider__prev
+                "
+                type="button"
+                aria-label="<?= $block->escapeHtmlAttr(__('Previous slide')) ?>"
+            >
+                <svg
+                    class="
+                        icon
+                        button__icon
+                        slider__icon
+                    "
+                    role="img"
+                >
+                    <title><?= __('Previous slide') ?></title>
+                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#arrow-left')) ?>"></use>
+                </svg>
+            </button>
+
+            <button
+                class="
+                    button
+                    button--icon
+                    button--icon-light
+                    slider__navigation-icon
+                    slider__next
+                "
+                type="button"
+                aria-label="<?= $block->escapeHtmlAttr(__('Next slide')) ?>"
+            >
+                <svg
+                    class="
+                        icon
+                        button__icon
+                        slider__icon
+                    "
+                    role="img"
+                >
+                    <title><?= __('Next slide') ?></title>
+                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#arrow-right')) ?>"></use>
+                </svg>
+            </button>
+        </div>
+        <div class="slider__handler">
+            <div class="slider__slides">
+
+                <?php if ($bannersArray): ?>
+                    <?php foreach ($bannersArray as $_banner): ?>
+                        <?php
+                            $_bannerUrl = $block->escapeUrl($_banner['url']);
+                            $_bannerUrlTarget = $block->escapeUrl(($_banner['url_target'] == 'blank') ? '_blank' : '_self');
+                        ?>
+                        <div class="slider__item">
+                            <<?= $_bannerUrl ? 'a href="' . $_bannerUrl . '" target="' . $_bannerUrlTarget . '"' : 'div' ?>
+                                class="banner"
+                            >
+                                <?php $block->getChildBlock($sliderBlockName)->setData([
+                                    'picture_class' => 'banner__image',
+                                    'picture_full_url' => true,
+                                    'img_default' => $_banner['default'],
+                                    'img_480' => $_banner['max_480'],
+                                    'img_768' => $_banner['max_768'],
+                                    'img_1024' => $_banner['max_1024'],
+                                    'img_1328' => $_banner['max_1328'],
+                                    'img_full' => $_banner['full'],
+                                    'img_4802x' => $_banner['max_480_2x'],
+                                    'img_7682x' => $_banner['max_768_2x'],
+                                    'img_10242x' => $_banner['max_1024_2x'],
+                                    'img_13282x' => $_banner['max_1328_2x'],
+                                    'img_full2x' => $_banner['full_2x'],
+                                    'picture_alt' => $_banner['alt'],
+
+                                ]);
+                                ?>
+                                <?= $block->getChildHtml($sliderBlockName, false); ?>
+                            </<?= $_bannerUrl ? 'a' : 'div' ?>>
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </div>
+        </div>
+        <div class="slider__dots"></div>
+    </div>
+<?php endforeach; ?>
