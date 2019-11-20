@@ -2,6 +2,8 @@ module.exports = {
   context: {
     script: true,
     attributes: 'data-rewind="true" data-enable-mouse-events="true" data-slides-to-scroll="1"',
+    heading: 'Slider heading',
+    headingClass: 'heading heading--second-level text-center margin-top-sm',
     iconPrev: {
       tag: 'button',
       class: 'button--icon-light slider__navigation-icon slider__prev',
@@ -128,6 +130,7 @@ module.exports = {
       name: 'products',
       context: {
         class: 'slider--products',
+        heading: false,
         slides: [
           {
             itemClass: 'slider__slide-item',
@@ -208,6 +211,7 @@ module.exports = {
       view: 'slider--products.hbs',
       context: {
         class: 'slider--products',
+        heading: false,
         slides: [
           {
             itemClass: 'slider__slide-item',
@@ -338,9 +342,18 @@ module.exports = {
     },
     {
       name: 'brands',
-      view: 'slider--products.hbs',
       context: {
         class: 'slider--brands',
+        heading: 'Top brands',
+        contentAfter: {
+          content: 'link',
+          contentContext: {
+            href: '#',
+            title: 'See all Brands',
+            text: 'See all Brands',
+            class: 'slider__link'
+          }
+        },
         slides: [
           {
             itemClass: 'slider__slide-item',

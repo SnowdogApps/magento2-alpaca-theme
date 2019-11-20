@@ -1,46 +1,62 @@
 <?php
 $collection = $block->getCollection();
 $sliderClassName = $block->getSliderClass();
+$sliderTitleClassName = $block->getSliderTitleClass();
 $bannersArray = [];
 $sliderBlockName = $block->getSliderPictureBlock();
 
+$sliderPrefix = 'cb_slider_';
+$picturePrefix = 'cb_pic_';
 // banners attrubutes to show
-$_bannersAttributes = ['*'];
+$bannersAttributes = ['*'];
 ?>
 
 <?php foreach ($collection as $content) : ?>
     <?php
-    $_banners = $content->getContentCollection('cb_slider_banners', $_bannersAttributes);
+    //slider data
+    $sliderTitle = $block->escapeHtml($content->getData($sliderPrefix . 'title'));
+    $sliderDisplayTitle = $block->escapeHtml($content->getData($sliderPrefix . 'display_title'));
+    $sliderDisplayTitle = ($sliderDisplayTitle === 'no') ? false : true;
+    $sliderContentBefore =
+        $content->getData($sliderPrefix . 'ct_before') ?
+        $content->render($sliderPrefix . 'ct_before') :
+        false;
+    $sliderContentAfter =
+        $content->getData($sliderPrefix . 'ct_after') ?
+        $content->render($sliderPrefix . 'ct_after') :
+        false;
 
-    foreach ($_banners as $index => $_banner) {
-        $bannersArray[$index]['title'] = $_banner->getData('cb_pic_title');
-        $bannersArray[$index]['alt'] = $_banner->getData('cb_pic_alt');
-        $bannersArray[$index]['url'] = $_banner->getData('cb_pic_url');
-        $bannersArray[$index]['url_target'] = $_banner->getData('cb_pic_url_target');
-        $bannersArray[$index]['is_main'] = $_banner->getData('cb_pic_main_image');
-        $bannersArray[$index]['order'] = $_banner->getData('cb_pic_order');
-        $bannersArray[$index]['default'] = $_banner->getFile('cb_pic_default');
+    $sliderBanners = $content->getContentCollection($sliderPrefix . 'banners', $bannersAttributes);
+
+    foreach ($sliderBanners as $index => $banner) {
+        $bannersArray[$index]['title'] = $banner->getData($picturePrefix . 'title');
+        $bannersArray[$index]['alt'] = $banner->getData($picturePrefix . 'alt');
+        $bannersArray[$index]['url'] = $banner->getData($picturePrefix . 'url');
+        $bannersArray[$index]['url_target'] = $banner->getData($picturePrefix . 'url_target');
+        $bannersArray[$index]['is_main'] = $banner->getData($picturePrefix . 'main_image');
+        $bannersArray[$index]['order'] = $banner->getData($picturePrefix . 'order');
+        $bannersArray[$index]['default'] = $banner->getFile($picturePrefix . 'default');
         $bannersArray[$index]['max_480'] =
-            $_banner->getData('cb_pic_max_480') ? $_banner->getFile('cb_pic_max_480') : false;
+            $banner->getData($picturePrefix . 'max_480') ? $banner->getFile($picturePrefix . 'max_480') : false;
         $bannersArray[$index]['max_768'] =
-            $_banner->getData('cb_pic_max_768') ? $_banner->getFile('cb_pic_max_768') : false;
+            $banner->getData($picturePrefix . 'max_768') ? $banner->getFile($picturePrefix . 'max_768') : false;
         $bannersArray[$index]['max_1024'] =
-            $_banner->getData('cb_pic_max_1024') ? $_banner->getFile('cb_pic_max_1024') : false;
+            $banner->getData($picturePrefix . 'max_1024') ? $banner->getFile($picturePrefix . 'max_1024') : false;
         $bannersArray[$index]['max_1328'] =
-            $_banner->getData('cb_pic_max_1328') ? $_banner->getFile('cb_pic_max_1328') : false;
+            $banner->getData($picturePrefix . 'max_1328') ? $banner->getFile($picturePrefix . 'max_1328') : false;
         $bannersArray[$index]['full'] =
-            $_banner->getData('cb_pic_full') ? $_banner->getFile('cb_pic_full') : $bannersArray[$index]['default'];
+            $banner->getData($picturePrefix . 'full') ? $banner->getFile($picturePrefix . 'full') : false;
         //2x
         $bannersArray[$index]['max_480_2x'] =
-            $_banner->getData('cb_pic_max_480_2x') ? $_banner->getFile('cb_pic_max_480_2x') : false;
+            $banner->getData($picturePrefix . 'max_480_2x') ? $banner->getFile($picturePrefix . 'max_480_2x') : false;
         $bannersArray[$index]['max_768_2x'] =
-            $_banner->getData('cb_pic_max_768_2x') ? $_banner->getFile('cb_pic_max_768_2x') : false;
+            $banner->getData($picturePrefix . 'max_768_2x') ? $banner->getFile($picturePrefix . 'max_768_2x') : false;
         $bannersArray[$index]['max_1024_2x'] =
-            $_banner->getData('cb_pic_max_1024_2x') ? $_banner->getFile('cb_pic_max_1024_2x') : false;
+            $banner->getData($picturePrefix . 'max_1024_2x') ? $banner->getFile($picturePrefix . 'max_1024_2x') : false;
         $bannersArray[$index]['max_1328_2x'] =
-            $_banner->getData('cb_pic_max_1328_2x') ? $_banner->getFile('cb_pic_max_1328_2x') : false;
+            $banner->getData($picturePrefix . 'max_1328_2x') ? $banner->getFile($picturePrefix . 'max_1328_2x') : false;
         $bannersArray[$index]['full_2x'] =
-            $_banner->getData('cb_pic_full_2x') ? $_banner->getFile('cb_pic_full_2x') : $bannersArray[$index]['default'];
+            $banner->getData($picturePrefix . 'full_2x') ? $banner->getFile($picturePrefix . 'full_2x') : false;
     }
 
     // sorting banners collection by order
@@ -50,8 +66,25 @@ $_bannersAttributes = ['*'];
 
     ?>
 
+    <?php if ($sliderDisplayTitle): ?>
+        <span
+            class="
+                slider__heading
+                <?= $block->escapeHtmlAttr($sliderTitleClassName) ?>
+            "
+        >
+            <?= $sliderTitle ?>
+        </span>
+    <?php endif ?>
+
+    <?php if ($sliderContentBefore): ?>
+        <div class="slider__before">
+            <?= $sliderContentBefore ?>
+        </div>
+    <?php endif ?>
+
     <div
-        class="<?= $sliderClassName ?>"
+        class="<?= $block->escapeHtmlAttr($sliderClassName) ?>"
         data-rewind="true"
         data-enable-mouse-events="true"
         data-mage-init='{ "slider": {} }'
@@ -109,37 +142,35 @@ $_bannersAttributes = ['*'];
         </div>
         <div class="slider__handler">
             <div class="slider__slides">
-
                 <?php if ($bannersArray): ?>
-                    <?php foreach ($bannersArray as $_banner): ?>
+                    <?php foreach ($bannersArray as $banner): ?>
                         <?php
-                            $_bannerUrl = $block->escapeUrl($_banner['url']);
-                            $_bannerUrlTarget = $block->escapeUrl(($_banner['url_target'] == 'blank') ? '_blank' : '_self');
+                            $bannerUrl = $block->escapeUrl($banner['url']);
+                            $bannerUrlTarget = $block->escapeUrl(($banner['url_target'] == 'blank') ? '_blank' : '_self');
                         ?>
                         <div class="slider__item">
-                            <<?= $_bannerUrl ? 'a href="' . $_bannerUrl . '" target="' . $_bannerUrlTarget . '"' : 'div' ?>
+                            <<?= $bannerUrl ? 'a href="' . $bannerUrl . '" target="' . $bannerUrlTarget . '"' : 'div' ?>
                                 class="banner"
                             >
                                 <?php $block->getChildBlock($sliderBlockName)->setData([
                                     'picture_class' => 'banner__image',
                                     'picture_full_url' => true,
-                                    'img_default' => $_banner['default'],
-                                    'img_480' => $_banner['max_480'],
-                                    'img_768' => $_banner['max_768'],
-                                    'img_1024' => $_banner['max_1024'],
-                                    'img_1328' => $_banner['max_1328'],
-                                    'img_full' => $_banner['full'],
-                                    'img_4802x' => $_banner['max_480_2x'],
-                                    'img_7682x' => $_banner['max_768_2x'],
-                                    'img_10242x' => $_banner['max_1024_2x'],
-                                    'img_13282x' => $_banner['max_1328_2x'],
-                                    'img_full_2x' => $_banner['full_2x'],
-                                    'picture_alt' => $_banner['alt'],
-
+                                    'img_default' => $banner['default'],
+                                    'img_480' => $banner['max_480'],
+                                    'img_768' => $banner['max_768'],
+                                    'img_1024' => $banner['max_1024'],
+                                    'img_1328' => $banner['max_1328'],
+                                    'img_full' => $banner['full'],
+                                    'img_4802x' => $banner['max_480_2x'],
+                                    'img_7682x' => $banner['max_768_2x'],
+                                    'img_10242x' => $banner['max_1024_2x'],
+                                    'img_13282x' => $banner['max_1328_2x'],
+                                    'img_full_2x' => $banner['full_2x'],
+                                    'picture_alt' => $banner['alt']
                                 ]);
                                 ?>
                                 <?= $block->getChildHtml($sliderBlockName, false); ?>
-                            </<?= $_bannerUrl ? 'a' : 'div' ?>>
+                            </<?= $bannerUrl ? 'a' : 'div' ?>>
                         </div>
                     <?php endforeach; ?>
                 <?php endif; ?>
@@ -147,4 +178,10 @@ $_bannersAttributes = ['*'];
         </div>
         <div class="slider__dots"></div>
     </div>
+
+    <?php if ($sliderContentAfter): ?>
+        <div class="slider__after">
+            <?= $sliderContentAfter ?>
+        </div>
+    <?php endif ?>
 <?php endforeach; ?>
