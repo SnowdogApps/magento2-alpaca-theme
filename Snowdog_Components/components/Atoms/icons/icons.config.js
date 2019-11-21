@@ -183,6 +183,11 @@ module.exports = {
         class: 'icons__single-icon'
       },
       {
+        id: 'no-results',
+        title: 'No results',
+        class: 'icons__single-icon'
+      },
+      {
         id: 'paypal',
         title: 'Paypal',
         class: 'icons__single-icon'
