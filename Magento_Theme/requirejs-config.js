@@ -21,6 +21,13 @@ var config = {
       "tab"            : "Magento_Theme/js/tab.babel"
     }
   },
+  config: {
+    mixins: {
+      "Magento_Theme/js/view/messages": {
+        "Magento_Theme/js/mixins/messages-mixin": true
+      }
+    }
+  },
   shim: {
     "slider": {
       "deps": ["lory"]
