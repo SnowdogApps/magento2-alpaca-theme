@@ -25,15 +25,15 @@ module.exports = {
       items: [
         {
           text: 'Account',
-          link: '#',
+          link: '#'
         },
         {
           text: 'Blog',
-          link: '#',
+          link: '#'
         },
         {
           text: 'Contact',
-          link: '#',
+          link: '#'
         }
       ]
     }
