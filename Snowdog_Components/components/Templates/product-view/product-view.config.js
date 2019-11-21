@@ -31,7 +31,8 @@ module.exports = {
         icon: {
           id: 'close',
           title: 'Close',
-          class: 'button__icon modal__close-button-icon'
+          class: 'button__icon modal__close-button-icon',
+          hidden: true
         },
         attributes: 'type="button" aria-label="click to close the modal"'
       },
@@ -101,22 +102,24 @@ module.exports = {
     heartBtn: {
       tag: 'button',
       text: '',
-      class: 'button--icon-light product-view__button',
+      class: 'product-view__button',
       icon: {
         id: 'heart',
         title: 'Arrow left',
-        class: 'button__icon'
+        class: 'button__icon',
+        hidden: true
       },
       attributes: 'type="button" aria-label="Add product to wishlist"'
     },
     compareBtn: {
       tag: 'button',
       text: '',
-      class: 'button--icon-light product-view__button',
+      class: 'product-view__button',
       icon: {
         id: 'compare',
         title: 'Add to compare list',
-        class: 'button__icon'
+        class: 'button__icon',
+        hidden: true
       },
       attributes: 'type="button" aria-label="Compare product"'
     },
@@ -132,7 +135,8 @@ module.exports = {
         icon: {
           id: 'close',
           title: 'Close',
-          class: 'button__icon modal__close-button-icon'
+          class: 'button__icon modal__close-button-icon',
+          hidden: true
         },
         attributes: 'type="button" aria-label="click to close the modal"'
       },
@@ -163,7 +167,8 @@ module.exports = {
         icon: {
           id: 'close',
           title: 'Close',
-          class: 'button__icon modal__close-button-icon'
+          class: 'button__icon modal__close-button-icon',
+          hidden: true
         },
         attributes: 'type="button" aria-label="click to close the modal"'
       },
@@ -188,8 +193,9 @@ module.exports = {
       class: 'product-view__tab',
       icon: {
         class: 'tab__icon',
-        iconId: 'angle-down',
-        iconTitle: 'Arrow down'
+        id: 'angle-down',
+        title: 'Arrow down',
+        hidden: true
       },
       tabs: [
         {

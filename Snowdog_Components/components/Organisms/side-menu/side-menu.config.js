@@ -3,7 +3,7 @@ module.exports = {
   context: {
     sideMenuTrigger: {
       tag: 'button',
-      class: 'button--icon-light modal-trigger side-menu__trigger',
+      class: 'modal-trigger side-menu__trigger',
       attributes: 'type="button" data-modal-trigger="side-menu" aria-label="Open menu"',
       icon: {
         id: 'mobile-menu',

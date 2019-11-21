@@ -70,7 +70,8 @@ module.exports = {
           icon: {
             id: 'edit',
             title: 'Edit',
-            class: ''
+            class: '',
+            hidden: true
           }
         },
         removeIcon: {
@@ -80,7 +81,8 @@ module.exports = {
           icon: {
             id: 'remove',
             title: 'Remove',
-            class: ' '
+            class: '',
+            hidden: true
           }
         },
         addToCart: {
@@ -136,7 +138,8 @@ module.exports = {
           icon: {
             id: 'edit',
             title: 'Edit',
-            class: ''
+            class: '',
+            hidden: true
           }
         },
         removeIcon: {
@@ -146,7 +149,8 @@ module.exports = {
           icon: {
             id: 'remove',
             title: 'Remove',
-            class: ''
+            class: '',
+            hidden: true
           }
         },
         addToCart: {
