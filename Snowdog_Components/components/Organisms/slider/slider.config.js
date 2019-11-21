@@ -6,7 +6,7 @@ module.exports = {
     headingClass: 'heading heading--second-level text-center margin-top-sm',
     iconPrev: {
       tag: 'button',
-      class: 'button--icon-light slider__navigation-icon slider__prev',
+      class: 'button--icon-border slider__prev',
       icon: {
         id: 'arrow-left',
         class: 'button__icon slider__icon'
@@ -15,7 +15,7 @@ module.exports = {
     },
     iconNext: {
       tag: 'button',
-      class: 'button--icon-light slider__navigation-icon slider__next',
+      class: 'button--icon-border slider__next',
       icon: {
         id: 'arrow-right',
         class: 'button__icon slider__icon'
