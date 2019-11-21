@@ -12,7 +12,12 @@
 
     &:hover,
     &:focus-within {
-        box-shadow: $product-grid-item__shadow--hover;
+        .lazyload-wrapper {
+            background-color: $black;
+        }
+        .image {
+            opacity: 0.8;
+        }
     }
 
     @include isIE() {
@@ -62,11 +67,6 @@
             }
             @include mq($screen-xl) {
                 width: $product-grid-item__secondary-action-width--wishlist\@xl;
-            }
-            .button {
-                .button__icon {
-                    fill: $product-grid-item__secondary-action-button-icon-fill--wishlist;
-                }
             }
         }
     }
@@ -138,10 +138,12 @@
     }
 
     &__image-wrapper {
+        transition: $product-grid-item__transition;
         .image {
             margin: $product-grid-item__image-margin;
             width: $product-grid-item__image-width;
             height: $product-grid-item__image-height;
+            transition: $product-grid-item__transition;
         }
         .lazyload,
         .lazyloading {
@@ -235,6 +237,12 @@
 
     &__primary-action {
         margin: $catalog-gird-item__primary-margin;
+
+        .button--add-to {
+            @include mq($screen-m) {
+                @include add-to-button(block);
+            }
+        }
     }
 
     // elements from product-grid-item--wishlist variant
@@ -272,9 +280,13 @@
     }
 
     .add-to-wishlist {
+        @extend .button--icon-fill;
         position: absolute;
         top: 0;
         right: 0;
         background: $product-grid-item__action-wishlist-background;
+        &:before {
+            display: none;
+        }
     }
 }

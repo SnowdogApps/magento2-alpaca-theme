@@ -20,6 +20,7 @@ module.exports = {
       text: 'Email Us',
       address: 'test@test.com'
     },
+    linkClass: 'button button--icon button--icon-light',
     menu: {
       items: [
         {

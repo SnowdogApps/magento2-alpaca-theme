@@ -6,6 +6,19 @@ module.exports = {
     arrowRightActive: true,
     ariaLabelLeft: 'Link to previous page, disabled',
     ariaLabelRight: 'Link to next page',
+    navItem : {
+      class: 'button button--icon',
+      iconPrev: {
+        id: 'arrow-left',
+        class: 'pager__link-prev',
+        hidden: true
+      },
+      iconNext: {
+        id: 'arrow-right',
+        class: 'pager__link-next',
+        hidden: true
+      }
+    },
     pages: [
       {
         pageNo: '1',
