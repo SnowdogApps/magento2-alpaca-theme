@@ -20,7 +20,7 @@
                     template="Magento_Theme::html/skip-nav.phtml"
                 >
                     <arguments>
-                        <argument name="link_text" xsi:type="string">Skip to content</argument>
+                        <argument name="link_text" xsi:type="string" translate="true">Skip to content</argument>
                         <argument name="link_anchor" xsi:type="string">#maincontent</argument>
                     </arguments>
                 </block>
@@ -108,30 +108,6 @@
                 </block>
 
                 <block
-                    class="Magento\Newsletter\Block\Subscribe"
-                    name="footer-newsletter"
-                    template="Magento_Newsletter::subscribe.phtml"
-                >
-                    <block
-                        class="Magento\Cms\Block\Block"
-                        name="newsletter-heading"
-                    >
-                        <arguments>
-                            <argument name="block_id" xsi:type="string">footer-newsletter</argument>
-                        </arguments>
-                    </block>
-
-                    <block
-                        class="Magento\Cms\Block\Block"
-                        name="newsletter-agreement"
-                    >
-                        <arguments>
-                            <argument name="block_id" xsi:type="string">footer-newsletter-terms</argument>
-                        </arguments>
-                    </block>
-                </block>
-
-                <block
                     class="Magento\Cms\Block\Block"
                     name="footer-social"
                 >
@@ -178,28 +154,46 @@
             htmlClass="footer margin-top-xl"
         />
 
+        <referenceBlock name="form.subscribe">
+            <block
+                class="Magento\Cms\Block\Block"
+                name="newsletter-heading"
+            >
+                <arguments>
+                    <argument name="block_id" xsi:type="string">footer-newsletter</argument>
+                </arguments>
+            </block>
+
+            <block
+                class="Magento\Cms\Block\Block"
+                name="newsletter-agreement"
+            >
+                <arguments>
+                    <argument name="block_id" xsi:type="string">footer-newsletter-terms</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+
         <!-- Move -->
         <move element="footer.content" destination="footer-container" before="-"/>
         <move element="page.top" destination="page.wrapper" after="header.content" />
+        <move element="form.subscribe" destination="footer.content" after="footer-menu" />
+
+        <!--Remove broken references for luma theme header.links-->
+        <block class="Magento\Framework\View\Element\Html\Links" name="header.links" />
+        <referenceBlock name="header.links" remove="true"/>
 
         <!--Removed blocks-->
         <referenceBlock name="report.bugs" remove="true"/>
+        <referenceBlock name="top.links" remove="true"/>
+        <referenceBlock name="currency" remove="true"/>
         <referenceBlock name="navigation.sections" remove="true" />
-        <referenceBlock name="form.subscribe" remove="true"/>
+        <referenceBlock name="footer_links" remove="true" />
         <referenceBlock name="copyright" remove="true"/>
-        <referenceBlock name="sale.reorder.sidebar" remove="true"/>
-        <referenceBlock name="wishlist_sidebar" remove="true"/>
-        <referenceBlock name="catalog.compare.sidebar" remove="true"/>
-
-        <!--Removed constainers-->
-        <referenceContainer name="header.container" remove="true" />
-        <referenceContainer name="footer" remove="true" />
 
         <!--Moved blocks-->
         <move element="logo" destination="header.content" />
         <move element="top.search" destination="header.content" as="search" />
         <move element="minicart" destination="header.content" />
-
-        <move element="catalog.compare.link" destination="top.links" after="-"/>
     </body>
 </page>
