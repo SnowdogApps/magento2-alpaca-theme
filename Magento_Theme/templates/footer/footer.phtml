@@ -1,40 +1,39 @@
-<div class="footer__handler container">
-    <button
-        class="
-            button
-            button--icon
-            footer__scroll-top
-        "
-        type="button"
-        aria-label="<?= $block->escapeHtmlAttr(__('Scroll to top')) ?>"
-        data-mage-init='{ "scrollTop": { } }'
-    >
-        <svg
-            class="icon"
-            role="presentation"
-            focusable="false"
-        >
-            <title><?= __('Scroll to top') ?></title>
-            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#arrow-up')) ?>"></use>
-        </svg>
-    </button>
+<?php
+    $scrollTop = $this->getChildHtml('footer-scroll-top');
+    $footerNewsletter = $this->getChildHtml('footer-newsletter');
+    $footerSocial = $this->getChildHtml('footer-social');
+    $footerMenu = $this->getChildHtml('footer-menu');
+    $bottomBar = $this->getChildHtml('footer-bottom-bar');
+    $cookieMessage = $this->getChildHtml('footer-cookie-message');
+?>
 
-    <section class="footer__newsletter">
-        <?= $this->getChildHtml('footer-newsletter') ?>
-    </section>
+<?php if ($scrollTop || $footerNewsletter || $footerSocial || $footerMenu): ?>
+    <div class="footer__handler container">
+        <?php if ($scrollTop): ?>
+            <?= $scrollTop ?>
+        <?php endif; ?>
 
-    <?php if ($footerSocial = $this->getChildHtml('footer-social')): ?>
-        <div class="footer__social-handler">
-            <?= $footerSocial ?>
-        </div>
-    <?php endif; ?>
+        <?php if ($footerNewsletter): ?>
+            <section class="footer__newsletter">
+                <?= $footerNewsletter ?>
+            </section>
+        <?php endif; ?>
 
-    <section class="footer__links">
-        <?= $this->getChildHtml('footer-menu') ?>
-    </section>
-</div>
+        <?php if ($footerSocial): ?>
+            <div class="footer__social-handler">
+                <?= $footerSocial ?>
+            </div>
+        <?php endif; ?>
 
-<?php if ($bottomBar = $this->getChildHtml('footer-bottom-bar')): ?>
+        <?php if ($footerMenu): ?>
+            <section class="footer__links">
+                <?= $footerMenu ?>
+            </section>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>
+
+<?php if ($bottomBar): ?>
     <section class="footer__bottom-bar ">
         <div class="footer__bottom-bar-handler container">
             <?= $bottomBar ?>
@@ -42,7 +41,7 @@
     </section>
 <?php endif; ?>
 
-<?php if ($cookieMessage = $this->getChildHtml('footer-cookie-message')): ?>
+<?php if ($cookieMessage): ?>
     <div
         class="cookie-message"
         data-type="cookie"
