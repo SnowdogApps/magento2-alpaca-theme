@@ -1,0 +1,98 @@
+<section class="order-summary" {{{ attributes }}}>
+    {{ render '@heading' heading }}
+
+    <div class="order-summary__details">
+        {{ render '@heading' estimate }}
+
+            <ul class="order-summary__list">
+                {{#each items }}
+                    <li class="order-summary__list-item">
+                        <span class="order-summary__label">
+                            {{ label }}
+                        </span>
+
+                        <span class="order-summary__value">
+                            {{ value }}
+                        </span>
+                    </li>
+                {{/each}}
+            <li>
+                <hr class="order-summary__divider">
+            </li>
+            <li class="order-summary__list-item order-summary__total">
+                {{ render '@heading' total }}
+
+                <span class="order-summary__amount text-right">
+                    {{ amount }}
+                </span>
+            </li>
+        </ul>
+    </div>
+
+    {{#if tab }}
+        <div
+            class="order-summary__tab active"
+            data-collapsible="true"
+            role="tablist"
+        >
+            <div
+                class="order-summary__tab-title"
+                data-role="title"
+                role="tab"
+                aria-selected="true"
+                aria-expanded="true"
+                tabindex="0"
+            >
+                <span class="order-summary__tab-text">
+                    {{ tab.label }}
+                </span>
+
+                {{ render '@icon' tab.icon }}
+            </div>
+
+            {{#if tab.products }}
+                <div
+                    class="content order-summary__products"
+                    data-role="content"
+                    role="tabpanel"
+                    aria-hidden="false"
+                    style="display: block;"
+                >
+                    {{#each tab.products }}
+                        <div class="order-summary__product-item">
+                            <img
+                                class="order-summary__product-image"
+                                src="/images/gallery/product-img-80-80.jpg"
+                                width="78"
+                                height="78"
+                                alt="{{ label }}"
+                            >
+                            <div class="order-summary__product-info">
+                                <div class="order-summary__product-details">
+                                    <div class="order-summary__product-name">
+                                        {{ label }}
+                                    </div>
+                                    <div class="order-summary__product-qty">
+                                        <span>Quantity:</span>
+                                        <span>{{ quantity }}</span>
+                                    </div>
+                                </div>
+                                <span class="price">
+                                    {{ price }}
+                                </span>
+                            </div>
+                        </div>
+                    {{/each}}
+                </div>
+            {{/if}}
+        </div>
+    {{/if }}
+
+    {{#if button }}
+        {{ render '@button' button }}
+    {{/if}}
+
+    {{#if link }}
+        {{ render '@button--link' link }}
+    {{/if }}
+</section>
