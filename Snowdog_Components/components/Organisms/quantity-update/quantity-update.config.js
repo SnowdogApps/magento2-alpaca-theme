@@ -9,22 +9,24 @@ module.exports = {
     },
     minusQtyButton: {
       tag: 'button',
-      class: 'button--icon-light quantity-update__button quantity-update__button--minus quantity-update__button--disabled',
+      class: 'quantity-update__button quantity-update__button--minus quantity-update__button--disabled',
       attributes: 'type="button" aria-label="Decrease the quantity"',
       icon: {
         id: 'minus',
         title: 'Minus mark',
-        class: 'button__icon quantity-update__icon'
+        class: 'button__icon quantity-update__icon',
+        hidden: true
       }
     },
     plusQtyButton: {
       tag: 'button',
-      class: 'button--icon-light quantity-update__button quantity-update__button--plus',
+      class: 'quantity-update__button quantity-update__button--plus',
       attributes: 'type="button" aria-label="Increase the quantity"',
       icon: {
         id: 'plus',
         title: 'Plus mark',
-        class: 'button__icon quantity-update__icon'
+        class: 'button__icon quantity-update__icon',
+        hidden: true
       }
     },
     script: true
