@@ -1,0 +1,227 @@
+//
+//  Variables
+//  _____________________________________________
+
+$checkout-shipping-address__max-width          : 600px !default;
+$checkout-shipping-address__margin-top         : 28px !default;
+
+$checkout-shipping-item__border                : 2px solid transparent !default;
+$checkout-shipping-item__line-height           : 30px !default;
+$checkout-shipping-item__margin                : 0 0 $indent__base !default;
+$checkout-shipping-item__padding               : $indent__base ($indent__l + 5px) $indent__base $indent__base !default;
+$checkout-shipping-item__transition            : 0.3s border-color !default;
+$checkout-shipping-item__width                 : 33.3333% !default;
+$checkout-shipping-item-tablet__width          : 50% !default;
+$checkout-shipping-item-mobile__width          : 100% !default;
+$checkout-shipping-item__active__border-color  : $color-orange-red1 !default;
+
+$checkout-shipping-item-icon__background-color : $checkout-shipping-item__active__border-color !default;
+$checkout-shipping-item-icon__color            : $color-white !default;
+$checkout-shipping-item-icon__content          : $icon-checkmark !default;
+
+$checkout-shipping-item-icon__selected__height : 27px !default;
+$checkout-shipping-item-icon__selected__width  : 29px !default;
+
+$checkout-shipping-item-mobile__padding        : 0 0 15px !default;
+$checkout-shipping-item-mobile__margin         : $checkout-shipping-item-mobile__padding !default;
+$checkout-shipping-item-mobile__active__padding: 15px ($indent__l + 5px) 15px 18px !default;
+
+$checkout-shipping-item-before__border-color   : $color-gray80 !default;
+$checkout-shipping-item-before__height         : calc(100% - 20px) !default;
+
+$checkout-shipping-method__border              : $checkout-step-title__border !default;
+$checkout-shipping-method__padding             : $indent__base !default;
+
+//
+//  Common
+//  _____________________________________________
+
+.opc-wrapper {
+    .shipping-address-items {
+        margin-top: 20px;
+        font-size: 0;
+    }
+
+    .shipping-address-item {
+        @extend .abs-add-box-sizing;
+        border: $checkout-shipping-item__border;
+        line-height: $checkout-shipping-item__line-height;
+        margin: $checkout-shipping-item__margin;
+        padding: $checkout-shipping-item__padding;
+        transition: $checkout-shipping-item__transition;
+        width: $checkout-shipping-item-tablet__width;
+        display: inline-block;
+        font-size: $font-size__base;
+        position: relative;
+        vertical-align: top;
+        word-wrap: break-word;
+
+        &.selected-item {
+            border-color: $checkout-shipping-item__active__border-color;
+
+            .action-select-shipping-item {
+                @extend .abs-no-display-s;
+                visibility: hidden;
+            }
+        }
+
+        &__icon {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            fill: $green;
+        }
+
+        &__edit-button {
+            margin-bottom: 10px;
+        }
+    }
+
+    .field {
+        &.addresses {
+            @extend .abs-add-clearfix;
+        }
+    }
+
+    .action-show-popup {
+        margin: 0 0 $indent__base;
+
+        > span {
+            &:before {
+                content: '+';
+                padding-right: $indent__xs;
+            }
+        }
+    }
+}
+
+//
+//  Shipping Methods
+//  _____________________________________________
+
+.checkout-shipping-method {
+
+    .no-quotes-block {
+        margin: $indent__base 0;
+    }
+}
+
+.table-checkout-shipping-method {
+    thead {
+        th {
+            display: none;
+        }
+    }
+
+    tbody {
+        td {
+            border-top: $checkout-shipping-method__border;
+            padding-bottom: $checkout-shipping-method__padding;
+            padding-top: $checkout-shipping-method__padding;
+
+            &:first-child {
+                padding-left: 0;
+                padding-right: 0;
+                width: 20px;
+            }
+        }
+
+        tr {
+            &:first-child {
+                td {
+                    border-top: none;
+                }
+            }
+        }
+
+        .row-error {
+            td {
+                border-top: none;
+                padding-bottom: $indent__s;
+                padding-top: 0;
+            }
+        }
+
+        .radio__label {
+            margin: 0;
+        }
+    }
+}
+
+//
+//  Mobile
+//  _____________________________________________
+
+@include mq($screen__s) {
+    .opc-wrapper {
+        .shipping-address-item {
+            width: 100%;
+
+            &.selected-item {
+                padding: $checkout-shipping-item-mobile__active__padding;
+                border-bottom-width: 2px;
+
+                .edit-address-link {
+                    right: $checkout-shipping-item-icon__selected__width + $indent__s;
+                }
+            }
+        }
+
+        .action-select-shipping-item {
+            float: none;
+            margin-top: $indent__s;
+            width: 100%;
+        }
+
+        .action-show-popup {
+            width: 100%;
+        }
+
+        .edit-address-link {
+            margin: 0;
+            position: absolute;
+            right: 0;
+            top: 1px;
+        }
+    }
+}
+
+//
+//  Desktop
+//  _____________________________________________
+
+@include mq($screen__l) {
+    .opc-wrapper {
+        .shipping-address-item {
+            width: $checkout-shipping-item__width;
+
+            &:before {
+                background: $checkout-shipping-item-before__border-color;
+                height: $checkout-shipping-item-before__height;
+                content: '';
+                left: 0;
+                position: absolute;
+                top: 0;
+                width: 1px;
+            }
+
+            &:nth-child(3n + 1) {
+                &:before {
+                    display: none;
+                }
+            }
+
+            &.selected-item {
+                &:before {
+                    display: none;
+                }
+
+                + .shipping-address-item {
+                    &:before {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}
