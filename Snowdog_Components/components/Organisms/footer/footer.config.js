@@ -1,5 +1,8 @@
 module.exports = {
   context: {
+    script: true,
+    cookieMessage: true,
+    handler: true,
     class: 'margin-top-xl',
     handlerClass: 'container',
     scrollToTop: {
@@ -249,5 +252,16 @@ module.exports = {
         }
       ]
     }
-  }
+  },
+  variants: [
+    {
+      name: 'checkout',
+      context: {
+        class: 'margin-top-xl footer--checkout',
+        script: false,
+        cookieMessage: false,
+        handler: false,
+      }
+    }
+  ]
 }
