@@ -1,22 +1,63 @@
-<?= $block->getChildHtml('skip-to-content') ?>
-<?= $block->getChildHtml('marketing-bar') ?>
-<?= $block->getChildHtml('contact-bar') ?>
-<header class="header">
+<?php
+    $headerClass = $block->getClass();
+    $skipToContent = $block->getChildHtml('skip-to-content');
+    $marketingBar = $block->getChildHtml('marketing-bar');
+    $contactBar = $block->getChildHtml('contact-bar');
+    $menuMainMobile = $block->getChildHtml('menu-main-mobile');
+    $briefInfo = $block->getChildHtml('brief-info');
+    $wishListLink = $block->getChildHtml('wish-list-link');
+    $minicart = $block->getChildHtml('minicart');
+    $search = $block->getChildHtml('search');
+    $menuMainDesktop = $block->getChildHtml('menu-main-desktop');
+?>
+
+<?php if ($skipToContent): ?>
+    <?= $skipToContent ?>
+<?php endif; ?>
+
+<?php if ($marketingBar): ?>
+    <?= $marketingBar ?>
+<?php endif; ?>
+
+<?php if ($contactBar): ?>
+    <?= $contactBar ?>
+<?php endif; ?>
+
+<header class="header <?= $headerClass ?>">
     <div class="container">
         <div class="header__wrapper">
-            <?= $this->getChildHtml('logo') ?>
-            <?= $block->getChildHtml('menu-main-mobile') ?>
-            <?= $block->getChildHtml('brief-info') ?>
+            <?= $block->getChildHtml('logo') ?>
 
-            <div class="header__buttons">
-                <?= $this->getChildHtml('wish-list-link') ?>
-                <?= $this->getChildHtml('minicart') ?>
-            </div>
+            <?php if ($menuMainMobile): ?>
+                <?= $menuMainMobile ?>
+            <?php endif; ?>
 
-            <div class="header__search-wrapper">
-                <?= $this->getChildHtml('search') ?>
-            </div>
+            <?php if ($briefInfo): ?>
+                <?= $briefInfo ?>
+            <?php endif; ?>
+
+            <?php if ($wishListLink || $minicart): ?>
+                <div class="header__buttons">
+                    <?php if ($wishListLink): ?>
+                        <?= $wishListLink ?>
+                    <?php endif; ?>
+
+                    <?php if ($minicart): ?>
+                        <?= $minicart ?>
+                    <?php endif; ?>
+                </div>
+            <?php endif; ?>
+
+            <?php if ($search): ?>
+                <div class="header__search-wrapper">
+                    <?= $search ?>
+                </div>
+            <?php endif; ?>
         </div>
     </div>
 </header>
-<?= $block->getChildHtml('menu-main-desktop') ?>
+
+<?php if ($menuMainDesktop): ?>
+    <?= $menuMainDesktop ?>
+<?php endif; ?>
+
