@@ -232,14 +232,16 @@
                         before="-"
                     />
                     <block
+                        class="Magento\Theme\Block\Html\Pager"
+                        name="product_review_list.toolbar"
+                        as="review-toolbar"
+                    />
+                    <block
                         class="Magento\Review\Block\Product\View\ListView"
                         name="product.tabs.reviews"
                         template="Magento_Review::product/view/list.phtml"
                     />
-                    <block
-                        class="Magento\Theme\Block\Html\Pager"
-                        name="product_review_list.toolbar"
-                    />
+
                 </referenceBlock>
             </container>
 
@@ -362,7 +364,12 @@
         <move
             element="product.review.form"
             destination="reviews.tab"
-            after="product_review_list.toolbar"
+            before="product.tabs.reviews"
+        />
+        <move
+            element="review-toolbar"
+            destination="reviews.tab"
+            after="product.review.form"
         />
         <move
             element="content.aside"
