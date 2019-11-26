@@ -113,6 +113,36 @@ use Magento\Framework\App\Action\Action;
                                 class="product-grid-item__link"
                                 tabindex="-1"
                             >
+                                <?php if ($productBadges = $_item->getAttributeText('badge')): ?>
+                                    <div
+                                        class="
+                                            badges
+                                            product-grid-item__badges
+                                        "
+                                    >
+                                        <?php if (is_array($productBadges)): ?>
+                                            <?php foreach ($productBadges as $productBadge): ?>
+                                                <div
+                                                    class="
+                                                        badge
+                                                        badge--<?= $block->escapeHtmlAttr(mb_strtolower($productBadge, 'UTF-8')) ?>
+                                                    "
+                                                >
+                                                    <?= $block->escapeHtml($productBadge) ?>
+                                                </div>
+                                            <?php endforeach ?>
+                                        <?php else: ?>
+                                            <div
+                                                class="
+                                                    badge
+                                                    badge--<?= $block->escapeHtmlAttr(mb_strtolower($productBadges, 'UTF-8')) ?>
+                                                "
+                                            >
+                                                <?= $block->escapeHtml($productBadges) ?>
+                                            </div>
+                                        <?php endif ?>
+                                    </div>
+                                <?php endif ?>
                                 <div class="product-grid-item__image-wrapper">
                                     <?= $block->getImage($_item, $image)->toHtml() ?>
                                 </div>
