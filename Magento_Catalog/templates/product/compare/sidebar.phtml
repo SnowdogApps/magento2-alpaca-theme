@@ -6,8 +6,18 @@
         class="sidebar-block"
         data-bind="css: { 'sidebar-block--loaded': !compareProducts().count }"
     >
-        <div class="sidebar-block__heading">
-            <h2 class="heading--second-level sidebar-block__title">
+        <div
+            class="
+                sidebar-block__heading
+                <?= $block->getHeadingClass() ?>
+            "
+        >
+            <h2
+                class="
+                    sidebar-block__title
+                    <?= $block->getTitleClass() ?>
+                "
+            >
                 <?= __('Compare Products') ?>
             </h2>
             <!-- ko if: compareProducts().count -->
@@ -17,47 +27,72 @@
                         text: compareProducts().countCaption,
                         css: { 'no-display': !compareProducts().count }
                     "
-                ></span>
+                >
+                </span>
             <!-- /ko -->
         </div>
 
         <div
             class="loader loader--visible"
+            aria-live="polite"
+            aria-label="<?= $block->escapeHtmlAttr(__('Do not refresh the page')) ?>"
             data-bind="css: { 'loader--visible': null }"
         >
-            <div class="loader__circle"></div>
+            <div class="loader__icon"></div>
         </div>
 
         <!-- ko if: compareProducts().count -->
             <div
-                class="divider sidebar-block__divider sidebar-block__hidden"
+                class="sidebar-block__divider sidebar-block__hidden"
                 data-bind="css: { 'sidebar-block__hidden': null }"
-            ></div>
+            >
+            </div>
             <ol
                 id="compare-items"
-                class="list sidebar-block__list sidebar-block__list--hidden"
+                class="
+                    list
+                    sidebar-block__list
+                    sidebar-block__list--hidden
+                "
                 data-bind="
                     foreach: compareProducts().items,
-                    css: {'sidebar-block__list--hidden': null}
+                    css: { 'sidebar-block__list--hidden': null }
                 "
             >
                 <li class="sidebar-block__item">
                     <input type="hidden" class="compare-item-id" data-bind="value: id"/>
                     <button
-                        type="button"
-                        class="button sidebar-block__remove"
-                        aria-label="<?= __('Remove product from compare') ?>"
-                        title="<?= __('Remove product from compare') ?>"
-                        data-bind="attr: {'data-post': remove_url}"
+                        class="
+                            button
+                            button--icon
+                            sidebar-block__remove
+                            margin-right-xs
+                        "
+                        aria-label="<?= $block->escapeHtmlAttr(__('Remove product from compare')) ?>"
+                        title="<?= $block->escapeHtmlAttr(__('Remove product from compare')) ?>"
+                        data-bind="attr: { 'data-post': remove_url }"
                     >
-                        <svg class="icon sidebar-block__remove-icon">
-                            <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#close') ?>"></use>
+                        <svg
+                            class="
+                                icon
+                                button__icon
+                                sidebar-block__remove-icon
+                            "
+                            role="presentation"
+                            focusable="false"
+                        >
+                            <title><?= __('Close') ?></title>
+                            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#close')) ?>"></use>
                         </svg>
                     </button>
                     <a
                         class="link sidebar-block__link"
-                        data-bind="attr: {href: product_url}, html: name"
-                    ></a>
+                        data-bind="
+                            attr: { href: product_url, title: name },
+                            html: name
+                        "
+                    >
+                    </a>
                 </li>
             </ol>
 
@@ -65,31 +100,41 @@
                 class="sidebar-block__hidden"
                 data-bind="css: { 'sidebar-block__hidden': null }"
             >
-                <a
-                    data-bind="attr: {'href': compareProducts().listUrl}"
-                    class="button button--link sidebar-block__action"
-                >
-                    <?= __('Compare') ?>
-                </a>
-                <button
-                    id="compare-clear-all"
-                    class="button sidebar-block__action"
-                    data-post="<?= $block->escapeHtml($this
-                        ->helper('Magento\Catalog\Helper\Product\Compare')
-                        ->getPostDataClearList())
-                    ?>"
-                >
-                    <?= __('Clear All') ?>
-                </button>
+                <div class="sidebar-block__actions ">
+                    <a
+                        data-bind="attr: { 'href': compareProducts().listUrl }"
+                        class="link sidebar-block__action"
+                    >
+                        <?= __('Compare') ?>
+                    </a>
+                    <button
+                        type="button"
+                        class="
+                            button
+                            button--link
+                            sidebar-block__action
+                        "
+                        data-post="<?= $block->escapeHtmlAttr($this
+                            ->helper('Magento\Catalog\Helper\Product\Compare')
+                            ->getPostDataClearList())
+                        ?>"
+                    >
+                        <?= __('Clear All') ?>
+                    </button>
+                </div>
             </div>
         <!-- /ko -->
-
         <div
             class="sidebar-block__hidden"
-            data-bind="css: {'sidebar-block__hidden': null}"
+            data-bind="css: { 'sidebar-block__hidden': null }"
         >
             <!-- ko ifnot: compareProducts().count -->
-                <div class="message empty sidebar-block__message">
+                <div
+                    class="
+                        sidebar-block__message
+                        <?= $block->getMessageClass() ?>
+                    "
+                >
                     <?= __('You have no items to compare.') ?>
                 </div>
             <!-- /ko -->

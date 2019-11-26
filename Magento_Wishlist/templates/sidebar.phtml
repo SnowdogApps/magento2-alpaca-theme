@@ -1,85 +1,155 @@
 <?php
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
-
-/** @var \Magento\Wishlist\Block\Customer\Sidebar $block */
-?>
-<?php
-$wishlistHelper = $this->helper(\Magento\Wishlist\Helper\Data::class);
+$wishlistHelper = $this->helper('Magento\Wishlist\Helper\Data');
 ?>
 <?php if ($wishlistHelper->isAllow()) : ?>
-    <div class="block block-wishlist" data-bind="scope: 'wishlist'">
-        <div class="block-title">
-            <strong role="heading" aria-level="2"><?= $block->escapeHtml($block->getTitle()) ?></strong>
+    <div data-bind="scope: 'wishlist'">
+        <div
+            class="sidebar-block"
+            data-bind="css: { 'sidebar-block--loaded': !wishlist().counter }"
+        >
+            <div
+                class="
+                    sidebar-block__heading
+                    <?= $block->getHeadingClass() ?>
+                "
+            >
+                <h2
+                    class="
+                        sidebar-block__title
+                        <?= $block->getTitleClass() ?>
+                    "
+                >
+                    <?= __('My Wish List') ?>
+                </h2>
+                <!-- ko if: wishlist().counter -->
+                <span
+                    data-bind="text: wishlist().counter"
+                    class="sidebar-block__counter"
+                ></span>
+                <!-- /ko -->
+            </div>
+
+            <div
+                class="loader loader--visible"
+                aria-live="polite"
+                aria-label="<?= $block->escapeHtmlAttr(__('Do not refresh the page')) ?>"
+                data-bind="css: { 'loader--visible': null }"
+            >
+                <div class="loader__icon"></div>
+            </div>
+
             <!-- ko if: wishlist().counter -->
-            <span data-bind="text: wishlist().counter" class="counter"></span>
-            <!-- /ko -->
-        </div>
-        <div class="block-content">
-            <strong class="subtitle"><?= $block->escapeHtml(__('Last Added Items')) ?></strong>
-            <!-- ko if: wishlist().counter -->
-                <ol class="product-items no-display" id="wishlist-sidebar" data-bind="foreach: wishlist().items, css: {'no-display': null}">
-                    <li class="product-item">
-                        <div class="product-item-info">
-                            <a class="product-item-photo" data-bind="attr: { href: product_url, title: product_name }">
-                                <!-- ko template: {name: $data.image.template, data: $data.image} --><!-- /ko -->
-                            </a>
-                            <div class="product-item-details">
-                                <strong class="product-item-name">
-                                    <a data-bind="attr: { href: product_url }" class="product-item-link">
-                                        <span data-bind="html: product_name"></span>
-                                    </a>
-                                </strong>
-                                <div data-bind="html: product_price"></div>
-                                <div class="product-item-actions">
-                                    <!-- ko if: product_is_saleable_and_visible -->
-                                    <div class="actions-primary">
-                                        <!-- ko if: product_has_required_options -->
-                                        <a href="#" data-bind="attr: {'data-post': add_to_cart_params}" class="action tocart primary"><span><?= $block->escapeHtml(__('Add to Cart')) ?></span></a>
-                                        <!-- /ko -->
-                                        <!-- ko ifnot: product_has_required_options -->
-                                            <button type="button" class="action tocart primary" data-bind="attr: {'data-post': add_to_cart_params}"><span><?= $block->escapeHtml(__('Add to Cart')) ?></span></button>
-                                        <!-- /ko -->
-                                    </div>
-                                    <!-- /ko -->
-                                    <div class="actions-secondary">
-                                        <a href="#"  data-bind="attr: {'data-post': delete_item_params}"
-                                           title="<?= $block->escapeHtmlAttr(__('Remove This Item')) ?>"
-                                           class="btn-remove action delete">
-                                            <span><?= $block->escapeHtml(__('Remove This Item')) ?></span>
-                                        </a>
-                                    </div>
-                                </div>
+                <div
+                    class="sidebar-block__divider sidebar-block__hidden"
+                    data-bind="css: { 'sidebar-block__hidden': null }"
+                >
+                </div>
+                <ol
+                    class="
+                        list
+                        sidebar-block__list
+                        sidebar-block__list--hidden
+                    "
+                    id="wishlist-sidebar"
+                    data-bind="
+                        foreach: wishlist().items,
+                        css: { 'sidebar-block__list--hidden': null }
+                    "
+                >
+                    <li class="margin-bottom-m">
+                        <div class="sidebar-block__item">
+                            <div class="sidebar-block__product-image">
+                                <a data-bind="attr: { href: product_url, title: product_name }">
+                                    <!-- ko template: { name: $data.image.template, data: $data.image } --><!-- /ko -->
+                                </a>
                             </div>
+
+                            <div class="sidebar-block__product-info">
+                                <a
+                                    data-bind="attr: { href: product_url }"
+                                    class="link sidebar-block__link"
+                                >
+                                    <span data-bind="text: product_name"></span>
+                                </a>
+                                <div data-bind="html: product_price"></div>
+                            </div>
+                        </div>
+                        <div class="sidebar-block__actions">
+                            <!-- ko if: product_is_saleable_and_visible -->
+                                <button
+                                    type="button"
+                                    class="
+                                        button
+                                        button--link
+                                        sidebar-block__action
+                                    "
+                                    title="<?= $block->escapeHtmlAttr(__('Add product to cart')) ?>"
+                                    data-bind="attr: { 'data-post': add_to_cart_params }"
+                                >
+                                    <?= __('Add to Cart') ?>
+                                </button>
+                            <!-- /ko -->
+
+                            <button
+                                type="button"
+                                class="
+                                    button
+                                    button--link
+                                    sidebar-block__action
+                                "
+                                title="<?= $block->escapeHtmlAttr(__('Remove product from wish list')) ?>"
+                                data-bind="attr: { 'data-post': delete_item_params }"
+                            >
+                                <?= __('Remove') ?>
+                            </button>
                         </div>
                     </li>
                 </ol>
-                <div class="actions-toolbar no-display" data-bind="css: {'no-display': null}">
-                    <div class="primary">
-                        <a class="action details"
-                           href="<?= $block->escapeUrl($this->helper(\Magento\Wishlist\Helper\Data::class)->getListUrl()) ?>"
-                           title="<?= $block->escapeHtmlAttr(__('Go to Wish List')) ?>"><span><?= $block->escapeHtml(__('Go to Wish List')) ?></span></a>
+
+                <a
+                    class="
+                        button
+                        button--secondary
+                        button--fluid
+                        sidebar-block__hidden
+                    "
+                    href="<?= $block->escapeUrl($wishlistHelper->getListUrl()) ?>"
+                    title="<?= $block->escapeHtmlAttr(__('Go to Wish List')) ?>"
+                    data-bind="css: { 'sidebar-block__hidden': null }"
+                >
+                    <?= __('Go to Wish List') ?>
+                </a>
+            <!-- /ko -->
+
+            <div
+                class="sidebar-block__hidden"
+                data-bind="css: { 'sidebar-block__hidden': null }"
+            >
+                <!-- ko ifnot: wishlist().counter -->
+                    <div
+                        class="
+                            sidebar-block__message
+                            <?= $block->getMessageClass() ?>
+                        "
+                    >
+                        <?= __('You have no items in your wish list.') ?>
                     </div>
-                </div>
-            <!-- /ko -->
-            <!-- ko ifnot: wishlist().counter -->
-                <div class="empty"><?= $block->escapeHtml(__('You have no items in your wish list.')) ?></div>
-            <!-- /ko -->
+                <!-- /ko -->
+            </div>
         </div>
     </div>
-<script type="text/x-magento-init">
-    {
-        "*": {
-            "Magento_Ui/js/core/app": {
-                "components": {
-                    "wishlist": {
-                        "component": "Magento_Wishlist/js/view/wishlist"
+
+    <script type="text/x-magento-init">
+        {
+            "*": {
+                "Magento_Ui/js/core/app": {
+                    "components": {
+                        "wishlist": {
+                            "component": "Magento_Wishlist/js/view/wishlist"
+                        }
                     }
                 }
             }
         }
-    }
-</script>
+    </script>
 <?php endif ?>
