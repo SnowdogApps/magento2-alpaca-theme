@@ -34,6 +34,15 @@ use Magento\Framework\App\Action\Action;
         <ul class="list">
             <?php foreach ($_productCollection as $_product): ?>
                 <li class="product-list-item">
+                    <div
+                        class="
+                            badge
+                            badge--new
+                            product-grid-item__badge
+                        "
+                    >
+                        NEW
+                    </div>
                     <?php $productImage = $block->getImage($_product, $imageDisplayArea) ?>
                     <a
                         href="<?= $block->escapeUrl($block->getProductUrl($_product)) ?>"
@@ -179,6 +188,29 @@ use Magento\Framework\App\Action\Action;
                     tabindex="0"
                     data-testid="list-product-item"
                 >
+                    <?php if ($productBadges = $_product->getAttributeText('badge')): ?>
+                            <?php if (is_array($productBadges)): ?>
+                                <?php foreach ($productBadges as $productBadge): ?>
+                                    <div
+                                        class="
+                                            badge
+                                            product-grid-item__badge
+                                        "
+                                    >
+                                        <?= $block->escapeHtml($productBadge) ?>
+                                    </div>
+                                <?php endforeach ?>
+                            <?php else: ?>
+                                <div
+                                    class="
+                                        badge
+                                        product-grid-item__badge
+                                    "
+                                >
+                                    <?= $block->escapeHtml($productBadges) ?>
+                                </div>
+                            <?php endif ?>
+                    <?php endif ?>
                     <a
                         href="<?= $block->escapeUrl($block->getProductUrl($_product)) ?>"
                         class="product-grid-item__link"
