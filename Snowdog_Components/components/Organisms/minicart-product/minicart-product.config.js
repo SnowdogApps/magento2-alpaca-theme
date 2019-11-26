@@ -8,7 +8,7 @@ module.exports = {
     productName: 'Some product name',
     productPrice: '$85.00',
     productQty: {
-      class: 'input--inline minicart-product__input',
+      class: 'input--inline minicart-product__input margin-bottom-0 margin-right-m',
       label: {
         class: 'minicart-product__label',
         text: 'Qty:',
@@ -36,22 +36,22 @@ module.exports = {
       tag: 'a',
       attributes: 'href="#" aria-label="edit product in your shopping cart"',
       text: '',
-      class: 'button--icon-light minicart-product__button',
       icon: {
         id: 'edit',
         title: 'Edit pencil',
-        class: 'button__icon minicart-product__button-icon'
+        class: 'button__icon',
+        hidden: true
       }
     },
     removeIcon: {
       tag: 'a',
       attributes: 'href="#" aria-label="remove this product from your shopping cart"',
       text: '',
-      class: 'button--icon-light minicart-product__button',
       icon: {
         id: 'remove',
         title: 'Trash bin',
-        class: 'button__icon minicart-product__button-icon'
+        class: 'button__icon',
+        hidden: true
       }
     },
     configurable: true

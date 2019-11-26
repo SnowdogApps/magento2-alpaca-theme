@@ -10,6 +10,15 @@ module.exports = {
       text: 'In stock',
       attributes: 'type="button" data-modal-trigger="shipping-latency-product"'
     },
+    shortDescription: {
+      class: 'margin-top-m',
+      heading: {
+        tag: 'h2',
+        class: 'product-view__short-description-heading margin-bottom-xs',
+        text: 'Short description:'
+      },
+      text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry. Lorem Ipsum has been the industry.'
+    },
     shippingLatencyModal: {
       modal: {
         id: 'shipping-latency-product',
@@ -22,7 +31,8 @@ module.exports = {
         icon: {
           id: 'close',
           title: 'Close',
-          class: 'button__icon modal__close-button-icon'
+          class: 'button__icon modal__close-button-icon',
+          hidden: true
         },
         attributes: 'type="button" aria-label="click to close the modal"'
       },
@@ -86,33 +96,30 @@ module.exports = {
     addToCartBtn: {
       tag: 'button',
       text: 'Add to cart',
-      class: 'button--add-to-icon product-view__add-to-cart',
-      iconAfter: {
-        id: 'shopping-cart',
-        title: 'Add to Cart',
-        class: 'button__icon'
-      },
+      class: 'product-view__add-to-cart',
       attributes: 'id="submit-add-to-cart-main" type="submit" aria-label="Add to cart"'
     },
     heartBtn: {
       tag: 'button',
       text: '',
-      class: 'button--icon-light product-view__button',
+      class: 'product-view__button',
       icon: {
         id: 'heart',
         title: 'Arrow left',
-        class: 'button__icon'
+        class: 'button__icon',
+        hidden: true
       },
       attributes: 'type="button" aria-label="Add product to wishlist"'
     },
     compareBtn: {
       tag: 'button',
       text: '',
-      class: 'button--icon-light product-view__button',
+      class: 'product-view__button',
       icon: {
         id: 'compare',
         title: 'Add to compare list',
-        class: 'button__icon'
+        class: 'button__icon',
+        hidden: true
       },
       attributes: 'type="button" aria-label="Compare product"'
     },
@@ -128,7 +135,8 @@ module.exports = {
         icon: {
           id: 'close',
           title: 'Close',
-          class: 'button__icon modal__close-button-icon'
+          class: 'button__icon modal__close-button-icon',
+          hidden: true
         },
         attributes: 'type="button" aria-label="click to close the modal"'
       },
@@ -159,7 +167,8 @@ module.exports = {
         icon: {
           id: 'close',
           title: 'Close',
-          class: 'button__icon modal__close-button-icon'
+          class: 'button__icon modal__close-button-icon',
+          hidden: true
         },
         attributes: 'type="button" aria-label="click to close the modal"'
       },
@@ -184,8 +193,9 @@ module.exports = {
       class: 'product-view__tab',
       icon: {
         class: 'tab__icon',
-        iconId: 'angle-down',
-        iconTitle: 'Arrow down'
+        id: 'angle-down',
+        title: 'Arrow down',
+        hidden: true
       },
       tabs: [
         {
@@ -223,7 +233,8 @@ module.exports = {
       rating: {
         class: 'rating--secondary'
       }
-    }
+    },
+    additionalBlockClass : 'margin-vc-l'
   },
   variants: [
     {

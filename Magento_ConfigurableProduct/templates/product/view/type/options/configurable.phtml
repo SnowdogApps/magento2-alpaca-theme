@@ -1,0 +1,50 @@
+<?php
+/** @var $block \Magento\ConfigurableProduct\Block\Product\View\Type\Configurable*/
+$_product    = $block->getProduct();
+$_attributes = $block->decorateArray($block->getAllowAttributes());
+?>
+<?php if ($_product->isSaleable() && count($_attributes)) :?>
+    <?php foreach ($_attributes as $_attribute) : ?>
+        <?php
+            $_attributeId = $_attribute->getAttributeId();
+        ?>
+        <div class="select field configurable required">
+            <label
+                class="label"
+                for="attribute<?= $block->escapeHtmlAttr($_attributeId) ?>"
+            >
+                <?= $block->escapeHtml($_attribute->getProductAttribute()->getStoreLabel()) ?>
+            </label>
+            <select
+                name="super_attribute[<?= $block->escapeHtmlAttr($_attributeId) ?>]"
+                data-selector="super_attribute[<?= $block->escapeHtmlAttr($_attributeId) ?>]"
+                data-validate="{required:true}"
+                id="attribute<?= $block->escapeHtmlAttr($_attributeId) ?>"
+                class="
+                    select__field
+                    select__field--native
+                    super-attribute-select
+                "
+                data-mage-init='{ "select" : {} }'
+            >
+                <option value=""><?= $block->escapeHtml(__('Choose an Option...')) ?></option>
+            </select>
+        </div>
+    <?php endforeach; ?>
+    <script type="text/x-magento-init">
+        {
+            "#product_addtocart_form": {
+                "configurable": {
+                    "spConfig": <?= /* @noEscape */ $block->getJsonConfig() ?>,
+                    "gallerySwitchStrategy": "<?= $block->escapeJs($block->getVar(
+                        'gallery_switch_strategy',
+                        'Magento_ConfigurableProduct'
+                    ) ?: 'replace'); ?>"
+                }
+            },
+            "*" : {
+                "Magento_ConfigurableProduct/js/catalog-add-to-cart": {}
+            }
+        }
+    </script>
+<?php endif;?>

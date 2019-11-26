@@ -1,0 +1,26 @@
+<?php /** @var $block \Magento\Swatches\Block\Product\Renderer\Configurable */ ?>
+<div
+    class="swatch-opt swatch__container"
+    data-role="swatch-options"
+>
+    <div class="loader loader--visible">
+        <div class="loader__icon"></div>
+    </div>
+</div>
+
+<script type="text/x-magento-init">
+    {
+        "[data-role=swatch-options]": {
+            "Magento_Swatches/js/swatch-renderer": {
+                "jsonConfig": <?= /* @noEscape */ $swatchOptions = $block->getJsonConfig() ?>,
+                "jsonSwatchConfig": <?= /* @noEscape */ $swatchOptions = $block->getJsonSwatchConfig() ?>,
+                "mediaCallback": "<?= $block->escapeJs($block->escapeUrl($block->getMediaCallback())) ?>",
+                "gallerySwitchStrategy": "<?= $block->escapeJs($block->getVar('gallery_switch_strategy', 'Magento_ConfigurableProduct')) ?: 'replace'; ?>",
+                "jsonSwatchImageSizeConfig": <?= /* @noEscape */ $block->getJsonSwatchSizeConfig() ?>
+            }
+        },
+        "*" : {
+            "Magento_Swatches/js/catalog-add-to-cart": {}
+        }
+    }
+</script>

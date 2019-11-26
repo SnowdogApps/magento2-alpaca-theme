@@ -1,0 +1,107 @@
+<div
+    class="cart-discount"
+    data-mage-init='{
+        "collapsible":{
+            "openedState": "active",
+            "saveState": false
+        }
+    }'
+>
+    <button
+        class="cart-discount__button"
+        type="button"
+        aria-expanded="false"
+        data-role="title"
+    >
+        <span class="cart-discount__button-text">
+            <?= __('Apply Discount Code') ?>
+        </span>
+
+        <svg
+            class="icon cart-discount__button-icon"
+            role="presentation"
+            focusable="false"
+        >
+            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#angle-down')) ?>"></use>
+        </svg>
+    </button>
+
+    <div
+        class="cart-discount__content"
+        data-role="content"
+        aria-hidden="true"
+    >
+        <form
+            id="discount-coupon-form"
+            class="form"
+            action="<?= $block->escapeUrl($block->getUrl('checkout/cart/couponPost')) ?>"
+            method="post"
+            data-mage-init='{
+                "discountCode":{
+                    "couponCodeSelector": "#coupon_code",
+                    "removeCouponSelector": "#remove-coupon",
+                    "applyButton": ".cart-discount__content-button--apply",
+                    "cancelButton": ".cart-discount__content-button--cancel"
+                }
+            }'
+        >
+            <div
+                class="
+                    cart-discount__controls
+                    <?php strlen($block->getCouponCode()) ? 'applied' : '' ?>
+                "
+            >
+                <input
+                    type="hidden"
+                    name="remove"
+                    id="remove-coupon"
+                    value="0"
+                >
+
+                <div class="input cart-discount__content-input">
+                    <label
+                        for="coupon_code"
+                        class="label label--hidden input__label"
+                    >
+                        <?= __('Enter discount code') ?>
+                    </label>
+
+                    <input
+                        type="text"
+                        class="input__field cart-discount__content-field"
+                        id="coupon_code"
+                        name="coupon_code"
+                        value="<?= $block->escapeHtmlAttr($block->getCouponCode()) ?>"
+                        placeholder="<?= $block->escapeHtmlAttr(__('Enter discount code')) ?>"
+                    >
+                </div>
+
+                <?php if (!strlen($block->getCouponCode())): ?>
+                    <button
+                        class="
+                            button
+                            cart-discount__content-button
+                            cart-discount__content-button--apply
+                        "
+                        type="button"
+                        value="<?= $block->escapeHtmlAttr(__('Apply Discount')) ?>"
+                    >
+                        <?= __('Apply Discount') ?>
+                    </button>
+                <?php else: ?>
+                    <button
+                        type="button"
+                        class="
+                            button
+                            cart-discount__content-button
+                            cart-discount__content-button--cancel
+                        "
+                        value="<?= $block->escapeHtmlAttr(__('Cancel Coupon')) ?>"
+                    >
+                        <?= __('Cancel Coupon') ?>
+                    </button>
+                <?php endif; ?>
+            </div>
+        </form>
+    </div>
+</div>

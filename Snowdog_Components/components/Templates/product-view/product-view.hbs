@@ -3,106 +3,117 @@
 
     <main class="product-view container">
         {{ render '@breadcrumbs' }}
+        {{ render '@messages' }}
 
-        <div class="product-view__container">
-            <div class="product-view__wrapper">
-                <div class="product-view__description">
-                    <div class="product-view__sku">
-                        {{ sku }}
-                    </div>
-
-                    <div class="product-view__title">
-                        <h1 class="heading heading--page">
-                            {{ title }}
-                        </h1>
-                    </div>
+        <div class="product-view__wrapper">
+            <div class="product-view__description">
+                <div class="product-view__sku">
+                    {{ sku }}
                 </div>
 
-                <div class="product-view__gallery">
-                    {{ render '@gallery--with-label' gallery merge=true }}
-                </div>
-
-                <div class="product-view__details">
-                    <div class="product-view__rating">
-                        {{ render '@review--summary' review }}
-
-                        <div class="product-view__stock">
-                            {{ render '@button' stockButton merge=true }}
-                            {{ render '@modal' shippingLatencyModal }}
-                        </div>
-                    </div>
-
-                    <div class="product-view__price">
-                        {{ render '@price--with-special-price' }}
-                    </div>
-
-                    <form class="product-view__form">
-                        {{ render '@swatch--image-with-label' colorSwatch merge=true }}
-                        {{ render '@select' sizeOption }}
-
-                        <div class="product-view__qty">
-                            <label
-                                for="qty"
-                                class="label"
-                            >
-                                {{ qtyLabel }}
-                            </label>
-
-                            {{ render '@quantity-update' }}
-                        </div>
-
-                        <div class="product-view__buttons">
-                            {{ render '@button--add-to-icon' addToCartBtn }}
-                            {{ render '@button--icon-light' heartBtn }}
-                            {{ render '@button--icon-light' compareBtn }}
-                        </div>
-
-                        {{ render '@add-to-cart' }}
-                    </form>
-
-                    <div class="product-view__brief">
-                        {{ render '@brief-info--buttons' }}
-                        {{ render '@modal' briefInfoModal1 }}
-                        {{ render '@modal' briefInfoModal2 }}
-                    </div>
+                <div class="product-view__title">
+                    <h1 class="heading heading--page">
+                        {{ title }}
+                    </h1>
                 </div>
             </div>
 
-            <div class="product-view__tabs">
-                <div
-                    class="product-view__tabs-sticky-wrap"
-                    data-aos="fade-down"
-                    data-aos-anchor="#tab-title-1"
-                    data-aos-anchor-placement="bottom-top"
-                >
-                    <div class="product-view__tabs-sticky">
-                        {{#each tab.tabs as |item|}}
-                            <a
-                                href="#{{item.titleId}}"
-                                class="
-                                    tab__title
-                                    tab__title--sticky
-                                    {{#if item.active}}
-                                        tab__title--active
-                                    {{/if}}
-                                "
-                            >
-                                {{ item.title }}
-                            </a>
-                        {{/each}}
-                    </div>
-                </div>
-                {{ render '@tab' tab }}
+            <div class="product-view__gallery">
+                {{ render '@gallery--with-label' gallery merge=true }}
             </div>
 
-            <!-- TO DO: !!!-->
-            {{!-- TODO: Addd missing slider--products
-            <div class="product-view__slider">
-                <h2 class="product-view__slider-title">
-                    Recently viewed
-                </h2>
-                {{ render '@slider' }}
-            </div> --}}
+            <div class="product-view__details">
+                <div class="product-view__rating">
+                    {{ render '@review--summary' review }}
+
+                    <div class="product-view__stock">
+                        {{ render '@button' stockButton merge=true }}
+                        {{ render '@modal' shippingLatencyModal }}
+                    </div>
+                </div>
+
+                <div class="product-view__price">
+                    {{ render '@price--with-special-price' }}
+                </div>
+
+                {{#if shortDescription}}
+                    <div class="product-view__short-description {{ shortDescription.class }}">
+                        {{#if shortDescription.heading}}
+                            {{ render '@heading' shortDescription.heading }}
+                        {{/if}}
+                        {{ shortDescription.text }}
+                    </div>
+                {{/if}}
+
+                <form class="product-view__form">
+                    {{ render '@swatch--image-with-label' colorSwatch merge=true }}
+                    {{ render '@select' sizeOption }}
+
+                    <div class="product-view__qty">
+                        <label
+                            for="qty"
+                            class="label"
+                        >
+                            {{ qtyLabel }}
+                        </label>
+
+                        {{ render '@quantity-update' }}
+                    </div>
+
+                    <div class="product-view__buttons">
+                        {{ render '@button' addToCartBtn }}
+                        {{ render '@button--icon' heartBtn }}
+                        {{ render '@button--icon' compareBtn }}
+                    </div>
+
+                    {{ render '@add-to-cart' }}
+                </form>
+
+                <div class="product-view__brief">
+                    {{ render '@brief-info--buttons' }}
+                    {{ render '@modal' briefInfoModal1 }}
+                    {{ render '@modal' briefInfoModal2 }}
+                </div>
+            </div>
+        </div>
+
+        <div class="product-view__tabs">
+            <div
+                class="product-view__tabs-sticky-wrap"
+                data-aos="fade-down"
+                data-aos-anchor="#tab-title-1"
+                data-aos-anchor-placement="bottom-top"
+            >
+                <div class="product-view__tabs-sticky">
+                    {{#each tab.tabs as |item|}}
+                        <a
+                            href="#{{item.titleId}}"
+                            class="
+                                tab__title
+                                tab__title--sticky
+                                {{#if item.active}}
+                                    tab__title--active
+                                {{/if}}
+                            "
+                        >
+                            {{ item.title }}
+                        </a>
+                    {{/each}}
+                </div>
+            </div>
+            {{ render '@tab' tab }}
+        </div>
+
+
+        <div class="product-view__slider">
+            <h2 class="product-view__slider-title">
+                Recently viewed
+            </h2>
+            {{ render '@slider--products' }}
+        </div>
+        <div class="product-view__additional-block {{ additionalBlockClass }}">
+            {{ render '@banner' }}
+            {{ render '@content-block' }}
         </div>
     </main>
 </div>

@@ -1,0 +1,74 @@
+<?php $_filters = $block->getActiveFilters() ?>
+<!-- TO DO: filters skip button -->
+
+<?php if (!empty($_filters)): ?>
+    <div class="active-filters">
+        <h2 class="active-filters__heading">
+            <?= __('Now Shopping by') ?>
+        </h2>
+
+        <ul class="list">
+            <?php foreach ($_filters as $_filter): ?>
+                <li
+                    class="
+                        active-filters__item
+                        list__item
+                    "
+                >
+                    <a
+                        href="<?= $block->escapeUrl($_filter->getRemoveUrl()) ?>"
+                        class="
+                            active-filters__remove
+                            button
+                            button--icon
+                        "
+                        aria-label="<?= $block->escapeHtmlAttr(__('Disable filter'))
+                            . ': '
+                            . $block->escapeHtmlAttr(__($_filter->getName()))
+                            . ' - '
+                            . $block->escapeHtmlAttr($_filter->getLabel())
+                        ?>"
+                        title="<?= $block->escapeHtmlAttr(__('Disable filter'))
+                            . ': '
+                            . $block->escapeHtmlAttr(__($_filter->getName()))
+                            . ' - '
+                            . $block->escapeHtmlAttr($_filter->getLabel())
+                        ?>"
+                    >
+                        <svg
+                            class="icon"
+                            role="presentation"
+                            focusable="false"
+                        >
+                            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#close')) ?>"></use>
+                        </svg>
+                    </a>
+                    <div class="active-filters__description">
+                        <span class="active-filters__label">
+                            <?= $block->escapeHtml(__($_filter->getName())) . ':&nbsp;' ?>
+                        </span>
+                        <span class="active-filters__value">
+                            <?= $_filter->getLabel() ?>
+                        </span>
+                    </div>
+
+                </li>
+            <?php endforeach ?>
+        </ul>
+        <a
+            href="<?= $block->escapeUrl($block->getClearUrl()) ?>"
+            class="
+                active-filters__clear-all
+                button
+                button--fluid
+                button--secondary
+                margin-top-l
+                action
+                clear
+            "
+            title="<?= __('Clear all filters') ?>"
+        >
+            <?= __('Clear All') ?>
+        </a>
+    </div>
+<?php endif ?>

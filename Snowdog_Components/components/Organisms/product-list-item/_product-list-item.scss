@@ -11,12 +11,24 @@
 
     &:hover,
     &:focus-within {
-        box-shadow: $product-list-item__shadow;
+        .lazyload-wrapper {
+            background-color: $black;
+        }
+        .image {
+            opacity: 0.8;
+        }
     }
 
     @include mq($screen-m) {
         margin: $product-list-item__margin\@medium;
         padding: $product-list-item__padding\@medium;
+    }
+
+    &__image {
+        transition: $product-list-item__transition;
+        .image {
+            transition: $product-list-item__transition;
+        }
     }
 
     &__image-link {
@@ -156,26 +168,25 @@
     }
 
     &__price {
-        display: flex;
-        flex-flow: column nowrap;
         width: $product-list-item__price-width;
-
-        .price__value {
-            font-size: $product-list-item__price-font-size;
-
-            &--old {
-                font-size: $product-list-item__price-old-font-size;
-            }
+        .price {
+            display: flex;
+            flex-flow: column nowrap;
         }
 
         @include mq($screen-m) {
             margin: $product-list-item__price-margin\@medium;
             text-align: $product-list-item__price-align;
 
+            .price {
+                align-items: flex-end;
+            }
+
             .price__value {
                 font-size: $product-list-item__price-font-size\@medium;
 
                 &--old {
+                    margin: $product-list-item__price-old-margin\@medium;
                     font-size: $product-list-item__price-old-font-size\@medium;
                 }
             }
@@ -191,33 +202,18 @@
             flex-grow: 0;
         }
 
-        .button__text {
-            font-size: $font-size-small;
-            padding: 0 $spacer;
+        .button--add-to {
+            @include add-to-button(none);
+            padding: $spacer;
 
-            @include mq($screen-s) {
-                font-size: $font-size-base;
-            }
             @include mq($screen-m) {
-                display: none;
+                @include add-to-button(block);
             }
+
             @include mq($screen-xl) {
-                display: block;
-                padding: 0 $spacer--medium;
+                @include add-to-button(none);
             }
         }
-
-        .button__icon {
-            display: none;
-            @include mq($screen-m) {
-                display: block;
-            }
-            @include mq($screen-xl) {
-                display: none;
-            }
-        }
-
-
     }
 
     &__stock {

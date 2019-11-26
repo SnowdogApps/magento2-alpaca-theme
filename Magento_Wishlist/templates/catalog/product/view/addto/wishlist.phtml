@@ -1,0 +1,37 @@
+<?php
+// @codingStandardsIgnoreFile
+
+/** @var \Magento\Wishlist\Block\Catalog\Product\View\AddTo\Wishlist $block */
+?>
+
+<?php if ($block->isWishListAllowed()) : ?>
+    <button
+        class="
+            button
+            button--icon
+            product-view__button
+        "
+        data-post='<?= $block->getWishlistParams() ?>'
+        data-action="add-to-wishlist"
+        data-testid="add-to-wishlist-button"
+        aria-label="<?= $block->escapeHtmlAttr(__('Add product to wishlist')) ?>"
+    >
+        <svg
+            class="icon button__icon"
+            role="presentation"
+            focusable="false"
+        >
+            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#heart')); ?>"></use>
+        </svg>
+    </button>
+<?php endif; ?>
+
+
+
+<script type="text/x-magento-init">
+    {
+        "body": {
+            "addToWishlist": <?= $block->getWishlistOptionsJson() ?>
+        }
+    }
+</script>
