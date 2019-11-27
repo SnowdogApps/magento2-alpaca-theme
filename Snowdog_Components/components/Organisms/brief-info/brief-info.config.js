@@ -166,6 +166,37 @@ module.exports = {
           }
         ]
       }
+    },
+    {
+      name: 'link',
+      context: {
+        class: 'brief-info--link',
+        items: [
+          {
+            isButton: false,
+            linkClass: 'link',
+            linkAttributes: 'href="#"',
+            iconLabel: 'Delivery',
+            iconWrapperClass: '',
+            icon: {
+              class: 'brief-info__icon',
+              id: 'delivery-truck',
+              title: 'Free shipping icon',
+              hidden: true
+            },
+            title: {
+              class: '',
+              tag: 'span',
+              text: 'Free Shipping'
+            },
+            subtitle: {
+              class: '',
+              tag: 'span',
+              text: 'On Hundreds of Products'
+            }
+          }
+        ]
+      }
     }
   ]
 };

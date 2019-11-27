@@ -83,18 +83,18 @@ module.exports = {
           iconLabel: 'Delivery',
           icon: {
             class: 'brief-info__icon',
-            id: 'delivery',
+            id: 'delivery-truck',
             title: 'Free shipping icon',
             hidden: true
           },
           title: {
             class: '',
-            tag: 'h3',
+            tag: 'span',
             text: 'Free Shipping'
           },
           subtitle: {
             class: '',
-            tag: 'p',
+            tag: 'span',
             text: 'On Hundreds of Products'
           }
         }
