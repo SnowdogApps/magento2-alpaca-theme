@@ -1,7 +1,9 @@
 module.exports = {
-  title: 'Product grid item',
+  title: 'Gallery',
+  default: 'vertical',
+  preview: '@docs-only-styles',
   context: {
-    typeVertical: false,
+    typeVertical: true,
     dots: false,
     imageMain: {
       dataSrc: '/images/product/product_432x648.jpg'
