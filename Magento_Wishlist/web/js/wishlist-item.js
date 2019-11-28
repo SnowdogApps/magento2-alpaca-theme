@@ -1,4 +1,3 @@
-
 define([
   'jquery',
   'Magento_Customer/js/customer-data',
