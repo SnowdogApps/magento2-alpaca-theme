@@ -3,6 +3,7 @@
 .wishlist {
     &__grid {
         justify-content: flex-start;
+        padding: $wishlist__grid-padding;
     }
 
     &__item {
@@ -40,8 +41,16 @@
     &__item-inner {
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-between;
+        flex-direction: column;
         padding: $wishlist__inner-padding;
+        border: $wishlist__item-inner-border;
+        border-width: $wishlist__item-inner-border-width;
+
+        @include mq($screen-s) {
+            flex-direction: row;
+            align-items: flex-end;
+            justify-content: space-between;
+        }
 
         @include mq($screen-m) {
             padding: $wishlist__inner-padding\@medium;
@@ -49,13 +58,19 @@
     }
 
     &__item-actions {
-        order: $wishlist__actions-order;
-        margin: $wishlist__actions-margin;
+        display: flex;
+        justify-content: space-evenly;
+        order: $wishlist__item-actions-order;
+        margin: $wishlist__item-actions-margin;
 
         &--to-cart {
-            order: $wishlist__actions-order--to-cart;
+            order: $wishlist__item-actions-order--to-cart;
             flex-basis: $wishlist__to-cart-flex-basis;
             margin: $wishlist__to-cart-margin;
+        }
+
+        @include mq($screen-s) {
+            margin: $wishlist__item-actions-margin\@small;
         }
     }
 
@@ -74,21 +89,43 @@
 
     &__label {
         margin: $wishlist__label-margin;
+        padding: $wishlist__label-paddng;
+
+        @include mq($screen-s) {
+            margin: $wishlist__label-margin\@small;
+        }
     }
 
     &__qty {
-        flex: 1;
-        min-width: $wishlist__qty-min-width;
-        max-width: $wishlist__qty-max-width;
+        display: flex;
+        align-items: center;
+        max-width: $wishlist__field-qty-max-width;
+
+        @include mq($screen-s) {
+            flex-direction: column;
+            align-items: flex-start;
+            max-width: $wishlist__field-qty-max-width\@small;
+        }
+
+        @include mq($screen-xl) {
+            max-width: $wishlist__field-qty-max-width\@xl;
+        }
     }
 
     &__field-qty {
         margin: $wishlist__field-qty-margin;
         text-align: $wishlist__field-qty-text-align;
+        min-width: 0;
     }
 
     &__button {
         width: $wishlist__button-width;
+    }
+
+    &__actions {
+        padding: $wishlist__actions-padding;
+        border: $wishlist__actions-border;
+        border-width: $wishlist__actions-border-width;
     }
 
     // Disable spin buttons in number input type
