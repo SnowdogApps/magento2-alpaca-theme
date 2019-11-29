@@ -174,7 +174,7 @@ module.exports = {
         items: [
           {
             isButton: false,
-            linkClass: 'link',
+            linkClass: 'link button button--icon button--icon-light',
             linkAttributes: 'href="#"',
             iconLabel: 'Delivery',
             iconWrapperClass: '',
