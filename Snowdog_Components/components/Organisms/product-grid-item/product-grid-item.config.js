@@ -2,12 +2,22 @@ module.exports = {
   context: {
     tag: 'div',
     class: '',
-    badge: {
-      name: 'badge--new',
-      context: {
-        class: 'badge badge--new product-grid-item__badge',
-        text: 'NEW'
-      }
+    productBadges: {
+      class: 'product-grid-item__badges',
+      badges: [
+        {
+          contentElement: 'badge',
+          contentContext: {
+            text: '-15%'
+          }
+        },
+        {
+          contentElement: 'badge--new',
+          contentContext: {
+            text: 'New'
+          }
+        }
+      ]
     },
     image: {
       wrapperClass: 'product-grid-item__image-wrapper',
@@ -72,12 +82,16 @@ module.exports = {
     {
       name: 'special-price',
       context: {
-        badge: {
-          name: 'badge',
-          context: {
-            text: '-10%',
-            class: 'product-grid-item__badge'
-          }
+        productBadges: {
+          class: 'product-grid-item__badges',
+          badges: [
+            {
+              contentElement: 'badge',
+              contentContext: {
+                text: '-10%'
+              }
+            }
+          ]
         },
         name: 'Short name',
         price: {
