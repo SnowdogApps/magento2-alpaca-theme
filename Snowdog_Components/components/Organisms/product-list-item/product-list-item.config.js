@@ -6,12 +6,22 @@ module.exports = {
       wrapperClass: 'product-list-item__image',
       dataSrc: '/images/product/product-160_240.jpg'
     },
-    badge: {
-      name: 'badge--new',
-      context: {
-        class: 'badge badge--new product-list-item__badge',
-        text: 'NEW'
-      }
+    productBadges: {
+      class: 'product-list-item__badges',
+      badges: [
+        {
+          contentElement: 'badge',
+          contentContext: {
+            text: '-15%'
+          }
+        },
+        {
+          contentElement: 'badge--new',
+          contentContext: {
+            text: 'New'
+          }
+        }
+      ]
     },
     linkName: {
       class: 'product-list-item__name-link',
