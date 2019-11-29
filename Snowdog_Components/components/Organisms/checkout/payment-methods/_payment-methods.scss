@@ -1,28 +1,55 @@
 .payment-methods {
     margin: 0 0 $spacer--extra-large;
 
-    .step-title.heading {
+    &__heading {
         @include visually-hidden();
     }
 
+    &__group {
+        position: relative;
+        margin: 0;
+    }
+
+    // Preventing unuecessary template overwrite
+    // Payment method - Extending radio inputs
     .payment-method-title {
-        input[type="radio"] {
+        @extend .radio__handler;
+
+        .radio {
+            @extend .radio__field;
             margin: 0;
         }
 
-        label {
-            &.label {
-                margin: 0 0 0 $spacer;
-            }
+        .label {
+            @extend .radio__label;
+            margin: $spacer--small 0;
         }
     }
 
-    .billing-address-same-as-shipping-block {
-        display: flex;
-        align-items: center;
+    // Payment method - Payment logo positioning
+    .payment-icon {
+        position: absolute;
+        top: -6px;
+        right: 0;
+        width: auto;
+        height: 35px;
+    }
 
-        .label {
-            margin: 0 0 0 8px;
+    // Payment method - Payment Item block
+    .payment-method {
+        &._active {
+            .payment-method-content {
+                display: block;
+            }
+        }
+
+        &-content {
+            display: none;
+            padding: 0 0 $spacer--semi-medium $spacer--semi-medium;
+        }
+
+        &-title {
+            border-top: $border-base;
         }
     }
 }
