@@ -1,5 +1,29 @@
+// Payment methods
+$payment-methods__margin                : 0 #{-$spacer} $spacer--extra-large !default;
+$payment-methods__margin\@medium        : 0 0 $spacer--extra-large !default;
+$payment-methods__group-margin          : 0 !default;
+
+// Payment method
+$payemnt-method-content__padding        : 0 0 $spacer--semi-medium $spacer--semi-medium !default;
+$payment-method-title__border           : $border-base !default;
+$payment-method-title__border-width     : 1px 0 0 0 !default;
+
+// Payment icon
+$payment-icon__top                      : -6px !default;
+$payment-icon__right                    : 0 !default;
+$payment-icon__width                    : auto !default;
+$payment-icon__height                   : 35px !default;
+
+// Radio inputs
+$payment-method-title__radio-margin     : 0 !default;
+$payment-method-title__radio-label      : $spacer--small 0 !default;
+
 .payment-methods {
-    margin: 0 0 $spacer--extra-large;
+    margin: $payment-methods__margin;
+
+    @include mq($screen-m) {
+        margin: $payment-methods__margin\@medium;
+    }
 
     &__heading {
         @include visually-hidden();
@@ -7,7 +31,7 @@
 
     &__group {
         position: relative;
-        margin: 0;
+        margin: $payment-methods__group-margin;
     }
 
     // Preventing unuecessary template overwrite
@@ -17,22 +41,22 @@
 
         .radio {
             @extend .radio__field;
-            margin: 0;
+            margin: $payment-method-title__radio-margin;
         }
 
         .label {
             @extend .radio__label;
-            margin: $spacer--small 0;
+            margin: $payment-method-title__radio-label;
         }
     }
 
     // Payment method - Payment logo positioning
     .payment-icon {
         position: absolute;
-        top: -6px;
-        right: 0;
-        width: auto;
-        height: 35px;
+        top: $payment-icon__top;
+        right: $payment-icon__right;
+        width: $payment-icon__width;
+        height: $payment-icon__height;
     }
 
     // Payment method - Payment Item block
@@ -45,11 +69,12 @@
 
         &-content {
             display: none;
-            padding: 0 0 $spacer--semi-medium $spacer--semi-medium;
+            padding: $payemnt-method-content__padding;
         }
 
         &-title {
-            border-top: $border-base;
+            border: $payment-method-title__border;
+            border-width: $payment-method-title__border-width;
         }
     }
 }

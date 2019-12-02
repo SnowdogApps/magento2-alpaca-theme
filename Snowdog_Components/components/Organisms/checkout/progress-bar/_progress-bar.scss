@@ -1,7 +1,45 @@
-$checkout-progress-bar-item-element__width                    : 32px !default;
-$checkout-progress-bar-item-element__height                   : 32px !default;
+$progress-bar__width\@medium                                  : 80% !default;
+$progress-bar__margin\@medium                                 : $spacer--extra-large auto $spacer--large !default;
+$progress-bar__padding\@medium                                : 0 !default;
+$progress-bar__font-size\@medium                              : 0 !default;
+
+$progress-bar__item-width                                     : 50% !default;
+$progress-bar__item-text-align                                : center !default;
+$progress-bar__item-vertical-align                            : top !default;
+$progress-bar__item-font-size                                 : $font-size-large !default;
+
+$progress-bar__item-background--before                        : $gray-light !default;
+$progress-bar__item-height--before                            : 2px !default;
+$progress-bar__item-width--before                             : 100% !default;
+$progress-bar__item-left--before                              : 0 !default;
+
+$progress-bar__item-border-radius--first-child                : $spacer 0 0 $spacer !default;
+$progress-bar__item-border-radius--before                     : 0 $spacer $spacer 0 !default;
+
+$progress-bar__item-background--active                        : $color-primary !default;
+$progress-bar__line-color--active                             : $gray-darkest !default;
+$progress-bar__line-background--active                        : $color-primary !default;
+
+$progress-bar__line-color--complete                           : $gray-darkest !default;
+
+$progress-bar__line-padding                                   : 60px 0 $spacer--extra-large !default;
+$progress-bar__line-width                                     : 100% !default;
+$progress-bar__line-word-wrap                                 : break-word !default;
+$progress-bar__line-color                                     : $gray-light !default;
+$progress-bar__line-font-weight                               : $font-weight-normal !default;
+$progress-bar__line-font-size                                 : $font-size-base !default;
+
+$progress-bar__line-top--before                               : 0 !default;
+$progress-bar__line-left--before                              : 50% !default;
+$progress-bar__line-background--before                        : $gray-light !default;
+$progress-bar__line-border-radius--before                     : 50% !default;
+$progress-bar__line-background--after: $white;
+
+$progress-bar__label-margin                                   : 0 !default;
+
+$checkout-progress-bar-item-element__size                     : $spacer--large !default;
 $checkout-progress-bar-item-element-outer-radius__width       : 2px !default;
-$checkout-progress-bar-item-element-inner__width              : 32px - (2px * 2) !default;
+$checkout-progress-bar-item-element-inner__width              : $checkout-progress-bar-item-element__size - ($checkout-progress-bar-item-element-outer-radius__width * 2) !default;
 $checkout-progress-bar-item-element-inner__height             : $checkout-progress-bar-item-element-inner__width !default;
 $checkout-progress-bar-item-element-inner__active__line-height: 1 !default;
 
@@ -10,29 +48,29 @@ $checkout-progress-bar-item-element-inner__active__line-height: 1 !default;
 
     @include mq($screen-m) {
         display: block;
-        width: 80%;
-        margin: 50px auto 30px;
-        padding: 0;
+        width: $progress-bar__width\@medium;
+        margin: $progress-bar__margin\@medium;
+        padding: $progress-bar__padding\@medium;
         counter-reset: i;
-        font-size: 0;
+        font-size: $progress-bar__font-size\@medium;
     }
 
     &__item {
         display: inline-block;
         position: relative;
-        width: 50%;
-        text-align: center;
-        vertical-align: top;
-        font-size: $font-size-large;
+        width: $progress-bar__item-width;
+        text-align: $progress-bar__item-text-align;
+        vertical-align: $progress-bar__item-vertical-align;
+        font-size: $progress-bar__item-font-size;
 
         &:before {
             content: '';
             position: absolute;
-            top: $checkout-progress-bar-item-element__width / 2;
-            left: 0;
-            background: $gray-light;
-            height: 2px;
-            width: 100%;
+            top: $checkout-progress-bar-item-element__size / 2;
+            left: $progress-bar__item-left--before;
+            background: $progress-bar__item-background--before;
+            height: $progress-bar__item-height--before;
+            width: $progress-bar__item-width--before;
         }
 
         &:first-child {
@@ -41,7 +79,7 @@ $checkout-progress-bar-item-element-inner__active__line-height: 1 !default;
             }
 
             &:before {
-                border-radius: 6px 0 0 6px;
+                border-radius: $progress-bar__item-border-radius--first-child;
             }
         }
 
@@ -51,20 +89,20 @@ $checkout-progress-bar-item-element-inner__active__line-height: 1 !default;
             }
 
             &:before {
-                border-radius: 0 6px 6px 0;
+                border-radius: $progress-bar__item-border-radius--before;
             }
         }
 
         &--active {
             &:before {
-                background: $color-primary;
+                background: $progress-bar__item-background--active;
             }
 
             .progress-bar__line {
-                color: $gray-darkest;
+                color: $progress-bar__line-color--active;
 
                 &:before {
-                    background: $color-primary;
+                    background: $progress-bar__line-background--active;
                 }
             }
 
@@ -77,38 +115,38 @@ $checkout-progress-bar-item-element-inner__active__line-height: 1 !default;
             cursor: pointer;
 
             .progress-bar__line {
-                color: $gray-darkest;
+                color: $progress-bar__line-color--complete;
             }
         }
     }
 
     &__line {
         display: inline-block;
-        padding: 60px 0 48px;
-        width: 100%;
-        word-wrap: break-word;
-        color: $gray-light;
-        font-weight: $font-weight-normal;
-        font-size: $font-size-base;
+        padding: $progress-bar__line-padding;
+        width: $progress-bar__line-width;
+        word-wrap: $progress-bar__line-word-wrap;
+        color: $progress-bar__line-color;
+        font-weight: $progress-bar__line-font-weight;
+        font-size: $progress-bar__line-font-size;
 
         &:before,
         &:after {
-            background: $gray-light;
-            height: $checkout-progress-bar-item-element__height;
-            margin-left: -($checkout-progress-bar-item-element__width / 2);
-            width: $checkout-progress-bar-item-element__width;
-            border-radius: 50%;
             content: '';
-            left: 50%;
             position: absolute;
-            top: 0;
+            top: $progress-bar__line-top--before;
+            left: $progress-bar__line-left--before;
+            background: $progress-bar__line-background--before;
+            height: $checkout-progress-bar-item-element__size;
+            margin-left: -($checkout-progress-bar-item-element__size / 2);
+            width: $checkout-progress-bar-item-element__size;
+            border-radius: $progress-bar__line-border-radius--before;
         }
 
         &:after {
             display: flex;
             flex-direction: column;
             justify-content: center;
-            background: $white;
+            background: $progress-bar__line-background--after;
             height: $checkout-progress-bar-item-element-inner__height;
             margin-left: (-$checkout-progress-bar-item-element-inner__width / 2);
             top: $checkout-progress-bar-item-element-outer-radius__width;
@@ -120,6 +158,6 @@ $checkout-progress-bar-item-element-inner__active__line-height: 1 !default;
 
     &__label {
         display: none;
-        margin: 0;
+        margin: $progress-bar__label-margin;
     }
 }
