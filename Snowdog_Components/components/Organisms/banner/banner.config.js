@@ -32,7 +32,8 @@ module.exports = {
       context: {
         icon: {
           id: 'arrow-right',
-          title: 'Arrow right icon'
+          title: 'Arrow right icon',
+          hidden: true
         },
         text: 'Clothing'
       }
@@ -62,7 +63,7 @@ module.exports = {
         },
         buttonCollapse: {
           tag: 'button',
-          class: 'banner__button banner__button-collapse',
+          class: 'banner__button-collapse',
           attributes: 'type="button" aria-label="see category description" aria-expanded="false"',
           text: 'More',
           iconAfter: {
@@ -73,7 +74,7 @@ module.exports = {
         },
         buttonClose: {
           tag: 'button',
-          class: 'banner__button button--icon-light button--secondary banner__button-close margin-vc-xs',
+          class: 'banner__button-close margin-vc-xs',
           attributes: 'type="button" aria-label="button"',
           text: 'Hide details',
           iconAfter: {
@@ -84,11 +85,11 @@ module.exports = {
         },
         buttonMore: {
           tag: 'a',
-          class: 'banner__button banner__button-more margin-vc-xs',
+          class: 'button--secondary margin-vc-xs',
           attributes: 'aria-label="button" tabindex="0"',
           text: 'View All',
           iconAfter: {
-            id: 'arrow-right',
+            id: 'angle-right',
             class: 'margin-right-m',
             hidden: true
           }

@@ -12,7 +12,12 @@
 
     &:hover,
     &:focus-within {
-        box-shadow: $product-grid-item__shadow--hover;
+        .lazyload-wrapper {
+            background-color: $black;
+        }
+        .image {
+            opacity: 0.8;
+        }
     }
 
     @include isIE() {
@@ -63,11 +68,6 @@
             @include mq($screen-xl) {
                 width: $product-grid-item__secondary-action-width--wishlist\@xl;
             }
-            .button {
-                .button__icon {
-                    fill: $product-grid-item__secondary-action-button-icon-fill--wishlist;
-                }
-            }
         }
     }
 
@@ -111,21 +111,12 @@
                 }
             }
         }
-
-        .product-grid-item__details-bottom {
-            flex-flow: row nowrap;
-            align-items: center;
-        }
     }
 
-    &__badge {
-        position: absolute;
-        top: $product-grid-item__badge-top-position;
-        left: $product-grid-item__badge-left-position;
-        z-index: $product-grid-item__badge-z-index;
-        padding: $product-grid-item__badge-padding;
-        font-size: $product-grid-item__badge-font-size;
-        line-height: $product-grid-item__badge-line-height;
+    &__badges {
+        top: $product-grid-item__badges-top-position;
+        left: $product-grid-item__badges-left-position;
+        z-index: $product-grid-item__badges-z-index;
     }
 
     &__link {
@@ -138,10 +129,12 @@
     }
 
     &__image-wrapper {
+        transition: $product-grid-item__transition;
         .image {
             margin: $product-grid-item__image-margin;
             width: $product-grid-item__image-width;
             height: $product-grid-item__image-height;
+            transition: $product-grid-item__transition;
         }
         .lazyload,
         .lazyloading {
@@ -235,6 +228,12 @@
 
     &__primary-action {
         margin: $catalog-gird-item__primary-margin;
+
+        .button--add-to {
+            @include mq($screen-m) {
+                @include add-to-button(block);
+            }
+        }
     }
 
     // elements from product-grid-item--wishlist variant
@@ -272,9 +271,16 @@
     }
 
     .add-to-wishlist {
+        @extend .button--icon-fill;
         position: absolute;
         top: 0;
         right: 0;
         background: $product-grid-item__action-wishlist-background;
+        &:before {
+            display: none;
+        }
+        &.button--icon-filled {
+            @extend %hover-fill;
+        }
     }
 }

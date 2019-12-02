@@ -11,11 +11,12 @@ module.exports = {
     buttons: [
       {
         ariaLabel: 'Wishlist',
-        class: 'margin-right-xs',
+        class: 'button--icon-fill margin-right-xs',
         icon: {
           id: 'heart',
           title: 'Heart',
-          class: 'header-button__icon'
+          class: 'header-button__icon',
+          hidden: true
         }
       }
     ],
@@ -46,11 +47,12 @@ module.exports = {
     searchButton: {
       tag: 'button',
       text: '',
-      class: 'button--icon button--icon-light search-form__button',
+      class: 'button--icon search-form__button',
       icon: {
         id: 'search',
         title: 'Search',
-        class: 'button__icon'
+        class: 'button__icon',
+        hidden: true
       },
       attributes: 'type="button" aria-label="Search"',
     },
@@ -58,7 +60,8 @@ module.exports = {
       icon: {
         id: 'shopping-cart',
         title: 'Shopping cart',
-        class: 'header-button__icon'
+        class: 'header-button__icon',
+        hidden: true
       },
       link: '/cart',
       ariaLabel: 'Shopping cart dropdown trigger'
@@ -87,18 +90,18 @@ module.exports = {
           iconLabel: 'Delivery',
           icon: {
             class: 'brief-info__icon',
-            id: 'delivery',
+            id: 'delivery-truck',
             title: 'Free shipping icon',
             hidden: true
           },
           title: {
             class: '',
-            tag: 'h3',
+            tag: 'span',
             text: 'Free Shipping'
           },
           subtitle: {
             class: '',
-            tag: 'p',
+            tag: 'span',
             text: 'On Hundreds of Products'
           }
         }

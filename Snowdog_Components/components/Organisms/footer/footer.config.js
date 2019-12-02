@@ -23,6 +23,7 @@ module.exports = {
       class: 'list--with-icon list--horizontal footer__social-list',
       elements: [
         {
+          linkClass: 'button button--icon button--icon-border',
           icon: {
             id: 'facebook',
             title: 'Facebook logo',
@@ -32,6 +33,7 @@ module.exports = {
           linkAttributes: 'aria-label="Go to Our Facebook Page"'
         },
         {
+          linkClass: 'button button--icon button--icon-border',
           icon: {
             id: 'twitter',
             title: 'Twitter logo',
@@ -54,7 +56,8 @@ module.exports = {
           collapse: {
             class: 'dropdown-list__icon dropdown-list__icon--inner',
             id: 'angle-down',
-            title: 'Arrow down'
+            title: 'Arrow down',
+            hidden: true
           },
           contentElement: 'list--columns',
           contentContext: {

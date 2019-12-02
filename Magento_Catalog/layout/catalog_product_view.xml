@@ -48,9 +48,15 @@
                     htmlClass="product-view__gallery"
                     htmlTag="div"
                 >
+                    <block
+                        class="Magento\Catalog\Block\Product\View"
+                        name="product.badge"
+                        template="Magento_Catalog::product/view/badge.phtml"
+                        before="-"
+                    />
                     <referenceContainer
                         name="product.info.media"
-                        htmlClass="gallery galler--vertical"
+                        htmlClass="gallery"
                     />
                 </container>
 
@@ -59,19 +65,18 @@
                         name="product.column.right.review"
                         htmlClass="product-view__rating"
                         htmlTag="div"
+                    />
+
+                    <referenceContainer
+                        name="product.info.price"
+                        htmlClass="product-view__price"
                     >
                         <block
                             class="Magento\Catalog\Block\Product\View"
                             name="product.info.freeshipping"
                             template="Magento_Catalog::product/view/shipping-latency.phtml"
-                            after="product.info.review"
                         />
-                    </container>
-
-                    <referenceContainer
-                        name="product.info.price"
-                        htmlClass="product-view__price"
-                    />
+                    </referenceContainer>
 
                     <referenceBlock
                         name="product.info.overview"
@@ -143,7 +148,22 @@
                                         class="Magento\Wishlist\Block\Catalog\Product\View\AddTo\Wishlist"
                                         name="view.addto.wishlist.sticky"
                                         template="Magento_Wishlist::catalog/product/view/addto/wishlist.phtml"
-                                    />
+                                    >
+                                        <arguments>
+                                            <argument
+                                                name="additional_class"
+                                                xsi:type="string"
+                                            >
+                                                add-to-cart__button-additional
+                                            </argument>
+                                            <argument
+                                                name="has_text"
+                                                xsi:type="boolean"
+                                            >
+                                                true
+                                            </argument>
+                                        </arguments>
+                                    </block>
                                     <block
                                         class="Magento\Catalog\Block\Product\View\AddTo\Compare"
                                         name="view.addto.compare.sticky"
@@ -155,6 +175,18 @@
                                                 xsi:type="object"
                                             >
                                                 Magento\Catalog\ViewModel\Product\Checker\AddToCompareAvailability
+                                            </argument>
+                                            <argument
+                                                name="additional_class"
+                                                xsi:type="string"
+                                            >
+                                                add-to-cart__button-additional
+                                            </argument>
+                                            <argument
+                                                name="has_text"
+                                                xsi:type="boolean"
+                                            >
+                                                true
                                             </argument>
                                         </arguments>
                                     </block>
@@ -204,15 +236,18 @@
                         template="Magento_Catalog::product/view/review.phtml"
                         before="-"
                     />
+
                     <block
                         class="Magento\Review\Block\Product\View\ListView"
                         name="product.tabs.reviews"
                         template="Magento_Review::product/view/list.phtml"
-                    />
-                    <block
-                        class="Magento\Theme\Block\Html\Pager"
-                        name="product_review_list.toolbar"
-                    />
+                    >
+                        <block
+                            class="Magento\Theme\Block\Html\Pager"
+                            name="product_review_list.toolbar"
+                        />
+                    </block>
+
                 </referenceBlock>
             </container>
 
@@ -228,6 +263,27 @@
                 </block>
             </container>
         </container>
+        <referenceBlock name="view.addto.wishlist">
+            <arguments>
+                <argument
+                    name="additional_class"
+                    xsi:type="string"
+                >
+                    product-view__button
+                </argument>
+            </arguments>
+        </referenceBlock>
+
+        <referenceBlock name="view.addto.compare">
+            <arguments>
+                <argument
+                    name="additional_class"
+                    xsi:type="string"
+                >
+                    product-view__button
+                </argument>
+            </arguments>
+        </referenceBlock>
 
         <!--Moved blocks-->
         <move
@@ -255,6 +311,12 @@
             destination="product.column.right.review"
             before="-"
         />
+        <move
+            element="product.info.freeshipping"
+            destination="product.column.right.review"
+            after="product.info.review"
+        />
+
         <move
             element="product.column.right.review"
             destination="product.info.main"
@@ -314,7 +376,7 @@
         <move
             element="product.review.form"
             destination="reviews.tab"
-            after="product_review_list.toolbar"
+            before="product.tabs.reviews"
         />
         <move
             element="content.aside"
