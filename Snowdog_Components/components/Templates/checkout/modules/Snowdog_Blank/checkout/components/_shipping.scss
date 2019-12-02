@@ -10,7 +10,8 @@ $checkout-shipping-item__line-height           : 30px !default;
 $checkout-shipping-item__margin                : 0 0 $indent__base !default;
 $checkout-shipping-item__padding               : $indent__base ($indent__l + 5px) $indent__base $indent__base !default;
 $checkout-shipping-item__transition            : 0.3s border-color !default;
-$checkout-shipping-item__width                 : 33.3333% !default;
+$checkout-shipping-item__width                 : 50% !default;
+$checkout-shipping-item__min-height            : 300px !default;
 $checkout-shipping-item-tablet__width          : 50% !default;
 $checkout-shipping-item-mobile__width          : 100% !default;
 $checkout-shipping-item__active__border-color  : $color-orange-red1 !default;
@@ -50,6 +51,7 @@ $checkout-shipping-method__padding             : 0 !default;
         padding: $checkout-shipping-item__padding;
         transition: $checkout-shipping-item__transition;
         width: $checkout-shipping-item-tablet__width;
+        min-height: $checkout-shipping-item__min-height;
         display: inline-block;
         font-size: $font-size__base;
         position: relative;
@@ -60,8 +62,7 @@ $checkout-shipping-method__padding             : 0 !default;
             border-color: $checkout-shipping-item__active__border-color;
 
             .action-select-shipping-item {
-                @extend .abs-no-display-s;
-                visibility: hidden;
+                @extend .button:disabled;
             }
         }
 
@@ -155,7 +156,6 @@ $checkout-shipping-method__padding             : 0 !default;
             width: 100%;
 
             &.selected-item {
-                padding: $checkout-shipping-item-mobile__active__padding;
                 border-bottom-width: 2px;
 
                 .edit-address-link {
@@ -191,34 +191,6 @@ $checkout-shipping-method__padding             : 0 !default;
     .opc-wrapper {
         .shipping-address-item {
             width: $checkout-shipping-item__width;
-
-            &:before {
-                background: $checkout-shipping-item-before__border-color;
-                height: $checkout-shipping-item-before__height;
-                content: '';
-                left: 0;
-                position: absolute;
-                top: 0;
-                width: 1px;
-            }
-
-            &:nth-child(3n + 1) {
-                &:before {
-                    display: none;
-                }
-            }
-
-            &.selected-item {
-                &:before {
-                    display: none;
-                }
-
-                + .shipping-address-item {
-                    &:before {
-                        display: none;
-                    }
-                }
-            }
         }
     }
 }
