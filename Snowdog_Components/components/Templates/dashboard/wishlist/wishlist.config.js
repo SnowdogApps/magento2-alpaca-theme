@@ -3,6 +3,7 @@ module.exports = {
     class: 'margin-vc-m',
     sidebarClass: 'dashboard__sidebar margin-top-sl',
     contentClass: 'dashboard__content margin-top-sl',
+    actionsGroupClass: 'wishlist__actions',
     breadcrumbs: {
       categories: [
         {
@@ -25,6 +26,7 @@ module.exports = {
     wishlistItems: [
       {
         product: {
+          class: 'col-xs-6 col-md-4',
           image: {
             dataSrc: '/images/catalog-grid-item/product-color-swatch-image-1-32_40.jpg'
           },
@@ -51,16 +53,17 @@ module.exports = {
           }
         },
         qty: {
-          class: 'input--inline wishlist__qty',
+          class: 'wishlist__qty',
           label: {
-            text: 'Qty:',
+            text: 'Quantity:',
             class: 'wishlist__label'
           },
           field: {
             id: 'qty',
             name: 'qty',
             type: 'number',
-            class: 'wishlist__field-qty'
+            class: 'wishlist__field-qty',
+            attributes: 'value="1"'
           }
         },
         editIcon: {
@@ -77,7 +80,7 @@ module.exports = {
         removeIcon: {
           tag: 'button',
           attributes: 'type="button" aria-label="Remove product from wishlist"',
-          class: 'margin-left-xs',
+          class: '',
           icon: {
             id: 'remove',
             title: 'Remove',
@@ -93,6 +96,7 @@ module.exports = {
       },
       {
         product: {
+          class: 'col-xs-6 col-md-4',
           image: {
             dataSrc: '/images/catalog-grid-item/product-color-swatch-image-1-32_40.jpg'
           },
@@ -119,16 +123,17 @@ module.exports = {
           }
         },
         qty: {
-          class: 'input--inline wishlist__qty',
+          class: 'wishlist__qty',
           label: {
-            text: 'Qty:',
+            text: 'Quantity:',
             class: 'wishlist__label'
           },
           field: {
             id: 'qty2',
             name: 'qty',
             type: 'number',
-            class: 'wishlist__field-qty'
+            class: 'wishlist__field-qty',
+            attributes: 'value="1"'
           }
         },
         editIcon: {
@@ -145,7 +150,7 @@ module.exports = {
         removeIcon: {
           tag: 'button',
           attributes: 'href="#" aria-label="Remove product from wishlist"',
-          class: 'margin-left-xs',
+          class: '',
           icon: {
             id: 'remove',
             title: 'Remove',
@@ -164,17 +169,17 @@ module.exports = {
       {
         tag: 'button',
         text: 'Update Wish List',
-        class: 'button--secondary action__button'
+        class: 'actions-group__button'
       },
       {
         tag: 'button',
         text: 'Share Wish List',
-        class: 'button--secondary action__button'
+        class: 'button--secondary actions-group__button'
       },
       {
         tag: 'button',
         text: 'Add All to Cart',
-        class: 'button--secondary action__button'
+        class: 'button--secondary actions-group__button'
       }
     ],
     backLink: {
