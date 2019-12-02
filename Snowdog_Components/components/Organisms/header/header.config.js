@@ -7,6 +7,7 @@ module.exports = {
     megaMenu: true,
     skipNav: true,
     marketingBar: true,
+    minicart: true,
     buttons: [
       {
         ariaLabel: 'Wishlist',
@@ -113,10 +114,20 @@ module.exports = {
         sideMenu: false,
         search: false,
         megaMenu: false,
-        buttons: true,
         briefInfo: false,
         skipNav: false,
         marketingBar: false,
+        minicart: false,
+        buttons: [
+          {
+            ariaLabel: 'cartLink',
+            icon: {
+              id: 'shopping-cart',
+              title: 'cart link',
+              class: 'header-button__icon'
+            }
+          }
+        ]
       }
     }
   ]

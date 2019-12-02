@@ -30,28 +30,43 @@
             {{#if buttons }}
                 <div class="header__buttons">
                     {{#each buttons as |item| }}
-                        <a class="header-button button button--icon button--icon-light {{ item.class }}"
-                        href="#"
-                        aria-label="{{ item.ariaLabel }}"
+                        <a
+                            class="
+                                header-button
+                                button button--icon
+                                button--icon-light
+                                {{ item.class }}
+                            "
+                            href="#"
+                            aria-label="{{ item.ariaLabel }}"
                         >
                             {{ render '@icon' item.icon }}
                         </a>
                     {{/each}}
 
-                    <div class="header__minicart">
-                        <button
-                            type="button"
-                            class="header-button button button--icon button--icon-light modal-trigger margin-left-xs"
-                            aria-label="{{ minicartTrigger.ariaLabel }}"
-                            data-modal-trigger="modal-minicart"
-                        >
-                            {{ render '@icon' minicartTrigger.icon }}
-                            <span class="header-button__counter">
-                                <span class="header-button__counter-dot"></span>
-                            </span>
-                        </button>
-                    </div>
-                    {{ render '@modal--secondary' minicartModal merge=true }}
+                    {{#if minicart}}
+                        <div class="header__minicart">
+                            <button
+                                type="button"
+                                class="
+                                    header-button
+                                    button button--icon
+                                    button--icon-light
+                                    modal-trigger
+                                    margin-left-xs
+                                "
+                                aria-label="{{ minicartTrigger.ariaLabel }}"
+                                data-modal-trigger="modal-minicart"
+                            >
+                                {{ render '@icon' minicartTrigger.icon }}
+                                <span class="header-button__counter">
+                                    <span class="header-button__counter-dot"></span>
+                                </span>
+                            </button>
+                        </div>
+
+                        {{ render '@modal--secondary' minicartModal merge=true }}
+                    {{/if}}
                 </div>
             {{/if}}
 
