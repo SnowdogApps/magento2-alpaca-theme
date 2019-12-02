@@ -57,13 +57,33 @@ module.exports = {
           products: [
             {
               label: 'Simple product oh this is such a loooong name 1',
-              quantity: 1,
-              price: '$100'
+              price: '$100',
+              quantity: {
+                label: 'Quantity',
+                value: 1
+              },
+              img: {
+                src: 'data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAABCAQAAABN/Pf1AAAAC0lEQVR42mNkwAIAACoAAgu1Hc4AAAAASUVORK5CYII=',
+                dataSrc: '/images/banner/banner-480_480.png',
+                alt: 'Simple product oh this is such a loooong name 1',
+                wrapperClass: 'order-summary__product-image',
+                attributes: 'width="78" height="78"'
+              }
             },
             {
               label: 'Simple product oh this is such a loooong name 1',
-              quantity: 3,
-              price: '$100000'
+              price: '$100000',
+              quantity: {
+                label: 'Quantity',
+                value: 3
+              },
+              img: {
+                src: 'data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAABCAQAAABN/Pf1AAAAC0lEQVR42mNkwAIAACoAAgu1Hc4AAAAASUVORK5CYII=',
+                dataSrc: '/images/banner/banner-480_480.png',
+                alt: 'Simple product oh this is such a loooong name 1',
+                wrapperClass: 'order-summary__product-image',
+                attributes: 'width="78" height="78"'
+              }
             }
           ]
         }
