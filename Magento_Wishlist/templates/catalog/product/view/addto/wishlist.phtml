@@ -2,6 +2,8 @@
 // @codingStandardsIgnoreFile
 
 /** @var \Magento\Wishlist\Block\Catalog\Product\View\AddTo\Wishlist $block */
+$buttonText = $block->getHasText();
+$additionalClass = $block->getAdditionalClass();
 ?>
 
 <?php if ($block->isWishListAllowed()) : ?>
@@ -9,7 +11,7 @@
         class="
             button
             button--icon
-            product-view__button
+            <?= $block->escapeHtmlAttr($additionalClass) ?>
         "
         data-post='<?= $block->getWishlistParams() ?>'
         data-action="add-to-wishlist"
@@ -23,6 +25,11 @@
         >
             <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#heart')); ?>"></use>
         </svg>
+        <?php if($buttonText): ?>
+            <span class="button__text">
+                <?= __('Wishlist') ?>
+            </span>
+        <?php endif; ?>
     </button>
 <?php endif; ?>
 
