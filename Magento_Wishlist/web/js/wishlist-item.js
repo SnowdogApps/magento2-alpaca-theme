@@ -11,10 +11,12 @@ define([
       items = wishlist().items,
       productId = config.productId;
 
-    items.forEach(item => {
-      if (item.product_id === productId) {
-        button.addClass(config.class);
-      }
-    });
+    if (items) {
+      items.forEach(item => {
+        if (item.product_id === productId) {
+          button.addClass(config.class);
+        }
+      });
+    }
   };
 });
