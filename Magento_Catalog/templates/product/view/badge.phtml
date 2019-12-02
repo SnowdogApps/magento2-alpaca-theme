@@ -1,0 +1,34 @@
+<?php
+$product = $block->getProduct();
+?>
+<?php if ($product->getBadge()): ?>
+    <?php $productBadges = $product->getAttributeText('badge'); ?>
+    <div
+        class="
+            badges
+            product-view__badges
+        "
+    >
+        <?php if (is_array($productBadges)): ?>
+            <?php foreach ($productBadges as $productBadge): ?>
+                <div
+                    class="
+                        badge
+                        badge--<?= $block->escapeHtmlAttr(mb_strtolower($productBadge, 'UTF-8')) ?>
+                    "
+                >
+                    <?= $block->escapeHtml($productBadge) ?>
+                </div>
+            <?php endforeach ?>
+        <?php else: ?>
+            <div
+                class="
+                    badge
+                    badge--<?= $block->escapeHtmlAttr(mb_strtolower($productBadges, 'UTF-8')) ?>
+                "
+            >
+                <?= $block->escapeHtml($productBadges) ?>
+            </div>
+        <?php endif ?>
+    </div>
+<?php endif ?>

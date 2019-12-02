@@ -80,21 +80,6 @@ module.exports = {
       }
     },
     {
-      name: 'with-label',
-      context: {
-        productLabels: [
-          {
-            class: '',
-            text: '-15%'
-          },
-          {
-            class: 'badge--new',
-            text: 'new'
-          }
-        ]
-      }
-    },
-    {
       name: 'dots-breakpoint',
       context: {
         dots: true

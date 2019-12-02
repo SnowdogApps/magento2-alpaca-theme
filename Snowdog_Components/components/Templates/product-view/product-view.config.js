@@ -5,6 +5,23 @@ module.exports = {
     gallery: {
       class: 'gallery--dots'
     },
+    productBadges: {
+      class: 'product-view__badges',
+      badges: [
+        {
+          contentElement: 'badge',
+          contentContext: {
+            text: '-15%'
+          }
+        },
+        {
+          contentElement: 'badge--new',
+          contentContext: {
+            text: 'New'
+          }
+        }
+      ]
+    },
     stockButton: {
       class: 'button--link modal-trigger product-view__stock',
       text: 'In stock',
