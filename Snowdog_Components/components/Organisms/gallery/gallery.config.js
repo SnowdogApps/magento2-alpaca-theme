@@ -1,7 +1,9 @@
 module.exports = {
-  title: 'Product grid item',
+  title: 'Gallery',
+  default: 'vertical',
+  preview: '@docs-only-styles',
   context: {
-    typeVertical: false,
+    typeVertical: true,
     dots: false,
     imageMain: {
       dataSrc: '/images/product/product_432x648.jpg'
@@ -75,21 +77,6 @@ module.exports = {
       name: 'horizontal',
       context: {
         typeHorizontal: true
-      }
-    },
-    {
-      name: 'with-label',
-      context: {
-        productLabels: [
-          {
-            class: '',
-            text: '-15%'
-          },
-          {
-            class: 'badge--new',
-            text: 'new'
-          }
-        ]
       }
     },
     {

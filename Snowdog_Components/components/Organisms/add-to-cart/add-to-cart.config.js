@@ -1,23 +1,23 @@
 module.exports = {
   context: {
     title: 'Bluzka ONLSANSA SINGLET WVN',
-    moreBtn: {
-      tag: 'button',
-      text: '',
-      class: 'add-to-cart__button-more',
-      icon: {
-        id: 'more',
-        title: 'More',
-        class: 'button__icon',
-        hidden: true
-      },
-      attributes: 'type="button" aria-expanded="false"'
+    moreIcon: {
+      id: 'more',
+      title: 'More',
+      class: 'button__icon',
+      hidden: true
+    },
+    moreIconClose: {
+      id: 'close',
+      title: 'Close',
+      class: 'button__icon-close',
+      hidden: true
     },
     wishlistBtn: {
       tag: 'button',
-      text: '',
+      text: 'Wishlist',
       class: 'product-view__button',
-      icon: {
+      iconBefore: {
         id: 'heart',
         title: 'Arrow left',
         class: 'button__icon',
@@ -27,9 +27,9 @@ module.exports = {
     },
     compareBtn: {
       tag: 'button',
-      text: '',
+      text: 'Compare',
       class: 'product-view__button',
-      icon: {
+      iconBefore: {
         id: 'compare',
         title: 'Add to compare list',
         class: 'button__icon',
