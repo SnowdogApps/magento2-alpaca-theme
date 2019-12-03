@@ -14,13 +14,6 @@ define([
   return function (widget) {
     $.widget('snowdog.quickSearch', widget, {
 
-      /**
-       * Return the wrapper for all autocomplete results
-       *
-       * @returns {*|jQuery|HTMLElement}
-       *
-       * @private
-       */
       _getResultWrapper: function () {
         return $('<div class="quicksearch__content"></div>');
       },
@@ -35,7 +28,7 @@ define([
 
       _renderSearchHeader: function(query) {
         const data = {
-          type: "results_header",
+          type: 'results_header',
           query: query,
           text: $.mage.__('Results for your request')
         };
@@ -45,7 +38,7 @@ define([
 
       _renderSearchFooter: function(query) {
         const data = {
-          type: "results_footer",
+          type: 'results_footer',
           link: {
             text: $.mage.__('See all'),
             href: `/catalogsearch/result?q=${query}`,
@@ -58,7 +51,7 @@ define([
 
       _renderCloseButton: function() {
         const data = {
-          type: "close_button",
+          type: 'close_button',
           title: $.mage.__('Close quicksearch'),
           href: require.toUrl('images/icons-sprite.svg#close')
         };
