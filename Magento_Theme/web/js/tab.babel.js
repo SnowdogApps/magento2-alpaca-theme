@@ -28,8 +28,6 @@ define(() => (config, element) => {
           clean(item);
           setActiveContent(item, tabTitle);
         });
-
-        // item.classList.add(activeTitleClass);
       });
     }
   });
