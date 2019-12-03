@@ -95,7 +95,8 @@ define([
 
         if (this.titleRenderers && this.titleRenderers[type]) {
           title = heading.html(this.titleRenderers[type].render(data));
-        } else if (this.options.templates && this.options.templates[type].title) {
+        }
+        else if (this.options.templates && this.options.templates[type].title) {
           title = heading.html(this.options.templates[type].title);
         }
 
