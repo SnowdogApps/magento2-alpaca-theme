@@ -55,6 +55,16 @@ define([
         return this._renderItem(data, 0);
       },
 
+      _renderCloseButton: function() {
+        const data = {
+          type: "close_button",
+          title: $.mage.__('Close quicksearch'),
+          href: require.toUrl('images/icons-sprite.svg#close')
+        };
+
+        return this._renderItem(data, 0);
+      },
+
       _initTitleRenderer: function() {
         this.titleRenderers = {};
         for (var typeIdentifier in this.options.templates) {
@@ -114,6 +124,7 @@ define([
               var sidebarWrapper = this._getSidebarWrapper();
               var resultsHeader = this._renderSearchHeader(value);
               var resultsFooter = this._renderSearchFooter(value);
+              var closeButton = this._renderCloseButton();
 
               this.autoComplete.empty();
 
@@ -167,6 +178,8 @@ define([
               if (products.length) {
                 this.autoComplete.append(resultsFooter);
               }
+
+              this.autoComplete.append(closeButton);
 
               this._resetResponseList(false);
               this.element.removeAttr('aria-activedescendant');
