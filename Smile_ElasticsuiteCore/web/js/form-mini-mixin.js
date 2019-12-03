@@ -47,7 +47,7 @@ define([
           type: "results_footer",
           link: {
             text: $.mage.__('See all'),
-            href: `catalogsearch/result?q=${query}`,
+            href: `/catalogsearch/result?q=${query}`,
             title: $.mage.__('See all results')
           }
         };
@@ -189,6 +189,11 @@ define([
               } else {
                 this._updateAriaHasPopup(false);
               }
+
+              $('.quicksearch__close-button').on('click', function (e) {
+                self._resetResponseList(true);
+                self.autoComplete.hide();
+              })
 
               this.responseList.indexList
                 .on('click', function (e) {
