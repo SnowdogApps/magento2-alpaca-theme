@@ -24,7 +24,6 @@ define([
 
       $.post(url, data).done(function() {
         const addToMessage = $.cookieStorage.get('mage-messages');
-        console.log(addToMessage);
         // add class to mark that product is added to wishlist
         if (addToMessage[0].type === 'success') {
           button.addClass(config.class);
