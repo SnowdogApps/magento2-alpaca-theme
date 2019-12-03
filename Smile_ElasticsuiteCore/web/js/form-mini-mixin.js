@@ -93,12 +93,7 @@ define([
       },
 
       _onPropertyChange: _.debounce(function () {
-        var searchField = this.element,
-            clonePosition = {
-              position: 'absolute',
-              width: searchField.outerWidth()
-            },
-            value = this.element.val();
+        var value = this.element.val();
 
         this.submitBtn.disabled = this._isEmpty(value);
 
@@ -165,7 +160,6 @@ define([
               }
 
               this.responseList.indexList = this.autoComplete.html(content)
-                .css(clonePosition)
                 .show()
                 .find(this.options.responseFieldElements + ':visible');
 
