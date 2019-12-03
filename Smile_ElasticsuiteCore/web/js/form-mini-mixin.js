@@ -36,7 +36,8 @@ define([
       _renderSearchHeader: function(query) {
         const data = {
           type: "results_header",
-          query: query
+          query: query,
+          text: $.mage.__('Results for your request')
         };
 
         return this._renderItem(data, 0);
