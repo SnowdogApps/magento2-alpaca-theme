@@ -12,190 +12,141 @@ $ctSmallImgPrefix = 'cb_small_img_';
 $recommendedArticles = [];
 $filtersBlock = $block->getChildBlock('blog-filter');
 $filters = $filtersBlock->getFilters();
+$recentArticlesBlock = $block->getChildBlock('recent-articles');
+$recentArticles = $recentArticlesBlock->getCollection();
 ?>
-<div class="row between-xs blog">
-    <div class="col-xs-12 col-lg-9">
-        <?php if ($collection->count()): ?>
-            <?php if ($block->hasPagerTop()): ?>
+
+<?php if ($collection->count()): ?>
+    <div class="blog row between-lg">
+        <div class="blog__articles col-md-8">
+            <?php if ($block->hasPagerTop()) : ?>
                 <?= $block->getPagerHtml(); ?>
             <?php endif; ?>
-            <div class="row__content blog__list">
-                <ul class="list list--article">
-                    <?php foreach ($collection as $content): ?>
-                        <?php
-                            $link = $block->escapeUrl($content->getLinkUrl());
-                            $date = new DateTime($content->getData($ctPrefix . 'date'));
-                            $dateFormatted = $date->format('F j\,\ Y');
-                            $title = $content->getData($ctPrefix . 'title');
-                            $description = $content->getData($ctPrefix . 'short_desc');
-                            $isRecommended = $content->getData($ctPrefix . 'recommended');
+            <ul class="list blog__articles-list">
+                <?php foreach ($collection as $content) : ?>
+                    <?php
+                        $link = $block->escapeUrl($content->getLinkUrl());
+                        $date = new DateTime($content->getData($ctPrefix . 'date'));
+                        $dateFormatted = $date->format('F j\,\ Y');
+                        $title = $content->getData($ctPrefix . 'title');
+                        $description = $content->getData($ctPrefix . 'short_desc');
 
-                            if ($isRecommended) {
-                                $recommendedArticles[] = [
-                                    'link' => $link,
-                                    'title' => $title,
-                                    'date' => $dateFormatted
-                                ];
-                            }
+                        $thumbnailAttributes = [
+                            $ctSmallImgPrefix . 'alt',
+                            $ctSmallImgPrefix . 'default',
+                            $ctSmallImgPrefix . 'max_480',
+                            $ctSmallImgPrefix . 'max_768',
+                            $ctSmallImgPrefix . 'max_1024',
+                        ];
 
-                            $thumbnailAttributes = [
-                                $ctSmallImgPrefix . 'alt',
-                                $ctSmallImgPrefix . 'default',
-                                $ctSmallImgPrefix . 'max_480',
-                                $ctSmallImgPrefix . 'max_768',
-                                $ctSmallImgPrefix . 'max_1024',
-                            ];
+                        $thumbnailId = (int) explode(',', $content->getData($ctPrefix . 'thumbnail'))[0];
+                        $thumbnailsContent = $content->getContentCollection($ctPrefix . 'thumbnail', $thumbnailAttributes);
+                        $thumbnailDefault = '';
+                        $thumbnailAlt = '';
 
-                            $thumbnailId = (int) explode(',', $content->getData($ctPrefix . 'thumbnail'))[0];
-                            $thumbnailsContent = $content->getContentCollection($ctPrefix . 'thumbnail', $thumbnailAttributes);
-                            $thumbnailDefault = '';
-                            $thumbnailAlt = '';
+                        $thumbnails = $thumbnailsContent->getItems();
+                        $thumbnail = $thumbnails[$thumbnailId];
 
-                            $thumbnails = $thumbnailsContent->getItems();
-                            $thumbnail = $thumbnails[$thumbnailId];
+                        if (!empty($thumbnail)) {
+                            $thumbnailDefault = $block->escapeUrl($thumbnail->getFile($ctSmallImgPrefix . 'default'));
+                            $thumbnail480 = $block->escapeUrl($thumbnail->getFile($ctSmallImgPrefix . 'max_480'));
+                            $thumbnail768 = $block->escapeUrl($thumbnail->getFile($ctSmallImgPrefix . 'max_768'));
+                            $thumbnail1024 = $block->escapeUrl($thumbnail->getFile($ctSmallImgPrefix . 'max_1024'));
+                            $thumbnailAlt = $thumbnail->getData($ctSmallImgPrefix . 'alt');
 
-                            if (!empty($thumbnail)) {
-                                $thumbnailDefault = $block->escapeUrl($thumbnail->getFile($ctSmallImgPrefix . 'default'));
-                                $thumbnail480 = $block->escapeUrl($thumbnail->getFile($ctSmallImgPrefix . 'max_480'));
-                                $thumbnail768 = $block->escapeUrl($thumbnail->getFile($ctSmallImgPrefix . 'max_768'));
-                                $thumbnail1024 = $block->escapeUrl($thumbnail->getFile($ctSmallImgPrefix . 'max_1024'));
-                                $thumbnailAlt = $thumbnail->getData($ctSmallImgPrefix . 'alt');
-
-                                $block->getChildBlock('colibri-blog-thumbnail')->setData([
-                                    'picture_class' => 'thumbnail__image',
-                                    'picture_full_url' => true,
-                                    'img_default' => $thumbnailDefault,
-                                    'img_480' => $thumbnail480,
-                                    'img_768' => $thumbnail768,
-                                    'img_1024' => $thumbnail1024,
-                                    'picture_alt' => $thumbnailAlt
-                                ]);
-                            }
-                        ?>
-                        <li class="list__item ">
-                            <div class="list__item-thumbnail">
-                                <a
-                                    href="<?= $link ?>"
-                                    class="
-                                        link
-                                        link--tile
-                                        list__link
-                                    "
-                                    title="<?= $block->escapeHtmlAttr($title) ?>"
-                                >
-                                    <div class="lazyload-wrapper">
-                                        <?= $block->getChildHtml('colibri-blog-thumbnail', false); ?>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="list__item-info">
-                                <span class="list__item-subtitle">
+                            $block->getChildBlock('colibri-blog-thumbnail')->setData([
+                                'picture_class' => 'thumbnail__image',
+                                'picture_full_url' => true,
+                                'img_default' => $thumbnailDefault,
+                                'img_480' => $thumbnail480,
+                                'img_768' => $thumbnail768,
+                                'img_1024' => $thumbnail1024,
+                                'picture_alt' => $thumbnailAlt
+                            ]);
+                        }
+                    ?>
+                    <li class="list__item blog__article-item">
+                        <article class="article-item">
+                            <header class="article-item__header">
+                                <h2 class="article-item__title heading--font-secondary">
+                                    <?= $title ?>
+                                </h2>
+                                <span class="article-item__sub-title heading--font-secondary">
                                     <?= $dateFormatted ?>
                                 </span>
-                                <a
-                                    href="<?= $link ?>"
-                                    class="link list__item-link"
-                                    title="<?= $block->escapeHtmlAttr($title) ?>
-                                ">
-                                    <h3 class="list__item-title">
-                                        <?= $title ?>
-                                    </h3>
-                                </a>
-                                <p class="list__item-text">
-                                    <?= $description ?>
-                                </p>
-                                <a
-                                    class="
-                                        button
-                                        button--link
-                                        button--secondary
-                                    "
-                                    href="<?= $link ?>"
-                                    title="<?= $block->escapeHtmlAttr(__('Continue reading')) ?>"
-                                >
-                                    <?= __('Continue reading') ?>
-                                </a>
-                            </div>
+                            </header>
+                            <section class="article-item__container row">
+                                <div class="article-item__media col-lg-4">
+                                    <a
+                                        href="<?= $link ?>"
+                                        class="banner article-item__banner"
+                                    >
+                                        <?= $block->getChildHtml('colibri-blog-thumbnail', false); ?>
+                                    </a>
+                                </div>
+                                <div class="article-item__body col-lg-8">
+                                    <div class="article-item__content">
+                                        <?= $description ?>
+                                    </div>
+                                    <footer class="article-item__footer">
+                                        <a
+                                            class="link article-item__footer-link"
+                                            href="<?= $link ?>" title="<?= $block->escapeHtmlAttr(__('Read more')) ?>"
+                                        >
+                                            <?= __('Read more') ?>
+                                        </a>
+                                    </footer>
+                                </div>
+                            </section>
+                        </article>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+            <?php if ($block->hasPagerBottom()) : ?>
+                <?= $block->getPagerHtml(); ?>
+            <?php endif; ?>
+        </div>
+        <nav
+            class="
+                blog__nav
+                col-md-4
+                col-lg-3
+            "
+        >
+            <div class="blog__recommended">
+                <h3 class="blog__nav-heading heading--font-secondary">
+                    <?= __('Recent Posts') ?>
+                </h3>
+
+                <ul class="list blog__nav-list">
+                    <?php foreach ($recentArticles as $article) : ?>
+                        <?php
+                            $link = $block->escapeUrl($article->getLinkUrl());
+                            $title = $article->getData($ctPrefix . 'title');
+                        ?>
+                        <li class="list__item">
+                            <a
+                                href="<?= $link ?>"
+                                class="link"
+                            >
+                                <?= $title ?>
+                            </a>
                         </li>
                     <?php endforeach; ?>
                 </ul>
             </div>
-            <?php if ($block->hasPagerBottom()): ?>
-                <?= $block->getPagerHtml(); ?>
-            <?php endif; ?>
-        <?php else : ?>
-            <div class="message info empty">
-                <span>
-                    <?= __('We can\'t find contents matching the selection.') ?>
-                </span>
-            </div>
-        <?php endif; ?>
-    </div>
-    <div class="col-xs-12 col-lg-3">
-        <div class="row">
-            <?php if (!empty($recommendedArticles)): ?>
-                <div
-                    class="
-                        blog__recommended
-                        col-xs-12
-                        col-md-6
-                        col-lg-12
-                    "
-                >
-                    <h2 class="heading blog__heading">
-                        <?= __('Recommended') ?>
-                    </h2>
-
-                    <ul class="list list--number">
-                        <?php foreach ($recommendedArticles as $index => $article): ?>
-                            <?php if ($index < 5): ?>
-                                <li class="list__item ">
-                                    <span class="list__item-number">
-                                        <?= sprintf("%02d", $index + 1) ?>
-                                    </span>
-                                    <div class="list__item-info">
-                                        <a
-                                            href="<?= $article['link'] ?>"
-                                            class="link list__item-title"
-                                        >
-                                            <?= $article['title'] ?>
-                                        </a>
-                                        <span class="list__item-description">
-                                            <?= $article['date'] ?>
-                                        </span>
-                                    </div>
-                                </li>
-                            <?php endif; ?>
-                        <?php endforeach; ?>
-                    </ul>
-                </div>
-            <?php endif; ?>
-            <?php if (!empty($filters)): ?>
-                <div
-                    class="
-                        blog__categories
-                        col-xs-12
-                        col-md-6
-                        col-lg-12
-                    "
-                >
-                    <h2 class="heading blog__heading">
+            <?php if (!empty($filters)) : ?>
+                <div class="blog__categories">
+                    <h3 class="blog__nav-heading heading--font-secondary">
                         <?= __('Categories') ?>
-                    </h2>
-
-                    <ul
-                        class="
-                            list
-                            list--native
-                            list--fancy
-                        "
-                    >
-                        <?php foreach ($filters as $filter): ?>
-                            <?php foreach ($filter->getAllOptions() as $option): ?>
+                    </h3>
+                    <ul class="list blog__nav-list">
+                        <?php foreach ($filters as $filter) : ?>
+                            <?php foreach ($filter->getAllOptions() as $option) : ?>
                                 <li class="list__item">
                                     <a
                                         href="<?= $block->escapeUrl($filtersBlock->getFilterUrl($filter->getIdentifier(), $option['value'])) ?>"
-                                        class="link blog__category-link"
+                                        class="link"
                                     >
                                         <?= $option['label'] ?>
                                     </a>
@@ -205,6 +156,10 @@ $filters = $filtersBlock->getFilters();
                     </ul>
                 </div>
             <?php endif; ?>
-        </div>
+        </nav>
     </div>
-</div>
+<?php else : ?>
+    <div class="message">
+        <?= __('We can\'t find contents matching the selection.') ?>
+    </div>
+<?php endif; ?>
