@@ -73,7 +73,7 @@ define([
         if (type !== undefined) {
           title = this._getSidebarTitle(type, data);
           section.append(title);
-          section.attr('aria-labelledby', 'qs-category-title');
+          section.attr('aria-labelledby', 'qs-' + type + '-title');
         }
 
         return section;
@@ -81,11 +81,12 @@ define([
 
       _getSidebarTitle: function(type, data) {
         var title = '';
+        var heading = $('<h3 id="qs-' + type + '-title" class="quicksearch__sidebar-title title-' + type + '"></h3>');
 
         if (this.titleRenderers && this.titleRenderers[type]) {
-          title = $('<h3 class="quicksearch__sidebar-title title-' + type + '">' + this.titleRenderers[type].render(data) + '</h3>');
+          title = heading.html(this.titleRenderers[type].render(data));
         } else if (this.options.templates && this.options.templates[type].title) {
-          title = $('<h3 class="quicksearch__sidebar-title title-' + type + '">' + this.options.templates[type].title + '</h3>');
+          title = heading.html(this.options.templates[type].title);
         }
 
         return title;
