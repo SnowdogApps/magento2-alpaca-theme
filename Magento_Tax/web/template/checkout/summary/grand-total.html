@@ -1,0 +1,48 @@
+<hr class="order-summary__divider">
+
+<!-- ko if: isTaxDisplayedInGrandTotal && isDisplayed() -->
+    <li class="order-summary__list-item order-summary__total">
+        <h3
+            class="order-summary__title-total"
+            data-bind="i18n: inclTaxLabel"
+        />
+        <span
+            class="order-summary__amount text-right"
+            data-bind="text: getValue()"
+        />
+    </li>
+    <li class="order-summary__list-item order-summary__total">
+        <h3
+            class="order-summary__title-total"
+            data-bind="i18n: exclTaxLabel"
+        />
+        <span
+            class="order-summary__amount text-right"
+            data-bind="text: getGrandTotalExclTax()"
+        />
+    </li>
+<!-- /ko -->
+<!-- ko if: !isTaxDisplayedInGrandTotal && isDisplayed() -->
+    <li class="order-summary__list-item order-summary__total">
+        <h3
+            class="order-summary__title-total"
+            data-bind="i18n: title"
+        />
+        <span
+            class="order-summary__amount text-right"
+            data-bind="text: getValue()"
+        />
+    </li>
+<!-- /ko -->
+<!-- ko if: isBaseGrandTotalDisplayNeeded() && isDisplayed() -->
+    <li class="order-summary__list-item order-summary__total">
+        <h3
+            class="order-summary__title-total"
+            data-bind="i18n: basicCurrencyMessage"
+        />
+        <span
+            class="order-summary__amount text-right"
+            data-bind="text: getBaseValue()"
+        />
+    </li>
+<!-- /ko -->

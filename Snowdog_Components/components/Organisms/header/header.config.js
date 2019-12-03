@@ -1,6 +1,13 @@
 module.exports = {
   title: 'Header module',
   context: {
+    contactBar: true,
+    sideMenu: true,
+    search: true,
+    megaMenu: true,
+    skipNav: true,
+    marketingBar: true,
+    minicart: true,
     buttons: [
       {
         ariaLabel: 'Wishlist',
@@ -100,5 +107,31 @@ module.exports = {
         }
       ]
     }
-  }
+  },
+  variants: [
+    {
+      name: 'checkout',
+      context: {
+        class: 'header--checkout',
+        contactBar: false,
+        sideMenu: false,
+        search: false,
+        megaMenu: false,
+        briefInfo: false,
+        skipNav: false,
+        marketingBar: false,
+        minicart: false,
+        buttons: [
+          {
+            ariaLabel: 'cartLink',
+            icon: {
+              id: 'shopping-cart',
+              title: 'cart link',
+              class: 'header-button__icon'
+            }
+          }
+        ]
+      }
+    }
+  ]
 }
