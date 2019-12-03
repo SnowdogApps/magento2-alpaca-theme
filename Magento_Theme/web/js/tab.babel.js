@@ -11,11 +11,11 @@ define(() => (config, element) => {
   }
 
   function setActiveContent(item, tabTitle) {
-    if (
-      item.classList.contains('tab__content')
-      && tabTitle === item.dataset.content
-    ) {
+    if (item.classList.contains('tab__content') && tabTitle === item.dataset.content) {
       item.classList.add(activeContentClass);
+    }
+    else if (tabTitle === item.dataset.tab) {
+      item.classList.add(activeTitleClass);
     }
   }
 
@@ -28,8 +28,6 @@ define(() => (config, element) => {
           clean(item);
           setActiveContent(item, tabTitle);
         });
-
-        item.classList.add(activeTitleClass);
       });
     }
   });
