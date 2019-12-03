@@ -3,7 +3,7 @@ module.exports = {
   context: {
     class: '',
     attributes: '',
-    text: 'This is simple info message. Have a nice day!'
+    text: 'This is simple info message. Have a nice day! If you believe it is the right one you can ignore this notice.'
   },
   variants: [
     {

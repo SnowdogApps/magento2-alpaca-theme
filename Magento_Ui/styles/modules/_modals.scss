@@ -6,8 +6,8 @@ $modal-popup__padding-top                       : 42px !default;
 $modal-popup__width                             : 75% !default;
 $modal-popup__z-index                           : $z-index-high !default;
 $modal-popup-confirm__z-index                   : $z-index-highest !default;
-
-$modal-slide__indent-left                       : 72px !default;
+$modal-slide__indent-left                       : 0 !default;
+$modal-slide__indent-left\@medium               : 72px !default;
 $modal-slide__padding                           : 41px !default;
 $modal-slide__z-index                           : $z-index-high !default;
 $modal-slide-header__padding-vertical           : 33px !default;
@@ -20,17 +20,20 @@ $modal-slide-header__padding-vertical           : 33px !default;
     right: 0;
     top: 0;
     visibility: hidden;
+
     &._show {
         visibility: visible;
         .modal-inner-wrap {
             transform: translate(0, 0);
         }
     }
+
     .modal-inner-wrap {
         background-color: $modal-popup__background-color;
         box-shadow: $modal-popup__box-shadow;
         opacity: 1;
         pointer-events: auto;
+
         .modal__close-button-icon {
             fill: $black;
         }
@@ -40,11 +43,17 @@ $modal-slide-header__padding-vertical           : 33px !default;
 @mixin lib-modal-slide() {
     left: $modal-slide__indent-left;
     z-index: $modal-slide__z-index;
+
+    @include mq($screen-m) {
+        left: $modal-slide__indent-left\@medium;
+    }
+
     &._show {
         .modal-inner-wrap {
             transform: translateX(0);
         }
     }
+
     .modal-inner-wrap {
         height: 100%;
         overflow-y: auto;
@@ -60,11 +69,13 @@ $modal-slide-header__padding-vertical           : 33px !default;
     z-index: $modal-popup__z-index;
     left: 0;
     overflow-y: auto;
+
     &._show {
         .modal-inner-wrap {
             transform: translateY(0);
         }
     }
+
     .modal-inner-wrap {
         margin: $modal-popup__indent-vertical auto;
         width: $modal-popup__width;
@@ -88,14 +99,17 @@ body {
         width: 100%;
     }
 }
+
 //  Modals overlay
 .modals-overlay {
     z-index: $modal-popup__z-index - 1;
 }
+
 .modal-popup,
 .modal-slide {
     @include lib-modal();
 }
+
 .modal-slide {
     @include lib-modal-slide();
 
@@ -105,35 +119,43 @@ body {
             display: flex;
             flex-direction: column;
         }
+
         .modal-footer,
         .modal-header {
             flex-grow: 0;
             flex-shrink: 0;
         }
+
         .modal-content {
             overflow-y: auto;
         }
+
         .modal-footer {
             margin-top: auto;
         }
     }
+
     .modal-content,
     .modal-footer,
     .modal-header {
         padding: 0 $modal-slide__padding $modal-slide__padding;
     }
+
     .modal-header {
         padding-bottom: $modal-slide-header__padding-vertical;
         padding-top: $modal-slide-header__padding-vertical;
     }
 }
+
 .modal-popup {
     &.modal-slide {
         @include lib-modal-slide();
+
         .modal-inner-wrap {
             margin: 0;
             max-height: none;
         }
+
         @include mq($screen-m) {
             @include lib-modal-popup();
         }
@@ -147,10 +169,12 @@ body {
     //  If applied, switching outer popup scroll to inner
     &._inner-scroll {
         overflow-y: visible;
+
         .ie10 &,
         .ie9 & {
             overflow-y: auto;
         }
+
         .modal-inner-wrap {
             max-height: 90%;
             .ie10 &,
@@ -158,10 +182,12 @@ body {
                 max-height: none;
             }
         }
+
         .modal-content {
             overflow-y: auto;
         }
     }
+
     .modal-content,
     .modal-footer,
     .modal-header {
@@ -173,20 +199,24 @@ body {
             padding-right: $modal-popup__padding;
         }
     }
+
     .modal-footer,
     .modal-header {
         flex-grow: 0;
         flex-shrink: 0;
     }
+
     .modal-header {
         padding-bottom: $modal-popup__padding / 2.5;
         padding-top: $modal-popup__padding-top;
     }
+
     .modal-footer {
         margin-top: auto;
         padding-bottom: $modal-popup__padding;
         padding-top: $modal-popup__padding;
     }
+
     .modal-footer-actions {
         text-align: right;
     }
