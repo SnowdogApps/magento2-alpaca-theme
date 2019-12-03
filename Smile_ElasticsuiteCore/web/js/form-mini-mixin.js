@@ -46,9 +46,9 @@ define([
         const data = {
           type: "results_footer",
           link: {
-            text: 'See all',
+            text: $.mage.__('See all'),
             href: `catalogsearch/result?q=${query}`,
-            title: 'See all results'
+            title: $.mage.__('See all results')
           }
         };
 
@@ -93,7 +93,6 @@ define([
       },
 
       _onPropertyChange: _.debounce(function () {
-
         var searchField = this.element,
             clonePosition = {
               position: 'absolute',
@@ -160,13 +159,20 @@ define([
                 lastElement = element;
               }.bind(this));
 
+              if (!products.length) {
+                var contentText = $.mage.__('We can\'t find products matching the selection.');
+                content.text(contentText);
+              }
+
               this.responseList.indexList = this.autoComplete.html(content)
                 .css(clonePosition)
                 .show()
                 .find(this.options.responseFieldElements + ':visible');
 
               this.autoComplete.prepend(resultsHeader);
-              this.autoComplete.append(resultsFooter);
+              if (products.length) {
+                this.autoComplete.append(resultsFooter);
+              }
 
               this._resetResponseList(false);
               this.element.removeAttr('aria-activedescendant');
