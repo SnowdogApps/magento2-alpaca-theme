@@ -29,7 +29,6 @@ use Magento\Catalog\Model\Product\ProductList\Toolbar;
             toolbar__limiter-select
         "
         name="limiter"
-        onchange="document.location.href=this.value"
         data-mage-init='{
             "select": {
                 "type": "number"
@@ -38,10 +37,10 @@ use Magento\Catalog\Model\Product\ProductList\Toolbar;
     >
         <?php foreach ($block->getAvailableLimit() as $_key => $_limit): ?>
             <option
-                value="<?= $_key ?>"
+                value="<?= $block->escapeHtmlAttr($_key) ?>"
                 <?= ($block->isLimitCurrent($_key)) ? 'selected="selected"' : '' ?>
             >
-                <?= $_limit ?>
+                <?= $block->escapeHtml($_limit) ?>
             </option>
         <?php endforeach ?>
     </select>

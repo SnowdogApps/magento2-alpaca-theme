@@ -1,6 +1,10 @@
 @import 'product-view-variables';
 
 .product-view {
+    padding: $product-view__padding;
+    @include mq($screen-m) {
+        padding: $product-view__padding\@medium;
+    }
     &__wrapper {
         margin: $product-view__wrapper-margin;
         max-width: $product-view__wrapper-max-width;
@@ -33,7 +37,6 @@
 
     &__description {
         display: none;
-        margin: $product-view__description-margin;
 
         @include mq($screen-m) {
             display: block;
@@ -154,6 +157,25 @@
         @include mq($screen-m) {
             min-width: $product-view__button-min-size;
             min-height: $product-view__button-min-size;
+        }
+
+        &--wishlist {
+            &.button--icon-filled {
+                @extend .button--icon-fill;
+                @include button-fill-bg();
+                &:hover {
+                    &:before {
+                        background-color: $product-view__button-wishlist-filled-bg-color-hover;
+                    }
+                    &:after {
+                        display: block;
+                        background-image: $product-view__button-wishlist-filled-bg-image-after-hover;
+                    }
+                    .icon {
+                        fill: $white;
+                    }
+                }
+            }
         }
     }
 
