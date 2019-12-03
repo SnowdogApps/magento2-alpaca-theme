@@ -33,8 +33,7 @@ define([
         return $('<div class="quicksearch__sidebar-column"></div>');
       },
 
-
-      _renderResultsHeader: function(query) {
+      _renderSearchHeader: function(query) {
         const data = {
           type: "results_header",
           query: query
@@ -43,7 +42,7 @@ define([
         return this._renderItem(data, 0);
       },
 
-      _renderResultsFooter: function(query) {
+      _renderSearchFooter: function(query) {
         const data = {
           type: "results_footer",
           link: {
@@ -118,8 +117,8 @@ define([
               var content = this._getResultWrapper();
               var productsWrapper = this._getProductsWrapper();
               var sidebarWrapper = this._getSidebarWrapper();
-              var resultsHeader = this._renderResultsHeader(value);
-              var resultsFooter = this._renderResultsFooter(value);
+              var resultsHeader = this._renderSearchHeader(value);
+              var resultsFooter = this._renderSearchFooter(value);
 
               this.autoComplete.empty();
 
