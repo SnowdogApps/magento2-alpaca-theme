@@ -1,59 +1,89 @@
-{{ render '@skip-nav' }}
-{{ render '@marketing-bar' }}
-{{ render '@contact-bar' }}
-<header class="header">
+{{#if skipNav }}
+    {{ render '@skip-nav' }}
+{{/if}}
+
+{{#if marketingBar }}
+    {{ render '@marketing-bar' }}
+{{/if}}
+
+{{#if contactBar }}
+    {{ render '@contact-bar' }}
+{{/if}}
+
+<header class="header {{ class }}" {{{ attributes }}}>
     <div class="container">
         <div class="header__wrapper">
-            {{ render '@logo' logo }}
-            {{ render '@side-menu' }}
-            <div class="header__brief-info">
-                {{ render '@brief-info--link' briefInfo merge="true"}}
-            </div>
-            <div class="header__buttons">
-                {{#each buttons as |item| }}
-                    <a
-                        class="
-                            header-button
-                            button
-                            button--icon
-                            button--icon-light
-                            {{ item.class }}
-                        "
-                        href="#"
-                        aria-label="{{ item.ariaLabel }}"
-                    >
-                        {{ render '@icon' item.icon }}
-                    </a>
-                {{/each}}
-                <div class="header__minicart">
-                    <button
-                        type="button"
-                        class="
-                            header-button
-                            button
-                            button--icon
-                            button--icon-light
-                            modal-trigger
-                            margin-left-xs
-                        "
-                        aria-label="{{ minicartTrigger.ariaLabel }}"
-                        data-modal-trigger="modal-minicart"
-                    >
-                        {{ render '@icon' minicartTrigger.icon }}
-                        <span class="header-button__counter">
-                            <span class="header-button__counter-dot"></span>
-                        </span>
-                    </button>
+            {{#if logo}}
+                {{ render '@logo' logo }}
+            {{/if}}
+
+            {{#if sideMenu}}
+                {{ render '@side-menu' }}
+            {{/if}}
+
+            {{#if briefInfo}}
+                <div class="header__brief-info">
+                    {{ render '@brief-info--link' briefInfo merge="true"}}
                 </div>
-                {{ render '@modal--secondary' minicartModal merge=true }}
-            </div>
-            <div class="header__search-wrapper">
-                <form class="search-form">
-                    {{ render '@input' searchInput }}
-                    {{ render '@button--icon' searchButton }}
-                </form>
-            </div>
+            {{/if}}
+
+            {{#if buttons }}
+                <div class="header__buttons">
+                    {{#each buttons as |item| }}
+                        <a
+                            class="
+                                header-button
+                                button
+                                button--icon
+                                button--icon-light
+                                {{ item.class }}
+                            "
+                            href="#"
+                            aria-label="{{ item.ariaLabel }}"
+                        >
+                            {{ render '@icon' item.icon }}
+                        </a>
+                    {{/each}}
+
+                    {{#if minicart}}
+                        <div class="header__minicart">
+                            <button
+                                type="button"
+                                class="
+                                    header-button
+                                    button
+                                    button--icon
+                                    button--icon-light
+                                    modal-trigger
+                                    margin-left-xs
+                                "
+                                aria-label="{{ minicartTrigger.ariaLabel }}"
+                                data-modal-trigger="modal-minicart"
+                            >
+                                {{ render '@icon' minicartTrigger.icon }}
+                                <span class="header-button__counter">
+                                    <span class="header-button__counter-dot"></span>
+                                </span>
+                            </button>
+                        </div>
+
+                        {{ render '@modal--secondary' minicartModal merge=true }}
+                    {{/if}}
+                </div>
+            {{/if}}
+
+            {{#if search }}
+                <div class="header__search-wrapper">
+                    <form class="search-form">
+                        {{ render '@input' searchInput }}
+                        {{ render '@button--icon' searchButton }}
+                    </form>
+                </div>
+            {{/if}}
         </div>
     </div>
 </header>
-{{ render '@mega-menu' }}
+
+{{#if megaMenu }}
+    {{ render '@mega-menu' }}
+{{/if}}
