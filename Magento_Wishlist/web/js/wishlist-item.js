@@ -10,7 +10,16 @@ define([
     const button = $(elem),
       wishlist = customerData.get('wishlist'),
       items = wishlist().items,
-      productId = config.productId;
+      productId = config.productId,
+      pdpButtonClass = 'product-view__button--wishlist';
+
+    function moreWishlistButton() {
+      if (button.hasClass(pdpButtonClass)) {
+        // for PDP - if is on product view,
+        // add class to all add to wishlist button
+        $('.' + pdpButtonClass).addClass(config.class);
+      }
+    }
 
     button.on('click', function() {
       const url = config.addToParams.action,
@@ -27,8 +36,10 @@ define([
         // add class to mark that product is added to wishlist
         if (addToMessage[0].type === 'success') {
           button.addClass(config.class);
+          moreWishlistButton();
         }
-        // delay is needed, because M2 reload customer data and msg dissapear after a second
+        // delay is needed, because M2 reload customer data
+        // and msg dissapear after a second
         setTimeout(function() {
           customerData.set('messages', {
             messages: addToMessage
