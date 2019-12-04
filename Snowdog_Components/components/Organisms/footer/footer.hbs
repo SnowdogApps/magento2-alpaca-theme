@@ -1,44 +1,61 @@
 <footer class="footer {{ class }}" {{{ attributes }}}>
-    <div class="footer__handler {{ handlerClass }}">
-    {{ render '@button--icon' scrollToTop }}
-        <section class="footer__newsletter">
-            {{ render '@newsletter' }}
-        </section>
-        <div class="footer__social-handler {{ socialHandlerClass }}">
-            <h3 class="footer__social-list-title">
-                {{ socialListTitle }}
-            </h3>
-            {{ render '@list--icon' socialIconList }}
+    {{#if handler }}
+        <div class="footer__handler {{ handlerClass }}">
+            {{ render '@button--icon' scrollToTop }}
+
+            <section class="footer__newsletter">
+                {{ render '@newsletter' }}
+            </section>
+
+            <div class="footer__social-handler {{ socialHandlerClass }}">
+                <h3 class="footer__social-list-title">
+                    {{ socialListTitle }}
+                </h3>
+
+                {{ render '@list--icon' socialIconList }}
+            </div>
+
+            <section class="footer__links">
+                {{ render '@dropdown-list' linkList }}
+            </section>
         </div>
-        <section class="footer__links">
-            {{ render '@dropdown-list' linkList }}
+    {{/if}}
+
+    {{#if bottomBar }}
+        <section
+            class="footer__bottom-bar {{ bottomBar.class }}"
+            {{{ bottomBar.attributes }}}
+        >
+            <div class="footer__bottom-bar-handler {{ bottomBar.handlerClass }}">
+                <div class="footer__copyright">
+                    <small>
+                        {{ copyrightText }}
+                    </small>
+                </div>
+
+                <ul
+                    class="
+                        footer__payments-list
+                        list
+                        list--horizontal
+                        {{ paymentsList.class }}
+                    "
+                >
+                    {{#each paymentsList.elements as |element|}}
+                        <li class="list__item">
+                            {{ render '@icon' element }}
+                        </li>
+                    {{/each}}
+                </ul>
+            </div>
         </section>
-    </div>
-    <section
-        class="footer__bottom-bar {{ bottomBar.class }}"
-        {{{ bottomBar.attributes }}}
-    >
-        <div class="footer__bottom-bar-handler {{ bottomBar.handlerClass }}">
-            <small class="footer__copyright">
-                {{ copyrightText }}
-            </small>
-            <ul
-                class="
-                    footer__payments-list
-                    list
-                    list--horizontal
-                    {{ paymentsList.class }}
-                "
-            >
-                {{#each paymentsList.elements as |element|}}
-                    <li class="list__item">
-                        {{ render '@icon' element }}
-                    </li>
-                {{/each}}
-            </ul>
-        </div>
-    </section>
-    {{ render '@cookie-message' }}
+    {{/if}}
+
+    {{#if cookieMessage }}
+        {{ render '@cookie-message' }}
+    {{/if}}
 </footer>
 
-<script src="{{ static 'footer.js' }}"></script>
+{{#if script }}
+    <script src="{{ static 'footer.js' }}"></script>
+{{/if}}

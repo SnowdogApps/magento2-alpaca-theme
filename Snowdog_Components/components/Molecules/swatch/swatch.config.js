@@ -91,7 +91,7 @@ module.exports = {
             attributes: 'aria-label="Orange" tabindex="0" role="option" aria-selected="false"',
             option: {
               class: 'swatch__option--image',
-              attributes: 'style="background-image: url(../../images/swatch/swatch-orange.jpg)"'
+              attributes: 'style="background-image: url(../../images/product/product_48x72.jpg)"'
             }
           },
           {
@@ -99,7 +99,7 @@ module.exports = {
             attributes: 'aria-label="Green" tabindex="0" role="option" aria-selected="false"',
             option: {
               class: 'swatch__option--image',
-              attributes: 'style="background-image: url(../../images/swatch/swatch-green.jpg)"'
+              attributes: 'style="background-image: url(../../images/product/product_48x72.jpg)"'
             }
           },
           {
@@ -108,7 +108,7 @@ module.exports = {
             attributes: 'aria-label="Red" tabindex="0" role="option" aria-selected="true"',
             option: {
               class: 'swatch__option--image',
-              attributes: 'style="background-image: url(../../images/swatch/swatch-red.jpg)"'
+              attributes: 'style="background-image: url(../../images/product/product_48x72.jpg)"'
             }
           },
           {
@@ -116,7 +116,7 @@ module.exports = {
             attributes: 'aria-label="White" tabindex="0" role="option" aria-selected="false"',
             option: {
               class: 'swatch__option--image',
-              attributes: 'style="background-image: url(../../images/swatch/swatch-white.jpg)"'
+              attributes: 'style="background-image: url(../../images/product/product_48x72.jpg)"'
             }
           }
         ]
@@ -140,7 +140,7 @@ module.exports = {
             attributes: 'aria-label="Orange" tabindex="0" role="option" aria-selected="false"',
             option: {
               class: 'swatch__option--image',
-              attributes: 'style="background-image: url(../../images/swatch/swatch-orange.jpg)"'
+              attributes: 'style="background-image: url(../../images/product/product_48x72.jpg)"'
             }
           },
           {
@@ -149,7 +149,7 @@ module.exports = {
             attributes: 'aria-label="Green" tabindex="0" role="option" aria-selected="false"',
             option: {
               class: 'swatch__option--image',
-              attributes: 'style="background-image: url(../../images/swatch/swatch-green.jpg)"'
+              attributes: 'style="background-image: url(../../images/product/product_48x72.jpg)"'
             }
           },
           {
@@ -159,7 +159,7 @@ module.exports = {
             attributes: 'aria-label="Red" tabindex="0" role="option" aria-selected="true"',
             option: {
               class: 'swatch__option--image',
-              attributes: 'style="background-image: url(../../images/swatch/swatch-red.jpg)"'
+              attributes: 'style="background-image: url(../../images/product/product_48x72.jpg)"'
             }
           },
           {
@@ -168,7 +168,7 @@ module.exports = {
             attributes: 'aria-label="White" tabindex="0" role="option" aria-selected="false"',
             option: {
               class: 'swatch__option--image',
-              attributes: 'style="background-image: url(../../images/swatch/swatch-white.jpg)"'
+              attributes: 'style="background-image: url(../../images/product/product_48x72.jpg)"'
             }
           }
         ]

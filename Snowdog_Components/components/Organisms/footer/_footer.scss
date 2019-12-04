@@ -6,6 +6,16 @@
     border-width: $footer__border-width;
     background-color: $footer__background-color;
 
+    &--checkout {
+        .footer__bottom-bar-handler {
+            padding: $footer__bottom-bar-handler-padding--checkout;
+
+            @include mq($screen-m) {
+                padding: 0;
+            }
+        }
+    }
+
     &__handler {
         position: relative;
         display: flex;
@@ -19,10 +29,6 @@
         @include mq($screen-l) {
             flex-flow: row wrap;
             padding: $footer__handler-padding\@large;
-        }
-
-        @include mq($screen-xl) {
-            padding: $footer__handler-padding\@extra-large;
         }
     }
 
@@ -105,7 +111,7 @@
     }
 
     &__links-list {
-        padding-bottom: $footer__links-list-padding;
+        padding: $footer__links-list-padding;
     }
 
     &__link {
@@ -114,11 +120,9 @@
         text-decoration: none;
 
         &:hover {
-            color: $footer__link-color;
+            color: $footer__link-color-hover;
         }
     }
-
-
 
     &__social-handler {
         display: flex;
@@ -165,21 +169,6 @@
             &:last-child {
                 margin: $footer__social-list__item-margin-last-child;
             }
-
-            .list__icon-link {
-                border: $footer__social-icon-link-border;
-                padding: $footer__social-icon-link-padding;
-
-                &:hover,
-                &.focus-visible {
-                    border-color: $footer__social-icon-link-color--active;
-                    background: $footer__social-icon-link-color--active;
-
-                    .footer__social-icon {
-                        fill: $footer__social-icon-fill--active;
-                    }
-                }
-            }
         }
     }
 
@@ -202,10 +191,6 @@
         }
     }
 
-    &__social-icon {
-        fill: $footer__social-icon-color;
-    }
-
     &__bottom-bar {
         color: $footer__bottom-bar-color;
         background-color: $footer__bottom-bar-background;
@@ -220,11 +205,14 @@
         @include mq($screen-m) {
             justify-content: space-between;
             flex-direction: row;
-            padding: $footer__bottom-padding\@medium;
+        }
+
+        @include mq($screen-l) {
+            padding: $footer__bottom-padding\@large;
         }
 
         @include mq($screen-xl) {
-            padding: $footer__bottom-padding\@large;
+            padding: $footer__bottom-padding\@xl;
         }
     }
 
@@ -232,12 +220,15 @@
         display: block;
         order: 2;
         padding: $footer__copywrite-padding;
-        font-size: $footer__copywrite-font-size;
         text-align: center;
 
         @include mq($screen-m) {
             order: 1;
             padding: $footer__copywrite-padding\@medium;
+        }
+
+        small {
+            font-size: $footer__copywrite-font-size;
         }
     }
 
@@ -270,12 +261,12 @@
         right: $footer__scroll-top-right;
         top: $footer__scroll-top-top;
 
-        @include mq($screen-l) {
-            right: $footer__scroll-top-right\@large;
+        &:before {
+            transform: $footer__scroll-top-before-transform;
         }
 
-        @include mq($screen-xl) {
-            right: $footer__scroll-top-right\@xl;
+        .icon {
+            fill: $footer__scroll-top-icon-fill;
         }
     }
 }

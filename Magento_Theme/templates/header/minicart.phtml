@@ -1,0 +1,116 @@
+<?php
+/** @var $block \Magento\Checkout\Block\Cart\Sidebar */
+?>
+<div data-block="minicart">
+    <div class="header__minicart">
+        <button
+            class="
+                header-button
+                button
+                button--icon
+                button--icon-light
+                modal-trigger
+                margin-left-xs
+            "
+            type="button"
+            aria-label="<?= $block->escapeHtmlAttr(__('Shopping cart dropdown trigger')) ?>"
+            aria-expanded="false"
+            data-testid="minicart-link"
+            data-bind="scope: 'minicart_content'"
+            data-modal-trigger="modal-minicart"
+            data-mage-init='{ "modal": {} }'
+        >
+            <svg
+                class="
+                    icon
+                    header-button__icon
+                "
+                role="presentation"
+                focusable="false"
+            >
+                <title><?= __('Shopping cart') ?></title>
+                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#shopping-cart')); ?>"></use>
+            </svg>
+            <!-- ko if: getCartParam('summary_count') -->
+            <span
+                class="
+                    header-button__counter
+                    header-button__counter--hidden
+                "
+                data-bind="css: {'header-button__counter--hidden': null}"
+            >
+                <span class="header-button__summary-count">
+                    <!-- ko text: getCartParam('summary_count') --><!-- /ko -->
+                </span>
+                <span class="header-button__counter-dot"></span>
+            </span>
+            <!-- /ko -->
+        </button>
+    </div>
+    <?php if ($block->getIsNeedToDisplaySideBar()): ?>
+        <dialog
+            id="modal-minicart"
+            class="modal modal--secondary"
+            role="dialog"
+            aria-hidden="true"
+            aria-labelledby="minicart-title"
+            aria-describedby="minicart-products"
+            data-modal="modal-minicart"
+        >
+            <div
+                role="document"
+                class="modal__container"
+                tabindex="0"
+            >
+                <div class="modal__content modal__content--block">
+                    <div
+                        id="minicart-content-wrapper"
+                        class="minicart-content"
+                        data-bind="scope: 'minicart_content'"
+                    >
+                        <!-- ko template: getTemplate() --><!-- /ko -->
+                    </div>
+                    <?= $block->getChildHtml('minicart.addons') ?>
+                </div>
+
+                <button
+                    class="
+                        button
+                        button--icon
+                        button--rotate-icon
+                        modal__close-button
+                    "
+                    type="button"
+                    aria-label="<?= $block->escapeHtmlAttr(__('Click to close the modal')) ?>"
+                >
+                    <svg
+                        class="
+                            icon
+                            button__icon
+                            modal__close-button-icon
+                        "
+                        role="img"
+                    >
+                        <title><?= __('Close') ?></title>
+                        <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#close')); ?>"></use>
+                    </svg>
+                </button>
+            </div>
+        </dialog>
+    <?php endif; ?>
+</div>
+
+<script>
+    window.checkout = <?= \Zend_Json::encode($block->getConfig()) ?>;
+</script>
+
+<script type="text/x-magento-init">
+{
+    "[data-block='minicart']": {
+        "Magento_Ui/js/core/app": <?= $block->getJsLayout() ?>
+    },
+    "*": {
+        "Magento_Ui/js/block-loader": "<?= $block->getViewFileUrl('images/loader-1.gif') ?>"
+    }
+}
+</script>

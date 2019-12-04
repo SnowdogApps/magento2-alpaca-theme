@@ -6,6 +6,10 @@
 
     &__legend {
         margin: $radio__legend-margin;
+
+        &--hidden {
+            @include visually-hidden();
+        }
     }
 
     &__handler {
@@ -22,11 +26,10 @@
 
         &:checked + .radio__label {
             color: $radio__label-color-active;
-            .radio__icon {
-                &:before {
-                    opacity: 1;
-                    transform: scale(1);
-                }
+
+            &:after {
+                opacity: 1;
+                transform: scale(1);
             }
         }
 
@@ -46,23 +49,22 @@
         font-size: $radio__label-font-size;
         color: $radio__label-color;
         cursor: pointer;
-    }
 
-    &__icon {
-        position: relative;
-        display: inline-block;
-        border: $radio__icon-border;
-        border-radius: $radio__size;
-        width: $radio__size;
-        height: $radio__size;
-        margin-right: $radio__icon-margin-right;
+        &:before {
+            content: '';
+            position: relative;
+            display: inline-block;
+            border: $radio__icon-border;
+            border-radius: $radio__size;
+            width: $radio__size;
+            height: $radio__size;
+            margin-right: $radio__icon-margin-right;
+        }
 
-        &::before {
+        &:after {
             position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
+            top: 6px;
+            left: 6px;
             content: '';
             width: $radio__dot-size;
             height: $radio__dot-size;

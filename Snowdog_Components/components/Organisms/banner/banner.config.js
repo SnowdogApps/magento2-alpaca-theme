@@ -23,12 +23,6 @@ module.exports = {
         }
       ],
       alt: 'banner-image'
-    },
-    imageCategory: {
-      class: 'banner__image',
-      src: 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==',
-      dataSrc: '/images/banner/banner-1920_512.jpg',
-      alt: 'image alt text'
     }
   },
   variants: [
@@ -38,7 +32,8 @@ module.exports = {
       context: {
         icon: {
           id: 'arrow-right',
-          title: 'Arrow right icon'
+          title: 'Arrow right icon',
+          hidden: true
         },
         text: 'Clothing'
       }
@@ -47,20 +42,39 @@ module.exports = {
       name: 'category',
       view: 'banner--category.hbs',
       context: {
+        imageCategory: {
+          class: 'banner__image',
+          defaultSrc: '/images/bannerbanner-category_304x168.jpg',
+          sources: [
+            {
+              src: '/images/banner/banner-category_304x168.jpg',
+              mediaQuery: '(max-width: 480px)'
+            },
+            {
+              src: '/images/banner/banner-category_944x312.jpg',
+              mediaQuery: '(max-width: 960px)'
+            },
+            {
+              src: '/images/banner/banner-category_1328x312.jpg',
+              mediaQuery: ''
+            }
+          ],
+          alt: 'banner-image'
+        },
         buttonCollapse: {
           tag: 'button',
-          class: 'banner__button banner__button-collapse',
-          attributes: 'type="button" aria-label="see category description" aria-expanded="true"',
-          text: 'More about test',
+          class: 'banner__button-collapse',
+          attributes: 'type="button" aria-label="see category description" aria-expanded="false"',
+          text: 'More',
           iconAfter: {
             id: 'angle-down',
-            class: 'margin-right-m',
+            class: '',
             hidden: true
           }
         },
         buttonClose: {
           tag: 'button',
-          class: 'banner__button button--icon-light button--secondary banner__button-close margin-vc-xs',
+          class: 'banner__button-close margin-vc-xs',
           attributes: 'type="button" aria-label="button"',
           text: 'Hide details',
           iconAfter: {
@@ -71,11 +85,11 @@ module.exports = {
         },
         buttonMore: {
           tag: 'a',
-          class: 'banner__button banner__button-more margin-vc-xs',
+          class: 'button--secondary margin-vc-xs',
           attributes: 'aria-label="button" tabindex="0"',
           text: 'View All',
           iconAfter: {
-            id: 'arrow-right',
+            id: 'angle-right',
             class: 'margin-right-m',
             hidden: true
           }

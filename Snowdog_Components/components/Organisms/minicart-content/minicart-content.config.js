@@ -20,6 +20,11 @@ module.exports = {
     },
     products: [
       {
+        productQty: {
+          field: {
+            id: 'mini-qty-1'
+          }
+        },
         attributes: {
           id: 'test-1',
           dropdowns: [
@@ -32,6 +37,11 @@ module.exports = {
       },
       {
         productName: 'Some product 2 name',
+        productQty: {
+          field: {
+            id: 'mini-qty-2'
+          }
+        },
         attributes: {
           id: 'test-2',
           dropdowns: [

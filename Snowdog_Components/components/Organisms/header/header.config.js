@@ -1,14 +1,22 @@
 module.exports = {
   title: 'Header module',
   context: {
+    contactBar: true,
+    sideMenu: true,
+    search: true,
+    megaMenu: true,
+    skipNav: true,
+    marketingBar: true,
+    minicart: true,
     buttons: [
       {
         ariaLabel: 'Wishlist',
-        class: 'margin-right-xs',
+        class: 'button--icon-fill margin-right-xs',
         icon: {
           id: 'heart',
           title: 'Heart',
-          class: 'header-button__icon'
+          class: 'header-button__icon',
+          hidden: true
         }
       }
     ],
@@ -16,7 +24,7 @@ module.exports = {
       class: 'header__logo',
       logoSVG: true,
       ariaLabel: 'Home page link',
-      imageAlt: 'Alpaca Logo',
+      imageAlt: 'Colibri Logo',
       imageAttributes: '',
       imageClass: '',
       imageSrc: '/images/logo/logo.svg',
@@ -39,11 +47,12 @@ module.exports = {
     searchButton: {
       tag: 'button',
       text: '',
-      class: 'button--icon button--icon-light search-form__button',
+      class: 'button--icon search-form__button',
       icon: {
         id: 'search',
         title: 'Search',
-        class: 'button__icon'
+        class: 'button__icon',
+        hidden: true
       },
       attributes: 'type="button" aria-label="Search"',
     },
@@ -51,7 +60,8 @@ module.exports = {
       icon: {
         id: 'shopping-cart',
         title: 'Shopping cart',
-        class: 'header-button__icon'
+        class: 'header-button__icon',
+        hidden: true
       },
       link: '/cart',
       ariaLabel: 'Shopping cart dropdown trigger'
@@ -80,22 +90,48 @@ module.exports = {
           iconLabel: 'Delivery',
           icon: {
             class: 'brief-info__icon',
-            id: 'delivery',
+            id: 'delivery-truck',
             title: 'Free shipping icon',
             hidden: true
           },
           title: {
             class: '',
-            tag: 'h3',
+            tag: 'span',
             text: 'Free Shipping'
           },
           subtitle: {
             class: '',
-            tag: 'p',
+            tag: 'span',
             text: 'On Hundreds of Products'
           }
         }
       ]
     }
-  }
+  },
+  variants: [
+    {
+      name: 'checkout',
+      context: {
+        class: 'header--checkout',
+        contactBar: false,
+        sideMenu: false,
+        search: false,
+        megaMenu: false,
+        briefInfo: false,
+        skipNav: false,
+        marketingBar: false,
+        minicart: false,
+        buttons: [
+          {
+            ariaLabel: 'cartLink',
+            icon: {
+              id: 'shopping-cart',
+              title: 'cart link',
+              class: 'header-button__icon'
+            }
+          }
+        ]
+      }
+    }
+  ]
 }

@@ -2,12 +2,22 @@ module.exports = {
   context: {
     tag: 'div',
     class: '',
-    badge: {
-      name: 'badge--new',
-      context: {
-        class: 'badge badge--new product-grid-item__badge',
-        text: 'NEW'
-      }
+    productBadges: {
+      class: 'product-grid-item__badges',
+      badges: [
+        {
+          contentElement: 'badge',
+          contentContext: {
+            text: '-15%'
+          }
+        },
+        {
+          contentElement: 'badge--new',
+          contentContext: {
+            text: 'New'
+          }
+        }
+      ]
     },
     image: {
       wrapperClass: 'product-grid-item__image-wrapper',
@@ -29,26 +39,42 @@ module.exports = {
         }
       }
     },
+    rating: {
+      class: 'product-grid-item__rating rating--secondary'
+    },
     secondaryActions: {
       wishlist: {
         tag: 'button',
-        class: 'button--icon-light product-grid-item__action-wishlist',
+        class: 'add-to-wishlist',
         icon: {
           id: 'heart',
           title: 'Heart',
-          class: 'button__icon'
+          class: 'button__icon',
+          hidden: true
         },
         attributes: 'type="button" aria-label="Add to Wish List"',
       },
       compare: {
         tag: 'button',
-        class: 'button--icon-light',
+        class: '',
         icon: {
           id: 'compare',
           title: 'Compare',
-          class: 'button__icon'
+          class: 'button__icon',
+          hidden: true
         },
         attributes: 'type="button" aria-label="Add to compare"',
+      },
+      addToCart: {
+        tag: 'button',
+        class: 'button--add-to',
+        icon: {
+          id: 'shopping-cart',
+          title: 'Add to cart',
+          class: 'button__icon',
+          hidden: true
+        },
+        attributes: 'type="submit" aria-label="Add to cart"',
       }
     }
   },
@@ -56,12 +82,16 @@ module.exports = {
     {
       name: 'special-price',
       context: {
-        badge: {
-          name: 'badge',
-          context: {
-            text: '-10%',
-            class: 'product-grid-item__badge'
-          }
+        productBadges: {
+          class: 'product-grid-item__badges',
+          badges: [
+            {
+              contentElement: 'badge',
+              contentContext: {
+                text: '-10%'
+              }
+            }
+          ]
         },
         name: 'Short name',
         price: {
@@ -117,7 +147,8 @@ module.exports = {
             icon: {
               id: 'edit',
               title: 'edit',
-              class: 'button__icon'
+              class: 'button__icon',
+              hidden: true
             },
             attributes: 'href="#" aria-label="Edit product"',
           },
@@ -127,7 +158,8 @@ module.exports = {
             icon: {
               id: 'remove',
               title: 'Remove',
-              class: 'button__icon'
+              class: 'button__icon',
+              hidden: true
             },
             attributes: 'type="button" aria-label="Remove product from wishlist"'
           }
@@ -137,6 +169,19 @@ module.exports = {
           class: '',
           text: 'Add to cart',
           attributes: 'type="button"'
+        }
+      }
+    },
+    {
+      name: 'slider-item',
+      context: {
+        class: 'product-grid-item--slider-item',
+        rating: {
+          class: 'product-grid-item__rating'
+        },
+        secondaryActions: {
+          compare: false,
+          addToCart: true
         }
       }
     }

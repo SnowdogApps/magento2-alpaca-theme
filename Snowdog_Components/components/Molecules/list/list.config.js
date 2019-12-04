@@ -96,20 +96,8 @@ module.exports = {
     {
       name: 'description',
       context: {
-        attributes: 'title="Alpaca description list"',
+        attributes: 'title="Colibri description list"',
         elements: [
-          {
-            label: 'Lorem ipsum',
-            value: 'Lorem ipsum Value'
-          },
-          {
-            label: 'Lorem ipsum',
-            value: 'Lorem ipsum Value'
-          },
-          {
-            label: 'Lorem ipsum',
-            value: 'Lorem ipsum Value'
-          },
           {
             label: 'Lorem ipsum',
             value: 'Lorem ipsum Value'

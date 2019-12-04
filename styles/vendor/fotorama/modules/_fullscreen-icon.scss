@@ -6,25 +6,20 @@
     display: none;
     top: 0;
     right: 0;
-    width: $size-fotorama-block;
-    height: $size-fotorama-block;
-    background-position: 0 0;
+    width: $fotorama__block-size;
+    height: $fotorama__block-size;
+    background-image: $fotorama__close-icon;
+    background-position: center;
     cursor: pointer;
     z-index: $z-index-10;
-    &:focus {
-        @extend .fotorama-focus;
-        box-shadow: none;
-        &:after {
-            border-radius: inherit;
-            bottom: $fotorama-inner-box-shadow;
-            box-shadow: $focus__box-shadow;
-            content: '';
-            left: $fotorama-inner-box-shadow;
-            position: absolute;
-            right: $fotorama-inner-box-shadow;
-            top: $fotorama-inner-box-shadow;
-            z-index: $z-index-10;
-        }
+    transition: $fotorama__transition;
+
+    &:hover {
+        transform: $fotorama__button-hover-transform;
+    }
+
+    &.focus-visible {
+        @include focus();
     }
 
     .fotorama--fullscreen-icons & {
@@ -33,7 +28,6 @@
 
     .fotorama--fullscreen & {
         display: inline-block;
-        background-position: (-$size-fotorama-block) 0;
     }
 
     .fotorama__wrap--no-controls.fotorama__wrap--toggle-arrows & {
@@ -60,19 +54,15 @@
     }
 
     .fotorama__wrap--css3.fotorama__wrap--no-controls.fotorama__wrap--slide.fotorama__wrap--toggle-arrows &:not(:focus) {
-        transform: translate3d($fotorama-arw-size, -$fotorama-arw-size, 0);
+        transform: translate3d($fotorama__arw-size, -$fotorama__arw-size, 0);
     }
 
     .fotorama__wrap--css3.fotorama__wrap--video & {
-        transform: translate3d($fotorama-arw-size, -$fotorama-arw-size, 0) !important; // sass-lint:disable-line no-important
+        transform: translate3d($fotorama__arw-size, -$fotorama__arw-size, 0) !important; // sass-lint:disable-line no-important
     }
 
     .fotorama__wrap--css3 &:not(:focus) {
-        transition-duration: $fotorama-duration-time;
+        transition-duration: $fotorama__duration-time;
         transition-property: transform, opacity, background-color;
-    }
-
-    .fotorama__wrap:not(.fotorama__wrap--toggle-arrows) & {
-        @include fotorama-button-background();
     }
 }

@@ -38,22 +38,10 @@
     }
 
     &__mode-button {
-        background-color: $white;
-        &:after {
-            display: $toolbar__mode-button-bg;
-        }
-
-        &:hover {
-            .icon {
-                fill: $toolbar__mode-button-icon-fill-hover;
-            }
-        }
-
         .icon {
             width: $toolbar__mode-button-icon-size;
             height: $toolbar__mode-button-icon-size;
             fill: $toolbar__mode-button-icon-fill;
-            z-index: $z-index-normal;
         }
 
         &--active {
@@ -71,8 +59,27 @@
             justify-content: center;
             color: $toolbar__amount-color;
         }
-    }
 
+        &--visible {
+            display: flex;
+            flex: 0 0 auto;
+            align-items: center;
+            justify-content: flex-start;
+            padding: $toolbar__amount-padding--visible;
+
+            @include mq($screen-m) {
+                flex: 1 0 0;
+            }
+
+            @include isIE() {
+                flex-grow: 0;
+
+                @include mq($screen-m) {
+                    flex-grow: 1;
+                }
+            }
+        }
+    }
 
     &__sorter {
         order: $toolbar__sorter-order;
@@ -90,11 +97,21 @@
             margin: $toolbar__sorter-margin\@medium;
             border-width: $toolbar__sorter-border-width\@medium;
         }
-        .choices {
+
+        &-label {
+            white-space: nowrap;
+        }
+
+        .select2 {
             flex-grow: 1;
             min-width: $toolbar__sorter-select-min-width;
         }
 
+    }
+
+    &__sorter-link {
+        padding: $toolbar__sorter-link-padding;
+        font-weight: $toolbar__sorter-link-font-weight;
     }
 
     // TODO check on theme implementation if needed

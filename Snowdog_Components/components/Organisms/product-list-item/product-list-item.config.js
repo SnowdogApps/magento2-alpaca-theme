@@ -6,18 +6,50 @@ module.exports = {
       wrapperClass: 'product-list-item__image',
       dataSrc: '/images/product/product-160_240.jpg'
     },
-    badge: {
-      name: 'badge--new',
-      context: {
-        class: 'badge badge--new product-list-item__badge',
-        text: 'NEW'
-      }
+    productBadges: {
+      class: 'product-list-item__badges',
+      badges: [
+        {
+          contentElement: 'badge',
+          contentContext: {
+            text: '-15%'
+          }
+        },
+        {
+          contentElement: 'badge--new',
+          contentContext: {
+            text: 'New'
+          }
+        }
+      ]
     },
     linkName: {
       class: 'product-list-item__name-link',
       text: 'Some product name - very long name because that\'s important'
     },
     sku: 'SKU: CEL-31145',
+    description: false,
+    bulletList: {
+      attributes: '',
+      elements: [
+        {
+          label: 'Attribute',
+          value: 'Value'
+        },
+        {
+          label: 'Attribute',
+          value: 'Value'
+        },
+        {
+          label: 'Attribute',
+          value: 'Value'
+        },
+        {
+          label: 'Attribute',
+          value: 'Value'
+        }
+      ]
+    },
     stockButton: {
       class: 'button--link modal-trigger product-list-item__stock',
       text: 'In stock',
@@ -35,7 +67,8 @@ module.exports = {
         icon: {
           id: 'close',
           title: 'Close',
-          class: 'button__icon modal__close-button-icon'
+          class: 'button__icon modal__close-button-icon',
+          hidden: true
         },
         attributes: 'type="button" aria-label="click to close the modal"'
       },
@@ -57,39 +90,41 @@ module.exports = {
     price: {
       name: 'price',
       context: {
-        class: 'product-list-item__price',
         attributes: 'aria-label="Product price" tabindex="0"',
       }
     },
     secondaryActions: {
       wishlist: {
-        class: 'button--icon-light product-list-item__button-action',
+        class: 'product-list-item__button-action',
         icon: {
           id: 'heart',
           title: 'Heart',
-          class: 'button__icon'
+          class: 'button__icon',
+          hidden: true
         },
         attributes: 'type="button" aria-label="Add to Wish List"',
       },
       compare: {
-        class: 'button--icon-light product-list-item__button-action',
+        class: 'product-list-item__button-action',
         icon: {
           id: 'compare',
           title: 'Compare',
-          class: 'button__icon'
+          class: 'button__icon',
+          hidden: true
         },
         attributes: 'type="button" aria-label="Add to compare"',
       }
     },
     addToButton: {
       text: 'Add to cart',
-      class: 'button--add-to-icon product-list-item__add-to-button',
+      class: 'button--add-to product-list-item__add-to-button button--fluid',
+      attributes: 'type="button" aria-label="Add to cart"',
       iconBefore: {
         id: 'shopping-cart',
-        title: 'Add to Cart',
+        title: 'Add to cart',
         class: 'button__icon',
-      },
-      attributes: 'type="button" aria-label="Add to cart"'
+        hidden: true
+      }
     }
   },
   variants: [
@@ -103,6 +138,13 @@ module.exports = {
             attributes: 'aria-label="Product price" tabindex="0"',
           }
         }
+      }
+    },
+    {
+      name: 'description',
+      context: {
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
+        bulletList: false
       }
     }
   ]

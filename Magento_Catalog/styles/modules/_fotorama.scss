@@ -1,0 +1,167 @@
+.fotorama {
+    .fotorama__nav-wrap {
+        display: flex;
+
+        @include mq($screen-m) {
+            display: block;
+        }
+
+        &--vertical,
+        &--horizontal {
+            .fotorama__nav__frame--thumb {
+                @extend .gallery__thumb;
+            }
+
+            .fotorama__active {
+                box-sizing: border-box;
+                &.fotorama__nav__frame--thumb {
+                    @extend .gallery__thumb--active;
+                }
+                &.fotorama__nav__frame--dot {
+                    @extend .gallery__thumb-dot--active;
+                }
+
+            }
+
+            .fotorama__arr--disabled {
+                display: none !important;
+            }
+
+            .fotorama__thumb__arr {
+                @extend .gallery__thumb-arr;
+
+                background-color: $white;
+
+                &--left {
+                    .fotorama__thumb {
+                        &--icon {
+                            background-image: url('../images/fotorama/angle-up.svg');
+                        }
+                    }
+                }
+
+                &--right {
+                    .fotorama__thumb {
+                        &--icon {
+                            background-image: url('../images/fotorama/angle-down.svg');
+                        }
+                    }
+                }
+
+                &--left,
+                &--right {
+                    .fotorama__thumb--icon {
+                        @extend .gallery__icon-arrow;
+                        @extend .gallery__icon-arrow--vertical;
+
+                        position: relative;
+                        height: 24px;
+                        width: 24px;
+                        padding: 0;
+                        margin: auto;
+                        background-position: center;
+                        fill: $gallery__icon-arrow-color;
+                    }
+                }
+            }
+        }
+
+        &--vertical {
+            .fotorama__nav__frame--thumb {
+                @extend .gallery__thumb--vertical;
+            }
+        }
+
+        .fotorama__nav--thumbs {
+            padding-right: 16px;
+        }
+    }
+
+    &__dot {
+        @extend .gallery__dot;
+
+        .fotorama__active & {
+            @extend .gallery__dot--active;
+        }
+    }
+
+    .fotorama__stage {
+        padding-bottom: $spacer--medium;
+
+        @include mq($screen-m) {
+            padding-bottom: 0;
+        }
+
+        @include mq($screen-l) {
+            margin-left: $spacer--medium;
+        }
+
+        @include mq($screen-xl) {
+            margin-left: $spacer--extra-large;
+        }
+    }
+
+    .fotorama__stage,
+    .fotorama__nav {
+        &.fotorama__shadows {
+            &--top,
+            &--bottom,
+            &--right,
+            &--left {
+                &:before {
+                    background-image: none;
+                }
+
+                &:after {
+                    background-image: none;
+                }
+            }
+        }
+    }
+
+    .fotorama-video-container {
+        cursor: pointer;
+
+        &.video-unplayed {
+            &:after {
+                content: '';
+                position: absolute;
+                top: 12px;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                width: 100px;
+                height: 100px;
+                margin: auto;
+                opacity: 0.8;
+                background: url(../Magento_ProductVideo/img/gallery-sprite.png) bottom right;
+            }
+
+            &:hover {
+                &:after {
+                    opacity: 1;
+                }
+            }
+        }
+
+        &.fotorama__product-video--loaded {
+            .product-video {
+                display: block;
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        .product-video {
+            display: none;
+        }
+
+        .fotorama__img {
+            pointer-events: none;
+        }
+    }
+
+    .fotorama__thumb-border {
+        display: none;
+    }
+}

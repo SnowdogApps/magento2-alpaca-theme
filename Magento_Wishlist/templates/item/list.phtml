@@ -1,0 +1,42 @@
+<?php
+/** @var \Magento\Wishlist\Block\Customer\Wishlist\Items $block */
+$columns = $block->getColumns();
+?>
+
+<?php if (count($block->getItems())): ?>
+    <div
+        class="
+            wishlist
+            wishlist__grid
+            row
+        "
+    >
+        <?php foreach ($block->getItems() as $item): ?>
+            <div
+                class="
+                    col-xs-6
+                    col-md-4
+                    wishlist__item
+                "
+            >
+                <div
+                    data-row="product-item"
+                    id="item_<?= $block->escapeHtmlAttr($item->getId()) ?>"
+                >
+                    <?php foreach ($columns as $column): ?>
+                        <?php $column->setItem($item); ?>
+                        <?= $column->toHtml($item); ?>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+<?php else: ?>
+    <div class="message">
+        <?= __('This Wish List has no Items'); ?>
+    </div>
+<?php endif; ?>
+
+<?php foreach ($columns as $column): ?>
+    <?= $column->getAdditionalHtml(); ?>
+<?php endforeach; ?>

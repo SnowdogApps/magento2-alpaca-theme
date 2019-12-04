@@ -67,6 +67,7 @@ module.exports = {
         }
       },
       modalTop: true,
+      modalTopClass: 'filters__content-top',
       heading: {
         attributes: 'id="filters-option-title"',
         tag: 'h2',
@@ -74,13 +75,14 @@ module.exports = {
         text: 'Shopping options'
       },
       modalMiddle: true,
+      modalMiddleClass: 'filters__content-middle',
       modalComponent: {
         content: 'filters-content'
       },
       modalBottom: false,
     },
     openButton: {
-      class: 'modal-trigger filters__trigger',
+      class: 'button--icon-light modal-trigger filters__trigger',
       tag: 'button',
       attributes: 'type="button" aria-label="Open categories filter" data-modal-trigger="filters-category" aria-expanded="true"',
       text: 'Category',
@@ -90,7 +92,7 @@ module.exports = {
       }
     },
     openButtonFilters: {
-      class: 'modal-trigger filters__trigger filters__trigger--open',
+      class: 'button--icon-light modal-trigger filters__trigger filters__trigger--open',
       tag: 'button',
       attributes: 'type="button" aria-label="Open shopping options" data-modal-trigger="filters-options" aria-expanded="true"',
       text: 'Shopping Options',

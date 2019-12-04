@@ -88,11 +88,6 @@ module.exports = {
         class: 'icons__single-icon'
       },
       {
-        id: 'delivery',
-        title: 'Delivery',
-        class: 'icons__single-icon'
-      },
-      {
         id: 'delivery-truck',
         title: 'Delivery truck',
         class: 'icons__single-icon'
@@ -175,6 +170,11 @@ module.exports = {
       {
         id: 'mobile-menu',
         title: 'Mobile menu',
+        class: 'icons__single-icon'
+      },
+      {
+        id: 'more',
+        title: 'more',
         class: 'icons__single-icon'
       },
       {
@@ -290,6 +290,21 @@ module.exports = {
       {
         id: 'youtube',
         title: 'Youtube logo',
+        class: 'icons__single-icon'
+      },
+      {
+        id: 'share',
+        title: 'Share',
+        class: 'icons__single-icon'
+      },
+      {
+        id: 'thumb-up',
+        title: 'Thumb up',
+        class: 'icons__single-icon'
+      },
+      {
+        id: 'thumb-down',
+        title: 'Thumb down',
         class: 'icons__single-icon'
       }
     ]

@@ -10,6 +10,8 @@ module.exports = {
       },
       {
         tag: 'li',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
+        bulletList: false,
         price: {
           name: 'price--with-special-price',
           context: {
@@ -61,6 +63,8 @@ module.exports = {
       },
       {
         tag: 'li',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
+        bulletList: false,
         price: {
           name: 'price--with-special-price',
           context: {
@@ -118,6 +122,8 @@ module.exports = {
       },
       {
         tag: 'li',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
+        bulletList: false,
         stockButton: {
           attributes: 'type="button" data-modal-trigger="shipping-latency-8"'
         },
@@ -133,6 +139,8 @@ module.exports = {
       },
       {
         tag: 'li',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
+        bulletList: false,
         stockButton: {
           attributes: 'type="button" data-modal-trigger="shipping-latency-9"'
         },

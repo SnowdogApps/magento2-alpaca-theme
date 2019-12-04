@@ -1,0 +1,361 @@
+<?php
+use Magento\Framework\App\Action\Action;
+?>
+<?php
+    $_productCollection = $block->getLoadedProductCollection();
+    $_helper = $this->helper('Magento\Catalog\Helper\Output');
+?>
+<?php if (!$_productCollection->count()): ?>
+    <div class="message info empty">
+        <?= __('We can\'t find products matching the selection.') ?>
+    </div>
+<?php else: ?>
+    <?= $block->getToolbarHtml() ?>
+    <?= $block->getAdditionalHtml() ?>
+    <?php
+        if ($block->getMode() == 'grid') {
+            $viewMode = 'products-grid';
+            $imageDisplayArea = 'category_page_grid';
+            $showDescription = false;
+            $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+        } else {
+            $viewMode = 'products-list';
+            $imageDisplayArea = 'category_page_list';
+            $showDescription = true;
+            $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+        }
+        /**
+         * Position for actions regarding image size changing in vde if needed
+         */
+        $pos = $block->getPositioned();
+    ?>
+    <?php /** @var $_product \Magento\Catalog\Model\Product */ ?>
+    <?php if($viewMode === 'products-list'): ?>
+        <ul class="list">
+            <?php foreach ($_productCollection as $_product): ?>
+                <li class="product-list-item">
+                    <?php $productImage = $block->getImage($_product, $imageDisplayArea) ?>
+                    <a
+                        href="<?= $block->escapeUrl($block->getProductUrl($_product)) ?>"
+                        class="
+                            link
+                            product-list-item__image-link
+                        "
+                        title="<?= $block->escapeHtmlAttr($_product['name']) ?>"
+                    >
+                        <?= $productImage->toHtml() ?>
+
+                        <?php if ($_product->getBadge()): ?>
+                            <?php $productBadges = $_product->getAttributeText('badge'); ?>
+                            <div
+                                class="
+                                    badges
+                                    product-list-item__badges
+                                "
+                            >
+                                <?php if (is_array($productBadges)): ?>
+                                    <?php foreach ($productBadges as $productBadge): ?>
+                                        <div
+                                            class="
+                                                badge
+                                                badge--<?= $block->escapeHtmlAttr(mb_strtolower($productBadge, 'UTF-8')) ?>
+                                            "
+                                        >
+                                            <?= $block->escapeHtml($productBadge) ?>
+                                        </div>
+                                    <?php endforeach ?>
+                                <?php else: ?>
+                                    <div
+                                        class="
+                                            badge
+                                            badge--<?= $block->escapeHtmlAttr(mb_strtolower($productBadges, 'UTF-8')) ?>
+                                        "
+                                    >
+                                        <?= $block->escapeHtml($productBadges) ?>
+                                    </div>
+                                <?php endif ?>
+                            </div>
+                        <?php endif ?>
+                    </a>
+                    <div class="product-list-item__main">
+                        <div class="product-list-item__details">
+                            <div class="product-list-item__rating">
+                                <?= $block->getReviewsSummaryHtml($_product, $templateType) ?>
+                            </div>
+
+                            <h2 class="product-list-item__name">
+                                <a
+                                    href="<?= $block->escapeUrl($block->getProductUrl($_product)) ?>"
+                                    class="
+                                        link
+                                        product-list-item__name-link
+                                    "
+                                    title="<?= $block->escapeHtmlAttr($_product['name']) ?>"
+                                >
+                                    <?= $_product['name'] ?>
+                                </a>
+                            </h2>
+
+                            <div class="product-list-item__sku">
+                                <?= $_product['sku'] ?>
+                            </div>
+
+                            <?php if (isset($_product['selling_features_bullets'])): ?>
+                                <!-- Markup generated by snowdog/module-bullet-points -->
+                                <div
+                                    class="product-list-item__list"
+                                    aria-label="<?= $block->escapeHtmlAttr(__('Product description list')) ?>"
+                                    tabindex="0"
+                                >
+                                    <?= $_product['selling_features_bullets'] ?>
+                                </div>
+                            <?php endif ?>
+                        </div>
+
+                        <div class="product-list-item__actions">
+                            <?php if ($_product->getIsSalable()): ?>
+                                <button
+                                    class="
+                                        button
+                                        button--link
+                                        product-list-item__stock
+                                    "
+                                    type="button"
+                                >
+                                    <?= __('In stock') ?>
+                                </button>
+                            <?php else: ?>
+                                <button
+                                    class="
+                                        button
+                                        button--link
+                                        product-list-item__stock
+                                    "
+                                    type="button"
+                                >
+                                    <?= __('Out of stock') ?>
+                                </button>
+                            <?php endif ?>
+
+                            <div class="product-list-item__price">
+                                <div class="price">
+                                    <span class="price__value">
+                                        <?= $block->getProductPrice($_product) ?>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="product-list-item__actions-inner">
+                                <?php if ($addToBlock = $block->getChildBlock('addto')): ?>
+                                    <?= $addToBlock->setProduct($_product)->getChildHtml() ?>
+                                <?php endif ?>
+
+                                <?php if ($_product->isSaleable()): ?>
+                                    <?php $postParams = $block->getAddToCartPostParams($_product) ?>
+                                    <form
+                                        data-role="tocart-form"
+                                        class="product-list-item__add-to-action"
+                                        action="<?= $postParams['action'] ?>"
+                                        method="post"
+                                    >
+                                        <input
+                                            type="hidden"
+                                            name="<?= Action::PARAM_NAME_URL_ENCODED ?>"
+                                            value="<?= $postParams['data'][Action::PARAM_NAME_URL_ENCODED] ?>"
+                                        >
+                                        <?= $block->getBlockHtml('formkey') ?>
+                                        <button
+                                            class="
+                                                button
+                                                button--fluid
+                                                button--add-to
+                                                product-list-item__add-to-button
+                                                button--fluid
+                                                action
+                                                tocart
+                                            "
+                                            aria-label="<?= $block->escapeHtmlAttr(__('Add to Cart')) ?>"
+                                            type="submit"
+                                        >
+                                            <span class="button__text">
+                                                <?= __('Add to Cart') ?>
+                                            </span>
+                                            <svg
+                                                class="
+                                                    icon
+                                                    button__icon
+                                                "
+                                                role="presentation"
+                                                focusable="false"
+                                            >
+                                                <title><?= __('Shopping cart') ?></title>
+                                                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#shopping-cart')) ?>"></use>
+                                            </svg>
+
+                                        </button>
+                                    </form>
+                                <?php endif ?>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            <?php endforeach ?>
+        </ul>
+    <?php else: ?>
+        <ul class="catalog-grid">
+            <?php foreach ($_productCollection as $_product): ?>
+                <?php $productImage = $block->getImage($_product, $imageDisplayArea) ?>
+                <li
+                    class="product-grid-item"
+                    data-container="product-grid"
+                    tabindex="0"
+                    data-testid="list-product-item"
+                >
+                    <a
+                        href="<?= $block->escapeUrl($block->getProductUrl($_product)) ?>"
+                        class="product-grid-item__link"
+                        tabindex="-1"
+                    >
+                        <?php if ($_product->getBadge()): ?>
+                            <?php $productBadges = $_product->getAttributeText('badge'); ?>
+                            <div
+                                class="
+                                    badges
+                                    product-grid-item__badges
+                                "
+                            >
+                                <?php if (is_array($productBadges)): ?>
+                                    <?php foreach ($productBadges as $productBadge): ?>
+                                        <div
+                                            class="
+                                                badge
+                                                badge--<?= $block->escapeHtmlAttr(mb_strtolower($productBadge, 'UTF-8')) ?>
+                                            "
+                                        >
+                                            <?= $block->escapeHtml($productBadge) ?>
+                                        </div>
+                                    <?php endforeach ?>
+                                <?php else: ?>
+                                    <div
+                                        class="
+                                            badge
+                                            badge--<?= $block->escapeHtmlAttr(mb_strtolower($productBadges, 'UTF-8')) ?>
+                                        "
+                                    >
+                                        <?= $block->escapeHtml($productBadges) ?>
+                                    </div>
+                                <?php endif ?>
+                            </div>
+                        <?php endif ?>
+                        <div
+                            class="product-grid-item__image-wrapper"
+                        >
+                            <?= $productImage->toHtml() ?>
+                        </div>
+                    </a>
+                    <section class="product-grid-item__details">
+                        <div class="product-grid-item__rating">
+                            <?= $block->getReviewsSummaryHtml($_product, $templateType) ?>
+                        </div>
+                        <div
+                            class="product-grid-item__name"
+                            data-testid="list-product-item-name"
+                        >
+                            <a
+                                href="<?= $block->escapeUrl($block->getProductUrl($_product)) ?>"
+                                class="product-grid-item__name-link"
+                            >
+                                <?= $_product['name'] ?>
+                            </a>
+                        </div>
+                        <div class="product-grid-item__details-bottom">
+                            <div class="product-grid-item__price">
+                                <div
+                                    class="price"
+                                    data-testid="list-product-item-price"
+                                >
+                                    <span class="price__value">
+                                        <?= $block->getProductPrice($_product) ?>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="product-grid-item__actions">
+                                <div class="product-grid-item__secondary-action">
+                                    <?php if ($addToBlock = $block->getChildBlock('addto')): ?>
+                                        <?= $addToBlock->setProduct($_product)->getChildHtml() ?>
+                                    <?php endif ?>
+                                </div>
+
+                                <?php if ($_product->isSaleable()): ?>
+                                    <?php $postParams = $block->getAddToCartPostParams($_product) ?>
+                                    <form
+                                        class="product-grid-item__primary-action"
+                                        data-role="tocart-form"
+                                        action="<?= $postParams['action'] ?>"
+                                        method="post"
+                                    >
+                                        <input
+                                            type="hidden"
+                                            name="<?= Action::PARAM_NAME_URL_ENCODED ?>"
+                                            value="<?= $postParams['data'][Action::PARAM_NAME_URL_ENCODED] ?>"
+                                        >
+                                        <?= $block->getBlockHtml('formkey') ?>
+                                        <button
+                                            class="
+                                                button
+                                                button--add-to
+                                                action
+                                                tocart
+                                            "
+                                            type="submit"
+                                        >
+                                            <svg
+                                                class="icon button__icon"
+                                                role="presentation"
+                                                focusable="false"
+                                            >
+                                                <title><?= __('Shopping cart') ?></title>
+                                                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#shopping-cart')) ?>"></use>
+                                            </svg>
+                                        </button>
+                                    </form>
+                                <?php else: ?>
+                                    <?php if ($_product->getIsSalable()): ?>
+                                        <span
+                                            class="
+                                                product-grid-item__stock-status
+                                                product-grid-item__stock-status--in-stock
+                                            "
+                                        >
+                                            <?= __('In stock') ?>
+                                        </span>
+                                    <?php else: ?>
+                                        <span
+                                            class="
+                                                product-grid-item__stock-status
+                                                product-grid-item__stock-status--out-of-stock
+                                            "
+                                        >
+                                            <?= __('Out of stock') ?>
+                                        </span>
+                                    <?php endif ?>
+                                <?php endif ?>
+                            </div>
+                        </div>
+                    </section>
+                </li>
+            <?php endforeach ?>
+        </ul>
+    <?php endif ?>
+    <?= $block->getToolbarHtml() ?>
+    <?php if (!$block->isRedirectToCartEnabled()) : ?>
+        <script type="text/x-magento-init">
+        {
+            "[data-role=tocart-form], .form.map.checkout": {
+                "catalogAddToCart": {}
+            }
+        }
+        </script>
+    <?php endif ?>
+<?php endif ?>

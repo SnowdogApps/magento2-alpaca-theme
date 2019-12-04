@@ -1,0 +1,57 @@
+<form class="dashboard-form {{ class }}">
+    <h2 class="dashboard-form__title {{ titleClass }}">
+        {{ title }}
+    </h2>
+
+    <fieldset
+        class="
+            fieldset
+            {{ contentClass }}
+        "
+    >
+        {{#each fields }}
+            {{ render '@input' input }}
+        {{/each}}
+
+        {{#each textareas }}
+            {{ render '@input--textarea' textarea }}
+        {{/each}}
+
+        {{#each selects }}
+            {{ render '@select' select }}
+        {{/each}}
+
+        {{#each checkboxes }}
+            {{ render '@checkbox' checkbox }}
+        {{/each}}
+
+        <div
+            class="
+                dashboard-form__fields
+                dashboard-form--hidden
+                {{ fieldsClass }}
+             "
+        >
+            <h2
+                class="
+                    heading
+                    dashboard-form__title-form
+                    {{ formTitleClass }}
+                "
+            >
+                {{ formTitle }}
+            </h2>
+
+            {{#each hiddenFields}}
+                {{#if hiddenField.password }}
+                    {{ render '@input--password' hiddenField merge=true }}
+                {{else}}
+                    {{ render '@input' hiddenField }}
+                {{/if}}
+            {{/each}}
+        </div>
+    </fieldset>
+</form>
+{{#if script}}
+    <script src="{{ static '../dashboard-form/form.js' }}"></script>
+{{/if}}

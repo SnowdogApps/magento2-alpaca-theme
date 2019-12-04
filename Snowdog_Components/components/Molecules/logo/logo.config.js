@@ -3,7 +3,7 @@ module.exports = {
   context: {
     class: '',
     ariaLabel: 'Homepage',
-    imageAlt: 'Alpaca Logo',
+    imageAlt: 'Colibri Logo',
     imageAttributes: '',
     imageClass: '',
     imageSrc: '/images/logo/logo.svg',

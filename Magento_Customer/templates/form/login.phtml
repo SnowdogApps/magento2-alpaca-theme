@@ -1,0 +1,148 @@
+<?php
+/**
+ * Customer login form template
+ *
+ * @see \Magento\Customer\Block\Form\Login
+ * @var \Magento\Customer\Block\Form\Login $block
+ */
+?>
+<div class="container auth">
+    <div class="auth__links">
+        <button
+            class="
+                button
+                button--link
+                auth__link
+                auth__link--active
+            "
+        >
+            <?= __('Login') ?>
+            <svg
+                class="icon auth__icon"
+                aria-hidden="true"
+            >
+                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#expand-down')) ?>"></use>
+            </svg>
+        </button>
+        <a
+            href="<?= $block->escapeUrl($block->getUrl('customer/account/create')); ?>"
+            class="
+                button
+                button--link
+                auth__link
+                auth__link--registration
+            "
+        >
+            <?= __('Create account') ?>
+            <svg
+                class="icon auth__icon"
+                aria-hidden="true"
+            >
+                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#expand-down')); ?>"></use>
+            </svg>
+        </a>
+    </div>
+    <div class="account-form">
+        <p class="account-form__info">
+            <?= __('If you have an account, sign in with your email address.') ?>
+        </p>
+        <form
+            class="account-form__form"
+            action="<?= $block->escapeUrl($block->getPostActionUrl()); ?>"
+            method="post"
+            data-mage-init='{"validation":{}}'
+        >
+            <?= $block->getBlockHtml('formkey'); ?>
+            <fieldset class="fieldset account-form__fieldset">
+                <div
+                    class="
+                        input
+                        account-form__input
+                        required
+                    "
+                >
+                    <label
+                        class="label"
+                        for="email"
+                    >
+                        <?= __('Email') ?>
+                    </label>
+                    <input
+                        name="login[username]"
+                        value="<?= $block->escapeHtmlAttr($block->getUsername()); ?>"
+                        <?= ($block->isAutocompleteDisabled()) ? 'autocomplete="off"': ''; ?>
+                        id="email"
+                        type="email"
+                        class="input__field"
+                        title="<?= $block->escapeHtmlAttr(__('Email')); ?>"
+                        data-validate="{required:true, 'validate-email':true}"
+                        data-mage-init='{"mage/trim-input":{}}'
+                        aria-required="true"
+                    >
+                </div>
+                <div
+                    class="
+                        input
+                        account-form__input
+                        required
+                    "
+                >
+                    <label
+                        class="label"
+                        for="password"
+                    >
+                        <?= ('Password') ?>
+                    </label>
+                    <input
+                        name="login[password]"
+                        type="password"
+                        <?= ($block->isAutocompleteDisabled()) ?  'autocomplete="off"': '' ?>
+                        class="input__field"
+                        id="password"
+                        title="<?= $block->escapeHtmlAttr(__('Password')); ?>"
+                        data-validate="{required:true}"
+                        aria-required="true"
+                    >
+                </div>
+                <?= $block->getChildHtml('form_additional_info'); ?>
+            </fieldset>
+            <div class="account-form__actions">
+                <button
+                    type="submit"
+                    class="button account-form__button"
+                >
+                    <?= __('Sign In') ?>
+                </button>
+
+                <a
+                    href="<?=  $block->escapeUrl($block->getForgotPasswordUrl()); ?>"
+                    class="account-form__forgot-password"
+                >
+                    <?= __('Forgot your password?') ?>
+                </a>
+            </div>
+            <div class="account-form__validation-tips">
+                * <?= __('Required Fields') ?>
+            </div>
+        </form>
+    </div>
+    <div class="auth__links ">
+        <a
+            href="<?= $block->escapeUrl($block->getUrl('customer/account/create')); ?>"
+            class="
+                button
+                button--link
+                auth__link
+                auth__link--registration-mobile
+            "
+        >
+            <?= __('Create account') ?>
+            <svg
+                class="icon auth__icon"
+                aria-hidden="true"
+            >
+                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#expand-down')); ?>"></use>
+            </svg>
+        </a>
+    </div>
+</div>

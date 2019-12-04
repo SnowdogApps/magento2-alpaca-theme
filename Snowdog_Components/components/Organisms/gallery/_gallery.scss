@@ -1,0 +1,120 @@
+@import 'gallery-variables';
+
+.gallery {
+    display: flex;
+    flex-flow: nowrap;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: $gallery__width;
+    margin: $gallery__margin;
+    padding: $gallery__padding;
+    list-style-type: none;
+
+    &__frame {
+        position: relative;
+    }
+
+    &__stage {
+        order: 1;
+        margin: $gallery__stage-margin;
+    }
+
+    &__nav {
+        order: 2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__thumb {
+        overflow: hidden;
+        margin: $gallery__thumb-margin;
+        border: $gallery__thumb-border;
+        width: $gallery__thumb-width;
+
+        @include mq($screen-m) {
+            width: $gallery__thumb-width\@medium;
+        }
+
+        &:hover,
+        &.focus-visible {
+            cursor: pointer;
+        }
+
+        &:last-of-type {
+            margin: 0;
+        }
+
+        &--active {
+            border: $gallery__thumb-border--active;
+        }
+
+        &--vertical {
+            margin: $gallery__thumb-margin--vertical;
+        }
+
+        &--horizontal {
+            margin: $gallery__thumb-margin;
+        }
+    }
+
+    &__thumb-arr {
+        background: $white;
+
+        // TO DO: consult icon hover state
+        &:hover {
+            &:after,
+            &:before {
+                display: none;
+            }
+            .gallery__icon-arrow {
+                fill: $gallery__icon-arrow-color-hover;
+            }
+        }
+    }
+
+    &__icon-arrow {
+        transform: translate3d(-50%, -50%, 0) rotate(-90deg);
+        &--vertical {
+            @include mq($screen-l) {
+                transform: none;
+            }
+        }
+    }
+
+    &__thumb-dot {
+        position: relative;
+        margin: $gallery__thumb-margin--dots;
+
+        &--active {
+            border: $gallery__thumb-border-active--dots;
+        }
+    }
+
+    &__dot {
+        display: block;
+        width: $gallery__thumb-dot-size--dots;
+        height: $gallery__thumb-dot-size--dots;
+        border-radius: $gallery__thumb-dot-border-radius--dots;
+        background-color: $gallery__thumb-dot-bg-color--dots;
+
+        &--active {
+            background-color: $gallery__thumb-dot-bg-color-active--dots;
+        }
+    }
+
+    &-placeholder {
+        position: relative;
+
+        .loader {
+            position: static;
+        }
+    }
+
+    &__placeholder-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+    }
+}

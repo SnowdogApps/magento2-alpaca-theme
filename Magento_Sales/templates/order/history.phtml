@@ -1,0 +1,156 @@
+<?php $_orders = $block->getOrders(); ?>
+<?= $block->getChildHtml('info'); ?>
+
+<?php if ($_orders && count($_orders)): ?>
+    <div class="dashboard-table">
+        <div class="dashboard-table__header">
+            <h2 class="heading dashboard-table__title">
+                <?= __('Recent orders') ?>
+            </h2>
+        </div>
+
+        <div class="dashboard-table__content">
+            <table
+                class="table margin-0"
+                tabindex="0"
+                role="table"
+            >
+                <caption class="table__caption">
+                    <?= __('Recent orders') ?>
+                </caption>
+                <thead>
+                    <tr role="row">
+                        <th
+                            scope="col"
+                            role="columnheader"
+                        >
+                            <?= __('Order #') ?>
+                        </th>
+
+                        <th
+                            scope="col"
+                            role="columnheader"
+                        >
+                            <?= __('Date') ?>
+                        </th>
+
+                        <?= $block->getChildHtml('extra.column.header'); ?>
+
+                        <th
+                            scope="col"
+                            role="columnheader"
+                        >
+                            <?= __('Ship To') ?>
+                        </th>
+
+                        <th
+                            scope="col"
+                            role="columnheader"
+                        >
+                            <?= __('Order Total') ?>
+                        </th>
+
+                        <th
+                            scope="col"
+                            role="columnheader"
+                        >
+                            <?= __('Status') ?>
+                        </th>
+
+                        <th
+                            scope="col"
+                            role="columnheader"
+                        >
+                            <span class="table__visually-hidden">
+                                <?= __('Action') ?>
+                            </span>
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <?php foreach ($_orders as $_order): ?>
+                        <tr class="row">
+                            <td
+                                data-th="<?= $block->escapeHtmlAttr(__('Order #')) ?>"
+                                role="gridcell"
+                            >
+                                <?= $_order->getRealOrderId() ?>
+                            </td>
+
+                            <td
+                                data-th="<?= $block->escapeHtmlAttr(__('Date')) ?>"
+                                role="gridcell"
+                            >
+                                <?= $block->formatDate($_order->getCreatedAt()) ?>
+                            </td>
+
+                            <?php $extra = $block->getChildBlock('extra.container'); ?>
+
+                            <?php if ($extra): ?>
+                                <?php $extra->setOrder($_order); ?>
+                                <?php echo $extra->getChildHtml() ?>
+                            <?php endif; ?>
+
+                            <td
+                                data-th="<?= $block->escapeHtmlAttr(__('Ship To')) ?>"
+                                role="gridcell"
+                            >
+                                <?= /* @escapeNotVerified */
+                                    $_order->getShippingAddress()
+                                        ? $block->escapeHtml($_order->getShippingAddress()->getName())
+                                        : '&nbsp;'
+                                ?>
+                            </td>
+
+                            <td
+                                data-th="<?= $block->escapeHtmlAttr(__('Order Total')) ?>"
+                                role="gridcell"
+                            >
+                                <?= $block->stripTags($_order->formatPrice($_order->getGrandTotal())) ?>
+                            </td>
+
+                            <td
+                                data-th="<?= $block->escapeHtmlAttr(__('Status')) ?>"
+                                role="gridcell"
+                            >
+                                <?= $_order->getStatusLabel() ?>
+                            </td>
+
+                            <td
+                                data-th="<?= $block->escapeHtmlAttr(__('Actions')) ?>"
+                                role="gridcell"
+                            >
+                                <a
+                                    href="<?= $block->escapeUrl($block->getViewUrl($_order)) ?>"
+                                    class="link dashboard-table__link"
+                                >
+                                    <?= __('View Order') ?>
+                                </a>
+
+                                <?php if ($this->helper('Magento\Sales\Helper\Reorder')->canReorder($_order->getEntityId())) : ?>
+                                     |
+                                    <a
+                                        href="#"
+                                        data-post='<?= $this->helper(\Magento\Framework\Data\Helper\PostHelper::class)->getPostData($block->getReorderUrl($_order)); ?>'
+                                        class="link dashboard-table__link"
+                                    >
+                                        <?= __('Reorder') ?>
+                                    </a>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <?php if ($block->getPagerHtml()): ?>
+        <?= $block->getPagerHtml(); ?>
+    <?php endif ?>
+<?php else: ?>
+    <div class="message info empty">
+        <?= __('You have placed no orders.'); ?>
+    </div>
+<?php endif; ?>
