@@ -14,13 +14,6 @@ define([
   return function (widget) {
     $.widget('snowdog.quickSearch', widget, {
 
-      /**
-       * Return the wrapper for all autocomplete results
-       *
-       * @returns {*|jQuery|HTMLElement}
-       *
-       * @private
-       */
       _getResultWrapper: function () {
         return $('<div class="quicksearch__content"></div>');
       },
@@ -35,8 +28,9 @@ define([
 
       _renderSearchHeader: function(query) {
         const data = {
-          type: "results_header",
-          query: query
+          type: 'results_header',
+          query: query,
+          text: $.mage.__('Results for your request')
         };
 
         return this._renderItem(data, 0);
@@ -44,10 +38,10 @@ define([
 
       _renderSearchFooter: function(query) {
         const data = {
-          type: "results_footer",
+          type: 'results_footer',
           link: {
             text: $.mage.__('See all'),
-            href: `catalogsearch/result?q=${query}`,
+            href: `/catalogsearch/result?q=${query}`,
             title: $.mage.__('See all results')
           }
         };
@@ -57,7 +51,7 @@ define([
 
       _renderCloseButton: function() {
         const data = {
-          type: "close_button",
+          type: 'close_button',
           title: $.mage.__('Close quicksearch'),
           href: require.toUrl('images/icons-sprite.svg#close')
         };
@@ -95,7 +89,8 @@ define([
 
         if (this.titleRenderers && this.titleRenderers[type]) {
           title = heading.html(this.titleRenderers[type].render(data));
-        } else if (this.options.templates && this.options.templates[type].title) {
+        }
+        else if (this.options.templates && this.options.templates[type].title) {
           title = heading.html(this.options.templates[type].title);
         }
 
@@ -189,6 +184,11 @@ define([
               } else {
                 this._updateAriaHasPopup(false);
               }
+
+              $('.quicksearch__close-button').on('click', function (e) {
+                self._resetResponseList(true);
+                self.autoComplete.hide();
+              })
 
               this.responseList.indexList
                 .on('click', function (e) {
