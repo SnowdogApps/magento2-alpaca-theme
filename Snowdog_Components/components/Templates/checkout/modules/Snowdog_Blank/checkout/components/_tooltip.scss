@@ -1,0 +1,148 @@
+$checkout-tooltip__hover__z-index              : $tooltip__z-index !default;
+$checkout-tooltip-breakpoint__screen-m         : $modal-popup-breakpoint-screen__m !default;
+
+$checkout-tooltip-content__background-color    : $color-gray-light01 !default;
+$checkout-tooltip-content__border-color        : $color-gray60 !default;
+$checkout-tooltip-content__border-width        : 1px !default;
+$checkout-tooltip-content__font-size           : $font-size__base !default;
+$checkout-tooltip-content__padding             : 12px !default;
+$checkout-tooltip-content__width               : 270px !default;
+$checkout-tooltip-content__active__border-color: darken($checkout-tooltip-content__border-color, 20%) !default;
+
+$checkout-tooltip-icon-arrow__left             : -( $checkout-tooltip-content__padding + 10px - $checkout-tooltip-content__border-width) !default;
+
+$checkout-tooltip-icon__color                  : $color-gray-light2 !default;
+$checkout-tooltip-icon__content                : $icon-help !default;
+$checkout-tooltip-icon__hover__color           : $primary__color !default;
+
+$checkout-tooltip-content-mobile-popup__width  : 200px !default;
+$checkout-tooltip-content-mobile__right        : -($indent__s) !default;
+$checkout-tooltip-content-mobile__top          : 40px !default;
+
+.field-tooltip {
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    flex-direction: column;
+
+    .action-help {
+        width: 25px;
+        display: block;
+        height: 25px;
+
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    &._active {
+        z-index: $checkout-tooltip__hover__z-index;
+
+        .field-tooltip-content {
+            display: block;
+        }
+
+        .field-tooltip-action {
+            &:before {
+                color: $checkout-tooltip-icon__hover__color;
+            }
+        }
+    }
+
+    .field-tooltip-action {
+        &:focus {
+            ._keyfocus & {
+                z-index: $checkout-tooltip__hover__z-index;
+
+                & + .field-tooltip-content {
+                    display: block;
+                }
+
+                &:before {
+                    color: $checkout-tooltip-icon__hover__color;
+                }
+            }
+        }
+    }
+
+    .field-tooltip-content {
+        position: absolute;
+        top: 0;
+        left: 38px;
+        display: none;
+        width: $checkout-tooltip-content__width;
+        z-index: 2;
+        border: 1px solid $gray-lightest;
+        font-size: 13px;
+        padding: 10px;
+        background: $gray-lightest;
+        text-transform: none;
+        word-wrap: break-word;
+
+        &:before,
+        &:after {
+            @include lib-arrow(
+                $_position: left,
+                $_size    : 10px,
+                $_color   : $gray-lightest
+            );
+            left: $checkout-tooltip-icon-arrow__left;
+            top: 10px;
+            content: '';
+            display: block;
+            position: absolute;
+            z-index: 3;
+        }
+    }
+}
+
+@include mq($max-screen: $screen__xs) {
+    .modal-popup {
+        .field-tooltip {
+            .field-tooltip-content {
+                width: $checkout-tooltip-content-mobile-popup__width;
+            }
+        }
+    }
+}
+
+//
+//  Checkout Tooltip Content (position: top)
+//  ---------------------------------------------
+
+@mixin abs-checkout-tooltip-content-position-top() {
+    right: $checkout-tooltip-content-mobile__right;
+    top: $checkout-tooltip-content-mobile__top;
+    left: auto;
+
+    &:before,
+    &:after {
+        @include lib-arrow(
+            $_position: top,
+            $_size: 10px,
+            $_color: $checkout-tooltip-content__background-color
+        );
+        border-bottom-color: #f4f4f4;
+        margin-top: $checkout-tooltip-icon-arrow__left;
+        right: $indent__s;
+        left: auto;
+        top: 0;
+    }
+
+    &:after {
+        top: 1px;
+    }
+}
+
+@include mq($max-screen: $checkout-tooltip-breakpoint__screen-m) {
+    .field-tooltip {
+        .field-tooltip-content {
+            @include abs-checkout-tooltip-content-position-top();
+        }
+    }
+}
