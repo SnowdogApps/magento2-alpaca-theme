@@ -191,7 +191,7 @@ module.exports = {
       components: [
         {
           content: {
-            content: 'slider--products-without-cart',
+            content: 'slider--products',
             contentContext: {
               script: false
             }
