@@ -8,7 +8,7 @@
 <?php
 $collection = $block->getCollection();
 $ctPrefix = 'cb_article_';
-$ctSmallImgPrefix = 'cb_small_img_';
+$ctPicPrefix = 'cb_pic_';
 $filtersBlock = $block->getChildBlock('blog-filter');
 $filters = $filtersBlock->getFilters();
 $recentArticlesBlock = $block->getChildBlock('recent-articles');
@@ -25,7 +25,11 @@ $recentArticles = $recentArticlesBlock->getCollection();
     >
         <div class="blog__articles col-md-8">
             <?php if ($block->hasPagerTop()) : ?>
-                <?= $block->getPagerHtml(); ?>
+                <?= $block->getChildBlock('pager')
+                    ->setData([
+                        'use_container' => false
+                    ])->toHtml();
+                ?>
             <?php endif; ?>
             <ul class="list blog__articles-list">
                 <?php foreach ($collection as $content) : ?>
@@ -36,45 +40,66 @@ $recentArticles = $recentArticlesBlock->getCollection();
                         $title = $content->getData($ctPrefix . 'title');
                         $description = $content->getData($ctPrefix . 'short_desc');
 
-                        $thumbnailAttributes = [
-                            $ctSmallImgPrefix . 'alt',
-                            $ctSmallImgPrefix . 'default',
-                            $ctSmallImgPrefix . 'max_480',
-                            $ctSmallImgPrefix . 'max_768',
-                            $ctSmallImgPrefix . 'max_1024',
-                        ];
+                        $imageAttributes = ['*'];
+                        $imageCollection = $content->getContentCollection($ctPrefix . 'image', $imageAttributes);
 
-                        $thumbnailId = (int) explode(',', $content->getData($ctPrefix . 'thumbnail'))[0];
-                        $thumbnailsContent = $content->getContentCollection($ctPrefix . 'thumbnail', $thumbnailAttributes);
-                        $thumbnailDefault = '';
-                        $thumbnailAlt = '';
+                        foreach ($imageCollection as $index => $imageContent) {
+                            $thumbnail = $imageContent->getData($ctPicPrefix . 'thumbnail');
 
-                        $thumbnails = $thumbnailsContent->getItems();
-                        $thumbnail = $thumbnails[$thumbnailId];
+                            if ($thumbnail) {
+                                $image['title'] = $imageContent->getData($ctPicPrefix . 'title');
+                                $image['alt'] = $imageContent->getData($ctPicPrefix . 'alt');
+                                $image['url'] = $imageContent->getData($ctPicPrefix . 'url');
+                                $image['url_target'] = $imageContent->getData($ctPicPrefix . 'url_target');
+                                $image['is_main'] = $imageContent->getData($ctPicPrefix . 'main_image');
+                                $image['order'] = $imageContent->getData($ctPicPrefix . 'order');
+                                $image['default'] = $imageContent->getFile($ctPicPrefix . 'default');
+                                $image['max_480'] =
+                                    $imageContent->getData($ctPicPrefix . 'max_480') ? $imageContent->getFile($ctPicPrefix . 'max_480') : false;
+                                $image['max_768'] =
+                                    $imageContent->getData($ctPicPrefix . 'max_768') ? $imageContent->getFile($ctPicPrefix . 'max_768') : false;
+                                $image['max_1024'] =
+                                    $imageContent->getData($ctPicPrefix . 'max_1024') ? $imageContent->getFile($ctPicPrefix . 'max_1024') : false;
+                                $image['max_1328'] =
+                                    $imageContent->getData($ctPicPrefix . 'max_1328') ? $imageContent->getFile($ctPicPrefix . 'max_1328') : false;
+                                $image['full'] =
+                                    $imageContent->getData($ctPicPrefix . 'full') ? $imageContent->getFile($ctPicPrefix . 'full') : false;
+                                //2x
+                                $image['max_480_2x'] =
+                                    $imageContent->getData($ctPicPrefix . 'max_480_2x') ? $imageContent->getFile($ctPicPrefix . 'max_480_2x') : false;
+                                $image['max_768_2x'] =
+                                    $imageContent->getData($ctPicPrefix . 'max_768_2x') ? $imageContent->getFile($ctPicPrefix . 'max_768_2x') : false;
+                                $image['max_1024_2x'] =
+                                    $imageContent->getData($ctPicPrefix . 'max_1024_2x') ? $imageContent->getFile($ctPicPrefix . 'max_1024_2x') : false;
+                                $image['max_1328_2x'] =
+                                    $imageContent->getData($ctPicPrefix . 'max_1328_2x') ? $imageContent->getFile($ctPicPrefix . 'max_1328_2x') : false;
+                                $image['full_2x'] =
+                                    $imageContent->getData($ctPicPrefix . 'full_2x') ? $imageContent->getFile($ctPicPrefix . 'full_2x') : false;
 
-                        if (!empty($thumbnail)) {
-                            $thumbnailDefault = $block->escapeUrl($thumbnail->getFile($ctSmallImgPrefix . 'default'));
-                            $thumbnail480 = $block->escapeUrl($thumbnail->getFile($ctSmallImgPrefix . 'max_480'));
-                            $thumbnail768 = $block->escapeUrl($thumbnail->getFile($ctSmallImgPrefix . 'max_768'));
-                            $thumbnail1024 = $block->escapeUrl($thumbnail->getFile($ctSmallImgPrefix . 'max_1024'));
-                            $thumbnailAlt = $thumbnail->getData($ctSmallImgPrefix . 'alt');
-
-                            $block->getChildBlock('colibri-blog-thumbnail')->setData([
-                                'picture_class' => 'thumbnail__image',
-                                'picture_full_url' => true,
-                                'img_default' => $thumbnailDefault,
-                                'img_480' => $thumbnail480,
-                                'img_768' => $thumbnail768,
-                                'img_1024' => $thumbnail1024,
-                                'picture_alt' => $thumbnailAlt
-                            ]);
+                                $block->getChildBlock('colibri-blog-thumbnail')->setData([
+                                    'picture_class' => 'thumbnail__image',
+                                    'picture_full_url' => true,
+                                    'img_default' => $image['default'],
+                                    'img_480' => $image['max_480'],
+                                    'img_768' => $image['max_768'],
+                                    'img_1024' => $image['max_1024'],
+                                    'img_1328' => $image['max_1328'],
+                                    'img_full' => $image['full'],
+                                    'img_4802x' => $image['max_480_2x'],
+                                    'img_7682x' => $image['max_768_2x'],
+                                    'img_10242x' => $image['max_1024_2x'],
+                                    'img_13282x' => $image['max_1328_2x'],
+                                    'img_full_2x' => $image['full_2x'],
+                                    'picture_alt' => $image['alt']
+                                ]);
+                            }
                         }
                     ?>
                     <li class="list__item blog__article-item">
                         <article class="article-item">
                             <header class="article-item__header">
                                 <h2 class="article-item__title heading--font-secondary">
-                                    <?= $title ?>
+                                    <?= $block->escapeHtml($title) ?>
                                 </h2>
                                 <span class="article-item__sub-title heading--font-secondary">
                                     <?= $dateFormatted ?>
@@ -96,7 +121,8 @@ $recentArticles = $recentArticlesBlock->getCollection();
                                     <footer class="article-item__footer">
                                         <a
                                             class="link article-item__footer-link"
-                                            href="<?= $link ?>" title="<?= $block->escapeHtmlAttr(__('Read more')) ?>"
+                                            href="<?= $link ?>"
+                                            title="<?= $block->escapeHtmlAttr(__('Read more')) ?>"
                                         >
                                             <?= __('Read more') ?>
                                         </a>
@@ -108,7 +134,11 @@ $recentArticles = $recentArticlesBlock->getCollection();
                 <?php endforeach; ?>
             </ul>
             <?php if ($block->hasPagerBottom()) : ?>
-                <?= $block->getPagerHtml(); ?>
+                <?= $block->getChildBlock('pager')
+                    ->setData([
+                        'use_container' => false
+                    ])->toHtml();
+                ?>
             <?php endif; ?>
         </div>
         <nav
@@ -134,7 +164,7 @@ $recentArticles = $recentArticlesBlock->getCollection();
                                 href="<?= $link ?>"
                                 class="link"
                             >
-                                <?= $title ?>
+                                <?= $block->escapeHtml($title) ?>
                             </a>
                         </li>
                     <?php endforeach; ?>
@@ -153,7 +183,7 @@ $recentArticles = $recentArticlesBlock->getCollection();
                                         href="<?= $block->escapeUrl($filtersBlock->getFilterUrl($filter->getIdentifier(), $option['value'])) ?>"
                                         class="link"
                                     >
-                                        <?= $option['label'] ?>
+                                        <?= $block->escapeHtml($option['label']) ?>
                                     </a>
                                 </li>
                             <?php endforeach; ?>

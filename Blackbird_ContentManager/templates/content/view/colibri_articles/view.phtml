@@ -47,70 +47,56 @@ $date = new DateTime($content->getData($ctPrefix . 'date'));
 $dateFormatted = $date->format('F j\,\ Y');
 $title = $content->getData($ctPrefix . 'title');
 
-$imageAttributes = [
-    $ctPicPrefix . 'alt',
-    $ctPicPrefix . 'default',
-    $ctPicPrefix . 'max_480',
-    $ctPicPrefix . 'max_480_2x',
-    $ctPicPrefix . 'max_768',
-    $ctPicPrefix . 'max_768_2x',
-    $ctPicPrefix . 'max_1024',
-    $ctPicPrefix . 'max_1024_2x',
-    $ctPicPrefix . 'max_1328',
-    $ctPicPrefix . 'max_1328_2x',
-    $ctPicPrefix . 'full',
-    $ctPicPrefix . 'full_2x'
-];
+$imageAttributes = ['*'];
+$imageCollection = $content->getContentCollection($ctPrefix . 'image', $imageAttributes);
 
-$imageId = (int) explode(',', $content->getData($ctPrefix . 'image'))[0];
-$imagesContent = $content->getContentCollection($ctPrefix . 'image', $imageAttributes);
-$imageDefault = '';
-$imageAlt = '';
-$image = null;
-
-$images = $imagesContent->getItems();
-
-if (!empty($images[$imageId])) {
-    $image = $images[$imageId];
+foreach ($imageCollection as $index => $imageContent) {
+    $image['title'] = $imageContent->getData($ctPicPrefix . 'title');
+    $image['alt'] = $imageContent->getData($ctPicPrefix . 'alt');
+    $image['url'] = $imageContent->getData($ctPicPrefix . 'url');
+    $image['url_target'] = $imageContent->getData($ctPicPrefix . 'url_target');
+    $image['is_main'] = $imageContent->getData($ctPicPrefix . 'main_image');
+    $image['order'] = $imageContent->getData($ctPicPrefix . 'order');
+    $image['default'] = $imageContent->getFile($ctPicPrefix . 'default');
+    $image['max_480'] =
+        $imageContent->getData($ctPicPrefix . 'max_480') ? $imageContent->getFile($ctPicPrefix . 'max_480') : false;
+    $image['max_768'] =
+        $imageContent->getData($ctPicPrefix . 'max_768') ? $imageContent->getFile($ctPicPrefix . 'max_768') : false;
+    $image['max_1024'] =
+        $imageContent->getData($ctPicPrefix . 'max_1024') ? $imageContent->getFile($ctPicPrefix . 'max_1024') : false;
+    $image['max_1328'] =
+        $imageContent->getData($ctPicPrefix . 'max_1328') ? $imageContent->getFile($ctPicPrefix . 'max_1328') : false;
+    $image['full'] =
+        $imageContent->getData($ctPicPrefix . 'full') ? $imageContent->getFile($ctPicPrefix . 'full') : false;
+    //2x
+    $image['max_480_2x'] =
+        $imageContent->getData($ctPicPrefix . 'max_480_2x') ? $imageContent->getFile($ctPicPrefix . 'max_480_2x') : false;
+    $image['max_768_2x'] =
+        $imageContent->getData($ctPicPrefix . 'max_768_2x') ? $imageContent->getFile($ctPicPrefix . 'max_768_2x') : false;
+    $image['max_1024_2x'] =
+        $imageContent->getData($ctPicPrefix . 'max_1024_2x') ? $imageContent->getFile($ctPicPrefix . 'max_1024_2x') : false;
+    $image['max_1328_2x'] =
+        $imageContent->getData($ctPicPrefix . 'max_1328_2x') ? $imageContent->getFile($ctPicPrefix . 'max_1328_2x') : false;
+    $image['full_2x'] =
+        $imageContent->getData($ctPicPrefix . 'full_2x') ? $imageContent->getFile($ctPicPrefix . 'full_2x') : false;
 }
 
-if (!empty($image)) {
-    $imageDefault = $block->escapeUrl($image->getFile($ctPicPrefix . 'default'));
-
-    $image480 = $block->escapeUrl($image->getFile($ctPicPrefix . 'max_480'));
-    $image4802x = $block->escapeUrl($image->getFile($ctPicPrefix . 'max_480_2x'));
-
-    $image768 = $block->escapeUrl($image->getFile($ctPicPrefix . 'max_768'));
-    $image7682x = $block->escapeUrl($image->getFile($ctPicPrefix . 'max_768_2x'));
-
-    $image1024 = $block->escapeUrl($image->getFile($ctPicPrefix . 'max_1024'));
-    $image10242x = $block->escapeUrl($image->getFile($ctPicPrefix . 'max_1024_2x'));
-
-    $image1328 = $block->escapeUrl($image->getFile($ctPicPrefix . 'max_1328'));
-    $image13282x = $block->escapeUrl($image->getFile($ctPicPrefix . 'max_1328_2x'));
-
-    $imageFull = $block->escapeUrl($image->getFile($ctPicPrefix . 'full'));
-    $imageFull2x = $block->escapeUrl($image->getFile($ctPicPrefix . 'full_2x'));
-
-    $imageAlt = $image->getData($ctPicPrefix . 'alt');
-
-    $block->getChildBlock('colibri-article-image')->setData([
-        'picture_class' => 'article__image',
-        'picture_full_url' => true,
-        'img_default' => $imageDefault,
-        'img_480' => $image480,
-        'img_768' => $image768,
-        'img_1024' => $image1024,
-        'img_1328' => $image1328,
-        'img_full' => $imageFull,
-        'img_4802x' => $image4802x,
-        'img_7682x' => $image7682x,
-        'img_10242x' => $image10242x,
-        'img_13282x' => $image13282x,
-        'img_full_2x' => $imageFull2x,
-        'picture_alt' => $imageAlt
-    ]);
-}
+$block->getChildBlock('colibri-article-image')->setData([
+    'picture_class' => 'article__image',
+    'picture_full_url' => true,
+    'img_default' => $image['default'],
+    'img_480' => $image['max_480'],
+    'img_768' => $image['max_768'],
+    'img_1024' => $image['max_1024'],
+    'img_1328' => $image['max_1328'],
+    'img_full' => $image['full'],
+    'img_4802x' => $image['max_480_2x'],
+    'img_7682x' => $image['max_768_2x'],
+    'img_10242x' => $image['max_1024_2x'],
+    'img_13282x' => $image['max_1328_2x'],
+    'img_full_2x' => $image['full_2x'],
+    'picture_alt' => $image['alt']
+]);
 
 $categories = explode(',', $content->getData($ctPrefix . 'category'));
 
@@ -134,7 +120,7 @@ $entityId = $content->getData('entity_id');
     >
         <header class="article-item__header">
             <h1 class="article-item__title">
-                <?= $title ?>
+                <?= $block->escapeHtml($title) ?>
             </h1>
             <span class="article-item__sub-title heading--font-secondary">
                 <?= $dateFormatted ?>
@@ -173,7 +159,7 @@ $entityId = $content->getData('entity_id');
                                                 href="<?= $block->escapeUrl('/blog?' . $filter->getIdentifier() . '=' . $option['value']) ?>"
                                                 title="<?= $block->escapeHtmlAttr($option['label']) ?>"
                                             >
-                                                <?= $option['label'] ?>
+                                                <?= $block->escapeHtml($option['label']) ?>
                                             </a>
                                         </li>
                                     <?php endif; ?>
@@ -210,7 +196,7 @@ $entityId = $content->getData('entity_id');
                                 href="<?= $link ?>"
                                 class="link"
                             >
-                                <?= $title ?>
+                                <?= $block->escapeHtml($title) ?>
                             </a>
                         </li>
                     <?php endif; ?>
@@ -230,7 +216,7 @@ $entityId = $content->getData('entity_id');
                                     href="<?= $block->escapeUrl($filtersBlock->getFilterUrl($filter->getIdentifier(), $option['value'])) ?>"
                                     class="link"
                                 >
-                                    <?= $option['label'] ?>
+                                    <?= $block->escapeHtml($option['label']) ?>
                                 </a>
                             </li>
                         <?php endforeach; ?>
