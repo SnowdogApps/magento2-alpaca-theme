@@ -294,7 +294,7 @@ const buildFractal = () => {
   });
 }
 
-const dev = gulp.series(gulp.parallel(inheritance, compileSVG, compileStyle), startFractal, watch)
+const dev = gulp.series(gulp.parallel(inheritance, compileSVG, compileStyle), a11y, startFractal, watch)
 
 const build = gulp.series(gulp.parallel(inheritance, compileSVG, compileStyle), buildFractal)
 
