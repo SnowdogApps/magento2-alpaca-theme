@@ -13,7 +13,8 @@ module.exports = {
           }
         }
       ]
-    },//mainSlider end
+    //mainSlider end
+    },
     briefInfo: {
       heading: false,
       components: [
@@ -24,13 +25,14 @@ module.exports = {
           }
         }
       ]
-    },//briefInfo end
+    //briefInfo end
+    },
     categoryBanners: {
       heading: {
         content: 'heading',
         contentContext: {
           tag: 'h2',
-          class: 'heading--first-level',
+          class: 'heading--first-level margin-0',
           text: 'Shop by category'
         }
       },
@@ -41,7 +43,7 @@ module.exports = {
             content: 'banner--secondary',
             contentContext: {
               text: 'Clothing',
-              class: 'col-xs-6 col-lg-3 home__category-banner margin-bottom-l',
+              class: 'col-xs-6 col-lg-3 margin-bottom-l',
               image: {
                 defaultSrc: '/images/home/banners/category-clothing-144_200.jpg',
                 sources: [
@@ -63,7 +65,7 @@ module.exports = {
             content: 'banner--secondary',
             contentContext: {
               text: 'Shoes',
-              class: 'col-xs-6 col-lg-3 home__category-banner margin-bottom-l',
+              class: 'col-xs-6 col-lg-3 margin-bottom-l',
               image: {
                 defaultSrc: '/images/home/banners/category-shoes-144_200.jpg',
                 sources: [
@@ -85,7 +87,7 @@ module.exports = {
             content: 'banner--secondary',
             contentContext: {
               text: 'Accessories',
-              class: 'col-xs-6 col-lg-3 home__category-banner margin-bottom-l',
+              class: 'col-xs-6 col-lg-3',
               image: {
                 defaultSrc: '/images/home/banners/category-accessories-144_200.jpg',
                 sources: [
@@ -107,7 +109,7 @@ module.exports = {
             content: 'banner--secondary',
             contentContext: {
               text: 'New In',
-              class: 'col-xs-6 col-lg-3 home__category-banner margin-bottom-l',
+              class: 'col-xs-6 col-lg-3',
               image: {
                 defaultSrc: '/images/home/banners/category-new-in-144_200.jpg',
                 sources: [
@@ -125,7 +127,8 @@ module.exports = {
           }
         }
       ]
-    },//categoryBanners end
+    //categoryBanners end
+    },
     additionalBanners: {
       heading: false,
       contentClass: 'row',
@@ -134,7 +137,7 @@ module.exports = {
           content: {
             content: 'banner',
             contentContext: {
-              class: 'col-xs-12 col-lg-6 home__banner',
+              class: 'col-xs-12 col-lg-6 margin-bottom-m',
               image: {
                 defaultSrc: '/images/home/banners/banner-small-women-now-304_128.jpg',
                 sources: [
@@ -155,7 +158,7 @@ module.exports = {
           content: {
             content: 'banner',
             contentContext: {
-              class: 'col-xs-12 col-lg-6 home__banner',
+              class: 'col-xs-12 col-lg-6',
               image: {
                 defaultSrc: '/images/home/banners/banner-small-men-now-304_128.jpg',
                 sources: [
@@ -173,17 +176,18 @@ module.exports = {
           }
         }
       ]
-    },//additionalBanners end
+    //additionalBanners end
+    },
     popularProducts: {
       heading: {
         content: 'heading',
         contentContext: {
           tag: 'h2',
-          class: 'heading--first-level',
+          class: 'heading--first-level margin-0',
           text: 'Popular products'
         }
       },
-      contentClass: '',
+      contentClass: 'section__content--products',
       components: [
         {
           content: {
@@ -194,7 +198,8 @@ module.exports = {
           }
         }
       ]
-    },//popularProducts end
+    //popularProducts end
+    },
     teasers: {
       heading: false,
       contentClass: '',
@@ -206,17 +211,18 @@ module.exports = {
           }
         }
       ]
-    },//teasers end
+    //teasers end
+    },
     newProducts: {
       heading: {
         content: 'heading',
         contentContext: {
           tag: 'h2',
-          class: 'heading--first-level',
+          class: 'heading--first-level margin-0',
           text: 'New products'
         }
       },
-      contentClass: '',
+      contentClass: 'section__content--products',
       components: [
         {
           content: {
@@ -227,13 +233,14 @@ module.exports = {
           }
         }
       ]
-    },//newProducts end
+    //newProducts end
+    },
     brands: {
       heading: {
         content: 'heading',
         contentContext: {
           tag: 'h2',
-          class: 'heading--first-level',
+          class: 'heading--first-level margin-0',
           text: 'Top brands'
         }
       },
@@ -248,7 +255,8 @@ module.exports = {
           }
         }
       ]
-    },//brands end
+    //brands end
+    },
     content: {
       heading: false,
       contentClass: '',
@@ -260,6 +268,7 @@ module.exports = {
           }
         }
       ]
-    }//content end
+    //content end
+    }
   }
 }

@@ -5,7 +5,7 @@ module.exports = {
       content: 'heading',
       contentContext: {
         tag: 'h2',
-        class: 'heading--first-level',
+        class: 'heading--first-level margin-0',
         text: 'Section title'
       }
     },
