@@ -1,35 +1,40 @@
 <div class="slider {{ class }}" {{{ attributes }}}>
     {{#if heading }}
-        <div class="slider__heading {{ headingClass }}">
-            {{ heading }}
+        <div class="slider__heading {{ heading.class }}">
+            {{ render (component heading.content) heading.contentContext merge=true }}
         </div>
     {{/if }}
 
     {{#if contentBefore }}
-        <div class="slider__after {{ contentBefore.class }}">
+        <div class="slider__before {{ contentBefore.class }}">
             {{ render (component contentBefore.content) contentBefore.contentContext merge=true }}
         </div>
     {{/if }}
 
-    <div class="slider__handler">
-        <div class="slider__slides">
-            {{#each slides }}
-                <div
-                    class="slider__item {{ this.itemClass }}"
-                    {{{ this.itemAttributes }}}
-                >
-                    {{ render (component content) contentContext }}
+    <div class="slider__wrapper">
+        <div class="slider__container">
+            <div class="slider__navigation {{ navigationClass }}">
+                {{render '@button--icon' iconPrev }}
+
+                {{render '@button--icon' iconNext }}
+            </div>
+
+            <div class="slider__handler">
+                <div class="slider__slides">
+                    {{#each slides }}
+                        <div
+                            class="slider__item {{ this.itemClass }}"
+                            {{{ this.itemAttributes }}}
+                        >
+                            {{ render (component content) contentContext }}
+                        </div>
+                    {{/each}}
                 </div>
-            {{/each}}
+            </div>
+
+            <div class="slider__dots {{ dotsClass }}"></div>
         </div>
     </div>
-
-    <div class="slider__navigation {{ navigationClass }}">
-        {{render '@button--icon' iconPrev }}
-
-        {{render '@button--icon' iconNext }}
-    </div>
-    <div class="slider__dots {{ dotsClass }}"></div>
 
     {{#if contentAfter }}
         <div class="slider__after {{ contentAfter.class }}">

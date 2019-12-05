@@ -263,7 +263,7 @@ module.exports = {
       components: [
         {
           content: {
-            content: 'content-block--2-columns',
+            content: 'content-block--secondary',
             contentContext: ''
           }
         }

@@ -2,8 +2,15 @@ module.exports = {
   context: {
     script: true,
     attributes: 'data-rewind="true" data-enable-mouse-events="true" data-slides-to-scroll="1"',
-    heading: 'Slider heading',
-    headingClass: 'heading heading--second-level text-center margin-top-sm',
+    heading: {
+      class: '',
+      content: 'heading',
+      contentContext: {
+        tag: 'h2',
+        class: 'heading--first-level margin-0',
+        text: 'Slider heading'
+      }
+    },
     iconPrev: {
       tag: 'button',
       class: 'button--icon-border slider__prev',
@@ -210,7 +217,15 @@ module.exports = {
       name: 'brands',
       context: {
         class: 'slider--brands',
-        heading: 'Top brands',
+        heading: {
+          class: '',
+          content: 'heading',
+          contentContext: {
+            tag: 'h2',
+            class: 'heading--first-level margin-0',
+            text: 'Top brands'
+          }
+        },
         contentAfter: {
           content: 'link',
           contentContext: {
