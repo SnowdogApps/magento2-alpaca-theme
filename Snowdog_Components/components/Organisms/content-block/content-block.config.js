@@ -1,5 +1,6 @@
 module.exports = {
   context: {
+    rowClass: 'row',
     columns: [
       {
         class: 'col-xs-12',
@@ -32,9 +33,9 @@ module.exports = {
   },
   variants: [
     {
-      name: '2-columns',
+      name: 'Secondary',
       context: {
-        class: 'content-block--2-columns',
+        class: 'content-block--secondary',
         columns: [
           {
             class: 'col-xs-12 col-lg-4',
@@ -58,7 +59,6 @@ module.exports = {
                   tag: 'span',
                   class: 'content-block__introduction',
                   text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s'
-
                 }
               },
               {

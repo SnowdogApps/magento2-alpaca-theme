@@ -1,6 +1,7 @@
 module.exports = {
   context: {
     mainSlider: {
+      class: 'section--secondary',
       heading: false,
       components: [
         {
@@ -236,21 +237,21 @@ module.exports = {
     //newProducts end
     },
     brands: {
-      heading: {
-        content: 'heading',
-        contentContext: {
-          tag: 'h2',
-          class: 'heading--first-level margin-0',
-          text: 'Top brands'
-        }
-      },
+      heading: false,
       contentClass: '',
       components: [
         {
           content: {
             content: 'slider--brands',
             contentContext: {
-              heading: false
+              heading: {
+                content: 'heading',
+                contentContext: {
+                  tag: 'h2',
+                  class: 'heading--first-level margin-0',
+                  text: 'Top brands'
+                }
+              }
             }
           }
         }
