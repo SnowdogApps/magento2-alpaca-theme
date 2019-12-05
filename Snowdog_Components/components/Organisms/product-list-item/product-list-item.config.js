@@ -6,12 +6,22 @@ module.exports = {
       wrapperClass: 'product-list-item__image',
       dataSrc: '/images/product/product-160_240.jpg'
     },
-    badge: {
-      name: 'badge--new',
-      context: {
-        class: 'badge badge--new product-list-item__badge',
-        text: 'NEW'
-      }
+    productBadges: {
+      class: 'product-list-item__badges',
+      badges: [
+        {
+          contentElement: 'badge',
+          contentContext: {
+            text: '-15%'
+          }
+        },
+        {
+          contentElement: 'badge--new',
+          contentContext: {
+            text: 'New'
+          }
+        }
+      ]
     },
     linkName: {
       class: 'product-list-item__name-link',
@@ -57,7 +67,8 @@ module.exports = {
         icon: {
           id: 'close',
           title: 'Close',
-          class: 'button__icon modal__close-button-icon'
+          class: 'button__icon modal__close-button-icon',
+          hidden: true
         },
         attributes: 'type="button" aria-label="click to close the modal"'
       },
@@ -84,27 +95,29 @@ module.exports = {
     },
     secondaryActions: {
       wishlist: {
-        class: 'button--icon-light product-list-item__button-action',
+        class: 'product-list-item__button-action',
         icon: {
           id: 'heart',
           title: 'Heart',
-          class: 'button__icon'
+          class: 'button__icon',
+          hidden: true
         },
         attributes: 'type="button" aria-label="Add to Wish List"',
       },
       compare: {
-        class: 'button--icon-light product-list-item__button-action',
+        class: 'product-list-item__button-action',
         icon: {
           id: 'compare',
           title: 'Compare',
-          class: 'button__icon'
+          class: 'button__icon',
+          hidden: true
         },
         attributes: 'type="button" aria-label="Add to compare"',
       }
     },
     addToButton: {
       text: 'Add to cart',
-      class: 'button--add-to-icon product-list-item__add-to-button button--fluid',
+      class: 'button--add-to product-list-item__add-to-button button--fluid',
       attributes: 'type="button" aria-label="Add to cart"',
       iconBefore: {
         id: 'shopping-cart',

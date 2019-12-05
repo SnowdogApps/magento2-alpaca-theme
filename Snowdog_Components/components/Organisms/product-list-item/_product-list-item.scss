@@ -3,6 +3,7 @@
 .product-list-item {
     position: relative;
     display: flex;
+    align-items: flex-start;
     border-style: $product-list-item__border-style;
     border-width: $product-list-item__border-width;
     border-color: $product-list-item__border-color;
@@ -11,7 +12,12 @@
 
     &:hover,
     &:focus-within {
-        box-shadow: $product-list-item__shadow;
+        .lazyload-wrapper {
+            background-color: $black;
+        }
+        .image {
+            opacity: 0.8;
+        }
     }
 
     @include mq($screen-m) {
@@ -19,11 +25,21 @@
         padding: $product-list-item__padding\@medium;
     }
 
+    &__image {
+        transition: $product-list-item__transition;
+
+        .image {
+            transition: $product-list-item__transition;
+        }
+    }
+
     &__image-link {
+        position: relative;
         margin: $product-list-item__image-margin;
         text-decoration: $product-list-item__image-link-decoration;
         flex-basis: $product-list-item__image-width;
         max-width: $product-list-item__image-width;
+
         @include mq($screen-m) {
             margin: $product-list-item__image-margin\@medium;
             flex-basis: $product-list-item__image-width\@medium;
@@ -31,13 +47,14 @@
         }
     }
 
-    &__badge {
-        position: $product-list-item__badge-position;
-        top: $product-list-item__badge-position-top;
+    &__badges {
+        z-index: $product-list-item__badges-z-index;
+        left: $product-list-item__badges-left;
+        bottom: $product-list-item__badges-bottom;
 
         @include mq($screen-m) {
-            position: $product-list-item__badge-position\@medium;
-            top: $product-list-item__badge-position-top\@medium;
+            top: $product-list-item__badges-top\@medium;
+            bottom: $product-list-item__badges-bottom\@medium;
         }
     }
 
@@ -190,33 +207,18 @@
             flex-grow: 0;
         }
 
-        .button__text {
-            font-size: $font-size-small;
-            padding: 0 $spacer;
+        .button--add-to {
+            @include add-to-button(none);
+            padding: $spacer;
 
-            @include mq($screen-s) {
-                font-size: $font-size-base;
-            }
             @include mq($screen-m) {
-                display: none;
+                @include add-to-button(block);
             }
+
             @include mq($screen-xl) {
-                display: block;
-                padding: 0 $spacer--medium;
+                @include add-to-button(none);
             }
         }
-
-        .button__icon {
-            display: none;
-            @include mq($screen-m) {
-                display: block;
-            }
-            @include mq($screen-xl) {
-                display: none;
-            }
-        }
-
-
     }
 
     &__stock {

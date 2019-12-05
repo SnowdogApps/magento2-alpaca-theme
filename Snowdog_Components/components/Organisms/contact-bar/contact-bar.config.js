@@ -1,6 +1,7 @@
 module.exports = {
   context: {
     class: '',
+    containerClass: 'container',
     attributes: '',
     phone: {
       icon: {
@@ -20,6 +21,7 @@ module.exports = {
       text: 'Email Us',
       address: 'test@test.com'
     },
+    linkClass: '',
     menu: {
       items: [
         {
@@ -41,7 +43,8 @@ module.exports = {
     {
       name: 'vertical',
       context: {
-        class: 'contact-bar--vertical'
+        class: 'contact-bar--vertical',
+        containerClass: ''
       }
     }
   ]

@@ -1,4 +1,5 @@
 /* eslint-env node */
+/* eslint-disable one-var */
 
 const autoprefixer = require('autoprefixer'),
       bluebird     = require('bluebird'),
@@ -17,7 +18,6 @@ const autoprefixer = require('autoprefixer'),
       plumber      = require('gulp-plumber'),
       postcss      = require('gulp-postcss'),
       reporter     = require('postcss-reporter'),
-      runSequence  = require('run-sequence'),
       sass         = require('gulp-sass'),
       sassError    = require('gulp-sass-error'),
       sassLint     = require('gulp-sass-lint'),
@@ -53,190 +53,11 @@ hbsEngine.handlebars.registerHelper('component', name => {
   return '@' + name;
 });
 
-// Fractal gulp tasks
-gulp.task('fractal:start', ['a11y', 'inheritance', 'svg-sprite', 'sass', 'watch'], () => {
-  const server = fractal.web.server({
-    sync: true,
-    port: 4000
-  });
-
-  server.on('error', err => logger.error(err.message));
-
-  return server.start().then(() => {
-    logger.success(`Fractal server is now running at ${server.url}`);
-  });
-});
-
-
-gulp.task('fractal:build', ['inheritance', 'svg-sprite', 'sass'], () => {
-  const builder = fractal.web.builder();
-
-  if (!util.env.ci) {
-    builder.on('progress', (completed, total) => {
-      return logger.update(`Exported ${completed} of ${total} items`, 'info');
-    });
-  }
-
-  builder.on('error', err => logger.error(err.message));
-
-  return builder.build().then(() => {
-    logger.success('Fractal build completed!');
-  });
-});
-
 // Gulp tasks
-gulp.task('a11y', () => {
-  fractal.cli.command('a11y-preview', setA11yViewsPreview, a11yPreview);
-  return fractal.cli.exec('a11y-preview');
-  // fractal.components.set('default.preview', '@a11y-tests');
-  // runSequence('fractal:start');
-});
-
-function setA11yViewsPreview(args, done) {
-  const app = this.fractal;
-  for (let item of app.components.flatten()) {
-    if (item.viewPath.includes('Templates')) {
-      item.preview = a11yPreview;
-    }
-  }
-  done();
-}
-
-const a11y = () => {
-  fractal.cli.command('a11y-preview', setA11yViewsPreview, a11yPreview);
-  return fractal.cli.exec('a11y-preview');
-}
-
-gulp.task('watch', () => {
-  gulp.watch([
-    fractal.components.get('path') + '/**/*.scss',
-    fractal.docs.get('path') + '/styles/**/*.scss'
-  ], () => {
-    runSequence('sass-lint', 'sass', 'css-lint');
-  });
-
-  gulp.watch(fractal.components.get('path') + '/**/*.js', () => {
-    runSequence('js-lint');
-  });
-
-  gulp.watch(fractal.components.get('path') + '/Atoms/icons/files/*.svg', () => {
-    runSequence('svg-sprite');
-  });
-});
-
-gulp.task('sass', () => {
-  return gulp.src(fractal.docs.get('path') + '/styles/**/*.scss')
-    .pipe(
-      gulpif(
-        util.env.ci,
-        log({
-          display: 'name',
-          beforeEach: 'Processing: '
-        })
-      )
-    )
-    .pipe(
-      gulpif(!util.env.ci,
-        plumber({
-          errorHandler: notify.onError('Error: <%= error.message %>')
-        })
-      )
-    )
-    .pipe(sourcemaps.init())
-    .pipe(sass().on('error', sassError.gulpSassError(util.env.ci || false)))
-    .pipe(sass())
-    .pipe(postcss([autoprefixer()]))
-    .pipe(sourcemaps.write('cssmaps'))
-    .pipe(gulp.dest(fractal.web.get('static.path') + '/css'));
-});
-
-gulp.task('sass-lint', () => {
-  return gulp.src(fractal.components.get('path') + '/**/*.scss')
-    .pipe(
-      gulpif(
-        util.env.ci,
-        log({
-          display: 'name',
-          beforeEach: 'Processing: '
-        })
-      )
-    )
-    .pipe(
-      gulpif(!util.env.ci,
-        plumber({
-          errorHandler: notify.onError('Error: <%= error.message %>')
-        })
-      )
-    )
-    .pipe(sassLint())
-    .pipe(sassLint.format())
-    .pipe(gulpif(util.env.ci, sassLint.failOnError()));
-});
-
-gulp.task('css-lint', () => {
-  return gulp.src(fractal.web.get('static.path') + '/**/*.css')
-    .pipe(
-      gulpif(
-        util.env.ci,
-        log({
-          display: 'name',
-          beforeEach: 'Processing: '
-        })
-      )
-    )
-    .pipe(
-      gulpif(!util.env.ci,
-        plumber({
-          errorHandler: notify.onError('Error: <%= error.message %>')
-        })
-      )
-    )
-    .pipe(postcss([
-      stylelint(),
-      reporter({ throwError: util.env.ci || false })
-    ]));
-});
-
-gulp.task('js-lint', () => {
-  return gulp.src(fractal.components.get('path') + '/**/*.js')
-    .pipe(
-      gulpif(
-        util.env.ci,
-        log({
-          display: 'name',
-          beforeEach: 'Processing: '
-        })
-      )
-    )
-    .pipe(
-      gulpif(!util.env.ci,
-        plumber({
-          errorHandler: notify.onError('Error: <%= error.message %>')
-        })
-      )
-    )
-    .pipe(eslint())
-    .pipe(eslint.format())
-    .pipe(gulpif(util.env.ci, eslint.failAfterError()));
-});
-
-gulp.task('svg-sprite', () => {
-  return gulp.src(fractal.components.get('path') + '/Atoms/icons/files/*.svg')
-    .pipe(svgSprite({
-      mode: {
-        symbol: {
-          dest: 'images',
-          sprite: 'icons-sprite.svg'
-        }
-      }
-    }))
-    .pipe(gulp.dest(fractal.web.get('static.path')));
-});
-
-gulp.task('inheritance', done => {
+const inheritance = (done) => {
   const components = fractal.components.get('path').replace(__dirname + '/build/', ''),
-        docs = fractal.docs.get('path').replace(__dirname + '/build/', ''),
-        static = fractal.web.get('static.path').replace(__dirname + '/build/', '');
+        docs       = fractal.docs.get('path').replace(__dirname + '/build/', ''),
+        static     = fractal.web.get('static.path').replace(__dirname + '/build/', '');
 
   // Remove old build directory
   fs.removeSync('./build');
@@ -264,7 +85,7 @@ gulp.task('inheritance', done => {
       }
     });
   if (fs.existsSync('./modules.json')) {
-    const modules = require('./modules.json.js');
+    const modules = require('./modules.json');
 
     // Go through array of module paths
     modules.forEach(src => {
@@ -278,7 +99,7 @@ gulp.task('inheritance', done => {
           src + '/' + static + '/**'
         ], { nodir: true })
         .forEach(file => {
-          const srcPath = path.resolve(file),
+          const srcPath  = path.resolve(file),
                 destPath = srcPath.replace(src, path.resolve('build'));
 
           // Symlink all module files to build dir
@@ -292,4 +113,199 @@ gulp.task('inheritance', done => {
     });
   }
   done();
-});
+}
+
+const compileStyle = () => {
+  return gulp.src(fractal.docs.get('path') + '/styles/**/*.scss')
+    .pipe(
+      gulpif(
+        util.env.ci,
+        log({
+          display: 'name',
+          beforeEach: 'Processing: '
+        })
+      )
+    )
+    .pipe(
+      gulpif(!util.env.ci,
+        plumber({
+          errorHandler: notify.onError('Error: <%= error.message %>')
+        })
+      )
+    )
+    .pipe(sourcemaps.init())
+    .pipe(sass().on('error', sassError.gulpSassError(util.env.ci || false)))
+    .pipe(sass())
+    .pipe(postcss([autoprefixer()]))
+    .pipe(sourcemaps.write('cssmaps'))
+    .pipe(gulp.dest(fractal.web.get('static.path') + '/css'));
+}
+
+const lintSASS = () => {
+  return gulp.src(fractal.components.get('path') + '/**/*.scss')
+    .pipe(
+      gulpif(
+        util.env.ci,
+        log({
+          display: 'name',
+          beforeEach: 'Processing: '
+        })
+      )
+    )
+    .pipe(
+      gulpif(!util.env.ci,
+        plumber({
+          errorHandler: notify.onError('Error: <%= error.message %>')
+        })
+      )
+    )
+    .pipe(sassLint())
+    .pipe(sassLint.format())
+    .pipe(gulpif(util.env.ci, sassLint.failOnError()));
+}
+
+const lintCSS = () => {
+  return gulp.src(fractal.web.get('static.path') + '/**/*.css')
+    .pipe(
+      gulpif(
+        util.env.ci,
+        log({
+          display: 'name',
+          beforeEach: 'Processing: '
+        })
+      )
+    )
+    .pipe(
+      gulpif(!util.env.ci,
+        plumber({
+          errorHandler: notify.onError('Error: <%= error.message %>')
+        })
+      )
+    )
+    .pipe(postcss([
+      stylelint(),
+      reporter({ throwError: util.env.ci || false })
+    ]));
+}
+
+const lintScript = () => {
+  return gulp.src(fractal.components.get('path') + '/**/*.js')
+    .pipe(
+      gulpif(
+        util.env.ci,
+        log({
+          display: 'name',
+          beforeEach: 'Processing: '
+        })
+      )
+    )
+    .pipe(
+      gulpif(!util.env.ci,
+        plumber({
+          errorHandler: notify.onError('Error: <%= error.message %>')
+        })
+      )
+    )
+    .pipe(eslint())
+    .pipe(eslint.format())
+    .pipe(gulpif(util.env.ci, eslint.failAfterError()));
+}
+
+const compileSVG = () => {
+  return gulp.src(fractal.components.get('path') + '/Atoms/icons/files/*.svg')
+    .pipe(svgSprite({
+      mode: {
+        symbol: {
+          dest: 'images',
+          sprite: 'icons-sprite.svg'
+        }
+      }
+    }))
+    .pipe(gulp.dest(fractal.web.get('static.path')));
+}
+
+function setA11yViewsPreview(args, done) {
+  const app = this.fractal;
+  for (let item of app.components.flatten()) {
+    if (item.viewPath.includes('Templates')) {
+      item.preview = a11yPreview;
+    }
+  }
+  done();
+}
+
+const a11y = () => {
+  fractal.cli.command('a11y-preview', setA11yViewsPreview, a11yPreview);
+  return fractal.cli.exec('a11y-preview');
+}
+
+const watchStyle = () => {
+  gulp.watch(
+    [
+      fractal.components.get('path') + '/**/*.scss',
+      fractal.docs.get('path') + '/styles/**/*.scss'
+    ],
+    { ignored: /.*\.(js|hbs|svg)$/ },
+    gulp.series(lintSASS, compileStyle, lintCSS)
+  );
+}
+
+const watchScript = () => {
+  gulp.watch(
+    fractal.components.get('path') + '/**/*.js',
+    { ignored: /.*\.(scss|hbs|svg)$/ },
+    lintScript
+  )
+}
+
+const watchSVG = () => {
+  gulp.watch(fractal.components.get('path') + '/Atoms/icons/files/*.svg', compileSVG)
+}
+
+const watch = gulp.parallel(watchStyle, watchScript, watchSVG)
+
+// Fractal gulp tasks
+const startFractal = () => {
+  const server = fractal.web.server({
+    sync: true,
+    port: 4000
+  });
+
+  server.on('error', err => logger.error(err.message));
+
+  return server.start().then(() => {
+    logger.success(`Fractal server is now running at ${server.url}`);
+  });
+}
+
+const buildFractal = () => {
+  const builder = fractal.web.builder();
+
+  if (!util.env.ci) {
+    builder.on('progress', (completed, total) => {
+      return logger.update(`Exported ${completed} of ${total} items`, 'info');
+    });
+  }
+
+  builder.on('error', err => logger.error(err.message));
+
+  return builder.build().then(() => {
+    logger.success('Fractal build completed!');
+  });
+}
+
+const dev = gulp.series(gulp.parallel(inheritance, compileSVG, compileStyle), a11y, startFractal, watch)
+
+const build = gulp.series(gulp.parallel(inheritance, compileSVG, compileStyle), buildFractal)
+
+exports.inheritance = inheritance
+exports.compileStyle = compileStyle
+exports.lintSASS = lintSASS
+exports.lintCSS = lintCSS
+exports.lintScript = lintScript
+exports.compileSVG = compileSVG
+exports.a11y = a11y
+exports.watch = watch
+exports.dev = dev
+exports.build = build
+exports.default = build

@@ -22,12 +22,6 @@
          "
     >
         <div class="gallery__frame">
-            <div class="gallery__labels">
-                {{#each productLabels as |label| }}
-                    {{ render '@badge' label }}
-                {{/each}}
-            </div>
-
             {{ render '@image' imageMain }}
         </div>
     </div>
@@ -53,7 +47,11 @@
             {{#each thumbs }}
                 <div class="
                         gallery__thumb
-                        gallery__thumb--vertical
+                        {{#if ../typeHorizontal }}
+                            gallery__thumb--horizontal
+                        {{else}}
+                            gallery__thumb--vertical
+                        {{/if}}
                         {{#if imageThumb.active}}
                             gallery__thumb--active
                         {{/if}}

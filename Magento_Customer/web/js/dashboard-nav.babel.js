@@ -5,7 +5,9 @@ define(() => (config, element) => {
     currentItem = content.querySelector('.item.current'),
     mobileNav = document.querySelector('.dashboard-nav__mobile')
 
-  mobileNav.innerHTML = currentItem.textContent
+  if (currentItem) {
+    mobileNav.innerHTML = currentItem.textContent
+  }
 
   mobileNav.addEventListener('click', () => {
     mobileNav.classList.toggle('dashboard-nav__mobile--active')

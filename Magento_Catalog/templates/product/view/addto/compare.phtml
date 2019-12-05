@@ -2,14 +2,15 @@
 // @codingStandardsIgnoreFile
 
 /** @var $block \Magento\Catalog\Block\Catalog\Product\View\Addto\Compare */
+$buttonText = $block->getHasText();
+$additionalClass = $block->getAdditionalClass();
 ?>
 
 <button
     class="
         button
         button--icon
-        button--icon-light
-        product-view__button
+         <?= $block->escapeHtmlAttr($additionalClass) ?>
     "
     data-post='<?= $block->escapeHtmlAttr($block->getPostDataParams()) ?>'
     data-role="add-to-links"
@@ -23,4 +24,9 @@
     >
         <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#compare')); ?>"></use>
     </svg>
+    <?php if($buttonText): ?>
+        <span class="button__text">
+            <?= __('Compare') ?>
+        </span>
+    <?php endif; ?>
 </button>

@@ -149,25 +149,28 @@ switch ($type = $block->getType()) {
     <?php if ($type == 'related' || $type == 'upsell'): ?>
         <?php if ($type == 'related'): ?>
             <div
-                class="product-view__slider <?= $class ?>"
+                class="product-slider <?= $class ?>"
                 data-limit="<?= $limit ?>"
                 data-shuffle="<?= $shuffle ?>"
             >
         <?php else: ?>
             <div
-                class="product-view__slider <?= $class ?>"
+                class="product-slider <?= $class ?>"
                 data-mage-init='{ "upsellProducts": {} }'
                 data-limit="<?= $limit ?>"
                 data-shuffle="<?= $shuffle ?>"
             >
         <?php endif; ?>
     <?php else: ?>
-        <div class="product-view__slider <?= $class ?>">
+        <div class="product-slider <?= $class ?>">
     <?php endif; ?>
 
         <h2
             id="block-<?= $class ?>-heading"
-            class="text-center"
+            class="
+                text-center
+                slider__heading
+            "
         >
             <?= $title ?>
         </h2>
@@ -183,8 +186,7 @@ switch ($type = $block->getType()) {
                     class="
                         button
                         button--icon
-                        button--icon-light
-                        slider__navigation-icon
+                        button--icon-border
                         slider__prev
                     "
                     type="button"
@@ -196,7 +198,8 @@ switch ($type = $block->getType()) {
                             button__icon
                             slider__icon
                         "
-                        role="img"
+                        role="presentation"
+                        focusable="false"
                     >
                         <title><?= __('Previous slide') ?></title>
                         <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#arrow-left')) ?>"></use>
@@ -207,8 +210,7 @@ switch ($type = $block->getType()) {
                     class="
                         button
                         button--icon
-                        button--icon-light
-                        slider__navigation-icon
+                        button--icon-border
                         slider__next
                     "
                     type="button"
@@ -220,7 +222,8 @@ switch ($type = $block->getType()) {
                             button__icon
                             slider__icon
                         "
-                        role="img"
+                        role="presentation"
+                        focusable="false"
                     >
                         <title><?= __('Next slide') ?></title>
                         <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#arrow-right')) ?>"></use>
@@ -238,35 +241,49 @@ switch ($type = $block->getType()) {
                             "
                         >
                             <div
-                                class="product-grid-item product-grid-item--slider-item"
+                                class="
+                                    product-grid-item
+                                    product-grid-item--slider-item
+                                "
                                 tabindex="0"
                             >
-                                <?php
-                                $now = new DateTime();
-                                $newsFromDate = new DateTime($_item->getNewsFromDate());
-                                $newsToDate = new DateTime($_item->getNewsToDate());
-
-                                $isProductNew = $now >= $newsFromDate && $now <= $newsToDate;
-                                ?>
-                                <?php if ($isProductNew): ?>
-                                    <div
-                                        class="
-                                            badge
-                                            badge
-                                            badge--new
-                                            product-grid-item__badge
-                                        "
-                                    >
-                                        <?= __('New') ?>
-                                    </div>
-                                <?php endif; ?>
                                 <?= '<!-- ' . $image . '-->' ?>
-
                                 <a
                                     href="<?= $block->getProductUrl($_item) ?>"
                                     class="product-grid-item__link"
                                     tabindex="-1"
                                 >
+                                    <?php if ($_item->getBadge()): ?>
+                                        <?php $productBadges = $_item->getAttributeText('badge'); ?>
+                                        <div
+                                            class="
+                                                badges
+                                                product-grid-item__badges
+                                            "
+                                        >
+                                            <?php if (is_array($productBadges)): ?>
+                                                <?php foreach ($productBadges as $productBadge): ?>
+                                                    <div
+                                                        class="
+                                                            badge
+                                                            badge--<?= $block->escapeHtmlAttr(mb_strtolower($productBadge, 'UTF-8')) ?>
+                                                        "
+                                                    >
+                                                        <?= $block->escapeHtml($productBadge) ?>
+                                                    </div>
+                                                <?php endforeach ?>
+                                            <?php else: ?>
+                                                <div
+                                                    class="
+                                                        badge
+                                                        badge--<?= $block->escapeHtmlAttr(mb_strtolower($productBadges, 'UTF-8')) ?>
+                                                    "
+                                                >
+                                                    <?= $block->escapeHtml($productBadges) ?>
+                                                </div>
+                                            <?php endif ?>
+                                        </div>
+                                    <?php endif ?>
                                     <div class="product-grid-item__image-wrapper">
                                         <?= $block->getImage($_item, $image)->toHtml() ?>
                                     </div>
@@ -303,8 +320,7 @@ switch ($type = $block->getType()) {
                                                                 <button
                                                                     class="
                                                                         button
-                                                                        button--icon
-                                                                        button--add-to-icon
+                                                                        button--add-to
                                                                         tocart
                                                                     "
                                                                     data-mage-init='{
@@ -355,7 +371,7 @@ switch ($type = $block->getType()) {
                                                                     <button
                                                                         class="
                                                                             button
-                                                                            button--icon button--add-to-icon
+                                                                            button--add-to
                                                                             tocart
                                                                             action
                                                                         "

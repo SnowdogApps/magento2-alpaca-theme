@@ -9,7 +9,7 @@ module.exports = {
     removeButton: {
       tag: 'button',
       attributes: 'aria-label="Remove product from compare" title="Remove product from compare"',
-      class: 'sidebar-block__remove button--icon-light',
+      class: 'sidebar-block__remove margin-right-xs',
       icon: {
         id: 'close',
         title: 'Close',

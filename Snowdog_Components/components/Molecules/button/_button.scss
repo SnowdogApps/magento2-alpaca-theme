@@ -59,7 +59,6 @@
         pointer-events: none;
     }
 
-
     &:hover {
         text-decoration: $button__text-decoration-hover;
         &:before {
@@ -71,11 +70,20 @@
         }
     }
 
-    &:disabled {
+    &:disabled,
+    &[disabled] {
         background-color: $button__background-disabled;
+        border-color: $button__background-disabled;
+        color: $button__text-color;
         cursor: not-allowed;
 
+        .icon {
+            fill: $button__text-color;
+        }
+
         &:hover {
+            background-color: $button__background-disabled;
+
             &:before,
             &:after {
                 display: none;
@@ -97,7 +105,6 @@
             &:after {
                 display: $button__after-display-hover--secondary;
             }
-
         }
     }
 
@@ -133,63 +140,121 @@
         min-width: $button__min-size;
         min-height: $button__min-size;
         padding: $button__padding--icon;
+        background-color: $button__bg--icon;
 
         .icon,
         .button__icon {
             width: $button__icon-size;
             height: $button__icon-size;
+            padding: $icon__padding;
             fill: $button__icon-fill;
             transition: $button__icon-transition;
+            z-index: $button__icon-z-index;
             pointer-events: none;
         }
 
         .button__text {
-            padding: $button__padding;
-        }
-    }
-
-    &--add-to-icon {
-        overflow: hidden;
-        &:after {
-            content: $button__after-content--add-to-icon;
-            top: $button__after-position-top--add-to-icon;
-            left: $button__after-position-left--add-to-icon;
-            transform: $button__after-transform--add-to-icon;
+            margin: $button__text-margin--icon;
+            color: $button__text-color--icon;
+            font-weight: $button__font-weight--icon;
+            text-transform: $button__text-transform--icon;
+            transition: $button__transition;
+            z-index: $button__text-z-index;
+            pointer-events: none;
         }
 
         &:hover {
-            &:after {
-                transform: $button__after-transform-hover--add-to-icon;
-            }
-        }
-    }
-
-    &--rotate-icon {
-        &:hover {
-            &:before,
             &:after {
                 display: none;
             }
-
-            .icon {
-                animation: $button__rotate-icon-hover-animation;
+            .icon,
+            .button__icon {
+                fill: $button__icon-fill-hover--icon;
+            }
+            .button__text {
+                color: $button__text-color-hover--icon;
             }
         }
     }
 
     &--icon-light {
-        background-color: $button__bg--icon-light;
-        .icon {
-            fill: $button__icon-fill--icon-light;
-            z-index: $button__icon-z-index--icon-light;
+        &:before {
+            background-color: $button__before-background--icon-light;
+        }
+        &:hover {
+            .icon,
+            .button__icon {
+                fill: $button__icon-fill-hover--icon-light;
+            }
+            .button__text {
+                color: $button__text-color-hover--icon-light;
+            }
+        }
+    }
+
+    &--icon-border {
+        border: $button__border--icon-border;
+    }
+
+    &--rotate-icon {
+        &:before {
+            background-color: $button__before-background--rotate-icon;
+        }
+        &:hover {
+
+            &:after {
+                display: none;
+            }
+
+            .icon {
+                fill: $button__icon-fill-hover--rotate-icon;
+                transform: $button__transform-hover--rotate-icon;
+            }
+        }
+    }
+
+    &--icon-fill {
+        background: $button__background--icon-fill;
+        @include button-icon-fill($button__icon-after-mask--icon-fill);
+
+        &:before {
+            background-color: $button__before-background--icon-fill;
+            z-index: $button__icon-after-z-index--icon-fill;
+        }
+
+        &:hover {
+            @include button-fill-bg();
+        }
+    }
+
+    &--icon-filled {
+        @include button-fill-bg();
+    }
+
+    &--add-to {
+        overflow: hidden;
+        @include add-to-button(block);
+        @include mq($screen-m) {
+            @include add-to-button(none);
+        }
+
+        &:before {
+            display: $button__before-display--add-to;
+        }
+
+        &:after {
+            top: $button__after-position-top--add-to;
+            left: $button__after-position-left--add-to;
+            transform: $button__after-transform--add-to;
+        }
+
+        .button__icon {
+            fill: $white;
         }
 
         &:hover {
             &:after {
-                display: none;
-            }
-            .icon {
-                fill: $button__icon-fill-hover--icon-light;
+                transform: $button__after-transform-hover--add-to;
             }
         }
     }

@@ -1,4 +1,16 @@
 <div class="slider {{ class }}" {{{ attributes }}}>
+    {{#if heading }}
+        <div class="slider__heading {{ headingClass }}">
+            {{ heading }}
+        </div>
+    {{/if }}
+
+    {{#if contentBefore }}
+        <div class="slider__after {{ contentBefore.class }}">
+            {{ render (component contentBefore.content) contentBefore.contentContext merge=true }}
+        </div>
+    {{/if }}
+
     <div class="slider__handler">
         <div class="slider__slides">
             {{#each slides }}
@@ -18,6 +30,12 @@
         {{render '@button--icon' iconNext }}
     </div>
     <div class="slider__dots {{ dotsClass }}"></div>
+
+    {{#if contentAfter }}
+        <div class="slider__after {{ contentAfter.class }}">
+            {{ render (component contentAfter.content) contentAfter.contentContext merge=true }}
+        </div>
+    {{/if }}
 </div>
 
 {{#if script }}
