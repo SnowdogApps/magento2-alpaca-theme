@@ -10,30 +10,64 @@ use Magento\Catalog\Model\Product\ProductList\Toolbar;
             margin-right-s
             margin-bottom-0
         "
-        for="sort-by"
+        for="sorter"
     >
         <?= __('Sort By') ?>
     </label>
 
     <select
-        id="sort-by"
+        id="sorter"
         class="
             select__field
             select__field--native
             toolbar__sorter-select
         "
-        name="sort-by"
+        name="sorter"
         data-role="sorter"
-        onchange="document.location.href=this.value"
         data-mage-init='{ "select": {} }'
     >
         <?php foreach ($block->getAvailableOrders() as $_key => $_order): ?>
             <option
-                value="<?= $_key ?>"
+                value="<?= $block->escapeHtmlAttr($_key) ?>"
                 <?= ($block->isOrderCurrent($_key)) ? 'selected="selected"' : '' ?>
             >
-                <?= __($_order) ?>
+                <?= $block->escapeHtml(__($_order)) ?>
             </option>
         <?php endforeach ?>
     </select>
+    <?php if ($block->getCurrentDirection() == 'desc') :?>
+        <a
+            title="<?= $block->escapeHtmlAttr(__('Set Ascending Direction')) ?>"
+            href="#"
+            class="
+                action
+                button
+                button--link
+                toolbar__sorter-link
+                sorter-action
+                sort-desc
+            "
+            data-role="direction-switcher"
+            data-value="asc"
+        >
+            <?= $block->escapeHtml(__('Asc')) ?>
+        </a>
+    <?php else :?>
+        <a
+            title="<?= $block->escapeHtmlAttr(__('Set Descending Direction')) ?>"
+            href="#"
+            class="
+                button
+                button--link
+                toolbar__sorter-link
+                action
+                sorter-action
+                sort-asc
+            "
+            data-role="direction-switcher"
+            data-value="desc"
+        >
+            <?= $block->escapeHtml(__('Desc')) ?>
+        </a>
+    <?php endif; ?>
 </div>

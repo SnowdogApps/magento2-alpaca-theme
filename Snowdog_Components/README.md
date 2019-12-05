@@ -1,29 +1,47 @@
-[![Greenkeeper badge](https://badges.greenkeeper.io/SnowdogApps/magento2-alpaca-components.svg)](https://greenkeeper.io/)
-![Browser Status](https://badges.herokuapp.com/browsers?googlechrome=63,64,65,66,67&firefox=58,59&safari=11&iphone=11.2&android=64&iexplore=11&microsoftedge=16)
+# Colibri Components
 
 ## Introduction
-Components library of Alpaca [design system](https://www.uxpin.com/studio/blog/design-systems-vs-pattern-libraries-vs-style-guides-whats-difference/) created to speed up the process of working with design on Magento 2 stores, by creating each UI element, module, and view in a simplified, front-end developer friendly, environment.
+Components library of Colibri [design system](https://www.uxpin.com/studio/blog/design-systems-vs-pattern-libraries-vs-style-guides-whats-difference/) created to speed up the process of working with design on Magento 2 stores, by creating each UI element, module, and view in a simplified, front-end developer friendly, environment.
 
 This components liblary is built on top of [Fractal.js](http://fractal.build/guide).
+It was created based on [Alpaca Components](https://github.com/SnowdogApps/magento2-alpaca-components)
 
-Magento 2 experience isn't required to work with this code.
-
+Magento 2 experience is not required to work with this code.
 
 ## Installation
 - Install dependencies using `yarn`
-- Run `gulp fractal:start` to start Fractal.js development server
-- Run `gulp` if you want to generate static files (for example to deploy them)
+- Run `yarn dev` to start Fractal.js development server
+- Run `yarn build` if you want to generate static files (for example to deploy them)
 
-## How to create a components library on top of Colibri
-It's necessary only to work outside the Magento.
-1. Copy-paste `package.json`, `gulpfile.js`, `.eslintignore`, `.eslintrc`, `.sass-lint.yml`, `.stylelintrc`, `.gitignore` files to the new project
-2. Create `modules.json` file with an array of paths to parent components libraries.
+## How to create a components library on top of Colibri Components
+1. Copy-paste `package.json`, `gulpfile.js`, `.eslintignore`, `.eslintrc`, `.sass-lint.yml`, `.stylelintrc` files into `theme-frontend-<child-theme>/Snowdog_Components`:
+
+2. Update project names in `package.json` and `gulpfile.js`
+
+3. copy `styles.scss` from `theme-frontend-colibri/Snowdog_Components/docs/styles/` and add child project variables import there. The file should look like this:
+
+```scss
+// Variables
+@import '../../components/Atoms/variables/variables';
+@import '../../components/Atoms/variables/<child-theme>-variables';
+
+// Components
+@import '../../components/styles';
+
+// Styles necessary only for Fractal purpoueses
+@import 'fractal';
+```
+
+4. Create `modules.json` file with an array of paths to parent components libraries. To inherit dependencies from Colibri components, you have to define path to `theme-forntend-colibri/Snowdog_Components`
    In most cases it will look like this:
    ```json
-   ["../../snowdog/module-colibri-components"]
-   ```
-3. Customize or add new files following the same structure as in Alpaca components library
-4. Run `gulp fractal:start`
+  [
+      "../../../snowdog/theme-frontend-colibri/Snowdog_Components"
+  ]
+  ```
+5. Customize or add new files following the same structure as in Colibri components
+
+6. Run `yarn` and `yarn dev` to run components in fractal.build. :tada
 
 ## Directory structure
 - `components` directory is what you are going to import into the Magento 2 theme.
