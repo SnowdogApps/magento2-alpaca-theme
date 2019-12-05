@@ -7,36 +7,49 @@
     <body>
         <referenceContainer name="content" htmlClass="home">
             <!-- Main slider -->
-            <block
-                class="Blackbird\ContentManager\Block\Content\Widget\ContentList"
-                name="colibri-home-slider"
-                template="Blackbird_ContentManager::content/view/colibri_sliders/list.phtml"
+            <container
+                name="section.home.slider"
+                htmlTag="section"
+                htmlClass="section section--secondary"
             >
-                <arguments>
-                    <argument name="slider_picture_block" xsi:type="string">colibri-homepage-picture</argument>
-                    <argument name="slider_class" xsi:type="string">slider</argument>
-                </arguments>
-                <action method="setCtType">
-                    <argument name="type" xsi:type="string">colibri_sliders</argument>
-                </action>
-                <action method="setPager">
-                    <argument name="pager" xsi:type="boolean">false</argument>
-                </action>
-                <action method="setLimitDisplay">
-                    <argument name="limit_display" xsi:type="string">1</argument>
-                </action>
-                <action method="addAttributeToFilter">
-                    <argument name="attribute" xsi:type="string">cb_slider_id</argument>
-                    <argument name="condition" xsi:type="string">eq</argument>
-                    <argument name="value" xsi:type="string">colibri-home-slider</argument>
-                </action>
+                <container
+                    name="section.home.slider.content"
+                    htmlTag="div"
+                    htmlClass="section__content"
+                >
+                    <block
+                        class="Blackbird\ContentManager\Block\Content\Widget\ContentList"
+                        name="colibri-home-slider"
+                        template="Blackbird_ContentManager::content/view/colibri_sliders/list.phtml"
+                    >
+                        <arguments>
+                            <argument name="slider_picture_block" xsi:type="string">colibri-homepage-picture</argument>
+                            <argument name="slider_class" xsi:type="string">slider</argument>
+                        </arguments>
+                        <action method="setCtType">
+                            <argument name="type" xsi:type="string">colibri_sliders</argument>
+                        </action>
+                        <action method="setPager">
+                            <argument name="pager" xsi:type="boolean">false</argument>
+                        </action>
+                        <action method="setLimitDisplay">
+                            <argument name="limit_display" xsi:type="string">1</argument>
+                        </action>
+                        <action method="addAttributeToFilter">
+                            <argument name="attribute" xsi:type="string">cb_slider_id</argument>
+                            <argument name="condition" xsi:type="string">eq</argument>
+                            <argument name="value" xsi:type="string">colibri-home-slider</argument>
+                        </action>
 
-                <block
-                    class="Magento\Framework\View\Element\Template"
-                    name="colibri-homepage-picture"
-                    template="Magento_Theme::html/picture.phtml"
-                />
-            </block>
+                        <block
+                            class="Magento\Framework\View\Element\Template"
+                            name="colibri-homepage-picture"
+                            template="Magento_Theme::html/picture.phtml"
+                        />
+                    </block>
+                </container>
+            </container>
+
 
             <!-- Brief info block -->
             <block class="Magento\Cms\Block\Block" name="home-brief-info">
@@ -82,46 +95,52 @@
 
             <!-- Top brands (slider) -->
             <container
-                name="colibri-home-brands-container"
+                name="colibri-home-brands-section"
                 htmlTag="section"
-                htmlClass="home__brands"
+                htmlClass="section"
             >
-                <block
-                    class="Blackbird\ContentManager\Block\Content\Widget\ContentList"
-                    name="colibri-brands-slider"
-                    template="Blackbird_ContentManager::content/view/colibri_sliders/list.phtml"
+                <container
+                    name="colibri-home-brands-container"
+                    htmlTag="div"
+                    htmlClass="section__content"
                 >
-                    <arguments>
-                        <argument name="slider_picture_block" xsi:type="string">colibri-brand-picture</argument>
-                        <argument name="slider_class" xsi:type="string">slider slider--brands</argument>
-                        <argument
-                            name="slider_title_class"
-                            xsi:type="string"
-                        >
-                            heading heading--second-level text-center margin-top-sm
-                        </argument>
-                    </arguments>
-                    <action method="setCtType">
-                        <argument name="type" xsi:type="string">colibri_sliders</argument>
-                    </action>
-                    <action method="setPager">
-                        <argument name="pager" xsi:type="boolean">false</argument>
-                    </action>
-                    <action method="setLimitDisplay">
-                        <argument name="limit_display" xsi:type="string">1</argument>
-                    </action>
-                    <action method="addAttributeToFilter">
-                        <argument name="attribute" xsi:type="string">cb_slider_id</argument>
-                        <argument name="condition" xsi:type="string">eq</argument>
-                        <argument name="value" xsi:type="string">colibri-brands-slider</argument>
-                    </action>
-
                     <block
-                        class="Magento\Framework\View\Element\Template"
-                        name="colibri-brand-picture"
-                        template="Magento_Theme::html/picture.phtml"
-                    />
-                </block>
+                        class="Blackbird\ContentManager\Block\Content\Widget\ContentList"
+                        name="colibri-brands-slider"
+                        template="Blackbird_ContentManager::content/view/colibri_sliders/list.phtml"
+                    >
+                        <arguments>
+                            <argument name="slider_picture_block" xsi:type="string">colibri-brand-picture</argument>
+                            <argument name="slider_class" xsi:type="string">slider slider--brands</argument>
+                            <argument
+                                name="slider_title_class"
+                                xsi:type="string"
+                            >
+                                heading--first-level margin-0
+                            </argument>
+                        </arguments>
+                        <action method="setCtType">
+                            <argument name="type" xsi:type="string">colibri_sliders</argument>
+                        </action>
+                        <action method="setPager">
+                            <argument name="pager" xsi:type="boolean">false</argument>
+                        </action>
+                        <action method="setLimitDisplay">
+                            <argument name="limit_display" xsi:type="string">1</argument>
+                        </action>
+                        <action method="addAttributeToFilter">
+                            <argument name="attribute" xsi:type="string">cb_slider_id</argument>
+                            <argument name="condition" xsi:type="string">eq</argument>
+                            <argument name="value" xsi:type="string">colibri-brands-slider</argument>
+                        </action>
+
+                        <block
+                            class="Magento\Framework\View\Element\Template"
+                            name="colibri-brand-picture"
+                            template="Magento_Theme::html/picture.phtml"
+                        />
+                    </block>
+                </container>
             </container>
 
             <!-- Content block -->

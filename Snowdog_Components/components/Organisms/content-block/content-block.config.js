@@ -36,22 +36,23 @@ module.exports = {
       name: 'Secondary',
       context: {
         class: 'content-block--secondary',
+        rowClass: 'row between-lg evenly-xl',
         columns: [
           {
-            class: 'col-xs-12 col-lg-4',
+            class: 'col-xs-12 col-lg-4 col-xl-3',
             elements: [
               {
                 contentElement: 'heading',
                 contentContext: {
                   tag: 'h2',
-                  class: 'content-block__heading  content-block__heading--secondary',
+                  class: 'heading--first-level content-block__heading content-block__heading--secondary',
                   text: 'Lorem ipsum is simply'
                 }
               }
             ]
           },
           {
-            class: 'col-xs-12 col-lg-8',
+            class: 'col-xs-12 col-lg-7 col-xl-6',
             elements: [
               {
                 contentElement: 'paragraph',
