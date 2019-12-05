@@ -264,7 +264,7 @@ gulp.task('inheritance', done => {
       }
     });
   if (fs.existsSync('./modules.json')) {
-    const modules = require('./modules.json.js');
+    const modules = require('./modules.json');
 
     // Go through array of module paths
     modules.forEach(src => {
