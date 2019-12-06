@@ -30,6 +30,10 @@ Please check the usage and implement in your project.
 
 To make icons accessible we use `title` element as a first child of `svg` and `role="img"`. Title is provided in config file.
 
+When you set `hidden` value in config context to `true` role will change to `presentation`, an attribute `focusable="false"` will be added and icon won't be visible for assistive technologies (AT).
+This should be use when element has icon and text and icon is displayed only for design purposes.
+In `button` with text and icon before/after icon should be hidden, in `button--icon` icon also should be hidden, because it's `aria-label` on the button element should inform user about possible action and focusing on icon inside button make the website operation less comfortable for AT's users.
+
 If you need to implement description for the icon, use `<desc>` element for it and add id for both `title` and `desc` elements and bind those ids in `aria-labelledby` svg's attribute:
 ```html
 <svg class="header__icon" role="img" aria-labelledby="icon-title-id icon-desc-id">
