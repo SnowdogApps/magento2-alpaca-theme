@@ -15,3 +15,7 @@
 * `button[disabled]`
 
 To every `button--icon` we can add the text - it should be inside the span with class `button__text`. checkout `components/Molecules/button/button--icon.hbs` for more details.
+
+## Accessibility notice for buttons
+
+IMPORTANT! All buttons that don't have text inside (labels) and have only graphic representation, usage or `aria-label` or `aria-labelledby` is mandatory! Text inside aria label should be informative and should explain what the button is for.
