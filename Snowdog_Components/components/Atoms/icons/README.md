@@ -1,6 +1,6 @@
-## icons
+## Icons
 
-all icons are gather into *icon-sprite.svg* file
+All icons are gather into *icon-sprite.svg* file
 
 Use sprite to display svg inline in your project:
 
@@ -18,7 +18,7 @@ While implementing in theme, include the sprite inside body tag and to display a
 
 ### icons' customisation
 
-there are no dedicated styles for svg icons,
+There are no dedicated styles for svg icons,
 feel free to add appropriate BEM class using icon in your block and set `fill`, `width` and `height` property to change icon's color and size
 
 ### svg and browser support
