@@ -17,6 +17,7 @@ module.exports = {
     //mainSlider end
     },
     briefInfo: {
+      class: 'display-none-m',
       heading: false,
       components: [
         {
@@ -29,6 +30,7 @@ module.exports = {
     //briefInfo end
     },
     categoryBanners: {
+      class: 'section--fix-spacer-large',
       heading: {
         content: 'heading',
         contentContext: {
@@ -88,7 +90,7 @@ module.exports = {
             content: 'banner--secondary',
             contentContext: {
               text: 'Accessories',
-              class: 'col-xs-6 col-lg-3',
+              class: 'col-xs-6 col-lg-3 margin-bottom-l',
               image: {
                 defaultSrc: '/images/home/banners/category-accessories-144_200.jpg',
                 sources: [
@@ -110,7 +112,7 @@ module.exports = {
             content: 'banner--secondary',
             contentContext: {
               text: 'New In',
-              class: 'col-xs-6 col-lg-3',
+              class: 'col-xs-6 col-lg-3 margin-bottom-l',
               image: {
                 defaultSrc: '/images/home/banners/category-new-in-144_200.jpg',
                 sources: [
@@ -131,6 +133,7 @@ module.exports = {
     //categoryBanners end
     },
     additionalBanners: {
+      class: 'section--fix-spacer-medium',
       heading: false,
       contentClass: 'row',
       components: [
@@ -159,7 +162,7 @@ module.exports = {
           content: {
             content: 'banner',
             contentContext: {
-              class: 'col-xs-12 col-lg-6',
+              class: 'col-xs-12 col-lg-6 margin-bottom-m',
               image: {
                 defaultSrc: '/images/home/banners/banner-small-men-now-304_128.jpg',
                 sources: [
