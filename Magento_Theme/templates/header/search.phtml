@@ -28,13 +28,6 @@ $helper = $this->helper('Magento\Search\Helper\Data');
                 border-color-light
             "
             id="search"
-            data-mage-init='{
-                "quickSearch": {
-                    "formSelector": "#search_mini_form",
-                    "url": "<?= $block->escapeUrl($helper->getSuggestUrl())?>",
-                    "destinationSelector": "#search_autocomplete"
-                }
-            }'
             type="search"
             name="<?= $block->escapeHtmlAttr($helper->getQueryParamName()); ?>"
             value="<?= $block->escapeHtmlAttr($helper->getEscapedQueryText()); ?>"
@@ -70,25 +63,28 @@ $helper = $this->helper('Magento\Search\Helper\Data');
         </svg>
     </button>
 
-    <div class="quicksearch">
-        <div id="search_autocomplete" class="search-autocomplete"></div>
-        <button
-            class="
-                button
-                button--icon
-                quicksearch__close-button
-            "
-            type="button"
-            aria-label="Close quicksearch"
-        >
-            <svg
-                class="button__icon quicksearch__close-icon"
-                role="presentation"
-                focusable="false"
-            >
-                <title><?= __('Close') ?></title>
-                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#close')) ?>"></use>
-            </svg>
-        </button>
+    <div class="quicksearch-wrapper">
+        <div
+            id="search_autocomplete"
+            class="quicksearch"
+            tabindex="0"
+            aria-label="Quicksearch results"
+        ></div>
     </div>
 </form>
+
+<script type="text/x-magento-init">
+{
+    "#search" :
+    {
+        "quickSearch" :
+        {
+            "formSelector":"#search_mini_form",
+            "url":"<?php /* @escapeNotVerified */ echo $block->getUrl('search/ajax/suggest'); ?>",
+            "destinationSelector":"#search_autocomplete",
+            "templates": <?php /* @noEscape */ echo $block->getJsonSuggestRenderers();?>,
+            "priceFormat" : <?php /* @noEscape */ echo $block->getJsonPriceFormat();?>
+        }
+    }
+}
+</script>
