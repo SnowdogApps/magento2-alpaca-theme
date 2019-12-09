@@ -6,7 +6,7 @@ module.exports = {
         iconWrapperClass: 'margin-right-xs',
         icon: {
           class: 'brief-info__icon',
-          id: 'delivery',
+          id: 'delivery-truck',
           title: 'Free shipping icon',
           hidden: true
         },
@@ -52,7 +52,7 @@ module.exports = {
         items: [
           {
             iconLabel: 'Return policy',
-            iconWrapperClass: 'margin-right-xs',
+            iconWrapperClass: '',
             icon: {
               class: 'brief-info__icon',
               id: 'return',
@@ -72,7 +72,7 @@ module.exports = {
           },
           {
             iconLabel: 'Lorem Ipsum is simply',
-            iconWrapperClass: 'margin-right-xs',
+            iconWrapperClass: '',
             icon: {
               class: 'brief-info__icon',
               id: 'bigstar',
@@ -92,7 +92,7 @@ module.exports = {
           },
           {
             iconLabel: 'Our Customers Are Talking',
-            iconWrapperClass: 'margin-right-xs',
+            iconWrapperClass: '',
             icon: {
               class: 'brief-info__icon',
               id: 'reviews',
