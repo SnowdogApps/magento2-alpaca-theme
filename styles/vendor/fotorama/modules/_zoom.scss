@@ -1,0 +1,44 @@
+.fotorama__zoom-in,
+.fotorama__zoom-out {
+    display: none;
+    z-index: $z-index-10;
+    &.focus-visible {
+        @include focus();
+        box-shadow: none;
+        &:after {
+            border-radius: inherit;
+            bottom: $fotorama__inner-box-shadow;
+            content: '';
+            left: $fotorama__inner-box-shadow;
+            position: absolute;
+            right: $fotorama__inner-box-shadow;
+            top: $fotorama__inner-box-shadow;
+            z-index: $z-index-10;
+        }
+    }
+
+    .fotorama__fullscreen & {
+        @extend .fotorama-sprite;
+        position: absolute;
+        display: block;
+        width: $fotorama__block-size;
+        height: $fotorama__block-size;
+        overflow: hidden;
+        cursor: pointer;
+        &--disabled {
+            display: none;
+        }
+    }
+}
+
+.fotorama__fullscreen {
+    .fotorama__zoom-out {
+        top: 80px;
+        background-position: 0 (-$fotorama__block-size) !important; // sass-lint:disable-line no-important
+    }
+
+    .fotorama__zoom-in {
+        background-position: 0 0 !important; // sass-lint:disable-line no-important
+        top: 0;
+    }
+}

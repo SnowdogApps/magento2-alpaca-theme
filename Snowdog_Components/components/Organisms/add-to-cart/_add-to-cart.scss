@@ -1,0 +1,185 @@
+@import 'add-to-cart-variables';
+
+.add-to-cart {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    min-height: $add-to-cart__min-height;
+    border: $add-to-cart__border;
+    border-width: $add-to-cart__border-width;
+    background: $add-to-cart__background;
+    z-index: $add-to-cart__z-index;
+    box-shadow: $add-to-cart__shadow;
+
+    // keep component sticky & visible for up to '$screen-m'
+    html:not(.no-js) &[data-aos^='fade'][data-aos^='fade'] {
+        pointer-events: all;
+
+        @include mq($max-screen: $add-to-cart__display-always-max-screen) {
+            opacity: 1;
+            transform: none;
+        }
+    }
+
+    &__wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: $add-to-cart__wrapper-max-width;
+        margin: $add-to-cart__wrapper-margin;
+        padding: $add-to-cart__wrapper-padding;
+
+        @include mq($screen-m) {
+            padding: $add-to-cart__wrapper-padding\@medium;
+        }
+
+        @include mq($screen-l) {
+            padding: $add-to-cart__wrapper-padding\@large;
+        }
+
+        @include mq($screen-xl) {
+            padding: $add-to-cart__wrapper-padding\@xl;
+        }
+
+        // fix for bundle prices
+        .price__value--between {
+            &:first-of-type {
+                margin-right: $spacer;
+            }
+        }
+    }
+
+    &__title {
+        .heading {
+            margin: $add-to-cart__title-margin;
+            font-family: $add-to-cart__title-font-family;
+            font-size: $add-to-cart__title-font-size;
+            text-transform: $add-to-cart__title-text-transform;
+
+            @include mq($screen-l) {
+                font-size: $add-to-cart__title-font-size\@large;
+            }
+        }
+    }
+
+    &__button-more {
+        @include mq($add-to-cart__sticky-always-mq) {
+            display: none;
+        }
+
+        .button__icon-close {
+            width: 0;
+        }
+
+        &[aria-expanded="false"] + .add-to-cart__action-secondary {
+            display: flex;
+            height: 0;
+            opacity: 0;
+            @include mq($add-to-cart__sticky-always-mq) {
+                height: $add-to-cart__action-secondary-height;
+                opacity: 1;
+            }
+        }
+        &[aria-expanded="true"] {
+            .button__icon-close {
+                width: $add-toc-cart__button-more-icon-size;
+            }
+            .button__icon {
+                width: 0;
+            }
+            & + .add-to-cart__action-secondary {
+                height: $add-to-cart__action-secondary-height;
+                opacity: 1;
+            }
+        }
+    }
+
+    &__action {
+        position: relative;
+        display: flex;
+        flex-flow: $add-to-cart__action-flex-flow;
+        align-items: center;
+
+        @include mq($screen-m) {
+            flex-flow: $add-to-cart__action-flex-flow\@medium;
+        }
+    }
+
+    &__action-secondary {
+        position: $add-to-cart__action-secondary-position;
+        bottom: $add-to-cart__min-height;
+        right: $add-to-cart__action-secondary-position-right;
+        display: flex;
+        flex-flow: $add-to-cart__action-secondary-flex-flow;
+        align-items: center;
+        justify-content: space-around;
+        width: $add-to-cart__action-secondary-width;
+        background-color: $add-to-cart__action-secondary-background;
+        box-shadow: $add-to-cart__action-secondary-shadow;
+        overflow: hidden;
+        transition: $add-to-cart__action-secondary-transition;
+
+        @include mq($screen-m) {
+            position: $add-to-cart__action-secondary-position\@medium;
+            bottom: initial;
+            right: initial;
+            flex-flow: $add-to-cart__action-secondary-flex-flow\@medium;
+            width: auto;
+            margin: $add-to-cart__action-secondary-margin\@medium;
+            box-shadow: none;
+        }
+
+        .button {
+            flex-grow: 1;
+            @include mq($screen-m) {
+                flex-grow: auto;
+            }
+        }
+    }
+
+    &__button {
+        .button__text {
+            display: none;
+        }
+
+        @include mq($screen-m) {
+            padding: $add-to-cart__button-padding\@medium;
+            height: $add-to-cart__button-height\@medium;
+
+            .button__text {
+                display: block;
+            }
+
+            .button__icon {
+                display: none;
+            }
+        }
+    }
+
+    &__button-additional {
+        margin: $add-to-cart__button-additional-margin;
+        @include mq($screen-m) {
+            margin: $add-to-cart__button-additional-margin\@medium;
+            height: $add-to-cart__action-secondary-height;
+            .button__text {
+                display: none;
+            }
+        }
+
+        &.button--icon-filled {
+            &:after {
+                left: $add-to-cart__button-wishlist-filled-after-left;
+                @include mq($screen-m) {
+                    left: $add-to-cart__button-wishlist-filled-after-left\@medium;
+                }
+            }
+        }
+    }
+
+    .button--add-to {
+        @include mq($screen-m) {
+            height: $add-to-cart__action-secondary-height;
+        }
+    }
+}

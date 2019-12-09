@@ -1,0 +1,98 @@
+$swatch__transition                 : $transition-base !default;
+
+$swatch__title-margin               : 0 0 $spacer !default;
+$swatch__title-font-size            : $font-size-base !default;
+$swatch__title-color                : $color-secondary !default;
+
+$swatch__option-size                : 40px !default;
+$swatch__option-size--image         : 48px !default;
+$swatch__option-margin              : 0 $spacer 0 0 !default;
+$swatch__option-padding             : 0 0 1px 0 !default;
+$swatch__option-background          : $white !default;
+$swatch__option-color               : $color-secondary !default;
+$swatch__option-border              : 2px solid $white !default;
+$swatch__option-border-width        : 0 0 2px 0 !default;
+$swatch__option-border--white       : 2px solid $gray-lighter !default;
+$swatch__option-border-color--active: $color-primary !default;
+
+.swatch {
+    display: flex;
+    flex-wrap: wrap;
+
+    &__container {
+        // magento container for loading
+        position: relative;
+        min-height: 100px;
+    }
+
+    &__wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+    &__option-container {
+        box-sizing: border-box;
+        border: $swatch__option-border;
+        border-width: $swatch__option-border-width;
+        margin: $swatch__option-margin;
+        padding: $swatch__option-padding;
+        transition: $swatch__transition;
+        cursor: pointer;
+
+        &:hover,
+        &:focus,
+        &.selected {
+            outline: none;
+            border-color: $swatch__option-border-color--active;
+
+            .swatch__option--white {
+                border: 0;
+            }
+        }
+
+        &.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+
+    &__selected-option {
+        display: none;
+    }
+
+    &__title {
+        flex: 0 0 100%;
+        margin: $swatch__title-margin;
+        font-size: $swatch__title-font-size;
+        color: $swatch__title-color;
+    }
+
+    &__option {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-width: $swatch__option-size;
+        min-height: $swatch__option-size;
+        background-color: $swatch__option-background;
+        color: $swatch__option-color;
+
+        &--image {
+            min-height: $swatch__option-size--image;
+            background-size: cover;
+            background-position: top center;
+        }
+
+        &--white {
+            border: $swatch__option-border--white;
+        }
+    }
+
+    &__input {
+        @include visually-hidden;
+    }
+}

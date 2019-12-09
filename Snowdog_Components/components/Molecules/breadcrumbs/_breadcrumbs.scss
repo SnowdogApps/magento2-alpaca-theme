@@ -1,0 +1,65 @@
+@import 'breadcrumbs-variables';
+
+.breadcrumbs {
+    display: $breadcrumbs__display\@mobile;
+    min-height: $breadcrumbs__min-height;
+    padding: $breadcrumbs__padding;
+
+    @include mq($breadcrumbs__display-mq) {
+        display: block;
+    }
+
+    &__list {
+        display: flex;
+        flex-flow: $breadcrumbs__list-flow;
+        margin: $breadcrumbs__list-margin;
+        padding: $breadcrumbs__list-padding;
+    }
+
+    &__item {
+        display: flex;
+        padding: $breadcrumbs__item-padding;
+        align-items: stretch;
+        color: $breadcrumbs__color;
+        font-size: $breadcrumbs__font-size;
+        text-decoration: $breadcrumbs__text-decoration;
+
+        &:after {
+            content: '/';
+            display: flex;
+            align-items: center;
+            margin: 0 $breadcrumbs__margin;
+            color: $breadcrumbs__color;
+        }
+
+        &:first-of-type {
+            .breadcrumbs__link {
+                padding-left: 0;
+            }
+        }
+
+        &:last-child {
+            &:not(:first-child) {
+                align-items: center;
+                font-family: $breadcrumbs__font-family--active;
+                color: $breadcrumbs__color--active;
+                text-decoration: $breadcrumbs__text-decoration--active;
+            }
+
+            &:after {
+                display: none;
+            }
+        }
+    }
+
+    &__link {
+        display: flex;
+        align-items: center;
+        padding: $breadcrumbs__link-padding;
+        font-family: $breadcrumbs__font-family;
+        line-height: $breadcrumbs__line-height;
+        color: $breadcrumbs__color;
+        text-decoration: $breadcrumbs__text-decoration;
+        background-clip: content-box;
+    }
+}

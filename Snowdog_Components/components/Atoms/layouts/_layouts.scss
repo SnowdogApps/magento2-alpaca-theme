@@ -1,0 +1,37 @@
+$layout-sidebar-width: 25% !default;
+$layout-content-width: calc(100% - #{$layout-sidebar-width}) !default;
+
+.page-layout-2columns-left,
+.page-layout-2columns-right {
+    .columns {
+        display: flex;
+        flex-direction: column;
+
+        @include mq($screen-m) {
+            flex-direction: row;
+        }
+    }
+
+    .main {
+        @include mq($screen-m) {
+            order: 1;
+            flex: 1 0 $layout-content-width;
+            max-width: $layout-content-width;
+        }
+    }
+
+    .sidebar {
+        @include mq($screen-m) {
+            flex: 1 0 $layout-sidebar-width;
+            max-width: $layout-sidebar-width;
+        }
+    }
+}
+
+.page-layout-2columns-right {
+    .main {
+        @include mq($screen-m) {
+            order: 0;
+        }
+    }
+}

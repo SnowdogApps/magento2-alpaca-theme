@@ -1,0 +1,131 @@
+@import 'tab-variables';
+
+.tab {
+    padding: $tab__padding;
+
+    @include mq($screen-m) {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+    }
+
+    &__title {
+        position: relative;
+        display: block;
+        width: $tab__title-width;
+        height: $tab__title-size;
+        padding: $tab__title-padding;
+        border-bottom: $tab__title-border;
+        border-width: $tab__title-border-width;
+        background: $tab__title-background;
+        color: $tab__title-color;
+        font-family: $tab__title-font-family;
+        font-size: $tab__title-font-size;
+        font-weight: $tab__title-font-weight;
+        text-align: $tab__title-text-align;
+        text-transform: $tab__title-text-transform;
+        cursor: pointer;
+
+        @include mq($screen-m) {
+            max-width: $tab__title-max-width\@medium;
+        }
+
+        @include mq($screen-m) {
+            flex: 1;
+            order: -1;
+        }
+
+        .tab__icon {
+            fill: $tab__icon-fill;
+            pointer-events: none;
+        }
+
+        &:hover,
+        &.focus-visible,
+        &--active {
+            background: $tab__title-background--active;
+            color: $tab__title-color--active;
+            font-weight: $tab__title-font-weight--active;
+
+            @include mq($screen-m) {
+                z-index: 1;
+            }
+
+            .tab__icon {
+                fill: $tab__icon-fill--active;
+            }
+        }
+
+        &--active {
+            .tab__icon {
+                transform: $tab__icon-transform--active;
+            }
+        }
+
+        .counter {
+            &:before {
+                content: "(";
+            }
+
+            &:after {
+                content: ")";
+            }
+        }
+    }
+
+
+    &__icon {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: $tab__icon-right;
+        margin: $tab__icon-margin;
+
+        @include mq($screen-m) {
+            display: none;
+        }
+    }
+
+    &__content {
+        position: relative;
+        display: none;
+        z-index: -1;
+        width: $tab__content-width;
+        padding: $tab__content-padding;
+        opacity: 0;
+        overflow: hidden;
+
+        @include mq($screen-m) {
+            padding: $tab__content-padding\@medium;
+            flex-basis: 100%;
+            z-index: 1;
+        }
+
+        @include mq($screen-l) {
+            padding: $tab__content-padding\@large;
+        }
+
+        @include mq($screen-xl) {
+            padding: $tab__content-padding\@extra-large;
+        }
+
+        &--active {
+            display: block;
+            opacity: 1;
+            z-index: 1;
+
+            &:nth-last-child(1) {
+                border-bottom: $tab__title-border;
+
+                @include mq($screen-m) {
+                    border-bottom: none;
+                }
+            }
+        }
+
+        // It's necessary for display .tooltip in tab in PDP
+        &.additional {
+            overflow: initial;
+        }
+    }
+}

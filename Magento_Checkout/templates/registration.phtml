@@ -1,0 +1,36 @@
+<?php /** @var $block \Magento\Checkout\Block\Registration */ ?>
+<div
+    class="success-page__registration"
+    id="registration"
+    data-bind="scope:'registration'"
+>
+    <!-- ko template: getTemplate() --><!-- /ko -->
+    <script type="text/x-magento-init">
+        {
+            "#registration": {
+                "Magento_Ui/js/core/app": {
+                   "components": {
+                        "registration": {
+                            "component": "Magento_Checkout/js/view/registration",
+                            "config": {
+                                "registrationUrl":
+                                    "<?= $block->escapeJs($block->escapeUrl($block->getCreateAccountUrl())) ?>",
+                                "email": "<?= $block->escapeJs($block->getEmailAddress()) ?>"
+                            },
+                            "children": {
+                                "errors": {
+                                    "component": "Magento_Ui/js/view/messages",
+                                    "sortOrder": 0,
+                                    "displayArea": "messages",
+                                    "config": {
+                                        "autoHideTimeOut": -1
+                                     }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</div>

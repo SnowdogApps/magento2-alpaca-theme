@@ -1,0 +1,286 @@
+@import 'product-grid-item-variables';
+
+.product-grid-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: $product-grid-item__width;
+    border: $product-grid-item__border;
+    border-width: $product-grid-item__border-width;
+    padding: $product-grid-item__padding;
+
+    &:hover,
+    &:focus-within {
+        .lazyload-wrapper {
+            background-color: $black;
+        }
+        .image {
+            opacity: 0.8;
+        }
+    }
+
+    @include isIE() {
+        margin: $product-grid-item__IE-margin;
+        width: $product-grid-item__IE-width;
+        @include mq($screen-m) {
+            width: $product-grid-item__IE-width\@medium;
+        }
+    }
+
+    &--wishlist {
+        .quantity-update__input {
+            width: $product-grid-item__qty-input-width--wishlist;
+            height: $product-grid-item__qty-button-size--wishlist;
+            border-width: $product-grid-item__qty-input-border-width--wishlist;
+            @include mq($screen-xl) {
+                border-width: $product-grid-item__qty-input-border-width--wishlist\@xl;
+                width: $product-grid-item__qty-input-width--wishlist\@xl;
+            }
+        }
+        .quantity-update__button {
+            width: $product-grid-item__qty-button-size--wishlist;
+            height: $product-grid-item__qty-button-size--wishlist;
+            display: none;
+            @include mq($screen-xl) {
+                display: flex;
+            }
+        }
+        .product-grid-item__primary-action {
+            width: $product-grid-item__primary-action-width--wishlist;
+            margin: $product-grid-item__primary-action-margin--wishlist;
+            @include mq($screen-m) {
+                margin: $product-grid-item__primary-action-margin--wishlist\@medium;
+            }
+            .button {
+                width: $product-grid-item__primary-action-width--wishlist;
+                padding: $product-grid-item__primary-action-button-padding--wishlist;
+            }
+        }
+        .product-grid-item__secondary-action {
+            display: flex;
+            justify-content: space-around;
+            width: $product-grid-item__secondary-action-width--wishlist;
+            @include mq($screen-m) {
+                width: $product-grid-item__secondary-action-width--wishlist\@medium;
+                align-items: flex-end;
+            }
+            @include mq($screen-xl) {
+                width: $product-grid-item__secondary-action-width--wishlist\@xl;
+            }
+        }
+    }
+
+    &--slider-item {
+        @include isIE() {
+            display: block;
+            width: 100%;
+        }
+
+        .product-grid-item__link {
+            display: block;
+        }
+
+        .product-grid-item__image-wrapper {
+            .image {
+                width: $product-grid-item__image-wrapper-width--slider-item;
+
+                @include isIE() {
+                    width: auto;
+                }
+            }
+
+            .lazyload,
+            .lazyloading {
+                width: $product-grid-item__image-wrapper-width--slider-item;
+            }
+        }
+
+        .product-grid-item__price {
+            &--full-width {
+                @include mq($screen-m) {
+                    width: 100%;
+                }
+            }
+        }
+
+        .product-grid-item__actions {
+            &--zero-width {
+                @include mq($screen-m) {
+                    width: 0;
+                }
+            }
+        }
+    }
+
+    &__badges {
+        top: $product-grid-item__badges-top-position;
+        left: $product-grid-item__badges-left-position;
+        z-index: $product-grid-item__badges-z-index;
+    }
+
+    &__link {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: flex-start;
+        flex: 0 1 auto;
+        align-items: center;
+        align-self: stretch;
+    }
+
+    &__image-wrapper {
+        transition: $product-grid-item__transition;
+        .image {
+            margin: $product-grid-item__image-margin;
+            width: $product-grid-item__image-width;
+            height: $product-grid-item__image-height;
+            transition: $product-grid-item__transition;
+        }
+        .lazyload,
+        .lazyloading {
+            width: $product-grid-item__image-width--lazyload;
+            height: $product-grid-item__image-height--lazyload;
+        }
+    }
+
+    &__name {
+        min-height: $product-grid-item__name-height;
+        margin: $product-grid-item__name-margin;
+        font-weight: $product-grid-item__name-font-weight;
+        font-size: $product-grid-item__name-font-size;
+        text-transform: $product-grid-item__name-text-decoration;
+        @include mq($screen-m) {
+            font-size: $product-grid-item__name-font-size\@medium;
+            min-height: $product-grid-item__name-height\@medium;
+        }
+        @include mq($screen-l) {
+            width: 100%;
+            min-height: $product-grid-item__name-height\@large;
+        }
+        @include mq($screen-xl) {
+            min-height: $product-grid-item__name-height\@xl;
+        }
+    }
+
+    &__name-link {
+        display: block;
+        color: $product-grid-item__name-color;
+        text-decoration: none;
+        line-height: $product-grid-item__name-line-height;
+        &:hover {
+            text-decoration: $product-grid-item__name-text-decoration-hover;
+            color: $product-grid-item__name-color-hover;
+        }
+    }
+
+    &__rating {
+        margin-bottom: $product-grid-item__rating-margin-bottom;
+    }
+
+    &__price {
+        width: 100%;
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+
+        @include mq($screen-m) {
+            width: 50%;
+        }
+        .price-label {
+            font-weight: $product-grid-item__price-label-font-weight;
+        }
+        .price__value:not(.price__value--between) {
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: center;
+            white-space: nowrap;
+        }
+    }
+
+    &__details {
+        padding: $product-grid-item__details-padding;
+        margin: $product-grid-item__details-margin;
+        flex-grow: 1;
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: space-between;
+    }
+
+    &__details-bottom {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+    }
+
+    &__actions {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        width: 100%;
+        @include mq($screen-m) {
+            width: 50%;
+        }
+
+        .tocompare {
+            display: none;
+        }
+    }
+
+    &__primary-action {
+        margin: $catalog-gird-item__primary-margin;
+
+        .button--add-to {
+            @include mq($screen-m) {
+                @include add-to-button(block);
+            }
+        }
+    }
+
+    // elements from product-grid-item--wishlist variant
+    &__wishlist-action {
+        margin: $product-grid-item__action-margin--wishlist;
+        @include mq($screen-m) {
+            display: flex;
+            flex-flow: row wrap;
+        }
+    }
+
+    &__wishlist-comment {
+        width: $product-grid-item__comment-input-width--wishlist;
+        margin: $product-grid-item__comment-margin--wishlist;
+        @include mq($screen-m) {
+            margin: $product-grid-item__comment-margin--wishlist\@medium;
+        }
+    }
+
+    &__wishlist-qty {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        justify-content: space-between;
+        width: $product-grid-item__qty-width--wishlist;
+
+        @include mq($screen-m) {
+            flex-direction: column;
+            align-items: flex-start;
+            width: $product-grid-item__qty-width--wishlist\@medium;
+        }
+        @include mq($screen-xl) {
+            width: $product-grid-item__qty-width--wishlist\@xl;
+        }
+    }
+
+    .add-to-wishlist {
+        @extend .button--icon-fill;
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: $product-grid-item__action-wishlist-background;
+        &:before {
+            display: none;
+        }
+        &.button--icon-filled {
+            @include button-fill-bg();
+        }
+    }
+}

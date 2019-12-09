@@ -1,0 +1,154 @@
+<div class="dashboard-table">
+    <?php $_orders = $block->getOrders(); ?>
+
+    <div class="dashboard-table__header">
+        <h2 class="dashboard-table__title">
+            <?= __('Recent Orders') ?>
+        </h2>
+
+        <?php if (sizeof($_orders->getItems()) > 0): ?>
+            <a
+                class="link dashboard-table__link"
+                href="<?= $block->escapeUrl($block->getUrl('sales/order/history')) ?>"
+            >
+                <?= __('View All') ?>
+            </a>
+        <?php endif; ?>
+    </div>
+
+    <div class="dashboard-table__content">
+        <?= $block->getChildHtml() ?>
+
+        <?php if (sizeof($_orders->getItems()) > 0): ?>
+            <table
+                class="table margin-0"
+                tabindex="0"
+                role="table"
+            >
+                <caption class="table__caption">
+                    <?= __('Recent Orders') ?>
+                </caption>
+
+                <thead>
+                    <tr role="row">
+                        <th
+                            scope="col"
+                            role="columnheader"
+                        >
+                            <?= __('Order #') ?>
+                        </th>
+
+                        <th
+                            scope="col"
+                            role="columnheader"
+                        >
+                            <?= __('Date') ?>
+                        </th>
+
+                        <th
+                            scope="col"
+                            role="columnheader"
+                        >
+                            <?= __('Ship To') ?>
+                        </th>
+
+                        <th
+                            scope="col"
+                            role="columnheader"
+                        >
+                            <?= __('Order Total') ?>
+                        </th>
+
+                        <th
+                            scope="col"
+                            role="columnheader"
+                        >
+                            <?= __('Status') ?>
+                        </th>
+
+                        <th
+                            scope="col"
+                            role="columnheader"
+                        >
+                            <span class="table__visually-hidden">
+                                <?= __('Action') ?>
+                            </span>
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <?php foreach ($_orders as $_order): ?>
+                        <tr role="row">
+                            <td
+                                data-th="<?= $block->escapeHtmlAttr(__('Order #')) ?>"
+                                role="gridcell"
+                            >
+                                <?= $_order->getRealOrderId() ?>
+                            </td>
+
+                            <td
+                                data-th="<?= $block->escapeHtmlAttr(__('Date')) ?>"
+                                role="gridcell"
+                            >
+                                <?= $block->formatDate($_order->getCreatedAt()) ?>
+                            </td>
+
+                            <td
+                                data-th="<?= $block->escapeHtmlAttr(__('Ship To')) ?>"
+                                role="gridcell"
+                            >
+                                <?=
+                                    $_order->getShippingAddress()
+                                        ? $block->escapeHtml($_order->getShippingAddress()->getName())
+                                        : '&nbsp;'
+                                ?>
+                            </td>
+
+                            <td
+                                data-th="<?= $block->escapeHtmlAttr(__('Order Total')) ?>"
+                                role="gridcell"
+                            >
+                                <?= $block->stripTags($_order->formatPrice($_order->getGrandTotal())) ?>
+                            </td>
+
+                            <td
+                                data-th="<?= $block->escapeHtmlAttr(__('Status')) ?>"
+                                role="gridcell"
+                            >
+                                <?= $_order->getStatusLabel() ?>
+                            </td>
+
+                            <td
+                                data-th="<?= $block->escapeHtmlAttr(__('Actions')) ?>"
+                                role="gridcell"
+                            >
+                                <a
+                                    href="<?= $block->escapeUrl($block->getViewUrl($_order)) ?>"
+                                    class="dashboard-table__link"
+                                >
+                                    <?= __('View Order') ?>
+                                </a>
+
+                                <?php if ($this->helper('Magento\Sales\Helper\Reorder')->canReorder($_order->getEntityId())): ?>
+                                    |
+                                    <a
+                                        href="#"
+                                        data-post='<?= $this->helper(\Magento\Framework\Data\Helper\PostHelper::class)->getPostData($block->getReorderUrl($_order)); ?>'
+                                        class="dashboard-table__link"
+                                    >
+                                        <?= __('Reorder') ?>
+                                    </a>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php else: ?>
+            <div class="message">
+                <?= __('You have placed no orders.'); ?>
+            </div>
+        <?php endif; ?>
+    </div>
+</div>

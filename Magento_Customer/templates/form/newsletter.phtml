@@ -1,0 +1,80 @@
+<?= $block->getChildHtml('form_before') ?>
+
+<form
+    class="form dashboard-form"
+    action="<?= $block->escapeHtmlAttr($block->getAction()) ?>"
+    method="post"
+    id="form-validate"
+>
+    <?= $block->getBlockHtml('formkey') ?>
+
+    <h2 class="dashboard-form__title">
+        <?= __('Subscription option') ?>
+    </h2>
+
+    <div class="checkbox margin-bottom-sm">
+        <input
+            type="checkbox"
+            name="is_subscribed"
+            id="subscription"
+            value="1"
+            title="<?= $block->escapeHtmlAttr(__('General Subscription')) ?>"
+            <?php if ($block->getIsSubscribed()): ?>
+                checked="checked"
+            <?php endif; ?>
+            class="checkbox__field"
+        >
+        <svg
+            class="
+                checkbox__icon
+                checkbox__icon--checked
+            "
+            role="presentation"
+            focusable="false"
+        >
+            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#checked')) ?>"></use>
+        </svg>
+        <svg
+            class="
+                checkbox__icon
+                checkbox__icon--unchecked
+            "
+            role="presentation"
+            focusable="false"
+        >
+            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#unchecked')) ?>"></use>
+        </svg>
+        <label
+            for="subscription"
+            class="checkbox__label"
+        >
+            <?= __('General Subscription') ?>
+        </label>
+    </div>
+
+    <?php /* Extensions placeholder */ ?>
+    <?= $block->getChildHtml('customer.form.newsletter.extra') ?>
+
+    <div class="actions-group">
+        <div class="actions-group__handler">
+            <button
+                type="submit"
+                title="<?= $block->escapeHtmlAttr(__('Save')) ?>"
+                class="button actions-group__button"
+            >
+                <?= __('Save') ?>
+            </button>
+        </div>
+
+        <div class="actions-group__handler">
+            <a
+                class="link actions-group__link"
+                href="<?= $block->escapeUrl($block->getBackUrl()) ?>"
+            >
+                <?= __('Back') ?>
+            </a>
+        </div>
+    </div>
+</form>
+<?php /* Extensions placeholder */ ?>
+<?= $block->getChildHtml('customer.form.newsletter.extra2') ?>

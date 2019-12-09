@@ -1,0 +1,71 @@
+<?php
+/* @var $block \Magento\Wishlist\Block\Customer\Wishlist\Item\Column\Cart */
+/* @var \Magento\Wishlist\Model\Item $item */
+$item = $block->getItem();
+$product = $item->getProduct();
+?>
+<?php foreach ($block->getChildNames() as $childName): ?>
+    <?= $block->getLayout()->renderElement($childName, false); ?>
+<?php endforeach; ?>
+
+<?php if ($item->canHaveQty() && $product->isVisibleInSiteVisibility()): ?>
+    <div
+        class="
+            input
+            input--inline
+            wishlist__qty
+        "
+    >
+        <label
+            for="qty[<?= $block->escapeHtmlAttr($item->getId()) ?>]"
+            class="label wishlist__label"
+        >
+            <?= __('Qty') ?>:
+        </label>
+        <input
+            type="number"
+            data-role="qty"
+            id="qty[<?= $block->escapeHtmlAttr($item->getId()) ?>]"
+            class="input__field wishlist__field-qty qty"
+            data-validate="{'required-number':true,'validate-greater-than-zero':true}"
+            name="qty[<?= $block->escapeHtmlAttr($item->getId()) ?>]"
+            value="<?= $block->escapeHtmlAttr($block->getAddToCartQty($item) * 1) ?>"
+        />
+    </div>
+<?php endif; ?>
+
+<?php if ($product->isSaleable()): ?>
+    <div
+        class="
+            wishlist__item-actions
+            wishlist__item-actions--to-cart
+        "
+    >
+        <button
+            type="button"
+            data-role="tocart"
+            data-post='<?= $block->escapeHtmlAttr($block->getItemAddToCartParams($item)) ?>'
+            title="<?= $block->escapeHtmlAttr(__('Add to Cart')) ?>"
+            data-item-id="<?= $block->escapeHtmlAttr($item->getId()) ?>"
+            class="button wishlist__button"
+        >
+            <?= __('Add to Cart') ?>
+        </button>
+    </div>
+<?php else: ?>
+    <?php if ($product->getIsSalable()): ?>
+        <p
+            class="wishlist__item-stock-info text-right"
+            title="<?= $block->escapeHtmlAttr(__('Availability')) ?>"
+        >
+            <?= __('In stock') ?>
+        </p>
+    <?php else: ?>
+        <p
+            class="wishlist__item-stock-info text-right"
+            title="<?= $block->escapeHtmlAttr(__('Availability')) ?>"
+        >
+            <?= __('Out of stock') ?>
+        </p>
+    <?php endif; ?>
+<?php endif; ?>

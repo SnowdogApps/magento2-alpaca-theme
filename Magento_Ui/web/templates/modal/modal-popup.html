@@ -1,0 +1,51 @@
+<aside
+    class="
+        modal-<%= data.type %> <%= data.modalClass %>
+        <% if(data.responsive){ %><%= data.responsiveClass %><% } %>
+        <% if(data.innerScroll){ %><%= data.innerScrollClass %><% } %>
+    "
+    data-role="modal"
+    data-type="<%= data.type %>"
+    tabindex="0"
+    aria-live="polite"
+>
+    <div data-role="focusable-start" tabindex="0"></div>
+    <div
+        class="modal-inner-wrap"
+        data-role="focusable-scope"
+    >
+        <header class="modal-header">
+            <% if(data.title){ %>
+                <h1 class="heading heading--page" data-role="title">
+                    <%= data.title %>
+                </h1>
+            <% } %>
+            <button
+                class="button button--icon modal__close-button"
+                data-role="closeBtn"
+                type="button"
+            >
+                <svg class="button__icon modal__close-button-icon">
+                    <use xlink:href="<%= data.closeText %>"></use>
+                </svg>
+            </button>
+        </header>
+        <div class="modal-content" data-role="content"></div>
+        <% if(data.buttons.length > 0){ %>
+            <footer class="modal-footer">
+                <% _.each(data.buttons, function(button) { %>
+                    <button
+                        class="button button--secondary <%= button.class %>"
+                        type="button"
+                        data-role="action"
+                    >
+                        <span>
+                            <%= button.text %>
+                        </span>
+                    </button>
+                <% }); %>
+            </footer>
+        <% } %>
+    </div>
+    <div data-role="focusable-end" tabindex="0"></div>
+</aside>

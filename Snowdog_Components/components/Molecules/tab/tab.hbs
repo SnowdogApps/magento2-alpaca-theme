@@ -1,0 +1,53 @@
+<div
+    class="tab {{#if modifier}}tab--{{modifier}}{{/if}} {{ class }}"
+    role="tablist"
+    {{{ attributes }}}
+>
+    {{#each tabs as |tab|}}
+        <button
+            class="tab__title {{#if active}}tab__title--active{{/if}} {{ class.title }}"
+            data-tab="{{ tabId }}"
+            id="{{ titleId }}"
+            aria-controls="{{ tabId }}"
+            aria-selected="{{#if active}}true{{else}}false{{/if}}"
+            aria-expanded="{{#if active}}true{{else}}false{{/if}}"
+            role="tab"
+        >
+            {{#if icon }}
+                <span class="tab__title-icon">
+                    {{ render '@icon' icon }}
+                </span>
+            {{/if}}
+
+            {{ title }}
+
+            {{#if ../icon}}
+                {{ render '@icon' ../icon }}
+            {{/if}}
+        </button>
+
+        <div
+            class="
+                tab__content
+                {{#if active}}tab__content--active{{/if}}
+                {{ class.content }}
+            "
+            id="{{ tabId }}"
+            data-content="{{ tabId }}"
+            aria-labelledby="{{ titleId }}"
+            aria-hidden="{{#if active}}false{{else}}true{{/if}}"
+            role="tabpanel"
+        >
+            {{#if contentElement}}
+                {{ render (component contentElement) contentContext }}
+            {{/if}}
+            {{#if content}}
+                {{{ content }}}
+            {{/if}}
+        </div>
+    {{/each}}
+</div>
+
+{{#if script}}
+    <script src="{{static 'tab.js' }}"></script>
+{{/if}}

@@ -1,0 +1,261 @@
+@import 'button-variables';
+
+.button {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: $button__min-size;
+    min-width: $button__min-size;
+    padding: $button__padding;
+
+    background-color: $button__background;
+    border: $button__border;
+    border-radius: $button__border-radius;
+    outline: $button__outline;
+
+    font-family: $button__font-family;
+    font-size: $button__font-size;
+    font-weight: $button__font-weight;
+    line-height: $button__line-height;
+    color: $button__text-color;
+
+    cursor: pointer;
+    text-transform: $button__text-transform;
+    text-decoration: $button__text-decoration;
+    transform: $button__transform;
+    transition: $button__transition;
+
+    &:before {
+        content: $button__before-content;
+        display: $button__before-display;
+        position: absolute;
+        width: $button__before-width;
+        left: $button__before-position-left;
+        top: $button__before-position-top;
+        bottom: $button__before-position-bottom;
+        background-color: $button__before-background;
+        transform: $button__before-transform;
+        transform-origin: $button__before-transform-origin;
+        transition: $button__transition;
+        pointer-events: none;
+    }
+
+    &:after {
+        content: $button__after-content;
+        display: $button__after-display;
+        position: absolute;
+        left: $button__after-position-left;
+        top: $button__after-position-top;
+        width: $button__icon-size;
+        height: $button__icon-size;
+        padding: $icon__padding;
+        z-index: $button__after-z-index;
+        opacity: $button__after-opacity;
+        transform: $button__after-transform;
+        transform-origin: $button__after-transform-origin;
+        transition: $button__transition;
+        pointer-events: none;
+    }
+
+    &:hover {
+        text-decoration: $button__text-decoration-hover;
+        &:before {
+            transform: $button__before-transform-hover;
+        }
+        &:after {
+            left: $button__after-position-left-hover;
+            opacity: $button__after-opacity-hover;
+        }
+    }
+
+    &:disabled,
+    &[disabled] {
+        background-color: $button__background-disabled;
+        border-color: $button__background-disabled;
+        color: $button__text-color;
+        cursor: not-allowed;
+
+        .icon {
+            fill: $button__text-color;
+        }
+
+        &:hover {
+            background-color: $button__background-disabled;
+
+            &:before,
+            &:after {
+                display: none;
+            }
+        }
+    }
+
+    &--secondary {
+        color: $button__color--secondary;
+        background-color: $button__background--secondary;
+        border: $button__border--secondary;
+
+        &:hover {
+            color: $button__color-hover--secondary;
+            background-color: $button__background-hover--secondary;
+            &:before {
+                z-index: $button__before-z-index-hover--secondary;
+            }
+            &:after {
+                display: $button__after-display-hover--secondary;
+            }
+        }
+    }
+
+    &--secondary-light {
+        @extend .button--secondary;
+        font-weight: $button__font-weight--secondary-light;
+        text-transform: $button__text-transform--secondary-light;
+    }
+
+    &--fluid {
+        width: 100%;
+    }
+
+    &--link {
+        color: $button__color--link;
+        background: $button__background--link;
+        text-transform: $button__text-transform--link;
+        text-decoration: $button__text-decoration--link;
+
+        &:hover {
+            color: $button__color-hover--link;
+            background: $button__background-hover--link;
+            &:before {
+                display: $button__before-display-hover--link;
+            }
+            &:after {
+                display: $button__after-display-hover--link;
+            }
+        }
+    }
+
+    &--icon {
+        min-width: $button__min-size;
+        min-height: $button__min-size;
+        padding: $button__padding--icon;
+        background-color: $button__bg--icon;
+
+        .icon,
+        .button__icon {
+            width: $button__icon-size;
+            height: $button__icon-size;
+            padding: $icon__padding;
+            fill: $button__icon-fill;
+            transition: $button__icon-transition;
+            z-index: $button__icon-z-index;
+            pointer-events: none;
+        }
+
+        .button__text {
+            margin: $button__text-margin--icon;
+            color: $button__text-color--icon;
+            font-weight: $button__font-weight--icon;
+            text-transform: $button__text-transform--icon;
+            transition: $button__transition;
+            z-index: $button__text-z-index;
+            pointer-events: none;
+        }
+
+        &:hover {
+            &:after {
+                display: none;
+            }
+            .icon,
+            .button__icon {
+                fill: $button__icon-fill-hover--icon;
+            }
+            .button__text {
+                color: $button__text-color-hover--icon;
+            }
+        }
+    }
+
+    &--icon-light {
+        &:before {
+            background-color: $button__before-background--icon-light;
+        }
+        &:hover {
+            .icon,
+            .button__icon {
+                fill: $button__icon-fill-hover--icon-light;
+            }
+            .button__text {
+                color: $button__text-color-hover--icon-light;
+            }
+        }
+    }
+
+    &--icon-border {
+        border: $button__border--icon-border;
+    }
+
+    &--rotate-icon {
+        &:before {
+            background-color: $button__before-background--rotate-icon;
+        }
+        &:hover {
+
+            &:after {
+                display: none;
+            }
+
+            .icon {
+                fill: $button__icon-fill-hover--rotate-icon;
+                transform: $button__transform-hover--rotate-icon;
+            }
+        }
+    }
+
+    &--icon-fill {
+        background: $button__background--icon-fill;
+        @include button-icon-fill($button__icon-after-mask--icon-fill);
+
+        &:before {
+            background-color: $button__before-background--icon-fill;
+            z-index: $button__icon-after-z-index--icon-fill;
+        }
+
+        &:hover {
+            @include button-fill-bg();
+        }
+    }
+
+    &--icon-filled {
+        @include button-fill-bg();
+    }
+
+    &--add-to {
+        overflow: hidden;
+        @include add-to-button(block);
+        @include mq($screen-m) {
+            @include add-to-button(none);
+        }
+
+        &:before {
+            display: $button__before-display--add-to;
+        }
+
+        &:after {
+            top: $button__after-position-top--add-to;
+            left: $button__after-position-left--add-to;
+            transform: $button__after-transform--add-to;
+        }
+
+        .button__icon {
+            fill: $white;
+        }
+
+        &:hover {
+            &:after {
+                transform: $button__after-transform-hover--add-to;
+            }
+        }
+    }
+}

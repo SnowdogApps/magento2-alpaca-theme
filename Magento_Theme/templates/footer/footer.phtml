@@ -1,0 +1,81 @@
+<?php
+    $scrollTop = $this->getChildHtml('footer-scroll-top');
+    $footerNewsletter = $this->getChildHtml('footer-newsletter');
+    $footerSocial = $this->getChildHtml('footer-social');
+    $footerMenu = $this->getChildHtml('footer-menu');
+    $bottomBar = $this->getChildHtml('footer-bottom-bar');
+    $cookieMessage = $this->getChildHtml('footer-cookie-message');
+?>
+
+<?php if ($scrollTop || $footerNewsletter || $footerSocial || $footerMenu): ?>
+    <div class="footer__handler container">
+        <?php if ($scrollTop): ?>
+            <?= $scrollTop ?>
+        <?php endif; ?>
+
+        <?php if ($footerNewsletter): ?>
+            <section class="footer__newsletter">
+                <?= $footerNewsletter ?>
+            </section>
+        <?php endif; ?>
+
+        <?php if ($footerSocial): ?>
+            <div class="footer__social-handler">
+                <?= $footerSocial ?>
+            </div>
+        <?php endif; ?>
+
+        <?php if ($footerMenu): ?>
+            <section class="footer__links">
+                <?= $footerMenu ?>
+            </section>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>
+
+<?php if ($bottomBar): ?>
+    <section class="footer__bottom-bar ">
+        <div class="footer__bottom-bar-handler container">
+            <?= $bottomBar ?>
+        </div>
+    </section>
+<?php endif; ?>
+
+<?php if ($cookieMessage): ?>
+    <div
+        class="cookie-message"
+        data-type="cookie"
+        tabindex="0"
+        aria-label="<?= $block->escapeHtmlAttr(__('Cookie policy message')) ?>"
+        data-mage-init='{ "cookieMessage": { } }'
+    >
+
+        <div class="cookie-message__container">
+            <?= $cookieMessage ?>
+
+            <button
+                class="
+                    button
+                    button--icon
+                    cookie-message__close
+                    button--rotate-icon
+                "
+                type="button"
+                aria-label="<?= $block->escapeHtmlAttr(__('Close cookie message')) ?>"
+            >
+                <svg
+                    class="
+                        icon
+                        button__icon
+                        cookie-message__close-icon
+                    "
+                    role="presentation"
+                    focusable="false"
+                >
+                    <title><?= __('Close') ?></title>
+                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#close')) ?>"></use>
+                </svg>
+            </button>
+        </div>
+    </div>
+<?php endif; ?>

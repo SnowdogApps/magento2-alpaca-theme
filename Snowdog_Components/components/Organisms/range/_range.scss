@@ -1,0 +1,106 @@
+$range__padding               : $spacer--medium 0 0 0 !default;
+$range__slider-margin         : 0 0 $spacer--semi-large 0 !default;
+$range__handler-size          : 24px !default;
+$range__handler-bg-color      : $white !default;
+$range__handler-border        : $border-secondary !default;
+$range__handler-border-radius : 50% !default;
+$range__handler-box-shadow    : none !default;
+$range__handler-offset-top    : -10px !default;
+$range__track-height          : 4px !default;
+$range__track-bg-color        : $gray !default;
+$range__track-bg-color--active: $color-primary !default;
+$range__track-border-radius   : $border-radius !default;
+$range__track-border          : none !default;
+$range__track-box-shadow      : none !default;
+$range__dash-padding          : 0 $spacer--medium 0 $spacer !default;
+$range__suffix-padding        : 0 $spacer !default;
+
+.range-filter {
+    padding: $range__padding;
+    overflow: hidden;
+
+    &__slider {
+        margin: $range__slider-margin;
+    }
+
+    &__inputs-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__dash {
+        text-align: center;
+        padding: $range__dash-padding;
+    }
+
+    &__suffix {
+        padding: $range__suffix-padding;
+    }
+
+    &__label {
+        @include visually-hidden();
+    }
+
+    &__input {
+        width: auto;
+        flex-grow: 1;
+        margin: 0;
+    }
+}
+
+.noUi-connect {
+    background-color: $range__track-bg-color--active;
+    border-radius: 0;
+}
+
+.noUi-tooltip {
+    display: none;
+}
+
+.noUi-target {
+    background-color: $range__track-bg-color;
+    box-shadow: $range__track-box-shadow;
+    border: $range__track-border;
+    border-radius: $range__track-border-radius;
+    height: $range__track-height;
+}
+
+.noUi-handle {
+    &:hover {
+        cursor: pointer;
+    }
+
+    .noUi-horizontal & {
+        border-radius: $range__handler-border-radius;
+        background-color: $range__handler-bg-color;
+        width: $range__handler-size;
+        height: $range__handler-size;
+        border: $range__handler-border;
+        box-shadow: $range__handler-box-shadow;
+        top: $range__handler-offset-top;
+
+        &:before,
+        &:after {
+            display: none;
+        }
+
+        &.focus-visible {
+            .noUi-tooltip {
+                display: block;
+            }
+        }
+    }
+}
+
+.noUi-extended {
+    padding-right: $spacer--semi-medium;
+}
+
+.noUi-extended .noUi-handle {
+    left: 0;
+}
+
+.noUi-extended .noUi-origin  {
+    right: -24px;
+}

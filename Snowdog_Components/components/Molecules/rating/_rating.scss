@@ -1,0 +1,211 @@
+@import 'rating-variables';
+
+.rating {
+    width: $rating__size;
+
+    &:hover,
+    &.focus-visible {
+        .rating__rate-item span:before {
+            display: block;
+        }
+    }
+
+    &__rate-item {
+        position: relative;
+        flex: 1 0 $rating__item-size;
+        overflow: hidden;
+
+        &:hover,
+        &.focus-visible {
+            ~ .rating__rate-item span:before {
+                display: none;
+            }
+        }
+    }
+
+    &__star {
+        position: relative;
+        height: $rating__item-size;
+        width: $rating__size;
+        margin: 0;
+
+        &:before { // inactive
+            content: '';
+            position: absolute;
+            display: block;
+            bottom: 0;
+            left: 0;
+            top: 0;
+            right: 0;
+            width: $rating__size;
+            height: $rating__item-size;
+            background-image: $rating__start-before;
+            background-repeat: repeat-x;
+            background-position: left center;
+            background-size: $rating__item-size;
+
+            @include isIE() {
+                height: 100%;
+                background-size: $rating__item-size 100%;
+            }
+        }
+
+        &--single {
+            width: $rating__item-size;
+        }
+    }
+
+    &__indicator {
+        left: 0;
+        top: 0;
+        display: block;
+        height: $rating__item-size;
+        width: $rating__size;
+        overflow: hidden;
+        text-indent: -10000px;
+
+        &:before { // active
+            content: '';
+            position: absolute;
+            display: block;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: auto;
+            height: $rating__item-size;
+            background-image: $rating__indicator-before;
+            background-repeat: repeat-x;
+            background-position: left center;
+            background-size: $rating__item-size;
+            text-indent: 10000px;
+
+            @include isIE() {
+                width: 100%;
+                height: 100%;
+                background-size: $rating__item-size 100%;
+            }
+
+            .rating__star--rate & {
+                display: none;
+            }
+
+            .rating__star--rate:hover &,
+            .rating__star--rate.focus-visible &,
+            .rating__rate-item--active & {
+                display: block;
+            }
+        }
+    }
+
+    &__error {
+        display: none;
+        color: $rating__error-color;
+        margin-bottom: $rating__error-margin-bottom;
+
+        &--visible {
+            display: block;
+        }
+    }
+
+    .mage-error {
+        display: none !important; // sass-lint:disable-line no-important
+    }
+
+    &--rate {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: $rating__size--rate;
+        margin: $rating__margin--rate;
+        padding: $rating__padding--rate;
+
+        .rating__rate-item {
+            flex: 1 0 $rating__item-size--rate;
+        }
+
+        .rating__star {
+            height: $rating__item-size--rate;
+            width: $rating__item-size--rate;
+            border: 0;
+            background-color: transparent;
+            cursor: pointer;
+
+            &:before {
+                width: $rating__item-size--rate;
+                height: $rating__item-size--rate;
+                background-size: $rating__item-size--rate;
+                background-position: center;
+                background-repeat: no-repeat;
+
+                @include isIE() {
+                    background-size: $rating__item-size--rate 100%;
+                }
+            }
+
+            &--single {
+                width: $rating__item-size--rate;
+            }
+        }
+
+        .radio__field {
+            width: 1px;
+            height: 1px;
+            bottom: 0;
+
+            &.focus-visible {
+                opacity: 1;
+                height: 0;
+                outline: none;
+                appearance: none;
+
+                &:before {
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    top: -$rating__item-size--rate;
+                    width: $rating__item-size--rate;
+                    height: $rating__item-size--rate;
+                    border: $border-focus;
+                }
+            }
+        }
+
+        .rating__indicator {
+            height: $rating__item-size--rate;
+            width: $rating__item-size--rate;
+
+            &:before {
+                height: $rating__item-size--rate;
+                background-size: $rating__item-size--rate;
+                background-position: center;
+                background-repeat: no-repeat;
+            }
+        }
+    }
+
+    &--secondary {
+        width: $rating__size--secondary;
+
+        .rating__indicator {
+            height: $rating__item-size--secondary;
+            width: $rating__size--secondary;
+
+            &:before {
+                height: $rating__item-size--secondary;
+                background-size: $rating__item-size--secondary;
+            }
+        }
+
+        .rating__star {
+            height: $rating__item-size--secondary;
+            width: $rating__size--secondary;
+
+            &:before {
+                height: $rating__item-size--secondary;
+                background-size: $rating__item-size--secondary;
+                width: $rating__size--secondary;
+            }
+        }
+    }
+}

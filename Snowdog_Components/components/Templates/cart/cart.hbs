@@ -1,0 +1,93 @@
+<div class="page-wrapper">
+    {{ render '@header' }}
+
+    <div class="container">
+        {{ render '@breadcrumbs' breadcrumbs }}
+        {{ render '@heading' mainHeading merge=true }}
+
+        <div class="row cart">
+            <div class="col-xs-12 col-lg-4 cart__summary">
+                {{ render '@order-summary' }}
+            </div>
+
+            <div class="col-xs-12 col-lg-8">
+                <div class="cart-grid">
+                    <div class="cart-grid__header">
+                        <span
+                            class="
+                                cart-grid__header-label
+                                cart-grid__header-items
+                            "
+                        >
+                            {{ grid.header.item }}
+                        </span>
+
+                        <span
+                            class="
+                                cart-grid__header-label
+                                cart-grid__header-price
+                            "
+                        >
+                            {{ grid.header.price }}
+                        </span>
+
+                        <span
+                            class="
+                                cart-grid__header-label
+                                cart-grid__header-qty
+                            "
+                        >
+                            {{ grid.header.qty }}
+                        </span>
+
+                        <span
+                            class="
+                                cart-grid__header-label
+                                cart-grid__header-subtotal
+                            "
+                        >
+                            {{ grid.header.subtotal }}
+                        </span>
+                    </div>
+
+                    {{#each grid.items }}
+                        {{ render '@cart-list-item' this merge=true }}
+                    {{/each}}
+
+                    <div class="cart-grid__footer">
+                        {{ render '@button--secondary' grid.updateCart }}
+                    </div>
+                </div>
+
+                <div class="cart-discount">
+                    <button
+                        class="cart-discount__button"
+                        {{{ discount.button.attributes }}}
+                    >
+                        <span class="cart-discount__button-text">
+                            {{ discount.button.title }}
+                        </span>
+
+                        {{ render '@icon' discount.icon }}
+                    </button>
+
+                    <div
+                        class="cart-discount__content"
+                        {{{ discount.content.attributes }}}
+                    >
+                        <form>
+                            <div class="cart-discount__controls">
+                                {{ render '@input' discount.content.input }}
+                                {{ render '@button' discount.content.submit }}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{ render '@footer' }}
+
+<script src="{{static 'cart.js'}}" defer></script>

@@ -1,0 +1,90 @@
+<?php
+/** @var $block \Magento\Framework\View\Element\Template */
+/** @var $helper \Magento\Search\Helper\Data */
+$helper = $this->helper('Magento\Search\Helper\Data');
+?>
+<form
+    class="search-form"
+    id="search_mini_form"
+    action="<?= $block->escapeUrl($helper->getResultUrl()) ?>"
+    method="get"
+>
+    <div class="input search-form__input-wrapper margin-0">
+        <label
+            class="
+                label
+                input__label
+                label--hidden
+            "
+            for="search"
+        >
+            <?= __('Search products') ?>
+        </label>
+
+        <input
+            class="
+                input__field
+                search-form__input
+                border-color-light
+            "
+            id="search"
+            type="search"
+            name="<?= $block->escapeHtmlAttr($helper->getQueryParamName()); ?>"
+            value="<?= $block->escapeHtmlAttr($helper->getEscapedQueryText()); ?>"
+            placeholder="<?= $block->escapeHtmlAttr(__('Search entire store here...')); ?>"
+            maxlength="<?= $block->escapeHtmlAttr($helper->getMaxQueryLength()); ?>"
+            role="combobox"
+            aria-haspopup="false"
+            aria-autocomplete="both"
+            autocomplete="off"
+            aria-expanded="false"
+        >
+
+        <?= $block->getChildHtml() ?>
+    </div>
+
+    <button
+        class="
+            button
+            button--icon
+            search-form__button
+        "
+        type="submit"
+        aria-label="<?= $block->escapeHtmlAttr(__('Search')) ?>"
+        data-testid="search-link"
+    >
+        <svg
+            class="icon button__icon"
+            role="presentation"
+            focusable="false"
+        >
+            <title><?= __('Search') ?></title>
+            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#search')) ?>"></use>
+        </svg>
+    </button>
+
+    <div class="quicksearch-wrapper">
+        <div
+            id="search_autocomplete"
+            class="quicksearch"
+            tabindex="0"
+            aria-label="Quicksearch results"
+        ></div>
+    </div>
+</form>
+
+<script type="text/x-magento-init">
+{
+    "#search" :
+    {
+        "quickSearch" :
+        {
+            "formSelector":"#search_mini_form",
+            "url":"<?php /* @escapeNotVerified */ echo $block->getUrl('search/ajax/suggest'); ?>",
+            "destinationSelector":"#search_autocomplete",
+            "templates": <?php /* @noEscape */ echo $block->getJsonSuggestRenderers();?>,
+            "priceFormat" : <?php /* @noEscape */ echo $block->getJsonPriceFormat();?>
+        }
+    }
+}
+</script>

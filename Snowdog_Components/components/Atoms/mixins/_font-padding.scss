@@ -1,0 +1,28 @@
+@mixin font-padding(
+    $font-size,
+    $height,
+    $right: 0,
+    $left: 0,
+    $line-height: $font-line-height //if not defined global setting is applied
+) {
+    $font-size: $font-size;
+    $vertical: $height - round($font-size * $line-height);
+
+    @if $vertical > 0 {
+        $vertical: $vertical / 2;
+    }
+    @else {
+        $vertical: 0;
+    }
+
+    @if $left == $right {
+        padding: $vertical $left;
+    }
+    @else {
+        padding: $vertical $right $vertical $left;
+    }
+
+    @if $line-height != $font-line-height {
+        line-height: $line-height;
+    }
+}

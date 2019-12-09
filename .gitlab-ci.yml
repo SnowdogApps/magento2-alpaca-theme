@@ -1,0 +1,87 @@
+image: circleci/php:7.1-stretch-node
+
+stages:
+  - test
+  - deploy
+
+variables:
+  NOW_PROJECT: $CI_PROJECT_NAME
+
+frontools:
+  stage: test
+  variables:
+    THEME_PATH: "vendor/snowdog/theme-frontend-colibri"
+    CONFIG_PATH: "vendor/snowdog/module-colibri-frontools/config"
+  before_script:
+    - mkdir -p $THEME_PATH
+    - rsync -r --delete --exclude '/vendor' . $THEME_PATH
+    - composer config minimum-stability dev
+    - composer config prefer-stable true
+    - composer config repositories.snowdog composer https://repo.snowdog.pro/
+    - composer config repositories.magento composer https://repo.magento.com/
+    - composer update --no-dev --no-interaction --prefer-dist --no-progress --ignore-platform-reqs
+    - mkdir -p dev/tools/frontools
+    - cp -r $CONFIG_PATH dev/tools/frontools
+    - cd vendor/snowdog/frontools
+    - yarn
+    - yarn setup
+  script:
+    - yarn styles --theme colibri --ci
+
+components:
+  stage: deploy
+  variables:
+    NOW_URL: https://${CI_PROJECT_NAME}-${CI_BUILD_REF_SLUG}.now.sh
+  before_script:
+    - cd Snowdog_Components
+    - yarn
+    - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@lab.snowdog.pro/internal/now-deployment.git
+    - chmod +x now-deployment/now-deploy.sh
+    - . ./now-deployment/now-deploy.sh
+  script:
+    - deploy
+  environment:
+    name: review/$CI_BUILD_REF_SLUG
+    url: $NOW_URL
+    on_stop: stop_review
+  only:
+    - branches
+  except:
+    - master
+
+production:
+  stage: deploy
+  variables:
+    NOW_URL: https://${CI_PROJECT_NAME}.now.sh
+  before_script:
+    - cd Snowdog_Components
+    - yarn
+    - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@lab.snowdog.pro/internal/now-deployment.git
+    - chmod +x now-deployment/now-deploy.sh
+    - . ./now-deployment/now-deploy.sh
+  script:
+    - deploy
+  environment:
+    name: production
+    url: $NOW_URL
+  only:
+    - master
+
+stop_review:
+  stage: deploy
+  variables:
+    NOW_URL: https://${CI_PROJECT_NAME}-${CI_BUILD_REF_SLUG}.now.sh
+  before_script:
+    - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@lab.snowdog.pro/internal/now-deployment.git
+    - chmod +x now-deployment/now-deploy.sh
+    - . ./now-deployment/now-deploy.sh
+  script:
+    - stop
+  when: manual
+  environment:
+    name: review/$CI_BUILD_REF_SLUG
+    action: stop
+  only:
+    - branches
+  except:
+    - master
