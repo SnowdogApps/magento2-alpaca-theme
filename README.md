@@ -1,7 +1,7 @@
 # Colibri - components & theme for Magento 2.3
 
 ## Description
-Colibri Theme for Magento 2 is part of a package: [snowdog/module-colibri-opensource-2.3-packages](link-on-github).
+Colibri Theme for Magento 2 is part of a `colibri-packages`
 To make it work with all features, we use following modules:
 
 Open source
@@ -19,7 +19,7 @@ Open source
 * snowdog/theme-frontend-colibri
 * webshopapps/module-matrixrate
 
-Additional
+Additional, non-opensource modules the theme works with
 * amasty/adminactionslog
 * amasty/module-gift-card
 * amasty/module-google-rich-snippets
@@ -36,7 +36,7 @@ Additional
 
 ## Installation
 Install whole package using composer:
-`composer require snowdog/module-colibri-opensource-2.3-packages`
+`composer require snowdog/colibri-packages`
 
 Node >=12.13.0 <13.0.0 is required for frontools and components
 
@@ -50,8 +50,8 @@ Node >=12.13.0 <13.0.0 is required for frontools and components
     "description": "Child frontend theme",
     "type": "magento2-theme",
     "require": {
-        "snowdog/theme-frontend-colibri": "dev-master",
-        "vendor/module-child-theme-frontools": "dev-master"
+        "snowdog/theme-frontend-colibri": "<latest-version>",
+        "vendor/module-child-theme-frontools": "<latest-version>"
     },
     "autoload": {
         "files": [
