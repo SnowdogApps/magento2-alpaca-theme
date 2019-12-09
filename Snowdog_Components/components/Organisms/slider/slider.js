@@ -3,7 +3,7 @@
 (function colibriSlider() {
   'use strict';
 
-  const sliders = [...document.querySelectorAll('.slider')];
+  const sliders = [...document.querySelectorAll('.slider__container')];
   const dot = document.createElement('span');
 
   class Slider {

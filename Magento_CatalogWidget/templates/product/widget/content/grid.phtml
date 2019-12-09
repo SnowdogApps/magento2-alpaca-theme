@@ -18,275 +18,282 @@ use Magento\Framework\App\Action\Action;
     ?>
 
     <?php if ($block->getTitle()): ?>
-        <h2
-            class="
-                text-center
-                margin-top-sm
-            "
-            id="widget-product-grid-title"
-        >
-            <?= $block->escapeHtml(__($block->getTitle())) ?>
-        </h2>
+        <div class="section__heading">
+            <h2
+                class="
+                    heading--first-level
+                    margin-0
+                "
+                id="widget-product-grid-title"
+            >
+                <?= $block->escapeHtml(__($block->getTitle())) ?>
+            </h2>
+        </div>
     <?php endif ?>
 
-    <div
-        class="
-            slider
-            slider--products
-        "
-        data-rewind="true"
-        data-enable-mouse-events="true"
-        data-mage-init='{ "slider": {} }'
-        aria-labelledby="widget-product-grid-title"
-    >
-
-        <?php if(sizeof($items) > 4): ?>
-            <div class="slider__navigation">
-                <button
-                    class="
-                        button
-                        button--icon
-                        slider__prev
-                        button--icon-border
-                    "
-                    type="button"
-                    aria-label="<?= $block->escapeHtmlAttr(__('Previous slide')) ?>"
+    <div class="section__content section__content--products">
+        <div class="slider slider--products">
+            <div class="slider__wraper">
+                <div
+                    class="slider__container"
+                    data-rewind="true"
+                    data-enable-mouse-events="true"
+                    data-mage-init='{ "slider": {} }'
+                    aria-labelledby="widget-product-grid-title"
                 >
-                    <svg
-                        class="
-                            icon
-                            button__icon
-                            slider__icon
-                        "
-                        role="presentation"
-                        focusable="false"
-                    >
-                        <title><?= __('Previous slide') ?></title>
-                        <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#arrow-left')) ?>"></use>
-                    </svg>
-                </button>
 
-                <button
-                    class="
-                        button
-                        button--icon
-                        slider__next
-                        button--icon-border
-                    "
-                    type="button"
-                    aria-label="<?= $block->escapeHtmlAttr(__('Next slide')) ?>"
-                >
-                    <svg
-                        class="
-                            icon
-                            button__icon
-                            slider__icon
-                        "
-                        role="presentation"
-                        focusable="false"
-                    >
-                        <title><?= __('Next slide') ?></title>
-                        <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#arrow-right')) ?>"></use>
-                    </svg>
-                </button>
-            </div>
-        <?php endif; ?>
-
-        <?= '<!-- ' . $image . '-->' ?>
-
-        <div class="slider__handler">
-            <div class="slider__slides">
-                <?php foreach ($items as $key => $_item) : ?>
-                    <div
-                        class="
-                            slider__item
-                            slider__slide-item
-                            <?= $key + 1 === 1 ? 'active' : '' ?>
-                        "
-                    >
-                        <div
-                            class="product-grid-item product-grid-item--slider-item"
-                            tabindex="0"
-                        >
-                            <a
-                                href="<?= $block->escapeUrl($block->getProductUrl($_item)) ?>"
-                                class="product-grid-item__link"
-                                tabindex="-1"
+                    <?php if(sizeof($items) > 4): ?>
+                        <div class="slider__navigation">
+                            <button
+                                class="
+                                    button
+                                    button--icon
+                                    slider__prev
+                                    button--icon-border
+                                "
+                                type="button"
+                                aria-label="<?= $block->escapeHtmlAttr(__('Previous slide')) ?>"
                             >
-                                <?php if ($_item->getBadge()): ?>
-                                    <?php $productBadges = $_item->getAttributeText('badge'); ?>
+                                <svg
+                                    class="
+                                        icon
+                                        button__icon
+                                        slider__icon
+                                    "
+                                    role="presentation"
+                                    focusable="false"
+                                >
+                                    <title><?= __('Previous slide') ?></title>
+                                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#arrow-left')) ?>"></use>
+                                </svg>
+                            </button>
+
+                            <button
+                                class="
+                                    button
+                                    button--icon
+                                    slider__next
+                                    button--icon-border
+                                "
+                                type="button"
+                                aria-label="<?= $block->escapeHtmlAttr(__('Next slide')) ?>"
+                            >
+                                <svg
+                                    class="
+                                        icon
+                                        button__icon
+                                        slider__icon
+                                    "
+                                    role="presentation"
+                                    focusable="false"
+                                >
+                                    <title><?= __('Next slide') ?></title>
+                                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#arrow-right')) ?>"></use>
+                                </svg>
+                            </button>
+                        </div>
+                    <?php endif; ?>
+
+                    <?= '<!-- ' . $image . '-->' ?>
+
+                    <div class="slider__handler">
+                        <div class="slider__slides">
+                            <?php foreach ($items as $key => $_item) : ?>
+                                <div
+                                    class="
+                                        slider__item
+                                        slider__slide-item
+                                        <?= $key + 1 === 1 ? 'active' : '' ?>
+                                    "
+                                >
                                     <div
-                                        class="
-                                            badges
-                                            product-grid-item__badges
-                                        "
+                                        class="product-grid-item product-grid-item--slider-item"
+                                        tabindex="0"
                                     >
-                                        <?php if (is_array($productBadges)): ?>
-                                            <?php foreach ($productBadges as $productBadge): ?>
+                                        <a
+                                            href="<?= $block->escapeUrl($block->getProductUrl($_item)) ?>"
+                                            class="product-grid-item__link"
+                                            tabindex="-1"
+                                        >
+                                            <?php if ($_item->getBadge()): ?>
+                                                <?php $productBadges = $_item->getAttributeText('badge'); ?>
                                                 <div
                                                     class="
-                                                        badge
-                                                        badge--<?= $block->escapeHtmlAttr(mb_strtolower($productBadge, 'UTF-8')) ?>
+                                                        badges
+                                                        product-grid-item__badges
                                                     "
                                                 >
-                                                    <?= $block->escapeHtml($productBadge) ?>
-                                                </div>
-                                            <?php endforeach ?>
-                                        <?php else: ?>
-                                            <div
-                                                class="
-                                                    badge
-                                                    badge--<?= $block->escapeHtmlAttr(mb_strtolower($productBadges, 'UTF-8')) ?>
-                                                "
-                                            >
-                                                <?= $block->escapeHtml($productBadges) ?>
-                                            </div>
-                                        <?php endif ?>
-                                    </div>
-                                <?php endif ?>
-                                <div class="product-grid-item__image-wrapper">
-                                    <?= $block->getImage($_item, $image)->toHtml() ?>
-                                </div>
-                            </a>
-                            <section class="product-grid-item__details">
-                                <?php if ($templateType) : ?>
-                                    <?= $block->getReviewsSummaryHtml($_item, $templateType) ?>
-                                <?php endif; ?>
-                                <h3 class="product-grid-item__name">
-                                    <a
-                                        href="<?= $block->escapeUrl($block->getProductUrl($_item)) ?>"
-                                        class="product-grid-item__name-link"
-                                        title="<?= $block->escapeHtmlAttr($_item->getName()) ?>"
-                                    >
-                                        <?= $block->escapeHtml($_item->getName()) ?>
-                                    </a>
-                                </h3>
-                                <div class="product-grid-item__details-bottom">
-                                    <div class="product-grid-item__price">
-                                        <?= $block->getProductPriceHtml($_item, $type) ?>
-                                    </div>
-                                    <?= $block->getProductDetailsHtml($_item) ?>
-                                    <?php if ($showWishlist || $showCompare || $showCart) : ?>
-                                        <div class="product-grid-item__actions">
-                                            <?php if ($showWishlist || $showCompare) : ?>
-                                                <div
-                                                    class="product-grid-item__secondary-action"
-                                                    data-role="add-to-links"
-                                                >
-                                                    <?php if ($this->helper(\Magento\Wishlist\Helper\Data::class)->isAllow() && $showWishlist) : ?>
-                                                        <button
-                                                            class="
-                                                                button
-                                                                button--icon
-                                                                add-to-wishlist
-                                                            "
-                                                            type="submit"
-                                                            aria-label="<?= $block->escapeHtmlAttr(__('Add to Wish List')) ?>"
-                                                            data-post='<?= $block->getAddToWishlistParams($_item) ?>'
-                                                            data-action="add-to-wishlist"
-                                                        >
-                                                            <svg
+                                                    <?php if (is_array($productBadges)): ?>
+                                                        <?php foreach ($productBadges as $productBadge): ?>
+                                                            <div
                                                                 class="
-                                                                    icon
-                                                                    button__icon
+                                                                    badge
+                                                                    badge--<?= $block->escapeHtmlAttr(mb_strtolower($productBadge, 'UTF-8')) ?>
                                                                 "
-                                                                role="presentation"
-                                                                focusable="false"
                                                             >
-                                                                <title><?= __('Wishlist heart') ?></title>
-                                                                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#heart')) ?>"></use>
-                                                            </svg>
-                                                        </button>
-                                                    <?php endif; ?>
-
-                                                    <?php if ($block->getAddToCompareUrl() && $showCompare) : ?>
-                                                        <?php $compareHelper = $this->helper(\Magento\Catalog\Helper\Product\Compare::class);?>
-                                                        <button
-                                                            class="
-                                                                button
-                                                                button--icon
-                                                            "
-                                                            type="submit"
-                                                            aria-label="<?= $block->escapeHtmlAttr(__('Add to Compare')) ?>"
-                                                            data-post='<?= $compareHelper->getPostDataParams($_item) ?>'
-                                                            data-testid="add-to-compare-button"
-                                                        >
-                                                            <svg
-                                                                class="icon button__icon"
-                                                                role="presentation"
-                                                                focusable="false"
-                                                            >
-                                                                <title><?= __('Add to Compare') ?></title>
-                                                                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#compare')) ?>"></use>
-                                                            </svg>
-                                                        </button>
-                                                    <?php endif; ?>
-                                                </div>
-                                            <?php endif; ?>
-
-                                            <?php if ($showCart) : ?>
-                                                <div class="product-grid-item__primary-action">
-                                                    <?php if ($_item->isSaleable()) : ?>
-                                                        <?php $postParams = $block->getAddToCartPostParams($_item); ?>
-                                                        <form
-                                                            data-role="tocart-form"
-                                                            data-product-sku="<?= $block->escapeHtmlAttr($_item->getSku()) ?>"
-                                                            action="<?= $block->escapeUrl($postParams['action']) ?>"
-                                                            method="post"
-                                                        >
-                                                            <input
-                                                                type="hidden"
-                                                                name="product"
-                                                                value="<?= $block->escapeHtmlAttr($postParams['data']['product']) ?>"
-                                                            />
-                                                            <input
-                                                                type="hidden"
-                                                                name="<?= /* @noEscape */ Action::PARAM_NAME_URL_ENCODED ?>"
-                                                                value="<?= /* @noEscape */ $postParams['data'][Action::PARAM_NAME_URL_ENCODED] ?>"
-                                                            />
-                                                            <?= $block->getBlockHtml('formkey') ?>
-                                                            <button
-                                                                class="
-                                                                    button
-                                                                    button--add-to
-                                                                "
-                                                                type="submit"
-                                                                aria-label="<?= $block->escapeHtmlAttr(__('Add to cart')) ?>"
-                                                            >
-                                                                <svg
-                                                                    class="icon button__icon"
-                                                                    role="presentation"
-                                                                    focusable="false"
-                                                                >
-                                                                    <title><?= __('Add to cart') ?></title>
-                                                                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#shopping-cart')) ?>"></use>
-                                                                </svg>
-                                                            </button>
-                                                        </form>
-                                                    <?php else : ?>
-                                                        <?php if ($_item->getIsSalable()) : ?>
-                                                            <div class="stock available">
-                                                                <?= $block->escapeHtml(__('In stock')) ?>
+                                                                <?= $block->escapeHtml($productBadge) ?>
                                                             </div>
-                                                        <?php else : ?>
-                                                            <div class="stock unavailable">
-                                                                <?= $block->escapeHtml(__('Out of stock')) ?>
+                                                        <?php endforeach ?>
+                                                    <?php else: ?>
+                                                        <div
+                                                            class="
+                                                                badge
+                                                                badge--<?= $block->escapeHtmlAttr(mb_strtolower($productBadges, 'UTF-8')) ?>
+                                                            "
+                                                        >
+                                                            <?= $block->escapeHtml($productBadges) ?>
+                                                        </div>
+                                                    <?php endif ?>
+                                                </div>
+                                            <?php endif ?>
+                                            <div class="product-grid-item__image-wrapper">
+                                                <?= $block->getImage($_item, $image)->toHtml() ?>
+                                            </div>
+                                        </a>
+                                        <section class="product-grid-item__details">
+                                            <div class="product-grid-item__rating">
+                                                <?php if ($templateType) : ?>
+                                                    <?= $block->getReviewsSummaryHtml($_item, $templateType) ?>
+                                                <?php endif; ?>
+                                            </div>
+                                            <h3 class="product-grid-item__name">
+                                                <a
+                                                    href="<?= $block->escapeUrl($block->getProductUrl($_item)) ?>"
+                                                    class="product-grid-item__name-link"
+                                                    title="<?= $block->escapeHtmlAttr($_item->getName()) ?>"
+                                                >
+                                                    <?= $block->escapeHtml($_item->getName()) ?>
+                                                </a>
+                                            </h3>
+                                            <div class="product-grid-item__details-bottom">
+                                                <div class="product-grid-item__price">
+                                                    <?= $block->getProductPriceHtml($_item, $type) ?>
+                                                </div>
+                                                <?= $block->getProductDetailsHtml($_item) ?>
+                                                <?php if ($showWishlist || $showCompare || $showCart) : ?>
+                                                    <div class="product-grid-item__actions">
+                                                        <?php if ($showWishlist || $showCompare) : ?>
+                                                            <div
+                                                                class="product-grid-item__secondary-action"
+                                                                data-role="add-to-links"
+                                                            >
+                                                                <?php if ($this->helper(\Magento\Wishlist\Helper\Data::class)->isAllow() && $showWishlist) : ?>
+                                                                    <button
+                                                                        class="
+                                                                            button
+                                                                            button--icon
+                                                                            add-to-wishlist
+                                                                        "
+                                                                        type="submit"
+                                                                        aria-label="<?= $block->escapeHtmlAttr(__('Add to Wish List')) ?>"
+                                                                        data-post='<?= $block->getAddToWishlistParams($_item) ?>'
+                                                                        data-action="add-to-wishlist"
+                                                                    >
+                                                                        <svg
+                                                                            class="
+                                                                                icon
+                                                                                button__icon
+                                                                            "
+                                                                            role="presentation"
+                                                                            focusable="false"
+                                                                        >
+                                                                            <title><?= __('Wishlist heart') ?></title>
+                                                                            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#heart')) ?>"></use>
+                                                                        </svg>
+                                                                    </button>
+                                                                <?php endif; ?>
+
+                                                                <?php if ($block->getAddToCompareUrl() && $showCompare) : ?>
+                                                                    <?php $compareHelper = $this->helper(\Magento\Catalog\Helper\Product\Compare::class);?>
+                                                                    <button
+                                                                        class="
+                                                                            button
+                                                                            button--icon
+                                                                        "
+                                                                        type="submit"
+                                                                        aria-label="<?= $block->escapeHtmlAttr(__('Add to Compare')) ?>"
+                                                                        data-post='<?= $compareHelper->getPostDataParams($_item) ?>'
+                                                                        data-testid="add-to-compare-button"
+                                                                    >
+                                                                        <svg
+                                                                            class="icon button__icon"
+                                                                            role="presentation"
+                                                                            focusable="false"
+                                                                        >
+                                                                            <title><?= __('Add to Compare') ?></title>
+                                                                            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#compare')) ?>"></use>
+                                                                        </svg>
+                                                                    </button>
+                                                                <?php endif; ?>
                                                             </div>
                                                         <?php endif; ?>
-                                                    <?php endif; ?>
-                                                </div>
-                                            <?php endif; ?>
-                                        </div>
-                                    <?php endif; ?>
+
+                                                        <?php if ($showCart) : ?>
+                                                            <div class="product-grid-item__primary-action">
+                                                                <?php if ($_item->isSaleable()) : ?>
+                                                                    <?php $postParams = $block->getAddToCartPostParams($_item); ?>
+                                                                    <form
+                                                                        data-role="tocart-form"
+                                                                        data-product-sku="<?= $block->escapeHtmlAttr($_item->getSku()) ?>"
+                                                                        action="<?= $block->escapeUrl($postParams['action']) ?>"
+                                                                        method="post"
+                                                                    >
+                                                                        <input
+                                                                            type="hidden"
+                                                                            name="product"
+                                                                            value="<?= $block->escapeHtmlAttr($postParams['data']['product']) ?>"
+                                                                        />
+                                                                        <input
+                                                                            type="hidden"
+                                                                            name="<?= Action::PARAM_NAME_URL_ENCODED ?>"
+                                                                            value="<?= $postParams['data'][Action::PARAM_NAME_URL_ENCODED] ?>"
+                                                                        />
+                                                                        <?= $block->getBlockHtml('formkey') ?>
+                                                                        <button
+                                                                            class="
+                                                                                button
+                                                                                button--add-to
+                                                                            "
+                                                                            type="submit"
+                                                                            aria-label="<?= $block->escapeHtmlAttr(__('Add to cart')) ?>"
+                                                                        >
+                                                                            <svg
+                                                                                class="icon button__icon"
+                                                                                role="presentation"
+                                                                                focusable="false"
+                                                                            >
+                                                                                <title><?= __('Add to cart') ?></title>
+                                                                                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#shopping-cart')) ?>"></use>
+                                                                            </svg>
+                                                                        </button>
+                                                                    </form>
+                                                                <?php else : ?>
+                                                                    <?php if ($_item->getIsSalable()) : ?>
+                                                                        <div class="stock available">
+                                                                            <?= $block->escapeHtml(__('In stock')) ?>
+                                                                        </div>
+                                                                    <?php else : ?>
+                                                                        <div class="stock unavailable">
+                                                                            <?= $block->escapeHtml(__('Out of stock')) ?>
+                                                                        </div>
+                                                                    <?php endif; ?>
+                                                                <?php endif; ?>
+                                                            </div>
+                                                        <?php endif; ?>
+                                                    </div>
+                                                <?php endif; ?>
+                                            </div>
+                                        </section>
+                                    </div>
                                 </div>
-                            </section>
+                            <?php endforeach ?>
                         </div>
                     </div>
-                <?php endforeach ?>
+                    <div class="slider__dots"></div>
+
+                    <?= $block->getPagerHtml() ?>
+                </div>
             </div>
         </div>
-        <div class="slider__dots"></div>
-
-        <?= $block->getPagerHtml() ?>
     </div>
 <?php endif;?>

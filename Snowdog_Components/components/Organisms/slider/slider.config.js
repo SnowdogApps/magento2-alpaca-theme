@@ -2,8 +2,15 @@ module.exports = {
   context: {
     script: true,
     attributes: 'data-rewind="true" data-enable-mouse-events="true" data-slides-to-scroll="1"',
-    heading: 'Slider heading',
-    headingClass: 'heading heading--second-level text-center margin-top-sm',
+    heading: {
+      class: '',
+      content: 'heading',
+      contentContext: {
+        tag: 'h2',
+        class: 'heading--first-level margin-0',
+        text: 'Slider heading'
+      }
+    },
     iconPrev: {
       tag: 'button',
       class: 'button--icon-border slider__prev',
@@ -207,144 +214,18 @@ module.exports = {
       }
     },
     {
-      name: 'products-without-cart',
-      view: 'slider--products.hbs',
-      context: {
-        class: 'slider--products',
-        heading: false,
-        slides: [
-          {
-            itemClass: 'slider__slide-item',
-            content: 'product-grid-item--slider-item',
-            contentContext: {
-              price: {
-                class: 'product-grid-item__price--full-width'
-              },
-              secondaryActions: {
-                class: 'product-grid-item__actions--zero-width',
-                addToCart: false
-              }
-            }
-          },
-          {
-            itemClass: 'slider__slide-item',
-            content: 'product-grid-item--slider-item',
-            contentContext: {
-              price: {
-                class: 'product-grid-item__price--full-width'
-              },
-              secondaryActions: {
-                class: 'product-grid-item__actions--zero-width',
-                addToCart: false
-              }
-            }
-          },
-          {
-            itemClass: 'slider__slide-item',
-            content: 'product-grid-item--slider-item',
-            contentContext: {
-              name: 'Some product name Lorem Ipsum Dolor sit',
-              price: {
-                class: 'product-grid-item__price--full-width'
-              },
-              secondaryActions: {
-                class: 'product-grid-item__actions--zero-width',
-                addToCart: false
-              }
-            }
-          },
-          {
-            itemClass: 'slider__slide-item',
-            content: 'product-grid-item--slider-item',
-            contentContext: {
-              name: 'Some product name',
-              price: {
-                class: 'product-grid-item__price--full-width',
-                name: 'price--with-special-price',
-                context: {
-                  oldPriceClass: '',
-                  regularPrice: '1000.00',
-                  specialPrice: '899.99',
-                  specialPriceClass: '',
-                  prefix: {
-                    tag: '',
-                    text: '$'
-                  },
-                  suffix: {
-                    tag: '',
-                    text: ''
-                  }
-                }
-              },
-              secondaryActions: {
-                class: 'product-grid-item__actions--zero-width',
-                addToCart: false
-              }
-            }
-          },
-          {
-            itemClass: 'slider__slide-item',
-            content: 'product-grid-item--slider-item',
-            contentContext: {
-              price: {
-                class: 'product-grid-item__price--full-width'
-              },
-              secondaryActions: {
-                class: 'product-grid-item__actions--zero-width',
-                addToCart: false
-              }
-            }
-          },
-          {
-            itemClass: 'slider__slide-item',
-            content: 'product-grid-item--slider-item',
-            contentContext: {
-              name: 'Some product name',
-              price: {
-                class: 'product-grid-item__price--full-width',
-                name: 'price--with-special-price',
-                context: {
-                  oldPriceClass: 'product-grid-item__old-price',
-                  regularPrice: '1000.00',
-                  specialPrice: '899.99',
-                  specialPriceClass: 'product-grid-item__special-price',
-                  prefix: {
-                    tag: '',
-                    text: '$'
-                  },
-                  suffix: {
-                    tag: '',
-                    text: ''
-                  }
-                }
-              },
-              secondaryActions: {
-                class: 'product-grid-item__actions--zero-width',
-                addToCart: false
-              }
-            }
-          },
-          {
-            itemClass: 'slider__slide-item',
-            content: 'product-grid-item--slider-item',
-            contentContext: {
-              price: {
-                class: 'product-grid-item__price--full-width'
-              },
-              secondaryActions: {
-                class: 'product-grid-item__actions--zero-width',
-                addToCart: false
-              }
-            }
-          }
-        ]
-      }
-    },
-    {
       name: 'brands',
       context: {
         class: 'slider--brands',
-        heading: 'Top brands',
+        heading: {
+          class: '',
+          content: 'heading',
+          contentContext: {
+            tag: 'h2',
+            class: 'heading--first-level margin-0',
+            text: 'Top brands'
+          }
+        },
         contentAfter: {
           content: 'link',
           contentContext: {
