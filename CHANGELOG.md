@@ -8,3 +8,6 @@ All notable changes to this project will be documented in this file.
 ### Removed
 ### Deprecated
 ### Security
+
+## [0.9.0] - 2019-12-09
+- theme and components - initial working version
