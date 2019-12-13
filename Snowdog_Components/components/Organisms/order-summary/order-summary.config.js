@@ -88,6 +88,12 @@ module.exports = {
           ]
         }
       }
+    },
+    {
+      name: 'with-quote',
+      context: {
+        displayQuote: true
+      }
     }
   ]
 }
