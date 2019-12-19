@@ -72,25 +72,19 @@ module.exports = {
     },
     signOutButton: {
       tag: 'a',
-      class: 'dashboard-nav__button',
+      class: 'button--secondary dashboard-nav__button',
       attributes: 'title="Sign out"',
       text: 'Sign out'
     },
-    compare: {
-      heading: {
-        tag: 'h3',
-        class: 'dashboard-nav__section-title',
-        text: 'Compare Products'
-      },
-      text: 'You have no items to compare.'
+    dashboardNavCompare: {
+      title: {
+        class: 'sidebar-block__title dashboard-nav__title'
+      }
     },
-    wishlist: {
-      heading: {
-        tag: 'h3',
-        class: 'dashboard-nav__section-title',
-        text: 'My Wish List'
-      },
-      text: 'You have no items in your wish list.'
+    dashboardNavWishlist: {
+      title: {
+        class: 'sidebar-block__title dashboard-nav__title'
+      }
     }
   }
 }
