@@ -1,0 +1,54 @@
+<if args="hasData()">
+    <div
+        repeat="foreach: filteredRows, item: '$row'"
+        css="getItemWrapperClasses()"
+    >
+        <div css="getItemClasses()">
+            <fastForEach args="data: getRegion('general-area'), as: '$col'">
+                <render args="$col.getBody()"/>
+            </fastForEach>
+
+            <section class="product-grid-item__details">
+                <fastForEach args="data: getRegion('main-area'), as: '$col'">
+                    <render args="$col.getBody()" />
+                </fastForEach>
+
+                <div class="product-grid-item__details-bottom">
+                    <fastForEach args="data: getRegion('details-area'), as: '$col'">
+                        <render args="$col.getBody()" />
+                    </fastForEach>
+
+                    <div
+                        if="getRegion('action-primary-area')().length || getRegion('action-secondary-area')().length"
+                        class="product-grid-item__actions"
+                    >
+                        <div
+                            if="getRegion('action-secondary-area')().length"
+                            class="product-grid-item__secondary-action"
+                            data-role="add-to-links"
+                        >
+                            <fastForEach args="data: getRegion('action-secondary-area'), as: '$col'">
+                                <render args="$col.getBody()" />
+                            </fastForEach>
+                        </div>
+
+                        <div
+                            class="product-grid-item__primary-action"
+                            if="getRegion('action-primary-area')().length"
+                        >
+                            <fastForEach args="data: getRegion('action-primary-area'), as: '$col'">
+                                <render args="$col.getBody()" />
+                            </fastForEach>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <!-- ko text: initAfterLoad() --><!-- /ko -->
+</if>
+<ifnot args="hasData()">
+    <span class="message">
+        <translate args="'You have no items in recently viewed.'" />
+    </span>
+</ifnot>
