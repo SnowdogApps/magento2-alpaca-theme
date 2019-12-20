@@ -1,17 +1,17 @@
 <?php
-/** @var \Magento\Customer\Block\Form\Edit $block */
+/** @var Magento\CustomerCustomAttributes\Block\Form $block */
 ?>
 <div class="dashboard-form">
     <form
         class="form form-edit-account"
-        action="<?= $block->escapeUrl($block->getUrl('customer/account/editPost')) ?>"
+        action="<?= /* @noEscape */ $block->getUrl('customer/account/editPost') ?>"
         method="post"
         id="form-validate"
         enctype="multipart/form-data"
-        data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
+        data-hasrequired="<?= $block->escapeHtml(__('* Required Fields')) ?>"
         autocomplete="off"
     >
-        <div class="fieldset info">
+        <fieldset class="fieldset info">
             <?= $block->getBlockHtml('formkey') ?>
             <h2 class="dashboard-items__title">
                 <?= $block->escapeHtml(__('Account Information')) ?>
@@ -21,6 +21,7 @@
                 ->setObject($block->getCustomer())
                 ->toHtml()
             ?>
+
             <?php $_dob = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Dob::class) ?>
             <?php $_taxvat = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Taxvat::class) ?>
             <?php $_gender = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Gender::class) ?>
@@ -78,7 +79,7 @@
                     data-role="change-password"
                     value="1"
                     title="<?= $block->escapeHtmlAttr(__('Change Password')) ?>"
-                    <?php if ($block->getChangePassword()): ?>
+                    <?php if ($block->getChangePassword()) :?>
                         checked="checked"
                     <?php endif; ?>
                     class="checkbox__field"
@@ -110,17 +111,23 @@
                     <?= $block->escapeHtml(__('Change Password')) ?>
                 </label>
             </div>
-        </div>
+            <?php $userDefinedAttributes = $block->getLayout()->getBlock('customer_form_user_attributes'); ?>
+            <?php if ($userDefinedAttributes) :?>
+                <?php $userDefinedAttributes->setEntityType('customer')->setShowContainer(false);?>
+                <?php $block->restoreSessionData($userDefinedAttributes->getMetadataForm());?>
+                <?= $userDefinedAttributes->toHtml() ?>
+            <?php endif;?>
+        </fieldset>
 
-        <div
+        <fieldset
             class="fieldset display-none"
             data-container="change-email-password"
-            aria-labelledby="change-email-password"
+            aria-labelledby="change-email-password-title"
         >
             <h2
                 class="dashboard-items__title"
                 data-title="change-email-password"
-                id="change-email-password"
+                id="change-email-password-title"
             >
                 <?= $block->escapeHtml(__('Change Email and Password')) ?>
             </h2>
@@ -129,26 +136,26 @@
                 data-container="change-email"
             >
                 <label
-                    class="input__label"
+                    class="label"
                     for="email"
                 >
                     <?= $block->escapeHtml(__('Email')) ?>
                 </label>
                 <input
                     type="email"
+                    autocomplete="email"
                     name="email"
                     id="email"
-                    autocomplete="email"
                     data-input="change-email"
-                    value="<?= $block->escapeHtmlAttr($block->getCustomer()->getEmail()) ?>"
+                    value="<?= $block->escapeHtml($block->getCustomer()->getEmail()) ?>"
                     title="<?= $block->escapeHtmlAttr(__('Email')) ?>"
                     class="input__field"
                     data-validate="{required:true, 'validate-email':true}"
                 />
             </div>
-            <div class="input password current required">
+            <div class="input required">
                 <label
-                    class="input__label"
+                    class="label"
                     for="current-password"
                 >
                     <?= $block->escapeHtml(__('Current Password')) ?>
@@ -163,11 +170,11 @@
                 />
             </div>
             <div
-                class="input new password required"
+                class="input required"
                 data-container="new-password"
             >
                 <label
-                    class="input__label"
+                    class="label"
                     for="password"
                 >
                     <?= $block->escapeHtml(__('New Password')) ?>
@@ -192,13 +199,16 @@
                     >
                         <div
                             id="password-strength-meter"
-                            class="password-strength__handle password-strength-meter"
+                            class="
+                                password-strength__handle
+                                password-strength-meter
+                            "
                         >
                             <?= $block->escapeHtml(__('Password Strength')) ?>:
                             <span
                                 id="password-strength-meter-label"
-                                class="password-strength__indicator"
                                 data-role="password-strength-meter-label"
+                                class="password-strength__indicator"
                             >
                                 <?= $block->escapeHtml(__('No Password')) ?>
                             </span>
@@ -207,11 +217,11 @@
                 </div>
             </div>
             <div
-                class="input confirm password required"
+                class="input required"
                 data-container="confirm-password"
             >
                 <label
-                    class="input__label"
+                    class="label"
                     for="password-confirmation"
                 >
                     <?= $block->escapeHtml(__('Confirm New Password')) ?>
@@ -225,8 +235,11 @@
                     autocomplete="off"
                 />
             </div>
+            <?= $block->getChildHtml('form_additional_info') ?>
         </fieldset>
-        <?= $block->getChildHtml('form_additional_info') ?>
+
+        <?= /* @noEscape */ $block->getChildHtml('form_fields_before_in_form') ?>
+
         <div class="actions-group margin-top-m">
             <div class="actions-group__handler">
                 <button
@@ -248,42 +261,54 @@
         </div>
     </form>
 </div>
-
 <script>
     require([
         "jquery",
         "mage/mage"
-    ], function($) {
+    ], function($){
         var dataForm = $('#form-validate');
-        var ignore = <?= $_dob->isEnabled() ? '\'input[id$="full"]\'' : 'null' ?>;
+        var ignore = <?= /* @noEscape */ $_dob->isEnabled() ? '\'input[id$="full"]\'' : 'null' ?>;
 
         dataForm.mage('validation', {
-            <?php if ($_dob->isEnabled()): ?>
-                errorPlacement: function(error, element) {
-                    if (element.prop('id').search('full') !== -1) {
-                        var dobElement = $(element).parents('.customer-dob'),
-                            errorClass = error.prop('class');
-                        error.insertAfter(element.parent());
-                        dobElement.find('.validate-custom').addClass(errorClass)
-                            .after('<div class="' + errorClass + '"></div>');
-                    } else {
-                        error.insertAfter(element);
-                    }
-                },
-                ignore: ':hidden:not(' + ignore + ')'
-            <?php else: ?>
-                ignore: ignore ? ':hidden:not(' + ignore + ')' : ':hidden'
-            <?php endif ?>
+        <?php if ($_dob->isEnabled()) : ?>
+            errorPlacement: function(error, element) {
+                if (element.prop('id').search('full') !== -1) {
+                    var dobElement = $(element).parents('.customer-dob'),
+                        errorClass = error.prop('class');
+                    error.insertAfter(element.parent());
+                    dobElement.find('.validate-custom').addClass(errorClass)
+                        .after('<div class="' + errorClass + '"></div>');
+                }
+                else {
+                    error.insertAfter(element);
+                }
+            },
+            ignore: ':hidden:not(' + ignore + ')'
+        <?php else : ?>
+            ignore: ignore ? ':hidden:not(' + ignore + ')' : ':hidden'
+        <?php endif ?>
         });
+
     });
 </script>
 <script type="text/x-magento-init">
     {
         "[data-role=change-email], [data-role=change-password]": {
             "changeEmailPassword": {
-                "titleChangeEmail": "<?= $block->escapeJs($block->escapeHtml(__('Change Email'))) ?>",
-                "titleChangePassword": "<?= $block->escapeJs($block->escapeHtml(__('Change Password'))) ?>",
-                "titleChangeEmailAndPassword": "<?= $block->escapeJs($block->escapeHtml(__('Change Email and Password'))) ?>"
+                "titleChangeEmail": "<?= $block->escapeJs(__('Change Email')) ?>",
+                "titleChangePassword": "<?= $block->escapeJs(__('Change Password')) ?>",
+                "titleChangeEmailAndPassword": "<?= $block->escapeJs(__('Change Email and Password')) ?>"
+            }
+        },
+        "*": {
+            "Magento_CustomerCustomAttributes/validation": {
+                "ignore": <?= (int) ($_dob->isEnabled() || $userDefinedAttributes->hasUserDefinedAttributes()) ?>,
+                "hasUserDefinedAttributes": <?= (int) $userDefinedAttributes->hasUserDefinedAttributes() ?>,
+                "isDobEnabled": <?= (int) $_dob->isEnabled() ?>,
+                "mixins": [
+                    "Magento_CustomerCustomAttributes/error-placement",
+                    "Magento_CustomerCustomAttributes/validation-ignore"
+                ]
             }
         },
         "[data-container=new-password]": {
