@@ -265,7 +265,13 @@ use Magento\Framework\App\Action\Action;
                                 href="<?= $block->escapeUrl($block->getProductUrl($_product)) ?>"
                                 class="product-grid-item__name-link"
                             >
-                                <?= $_product['name'] ?>
+                                <?php
+                                    $productName = $_product['name'];
+                                    if (strlen($productName) > 50) {
+                                        $productName = substr($productName, 0, 50) . '...';
+                                    }
+                                ?>
+                                <?= $productName; ?>
                             </a>
                         </div>
                         <div class="product-grid-item__details-bottom">
