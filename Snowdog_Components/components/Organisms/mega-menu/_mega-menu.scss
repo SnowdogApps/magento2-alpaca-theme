@@ -142,6 +142,14 @@
                 > .mega-menu__inner-item {
                     > .mega-menu__inner-link {
                         font-weight: $mega-menu__inner-link-font-weight--inline;
+
+                        &:before {
+                            background-color: $mega-menu__inner-link-before-bg-color--inline;
+                        }
+
+                        &:hover {
+                            color: $mega-menu__inner-link-color-hover-inline;
+                        }
                     }
                 }
             }
@@ -158,6 +166,9 @@
                         flex-direction: column;
                         align-items: $mega-menu__inner-link-align-items--images;
                         font-weight: $mega-menu__inner-link-font-weight--images;
+                        &:before {
+                            display: none;
+                        }
                     }
                 }
             }
@@ -186,6 +197,10 @@
                         &:hover,
                         .focus-visible {
                             color: $mega-menu__inner-link-color-hover--children;
+                            text-decoration: $mega-menu__inner-link-text-decoration-hover--children;
+                            &:before {
+                                display: $mega-menu__inner-link-before-display-hover--children;
+                            }
                         }
                     }
                 }
@@ -209,6 +224,8 @@
     }
 
     &__inner-link {
+        @extend %button-before;
+        position: relative;
         display: flex;
         align-items: center;
         min-height: $mega-menu__inner-link-min-height;
@@ -219,10 +236,20 @@
         color: $mega-menu__inner-link-color;
         text-decoration: $mega-menu__inner-link-text-decoration;
 
+        &:before {
+            background-color: $mega-menu__inner-link-before-bg;
+            z-index: -1;
+        }
+
         &:hover,
         .focus-visible {
             text-decoration: $mega-menu__inner-link-text-decoration--hover;
             color: $mega-menu__inner-link-color--hover;
+            font-weight: $mega-menu__inner-link-font-weight--hover;
+            z-index: 100;
+            &:before {
+                transform: $mega-menu__inner-link-before-transform--hover;
+            }
         }
     }
 
