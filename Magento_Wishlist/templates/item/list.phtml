@@ -13,21 +13,18 @@ $columns = $block->getColumns();
     >
         <?php foreach ($block->getItems() as $item): ?>
             <div
+                id="item_<?= $block->escapeHtmlAttr($item->getId()) ?>"
                 class="
                     col-xs-6
                     col-md-4
                     wishlist__item
                 "
+                data-row="product-item"
             >
-                <div
-                    data-row="product-item"
-                    id="item_<?= $block->escapeHtmlAttr($item->getId()) ?>"
-                >
-                    <?php foreach ($columns as $column): ?>
-                        <?php $column->setItem($item); ?>
-                        <?= $column->toHtml($item); ?>
-                    <?php endforeach; ?>
-                </div>
+                <?php foreach ($columns as $column): ?>
+                    <?php $column->setItem($item); ?>
+                    <?= $column->toHtml($item); ?>
+                <?php endforeach; ?>
             </div>
         <?php endforeach; ?>
     </div>
