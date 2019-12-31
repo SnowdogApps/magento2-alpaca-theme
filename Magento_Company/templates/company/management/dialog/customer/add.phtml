@@ -1,87 +1,154 @@
-<?php
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
-?>
 <?php /** @var $block Magento\Company\Block\Company\Management\Add */ ?>
-<form class="form form-add-user" method="post" id="add-user-form"
-      action="<?= $block->escapeUrl($block->getUrl('*/customer/manage')) ?>"
-      data-mage-init='{"validation":{}}'>
-    <input type="hidden" name="target_id" />
-    <input type="hidden" name="customer_id" />
+<form
+    class="
+        dashboard-form
+        form
+        form-add-user
+    "
+    method="post"
+    id="add-user-form"
+    action="<?= $block->escapeUrl($block->getUrl('*/customer/manage')) ?>"
+    data-mage-init='{"validation":{}}'
+>
+    <input
+        type="hidden"
+        name="target_id"
+    />
+    <input
+        type="hidden"
+        name="customer_id"
+    />
     <fieldset class="fieldset info">
-        <div class="field jobtitle required">
-            <label class="label" for="jobtitle">
-                <span><?= $block->escapeHtml(__('Job Title')) ?></span>
+        <legend
+            class="
+                fieldset__legend
+                fieldset__legend--hidden
+            "
+        >
+            <?= __('User Information') ?>
+        </legend>
+        <div class="input jobtitle required">
+            <label
+                class="label"
+                for="jobtitle"
+            >
+                <?= $block->escapeHtml(__('Job Title')) ?>
             </label>
-            <div class="control">
-                <input type="text" name="extension_attributes[company_attributes][job_title]"
-                       id="jobtitle" value=""
-                       title="<?= $block->escapeHtmlAttr(__('Job Title')) ?>"
-                       class="input-text" data-validate="{required:true}">
-            </div>
+            <input
+                type="text"
+                name="extension_attributes[company_attributes][job_title]"
+                id="jobtitle"
+                value=""
+                title="<?= $block->escapeHtmlAttr(__('Job Title')) ?>"
+                class="input__field"
+            />
         </div>
-        <div class="field role required">
-            <label class="label" for="jobtitle">
-                <span><?= $block->escapeHtml(__('User Role')) ?></span>
+        <div class="input role required">
+            <label
+                class="label"
+                for="jobtitle"
+            >
+                <?= $block->escapeHtml(__('User Role')) ?>
             </label>
-            <div class="control">
-                <select data-role="role-select" name="role" id="role">
+            <div class="control select">
+                <select
+                    data-role="role-select"
+                    name="role"
+                    id="role"
+                    class="select__field select__field--native"
+                >
                     <?php foreach ($block->getRoles() as $role) : ?>
-                        <option value="<?= (int) $role->getId() ?>"><?= $block->escapeHtml($role->getRoleName()) ?></option>
+                        <option value="<?= (int) $role->getId() ?>">
+                            <?= $block->escapeHtml($role->getRoleName()) ?>
+                        </option>
                     <?php endforeach; ?>
                 </select>
             </div>
         </div>
-        <div class="field firstname required">
-            <label class="label" for="firstname">
-                <span><?= $block->escapeHtml(__('First Name')) ?></span>
+        <div class="input firstname required">
+            <label
+                class="label"
+                for="firstname"
+            >
+                <?= $block->escapeHtml(__('First Name')) ?>
             </label>
-            <div class="control">
-                <input type="text" name="firstname" id="firstname" value=""
-                       title="<?= $block->escapeHtmlAttr(__('First Name')) ?>"
-                       class="input-text" data-validate="{required:true}">
-            </div>
+            <input
+                type="text"
+                name="firstname"
+                id="firstname"
+                value=""
+                title="<?= $block->escapeHtmlAttr(__('First Name')) ?>"
+                class="input__field"
+                data-validate="{required:true}"
+            />
         </div>
-        <div class="field lastname required">
-            <label class="label" for="lastname">
-                <span><?= $block->escapeHtml(__('Last Name')) ?></span>
+        <div class="input lastname required">
+            <label
+                class="label"
+                for="lastname"
+            >
+                <?= $block->escapeHtml(__('Last Name')) ?>
             </label>
-            <div class="control">
-                <input type="text" name="lastname" id="lastname" value=""
-                       title="<?= $block->escapeHtmlAttr(__('Last Name')) ?>"
-                       class="input-text" data-validate="{required:true}">
-            </div>
+            <input
+                type="text"
+                name="lastname"
+                id="lastname"
+                value=""
+                title="<?= $block->escapeHtmlAttr(__('Last Name')) ?>"
+                class="input__field"
+                data-validate="{required:true}"
+            />
         </div>
-        <div class="field email required">
-            <label class="label" for="email">
-                <span><?= $block->escapeHtml(__('Email')) ?></span>
+        <div class="input email required">
+            <label
+                class="label"
+                for="email"
+            >
+                <?= $block->escapeHtml(__('Email')) ?>
             </label>
-            <div class="control">
-                <input type="email" name="email" id="email" value=""
-                       title="<?= $block->escapeHtmlAttr(__('Email')) ?>"
-                       data-role="email"
-                       data-url-validate="<?= $block->escapeUrl($block->getUrl('*/customer/check')) ?>"
-                       class="input-text" data-validate="{required:true, 'validate-email':true}">
-            </div>
+            <input
+                type="email"
+                name="email"
+                id="email"
+                value=""
+                title="<?= $block->escapeHtmlAttr(__('Email')) ?>"
+                data-role="email"
+                data-url-validate="<?= $block->escapeUrl($block->getUrl('*/customer/check')) ?>"
+                class="input__field"
+                data-validate="{required:true, 'validate-email':true}"
+            />
         </div>
-        <div class="field telephone required">
-            <label class="label" for="telephone">
-                <span><?= $block->escapeHtml(__('Phone Number')) ?></span>
+        <div class="input telephone required">
+            <label
+                class="label"
+                for="telephone"
+            >
+                <?= $block->escapeHtml(__('Phone Number')) ?>
             </label>
-            <div class="control">
-                <input type="text" name="extension_attributes[company_attributes][telephone]" id="telephone" value=""
-                       title="<?= $block->escapeHtmlAttr(__('Phone Number')) ?>"
-                       class="input-text" data-validate="{required:true}">
-            </div>
+            <input
+                type="text"
+                name="extension_attributes[company_attributes][telephone]"
+                id="telephone"
+                value=""
+                title="<?= $block->escapeHtmlAttr(__('Phone Number')) ?>"
+                class="input__field"
+                data-validate="{required:true}"
+            />
         </div>
-        <div class="field status">
-            <label class="label" for="status">
-                <span><?= $block->escapeHtml(__('Status')) ?></span>
+        <div class="input status">
+            <label
+                class="label"
+                for="status"
+            >
+                <?= $block->escapeHtml(__('Status')) ?>
             </label>
-            <div class="control">
-                <select data-role="status-select" name="extension_attributes[company_attributes][status]" id="status">
+            <div class="control select">
+                <select
+                    data-role="status-select"
+                    name="extension_attributes[company_attributes][status]"
+                    id="status"
+                    class="select__field select__field--native"
+                >
                     <option value="1"><?= $block->escapeHtml(__('Active')) ?></option>
                     <option value="0"><?= $block->escapeHtml(__('Inactive')) ?></option>
                 </select>
