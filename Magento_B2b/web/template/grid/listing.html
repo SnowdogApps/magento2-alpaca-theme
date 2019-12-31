@@ -1,0 +1,44 @@
+<div
+    class="
+        data-grid-wrap
+        table-wrapper
+        dashboard-table__content
+    "
+    data-role="grid-wrapper"
+>
+    <table
+        class="data-grid table"
+        data-role="grid"
+        css="getTableClass()"
+    >
+       <thead>
+            <tr
+                each="data: getVisible(), as: '$col'"
+                render="getHeader()"
+            />
+        </thead>
+        <tbody>
+            <tr
+                class="data-row"
+                repeat="foreach: rows, item: '$row'"
+                css="'_odd-row': $index % 2"
+            >
+                <td
+                    outerfasteach="data: getVisible(), as: '$col'"
+                    css="getFieldClass()"
+                    click="getFieldHandler($row())"
+                    template="getBody()" attr="'data-th': $col.label"
+                />
+            </tr>
+            <tr
+                ifnot="hasData()"
+                class="data-grid-tr-no-data"
+            >
+                <td
+                    attr="colspan: countVisible()"
+                    translate="'We couldn\'t find any records.'"
+                />
+            </tr>
+        </tbody>
+    </table>
+</div>
