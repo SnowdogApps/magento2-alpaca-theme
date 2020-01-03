@@ -8,7 +8,7 @@
         method="post"
         id="form-validate"
         enctype="multipart/form-data"
-        data-hasrequired="<?= $block->escapeHtml(__('* Required Fields')) ?>"
+        data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
         autocomplete="off"
     >
         <fieldset class="fieldset info">
@@ -112,7 +112,7 @@
                 </label>
             </div>
             <?php $userDefinedAttributes = $block->getLayout()->getBlock('customer_form_user_attributes'); ?>
-            <?php if ($userDefinedAttributes) :?>
+            <?php if ($userDefinedAttributes): ?>
                 <?php $userDefinedAttributes->setEntityType('customer')->setShowContainer(false);?>
                 <?php $block->restoreSessionData($userDefinedAttributes->getMetadataForm());?>
                 <?= $userDefinedAttributes->toHtml() ?>
@@ -147,7 +147,7 @@
                     name="email"
                     id="email"
                     data-input="change-email"
-                    value="<?= $block->escapeHtml($block->getCustomer()->getEmail()) ?>"
+                    value="<?= $block->escapeHtmlAttr($block->getCustomer()->getEmail()) ?>"
                     title="<?= $block->escapeHtmlAttr(__('Email')) ?>"
                     class="input__field"
                     data-validate="{required:true, 'validate-email':true}"
@@ -184,8 +184,8 @@
                     class="input__field"
                     name="password"
                     id="password"
-                    data-password-min-length="<?= $block->escapeHtml($block->getMinimumPasswordLength()) ?>"
-                    data-password-min-character-sets="<?= $block->escapeHtml($block->getRequiredCharacterClassesNumber()) ?>"
+                    data-password-min-length="<?= $block->escapeHtmlAttr($block->getMinimumPasswordLength()) ?>"
+                    data-password-min-character-sets="<?= $block->escapeHtmlAttr($block->getRequiredCharacterClassesNumber()) ?>"
                     data-input="new-password"
                     data-validate="{required:true, 'validate-customer-password':true}"
                     autocomplete="off"

@@ -57,8 +57,8 @@ $requiredAttributesPrechecked = $block->getData('required_attributes_prechecked'
                         type="text"
                         name="company"
                         id="company"
-                        title="<?= $block->escapeHtml(__('Company')) ?>"
-                        value="<?= $block->escapeHtml($block->getAddress()->getCompany()) ?>"
+                        title="<?= $block->escapeHtmlAttr(__('Company')) ?>"
+                        value="<?= $block->escapeHtmlAttr($block->getAddress()->getCompany()) ?>"
                         class="
                             input__field
                             <?= $block->escapeHtmlAttr($addressHelper->getAttributeValidationClass('company')) ?>
@@ -85,8 +85,8 @@ $requiredAttributesPrechecked = $block->getData('required_attributes_prechecked'
                     <input
                         type="text"
                         name="telephone"
-                        value="<?= $block->escapeHtml($block->getAddress()->getTelephone()) ?>"
-                        title="<?= $block->escapeHtml(__('Phone Number')) ?>"
+                        value="<?= $block->escapeHtmlAttr($block->getAddress()->getTelephone()) ?>"
+                        title="<?= $block->escapeHtmlAttr(__('Phone Number')) ?>"
                         class="
                             input__field
                             <?= /* @noEscape */ $addressHelper->getAttributeValidationClass('telephone') ?>
@@ -108,7 +108,7 @@ $requiredAttributesPrechecked = $block->getData('required_attributes_prechecked'
                         name="fax"
                         id="fax"
                         title="<?= $block->escapeHtmlAttr(__('Fax')) ?>"
-                        value="<?= $block->escapeHtml($block->getAddress()->getFax()) ?>"
+                        value="<?= $block->escapeHtmlAttr($block->getAddress()->getFax()) ?>"
                         class="
                             input__field
                             <?= /* @noEscape */ $addressHelper->getAttributeValidationClass('fax') ?>
@@ -127,7 +127,13 @@ $requiredAttributesPrechecked = $block->getData('required_attributes_prechecked'
             <legend class="fieldset__legend hidden">
                 <?= $block->escapeHtml(__('Street')) ?>
             </legend>
-            <div class="input street required">
+            <div
+                class="
+                    input
+                    street
+                    required
+                "
+            >
                 <label
                     for="street_1"
                     class="label"
@@ -137,7 +143,7 @@ $requiredAttributesPrechecked = $block->getData('required_attributes_prechecked'
                 <input
                     type="text"
                     name="street[]"
-                    value="<?= $block->escapeHtml($block->getStreetLine(1)) ?>"
+                    value="<?= $block->escapeHtmlAttr($block->getStreetLine(1)) ?>"
                     title="<?= $block->escapeHtmlAttr(__('Street Address')) ?>"
                     id="street_1"
                     class="
@@ -158,7 +164,7 @@ $requiredAttributesPrechecked = $block->getData('required_attributes_prechecked'
                     <input
                         type="text"
                         name="street[]"
-                        value="<?= $block->escapeHtml($block->getStreetLine($_i)) ?>"
+                        value="<?= $block->escapeHtmlAttr($block->getStreetLine($_i)) ?>"
                         title="<?= $block->escapeHtmlAttr(__('Street Address %1', $_i)) ?>"
                         id="street_<?= /* @noEscape */ $_i ?>"
                         class="input__field <?= /* @noEscape */ $_streetValidationClass ?>"
@@ -167,7 +173,13 @@ $requiredAttributesPrechecked = $block->getData('required_attributes_prechecked'
             <?php endfor; ?>
         </fieldset>
         <?php if ($addressHelper->isVatAttributeVisible()) : ?>
-            <div class="input field taxvat">
+            <div
+                class="
+                    input
+                    field
+                    taxvat
+                "
+            >
                 <label
                     class="label"
                     for="vat_id"
@@ -177,7 +189,7 @@ $requiredAttributesPrechecked = $block->getData('required_attributes_prechecked'
                 <input
                     type="text"
                     name="vat_id"
-                    value="<?= $block->escapeHtml($block->getAddress()->getVatId()) ?>"
+                    value="<?= $block->escapeHtmlAttr($block->getAddress()->getVatId()) ?>"
                     title="<?= /* @noEscape */ $block->getAttributeData()->getFrontendLabel('vat_id') ?>"
                     class="
                         input__field
@@ -187,7 +199,13 @@ $requiredAttributesPrechecked = $block->getData('required_attributes_prechecked'
                 />
             </div>
         <?php endif; ?>
-        <div class="input city required">
+        <div
+            class="
+                input
+                city
+                required
+            "
+        >
             <label
                 class="label"
                 for="city"
@@ -197,7 +215,7 @@ $requiredAttributesPrechecked = $block->getData('required_attributes_prechecked'
             <input
                 type="text"
                 name="city"
-                value="<?= $block->escapeHtml($block->getAddress()->getCity()) ?>"
+                value="<?= $block->escapeHtmlAttr($block->getAddress()->getCity()) ?>"
                 title="<?= /* @noEscape */ $block->getAttributeData()->getFrontendLabel('city') ?>"
                 class="
                     input__field
@@ -206,7 +224,13 @@ $requiredAttributesPrechecked = $block->getData('required_attributes_prechecked'
                 id="city"
             />
         </div>
-        <div class="select region required">
+        <div
+            class="
+                select
+                region
+                required
+            "
+        >
             <?php
                 $isFieldDisabled = (!$block->getConfig('general/region/display_all')) ? ' disabled="disabled"' : '';
             ?>
@@ -239,7 +263,7 @@ $requiredAttributesPrechecked = $block->getData('required_attributes_prechecked'
                 id="region"
                 name="region"
                 aria-label="<?= $block->escapeHtmlAttr(__('Region')) ?>"
-                value="<?= $block->escapeHtml($block->getRegion()) ?>"
+                value="<?= $block->escapeHtmlAttr($block->getRegion()) ?>"
                 title="<?= /* @noEscape */ $block->getAttributeData()->getFrontendLabel('region') ?>"
                 class="
                     input__field
@@ -248,7 +272,13 @@ $requiredAttributesPrechecked = $block->getData('required_attributes_prechecked'
                 <?= $isFieldDisabled; ?>
             />
         </div>
-        <div class="input zip required">
+        <div
+            class="
+                input
+                zip
+                required
+            "
+        >
             <label
                 class="label"
                 for="zip"
@@ -258,7 +288,7 @@ $requiredAttributesPrechecked = $block->getData('required_attributes_prechecked'
             <input
                 type="text"
                 name="postcode"
-                value="<?= $block->escapeHtml($block->getAddress()->getPostcode()) ?>"
+                value="<?= $block->escapeHtmlAttr($block->getAddress()->getPostcode()) ?>"
                 title="<?= /* @noEscape */ $block->getAttributeData()->getFrontendLabel('postcode') ?>"
                 id="zip"
                 class="
@@ -269,20 +299,28 @@ $requiredAttributesPrechecked = $block->getData('required_attributes_prechecked'
             />
             <div
                 role="alert"
-                class="message warning"
-                style="display:none"
+                class="
+                    message
+                    warning
+                    display-none
+                "
             >
                 <span></span>
             </div>
         </div>
-        <div class="select country required">
+        <div
+            class="
+                select
+                country
+                required
+            "
+        >
             <label
                 class="label"
                 for="country"
             >
                 <?= /* @noEscape */ $block->getAttributeData()->getFrontendLabel('country_id') ?>
             </label>
-            <!-- <?//= $block->getCountryHtmlSelect() ?> -->
             <?php $countryList = $block->getCountryCollection()->toOptionArray() ?>
 
             <select
@@ -418,7 +456,8 @@ $requiredAttributesPrechecked = $block->getData('required_attributes_prechecked'
                 class="
                     button
                     actions-group__button
-                    submit"
+                    submit
+                "
                 data-action="save-address"
                 title="<?= $block->escapeHtmlAttr(__('Save Address')) ?>"
             >
