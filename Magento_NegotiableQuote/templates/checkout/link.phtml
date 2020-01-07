@@ -4,67 +4,153 @@
  * @see \Magento\NegotiableQuote\Block\Checkout\Link
  */
 ?>
-
-<form class="form negotiable-quote request" id="negotiable-quote-form">
+<form
+    class="
+        form
+        negotiable-quote
+        request
+    "
+    id="negotiable-quote-form"
+>
     <?php if ($block->isQuoteRequestEnabled()) : ?>
-        <button type="button"
-                data-role="create-negotiable-quote"
-                title="<?php $block->escapeHtmlAttr(__('Request a Quote')) ?>"
-                class="action<?= (!$block->isQuoteRequestAllowed() ? ' disabled' : '') ?>">
-            <span><?= $block->escapeHtml(__('Request a Quote')) ?></span>
+        <button
+            type="button"
+            data-role="create-negotiable-quote"
+            aria-label="<?= $block->escapeHtmlAttr(__('Request a Quote')) ?>"
+            class="
+                button
+                button--secondary
+                button--fluid
+                action
+            "
+            <?= (!$block->isQuoteRequestAllowed() ? 'disabled' : '') ?>
+        >
+            <?= $block->escapeHtml(__('Request a Quote')) ?>
         </button>
-        <?php //if (!$block->isQuoteRequestAllowed()) : ?>
-            <div class="message-info message info">message
-                <div><?= $block->escapeHtml($block->getDisallowMessage()) ?></div>
+        <?php if (!$block->isQuoteRequestAllowed()) : ?>
+            <div class="message-info message info">
+                <?= $block->escapeHtml($block->getDisallowMessage()) ?>
             </div>
-        <?php //endif; ?>
+        <?php endif; ?>
     <?php endif; ?>
 </form>
-<div id="negotiable-quote-popup" data-mage-init='{
-    "Magento_NegotiableQuote/js/create-negotiable-quote": {
-        "moveUrl": "<?= $block->escapeUrl($block->getCreateNegotiableQuoteUrl()) ?>",
-        "url": "<?= $block->escapeUrl($block->getCheckQuoteDiscountsUrl()) ?>"
+<div
+    id="negotiable-quote-popup"
+    data-mage-init='{
+        "Magento_NegotiableQuote/js/create-negotiable-quote": {
+            "moveUrl": "<?= $block->escapeUrl($block->getCreateNegotiableQuoteUrl()) ?>",
+            "url": "<?= $block->escapeUrl($block->getCheckQuoteDiscountsUrl()) ?>"
         }
-    }' data-role="negotiable-quote-popup" class="modal-container">
+    }'
+    data-role="negotiable-quote-popup"
+    class="
+        modal-container
+        display-none
+    "
+>
     <div class="negotiable-quote-errors messages">
-        <div class="message error-wrap error" data-role="error-wrap"></div>
+        <div
+            class="
+                message
+                message--error
+                display-none
+            "
+            data-role="error-wrap"
+        ></div>
     </div>
-    <form class="form form-quote-popup"
-          id="add-quote-form"
-          method="post"
-          data-action="comment-form"
-          enctype="multipart/form-data"
-          data-mage-init='{"validation": {"errorClass": "mage-error"}}'>
+
+    <form
+        class="form form-quote-popup"
+        id="add-quote-form"
+        method="post"
+        data-action="comment-form"
+        enctype="multipart/form-data"
+        data-mage-init='{
+            "validation": {
+                "errorClass": "mage-error"
+            }
+        }'
+    >
         <fieldset class="fieldset info">
-            <div class="field quote-message required">
-                <label class="label" for="quote-message">
-                    <span><?= $block->escapeHtml(__('Add your comment')) ?></span>
+            <div
+                class="
+                    input
+                    quote-message
+                    required
+                "
+            >
+                <label
+                    class="input__label"
+                    for="quote-message"
+                >
+                    <?= $block->escapeHtml(__('Add your comment')) ?>
                 </label>
-                <div class="control">
-                        <textarea name="quote-message" id="quote-message"
-                                  rows="4"
-                                  class="textarea"
-                                  data-validate="{required:true}"></textarea>
-                </div>
+                <textarea
+                    name="quote-message"
+                    id="quote-message"
+                    rows="4"
+                    class="
+                        input__field
+                        input__field--textarea
+                    "
+                    data-validate="{required:true}"
+                ></textarea>
             </div>
-            <div class="field quote-name required">
-                <label class="label" for="quote-name">
-                    <span><?= $block->escapeHtml(__('Quote name')) ?></span>
+            <div
+                class="
+                    input
+                    quote-name
+                    required
+                "
+            >
+                <label
+                    class="input__label"
+                    for="quote-name"
+                >
+                    <?= $block->escapeHtml(__('Quote name')) ?>
                 </label>
-                <div class="control">
-                    <input type="text" name="quote-name" id="quote-name" value=""
-                           title="<?= $block->escapeHtmlAttr(__('Quote name')) ?>" class="input-text"
-                           data-validate="{required:true}">
-                </div>
+                <input
+                    type="text"
+                    name="quote-name"
+                    id="quote-name"
+                    value=""
+                    aria-label="<?= $block->escapeHtmlAttr(__('Quote name')) ?>"
+                    class="input__field"
+                    data-validate="{required:true}"
+                />
             </div>
-            <div class="field quote-attach-file" data-role="attach-wrapper">
-                <div data-mage-init='{"Magento_NegotiableQuote/js/quote/add-files": {
-                                    "maxSizeB" : "<?= $block->escapeJs($block->getMaxFileSize()) ?>",
-                                    "maxSizeMb" : "<?= $block->escapeJs($block->getMaxFileSizeMb()) ?>",
-                                    "extensions" : "<?= $block->escapeJs($block->getAllowedExtensions()) ?>"
-                                    }}' class="field-attachment" data-role="send-files">
-                    <label tabindex="0" data-mage-init='{"Magento_NegotiableQuote/js/quote/add-file": {}}' for="add-file-0">
-                        <input name="files[0]" data-role="add-file" id="add-file-0" type="file">
+            <div
+                class="
+                    file-upload
+                    file-upload--plain
+                    quote-attach-file
+                "
+                data-role="attach-wrapper"
+            >
+                <div
+                    data-mage-init='{
+                        "Magento_NegotiableQuote/js/quote/add-files": {
+                            "maxSizeB" : "<?= $block->escapeJs($block->getMaxFileSize()) ?>",
+                            "maxSizeMb" : "<?= $block->escapeJs($block->getMaxFileSizeMb()) ?>",
+                            "extensions" : "<?= $block->escapeJs($block->getAllowedExtensions()) ?>"
+                        }
+                    }'
+                    class="field-attachment"
+                    data-role="send-files"
+                >
+                    <label
+                        tabindex="0"
+                        data-mage-init='{
+                            "Magento_NegotiableQuote/js/quote/add-file": {}
+                        }'
+                        for="add-file-0"
+                    >
+                        <input
+                            name="files[0]"
+                            data-role="add-file"
+                            id="add-file-0"
+                            type="file"
+                        />
                         <?= $block->escapeHtml(__('Attach file')) ?>
                     </label>
                 </div>

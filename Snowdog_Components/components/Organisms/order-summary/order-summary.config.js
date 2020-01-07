@@ -91,6 +91,7 @@ module.exports = {
     },
     {
       name: 'with-quote',
+      label: 'With Quote (B2B)',
       context: {
         displayQuote: true
       }

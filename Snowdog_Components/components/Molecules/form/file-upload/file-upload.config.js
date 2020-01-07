@@ -14,5 +14,15 @@ module.exports = {
       attributes: 'role="button" tabindex="0" aria-controls="file"',
       text: 'Upload a file'
     }
-  }
+  },
+  variants: [
+    {
+      name: 'plain',
+      label: 'Plain (B2B)',
+      view: 'file-upload--plain.hbs',
+      context: {
+        class: 'file-upload--plain'
+      }
+    }
+  ]
 }
