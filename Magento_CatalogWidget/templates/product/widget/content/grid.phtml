@@ -1,8 +1,4 @@
 <?php
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
 use Magento\Framework\App\Action\Action;
 
 // @codingStandardsIgnoreFile
@@ -12,9 +8,7 @@ use Magento\Framework\App\Action\Action;
 <?php if ($exist = ($block->getProductCollection() && $block->getProductCollection()->getSize())): ?>
     <?php
     $type = 'widget-product-grid';
-
     $mode = 'grid';
-
     $image = 'new_products_content_widget_grid';
     $items = $block->getProductCollection()->getItems();
 
@@ -25,10 +19,10 @@ use Magento\Framework\App\Action\Action;
     $description = false;
     ?>
 
-    <?php if ($block->getTitle()): ?>
-        <div class="block-title">
-            <strong><?= $block->escapeHtml(__($block->getTitle())) ?></strong>
-        </div>
+    <?php if ($heading = $block->getTitle()): ?>
+        <h2 class="catalog-grid__title">
+            <?= $block->escapeHtml(__($heading)) ?>
+        </h2>
     <?php endif ?>
 
     <?php if (count($items) == 0): ?>
@@ -44,17 +38,16 @@ use Magento\Framework\App\Action\Action;
                     <a
                         href="<?= $block->escapeUrl($block->getProductUrl($_item)) ?>"
                         class="catalog-grid-item__link"
-                        title="<?= $block->escapeHtml($_item->getName()) ?>"
+                        title="<?= $block->escapeHtmlAttr($_item->getName()) ?>"
                     >
                         <?= $block->getImage($_item, $image)->toHtml() ?>
                     </a>
                     <section class="catalog-grid-item__details">
                         <h2 class="catalog-grid-item__name">
                             <a
-                                title="<?= $block->escapeHtml($_item->getName()) ?>"
+                                title="<?= $block->escapeHtmlAttr($_item->getName()) ?>"
                                 href="<?= $block->escapeUrl($block->getProductUrl($_item)) ?>"
                                 class="catalog-grid-item__name-link"
-                                <?= $block->escapeHtml($_item->getName()) ?>
                             >
                                 <?= $block->escapeHtml($_item->getName()) ?>
                             </a>
@@ -110,7 +103,7 @@ use Magento\Framework\App\Action\Action;
                                                     <?= __('Add to Cart') ?>
                                                 </span>
                                                 <svg class="icon catalog-grid-item__cart-icon">
-                                                    <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#shopping-cart') ?>"></use>
+                                                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#shopping-cart')) ?>"></use>
                                                 </svg>
                                             </button>
                                         </form>
@@ -123,12 +116,17 @@ use Magento\Framework\App\Action\Action;
                                             <a
                                                 href="#"
                                                 data-post='<?= $block->getAddToWishlistParams($_item) ?>'
-                                                class="button button--icon action towishlist"
+                                                class="
+                                                    button
+                                                    button--icon
+                                                    action
+                                                    towishlist
+                                                "
                                                 data-action="add-to-wishlist"
                                                 title="<?= $block->escapeHtmlAttr(__('Add to Wish List')) ?>"
                                             >
                                                 <svg class="button__icon">
-                                                    <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#heart') ?>"></use>
+                                                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#heart')) ?>"></use>
                                                 </svg>
                                             </a>
                                         <?php endif; ?>
@@ -136,12 +134,17 @@ use Magento\Framework\App\Action\Action;
                                             <?php $compareHelper = $this->helper('Magento\Catalog\Helper\Product\Compare');?>
                                             <a
                                                 href="#"
-                                                class="button button--icon action tocompare"
+                                                class="
+                                                    button
+                                                    button--icon
+                                                    action
+                                                    tocompare
+                                                "
                                                 data-post='<?= $compareHelper->getPostDataParams($_item) ?>'
                                                 title="<?= $block->escapeHtmlAttr(__('Add to Compare')) ?>"
                                             >
                                                 <svg class="button__icon">
-                                                    <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#compare') ?>"></use>
+                                                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#compare')) ?>"></use>
                                                 </svg>
                                             </a>
                                         <?php endif; ?>
