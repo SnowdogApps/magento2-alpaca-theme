@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 - Page builder styles
 - Skip navigation links
+- Registration forms adjustments
 
 ## [1.4.0] - 2019-10-15
 ### Added
