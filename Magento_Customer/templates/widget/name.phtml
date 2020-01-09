@@ -25,12 +25,13 @@ $suffix = $block->showSuffix();
 
 <?php if (($prefix || $middle || $suffix) && !$block->getNoWrap()): ?>
     <div class="input required <?= $block->getContainerClassName() ?>">
-        <label for="<?= $block->getFieldId('firstname') ?>"
-               class="input__label"
+        <label
+            for="<?= $block->getFieldId('firstname') ?>"
+            class="input__label label--hidden"
         >
             <?= __('Name') ?>
         </label>
-        <fieldset class="form__fieldset">
+        <fieldset class="fieldset registration__fieldset">
 <?php endif; ?>
 
 <?php if ($prefix): ?>
@@ -41,26 +42,34 @@ $suffix = $block->showSuffix();
             <?= $block->getStoreLabel('prefix') ?>
         </label>
         <?php if ($block->getPrefixOptions() === false): ?>
-            <input type="text"
-                   id="<?= $block->getFieldId('prefix') ?>"
-                   name="<?= $block->getFieldName('prefix') ?>"
-                   value="<?= $block->escapeHtml($block->getObject()->getPrefix()) ?>"
-                   title="<?= $block->getStoreLabel('prefix') ?>"
-                   class="input__field <?= $block->getAttributeValidationClass('prefix') ?>"
-                   <?= $block->getFieldParams() ?>
-                   <?= $block->isPrefixRequired() ?'data-validate="{required:true}"' : '' ?>
+            <input
+                type="text"
+                id="<?= $block->getFieldId('prefix') ?>"
+                name="<?= $block->getFieldName('prefix') ?>"
+                value="<?= $block->escapeHtml($block->getObject()->getPrefix()) ?>"
+                title="<?= $block->getStoreLabel('prefix') ?>"
+                class="input__field <?= $block->getAttributeValidationClass('prefix') ?>"
+                <?= $block->getFieldParams() ?>
+                <?= $block->isPrefixRequired() ?'data-validate="{required:true}"' : '' ?>
             >
         <?php else: ?>
-            <select id="<?= $block->getFieldId('prefix') ?>"
-                    name="<?= $block->getFieldName('prefix') ?>"
-                    title="<?= $block->getStoreLabel('prefix') ?>"
-                    class="select <?= $block->getAttributeValidationClass('prefix') ?>"
-                    <?= $block->getFieldParams() ?>
-                    <?= ($block->isPrefixRequired()) ? ' data-validate="{required:true}"' : '' ?>
+            <select
+                id="<?= $block->getFieldId('prefix') ?>"
+                name="<?= $block->getFieldName('prefix') ?>"
+                title="<?= $block->getStoreLabel('prefix') ?>"
+                class="
+                    select__field
+                    select__field--native
+                    <?= $block->getAttributeValidationClass('prefix') ?>
+                "
+                <?= $block->getFieldParams() ?>
+                <?= ($block->isPrefixRequired()) ? ' data-validate="{required:true}"' : '' ?>
+                data-mage-init='{"select" : {}}'
             >
                 <?php foreach ($block->getPrefixOptions() as $_option): ?>
-                    <option value="<?= $_option ?>"
-                            <?= $block->getObject()->getPrefix() == $_option ? 'selected="selected"' : '' ?>
+                    <option
+                        value="<?= $_option ?>"
+                        <?= $block->getObject()->getPrefix() == $_option ? 'selected="selected"' : '' ?>
                     >
                         <?= __($_option) ?>
                     </option>
