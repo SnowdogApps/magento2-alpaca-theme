@@ -18,7 +18,8 @@ var config = {
       "slider"             : "Magento_Theme/js/slider.babel",
       "popup"              : "Magento_Theme/js/popup.babel",
       "tab"                : "Magento_Theme/js/tab.babel",
-      "scrollTop"          : "Magento_Theme/js/scroll-top.babel"
+      "scrollTop"          : "Magento_Theme/js/scroll-top.babel",
+      "skipNav"            : "Magento_Theme/js/skip-nav.babel"
     }
   },
   shim: {
