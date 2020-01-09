@@ -21,7 +21,17 @@ module.exports = {
       label: 'Plain (B2B)',
       view: 'file-upload--plain.hbs',
       context: {
-        class: 'file-upload--plain'
+        class: 'file-upload--plain',
+        attachments: [
+          {
+            fileName: 'some-file.jpg',
+            buttonText: 'Delete'
+          },
+          {
+            fileName: 'some-file.jpg',
+            buttonText: 'Delete'
+          }
+        ]
       }
     }
   ]

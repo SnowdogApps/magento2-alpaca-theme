@@ -48,7 +48,13 @@
         display-none
     "
 >
-    <div class="negotiable-quote-errors messages">
+    <div
+        class="
+            negotiable-quote-errors
+            messages
+            messages--hidden-icons
+        "
+    >
         <div
             class="
                 message
@@ -56,6 +62,7 @@
                 display-none
             "
             data-role="error-wrap"
+            aria-live="polite"
         ></div>
     </div>
 
@@ -135,7 +142,7 @@
                             "extensions" : "<?= $block->escapeJs($block->getAllowedExtensions()) ?>"
                         }
                     }'
-                    class="field-attachment"
+                    class="file-upload__wrapper"
                     data-role="send-files"
                 >
                     <label
@@ -154,21 +161,36 @@
                         <?= $block->escapeHtml(__('Attach file')) ?>
                     </label>
                 </div>
-                <div class="attachments-list" data-role="added-files"></div>
-                <div class="attachments-list" data-role="history-added-files"></div>
+                <div class="file-upload__attachments" data-role="added-files"></div>
+                <div class="file-upload__attachments" data-role="history-added-files"></div>
             </div>
         </fieldset>
-        <div class="actions-toolbar">
-            <div class="primary">
-                <button type="submit" class="action save primary" data-action="save-quote"
-                        title="<?= $block->escapeHtmlAttr(__('Send Request')) ?>">
-                    <span><?= $block->escapeHtml(__('Send Request')) ?></span>
+        <div class="modal__bottom-actions">
+            <div class="modal__bottom-action">
+                <button
+                    class="
+                        button
+                        button--secondary
+                        cancel-quote-request
+                        action
+                    "
+                    title="<?= $block->escapeHtmlAttr(__('Cancel')) ?>"
+                >
+                    <?= $block->escapeHtml(__('Cancel')) ?>
                 </button>
             </div>
-            <div class="secondary">
-                <button class="cancel-quote-request action"
-                        title="<?= $block->escapeHtmlAttr(__('Cancel')) ?>">
-                    <span><?= $block->escapeHtml(__('Cancel')) ?></span>
+            <div class="modal__bottom-action">
+                <button
+                    type="submit"
+                    class="
+                        button
+                        action
+                        save
+                    "
+                    data-action="save-quote"
+                    title="<?= $block->escapeHtmlAttr(__('Send Request')) ?>"
+                >
+                    <?= $block->escapeHtml(__('Send Request')) ?>
                 </button>
             </div>
         </div>
