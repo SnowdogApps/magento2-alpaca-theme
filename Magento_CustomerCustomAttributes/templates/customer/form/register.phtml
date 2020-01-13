@@ -2,22 +2,28 @@
     $addressHelper = $this->helper('Magento\Customer\Helper\Address');
 ?>
 
-<div class="register">
+<div class="row registration">
     <?= $block->getChildHtml('form_fields_before') ?>
     <?php /* Extensions placeholder */ ?>
     <?= $block->getChildHtml('customer.form.register.extra') ?>
-    <form class="form"
-          action="<?= $block->getPostActionUrl() ?>"
-          method="post"
-          id="form-validate"
-          enctype="multipart/form-data"
-          autocomplete="off"
+    <form
+        class="
+            col-xs-12
+            col-md-6
+            registration__content
+        "
+        action="<?= $block->getPostActionUrl() ?>"
+        method="post"
+        id="form-validate"
+        enctype="multipart/form-data"
+        autocomplete="off"
     >
         <?= $block->getBlockHtml('formkey'); ?>
-        <fieldset class="form__fieldset">
-            <legend class="form__legend">
+        <fieldset class="fieldset registration__fieldset">
+            <legend class="fieldset__legend registration__legend">
                 <?= __('Personal Information') ?>
             </legend>
+            <div class="divider registration__divider"></div>
             <input type="hidden"
                    name="success_url"
                    value="<?= $block->getSuccessUrl() ?>"
@@ -198,12 +204,14 @@
             </fieldset>
 
         <?php endif; ?>
-        <fieldset class="form__fieldset"
+
+        <fieldset class="fieldset registration__fieldset"
                   data-hasrequired="<?= __('* Required Fields') ?>"
         >
-            <legend class="form__legend">
+            <legend class="fieldset__legend registration__legend">
                 <?= __('Sign-in Information') ?>
             </legend>
+            <div class="divider registration__divider"></div>
             <div class="input required">
                 <label for="email_address"
                        class="input__label"
@@ -220,34 +228,55 @@
                        data-validate="{required:true, 'validate-email':true}"
                 >
             </div>
-            <div class="input password register__password required"
-                 data-mage-init='{
+            <div
+                class="registration__password-wrapper"
+                data-mage-init='{
                     "passwordStrengthIndicator": {
                         "defaultClassName": "password-strength--"
                     }
-                 }'
+                }'
             >
-                <label for="password" class="input__label">
-                    <?= __('Password') ?>
-                </label>
-                <input type="password"
-                       name="password"
-                       id="password"
-                       title="<?= __('Password') ?>"
-                       class="input__field"
-                       data-password-min-length="<?= $block->escapeHtml($block->getMinimumPasswordLength()) ?>"
-                       data-password-min-character-sets="<?= $block->escapeHtml($block->getRequiredCharacterClassesNumber()) ?>"
-                       data-validate="{required:true, 'validate-customer-password':true}"
-                       autocomplete="off"
+                <div
+                    class="
+                        input
+                        password
+                        register__password
+                        required
+                    "
                 >
-                <div data-role="password-strength"
-                     class="password-strength"
-                >
-                    <div class="password-strength__progress">
-                        <?= __('Password Strength'); ?>:
-                        <span data-role="password-strength-meter-label">
-                            <?= __('No Password'); ?>
-                        </span>
+                    <label
+                        for="password"
+                        class="input__label"
+                    >
+                        <?= __('Password') ?>
+                    </label>
+                    <input
+                        type="password"
+                        name="password"
+                        id="password"
+                        title="<?= __('Password') ?>"
+                        class="input__field"
+                        data-password-min-length="<?= $block->escapeHtml($block->getMinimumPasswordLength()) ?>"
+                        data-password-min-character-sets="<?= $block->escapeHtml($block->getRequiredCharacterClassesNumber()) ?>"
+                        data-validate="{required:true, 'validate-customer-password':true}"
+                        autocomplete="off"
+                    >
+                </div>
+                <div class="password-strength">
+                    <div
+                        class="password-none"
+                        data-role="password-strength-meter"
+                    >
+                        <div class="password-strength__handle">
+                            <?= __('Password Strength'); ?>:
+                            <span
+                                class="password-strength__indicator"
+                                data-role="password-strength-meter-label"
+                                aria-live="polite"
+                            >
+                                <?= __('No Password'); ?>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
