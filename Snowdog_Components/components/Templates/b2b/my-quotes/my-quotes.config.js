@@ -26,6 +26,7 @@ module.exports = {
       text: 'Show my quotes'
     },
     toolbar: {
+      class: 'toolbar--secondary',
       amount: {
         class: 'toolbar__amount--visible'
       },

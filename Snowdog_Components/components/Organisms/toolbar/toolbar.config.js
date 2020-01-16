@@ -89,6 +89,20 @@ module.exports = {
         ]
       },
       suffix: ''
+    },
+    pager: {
+      class: 'toolbar__pager'
     }
-  }
+  },
+  variants: [
+    {
+      name: 'secondary',
+      context: {
+        class: 'toolbar--secondary',
+        showMode: false,
+        showSorter: false,
+        showPager: true
+      }
+    }
+  ]
 }
