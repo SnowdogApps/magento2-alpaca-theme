@@ -17,11 +17,11 @@ module.exports = {
   },
   variants: [
     {
-      name: 'plain',
-      label: 'Plain (B2B)',
-      view: 'file-upload--plain.hbs',
+      name: 'native',
+      label: 'Native (B2B)',
+      view: 'file-upload--native.hbs',
       context: {
-        class: 'file-upload--plain',
+        class: 'file-upload--native',
         attachments: [
           {
             fileName: 'some-file.jpg',
