@@ -27,12 +27,6 @@ module.exports = {
     },
     toolbar: {
       class: 'toolbar--secondary',
-      amount: {
-        class: 'toolbar__amount--visible'
-      },
-      limiter: {
-        class: 'toolbar__limiter--relative'
-      },
       showMode: false,
       showSorter: false,
       showAmount: true,
