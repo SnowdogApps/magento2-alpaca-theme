@@ -304,14 +304,28 @@ module.exports = {
                                 linkClass: 'mega-menu__inner-link'
                               },
                               {
-                                class: 'mega-menu__inner-item',
-                                text: 'Fance Dress',
-                                linkClass: 'mega-menu__inner-link'
-                              },
-                              {
-                                class: 'mega-menu__inner-item',
-                                text: 'Special Occasion',
-                                linkClass: 'mega-menu__inner-link'
+                                class: 'mega-menu__inner-item mega-menu__inner-item--children',
+                                text: 'Kids Fance Dress',
+                                linkClass: 'mega-menu__inner-link',
+                                isNested: true,
+                                content: 'list--link',
+                                contentContext: {
+                                  listTag: 'ul',
+                                  elementTag: 'li',
+                                  class: 'mega-menu__inner-list',
+                                  elements: [
+                                    {
+                                      class: 'mega-menu__inner-item',
+                                      text: 'Hats',
+                                      linkClass: 'mega-menu__inner-link'
+                                    },
+                                    {
+                                      class: 'mega-menu__inner-item',
+                                      text: 'Special Ocassions',
+                                      linkClass: 'mega-menu__inner-link'
+                                    }
+                                  ]
+                                }
                               }
                             ]
                           }
