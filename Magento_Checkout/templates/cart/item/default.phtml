@@ -21,7 +21,11 @@
             <?php if ($block->hasProductUrl()): ?>
                 <a
                     href="<?= $block->escapeUrl($block->getProductUrl()) ?>"
-                    class="link cart-list-item__name heading"
+                    class="
+                        link
+                        cart-list-item__name
+                        heading
+                    "
                 >
                     <?= $block->escapeHtml($block->getProductName()) ?>
                 </a>
@@ -54,18 +58,29 @@
                     <?php endif; ?>
 
                     <?php if ($_options): ?>
-                        <span class="cart-list-item__attribute">
-                            <?php foreach ($_options as $_option): ?>
-                                <?php $_formatedOptionValue = $block->getFormatedOptionValue($_option) ?>
-                                    <?= $block->escapeHtml($_option['label']) ?>:
-
-                                    <?php if (isset($_formatedOptionValue['full_view'])): ?>
-                                        <?= $_formatedOptionValue['full_view'] ?>
-                                    <?php else: ?>
-                                        <?= $_formatedOptionValue['value'] ?>
-                                    <?php endif; ?>
-                            <?php endforeach; ?>
-                        </span>
+                        <div class="cart-list-item__attribute">
+                            <dl
+                                class="
+                                    list
+                                    list--description
+                                    cart-list-item__attributes-list
+                                "
+                            >
+                                <?php foreach ($_options as $_option): ?>
+                                    <?php $_formatedOptionValue = $block->getFormatedOptionValue($_option) ?>
+                                    <dt class="list__label">
+                                        <?= $block->escapeHtml($_option['label']) ?>
+                                    </dt>
+                                    <dd class="list__value">
+                                        <?php if (isset($_formatedOptionValue['full_view'])): ?>
+                                            <?= $_formatedOptionValue['full_view'] ?>
+                                        <?php else: ?>
+                                            <?= $_formatedOptionValue['value'] ?>
+                                        <?php endif; ?>
+                                    </dd>
+                                <?php endforeach; ?>
+                            </dl>
+                        </div>
                     <?php endif; ?>
                 </div>
             <?php endif; ?>
