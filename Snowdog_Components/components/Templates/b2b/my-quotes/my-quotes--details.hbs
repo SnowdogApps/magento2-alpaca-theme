@@ -27,40 +27,30 @@
                     {{ contentClass }}
                 "
             >
+
                 {{ render '@heading' heading }}
+
+                {{#if messages }}
+                    <div id="messages">
+                        {{ render '@message' }}
+                    </div>
+                {{/if}}
+
                 <div class="dashboard__handler">
-                    <h2
-                        class="
-                            heading
-                            dashboard__title--wrapped
-                            {{ orderNumberClass }}
-                        "
-                    >
-                        {{ orderNumber }}
-                    </h2>
+                    {{ render '@heading' quoteName merge=true }}
 
                     <span class="dashboard__status">
-                        {{ orderStatus }}
+                        {{ quoteStatus }}
                     </span>
                 </div>
 
-                {{ render '@actions-group' orderActions }}
+                {{ render '@list--table' quoteInfo merge=true }}
 
-                {{ render '@dashboard-table' itemsOrdered }}
+                {{ render '@dashboard-actions-toolbar' quoteActions merge=true }}
 
-                {{ render '@dashboard-table' invoice }}
+                {{ render '@tab' quoteTabs }}
 
-                {{ render '@dashboard-table' orderShipment }}
-
-                <h2 class="heading dashboard__title">
-                    {{ orderInfoTitle }}
-                </h2>
-
-                <div class="row">
-                    {{ render '@information' orderInfo }}
-                </div>
-
-                {{ render '@actions-group' action }}
+                {{ render '@dashboard-items' shipping merge=true }}
             </div>
         </div>
     </main>
