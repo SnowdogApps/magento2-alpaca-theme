@@ -1,0 +1,35 @@
+<?php
+/** @var \Magento\Customer\Block\Widget\Gender $block */
+?>
+<div
+    class="
+        input
+        gender
+        <?= $block->isRequired() ? ' required' : ''?>
+    "
+>
+    <label
+        class="label"
+        for="<?= $block->escapeHtmlAttr($block->getFieldId('gender')) ?>"
+    >
+        <?= $block->escapeHtml($block->getStoreLabel('gender')) ?>
+    </label>
+    <div class="select control">
+        <select
+            id="<?= $block->escapeHtmlAttr($block->getFieldId('gender')) ?>"
+            name="<?= $block->escapeHtmlAttr($block->getFieldName('gender')) ?>"
+            title="<?= $block->escapeHtmlAttr($block->getStoreLabel('gender')) ?>"
+            <?php if ($block->isRequired()) : ?> class="validate-select" data-validate="{required:true}"<?php endif; ?>
+            class="select__field select__field--native"
+        >
+            <?php $options = $block->getGenderOptions(); ?>
+            <?php $value = $block->getGender(); ?>
+            <?php foreach ($options as $option) : ?>
+                <option
+                    value="<?= $block->escapeHtmlAttr($option->getValue()) ?>"
+                    <?= ($option->getValue() == $value) ? ' selected="selected"' : '' ?>
+                ><?= $block->escapeHtml(__($option->getLabel())) ?></option>
+            <?php endforeach;?>
+        </select>
+    </div>
+</div>

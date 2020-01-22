@@ -1,5 +1,6 @@
 module.exports = {
   context: {
+    script: true,
     label: {
       attributes: '',
       text: 'Label text'
@@ -25,5 +26,14 @@ module.exports = {
         attributes: 'disabled'
       }
     ]
-  }
+  },
+  variants: [
+    {
+      name: 'native',
+      context: {
+        script: false,
+        class: 'select--native'
+      }
+    }
+  ]
 };

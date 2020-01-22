@@ -1,5 +1,6 @@
 module.exports = {
   context: {
+    quote: false,
     breadcrumbs: {
       categories: [
         {
@@ -85,5 +86,13 @@ module.exports = {
         }
       }
     }
-  }
+  },
+  variants: [
+    {
+      name: 'b2b',
+      context: {
+        quote: true
+      }
+    }
+  ]
 }
