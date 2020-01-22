@@ -1,0 +1,96 @@
+<div
+    class="dashboard-items"
+    data-role="attach-wrapper"
+>
+    <?php
+        /** @var  $block \Magento\NegotiableQuote\Block\Quote\Comments*/
+        $disable = !$block->canEdit() ? ' _disabled' : '';
+    ?>
+
+    <form
+        action="<?= $block->escapeUrl($block->getUrl('negotiable_quote/quote/send')) ?>"
+        data-action="comment-form"
+        method="post"
+        enctype="multipart/form-data"
+    >
+        <label
+            class="
+                dashboard-items__title
+                margin-bottom-m
+            "
+            for="negotiation_comment"
+        >
+            <?= $block->escapeHtml(__('Add your comment')) ?>
+        </label>
+
+        <div class="dashboard-items__item col-sm-6">
+            <textarea
+                name="comment"
+                <?php if (!$block->isAllowedManage()) : ?>
+                    disabled="disabled"
+                <?php endif; ?>
+                class="
+                    negotiation-control-textarea<?= $disable ?>
+                    input__field
+                    input__field--textarea
+                    margin-bottom-m
+                "
+                <?= !$block->canEdit() ? 'disabled' : '' ?>
+                id="negotiation_comment"
+            ></textarea>
+
+            <div
+                class="
+                    file-upload
+                    file-upload--native
+                "
+            >
+                <div
+                    data-mage-init='{
+                        "Magento_NegotiableQuote/js/quote/add-files": {
+                            "maxSizeB" : "<?= $block->escapeJs($block->getMaxFileSize()) ?>",
+                            "maxSizeMb" : "<?= $block->escapeJs($block->getMaxFileSizeMb()) ?>",
+                            "extensions" : "<?= $block->escapeJs($block->getAllowedExtensions()) ?>",
+                            "modal" : "true"
+                        }
+                    }'
+                    class="
+                        file-upload__wrapper
+                        field-attachment<?= $disable ?>
+                    "
+                    data-role="send-files"
+                    data-progress=""
+                >
+                    <?php if ($block->isAllowedManage()) : ?>
+                        <label
+                            data-mage-init='{
+                                "Magento_NegotiableQuote/js/quote/add-file": {}
+                            }'
+                            for="add-file-0"
+                            <?= $block->canEdit() ? 'tabindex="0"' : '' ?>
+                        >
+                            <input
+                                name="files[0]"
+                                data-role="add-file"
+                                id="add-file-0"
+                                type="file"
+                            >
+                            <?= $block->escapeHtml(__('Attach file')) ?>
+                        </label>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+
+        <input
+            type="hidden"
+            name="quote_id"
+            value="<?= (int) $block->getQuote()->getId() ?>"
+        />
+        <?= $block->getBlockHtml('formkey') ?>
+    </form>
+    <div class="file-upload__attachments">
+        <div class="attachments-list" data-role="added-files"></div>
+        <div class="attachments-list" data-role="history-added-files"></div>
+    </div>
+</div>

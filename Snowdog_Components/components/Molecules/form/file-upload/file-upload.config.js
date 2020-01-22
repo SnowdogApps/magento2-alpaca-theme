@@ -14,5 +14,25 @@ module.exports = {
       attributes: 'role="button" tabindex="0" aria-controls="file"',
       text: 'Upload a file'
     }
-  }
+  },
+  variants: [
+    {
+      name: 'native',
+      label: 'Native (B2B)',
+      view: 'file-upload--native.hbs',
+      context: {
+        class: 'file-upload--native',
+        attachments: [
+          {
+            fileName: 'some-file.jpg',
+            buttonText: 'Delete'
+          },
+          {
+            fileName: 'some-file.jpg',
+            buttonText: 'Delete'
+          }
+        ]
+      }
+    }
+  ]
 }
