@@ -302,7 +302,13 @@ switch ($type = $block->getType()) {
                                                     class="product-grid-item__name-link"
                                                     title="<?= $block->escapeHtmlAttr($_item->getName()) ?>"
                                                 >
-                                                    <?= $block->escapeHtml($_item->getName()) ?>
+                                                    <?php
+                                                        $productName = $_item->getName();
+                                                        if (strlen($productName) > 42) {
+                                                            $productName = substr($productName, 0, 42) . '...';
+                                                        }
+                                                    ?>
+                                                    <?= $block->escapeHtml($productName); ?>
                                                 </a>
                                             </h3>
                                             <div class="product-grid-item__details-bottom">
