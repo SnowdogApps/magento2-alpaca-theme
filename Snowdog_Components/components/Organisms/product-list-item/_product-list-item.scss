@@ -8,19 +8,9 @@
     border-width: $product-list-item__border-width;
     border-color: $product-list-item__border-color;
     padding: $product-list-item__padding;
-    margin: $product-list-item__margin;
-
-    &:hover,
-    &:focus-within {
-        .product-list-item__image-link {
-            &:after {
-                background-color: $product-list-item__image-layout-color-hover;
-            }
-        }
-    }
+    @include darken-layout-hover('.product-list-item__image-link .lazyload-wrapper');
 
     @include mq($screen-m) {
-        margin: $product-list-item__margin\@medium;
         padding: $product-list-item__padding\@medium;
     }
 
@@ -35,8 +25,8 @@
     &__image-link {
         position: relative;
         display: flex;
+        flex-flow: column nowrap;
         align-items: center;
-        flex-basis: $product-list-item__image-width;
         max-width: $product-list-item__image-width;
         margin: $product-list-item__image-margin;
         text-decoration: $product-list-item__image-link-decoration;
@@ -45,6 +35,10 @@
             margin: $product-list-item__image-margin\@medium;
             flex-basis: $product-list-item__image-width\@medium;
             max-width: $product-list-item__image-width\@medium;
+        }
+
+        @include mq($screen-xl) {
+            margin: $product-list-item__image-margin\@xl;
         }
 
         &:after {
@@ -187,6 +181,11 @@
         .button--icon:not(.button--add-to) {
             background: $product-list-item__action-background;
             margin: $product-list-item__action-margin;
+
+            @include mq($screen-m) {
+                margin: $product-list-item__action-margin\@medium;
+            }
+
         }
     }
 

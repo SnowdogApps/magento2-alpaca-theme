@@ -1,90 +1,113 @@
 <?php // @codingStandardsIgnoreFile ?>
 <?php $detailedInfoGroup = $block->getGroupChildNames('detailed_info', 'getChildHtml'); ?>
 <?php  if($detailedInfoGroup): ?>
+    <!--
+        it's temporary fix to not show tabs container when no tab content available
+        Backend help needed here
+    -->
     <?php
         $layout = $block->getLayout();
         $tabId = 1;
+        $tabContent = [];
+        foreach ($detailedInfoGroup as $item) {
+            if(trim($layout->renderElement($item))) {
+                array_push($tabContent, $item);
+            }
+        }
     ?>
-    <div
-        class="product-view__tabs-sticky-wrap"
-        data-aos="fade-down"
-        data-aos-anchor="#tab-title-<?= $tabId; ?>"
-        data-aos-anchor-placement="bottom-top"
-    >
-        <div class="product-view__tabs-sticky">
+    <?php if ($tabContent): ?>
+        <div
+            class="product-view__tabs-sticky-wrap"
+            data-aos="fade-down"
+            data-aos-anchor="#tab-title-<?= $tabId; ?>"
+            data-aos-anchor-placement="bottom-top"
+        >
+            <div class="product-view__tabs-sticky">
+                <?php foreach ($detailedInfoGroup as $name):?>
+                    <?php
+                    if (!trim($layout->renderElement($name))) {
+                        continue;
+                    }
+                    $alias = $layout->getElementAlias($name);
+                    $label = $block->getChildData($alias, 'title');
+                    $class = $block->getChildData($alias, 'class');
+                    ?>
+                    <a
+                        href="#tab-title-<?= $tabId ?>"
+                        data-tab="tab-<?= $tabId; ?>"
+                        class="
+                            tab__title
+                            <?= ($tabId == 1) ? 'tab__title--active' : ''; ?>
+                            tab__title--sticky
+                            <?= ($class) ? 'tab__title--' . $class : ''; ?>
+                        "
+                    >
+                        <?= $label ?>
+                    </a>
+                    <?php $tabId++; ?>
+                <?php endforeach; ?>
+                <?php $tabId = 1; ?>
+            </div>
+        </div>
+
+        <div
+            id="product-tabs"
+            class="tab product-view__tab"
+            role="tablist"
+            data-mage-init='{ "tab" : {} }'
+        >
             <?php foreach ($detailedInfoGroup as $name):?>
                 <?php
-                if (!trim($layout->renderElement($name))) {
-                    continue;
-                }
-                $alias = $layout->getElementAlias($name);
-                $label = $block->getChildData($alias, 'title');
+                    $html = $layout->renderElement($name);
+                    if (!trim($html)) {
+                        continue;
+                    }
+                    $alias = $layout->getElementAlias($name);
+                    $label = $block->getChildData($alias, 'title');
+                    $class = $block->getChildData($alias, 'class');
                 ?>
-                <a
-                    href="#tab-title-<?= $tabId ?>"
-                    data-tab="tab-<?= $tabId; ?>"
+
+                <button
+                    id="tab-title-<?= $tabId; ?>"
                     class="
                         tab__title
                         <?= ($tabId == 1) ? 'tab__title--active' : ''; ?>
-                        tab__title--sticky
+                        <?= ($class) ? 'tab__title--' . $class : ''; ?>
                     "
+                    data-tab="tab-<?= $tabId; ?>"
+                    aria-controls="tab-<?= $tabId; ?>"
+                    data-testid="product-tab__title"
+                    aria-selected="<?= ($tabId == 1) ? 'true' : 'false'; ?>"
+                    aria-expanded="<?= ($tabId == 1) ? 'true' : 'false'; ?>"
+                    role="tab"
                 >
-                    <?= $label ?>
-                </a>
+                    <?= $label; ?>
+
+                    <svg
+                        class="icon tab__icon"
+                        role="presentation"
+                        focusable="false"
+                    >
+                        <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#angle-down')); ?>"></use>
+                    </svg>
+                </button>
+
+                <div
+                    id="tab-<?= $tabId; ?>"
+                    class="
+                        tab__content
+                        <?= ($tabId == 1) ? 'tab__content--active' : ''; ?>
+                        <?= ($class) ? 'tab__content--' . $class : ''; ?>
+                    "
+                    data-content="tab-<?= $tabId; ?>"
+                    aria-labelledby="tab-title-<?= $tabId; ?>"
+                    aria-hidden="<?= ($tabId == 1) ? 'false' : 'true'; ?>"
+                    role="tabpanel"
+                >
+                    <?= $html; ?>
+                </div>
                 <?php $tabId++; ?>
             <?php endforeach; ?>
-            <?php $tabId = 1; ?>
         </div>
-    </div>
-
-    <div
-        id="product-tabs"
-        class="tab product-view__tab"
-        role="tablist"
-        data-mage-init='{ "tab" : {} }'
-    >
-        <?php foreach ($detailedInfoGroup as $name):?>
-            <?php
-                $html = $layout->renderElement($name);
-                if (!trim($html)) {
-                    continue;
-                }
-                $alias = $layout->getElementAlias($name);
-                $label = $block->getChildData($alias, 'title');
-            ?>
-
-            <button
-                id="tab-title-<?= $tabId; ?>"
-                class="tab__title <?= ($tabId == 1) ? 'tab__title--active' : ''; ?>"
-                data-tab="tab-<?= $tabId; ?>"
-                aria-controls="tab-<?= $tabId; ?>"
-                data-testid="product-tab__title"
-                aria-selected="<?= ($tabId == 1) ? 'true' : 'false'; ?>"
-                aria-expanded="<?= ($tabId == 1) ? 'true' : 'false'; ?>"
-                role="tab"
-            >
-                <?= $label; ?>
-
-                <svg
-                    class="icon tab__icon"
-                    role="presentation"
-                    focusable="false"
-                >
-                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#angle-down')); ?>"></use>
-                </svg>
-            </button>
-
-            <div
-                id="tab-<?= $tabId; ?>"
-                class="tab__content <?= ($tabId == 1) ? 'tab__content--active' : ''; ?>"
-                data-content="tab-<?= $tabId; ?>"
-                aria-labelledby="tab-title-<?= $tabId; ?>"
-                aria-hidden="<?= ($tabId == 1) ? 'false' : 'true'; ?>"
-                role="tabpanel"
-            >
-                <?= $html; ?>
-            </div>
-            <?php $tabId++; ?>
-        <?php endforeach; ?>
-    </div>
+    <?php endif; ?>
 <?php endif; ?>

@@ -1,0 +1,161 @@
+<?php
+use Magento\Catalog\Model\Product\Option;
+
+/**
+ * @var $block \Magento\Catalog\Block\Product\View\Options\Type\Select\Checkable
+ */
+$option = $block->getOption();
+if ($option) : ?>
+    <?php
+    $configValue = $block->getPreconfiguredValue($option);
+    $optionType = $option->getType();
+    $arraySign = $optionType === Option::OPTION_TYPE_CHECKBOX ? '[]' : '';
+    $count = 1;
+?>
+
+    <div
+        class="options-list nested"
+        id="options-<?= $block->escapeHtmlAttr($option->getId()) ?>-list"
+    >
+    <?php if ($optionType === Option::OPTION_TYPE_RADIO && !$option->getIsRequire()) : ?>
+        <div
+            class="
+                radio__handler
+                field
+                choice
+            "
+        >
+            <input
+                type="radio"
+                id="options_<?= $block->escapeHtmlAttr($option->getId()) ?>"
+                class="radio__field product-custom-option"
+                name="options[<?= $block->escapeHtmlAttr($option->getId()) ?>]"
+                data-selector="options[<?= $block->escapeHtmlAttr($option->getId()) ?>]"
+                onclick="<?= $block->getSkipJsReloadPrice() ? '' : 'opConfig.reloadPrice()' ?>"
+                value=""
+                checked="checked"
+            />
+            <label
+                class="label radio__label"
+                for="options_<?= $block->escapeHtmlAttr($option->getId()) ?>"
+            >
+                <span class="radio__text">
+                    <?= __('None') ?>
+                </span>
+            </label>
+        </div>
+    <?php endif; ?>
+
+    <?php foreach ($option->getValues() as $value) : ?>
+        <?php
+        $checked = '';
+        $count++;
+        if ($arraySign) {
+            $checked = is_array($configValue) && in_array($value->getOptionTypeId(), $configValue) ? 'checked' : '';
+        } else {
+            $checked = $configValue == $value->getOptionTypeId() ? 'checked' : '';
+        }
+        $dataSelector = 'options[' . $option->getId() . ']';
+        if ($arraySign) {
+            $dataSelector .= '[' . $value->getOptionTypeId() . ']';
+        }
+        ?>
+        <?php if($optionType === Option::OPTION_TYPE_RADIO): ?>
+            <!-- when formatted, don't find proper container with elem.up(div.choice) method -->
+            <div
+                class="
+                    choice
+                    field
+                    radio__handler
+                    <?= /* @noEscape */ $option->getIsRequire() ? 'required': '' ?>
+                "
+            >
+                <input
+                    type="<?= $block->escapeHtmlAttr($optionType) ?>"
+                    class="
+                        radio__field
+                        <?= $option->getIsRequire() ? 'required': ''; ?>
+                        product-custom-option
+                        <?= $block->getSkipJsReloadPrice() ? '' : 'opConfig.reloadPrice()' ?>
+                    "
+                    name="options[<?= $block->escapeHtmlAttr($option->getId()) ?>]<?= /* @noEscape */ $arraySign ?>"
+                    id="options_<?= $block->escapeHtmlAttr($option->getId() . '_' . $count) ?>"
+                    value="<?= $block->escapeHtmlAttr($value->getOptionTypeId()) ?>"
+                    <?= $block->escapeHtml($checked) ?>
+                    data-selector="<?= $block->escapeHtmlAttr($dataSelector) ?>"
+                    price="<?= $block->escapeHtmlAttr($block->getCurrencyByStore($value)) ?>"
+                />
+                <label
+                    class="label radio__label"
+                    for="options_<?= $block->escapeHtmlAttr($option->getId() . '_' . $count) ?>"
+                >
+                    <span class="radio__text">
+                        <?= $block->escapeHtml($value->getTitle()) ?>
+                    </span>
+                    <?php if($block->formatPrice($value)): ?>
+                        <span class="product-options__price">
+                            <?= /* @noEscape */ $block->formatPrice($value) ?>
+                        </span>
+                    <?php endif; ?>
+                </label>
+            </div>
+        <?php else: ?>
+            <div
+                class="
+                    field
+                    choice
+                    checkbox
+                "
+            >
+                 <input
+                    type="<?= $block->escapeHtmlAttr($optionType) ?>"
+                    class="
+                        checkbox__field
+                        product-custom-option
+                        <?= $block->getSkipJsReloadPrice() ? '' : 'opConfig.reloadPrice()' ?>
+                    "
+                    name="options[<?= $block->escapeHtmlAttr($option->getId()) ?>]<?= /* @noEscape */ $arraySign ?>"
+                    id="options_<?= $block->escapeHtmlAttr($option->getId() . '_' . $count) ?>"
+                    value="<?= $block->escapeHtmlAttr($value->getOptionTypeId()) ?>"
+                    <?= $block->escapeHtml($checked) ?>
+                    data-selector="<?= $block->escapeHtmlAttr($dataSelector) ?>"
+                    price="<?= $block->escapeHtmlAttr($block->getCurrencyByStore($value)) ?>"
+                />
+                <svg
+                    class="
+                        checkbox__icon
+                        checkbox__icon--checked
+                    "
+                    role="presentation"
+                    focusable="false"
+                >
+                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#checked')) ?>"></use>
+                </svg>
+                <svg
+                    class="
+                        checkbox__icon
+                        checkbox__icon--unchecked
+                    "
+                    role="presentation"
+                    focusable="false"
+                >
+                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#unchecked')) ?>"></use>
+                </svg>
+                <label
+                    class="label checkbox__label"
+                    for="options_<?= $block->escapeHtmlAttr($option->getId() . '_' . $count) ?>"
+                >
+                    <span class="checkbox__text">
+                        <?= $block->escapeHtml($value->getTitle()) ?>
+                    </span>
+                    <?php if($block->formatPrice($value)): ?>
+                        <span class="product-options__price">
+                            <?= /* @noEscape */ $block->formatPrice($value) ?>
+                        </span>
+                    <?php endif; ?>
+                </label>
+            </div>
+        <?php endif; ?>
+    <?php endforeach; ?>
+    </div>
+<?php endif; ?>

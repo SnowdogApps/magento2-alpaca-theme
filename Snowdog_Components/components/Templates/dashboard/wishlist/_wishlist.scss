@@ -7,6 +7,9 @@
     }
 
     &__item {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: space-between;
         margin: $wishlist__item-margin;
 
         @include mq($screen-s) {
@@ -29,6 +32,18 @@
         padding: $wishlist__name-padding;
         margin: $wishlist__name-margin;
         min-height: $wishlist__name-min-height;
+
+        @include mq($screen-m) {
+            min-height: $wishlist__name-min-height\@medium;
+        }
+
+        @include mq($screen-l) {
+            min-height: $wishlist__name-min-height\@large;
+        }
+
+        @include mq($screen-xl) {
+            min-height: $wishlist__name-min-height\@xl;
+        }
     }
 
     &__item-name-link {
@@ -64,8 +79,8 @@
         margin: $wishlist__item-actions-margin;
 
         &--to-cart {
+            width: $wishlist__item-actions-width--to-cart;
             order: $wishlist__item-actions-order--to-cart;
-            flex-basis: $wishlist__to-cart-flex-basis;
             margin: $wishlist__to-cart-margin;
         }
 
@@ -99,9 +114,8 @@
     &__qty {
         display: flex;
         align-items: center;
-        max-width: $wishlist__field-qty-max-width;
 
-        @include mq($screen-s) {
+        @include mq($screen-m) {
             flex-direction: column;
             align-items: flex-start;
             max-width: $wishlist__field-qty-max-width\@small;
@@ -109,6 +123,24 @@
 
         @include mq($screen-xl) {
             max-width: $wishlist__field-qty-max-width\@xl;
+        }
+
+        .quantity-update__button {
+            width: 48px;
+            height: 48px;
+            display: none;
+
+            @include mq($max-content-width) {
+                display: flex;
+            }
+        }
+
+        .quantity-update__input {
+            height: 48px;
+            border-width: 1px;
+            @include mq($max-content-width) {
+                border-width: 1px 0;
+            }
         }
     }
 
@@ -120,6 +152,7 @@
 
     &__button {
         width: $wishlist__button-width;
+        padding: $wishlist__button-padding;
     }
 
     &__actions {

@@ -22,13 +22,33 @@
         border-width: $minicart-content__middle-border-width;
         overflow-y: auto;
         height: auto !important; // sass-lint:disable-line no-important
+
+        @include hide-scrollbar();
+
+        @include mq($screen-m) {
+            margin: $minicart-content__middle-margin\@medium;
+
+            @include hide-scrollbar(false);
+        }
     }
 
     &__bottom {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: $minicart-content__bottom-width;
         padding: $minicart-content__bottom-padding;
         margin: $minicart-content__bottom-margin;
+        background: $minicart-content__bottom-background;
         border: $minicart-content__bottom-border;
         border-width: $minicart-content__bottom-border-width;
+        box-shadow: $minicart-content__bottom-box-shadow;
+
+        @include mq($screen-m) {
+            position: relative;
+            padding: $minicart-content__bottom-padding\@medium;
+            box-shadow: $minicart-content__bottom-box-shadow\@medium;
+        }
     }
 
     &__heading {
@@ -75,6 +95,10 @@
         justify-content: space-between;
         margin: $minicart-content__summary-margin;
         font-size: $minicart-content__summary-font-size;
+
+        @include mq($screen-m) {
+            padding: $minicart-content__summary-margin\@medium;
+        }
     }
 
     &__summary-label {
@@ -89,29 +113,15 @@
     }
 
     &__actions {
+        display: flex;
+        flex-flow: $minicart-content__action-flex-flow;
+        justify-content: $minicart-content__action-justify;
         padding: $minicart-content__actions-padding;
-
-        @include mq($screen-m) {
-            display: flex;
-            flex-flow: $minicart-content__action-flex-flow\@medium;
-            justify-content: $minicart-content__action-justify\@medium;
-        }
     }
 
     &__action-button {
         width: $minicart-content__action-button-width;
-
-        @include mq($screen-m) {
-            width: $minicart-content__action-button-width\@medium;
-        }
-    }
-
-    &__edit {
-        margin: $minicart-content__edit-margin;
-
-        @include mq($screen-m) {
-            margin: $minicart-content__edit-margin\@medium;
-        }
+        padding: $minicart-content__action-button-padding;
     }
 
     &__products-list {

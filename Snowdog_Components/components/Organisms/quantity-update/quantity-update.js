@@ -1,9 +1,11 @@
 'use strict';
 class QuantityUpdate {
   constructor(htmlDivElement) {
-    this.plus  = htmlDivElement.querySelector('.quantity-update__button--plus');
-    this.minus = htmlDivElement.querySelector('.quantity-update__button--minus');
-    this.input = htmlDivElement.querySelector('.quantity-update__input');
+    this.elem        = htmlDivElement;
+    this.plus        = this.elem.querySelector('.quantity-update__button--plus');
+    this.minus       = this.elem.querySelector('.quantity-update__button--minus');
+    this.input       = this.elem.querySelector('.quantity-update__input');
+    this.activeClass = 'quantity-update--active';
     this.events();
     this.evaluateConditions();
   }
@@ -15,6 +17,12 @@ class QuantityUpdate {
     this.minus.addEventListener('click', () => {
       this.decrement();
       this.evaluateConditions();
+    });
+    this.input.addEventListener('focusin', () => {
+      this.elem.classList.add(this.activeClass);
+    });
+    this.input.addEventListener('focusout', () => {
+      this.elem.classList.remove(this.activeClass);
     });
   }
   evaluateConditions() {
