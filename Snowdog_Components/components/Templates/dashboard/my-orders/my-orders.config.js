@@ -34,17 +34,17 @@ module.exports = {
       ]
     },
     toolbar: {
+      showMode: false,
+      showSorter: false,
+      showAmount: true,
+      showLimit: true,
+      showPager: true,
       amount: {
         class: 'toolbar__amount--visible'
       },
       limiter: {
         class: 'toolbar__limiter--relative'
-      },
-      showMode: false,
-      showSorter: false,
-      showAmount: true,
-      showLimit: true,
-      showPager: true
+      }
     }
   },
   variants: [

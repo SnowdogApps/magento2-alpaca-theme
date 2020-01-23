@@ -3,7 +3,7 @@
 .product-list-item {
     position: relative;
     display: flex;
-    align-items: flex-start;
+    align-items: stretch;
     border-style: $product-list-item__border-style;
     border-width: $product-list-item__border-width;
     border-color: $product-list-item__border-color;
@@ -12,11 +12,10 @@
 
     &:hover,
     &:focus-within {
-        .lazyload-wrapper {
-            background-color: $black;
-        }
-        .image {
-            opacity: 0.8;
+        .product-list-item__image-link {
+            &:after {
+                background-color: $product-list-item__image-layout-color-hover;
+            }
         }
     }
 
@@ -35,15 +34,29 @@
 
     &__image-link {
         position: relative;
-        margin: $product-list-item__image-margin;
-        text-decoration: $product-list-item__image-link-decoration;
+        display: flex;
+        align-items: center;
         flex-basis: $product-list-item__image-width;
         max-width: $product-list-item__image-width;
+        margin: $product-list-item__image-margin;
+        text-decoration: $product-list-item__image-link-decoration;
 
         @include mq($screen-m) {
             margin: $product-list-item__image-margin\@medium;
             flex-basis: $product-list-item__image-width\@medium;
             max-width: $product-list-item__image-width\@medium;
+        }
+
+        &:after {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: transparent;
+            transition: $product-list-item__transition;
         }
     }
 
@@ -170,6 +183,11 @@
         display: flex;
         flex-flow: row nowrap;
         justify-content: flex-end;
+
+        .button--icon:not(.button--add-to) {
+            background: $product-list-item__action-background;
+            margin: $product-list-item__action-margin;
+        }
     }
 
     &__price {
@@ -198,7 +216,6 @@
         }
     }
 
-
     &__add-to-action {
         flex-grow: 1;
         max-width: 250px;
@@ -208,15 +225,15 @@
         }
 
         .button--add-to {
-            @include add-to-button(none);
+            @include add-to-button($product-list-item__add-to-icon-display);
             padding: $spacer;
 
             @include mq($screen-m) {
-                @include add-to-button(block);
+                @include add-to-button($product-list-item__add-to-icon-display\@medium);
             }
 
             @include mq($screen-xl) {
-                @include add-to-button(none);
+                @include add-to-button($product-list-item__add-to-icon-display\@xl);
             }
         }
     }
