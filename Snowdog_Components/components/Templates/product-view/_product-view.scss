@@ -18,6 +18,7 @@
 
     &__description,
     &__details {
+        position: relative;
         @include mq($screen-m) {
             float: right;
             width: $product-view__details-width\@medium;
@@ -100,6 +101,19 @@
         font-size: $product-view__stock-font-size;
         padding: $product-view__stock-padding;
 
+        &:before {
+            top: $product-view__stock-top-bg-hover;
+            bottom: $product-view__stock-bottom-bg-hover;
+            background-color: $product-view__stock-bg-hover;
+            z-index: -1;
+        }
+        &:hover {
+            color: $color-primary;
+            &:before {
+                display: block;
+            }
+        }
+
         @include mq($screen-m) {
             font-size: $product-view__stock-font-size\@medium;
         }
@@ -120,8 +134,6 @@
         @include mq($product-view__price-display-bq) {
             display: block;
             padding: $product-view__price-padding;
-            border: $product-view__price-border;
-            border-width: $product-view__price-border-width;
 
             .price__value,
             .price__value--special {
@@ -153,10 +165,12 @@
 
     &__button {
         margin: $product-view__button-margin;
+        background-color: $product-view__button-bg;
 
         @include mq($screen-m) {
             min-width: $product-view__button-min-size;
             min-height: $product-view__button-min-size;
+            background-color: $product-view__button-bg\@medium;
         }
 
         &--wishlist {
@@ -292,9 +306,19 @@
         max-width: $product-view__wrapper-max-width;
         margin: $product-view__tabs-margin;
 
+        @include mq($screen-m) {
+            margin: $product-view__tabs-margin\@medium;
+        }
+
         .tab__title {
             height: $product-view__tabs-title-height;
             padding: $product-view__tabs-title-padding;
+            text-align: $product-view__tabs-title-text-align;
+
+            @include mq($screen-m) {
+                text-align: $product-view__tabs-title-text-align\@medium;
+                padding: $product-view__tabs-title-padding\@medium;
+            }
         }
     }
 

@@ -113,7 +113,7 @@ module.exports = {
     addToCartBtn: {
       tag: 'button',
       text: 'Add to cart',
-      class: 'product-view__add-to-cart',
+      class: 'button--add-to-cart product-view__add-to-cart',
       attributes: 'id="submit-add-to-cart-main" type="submit" aria-label="Add to cart"'
     },
     heartBtn: {

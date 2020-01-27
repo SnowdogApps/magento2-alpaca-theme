@@ -1,0 +1,33 @@
+<if args="isAllowed()">
+    <if args="isSalable($row())">
+        <button
+            class="
+                button
+                button--add-to
+                action
+                tocart
+            "
+            attr="
+                'data-mage-init': getDataMageInit($row()),
+                'data-post': getDataPost($row()),
+                'aria-label': getLabel()
+            "
+            type="button"
+        >
+            <svg
+                class="icon button__icon"
+                role="presentation"
+                focusable="false"
+            >
+                <use data-bind="attr: { 'xlink:href': require.toUrl('images/icons-sprite.svg#shopping-cart') }" xlink:href=''></use>
+            </svg>
+        </button>
+    </if>
+
+    <ifnot args="isSalable($row())">
+        <div class="stock unavailable">
+            <text args="$t('Availability')" />
+            <span translate="'Out of stock'" />
+        </div>
+    </ifnot>
+</if>

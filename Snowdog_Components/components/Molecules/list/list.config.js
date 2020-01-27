@@ -270,6 +270,25 @@ module.exports = {
           }
         ]
       }
-    }
+    },
+    {
+      name: 'table',
+      context: {
+        class: 'list--table',
+        listTag: 'ul',
+        elementTag: 'li',
+        attributes: 'title="Colibri table list"',
+        elements: [
+          {
+            label: 'Lorem ipsum long label',
+            value: 'Lorem ipsum Value'
+          },
+          {
+            label: 'Lorem ipsum',
+            value: 'Lorem ipsum some long value'
+          }
+        ]
+      }
+    },
   ]
 };

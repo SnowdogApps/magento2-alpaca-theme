@@ -1,0 +1,70 @@
+<?php /** @var  $block \Magento\NegotiableQuote\Block\Quote\View*/?>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "negotiableQuoteRecalculate": {
+                        "component": "Magento_NegotiableQuote/js/quote/recalculate-negotiable-quote",
+                        "url": "<?= $block->escapeUrl($block->getRecalculateUrl()) ?>",
+                        "canUpdate": "<?= (bool) $block->isCanRecalculate() ?>",
+                        "quoteId": <?= (int) $block->getQuoteId() ?>
+                    }
+                }
+            }
+        }
+    }
+</script>
+<?php
+$quoteTabs = [];
+$quoteTabs[1]['title'] = $block->escapeHtml(__('Items Quoted'));
+$quoteTabs[1]['content'] = '<div class="quote-items">' . $block->getChildHtml('quote_items') . '</div>';
+$quoteTabs[2]['title'] = $block->escapeHtml(__('Comments'));
+$quoteTabs[2]['content'] = $block->getChildHtml('quote_comments');
+$quoteTabs[3]['title'] = $block->escapeHtml(__('History Log'));
+$quoteTabs[3]['content'] = $block->getChildHtml('quote_history');
+?>
+
+<div
+    class="tab quote-details-items"
+    role="tablist"
+    data-mage-init='{ "tab" : {} }'
+>
+    <?php foreach ($quoteTabs as $key => $quoteTab): ?>
+        <button
+            id="tab-title-<?= $key; ?>"
+            class="tab__title <?= ($key == 1) ? 'tab__title--active' : ''; ?>"
+            data-tab="tab-<?= $key; ?>"
+            aria-controls="tab-<?= $key; ?>"
+            data-testid="product-tab__title"
+            aria-selected="<?= ($key == 1) ? 'true' : 'false'; ?>"
+            aria-expanded="<?= ($key == 1) ? 'true' : 'false'; ?>"
+            role="tab"
+        >
+            <?= $quoteTab['title']; ?>
+
+            <svg
+                class="icon tab__icon"
+                role="presentation"
+                focusable="false"
+            >
+                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#angle-down')); ?>"></use>
+            </svg>
+        </button>
+
+        <div
+            id="tab-<?= $key; ?>"
+            class="
+                tab__content
+                tab__content--secondary
+                <?= ($key == 1) ? 'tab__content--active' : ''; ?>
+            "
+            data-content="tab-<?= $key; ?>"
+            aria-labelledby="tab-title-<?= $key; ?>"
+            aria-hidden="<?= ($key == 1) ? 'false' : 'true'; ?>"
+            role="tabpanel"
+        >
+            <?= $quoteTab['content']; ?>
+        </div>
+    <?php endforeach; ?>
+</div>

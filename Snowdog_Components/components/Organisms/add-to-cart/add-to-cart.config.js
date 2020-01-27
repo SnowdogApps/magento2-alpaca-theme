@@ -38,6 +38,7 @@ module.exports = {
       attributes: 'type="button" aria-label="Compare product"'
     },
     addToCartBtn: {
+      class: 'button--add-to',
       attributes: 'type="submit" aria-label="Add to cart"'
     }
   }
