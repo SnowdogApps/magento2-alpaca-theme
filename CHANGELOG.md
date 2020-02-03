@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 - missing checkout templates (#58948)
+- email templates (#58951)
 
 ## [0.9.0] - 2019-12-09
 - theme and components - initial working version
