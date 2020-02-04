@@ -4,14 +4,10 @@ $modal-popup__indent-vertical        : 80px !default;
 $modal-popup__padding                : 30px !default;
 $modal-popup__padding-top            : 42px !default;
 $modal-popup__width                  : 75% !default;
-$modal-popup__z-index                : $z-index-high + 2 !default;
-$modal-popup-confirm__z-index        : $z-index-highest !default;
-$modal-popup-request-quote__z-index  : $z-index-highest !default;
 
 $modal-slide__indent-left            : 0 !default;
 $modal-slide__indent-left\@medium    : 72px !default;
 $modal-slide__padding                : 41px !default;
-$modal-slide__z-index                : $z-index-high !default;
 $modal-slide-header__padding-vertical: 33px !default;
 
 @mixin lib-modal() {
@@ -44,7 +40,6 @@ $modal-slide-header__padding-vertical: 33px !default;
 
 @mixin lib-modal-slide() {
     left: $modal-slide__indent-left;
-    z-index: $modal-slide__z-index;
 
     @include mq($screen-m) {
         left: $modal-slide__indent-left\@medium;
@@ -68,7 +63,6 @@ $modal-slide-header__padding-vertical: 33px !default;
 }
 
 @mixin lib-modal-popup() {
-    z-index: $modal-popup__z-index !important; // sass-lint:disable-line no-important
     left: 0;
     overflow-y: auto;
 
@@ -113,10 +107,6 @@ body {
     right: 0;
     top: 0;
     bottom: 0;
-}
-
-.modals-overlay {
-    z-index: $modal-popup__z-index - 1;
 }
 
 .modal-popup,
@@ -173,14 +163,6 @@ body {
         @include mq($screen-m) {
             @include lib-modal-popup();
         }
-    }
-
-    &.confirm {
-        z-index: $modal-popup-confirm__z-index;
-    }
-
-    &.popup-request-quote {
-        z-index: $modal-popup-request-quote__z-index;
     }
 
     @include lib-modal-popup();
