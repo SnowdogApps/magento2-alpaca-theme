@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file.
 - page builder styles (#56135)
 - quote flow (#58953)
 - recently viewed (#60510)
+- login modal templates/styles (#63465)
 
 ### Fixed
 - native selects (#63244)
