@@ -10,5 +10,8 @@ All notable changes to this project will be documented in this file.
 - email templates (#58951)
 - page builder styles (#56135)
 
+### Fixed
+- native selects (#63244)
+
 ## [0.9.0] - 2019-12-09
 - theme and components - initial working version
