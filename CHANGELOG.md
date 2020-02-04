@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 - email templates (#58951)
 - page builder styles (#56135)
 - quote flow (#58953)
+- recently viewed (#60510)
 
 ### Fixed
 - native selects (#63244)
