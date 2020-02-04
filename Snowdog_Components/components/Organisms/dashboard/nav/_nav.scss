@@ -34,15 +34,30 @@
     }
 
     &__item {
+        position: relative;
         padding: $dashboard-nav__item-padding;
         transition: $dashboard-nav__item-transition;
     }
 
     &__item > a,
     &__link {
+        @extend %arrow;
         display: block;
         padding: $dashboard-nav__link-padding;
         text-decoration: $dashboard-nav__link-text-decoration;
+        &:after {
+            transform: rotate(-45deg);
+            @include mq($max-screen: $screen-l - 1px) {
+                display: none;
+            }
+        }
+
+        &:hover {
+            background-color: $dashboard-nav__link-bg-hover;
+            color: $dashboard-nav__link-color-hover;
+            font-weight: $dashboard-nav__link-font-weight-hover;
+            text-decoration: $dashboard-nav__link-text-decoration-hover;
+        }
     }
 
     &__actions {
@@ -69,6 +84,22 @@
         }
     }
 
+    &__logout-button {
+        display: none;
+
+        @include mq($screen-l) {
+            display: flex;
+        }
+
+        &--mobile {
+            display: flex;
+
+            @include mq($screen-l) {
+                display: none;
+            }
+        }
+    }
+
     &__section {
         display: none;
 
@@ -92,13 +123,14 @@
     // This class is changing by Magento
     .current {
         position: relative;
-        background: $gray-light;
+        background: $dashboard-nav__link-bg-current;
 
         .dashboard-nav__link {
-            font-weight: $font-weight-bold;
+            font-weight: $dashboard-nav__link-font-weight-current;
 
             &:hover {
-                color: initial;
+                color: $dashboard-nav__link-color-current-hover;
+                text-decoration: $dashboard-nav__link-text-decoration-current-hover;
             }
         }
     }
@@ -110,6 +142,15 @@
 
         @include mq($screen-l) {
             font-size: $dashboard-nav__item-font-size\@large;
+        }
+
+        & > a {
+            padding: $dashboard-nav__item-link-padding;
+
+            &:after {
+                transform: $dashboard-nav__item-link-transform-after;
+                top: $dashboard-nav__item-link-top-after;
+            }
         }
     }
 

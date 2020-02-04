@@ -1,0 +1,62 @@
+//  email.scss
+//  Styles contained in the _email-base.scss will be output in the email.scss file
+//  and will be included in a <style> tag in emails. Non-inline styles should be used for styles that can't be applied
+//  as inline CSS, such as media queries.
+
+//
+//  Resets
+//  ---------------------------------------------
+
+//  Client-specific resets (from the Salted email template: https://github.com/rodriguezcommaj/salted)
+
+//  Prevent WebKit and Windows mobile from changing default text sizes
+body,
+table,
+td,
+a {
+    -ms-text-size-adjust: 100%; // sass-lint:disable-line no-vendor-prefixes
+    -webkit-text-size-adjust: 100%; // sass-lint:disable-line no-vendor-prefixes
+}
+
+//  Allow smoother rendering of resized images in Internet Explorer (such as high-resolution logo)
+img {
+    -ms-interpolation-mode: bicubic; // sass-lint:disable-line no-misspelled-properties no-vendor-prefixes
+}
+
+//  Remove spacing between tables in Outlook 2007 and up
+table,
+td {
+    /* stylelint-disable-next-line property-no-unknown, length-zero-no-unit */ // sass-lint:disable-line no-css-comments
+    mso-table-lspace: 0pt; // sass-lint:disable-line no-misspelled-properties zero-unit
+    /* stylelint-disable-next-line property-no-unknown, length-zero-no-unit */ // sass-lint:disable-line no-css-comments
+    mso-table-rspace: 0pt; // sass-lint:disable-line no-misspelled-properties zero-unit
+}
+
+a {
+    &:hover,
+    &:focus {
+        text-decoration: underline !important; // sass-lint:disable-line no-important
+    }
+}
+
+.item-options {
+    @include mq($screen-s) {
+        dd,
+        dt {
+            display: inline;
+        }
+
+        dd {
+            &:after {
+                content: '\A';
+                white-space: pre;
+            }
+        }
+    }
+}
+
+.main-content {
+    p:last-child {
+        margin: 0 !important; // sass-lint:disable-line no-important
+    }
+}

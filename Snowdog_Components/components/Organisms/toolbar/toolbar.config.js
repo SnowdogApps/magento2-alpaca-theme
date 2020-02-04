@@ -89,6 +89,50 @@ module.exports = {
         ]
       },
       suffix: ''
+    },
+    pager: {
+      class: 'toolbar__pager'
     }
-  }
+  },
+  variants: [
+    {
+      name: 'secondary',
+      context: {
+        class: 'toolbar--secondary',
+        showMode: false,
+        showSorter: false,
+        showPager: true,
+        limiter: {
+          select: {
+            class: 'select--native toolbar__limiter margin-0',
+            label: {
+              attributes: '',
+              text: 'Show',
+              class: 'toolbar__limiter-label margin-right-s margin-bottom-0'
+            },
+            field: {
+              id: 'limiter',
+              name: 'limiter',
+              class: 'toolbar__limiter-select'
+            },
+            options: [
+              {
+                text: '12',
+                value: '12'
+              },
+              {
+                text: '24',
+                value: '24'
+              },
+              {
+                text: '36',
+                value: '36'
+              },
+            ]
+          },
+          suffix: ''
+        },
+      }
+    }
+  ]
 }
