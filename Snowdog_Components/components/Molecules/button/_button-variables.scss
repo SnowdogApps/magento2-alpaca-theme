@@ -1,6 +1,7 @@
 $button__min-size                               : 48px !default;
 $button__padding                                : 0 $spacer--large !default;
 $button__background                             : $color-primary !default;
+$button__background-hover                       : initial !default;
 $button__border                                 : none !default;
 $button__border-radius                          : 0 !default;
 $button__outline                                : $outline-base !default;
@@ -28,6 +29,7 @@ $button__before-transform-origin                : 0 50% !default;
 
 // before hover
 $button__before-transform-hover                 : scaleX(1) !default;
+$button__before-display-hover                   : block !default;
 
 // after used in hover state
 $button__after-display                          : block !default;
@@ -40,6 +42,7 @@ $button__after-transform                        : translateY(-50%) !default;
 $button__after-transform-origin                 : center !default;
 
 // after hover
+$button__after-display-hover                    : block !default;
 $button__after-position-left-hover              : calc(50% - 12px) !default;
 $button__after-opacity-hover                    : 1 !default;
 
@@ -87,11 +90,13 @@ $button__text-color--icon                       : $color-primary !default;
 $button__text-color-hover--icon                 : $white !default;
 $button__font-weight--icon                      : $font-weight-normal !default;
 $button__text-transform--icon                   : none !default;
+$button__background-hover--icon                 : initial !default;
 
 // Button icon light
 $button__icon-fill-hover--icon-light            : $color-primary !default;
 $button__before-background--icon-light          : $gray-light !default;
 $button__text-color-hover--icon-light           : $color-primary !default;
+$button__background-hover--icon-light           : initial !default;
 
 // Button icon border
 $button__border--icon-border                    : $border-width-base $border-style-base $color-primary !default;
@@ -100,6 +105,7 @@ $button__border--icon-border                    : $border-width-base $border-sty
 $button__icon-fill-hover--rotate-icon           : $color-primary !default;
 $button__transform-hover--rotate-icon           : rotate(180deg) !default;
 $button__before-background--rotate-icon         : $gray-light !default;
+$button__background-hover--rotate-icon          : initial !default;
 
 // Button add-to
 // icon & text
@@ -111,7 +117,7 @@ $button__before-display--add-to                 : block !default;
 $button__after-content-icon--add-to             : url("../images/icons/plus-light.svg") !default;
 $button__after-position-left--add-to            : calc(50% - 12px) !default;
 $button__after-position-top--add-to             : auto !default;
-$button__after-transform--add-to                : translateY(-150%) !default;
+$button__after-transform--add-to                : translateX(-150%) !default;
 $button__after-transform-hover--add-to          : translateY(0) !default;
 $button__after-content-text--add-to             : url("../images/icons/shopping-cart-light.svg") !default;
 
@@ -128,3 +134,36 @@ $button__icon-after-z-index--icon-fill          : -1 !default;
 $button__icon-after-oapcity--icon-fill          : 1 !default;
 $button__icon-fill-hover--icon-fill             : $color-primary !default;
 $button__before-background--icon-fill           : transparent !default;
+$button__background-hover--icon-fill            : initial !default;
+
+%button-before:before {
+    content: $button__before-content;
+    display: $button__before-display;
+    position: absolute;
+    width: $button__before-width;
+    left: $button__before-position-left;
+    top: $button__before-position-top;
+    bottom: $button__before-position-bottom;
+    background-color: $button__before-background;
+    transform: $button__before-transform;
+    transform-origin: $button__before-transform-origin;
+    transition: $button__transition;
+    pointer-events: none;
+}
+
+%button-after:after {
+    content: $button__after-content;
+    display: $button__after-display;
+    position: absolute;
+    left: $button__after-position-left;
+    top: $button__after-position-top;
+    width: $button__icon-size;
+    height: $button__icon-size;
+    padding: $icon__padding;
+    z-index: $button__after-z-index;
+    opacity: $button__after-opacity;
+    transform: $button__after-transform;
+    transform-origin: $button__after-transform-origin;
+    transition: $button__transition;
+    pointer-events: none;
+}

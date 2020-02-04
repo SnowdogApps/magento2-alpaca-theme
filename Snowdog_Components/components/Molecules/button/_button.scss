@@ -1,6 +1,9 @@
 @import 'button-variables';
 
 .button {
+    @extend %button-before;
+    @extend %button-after;
+
     position: relative;
     display: inline-flex;
     align-items: center;
@@ -22,49 +25,23 @@
     color: $button__text-color;
 
     cursor: pointer;
+
     text-transform: $button__text-transform;
     text-decoration: $button__text-decoration;
     transform: $button__transform;
     transition: $button__transition;
 
-    &:before {
-        content: $button__before-content;
-        display: $button__before-display;
-        position: absolute;
-        width: $button__before-width;
-        left: $button__before-position-left;
-        top: $button__before-position-top;
-        bottom: $button__before-position-bottom;
-        background-color: $button__before-background;
-        transform: $button__before-transform;
-        transform-origin: $button__before-transform-origin;
-        transition: $button__transition;
-        pointer-events: none;
-    }
-
-    &:after {
-        content: $button__after-content;
-        display: $button__after-display;
-        position: absolute;
-        left: $button__after-position-left;
-        top: $button__after-position-top;
-        width: $button__icon-size;
-        height: $button__icon-size;
-        padding: $icon__padding;
-        z-index: $button__after-z-index;
-        opacity: $button__after-opacity;
-        transform: $button__after-transform;
-        transform-origin: $button__after-transform-origin;
-        transition: $button__transition;
-        pointer-events: none;
-    }
-
     &:hover {
+        background-color: $button__background-hover;
         text-decoration: $button__text-decoration-hover;
+
         &:before {
+            display: $button__before-display-hover;
             transform: $button__before-transform-hover;
         }
+
         &:after {
+            display: $button__after-display-hover;
             left: $button__after-position-left-hover;
             opacity: $button__after-opacity-hover;
         }
@@ -164,6 +141,7 @@
         }
 
         &:hover {
+            background-color: $button__background-hover--icon;
             &:after {
                 display: none;
             }
@@ -182,6 +160,7 @@
             background-color: $button__before-background--icon-light;
         }
         &:hover {
+            background-color: $button__background-hover--icon-light;
             .icon,
             .button__icon {
                 fill: $button__icon-fill-hover--icon-light;
@@ -201,7 +180,7 @@
             background-color: $button__before-background--rotate-icon;
         }
         &:hover {
-
+            background-color: $button__background-hover--rotate-icon;
             &:after {
                 display: none;
             }
@@ -224,6 +203,7 @@
 
         &:hover {
             @include button-fill-bg();
+            background-color: $button__background-hover--icon-fill;
         }
     }
 
@@ -258,4 +238,8 @@
             }
         }
     }
+}
+
+button {
+    @extend .button;
 }

@@ -1,0 +1,198 @@
+<?php
+/**
+ * @var \Magento\NegotiableQuote\Block\Checkout\Link $block
+ * @see \Magento\NegotiableQuote\Block\Checkout\Link
+ */
+?>
+<form
+    class="
+        form
+        negotiable-quote
+        request
+    "
+    id="negotiable-quote-form"
+>
+    <?php if ($block->isQuoteRequestEnabled()) : ?>
+        <button
+            type="button"
+            data-role="create-negotiable-quote"
+            aria-label="<?= $block->escapeHtmlAttr(__('Request a Quote')) ?>"
+            class="
+                button
+                button--secondary
+                button--fluid
+                action
+            "
+            <?= (!$block->isQuoteRequestAllowed() ? 'disabled' : '') ?>
+        >
+            <?= $block->escapeHtml(__('Request a Quote')) ?>
+        </button>
+        <?php if (!$block->isQuoteRequestAllowed()) : ?>
+            <div class="message-info message info">
+                <?= $block->escapeHtml($block->getDisallowMessage()) ?>
+            </div>
+        <?php endif; ?>
+    <?php endif; ?>
+</form>
+<div
+    id="negotiable-quote-popup"
+    data-mage-init='{
+        "Magento_NegotiableQuote/js/create-negotiable-quote": {
+            "moveUrl": "<?= $block->escapeUrl($block->getCreateNegotiableQuoteUrl()) ?>",
+            "url": "<?= $block->escapeUrl($block->getCheckQuoteDiscountsUrl()) ?>"
+        }
+    }'
+    data-role="negotiable-quote-popup"
+    class="
+        modal-container
+        display-none
+    "
+>
+    <div
+        class="
+            negotiable-quote-errors
+            messages
+            messages--hidden-icons
+        "
+    >
+        <div
+            class="
+                message
+                message--error
+                display-none
+            "
+            data-role="error-wrap"
+            aria-live="polite"
+        ></div>
+    </div>
+
+    <form
+        class="form form-quote-popup"
+        id="add-quote-form"
+        method="post"
+        data-action="comment-form"
+        enctype="multipart/form-data"
+        data-mage-init='{
+            "validation": {
+                "errorClass": "mage-error"
+            }
+        }'
+    >
+        <fieldset class="fieldset info">
+            <div
+                class="
+                    input
+                    quote-message
+                    required
+                "
+            >
+                <label
+                    class="input__label"
+                    for="quote-message"
+                >
+                    <?= $block->escapeHtml(__('Add your comment')) ?>
+                </label>
+                <textarea
+                    name="quote-message"
+                    id="quote-message"
+                    rows="4"
+                    class="
+                        input__field
+                        input__field--textarea
+                    "
+                    data-validate="{required:true}"
+                ></textarea>
+            </div>
+            <div
+                class="
+                    input
+                    quote-name
+                    required
+                "
+            >
+                <label
+                    class="input__label"
+                    for="quote-name"
+                >
+                    <?= $block->escapeHtml(__('Quote name')) ?>
+                </label>
+                <input
+                    type="text"
+                    name="quote-name"
+                    id="quote-name"
+                    value=""
+                    aria-label="<?= $block->escapeHtmlAttr(__('Quote name')) ?>"
+                    class="input__field"
+                    data-validate="{required:true}"
+                />
+            </div>
+            <div
+                class="
+                    file-upload
+                    file-upload--native
+                    quote-attach-file
+                "
+                data-role="attach-wrapper"
+            >
+                <div
+                    data-mage-init='{
+                        "Magento_NegotiableQuote/js/quote/add-files": {
+                            "maxSizeB" : "<?= $block->escapeJs($block->getMaxFileSize()) ?>",
+                            "maxSizeMb" : "<?= $block->escapeJs($block->getMaxFileSizeMb()) ?>",
+                            "extensions" : "<?= $block->escapeJs($block->getAllowedExtensions()) ?>"
+                        }
+                    }'
+                    class="file-upload__wrapper"
+                    data-role="send-files"
+                >
+                    <label
+                        tabindex="0"
+                        data-mage-init='{
+                            "Magento_NegotiableQuote/js/quote/add-file": {}
+                        }'
+                        for="add-file-0"
+                    >
+                        <input
+                            name="files[0]"
+                            data-role="add-file"
+                            id="add-file-0"
+                            type="file"
+                        />
+                        <?= $block->escapeHtml(__('Attach file')) ?>
+                    </label>
+                </div>
+                <div class="file-upload__attachments" data-role="added-files"></div>
+                <div class="file-upload__attachments" data-role="history-added-files"></div>
+            </div>
+        </fieldset>
+        <div class="modal__bottom-actions">
+            <div class="modal__bottom-action">
+                <button
+                    class="
+                        button
+                        button--secondary
+                        cancel-quote-request
+                        action
+                    "
+                    title="<?= $block->escapeHtmlAttr(__('Cancel')) ?>"
+                >
+                    <?= $block->escapeHtml(__('Cancel')) ?>
+                </button>
+            </div>
+            <div class="modal__bottom-action">
+                <button
+                    type="submit"
+                    class="
+                        button
+                        action
+                        save
+                    "
+                    data-action="save-quote"
+                    title="<?= $block->escapeHtmlAttr(__('Send Request')) ?>"
+                >
+                    <?= $block->escapeHtml(__('Send Request')) ?>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -2,16 +2,17 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
-### Added
 ### Changed
 - checkbox, header, contact-bar, cookie-message (#61954)
 
+### Added
+- missing checkout templates (#58948)
+- email templates (#58951)
+- page builder styles (#56135)
+- quote flow (#58953)
+
 ### Fixed
-### Removed
-### Deprecated
-### Security
-
-
+- native selects (#63244)
 
 ## [0.9.0] - 2019-12-09
 - theme and components - initial working version

@@ -34,14 +34,17 @@ use Magento\Framework\App\Action\Action;
         <ul class="list">
             <?php foreach ($_productCollection as $_product): ?>
                 <li class="product-list-item">
-                    <?php $productImage = $block->getImage($_product, $imageDisplayArea) ?>
+                    <?php
+                        $productImage = $block->getImage($_product, $imageDisplayArea);
+                        $productName = $_product['name'];
+                    ?>
                     <a
                         href="<?= $block->escapeUrl($block->getProductUrl($_product)) ?>"
                         class="
                             link
                             product-list-item__image-link
                         "
-                        title="<?= $block->escapeHtmlAttr($_product['name']) ?>"
+                        title="<?= $block->escapeHtmlAttr($productName) ?>"
                     >
                         <?= $productImage->toHtml() ?>
 
@@ -90,9 +93,9 @@ use Magento\Framework\App\Action\Action;
                                         link
                                         product-list-item__name-link
                                     "
-                                    title="<?= $block->escapeHtmlAttr($_product['name']) ?>"
+                                    title="<?= $block->escapeHtmlAttr($productName) ?>"
                                 >
-                                    <?= $_product['name'] ?>
+                                    <?= $productName; ?>
                                 </a>
                             </h2>
 
@@ -204,7 +207,10 @@ use Magento\Framework\App\Action\Action;
     <?php else: ?>
         <ul class="catalog-grid">
             <?php foreach ($_productCollection as $_product): ?>
-                <?php $productImage = $block->getImage($_product, $imageDisplayArea) ?>
+                <?php
+                    $productImage = $block->getImage($_product, $imageDisplayArea);
+                    $productName = $_product['name'];
+                ?>
                 <li
                     class="product-grid-item"
                     data-container="product-grid"
@@ -265,7 +271,12 @@ use Magento\Framework\App\Action\Action;
                                 href="<?= $block->escapeUrl($block->getProductUrl($_product)) ?>"
                                 class="product-grid-item__name-link"
                             >
-                                <?= $_product['name'] ?>
+                                <?php
+                                    if (strlen($productName) > 42) {
+                                        $productName = substr($productName, 0, 42) . '...';
+                                    }
+                                ?>
+                                <?= $productName; ?>
                             </a>
                         </div>
                         <div class="product-grid-item__details-bottom">
