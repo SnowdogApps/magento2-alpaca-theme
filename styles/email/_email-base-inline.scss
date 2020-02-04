@@ -1,0 +1,254 @@
+//  email-inline.scss
+//  Since email client support for CSS in <style> tags is limited, the majority of styles should be added as "inline"
+//  styles. CSS will be applied to transactional email HTML via the Emogrifier library, which only has support for
+//  certain CSS selectors (source: https://github.com/jjriv/emogrifier#supported-css-selectors):
+//
+//  Supported selectors (examples in parenthesis):
+//      * ID (#logo)
+//      * class (.logo)
+//      * type (h1)
+//      * descendant (.logo > a)
+//      * child (.logo a)
+//      * adjacent (.logo + .second-example)
+//      * attribute presence (a[title])
+//      * attribute value (a[title="example"])
+//      * attribute only ([title="example"])
+//
+//  Unsupported selectors (examples in parenthesis):
+//      * first-child (div:first-child)
+//      * last-child (div:last-child)
+//      * nth-child (div:nth-child(3n+1))
+//      * universal (*)
+//      * pseudo (a:hover, a:active, a:focus, span:before, span:after, etc)
+
+//
+//  Resets
+//  ---------------------------------------------
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+img {
+    height: auto;
+    width: 100%;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    border-bottom: $border-base;
+}
+
+th,
+td {
+    padding: $spacer;
+    font-size: $font-size-base;
+}
+
+dl {
+    margin: 0;
+}
+
+dd {
+    margin: 0;
+}
+
+//
+//  Typography
+//  ---------------------------------------------
+
+body {
+    font-family: $body__font-family;
+    text-align: $body__text-align;
+    color: $body__color;
+}
+
+a {
+    color: $link__color;
+    text-decoration: $link__text-decoration;
+}
+
+p {
+    line-height: $paragraph__line-height;
+    font-size: $paragraph__font-size;
+    margin: $paragraph__margin;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: $heading__font-family;
+    font-weight: $heading__font-weight;
+    margin: $heading__margin;
+}
+
+em {
+    font-style: normal;
+}
+
+
+//
+//  Layout
+//  ---------------------------------------------
+
+html,
+body {
+    background-color: $body__background-color;
+}
+
+.wrapper {
+    margin: $wrapper__margin;
+}
+
+.wrapper-inner {
+    padding-bottom: $wrapper-inner__padding-bottom;
+    width: $wrapper-inner__width;
+}
+
+.main {
+    margin: $main__margin;
+    text-align: $main__text-align; // Necessary to prevent all text from centering in Outlook 2003
+    max-width: $main__max-width;
+}
+
+.header {
+    padding: $header__padding;
+}
+
+.main-content {
+    background-color: $main-content__background;
+    padding: $main-content__padding;
+}
+
+.footer {
+    padding: $footer__padding;
+}
+
+//
+//  Logo
+//  ---------------------------------------------
+
+.logo {
+    display: block;
+    width: $logo__width;
+}
+
+//
+//  Button
+//  ---------------------------------------------
+
+.button {
+    .inner-wrapper {
+        td {
+            a {
+                padding: $button__padding;
+                background: $button__background;
+                border-radius: $button__border-radius;
+                text-decoration: $button__text-decoration;
+                font-size: $button__font-size;
+                color: $button__color;
+            }
+        }
+    }
+}
+
+//
+//  Messages
+//  ---------------------------------------------
+
+.message-info,
+.message-gift {
+    width: 100%;
+}
+
+.message-details {
+    margin-bottom: $spacer;
+}
+
+//
+//  E-mail information
+//  ---------------------------------------------
+
+.email-information {
+    .order-details {
+        margin-bottom: $spacer--medium;
+
+        .method-info,
+        .address-details {
+            width: 50%;
+            padding-bottom: $spacer--medium;
+
+            h3 {
+                font-size: $font-size-extra-large;
+            }
+        }
+    }
+
+    .order-totals {
+        background-color: $gray-lightest;
+
+        td {
+            text-align: right;
+        }
+    }
+}
+
+//
+//  E-mail summary
+//  ---------------------------------------------
+
+.email-summary {
+    h1 {
+        padding: 0 0 $spacer 0;
+        margin: 0 0 $spacer 0;
+        border-bottom: $border-base;
+    }
+}
+
+//
+//  E-mail items
+//  ---------------------------------------------
+
+.email-items {
+    .item-info {
+        width: 50%;
+    }
+
+    .item-qty {
+        width: 25%;
+        text-align: center;
+    }
+
+    .item-price {
+        width: 25%;
+        text-align: right;
+    }
+
+    .sku {
+        margin: 0;
+    }
+
+    .product-name {
+        margin: 0;
+        font-weight: $font-weight-bold;
+    }
+
+    .item-options {
+        margin: 0;
+        font-size: $font-size-small;
+        font-style: italic;
+        color: $gray-dark;
+
+        dd {
+            padding-bottom: 0;
+        }
+    }
+}
