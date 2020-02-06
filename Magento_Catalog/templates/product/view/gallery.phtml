@@ -7,6 +7,19 @@
 ?>
 
 <?php
+$images = $block->getGalleryImages()->getItems();
+$mainImage = current(array_filter($images, function ($img) use ($block) {
+    return $block->isMainImage($img);
+}));
+
+if (!empty($images) && empty($mainImage)) {
+    $mainImage = $block->getGalleryImages()->getFirstItem();
+}
+
+$helper = $block->getData('imageHelper');
+$mainImageData = $mainImage ?
+    $mainImage->getData('medium_image_url') :
+    $helper->getDefaultPlaceholderUrl('image');
 $imageWidth = $block->getImageAttribute('product_page_image_medium', 'width');
 $imageHeight = $block->getImageAttribute('product_page_image_medium', 'height');
 ?>
@@ -18,15 +31,20 @@ $imageHeight = $block->getImageAttribute('product_page_image_medium', 'height');
 >
     <div
         data-role="loader"
+        class="loader loader--visible"
         aria-live="polite"
         aria-label="<?= $block->escapeHtmlAttr(__('Do not refresh the page')); ?>"
-        class="loader loader--visible"
         style="padding-bottom: <?= $imageHeight / $imageWidth * 100 ?>%"
     >
         <div class="loader__icon"></div>
+        <img
+            alt="<?= $mainImage ? $block->escapeHtmlAttr($mainImage->getData('label')) : 'placeholder'; ?>"
+            class="gallery__placeholder-image lazyload"
+            data-src="<?= /* @noEscape */ $mainImageData ?>"
+            src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAABCAQAAABN/Pf1AAAAC0lEQVR42mNkwAIAACoAAgu1Hc4AAAAASUVORK5CYII&#x3D;"
+        />
     </div>
 </div>
-
 <script type="text/x-magento-init">
     {
         "[data-gallery-role=gallery-placeholder]": {
