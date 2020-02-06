@@ -1,9 +1,10 @@
 module.exports = {
   context: {
     class: 'margin-vc-m',
-    sidebarClass: 'dashboard__sidebar margin-top-sl',
-    contentClass: 'dashboard__content margin-top-sl',
+    sidebarClass: 'dashboard__sidebar col-xs-12 col-lg-3',
+    contentClass: 'dashboard__content col-xs-12 col-lg-9 button-extend',
     breadcrumbs: {
+      class: 'container',
       categories: [
         {
           name: 'Home',
