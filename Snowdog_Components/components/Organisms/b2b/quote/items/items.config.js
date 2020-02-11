@@ -229,7 +229,7 @@ module.exports = {
               childTags: [
                 {
                   childTag: 'td',
-                  content: '<button>Update</button>',
+                  content: '<button type="button">Update</button>',
                   childTagAttributes: 'colspan=\'100\' role="gridcell"'
                 }
               ]
