@@ -1,4 +1,4 @@
-image: circleci/php:7.1-stretch-node
+image: circleci/php:7.2-stretch-node
 
 stages:
   - test
@@ -8,6 +8,10 @@ variables:
   NOW_PROJECT: $CI_PROJECT_NAME
 
 frontools:
+  cache:
+    key: "$CI_PROJECT_PATH_SLUG-$CI_COMMIT_REF_SLUG"
+    paths:
+      - vendor
   stage: test
   variables:
     THEME_PATH: "vendor/snowdog/theme-frontend-colibri"
@@ -28,7 +32,7 @@ frontools:
   script:
     - yarn inheritance --theme colibri
     - yarn sasslint --theme colibri --ci
-    - yarn styles --theme colibri --ci --pipeline --prod
+    - yarn styles --theme colibri --ci --pipeline
     - yarn csslint --theme colibri --ci
 
 components:
