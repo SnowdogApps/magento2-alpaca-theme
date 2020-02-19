@@ -1,0 +1,72 @@
+<?php
+/** @var $block \Magento\NegotiableQuote\Block\Quote\Info\Links */
+?>
+<div
+    class="
+        dashboard-actions-toolbar
+        dashboard-actions-toolbar--last-to-right
+        margin-bottom-xl
+    "
+>
+    <?php if ($block->isAllowedManage()): ?>
+        <button
+            data-post='<?= $block->getCloseParams() ?>'
+            title="<?= $block->escapeHtmlAttr(__('Close quote')) ?>"
+            class="
+                button
+                button--secondary
+                dashboard-actions-toolbar__item
+                action
+                close
+            "
+            type="button"
+            <?= $block->isCloseAvailable() ? '' : 'disabled' ?>
+            data-mobile-label="<?= $block->escapeHtmlAttr(__('Close quote')) ?>"
+        >
+            <?= $block->escapeHtml(__('Close quote')) ?>
+        </button>
+        <button
+            class="
+                button
+                button--secondary
+                dashboard-actions-toolbar__item
+                action
+                delete
+            "
+            type="button"
+            <?= $block->isDeleteAvailable() ? '' : 'disabled' ?>
+            data-mage-init='{
+                "Magento_NegotiableQuote/js/negotiable-quote": {
+                    "deleteLinkSelector": "#deleteLink"
+                }
+            }'
+            role="delete-quote"
+            data-quote="1"
+            <?= $block->isDeleteAvailable() ? '' : 'tabindex="-1"' ?>
+            data-mobile-label="<?= $block->escapeHtmlAttr(__('Delete')) ?>"
+        >
+            <?= $block->escapeHtml(__('Delete')) ?>
+        </button>
+        <a
+            href="#"
+            id="deleteLink"
+            <?= $block->isDeleteAvailable() ? '' : 'tabindex="-1"' ?>
+            data-post='<?= $block->getDeleteParams() ?>'
+        ></a>
+    <?php endif; ?>
+    <a
+        class="
+            button
+            button--secondary
+            dashboard-actions-toolbar__item
+            action
+            print
+        "
+        type="button"
+        href="<?= $block->escapeUrl($block->getPrintUrl()) ?>"
+        data-mobile-label="<?= $block->escapeHtmlAttr(__('Print')) ?>"
+        target="_blank"
+    >
+        <?= $block->escapeHtml(__('Print')) ?>
+    </a>
+</div>

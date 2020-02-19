@@ -1,0 +1,113 @@
+<div
+    class="
+        quotes-grid-toolbar
+        toolbar
+        toolbar--secondary
+    "
+>
+    <nav
+        class="
+            pager
+            toolbar__pager
+        "
+        if="pages > 1"
+        role="navigation"
+        data-bind='
+            attr: {
+                "aria-label": $t("Pagination navigation")
+            }
+        '
+    >
+        <ul
+            class="pager__list"
+            aria-labelledby="paging-label"
+        >
+            <li
+                class="pager__item"
+                ifnot="isFirst()"
+            >
+                <a
+                    class="
+                        pager__link
+                        pager__link--prev
+                        button
+                        button--icon
+                    "
+                    click="prev"
+                    data-bind='
+                        attr: {
+                            "aria-label": $t("Link to previous page")
+                        }
+                    '
+                >
+                    <svg
+                        class="icon"
+                        role="presentation"
+                        focusable="false"
+                    >
+                        <use data-bind="attr: { 'xlink:href': require.toUrl('images/icons-sprite.svg#arrow-left') }" xlink:href=''></use>
+                    </svg>
+                </a>
+            </li>
+
+            <each args="data: getPages(), as: '$page'">
+                <li
+                    class="pager__item"
+                    click="$parent.setPage.bind($parent)"
+                    ifnot="$page === $parent.current"
+                >
+                    <a class="pager__link page" text="$page" />
+                </li>
+                <li
+                    class="
+                        pager__item
+                        pager__item--current
+                    "
+                    if="$page === $parent.current"
+                >
+                    <span text="$page" />
+                </li>
+            </each>
+
+            <li class="pager__item" ifnot="isLast()">
+                <a
+                    class="
+                        pager__link
+                        pager__link--next
+                        button
+                        button--icon
+                    "
+                    click="next"
+                    data-bind='
+                        attr: {
+                            "aria-label": $t("Link to next page")
+                        }
+                    '
+                >
+                    <svg
+                        class="icon"
+                        role="presentation"
+                        focusable="false"
+                    >
+                        <use data-bind="attr: { 'xlink:href': require.toUrl('images/icons-sprite.svg#arrow-right') }" xlink:href=''></use>
+                    </svg>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    
+    <div class="toolbar__amount">
+        <span class="toolbar__amount-content">
+            <span
+                text="totalRecords + $t(' Item(s)')"
+                if="isFirst() && isLast()"
+            />
+            <span
+                text="$t('Items ') + getFirstNum() + $t(' to ') + getLastNum() + $t(' of ') + totalRecords + $t(' total')"
+                if="pages > 1"
+            />
+        </span>
+    </div>
+
+    <scope args="sizes" render=""/>
+</div>

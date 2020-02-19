@@ -1,8 +1,10 @@
 class QuantityUpdate {
   constructor(element) {
-    this.plus  = element.querySelector('.quantity-update__button--plus');
-    this.minus = element.querySelector('.quantity-update__button--minus');
-    this.input = element.querySelector('.quantity-update__input');
+    this.elem        = element;
+    this.plus        = this.elem.querySelector('.quantity-update__button--plus');
+    this.minus       = this.elem.querySelector('.quantity-update__button--minus');
+    this.input       = this.elem.querySelector('.quantity-update__input');
+    this.activeClass = 'quantity-update--active';
     this.events();
     this.evaluateConditions();
   }
@@ -16,6 +18,12 @@ class QuantityUpdate {
       this.decrement();
       this.evaluateConditions();
     });
+    this.input.addEventListener('focusin', () => {
+      this.elem.classList.add(this.activeClass);
+    });
+    this.input.addEventListener('focusout', () => {
+      this.elem.classList.remove(this.activeClass);
+    })
   }
 
   evaluateConditions() {
@@ -44,5 +52,3 @@ class QuantityUpdate {
 define(() => (config, element) => {
   new QuantityUpdate(element);
 });
-
-

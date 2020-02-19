@@ -7,7 +7,11 @@
 
         <div class="row cart">
             <div class="col-xs-12 col-lg-4 cart__summary">
-                {{ render '@order-summary' }}
+                {{#if quote }}
+                    {{ render '@order-summary--with-quote' }}
+                {{else}}
+                    {{ render '@order-summary' }}
+                {{/if}}
             </div>
 
             <div class="col-xs-12 col-lg-8">
@@ -59,9 +63,10 @@
                     </div>
                 </div>
 
-                <div class="cart-discount">
+                <div class="cart-discount collapsible">
                     <button
-                        class="cart-discount__button"
+                        class="cart-discount__button collapsible__trigger"
+                        aria-expanded="false"
                         {{{ discount.button.attributes }}}
                     >
                         <span class="cart-discount__button-text">
@@ -72,7 +77,7 @@
                     </button>
 
                     <div
-                        class="cart-discount__content"
+                        class="cart-discount__content collapsible__content"
                         {{{ discount.content.attributes }}}
                     >
                         <form>
@@ -90,4 +95,10 @@
 
 {{ render '@footer' }}
 
-<script src="{{static 'cart.js'}}" defer></script>
+<script type="text/javascript">
+const collapsible = document.querySelectorAll('.collapsible');
+
+collapsible.forEach(item => {
+  new Collapsible(item);
+})
+</script>

@@ -1,12 +1,21 @@
-$file-upload__margin        : $spacer--medium !default;
-$file-upload__font-size     : $font-size-base !default;
-$file-upload__button-padding: 0 $spacer--large !default;
+@import 'file-upload-variables';
 
 .file-upload {
     position: relative;
     display: flex;
     flex-wrap: wrap;
     margin-bottom: $file-upload__margin;
+
+    &--native {
+        input {
+            @include visually-hidden();
+        }
+        
+        label {
+            @extend .button;
+            margin: $file-upload__label-margin--native;
+        }
+    }
 
     &__wrapper {
         display: flex;
@@ -46,6 +55,48 @@ $file-upload__button-padding: 0 $spacer--large !default;
 
         @include mq($screen-s) {
             width: auto;
+        }
+    }
+
+    &__attachments {
+        [data-role="attached-item"] {
+            display: flex;
+            align-items: center;
+
+            & > span {
+                @extend .label;
+                margin: $file-upload__attachments-label-margin;
+            }
+        }
+
+        [data-role="delete-button"] {
+            padding: $file-upload__attachments-button-padding;
+            background: $file-upload__attachments-button-background;
+
+            &:after {
+                content: $file-upload__attachments-button-content;
+                left: $file-upload__attachments-button-icon-left;
+                top: $file-upload__attachments-button-icon-top;
+                width: $file-upload__attachments-button-icon-width;
+                height: $file-upload__attachments-button-icon-height;
+                padding: $file-upload__attachments-button-icon-padding;
+                opacity: $file-upload__attachments-button-icon-opacity;
+                transform: $file-upload__attachments-button-icon-transform;
+            }
+
+            &:hover {
+                &:before {
+                    display: none;
+                }
+
+                &:after {
+                    transform: $file-upload__attachments-button-icon-transform--hover;
+                }
+            }
+
+            span {
+                display: none;
+            }
         }
     }
 }

@@ -1,0 +1,38 @@
+<?php
+/** @var \Magento\NegotiableQuote\Block\Quote\Info $block */
+?>
+<ul class="list list--table">
+    <li class="list__item">
+        <span class="list__label">
+            <?= $block->escapeHtml(__('Created:')) ?>
+        </span>
+        <span class="list__value">
+            <date>
+                <?= $block->formatDate($block->getQuote()->getCreatedAt(), \IntlDateFormatter::LONG) ?>
+            </date>
+            (<?= $block->escapeHtml($block->getQuoteOwnerFullName()) ?>)
+        </span>
+    </li>
+    <li class="list__item">
+        <span class="list__label">
+            <?= $block->escapeHtml(__('Expires:')) ?>
+        </span>
+        <span class="list__value">
+            <?php if ($block->isQuoteExpirationDateDisplayed()) : ?>
+                <date>
+                    <?= $block->formatDate($block->getExpirationPeriodTime(), \IntlDateFormatter::LONG); ?>
+                </date>
+            <?php else : ?>
+                <?= $block->escapeHtml(__('Never')) ?>
+            <?php endif; ?>
+        </span>
+    </li>
+    <li class="list__item">
+        <span class="list__label">
+            <?= $block->escapeHtml(__('Sales Rep.:')) ?>
+        </span>
+        <span class="list__value">
+            <?= $block->escapeHtml($block->getSalesRep()) ?>
+        </span>
+    </li>
+</ul>

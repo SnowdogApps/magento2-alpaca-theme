@@ -45,9 +45,10 @@
 
     &__links {
         width: $footer__links-width;
+        padding: $footer__links-padding;
 
         @include mq($screen-l) {
-            padding: $footer__links-padding\@medium;
+            padding: $footer__links-padding\@large;
         }
 
         .dropdown-list {
@@ -59,6 +60,20 @@
 
             &__label {
                 background-color: $footer__links-label-background;
+                color: $footer__links-label-color;
+
+                &:hover,
+                &.focus-visible {
+                    & > .dropdown-list__icon {
+                        fill: $footer__links-dropdown-icon-color-hover;
+                    }
+                }
+
+                &[aria-expanded="true"] {
+                    & > .dropdown-list__icon {
+                        fill: $footer__links-dropdown-icon-color-open;
+                    }
+                }
             }
 
             &__content {
@@ -86,6 +101,7 @@
 
             &__item {
                 width: $footer__links-dropdown-list-item-width;
+                border-bottom: $footer__links-dropdown-list-item-border;
 
                 @include mq($screen-m) {
                     border: none;
@@ -101,6 +117,10 @@
                     border: none;
                 }
             }
+
+            &__icon {
+                fill: $footer__links-dropdown-icon-color;
+            }
         }
 
         .list__item  {
@@ -115,9 +135,16 @@
     }
 
     &__link {
+        display: block;
+        margin: $footer__link-margin;
         font-size: $footer__link-font-size;
+        font-weight: $footer__link-font-weight;
         color: $footer__link-color;
         text-decoration: none;
+
+        @include mq($screen-m) {
+            margin: $footer__link-margin\@medium;
+        }
 
         &:hover {
             color: $footer__link-color-hover;
@@ -198,7 +225,7 @@
 
     &__bottom-bar-handler {
         display: flex;
-        align-items: center;
+        align-items: $footer__bottom-align;
         flex-direction: column;
         min-height: $footer__bottom-min-height;
 
@@ -221,6 +248,7 @@
         order: 2;
         padding: $footer__copywrite-padding;
         text-align: center;
+        color: $footer__copywrite-color;
 
         @include mq($screen-m) {
             order: 1;
@@ -260,6 +288,7 @@
         position: absolute;
         right: $footer__scroll-top-right;
         top: $footer__scroll-top-top;
+        background-color: $footer__scroll-top-bg;
 
         &:before {
             transform: $footer__scroll-top-before-transform;

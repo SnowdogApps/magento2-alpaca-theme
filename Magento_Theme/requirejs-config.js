@@ -26,6 +26,9 @@ var config = {
     mixins: {
       "Magento_Theme/js/view/messages": {
         "Magento_Theme/js/mixins/messages-mixin": true
+      },
+      "Magento_Ui/js/grid/listing": {
+        "Magento_Theme/js/mixins/grid-listing-mixin": true
       }
     }
   },

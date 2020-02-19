@@ -1,0 +1,122 @@
+<?php
+// phpcs:disable Magento2.Security.LanguageConstruct.DirectOutput
+// phpcs:disable Magento2.PHP.ShortEchoSyntax.ShortEchoTag
+
+/** @var $block \Magento\Ui\Block\Wrapper */
+
+//TODO: recently viewed list required - now grid template is used
+?>
+<section
+    class="
+        recently-viewed
+        recently-viewed--grid
+    "
+>
+    <div class="recently-viewed__block">
+        <div
+            class="
+                recently-viewed__heading
+                section__heading
+            "
+        >
+            <h2
+                class="
+                    recently-viewed__title
+                    heading--first-level
+                    margin-0
+                "
+            >
+                <?= __('Recently Viewed') ?>
+            </h2>
+        </div>
+
+        <div
+            class="loader loader--visible"
+            aria-live="polite"
+            aria-label="<?= $block->escapeHtmlAttr(__('Do not refresh the page')) ?>"
+        >
+            <div class="loader__icon"></div>
+        </div>
+
+        <div
+            class="
+                slider
+                slider--products
+                slider--hidden-controls
+            "
+        >
+            <div class="slider__wrapper">
+                <div
+                    class="slider__container"
+                    data-rewind="false"
+                    data-enable-mouse-events="true"
+                >
+                    <div class="slider__navigation">
+                        <button
+                            class="
+                                button
+                                button--icon
+                                slider__prev
+                                button--icon-border
+                            "
+                            type="button"
+                            aria-label="<?= $block->escapeHtmlAttr(__('Previous slide')) ?>"
+                        >
+                            <svg
+                                class="
+                                    icon
+                                    button__icon
+                                    slider__icon
+                                "
+                                role="presentation"
+                                focusable="false"
+                            >
+                                <title><?= __('Previous slide') ?></title>
+                                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#arrow-left')) ?>"></use>
+                            </svg>
+                        </button>
+
+                        <button
+                            class="
+                                button
+                                button--icon
+                                slider__next
+                                button--icon-border
+                            "
+                            type="button"
+                            aria-label="<?= $block->escapeHtmlAttr(__('Next slide')) ?>"
+                        >
+                            <svg
+                                class="
+                                    icon
+                                    button__icon
+                                    slider__icon
+                                "
+                                role="presentation"
+                                focusable="false"
+                            >
+                                <title><?= __('Next slide') ?></title>
+                                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#arrow-right')) ?>"></use>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="slider__handler">
+                        <?= $block->renderApp([
+                            'widget_columns' => [
+                                'displayMode' => 'grid',
+                                'displayAs' => 'slider',
+                                'itemWrapperClasses' => 'slider__item slider__slide-item',
+                                'itemClasses' => 'product-grid-item product-grid-item--slider-item'
+                            ],
+                            'image' => [
+                                'imageCode' => 'recently_viewed_products_grid_content_widget'
+                            ]
+                        ]);
+                        ?>
+                    </div>
+                    <div class="slider__dots"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

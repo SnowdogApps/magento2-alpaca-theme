@@ -25,6 +25,7 @@ function(loryLib) {
         this.slider = slider;
         this.items = this.slider.querySelectorAll('.slider__item').length;
         this.dotsContainer = this.slider.querySelector('.slider__dots');
+        this.tabs = [...document.querySelectorAll('.tab__title')];
 
         this.slider.addEventListener('on.lory.resize', () => {
           this.lorySlider.slideTo(0);
@@ -45,7 +46,36 @@ function(loryLib) {
           }
         });
 
+        this.init();
+
+        if (this.tabs.length) {
+          this.initSliderForTabs();
+        }
+      }
+
+      init() {
         this.lorySlider = loryLib.lory(this.slider, this.config);
+      }
+
+      initSliderForTabs() {
+        const tabSliders = [];
+
+        this.tabs.forEach((tab) => {
+          tabSliders[tab.dataset.tab] = {
+            initialized: false
+          };
+
+          tab.addEventListener('click', () => {
+            const tabId = tab.dataset.tab,
+              tabContent = document.getElementById(tabId),
+              slider = tabContent.querySelector('.slider');
+
+            if (slider && !tabSliders[tabId].initialized) {
+              this.init();
+              tabSliders[tabId].initialized = true;
+            }
+          })
+        })
       }
 
       handleDotEvent(e) {

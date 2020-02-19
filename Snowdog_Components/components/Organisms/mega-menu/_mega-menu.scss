@@ -5,6 +5,8 @@
     position: relative;
     margin: $mega-menu__margin;
     z-index: $mega-menu__z-index;
+    border: $mega-menu__border;
+    border-width: $mega-menu__border-width;
 
     @include mq($mega-menu__breakpoint) {
         display: block;
@@ -64,7 +66,6 @@
             }
 
             .mega-menu__link {
-                background-color: $white;
                 color: $mega-menu__link-color--hover;
                 text-decoration: $mega-menu__link-text-decoration--hover;
                 background-color: $mega-menu__link-background-color--hover;
@@ -142,6 +143,14 @@
                 > .mega-menu__inner-item {
                     > .mega-menu__inner-link {
                         font-weight: $mega-menu__inner-link-font-weight--inline;
+
+                        &:before {
+                            background-color: $mega-menu__inner-link-before-bg-color--inline;
+                        }
+
+                        &:hover {
+                            color: $mega-menu__inner-link-color-hover-inline;
+                        }
                     }
                 }
             }
@@ -158,6 +167,9 @@
                         flex-direction: column;
                         align-items: $mega-menu__inner-link-align-items--images;
                         font-weight: $mega-menu__inner-link-font-weight--images;
+                        &:before {
+                            display: none;
+                        }
                     }
                 }
             }
@@ -182,13 +194,22 @@
                         font-weight: $mega-menu__inner-link-font-weight--children;
                         font-size: $mega-menu__inner-link-font-size--children;
                         color: $mega-menu__inner-link-color--children;
+                        text-transform: $mega-menu__inner-link-text-transform--children;
 
                         &:hover,
                         .focus-visible {
                             color: $mega-menu__inner-link-color-hover--children;
+                            text-decoration: $mega-menu__inner-link-text-decoration-hover--children;
+                            &:before {
+                                display: $mega-menu__inner-link-before-display-hover--children;
+                            }
                         }
                     }
                 }
+            }
+
+            .mega-menu__inner-item--children {
+                padding: $mega-menu__inner-item-padding--children;
             }
         }
     }
@@ -209,6 +230,8 @@
     }
 
     &__inner-link {
+        @extend %button-before;
+        position: relative;
         display: flex;
         align-items: center;
         min-height: $mega-menu__inner-link-min-height;
@@ -218,11 +241,22 @@
         font-weight: $mega-menu__inner-link-font-weight;
         color: $mega-menu__inner-link-color;
         text-decoration: $mega-menu__inner-link-text-decoration;
+        text-transform: $mega-menu__inner-link-text-transform;
+
+        &:before {
+            background-color: $mega-menu__inner-link-before-bg;
+            z-index: -1;
+        }
 
         &:hover,
         .focus-visible {
             text-decoration: $mega-menu__inner-link-text-decoration--hover;
             color: $mega-menu__inner-link-color--hover;
+            font-weight: $mega-menu__inner-link-font-weight--hover;
+            z-index: 100;
+            &:before {
+                transform: $mega-menu__inner-link-before-transform--hover;
+            }
         }
     }
 

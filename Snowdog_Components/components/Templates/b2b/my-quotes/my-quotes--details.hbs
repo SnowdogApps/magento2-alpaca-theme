@@ -1,0 +1,46 @@
+<div class="page-wrapper">
+    {{ render '@header' }}
+    {{ render '@breadcrumbs' breadcrumbs }}
+    <main
+        id="maincontent"
+        class="
+            dashboard
+            container
+            {{ class }}
+        "
+    >
+        <div class="row">
+            <div class="{{ sidebarClass }}">
+                {{ render '@dashboard-nav' }}
+            </div>
+            <div class="{{ contentClass }}">
+
+                {{ render '@heading' heading }}
+
+                {{#if messages }}
+                    <div id="messages">
+                        {{ render '@message' }}
+                    </div>
+                {{/if}}
+
+                <div class="dashboard__handler">
+                    {{ render '@heading' quoteName merge=true }}
+
+                    <span class="dashboard__status">
+                        {{ quoteStatus }}
+                    </span>
+                </div>
+
+                {{ render '@list--table' quoteInfo merge=true }}
+
+                {{ render '@dashboard-actions-toolbar' quoteActions merge=true }}
+
+                {{ render '@tab' quoteTabs }}
+
+                {{ render '@dashboard-items' shipping merge=true }}
+            </div>
+        </div>
+    </main>
+</div>
+
+{{ render '@footer' }}

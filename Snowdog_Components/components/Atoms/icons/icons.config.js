@@ -178,11 +178,6 @@ module.exports = {
         class: 'icons__single-icon'
       },
       {
-        id: 'news',
-        title: 'News',
-        class: 'icons__single-icon'
-      },
-      {
         id: 'no-results',
         title: 'No results',
         class: 'icons__single-icon'
@@ -195,6 +190,11 @@ module.exports = {
       {
         id: 'phone',
         title: 'Phone',
+        class: 'icons__single-icon'
+      },
+      {
+        id: 'pin',
+        title: 'Pin',
         class: 'icons__single-icon'
       },
       {
