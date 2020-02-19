@@ -25,12 +25,12 @@ $_helper = $this->helper(Magento\Catalog\Helper\Output::class);
 
     <?php
     if ($block->getMode() == 'grid') {
-        $viewMode = 'product-grid';
+        $viewMode = 'products-grid';
         $imageDisplayArea = 'category_page_grid';
         $showDescription = false;
         $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
     } else {
-        $viewMode = 'product-list';
+        $viewMode = 'products-list';
         $imageDisplayArea = 'category_page_list';
         $showDescription = true;
         $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::FULL_VIEW;
@@ -40,6 +40,7 @@ $_helper = $this->helper(Magento\Catalog\Helper\Output::class);
      */
     $pos = $block->getPositioned();
     ?>
+
 
     <?php /** @var $_product \Magento\Catalog\Model\Product */ ?>
     <?php if($viewMode === 'product-list'): ?>
@@ -78,7 +79,7 @@ $_helper = $this->helper(Magento\Catalog\Helper\Output::class);
                                         >
                                             <?= $block->escapeHtml($productBadge) ?>
                                         </div>
-                                    <?php endforeach ?>
+                                    <?php endforeach; ?>
                                 <?php else: ?>
                                     <div
                                         class="
@@ -88,9 +89,9 @@ $_helper = $this->helper(Magento\Catalog\Helper\Output::class);
                                     >
                                         <?= $block->escapeHtml($productBadges) ?>
                                     </div>
-                                <?php endif ?>
+                                <?php endif; ?>
                             </div>
-                        <?php endif ?>
+                        <?php endif; ?>
                     </a>
                     <div class="product-list-item__main">
                         <div class="product-list-item__details">
@@ -124,7 +125,7 @@ $_helper = $this->helper(Magento\Catalog\Helper\Output::class);
                                 >
                                     <?= $_product['selling_features_bullets'] ?>
                                 </div>
-                            <?php endif ?>
+                            <?php endif; ?>
                         </div>
 
                         <div class="product-list-item__actions">
@@ -150,7 +151,7 @@ $_helper = $this->helper(Magento\Catalog\Helper\Output::class);
                                 >
                                     <?= __('Out of stock') ?>
                                 </button>
-                            <?php endif ?>
+                            <?php endif; ?>
 
                             <div class="product-list-item__price">
                                 <div class="price">
@@ -209,12 +210,12 @@ $_helper = $this->helper(Magento\Catalog\Helper\Output::class);
 
                                         </button>
                                     </form>
-                                <?php endif ?>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
                 </li>
-            <?php endforeach ?>
+            <?php endforeach; ?>
         </ul>
     <?php else: ?>
         <ul class="catalog-grid">
@@ -252,7 +253,7 @@ $_helper = $this->helper(Magento\Catalog\Helper\Output::class);
                                         >
                                             <?= $block->escapeHtml($productBadge) ?>
                                         </div>
-                                    <?php endforeach ?>
+                                    <?php endforeach; ?>
                                 <?php else: ?>
                                     <div
                                         class="
@@ -262,9 +263,9 @@ $_helper = $this->helper(Magento\Catalog\Helper\Output::class);
                                     >
                                         <?= $block->escapeHtml($productBadges) ?>
                                     </div>
-                                <?php endif ?>
+                                <?php endif; ?>
                             </div>
-                        <?php endif ?>
+                        <?php endif; ?>
                         <div
                             class="product-grid-item__image-wrapper"
                         >
@@ -307,7 +308,7 @@ $_helper = $this->helper(Magento\Catalog\Helper\Output::class);
                                 <div class="product-grid-item__secondary-action">
                                     <?php if ($addToBlock = $block->getChildBlock('addto')): ?>
                                         <?= $addToBlock->setProduct($_product)->getChildHtml() ?>
-                                    <?php endif ?>
+                                    <?php endif; ?>
                                 </div>
 
                                 <?php if ($_product->isSaleable()): ?>
@@ -362,17 +363,19 @@ $_helper = $this->helper(Magento\Catalog\Helper\Output::class);
                                         >
                                             <?= __('Out of stock') ?>
                                         </span>
-                                    <?php endif ?>
-                                <?php endif ?>
+                                    <?php endif; ?>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </section>
                 </li>
-            <?php endforeach ?>
+            <?php endforeach; ?>
         </ul>
-    <?php endif ?>
+    <?php endif; ?>
+
     <?= $block->getToolbarHtml() ?>
-    <?php if (!$block->isRedirectToCartEnabled()) : ?>
+
+    <?php if (!$block->isRedirectToCartEnabled()): ?>
         <script type="text/x-magento-init">
         {
             "[data-role=tocart-form], .form.map.checkout": {
@@ -380,5 +383,5 @@ $_helper = $this->helper(Magento\Catalog\Helper\Output::class);
             }
         }
         </script>
-    <?php endif ?>
-<?php endif ?>
+    <?php endif; ?>
+<?php endif; ?>
