@@ -3,6 +3,14 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Changed
+### Added
+### Fixed
+
+
+## [Released]
+
+## [1.0.0] - 2020-02-19
+### Changed
 - checkbox, header, contact-bar, cookie-message (#61954)
 - update variables + cleanup (#58633)
 
