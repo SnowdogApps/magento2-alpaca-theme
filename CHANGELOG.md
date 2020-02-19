@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Changed
 - checkbox, header, contact-bar, cookie-message (#61954)
+- update variables + cleanup (#58633)
 
 ### Added
 - missing checkout templates (#58948)
