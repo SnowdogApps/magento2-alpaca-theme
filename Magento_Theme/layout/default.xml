@@ -114,31 +114,6 @@
                 </block>
 
                 <block
-                    class="Magento\Newsletter\Block\Subscribe"
-                    name="footer-newsletter"
-                    template="Magento_Newsletter::subscribe.phtml"
-                    ifconfig="newsletter/general/active"
-                >
-                    <block
-                        class="Magento\Cms\Block\Block"
-                        name="newsletter-heading"
-                    >
-                        <arguments>
-                            <argument name="block_id" xsi:type="string">footer-newsletter</argument>
-                        </arguments>
-                    </block>
-
-                    <block
-                        class="Magento\Cms\Block\Block"
-                        name="newsletter-agreement"
-                    >
-                        <arguments>
-                            <argument name="block_id" xsi:type="string">footer-newsletter-terms</argument>
-                        </arguments>
-                    </block>
-                </block>
-
-                <block
                     class="Magento\Framework\View\Element\Template"
                     name="footer-scroll-top"
                     template="Magento_Theme::footer/footer-scroll-top.phtml"
@@ -191,6 +166,26 @@
             htmlClass="footer margin-top-xl"
         />
 
+        <referenceBlock name="form.subscribe">
+            <block
+                class="Magento\Cms\Block\Block"
+                name="newsletter-heading"
+            >
+                <arguments>
+                    <argument name="block_id" xsi:type="string">footer-newsletter</argument>
+                </arguments>
+            </block>
+
+        <block
+            class="Magento\Cms\Block\Block"
+            name="newsletter-agreement"
+        >
+            <arguments>
+                <argument name="block_id" xsi:type="string">footer-newsletter-terms</argument>
+            </arguments>
+        </block>
+        </referenceBlock>
+
         <!-- Move -->
         <move
           element="page.messages"
@@ -208,6 +203,13 @@
             after="header.content"
         />
 
+        <move
+            element="form.subscribe"
+            destination="footer.content"
+            as="footer-newsletter"
+            after="footer-menu"
+        />
+
         <!--Remove broken references for luma theme header.links-->
         <block class="Magento\Framework\View\Element\Html\Links" name="header.links" />
         <referenceBlock name="header.links" remove="true"/>
@@ -219,7 +221,6 @@
         <referenceBlock name="navigation.sections" remove="true" />
         <referenceBlock name="footer_links" remove="true" />
         <referenceBlock name="copyright" remove="true"/>
-        <referenceBlock name="form.subscribe" remove="true" />
 
         <!--Moved blocks-->
         <move element="logo" destination="header.content" />
