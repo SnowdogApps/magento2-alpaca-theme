@@ -1,20 +1,44 @@
-<?php $mergedCells = ($this->helper('Magento\Tax\Helper\Data')->displayCartBothPrices() ? 2 : 1); ?>
-<?= $block->getChildHtml('form_before') ?>
+<?php
+// phpcs:disable Magento2.Templates.ThisInTemplate
 
+/**  @var $block \Magento\Checkout\Block\Cart\Grid */
+?>
+<?php
+$mergedCells = ($this->helper(Magento\Tax\Helper\Data::class)->displayCartBothPrices() ? 2 : 1);
+$cartActionContinue = false;
+$cartActionClear = false;
+$cartActionUpdate = true;
+?>
+<?= $block->getChildHtml('form_before') ?>
 <form
     action="<?= $block->escapeUrl($block->getUrl('checkout/cart/updatePost')) ?>"
     method="post"
     id="form-validate"
-    data-mage-init='{"validation":{}}'
+    data-mage-init='{
+        "Magento_Checkout/js/action/update-shopping-cart": {
+            "validationURL" : "<?= $block->escapeUrl($block->getUrl('checkout/cart/updateItemQty')) ?>",
+            "updateCartActionContainer": "#update_cart_action_container"
+        }
+    }'
     class="form form-cart"
 >
     <?= $block->getBlockHtml('formkey') ?>
+
+    <?php if ($block->getPagerHtml()): ?>
+        <div
+            class="toolbar"
+            data-attribute="cart-products-toolbar-top"
+        >
+            <?= $block->getPagerHtml() ?>
+        </div>
+    <?php endif ?>
+
     <div
         id="shopping-cart-table"
         class="cart-grid"
         data-mage-init='{
             "shoppingCart":{
-                "emptyCartButton": "action.clear",
+                "emptyCartButton": ".action.clear",
                 "updateCartActionContainer": "#update_cart_action_container"
             }
         }'
@@ -61,23 +85,76 @@
             <?= $block->getItemHtml($_item); ?>
         <?php endforeach ?>
 
-        <div class="cart-grid__footer">
-            <button
-                type="submit"
-                name="update_cart_action"
-                data-cart-item-update=""
-                value="update_qty"
-                title="<?= $block->escapeHtmlAttr(__('Update Shopping Cart')) ?>"
-                class="
-                    button
-                    button--secondary
-                    cart-grid__button
-                    margin-top-sm
-                    margin-bottom-l
-                "
+        <?php if ($block->getPagerHtml()): ?>
+            <div
+                class="toolbar"
+                data-attribute="cart-products-toolbar-bottom"
             >
-                <?= __('Update Shopping Cart') ?>
-            </button>
+                <?= $block->getPagerHtml() ?>
+            </div>
+        <?php endif ?>
+
+        <div class="cart-grid__footer">
+            <?php if ($cartActionUpdate): ?>
+                <button
+                    type="submit"
+                    name="update_cart_action"
+                    data-cart-item-update=""
+                    value="update_qty"
+                    title="<?= $block->escapeHtmlAttr(__('Update Shopping Cart')) ?>"
+                    class="
+                        button
+                        button--secondary
+                        cart-grid__button
+                        margin-top-sm
+                        margin-bottom-l
+                        action
+                        update
+                    "
+                >
+                    <?= __('Update Shopping Cart') ?>
+                </button>
+            <?php endif; ?>
+
+            <?php if ($cartActionClear): ?>
+                <button
+                    type="button"
+                    name="update_cart_action"
+                    data-cart-empty=""
+                    value="empty_cart"
+                    title="<?= $block->escapeHtmlAttr(__('Clear Shopping Cart')) ?>"
+                    class="
+                        button
+                        button--secondary
+                        cart-grid__button
+                        margin-top-sm
+                        margin-bottom-l
+                        action
+                        clear
+                    "
+                    id="empty_cart_button"
+                >
+                    <?= __('Clear Shopping Cart') ?>
+                </button>
+            <?php endif; ?>
+
+            <?php if ($cartActionContinue && $block->getContinueShoppingUrl()): ?>
+                <a
+                    class="
+                        button
+                        button--secondary
+                        cart-grid__button
+                        margin-top-sm
+                        margin-bottom-l
+                        action
+                        continue
+                    "
+                    href="<?= $block->escapeUrl($block->getContinueShoppingUrl()) ?>"
+                    title="<?= $block->escapeHtmlAttr(__('Continue Shopping')) ?>"
+                >
+                    <?= $block->escapeHtml(__('Continue Shopping')) ?>
+                </a>
+            <?php endif; ?>
 
             <input
                 type="hidden"
