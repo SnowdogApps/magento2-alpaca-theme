@@ -37,41 +37,32 @@
 
                 <tbody>
                     <?php foreach ($block->getReviews() as $_review): ?>
-                        <?php
-                            $getDetails     = $this->helper('Magento\Review\Helper\Data')
-                                                   ->getDetailHtml($_review->getDetail());
-                            $getProductLink = $block->getProductLink() . 'id/' . $_review->getEntityPkValue();
-                            $getDetailsLink = $block->getReviewLink() . 'id/' . $_review->getReviewId();
-                        ?>
-
                         <tr>
                             <td
                                 data-th="<?= $block->escapeHtmlAttr(__('Created')) ?>"
                                 class="col date"
                             >
-                                <?= $block->dateFormat($_review->getReviewCreatedAt()); ?>
+                                <?= $block->escapeHtml($block->dateFormat($_review->getReviewCreatedAt())) ?>
                             </td>
-
                             <td
                                 data-th="<?= $block->escapeHtmlAttr(__('Product Name')) ?>"
                                 class="col item"
                             >
                                 <strong class="product-name">
                                     <a
-                                        href="<?= $block->escapeUrl($getProductLink) ?>"
+                                        href="<?= $block->escapeUrl($block->getProductUrl($_review)) ?>"
                                         class="link"
                                     >
                                         <?= $block->escapeHtml($_review->getName()) ?>
                                     </a>
                                 </strong>
                             </td>
-
                             <td
                                 data-th="<?= $block->escapeHtmlAttr(__('Rating')) ?>"
                                 class="col summary"
                             >
                                 <?php if ($_review->getSum()): ?>
-                                    <?php $getPercentRating = ($_review->getSum() / $_review->getCount()).'%'; ?>
+                                    <?php $getPercentRating = ((int)$_review->getSum() / (int)$_review->getCount()).'%'; ?>
 
                                     <div class="rating__summary">
                                         <span
@@ -85,23 +76,27 @@
                                     </div>
                                 <?php endif; ?>
                             </td>
-
                             <td
                                 data-th="<?= $block->escapeHtmlAttr(__('Review')) ?>"
                                 class="col description"
                             >
-                                <?= $getDetails; ?>
+                                <?php //phpcs:disable ?>
+                                <?= $this->helper(\Magento\Review\Helper\Data::class)->getDetailHtml($_review->getDetail()) ?>
+                                <?php //phpcs:enable ?>
                             </td>
-
                             <td
                                 data-th="<?= $block->escapeHtmlAttr(__('Actions')) ?>"
                                 class="col actions"
                             >
                                 <a
-                                    href="<?= $block->escapeUrl($getDetailsLink) ?>"
-                                    class="link more"
+                                    href="<?= $block->escapeUrl($block->getReviewUrl($_review)) ?>"
+                                    class="
+                                        link
+                                        action
+                                        more
+                                    "
                                 >
-                                    <?= __('See Details') ?>
+                                    <?= $block->escapeHtml(__('See Details')) ?>
                                 </a>
                             </td>
                         </tr>
