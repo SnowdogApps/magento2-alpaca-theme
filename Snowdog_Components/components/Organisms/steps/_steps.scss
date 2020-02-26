@@ -1,0 +1,125 @@
+.steps {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin: $spacer--large 0;
+
+    &__line {
+        position: absolute;
+        width: 100%;
+        border-bottom: 2px solid $color-primary;
+    }
+
+    &__status {
+        position: absolute;
+        border-bottom: 2px solid $blue;
+
+        &--1 {
+            width: 25%;
+        }
+
+        &--2 {
+            width: 50%;
+        }
+
+        &--3 {
+            width: 75%;
+        }
+
+        &--4 {
+            width: 100%;
+        }
+    }
+
+    &__circle {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 20px;
+        height: 20px;
+        border-radius: 100%;
+        background: $color-primary;
+    }
+
+    &__icon {
+        position: relative;
+    }
+
+    &__list {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        padding: 0;
+        list-style: none;
+    }
+
+    &__label {
+        position: relative;
+        top: 24px;
+    }
+
+    &__item {
+        display: flex;
+        justify-content: center;
+
+        &--completed {
+            .steps__circle {
+                background: $color-primary;
+            }
+
+            .steps__icon {
+                display: inline-block;
+                transform: rotate(45deg);
+                height: 10px;
+                width: 7px;
+                border-bottom: 2px solid $white;
+                border-right: 2px solid $white;
+            }
+        }
+
+        &--failed {
+            .steps__circle {
+                background: $color-error;
+            }
+
+            .steps__icon {
+                width: 12px;
+                height: 12px;
+
+                &:before,
+                &:after {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    margin: 0 auto;
+                    height: 12px;
+                    width: 2px;
+                    background-color: #fff;
+                }
+
+                &:before {
+                    transform: rotate(45deg);
+                }
+
+                &:after {
+                    transform: rotate(-45deg);
+                }
+            }
+        }
+
+        &--checked {
+            .steps__circle {
+                width: 25px;
+                height: 25px;
+            }
+        }
+
+        &--disabled {
+            .steps__circle {
+                background: $gray;
+            }
+        }
+    }
+}

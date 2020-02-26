@@ -1,0 +1,163 @@
+$progress-bar__width\@medium                                  : 80% !default;
+$progress-bar__margin\@medium                                 : $spacer--extra-large auto $spacer--large !default;
+$progress-bar__padding\@medium                                : 0 !default;
+$progress-bar__font-size\@medium                              : 0 !default;
+
+$progress-bar__item-width                                     : 50% !default;
+$progress-bar__item-text-align                                : center !default;
+$progress-bar__item-vertical-align                            : top !default;
+$progress-bar__item-font-size                                 : $font-size-large !default;
+
+$progress-bar__item-background--before                        : $gray-light !default;
+$progress-bar__item-height--before                            : 2px !default;
+$progress-bar__item-width--before                             : 100% !default;
+$progress-bar__item-left--before                              : 0 !default;
+
+$progress-bar__item-border-radius--first-child                : $spacer 0 0 $spacer !default;
+$progress-bar__item-border-radius--before                     : 0 $spacer $spacer 0 !default;
+
+$progress-bar__item-background--active                        : $color-primary !default;
+$progress-bar__line-color--active                             : $gray-darkest !default;
+$progress-bar__line-background--active                        : $color-primary !default;
+
+$progress-bar__line-color--complete                           : $gray-darkest !default;
+
+$progress-bar__line-padding                                   : 60px 0 $spacer--extra-large !default;
+$progress-bar__line-width                                     : 100% !default;
+$progress-bar__line-word-wrap                                 : break-word !default;
+$progress-bar__line-color                                     : $gray-light !default;
+$progress-bar__line-font-weight                               : $font-weight-normal !default;
+$progress-bar__line-font-size                                 : $font-size-base !default;
+
+$progress-bar__line-top--before                               : 0 !default;
+$progress-bar__line-left--before                              : 50% !default;
+$progress-bar__line-background--before                        : $gray-light !default;
+$progress-bar__line-border-radius--before                     : 50% !default;
+$progress-bar__line-background--after: $white;
+
+$progress-bar__label-margin                                   : 0 !default;
+
+$checkout-progress-bar-item-element__size                     : $spacer--large !default;
+$checkout-progress-bar-item-element-outer-radius__width       : 2px !default;
+$checkout-progress-bar-item-element-inner__width              : $checkout-progress-bar-item-element__size - ($checkout-progress-bar-item-element-outer-radius__width * 2) !default;
+$checkout-progress-bar-item-element-inner__height             : $checkout-progress-bar-item-element-inner__width !default;
+$checkout-progress-bar-item-element-inner__active__line-height: 1 !default;
+
+.progress-bar {
+    display: none;
+
+    @include mq($screen-m) {
+        display: block;
+        width: $progress-bar__width\@medium;
+        margin: $progress-bar__margin\@medium;
+        padding: $progress-bar__padding\@medium;
+        counter-reset: i;
+        font-size: $progress-bar__font-size\@medium;
+    }
+
+    &__item {
+        display: inline-block;
+        position: relative;
+        width: $progress-bar__item-width;
+        text-align: $progress-bar__item-text-align;
+        vertical-align: $progress-bar__item-vertical-align;
+        font-size: $progress-bar__item-font-size;
+
+        &:before {
+            content: '';
+            position: absolute;
+            top: $checkout-progress-bar-item-element__size / 2;
+            left: $progress-bar__item-left--before;
+            background: $progress-bar__item-background--before;
+            height: $progress-bar__item-height--before;
+            width: $progress-bar__item-width--before;
+        }
+
+        &:first-child {
+            .progress-bar__label {
+                transform: translateX(50%);
+            }
+
+            &:before {
+                border-radius: $progress-bar__item-border-radius--first-child;
+            }
+        }
+
+        &:last-child {
+            .progress-bar__label {
+                transform: translateX(-50%);
+            }
+
+            &:before {
+                border-radius: $progress-bar__item-border-radius--before;
+            }
+        }
+
+        &--active {
+            &:before {
+                background: $progress-bar__item-background--active;
+            }
+
+            .progress-bar__line {
+                color: $progress-bar__line-color--active;
+
+                &:before {
+                    background: $progress-bar__line-background--active;
+                }
+            }
+
+            .progress-bar__label {
+                display: block;
+            }
+        }
+
+        &--complete {
+            cursor: pointer;
+
+            .progress-bar__line {
+                color: $progress-bar__line-color--complete;
+            }
+        }
+    }
+
+    &__line {
+        display: inline-block;
+        padding: $progress-bar__line-padding;
+        width: $progress-bar__line-width;
+        word-wrap: $progress-bar__line-word-wrap;
+        color: $progress-bar__line-color;
+        font-weight: $progress-bar__line-font-weight;
+        font-size: $progress-bar__line-font-size;
+
+        &:before,
+        &:after {
+            content: '';
+            position: absolute;
+            top: $progress-bar__line-top--before;
+            left: $progress-bar__line-left--before;
+            background: $progress-bar__line-background--before;
+            height: $checkout-progress-bar-item-element__size;
+            margin-left: -($checkout-progress-bar-item-element__size / 2);
+            width: $checkout-progress-bar-item-element__size;
+            border-radius: $progress-bar__line-border-radius--before;
+        }
+
+        &:after {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: $progress-bar__line-background--after;
+            height: $checkout-progress-bar-item-element-inner__height;
+            margin-left: (-$checkout-progress-bar-item-element-inner__width / 2);
+            top: $checkout-progress-bar-item-element-outer-radius__width;
+            width: $checkout-progress-bar-item-element-inner__width;
+            content: counter(i);
+            counter-increment: i;
+        }
+    }
+
+    &__label {
+        display: none;
+        margin: $progress-bar__label-margin;
+    }
+}
