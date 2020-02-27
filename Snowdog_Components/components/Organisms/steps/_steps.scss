@@ -1,45 +1,46 @@
+@import 'steps-variables';
+
 .steps {
     position: relative;
     display: flex;
     align-items: center;
-    margin: $spacer--large 0;
+    margin: $steps__margin;
 
     &__line {
         position: absolute;
-        width: 100%;
-        border-bottom: 2px solid $color-primary;
+        width: $steps__line-width;
+        border-bottom: $steps__line-border;
     }
 
     &__status {
         position: absolute;
-        border-bottom: 2px solid $blue;
+        border-bottom: $steps__status-border;
 
         &--1 {
-            width: 25%;
+            width: $steps__status-width--1;
         }
 
         &--2 {
-            width: 50%;
+            width: $steps__status-width--2;
         }
 
-        &--3 {
-            width: 75%;
-        }
-
+        &--3,
         &--4 {
-            width: 100%;
+            width: $steps__status-width--3;
         }
     }
 
     &__circle {
         position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 20px;
-        height: 20px;
-        border-radius: 100%;
-        background: $color-primary;
+        width: $steps__circle-size;
+        height: $steps__circle-size;
+        border-radius: $steps__circle-size;
+        background: $steps__circle-bg;
     }
 
     &__icon {
@@ -49,43 +50,37 @@
     &__list {
         display: flex;
         justify-content: space-between;
-        width: 100%;
-        padding: 0;
+        width: $steps__list-width;
+        padding: $steps__list-padding;
         list-style: none;
-    }
-
-    &__label {
-        position: relative;
-        top: 24px;
     }
 
     &__item {
         display: flex;
         justify-content: center;
+        align-items: center;
+
+        &:after {
+            position: absolute;
+            content: $steps__item-after-content;
+            top: $steps__item-after-top;
+            white-space: $steps__item-after-white-space;
+        }
 
         &--completed {
-            .steps__circle {
-                background: $color-primary;
-            }
-
             .steps__icon {
-                display: inline-block;
-                transform: rotate(45deg);
-                height: 10px;
-                width: 7px;
-                border-bottom: 2px solid $white;
-                border-right: 2px solid $white;
+                @extend %check-icon;
             }
         }
 
         &--failed {
             .steps__circle {
-                background: $color-error;
+                background: $steps__circle-bg--failed;
             }
 
             .steps__icon {
-                width: 12px;
-                height: 12px;
+                width: $steps__icon-size--failed;
+                height: $steps__icon-size--failed;
 
                 &:before,
                 &:after {
@@ -94,9 +89,9 @@
                     left: 0;
                     right: 0;
                     margin: 0 auto;
-                    height: 12px;
-                    width: 2px;
-                    background-color: #fff;
+                    height: $steps__icon-after-height--failed;
+                    width: $steps__icon-after-width--failed;
+                    background: $steps__icon-bg--failed;
                 }
 
                 &:before {
@@ -110,15 +105,23 @@
         }
 
         &--checked {
+            &:before {
+                position: absolute;
+                content: $steps__item-before-content--checked;
+                z-index: $steps__item-before-z-index--checked;
+                color: $steps__item-before-color--checked;
+            }
+
             .steps__circle {
-                width: 25px;
-                height: 25px;
+                width: $steps__circle-size--checked;
+                height: $steps__circle-size--checked;
             }
         }
 
-        &--disabled {
+        &--checked,
+        &--completed {
             .steps__circle {
-                background: $gray;
+                background: $steps__circle-bg--completed;
             }
         }
     }
