@@ -1,20 +1,19 @@
-<form
-    class="newsletter"
-    novalidate
-    action="<?= $block->escapeUrl($block->getFormActionUrl()) ?>"
-    method="post"
-    data-mage-init='{
-        "validation": {
-            "errorClass": "mage-error"
-        }
-    }'
-    id="newsletter-validate-detail"
->
+<div class="newsletter">
     <div class="newsletter__heading">
         <?= $block->getChildHtml('newsletter-heading') ?>
     </div>
-
-    <div>
+    <form
+        class="newsletter__form"
+        novalidate
+        action="<?= $block->escapeUrl($block->getFormActionUrl()) ?>"
+        method="post"
+        data-mage-init='{
+            "validation": {
+                "errorClass": "mage-error"
+            }
+        }'
+        id="newsletter-validate-detail"
+    >
         <div class="newsletter__controls">
             <div class="input newsletter__input">
                 <label
@@ -49,42 +48,44 @@
                 <?= __('Sign Up') ?>
             </button>
         </div>
-        <div class="newsletter__agreements">
-            <div class="checkbox newsletter__checkbox">
-                <input
-                    type="checkbox"
-                    id="newsletterAgrrement"
-                    name="newsletterAgrrement"
-                    class="checkbox__field"
-                    required
-                >
-                <svg
-                    class="
-                        checkbox__icon
-                        checkbox__icon--checked
-                    "
-                    role="presentation"
-                    focusable="false"
-                >
-                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#checked')) ?>"></use>
-                </svg>
-                <svg
-                    class="
-                        checkbox__icon
-                        checkbox__icon--unchecked
-                    "
-                    role="presentation"
-                    focusable="false"
-                >
-                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#unchecked')) ?>"></use>
-                </svg>
-                <label
-                    for="newsletterAgrrement"
-                    class="checkbox__label"
-                >
-                    <?= $block->getChildHtml('newsletter-agreement') ?>
-                </label>
+        <?php if ($block->getChildHtml('newsletter-agreement')) : ?>
+            <div class="newsletter__agreements">
+                <div class="checkbox newsletter__checkbox">
+                    <input
+                        type="checkbox"
+                        id="newsletterAgrrement"
+                        name="newsletterAgrrement"
+                        class="checkbox__field"
+                        required
+                    >
+                    <svg
+                        class="
+                            checkbox__icon
+                            checkbox__icon--checked
+                        "
+                        role="presentation"
+                        focusable="false"
+                    >
+                        <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#checked')) ?>"></use>
+                    </svg>
+                    <svg
+                        class="
+                            checkbox__icon
+                            checkbox__icon--unchecked
+                        "
+                        role="presentation"
+                        focusable="false"
+                    >
+                        <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#unchecked')) ?>"></use>
+                    </svg>
+                    <label
+                        for="newsletterAgrrement"
+                        class="checkbox__label"
+                    >
+                        <?= $block->getChildHtml('newsletter-agreement') ?>
+                    </label>
+                </div>
             </div>
-        </div>
-    </div>
-</form>
+        <?php endif; ?>
+    </form>
+</div>
