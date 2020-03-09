@@ -299,7 +299,6 @@ module.exports = {
                     },
                     {
                       childTag: 'th',
-                      childTagClasses: 'product-view__grouped-col-qty',
                       content: 'Qty',
                       childTagAttributes: 'scope="col" role="columnheader"'
                     }
@@ -321,6 +320,7 @@ module.exports = {
                     },
                     {
                       childTag: 'td',
+                      childTagClasses: 'product-view__grouped-product-qty-td',
                       childTagAttributes: 'data-th="Qty:" role="gridcell"',
                       contentComponent: 'input',
                       contentContext: {
