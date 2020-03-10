@@ -1,5 +1,12 @@
 <?php
+/**
+ * use before-slides as slider_html to get html before slides
+ * use after-slides as slider_html to get html after slides
+ */
+?>
 
+<?php
+$sliderHtml = $block->getSliderHtml();
 $sliderClass = $block->getSliderClass();
 $wrapperClass = $block->getWrapperClass();
 
@@ -24,116 +31,116 @@ $sliderPauseOnFocus = ($sliderPauseOnFocus === 'no') ? 'false' : 'true';
 $sliderPauseOnHover = ($sliderPauseOnHover === 'no') ? 'false' : 'true';
 
 //slider data
-$slidesArray = $block->getSlidesArray();
 $sliderDisplayTitle = $block->getDisplayTitle();
 $sliderTitle = $block->getSliderTitle();
 $sliderTitleClass = $block->getTitleClass();
 $sliderContentBefore = $block->getContentBefore();
 $sliderContentAfter = $block->getContentAfter();
 ?>
-<?php if ($wrapperClass): ?>
-    <div class="<?= $block->escapeHtmlAttr($wrapperClass) ?>">
-<?php endif; ?>
+<?php if ($sliderHtml == 'before-slides'): ?>
+    <?php if ($wrapperClass): ?>
+        <div class="<?= $block->escapeHtmlAttr($wrapperClass) ?>">
+    <?php endif; ?>
 
-<div class="slider <?= $block->escapeHtmlAttr($sliderClass) ?>">
-    <?php if ($sliderDisplayTitle): ?>
-        <div class="slider__heading">
-            <span class="<?= $block->escapeHtmlAttr($sliderTitleClass) ?>">
-                <?= $sliderTitle ?>
-            </span>
-        </div>
-    <?php endif ?>
-
-    <?php if ($sliderContentBefore): ?>
-        <div class="slider__before">
-            <?= $sliderContentBefore ?>
-        </div>
-    <?php endif ?>
-
-    <div
-        class="slider-slick"
-        data-rewind="true"
-        data-enable-mouse-events="true"
-        data-slides-to-scroll="1"
-        data-mage-init='{
-            "slider": {
-                "infinite"       : <?= $sliderInfinite ?>,
-                "centerMode"     : <?= $sliderCenterMode ?>,
-                "dots"           : <?= $sliderDots ?>,
-                "arrows"         : <?= $sliderArrows ?>,
-                "autoplay"       : <?= $sliderAutoplay ?>,
-                "autoplaySpeed"  : <?= $sliderAutoplaySpeed ?>,
-                "pauseOnFocus"   : <?= $sliderPauseOnFocus ?>,
-                "pauseOnHover"   : <?= $sliderPauseOnHover ?>,
-                "dotsClass"      : "slider-slick__dots",
-                "loadedClass"    : "slider-slick__slides--loaded",
-                "elementSlides"  : ".slider-slick__slides",
-                "elementNavPrev" : ".slider-slick__prev",
-                "elementNavNext" : ".slider-slick__next"
-            }
-        }'
-    >
-        <div class="slider-slick__handler">
-            <div class="slider-slick__slides">
-                <?php foreach ($slidesArray as $slide): ?>
-                    <div class="slider-slick__item">
-                        <?= $slide ?>
-                    </div>
-                <?php endforeach ?>
+    <div class="slider <?= $block->escapeHtmlAttr($sliderClass) ?>">
+        <?php if ($sliderDisplayTitle): ?>
+            <div class="slider__heading">
+                <span class="<?= $block->escapeHtmlAttr($sliderTitleClass) ?>">
+                    <?= $sliderTitle ?>
+                </span>
             </div>
-        </div>
+        <?php endif ?>
 
-        <?php if ($sliderArrows === 'true'): ?>
-            <div class="slider-slick__navigation">
-                <div class="slider-slick__arrows">
-                    <button
-                        class="
-                            button
-                            button--icon
-                            slider-slick__nav-button
-                            slider-slick__prev
-                        "
-                        type="button"
-                        aria-label="<?= $block->escapeHtmlAttr(__('Go to previous slide')) ?>"
-                    >
-                        <svg
-                            class="slider-slick__nav-icon"
-                            role="img"
-                        >
-                            <title><?= __('Arrow left') ?></title>
-                            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#arrow-left')); ?>"></use>
-                        </svg>
-                    </button>
-                    <button
-                        class="
-                            button
-                            button--icon
-                            slider-slick__nav-button
-                            slider-slick__next
-                        "
-                        type="button"
-                        aria-label="<?= $block->escapeHtmlAttr(__('Go to next slide')) ?>"
-                    >
-                        <svg
-                            class="slider-slick__nav-icon"
-                            role="img"
-                        >
-                            <title><?= __('Arrow right') ?></title>
-                            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#arrow-right')); ?>"></use>
-                        </svg>
-                    </button>
+        <?php if ($sliderContentBefore): ?>
+            <div class="slider__before">
+                <?= $sliderContentBefore ?>
+            </div>
+        <?php endif ?>
+
+        <div
+            class="slider-slick"
+            data-rewind="true"
+            data-enable-mouse-events="true"
+            data-slides-to-scroll="1"
+            data-mage-init='{
+                "slider": {
+                    "infinite"       : <?= $sliderInfinite ?>,
+                    "centerMode"     : <?= $sliderCenterMode ?>,
+                    "dots"           : <?= $sliderDots ?>,
+                    "arrows"         : <?= $sliderArrows ?>,
+                    "autoplay"       : <?= $sliderAutoplay ?>,
+                    "autoplaySpeed"  : <?= $sliderAutoplaySpeed ?>,
+                    "pauseOnFocus"   : <?= $sliderPauseOnFocus ?>,
+                    "pauseOnHover"   : <?= $sliderPauseOnHover ?>,
+                    "dotsClass"      : "slider-slick__dots",
+                    "loadedClass"    : "slider-slick__slides--loaded",
+                    "elementSlides"  : ".slider-slick__slides",
+                    "elementNavPrev" : ".slider-slick__prev",
+                    "elementNavNext" : ".slider-slick__next"
+                }
+            }'
+        >
+            <div class="slider-slick__handler">
+                <div class="slider-slick__slides">
+
+<?php endif; //before-slides end ?>
+<?php if ($sliderHtml == 'after-slides'): ?>
+
                 </div>
             </div>
-        <?php endif; ?>
-    </div>
 
-    <?php if ($sliderContentAfter): ?>
-        <div class="slider__after">
-            <?= $sliderContentAfter ?>
+            <?php if ($sliderArrows === 'true'): ?>
+                <div class="slider-slick__navigation">
+                    <div class="slider-slick__arrows">
+                        <button
+                            class="
+                                button
+                                button--icon
+                                slider-slick__nav-button
+                                slider-slick__prev
+                            "
+                            type="button"
+                            aria-label="<?= $block->escapeHtmlAttr(__('Go to previous slide')) ?>"
+                        >
+                            <svg
+                                class="slider-slick__nav-icon"
+                                role="img"
+                            >
+                                <title><?= __('Arrow left') ?></title>
+                                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#arrow-left')); ?>"></use>
+                            </svg>
+                        </button>
+                        <button
+                            class="
+                                button
+                                button--icon
+                                slider-slick__nav-button
+                                slider-slick__next
+                            "
+                            type="button"
+                            aria-label="<?= $block->escapeHtmlAttr(__('Go to next slide')) ?>"
+                        >
+                            <svg
+                                class="slider-slick__nav-icon"
+                                role="img"
+                            >
+                                <title><?= __('Arrow right') ?></title>
+                                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#arrow-right')); ?>"></use>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            <?php endif; ?>
         </div>
-    <?php endif ?>
-</div>
 
-<?php if ($wrapperClass): ?>
+        <?php if ($sliderContentAfter): ?>
+            <div class="slider__after">
+                <?= $sliderContentAfter ?>
+            </div>
+        <?php endif ?>
     </div>
-<?php endif; ?>
+
+    <?php if ($wrapperClass): ?>
+        </div>
+    <?php endif; ?>
+<?php endif; //after-slides end ?>
