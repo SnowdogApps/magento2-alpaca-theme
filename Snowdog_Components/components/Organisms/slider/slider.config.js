@@ -1,6 +1,7 @@
 module.exports = {
   context: {
     script: true,
+    class: '',
     attributes: 'data-rewind="true" data-enable-mouse-events="true" data-slides-to-scroll="1"',
     heading: {
       class: '',
@@ -13,19 +14,19 @@ module.exports = {
     },
     iconPrev: {
       tag: 'button',
-      class: 'button--icon-border slider__prev',
+      class: 'button--icon-border slider__nav-button slider__prev',
       icon: {
         id: 'arrow-left',
-        class: 'button__icon slider__icon'
+        class: 'button__icon slider__nav-icon'
       },
       attributes: 'type="button" aria-label="Previous slide"'
     },
     iconNext: {
       tag: 'button',
-      class: 'button--icon-border slider__next',
+      class: 'button--icon-border slider__nav-button slider__next',
       icon: {
         id: 'arrow-right',
-        class: 'button__icon slider__icon'
+        class: 'button__icon slider__nav-icon'
       },
       attributes: 'type="button" aria-label="Next slide"'
     },
