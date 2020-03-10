@@ -299,21 +299,40 @@
         margin: $product-view__customization-margin;
     }
 
-    // grouped product
+    // grouped product, overwrite default table styles
     &__grouped-table {
         margin: $product-view__grouped-table-margin;
         border-width: $product-view__grouped-table-border-width;
+        @include mq($screen-m) {
+            border-width: $product-view__grouped-table-border-width\@medium;
+        }
 
         & th,
         & td {
             border-right: $product-view__grouped-cell-border-right;
+            justify-content: flex-end;
+
+            &.product-view__grouped-product-name-cell {
+                justify-content: space-between;
+                @include mq($screen-m) {
+                    display: table-cell;
+                }
+                &:before {
+                    display: none;
+                }
+            }
         }
 
-        & th {
+        & th,
+        & td:before {
             padding: $product-view__grouped-th-padding;
             font-size: $product-view__grouped-th-font-size;
             font-weight: $product-view__grouped-th-font-weight;
             background-color: $product-view__grouped-th-bg-color;
+            text-align: $product-view__grouped-th-align;
+            @include mq($screen-m) {
+                text-align: $product-view__grouped-th-align\@medium;
+            }
         }
 
         & td {
@@ -323,18 +342,22 @@
     }
 
     &__grouped-product-qty-td {
-        width: 112px;
-        padding-left: $spacer--medium;
+        padding-left: $product-view__grouped-td-qty-padding;
     }
 
     &__grouped-product-name {
-        font-weight: $font-weight-medium;
+        display: block;
+        font-weight: $product-view__grouped-td-name-font-weight;
+        @include mq($screen-m) {
+            margin: $product-view__grouped-td-name-margin\@medium;
+        }
     }
 
     &__grouped-qty {
+        max-width: $product-view__grouped-qty-field-max-width;
         .input__field {
-            text-align: center;
-            border-color: $gray;
+            text-align: $product-view__grouped-qty-field-align;
+            border-color: $product-view__grouped-qty-field-border-color;
         }
     }
 

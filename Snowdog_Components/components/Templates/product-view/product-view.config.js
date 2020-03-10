@@ -316,6 +316,7 @@ module.exports = {
                     {
                       childTag: 'td',
                       childTagAttributes: 'data-th="Product Name:" role="gridcell"',
+                      childTagClasses: 'product-view__grouped-product-name-cell',
                       content: '<span class="product-view__grouped-product-name">Sprite Yoga Strap 6 foot</span><span>$14.00</span>'
                     },
                     {
@@ -345,12 +346,14 @@ module.exports = {
                   childTags: [
                     {
                       childTag: 'td',
+                      childTagClasses: 'product-view__grouped-product-name-cell',
                       childTagAttributes: 'data-th="Product Name:" role="gridcell"',
                       content: '<span class="product-view__grouped-product-name">Sprite Yoga Strap 8 foot</span><span>$17.00</span>'
                     },
                     {
                       childTag: 'td',
                       childTagAttributes: 'data-th="Qty:" role="gridcell"',
+                      childTagClasses: 'product-view__grouped-product-qty-td',
                       contentComponent: 'input',
                       contentContext: {
                         class: 'product-view__grouped-qty',
@@ -374,12 +377,14 @@ module.exports = {
                   childTags: [
                     {
                       childTag: 'td',
+                      childTagClasses: 'product-view__grouped-product-name-cell',
                       childTagAttributes: 'data-th="Product Name:" role="gridcell"',
                       content: '<span class="product-view__grouped-product-name">Sprite Yoga Strap 10 foot</span><span>$21.00</span>'
                     },
                     {
                       childTag: 'td',
                       childTagAttributes: 'data-th="Qty:" role="gridcell"',
+                      childTagClasses: 'product-view__grouped-product-qty-td',
                       contentComponent: 'input',
                       contentContext: {
                         class: 'product-view__grouped-qty',
