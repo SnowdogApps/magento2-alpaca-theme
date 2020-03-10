@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Changed
 ### Added
+- grouped product options with styles (#64633)
+
 ### Fixed
 
 
