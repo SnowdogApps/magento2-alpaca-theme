@@ -2,9 +2,11 @@
 
 .product-view {
     padding: $product-view__padding;
-    @include mq($screen-m) {
-        padding: $product-view__padding\@medium;
+
+    @include mq($screen-xl) {
+        padding: $product-view__padding\@xl;
     }
+
     &__wrapper {
         margin: $product-view__wrapper-margin;
         max-width: $product-view__wrapper-max-width;
@@ -95,23 +97,22 @@
     }
 
     &__stock {
+        min-height: $product-view__stock-min-height;
         font-weight: $product-view__stock-font-weight;
         text-transform: $product-view__stock-text-transform;
         white-space: $product-view__stock-white-space;
         font-size: $product-view__stock-font-size;
         padding: $product-view__stock-padding;
+        text-decoration: $product-view__stock-text-decoration;
 
-        &:before {
-            top: $product-view__stock-top-bg-hover;
-            bottom: $product-view__stock-bottom-bg-hover;
-            background-color: $product-view__stock-bg-hover;
-            z-index: -1;
+        &:before,
+        &:after {
+            display: none;
         }
+
         &:hover {
-            color: $color-primary;
-            &:before {
-                display: block;
-            }
+            color: $product-view__stock-color-hover;
+            text-decoration: $product-view__stock-text-decoration-hover;
         }
 
         @include mq($screen-m) {
@@ -122,7 +123,7 @@
     &__rating {
         display: flex;
         justify-content: space-between;
-        align-items: center;
+        align-items: flex-start;
         padding: $product-view__rating-padding;
         border: $product-view__rating-border;
         border-width: $product-view__rating-border-width;
@@ -310,6 +311,11 @@
 
         @include mq($screen-m) {
             margin: $product-view__tabs-margin\@medium;
+            padding: $product-view__tabs-padding\@medium;
+        }
+
+        @include mq($screen-l) {
+            padding: $product-view__tabs-padding\@large;
         }
 
         .tab__title {
@@ -318,8 +324,12 @@
             text-align: $product-view__tabs-title-text-align;
 
             @include mq($screen-m) {
-                text-align: $product-view__tabs-title-text-align\@medium;
                 padding: $product-view__tabs-title-padding\@medium;
+            }
+
+            @include mq($screen-l) {
+                text-align: $product-view__tabs-title-text-align\@large;
+                padding: $product-view__tabs-title-padding\@large;
             }
         }
     }
