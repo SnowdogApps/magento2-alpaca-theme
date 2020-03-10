@@ -4,9 +4,10 @@ $_product = $block->getProduct();
 $shippingLatencyHelper = $this->helper('Snowdog\ShippingLatency\Helper\Data');
 $productQty = $_product->getExtensionAttributes()->getStockItem()->getQty();
 $isShownInStock = (float) ($productQty) > 0 || $_product->getData('display_instock_frontend');
+$shippingLatencyText = $_product->getAttributeText('shipping_latency');
 ?>
 
-<?php if($shippingLatencyHelper && ($isShownInStock || $_product->getAttributeText('shipping_latency'))): ?>
+<?php if($shippingLatencyHelper && ($isShownInStock || $shippingLatencyText)): ?>
     <button
         class="
             button
@@ -21,8 +22,8 @@ $isShownInStock = (float) ($productQty) > 0 || $_product->getData('display_insto
     >
         <?php if ($isShownInStock): ?>
             <?= $block->escapeHtml(__('In stock')) ?>
-        <?php else: ?>
-            <?= $block->escapeHtml($_product->getAttributeText('shipping_latency')); ?>
+        <?php elseif ($shippingLatencyText->getText() !== 'None'): ?>
+            <?= $block->escapeHtml($shippingLatencyText); ?>
         <?php endif; ?>
     </button>
     <div
@@ -43,7 +44,7 @@ $isShownInStock = (float) ($productQty) > 0 || $_product->getData('display_insto
                     <?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('one-day-shipping')->toHtml(); ?>
                 <?php else: ?>
                     <h3 id="shipping-latency-title">
-                        <?= $block->escapeHtml($_product->getAttributeText('shipping_latency')); ?>
+                        <?= $block->escapeHtml($shippingLatencyText); ?>
                     </h3>
                     <?= $shippingLatencyHelper->getProductPopupHtml($_product->getData()); ?>
                 <?php endif ?>
