@@ -1,10 +1,18 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+
 ## [Unreleased]
+### Added
+### Changed
+### Fixed
+
+## [Released]
+
+## [1.1.0] - 2020-03-11
 ### Changed
 - PDP benefits popup moved to CMS (#64572)
-### Added
+### Changed
 - grouped product options with styles (#64633)
 
 ### Fixed
@@ -16,7 +24,6 @@ All notable changes to this project will be documented in this file.
 - layerd navigation - spaceing alignment (#64572)
 - removed double header tag & skip nav link (#64572)
 
-## [Released]
 
 ## [1.0.0] - 2020-02-19
 ### Changed
