@@ -3,9 +3,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Changed
+- PDP benefits popup moved to CMS (#64572)
 ### Added
 ### Fixed
-
+- chekout styles adjustment (#64572)
+- success page styles - spacing and standard header & footer (#64572)
+- layerd navigation - spaceing alignment (#64572)
+- removed double header tag & skip nav link (#64572)
 
 ## [Released]
 
