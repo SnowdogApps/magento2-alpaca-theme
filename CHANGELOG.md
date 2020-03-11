@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 ### Added
 ### Fixed
-
+- contact bar & side menu mobie (#63497)
 
 ## [Released]
 
