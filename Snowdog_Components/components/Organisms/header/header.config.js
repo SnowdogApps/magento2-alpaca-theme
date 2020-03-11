@@ -21,14 +21,7 @@ module.exports = {
       }
     ],
     logo: {
-      class: 'header__logo',
-      logoSVG: true,
-      ariaLabel: 'Home page link',
-      imageAlt: 'Colibri Logo',
-      imageAttributes: '',
-      imageClass: '',
-      imageSrc: '/images/logo/logo.svg',
-      href: '#'
+      class: 'header__logo'
     },
     searchInput: {
       class: 'search-form__input-wrapper margin-0',

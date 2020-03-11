@@ -6,6 +6,7 @@ module.exports = {
     imageAlt: 'Colibri Logo',
     imageAttributes: '',
     imageClass: '',
+    imageSrcSet: '',
     imageSrc: '/images/logo/logo.svg',
     href: '#'
   }
