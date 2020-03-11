@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 - contact bar & side menu mobie (#63497)
 - shipping address in checkout (#63737)
+- product options fixes (#63938)
 
 ## [Released]
 
