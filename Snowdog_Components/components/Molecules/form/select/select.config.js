@@ -34,6 +34,21 @@ module.exports = {
         script: false,
         class: 'select--native'
       }
+    },
+    {
+      name: 'inline',
+      context: {
+        class: 'select--inline'
+      }
+    },
+    {
+      name: 'with-button',
+      context: {
+        class: 'select--with-button',
+        button: {
+          class: 'select__button'
+        }
+      }
     }
   ]
 };
