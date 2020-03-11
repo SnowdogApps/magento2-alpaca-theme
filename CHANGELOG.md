@@ -3,11 +3,16 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Changed
+- PDP benefits popup moved to CMS (#64572)
 ### Added
 ### Fixed
 - contact bar & side menu mobie (#63497)
 - shipping address in checkout (#63737)
 - product options fixes (#63938)
+- chekout styles adjustment (#64572)
+- success page styles - spacing and standard header & footer (#64572)
+- layerd navigation - spaceing alignment (#64572)
+- removed double header tag & skip nav link (#64572)
 
 ## [Released]
 

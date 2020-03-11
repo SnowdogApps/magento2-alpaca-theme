@@ -1,12 +1,14 @@
-$checkout-payment-method-title__border        : $checkout-shipping-method__border !default;
-$checkout-payment-method-title__padding       : $checkout-shipping-method__padding !default;
-$checkout-payment-method-title-mobile__padding: 15px !default;
+$checkout-payment-method-title__border           : $checkout-shipping-method__border !default;
+$checkout-payment-method-title__padding          : $checkout-shipping-method__padding !default;
+$checkout-payment-method-title-mobile__padding   : 15px !default;
 
-$checkout-payment-method-content__padding__xl : 22px !default;
+$checkout-payment-method-content__padding__xl    : 22px !default;
 
-$checkout-billing-address-details__line-height: 27px !default;
-$checkout-billing-address-details__padding    : 0 0 0 23px !default;
-$checkout-billing-address-form__max-width     : $checkout-shipping-address__max-width !default;
+$checkout-billing-address-details__line-height   : 27px !default;
+$checkout-billing-address-details__padding       : 0 0 0 23px !default;
+$checkout-billing-address-form__max-width        : 100% !default;
+$checkout-billing-address-form__max-width\@medium: 70% !default;
+$checkout-billing-address-form__max-width\@large : 496px !default;
 
 .checkout-payment-method {
     .payment-method-content {
@@ -20,6 +22,14 @@ $checkout-billing-address-form__max-width     : $checkout-shipping-address__max-
     .field-select-billing,
     .billing-address-form {
         max-width: $checkout-billing-address-form__max-width;
+        margin: 0 auto;
+        @include mq($screen-m) {
+            max-width: $checkout-billing-address-form__max-width\@medium;
+        }
+        @include mq($screen-l) {
+            margin: 0;
+            max-width: $checkout-billing-address-form__max-width\@large;
+        }
     }
 
     .payment-method-billing-address {
@@ -59,6 +69,26 @@ $checkout-billing-address-form__max-width     : $checkout-shipping-address__max-
     .payments {
         .legend {
             @extend .abs-visually-hidden;
+        }
+    }
+    .actions-toolbar {
+        .amgiftcard-check {
+            .action {
+                width: 100%;
+                margin-bottom: $spacer--medium;
+                @include mq($screen-m) {
+                    margin-bottom: 0;
+                }
+            }
+            @include mq($screen-m) {
+                & + .primary {
+                    max-width: 48%;
+                    .button {
+                        max-width: 100%;
+                    }
+                }
+            }
+
         }
     }
 }

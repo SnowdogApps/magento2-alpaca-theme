@@ -1,6 +1,7 @@
 module.exports = {
   preview: '@checkout',
   context: {
+    title: 'Shwipping Address',
     labels: {
       mail: 'Email Address',
       passwords: 'Password'
