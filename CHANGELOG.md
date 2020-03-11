@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 ### Added
 ### Fixed
-
+- contact bar & side menu mobie (#63497)
 
 ## [Released]
 
@@ -26,7 +26,6 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 - native selects (#63244)
-- contact bar & side menu mobie (#63497)
 
 ## [0.9.0] - 2019-12-09
 - theme and components - initial working version
