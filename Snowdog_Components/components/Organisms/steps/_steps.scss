@@ -1,0 +1,128 @@
+@import 'steps-variables';
+
+.steps {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin: $steps__margin;
+
+    &__line {
+        position: absolute;
+        width: $steps__line-width;
+        border-bottom: $steps__line-border;
+    }
+
+    &__status {
+        position: absolute;
+        border-bottom: $steps__status-border;
+
+        &--1 {
+            width: $steps__status-width--1;
+        }
+
+        &--2 {
+            width: $steps__status-width--2;
+        }
+
+        &--3,
+        &--4 {
+            width: $steps__status-width--3;
+        }
+    }
+
+    &__circle {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: $steps__circle-size;
+        height: $steps__circle-size;
+        border-radius: $steps__circle-size;
+        background: $steps__circle-bg;
+    }
+
+    &__icon {
+        position: relative;
+    }
+
+    &__list {
+        display: flex;
+        justify-content: space-between;
+        width: $steps__list-width;
+        padding: $steps__list-padding;
+        list-style: none;
+    }
+
+    &__item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &:after {
+            position: absolute;
+            content: $steps__item-after-content;
+            top: $steps__item-after-top;
+            white-space: $steps__item-after-white-space;
+        }
+
+        &--completed {
+            .steps__icon {
+                @extend %check-icon;
+            }
+        }
+
+        &--failed {
+            .steps__circle {
+                background: $steps__circle-bg--failed;
+            }
+
+            .steps__icon {
+                width: $steps__icon-size--failed;
+                height: $steps__icon-size--failed;
+
+                &:before,
+                &:after {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    margin: 0 auto;
+                    height: $steps__icon-after-height--failed;
+                    width: $steps__icon-after-width--failed;
+                    background: $steps__icon-bg--failed;
+                }
+
+                &:before {
+                    transform: rotate(45deg);
+                }
+
+                &:after {
+                    transform: rotate(-45deg);
+                }
+            }
+        }
+
+        &--checked {
+            &:before {
+                position: absolute;
+                content: $steps__item-before-content--checked;
+                z-index: $steps__item-before-z-index--checked;
+                color: $steps__item-before-color--checked;
+            }
+
+            .steps__circle {
+                width: $steps__circle-size--checked;
+                height: $steps__circle-size--checked;
+            }
+        }
+
+        &--checked,
+        &--completed {
+            .steps__circle {
+                background: $steps__circle-bg--completed;
+            }
+        }
+    }
+}
