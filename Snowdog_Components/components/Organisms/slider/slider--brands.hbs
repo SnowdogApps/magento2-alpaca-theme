@@ -12,28 +12,30 @@
     {{/if }}
 
     <div class="slider__handler">
-        <div class="slider__slides">
-            {{#each slides }}
-                <div
-                    class="slider__item {{ this.itemClass }}"
-                    {{{ this.itemAttributes }}}
-                >
-                    {{ render (component content) contentContext merge=true}}
-                </div>
-            {{/each}}
+        <div class="slider__container">
+            <div class="slider__slides">
+                {{#each slides }}
+                    <div class="slider__item {{ this.itemClass }}"
+                        {{{ this.itemAttributes }}}
+                    >
+                        {{ render (component content) contentContext merge=true}}
+                    </div>
+                {{/each}}
+            </div>
         </div>
-    </div>
+        <div class="slider__navigation {{ navigationClass }}">
+            <div class="slider__arrows">
+                {{render '@button--icon' iconPrev }}
 
-    <div class="slider__navigation {{ navigationClass }}">
-        <div class="slider__arrows">
-            {{render '@button--icon' iconPrev }}
-
-            {{render '@button--icon' iconNext }}
+                {{render '@button--icon' iconNext }}
+            </div>
         </div>
     </div>
 
     {{#if contentAfter }}
-        <div class="slider__after {{ contentAfter.class }}">
+        <div class="slider__after
+            {{ contentAfter.class }}"
+        >
             {{ render (component contentAfter.content) contentAfter.contentContext merge=true }}
         </div>
     {{/if }}

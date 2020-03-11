@@ -1,8 +1,11 @@
 'use strict'
 $(document).ready(function slickSlider() {
   $('.slider__slides')
+    .not('.slick-initialized')
     .slick({
       dots: false,
+      slidesToShow: 3,
+      slidesToScroll: 3,
       infinite: true,
       centerMode: false,
       mobileFirst: true,
@@ -11,21 +14,14 @@ $(document).ready(function slickSlider() {
       dotsClass: 'slider__dots',
       responsive: [
         {
-          breakpoint: 320,
-          settings: {
-            slidesToShow: 3,
-            slidesToScroll: 3
-          }
-        },
-        {
-          breakpoint: 768,
+          breakpoint: 767,
           settings: {
             slidesToShow: 4,
             slidesToScroll: 4
           }
         },
         {
-          breakpoint: 1024,
+          breakpoint: 1023,
           settings: {
             slidesToShow: 6,
             slidesToScroll: 6,

@@ -1,4 +1,4 @@
-@import "_slider-variables";
+@import "slider-variables";
 
 .slider {
     display: block;
@@ -6,13 +6,6 @@
     width: $slider__width;
     height: auto;
     margin: $slider__margin;
-
-    &--100vw {
-        position: relative;
-        width: 100vw;
-        margin-left: 50%;
-        left: -50vw;
-    }
 
     &__heading {
         display: flex;
@@ -23,9 +16,61 @@
     }
 
     &--products {
+        .slider__heading {
+            margin: $slider__heading-margin--products;
+        }
+
+        .slick-track {
+            display: flex !important; // sass-lint:disable-line no-important
+            align-items: stretch;
+        }
+
         .slider__item {
+            display: flex;
+            align-items: stretch;
             padding: $slider__item-padding--products;
         }
+    }
+
+    &--brands {
+        .slider__item {
+            padding: $slider__item-padding--brands;
+            width: $slider__item-width--brands;
+
+            @include mq($screen-m) {
+                width: $slider__item-width\@medium--brands;
+            }
+
+            @include mq($screen-l) {
+                width: $slider__item-width\@large--brands;
+            }
+
+            @include mq($max-content-width) {
+                width: $slider__item-width\@max-width--brands;
+            }
+        }
+
+        .slider__container {
+            width: $slider__handler-max-width--brands;
+            margin-left: auto;
+            margin-right: auto;
+
+            @include mq($screen-m) {
+                width: $slider__handler-max-width\@medium--brands;
+            }
+
+            @include mq($screen-l) {
+                width: $slider__handler-max-width\@large--brands;
+            }
+
+            @include mq($max-content-width) {
+                width: $slider__handler-max-width\@max-width--brands;
+            }
+        }
+    }
+
+    &__handler {
+        position: relative;
     }
 
     &__slides {
@@ -102,8 +147,8 @@
         display: block;
         position: absolute;
         list-style: none;
-        margin: 0;
-        padding: 0;
+        margin: $slider__dots-margin;
+        padding: $slider__dots-padding;
         text-align: center;
         width: 100%;
         left: 0;
@@ -138,26 +183,22 @@
             width: $slider__dot-size;
             height: $slider__dot-size;
             padding: 0;
-            background: none;
+            background-color: $slider__dot-background-color;
             border: 0;
+            border-radius: 50%;
             text-indent: 100%;
             white-space: nowrap;
             overflow: hidden;
             margin: $slider__dots-margin;
-            margin-right: $slider__dot-margin-right;
+        }
+    }
 
-            &:before {
-                display: block;
-                position: absolute;
-                content: '';
-                width: $slider__dot-size;
-                height: $slider__dot-size;
-                background-color: $slider__dot-background-color;
-                border-radius: 50%;
-                top: 50%;
-                margin-right: -($slider__dot-size / 2);
-                margin-top: -($slider__dot-size / 2);
-            }
+    &--hidden-controls {
+        .slider__navigation,
+        .slider__dots,
+        .slider__dots button,
+        .slider__dots li {
+            display: none;
         }
     }
 

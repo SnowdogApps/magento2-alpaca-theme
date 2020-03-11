@@ -8,7 +8,7 @@ module.exports = {
           content: {
             content: 'slider--default',
             contentContext: {
-              script: false,
+              script: true,
               heading: false
             }
           }
@@ -183,21 +183,22 @@ module.exports = {
     //additionalBanners end
     },
     popularProducts: {
-      heading: {
-        content: 'heading',
-        contentContext: {
-          tag: 'h2',
-          class: 'heading--first-level margin-0',
-          text: 'Popular products'
-        }
-      },
+      heading: false,
       contentClass: 'section__content--products',
       components: [
         {
           content: {
             content: 'slider--products',
             contentContext: {
-              script: false
+              script: true,
+              heading: {
+                content: 'heading',
+                contentContext: {
+                  tag: 'h2',
+                  class: 'heading--first-level margin-0',
+                  text: 'Popular products'
+                }
+              }
             }
           }
         }
@@ -218,21 +219,22 @@ module.exports = {
     //teasers end
     },
     newProducts: {
-      heading: {
-        content: 'heading',
-        contentContext: {
-          tag: 'h2',
-          class: 'heading--first-level margin-0',
-          text: 'New products'
-        }
-      },
+      heading: false,
       contentClass: 'section__content--products',
       components: [
         {
           content: {
             content: 'slider--products',
             contentContext: {
-              script: false
+              script: true,
+              heading: {
+                content: 'heading',
+                contentContext: {
+                  tag: 'h2',
+                  class: 'heading--first-level margin-0',
+                  text: 'New products'
+                }
+              }
             }
           }
         }
@@ -247,6 +249,7 @@ module.exports = {
           content: {
             content: 'slider--brands',
             contentContext: {
+              script: true,
               heading: {
                 content: 'heading',
                 contentContext: {

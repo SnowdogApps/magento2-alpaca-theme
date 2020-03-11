@@ -1,7 +1,11 @@
 'use strict'
 $(document).ready(function slickSlider() {
   $('.slider__slides')
+    .not('.slick-initialized')
     .slick({
+      dots: true,
+      slidesToShow: 2,
+      slidesToScroll: 2,
       infinite: true,
       centerMode: false,
       mobileFirst: true,
@@ -10,15 +14,7 @@ $(document).ready(function slickSlider() {
       dotsClass: 'slider__dots',
       responsive: [
         {
-          breakpoint: 320,
-          settings: {
-            slidesToShow: 2,
-            slidesToScroll: 2,
-            dots: true
-          }
-        },
-        {
-          breakpoint: 768,
+          breakpoint: 767,
           settings: {
             slidesToShow: 3,
             slidesToScroll: 3,
@@ -26,10 +22,11 @@ $(document).ready(function slickSlider() {
           }
         },
         {
-          breakpoint: 1024,
+          breakpoint: 1023,
           settings: {
             slidesToShow: 4,
             slidesToScroll: 4,
+            dots: false
           }
         },
       ]

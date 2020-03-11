@@ -1,6 +1,7 @@
 'use strict'
 $(document).ready(function slickSlider() {
   $('.slider__slides')
+    .not('.slick-initialized')
     .slick({
       dots: false,
       infinite: true,
