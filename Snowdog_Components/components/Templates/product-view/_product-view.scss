@@ -104,6 +104,7 @@
         font-size: $product-view__stock-font-size;
         padding: $product-view__stock-padding;
         text-decoration: $product-view__stock-text-decoration;
+        min-width: $product-view__stock-min-width;
 
         &:before,
         &:after {
@@ -214,6 +215,13 @@
         margin: $product-view__qty-margin;
     }
 
+    &__stock-status {
+        margin: $product-view__stock-status-margin;
+        @include mq($screen-m) {
+            margin: $product-view__stock-status-margin\@medium;
+        }
+    }
+
 
     &__brief {
         margin: $product-view__brief-margin;
@@ -301,10 +309,69 @@
         margin: $product-view__customization-margin;
     }
 
+    // grouped product, overwrite default table styles
     &__grouped-table {
         margin: $product-view__grouped-table-margin;
+        border-width: $product-view__grouped-table-border-width;
+        @include mq($screen-m) {
+            border-width: $product-view__grouped-table-border-width\@medium;
+        }
+
+        & th,
+        & td {
+            border-right: $product-view__grouped-cell-border-right;
+            justify-content: flex-end;
+
+            &.product-view__grouped-product-name-cell {
+                justify-content: space-between;
+                @include mq($screen-m) {
+                    display: table-cell;
+                }
+                &:before {
+                    display: none;
+                }
+            }
+        }
+
+        & th,
+        & td:before {
+            padding: $product-view__grouped-th-padding;
+            font-size: $product-view__grouped-th-font-size;
+            font-weight: $product-view__grouped-th-font-weight;
+            background-color: $product-view__grouped-th-bg-color;
+            text-align: $product-view__grouped-th-align;
+            @include mq($screen-m) {
+                text-align: $product-view__grouped-th-align\@medium;
+            }
+        }
+
+        & td {
+            padding: $product-view__grouped-td-padding;
+            vertical-align: $product-view__grouped-td-vertical-align;
+        }
     }
 
+    &__grouped-product-qty-td {
+        padding-left: $product-view__grouped-td-qty-padding;
+    }
+
+    &__grouped-product-name {
+        display: block;
+        font-weight: $product-view__grouped-td-name-font-weight;
+        @include mq($screen-m) {
+            margin: $product-view__grouped-td-name-margin\@medium;
+        }
+    }
+
+    &__grouped-qty {
+        max-width: $product-view__grouped-qty-field-max-width;
+        .input__field {
+            text-align: $product-view__grouped-qty-field-align;
+            border-color: $product-view__grouped-qty-field-border-color;
+        }
+    }
+
+    // tabs
     &__tabs {
         max-width: $product-view__wrapper-max-width;
         margin: $product-view__tabs-margin;

@@ -1,0 +1,137 @@
+<?php
+/**
+ * Grouped product data template
+ *
+ * @var $block \Magento\Catalog\Block\Product\View\BaseImage
+ * @var $block \Magento\GroupedProduct\Block\Product\View\Type\Grouped
+ */
+?>
+<?php
+$block->setPreconfiguredValue();
+$_product = $block->getProduct();
+$_associatedProducts = $block->getAssociatedProducts();
+$_hasAssociatedProducts = count($_associatedProducts) > 0;
+?>
+<table
+    class="table product-view__grouped-table"
+    id="super-product-table"
+    tabindex="0"
+    role="table"
+    data-mage-init='{ "Magento_GroupedProduct/js/product-ids-resolver": {} }'
+>
+    <caption class="table__caption">
+        <?= $block->escapeHtml(__('Grouped product items')) ?>
+    </caption>
+    <thead>
+        <tr role="row">
+            <th
+                class="product-view__grouped-product-name-th"
+                scope="col"
+                role="columnheader"
+            >
+                <?= $block->escapeHtml(__('Product Name')) ?>
+            </th>
+            <?php if ($_product->isSaleable()) : ?>
+                <th
+                    role="columnheader"
+                    scope="col"
+                >
+                    <?= $block->escapeHtml(__('Qty')) ?>
+                </th>
+            <?php endif; ?>
+        </tr>
+    </thead>
+
+    <?php if ($_hasAssociatedProducts) : ?>
+        <tbody>
+            <?php foreach ($_associatedProducts as $_item) : ?>
+                <tr role="row">
+                    <td
+                        class="product-view__grouped-product-name-cell"
+                        data-th="<?= $block->escapeHtmlAttr(__('Product Name')) ?>"
+                        role="gridcell"
+                    >
+                        <span class="product-view__grouped-product-name">
+                            <?= $block->escapeHtml($_item->getName()) ?>
+                        </span>
+                        <?php if ($block->getCanShowProductPrice($_product)) : ?>
+                            <?php if ($block->getCanShowProductPrice($_item)) : ?>
+                                <?= /* @noEscape */ $block->getProductPrice($_item) ?>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                    </td>
+                <?php if ($_product->isSaleable()) : ?>
+                    <td
+                        data-th="<?= $block->escapeHtmlAttr(__('Qty')) ?>"
+                        class="product-view__grouped-product-qty-td"
+                        role="gridcell"
+                    >
+                        <?php if ($_item->isSaleable()) : ?>
+                            <div class="input product-view__grouped-qty">
+                                <label
+                                    class="
+                                        label
+                                        input__label
+                                        label--hidden
+                                    "
+                                    for="id_super_group[<?= $block->escapeHtmlAttr($_item->getId()) ?>]"
+                                >
+                                    <?= $block->escapeHtml(__('Qty')) ?>
+                                </label>
+                                <input
+                                    type="number"
+                                    id="id_super_group[<?= $block->escapeHtmlAttr($_item->getId()) ?>]"
+                                    name="super_group[<?= $block->escapeHtmlAttr($_item->getId()) ?>]"
+                                    data-selector="super_group[<?= $block->escapeHtmlAttr($_item->getId()) ?>]"
+                                    value="<?= $block->escapeHtmlAttr($_item->getQty() * 1) ?>"
+                                    title="<?= $block->escapeHtmlAttr(__('Qty')) ?>"
+                                    class="input__field qty"
+                                    data-validate="{'validate-grouped-qty':'#super-product-table'}"
+                                    data-errors-message-box="#validation-message-box"
+                                />
+                            </div>
+                        <?php else : ?>
+                            <div
+                                class="stock unavailable"
+                                title="<?= $block->escapeHtmlAttr(__('Availability')) ?>"
+                            >
+                                <span>
+                                    <?= $block->escapeHtml(__('Out of stock')) ?>
+                                </span>
+                            </div>
+                        <?php endif; ?>
+                    </td>
+                <?php endif; ?>
+            </tr>
+            <?php if ($block->getCanShowProductPrice($_product)
+            && $block->getCanShowProductPrice($_item)
+            && trim($block->getProductPriceHtml(
+                $_item,
+                \Magento\Catalog\Pricing\Price\TierPrice::PRICE_CODE
+            ))) : ?>
+                <tr class="row-tier-price">
+                    <td colspan="2">
+                        <?= $block->getProductPriceHtml(
+                            $_item,
+                            \Magento\Catalog\Pricing\Price\TierPrice::PRICE_CODE
+                        ) ?>
+                    </td>
+                </tr>
+            <?php endif; ?>
+        <?php endforeach; ?>
+        </tbody>
+    <?php else : ?>
+        <tbody>
+            <tr role="row">
+                <td
+                    class="unavailable"
+                    colspan="<?php if ($_product->isSaleable()) : ?>4<?php else : ?>3<?php endif; ?>"
+                    role="gridcell"
+                >
+                    <?= $block->escapeHtml(__('No options of this product are available.')) ?>
+                </td>
+            </tr>
+        </tbody>
+    <?php endif; ?>
+</table>
+<div id="validation-message-box"></div>

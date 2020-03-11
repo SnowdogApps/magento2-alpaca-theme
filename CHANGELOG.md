@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - PDP benefits popup moved to CMS (#64572)
 ### Added
+- grouped product options with styles (#64633)
+
 ### Fixed
 - contact bar & side menu mobie (#63497)
 - shipping address in checkout (#63737)
