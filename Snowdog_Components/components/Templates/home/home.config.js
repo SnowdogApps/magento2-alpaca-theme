@@ -6,7 +6,7 @@ module.exports = {
       components: [
         {
           content: {
-            content: 'slider--default',
+            content: 'slider',
             contentContext: {
               script: true,
               heading: false

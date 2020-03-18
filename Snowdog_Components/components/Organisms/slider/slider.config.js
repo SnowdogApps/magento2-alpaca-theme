@@ -1,8 +1,9 @@
 module.exports = {
   context: {
     script: true,
+    scriptFile: 'slider.js',
     class: '',
-    attributes: 'data-rewind="true" data-enable-mouse-events="true" data-slides-to-scroll="1"',
+    attributes: 'data-slider="default"',
     heading: {
       class: '',
       content: 'heading',
@@ -137,7 +138,9 @@ module.exports = {
     {
       name: 'products',
       context: {
+        scriptFile: 'slider--products.js',
         class: 'slider--products',
+        attributes: 'data-slider="products"',
         heading: false,
         slides: [
           {
@@ -217,7 +220,9 @@ module.exports = {
     {
       name: 'brands',
       context: {
+        scriptFile: 'slider--brands.js',
         class: 'slider--brands',
+        attributes: 'data-slider="brands"',
         heading: {
           class: '',
           content: 'heading',
@@ -295,6 +300,46 @@ module.exports = {
                 }
               ],
               alt: 'Brand nike'
+            }
+          },
+          {
+            itemClass: 'slider__slide-item',
+            content: 'image--picture',
+            contentContext: {
+              src: '/images/home/brands/brand-armani_208-208.jpg',
+              class: 'slider__image',
+              defaultSrc: '/images/home/brands/brand-armani_208-208.jpg',
+              sources: [
+                {
+                  src: '/images/home/brands/brand-armani_144-144.jpg',
+                  mediaQuery: '(max-width: 1024px)'
+                },
+                {
+                  src: '/images/home/brands/brand-armani_208-208.jpg',
+                  mediaQuery: ''
+                }
+              ],
+              alt: 'Brand armani'
+            }
+          },
+          {
+            itemClass: 'slider__slide-item',
+            content: 'image--picture',
+            contentContext: {
+              src: '/images/home/brands/brand-adidas_208-208.jpg',
+              class: 'slider__image',
+              defaultSrc: '/images/home/brands/brand-adidas_208-208.jpg',
+              sources: [
+                {
+                  src: '/images/home/brands/brand-adidas_144-144.jpg',
+                  mediaQuery: '(max-width: 1024px)'
+                },
+                {
+                  src: '/images/home/brands/brand-adidas_208-208.jpg',
+                  mediaQuery: ''
+                }
+              ],
+              alt: 'Brand adidas'
             }
           },
           {
