@@ -1,7 +1,9 @@
 module.exports = {
   context: {
     script: true,
-    attributes: 'data-rewind="true" data-enable-mouse-events="true" data-slides-to-scroll="1"',
+    scriptFile: 'slider.js',
+    class: '',
+    attributes: 'data-slider="default"',
     heading: {
       class: '',
       content: 'heading',
@@ -13,19 +15,19 @@ module.exports = {
     },
     iconPrev: {
       tag: 'button',
-      class: 'button--icon-border slider__prev',
+      class: 'button--icon-border slider__nav-button slider__prev',
       icon: {
         id: 'arrow-left',
-        class: 'button__icon slider__icon'
+        class: 'button__icon slider__nav-icon'
       },
       attributes: 'type="button" aria-label="Previous slide"'
     },
     iconNext: {
       tag: 'button',
-      class: 'button--icon-border slider__next',
+      class: 'button--icon-border slider__nav-button slider__next',
       icon: {
         id: 'arrow-right',
-        class: 'button__icon slider__icon'
+        class: 'button__icon slider__nav-icon'
       },
       attributes: 'type="button" aria-label="Next slide"'
     },
@@ -136,7 +138,9 @@ module.exports = {
     {
       name: 'products',
       context: {
+        scriptFile: 'slider--products.js',
         class: 'slider--products',
+        attributes: 'data-slider="products"',
         heading: false,
         slides: [
           {
@@ -216,7 +220,9 @@ module.exports = {
     {
       name: 'brands',
       context: {
+        scriptFile: 'slider--brands.js',
         class: 'slider--brands',
+        attributes: 'data-slider="brands"',
         heading: {
           class: '',
           content: 'heading',
@@ -294,6 +300,46 @@ module.exports = {
                 }
               ],
               alt: 'Brand nike'
+            }
+          },
+          {
+            itemClass: 'slider__slide-item',
+            content: 'image--picture',
+            contentContext: {
+              src: '/images/home/brands/brand-armani_208-208.jpg',
+              class: 'slider__image',
+              defaultSrc: '/images/home/brands/brand-armani_208-208.jpg',
+              sources: [
+                {
+                  src: '/images/home/brands/brand-armani_144-144.jpg',
+                  mediaQuery: '(max-width: 1024px)'
+                },
+                {
+                  src: '/images/home/brands/brand-armani_208-208.jpg',
+                  mediaQuery: ''
+                }
+              ],
+              alt: 'Brand armani'
+            }
+          },
+          {
+            itemClass: 'slider__slide-item',
+            content: 'image--picture',
+            contentContext: {
+              src: '/images/home/brands/brand-adidas_208-208.jpg',
+              class: 'slider__image',
+              defaultSrc: '/images/home/brands/brand-adidas_208-208.jpg',
+              sources: [
+                {
+                  src: '/images/home/brands/brand-adidas_144-144.jpg',
+                  mediaQuery: '(max-width: 1024px)'
+                },
+                {
+                  src: '/images/home/brands/brand-adidas_208-208.jpg',
+                  mediaQuery: ''
+                }
+              ],
+              alt: 'Brand adidas'
             }
           },
           {
