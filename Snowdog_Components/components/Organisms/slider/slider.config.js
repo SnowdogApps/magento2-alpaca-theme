@@ -2,7 +2,7 @@ module.exports = {
   context: {
     script: true,
     scriptFile: 'slider.js',
-    class: '',
+    class: 'slider--loading',
     attributes: 'data-slider="default"',
     heading: {
       class: '',
@@ -135,6 +135,13 @@ module.exports = {
     ]
   },
   variants: [
+    {
+      name: 'loader-visible',
+      context: {
+        scriptFile: 'slider.js',
+        class: 'slider--loader-visible',
+      }
+    },
     {
       name: 'products',
       context: {

@@ -11,29 +11,42 @@ define(
 
     return function(options, element) {
       function init() {
-        createSlickSlider(element);
+        $.when(createSlickSlider()).then(displaySlider());
       }
 
-      function createSlickSlider(slider) {
-        const elementSlider = $(slider),
-              slides = elementSlider.find(options.elementSlides),
-              navPrev = elementSlider.find(options.elementNavPrev),
-              navNext = elementSlider.find(options.elementNavNext);
+      function createSlickSlider() {
+        let slider = $(element),
+            slides = slider.find(options.elementSlides),
+            navPrev = slider.find(options.elementNavPrev),
+            navNext = slider.find(options.elementNavNext);
 
-        slides.slick(
+        slides.not('.slick-initialized').slick(
           {
             dots: options.dots,
             infinite: options.infinite,
             centerMode: options.centerMode,
+            mobileFirst: options.mobileFirst,
             prevArrow: navPrev,
             nextArrow: navNext,
             dotsClass: options.dotsClass,
             autoplay: options.autoplay,
             autoplaySpeed: options.autoplaySpeed,
             pauseOnFocus: options.pauseOnFocus,
-            pauseOnHover: options.pauseOnHover
+            pauseOnHover: options.pauseOnHover,
+            slidesToShow: options.slidesToShow,
+            slidesToScroll: options.slidesToScroll,
+            responsive: options.responsiveConfig,
+            swipeToSlide: options.swipeToSlide
           }
-        ).addClass(options.loadedClass);
+        )
+      }
+
+      function displaySlider() {
+        let slider = $(element),
+            loader = slider.find(options.elementLoader);
+
+        loader.removeClass(options.loaderVisibleClass);
+        slider.removeClass(options.loadingClass);
       }
 
       init();

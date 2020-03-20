@@ -6,12 +6,13 @@
 ?>
 
 <?php
+//slider basis
 $sliderHtml = $block->getSliderHtml();
 $sliderClass = $block->getSliderClass();
 $wrapperClass = $block->getWrapperClass();
 
 //slider config
-
+$sliderMobileFirst = $block->getMobileFirst();
 $sliderInfinite = $block->getInfinite();
 $sliderCenterMode = $block->getCenterMode();
 $sliderDots = $block->getDots();
@@ -20,7 +21,12 @@ $sliderAutoplay = $block->getAutoplay();
 $sliderAutoplaySpeed = $block->getAutoplaySpeed();
 $sliderPauseOnFocus = $block->getPauseOnFocus();
 $sliderPauseOnHover = $block->getPauseOnHover();
+$sliderSlidesToShow = $block->getSlidesToShow();
+$sliderSlidesToScroll = $block->getSlidesToScroll();
+$sliderResponsiveConfig = $block->getResponsiveConfig();
 
+//slider defaults
+$sliderMobileFirst = ($sliderMobileFirst === 'no') ? 'false' : 'true';
 $sliderInfinite = ($sliderInfinite === 'no') ? 'false' : 'true';
 $sliderCenterMode = ($sliderCenterMode === 'yes') ? 'true' : 'false';
 $sliderDots = ($sliderDots === 'no') ? 'false' : 'true';
@@ -29,6 +35,10 @@ $sliderAutoplay = ($sliderAutoplay === 'yes') ? 'true' : 'false';
 $sliderAutoplaySpeed = $sliderAutoplaySpeed ? $block->escapeHtmlAttr($sliderAutoplaySpeed) : '3000';
 $sliderPauseOnFocus = ($sliderPauseOnFocus === 'no') ? 'false' : 'true';
 $sliderPauseOnHover = ($sliderPauseOnHover === 'no') ? 'false' : 'true';
+$sliderSlidesToShow = $sliderSlidesToShow ? $block->escapeHtmlAttr($sliderSlidesToShow) : '1';
+$sliderSlidesToScroll = $sliderSlidesToScroll ? $block->escapeHtmlAttr($sliderSlidesToScroll) : '1';
+$sliderResponsiveConfig = $sliderResponsiveConfig ? $block->escapeHtmlAttr($sliderResponsiveConfig) : 'false';
+$sliderSwipeToSlide = ($sliderPauseOnHover === 'no') ? 'false' : 'true';
 
 //slider data
 $sliderDisplayTitle = $block->getDisplayTitle();
@@ -42,7 +52,46 @@ $sliderContentAfter = $block->getContentAfter();
         <div class="<?= $block->escapeHtmlAttr($wrapperClass) ?>">
     <?php endif; ?>
 
-    <div class="slider <?= $block->escapeHtmlAttr($sliderClass) ?>">
+    <div
+        class="
+            slider
+            slider--loading
+            <?= $block->escapeHtmlAttr($sliderClass) ?>
+        "
+        data-mage-init='{
+            "slider": {
+                "mobileFirst"        : <?= $sliderMobileFirst ?>,
+                "infinite"           : <?= $sliderInfinite ?>,
+                "centerMode"         : <?= $sliderCenterMode ?>,
+                "dots"               : <?= $sliderDots ?>,
+                "arrows"             : <?= $sliderArrows ?>,
+                "autoplay"           : <?= $sliderAutoplay ?>,
+                "autoplaySpeed"      : <?= $sliderAutoplaySpeed ?>,
+                "pauseOnFocus"       : <?= $sliderPauseOnFocus ?>,
+                "pauseOnHover"       : <?= $sliderPauseOnHover ?>,
+                "slidesToShow"       : <?= $sliderSlidesToShow ?>,
+                "slidesToScroll"     : <?= $sliderSlidesToScroll ?>,
+                "responsiveConfig"   : <?= $sliderResponsiveConfig ?>,
+                "swipeToSlide"       : <?= $sliderSwipeToSlide ?>,
+                "dotsClass"          : "slider__dots",
+                "loadingClass"       : "slider--loading",
+                "loaderVisibleClass" : "loader--visible",
+                "elementLoader"      : ".loader",
+                "elementSlides"      : ".slider__slides",
+                "elementNavPrev"     : ".slider__prev",
+                "elementNavNext"     : ".slider__next"
+            }
+        }'
+    >
+        <div
+            data-role="loader"
+            class="loader loader--visible"
+            aria-live="polite"
+            aria-label="<?= $block->escapeHtmlAttr(__('Do not refresh the page')); ?>"
+        >
+            <div class="loader__icon"></div>
+        </div>
+
         <?php if ($sliderDisplayTitle): ?>
             <div class="slider__heading">
                 <span class="<?= $block->escapeHtmlAttr($sliderTitleClass) ?>">
@@ -57,31 +106,9 @@ $sliderContentAfter = $block->getContentAfter();
             </div>
         <?php endif ?>
 
-        <div
-            class="slider-slick"
-            data-rewind="true"
-            data-enable-mouse-events="true"
-            data-slides-to-scroll="1"
-            data-mage-init='{
-                "slider": {
-                    "infinite"       : <?= $sliderInfinite ?>,
-                    "centerMode"     : <?= $sliderCenterMode ?>,
-                    "dots"           : <?= $sliderDots ?>,
-                    "arrows"         : <?= $sliderArrows ?>,
-                    "autoplay"       : <?= $sliderAutoplay ?>,
-                    "autoplaySpeed"  : <?= $sliderAutoplaySpeed ?>,
-                    "pauseOnFocus"   : <?= $sliderPauseOnFocus ?>,
-                    "pauseOnHover"   : <?= $sliderPauseOnHover ?>,
-                    "dotsClass"      : "slider-slick__dots",
-                    "loadedClass"    : "slider-slick__slides--loaded",
-                    "elementSlides"  : ".slider-slick__slides",
-                    "elementNavPrev" : ".slider-slick__prev",
-                    "elementNavNext" : ".slider-slick__next"
-                }
-            }'
-        >
-            <div class="slider-slick__handler">
-                <div class="slider-slick__slides">
+        <div class="slider__handler">
+            <div class="slider__container">
+                <div class="slider__slides">
 
 <?php endif; //before-slides end ?>
 <?php if ($sliderHtml == 'after-slides'): ?>
@@ -90,20 +117,25 @@ $sliderContentAfter = $block->getContentAfter();
             </div>
 
             <?php if ($sliderArrows === 'true'): ?>
-                <div class="slider-slick__navigation">
-                    <div class="slider-slick__arrows">
+                <div class="slider__navigation">
+                    <div class="slider__arrows">
                         <button
                             class="
                                 button
                                 button--icon
-                                slider-slick__nav-button
-                                slider-slick__prev
+                                button--icon-border
+                                slider__nav-button
+                                slider__prev
                             "
                             type="button"
                             aria-label="<?= $block->escapeHtmlAttr(__('Go to previous slide')) ?>"
                         >
                             <svg
-                                class="slider-slick__nav-icon"
+                                class="
+                                    icon
+                                    button__icon
+                                    slider__nav-icon
+                                "
                                 role="img"
                             >
                                 <title><?= __('Arrow left') ?></title>
@@ -114,14 +146,19 @@ $sliderContentAfter = $block->getContentAfter();
                             class="
                                 button
                                 button--icon
-                                slider-slick__nav-button
-                                slider-slick__next
+                                button--icon-border
+                                slider__nav-button
+                                slider__next
                             "
                             type="button"
                             aria-label="<?= $block->escapeHtmlAttr(__('Go to next slide')) ?>"
                         >
                             <svg
-                                class="slider-slick__nav-icon"
+                                class="
+                                    icon
+                                    button__icon
+                                    slider__nav-icon
+                                "
                                 role="img"
                             >
                                 <title><?= __('Arrow right') ?></title>
