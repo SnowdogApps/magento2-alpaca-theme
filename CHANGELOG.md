@@ -9,6 +9,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Released]
 
+## [1.2.0] - 2020-03-20
+### Fixed
+- fix breadcrumbs issue (#65141)
+### Added
+- amasty gdpr (#64444)
+
 ## [1.1.0] - 2020-03-11
 ### Changed
 - PDP benefits popup moved to CMS (#64572)
