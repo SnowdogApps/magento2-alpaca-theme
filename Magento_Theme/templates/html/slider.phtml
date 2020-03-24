@@ -10,8 +10,10 @@
 $sliderHtml = $block->getSliderHtml();
 $sliderClass = $block->getSliderClass();
 $wrapperClass = $block->getWrapperClass();
+$slidesElement = $block->getSlidesElement() ?: '.slider__slides';
 
 //slider config
+$sliderIsAjax = $block->getIsAjax() ?: false;
 $sliderMobileFirst = $block->getMobileFirst();
 $sliderInfinite = $block->getInfinite();
 $sliderCenterMode = $block->getCenterMode();
@@ -24,6 +26,7 @@ $sliderPauseOnHover = $block->getPauseOnHover();
 $sliderSlidesToShow = $block->getSlidesToShow();
 $sliderSlidesToScroll = $block->getSlidesToScroll();
 $sliderResponsiveConfig = $block->getResponsiveConfig();
+$sliderSwipeToSlide = $block->getResponsiveConfig();
 
 //slider defaults
 $sliderMobileFirst = ($sliderMobileFirst === 'no') ? 'false' : 'true';
@@ -38,7 +41,7 @@ $sliderPauseOnHover = ($sliderPauseOnHover === 'no') ? 'false' : 'true';
 $sliderSlidesToShow = $sliderSlidesToShow ? $block->escapeHtmlAttr($sliderSlidesToShow) : '1';
 $sliderSlidesToScroll = $sliderSlidesToScroll ? $block->escapeHtmlAttr($sliderSlidesToScroll) : '1';
 $sliderResponsiveConfig = $sliderResponsiveConfig ? $block->escapeHtmlAttr($sliderResponsiveConfig) : 'false';
-$sliderSwipeToSlide = ($sliderPauseOnHover === 'no') ? 'false' : 'true';
+$sliderSwipeToSlide = ($sliderSwipeToSlide === 'no') ? 'false' : 'true';
 
 //slider data
 $sliderDisplayTitle = $block->getDisplayTitle();
@@ -58,30 +61,30 @@ $sliderContentAfter = $block->getContentAfter();
             slider--loading
             <?= $block->escapeHtmlAttr($sliderClass) ?>
         "
-        data-mage-init='{
-            "slider": {
-                "mobileFirst"        : <?= $sliderMobileFirst ?>,
-                "infinite"           : <?= $sliderInfinite ?>,
-                "centerMode"         : <?= $sliderCenterMode ?>,
-                "dots"               : <?= $sliderDots ?>,
-                "arrows"             : <?= $sliderArrows ?>,
-                "autoplay"           : <?= $sliderAutoplay ?>,
-                "autoplaySpeed"      : <?= $sliderAutoplaySpeed ?>,
-                "pauseOnFocus"       : <?= $sliderPauseOnFocus ?>,
-                "pauseOnHover"       : <?= $sliderPauseOnHover ?>,
-                "slidesToShow"       : <?= $sliderSlidesToShow ?>,
-                "slidesToScroll"     : <?= $sliderSlidesToScroll ?>,
-                "responsiveConfig"   : <?= $sliderResponsiveConfig ?>,
-                "swipeToSlide"       : <?= $sliderSwipeToSlide ?>,
-                "dotsClass"          : "slider__dots",
-                "loadingClass"       : "slider--loading",
-                "loaderVisibleClass" : "loader--visible",
-                "elementLoader"      : ".loader",
-                "elementSlides"      : ".slider__slides",
-                "elementNavPrev"     : ".slider__prev",
-                "elementNavNext"     : ".slider__next"
-            }
-        }'
+        data-mobile-first="<?= $sliderMobileFirst ?>"
+        data-infinite="<?= $sliderInfinite ?>"
+        data-center-mode="<?= $sliderCenterMode ?>"
+        data-dots="<?= $sliderDots ?>"
+        data-arrows="<?= $sliderArrows ?>"
+        data-autoplay="<?= $sliderAutoplay ?>"
+        data-autoplay-speed="<?= $sliderAutoplaySpeed ?>"
+        data-pause-on-focus="<?= $sliderPauseOnFocus ?>"
+        data-pause-on-hover="<?= $sliderPauseOnHover ?>"
+        data-slides-to-show="<?= $sliderSlidesToShow ?>"
+        data-slides-to-scroll="<?= $sliderSlidesToScroll ?>"
+        data-responsive-config="<?= $sliderResponsiveConfig ?>"
+        data-swipe-to-slide="<?= $sliderSwipeToSlide ?>"
+        data-element-slides="<?= $slidesElement ?>"
+        data-dots-class="slider__dots"
+        data-loading-class="slider--loading"
+        data-loader-visible-class="loader--visible"
+        data-element-slide=".slider__item"
+        data-element-loader=".loader"
+        data-element-nav-prev=".slider__prev"
+        data-element-nav-next=".slider__next"
+        <?php if (!$sliderIsAjax): ?>
+            data-mage-init = '{"slider": {}}'
+        <?php endif; ?>
     >
         <div
             data-role="loader"
@@ -107,15 +110,6 @@ $sliderContentAfter = $block->getContentAfter();
         <?php endif ?>
 
         <div class="slider__handler">
-            <div class="slider__container">
-                <div class="slider__slides">
-
-<?php endif; //before-slides end ?>
-<?php if ($sliderHtml == 'after-slides'): ?>
-
-                </div>
-            </div>
-
             <?php if ($sliderArrows === 'true'): ?>
                 <div class="slider__navigation">
                     <div class="slider__arrows">
@@ -168,6 +162,15 @@ $sliderContentAfter = $block->getContentAfter();
                     </div>
                 </div>
             <?php endif; ?>
+            
+            <div class="slider__container">
+                <div class="slider__slides">
+
+<?php endif; //before-slides end ?>
+<?php if ($sliderHtml == 'after-slides'): ?>
+
+                </div>
+            </div>
         </div>
 
         <?php if ($sliderContentAfter): ?>

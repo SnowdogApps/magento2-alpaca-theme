@@ -239,3 +239,54 @@ It should be added in `themes.json` in [frontools config](#theme-configuration) 
 ### JS
 JS files from components are not imported in theme, they are only demonstrative. For theme we need to build JS files using RequireJS.
 If you use ES6, you should use babel support, just add `.babel` in file name before `.js` extension, ex: [script for tabs](Magento_Theme/web/js/tab.babel.js)
+
+### Sliders
+Used lib: [slick slider](https://kenwheeler.github.io/slick/)
+Components: each slider variant has separate .js file but in Magento Theme we are using only one
+Magento Theme: One template for all sliders (theme-frontend-colibri/Magento_Theme/templates/html/slider.phtml)
+How to use:
+1. If possible define block in xml:
+```
+<referenceBlock name="some_block_name">
+    <arguments>
+        <argument name="slider_block" xsi:type="string">some_slider_name</argument>
+    </arguments>
+    <block
+        class="Magento\Framework\View\Element\Template"
+        name="some_slider_name"
+        template="Magento_Theme::html/slider.phtml"
+    />
+</referenceBlock>
+```
+if not use:
+```
+$sliderBlock = $this->getLayout()
+    ->createBlock("Magento\Framework\View\Element\Template")
+    ->setTemplate("Magento_Theme::html/slider.phtml");
+```
+2. Initialize "before-slides" block in .phtml file
+```
+<?php
+$sliderBlock = $this->getSliderBlock(); //
+$sliderBlock->setData(['slider_html'=>'before-slides', ...]);
+?>
+<?= $sliderBlockBefore->toHtml(); ?>
+```
+
+3. Render html for slides
+
+```
+<?php foreach ($items as $key => $item) : ?>
+    <div class="slider__item">
+        ...
+    </div>
+<?php endforeach ?>
+```
+
+4. Initialize "after-slides" block in .phtml file
+```
+<?php
+$sliderBlock->setData(['slider_html'=>'after-slides', ...]);
+?>
+<?= $sliderBlock->toHtml(); ?>
+```

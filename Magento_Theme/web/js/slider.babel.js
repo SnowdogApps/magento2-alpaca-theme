@@ -11,42 +11,45 @@ define(
 
     return function(options, element) {
       function init() {
-        $.when(createSlickSlider()).then(displaySlider());
+        let dataValues = element.dataset;
+
+        $.when(createSlickSlider(dataValues)).then(displaySlider(dataValues));
       }
 
-      function createSlickSlider() {
+      function createSlickSlider(dataValues) {
         let slider = $(element),
-            slides = slider.find(options.elementSlides),
-            navPrev = slider.find(options.elementNavPrev),
-            navNext = slider.find(options.elementNavNext);
+            slides = slider.find(dataValues.elementSlides),
+            navPrev = slider.find(dataValues.elementNavPrev),
+            navNext = slider.find(dataValues.elementNavNext);
 
         slides.not('.slick-initialized').slick(
           {
-            dots: options.dots,
-            infinite: options.infinite,
-            centerMode: options.centerMode,
-            mobileFirst: options.mobileFirst,
+            slide: dataValues.elementSlide,
+            dots: JSON.parse(dataValues.dots),
+            infinite: JSON.parse(dataValues.infinite),
+            centerMode: JSON.parse(dataValues.centerMode),
+            mobileFirst: JSON.parse(dataValues.mobileFirst),
             prevArrow: navPrev,
             nextArrow: navNext,
-            dotsClass: options.dotsClass,
-            autoplay: options.autoplay,
-            autoplaySpeed: options.autoplaySpeed,
-            pauseOnFocus: options.pauseOnFocus,
-            pauseOnHover: options.pauseOnHover,
-            slidesToShow: options.slidesToShow,
-            slidesToScroll: options.slidesToScroll,
-            responsive: options.responsiveConfig,
-            swipeToSlide: options.swipeToSlide
+            dotsClass: dataValues.dotsClass,
+            autoplay: JSON.parse(dataValues.autoplay),
+            autoplaySpeed: parseInt(dataValues.autoplaySpeed),
+            pauseOnFocus: JSON.parse(dataValues.pauseOnFocus),
+            pauseOnHover: JSON.parse(dataValues.pauseOnHover),
+            slidesToShow: parseInt(dataValues.slidesToShow),
+            slidesToScroll: parseInt(dataValues.slidesToScroll),
+            responsive: JSON.parse(dataValues.responsiveConfig),
+            swipeToSlide: JSON.parse(dataValues.swipeToSlide)
           }
         )
       }
 
-      function displaySlider() {
+      function displaySlider(dataValues) {
         let slider = $(element),
-            loader = slider.find(options.elementLoader);
+            loader = slider.find(dataValues.elementLoader);
 
-        loader.removeClass(options.loaderVisibleClass);
-        slider.removeClass(options.loadingClass);
+        loader.removeClass(dataValues.loaderVisibleClass);
+        slider.removeClass(dataValues.loadingClass);
       }
 
       init();
