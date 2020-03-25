@@ -41,6 +41,10 @@
             @include mq($screen-m) {
                 padding: $banner__content-padding--category\@medium;
             }
+
+            @include mq($screen-l) {
+                padding: $banner__content-padding--category\@large;
+            }
         }
 
         &:after {
@@ -83,32 +87,72 @@
         position: relative;
     }
 
-    &__button-collapse {
-        @extend %button-collapse-after;
-        position: $banner__button-collapse-position;
-        left: $banner__button-collapse-left;
-        bottom: $banner__button-collapse-bottom;
-        right: $banner__button-collapse-right;
-        background: $banner__button-collapse-bg;
-
-        .icon {
-            fill: $banner__button-collapse-icon-fill;
-            margin: $banner__button-collapse-icon-margin;
-        }
-
-        .button__text {
-            padding: 0 $spacer--medium;
-            text-transform: $banner__button-collapse-text-text-transform;
-            color: $banner__button-collapse-text-color;
-            font-weight: $banner__button-collapse-text-font-weight;
-        }
+    &__button {
+        padding: 0;
 
         &:hover {
-            @extend %button-collapse-after;
-
-            &:before {
-                background: $banner__button-collapse-before-bg-hover;
+            &:before,
+            &:after {
+                display: none;
             }
+
+            .banner__button-text {
+                color: $color-primary;
+            }
+
+            .banner__button-icon {
+                fill: $color-primary;
+            }
+        }
+    }
+
+    &__button-text {
+        text-decoration: underline;
+    }
+
+    &__button-collapse {
+        @include mq($screen-l) {
+            position: absolute;
+            right: 0;
+        }
+        // @extend %button-collapse-after;
+        // position: $banner__button-collapse-position;
+        // left: $banner__button-collapse-left;
+        // bottom: $banner__button-collapse-bottom;
+        // right: $banner__button-collapse-right;
+        // background: $banner__button-collapse-bg;
+
+        // .icon {
+        //     fill: $banner__button-collapse-icon-fill;
+        //     margin: $banner__button-collapse-icon-margin;
+        // }
+
+        // .button__text {
+        //     padding: 0 $spacer--medium;
+        //     text-transform: $banner__button-collapse-text-text-transform;
+        //     color: $banner__button-collapse-text-color;
+        //     font-weight: $banner__button-collapse-text-font-weight;
+        // }
+
+        // &:hover {
+        //     @extend %button-collapse-after;
+
+        //     &:before {
+        //         background: $banner__button-collapse-before-bg-hover;
+        //     }
+        // }
+    }
+
+    &__button-close {
+        &:hover {
+            &:before,
+            &:after {
+                display: none;
+            }
+        }
+
+        @include mq($screen-l) {
+            justify-content: flex-end;
         }
     }
 
@@ -117,37 +161,54 @@
         flex-direction: column;
         padding: $banner__actions-wrapper-padding;
 
-        @include mq($screen-m) {
-            flex-direction: row-reverse;
-            justify-content: space-between;
-        }
+        // @include mq($screen-m) {
+        //     flex-direction: row-reverse;
+        //     justify-content: space-between;
+        // }
+    }
+
+    &__wrapper {
+        position: relative;
+    }
+
+    &__heading-wrapper {
+        display: flex;
+        flex-direction: column;
+
+        // @include mq($screen-l) {
+        //     flex-direction: row;
+        //     align-items: center;
+        // }
     }
 
     &__heading {
-        position: absolute;
-        bottom: $banner__heading-bottom;
-        left: $banner__heading-left;
-        z-index: $banner__heading-z-index;
+        // @include mq($screen-l) {
+        //     flex: 1;
+        // }
+        // position: absolute;
+        // bottom: $banner__heading-bottom;
+        // left: $banner__heading-left;
+        // z-index: $banner__heading-z-index;
 
-        @include mq($screen-m) {
-            bottom: $banner__heading-bottom\@medium;
-            left: $banner__heading-left\@medium;
-        }
+        // @include mq($screen-m) {
+        //     bottom: $banner__heading-bottom\@medium;
+        //     left: $banner__heading-left\@medium;
+        // }
 
-        @include mq($screen-l) {
-            bottom: $banner__heading-bottom\@large;
-            left: $banner__heading-left\@large;
-        }
+        // @include mq($screen-l) {
+        //     bottom: $banner__heading-bottom\@large;
+        //     left: $banner__heading-left\@large;
+        // }
 
-        @include mq($screen-xl) {
-            left: $banner__heading-left\@xl;
-        }
+        // @include mq($screen-xl) {
+        //     left: $banner__heading-left\@xl;
+        // }
 
-        &--light {
-            .heading {
-                color: $banner__heading-color--light;
-            }
-        }
+        // &--light {
+        //     .heading {
+        //         color: $banner__heading-color--light;
+        //     }
+        // }
 
         .heading {
             margin: $banner__heading-margin;
@@ -169,6 +230,58 @@
                 display: block;
                 flex-direction: initial;
             }
+        }
+    }
+
+    &--category-image {
+        .banner__heading-wrapper {
+            padding: 0 0 0 16px;
+
+            @include mq($screen-m) {
+                position: absolute;
+                bottom: 32px;
+                left: 32px;
+                background-color: #fff;
+                width: 100%;
+                max-width: 375px;
+                padding: 24px 32px 16px;
+            }
+
+            @include mq($screen-l) {
+                bottom: 40px;
+                left: 48px;
+            }
+
+            @include mq($screen-xl) {
+                bottom: 48px;
+                left: 56px;
+            }
+        }
+
+        .banner__heading {
+            margin: $spacer--semi-medium 0 0;
+
+            @include mq($screen-m) {
+                margin: 0;
+            }
+
+            .heading {
+                text-align: left !important;
+            }
+        }
+
+        .banner__button {
+            justify-content: flex-start;
+        }
+
+        .banner__button-collapse {
+            @include mq($screen-l) {
+                position: relative;
+            }
+        }
+
+        .banner__button-text {
+            margin: 0 $spacer 0 0;
         }
     }
 
