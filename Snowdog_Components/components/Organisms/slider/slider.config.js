@@ -1,9 +1,72 @@
 module.exports = {
   context: {
     script: true,
-    scriptFile: 'slider.js',
     class: 'slider--loading',
-    attributes: 'data-slider="default"',
+    attributes: [
+      {
+        attr: 'data-slider="default"'
+      },
+      {
+        attr: 'data-mobile-first="true"'
+      },
+      {
+        attr: 'data-infinite="true"'
+      },
+      {
+        attr: 'data-center-mode="false"'
+      },
+      {
+        attr: 'data-dots="false"'
+      },
+      {
+        attr: 'data-autoplay="false"'
+      },
+      {
+        attr: 'data-autoplay-speed="3000"'
+      },
+      {
+        attr: 'data-pause-on-focus="true"'
+      },
+      {
+        attr: 'data-pause-on-hover="true"'
+      },
+      {
+        attr: 'data-slides-to-show="1"'
+      },
+      {
+        attr: 'data-slides-to-scroll="1"'
+      },
+      {
+        attr: 'data-swipe-to-slide="true"'
+      },
+      {
+        attr: 'data-element-slides=".slider__slides"'
+      },
+      {
+        attr: 'data-dots-class="slider__dots"'
+      },
+      {
+        attr: 'data-loading-class="slider--loading"'
+      },
+      {
+        attr: 'data-loader-visible-class="loader--visible"'
+      },
+      {
+        attr: 'data-element-slide=".slider__item"'
+      },
+      {
+        attr: 'data-element-loader=".loader"'
+      },
+      {
+        attr: 'data-element-nav-prev=".slider__prev"'
+      },
+      {
+        attr: 'data-element-nav-next=".slider__next"'
+      },
+      {
+        attr: 'data-responsive-config="[]"'
+      }
+    ],
     heading: {
       class: '',
       content: 'heading',
@@ -138,16 +201,75 @@ module.exports = {
     {
       name: 'loader-visible',
       context: {
-        scriptFile: 'slider.js',
-        class: 'slider--loader-visible',
+        class: 'slider--loader-visible'
       }
     },
     {
       name: 'products',
       context: {
-        scriptFile: 'slider--products.js',
         class: 'slider--products',
-        attributes: 'data-slider="products"',
+        attributes: [
+          {
+            attr: 'data-mobile-first="true"'
+          },
+          {
+            attr: 'data-infinite="false"'
+          },
+          {
+            attr: 'data-center-mode="false"'
+          },
+          {
+            attr: 'data-dots="true"'
+          },
+          {
+            attr: 'data-autoplay="false"'
+          },
+          {
+            attr: 'data-autoplay-speed="3000"'
+          },
+          {
+            attr: 'data-pause-on-focus="true"'
+          },
+          {
+            attr: 'data-pause-on-hover="true"'
+          },
+          {
+            attr: 'data-slides-to-show="2"'
+          },
+          {
+            attr: 'data-slides-to-scroll="1"'
+          },
+          {
+            attr: 'data-swipe-to-slide="true"'
+          },
+          {
+            attr: 'data-element-slides=".slider__slides"'
+          },
+          {
+            attr: 'data-dots-class="slider__dots"'
+          },
+          {
+            attr: 'data-loading-class="slider--loading"'
+          },
+          {
+            attr: 'data-loader-visible-class="loader--visible"'
+          },
+          {
+            attr: 'data-element-slide=".slider__item"'
+          },
+          {
+            attr: 'data-element-loader=".loader"'
+          },
+          {
+            attr: 'data-element-nav-prev=".slider__prev"'
+          },
+          {
+            attr: 'data-element-nav-next=".slider__next"'
+          },
+          {
+            attr: 'data-responsive-config=\'[{\"breakpoint\": 767, \"settings\": {\"slidesToShow\": 3, \"slidesToScroll\": 1, \"dots\": false}}, {\"breakpoint\": 1023, \"settings\": {\"slidesToShow\": 4, \"slidesToScroll\": 1, \"dots\": false}}]\''
+          }
+        ],
         heading: false,
         slides: [
           {
@@ -227,9 +349,69 @@ module.exports = {
     {
       name: 'brands',
       context: {
-        scriptFile: 'slider--brands.js',
         class: 'slider--brands',
-        attributes: 'data-slider="brands"',
+        attributes: [
+          {
+            attr: 'data-mobile-first="true"'
+          },
+          {
+            attr: 'data-infinite="true"'
+          },
+          {
+            attr: 'data-center-mode="false"'
+          },
+          {
+            attr: 'data-dots="false"'
+          },
+          {
+            attr: 'data-autoplay="false"'
+          },
+          {
+            attr: 'data-autoplay-speed="3000"'
+          },
+          {
+            attr: 'data-pause-on-focus="true"'
+          },
+          {
+            attr: 'data-pause-on-hover="true"'
+          },
+          {
+            attr: 'data-slides-to-show="3"'
+          },
+          {
+            attr: 'data-slides-to-scroll="1"'
+          },
+          {
+            attr: 'data-swipe-to-slide="true"'
+          },
+          {
+            attr: 'data-element-slides=".slider__slides"'
+          },
+          {
+            attr: 'data-dots-class="slider__dots"'
+          },
+          {
+            attr: 'data-loading-class="slider--loading"'
+          },
+          {
+            attr: 'data-loader-visible-class="loader--visible"'
+          },
+          {
+            attr: 'data-element-slide=".slider__item"'
+          },
+          {
+            attr: 'data-element-loader=".loader"'
+          },
+          {
+            attr: 'data-element-nav-prev=".slider__prev"'
+          },
+          {
+            attr: 'data-element-nav-next=".slider__next"'
+          },
+          {
+            attr: 'data-responsive-config=\'[{\"breakpoint\": 767, \"settings\": {\"slidesToShow\": 4, \"slidesToScroll\": 1, \"dots\": false}}, {\"breakpoint\": 1023, \"settings\": {\"slidesToShow\": 6, \"slidesToScroll\": 1, \"dots\": false}}]\''
+          }
+        ],
         heading: {
           class: '',
           content: 'heading',
