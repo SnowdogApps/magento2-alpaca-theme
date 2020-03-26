@@ -53,9 +53,13 @@
 
                         <?php if ($_product->getAmAllowOpenAmount()) : ?>
                             <div
-                                class="input"
+                                class="
+                                    input
+                                    <?php if ($block->isPredefinedAmount()): ?>
+                                        display-none
+                                    <?php endif; ?>
+                                "
                                 id="amgiftcard_amount_custom_block"
-                                style="display: <?php if ($block->isPredefinedAmount()): ?>none<?php endif; ?>"
                                 data-amgiftcard-js="amgiftcard-custom-amount-wrapper"
                             >
                                 <?php $_min = $_max = 0;
@@ -67,9 +71,10 @@
                                         class="
                                             input__field
                                             validate-number-range
-                                            number-range-<?= $block->round($block->convertPrice($_min)) . '-' . $block->round($block->convertPrice($_max)); ?>
+                                            number-range-<?= $block->escapeHtmlAttr($block->round($block->convertPrice($_min)) . '-' . $block->round($block->convertPrice($_max))); ?>
                                             required-entry
-                                            amgiftcard-min-amount amgiftcard-max-amount
+                                            amgiftcard-min-amount
+                                            amgiftcard-max-amount
                                         "
                                         value="<?= $block->escapeHtmlAttr($block->getDefaultValue('am_giftcard_amount_custom')); ?>"
                                         type="text"
@@ -77,15 +82,11 @@
                                     >
                                     <div class="margin-top-xs">
                                         <?php if ($_product->getAmOpenAmountMin()) : ?>
-                                            <span>
-                                                <?= __('Minimum: %1', $block->getFormatPrice($_min));?>
-                                            </span>
+                                            <?= __('Minimum: %1', $block->getFormatPrice($_min));?>
                                         <?php endif; ?>
 
                                         <?php if ($_product->getAmOpenAmountMax()) : ?>
-                                            <span>
-                                                <?= __('Maximum: %1', $block->getFormatPrice($_max));?>
-                                            </span>
+                                            <?= __('Maximum: %1', $block->getFormatPrice($_max));?>
                                         <?php endif; ?>
                                     </div>
                                 <?php endif; ?>
@@ -117,7 +118,7 @@
                         <option
                             value="<?= $block->escapeHtmlAttr($_cardType['value']); ?>"
                             <?php if ($block->getDefaultValue('am_giftcard_type') == $_cardType['value']) : ?>
-                                <?= " selected" ?>
+                                selected
                             <?php endif; ?>
                         >
                             <?= $block->escapeHtml($_cardType['label']); ?>
@@ -150,9 +151,9 @@
                 <?php foreach ($_images as $_image) : ?>
                     <img
                         class="amgiftcard-image"
-                        data-id="<?= $_image->getId() ?>"
-                        src="<?= $_image->getImageUrl() ?>"
-                        data-img-full-src="<?= $_image->getImageUrl(); ?>"
+                        data-id="<?= $block->escapeHtmlAttr($_image->getId()) ?>"
+                        src="<?= $block->escapeUrl($_image->getImageUrl()) ?>"
+                        data-img-full-src="<?= $block->escapeUrl($_image->getImageUrl()); ?>"
                         data-amgiftcard-js="amgiftcard-image"
                     />
                 <?php endforeach; ?>
@@ -178,7 +179,6 @@
                     </div>
                     <div class="amgiftcard-browse-container margin-top-xs">
                         <div class="file-upload ">
-                            <!-- <input class="file-upload__input" id="file" type="file" name="file" accept=".pdf,.doc,.png" data-size="1024"> -->
                             <input
                                 class="amgiftcard-image-input file-upload__input"
                                 type="file"
@@ -187,12 +187,20 @@
                                 accept=".jpg, .jpeg, .gif, .png"
                                 data-amgiftcard-js="amgiftcard-userimage-input"
                             >
-                            <label class="file-upload__wrapper" for="amgiftcard-userimage-input">
+                            <label
+                                class="file-upload__wrapper"
+                                for="amgiftcard-userimage-input"
+                            >
                                 <span class="file-upload__label">
                                     <?= $block->escapeHtml(__('or upload your image')) ?>
                                 </span>
 
-                                <span class="button file-upload__button" role="button" tabindex="0" aria-controls="amgiftcard-userimage-input">
+                                <span
+                                    class="button file-upload__button"
+                                    role="button"
+                                    tabindex="0"
+                                    aria-controls="amgiftcard-userimage-input"
+                                >
                                     <?= $block->escapeHtml(__('Browse')) ?>
                                 </span>
                             </label>
@@ -204,7 +212,6 @@
                 ></p>
                 <?php endif; ?>
             </div>
-
         <?php endif; ?>
         <?php if ($block->isOptionEnable('am_giftcard_sender_name')) : ?>
             <div class="input required">
@@ -341,7 +348,7 @@
                         <option
                             value="<?= $block->escapeHtmlAttr($_timezone['value']); ?>"
                             <?php if ($block->getDefaultValue('am_giftcard_date_delivery_timezone') == $_timezone['value']) : ?>
-                                <?= " selected"; ?>
+                                selected
                             <?php endif; ?>
                         >
                             <?= $block->escapeHtml($_timezone['label']); ?>
@@ -408,8 +415,7 @@
 
                     },
                     tooltipClass: "amgiftcard-tooltip",
-                    content:
-                        "<?= $block->escapeHtml(__($block->getTooltipContent())); ?>"
+                    content: "<?= $block->escapeHtml(__($block->getTooltipContent())); ?>"
                 });
             });
         </script>
