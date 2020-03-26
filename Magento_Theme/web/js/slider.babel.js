@@ -38,8 +38,8 @@ define(
             pauseOnHover: JSON.parse(dataValues.pauseOnHover),
             slidesToShow: parseInt(dataValues.slidesToShow),
             slidesToScroll: parseInt(dataValues.slidesToScroll),
+            swipeToSlide: JSON.parse(dataValues.swipeToSlide),
             responsive: JSON.parse(dataValues.responsiveConfig),
-            swipeToSlide: JSON.parse(dataValues.swipeToSlide)
           }
         )
       }

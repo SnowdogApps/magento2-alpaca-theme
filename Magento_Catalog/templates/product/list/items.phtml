@@ -146,6 +146,7 @@ switch ($type = $block->getType()) {
 ?>
 <?php
 //slider config
+$sliderArrows           = true;
 $sliderItemClass        = 'slider__item';
 $sliderClass            = 'slider--products';
 $sliderInfinite         = 'no';
@@ -211,6 +212,7 @@ $sliderResponsiveConfig = '[
 
             $sliderBlockBefore->setData([
                 'slider_html'       => 'before-slides',
+                'arrows'            => $sliderArrows,
                 'slider_class'      => $sliderClass,
                 'infinite'          => $sliderInfinite,
                 'slides_to_show'    => $sliderSlidesToShow,
@@ -222,6 +224,7 @@ $sliderResponsiveConfig = '[
             <?= $sliderBlockBefore->toHtml(); ?>
 
             <?php foreach ($items as $key => $_item): ?>
+                <?php $itemUrl = $block->getProductUrl($_item) ?>
                 <div
                     class="
                         <?= $block->escapeHtmlAttr($sliderItemClass) ?>
@@ -237,7 +240,7 @@ $sliderResponsiveConfig = '[
                     >
                         <?= '<!-- ' . $image . '-->' ?>
                         <a
-                            href="<?= $block->getProductUrl($_item) ?>"
+                            href="<?= $block->escapeUrl($itemUrl) ?>"
                             class="product-grid-item__link"
                             tabindex="-1"
                         >
@@ -283,7 +286,7 @@ $sliderResponsiveConfig = '[
                             </div>
                             <h3 class="product-grid-item__name">
                                 <a
-                                    href="<?= $block->getProductUrl($_item) ?>"
+                                    href="<?= $block->escapeUrl($itemUrl) ?>"
                                     class="product-grid-item__name-link"
                                     title="<?= $block->escapeHtmlAttr($_item->getName()) ?>"
                                 >
@@ -335,7 +338,6 @@ $sliderResponsiveConfig = '[
                                                                 role="presentation"
                                                                 focusable="false"
                                                             >
-                                                                <title><?= __('Add to Cart') ?></title>
                                                                 <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#shopping-cart')) ?>"></use>
                                                             </svg>
                                                         </button>

@@ -242,15 +242,46 @@ If you use ES6, you should use babel support, just add `.babel` in file name bef
 
 ### Sliders
 Used lib: [slick slider](https://kenwheeler.github.io/slick/)
-Components: each slider variant has separate .js file but in Magento Theme we are using only one
 Magento Theme: One template for all sliders (theme-frontend-colibri/Magento_Theme/templates/html/slider.phtml)
 How to use:
 1. If possible define block in xml:
 ```
 <referenceBlock name="some_block_name">
     <arguments>
-        <argument name="slider_block" xsi:type="string">some_slider_name</argument>
+        //required option with uniq name
+        <argument
+            name="slider_block"
+            xsi:type="string"
+        >
+            some_slider_name
+        </argument>
+
+        //required option for sliders using content type colibri_pictures as slides
+        <argument
+            name="slider_picture_block"
+            xsi:type="string"
+        >
+            some_picture_block_name
+        </argument>
+
+        // optional option used to define slider variant
+        <argument
+            name="slider_class"
+            xsi:type="string"
+        >
+            some_class_name
+        </argument>
+
+        // optional option used to define classes for slider title
+        <argument
+            name="slider_title_class"
+            xsi:type="string"
+        >
+            heading heading--first-level margin-0
+        </argument>
     </arguments>
+
+    // required block with name parameter same as defined in slider_block argument
     <block
         class="Magento\Framework\View\Element\Template"
         name="some_slider_name"
@@ -271,6 +302,33 @@ $sliderBlock = $this->getSliderBlock(); //
 $sliderBlock->setData(['slider_html'=>'before-slides', ...]);
 ?>
 <?= $sliderBlockBefore->toHtml(); ?>
+```
+
+"..." - additional config options:
+```
+$sliderBlock->setData([
+    'slider_html'       => 'before-slides', //required option
+    'slider_class'      => '', //optional slider class name
+    'wrapper_class'     => '', //optional slider wrapper class name
+    'display_title'     => '', //optional bool value
+    'slider_title'      => '', //optional slider title
+    'title_class'       => '', //optional slider title class name
+    'content_before'    => '', //optional content before slides
+    'arrows'            => '', //optional value (yes/no)
+    'is_ajax'           => '', //bool value - set to true when slides are loaded with ajax
+
+    //below options are optional and described in: [https://kenwheeler.github.io/slick/#settings]
+    'infinite'          => '',
+    'center_mode'       => '',
+    'dots'              => '',
+    'autoplay'          => '',
+    'autoplay_speed'    => '',
+    'pause_on_focus'    => '',
+    'pause_on_hover'    => '',
+    'slides_to_show'    => '',
+    'slides_to_scroll'  => '',
+    'responsive_config' => '',
+]);
 ```
 
 3. Render html for slides

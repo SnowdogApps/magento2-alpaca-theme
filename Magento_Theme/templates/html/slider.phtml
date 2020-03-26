@@ -13,7 +13,7 @@ $wrapperClass = $block->getWrapperClass();
 $slidesElement = $block->getSlidesElement() ?: '.slider__slides';
 
 //slider config
-$sliderIsAjax = $block->getIsAjax() ?: false;
+$sliderIsAjax = $block->getIsAjax();
 $sliderMobileFirst = $block->getMobileFirst();
 $sliderInfinite = $block->getInfinite();
 $sliderCenterMode = $block->getCenterMode();
@@ -33,7 +33,6 @@ $sliderMobileFirst = ($sliderMobileFirst === 'no') ? 'false' : 'true';
 $sliderInfinite = ($sliderInfinite === 'no') ? 'false' : 'true';
 $sliderCenterMode = ($sliderCenterMode === 'yes') ? 'true' : 'false';
 $sliderDots = ($sliderDots === 'no') ? 'false' : 'true';
-$sliderArrows = ($sliderArrows === 'no') ? 'false' : 'true';
 $sliderAutoplay = ($sliderAutoplay === 'yes') ? 'true' : 'false';
 $sliderAutoplaySpeed = $sliderAutoplaySpeed ? $block->escapeHtmlAttr($sliderAutoplaySpeed) : '3000';
 $sliderPauseOnFocus = ($sliderPauseOnFocus === 'no') ? 'false' : 'true';
@@ -109,7 +108,7 @@ $sliderContentAfter = $block->getContentAfter();
         <?php endif ?>
 
         <div class="slider__handler">
-            <?php if ($sliderArrows === 'true'): ?>
+            <?php if ($sliderArrows): ?>
                 <div class="slider__navigation">
                     <div class="slider__arrows">
                         <button
@@ -129,9 +128,9 @@ $sliderContentAfter = $block->getContentAfter();
                                     button__icon
                                     slider__nav-icon
                                 "
-                                role="img"
+                                role="presentation"
+                                focusable="false"
                             >
-                                <title><?= __('Arrow left') ?></title>
                                 <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#arrow-left')); ?>"></use>
                             </svg>
                         </button>
@@ -152,9 +151,9 @@ $sliderContentAfter = $block->getContentAfter();
                                     button__icon
                                     slider__nav-icon
                                 "
-                                role="img"
+                                role="presentation"
+                                focusable="false"
                             >
-                                <title><?= __('Arrow right') ?></title>
                                 <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#arrow-right')); ?>"></use>
                             </svg>
                         </button>

@@ -267,6 +267,7 @@ module.exports = {
             attr: 'data-element-nav-next=".slider__next"'
           },
           {
+            // eslint-disable-next-line
             attr: 'data-responsive-config=\'[{\"breakpoint\": 767, \"settings\": {\"slidesToShow\": 3, \"slidesToScroll\": 1, \"dots\": false}}, {\"breakpoint\": 1023, \"settings\": {\"slidesToShow\": 4, \"slidesToScroll\": 1, \"dots\": false}}]\''
           }
         ],
@@ -409,6 +410,7 @@ module.exports = {
             attr: 'data-element-nav-next=".slider__next"'
           },
           {
+            // eslint-disable-next-line
             attr: 'data-responsive-config=\'[{\"breakpoint\": 767, \"settings\": {\"slidesToShow\": 4, \"slidesToScroll\": 1, \"dots\": false}}, {\"breakpoint\": 1023, \"settings\": {\"slidesToShow\": 6, \"slidesToScroll\": 1, \"dots\": false}}]\''
           }
         ],
