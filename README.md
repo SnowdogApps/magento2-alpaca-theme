@@ -318,16 +318,17 @@ $sliderBlock->setData([
     'is_ajax'           => '', //bool value - set to true when slides are loaded with ajax
 
     //below options are optional and described in: [https://kenwheeler.github.io/slick/#settings]
-    'infinite'          => '',
-    'center_mode'       => '',
-    'dots'              => '',
-    'autoplay'          => '',
-    'autoplay_speed'    => '',
-    'pause_on_focus'    => '',
-    'pause_on_hover'    => '',
-    'slides_to_show'    => '',
-    'slides_to_scroll'  => '',
-    'responsive_config' => '',
+    'infinite'          => '', //default true
+    'mobile_first'      => '', //default true
+    'center_mode'       => '', //default false
+    'dots'              => '', //default true
+    'autoplay'          => '', //default false
+    'autoplay_speed'    => '', //default 3000
+    'pause_on_focus'    => '', //default true
+    'pause_on_hover'    => '', //default true
+    'slides_to_show'    => '', //default 1
+    'slides_to_scroll'  => '', //default 1
+    'responsive_config' => '', //default false
 ]);
 ```
 
