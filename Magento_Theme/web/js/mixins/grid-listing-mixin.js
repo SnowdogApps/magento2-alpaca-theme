@@ -10,9 +10,9 @@ define(['slider'], function (slider) {
         this.container = document.querySelectorAll(this.containerClass);
       },
       hideLoader: function () {
-          this.container.forEach(el => {
-            el.querySelector('.loader').classList.remove('loader--visible');
-          });
+        this.container.forEach(el => {
+          el.querySelector('.loader').classList.remove('loader--visible');
+        });
       },
       showLoader: function () {
         this.container.forEach(el => {
@@ -22,9 +22,8 @@ define(['slider'], function (slider) {
       initAfterLoad: function () {
         if (this.getDisplayAs() === 'slider') {
           this.container.forEach(el => {
-            var sliderContainer = el.querySelector('.slider__container');
-            slider(sliderContainer.dataset, sliderContainer);
-            el.querySelector('.slider').classList.remove('slider--hidden-controls');
+            var sliderElement = el.querySelector('.slider');
+            slider(false, sliderElement);
           });
         }
       },
