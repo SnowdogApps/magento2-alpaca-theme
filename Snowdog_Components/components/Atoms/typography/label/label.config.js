@@ -1,4 +1,6 @@
 module.exports = {
-  text: 'label',
-  class: 'label'
+  context: {
+    text: 'label',
+    class: 'label'
+  }
 }

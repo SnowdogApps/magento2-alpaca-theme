@@ -1,13 +1,35 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+
 ## [Unreleased]
-### Changed
 ### Added
+### Changed
 ### Fixed
 
-
 ## [Released]
+
+## [1.2.0] - 2020-03-20
+### Fixed
+- fix breadcrumbs issue (#65141)
+### Added
+- amasty gdpr (#64444)
+
+## [1.1.0] - 2020-03-11
+### Changed
+- PDP benefits popup moved to CMS (#64572)
+### Changed
+- grouped product options with styles (#64633)
+
+### Fixed
+- contact bar & side menu mobie (#63497)
+- shipping address in checkout (#63737)
+- product options fixes (#63938)
+- chekout styles adjustment (#64572)
+- success page styles - spacing and standard header & footer (#64572)
+- layerd navigation - spaceing alignment (#64572)
+- removed double header tag & skip nav link (#64572)
+
 
 ## [1.0.0] - 2020-02-19
 ### Changed
