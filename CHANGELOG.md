@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Added
 ### Changed
+- change sliders lib from lory to slick (#64601, #64697, #64744)
 ### Fixed
 
 ## [Released]
