@@ -1,57 +1,59 @@
-<select
-    name='<?= $this->getFieldName() ?><?php if ($this->getMultiselect()) echo '[]' ?>'
-    id='<?= $this->getFieldId() ?>'
-    class='
-        select__field
-        <?= $this->getFieldClass() ?>
-    '
-    style='<?= $this->getFieldStyle() ?>'
-    data-mage-init='{"select": {"options": {"shouldSort": false}}}'
-    <?php if ($this->getField()->getHideLabel()): ?>
-        aria-label="<?= $this->getField()->getName() ?>"
-    <?php else: ?>
-        aria-labelledby="label_<?= $this->getFieldId() ?>"
-    <?php endif; ?>
-    <?php if ($this->getField()->getRequired()): ?>
-        aria-required="true"
-    <?php endif; ?>
-    <?php if ($this->getField()->getBrowserAutocomplete()): ?>
-        autocomplete="<?= $this->getField()->getBrowserAutocomplete() ?>"
-    <?php endif; ?>
-    <?php if ($this->getField()->getDisabled()): ?>
-        disabled
-    <?php endif; ?>
-    <?php if ($this->getMultiselect()): ?>
-        multiple
-    <?php endif; ?>
-    <?= htmlspecialchars($this->getField()->getCustomAttributes()) ?>
->
+<div class="select select--native">
+    <select
+        name='<?= $this->getFieldName() ?><?php if ($this->getMultiselect()) echo '[]' ?>'
+        id='<?= $this->getFieldId() ?>'
+        class='
+            select__field
+            <?= $this->getFieldClass() ?>
+        '
+        style='<?= $this->getFieldStyle() ?>'
+        data-mage-init='{"select": {"options": {"shouldSort": false}}}'
+        <?php if ($this->getField()->getHideLabel()): ?>
+            aria-label="<?= $this->getField()->getName() ?>"
+        <?php else: ?>
+            aria-labelledby="label_<?= $this->getFieldId() ?>"
+        <?php endif; ?>
+        <?php if ($this->getField()->getRequired()): ?>
+            aria-required="true"
+        <?php endif; ?>
+        <?php if ($this->getField()->getBrowserAutocomplete()): ?>
+            autocomplete="<?= $this->getField()->getBrowserAutocomplete() ?>"
+        <?php endif; ?>
+        <?php if ($this->getField()->getDisabled()): ?>
+            disabled
+        <?php endif; ?>
+        <?php if ($this->getMultiselect()): ?>
+            multiple
+        <?php endif; ?>
+        <?= htmlspecialchars($this->getField()->getCustomAttributes()) ?>
+    >
 
-    <?php foreach ($this->getFieldOptions() as $option): ?>
-        <?php
-            $checked = false;
-            $disabled = false;
-            if ($option["checked"]) {
-                $checked = 'selected';
-            }
-            if ($option["disabled"]) {
-                $disabled = 'disabled';
-            }
-        ?>
-        <?php if (isset($option["value"])): ?>
+        <?php foreach ($this->getFieldOptions() as $option): ?>
             <?php
-                $value = htmlspecialchars($option["value"]);
-                if ($option['null']) {
-                    $value = '';
+                $checked = false;
+                $disabled = false;
+                if ($option["checked"]) {
+                    $checked = 'selected';
+                }
+                if ($option["disabled"]) {
+                    $disabled = 'disabled';
                 }
             ?>
-            <option
-                value="<?= $value ?>"
-                <?= $checked ?>
-                <?= $disabled ?>
-            >
-                <?= $option['label'] ?>
-            </option>
-        <?php endif; ?>
-    <?php endforeach; ?>
-</select>
+            <?php if (isset($option["value"])): ?>
+                <?php
+                    $value = htmlspecialchars($option["value"]);
+                    if ($option['null']) {
+                        $value = '';
+                    }
+                ?>
+                <option
+                    value="<?= $value ?>"
+                    <?= $checked ?>
+                    <?= $disabled ?>
+                >
+                    <?= $option['label'] ?>
+                </option>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </select>
+</div>
