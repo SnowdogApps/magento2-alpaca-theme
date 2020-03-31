@@ -1,0 +1,27 @@
+<?php
+/** @var \Amasty\Storelocator\Block\Location $block */
+if ($block->getProduct()) {
+    if (!$block->getRequest()->getParam("product")) {
+        $productId = $block->getProduct()->getId();
+    }
+    $locationCollection = $block->getLocationCollection();
+}
+?>
+<?php if (count($locationCollection) > 0 && $block->validateLocations($locationCollection, $block->getProduct())) : ?>
+    <?php
+        $target = $block->getTarget();
+        $linkText = $block->getLinkText();
+    ?>
+    <a
+        class="
+            button
+            button--fluid
+            button--secondary
+            link--button
+        "
+        href="<?= $block->escapeHtml($block->getLinkToMap(["product" => $productId])) ?>"
+        <?= $block->escapeHtml($target) ?>
+    >
+        <?= $block->escapeHtml($linkText) ?>
+    </a>
+<?php endif; ?>

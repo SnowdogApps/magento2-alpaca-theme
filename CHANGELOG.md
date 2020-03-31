@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Added
+- amasty store locator styles (#57933)
 ### Changed
 - change sliders lib from lory to slick (#64601, #64697, #64744)
 - category banner styles nad template (#65344)
