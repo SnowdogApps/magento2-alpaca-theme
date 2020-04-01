@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file.
 - adjust select in case of long names (#65523)
 - display stock_status_label instead of stock_status_description on grid (#65575)
 ### Fixed
+- stretched gift card button (#65615)
 
 ## [Released]
 
