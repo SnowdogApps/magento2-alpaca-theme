@@ -11,8 +11,10 @@ All notable changes to this project will be documented in this file.
 - amasty gift card styles (#65329)
 - adjust select in case of long names (#65523)
 - display stock_status_label instead of stock_status_description on grid (#65575)
+- webforms templates and styles (#63440)
 ### Fixed
 - stretched gift card button (#65615)
+- poor quality of thumbnail images on PDP (#65614)
 
 ## [Released]
 
