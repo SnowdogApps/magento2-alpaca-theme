@@ -239,3 +239,113 @@ It should be added in `themes.json` in [frontools config](#theme-configuration) 
 ### JS
 JS files from components are not imported in theme, they are only demonstrative. For theme we need to build JS files using RequireJS.
 If you use ES6, you should use babel support, just add `.babel` in file name before `.js` extension, ex: [script for tabs](Magento_Theme/web/js/tab.babel.js)
+
+### Sliders
+Used lib: [slick slider](https://kenwheeler.github.io/slick/)
+Magento Theme: One template for all sliders (theme-frontend-colibri/Magento_Theme/templates/html/slider.phtml)
+How to use:
+1. If possible define block in xml:
+```
+<referenceBlock name="some_block_name">
+    <arguments>
+        //required option with uniq name
+        <argument
+            name="slider_block"
+            xsi:type="string"
+        >
+            some_slider_name
+        </argument>
+
+        //required option for sliders using content type colibri_pictures as slides
+        <argument
+            name="slider_picture_block"
+            xsi:type="string"
+        >
+            some_picture_block_name
+        </argument>
+
+        // optional option used to define slider variant
+        <argument
+            name="slider_class"
+            xsi:type="string"
+        >
+            some_class_name
+        </argument>
+
+        // optional option used to define classes for slider title
+        <argument
+            name="slider_title_class"
+            xsi:type="string"
+        >
+            heading heading--first-level margin-0
+        </argument>
+    </arguments>
+
+    // required block with name parameter same as defined in slider_block argument
+    <block
+        class="Magento\Framework\View\Element\Template"
+        name="some_slider_name"
+        template="Magento_Theme::html/slider.phtml"
+    />
+</referenceBlock>
+```
+if not use:
+```
+$sliderBlock = $this->getLayout()
+    ->createBlock("Magento\Framework\View\Element\Template")
+    ->setTemplate("Magento_Theme::html/slider.phtml");
+```
+2. Initialize "before-slides" block in .phtml file
+```
+<?php
+$sliderBlock = $this->getSliderBlock(); //
+$sliderBlock->setData(['slider_html'=>'before-slides', ...]);
+?>
+<?= $sliderBlockBefore->toHtml(); ?>
+```
+
+"..." - additional config options:
+```
+$sliderBlock->setData([
+    'slider_html'       => 'before-slides', //required option
+    'slider_class'      => '', //optional slider class name
+    'wrapper_class'     => '', //optional slider wrapper class name
+    'display_title'     => '', //optional bool value
+    'slider_title'      => '', //optional slider title
+    'title_class'       => '', //optional slider title class name
+    'content_before'    => '', //optional content before slides
+    'arrows'            => '', //optional value (yes/no)
+    'is_ajax'           => '', //bool value - set to true when slides are loaded with ajax
+
+    //below options are optional and described in: [https://kenwheeler.github.io/slick/#settings]
+    'infinite'          => '', //default true
+    'mobile_first'      => '', //default true
+    'center_mode'       => '', //default false
+    'dots'              => '', //default true
+    'autoplay'          => '', //default false
+    'autoplay_speed'    => '', //default 3000
+    'pause_on_focus'    => '', //default true
+    'pause_on_hover'    => '', //default true
+    'slides_to_show'    => '', //default 1
+    'slides_to_scroll'  => '', //default 1
+    'responsive_config' => '', //default false
+]);
+```
+
+3. Render html for slides
+
+```
+<?php foreach ($items as $key => $item) : ?>
+    <div class="slider__item">
+        ...
+    </div>
+<?php endforeach ?>
+```
+
+4. Initialize "after-slides" block in .phtml file
+```
+<?php
+$sliderBlock->setData(['slider_html'=>'after-slides', ...]);
+?>
+<?= $sliderBlock->toHtml(); ?>
+```

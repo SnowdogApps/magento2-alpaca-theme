@@ -8,7 +8,7 @@ var config = {
       "noUiSlider"       : "Magento_Theme/js/lib/nouislider.min",
       "picturefill"      : "Magento_Theme/js/lib/picturefill",
       "svg4everybody"    : "Magento_Theme/js/lib/svg4everybody",
-      "lory"             : "Magento_Theme/js/lib/lory",
+      "slick"            : "Magento_Theme/js/lib/slick.min",
       "bannerCollapsible": "Magento_Theme/js/banner-collapsible.babel",
       "cookieMessage"    : "Magento_Theme/js/cookie-message.babel",
       "dropdownList"     : "Magento_Theme/js/dropdown-list.babel",
@@ -34,13 +34,10 @@ var config = {
   },
   shim: {
     "slider": {
-      "deps": ["lory"]
+      "deps": ["jquery", "slick"]
     },
     "select2":{
       "deps": ["jquery"]
     }
-  },
-  deps: [
-    "lory"
-  ]
+  }
 };

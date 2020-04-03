@@ -1,20 +1,21 @@
 @import 'filter-variables';
 
 .filter {
-    @include mq($screen-xl) {
-        padding: $filter__padding\@xl;
-    }
     &--checkbox {
         .filter__content {
-            position: relative;
             max-height: $filter__content-max-height--checkbox;
-            overflow-y: $filter__content-overflow-y--checkbox;
         }
 
         .checkbox__label {
             color: $color-primary;
             font-size: $filter__label-font-size--checkbox;
             text-transform: $filter__label-text-transform--checkbox;
+        }
+        .checkbox--link {
+            margin: $filter__margin--checkbox-link;
+            @include mq($screen-m) {
+                margin: $filter__margin--checkbox-link\@medium;
+            }
         }
         .checkbox--link-checked {
             .checkbox__label {
@@ -39,11 +40,25 @@
     }
 
     &__content {
+        position: relative;
+        overflow-y: $filter__content-overflow-y;
         padding: $filter__content-padding;
+        @include mq($screen-m) {
+            padding: $filter__content-padding\@medium;
+        }
+        @include mq($screen-l) {
+            padding: $filter__content-padding\@large;
+        }
     }
 
     &__label-wrapper {
         display: flex;
+        @include mq($screen-m) {
+            padding: $filter__label-wrapper-padding\@medium;
+        }
+        @include mq($screen-l) {
+            padding: $filter__label-wrapper-padding\@large;
+        }
     }
 
     &__list {
@@ -56,7 +71,7 @@
 
         @include mq($screen-l) {
             display: flex;
-            justify-content: center;
+            justify-content: flex-start;
             flex-basis: $filter__swatch-size\@large;
             margin: $filter__swatch-margin\@large;
         }
@@ -94,7 +109,7 @@
 
         @include mq($screen-l) {
             display: flex;
-            justify-content: center;
+            justify-content: flex-start;
             flex-basis: $filter__color-size\@large;
         }
     }
@@ -110,6 +125,7 @@
         height: $filter__color-option-height;
         max-height: $filter__color-option-height;
         text-decoration: none;
+        margin: $filter__color-option-margin;
 
         &:after {
             content: '';

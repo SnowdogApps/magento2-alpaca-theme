@@ -21,7 +21,7 @@ module.exports = {
       label: 'Native (B2B)',
       view: 'file-upload--native.hbs',
       context: {
-        class: 'file-upload--native',
+        class: 'file-upload--native button-extend',
         attachments: [
           {
             fileName: 'some-file.jpg',

@@ -1,6 +1,6 @@
 module.exports = {
   collated: true,
-  context : {
+  context: {
     text: '-15%'
   },
   variants: [

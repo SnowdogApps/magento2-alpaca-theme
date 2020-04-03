@@ -13,7 +13,7 @@
 
         .banner__content {
             &:after {
-                width: 100%;
+                width: $banner__content-after-width-hover;
             }
         }
     }
@@ -41,14 +41,19 @@
             @include mq($screen-m) {
                 padding: $banner__content-padding--category\@medium;
             }
+
+            @include mq($screen-l) {
+                padding: $banner__content-padding--category\@large;
+            }
         }
 
         &:after {
             content: '';
             position: absolute;
-            left: 0;
+            left: $banner__content-after-left;
             bottom: 0;
             width: 0;
+            min-width: $banner__content-after-min-width;
             height: $banner__content-after-height;
             background: $banner__content-after-background;
             transition: $banner__content-after-transition;
@@ -59,7 +64,6 @@
         margin: $banner__text-margin;
         font-size: $banner__text-font-size;
         font-weight: $banner__text-font-weight;
-        line-height: $banner__text-line-height;
         text-transform: $banner__text-text-transform;
 
         @include mq($screen-m) {
@@ -83,37 +87,12 @@
         position: relative;
     }
 
-    &__button-collapse {
-        @extend %button-collapse-after;
-        position: $banner__button-collapse-position;
-        left: $banner__button-collapse-left;
-        bottom: $banner__button-collapse-bottom;
-        right: $banner__button-collapse-right;
-        background: $banner__button-collapse-bg;
-
-        .icon {
-            fill: $banner__button-collapse-icon-fill;
-            margin: $banner__button-collapse-icon-margin;
-        }
-
-        .button__text {
-            padding: 0 $spacer--medium;
-            text-transform: $banner__button-collapse-text-text-transform;
-            color: $banner__button-collapse-text-color;
-            font-weight: $banner__button-collapse-text-font-weight;
-        }
-
-        &:hover {
-            @extend %button-collapse-after;
-        }
-    }
-
     &__actions-wrapper {
         display: flex;
         flex-direction: column;
         padding: $banner__actions-wrapper-padding;
 
-        @include mq($screen-m) {
+        @include mq($screen-l) {
             flex-direction: row-reverse;
             justify-content: space-between;
         }
@@ -125,11 +104,123 @@
         .banner__image-wrapper {
             display: flex;
             flex-direction: column;
+        }
+
+        .banner__button {
+            padding: $banner__button-padding--category;
+
+            &:hover {
+                &:before,
+                &:after {
+                    display: none;
+                }
+
+                .banner__button-text {
+                    color: $banner__button-text-color-hover--category;
+                }
+
+                .banner__button-icon {
+                    fill: $banner__button-icon-fill-hover--category;
+                }
+            }
+        }
+
+        .banner__button-text {
+            text-decoration: $banner__button-text-decoration--category;
+        }
+
+        .banner__button-collapse {
+            @include mq($screen-l) {
+                position: $banner__button-collapse-position--category\@large;
+                right: $banner__button-collapse-right--category\@large;
+            }
+        }
+
+        .banner__button-close {
+            &:hover {
+                &:before,
+                &:after {
+                    display: none;
+                }
+            }
+
+            @include mq($screen-l) {
+                justify-content: flex-end;
+            }
+        }
+
+        .banner__wrapper {
+            position: relative;
+        }
+
+        .banner__heading-wrapper {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .banner__heading {
+            .heading {
+                margin: $banner__heading-margin--category;
+            }
+        }
+    }
+
+    &--category-image {
+        .banner__heading-wrapper {
+            padding: $banner__heading-wrapper-padding--category-image;
 
             @include mq($screen-m) {
-                display: block;
-                flex-direction: initial;
+                position: $banner__heading-wrapper-position--category-image\@medium;
+                bottom: $banner__heading-wrapper-bottom--category-image\@medium;
+                left: $banner__heading-wrapper-left--category-image\@medium;
+                background-color:  $banner__heading-wrapper-background--category-image\@medium;
+                width: $banner__heading-wrapper-width--category-image\@medium;
+                max-width: $banner__heading-wrapper-max-width--category-image\@medium;
+                padding: $banner__heading-wrapper-padding--category-image\@medium;
             }
+
+            @include mq($screen-l) {
+                bottom: $banner__heading-wrapper-bottom--category-image\@large;
+                left: $banner__heading-wrapper-left--category-image\@large;
+            }
+
+            @include mq($screen-xl) {
+                bottom: $banner__heading-wrapper-bottom--category-image\@xl;
+                left: $banner__heading-wrapper-left--category-image\@xl;
+            }
+        }
+
+        .banner__heading {
+            margin: $banner__heading-margin--category-image;
+
+            @include mq($screen-m) {
+                margin: $banner__heading-margin--category-image\@medium;
+            }
+
+            .heading {
+                // Overwrite WebForms text-center class
+                text-align: left !important;  // sass-lint:disable-line no-important
+            }
+        }
+
+        .banner__actions-wrapper {
+            @include mq($screen-l) {
+                flex-direction: row;
+            }
+        }
+
+        .banner__button {
+            justify-content: flex-start;
+        }
+
+        .banner__button-collapse {
+            @include mq($screen-l) {
+                position: $banner__button-collapse-position--category-image\@large;
+            }
+        }
+
+        .banner__button-text {
+            margin: $banner__button-text-margin--category-image;
         }
     }
 

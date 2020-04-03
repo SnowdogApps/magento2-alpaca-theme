@@ -28,95 +28,74 @@
             </h2>
         </div>
 
-        <div
-            class="loader loader--visible"
-            aria-live="polite"
-            aria-label="<?= $block->escapeHtmlAttr(__('Do not refresh the page')) ?>"
-        >
-            <div class="loader__icon"></div>
-        </div>
+        <?php
+        //slider config
+        $sliderIsAjax           = true;
+        $sliderArrows           = true;
+        $sliderClass            = 'slider--products';
+        $sliderInfinite         = 'no';
+        $sliderSlidesToShow     = '2';
+        $sliderSlidesToScroll   = '1';
+        $sliderResponsiveConfig = '[
+            {
+                "breakpoint": 767,
+                "settings": {
+                    "slidesToShow": 3,
+                    "slidesToScroll": 1,
+                    "dots": false
+                }
+            },
+            {
+                "breakpoint": 1023,
+                "settings": {
+                    "slidesToShow": 4,
+                    "slidesToScroll": 1,
+                    "dots": false
+                }
+            }
+        ]';
+        ?>
+        <?php
+        $sliderBlockBefore = $this->getLayout()
+            ->createBlock("Magento\Framework\View\Element\Template")
+            ->setTemplate("Magento_Theme::html/slider.phtml");
 
-        <div
-            class="
-                slider
-                slider--products
-                slider--hidden-controls
-            "
-        >
-            <div class="slider__wrapper">
-                <div
-                    class="slider__container"
-                    data-rewind="false"
-                    data-enable-mouse-events="true"
-                >
-                    <div class="slider__navigation">
-                        <button
-                            class="
-                                button
-                                button--icon
-                                slider__prev
-                                button--icon-border
-                            "
-                            type="button"
-                            aria-label="<?= $block->escapeHtmlAttr(__('Previous slide')) ?>"
-                        >
-                            <svg
-                                class="
-                                    icon
-                                    button__icon
-                                    slider__icon
-                                "
-                                role="presentation"
-                                focusable="false"
-                            >
-                                <title><?= __('Previous slide') ?></title>
-                                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#arrow-left')) ?>"></use>
-                            </svg>
-                        </button>
+        $sliderBlockBefore->setData([
+            'is_ajax'           => $sliderIsAjax,
+            'arrows'            => $sliderArrows,
+            'slides_element'    => '.admin__data-grid-outer-wrap',
+            'slider_html'       => 'before-slides',
+            'slider_class'      => $sliderClass,
+            'infinite'          => $sliderInfinite,
+            'slides_to_show'    => $sliderSlidesToShow,
+            'slides_to_scroll'  => $sliderSlidesToScroll,
+            'responsive_config' => $sliderResponsiveConfig
+        ]);
+        ?>
+        <?= $sliderBlockBefore->toHtml(); ?>
 
-                        <button
-                            class="
-                                button
-                                button--icon
-                                slider__next
-                                button--icon-border
-                            "
-                            type="button"
-                            aria-label="<?= $block->escapeHtmlAttr(__('Next slide')) ?>"
-                        >
-                            <svg
-                                class="
-                                    icon
-                                    button__icon
-                                    slider__icon
-                                "
-                                role="presentation"
-                                focusable="false"
-                            >
-                                <title><?= __('Next slide') ?></title>
-                                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#arrow-right')) ?>"></use>
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="slider__handler">
-                        <?= $block->renderApp(
-                            [
-                                'widget_columns' => [
-                                    'displayMode' => 'grid',
-                                    'displayAs' => 'slider',
-                                    'itemWrapperClasses' => 'slider__item slider__slide-item',
-                                    'itemClasses' => 'product-grid-item product-grid-item--slider-item'
-                                ],
-                                'image' => [
-                                    'imageCode' => 'recently_viewed_products_grid_content_widget'
-                                ]
-                            ]
-                        );
-                        ?>
-                    </div>
-                    <div class="slider__dots"></div>
-                </div>
-            </div>
-        </div>
+        <?= $block->renderApp([
+            'widget_columns' => [
+                'displayMode' => 'grid',
+                'displayAs' => 'slider',
+                'itemWrapperClasses' => 'slider__item',
+                'itemClasses' => 'product-grid-item product-grid-item--slider-item'
+            ],
+            'image' => [
+                'imageCode' => 'recently_viewed_products_grid_content_widget'
+            ]
+        ]);
+        ?>
+
+        <?php
+        $sliderBlockAfter = $this->getLayout()
+            ->createBlock("Magento\Framework\View\Element\Template")
+            ->setTemplate("Magento_Theme::html/slider.phtml");
+
+        $sliderBlockAfter->setData([
+            'slider_html'   => 'after-slides'
+        ]);
+        ?>
+        <?= $sliderBlockAfter->toHtml(); ?>
     </div>
 </section>

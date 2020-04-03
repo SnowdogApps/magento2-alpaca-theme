@@ -1,7 +1,7 @@
-$progress-bar__width\@medium                                  : 80% !default;
-$progress-bar__margin\@medium                                 : $spacer--extra-large auto $spacer--large !default;
-$progress-bar__padding\@medium                                : 0 !default;
-$progress-bar__font-size\@medium                              : 0 !default;
+$progress-bar__width\@large                                   : 80% !default;
+$progress-bar__margin\@large                                  : $spacer--extra-large auto $spacer--large !default;
+$progress-bar__padding                                        : 0 !default;
+$progress-bar__font-size\@large                               : 0 !default;
 
 $progress-bar__item-width                                     : 50% !default;
 $progress-bar__item-text-align                                : center !default;
@@ -33,9 +33,12 @@ $progress-bar__line-top--before                               : 0 !default;
 $progress-bar__line-left--before                              : 50% !default;
 $progress-bar__line-background--before                        : $gray-light !default;
 $progress-bar__line-border-radius--before                     : 50% !default;
-$progress-bar__line-background--after: $white;
+$progress-bar__line-background--after                         : $white !default;
 
+$progress-bar__label-font-size                                : $font-size-extra-large !default;
+$progress-bar__label-font-size\@medium                        : $font-size-super-extra-large !default;
 $progress-bar__label-margin                                   : 0 !default;
+$progress-bar__label-text-align                               : center !default;
 
 $checkout-progress-bar-item-element__size                     : $spacer--large !default;
 $checkout-progress-bar-item-element-outer-radius__width       : 2px !default;
@@ -44,65 +47,74 @@ $checkout-progress-bar-item-element-inner__height             : $checkout-progre
 $checkout-progress-bar-item-element-inner__active__line-height: 1 !default;
 
 .progress-bar {
-    display: none;
+    padding: $progress-bar__padding;
+    visibility: hidden;
 
-    @include mq($screen-m) {
+    @include mq($screen-l) {
         display: block;
-        width: $progress-bar__width\@medium;
-        margin: $progress-bar__margin\@medium;
-        padding: $progress-bar__padding\@medium;
+        visibility: visible;
+        width: $progress-bar__width\@large;
+        margin: $progress-bar__margin\@large;
         counter-reset: i;
-        font-size: $progress-bar__font-size\@medium;
+        font-size: $progress-bar__font-size\@large;
     }
 
     &__item {
-        display: inline-block;
-        position: relative;
-        width: $progress-bar__item-width;
-        text-align: $progress-bar__item-text-align;
-        vertical-align: $progress-bar__item-vertical-align;
-        font-size: $progress-bar__item-font-size;
+        // line-height for design purpose
+        line-height: 0;
+        display: block;
 
-        &:before {
-            content: '';
-            position: absolute;
-            top: $checkout-progress-bar-item-element__size / 2;
-            left: $progress-bar__item-left--before;
-            background: $progress-bar__item-background--before;
-            height: $progress-bar__item-height--before;
-            width: $progress-bar__item-width--before;
-        }
-
-        &:first-child {
-            .progress-bar__label {
-                transform: translateX(50%);
-            }
+        @include mq($screen-l) {
+            display: inline-block;
+            position: relative;
+            width: $progress-bar__item-width;
+            line-height: $font-line-height;
+            text-align: $progress-bar__item-text-align;
+            vertical-align: $progress-bar__item-vertical-align;
+            font-size: $progress-bar__item-font-size;
 
             &:before {
-                border-radius: $progress-bar__item-border-radius--first-child;
+                content: '';
+                position: absolute;
+                top: $checkout-progress-bar-item-element__size / 2;
+                left: $progress-bar__item-left--before;
+                background: $progress-bar__item-background--before;
+                height: $progress-bar__item-height--before;
+                width: $progress-bar__item-width--before;
             }
-        }
 
-        &:last-child {
-            .progress-bar__label {
-                transform: translateX(-50%);
+            &:first-child {
+                .progress-bar__label {
+                    transform: translateX(50%);
+                }
+
+                &:before {
+                    border-radius: $progress-bar__item-border-radius--first-child;
+                }
             }
 
-            &:before {
-                border-radius: $progress-bar__item-border-radius--before;
+            &:last-child {
+                .progress-bar__label {
+                    transform: translateX(-50%);
+                }
+
+                &:before {
+                    border-radius: $progress-bar__item-border-radius--before;
+                }
             }
         }
 
         &--active {
-            &:before {
-                background: $progress-bar__item-background--active;
-            }
-
-            .progress-bar__line {
-                color: $progress-bar__line-color--active;
-
+            @include mq($screen-l) {
                 &:before {
-                    background: $progress-bar__line-background--active;
+                    background: $progress-bar__item-background--active;
+                }
+                .progress-bar__line {
+                    color: $progress-bar__line-color--active;
+
+                    &:before {
+                        background: $progress-bar__line-background--active;
+                    }
                 }
             }
 
@@ -110,6 +122,7 @@ $checkout-progress-bar-item-element-inner__active__line-height: 1 !default;
                 display: block;
             }
         }
+
 
         &--complete {
             cursor: pointer;
@@ -121,43 +134,52 @@ $checkout-progress-bar-item-element-inner__active__line-height: 1 !default;
     }
 
     &__line {
-        display: inline-block;
-        padding: $progress-bar__line-padding;
-        width: $progress-bar__line-width;
-        word-wrap: $progress-bar__line-word-wrap;
-        color: $progress-bar__line-color;
-        font-weight: $progress-bar__line-font-weight;
-        font-size: $progress-bar__line-font-size;
+        @include mq($screen-l) {
+            display: inline-block;
+            padding: $progress-bar__line-padding;
+            width: $progress-bar__line-width;
+            word-wrap: $progress-bar__line-word-wrap;
+            color: $progress-bar__line-color;
+            font-weight: $progress-bar__line-font-weight;
+            font-size: $progress-bar__line-font-size;
 
-        &:before,
-        &:after {
-            content: '';
-            position: absolute;
-            top: $progress-bar__line-top--before;
-            left: $progress-bar__line-left--before;
-            background: $progress-bar__line-background--before;
-            height: $checkout-progress-bar-item-element__size;
-            margin-left: -($checkout-progress-bar-item-element__size / 2);
-            width: $checkout-progress-bar-item-element__size;
-            border-radius: $progress-bar__line-border-radius--before;
-        }
+            &:before,
+            &:after {
+                content: '';
+                position: absolute;
+                top: $progress-bar__line-top--before;
+                left: $progress-bar__line-left--before;
+                background: $progress-bar__line-background--before;
+                height: $checkout-progress-bar-item-element__size;
+                margin-left: -($checkout-progress-bar-item-element__size / 2);
+                width: $checkout-progress-bar-item-element__size;
+                border-radius: $progress-bar__line-border-radius--before;
+            }
 
-        &:after {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            background: $progress-bar__line-background--after;
-            height: $checkout-progress-bar-item-element-inner__height;
-            margin-left: (-$checkout-progress-bar-item-element-inner__width / 2);
-            top: $checkout-progress-bar-item-element-outer-radius__width;
-            width: $checkout-progress-bar-item-element-inner__width;
-            content: counter(i);
-            counter-increment: i;
+            &:after {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                background: $progress-bar__line-background--after;
+                height: $checkout-progress-bar-item-element-inner__height;
+                margin-left: (-$checkout-progress-bar-item-element-inner__width / 2);
+                top: $checkout-progress-bar-item-element-outer-radius__width;
+                width: $checkout-progress-bar-item-element-inner__width;
+                content: counter(i);
+                counter-increment: i;
+            }
         }
     }
 
     &__label {
         display: none;
+        visibility: visible;
         margin: $progress-bar__label-margin;
+        font-size: $progress-bar__label-font-size;
+        text-align: $progress-bar__label-text-align;
+        @include mq($screen-m) {
+            font-size: $progress-bar__label-font-size\@medium;
+        }
+
     }
 }
