@@ -15,6 +15,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 - stretched gift card button (#65615)
 - poor quality of thumbnail images on PDP (#65614)
+- badge class modifiers for multiword attribute values (#62922)
 
 ## [Released]
 
