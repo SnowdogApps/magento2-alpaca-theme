@@ -10,7 +10,11 @@ All notable changes to this project will be documented in this file.
 
 ## [Released]
 
-## [1.3.0] - 2020-03-20
+## [1.3.1] - 2020-04-06
+### Fixed
+- fixed release date
+
+## [1.3.0] - 2020-04-06
 ### Added
 - amasty store locator styles (#57933)
 ### Changed
