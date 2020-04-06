@@ -7,7 +7,23 @@ All notable changes to this project will be documented in this file.
 ### Changed
 ### Fixed
 
+
 ## [Released]
+
+## [1.3.0] - 2020-03-20
+### Added
+- amasty store locator styles (#57933)
+### Changed
+- change sliders lib from lory to slick (#64601, #64697, #64744)
+- category banner styles nad template (#65344)
+- amasty gift card styles (#65329)
+- adjust select in case of long names (#65523)
+- display stock_status_label instead of stock_status_description on grid (#65575)
+- webforms templates and styles (#63440)
+### Fixed
+- stretched gift card button (#65615)
+- poor quality of thumbnail images on PDP (#65614)
+- badge class modifiers for multiword attribute values (#62922)
 
 ## [1.2.0] - 2020-03-20
 ### Fixed

@@ -1,4 +1,11 @@
-<div class="slider {{ class }}" {{{ attributes }}}>
+<div
+    class="slider {{ class }}"
+    {{#each attributes }}
+        {{{ attr }}}
+    {{/each }}
+>
+    {{render '@loader' }}
+
     {{#if heading }}
         <div class="slider__heading {{ heading.class }}">
             {{ render (component heading.content) heading.contentContext merge=true }}
@@ -11,33 +18,38 @@
         </div>
     {{/if }}
 
-    <div class="slider__wrapper">
-        <div class="slider__container">
-            <div class="slider__navigation {{ navigationClass }}">
+    <div class="slider__handler">
+        <div class="slider__navigation {{ navigationClass }}">
+            <div class="slider__arrows">
                 {{render '@button--icon' iconPrev }}
 
                 {{render '@button--icon' iconNext }}
             </div>
-
-            <div class="slider__handler">
-                <div class="slider__slides">
-                    {{#each slides }}
-                        <div
-                            class="slider__item {{ this.itemClass }}"
-                            {{{ this.itemAttributes }}}
-                        >
-                            {{ render (component content) contentContext }}
-                        </div>
-                    {{/each}}
-                </div>
+        </div>
+        <div class="slider__container">
+            <div class="slider__slides">
+                {{#each slides }}
+                    <div
+                        class="
+                            slider__item
+                            {{ this.itemClass }}
+                        "
+                        {{{ this.itemAttributes }}}
+                    >
+                        {{ render (component content) contentContext merge=true}}
+                    </div>
+                {{/each}}
             </div>
-
-            <div class="slider__dots {{ dotsClass }}"></div>
         </div>
     </div>
 
     {{#if contentAfter }}
-        <div class="slider__after {{ contentAfter.class }}">
+        <div
+            class="
+                slider__after
+                {{ contentAfter.class }}
+            "
+        >
             {{ render (component contentAfter.content) contentAfter.contentContext merge=true }}
         </div>
     {{/if }}

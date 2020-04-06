@@ -251,6 +251,28 @@ module.exports = {
         class: 'rating--secondary'
       }
     },
+    recentlyViewed: {
+      heading: false,
+      contentClass: 'section__content--products',
+      components: [
+        {
+          content: {
+            content: 'slider--products',
+            contentContext: {
+              script: true,
+              heading: {
+                content: 'heading',
+                contentContext: {
+                  tag: 'h2',
+                  class: 'heading--first-level margin-0',
+                  text: 'Recently viewed'
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
     additionalBlockClass : 'margin-vc-l'
   },
   variants: [
