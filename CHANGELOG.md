@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Added
+### Changed
+### Fixed
+
+
+## [Released]
+
+## [1.3.0] - 2020-03-20
+### Added
 - amasty store locator styles (#57933)
 ### Changed
 - change sliders lib from lory to slick (#64601, #64697, #64744)
@@ -16,8 +24,6 @@ All notable changes to this project will be documented in this file.
 - stretched gift card button (#65615)
 - poor quality of thumbnail images on PDP (#65614)
 - badge class modifiers for multiword attribute values (#62922)
-
-## [Released]
 
 ## [1.2.0] - 2020-03-20
 ### Fixed
