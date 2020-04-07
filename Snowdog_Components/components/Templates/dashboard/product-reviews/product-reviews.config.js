@@ -128,7 +128,10 @@ module.exports = {
         {
           action: [
             {
-              title: 'Back'
+              link: {
+                text: 'Back',
+                class: 'actions-group__link'
+              }
             }
           ]
         }

@@ -3,7 +3,6 @@ module.exports = {
   name: 'dashboard-items',
   context: {
     title: 'Addresses',
-    titleClass: 'margin-bottom-m',
     contentClass: 'margin-0',
     informations: [
       {
@@ -12,12 +11,22 @@ module.exports = {
         addressClass: 'margin-bottom-m',
         information: 'qweqwe qwe qwe@qwe.com',
         actions: {
-          links: [
+          sides: [
             {
-              title: 'Edit'
-            },
-            {
-              title: 'Change password'
+              action: [
+                {
+                  link: {
+                    text: 'Edit',
+                    class: 'actions-group__link'
+                  }
+                },
+                {
+                  link: {
+                    text: 'Change password',
+                    class: 'actions-group__link'
+                  }
+                }
+              ]
             }
           ]
         }
@@ -27,9 +36,16 @@ module.exports = {
         class: 'col-sm-3 margin-bottom-m',
         information: 'Second address qwe@qwe.com',
         actions: {
-          links: [
+          sides: [
             {
-              title: 'Edit'
+              action: [
+                {
+                  link: {
+                    text: 'Edit',
+                    class: 'actions-group__link'
+                  }
+                },
+              ]
             }
           ]
         }

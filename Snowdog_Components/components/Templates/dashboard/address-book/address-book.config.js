@@ -28,15 +28,21 @@ module.exports = {
         {
           action: [
             {
-              button: true,
-              title: 'Add New Address'
+              button: {
+                text: 'Add New Address',
+                class: 'actions-group__button'
+              }
+
             }
           ]
         },
         {
           action: [
             {
-              title: 'Back'
+              link: {
+                text: 'Back',
+                class: 'actions-group__link'
+              }
             }
           ]
         }
@@ -54,7 +60,10 @@ module.exports = {
               {
                 action: [
                   {
-                    title: 'Change Billing Address'
+                    link: {
+                      text: 'Change Billing Address',
+                      class: 'actions-group__link'
+                    }
                   }
                 ]
               }
@@ -70,7 +79,10 @@ module.exports = {
               {
                 action: [
                   {
-                    title: 'Change Shipping Address'
+                    link: {
+                      text: 'Change Shipping Address',
+                      class: 'actions-group__link'
+                    }
                   }
                 ]
               }
@@ -90,10 +102,16 @@ module.exports = {
               {
                 action: [
                   {
-                    title: 'Edit Address'
+                    link: {
+                      text: 'Edit Address',
+                      class: 'actions-group__link'
+                    }
                   },
                   {
-                    title: 'Delete Address'
+                    link: {
+                      text: 'Delete Address',
+                      class: 'actions-group__link'
+                    }
                   }
                 ]
               }
@@ -108,10 +126,16 @@ module.exports = {
               {
                 action: [
                   {
-                    title: 'Edit Address'
+                    link: {
+                      text: 'Edit Address',
+                      class: 'actions-group__link'
+                    }
                   },
                   {
-                    title: 'Delete Address'
+                    link: {
+                      text: 'Delete Address',
+                      class: 'actions-group__link'
+                    }
                   }
                 ]
               }
@@ -126,10 +150,16 @@ module.exports = {
               {
                 action: [
                   {
-                    title: 'Edit Address'
+                    link: {
+                      text: 'Edit Address',
+                      class: 'actions-group__link'
+                    }
                   },
                   {
-                    title: 'Delete Address'
+                    link: {
+                      text: 'Delete Address',
+                      class: 'actions-group__link'
+                    }
                   }
                 ]
               }
@@ -144,10 +174,16 @@ module.exports = {
               {
                 action: [
                   {
-                    title: 'Edit Address'
+                    link: {
+                      text: 'Edit Address',
+                      class: 'actions-group__link'
+                    }
                   },
                   {
-                    title: 'Delete Address'
+                    link: {
+                      text: 'Delete Address',
+                      class: 'actions-group__link'
+                    }
                   }
                 ]
               }
@@ -375,8 +411,10 @@ module.exports = {
             {
               action: [
                 {
-                  button: true,
-                  title: 'Save Address'
+                  button: {
+                    text: 'Save Address',
+                    class: 'button actions-group__button'
+                  }
                 }
               ]
             }

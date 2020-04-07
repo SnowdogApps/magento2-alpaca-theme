@@ -35,10 +35,16 @@ module.exports = {
               {
                 action: [
                   {
-                    title: 'Edit'
+                    link: {
+                      text: 'Edit',
+                      class: 'actions-group__link'
+                    }
                   },
                   {
-                    title: 'Change password'
+                    link: {
+                      text: 'Change password',
+                      class: 'actions-group__link'
+                    }
                   }
                 ]
               }
@@ -54,8 +60,11 @@ module.exports = {
               {
                 action: [
                   {
-                    title: 'Edit'
-                  }
+                    link: {
+                      text: 'Edit',
+                      class: 'actions-group__link'
+                    }
+                  },
                 ]
               }
             ]
@@ -65,6 +74,10 @@ module.exports = {
     },
     addreses: {
       title: 'Address Book',
+      link: {
+        text: 'Manage Addresses',
+        class: 'dashboard-table__link'
+      },
       informations: [
         {
           title: 'Default Billing Address',
@@ -75,8 +88,11 @@ module.exports = {
               {
                 action: [
                   {
-                    title: 'Edit Address'
-                  }
+                    link: {
+                      text: 'Edit Address',
+                      class: 'actions-group__link'
+                    }
+                  },
                 ]
               }
             ]
@@ -91,8 +107,11 @@ module.exports = {
               {
                 action: [
                   {
-                    title: 'Edit Address'
-                  }
+                    link: {
+                      text: 'Edit Address',
+                      class: 'actions-group__link'
+                    }
+                  },
                 ]
               }
             ]

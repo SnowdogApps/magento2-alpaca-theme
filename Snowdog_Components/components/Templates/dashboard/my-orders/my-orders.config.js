@@ -27,7 +27,11 @@ module.exports = {
         {
           action: [
             {
-              title: 'Back'
+              link: {
+                title: 'Back',
+                text: 'Back',
+                class: 'actions-group__link'
+              }
             }
           ]
         }
@@ -60,18 +64,30 @@ module.exports = {
             {
               action: [
                 {
-                  title: 'Reorder',
+                  link: {
+                    title: 'Reorder',
+                    text: 'Reorder',
+                    class: 'actions-group__link'
+                  }
                 },
                 {
-                  title: 'Return'
+                  link: {
+                    title: 'Return',
+                    text: 'Return',
+                    class: 'actions-group__link'
+                  }
                 }
               ]
             },
             {
               action: [
                 {
-                  title: 'Print Order'
-                }
+                  link: {
+                    title: 'Print Order',
+                    text: 'Print Order',
+                    class: 'actions-group__link'
+                  }
+                },
               ]
             }
           ]
@@ -510,7 +526,11 @@ module.exports = {
             {
               action: [
                 {
-                  title: 'Back to My Orders'
+                  link: {
+                    title: 'Back to My Orders',
+                    text: 'Back to My Orders',
+                    class: 'actions-group__link'
+                  }
                 }
               ]
             }
@@ -693,9 +713,12 @@ module.exports = {
             {
               action: [
                 {
-                  button: true,
-                  title: 'Add Item to Return'
+                  button: {
+                    text: 'Add Item to Return',
+                    class: 'button actions-group__button'
+                  }
                 }
+
               ]
             }
           ]
@@ -705,8 +728,10 @@ module.exports = {
             {
               action: [
                 {
-                  button: true,
-                  title: 'Submit'
+                  button: {
+                    text: 'Submit',
+                    class: 'button actions-group__button'
+                  }
                 }
               ]
             }
