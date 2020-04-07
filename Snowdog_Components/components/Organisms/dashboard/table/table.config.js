@@ -3,7 +3,10 @@ module.exports = {
   name: 'dashboard-table',
   context: {
     title: 'Recent Orders',
-    link: 'View All',
+    link: {
+      text: 'View All',
+      class: 'dashboard-table__link'
+    },
     table: {
       captionText: 'This is a table. Binded text in caption should explain what kind of data this table presents. Can be also a longer text with inline HTML elements inside',
       class: 'margin-0',
