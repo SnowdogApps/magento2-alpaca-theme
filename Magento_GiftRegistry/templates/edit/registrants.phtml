@@ -1,9 +1,4 @@
 <?php
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
-
 // phpcs:disable Magento2.Files.LineLength.MaxExceeded
 // phpcs:disable Squiz.ControlStructures.ControlSignature.NewlineAfterOpenBrace
 // phpcs:disable Squiz.WhiteSpace.ScopeClosingBrace.ContentBefore
@@ -12,62 +7,148 @@
 ?>
 
 <script id="template-registrant" type="text/x-magento-template">
-    <input name="registrant[<%- data._index_ %>][person_id]" value="" id="registrant:person_id<%- data._index_ %>" class="input__field" type="hidden" />
-    <div class="margin-bottom-m">
-        <button type="button" class="button button--secondary action remove" id="btn-remove<%- data._index_ %>">
-            <span>
-                <?= $block->escapeHtml(__('Remove')) ?>
-            </span>
-        </button>
-    </div>
+    <input
+        name="registrant[<%- data._index_ %>][person_id]"
+        value=""
+        id="registrant:person_id<%- data._index_ %>"
+        class="input__field"
+        type="hidden"
+    />
+    <button
+        type="button"
+        class="
+            button
+            button--secondary
+            action
+            remove
+        "
+        id="btn-remove<%- data._index_ %>"
+    >
+        <span>
+            <?= $block->escapeHtml(__('Remove')) ?>
+        </span>
+    </button>
     <fieldset class="fieldset">
-        <div class="input firstname required">
-            <label for="registrant:firstname<%- data._index_ %>" class="label"><span><?= $block->escapeHtml(__('First Name')) ?></span></label>
-            <div class="control">
-                <input name="registrant[<%- data._index_ %>][firstname]" value="" type="text" class="input__field" data-validate="{required:true}" id="registrant:firstname<%- data._index_ %>" />
-            </div>
+        <div
+            class="
+                input
+                firstname
+                required
+            "
+        >
+            <label
+                for="registrant:firstname<%- data._index_ %>"
+                class="label"
+            >
+                <?= $block->escapeHtml(__('First Name')) ?>
+            </label>
+            <input
+                name="registrant[<%- data._index_ %>][firstname]"
+                value=""
+                type="text"
+                class="input__field"
+                data-validate="{required:true}"
+                id="registrant:firstname<%- data._index_ %>"
+            />
         </div>
-        <div class="input lastname required">
-            <label for="registrant:lastname<%- data._index_ %>" class="label"><span><?= $block->escapeHtml(__('Last Name')) ?></span></label>
-            <div class="control">
-                <input name="registrant[<%- data._index_ %>][lastname]" value="" type="text" class="input__field" data-validate="{required:true}" id="registrant:lastname<%- data._index_ %>" />
-            </div>
+        <div
+            class="
+                input
+                lastname
+                required
+            "
+        >
+            <label
+                for="registrant:lastname<%- data._index_ %>"
+                class="label"
+            >
+                <?= $block->escapeHtml(__('Last Name')) ?>
+            </label>
+            <input
+                name="registrant[<%- data._index_ %>][lastname]"
+                value=""
+                type="text"
+                class="input__field"
+                data-validate="{required:true}"
+                id="registrant:lastname<%- data._index_ %>"
+            />
         </div>
-        <div class="input email required">
-            <label for="registrant:email<%- data._index_ %>" class="label"><span><?= $block->escapeHtml(__('Email')) ?></span></label>
-            <div class="control">
-                <input name="registrant[<%- data._index_ %>][email]" value="" title="<?= $block->escapeHtmlAttr(__('Email')) ?>" id="registrant:email<%- data._index_ %>" type="email" class="input__field" data-validate="{required:true,'validate-email':true}"  />
-            </div>
+        <div
+            class="
+                input
+                email
+                required
+            "
+        >
+            <label
+                for="registrant:email<%- data._index_ %>"
+                class="label"
+            >
+                <?= $block->escapeHtml(__('Email')) ?>
+            </label>
+            <input
+                name="registrant[<%- data._index_ %>][email]"
+                value=""
+                title="<?= $block->escapeHtmlAttr(__('Email')) ?>"
+                id="registrant:email<%- data._index_ %>"
+                type="email"
+                class="input__field"
+                data-validate="{required:true,'validate-email':true}"
+            />
         </div>
 
-            <?php foreach ($block->getGroupedRegistrantAttributes() as $field => $data) :?>
-                <?php $isRequired = $block->isAttributeRequired($data); ?>
-                <?php $isStatic = $block->isAttributeStatic($field); ?>
-                <div class="field<?= ($isRequired ? ' required' : '') ?>">
-                    <label for="registrant:<?php if (!$isStatic) :?>custom:<?php endif;?><?= $block->escapeHtmlAttr($field) ?><%- data._index_ %>" class="label"><span><?= $block->escapeHtml(__("%1", $data['label'])) ?>
-                        </span>
-                    </label>
-                    <div class="control">
-                        <?= /* @noEscape */ $block->renderField($data, $field, '{{' . $field . '_value}}') ?>
-                    </div>
-                </div>
-            <?php endforeach; ?>
+        <?php foreach ($block->getGroupedRegistrantAttributes() as $field => $data) : ?>
+            <?php $isRequired = $block->isAttributeRequired($data); ?>
+            <?php $isStatic = $block->isAttributeStatic($field); ?>
+            <div
+                class="
+                    input
+                    <?= ($isRequired ? ' required' : '') ?>
+                "
+            >
+                <label
+                    for="registrant:<?php if (!$isStatic) : ?>custom:<?php endif; ?><?= $block->escapeHtmlAttr($field) ?><%- data._index_ %>"
+                    class="label"
+                >
+                    <?= $block->escapeHtml(__("%1", $data['label'])) ?>
+                </label>
+                <?= /* @noEscape */ $block->renderField($data, $field, '{{' . $field . '_value}}') ?>
+            </div>
+        <?php endforeach; ?>
     </fieldset>
 </script>
 
 <fieldset class="fieldset recipients">
-    <legend class="legend"><span><?= $block->escapeHtml(__('Registrant Information')) ?></span></legend>
-    <br />
+    <legend class="fieldset__legend">
+        <?= $block->escapeHtml(__('Registrant Information')) ?>
+    </legend>
     <div id="registrant-container"></div>
     <?php if ($block->getMaxRegistrant()) :?>
-        <div id="max-registrant-message" style="display:none;" class="message notice limit" role="alert">
-            <span><?= $block->escapeHtml(__('Maximum %1 registrants.', $block->getMaxRegistrant())) ?></span>
+        <div
+            id="max-registrant-message"
+            class="
+                message
+                notice
+                limit
+                display-none
+            "
+            role="alert"
+        >
+            <?= $block->escapeHtml(__('Maximum %1 registrants.', $block->getMaxRegistrant())) ?>
         </div>
     <?php endif; ?>
     <div class="margin-bottom-m">
         <?php if ($block->getMaxRegistrant() > 1) :?>
-            <button type="button" id="add-registrant-button" class="button action add">
-                <span><?= $block->escapeHtml(__('Add Registrant')) ?></span>
+            <button
+                type="button"
+                id="add-registrant-button"
+                class="
+                    button
+                    action
+                    add
+                "
+            >
+                <?= $block->escapeHtml(__('Add Registrant')) ?>
             </button>
         <?php endif; ?>
     </div>
