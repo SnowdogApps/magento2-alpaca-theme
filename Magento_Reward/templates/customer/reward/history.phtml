@@ -1,0 +1,67 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// phpcs:disable Magento2.Files.LineLength
+
+?>
+<?php
+/**
+ * @see \Magento\Reward\Block\Customer\Reward\History
+ * @var \Magento\Reward\Block\Customer\Reward\History $block
+ */
+?>
+<div class="block block-reward-history">
+    <div class="block-title">
+        <strong><?= $block->escapeHtml(__('Balance History')) ?></strong>
+    </div>
+    <div class="block-content">
+        <?php if ($history = $block->getHistory()) : ?>
+            <?= $block->getChildHtml('pager') ?>
+            <div class="table-wrapper reward-history">
+            <table class="data table table-reward-history">
+                <caption class="table-caption"><?= $block->escapeHtml(__('Balance History')) ?></caption>
+                <thead>
+                    <tr>
+                        <th scope="col" class="col balance"><?= $block->escapeHtml(__('Balance')) ?></th>
+                        <th scope="col" class="col amount"><?= $block->escapeHtml(__('Amount')) ?></th>
+                        <th scope="col" class="col points"><?= $block->escapeHtml(__('Points')) ?></th>
+                        <th scope="col" class="col reason"><?= $block->escapeHtml(__('Reason')) ?></th>
+                        <th scope="col" class="col date"><?= $block->escapeHtml(__('Date')) ?></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($history as $item) : ?>
+                    <tr>
+                        <td data-th="<?= $block->escapeHtmlAttr(__('Balance')) ?>" classs="col balance"><?= $block->escapeHtml($block->getPointsBalance($item)) ?></td>
+                        <td data-th="<?= $block->escapeHtmlAttr(__('Amount')) ?>" classs="col amount"><?= $block->escapeHtml($block->getCurrencyBalance($item), ['span']) ?></td>
+                        <td data-th="<?= $block->escapeHtmlAttr(__('Points')) ?>" classs="col points"><?= $block->escapeHtml($block->getPointsDelta($item)) ?></td>
+                        <td data-th="<?= $block->escapeHtmlAttr(__('Reason')) ?>" classs="col reason">
+                            <?= $block->escapeHtml($block->getMessage($item)) ?>
+                            <?php if ($explanation = $block->getExplanation($item)) : ?>
+                                <br />
+                                <small>
+                                    <?= $block->escapeHtml($explanation) ?></small>
+                            <?php endif; ?>
+                        </td>
+                        <td data-th="<?= $block->escapeHtmlAttr(__('Date')) ?>" classs="col date">
+                            <span class="datetime"><?= $block->escapeHtml($block->getDate($item)) ?></span>
+                            <?php if ($expirationDate = $block->getExpirationDate($item)) : ?>
+                                <small>
+                                    <?= $block->escapeHtml(__('Expires on %1', $expirationDate)) ?>
+                                </small>
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+            <?= $block->getChildHtml('pager') ?>
+        <?php else : ?>
+            <div class="message info empty"><span><?= $block->escapeHtml(__('There is no balance history.')) ?></span></div>
+        <?php endif;?>
+    </div>
+</div>
