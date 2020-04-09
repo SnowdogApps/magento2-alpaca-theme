@@ -9,40 +9,46 @@
     &__item {
         display: flex;
         flex-flow: column nowrap;
-        justify-content: space-between;
+        justify-content: flex-start;
         margin: $wishlist__item-margin;
-
-        @include mq($screen-s) {
-            padding: $wishlist__item-padding;
-        }
 
         .price-box {
             padding: $wishlist__price-padding;
             font-weight: $wishlist__price-font-weight;
+
+            @include mq($screen-m) {
+                padding: $wishlist__item-padding\@medium;
+            }
         }
 
         .price-as-configured {
             margin: $wishlist__price-margin;
-            font-weight: $wishlist__price-font-weight;
         }
+    }
+
+    &__item-content {
+        margin: $wishlist__item-content-margin;
     }
 
     &__item-name {
         display: block;
         padding: $wishlist__name-padding;
         margin: $wishlist__name-margin;
-        min-height: $wishlist__name-min-height;
+        height: $wishlist__name-height; // sass-lint:disable no-vendor-prefixes
+        display: -webkit-box; // sass-lint:disable no-vendor-prefixes
+        -webkit-line-clamp: $wishlist__name-line-clamp; // sass-lint:disable no-vendor-prefixes
+        -webkit-box-orient: vertical; // sass-lint:disable no-vendor-prefixes
+        overflow: hidden;
+        text-transform: none;
 
-        @include mq($screen-m) {
-            min-height: $wishlist__name-min-height\@medium;
+        @include mq($screen-s) {
+            height: $wishlist__name-height\@small;
+            -webkit-line-clamp: $wishlist__name-line-clamp\@small; // sass-lint:disable no-vendor-prefixes
+            margin: $wishlist__name-margin\@medium;
         }
 
         @include mq($screen-l) {
-            min-height: $wishlist__name-min-height\@large;
-        }
-
-        @include mq($screen-xl) {
-            min-height: $wishlist__name-min-height\@xl;
+            margin: $wishlist__name-margin\@large;
         }
     }
 
@@ -51,6 +57,11 @@
         color: $wishlist__name-link-color;
         font-size: $wishlist__name-link-font-size;
         line-height: $wishlist__name-link-line-height;
+
+        @include mq($screen-m) {
+            font-size: $wishlist__name-link-font-size\@medium;
+            line-height: $wishlist__name-link-line-height\@medium;
+        }
     }
 
     &__item-inner {
@@ -72,20 +83,44 @@
         }
     }
 
+    &__comment {
+        width: $wishlist__comment-width;
+    }
+
     &__item-actions {
         display: flex;
         justify-content: space-evenly;
         order: $wishlist__item-actions-order;
         margin: $wishlist__item-actions-margin;
 
+        @include mq($screen-s) {
+            margin: $wishlist__item-actions-margin\@small;
+        }
+
+        @include mq($screen-m) {
+            margin: $wishlist__item-actions-margin\@medium;
+        }
+
         &--to-cart {
             width: $wishlist__item-actions-width--to-cart;
             order: $wishlist__item-actions-order--to-cart;
             margin: $wishlist__to-cart-margin;
+
+            @include mq($screen-m) {
+                margin: $wishlist__item-actions-margin;
+            }
         }
 
-        @include mq($screen-s) {
-            margin: $wishlist__item-actions-margin\@small;
+        .button {
+            &:hover,
+            &:active {
+                .icon {
+                    fill: $wishlist__buttons-icon-fill--active;
+                }
+            }
+            .icon {
+                fill: $wishlist__buttons-icon-fill;
+            }
         }
     }
 
@@ -100,11 +135,16 @@
 
     &__link {
         display: block;
+        margin: $wishlist__link-margin;
+
+        @include mq($screen-xl) {
+            margin: $wishlist__link-margin\@xl;
+        }
     }
 
     &__label {
         margin: $wishlist__label-margin;
-        padding: $wishlist__label-paddng;
+        padding: $wishlist__label-padding;
 
         @include mq($screen-s) {
             margin: $wishlist__label-margin\@small;
@@ -114,32 +154,50 @@
     &__qty {
         display: flex;
         align-items: center;
+        margin: $wishlist__qty-margin;
 
-        @include mq($screen-m) {
+        @include mq($screen-s) {
             flex-direction: column;
             align-items: flex-start;
             max-width: $wishlist__field-qty-max-width\@small;
+        }
+
+        @include mq($screen-m) {
+            margin: $wishlist__qty-margin\@medium;
         }
 
         @include mq($screen-xl) {
             max-width: $wishlist__field-qty-max-width\@xl;
         }
 
-        .quantity-update__button {
-            width: 48px;
-            height: 48px;
-            display: none;
+        .quantity-update {
+            border: 0;
 
-            @include mq($max-content-width) {
-                display: flex;
+            &__button {
+                width: $wishlist__quantity-button-width;
+                height: $wishlist__quantity-button-height;
+                display: none;
+
+                @include mq($max-content-width) {
+                    display: flex;
+                }
+
+                &:hover,
+                &:focus {
+                    .icon {
+                        fill: $wishlist__quantity-button-icon-fill--active;
+                    }
+                }
+
+                .icon {
+                    fill: $wishlist__quantity-button-icon-fill;
+                }
             }
-        }
 
-        .quantity-update__input {
-            height: 48px;
-            border-width: 1px;
-            @include mq($max-content-width) {
-                border-width: 1px 0;
+            &__input {
+                height: $wishlist__quantity-button-height;
+                border-width: 1px;
+                color: $wishlist__quantity-input-color;
             }
         }
     }
@@ -159,6 +217,29 @@
         padding: $wishlist__actions-padding;
         border: $wishlist__actions-border;
         border-width: $wishlist__actions-border-width;
+
+        @include mq($screen-m) {
+            align-items: flex-start;
+        }
+
+        .button {
+            padding: $wishlist__actions-button-padding;
+
+            @include mq($screen-m) {
+                padding: $wishlist__actions-button-padding\@xl;
+            }
+        }
+
+        .link {
+            text-decoration: underline;
+            font-size: $wishlist__buttons-link-font-size;
+            line-height: $wishlist__buttons-link-line-height;
+            letter-spacing: $wishlist__buttons-link-letter-spacing;
+        }
+    }
+
+    &__rating-wrapper {
+        min-height: $wishlist__rating-wrapper-min-height;
     }
 
     // Disable spin buttons in number input type

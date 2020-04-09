@@ -1,73 +1,78 @@
 <div class="page-wrapper">
     {{ render '@header' }}
 
-    <main
-        id="maincontent"
-        class="
+    <main id="maincontent" class="
             dashboard
             container
             {{ class }}
-        "
-    >
+        ">
         {{ render '@breadcrumbs' breadcrumbs }}
         <div class="row">
-            <div
-                class="
+            <div class="
                     col-xs-12
                     col-lg-3
                     {{ sidebarClass }}
-                "
-            >
+                ">
                 {{ render '@dashboard-nav' }}
             </div>
-            <div
-                class="
+            <div class="
                     col-xs-12
                     col-lg-9
                     wishlist
                     {{ contentClass }}
-                "
-            >
+                ">
                 {{ render '@heading' heading }}
                 <div class="row wishlist__grid">
                     {{#each wishlistItems}}
-                        <div class="wishlist__item {{ product.class }}">
-                            <a
-                                href="#"
-                                aria-label="{{ product.name.text }}"
-                                class="wishlist__link"
-                            >
-                                {{ render '@image' product.image }}
-                            </a>
+                    <div class="wishlist__item {{ product.class }}">
+                        <a href="#" aria-label="{{ product.name.text }}" class="wishlist__link">
+                            {{ render '@image' product.image }}
+                        </a>
+
+                        <div class="wishlist__item-content">
+                            <div class="wishlist__rating-wrapper">
+                                {{ render '@rating--secondary' }}
+                            </div>
+
                             <div class="wishlist__item-name">
                                 {{ render '@link' product.name }}
                             </div>
-                            {{ render '@price' product.price merge=true }}
 
+                            {{#if product.price}}
+                                {{ render '@price' product.price merge=true }}
+                            {{else}}
+                                {{ render '@price--with-special-price' product.priceSpecial merge=true }}
+                            {{/if}}
+                        </div>
+
+                        <div class="wishlist__item-inner">
                             {{ render '@input--textarea' textarea }}
-
-                            <div class="wishlist__item-inner">
-                                {{ render '@input--inline' qty }}
-                                <div class="wishlist__item-actions">
-                                    {{ render '@button--icon' editIcon }}
-                                    {{ render '@button--icon' removeIcon }}
-                                </div>
-                                <div
-                                    class="
-                                        wishlist__item-actions
-                                        wishlist__item-actions--to-cart
-                                    "
+                            <div class="wishlist__qty">
+                                <label
+                                    for="{{ qty.input.id }}"
+                                    class="wishlist__label"
                                 >
-                                    {{ render '@button' addToCart }}
-                                </div>
+                                    {{ qty.labelText }}
+                                </label>
+                                {{ render '@quantity-update' qty}}
+                            </div>
+
+                            <div class="wishlist__item-actions">
+                                {{ render '@button--icon' editIcon }}
+                                {{ render '@button--icon' removeIcon }}
+                            </div>
+
+                            <div class="wishlist__item-actions wishlist__item-actions--to-cart">
+                                {{ render '@button' addToCart }}
                             </div>
                         </div>
+                    </div>
                     {{/each}}
                 </div>
                 <div class="actions-group {{ actionsGroupClass }}">
                     <div class="actions-group__handler">
                         {{#each actions}}
-                            {{ render '@button--secondary' this }}
+                        {{ render '@button--secondary' this }}
                         {{/each}}
                     </div>
                     <div class="actions-group__handler">
@@ -75,8 +80,8 @@
                     </div>
                 </div>
             </div>
-        </main>
-    </div>
+    </main>
+</div>
 </div>
 
 {{ render '@footer' }}

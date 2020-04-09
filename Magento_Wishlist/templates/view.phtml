@@ -2,10 +2,12 @@
 /** @var \Magento\Wishlist\Block\Customer\Wishlist $block */
 ?>
 <?php if ($this->helper(\Magento\Wishlist\Helper\Data::class)->isAllow()): ?>
-    <?= $block->getChildHtml('wishlist_item_pager'); ?>
     <?= ($block->getChildHtml('wishlist.rss.link')) ?>
     <form
-        class="form-wishlist-items"
+        class="
+            wishlist
+            form-wishlist-items
+        "
         id="wishlist-view-form"
         data-mage-init='{
             "wishlist":{
@@ -25,7 +27,7 @@
             <?= $block->getChildHtml('items') ?>
         <?php else: ?>
             <div class="message">
-                <?= __('You have no items in your wish list.') ?>
+                <?= $block->escapeHtml(__('You have no items in your wish list.')); ?>
             </div>
         <?php endif ?>
         <?= $block->getChildHtml('bottom') ?>
@@ -36,26 +38,46 @@
             <div class="actions-group__handler">
                 <a
                     href="<?= $block->escapeUrl($block->getBackUrl()) ?>"
-                    class="link actions-group__link"
+                    class="
+                        link
+                        actions-group__link
+                    "
                 >
-                    <?= __('Back') ?>
+                    <?= $block->escapeHtml(__('Back')); ?>
                 </a>
             </div>
         </div>
     </form>
-    <script id="form-tmpl" type="text/x-magento-template">
-      <form id="wishlist-hidden-form" method="post" action="<%- data.url %>" class="no-display">
-          <% if (data.qty) { %>
-          <input name="qty" value="<%- data.qty %>">
-          <% } %>
+    <script
+        id="form-tmpl"
+        type="text/x-magento-template"
+    >
+        <form
+            id="wishlist-hidden-form"
+            method="post"
+            action="<%- data.url %>"
+            class="no-display"
+        >
+            <% if (data.qty) { %>
+            <input
+                name="qty"
+                value="<%- data.qty %>"
+            >
+            <% } %>
 
-          <% if (data.item) { %>
-          <input name="item" value="<%- data.item %>">
-          <% } %>
+            <% if (data.item) { %>
+            <input
+                name="item"
+                value="<%- data.item %>"
+            >
+            <% } %>
 
-          <% if (data.entity) { %>
-          <input name="entity" value="<%- data.entity %>">
-          <% } %>
+            <% if (data.entity) { %>
+            <input
+                name="entity"
+                value="<%- data.entity %>"
+            >
+            <% } %>
       </form>
     </script>
 <?php endif ?>
