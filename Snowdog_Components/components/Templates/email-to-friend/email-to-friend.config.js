@@ -120,13 +120,27 @@ module.exports = {
         class: 'button button--secondary'
       }
     },
-    send: {
-      tag: 'button email-to-friend__submit',
-      attributes: 'type="submit"',
-      text: 'Send Email',
-      class: 'button'
+    actions: {
+      sides: [
+        {
+          action: [
+            {
+              button: {
+                text: 'Send Email',
+                class: 'actions-group__button email-to-friend__submit',
+                attributes: 'type="submit"'
+              }
+            },
+            {
+              link: {
+                text: 'Back',
+                class: 'actions-group__link email-to-friend__back'
+              }
+            }
+          ]
+        }
+      ]
     },
-    back: 'Back',
     legendClass: 'email-to-friend__legend text-center'
   }
 }
