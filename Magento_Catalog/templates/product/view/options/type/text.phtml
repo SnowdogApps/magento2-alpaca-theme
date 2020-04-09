@@ -20,6 +20,7 @@ if ($_option->getMaxCharacters()) {
 <div
     class="
         input
+        field
         <?php if ($_option->getType() == $isTextarea): ?>
             textarea
         <?php endif; ?>
@@ -35,31 +36,33 @@ if ($_option->getMaxCharacters()) {
         <?= $block->getFormatedPrice() ?>
     </label>
 
-    <?php if ($_option->getType() == $isTextField): ?>
-        <input
-            type="text"
-            id="options_<?= $block->escapeHtmlAttr($_optionId) ?>_text"
-            class="input__field"
-            <?php if (!empty($_textValidate)) {?>
-                data-validate="<?= $block->escapeHtmlAttr(json_encode($_textValidate)) ?>"
-            <?php } ?>
-            name="options[<?= $block->escapeHtmlAttr($_optionId) ?>]"
-            data-selector="options[<?= $block->escapeHtmlAttr($_optionId) ?>]"
-            value="<?= $block->escapeHtmlAttr($block->getDefaultValue()) ?>"
-        />
-    <?php elseif ($_option->getType() == $isTextarea): ?>
-        <textarea
-            id="options_<?=  $block->escapeHtmlAttr($_optionId) ?>_text"
-            class="input__field input__field--textarea"
-            <?php if (!empty($_textValidate)) {?>
-                data-validate="<?= $block->escapeHtmlAttr(json_encode($_textValidate)) ?>"
-            <?php } ?>
-            name="options[<?= $block->escapeHtmlAttr($_optionId) ?>]"
-            data-selector="options[<?= $block->escapeHtmlAttr($_optionId) ?>]"
-            rows="5"
-            cols="25"
-        ><?= $block->escapeHtml($block->getDefaultValue()) ?></textarea>
-    <?php endif; ?>
+    <div class="control">
+        <?php if ($_option->getType() == $isTextField): ?>
+            <input
+                type="text"
+                id="options_<?= $block->escapeHtmlAttr($_optionId) ?>_text"
+                class="input__field"
+                <?php if (!empty($_textValidate)) {?>
+                    data-validate="<?= $block->escapeHtmlAttr(json_encode($_textValidate)) ?>"
+                <?php } ?>
+                name="options[<?= $block->escapeHtmlAttr($_optionId) ?>]"
+                data-selector="options[<?= $block->escapeHtmlAttr($_optionId) ?>]"
+                value="<?= $block->escapeHtmlAttr($block->getDefaultValue()) ?>"
+            />
+        <?php elseif ($_option->getType() == $isTextarea): ?>
+            <textarea
+                id="options_<?=  $block->escapeHtmlAttr($_optionId) ?>_text"
+                class="input__field input__field--textarea"
+                <?php if (!empty($_textValidate)) {?>
+                    data-validate="<?= $block->escapeHtmlAttr(json_encode($_textValidate)) ?>"
+                <?php } ?>
+                name="options[<?= $block->escapeHtmlAttr($_optionId) ?>]"
+                data-selector="options[<?= $block->escapeHtmlAttr($_optionId) ?>]"
+                rows="5"
+                cols="25"
+            ><?= $block->escapeHtml($block->getDefaultValue()) ?></textarea>
+        <?php endif; ?>
+    </div>
 
     <?php if ($_option->getMaxCharacters()): ?>
         <p>
