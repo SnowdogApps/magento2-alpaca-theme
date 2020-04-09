@@ -52,8 +52,8 @@ module.exports = {
       text: 'Sign in'
     },
     forgotPassword: {
-      href: '#',
-      text: 'Forgot Your Password'
+      text: 'Forgot Your Password',
+      class: 'account-form__forgot-password'
     },
     validationTips: '* Required Fields'
   },
