@@ -23,6 +23,7 @@ module.exports = {
       text: 'My Dashboard'
     },
     action: {
+      class: 'margin-top-l',
       sides: [
         {
           action: [
@@ -38,6 +39,7 @@ module.exports = {
       ]
     },
     toolbar: {
+      class: 'margin-top-xl',
       showMode: false,
       showSorter: false,
       showAmount: true,
@@ -542,6 +544,7 @@ module.exports = {
       name: 'return',
       context: {
         title: 'New Return for Order #0000003',
+        titleClass: 'margin-bottom-m',
         info: {
           informations: [
             {
@@ -596,6 +599,7 @@ module.exports = {
         },
         form: {
           title: 'Return Items Information',
+          titleClass: 'margin-bottom-m',
           contentClass: 'grid',
           fields: [
             {
@@ -708,7 +712,7 @@ module.exports = {
           }
         },
         addReturnItem: {
-          class: 'margin-bottom-l',
+          class: 'margin-bottom-l margin-top-sm',
           sides: [
             {
               action: [
@@ -724,6 +728,7 @@ module.exports = {
           ]
         },
         action: {
+          class: 'margin-top-l',
           sides: [
             {
               action: [

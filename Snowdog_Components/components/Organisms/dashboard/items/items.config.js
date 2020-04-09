@@ -8,11 +8,13 @@ module.exports = {
       {
         title: 'Contact information',
         class: 'col-sm-3 margin-bottom-m',
-        addressClass: 'margin-bottom-m',
+        addressClass: 'margin-bottom-l',
         information: 'qweqwe qwe qwe@qwe.com',
         actions: {
+          class: 'margin-bottom-xl',
           sides: [
             {
+              class: 'margin-bottom-xl',
               action: [
                 {
                   link: {
@@ -34,8 +36,10 @@ module.exports = {
       {
         title: 'Address second',
         class: 'col-sm-3 margin-bottom-m',
+        addressClass: 'margin-bottom-l',
         information: 'Second address qwe@qwe.com',
         actions: {
+          class: 'margin-bottom-xl',
           sides: [
             {
               action: [

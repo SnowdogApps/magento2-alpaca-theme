@@ -23,7 +23,7 @@ module.exports = {
       text: 'My Dashboard'
     },
     buttons: {
-      class: 'dashboard__actions',
+      class: 'dashboard__actions margin-top-l',
       sides: [
         {
           action: [
@@ -201,6 +201,7 @@ module.exports = {
         contactInfo: {
           script: false,
           title: 'Contact Information',
+          titleClass: 'margin-bottom-m',
           class: 'col-sm-6 dashboard__form',
           fields: [
             {
@@ -278,6 +279,7 @@ module.exports = {
         address: {
           script: false,
           title: 'Address',
+          titleClass: 'margin-bottom-m',
           class: 'col-sm-6 dashboard__form',
           fields: [
             {
@@ -407,6 +409,7 @@ module.exports = {
           ]
         },
         buttons: {
+          class: 'margin-top-l',
           sides: [
             {
               action: [
