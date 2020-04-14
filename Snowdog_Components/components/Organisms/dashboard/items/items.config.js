@@ -3,6 +3,7 @@ module.exports = {
   name: 'dashboard-items',
   context: {
     title: 'Addresses',
+    titleClass: 'margin-bottom-sm',
     contentClass: 'margin-0',
     informations: [
       {
@@ -35,6 +36,7 @@ module.exports = {
       },
       {
         title: 'Address second',
+        titleClass: 'margin-bottom-sm',
         class: 'col-sm-3 margin-bottom-m',
         addressClass: 'margin-bottom-l',
         information: 'Second address qwe@qwe.com',
