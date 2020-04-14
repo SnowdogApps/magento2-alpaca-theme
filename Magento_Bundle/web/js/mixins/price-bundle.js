@@ -7,8 +7,6 @@ define(['jquery'], function ($) {
     }
   };
 
-  console.log(priceBundleMixin.options.priceBoxSelector);
-
   return function (targetWidget) {
     $.widget('mage.priceBundle', targetWidget, priceBundleMixin);
 
