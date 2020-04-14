@@ -1,0 +1,159 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php
+    /* @var $block \Magento\MultipleWishlist\Block\Behaviour */
+?>
+<script id="form-tmpl-multiple" type="text/x-magento-template">
+    <form id="wishlist-hidden-form" method="post" action="<%- data.url %>" class="no-display">
+        <% if (data.itemId) { %>
+            <input name="item_id" value="<%- data.itemId %>">
+        <% } %>
+        <% if (data.wishlistId) { %>
+            <input name="wishlist_id" value="<%- data.wishlistId %>">
+        <% } %>
+        <% if (data.qty) { %>
+            <input name="qty" value="<%- data.qty %>">
+        <% } %>
+        <% if (data.item) { %>
+            <input name="item" value="<%- data.item %>">
+        <% } %>
+        <% if (data.entity) { %>
+            <input name="entity" value="<%- data.entity %>">
+        <% } %>
+        <% if (data.form_key) { %>
+            <input name="form_key" value="<%- data.form_key %>">
+        <% } %>
+    </form>
+</script>
+<script id="popup-tmpl" type="text/x-magento-template">
+    <div class="window wishlist overlay active"></div>
+    <div id="<%- data.popupWishlistBlockId %>" class="window wishlist popup active">
+        <div class="popup-actions">
+            <div class="secondary">
+                <button type="button"
+                        title="<%- window.jQuery.mage.__('Close') %>"
+                        class="action close <%- data.btnCloseClass %>"
+                        data-dismiss="popup">
+                    <span><%- data.translate.close %></span>
+                </button>
+            </div>
+        </div>
+        <div class="popup-header">
+             <strong class="title" id="popup-title">
+                 <span>
+                     <% if (data.isEdit) { %>
+                        <%- data.translate.editWishlist %>
+                     <% } else { %>
+                        <%- data.translate.createNewWishlist %>
+                     <% } %>
+                 </span>
+             </strong>
+        </div>
+        <div class="popup-content" id="popup-content">
+            <form id="<%- data.popupWishlistFormId %>" method="post" action="<%- data.url %>" class="form wishlist">
+                <input name="form_key" type="hidden" value="<%- data.formKey %>">
+                <fieldset class="fieldset">
+                    <div class="field name">
+                        <label for="wishlist-name" class="label">
+                            <span><%- data.translate.wishListName %></span>
+                        </label>
+                        <div class="control">
+                            <input id="wishlist-name"
+                                   class="input-text"
+                                   data-role="prompt-field"
+                                   data-validate="{required:true}"
+                                   type="text"
+                                   name="name"
+                                   maxlength="255"
+                                   value="<%- data.name %>">
+                        </div>
+                    </div>
+                    <div class="field choice">
+                        <input id="wishlist-public"
+                               type="checkbox"
+                               name="visibility"<% if (data.isPublic) { %> checked=true<% } %>">
+                        <label for="wishlist-public" class="label">
+                            <span><%- data.translate.publicWishList %></span>
+                        </label>
+                    </div>
+                    <div class="actions-toolbar">
+                        <div class="primary">
+                            <button class="action save primary" type="submit" title="<%- window.jQuery.mage.__('Save') %>">
+                                <span><%- data.translate.save %></span>
+                            </button>
+                        </div>
+                        <div class="secondary">
+                            <button class="action cancel <%- data.btnCloseClass %>" type="button" title="<%- window.jQuery.mage.__('Cancel') %>">
+                                <span><%- data.translate.cancel %></span>
+                            </button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</script>
+<script id="split-btn-tmpl" type="text/x-magento-template">
+    <div class="split button wishlist">
+        <button type="button" data-post='<%- JSON.stringify(data.generalParams) %>' data-action="add-to-wishlist" class="label action split">
+            <span><%- data.buttonName %></span>
+        </button>
+        <button class="action toggle change"
+                title="<%- window.jQuery.mage.__('Add to:') %>"
+                type="button"
+                data-mage-init='{"dropdown":{}}'
+                data-toggle="dropdown"
+                data-trigger-keypress-button="true">
+            <span><%- window.jQuery.mage.__('Add to:') %></span>
+        </button>
+        <ul class="items" data-target="dropdown">
+            <% _.each(data.wishlists, function(item) { %>
+                <li class="item">
+                    <% if (item.newClass) { %>
+                        <span role="button"
+                              tabindex="0"
+                              class="action <%- item.newClass %>"
+                              data-action-keypress="true"
+                              data-post-new-wishlist='<%- JSON.stringify(item.params) %>'
+                              data-action="add-to-wishlist"
+                              title="<%- item.name %>">
+                            <span><%- item.name %></span>
+                        </span>
+                    <% } else { %>
+                        <span role="button"
+                              tabindex="0"
+                              data-action-keypress="true"
+                              data-post='<%- JSON.stringify(item.params) %>'
+                              data-action="add-to-wishlist"
+                              title="<%- item.name %>">
+                            <%- item.name %>
+                        </span>
+                    <% } %>
+                </li>
+            <% }); %>
+        </ul>
+    </div>
+</script>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "multipleWishlist": {
+                        "component": "Magento_MultipleWishlist/js/view/multiple-wishlist",
+                        "config": {
+                            "multipleWishlistOptions": {
+                                "createUrl": "<?= $block->escapeUrl($block->getCreateUrl()) ?>",
+                                "wishlistLink": ".action.towishlist"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+</script>
