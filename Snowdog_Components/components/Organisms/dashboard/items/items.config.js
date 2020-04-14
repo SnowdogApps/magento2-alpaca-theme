@@ -8,6 +8,7 @@ module.exports = {
     informations: [
       {
         title: 'Contact information',
+        titleClass: 'margin-bottom-l',
         class: 'col-sm-3 margin-bottom-m',
         addressClass: 'margin-bottom-l',
         information: 'qweqwe qwe qwe@qwe.com',
@@ -36,7 +37,7 @@ module.exports = {
       },
       {
         title: 'Address second',
-        titleClass: 'margin-bottom-sm',
+        titleClass: 'margin-bottom-l',
         class: 'col-sm-3 margin-bottom-m',
         addressClass: 'margin-bottom-l',
         information: 'Second address qwe@qwe.com',
