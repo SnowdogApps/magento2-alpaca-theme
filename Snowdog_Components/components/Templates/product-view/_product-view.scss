@@ -2,9 +2,11 @@
 
 .product-view {
     padding: $product-view__padding;
-    @include mq($screen-m) {
-        padding: $product-view__padding\@medium;
+
+    @include mq($screen-xl) {
+        padding: $product-view__padding\@xl;
     }
+
     &__wrapper {
         margin: $product-view__wrapper-margin;
         max-width: $product-view__wrapper-max-width;
@@ -95,23 +97,23 @@
     }
 
     &__stock {
+        min-height: $product-view__stock-min-height;
         font-weight: $product-view__stock-font-weight;
         text-transform: $product-view__stock-text-transform;
         white-space: $product-view__stock-white-space;
         font-size: $product-view__stock-font-size;
         padding: $product-view__stock-padding;
+        text-decoration: $product-view__stock-text-decoration;
+        min-width: $product-view__stock-min-width;
 
-        &:before {
-            top: $product-view__stock-top-bg-hover;
-            bottom: $product-view__stock-bottom-bg-hover;
-            background-color: $product-view__stock-bg-hover;
-            z-index: -1;
+        &:before,
+        &:after {
+            display: none;
         }
+
         &:hover {
-            color: $color-primary;
-            &:before {
-                display: block;
-            }
+            color: $product-view__stock-color-hover;
+            text-decoration: $product-view__stock-text-decoration-hover;
         }
 
         @include mq($screen-m) {
@@ -122,7 +124,7 @@
     &__rating {
         display: flex;
         justify-content: space-between;
-        align-items: center;
+        align-items: flex-start;
         padding: $product-view__rating-padding;
         border: $product-view__rating-border;
         border-width: $product-view__rating-border-width;
@@ -213,6 +215,13 @@
         margin: $product-view__qty-margin;
     }
 
+    &__stock-status {
+        margin: $product-view__stock-status-margin;
+        @include mq($screen-m) {
+            margin: $product-view__stock-status-margin\@medium;
+        }
+    }
+
 
     &__brief {
         margin: $product-view__brief-margin;
@@ -231,6 +240,7 @@
 
             &__subtitle {
                 font-size: $product-view__brief-subtitle-font-size;
+                text-transform: none;
             }
 
             &__item {
@@ -299,16 +309,80 @@
         margin: $product-view__customization-margin;
     }
 
+    // grouped product, overwrite default table styles
     &__grouped-table {
         margin: $product-view__grouped-table-margin;
+        border-width: $product-view__grouped-table-border-width;
+        @include mq($screen-m) {
+            border-width: $product-view__grouped-table-border-width\@medium;
+        }
+
+        & th,
+        & td {
+            border-right: $product-view__grouped-cell-border-right;
+            justify-content: flex-end;
+
+            &.product-view__grouped-product-name-cell {
+                justify-content: space-between;
+                @include mq($screen-m) {
+                    display: table-cell;
+                }
+                &:before {
+                    display: none;
+                }
+            }
+        }
+
+        & th,
+        & td:before {
+            padding: $product-view__grouped-th-padding;
+            font-size: $product-view__grouped-th-font-size;
+            font-weight: $product-view__grouped-th-font-weight;
+            background-color: $product-view__grouped-th-bg-color;
+            text-align: $product-view__grouped-th-align;
+            @include mq($screen-m) {
+                text-align: $product-view__grouped-th-align\@medium;
+            }
+        }
+
+        & td {
+            padding: $product-view__grouped-td-padding;
+            vertical-align: $product-view__grouped-td-vertical-align;
+        }
     }
 
+    &__grouped-product-qty-td {
+        padding-left: $product-view__grouped-td-qty-padding;
+    }
+
+    &__grouped-product-name {
+        display: block;
+        font-weight: $product-view__grouped-td-name-font-weight;
+        @include mq($screen-m) {
+            margin: $product-view__grouped-td-name-margin\@medium;
+        }
+    }
+
+    &__grouped-qty {
+        max-width: $product-view__grouped-qty-field-max-width;
+        .input__field {
+            text-align: $product-view__grouped-qty-field-align;
+            border-color: $product-view__grouped-qty-field-border-color;
+        }
+    }
+
+    // tabs
     &__tabs {
         max-width: $product-view__wrapper-max-width;
         margin: $product-view__tabs-margin;
 
         @include mq($screen-m) {
             margin: $product-view__tabs-margin\@medium;
+            padding: $product-view__tabs-padding\@medium;
+        }
+
+        @include mq($screen-l) {
+            padding: $product-view__tabs-padding\@large;
         }
 
         .tab__title {
@@ -317,8 +391,12 @@
             text-align: $product-view__tabs-title-text-align;
 
             @include mq($screen-m) {
-                text-align: $product-view__tabs-title-text-align\@medium;
                 padding: $product-view__tabs-title-padding\@medium;
+            }
+
+            @include mq($screen-l) {
+                text-align: $product-view__tabs-title-text-align\@large;
+                padding: $product-view__tabs-title-padding\@large;
             }
         }
     }
@@ -375,14 +453,7 @@
     }
 
     // styles for related / upsells
-    .product-slider {
-        margin: $spacer--extra-large 0;
-        .slider__heading {
-            margin: $product-view__slider-heading-margin;
-            font-size: $product-view__slider-heading-font-size;
-            @include mq($screen-m) {
-                font-size: $product-view__slider-heading-font-size\@medium;
-            }
-        }
+    .slider--products {
+        margin: $product-view__slider-margin;
     }
 }

@@ -4,7 +4,8 @@ button {
         @extend .button;
     }
 
-    &.action.action-cancel {
+    &.action.action-cancel,
+    &.action.button--secondary {
         @extend .button--secondary;
     }
 }
@@ -51,15 +52,9 @@ fieldset {
     }
 }
 
-h1 {
-    &.heading--page {
-        @include visually-hidden;
-    }
-}
-
 // Layout
 .checkout-container {
-    @include mq($screen-m) {
+    @include mq($screen-l) {
         display: flex;
         flex-wrap: wrap;
         max-width: $checkout-container__width;
@@ -68,16 +63,21 @@ h1 {
 }
 
 .progress-bar {
-    @include mq($screen-m) {
+    @include mq($screen-l) {
         max-width: $progress-bar__width;
         flex-basis: $progress-bar__width;
     }
 }
 
-.checkout-messages,
 [data-role="checkout-messages"] {
+    width: $checkout__messages-width;
+
     @include mq($screen-m) {
-        width: $checkout-messages__width;
+        max-width: $checkout__max-width\@medium;
+        margin: $checkout-messages__margin;
+    }
+    
+    @include mq($screen-l) {
         max-width: $checkout-messages__width;
         flex-basis: $checkout-messages__width;
     }
@@ -85,22 +85,25 @@ h1 {
 
 .opc-wrapper {
     @include mq($screen-m) {
-        max-width: $opc-wrapper__width;
-        flex-basis: $opc-wrapper__width;
-        padding-right: $opc-wrapper__padding-right\@medium;
+        max-width: $checkout__max-width\@medium;
+        margin: $opc-wrapper__margin;
     }
 
     @include mq($screen-l) {
-        padding-right: $opc-wrapper__padding-right\@large;
+        max-width: $opc-wrapper__width;
+        flex-basis: $opc-wrapper__width;
+        padding: $opc-wrapper__padding\@large;
     }
 
     @include mq($screen-xl) {
-        padding-right: $opc-wrapper__padding-right\@xlarge;
+        padding: $opc-wrapper__padding\@xlarge;
     }
 }
 
 .opc-sidebar {
-    @include mq($screen-m) {
+    z-index: $z-index-low;
+
+    @include mq($screen-l) {
         max-width: $opc-sidebar__width\@medium;
         flex-basis: $opc-sidebar__width\@medium;
     }

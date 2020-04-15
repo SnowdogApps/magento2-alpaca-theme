@@ -1,4 +1,5 @@
-$range__padding               : $spacer--medium 0 0 0 !default;
+$range__padding               : $spacer--medium $spacer--extra-small 0 0 !default;
+$range__padding\@large        : $spacer--medium 0 0 0 !default;
 $range__slider-margin         : 0 0 $spacer--semi-large 0 !default;
 $range__handler-size          : 24px !default;
 $range__handler-bg-color      : $white !default;
@@ -6,7 +7,7 @@ $range__handler-border        : $border-secondary !default;
 $range__handler-border-radius : 50% !default;
 $range__handler-box-shadow    : none !default;
 $range__handler-offset-top    : -10px !default;
-$range__track-height          : 4px !default;
+$range__track-height          : $spacer--extra-small !default;
 $range__track-bg-color        : $gray !default;
 $range__track-bg-color--active: $color-primary !default;
 $range__track-border-radius   : $border-radius !default;
@@ -14,10 +15,15 @@ $range__track-border          : none !default;
 $range__track-box-shadow      : none !default;
 $range__dash-padding          : 0 $spacer--medium 0 $spacer !default;
 $range__suffix-padding        : 0 $spacer !default;
+$range__button-width          : calc(100% - #{$spacer--extra-small}) !default;
+$range__button-width\@large   : 100% !default;
 
 .range-filter {
     padding: $range__padding;
     overflow: hidden;
+    @include mq($screen-l) {
+        padding: $range__padding\@large;
+    }
 
     &__slider {
         margin: $range__slider-margin;
@@ -46,6 +52,12 @@ $range__suffix-padding        : 0 $spacer !default;
         width: auto;
         flex-grow: 1;
         margin: 0;
+    }
+    &__button {
+        width: $range__button-width;
+        @include mq($screen-l) {
+            width: $range__button-width\@large;
+        }
     }
 }
 

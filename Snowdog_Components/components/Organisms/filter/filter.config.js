@@ -16,21 +16,21 @@ module.exports = {
     },
     checkboxes: [
       {
-        class: 'margin-left-s',
+        class: '',
         href: '#',
         label: {
           text: 'Value 1',
         }
       },
       {
-        class: 'margin-left-s checkbox--link-checked',
+        class: 'checkbox--link-checked',
         href: '#',
         label: {
           text: 'Value 2'
         }
       },
       {
-        class: 'margin-left-s',
+        class: '',
         href: '#',
         label: {
           text: 'Value 3'
