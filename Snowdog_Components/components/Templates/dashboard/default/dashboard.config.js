@@ -24,10 +24,18 @@ module.exports = {
       text: 'My Dashboard'
     },
     account: {
-      title: 'Account Information',
+      title: {
+        tag: 'h2',
+        class: 'dashboard-items__title margin-bottom-sm',
+        text: 'Account Information'
+      },
       informations: [
         {
-          title: 'Contact information',
+          title: {
+            tag: 'h3',
+            class: 'ddashboard-items__subtitle margin-bottom-l',
+            text: 'Contact information'
+          },
           class: 'col-sm-6',
           information: 'qweqwe qwe qwe@qwe.com',
           actions: {
@@ -52,7 +60,11 @@ module.exports = {
           }
         },
         {
-          title: 'Newsletters',
+          title: {
+            tag: 'h3',
+            class: 'ddashboard-items__subtitle margin-bottom-l',
+            text: 'Newsletters'
+          },
           class: 'col-sm-6',
           information: 'You don\'t subscribe to our newsletter.',
           actions: {
@@ -73,14 +85,22 @@ module.exports = {
       ]
     },
     addreses: {
-      title: 'Address Book',
+      title: {
+        tag: 'h2',
+        class: 'dashboard-table__title',
+        text: 'Address Book'
+      },
       link: {
         text: 'Manage Addresses',
         class: 'dashboard-table__link'
       },
       informations: [
         {
-          title: 'Default Billing Address',
+          title: {
+            tag: 'h3',
+            class: 'ddashboard-items__subtitle margin-bottom-l',
+            text: 'Default Billing Address'
+          },
           class: 'col-sm-6',
           information: 'qweqwe qwe 136 N. Bay Road',
           actions: {
@@ -99,7 +119,11 @@ module.exports = {
           }
         },
         {
-          title: 'Default Shipping address',
+          title: {
+            tag: 'h3',
+            class: 'ddashboard-items__subtitle margin-bottom-l',
+            text: 'Default Shipping Address'
+          },
           class: 'col-sm-6',
           information: '11233 Easer 53rd Ave, Suite 600 US',
           actions: {

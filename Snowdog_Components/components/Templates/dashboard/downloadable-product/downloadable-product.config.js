@@ -23,7 +23,11 @@ module.exports = {
       text: 'My Dashboard'
     },
     products: {
-      title: 'My Downloadable Products',
+      title: {
+        tag: 'h2',
+        class: 'dashboard-table__title',
+        text: 'My Downloadable Products'
+      },
       class: 'margin-bottom-l',
       table: {
         mainTags: [

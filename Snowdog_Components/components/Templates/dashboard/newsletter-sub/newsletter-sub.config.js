@@ -23,7 +23,11 @@ module.exports = {
       text: 'My Dashboard'
     },
     form: {
-      title: 'Subscription option',
+      title: {
+        tag: 'h2',
+        class: 'dashboard-form__title margin-bottom-sm',
+        text: 'Subscription option'
+      },
       checkboxes: [
         {
           checkbox: {

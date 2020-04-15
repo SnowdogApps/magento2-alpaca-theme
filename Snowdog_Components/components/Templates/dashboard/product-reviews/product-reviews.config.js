@@ -23,7 +23,11 @@ module.exports = {
       text: 'My Dashboard'
     },
     reviews: {
-      title: 'My Product Reviews',
+      title: {
+        tag: 'h2',
+        class: 'dashboard-table__title',
+        text: 'My Product Reviews'
+      },
       class: 'margin-bottom-l',
       table: {
         mainTags: [

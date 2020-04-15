@@ -49,10 +49,18 @@ module.exports = {
       ]
     },
     addresses: {
-      title: 'Default Addresses',
+      title: {
+        tag: 'h2',
+        class: 'dashboard-items__title margin-bottom-sm',
+        text: 'Default Addresses'
+      },
       informations: [
         {
-          title: 'Default Billing Address',
+          title: {
+            tag: 'h3',
+            class: 'ddashboard-items__subtitle margin-bottom-l',
+            text: 'Default Billing Address'
+          },
           class: 'col-sm-6',
           information: 'qweqwe qwe 136 N. Bay Road',
           actions: {
@@ -71,9 +79,14 @@ module.exports = {
           }
         },
         {
-          title: 'Default Shipping address',
+          title: {
+            tag: 'h3',
+            class: 'ddashboard-items__subtitle margin-bottom-l',
+            text: 'Default Shipping Address'
+          },
           class: 'col-sm-6',
-          information: '11233 Easer 53rd Ave, Suite 600 US',
+          information: '11233 Easer 53rd Ave, Suite 6
+          00 US',
           actions: {
             sides: [
               {
@@ -92,7 +105,11 @@ module.exports = {
       ]
     },
     additionalAddresses: {
-      title: 'Additional Addresses Entries',
+      title: {
+        tag: 'h2',
+        class: 'dashboard-items__title margin-bottom-sm',
+        text: 'Additional Addresses Entries'
+      },
       informations: [
         {
           class: 'col-sm-6',
@@ -200,8 +217,11 @@ module.exports = {
       context: {
         contactInfo: {
           script: false,
-          title: 'Contact Information',
-          titleClass: 'margin-bottom-m',
+          title: {
+            tag: 'h2',
+            class: 'dashboard-form__title margin-bottom-sm',
+            text: 'Contact Information'
+          },
           class: 'col-sm-6 dashboard__form',
           fields: [
             {
@@ -278,8 +298,11 @@ module.exports = {
         },
         address: {
           script: false,
-          title: 'Address',
-          titleClass: 'margin-bottom-m',
+          title: {
+            tag: 'h2',
+            class: 'dashboard-form__title margin-bottom-sm',
+            text: 'Address'
+          },
           class: 'col-sm-6 dashboard__form',
           fields: [
             {

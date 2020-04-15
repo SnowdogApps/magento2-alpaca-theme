@@ -95,7 +95,11 @@ module.exports = {
           ]
         },
         itemsOrdered: {
-          title: 'Items Ordered',
+          title: {
+            tag: 'h2',
+            class: 'dashboard-table__title',
+            text: 'Items Ordered'
+          },
           table: {
             mainTags: [
               {
@@ -258,7 +262,11 @@ module.exports = {
           }
         },
         invoice: {
-          title: 'Invoices',
+          title: {
+            tag: 'h2',
+            class: 'dashboard-table__title',
+            text: 'Invoices'
+          },
           link: 'Print Invoice',
           table: {
             mainTags: [
@@ -408,7 +416,11 @@ module.exports = {
           }
         },
         orderShipment: {
-          title: 'Order Shipments',
+          title: {
+            tag: 'h2',
+            class: 'dashboard-table__title',
+            text: 'Order Shipments'
+          },
           link: 'Print Shipment',
           table: {
             mainTags: [
@@ -482,13 +494,17 @@ module.exports = {
             ]
           }
         },
-        orderInfoTitle: 'Order Information',
+        orderInfoTitle: {
+          tag: 'h2',
+          class: 'dashboard__title',
+          text: 'Order Information'
+        },
         orderInfo: {
           informations: [
             {
               heading: {
                 tag: 'h3',
-                class: 'heading dashboard__subtitle',
+                class: 'dashboard__subtitle margin-bottom-l',
                 text: 'Shipping Address'
               },
               class: 'col-sm-3',
@@ -497,7 +513,7 @@ module.exports = {
             {
               heading: {
                 tag: 'h3',
-                class: 'heading dashboard__subtitle',
+                class: 'dashboard__subtitle margin-bottom-l',
                 text: 'Shipping Method'
               },
               class: 'col-sm-3',
@@ -506,7 +522,7 @@ module.exports = {
             {
               heading: {
                 tag: 'h3',
-                class: 'heading dashboard__subtitle',
+                class: 'dashboard__subtitle margin-bottom-l',
                 text: 'Billing Address'
               },
               class: 'col-sm-3',
@@ -515,7 +531,7 @@ module.exports = {
             {
               heading: {
                 tag: 'h3',
-                class: 'heading dashboard__subtitle',
+                class: 'dashboard__subtitle margin-bottom-l',
                 text: 'Payment Method'
               },
               class: 'col-sm-3',
@@ -598,8 +614,11 @@ module.exports = {
           }
         },
         form: {
-          title: 'Return Items Information',
-          titleClass: 'margin-bottom-m',
+          title: {
+            tag: 'h2',
+            class: 'dashboard-form__title margin-bottom-sm',
+            text: 'Return Items Information'
+          },
           contentClass: 'grid',
           fields: [
             {

@@ -2,7 +2,11 @@ module.exports = {
   label: 'Table',
   name: 'dashboard-table',
   context: {
-    title: 'Recent Orders',
+    title: {
+      tag: 'h2',
+      class: 'dashboard-table__title',
+      text: 'Recent Orders'
+    },
     link: {
       text: 'View All',
       class: 'dashboard-table__link'
