@@ -85,8 +85,7 @@ module.exports = {
             text: 'Default Shipping Address'
           },
           class: 'col-sm-6',
-          information: '11233 Easer 53rd Ave, Suite 6
-          00 US',
+          information: '11233 Easer 53rd Ave, Suite 600 US',
           actions: {
             sides: [
               {
