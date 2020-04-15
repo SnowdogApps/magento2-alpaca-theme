@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Added
 ### Changed
+- Magento 2.3.4 update (#63718)
 ### Fixed
 
 
