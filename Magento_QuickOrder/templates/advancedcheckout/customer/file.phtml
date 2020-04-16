@@ -1,0 +1,76 @@
+<?php
+/**
+ * @var $block \Magento\Framework\View\Element\Template
+ */
+$fieldNameFile = \Magento\AdvancedCheckout\Model\Import::FIELD_NAME_SOURCE_FILE;
+$fieldImportedFlagFile = \Magento\AdvancedCheckout\Helper\Data::REQUEST_PARAMETER_SKU_FILE_IMPORTED_FLAG;
+$extErrorText = __(
+    'The file could not be uploaded because it is in the wrong format. Please select a CSV file to upload.'
+);
+?>
+<div class="field upload skus">
+    <div
+        class="control"
+        data-mage-init='{
+            "fieldsetControls": {},
+            "fileChooser": {
+                "fileNameSelector": "[name=<?= $block->escapeJs($fieldNameFile) ?>]",
+                "fileNameIndicatorSelector": "[name=<?= $block->escapeJs($fieldImportedFlagFile) ?>]"
+            },
+            "quickOrderFile":{
+                "fileNameSelector": "[name=<?= $block->escapeJs($fieldNameFile) ?>]",
+                "extErrorText": "<?= $block->escapeHtml($extErrorText) ?>",
+                "urlSku":"<?= $block->escapeUrl($block->getUrl('quickorder/ajax/search')) ?>"
+            }
+        }'
+    >
+        <div
+            class="upload-container"
+            data-mage-init='{ "fileUpload": {}}'
+        >
+            <div class="file-upload margin-bottom-l">
+                <input
+                    id="customer_sku_csv"
+                    type="file"
+                    data-reset="true"
+                    class="file-upload__input action-upload"
+                    name="<?= $block->escapeHtmlAttr($fieldNameFile) ?>"
+                >
+                <label
+                    class="file-upload__wrapper"
+                    for="customer_sku_csv"
+                >
+                    <span class="file-upload__label">
+                        <span class="padding-right-xs">
+                            <?= $block->escapeHtml(__('File must be in .csv format and include "SKU" and "QTY" columns')); ?>
+                        </span>
+                        <span>
+                            <?= $block->getChildHtml('quick_order_download_template_link') ?>
+                        </span>
+                    </span>
+
+                    <span
+                        class="
+                            button
+                            file-upload__button
+                            quickorder__button
+                        "
+                        role="button"
+                        tabindex="0"
+                        aria-controls="customer_sku_csv"
+                    >
+                        <?= __('Upload a file') ?>
+                    </span>
+
+                    <span
+                        class="file-upload__name"
+                        data-default-text="File not choosen"
+                        tabindex="0"
+                    >
+                        <?= __('File not choosen') ?>
+                    </span>
+                </label>
+            </div>
+        </div>
+    </div>
+</div>

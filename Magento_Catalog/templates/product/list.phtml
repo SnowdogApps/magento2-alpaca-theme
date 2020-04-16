@@ -1,9 +1,19 @@
 <?php
 use Magento\Framework\App\Action\Action;
+
 ?>
 <?php
-    $_productCollection = $block->getLoadedProductCollection();
-    $_helper = $this->helper('Magento\Catalog\Helper\Output');
+// phpcs:disable Magento2.Templates.ThisInTemplate.FoundThis
+
+/**
+ * Product list template
+ *
+ * @var $block \Magento\Catalog\Block\Product\ListProduct
+ */
+?>
+<?php
+$_productCollection = $block->getLoadedProductCollection();
+$_helper = $this->helper(Magento\Catalog\Helper\Output::class);
 ?>
 <?php if (!$_productCollection->count()): ?>
     <div class="message info empty">
@@ -12,23 +22,26 @@ use Magento\Framework\App\Action\Action;
 <?php else: ?>
     <?= $block->getToolbarHtml() ?>
     <?= $block->getAdditionalHtml() ?>
+
     <?php
-        if ($block->getMode() == 'grid') {
-            $viewMode = 'products-grid';
-            $imageDisplayArea = 'category_page_grid';
-            $showDescription = false;
-            $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
-        } else {
-            $viewMode = 'products-list';
-            $imageDisplayArea = 'category_page_list';
-            $showDescription = true;
-            $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
-        }
-        /**
-         * Position for actions regarding image size changing in vde if needed
-         */
-        $pos = $block->getPositioned();
+    if ($block->getMode() == 'grid') {
+        $viewMode = 'products-grid';
+        $imageDisplayArea = 'category_page_grid';
+        $showDescription = false;
+        $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+    } else {
+        $viewMode = 'products-list';
+        $imageDisplayArea = 'category_page_list';
+        $showDescription = true;
+        $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::FULL_VIEW;
+    }
+    /**
+     * Position for actions regarding image size changing in vde if needed
+     */
+    $pos = $block->getPositioned();
     ?>
+
+
     <?php /** @var $_product \Magento\Catalog\Model\Product */ ?>
     <?php if($viewMode === 'products-list'): ?>
         <ul class="list">
@@ -66,7 +79,7 @@ use Magento\Framework\App\Action\Action;
                                         >
                                             <?= $block->escapeHtml($productBadge) ?>
                                         </div>
-                                    <?php endforeach ?>
+                                    <?php endforeach; ?>
                                 <?php else: ?>
                                     <div
                                         class="
@@ -77,9 +90,9 @@ use Magento\Framework\App\Action\Action;
                                     >
                                         <?= $block->escapeHtml($productBadges) ?>
                                     </div>
-                                <?php endif ?>
+                                <?php endif; ?>
                             </div>
-                        <?php endif ?>
+                        <?php endif; ?>
                     </a>
                     <div class="product-list-item__main">
                         <div class="product-list-item__details">
@@ -114,7 +127,7 @@ use Magento\Framework\App\Action\Action;
                                 >
                                     <?= $_product['selling_features_bullets'] ?>
                                 </div>
-                            <?php endif ?>
+                            <?php endif; ?>
                         </div>
 
                         <div class="product-list-item__actions">
@@ -140,7 +153,7 @@ use Magento\Framework\App\Action\Action;
                                 >
                                     <?= __('Out of stock') ?>
                                 </button>
-                            <?php endif ?>
+                            <?php endif; ?>
 
                             <div class="product-list-item__price">
                                 <div class="price">
@@ -199,12 +212,12 @@ use Magento\Framework\App\Action\Action;
 
                                         </button>
                                     </form>
-                                <?php endif ?>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
                 </li>
-            <?php endforeach ?>
+            <?php endforeach; ?>
         </ul>
     <?php else: ?>
         <ul class="catalog-grid">
@@ -242,7 +255,7 @@ use Magento\Framework\App\Action\Action;
                                         >
                                             <?= $block->escapeHtml($productBadge) ?>
                                         </div>
-                                    <?php endforeach ?>
+                                    <?php endforeach; ?>
                                 <?php else: ?>
                                     <div
                                         class="
@@ -255,9 +268,9 @@ use Magento\Framework\App\Action\Action;
                                     >
                                         <?= $block->escapeHtml($productBadges) ?>
                                     </div>
-                                <?php endif ?>
+                                <?php endif; ?>
                             </div>
-                        <?php endif ?>
+                        <?php endif; ?>
                         <div
                             class="product-grid-item__image-wrapper"
                         >
@@ -300,7 +313,7 @@ use Magento\Framework\App\Action\Action;
                                 <div class="product-grid-item__secondary-action">
                                     <?php if ($addToBlock = $block->getChildBlock('addto')): ?>
                                         <?= $addToBlock->setProduct($_product)->getChildHtml() ?>
-                                    <?php endif ?>
+                                    <?php endif; ?>
                                 </div>
 
                                 <?php if ($_product->isSaleable()): ?>
@@ -355,17 +368,19 @@ use Magento\Framework\App\Action\Action;
                                         >
                                             <?= __('Out of stock') ?>
                                         </span>
-                                    <?php endif ?>
-                                <?php endif ?>
+                                    <?php endif; ?>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </section>
                 </li>
-            <?php endforeach ?>
+            <?php endforeach; ?>
         </ul>
-    <?php endif ?>
+    <?php endif; ?>
+
     <?= $block->getToolbarHtml() ?>
-    <?php if (!$block->isRedirectToCartEnabled()) : ?>
+
+    <?php if (!$block->isRedirectToCartEnabled()): ?>
         <script type="text/x-magento-init">
         {
             "[data-role=tocart-form], .form.map.checkout": {
@@ -373,5 +388,5 @@ use Magento\Framework\App\Action\Action;
             }
         }
         </script>
-    <?php endif ?>
-<?php endif ?>
+    <?php endif; ?>
+<?php endif; ?>
