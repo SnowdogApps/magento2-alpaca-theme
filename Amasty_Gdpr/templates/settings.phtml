@@ -12,7 +12,9 @@ $settings = $block->getPrivacySettings();
 ?>
 <?php foreach ($settings as $setting): ?>
     <div class="block">
-        <div class="block-title"><strong><?= $block->escapeHtml($setting['title']) ?></strong></div>
+        <h2 class="dashboard-form__title margin-bottom-sm">
+            <?= $block->escapeHtml($setting['title']) ?>
+        </h2>
         <div class="block-content">
             <form method="post"
                   action="<?= $setting['action'] ?>"
@@ -22,27 +24,67 @@ $settings = $block->getPrivacySettings();
                 <input name="order_increment_id" type="hidden" value="<?= /* @escapeNotVerified */ $block->getCurrentOderIncrementId(); ?>" />
                 <p class="policy-content"><?= $setting['content'] ?></p>
                 <?php if ($setting['hasCheckbox']): ?>
-                    <p class="control checkbox">
-                        <label class="accept addon">
-                            <input type="checkbox" data-validate="{required:true}" name="agree">
-                            <?= $block->escapeHtml($setting['checkboxText']) ?>
+                    <div class="checkbox margin-bottom-m">
+                        <input
+                            type="checkbox"
+                            id="agree"
+                            name="agree"
+                            class="checkbox__field"
+                            data-validate="{required:true}"
+                        >
+                        <svg
+                            class="
+                                checkbox__icon
+                                checkbox__icon--checked
+                            "
+                            role="presentation"
+                        >
+                        <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#checked')) ?>"></use>
+                        </svg>
+                        <svg
+                            class="
+                                checkbox__icon
+                                checkbox__icon--unchecked
+                            "
+                            role="presentation"
+                        >
+                            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#unchecked')) ?>"></use>
+                        </svg>
+                        <label for="agree" class="checkbox__label ">
+                            <span class="checkbox__text">
+                                <?= $block->escapeHtml($setting['checkboxText']) ?>
+                            </span>
                         </label>
-                    </p>
+                    </div>
                 <?php endif; ?>
                 <?php if ($setting['needPassword']): ?>
                     <fieldset class="fieldset" data-hasrequired="* Required Fields" <?php if ($setting['hidePassword']): ?> hidden <?php endif; ?> name="passwordField">
-                        <div class="field password current required">
-                            <label class="label" for="current-password">
+                        <div class="input required">
+                            <label
+                                class="input__label"
+                                for="current-password"
+                            >
                                 <span><?= $block->escapeHtml(__('Current Password')) ?></span>
                             </label>
                             <div class="control">
-                                <input type="password" class="input-text" name="current_password" id="current-password-<?= /* @escapeNotVerified */ $setting['actionCode'] ?>" data-input="current-password" autocomplete="off" aria-required="true" data-validate="{required:true}">
+                                <input
+                                    type="password"
+                                    class="input__field"
+                                    name="current_password"
+                                    id="current-password-<?= /* @escapeNotVerified */ $setting['actionCode'] ?>" data-input="current-password"
+                                    autocomplete="off"
+                                    aria-required="true"
+                                    data-validate="{required:true}"
+                                >
                             </div>
                         </div>
                     </fieldset>
                 <?php endif; ?>
                 <div class="actions-toolbar">
-                    <button type="submit" class="action primary">
+                    <button
+                        type="submit"
+                        class="button margin-bottom-l"
+                    >
                         <?= $block->escapeHtml($setting['submitText']) ?>
                     </button>
                 </div>
