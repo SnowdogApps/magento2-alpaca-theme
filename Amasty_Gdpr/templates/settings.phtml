@@ -1,0 +1,59 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Gdpr
+ */
+?>
+<?php
+/** @var $block \Amasty\Gdpr\Block\Settings */
+
+$settings = $block->getPrivacySettings();
+?>
+<?php foreach ($settings as $setting): ?>
+    <div class="block">
+        <div class="block-title"><strong><?= $block->escapeHtml($setting['title']) ?></strong></div>
+        <div class="block-content">
+            <form method="post"
+                  action="<?= $setting['action'] ?>"
+                  data-mage-init='{"validation":{}}'>
+                <input name="form_key" type="hidden" value="<?= /* @escapeNotVerified */ $block->getFormKey(); ?>" />
+                <input name="is_order" type="hidden" value="<?= /* @escapeNotVerified */ $block->isOrder(); ?>" />
+                <input name="order_increment_id" type="hidden" value="<?= /* @escapeNotVerified */ $block->getCurrentOderIncrementId(); ?>" />
+                <p class="policy-content"><?= $setting['content'] ?></p>
+                <?php if ($setting['hasCheckbox']): ?>
+                    <p class="control checkbox">
+                        <label class="accept addon">
+                            <input type="checkbox" data-validate="{required:true}" name="agree">
+                            <?= $block->escapeHtml($setting['checkboxText']) ?>
+                        </label>
+                    </p>
+                <?php endif; ?>
+                <?php if ($setting['needPassword']): ?>
+                    <fieldset class="fieldset" data-hasrequired="* Required Fields" <?php if ($setting['hidePassword']): ?> hidden <?php endif; ?> name="passwordField">
+                        <div class="field password current required">
+                            <label class="label" for="current-password">
+                                <span><?= $block->escapeHtml(__('Current Password')) ?></span>
+                            </label>
+                            <div class="control">
+                                <input type="password" class="input-text" name="current_password" id="current-password-<?= /* @escapeNotVerified */ $setting['actionCode'] ?>" data-input="current-password" autocomplete="off" aria-required="true" data-validate="{required:true}">
+                            </div>
+                        </div>
+                    </fieldset>
+                <?php endif; ?>
+                <div class="actions-toolbar">
+                    <button type="submit" class="action primary">
+                        <?= $block->escapeHtml($setting['submitText']) ?>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+<?php endforeach; ?>
+
+<script type="text/x-magento-init">
+    {"*": {
+            "Amasty_Gdpr/js/show-password": {}
+          }
+    }
+</script>
