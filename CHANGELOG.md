@@ -1,9 +1,15 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-
 ## [Unreleased]
 ### Added
+### Changed
+### Fixed
+
+
+## [Released]
+
+## [1.4.0] - 2020-04-17
 ### Changed
 - Magento 2.3.4 update (#63718)
 - EE - style quick order (#65700)
@@ -13,10 +19,6 @@ All notable changes to this project will be documented in this file.
 - EE - dashboard - requisition lists styles (#65712)
 - EE - dashboard - store credit (#65713)
 - EE - dashboard - gift card (#65715)
-### Fixed
-
-
-## [Released]
 
 ## [1.3.1] - 2020-04-06
 ### Fixed
