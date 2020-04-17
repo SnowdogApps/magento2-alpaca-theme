@@ -6,6 +6,13 @@ All notable changes to this project will be documented in this file.
 ### Added
 ### Changed
 - Magento 2.3.4 update (#63718)
+- EE - style quick order (#65700)
+- EE - create b2b account on login page info (#65701)
+- EE - company account registration form styling (#65702)
+- EE - dashboard - address book - remove "street" label (#65711)
+- EE - dashboard - requisition lists styles (#65712)
+- EE - dashboard - store credit (#65713)
+- EE - dashboard - gift card (#65715)
 ### Fixed
 
 
