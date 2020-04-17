@@ -32,27 +32,12 @@
 
                 <div class="wishlist-management">
                     <div class="wishlist-management__list {{ management.listClass }}">
-                        <span class="wishlist-management__title">
+                        <h2>
                             {{ management.myWishListsTitle }}
-                        </span>
-                        <ul class="wishlist-management__items {{ management.itemsClass }}">
-                            {{#each management.items }}
-                                {{#if this.active }}
-                                    <li class="wishlist-management__item wishlist-management__item--active">
-                                        {{ this.name }}
-                                    </li>
-                                {{else}}
-                                    <li class="wishlist-management__item">
-                                        <a
-                                            title="{{ this.name }}"
-                                            href=""
-                                        >
-                                            {{ this.name }}
-                                        </a>
-                                    </li>
-                                {{/if}}
-                            {{/each}}
-                        </ul>
+                        </h2>
+
+                        {{render '@list--link' wishListsList merge=true }}
+
                         <div class="actions-group {{ management.actionsGroupClass }}">
                             <div class="actions-group__handler">
                                 {{ render '@modal' management.modalCreateTrigger }}
@@ -62,9 +47,10 @@
                     </div>
 
                     <div class="wishlist-management__list {{ management.listClass }}">
-                        <span class="wishlist-management__title">
+                        <h2>
                             {{ management.wishListInfoTitle }}
-                        </span>
+                        </h2>
+
                         {{#each management.info}}
                             <div class="wishlist-management__notice">
                                 {{ this.notice }}
@@ -72,28 +58,15 @@
                         {{/each}}
                     </div>
 
+                    {{ render '@checkbox' selectAll }}
+
                     <div class="wishlist-management__list {{ management.listClass }}">
-                        <span class="wishlist-management__title">
+                        <h2>
                             {{ management.moveTitle }}
-                        </span>
-                        <ul class="wishlist-management__items">
-                            {{#each management.items }}
-                                {{#if this.active }}
-                                    <li class="wishlist-management__item wishlist-management__item--active">
-                                        {{ this.name }}
-                                    </li>
-                                {{else}}
-                                    <li class="wishlist-management__item">
-                                        <a
-                                            title="{{ this.name }}"
-                                            href=""
-                                        >
-                                            {{ this.name }}
-                                        </a>
-                                    </li>
-                                {{/if}}
-                            {{/each}}
-                        </ul>
+                        </h2>
+
+                        {{render '@list--link' wishListsList merge=true }}
+
                         <div class="actions-group {{ management.actionsGroupClass }}">
                             <div class="actions-group__handler">
                                 {{ render '@modal' management.modalCreateTrigger }}
@@ -102,27 +75,12 @@
                     </div>
 
                     <div class="wishlist-management__list {{ management.listClass }}">
-                        <span class="wishlist-management__title">
+                        <h2>
                             {{ management.copyTitle }}
-                        </span>
-                        <ul class="wishlist-management__items">
-                            {{#each management.items }}
-                                {{#if this.active }}
-                                    <li class="wishlist-management__item wishlist-management__item--active">
-                                        {{ this.name }}
-                                    </li>
-                                {{else}}
-                                    <li class="wishlist-management__item">
-                                        <a
-                                            title="{{ this.name }}"
-                                            href=""
-                                        >
-                                            {{ this.name }}
-                                        </a>
-                                    </li>
-                                {{/if}}
-                            {{/each}}
-                        </ul>
+                        </h2>
+
+                        {{render '@list--link' wishListsList merge=true }}
+
                         <div class="actions-group {{ management.actionsGroupClass }}">
                             <div class="actions-group__handler">
                                 {{ render '@modal' management.modalCreateTrigger }}
@@ -130,10 +88,22 @@
                         </div>
                     </div>
                 </div>
-                <div class="row wishlist__grid">
+
+                <div
+                    class="
+                        products-grid
+                        wishlist
+                        row
+                        wishlist__grid
+                    "
+                >
                     {{#each wishlistItems}}
                         <div class="wishlist__item {{ product.class }}">
-                            <a href="#" aria-label="{{ product.name.text }}" class="wishlist__link">
+                            <a
+                                href="#"
+                                aria-label="{{ product.name.text }}"
+                                class="wishlist__link"
+                            >
                                 {{ render '@image' product.image }}
                             </a>
 

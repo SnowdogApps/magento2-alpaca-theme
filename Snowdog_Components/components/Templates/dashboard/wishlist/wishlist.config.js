@@ -23,26 +23,33 @@ module.exports = {
       class: 'heading dashboard__content-heading',
       text: 'My Dashboard'
     },
+    wishListsList: {
+      listTag: 'ul',
+      elementTag: 'li',
+      elements: [
+        {
+          class: 'padding-0 wishlist-management__item wishlist-management__item--active',
+          text: 'Active Wish List',
+          link: '#'
+        },
+        {
+          link: '#',
+          text: 'First Wish List',
+          class: 'padding-0 wishlist-management__item'
+        },
+        {
+          link: '#',
+          text: 'Second Wish List',
+          class: 'padding-0 wishlist-management__item'
+        }
+      ]
+    },
     management: {
       myWishListsTitle: 'My Wish Lists:',
       wishListInfoTitle: 'Wish List Information\'s:',
       moveTitle: 'Move Selected to Wish List:',
       copyTitle: 'Copy Selected to Wish List:',
-      wishListName: 'Wishlist name',
       listClass: 'margin-bottom-m',
-      itemsClass: 'margin-vc-xs',
-      items: [
-        {
-          active: true,
-          name: 'First Wish List',
-        },
-        {
-          name: 'Second Wish List',
-        },
-        {
-          name: 'Third Wish List',
-        }
-      ],
       actionsGroupClass: 'wishlist-management__actions',
       modalCreateTrigger: {
         modal: {
@@ -54,7 +61,7 @@ module.exports = {
         modalTrigger: {
           buttonModalTrigger: {
             tag: 'button',
-            class: 'modal-trigger margin-top-xs',
+            class: 'button--secondary modal-trigger margin-top-xs',
             text: 'Create New Wish List',
             attributes: 'data-modal-trigger="create-wish-list" type="button" aria-expanded="false"'
           }
@@ -79,7 +86,7 @@ module.exports = {
         },
         modalMiddle: true,
         modalComponent: {
-          content: 'wishlist--add-new'
+          content: ''
         },
         checkbox: {
           id: 'checkbox',
@@ -126,7 +133,7 @@ module.exports = {
         modalTrigger: {
           buttonModalTrigger: {
             tag: 'button',
-            class: 'modal-trigger margin-top-xs',
+            class: 'button--secondary modal-trigger margin-top-xs',
             text: 'Edit Active Wish List',
             attributes: 'data-modal-trigger="edit-wish-list" type="button" aria-expanded="false"'
           }
@@ -151,7 +158,7 @@ module.exports = {
         },
         modalMiddle: true,
         modalComponent: {
-          content: 'wishlist--edit'
+          content: ''
         },
         checkbox: {
           id: 'checkbox',
@@ -196,6 +203,24 @@ module.exports = {
           notice: '7 items in wish list'
         }
       ]
+    },
+    selectAll: {
+      id: 'wishlist__select-all',
+      name: 'wishlist__select-all',
+      attributes: 'data-role="select-all"',
+      label: {
+        text: 'Select All',
+        class: ''
+      },
+      iconChecked: {
+        class: ''
+      },
+      iconUnchecked: {
+        class: ''
+      },
+      input: {
+        class: ''
+      }
     },
     wishlistItems: [
       {
