@@ -23,32 +23,12 @@ module.exports = {
       class: 'heading dashboard__content-heading',
       text: 'My Dashboard'
     },
-    wishListsList: {
-      listTag: 'ul',
-      elementTag: 'li',
-      elements: [
-        {
-          class: 'padding-0 wishlist-management__item wishlist-management__item--active',
-          text: 'Active Wish List',
-          link: '#'
-        },
-        {
-          link: '#',
-          text: 'First Wish List',
-          class: 'padding-0 wishlist-management__item'
-        },
-        {
-          link: '#',
-          text: 'Second Wish List',
-          class: 'padding-0 wishlist-management__item'
-        }
-      ]
-    },
     management: {
       myWishListsTitle: 'My Wish Lists:',
       wishListInfoTitle: 'Wish List Information\'s:',
       moveTitle: 'Move Selected to Wish List:',
       copyTitle: 'Copy Selected to Wish List:',
+      titleClass: 'margin-bottom-0',
       listClass: 'margin-bottom-m',
       actionsGroupClass: 'wishlist-management__actions',
       modalCreateTrigger: {
@@ -201,6 +181,111 @@ module.exports = {
         },
         {
           notice: '7 items in wish list'
+        }
+      ]
+    },
+    myWishListsList: {
+      id: 'dropdown-list-1',
+      class: 'dropdown-list--detailed-content',
+      dropdowns: [
+        {
+          itemTag: 'a',
+          itemAttributes: 'href="#" aria-expanded="false"',
+          title: 'Active Wish List',
+          id: 'dropdown-detailed-content-1',
+          collapse: {
+            id: 'angle-down',
+            title: 'Arrow Down',
+            class: 'dropdown-list__icon',
+            attributes: 'aria-hidden="true"'
+          },
+          contentElement: 'list',
+          contentContext: {
+            listTag: 'ul',
+            elementTag: 'li',
+            elements: [
+              {
+                link: '#',
+                text: 'First Wish List',
+                class: 'padding-0 wishlist-management__item'
+              },
+              {
+                link: '#',
+                text: 'Second Wish List',
+                class: 'padding-0 wishlist-management__item'
+              }
+            ]
+          }
+        }
+      ]
+    },
+    copyWishListsList: {
+      id: 'dropdown-list-2',
+      class: 'dropdown-list--detailed-content',
+      dropdowns: [
+        {
+          itemTag: 'a',
+          itemAttributes: 'href="#" aria-expanded="false"',
+          title: 'Active Wish List',
+          id: 'dropdown-detailed-content-2',
+          collapse: {
+            id: 'angle-down',
+            title: 'Arrow Down',
+            class: 'dropdown-list__icon',
+            attributes: 'aria-hidden="true"'
+          },
+          contentElement: 'list',
+          contentContext: {
+            listTag: 'ul',
+            elementTag: 'li',
+            elements: [
+              {
+                link: '#',
+                text: 'First Wish List',
+                class: 'padding-0 wishlist-management__item'
+              },
+              {
+                link: '#',
+                text: 'Second Wish List',
+                class: 'padding-0 wishlist-management__item'
+              }
+            ]
+          }
+        }
+      ]
+    },
+    moveWishListsList: {
+      id: 'dropdown-list-3',
+      class: 'dropdown-list--detailed-content',
+      dropdowns: [
+        {
+          itemTag: 'a',
+          itemAttributes: 'href="#" aria-expanded="false"',
+          title: 'Active Wish List',
+          id: 'dropdown-detailed-content-3',
+          collapse: {
+            id: 'angle-down',
+            title: 'Arrow Down',
+            class: 'dropdown-list__icon',
+            attributes: 'aria-hidden="true"'
+          },
+          contentElement: 'list',
+          contentContext: {
+            listTag: 'ul',
+            elementTag: 'li',
+            elements: [
+              {
+                link: '#',
+                text: 'First Wish List',
+                class: 'padding-0 wishlist-management__item'
+              },
+              {
+                link: '#',
+                text: 'Second Wish List',
+                class: 'padding-0 wishlist-management__item'
+              }
+            ]
+          }
         }
       ]
     },
@@ -461,6 +546,6 @@ module.exports = {
     backLink: {
       text: 'Back',
       title: 'Back to My Account'
-    },
+    }
   }
 }
