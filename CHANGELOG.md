@@ -5,7 +5,10 @@ All notable changes to this project will be documented in this file.
 ### Added
 ### Changed
 - EE - style dashbaord reward points (#65719)
+- usage of jquery/ui to jquery-ui-module/[module-name] (#66232)
+- improve accessability of modal popup templates (#66232)
 ### Fixed
+### Removed
 
 
 ## [Released]
