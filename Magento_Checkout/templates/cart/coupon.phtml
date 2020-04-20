@@ -1,7 +1,17 @@
+<?php
+/**
+ * @var \Magento\Framework\View\Element\AbstractBlock $block
+ */
+
+// We should use strlen function because coupon code could be "0", converted to bool will lead to false
+$hasCouponCode = (bool) strlen($block->getCouponCode());
+?>
 <div
     class="cart-discount"
+    id="block-discount"
     data-mage-init='{
         "collapsible":{
+            "active": <?= $hasCouponCode ? 'true' : 'false' ?>,
             "openedState": "active",
             "saveState": false
         }
@@ -13,7 +23,10 @@
         aria-expanded="false"
         data-role="title"
     >
-        <span class="cart-discount__button-text">
+        <span
+            class="cart-discount__button-text"
+            id="block-discount-heading"
+        >
             <?= __('Apply Discount Code') ?>
         </span>
 
@@ -29,7 +42,8 @@
     <div
         class="cart-discount__content"
         data-role="content"
-        aria-hidden="true"
+        aria-labelledby="block-discount-heading"
+        aria-hidden="<?= $hasCouponCode ? 'true' : 'false' ?>"
     >
         <form
             id="discount-coupon-form"
@@ -48,7 +62,7 @@
             <div
                 class="
                     cart-discount__controls
-                    <?php strlen($block->getCouponCode()) ? 'applied' : '' ?>
+                    <?= $hasCouponCode ? ' applied' : '' ?>
                 "
             >
                 <input
@@ -73,10 +87,13 @@
                         name="coupon_code"
                         value="<?= $block->escapeHtmlAttr($block->getCouponCode()) ?>"
                         placeholder="<?= $block->escapeHtmlAttr(__('Enter discount code')) ?>"
+                        <?php if ($hasCouponCode) : ?>
+                           disabled="disabled"
+                        <?php endif; ?>
                     >
                 </div>
 
-                <?php if (!strlen($block->getCouponCode())): ?>
+                <?php if (!$hasCouponCode): ?>
                     <button
                         class="
                             button
@@ -102,6 +119,9 @@
                     </button>
                 <?php endif; ?>
             </div>
+            <?php if (!$hasCouponCode): ?>
+                <?= /* @noEscape */ $block->getChildHtml('captcha') ?>
+            <?php endif; ?>
         </form>
     </div>
 </div>

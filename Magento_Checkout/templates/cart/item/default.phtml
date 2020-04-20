@@ -1,13 +1,17 @@
 <?php
-    $_item = $block->getItem();
-    $itemId = $block->escapeHtmlAttr($_item->getId());
-    $product = $_item->getProduct();
-    $isVisibleProduct = $product->isVisibleInSiteVisibility();
-    /** @var \Magento\Msrp\Helper\Data $helper */
-    $helper = $this->helper('Magento\Msrp\Helper\Data');
-    $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinimalPriceLessMsrp($product);
-?>
+// phpcs:disable Magento2.Templates.ThisInTemplate
+// phpcs:disable Magento2.Files.LineLength.MaxExceeded
 
+/** @var $block \Magento\Checkout\Block\Cart\Item\Renderer */
+
+$_item = $block->getItem();
+$itemId = $block->escapeHtmlAttr($_item->getId());
+$product = $_item->getProduct();
+$isVisibleProduct = $product->isVisibleInSiteVisibility();
+/** @var \Magento\Msrp\Helper\Data $helper */
+$helper = $this->helper(Magento\Msrp\Helper\Data::class);
+$canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinimalPriceLessMsrp($product);
+?>
 <section class="cart-list-item">
     <div class="cart-list-item__left">
         <a

@@ -6,6 +6,64 @@
 >
     <update handle="default_head_blocks" />
     <body>
+        <referenceContainer name="root">
+            <container
+                name="footer-container"
+                as="footer"
+                after="page.wrapper"
+                label="Page Footer Container"
+                htmlTag="footer"
+                htmlClass="footer margin-top-xl"
+            >
+                <!-- Footer -->
+                <block
+                    class="Magento\Framework\View\Element\Template"
+                    name="footer.content"
+                    template="Magento_Theme::footer/footer.phtml"
+                >
+                    <block name="footer-menu" class="Snowdog\Menu\Block\Menu">
+                        <arguments>
+                            <argument name="menu" xsi:type="string">main-footer</argument>
+                        </arguments>
+                    </block>
+
+                    <block
+                        class="Magento\Framework\View\Element\Template"
+                        name="footer-scroll-top"
+                        template="Magento_Theme::footer/footer-scroll-top.phtml"
+                    />
+
+                    <block
+                        class="Magento\Cms\Block\Block"
+                        name="footer-social"
+                    >
+                        <arguments>
+                            <argument name="block_id" xsi:type="string">footer-social</argument>
+                        </arguments>
+                    </block>
+
+                    <block
+                        class="Magento\Cms\Block\Block"
+                        name="footer-bottom-bar"
+                    >
+                        <arguments>
+                            <argument name="block_id" xsi:type="string">footer-bottom-bar</argument>
+                        </arguments>
+                    </block>
+
+                    <block
+                        class="Magento\Cms\Block\Block"
+                        name="footer-cookie-message"
+                    >
+                        <arguments>
+                            <argument name="block_id" xsi:type="string">footer-cookie-message</argument>
+                        </arguments>
+                    </block>
+                </block>
+                <!-- Footer end -->
+            </container>
+        </referenceContainer>
+
         <referenceContainer name="page.wrapper">
             <!-- Header -->
             <block
@@ -99,54 +157,6 @@
                 />
             </block>
             <!-- Header end -->
-
-            <!-- Footer -->
-            <block
-                class="Magento\Framework\View\Element\Template"
-                name="footer.content"
-                template="Magento_Theme::footer/footer.phtml"
-                after="main.content"
-            >
-                <block name="footer-menu" class="Snowdog\Menu\Block\Menu">
-                    <arguments>
-                        <argument name="menu" xsi:type="string">main-footer</argument>
-                    </arguments>
-                </block>
-
-                <block
-                    class="Magento\Framework\View\Element\Template"
-                    name="footer-scroll-top"
-                    template="Magento_Theme::footer/footer-scroll-top.phtml"
-                />
-
-                <block
-                    class="Magento\Cms\Block\Block"
-                    name="footer-social"
-                >
-                    <arguments>
-                        <argument name="block_id" xsi:type="string">footer-social</argument>
-                    </arguments>
-                </block>
-
-                <block
-                    class="Magento\Cms\Block\Block"
-                    name="footer-bottom-bar"
-                >
-                    <arguments>
-                        <argument name="block_id" xsi:type="string">footer-bottom-bar</argument>
-                    </arguments>
-                </block>
-
-                <block
-                    class="Magento\Cms\Block\Block"
-                    name="footer-cookie-message"
-                >
-                    <arguments>
-                        <argument name="block_id" xsi:type="string">footer-cookie-message</argument>
-                    </arguments>
-                </block>
-            </block>
-            <!-- Footer end -->
         </referenceContainer>
         <referenceContainer name="before.body.end">
             <block
@@ -157,14 +167,7 @@
                 before="-"
             />
         </referenceContainer>
-        <container
-            name="footer-container"
-            as="footer"
-            before="before.body.end"
-            label="Page Footer Container"
-            htmlTag="footer"
-            htmlClass="footer margin-top-xl"
-        />
+
 
         <referenceBlock name="form.subscribe">
             <block
@@ -192,21 +195,24 @@
           destination="columns.top"
           before="-"
         />
-        <move
-            element="footer.content"
-            destination="footer-container"
-            before="-"
-        />
+
         <move
             element="page.top"
             destination="page.wrapper"
             after="header.content"
         />
+
         <move
             element="form.subscribe"
             destination="footer.content"
             as="footer-newsletter"
             after="footer-menu"
+        />
+
+        <move
+            element="before.body.end"
+            destination="root"
+            after="-"
         />
 
         <!--Remove broken references for luma theme header.links-->

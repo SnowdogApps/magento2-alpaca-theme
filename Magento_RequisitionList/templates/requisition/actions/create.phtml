@@ -1,0 +1,38 @@
+<div
+    class="margin-bottom-s"
+    data-bind="scope: 'requisition.action.edit'"
+>
+    <button
+        class="
+            button
+            action
+            add
+        "
+        type="button"
+        data-bind="
+            click: edit.bind($data, {}),
+            visible: isCanCreateList()
+        "
+    >
+        <?= __('Create New Requisition List') ?>
+    </button>
+</div>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "requisition.action.edit": {
+                        "component": "Magento_RequisitionList/js/requisition/action/edit",
+                        "editModuleName": "requisition.edit"
+                    },
+                    "requisition.edit": {
+                        "component": "Magento_RequisitionList/js/requisition/list/edit",
+                        "modal": "add_to_requisition_popup",
+                        "saveUrl": "<?= $block->escapeUrl($block->getUrl('rest/V1/requisition_lists')) ?>"
+                    }
+                }
+            }
+        }
+    }
+</script>
