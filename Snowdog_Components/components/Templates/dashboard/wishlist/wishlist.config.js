@@ -186,5 +186,84 @@ module.exports = {
       text: 'Back',
       title: 'Back to My Account'
     }
-  }
+  },
+  variants: [
+    {
+      name: 'share',
+      context: {
+        heading: {
+          text: 'Wish List Sharing'
+        },
+        form: {
+          title: 'Sharing Information',
+          textareas: [
+            {
+              textarea: {
+                label: {
+                  text: 'Email addresses, separated by commas',
+                  hidden: false
+                },
+                field: {
+                  id: 'email_address',
+                  name: 'email_address',
+                  placeholder: '',
+                  type: 'text'
+                }
+              }
+            },
+            {
+             textarea: {
+               label: {
+                 text: 'Message',
+                 hidden: false
+               },
+               field: {
+                 id: 'message',
+                 name: 'message',
+                 placeholder: '',
+                 type: 'text'
+               }
+             }
+            }
+          ],
+          checkboxes: [
+            {
+              checkbox: {
+                class: 'padding-bottom-xs',
+                id: 'rss_url',
+                name: 'rss_url',
+                label: {
+                  text: 'Check here to link an RSS feed to your Wish List.'
+                }
+              }
+            }
+          ]
+        },
+        buttons: {
+          class: 'wishlist-share',
+          sides: [
+            {
+              action: [
+                {
+                  button: {
+                    tag: 'button',
+                    class: 'actions-group__button',
+                    attributes: 'type="button" aria-label="button"',
+                    text: 'Share Wish List'
+                  }
+                },
+                {
+                  link: {
+                    href: '#',
+                    title: 'Back',
+                    text: 'Back'
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
 }
