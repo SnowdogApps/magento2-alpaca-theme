@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Added
 ### Changed
+- EE - style dashbaord reward points (#65719)
 ### Fixed
 
 
