@@ -212,18 +212,18 @@ module.exports = {
               }
             },
             {
-             textarea: {
-               label: {
-                 text: 'Message',
-                 hidden: false
-               },
-               field: {
-                 id: 'message',
-                 name: 'message',
-                 placeholder: '',
-                 type: 'text'
-               }
-             }
+              textarea: {
+                label: {
+                  text: 'Message',
+                  hidden: false
+                },
+                field: {
+                  id: 'message',
+                  name: 'message',
+                  placeholder: '',
+                  type: 'text'
+                }
+              }
             }
           ],
           checkboxes: [
