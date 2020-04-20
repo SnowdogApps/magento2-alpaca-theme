@@ -67,7 +67,8 @@ define([
             responsiveClass: 'modal-slide',
             trigger: '',
             modalLeftMargin: 45,
-            closeText: window.closeIcon,
+            closeIconSvgUrl: window.closeIcon,
+            closeText: $.mage.__('Close'),
             buttons: [{
                 text: $.mage.__('Ok'),
                 class: '',
