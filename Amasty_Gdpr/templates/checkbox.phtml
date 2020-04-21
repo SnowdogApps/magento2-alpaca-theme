@@ -1,10 +1,12 @@
 <?php
 /** @var \Amasty\Gdpr\Block\Checkbox $block */
 /** @var \Amasty\Gdpr\Model\Consent\Consent $consent */
-$consents = $block->getConsents();
 
-foreach ($consents as $consent):
-    $uniqueKey = $block->getUniqueKey();
+// Compatibility changes with the newest version of GDPR extension
+if (method_exists($block, 'getConsents')):
+    $consents = $block->getConsents();
+    foreach ($consents as $consent):
+        $uniqueKey = $block->getUniqueKey();
 ?>
     <div
         class="
@@ -67,3 +69,57 @@ foreach ($consents as $consent):
     name="<?= $block->escapeHtml($block->getConsentFromLocation()) ?>"
     value="<?= $block->escapeHtml($block->getScope()) ?>"
 >
+<?php
+    // Compatibility changes with the older version of GDPR extension
+    else:
+?>
+<div
+    class="
+        input
+        gdpr
+        required
+    "
+    id="amprivacy-checkbox"
+    data-role="amasty-gdpr-consent"
+>
+    <div class="checkbox">
+        <input
+            type="checkbox"
+            name="amgdpr_agree"
+            value="1"
+            id="amgdpr_agree"
+            class="checkbox__field"
+            data-validate="{required:true}"
+        >
+
+        <svg
+            class="
+                checkbox__icon
+                checkbox__icon--checked
+            "
+            role="presentation"
+            focusable="false"
+        >
+            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#checked')) ?>"></use>
+        </svg>
+
+        <svg
+            class="
+                checkbox__icon
+                checkbox__icon--unchecked
+            "
+            role="presentation"
+            focusable="false"
+        >
+            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#unchecked')) ?>"></use>
+        </svg>
+
+        <label
+            for="amgdpr_agree"
+            class="checkbox__label"
+        >
+            <?= $block->getConsentText() ?>
+        </label>
+    </div>
+</div>
+<?php endif; ?>
