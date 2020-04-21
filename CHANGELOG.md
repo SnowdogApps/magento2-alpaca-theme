@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - EE - style dashbaord reward points (#65719)
 ### Fixed
+- qty input error message styling (#66161)
 
 
 ## [Released]
