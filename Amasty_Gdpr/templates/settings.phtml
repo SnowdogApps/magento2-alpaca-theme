@@ -1,0 +1,126 @@
+<?php
+/** @var $block \Amasty\Gdpr\Block\Settings */
+
+$settings = $block->getPrivacySettings();
+?>
+<?php foreach ($settings as $setting): ?>
+    <div class="block">
+        <h2 class="dashboard-form__title margin-bottom-sm">
+            <?= $block->escapeHtml($setting['title']) ?>
+        </h2>
+        <div class="block-content">
+            <form
+                method="post"
+                action="<?= $block->escapeHtmlAttr($setting['action']) ?>"
+                data-mage-init='{"validation":{}}'
+            >
+                <input
+                    name="form_key"
+                    type="hidden"
+                    value="<?= /* @escapeNotVerified */ $block->getFormKey(); ?>"
+                />
+                <input
+                    name="is_order"
+                    type="hidden"
+                    value="<?= /* @escapeNotVerified */ $block->isOrder(); ?>"
+                />
+                <input
+                    name="order_increment_id"
+                    type="hidden"
+                    value="<?= /* @escapeNotVerified */ $block->getCurrentOderIncrementId(); ?>"
+                />
+                <p class="policy-content">
+                    <?= $setting['content'] ?>
+                </p>
+                <?php if ($setting['hasCheckbox']): ?>
+                    <div class="checkbox margin-bottom-m">
+                        <input
+                            type="checkbox"
+                            id="agree-<?= /* @escapeNotVerified */ $setting['actionCode'] ?>"
+                            name="agree"
+                            class="checkbox__field"
+                            data-validate="{required:true}"
+                        >
+                        <svg
+                            class="
+                                checkbox__icon
+                                checkbox__icon--checked
+                            "
+                            role="presentation"
+                        >
+                            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#checked')) ?>"></use>
+                        </svg>
+                        <svg
+                            class="
+                                checkbox__icon
+                                checkbox__icon--unchecked
+                            "
+                            role="presentation"
+                        >
+                            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#unchecked')) ?>"></use>
+                        </svg>
+                        <label
+                            for="agree-<?= /* @escapeNotVerified */ $setting['actionCode'] ?>"
+                            class="checkbox__label"
+                        >
+                            <span class="checkbox__text">
+                                <?= $block->escapeHtml($setting['checkboxText']) ?>
+                            </span>
+                        </label>
+                    </div>
+                <?php endif; ?>
+                <?php if ($setting['needPassword']): ?>
+                    <fieldset
+                        class="fieldset"
+                        data-hasrequired="* Required Fields"
+                        <?php if ($setting['hidePassword']): ?>
+                            hidden
+                        <?php endif; ?>
+                        name="passwordField"
+                    >
+                        <legend
+                            class="
+                                fieldset__legend
+                                fieldset__legend--hidden
+                            "
+                        >
+                            <?= $block->escapeHtml(__('Current Password')) ?>
+                        </legend>
+                        <div class="input required">
+                            <label
+                                class="input__label"
+                                for="current-password"
+                            >
+                                <?= $block->escapeHtml(__('Current Password')) ?>
+                            </label>
+                            <input
+                                type="password"
+                                class="input__field"
+                                name="current_password"
+                                id="current-password-<?= /* @escapeNotVerified */ $setting['actionCode'] ?>"
+                                data-input="current-password"
+                                autocomplete="off"
+                                aria-required="true"
+                                data-validate="{required:true}"
+                            >
+                        </div>
+                    </fieldset>
+                <?php endif; ?>
+                <button
+                    type="submit"
+                    class="button margin-bottom-l"
+                >
+                    <?= $block->escapeHtml($setting['submitText']) ?>
+                </button>
+            </form>
+        </div>
+    </div>
+<?php endforeach; ?>
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Amasty_Gdpr/js/show-password": {}
+        }
+    }
+</script>
