@@ -1,50 +1,67 @@
-<?php /** @var \Amasty\Gdpr\Block\Checkbox $block */ ?>
-<div
-    class="
-        input
-        gdpr
-        required
-    "
-    id="amprivacy-checkbox"
-    data-role="amasty-gdpr-consent"
->
-    <div class="checkbox">
-        <input
-            type="checkbox"
-            name="amgdpr_agree"
-            value="1"
-            id="amgdpr_agree"
-            class="checkbox__field"
-            data-validate="{required:true}"
+<?php
+/** @var \Amasty\Gdpr\Block\Checkbox $block */
+/** @var \Amasty\Gdpr\Model\Consent\Consent $consent */
+foreach ($consents as $consent):
+    $uniqueKey = $block->getUniqueKey();
+?>
+    <div
+        class="
+            input
+            gdpr
+            <?php if ($consent->isRequired()): ?>required<?php endif; ?>
+        "
+        id="amprivacy-checkbox"
+        data-role="amasty-gdpr-consent"
+        data-amgdpr-content-from="<?= $block->escapeHtml($block->getScope()) ?>">
+    >
+        <input type="hidden"
+               name="amgdpr_agreement[<?= $block->escapeHtml($consent->getConsentCode()) ?>]"
+               value="0"
         >
 
-        <svg
-            class="
-                checkbox__icon
-                checkbox__icon--checked
-            "
-            role="presentation"
-            focusable="false"
-        >
-            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#checked')) ?>"></use>
-        </svg>
+        <div class="checkbox">
+            <input
+                type="checkbox"
+                name="amgdpr_agreement[<?= $block->escapeHtml($consent->getConsentCode()) ?>]"
+                value="1"
+                id="<?= $block->escapeHtml($uniqueKey) ?>"
+                class="amprivacy-checkbox-<?= (int) $consent->getConsentId() ?>"
+                <?php if ($consent->isRequired()): ?>data-validate="{required:true}"<?php endif; ?>
+            >
 
-        <svg
-            class="
-                checkbox__icon
-                checkbox__icon--unchecked
-            "
-            role="presentation"
-            focusable="false"
-        >
-            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#unchecked')) ?>"></use>
-        </svg>
+            <svg
+                class="
+                    checkbox__icon
+                    checkbox__icon--checked
+                "
+                role="presentation"
+                focusable="false"
+            >
+                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#checked')) ?>"></use>
+            </svg>
 
-        <label
-            for="amgdpr_agree"
-            class="checkbox__label"
-        >
-            <?= $block->getConsentText() ?>
-        </label>
+            <svg
+                class="
+                    checkbox__icon
+                    checkbox__icon--unchecked
+                "
+                role="presentation"
+                focusable="false"
+            >
+                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#unchecked')) ?>"></use>
+            </svg>
+
+            <label
+                for="<?= $block->escapeHtml($uniqueKey) ?>"
+                class="checkbox__label"
+            >
+                <?= $block->escapeHtml($block->getConsentText($consent), ['a']) ?>
+            </label>
+        </div>
     </div>
-</div>
+<?php endforeach; ?>
+<input
+    hidden
+    name="<?= $block->escapeHtml($block->getConsentFromLocation()) ?>"
+    value="<?= $block->escapeHtml($block->getScope()) ?>"
+>
