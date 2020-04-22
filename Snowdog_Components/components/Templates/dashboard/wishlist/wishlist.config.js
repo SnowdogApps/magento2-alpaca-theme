@@ -229,7 +229,7 @@ module.exports = {
           checkboxes: [
             {
               checkbox: {
-                class: 'padding-bottom-xs',
+                class: 'padding-bottom-m',
                 id: 'rss_url',
                 name: 'rss_url',
                 label: {
@@ -240,7 +240,6 @@ module.exports = {
           ]
         },
         buttons: {
-          class: 'wishlist-share',
           sides: [
             {
               action: [

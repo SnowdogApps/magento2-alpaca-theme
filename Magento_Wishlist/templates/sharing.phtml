@@ -14,6 +14,9 @@
         <?= $block->escapeHtml(__('Sharing Information')); ?>
     </h3>
     <fieldset class="fieldset">
+        <legend class="fieldset__legend fieldset__legend--hidden">
+            <?= $block->escapeHtml(__('Sharing Information')); ?>
+        </legend>
         <div class="input">
             <label
                 for="email_address"
@@ -34,9 +37,7 @@
                 rows="5"
                 id="email_address"
                 data-validate="{required: true, 'validate-emails': true}"
-            >
-                <?= $block->escapeHtml($block->getEnteredData('emails')); ?>
-            </textarea>
+            ><?= $block->escapeHtml($block->getEnteredData('emails')); ?></textarea>
         </div>
         <div class="input">
             <label
@@ -57,12 +58,10 @@
                 name="message"
                 cols="60"
                 rows="5"
-            >
-                <?= $block->escapeHtml($block->getEnteredData('message')); ?>
-            </textarea>
+            ><?= $block->escapeHtml($block->getEnteredData('message')); ?></textarea>
         </div>
-        <?php if (!$this->helper('Magento\Wishlist\Helper\Rss')->isRssAllow()): ?>
-            <div class="checkbox padding-bottom-x">
+        <?php if ($this->helper('Magento\Wishlist\Helper\Rss')->isRssAllow()): ?>
+            <div class="checkbox padding-bottom-m">
                 <input
                     type="checkbox"
                     name="rss_url"
@@ -100,7 +99,7 @@
             </div>
         <?php endif; ?>
     </fieldset>
-    <div class="actions-group wishlist-share">
+    <div class="actions-group">
         <div class="actions-group__handler">
             <button
                 type="submit"
