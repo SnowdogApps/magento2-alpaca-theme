@@ -112,7 +112,7 @@ module.exports = {
         tag: 'h2',
         text: 'Warehouse & office address'
       },
-      name: 'Colibri',
+      name: 'Alpaca',
       details: '442 Route 206 Montague NJ, 07827'
     },
     openingHours: {
