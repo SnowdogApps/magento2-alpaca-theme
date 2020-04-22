@@ -30,6 +30,66 @@
             >
                 {{ render '@heading' heading }}
 
+                <div class="wishlist-management">
+                    <div class="wishlist-management__group">
+                        <div class="wishlist-management__list {{ management.listClass }}">
+
+                            {{ render '@heading' headingMyWishList }}
+
+                            {{render '@dropdown-list' myWishListsList }}
+
+                            <div class="actions-group {{ management.actionsGroupClass }}">
+                                <div class="actions-group__handler">
+                                    {{ render '@modal' management.modalCreateTrigger }}
+                                    {{ render '@modal' management.modalEditTrigger }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="wishlist-management__list {{ management.listClass }}">
+
+                            {{ render '@heading' headingInfoWishList }}
+
+                            {{#each management.info}}
+                                <div class="wishlist-management__notice">
+                                    {{ this.notice }}
+                                </div>
+                            {{/each}}
+
+                        </div>
+                    </div>
+
+                    {{ render '@checkbox' selectAll }}
+
+                    <div class="wishlist-management__group">
+                        <div class="wishlist-management__list {{ management.listClass }}">
+
+                            {{ render '@heading' headingMoveWishList }}
+
+                            {{render '@dropdown-list' moveWishListsList }}
+
+                            <div class="actions-group {{ management.actionsGroupClass }}">
+                                <div class="actions-group__handler">
+                                    {{ render '@modal' management.modalCreateTrigger }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="wishlist-management__list {{ management.listClass }}">
+
+                            {{ render '@heading' headingCopyWishList }}
+
+                            {{render '@dropdown-list' copyWishListsList }}
+
+                            <div class="actions-group {{ management.actionsGroupClass }}">
+                                <div class="actions-group__handler">
+                                    {{ render '@modal' management.modalCreateTrigger }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div
                     class="
                         products-grid
@@ -48,11 +108,9 @@
                                 {{ render '@image' product.image }}
                             </a>
 
-                            {{#if selectAll}}
-                                <div class="wishlist__select {{ this.itemSelectClass }}">
-                                    {{ render '@checkbox' this.checkbox }}
-                                </div>
-                            {{/if}}
+                            <div class="wishlist__select {{ this.itemSelectClass }}">
+                                {{ render '@checkbox' this.checkbox }}
+                            </div>
 
                             <div class="wishlist__item-content {{ this.itemContentClass }}">
                                 <div class="wishlist__rating-wrapper">
