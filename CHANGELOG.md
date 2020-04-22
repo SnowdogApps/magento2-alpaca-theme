@@ -8,6 +8,8 @@ All notable changes to this project will be documented in this file.
 - usage of jquery/ui to jquery-ui-module/[module-name] (#66232)
 - improve accessability of modal popup templates (#66232)
 ### Fixed
+- qty input error message styling (#66161)
+- styles for privacy settings in dashboard (#66022)
 ### Removed
 
 
