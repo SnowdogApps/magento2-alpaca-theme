@@ -115,5 +115,87 @@ module.exports = {
         ]
       }
     }
-  }
+  },
+  variants: [
+    {
+      name: 'send',
+      title: 'Send',
+      context: {
+        heading: {
+          tag: 'h1',
+          class: 'heading dashboard__content-heading',
+          text: 'Send Invitations'
+        },
+        headingForm: {
+          class: 'dashboard-form__title',
+          tag: 'h2',
+          text: 'Invite your friends by entering their email addresses'
+        },
+        legend: {
+          class: 'fieldset__legend--hidden',
+          text: 'Invite your friends by entering their email addresses'
+        },
+        emailInput: {
+          class: 'required',
+          label: {
+            text: 'Email',
+          },
+          field: {
+            id: 'email_1',
+            name: 'email_1',
+            placeholder: '',
+            type: 'text'
+          }
+        },
+        textarea: {
+          label: {
+            text: 'Message',
+          },
+          field: {
+            id: 'message',
+            name: 'message',
+            placeholder: '',
+            type: 'text'
+          }
+        },
+        buttonRemove: {
+          tag: 'button',
+          attributes: 'type="button" aria-label="button"',
+          class: 'button--secondary margin-bottom-m remove',
+          text: 'Remove'
+        },
+        buttonAdd: {
+          class: 'margin-vc-m',
+          tag: 'button',
+          attributes: 'type="button" aria-label="button"',
+          text: 'Add Email'
+        },
+        actions: {
+          sides: [
+            {
+              action: [
+                {
+                  button: {
+                    text: 'Send Invitations',
+                    class: 'actions-group__button'
+                  }
+                }
+              ]
+            },
+            {
+              action: [
+                {
+                  link: {
+                    text: 'Back to Invitations',
+                    title: 'Back to Invitations',
+                    class: 'actions-group__link'
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+  ]
 }
