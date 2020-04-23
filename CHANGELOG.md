@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Added
 ### Changed
+- update Smile_Elasticsuite files in theme with Elastisuite 2.8.6 version changes (#66197)
 - EE - style dashbaord reward points (#65719)
 ### Fixed
 - qty input error message styling (#66161)
