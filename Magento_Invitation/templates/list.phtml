@@ -1,0 +1,49 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// phpcs:disable Magento2.Templates.ThisInTemplate
+?>
+<?php
+/**
+ * @see \Magento\Invitation\Block\Customer\ListCustomer
+ */
+?>
+<div class="invitations">
+    <?= $block->getChildHtml('list_before') ?>
+
+    <?php if (count($block->getInvitationCollection())) : ?>
+        <div class="table-wrapper invitations">
+            <table class="data table table-invitations" id="invitations-list-table">
+                <caption class="table-caption"><?= $block->escapeHtml(__('My Invitations')) ?></caption>
+                <thead>
+                <tr>
+                    <th scope="col" class="col email"><?= $block->escapeHtml(__('Email')) ?></th>
+                    <th scope="col" class="col status"><?= $block->escapeHtml(__('Status')) ?></th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($block->getInvitationCollection() as $invitation) : ?>
+                    <tr>
+                        <td data-th="<?= $block->escapeHtmlAttr(__('Email')) ?>" class="col email"><?= $block->escapeHtml($invitation->getEmail()) ?></td>
+                        <td data-th="<?= $block->escapeHtmlAttr(__('Status')) ?>" class="col status"> <?= $block->escapeHtml($this->helper(\Magento\Invitation\Helper\Data::class)->getInvitationStatusText($invitation)) ?></td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    <?php else : ?>
+        <div class="message info empty"><span><?= $block->escapeHtml(__('There are no sent invitations.')) ?></span></div>
+    <?php endif; ?>
+
+    <div class="actions-toolbar">
+        <div class="primary">
+            <a href="<?= $block->escapeUrl($this->helper(\Magento\Invitation\Helper\Data::class)->getCustomerInvitationFormUrl()) ?>" class="action send primary"><span><?= $block->escapeHtml(__('Send Invitations')) ?></span></a>
+        </div>
+        <div class="secondary">
+            <a href="<?= $block->escapeUrl($block->getBackUrl()) ?>" class="action back"><span><?= $block->escapeHtml(__('Back')) ?></span></a>
+        </div>
+    </div>
+</div>
