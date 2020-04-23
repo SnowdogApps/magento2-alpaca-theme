@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 - qty input error message styling (#66161)
 - styles for privacy settings in dashboard (#66022)
+- "See all brands button" styling broken (#66281)
 
 
 ## [Released]
