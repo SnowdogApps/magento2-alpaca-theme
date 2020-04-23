@@ -3,8 +3,9 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Added
-### Changed
+### Changed 
 ### Fixed
+### Removed
 
 ## [Released]
 
@@ -12,6 +13,8 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - update Smile_Elasticsuite files in theme with Elastisuite 2.8.6 version changes (#66197)
 - EE - style dashbaord reward points (#65719)
+- usage of jquery/ui to jquery-ui-module/[module-name] (#66232)
+- improve accessability of modal popup templates (#66232)
 ### Fixed
 - qty input error message styling (#66161)
 - styles for privacy settings in dashboard (#66022)
