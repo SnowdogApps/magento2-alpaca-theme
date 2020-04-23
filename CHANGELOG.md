@@ -4,15 +4,18 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Added
 ### Changed
+### Fixed
+
+## [Released]
+
+## [1.5.0] - 2020-04-23
+### Changed
 - update Smile_Elasticsuite files in theme with Elastisuite 2.8.6 version changes (#66197)
 - EE - style dashbaord reward points (#65719)
 ### Fixed
 - qty input error message styling (#66161)
 - styles for privacy settings in dashboard (#66022)
 - "See all brands button" styling broken (#66281)
-
-
-## [Released]
 
 ## [1.4.0] - 2020-04-17
 ### Changed
