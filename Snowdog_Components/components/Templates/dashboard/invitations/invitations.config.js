@@ -3,7 +3,7 @@ module.exports = {
     class: 'margin-vc-m',
     sidebarClass: 'dashboard__sidebar margin-top-sl',
     contentClass: 'dashboard__content margin-top-sl',
-    actionsGroupClass: 'reward-points__actions',
+    actionsGroupClass: 'invitations__actions',
     breadcrumbs: {
       categories: [
         {
@@ -12,7 +12,7 @@ module.exports = {
           linkClass: 'breadcrumbs__link'
         },
         {
-          name: 'Reward points',
+          name: 'My Invitations',
           href: '#',
           linkClass: 'breadcrumbs__link'
         }
@@ -21,163 +21,99 @@ module.exports = {
     heading: {
       tag: 'h1',
       class: 'heading dashboard__content-heading',
-      text: 'Reward points'
+      text: 'My Invitations'
     },
-    rewardInfo: {
-      titleText: 'Reward points balance Information',
-      contentText: 'Your balance is 0 Reward points.',
-      link: {
-        button: {
-          class: 'block-info__actions',
-          sides: [
-            {
-              action: [
-                {
-                  link: {
-                    title: 'Learn more',
-                    text: 'Learn more'
-                  }
-                }
-              ]
-            }
-          ]
-        }
-      }
-    },
-    exchangeInfo: {
-      titleText: 'Current exchange rates:',
-      contentText: 'None'
-    },
-    table: {
-      captionText: 'Balance History',
-      mainTags: [
+    actions: {
+      sides: [
         {
-          mainTag: 'thead',
-          rowTags: [
+          action: [
             {
-              rowTag: 'tr',
-              rowTagAttributes: 'role="row"',
-              childTags: [
-                {
-                  childTag: 'th',
-                  content: 'Balance',
-                  childTagAttributes: 'scope="col" role="columnheader"'
-                },
-                {
-                  childTag: 'th',
-                  content: 'Amount',
-                  childTagAttributes: 'scope="col" role="columnheader"'
-                },
-                {
-                  childTag: 'th',
-                  content: 'Points',
-                  childTagAttributes: 'scope="col" role="columnheader"'
-                },
-                {
-                  childTag: 'th',
-                  content: 'Reason',
-                  childTagAttributes: 'scope="col" role="columnheader"'
-                },
-                {
-                  childTag: 'th',
-                  content: 'Date',
-                  childTagAttributes: 'scope="col" role="columnheader"'
-                }
-              ]
-            },
+              button: {
+                text: 'Send Invitations',
+                class: 'actions-group__button'
+              }
+            }
           ]
         },
         {
-          mainTag: 'tbody',
-          rowTags: [
+          action: [
             {
-              rowTag: 'tr',
-              rowTagAttributes: 'role="row"',
-              childTags: [
-                {
-                  childTag: 'td',
-                  childTagAttributes: 'data-th="Example heading:" role="gridcell"',
-                  content: '123'
-                },
-                {
-                  childTag: 'td',
-                  childTagAttributes: 'data-th="Example heading:" role="gridcell"',
-                  content: '$0.00'
-                },
-                {
-                  childTag: 'td',
-                  childTagAttributes: 'data-th="Example heading:" role="gridcell"',
-                  content: '+123'
-                },
-                {
-                  childTag: 'td',
-                  childTagAttributes: 'data-th="Example heading:" role="gridcell"',
-                  content: 'Signed up for newsletter with email'
-                },
-                {
-                  childTag: 'td',
-                  childTagAttributes: 'data-th="Example heading:" role="gridcell"',
-                  content: '4/7/20, 11:54 PM'
-                }
-              ]
+              link: {
+                text: 'Back',
+                title: 'Back to My Account',
+                class: 'actions-group__link'
+              }
             }
           ]
         }
       ]
     },
-    form: {
-      title: 'Email Notification Settings',
-      checkboxes: [
-        {
-          checkbox: {
-            id: 'subscribe_updates',
-            name: 'subscribe_updates',
-            label: {
-              class: 'label',
-              text: 'Subscribe for Balance Updates'
-            }
-          }
-        },
-        {
-          checkbox: {
-            class: 'margin-bottom-s',
-            id: 'subscribe_warnings',
-            name: 'subscribe_warnings',
-            label: {
-              class: 'label',
-              text: 'Subscribe for Points Expiration Notifications'
-            }
-          }
-        }
-      ],
-      formButton: {
-        class: 'margin-bottom-sm',
-        sides: [
+    invitations: {
+      class: 'margin-bottom-xs',
+      table: {
+        captionText: 'Table with invitations',
+        class: 'margin-0',
+        mainTags: [
           {
-            action: [
+            mainTag: 'thead',
+            rowTags: [
               {
-                button: true,
-                title: 'Save Subscription Settings'
+                rowTag: 'tr',
+                rowTagAttributes: 'role="row"',
+                childTags: [
+                  {
+                    childTag: 'th',
+                    childTagAttributes: 'scope="col" role="columnheader"',
+                    content: 'Email'
+                  },
+                  {
+                    childTag: 'th',
+                    childTagAttributes: 'scope="col" role="columnheader"',
+                    content: 'Status'
+                  }
+                ]
+              },
+            ]
+          },
+          {
+            mainTag: 'tbody',
+            rowTags: [
+              {
+                rowTag: 'tr',
+                rowTagAttributes: 'role="row"',
+                childTags: [
+                  {
+                    childTag: 'td',
+                    childTagAttributes: 'data-th="Email:" role="gridcell"',
+                    content: 'example@email.com'
+                  },
+                  {
+                    childTag: 'td',
+                    childTagAttributes: 'data-th="Status:" role="gridcell"',
+                    content: 'Sent'
+                  }
+                ]
+              },
+              {
+                rowTag: 'tr',
+                rowTagAttributes: 'role="row"',
+                childTags: [
+                  {
+                    childTag: 'td',
+                    childTagAttributes: 'data-th="Email:" role="gridcell"',
+                    content: 'example@email.com'
+                  },
+                  {
+                    childTag: 'td',
+                    childTagAttributes: 'data-th="Status:" role="gridcell"',
+                    content: 'Sent'
+                  }
+                ]
               }
             ]
           }
         ]
       }
-    },
-    backButton: {
-      sides: [
-        {
-          action: [
-            {
-              link: {
-                class: 'actions-group__link',
-                title: 'Back',
-                text: 'Back'
-              }
-            }
-          ]
-        }
-      ]
     }
   }
 }

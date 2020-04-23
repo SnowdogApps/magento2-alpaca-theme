@@ -1,9 +1,4 @@
 <?php
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
-
 // phpcs:disable Magento2.Templates.ThisInTemplate
 ?>
 <?php
@@ -11,39 +6,92 @@
  * @see \Magento\Invitation\Block\Customer\ListCustomer
  */
 ?>
-<div class="invitations">
+<div
+    class="
+        dashboard-table
+        margin-bottom-xs
+        invitations
+    "
+>
     <?= $block->getChildHtml('list_before') ?>
 
     <?php if (count($block->getInvitationCollection())) : ?>
-        <div class="table-wrapper invitations">
-            <table class="data table table-invitations" id="invitations-list-table">
-                <caption class="table-caption"><?= $block->escapeHtml(__('My Invitations')) ?></caption>
+        <div class="dashboard-table__content">
+            <table
+                class="table margin-0"
+                id="invitations-list-table"
+                tabindex="0"
+                role="table"
+            >
+                <caption class="table__caption">
+                    <?= $block->escapeHtml(__('My Invitations')) ?>
+                </caption>
                 <thead>
-                <tr>
-                    <th scope="col" class="col email"><?= $block->escapeHtml(__('Email')) ?></th>
-                    <th scope="col" class="col status"><?= $block->escapeHtml(__('Status')) ?></th>
-                </tr>
+                    <tr role="row">
+                        <th
+                            scope="col"
+                            role="columnheader"
+                        >
+                            <?= $block->escapeHtml(__('Email')) ?>
+                        </th>
+                        <th
+                            scope="col"
+                            role="columnheader"
+                        >
+                            <?= $block->escapeHtml(__('Status')) ?>
+                        </th>
+                    </tr>
                 </thead>
                 <tbody>
                 <?php foreach ($block->getInvitationCollection() as $invitation) : ?>
-                    <tr>
-                        <td data-th="<?= $block->escapeHtmlAttr(__('Email')) ?>" class="col email"><?= $block->escapeHtml($invitation->getEmail()) ?></td>
-                        <td data-th="<?= $block->escapeHtmlAttr(__('Status')) ?>" class="col status"> <?= $block->escapeHtml($this->helper(\Magento\Invitation\Helper\Data::class)->getInvitationStatusText($invitation)) ?></td>
+                    <tr role="row">
+                        <td
+                            data-th="<?= $block->escapeHtmlAttr(__('Email:')) ?>"
+                            role="gridcell"
+                        >
+                            <?= $block->escapeHtml($invitation->getEmail()) ?>
+                        </td>
+                        <td
+                            data-th="<?= $block->escapeHtmlAttr(__('Status')) ?>"
+                            role="gridcell"
+                        >
+                            <?= $block->escapeHtml($this->helper(\Magento\Invitation\Helper\Data::class)->getInvitationStatusText($invitation)) ?>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>
             </table>
         </div>
     <?php else : ?>
-        <div class="message info empty"><span><?= $block->escapeHtml(__('There are no sent invitations.')) ?></span></div>
+        <div class="message">
+            <?= $block->escapeHtml(__('There are no sent invitations.')) ?>
+        </div>
     <?php endif; ?>
 
-    <div class="actions-toolbar">
-        <div class="primary">
-            <a href="<?= $block->escapeUrl($this->helper(\Magento\Invitation\Helper\Data::class)->getCustomerInvitationFormUrl()) ?>" class="action send primary"><span><?= $block->escapeHtml(__('Send Invitations')) ?></span></a>
+    <div class="actions-group">
+        <div class="actions-group__handler">
+            <a
+                href="<?= $block->escapeUrl($this->helper(\Magento\Invitation\Helper\Data::class)->getCustomerInvitationFormUrl()) ?>"
+                class="
+                    button
+                    actions-group__button
+                "
+                title="<?= $block->escapeHtmlAttr(__('Send Invitations')) ?>"
+            >
+                <?= $block->escapeHtml(__('Send Invitations')) ?>
+            </a>
         </div>
-        <div class="secondary">
-            <a href="<?= $block->escapeUrl($block->getBackUrl()) ?>" class="action back"><span><?= $block->escapeHtml(__('Back')) ?></span></a>
+        <div class="actions-group__handler">
+            <a
+                href="<?= $block->escapeUrl($block->getBackUrl()) ?>"
+                class="
+                    link
+                    actions-group__link
+                "
+                title="<?= $block->escapeHtmlAttr(__('Back')) ?>"
+            >
+                <?= $block->escapeHtml(__('Back')) ?>
+            </a>
         </div>
     </div>
 </div>
