@@ -46,12 +46,12 @@ $sliderItemClass = 'slider__item';
     $sliderDisplayTitle = ($sliderDisplayTitle === 'no') ? false : true;
     $sliderContentBefore =
         $content->getData($sliderPrefix . 'ct_before') ?
-        $content->render($sliderPrefix . 'ct_before') :
-        false;
+            $content->render($sliderPrefix . 'ct_before') :
+            false;
     $sliderContentAfter =
         $content->getData($sliderPrefix . 'ct_after') ?
-        $content->render($sliderPrefix . 'ct_after') :
-        false;
+            $content->render($sliderPrefix . 'ct_after') :
+            false;
 
     $sliderBanners = $content->getContentCollection($sliderPrefix . 'banners', $bannersAttributes);
 
@@ -119,32 +119,32 @@ $sliderItemClass = 'slider__item';
     <?php if ($bannersArray): ?>
         <?php foreach ($bannersArray as $banner): ?>
             <?php
-                $bannerUrl = $block->escapeUrl($banner['url']);
-                $bannerUrlTarget = $block->escapeUrl(($banner['url_target'] == 'blank') ? '_blank' : '_self');
+            $bannerUrl = $block->escapeUrl($banner['url']);
+            $bannerUrlTarget = $block->escapeUrl(($banner['url_target'] == 'blank') ? '_blank' : '_self');
 
-                $block->getChildBlock($sliderPictureBlock)->setData([
-                    'picture_class' => 'banner__image',
-                    'picture_full_url' => true,
-                    'img_default' => $banner['default'],
-                    'img_480' => $banner['max_480'],
-                    'img_768' => $banner['max_768'],
-                    'img_1024' => $banner['max_1024'],
-                    'img_1328' => $banner['max_1328'],
-                    'img_full' => $banner['full'],
-                    'img_4802x' => $banner['max_480_2x'],
-                    'img_7682x' => $banner['max_768_2x'],
-                    'img_10242x' => $banner['max_1024_2x'],
-                    'img_13282x' => $banner['max_1328_2x'],
-                    'img_full_2x' => $banner['full_2x'],
-                    'picture_alt' => $banner['alt']
-                ]);
+            $block->getChildBlock($sliderPictureBlock)->setData([
+                'picture_class' => 'banner__image',
+                'picture_full_url' => true,
+                'img_default' => $banner['default'],
+                'img_480' => $banner['max_480'],
+                'img_768' => $banner['max_768'],
+                'img_1024' => $banner['max_1024'],
+                'img_1328' => $banner['max_1328'],
+                'img_full' => $banner['full'],
+                'img_4802x' => $banner['max_480_2x'],
+                'img_7682x' => $banner['max_768_2x'],
+                'img_10242x' => $banner['max_1024_2x'],
+                'img_13282x' => $banner['max_1328_2x'],
+                'img_full_2x' => $banner['full_2x'],
+                'picture_alt' => $banner['alt']
+            ]);
             ?>
-            <div class="<?= $block->escapeHtmlAttr($sliderItemClass) ?>">
-                <<?= $bannerUrl ? 'a href="' . $bannerUrl . '" target="' . $bannerUrlTarget . '"' : 'div'; ?>
-                    class="banner"
-                >
-                    <?= $block->getChildHtml($sliderPictureBlock, false); ?>
-                </<?= $bannerUrl ? 'a' : 'div'; ?>>
+        <div class="<?= $block->escapeHtmlAttr($sliderItemClass) ?>">
+            <<?= $bannerUrl ? 'a href="' . $bannerUrl . '" target="' . $bannerUrlTarget . '"' : 'div'; ?>
+            class="banner"
+            >
+            <?= $block->getChildHtml($sliderPictureBlock, false); ?>
+            </<?= $bannerUrl ? 'a' : 'div'; ?>>
             </div>
         <?php endforeach; ?>
     <?php endif; ?>
