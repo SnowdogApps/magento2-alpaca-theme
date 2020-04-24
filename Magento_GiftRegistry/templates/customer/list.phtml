@@ -1,103 +1,107 @@
 <?php $entityCollection = $block->getEntityCollection(); ?>
 
 <?php if ($entityCollection && count($entityCollection)) :?>
-    <div class="table-wrapper giftregistry">
-        <table
-            id="giftregistry-table"
-            class="data table table-giftregistry"
-        >
-            <caption class="table-caption">
-                <?= $block->escapeHtml(__('Gift Registry')) ?>
-            </caption>
-            <thead>
-                <tr>
-                    <th
-                        scope="col"
-                        class="col event"
-                    >
-                        <?= $block->escapeHtml(__('Event')) ?>
-                    </th>
-                    <th
-                        scope="col"
-                        class="col create"
-                    >
-                        <?= $block->escapeHtml(__('Created On')) ?>
-                    </th>
-                    <th
-                        scope="col"
-                        class="col message"
-                    >
-                        <?= $block->escapeHtml(__('Message')) ?>
-                    </th>
-                    <th
-                        scope="col"
-                        class="col actions"
-                    >
-                        &nbsp;
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-            <?php foreach ($entityCollection as $item) :?>
-                <tr>
-                    <td
-                        data-th="<?= $block->escapeHtmlAttr(__('Event')) ?>"
-                        class="col event"
-                        title="<?= /* @noEscape */ $block->getEscapedTitle($item) ?>"
-                    >
-                        <?= /* @noEscape */ $block->truncateString($block->getEscapedTitle($item), 70) ?>
-                    </td>
-                    <td
-                        data-th="<?= $block->escapeHtmlAttr(__('Created On')) ?>"
-                        class="col create"
-                    >
-                        <?= $block->escapeHtml($block->getFormattedDate($item)) ?>
-                    </td>
-                    <td
-                        data-th="<?= $block->escapeHtmlAttr(__('Message')) ?>"
-                        class="col message"
-                    >
-                        <?= /* @noEscape */ $block->getEscapedMessage($item) ?>
-                    </td>
-                    <td
-                        data-th="<?= $block->escapeHtmlAttr(__('Action')) ?>"
-                        class="col actions"
-                    >
-                        <a
-                            href="<?= $block->escapeUrl($block->getItemsUrl($item)) ?>"
-                            class="action manage"
-                            title="<?= $block->escapeHtmlAttr(__('Manage Items')) ?>"
+    <div class="dashboard-table margin-bottom-xs">
+        <div class="table-wrapper giftregistry">
+            <table
+                id="giftregistry-table"
+                class="
+                    table
+                    margin-0
+                "
+                tabindex="0"
+                role="table"
+            >
+                <caption class="table__caption">
+                    <?= $block->escapeHtml(__('Gift Registry')) ?>
+                </caption>
+                <thead>
+                    <tr role="row">
+                        <th
+                            scope="col"
+                            role="columnheader"
                         >
-                            <?= $block->escapeHtml(__('Manage Items')) ?>
-                        </a>
-                        <a
-                            href="<?= $block->escapeUrl($block->getShareUrl($item)) ?>"
-                            class="action share"
-                            title="<?= $block->escapeHtmlAttr(__('Share')) ?>"
+                            <?= $block->escapeHtml(__('Event')) ?>
+                        </th>
+                        <th
+                            scope="col"
+                            role="columnheader"
                         >
-                            <?= $block->escapeHtml(__('Share')) ?>
-                        </a>
-                        <a
-                            href="<?= $block->escapeUrl($block->getEditUrl($item)) ?>"
-                            class="action edit"
-                            title="<?= $block->escapeHtmlAttr(__('Edit')) ?>"
+                            <?= $block->escapeHtml(__('Created On')) ?>
+                        </th>
+                        <th
+                            scope="col"
+                            role="columnheader"
                         >
-                            <?= $block->escapeHtml(__('Edit')) ?>
-                        </a>
-                        <a
-                            href="#"
-                            data-post='<?= /* @noEscape */ $block->getDeleteParams($item) ?>'
-                            class="action delete"
-                            title="<?= $block->escapeHtmlAttr(__('Delete')) ?>"
-                            data-role="remove-gift-registry"
-                        >
-                            <?= $block->escapeHtml(__('Delete')) ?>
-                        </a>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-            </tbody>
-        </table>
+                            <?= $block->escapeHtml(__('Message')) ?>
+                        </th>
+                        <th
+                            scope="col"
+                            role="columnheader"
+                        ></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($entityCollection as $item) :?>
+                        <tr role="row">
+                            <td
+                                data-th="<?= $block->escapeHtmlAttr(__('Event:')) ?>"
+                                role="gridcell"
+                            >
+                                <?= /* @noEscape */ $block->truncateString($block->getEscapedTitle($item), 70) ?>
+                            </td>
+                            <td
+                                data-th="<?= $block->escapeHtmlAttr(__('Created On:')) ?>"
+                                role="gridcell"
+                            >
+                                <?= $block->escapeHtml($block->getFormattedDate($item)) ?>
+                            </td>
+                            <td
+                                data-th="<?= $block->escapeHtmlAttr(__('Message:')) ?>"
+                                role="gridcell"
+                            >
+                                <?= /* @noEscape */ $block->getEscapedMessage($item) ?>
+                            </td>
+                            <td
+                                data-th="<?= $block->escapeHtmlAttr(__('Action:')) ?>"
+                                role="gridcell"
+                            >
+                                <a
+                                    href="<?= $block->escapeUrl($block->getItemsUrl($item)) ?>"
+                                    class="padding-right-xs"
+                                    title="<?= $block->escapeHtmlAttr(__('Manage Items')) ?>"
+                                >
+                                    <?= $block->escapeHtml(__('Manage Items')) ?>
+                                </a>
+                                <a
+                                    href="<?= $block->escapeUrl($block->getShareUrl($item)) ?>"
+                                    class="padding-right-xs"
+                                    title="<?= $block->escapeHtmlAttr(__('Share')) ?>"
+                                >
+                                    <?= $block->escapeHtml(__('Share')) ?>
+                                </a>
+                                <a
+                                    href="<?= $block->escapeUrl($block->getEditUrl($item)) ?>"
+                                    class="padding-right-xs"
+                                    title="<?= $block->escapeHtmlAttr(__('Edit')) ?>"
+                                >
+                                    <?= $block->escapeHtml(__('Edit')) ?>
+                                </a>
+                                <a
+                                    href="#"
+                                    data-post='<?= /* @noEscape */ $block->getDeleteParams($item) ?>'
+                                    class="padding-right-xs"
+                                    title="<?= $block->escapeHtmlAttr(__('Delete')) ?>"
+                                    data-role="remove-gift-registry"
+                                >
+                                    <?= $block->escapeHtml(__('Delete')) ?>
+                                </a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
     </div>
     <?php if ($block->getChildHtml('pager')) :?>
         <div
@@ -121,7 +125,11 @@
         <?php if ($block->canAddNewEntity()) :?>
             <a
                 href="<?= $block->escapeUrl($block->getAddUrl()) ?>"
-                class="button link--button"
+                class="
+                    button
+                    actions-group__button
+                "
+                title="<?= $block->escapeHtmlAttr(__('Add New')) ?>"
             >
                 <?= $block->escapeHtml(__('Add New')) ?>
             </a>
@@ -130,7 +138,11 @@
     <div class="actions-group__handler">
         <a
             href="<?= $block->escapeUrl($block->getBackUrl()) ?>"
-            class="actions-group__link"
+            class="
+                link
+                actions-group__link
+            "
+            title="<?= $block->escapeHtmlAttr(__('Back to My Account')) ?>"
         >
             <?= $block->escapeHtml(__('Back')) ?>
         </a>
