@@ -1,103 +1,187 @@
 <?php
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
 // phpcs:disable Squiz.ControlStructures.ControlSignature.NewlineAfterOpenBrace
 // phpcs:disable Squiz.WhiteSpace.ScopeClosingBrace.ContentBefore
 // phpcs:disable Magento2.Files.LineLength.MaxExceeded
 
 /** @var $block \Magento\GiftRegistry\Block\Customer\Share */
+
+if ($block->getFormData('sender_name')) {
+    $senderName = $block->getFormData('sender_name');
+} else {
+    $senderName = $block->getCustomerName();
+}
 ?>
-<script id="add-recipient-tmpl" type="text/x-magento-template">
-    <div class="actions-toolbar">
-        <div class="secondary">
-            <button type="button" class="action remove" id="btn-remove<%- data._index_ %>"><span><?= $block->escapeHtml(__('Remove')) ?></span></button>
-        </div>
-    </div>
-    <fieldset class="fieldset">
-        <div class="field firstname required">
-            <label for="recipients-name<%- data._index_ %>" class="label"><span><?= $block->escapeHtml(__('First Name')) ?></span></label>
-            <div class="control">
-                <input name="recipients[<%- data._index_ %>][name]" type="text" title="<?= $block->escapeHtmlAttr(__('Name')) ?>" class="input-text" id="recipients-name<%- data._index_ %>" data-validate="{required:true}"/>
-            </div>
-        </div>
-        <div class="field email required">
-            <label for="recipients-email<%- data._index_ %>" class="label"><span><?= $block->escapeHtml(__('Email')) ?></span></label>
-            <div class="control">
-                <input name="recipients[<%- data._index_ %>][email]" title="<?= $block->escapeHtmlAttr(__('Email')) ?>" id="recipients-email<%- data._index_ %>" type="email" class="input-text" data-validate="{required:true, 'validate-email':true}"/>
-            </div>
-        </div>
-    </fieldset>
-</script>
-
-<h2 class="subtitle">
-    <?= /* @noEscape */ $block->getFormHeader() ?>
-</h2>
-
-<form action="<?= $block->escapeUrl($block->getSendUrl()) ?>" method="post" id="giftregistry-sharing-form" class="form form-giftregistry-share validation" data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>">
-    <fieldset class="fieldset">
-        <?= $block->getBlockHtml('formkey') ?>
-        <legend class="legend"><span><?= $block->escapeHtml(__('Sender')) ?></span></legend>
-        <br />
-        <div class="field name required">
-            <label for="sender_name" class="label"><span><?= $block->escapeHtml(__('Name')) ?></span></label>
-            <div class="control">
-                <input name="sender_name"
-                       value="<?php if ($block->getFormData('sender_name')) :?><?= $block->escapeHtmlAttr($block->getFormData('sender_name')) ?><?php else :?><?= $block->escapeHtmlAttr($block->getCustomerName()) ?><?php endif;?>"
-                       title="<?= $block->escapeHtmlAttr(__('Name')) ?>"
-                       id="sender_name"
-                       type="text"
-                       class="input-text"
-                       data-validate="{required:true}"
+<script
+    id="add-recipient-tmpl"
+    type="text/x-magento-template"
+>
+    <div class="field">
+        <div class="actions-toolbar">
+            <div class="input required">
+                <label
+                    for="recipients-name<%- data._index_ %>"
+                    class="
+                        label
+                        input__label
+                    "
+                >
+                        <?= $block->escapeHtml(__('First Name')) ?>
+                </label>
+                <input
+                    name="recipients[<%- data._index_ %>][name]"
+                    type="text"
+                    title="<?= $block->escapeHtmlAttr(__('Name')) ?>"
+                    class="input__field"
+                    id="recipients-name<%- data._index_ %>"
+                    data-validate="{required:true}"
                 />
             </div>
-        </div>
-        <div class="field message required">
-            <label for="sender_message" class="label"><span><?= $block->escapeHtml(__('Message')) ?></span></label>
-            <div class="control">
-                <textarea name="sender_message"
-                          class="input-text"
-                          id="sender_message"
-                          cols="3"
-                          rows="3"
-                          data-validate="{required:true}"><?= $block->escapeHtml($block->getFormData('sender_message')) ?>
-                </textarea>
+            <div class="input required">
+                <label
+                    for="recipients-email<%- data._index_ %>"
+                    class="
+                        label
+                        input__label
+                    "
+                >
+                        <?= $block->escapeHtml(__('Email')) ?>
+                </label>
+                <input
+                    name="recipients[<%- data._index_ %>][email]"
+                    title="<?= $block->escapeHtmlAttr(__('Email')) ?>"
+                    id="recipients-email<%- data._index_ %>"
+                    type="email"
+                    class="input__field"
+                    data-validate="
+                        {required:true,
+                        'validate-email':true}
+                    "
+                />
             </div>
-        </div>
-    </fieldset>
-
-    <fieldset class="fieldset recipients">
-        <legend class="legend"><span><?= $block->escapeHtml(__('Invitee')) ?></span></legend>
-        <br />
-        <div id="recipients-options"></div>
-        <?php if ($block->getRecipientsLimit()) :?>
-            <div id="max-recipient-message" style="display: none" class="message notice limit">
-                <span><?= $block->escapeHtml(__('Maximum %1 email addresses.', $block->getRecipientsLimit())) ?></span>
-            </div>
-        <?php endif; ?>
-        <div class="actions-toolbar">
-            <div class="secondary">
-                <?php if ($block->getRecipientsLimit()) :?>
-                    <button type="button" id="add-recipient-button" class="action add">
-                        <span><?= $block->escapeHtml(__('Add Invitee')) ?></span>
-                    </button>
-                <?php endif; ?>
-            </div>
-        </div>
-    </fieldset>
-
-    <div class="actions-toolbar">
-        <div class="primary">
-            <button type="submit" class="action primary share">
-                <span><?= $block->escapeHtml(__('Share Gift Registry')) ?></span>
+            <button
+                type="button"
+                class="
+                    button
+                    button--secondary
+                    margin-bottom-m
+                    remove
+                "
+                id="btn-remove<%- data._index_ %>"
+            >
+                    <?= $block->escapeHtml(__('Remove')) ?>
             </button>
         </div>
-        <div class="secondary">
-            <a href="<?= $block->escapeUrl($block->getBackUrl()) ?>" class="action back">
-                <span>
-                    <?= $block->escapeHtml(__('Back')) ?>
-                </span>
+    </div>
+</script>
+
+<form
+    action="<?= $block->escapeUrl($block->getSendUrl()) ?>"
+    method="post"
+    id="giftregistry-sharing-form"
+    class="dashboard__form form-giftregistry-share"
+    data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
+>
+    <h2 class="dashboard-form__title">
+        <?= /* @noEscape */ $block->getFormHeader() ?>
+    </h2>
+    <fieldset class="fieldset margin-vc-m">
+        <?= $block->getBlockHtml('formkey') ?>
+        <legend class="fieldset__legend">
+            <?= $block->escapeHtml(__('Sender')) ?>
+        </legend>
+        <div class="input">
+            <label
+                for="sender_name"
+                class="
+                    label
+                    input__label
+                "
+            >
+                <?= $block->escapeHtml(__('Name')) ?>
+            </label>
+            <input
+                name="sender_name"
+                value="<?= $block->escapeHtmlAttr($senderName); ?>"
+                title="<?= $block->escapeHtmlAttr(__('Name')); ?>"
+                id="sender_name"
+                type="text"
+                class="input__field"
+                data-validate="{required:true}"
+            />
+        </div>
+        <div class="input">
+            <label
+                for="sender_message"
+                class="
+                    label
+                    input__label
+                "
+            >
+                <?= $block->escapeHtml(__('Message')) ?>
+            </label>
+            <textarea
+                name="sender_message"
+                class="
+                    input__field
+                    input__field--textarea
+                "
+                id="sender_message"
+                data-validate="{required:true}"
+            ><?= $block->escapeHtml($block->getFormData('sender_message')) ?></textarea>
+        </div>
+    </fieldset>
+
+    <fieldset class="fieldset margin-vc-m">
+        <legend class="fieldset__legend">
+            <?= $block->escapeHtml(__('Invitee')) ?>
+        </legend>
+        <div id="recipients-options"></div>
+
+        <?php if ($block->getRecipientsLimit()) :?>
+            <div
+                id="max-recipient-message"
+                style="display: none"
+                class="message"
+            >
+                <?= $block->escapeHtml(__('Maximum %1 email addresses.', $block->getRecipientsLimit())) ?>
+            </div>
+        <?php endif; ?>
+        <?php if ($block->getRecipientsLimit()) :?>
+            <button
+                type="button"
+                id="add-recipient-button"
+                class="
+                    button
+                    margin-vc-m
+                "
+            >
+                <?= $block->escapeHtml(__('Add Invitee')) ?>
+            </button>
+        <?php endif; ?>
+    </fieldset>
+
+    <div class="actions-group">
+        <div class="actions-group__handler">
+            <button
+                type="submit"
+                class="
+                    button
+                    actions-group__button
+                "
+            >
+                <?= $block->escapeHtml(__('Share Gift Registry')) ?>
+            </button>
+        </div>
+        <div class="actions-group__handler">
+            <a
+                href="<?= $block->escapeUrl($block->getBackUrl()) ?>"
+                class="
+                    link
+                    actions-group__link
+                "
+                title="<?= $block->escapeHtmlAttr(__('Back')) ?>"
+            >
+                <?= $block->escapeHtml(__('Back')) ?>
             </a>
         </div>
     </div>
@@ -114,12 +198,12 @@
                 "addRowBtn": "#add-recipient-button",
                 "rowParentElem": "<div></div>",
                 "remEventSelector": "button",
-                "btnRemoveSelector": ".action.remove",
+                "btnRemoveSelector": ".button.remove",
                 "additionalRowClass": "additional",
                 "formDataPost": {
-                        <?php if (is_array($block->getFormData('recipients'))) :?>
-                            "formData": <?= /* @noEscape */ json_encode($block->getFormData('recipients')) ?>,
-                        <?php endif; ?>
+                    <?php if (is_array($block->getFormData('recipients'))) :?>
+                        "formData": <?= /* @noEscape */ json_encode($block->getFormData('recipients')) ?>,
+                    <?php endif; ?>
                     "templateFields": ["recipients-name", "recipients-email"]
                 }
             },
