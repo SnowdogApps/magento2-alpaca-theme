@@ -20,7 +20,13 @@ $_selections = $_option->getSelections();
             type="hidden"
             name="bundle_option[<?= $block->escapeHtmlAttr($_optionId) ?>]"
             value="<?= $block->escapeHtmlAttr($_selections[0]->getSelectionId()) ?>"
-        >
+            value="<?= $block->escapeHtmlAttr($_selections[0]->getSelectionId()) ?>"
+            class="
+                bundle-option-<?= $block->escapeHtmlAttr($_option->getId()) ?>
+                bundle
+                option
+            "
+        />
     <?php else: ?>
         <select
             multiple="multiple"
@@ -45,6 +51,7 @@ $_selections = $_option->getSelections();
             <?php endif; ?>
             <?php foreach ($_selections as $_selection): ?>
                 <option
+                    title="<?= $block->escapeHtmlAttr($_selection->getName()) ?>"
                     value="<?= $block->escapeHtmlAttr($_selection->getSelectionId()) ?>"
                     <?php if ($block->isSelected($_selection)): ?>
                         selected="selected"

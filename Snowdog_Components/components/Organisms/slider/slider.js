@@ -1,110 +1,49 @@
-/* globals lory */
-
-(function colibriSlider() {
+(function Slider() {
   'use strict';
 
-  const sliders = [...document.querySelectorAll('.slider__container')];
-  const dot = document.createElement('span');
-
-  class Slider {
-    constructor(slider, dataValues) {
-
-      this.config = {
-        classNameFrame         : 'slider__handler',
-        classNameSlideContainer: 'slider__slides',
-        classNamePrevCtrl      : 'slider__prev',
-        classNameNextCtrl      : 'slider__next',
-        slidesToScroll         : 1,
-        enableDots             : true
-      };
-      this.dataValues = dataValues;
-      this.slider = slider;
-      this.items = this.slider.querySelectorAll('.slider__item').length;
-      this.dotsContainer = this.slider.querySelector('.slider__dots');
-
-      this.slider.addEventListener('on.lory.resize', () => {
-        this.lorySlider.slideTo(0);
-        this.handleDotEvent.bind(this);
-      });
-
-      this.slider.addEventListener('before.lory.init', this.handleDotEvent.bind(this));
-      this.slider.addEventListener('after.lory.slide', this.handleDotEvent.bind(this));
-
-      Object.keys(this.dataValues).map((objectKey) => {
-        if (objectKey !== 'slidesToScroll') {
-          if (!isNaN(parseInt(this.dataValues[objectKey]))) {
-            this.config[objectKey] = parseInt(this.dataValues[objectKey]);
-          }
-          else {
-            this.config[objectKey] = this.dataValues[objectKey];
-          }
-        }
-      });
-
-      this.lorySlider = lory(this.slider, this.config);
-    }
-
-    handleDotEvent(e) {
-      if (!this.config.enableDots) {
-        return false;
-      }
-
-      if (e.type === 'before.lory.init') {
-        for (let i = 1, len = this.items; i < len; i++) {
-          this.addDotClone()
-        }
-        this.addDotListeners()
-        this.addActiveClassToSlide(0)
-      }
-
-      if (e.type === 'after.lory.slide') {
-        for (let i = 0, len = this.dotsContainer.childNodes.length; i < len; i++) {
-          this.removeActiveClassFromSlide(i)
-        }
-        this.addActiveClassToSlide(e.detail.currentSlide)
-      }
-
-      if (e.type === 'on.lory.resize') {
-        for (let i = 0, len = this.dotsContainer.childNodes.length; i < len; i++) {
-          this.removeActiveClassFromSlide(i)
-        }
-        this.addActiveClassToSlide(0)
-      }
-    }
-
-    addDotClone() {
-      let clone = dot.cloneNode();
-      clone.className = 'slider__dot';
-      this.dotsContainer.appendChild(clone);
-    }
-
-    addDotListeners() {
-      const dots = this.dotsContainer.childNodes;
-
-      dots.forEach(dot => {
-        dot.addEventListener('click', (event) => {
-          if (event.target.parentNode === dot) {
-            this.lorySlider.slideTo(Array.prototype.indexOf.call(dots, event.target.parentNode))
-          }
-          else {
-            this.lorySlider.slideTo(Array.prototype.indexOf.call(dots, event.target))
-          }
-        })
-      })
-    }
-
-    addActiveClassToSlide(index) {
-      this.dotsContainer.childNodes[index].classList.add('active');
-    }
-
-    removeActiveClassFromSlide(index) {
-      this.dotsContainer.childNodes[index].classList.remove('active');
-    }
+  function init() {
+    let sliders = [...document.querySelectorAll('.slider')];
+    sliders.forEach(element => {
+      let dataValues = element.dataset;
+      $.when(createSlider(element, dataValues)).then(displaySlider(element, dataValues));
+    });
   }
 
-  sliders.forEach(slider => {
-    const dataValues = slider.dataset;
+  function createSlider(element, dataValues) {
+    let slider = $(element),
+        slides = slider.find(dataValues.elementSlides),
+        navPrev = slider.find(dataValues.elementNavPrev),
+        navNext = slider.find(dataValues.elementNavNext);
 
-    new Slider(slider, dataValues);
-  });
+    slides.not('.slick-initialized').slick(
+      {
+        slide: dataValues.elementSlide,
+        dots: JSON.parse(dataValues.dots),
+        infinite: JSON.parse(dataValues.infinite),
+        centerMode: JSON.parse(dataValues.centerMode),
+        mobileFirst: JSON.parse(dataValues.mobileFirst),
+        prevArrow: navPrev,
+        nextArrow: navNext,
+        dotsClass: dataValues.dotsClass,
+        autoplay: JSON.parse(dataValues.autoplay),
+        autoplaySpeed: parseInt(dataValues.autoplaySpeed),
+        pauseOnFocus: JSON.parse(dataValues.pauseOnFocus),
+        pauseOnHover: JSON.parse(dataValues.pauseOnHover),
+        slidesToShow: parseInt(dataValues.slidesToShow),
+        slidesToScroll: parseInt(dataValues.slidesToScroll),
+        swipeToSlide: JSON.parse(dataValues.swipeToSlide),
+        responsive: JSON.parse(dataValues.responsiveConfig)
+      }
+    )
+  }
+
+  function displaySlider(element, dataValues) {
+    let slider = $(element),
+        loader = slider.find(dataValues.elementLoader);
+
+    loader.removeClass(dataValues.loaderVisibleClass);
+    slider.removeClass(dataValues.loadingClass);
+  }
+
+  init();
 }());

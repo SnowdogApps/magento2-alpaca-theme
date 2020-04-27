@@ -1,141 +1,12 @@
 @import "slider-variables";
 
 .slider {
-    margin: $slider__margin;
+    display: block;
     position: relative;
-
-    // Center Slider items on Mobile for less than 3 items
-    &--center-mobile {
-        .slider__slides {
-            justify-content: center;
-        }
-    }
-
-    // Center Slider items on Dekstop for more than 2 and less than 5 items
-    &--center-desktop {
-        .slider__slides {
-            @include mq($screen-l) {
-                justify-content: center;
-                transform: translate3d(0, 0, 0) !important; // sass-lint:disable-line no-important
-            }
-        }
-    }
-
-    &--brands {
-        .slider__item {
-            display: flex;
-            flex-flow: row nowrap;
-            justify-content: center;
-            padding: $slider__item-padding--brands;
-            min-width: $slider__item-width--brands;
-            max-width: $slider__item-width--brands;
-
-            @include mq($screen-m) {
-                min-width: $slider__item-width\@medium--brands;
-                max-width: $slider__item-width\@medium--brands;
-            }
-
-            @include mq($screen-l) {
-                min-width: $slider__item-width\@large--brands;
-                max-width: $slider__item-width\@large--brands;
-            }
-
-            @include mq($max-content-width) {
-                min-width: $slider__item-width\@max-width--brands;
-                max-width: $slider__item-width\@max-width--brands;
-            }
-
-            &:first-child {
-                margin-left: 0;
-            }
-
-            &:last-child {
-                margin-right: 0;
-            }
-        }
-
-        .slider__navigation {
-            display: none;
-
-            @include mq($screen-m) {
-                display: flex;
-            }
-
-            &--up {
-                top: 0;
-            }
-        }
-
-        .slider__container {
-            max-width: $slider__handler-max-width--brands;
-            margin-left: auto;
-            margin-right: auto;
-
-            @include mq($screen-m) {
-                max-width: $slider__handler-max-width\@medium--brands;
-            }
-
-            @include mq($screen-l) {
-                max-width: $slider__handler-max-width\@large--brands;
-            }
-
-            @include mq($max-content-width) {
-                max-width: $slider__handler-max-width\@max-width--brands;
-            }
-        }
-    }
-
-    &--products {
-        .slider__item {
-            display: flex;
-            flex-flow: row nowrap;
-            justify-content: center;
-            padding: $slider__item-padding--products;
-            min-width: $slider__item-width--products;
-            max-width: $slider__item-width--products;
-
-            @include mq($screen-m) {
-                min-width: $slider__item-width\@medium--products;
-                max-width: $slider__item-width\@medium--products;
-            }
-
-            @include mq($screen-l) {
-                min-width: $slider__item-width\@large--products;
-                max-width: $slider__item-width\@large--products;
-            }
-
-            &:first-child {
-                margin-left: 0;
-            }
-
-            &:last-child {
-                margin-right: 0;
-            }
-        }
-
-        .slider__navigation {
-            display: none;
-
-            @include mq($screen-m) {
-                display: flex;
-            }
-
-            &--up {
-                top: 0;
-            }
-        }
-    }
-
-    &--hidden-controls {
-        .slider__navigation,
-        .slider__dots {
-            display: none;
-        }
-    }
-
-    &__wrapper {
-        position: relative;
-    }
+    width: $slider__width;
+    height: auto;
+    min-height: $slider__min-height;
+    margin: $slider__margin;
 
     &__heading {
         display: flex;
@@ -145,35 +16,114 @@
         margin: $slider__heading-margin;
     }
 
+    &--loading {
+        .slider__navigation,
+        .slider__dots {
+            display: none;
+        }
+    }
+
+    &--products {
+        .slider__heading {
+            margin: $slider__heading-margin--products;
+        }
+
+        .slider__item {
+            padding: $slider__item-padding--products;
+            height: auto;
+        }
+    }
+
+    &--brands {
+        .slider__container {
+            width: $slider__handler-max-width--brands;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+
+            @include mq($screen-m) {
+                width: $slider__handler-max-width\@medium--brands;
+            }
+
+            @include mq($screen-l) {
+                width: $slider__handler-max-width\@large--brands;
+            }
+
+            @include mq($max-content-width) {
+                width: $slider__handler-max-width\@max-width--brands;
+            }
+
+            &:before,
+            &:after {
+                display: block;
+                content: '';
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                width: 100%;
+                z-index: $z-index-low;
+
+                @include mq($slider__navigation-display-breakpoint) {
+                    display: none;
+                }
+            }
+
+            &:before {
+                background: $slider__container-before-bg;
+                right: 100%;
+            }
+
+            &:after {
+                background: $slider__container-after-bg;
+                left: 100%;
+            }
+        }
+
+        .slider__handler {
+            overflow: hidden;
+
+            @include mq($slider__navigation-display-breakpoint) {
+                overflow: visible;
+            }
+        }
+
+        .slick-list {
+            overflow: visible;
+
+            @include mq($slider__navigation-display-breakpoint) {
+                overflow: hidden;
+            }
+        }
+    }
+
     &__handler {
         position: relative;
-        overflow: hidden;
     }
 
     &__slides {
-        display: flex;
+        height: auto;
+
+        .slick-list {
+            min-height: $slider__nav-button-size;
+        }
     }
 
     &__item {
-        position: relative;
-        min-width: $slider__item-width;
-        max-width: $slider__item-width;
+        height: auto;
+        display: none;
     }
 
     &__navigation {
-        display: none;
-        justify-content: center;
-        align-items: center;
+        display: $slider__navigation-display;
+        position: absolute;
         width: $slider__navigation-width;
+        top: $slider__navigation-top;
+        margin-top: -$slider__nav-button-size / 2;
+        padding: 0;
+        z-index: $z-index-low;
 
-        @include mq($screen-m) {
-            position: absolute;
-            display: flex;
-            justify-content: space-between;
-            left: 0;
-            top: $slider__navigation-top\@medium;
-            height: $slider__navigation-height\@medium;
-            margin-top: 0;
+        @include mq($slider__navigation-display-breakpoint) {
+            display: block;
 
             @include isIE() {
                 top: $slider__navigation-IE-width;
@@ -181,10 +131,24 @@
         }
     }
 
-    &__prev,
-    &__next {
+    &__nav-button {
+        width: $slider__nav-button-size;
+        height: $slider__nav-button-size;
+        min-width: $slider__nav-button-size;
+        border-radius: $slider__nav-button-border-radius;
+        padding: 0;
         position: absolute;
-        z-index: 1;
+    }
+
+    &__nav-icon {
+        width: $slider__nav-icon-size;
+        height: $slider__nav-icon-size;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -$slider__nav-icon-size / 2;
+        margin-left: -$slider__nav-icon-size / 2;
+        transition: $transition-base;
     }
 
     &__prev {
@@ -196,39 +160,79 @@
     }
 
     &__next {
+        left: auto;
         right: $slider__next-right;
     }
 
     &__dots {
-        display: flex;
-        justify-content: center;
+        display: block;
+        position: relative;
+        list-style: none;
         margin: $slider__dots-margin;
+        padding: $slider__dots-padding;
+        text-align: center;
+        width: 100%;
+        left: 0;
+        bottom: $slider__dots-bottom;
 
-        @include mq($slider__dots-mq-hiding) {
-            display: none;
+        li {
+            display: inline-block;
+            position: relative;
+            margin: 0;
+            padding: 0;
+
+            &.slick-active {
+                &:before {
+                    display: block;
+                    position: absolute;
+                    z-index: 1;
+                    content: '';
+                    width: $slider__dot-size;
+                    height: $slider__dot-size;
+                    padding: 0;
+                    background: $slider__dot-background-color--active;
+                    border-radius: 50%;
+                    top: 50%;
+                    margin-top: -($slider__dot-size / 2);
+                }
+            }
         }
-    }
 
-    &__dot {
-        width: $slider__dot-size;
-        height: $slider__dot-size;
-        background-color: $slider__dot-background-color;
-        margin-right: $slider__dot-margin-right;
-        border-radius: 10px;
-
-        &:last-child {
-            margin-right: 0;
-        }
-
-        &.active {
-            background-color: $slider__dot-background-color--active;
+        button {
+            display: block;
+            position: relative;
+            width: $slider__dot-size;
+            height: $slider__dot-size;
+            padding: 0;
+            background-color: $slider__dot-background-color;
+            border: 0;
+            border-radius: 50%;
+            text-indent: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            margin: $slider__dots-margin;
         }
     }
 
     &__link {
-        display: block;
+        align-items: center;
+        font-size: $slider__link-font-size;
         font-weight: $slider__link-font-weight;
-        line-height: $slider__link-line-height;
-        text-align: $slider__link-align;
+        min-height: $slider__link-min-height;
+        text-align: $slider__link-text-align;
+
+        &--button,
+        &--button-secondary {
+            @extend .button;
+        }
+
+        &--button-secondary {
+            @extend .button--secondary;
+        }
+    }
+
+    &__after {
+        padding: $slider__after-padding;
+        text-align: $slider__after-text-align;
     }
 }

@@ -1,13 +1,56 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-
 ## [Unreleased]
 ### Added
 ### Changed
+- account wish list share with friends styling (#65997) 
 ### Fixed
+### Removed
 
 ## [Released]
+
+## [1.5.0] - 2020-04-23
+### Changed
+- update Smile_Elasticsuite files in theme with Elastisuite 2.8.6 version changes (#66197)
+- EE - style dashbaord reward points (#65719)
+- usage of jquery/ui to jquery-ui-module/[module-name] (#66232)
+- improve accessability of modal popup templates (#66232)
+### Fixed
+- qty input error message styling (#66161)
+- styles for privacy settings in dashboard (#66022)
+- dashboard form, items and actions group spacers in templates (#65058)
+- "See all brands button" styling broken (#66281)
+
+## [1.4.0] - 2020-04-17
+### Changed
+- Magento 2.3.4 update (#63718)
+- EE - style quick order (#65700)
+- EE - create b2b account on login page info (#65701)
+- EE - company account registration form styling (#65702)
+- EE - dashboard - address book - remove "street" label (#65711)
+- EE - dashboard - requisition lists styles (#65712)
+- EE - dashboard - store credit (#65713)
+- EE - dashboard - gift card (#65715)
+
+## [1.3.1] - 2020-04-06
+### Fixed
+- fixed release date
+
+## [1.3.0] - 2020-04-06
+### Added
+- amasty store locator styles (#57933)
+### Changed
+- change sliders lib from lory to slick (#64601, #64697, #64744)
+- category banner styles nad template (#65344)
+- amasty gift card styles (#65329)
+- adjust select in case of long names (#65523)
+- display stock_status_label instead of stock_status_description on grid (#65575)
+- webforms templates and styles (#63440)
+### Fixed
+- stretched gift card button (#65615)
+- poor quality of thumbnail images on PDP (#65614)
+- badge class modifiers for multiword attribute values (#62922)
 
 ## [1.2.0] - 2020-03-20
 ### Fixed

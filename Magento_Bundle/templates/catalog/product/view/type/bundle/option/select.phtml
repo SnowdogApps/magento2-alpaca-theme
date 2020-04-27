@@ -31,7 +31,13 @@ list($_defaultQty, $_canChangeQty) = $block->getDefaultValues();
             value="<?= $block->escapeHtmlAttr($_selections[0]->getSelectionId()) ?>"
         >
     <?php else: ?>
-        <div class="select bundle-option__select">
+        <div
+            class="
+                select
+                select--native
+                bundle-option__select
+            "
+        >
             <select
                 id="bundle-option-<?= $block->escapeHtmlAttr($_optionId) ?>"
                 name="bundle_option[<?= $block->escapeHtmlAttr($_optionId) ?>]"
@@ -53,6 +59,7 @@ list($_defaultQty, $_canChangeQty) = $block->getDefaultValues();
                 </option>
                 <?php foreach ($_selections as $_selection): ?>
                     <option
+                        title="<?= $block->escapeHtmlAttr($_selection->getName()) ?>"
                         value="<?= $_selection->getSelectionId() ?>"
                         <?php if ($block->isSelected($_selection)): ?>
                             selected="selected"

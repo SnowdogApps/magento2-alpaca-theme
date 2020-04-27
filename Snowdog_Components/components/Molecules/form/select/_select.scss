@@ -10,7 +10,8 @@
     }
 
     &--native {
-        .select__field {
+        select {
+            position: relative;
             width: 100%;
             min-width: $select__min-width;
             height: $select__height;
@@ -20,10 +21,22 @@
             appearance: none;
             transition: $select__transition;
             font-family: $select__font-family;
+            line-height: $select__line-height;
+            font-size: $select__field-font-size;
+            background: $select__field-background;
             background-image: $select__field-bg-image--native;
             background-repeat: $select__field-bg-repeat--native;
             background-position: $select__field-bg-position--native;
             cursor: pointer;
+
+            &:disabled {
+                background-color: $select__background-disabled;
+                cursor: not-allowed;
+            }
+
+            &.focus-visible {
+                @include focus-input();
+            }
         }
     }
 
@@ -154,6 +167,10 @@
             line-height: $select__height;
             padding: $select__option-padding;
             font-size: $select__option-font-size;
+            overflow: $select__option-overflow;
+            text-overflow: $select__option-text-overflow;
+            white-space: $select__option-white-space;
+
             &[aria-selected=true] {
                 background-color: $select__option-selected-bg;
             }

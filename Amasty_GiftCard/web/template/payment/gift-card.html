@@ -53,35 +53,54 @@
                 "
                 id="gift-card-form"
             >
+                <div class="amgiftcard_info" />
+                <!-- ko if : giftCardCode() -->
+                    <div class="padding-bottom-sm">
+                        <!-- ko foreach: { data: giftCardCode().split(','), as: 'code' }  -->
+                            <!-- ko if : code.length > 0 -->
+                                <div>
+                                    <!--ko text: code--><!--/ko-->
+                                    <a
+                                        href="#"
+                                        class="
+                                            button
+                                            button--link
+                                            padding-hz-m
+                                            margin-left-xs
+                                        "
+                                        data-bind="
+                                            click: $parent.removeSelected,
+                                            'value': code
+                                        "
+                                    >
+                                        <!-- ko text: $t('Remove')--><!-- /ko -->
+                                    </a>
+                                </div>
+                            <!-- /ko -->
+                        <!-- /ko -->
+                    </div>
+                <!-- /ko -->
+
                 <div class="payment-option-inner">
-                    <div class="field">
+                    <div class="input">
                         <label class="label" for="gift-code">
                             <span data-bind="i18n: 'Enter gift card code'"></span>
                         </label>
-                        <div class="control">
-                            <input
-                                class="
-                                    input-text
-                                    discount-code__input
-                                "
-                                type="text"
-                                id="gift-code-fake"
-                                name="gift_code_fake"
-                                data-validate="{ 'required-entry': true }"
-                            />
+                        <input
+                            class="input__field"
+                            type="text"
+                            id="gift-code-fake"
+                            name="gift_code_fake"
+                            data-validate="{ 'required-entry': true }"
+                        />
 
-                            <input
-                                class="
-                                    input-text
-                                    discount-code__input
-                                "
-                                type="hidden"
-                                id="gift-code"
-                                name="gift_code"
-                                data-validate="{ 'required-entry': true }"
-                                data-bind="value: giftCardCode"
-                            />
-                        </div>
+                        <input
+                            type="hidden"
+                            id="gift-code"
+                            name="gift_code"
+                            data-validate="{ 'required-entry': true }"
+                            data-bind="value: giftCardCode"
+                        />
                     </div>
                 </div>
                 <div class="actions-toolbar">
@@ -96,7 +115,6 @@
                         >
                             <span><!-- ko i18n: 'Check Gift Card status'--><!-- /ko --></span>
                         </button>
-                        <div class="amgiftcard_info"/>
                     </div>
                     <div class="primary">
                         <button
@@ -106,22 +124,6 @@
                         >
                             <span><!-- ko i18n: 'Add Gift Card'--><!-- /ko --></span>
                         </button>
-                        <!-- ko foreach: { data: giftCardCode().split(','), as: 'code' }  -->
-                            <!-- ko if : code.length > 0 -->
-                                <div>
-                                    <!--ko text: code--><!--/ko-->
-                                    <a
-                                        href="#"
-                                        data-bind="
-                                            click: $parent.removeSelected,
-                                            'value': code
-                                        "
-                                    >
-                                        <!-- ko text: $t('Remove')--><!-- /ko -->
-                                    </a>
-                                </div>
-                            <!-- /ko -->
-                        <!-- /ko -->
                     </div>
                 </div>
             </form>

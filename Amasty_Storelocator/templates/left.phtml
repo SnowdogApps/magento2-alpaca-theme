@@ -1,0 +1,49 @@
+<?php
+/**
+ * @var \Amasty\Storelocator\Block\Location $block
+ * @var \Amasty\Storelocator\Model\Location $location
+ */
+$locations = $block->getLocationCollection();
+?>
+<div
+    id="<?= $block->escapeHtmlAttr($block->getStoresListId()); ?>"
+    class="amlocator-wrapper"
+>
+    <div class="amlocator-stores-wrapper">
+        <?php foreach ($locations as $location) :
+            $location->setTemplatesHtml();
+            $block->setRatingHtml($location);
+        ?>
+            <div
+                class="amlocator-store-desc"
+                name="leftLocation"
+                data-mapid="<?= $block->escapeHtmlAttr($block->getMapId()); ?>"
+                data-amid="<?= (int) $location['id']; ?>"
+            >
+                <div class="amlocator-block store-locator__stores">
+                    <?php if ($block->getLocationImage($location)) :?>
+                        <div
+                            class="amlocator-image"
+                            style="background-image: url('<?= $block->escapeHtmlAttr($block->getLocationImage($location)) ?>')"
+                        ></div>
+                    <?php endif;?>
+                    <div class="amlocator-store-information">
+                        <?= $location->getStoreListHtml() ?>
+                    </div>
+                </div>
+                <?=
+                $block->getLayout()
+                    ->createBlock(\Amasty\Storelocator\Block\View\Schedule::class)
+                    ->setData('location', $location)
+                    ->toHtml();
+                ?>
+            </div>
+        <?php endforeach; ?>
+    </div>
+
+    <?php if ($pager = $block->getPagerHtml()) : ?>
+        <div class="amlocator-pager-container">
+            <?= /** @escapeNotVerified */ $pager; ?>
+        </div>
+    <?php endif; ?>
+</div>

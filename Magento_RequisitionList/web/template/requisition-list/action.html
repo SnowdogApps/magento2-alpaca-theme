@@ -1,0 +1,48 @@
+<div class="split requisition-list-action">
+    <h2 data-bind="i18n: getTitle()"></h2>
+    <div
+        class="items"
+        data-target="dropdown"
+    >
+        <ul class="list list-items">
+            <!-- ko foreach: {data: requisition().items, as: 'item'} -->
+                <!-- ko if: $parent.isListVisible(item) -->
+                <li
+                    class="list__item"
+                >
+                    <a
+                        href="#"
+                        class="item-name"
+                        data-action="add-to-requisition-list"
+                        data-bind="
+                            attr: {
+                                title: item.name,
+                            },
+                            text: item.name,
+                            click: $parent.performListAction.bind($parent, item)
+                        "
+                    >
+                    </a>
+                </li>
+                <!-- /ko -->
+            <!-- /ko -->
+            <!-- ko if: isCanCreateList() -->
+            <li class="list__item">
+                <a
+                    href="#"
+                    class="action new"
+                    data-action="add-to-requisition-list"
+                    data-bind="
+                        click: performNewListAction,
+                        attr: {
+                            title: $t('Create New Requisition List')
+                        }
+                    "
+                >
+                    <span data-bind="i18n: 'Create New Requisition List'"></span>
+                </a>
+            </li>
+            <!-- /ko -->
+        </ul>
+    </div>
+</div>
