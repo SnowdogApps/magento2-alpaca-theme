@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 - qty input error message styling (#66161)
 - styles for privacy settings in dashboard (#66022)
+- dashboard form, items and actions group spacers in templates (#65058)
 
 
 ## [Released]
