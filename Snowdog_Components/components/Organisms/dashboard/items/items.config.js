@@ -12,7 +12,7 @@ module.exports = {
       {
         title: {
           tag: 'h3',
-          class: 'ddashboard-items__subtitle margin-bottom-l',
+          class: 'dashboard-items__subtitle margin-bottom-l',
           text: 'Contact information'
         },
         class: 'col-sm-3 margin-bottom-m',
@@ -44,7 +44,7 @@ module.exports = {
       {
         title: {
           tag: 'h3',
-          class: 'ddashboard-items__subtitle margin-bottom-l',
+          class: 'dashboard-items__subtitle margin-bottom-l',
           text: 'Address second'
         },
         class: 'col-sm-3 margin-bottom-m',

@@ -226,7 +226,11 @@ module.exports = {
           text: 'Wish List Sharing'
         },
         form: {
-          title: 'Sharing Information',
+          title: {
+            tag: 'h2',
+            class: 'dashboard-form__title margin-bottom-sm',
+            text: 'Sharing Information'
+          },
           textareas: [
             {
               textarea: {

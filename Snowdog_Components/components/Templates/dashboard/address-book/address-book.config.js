@@ -58,7 +58,7 @@ module.exports = {
         {
           title: {
             tag: 'h3',
-            class: 'ddashboard-items__subtitle margin-bottom-l',
+            class: 'dashboard-items__subtitle margin-bottom-l',
             text: 'Default Billing Address'
           },
           class: 'col-sm-6',
@@ -81,7 +81,7 @@ module.exports = {
         {
           title: {
             tag: 'h3',
-            class: 'ddashboard-items__subtitle margin-bottom-l',
+            class: 'dashboard-items__subtitle margin-bottom-l',
             text: 'Default Shipping Address'
           },
           class: 'col-sm-6',
