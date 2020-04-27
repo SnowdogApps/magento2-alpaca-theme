@@ -3,7 +3,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Added
-### Changed 
+### Changed
+- account wish list share with friends styling (#65997) 
 ### Fixed
 ### Removed
 
