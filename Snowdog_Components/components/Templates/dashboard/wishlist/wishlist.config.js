@@ -335,9 +335,7 @@ module.exports = {
           ]
         }
       }
-    }
-  },
-  variants: [
+    },
     {
       name: 'management',
       title: 'Wishlist with Management',

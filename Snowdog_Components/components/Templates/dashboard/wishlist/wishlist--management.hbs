@@ -130,14 +130,9 @@
 
                             <div class="wishlist__item-inner">
                                 {{ render '@input--textarea' textarea }}
-                                <div class="wishlist__qty">
-                                    <label
-                                        for="{{ qty.input.id }}"
-                                        class="wishlist__label"
-                                    >
-                                        {{ qty.labelText }}
-                                    </label>
-                                    {{ render '@quantity-update' qty}}
+                                <div class="{{ qty.class }}">
+                                    {{ render '@label' qty.label }}
+                                    {{ render '@quantity-update' qty.field merge=true }}
                                 </div>
 
                                 <div class="wishlist__item-actions">
@@ -152,16 +147,7 @@
                         </div>
                     {{/each}}
                 </div>
-                <div class="actions-group {{ actionsGroupClass }}">
-                    <div class="actions-group__handler">
-                        {{#each actions}}
-                            {{ render '@button--secondary' this }}
-                        {{/each}}
-                    </div>
-                    <div class="actions-group__handler">
-                        {{ render '@link' backLink }}
-                    </div>
-                </div>
+                {{ render '@actions-group' actions }}
             </div>
         </div>
     </main>
