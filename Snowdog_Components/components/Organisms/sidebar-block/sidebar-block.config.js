@@ -1,5 +1,6 @@
 module.exports = {
   context: {
+    headingClass: '',
     title: {
       tag: 'h2',
       class: 'heading--second-level sidebar-block__title',
@@ -54,6 +55,7 @@ module.exports = {
   variants: [
     {
       name: 'Wishlist',
+      headingClass: '',
       context: {
         title: {
           tag: 'h2',

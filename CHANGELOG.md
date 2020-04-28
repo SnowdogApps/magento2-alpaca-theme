@@ -3,8 +3,21 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Added
+- atomic classes - uppercase/lowecase/none-text-transform (#65259)
+- button--light (#65259)
+- condition for compare and wishlist button in add to cart (#65259)
+- posibility to change margins from 768px for .container class (#65259)
+- conditions for compare and wishlist in dashboard nav (#65259)
 ### Changed
+- account wish list share with friends styling (#65997)
+- link--button in atoms hover color (#65259)
+- updaate contact-us variables (#65359)
+- quantity update - optional label & event trigger for plus & minus buttons (#65259)
+- update variables, link and titles in dashboard components (#65259)
+- update variables in orders summary, shipping, estimation, discount (#65259)
 ### Fixed
+- missing & double `!default` (#65259)
+### Removed
 
 ## [Released]
 
@@ -12,9 +25,12 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - update Smile_Elasticsuite files in theme with Elastisuite 2.8.6 version changes (#66197)
 - EE - style dashbaord reward points (#65719)
+- usage of jquery/ui to jquery-ui-module/[module-name] (#66232)
+- improve accessability of modal popup templates (#66232)
 ### Fixed
 - qty input error message styling (#66161)
 - styles for privacy settings in dashboard (#66022)
+- dashboard form, items and actions group spacers in templates (#65058)
 - "See all brands button" styling broken (#66281)
 
 ## [1.4.0] - 2020-04-17

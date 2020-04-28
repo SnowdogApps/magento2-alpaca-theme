@@ -16,6 +16,13 @@ module.exports = {
       }
     },
     {
+      name: 'light',
+      context: {
+        class: 'button--light',
+        text: 'I am button light'
+      }
+    },
+    {
       name: 'secondary-light',
       context: {
         class: 'button--secondary-light',
