@@ -15,6 +15,7 @@ All notable changes to this project will be documented in this file.
 - quantity update - optional label & event trigger for plus & minus buttons (#65259)
 - update variables, link and titles in dashboard components (#65259)
 - update variables in orders summary, shipping, estimation, discount (#65259)
+- EE - dashboard - invitations (#65718)
 ### Fixed
 - missing & double `!default` (#65259)
 ### Removed
