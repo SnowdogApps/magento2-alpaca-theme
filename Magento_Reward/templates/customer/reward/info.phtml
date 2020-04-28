@@ -1,0 +1,136 @@
+<?php
+// phpcs:disable Magento2.Files.LineLength
+// phpcs:disable Magento2.Templates.ThisInTemplate
+?>
+<?php
+/**
+ * @see \Magento\Reward\Block\Customer\Reward\Info
+ * @var \Magento\Reward\Block\Customer\Reward\Info $block
+ */
+?>
+<?php
+$helper = $this->helper(\Magento\Reward\Helper\Data::class);
+$maxBalance = $block->getMaxBalance();
+$minBalance = $block->getMinBalance();
+$expireIn = $block->getExpireIn();
+?>
+<div class="block-info margin-bottom-m">
+    <div class="block-info__title">
+        <span>
+            <?= $block->escapeHtml(__('Reward points balance Information')) ?>
+        </span>
+        <div class="actions-group block-info__actions">
+            <div class="actions-group__handler margin-bottom-0">
+                <a
+                    class="link actions-group__link"
+                    href="<?= $block->escapeUrl($helper->getLandingPageUrl()) ?>>"
+                >
+                    <?= $block->escapeHtml(__('Learn more')) ?>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="block-info__content">
+        <p
+            class="
+                block-info__content-text
+                reward-balance
+                margin-bottom-0
+            "
+        >
+            <?= $block->escapeHtml(__('Your balance is %1.', $helper->formatReward($block->getPointsBalance(), $block->getCurrencyBalance())), ['span']) ?>
+        </p>
+    </div>
+</div>
+<div
+    class="
+        block-info
+        block-exchange
+        margin-bottom-m
+    "
+>
+    <div class="block-info__title">
+        <?= $block->escapeHtml(__('Current exchange rates:')) ?>
+    </div>
+    <div class="block-info__content">
+        <?php if ($block->getPtsToAmountRateAmount() || $block->getAmountToPtsRatePts()) : ?>
+            <?php if ($block->getPtsToAmountRateAmount()) : ?>
+                <p class="block-info__content-text margin-bottom-0">
+                    <?=
+                        $block->escapeHtml(__('%1 = %2', $helper->formatReward($block->getPtsToAmountRatePts(), null, null, '<strong>%s</strong>'), '<strong>' .
+                        $helper->formatAmount($block->getPtsToAmountRateAmount()) . '</strong>'), ['strong'])
+                    ?>
+                </p>
+            <?php endif; ?>
+            <?php if ($block->getAmountToPtsRatePts()) : ?>
+                <p class="block-info__content-text margin-bottom-0">
+                    <?=
+                        $block->escapeHtml(__('%1 spent = %2 earned', '<strong>' .
+                        $helper->formatAmount($block->getAmountToPtsRateAmount()) .
+                        '</strong>', $helper->formatReward($block->getAmountToPtsRatePts(), null, null, '<strong>%s</strong>')), ['strong'])
+                    ?>
+                </p>
+            <?php endif; ?>
+        <?php else : ?>
+            <p class="block-info__content-text margin-bottom-0">
+                <?= $block->escapeHtml(__('None')) ?>
+            </p>
+        <?php endif; ?>
+    </div>
+</div>
+<?php if ($maxBalance || $minBalance) : ?>
+    <div
+        class="
+            block-info
+            reward-limit
+            margin-bottom-m
+        "
+    >
+        <?php if ($maxBalance) : ?>
+            <div class="block-info__title">
+                <?= $block->escapeHtml(__('Balance limit is %1.', $helper->formatReward($maxBalance))) ?>
+            </div>
+            <?php if ($block->getIsMaxBalanceReached()) : ?>
+                <div class="block-info__content">
+                    <div class="message">
+                        <?= $block->escapeHtml(__('Maximum balance is reached')) ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+        <?php endif; ?>
+        <?php if ($minBalance) : ?>
+            <div class="block-info__title">
+                <strong>
+                    <?= $block->escapeHtml(__('Minimum Balance in order to redeem: %1.', $helper->formatReward($minBalance))) ?>
+                </strong>
+            </div>
+            <?php if (!$block->getIsMinBalanceReached()) : ?>
+                <div class="block-info__content">
+                    <div class="message">
+                        <?= $block->escapeHtml(__('You need a higher balance to use your rewards points.')) ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>
+<?php if ($expireIn) : ?>
+    <div
+        class="
+            block-info
+            reward-expiring
+            margin-bottom-m
+        "
+    >
+        <div class="block-info__title">
+            <?= $block->escapeHtml(__('Each earned reward points award expires in %1 days.', $expireIn)) ?>
+        </div>
+        <?php if ($block->getIsHistoryPublished()) : ?>
+            <div class="block-info__content">
+                <p class="block-info__content-text margin-bottom-0">
+                    <?= $block->escapeHtml(__('Refer to reward points history to see when a specific record expires.')) ?>
+                </p>
+            </div>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>

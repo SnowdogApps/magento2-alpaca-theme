@@ -3,8 +3,11 @@ module.exports = {
   name: 'dashboard-form',
   context: {
     script: true,
-    title: 'Account Information',
-    titleClass: 'margin-bottom-m',
+    title: {
+      tag: 'h2',
+      class: 'dashboard-form__title margin-bottom-sm',
+      text: 'Account Information'
+    },
     contentClass: 'margin-bottom-sm',
     fieldsClass: 'margin-bottom-sm',
     fields: [

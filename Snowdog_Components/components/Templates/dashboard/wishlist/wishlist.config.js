@@ -18,6 +18,19 @@ module.exports = {
         }
       ]
     },
+    toolbar: {
+      showMode: false,
+      showSorter: false,
+      showAmount: true,
+      showLimit: true,
+      showPager: true,
+      amount: {
+        class: 'toolbar__amount--visible'
+      },
+      limiter: {
+        class: 'toolbar__limiter--relative'
+      }
+    },
     heading: {
       tag: 'h1',
       class: 'heading dashboard__content-heading',
@@ -52,38 +65,19 @@ module.exports = {
           }
         },
         qty: {
-          labelText: 'Quantity:',
-          input: {
-            id: 'qty',
-            min: '1',
-            name: 'qty',
-            defaultValue: '1',
-            ariaLabel: 'Change the quantity',
-            class: 'wishlist__field-qty margin-0'
+          class: 'wishlist__qty',
+          label: {
+            class: 'wishlist__label',
+            text: 'Quantity:',
+            for: 'qty-product-1'
           },
-          minusQtyButton: {
-            tag: 'button',
-            class: 'quantity-update__button quantity-update__button--minus quantity-update__button--disabled',
-            attributes: 'type="button" aria-label="Decrease the quantity"',
-            icon: {
-              id: 'minus',
-              title: 'Minus mark',
-              class: 'button__icon quantity-update__icon',
-              hidden: true
+          field: {
+            label: true,
+            input: {
+              id: 'qty-product-1',
+              class: 'wishlist__field-qty'
             }
-          },
-          plusQtyButton: {
-            tag: 'button',
-            class: 'quantity-update__button quantity-update__button--plus',
-            attributes: 'type="button" aria-label="Increase the quantity"',
-            icon: {
-              id: 'plus',
-              title: 'Plus mark',
-              class: 'button__icon quantity-update__icon',
-              hidden: true
-            }
-          },
-          script: false
+          }
         },
         editIcon: {
           tag: 'a',
@@ -161,38 +155,19 @@ module.exports = {
           }
         },
         qty: {
-          labelText: 'Quantity:',
-          input: {
-            id: 'qty',
-            min: '1',
-            name: 'qty',
-            defaultValue: '1',
-            ariaLabel: 'Change the quantity',
-            class: 'wishlist__field-qty margin-0'
+          class: 'wishlist__qty quantity-update--wishlist',
+          label: {
+            class: 'wishlist__label',
+            text: 'Quantity:',
+            for: 'qty-product-2'
           },
-          minusQtyButton: {
-            tag: 'button',
-            class: 'quantity-update__button quantity-update__button--minus quantity-update__button--disabled',
-            attributes: 'type="button" aria-label="Decrease the quantity"',
-            icon: {
-              id: 'minus',
-              title: 'Minus mark',
-              class: 'button__icon quantity-update__icon',
-              hidden: true
+          field: {
+            label: true,
+            input: {
+              id: 'qty-product-2',
+              class: 'wishlist__field-qty'
             }
-          },
-          plusQtyButton: {
-            tag: 'button',
-            class: 'quantity-update__button quantity-update__button--plus',
-            attributes: 'type="button" aria-label="Increase the quantity"',
-            icon: {
-              id: 'plus',
-              title: 'Plus mark',
-              class: 'button__icon quantity-update__icon',
-              hidden: true
-            }
-          },
-          script: false
+          }
         },
         editIcon: {
           tag: 'a',
@@ -242,26 +217,124 @@ module.exports = {
         itemNameClass: 'padding-0'
       }
     ],
-    actions: [
-      {
-        tag: 'button',
-        text: 'Update Wish List',
-        class: 'actions-group__button'
-      },
-      {
-        tag: 'button',
-        text: 'Share Wish List',
-        class: 'button--secondary actions-group__button'
-      },
-      {
-        tag: 'button',
-        text: 'Add All to Cart',
-        class: 'button--secondary actions-group__button'
+    actions: {
+      sides: [
+        {
+          action: [
+            {
+              button: {
+                text: 'Update Wish List',
+                class: 'actions-group__button'
+              }
+            },
+            {
+              button: {
+                text: 'Share Wish List',
+                class: 'button--secondary actions-group__button'
+              }
+            },
+            {
+              button: {
+                text: 'Add All to Cart',
+                class: 'button--secondary actions-group__button'
+              }
+            }
+          ]
+        },
+        {
+          action: [
+            {
+              link: {
+                text: 'Back',
+                title: 'Back to My Account',
+                class: 'actions-group__link'
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  variants: [
+    {
+      name: 'share',
+      context: {
+        heading: {
+          text: 'Wish List Sharing'
+        },
+        form: {
+          title: {
+            tag: 'h2',
+            class: 'dashboard-form__title margin-bottom-sm',
+            text: 'Sharing Information'
+          },
+          textareas: [
+            {
+              textarea: {
+                label: {
+                  text: 'Email addresses, separated by commas',
+                  hidden: false
+                },
+                field: {
+                  id: 'email_address',
+                  name: 'email_address',
+                  placeholder: '',
+                  type: 'text'
+                }
+              }
+            },
+            {
+              textarea: {
+                label: {
+                  text: 'Message',
+                  hidden: false
+                },
+                field: {
+                  id: 'message',
+                  name: 'message',
+                  placeholder: '',
+                  type: 'text'
+                }
+              }
+            }
+          ],
+          checkboxes: [
+            {
+              checkbox: {
+                class: 'padding-bottom-m',
+                id: 'rss_url',
+                name: 'rss_url',
+                label: {
+                  text: 'Check here to link an RSS feed to your Wish List.'
+                }
+              }
+            }
+          ]
+        },
+        buttons: {
+          sides: [
+            {
+              action: [
+                {
+                  button: {
+                    tag: 'button',
+                    class: 'actions-group__button',
+                    attributes: 'type="button" aria-label="button"',
+                    text: 'Share Wish List'
+                  }
+                },
+                {
+                  link: {
+                    href: '#',
+                    title: 'Back',
+                    text: 'Back'
+                  }
+                }
+              ]
+            }
+          ]
+        }
       }
-    ],
-    backLink: {
-      text: 'Back',
-      title: 'Back to My Account'
     }
   },
   variants: [
