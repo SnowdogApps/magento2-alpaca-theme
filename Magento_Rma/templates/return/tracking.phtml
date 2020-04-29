@@ -1,0 +1,52 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+//phpcs:disable Magento2.Templates.ThisInTemplate.FoundThis
+//phpcs:disable Magento2.Files.LineLength.MaxExceeded
+/** @var $block \Magento\Rma\Block\Returns\Tracking */
+?>
+
+<?php if ($block->getErrorMessage()) : ?>
+<tr>
+    <td colspan="3">
+        <div class="message error">
+             <div><?= $block->escapeHtml($block->getErrorMessage()) ?></div>
+        </div>
+    </td>
+</tr>
+<?php endif ?>
+<?php foreach ($block->getTrackingNumbers() as $number) : ?>
+<tr>
+    <td data-th="<?= $block->escapeHtml(__('Carrier')) ?>" class="col carrier"><?= $block->escapeHtml($number->getCarrierTitle()) ?></td>
+    <td data-th="<?= $block->escapeHtml(__('Number')) ?>" class="col id">
+        <a href="#" data-mage-init='{"popupWindow": {
+            "windowURL":"<?= $block->escapeUrl($this->helper(Magento\Rma\Helper\Data::class)->getTrackingPopupUrlBySalesModel($number)) ?>",
+            "windowName":"trackshipment",
+            "width":800,"height":600,"top":0,"left":0,"resizable":1,"scrollbars":1
+        }}' title="<?= $block->escapeHtml($number->getTrackNumber()) ?>" class="action tracking">
+            <span><?= $block->escapeHtml($number->getTrackNumber()) ?></span>
+        </a>
+    </td>
+    <td data-th="<?= $block->escapeHtml(__('Action')) ?>" class="col actions">
+        <?php if (!$number->getIsAdmin() && $block->isPrintShippingLabelAllowed()) : ?>
+            <a href="#" data-entity-id="<?= (int) $number->getEntityId() ?>" class="action delete" title="<?= $block->escapeHtmlAttr(__('Delete')) ?>">
+                <span><?= $block->escapeHtml(__('Delete')) ?></span>
+            </a>
+        <?php endif; ?>
+    </td>
+</tr>
+<?php endforeach; ?>
+<?php if ($block->isPrintShippingLabelAllowed()) : ?>
+<script type="text/x-magento-init">
+    {
+        "#rma_track_info": {
+            "Magento_Rma/set-options": {
+                "deleteLabelUrl": "<?= $block->escapeJs($block->escapeUrl($block->getDeleteLabelUrl())) ?>",
+                "deleteMsg": "<?= $block->escapeJs($block->escapeHtml(__('Are you sure you want to delete this tracking information?'))) ?>"
+            }
+        }
+    }
+</script>
+<?php endif; ?>
