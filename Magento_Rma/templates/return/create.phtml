@@ -1,0 +1,228 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+//phpcs:disable Squiz.ControlStructures.ControlSignature.NewlineAfterOpenBrace
+//phpcs:disable Squiz.WhiteSpace.ScopeClosingBrace.ContentBefore
+//phpcs:disable Magento2.Files.LineLength.MaxExceeded
+//phpcs:disable Magento2.Templates.ThisInTemplate.FoundThis
+/** @var $block \Magento\Rma\Block\Returns\Create */
+?>
+<?php $_order =  $block->getOrder(); ?>
+<?php $_data = $block->getFormData(); ?>
+<?php $_items = $block->getItems(); ?>
+<?php $totalAvlQty = 0; ?>
+<script id="template-registrant" type="text/x-magento-template">
+    <div class="actions-toolbar">
+        <div class="secondary" id="delete<%- data._index_ %>">
+            <button type="button" class="action remove delete"><span><?= $block->escapeHtml(__('Remove')) ?></span></button>
+        </div>
+    </div>
+    <fieldset class="fieldset">
+        <div class="field item required">
+            <label for="items:item<%- data._index_ %>" class="label"><span><?= $block->escapeHtml(__('Item')) ?></span></label>
+            <div class="control">
+                <?php $bundleID     = 0; ?>
+                <?php $firstItemId = $i = $productType = $availableQty = $shipmentType = 0; ?>
+                <?php $html         = []; ?>
+                <select name="items[<%- data._index_ %>][order_item_id]" class="select" id="items:item<%- data._index_ %>" data-args='{"index":<%- data._index_ %>}'>
+                    <?php foreach ($_items as $_item) : ?>
+                        <?php $totalAvlQty += $block->getAvailableQty($_item); ?>
+                        <?php if ($i == 0) : ?>
+                            <?php
+                            $firstItemId = $_item->getId();
+                            $productType = $_item->getProductType();
+                            $shipmentType = $_item->getProduct()->getShipmentType();
+                            $availableQty = $block->getAvailableQty($_item);
+                            $i = 1;
+                            ?>
+                        <?php endif; ?>
+                        <?php if ($_item->getProductType() == \Magento\Catalog\Model\Product\Type::TYPE_BUNDLE) : ?>
+                            <?php $bundleID = $_item->getId(); ?>
+                        <?php endif; ?>
+                        <?php if (!$_item->getParentItemId() || $_item->getParentItemId() != $bundleID) : ?>
+                            <option value="<?= (int) $_item->getId() ?>" id="item:order_item_id<%- data._index_ %>_<?= (int) $_item->getId() ?>" rel="<?= $block->escapeHtmlAttr($_item->getProductType()) ?>_<?= $block->escapeHtmlAttr($block->getAvailableQty($_item)) ?>_<?= $block->escapeHtmlAttr($_item->getProduct()->getShipmentType()) ?>"><?= $block->escapeHtml($_item->getName()) ?></option>
+                        <?php endif; ?>
+                        <?php if ($_item->getParentItemId() != null && $_item->getParentItemId() == $bundleID) : ?>
+                            <?php if ($_item->getIsOrdered()) : ?>
+                                <?php
+                                $html[$bundleID][] = [
+                                    $_item->getId(),
+                                    $block->escapeHtml($_item->getName()),
+                                    $block->getAvailableQty($_item),
+                                    1,
+                                ];
+                                ?>
+                            <?php else : ?>
+                                <?php
+                                $html[$bundleID][] = [
+                                    $_item->getId(),
+                                    $block->escapeHtml($_item->getName()),
+                                    $block->getAvailableQty($_item),
+                                    0,
+                                ];
+                                ?>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </select>
+            <?php if (!empty($html)) : ?>
+                <?php foreach ($html as $bundleID => $node) : ?>
+                    <div class="nested">
+                        <div id="radio:item<%- data._index_ %>_<?= (int) $bundleID ?>">
+                            <div class="table-wrapper">
+                                <table class="data table table-return-items" id="return-items-table-<?= (int) $bundleID ?>">
+                                    <caption class="table-caption"><?= $block->escapeHtml(__('Return items')) ?></caption>
+                                    <thead>
+                                        <tr>
+                                            <th class="col product" scope="col"><?= $block->escapeHtml(__('Sub-items')) ?></th>
+                                            <th class="col remaining qty" scope="col"><?= $block->escapeHtml(__('Remaining Qty')) ?></th>
+                                            <th class="col qty" scope="col"><?= $block->escapeHtml(__('Qty')) ?></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php foreach ($node as $item) : ?>
+                                        <tr>
+                                            <td data-th="<?= $block->escapeHtmlAttr(__('Product')) ?>" class="col product">
+                                                <?php if ($item[3]) : ?>
+                                                    <input type="checkbox" disabled>
+                                                <?php else : ?>
+                                                    <input id="items[<%- data._index_ %>][<?= (int) $bundleID ?>][checkbox][item][<?= $block->escapeHtmlAttr($item[0]) ?>]" data-validate="{'validate-one-required-by-name':true}"  data-args='{"item" :<?= $block->escapeHtmlAttr($item[0]) ?>, "bundleId" : <?= (int) $bundleID ?>, "index" :<%- data._index_ %>}' type="checkbox" value="<?= $block->escapeHtmlAttr($item[0]) ?>" class="checkbox change-container-classname" name="validate-one-checkbox-<?= (int) $bundleID ?>-<%- data._index_ %>" />
+                                                <?php endif; ?>
+                                                <label for="items[<%- data._index_ %>][<?= (int) $bundleID ?>][checkbox][item][<?= $block->escapeHtmlAttr($item[0]) ?>]" class="label <?= ($item[3]) ? 'disabled' : ''?>"><?= $block->escapeHtml($item[1]) ?></label>
+                                            </td>
+                                            <td data-th="<?= $block->escapeHtmlAttr(__('Remaining Qty')) ?>" class="col remaining qty"><?= $block->escapeHtml($item[2]) ?></td>
+                                            <td data-th="<?= $block->escapeHtmlAttr(__('Qty')) ?>" class="col qty">
+                                                <?php if (!$item[3]) : ?>
+                                                    <input id="items[<%- data._index_ %>][<?= (int) $bundleID ?>][checkbox][qty][<?= $block->escapeHtmlAttr($item[0]) ?>]" name="items[<%- data._index_ %>][items][<?=$block->escapeHtmlAttr($item[0]) ?>]" size="7" data-validate="{'validate-greater-than-zero':true,'required-number':true}" type="number" style="display:none" disabled class="input-text">
+                                                <?php endif; ?>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+            </div>
+        </div>
+        <div class="field qty required" id="qty_requested_block_<%- data._index_ %>">
+            <label for="items:qty_requested<%- data._index_ %>" class="label"><span><?= $block->escapeHtml(__('Quantity To Return')) ?></span></label>
+            <div class="control">
+                <input type="number" class="input-text" data-validate="{'validate-greater-than-zero':true,'required-number':true}" value="" name="items[<%- data._index_ %>][qty_requested]" id="items:qty_requested<%- data._index_ %>">
+                <div class="note" id="remaining_quantity_block_<%- data._index_ %>">
+                    <?= $block->escapeHtml(__('Remaining Quantity:')) ?>&nbsp;<span id="remaining_quantity_<%- data._index_ %>" class="qty remaining"></span>
+                </div>
+            </div>
+
+        </div>
+
+        <?php foreach ($block->getAttributes() as $attribute) :?>
+            <?php $attributeContent = $block->getAttributeHtml($attribute);?>
+            <?php if ($attributeContent) : ?>
+                <?= /* @noEscape */ $attributeContent ?>
+            <?php endif;?>
+        <?php endforeach;?>
+    </fieldset>
+</script>
+
+<form id="rma_create_form" method="post" action="<?=
+/* @noEscape */ $block->getSubmitUrl()?>" enctype="multipart/form-data" class="form form-create-return">
+    <fieldset class="fieldset">
+        <legend class="legend">
+            <span><?= $block->escapeHtml(__('New Return for Order %1', $_order->getIncrementId())) ?></span>
+        </legend>
+        <br>
+        <div class="field id">
+            <span class="label"><span><?= $block->escapeHtml(__('Order ID')) ?></span></span>
+            <div class="control"><span><?= $block->escapeHtml($_order->getIncrementId()) ?></span></div>
+        </div>
+        <div class="field name">
+            <span class="label"><span><?= $block->escapeHtml(__('Customer Name')) ?></span></span>
+            <div class="control"><span><?= $block->escapeHtml($_order->getCustomerName()) ?></span></div>
+        </div>
+        <div class="field email">
+            <span class="label"><span><?= $block->escapeHtml(__('Email')) ?></span></span>
+            <div class="control"><span><?= $block->escapeHtml($_order->getCustomerEmail()) ?></span></div>
+        </div>
+        <div class="field contact email">
+            <label class="label" for="email"><span><?= $block->escapeHtml($this->helper(Magento\Rma\Helper\Data::class)->getContactEmailLabel()) ?></span></label>
+            <div class="control">
+                <input type="text" name="customer_custom_email" id="email" title="Contact Email Address" class="input-text" data-validate="{'validate-email':true}" value="<?= $block->escapeHtmlAttr($block->getContactEmail()) ?>">
+            </div>
+        </div>
+        <div class="field address shipping">
+            <span class="label"><span><?= $block->escapeHtml(__('Order Shipping Address')) ?></span></span>
+            <address class="control"><?= /* @noEscape */ $block->format($_order->getShippingAddress(), 'html') ?></address>
+        </div>
+    </fieldset>
+    <script type="text/x-magento-init">
+        {
+            "#rma_create_form": {
+                "fileElement": {},
+                "rmaCreate": {
+                    <?php $i = 0; ?>
+                    <?php if ($_data) : ?>
+                        <?php $formDataPost = $_data->getItems(); ?>
+                        <?php if (is_array($formDataPost)) : ?>
+                        "formDataPost": <?= /* @noEscape */ json_encode($formDataPost) ?>,
+                        <?php endif; ?>
+                    <?php endif; ?>
+                    "templateRegistrant": "#template-registrant",
+                    "registrantOptions": "#registrant-options",
+                    "addItemToReturn": "add-item-to-return",
+                    "btnRemove": "delete",
+                    "row": "#row",
+                    "addRow": "additional row",
+                    "qtyReqBlock": "#qty_requested_block",
+                    "remQtyBlock": "#remaining_quantity_block",
+                    "remQty": "#remaining_quantity",
+                    "reasonOtherRow": "#reason_other",
+                    "reasonOtherInput": "#items:reason_other",
+                    "radioItem": "#radio:item",
+                    "orderItemId": "#item:order_item_id",
+                    "itemsItem": "items:item",
+                    "itemsReason": "items:reason",
+                    "totalAvlQty": "<?= ($totalAvlQty) ? (int) $totalAvlQty : 0 ?>",
+                    "firstItemId": "<?= (int) $firstItemId ?>",
+                    "productType": "<?= $block->escapeJs($productType) ?>",
+                    "shipmentType": "<?= $block->escapeJs($shipmentType) ?>",
+                    "availableQuantity": "<?= ($availableQty) ? (int) $availableQty : 0 ?>",
+                    "prodTypeBundle": "<?= /* @noEscape */ \Magento\Catalog\Model\Product\Type::TYPE_BUNDLE ?>"
+                },
+                "validation": {
+                     "ignore": ":hidden:not(input[id$='_value'])"
+                }
+            }
+        }
+    </script>
+    <fieldset class="fieldset">
+        <legend class="legend"><span><?= $block->escapeHtml(__('Return Items Information')) ?></span></legend>
+        <br>
+        <div id="registrant-options"></div> <?php /* fields of the form are inserted here */ ?>
+        <div class="actions-toolbar">
+            <div class="secondary">
+                <button type="button" id="add-item-to-return" class="action add">
+                    <span><?= $block->escapeHtml(__('Add Item To Return')) ?></span>
+                </button>
+            </div>
+        </div>
+        <div class="field comment">
+            <label for="rma_comment" class="label"><span><?= $block->escapeHtml(__('Comments')) ?></span></label>
+            <div class="control">
+                <textarea id="rma_comment" cols="5" rows="3" name="rma_comment" class="input-text"><?php if ($_data) : ?><?= $block->escapeHtml($_data->getRmaComment()) ?><?php endif; ?></textarea>
+            </div>
+        </div>
+    </fieldset>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <button type="submit" class="action submit primary" id="submit.save" title="<?= $block->escapeHtmlAttr(__('Save')) ?>"><span><?= $block->escapeHtml(__('Submit')) ?></span></button>
+        </div>
+        <div class="secondary">
+            <a href="<?= $block->escapeUrl($block->getBackUrl()) ?>" class="action back"><span><?= $block->escapeHtml(__('Back')) ?></span></a>
+        </div>
+    </div>
+</form>
