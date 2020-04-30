@@ -16,6 +16,8 @@ All notable changes to this project will be documented in this file.
 - update variables, link and titles in dashboard components (#65259)
 - update variables in orders summary, shipping, estimation, discount (#65259)
 - EE - dashboard - invitations (#65718)
+- EE - hide the notification displayed on top (#65699)
+- switch "signout" button to secondary CTA (#65952)
 ### Fixed
 - missing & double `!default` (#65259)
 ### Removed
