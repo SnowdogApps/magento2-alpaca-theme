@@ -22,6 +22,7 @@ All notable changes to this project will be documented in this file.
 - switch "signout" button to secondary CTA (#65952)
 ### Fixed
 - missing & double `!default` (#65259)
+- quicksearch error (#66300)
 ### Removed
 
 ## [Released]
