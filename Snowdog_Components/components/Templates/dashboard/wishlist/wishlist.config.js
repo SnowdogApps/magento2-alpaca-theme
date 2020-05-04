@@ -39,7 +39,7 @@ module.exports = {
     wishlistItems: [
       {
         product: {
-          class: 'col-xs-6 col-md-4 margin-bottom-sm',
+          class: 'col-xs-12 col-sm-6 col-md-4 margin-bottom-sm',
           image: {
             dataSrc: '/images/catalog-grid-item/product-color-swatch-image-1-32_40.jpg'
           },
@@ -128,7 +128,7 @@ module.exports = {
       },
       {
         product: {
-          class: 'col-xs-6 col-md-4 margin-bottom-sm',
+          class: 'col-xs-12 col-sm-6 col-md-4 margin-bottom-sm',
           image: {
             dataSrc: '/images/catalog-grid-item/product-color-swatch-image-1-32_40.jpg'
           },
@@ -499,7 +499,7 @@ module.exports = {
         headingMyWishList: {
           class: 'margin-bottom-0',
           tag: 'h2',
-          text: 'My Wish Lists:'
+          text: 'Active Wishlist'
         },
         headingInfoWishList: {
           class: '',
