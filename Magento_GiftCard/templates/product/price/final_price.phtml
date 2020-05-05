@@ -2,20 +2,20 @@
 <?php $productId = $block->getSaleableItem()->getId(); ?>
 
 <?php if ($block->getCanShowPrice() !== false && !$block->getRenderForm()) :?>
-    <div class="price-box">
+    <div class="price-box price">
         <?php if ($block->isMinEqualToMax()) : ?>
             <span
-                class="price"
+                class="price__value"
                 id="product-price-<?= $block->escapeHtmlAttr($productId) ?><?= $block->escapeHtmlAttr($block->getIdSuffix()) ?>"
             >
             <?= $block->escapeHtml($block->convertAndFormatCurrency($block->getMinValue(), false)) ?>
         </span>
         <?php elseif ($block->getMinValue() !== 0) : ?>
-            <span class="price-label">
+            <span class="price-label price__text">
                 <?= $block->escapeHtml(__('From')) ?>
             </span>
             <span
-                class="price"
+                class="price__value"
                 id="min-product-price-<?= $block->escapeHtmlAttr($productId) ?><?= $block->escapeHtmlAttr($block->getIdSuffix()) ?>"
             >
             <?= $block->escapeHtml($block->convertAndFormatCurrency($block->getMinValue(), false)) ?>
@@ -31,6 +31,8 @@
                 price-box
                 price-final
                 price-final_price
+                product-view__price
+                padding-top-0
             "
         >
             <span
@@ -44,7 +46,7 @@
                     class="price-wrapper"
                     id="product-price-<?= $block->escapeHtmlAttr($productId) ?><?= $block->escapeHtmlAttr($block->getIdSuffix()) ?>"
                 >
-                    <span class="price">
+                    <span class="price__value">
                         <?= $block->escapeHtml($block->convertAndFormatCurrency($block->getRegularPrice(), false)) ?>
                     </span>
                 </span>
