@@ -146,15 +146,11 @@ define([
               $.each(sidebarElements, function(index, element) {
                 if (!lastElement || (lastElement && lastElement.type !== element.type)) {
                    var sidebarSection = this._getSidebarSection(element.type, data);
-                }
+                   var elementHtml = this._renderItem(element, index);
 
-                var elementHtml = this._renderItem(element, index);
-
-                sidebarSection.append(elementHtml);
-
-                if (!lastElement || (lastElement && lastElement.type !== element.type)) {
-                  sidebarWrapper.append(sidebarSection);
-                  content.append(sidebarWrapper);
+                   sidebarSection.append(elementHtml);
+                   sidebarWrapper.append(sidebarSection);
+                   content.append(sidebarWrapper);
                 }
 
                 lastElement = element;

@@ -8,6 +8,8 @@ All notable changes to this project will be documented in this file.
 - condition for compare and wishlist button in add to cart (#65259)
 - posibility to change margins from 768px for .container class (#65259)
 - conditions for compare and wishlist in dashboard nav (#65259)
+- EE - dashboard - returns: 2. my return (#66362)
+- EE - dashboard - returns: 3. return view (#66363)
 ### Changed
 - account wish list share with friends styling (#65997)
 - link--button in atoms hover color (#65259)
@@ -20,6 +22,7 @@ All notable changes to this project will be documented in this file.
 - switch "signout" button to secondary CTA (#65952)
 ### Fixed
 - missing & double `!default` (#65259)
+- quicksearch error (#66300)
 ### Removed
 
 ## [Released]

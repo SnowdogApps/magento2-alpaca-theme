@@ -1,0 +1,563 @@
+<?php
+//phpcs:disable Magento2.Files.LineLength.MaxExceeded
+//phpcs:disable Generic.WhiteSpace.ScopeIndent.IncorrectExact
+/** @var $block \Magento\Rma\Block\Returns\View */
+?>
+
+<?php
+    $_rma = $block->getRma();
+    $_order = $block->getOrder();
+    $additionalData = $block->getAdditionalData();
+    $rmaHelper = $block->getRmaHelper();
+?>
+
+<div
+    class="
+        row
+        dashboard-items__content
+        margin-top-xl
+    "
+>
+    <div class="dashboard-items__item col-sm-6">
+        <h3 class="dashboard-items__subtitle margin-bottom-l">
+            <?= $block->escapeHtml(__('Request Information')); ?>
+        </h3>
+        <div class="margin-bottom-l">
+            <?= $block->escapeHtml(__('ID')); ?>: 
+            <?= $block->escapeHtml($_rma->getIncrementId()) ?>
+            <br>
+            <?= $block->escapeHtml(__('Order ID')); ?>: 
+            <a href="<?= $block->escapeUrl($block->getOrderUrl($_rma)); ?>">
+                <?= $block->escapeHtml($_rma->getOrderIncrementId()) ?>
+            </a>
+            <br>
+            <?= $block->escapeHtml(__('Date Requested')); ?>: 
+            <?= $block->escapeHtml($rmaHelper->getFormatedDate($_rma->getDateRequested())); ?>
+            <br>
+            <?= $block->escapeHtml(__('Email')); ?>: 
+            <?= $block->escapeHtml($_order->getCustomerEmail()) ?>
+            <?php if ($_rma->getCustomerCustomEmail()) : ?>
+                <br>
+                <?= $block->escapeHtml(__('Contact Email Address')); ?>: 
+                <?= $block->escapeHtml($_rma->getCustomerCustomEmail()) ?>
+            <?php endif ?>
+        </div>
+    </div>
+    <div class="dashboard-items__item col-sm-6">
+        <h3 class="dashboard-items__subtitle margin-bottom-l">
+            <?= $block->escapeHtml(__('Shipping Address')); ?>
+        </h3>
+        <div class="margin-bottom-l">
+            <address>
+                <?= /* @noEscape */ $block->getAddress() ?>
+            </address>
+        </div>
+    </div>
+</div>
+<div class="returns-details-items">
+    <span
+        id="rma-please-wait"
+        class="
+            please-wait
+            load
+            indicator
+            display-none
+        "
+        data-text="<?= $block->escapeHtmlAttr(__('This won\'t take long . . .')); ?>"
+    >
+        <?= $block->escapeHtml(__('This won\'t take long . . .')); ?>
+    </span>
+
+    <?php $trackingNumbers = $block->getTrackingNumbers() ?>
+    <?php if ($block->isPrintShippingLabelAllowed() || $trackingNumbers->count()) : ?>
+        <div class="dashboard-table">
+            <div class="dashboard-table__header">
+                <h2 class="dashboard-table__title">
+                    <?= $block->escapeHtml(__('Shipping and Tracking Information')); ?>
+                </h2>
+                <?php if ($trackingNumbers->count() || $block->canShowButtons()) : ?>
+                    <?php if ($trackingNumbers->count()) : ?>
+                        <a
+                            class="dashboard-table__link"
+                            href="#"
+                            data-mage-init='
+                                {
+                                    "popupWindow": {
+                                        "windowURL":"<?= $block->escapeUrl($rmaHelper->getTrackingPopupUrlBySalesModel($block->getRma())) ?>",
+                                        "windowName":"trackshipment",
+                                        "width":800,
+                                        "height":600,
+                                        "top":0,
+                                        "left":0,
+                                        "resizable":1,
+                                        "scrollbars":1
+                                    }
+                                }
+                            '
+                            title="<?= $block->escapeHtmlAttr(__('Track this shipment')) ?>"
+                        >
+                            <?= $block->escapeHtml(__('Track this shipment')) ?>
+                        </a>
+                    <?php endif ?>
+                    <?php if ($block->canShowButtons()) : ?>
+                        <a
+                            href="<?= $block->escapeUrl($rmaHelper->getPackagePopupUrlByRmaModel($block->getRma(), 'printlabel')) ?>"
+                            title="<?= $block->escapeHtmlAttr(__('Print Shipping Label')) ?>"
+                            class="dashboard-table__link"
+                        >
+                            <?= $block->escapeHtml(__('Print Shipping Label')) ?>
+                        </a>
+                        <a
+                            class="action track"
+                            href="#"
+                            data-mage-init='
+                                {
+                                    "popupWindow": {
+                                        "windowURL":"<?= $block->escapeUrl($rmaHelper->getPackagePopupUrlByRmaModel($block->getRma())) ?>",
+                                        "windowName":"package",
+                                        "width":800,
+                                        "height":600,
+                                        "top":0,
+                                        "left":0,
+                                        "resizable":1,
+                                        "scrollbars":1
+                                    }
+                                }
+                            '
+                            title="<?= $block->escapeHtmlAttr(__('Show Packages')) ?>"
+                        >
+                            <?= $block->escapeHtml(__('Show Packages')) ?>
+                        </a>
+                    <?php endif; ?>
+                <?php endif; ?>
+            </div>
+            <div class="block-content">
+                <form method="post"
+                    id="rma_track_info"
+                    class="dashboard-form"
+                    data-mage-init='
+                        {
+                            "rmaTrackInfo": {
+                                "addLabelUrl": "<?= $block->escapeUrl($block->getAddLabelUrl()); ?>"
+                            },
+                            "validation": {}
+                        }
+                    '
+                >
+                    <div class="dashboard-table__content">
+                        <table
+                            class="table margin-0"
+                            id="track-info-table"
+                            role="table"
+                        >
+                            <caption class="table__caption">
+                                <?= $block->escapeHtml(__('Shipping and Tracking Information')); ?>
+                            </caption>
+                            <thead>
+                                <tr role="row">
+                                    <th
+                                        scope="col"
+                                        class="col"
+                                        role="columnheader"
+                                    >
+                                        <?= $block->escapeHtml(__('Carrier')); ?></th>
+                                    <th
+                                        scope="col"
+                                        class="col"
+                                        role="columnheader"
+                                    >
+                                        <?= $block->escapeHtml(__('Number')); ?>
+                                    </th>
+                                    <th
+                                        scope="col"
+                                        class="col"
+                                        role="columnheader"
+                                    >
+                                        <?= $block->escapeHtml(__('Action')); ?>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody
+                                id="track-info-tbody"
+                                role="row"
+                            >
+                                <?= /* @noEscape */ $block->getTrackingInfo('tracking') ?>
+                            </tbody>
+                            <?php if ($block->isPrintShippingLabelAllowed()) : ?>
+                                <tfoot>
+                                    <tr role="row">
+                                        <td
+                                            class="
+                                                col
+                                                carrier
+                                                select
+                                                select--native
+                                            "
+                                            role="gridcell"
+                                            data-th="<?= $block->escapeHtmlAttr(__('Carrier:')) ?>"
+                                        >
+                                            <select
+                                                name="tracking_carrier_select"
+                                                id="tracking_carrier_select"
+                                                class="select__field"
+                                                data-validate="{required:true}"
+                                            >
+                                                <option value=""></option>
+                                                <?php foreach ($block->getCarriers() as $key => $value) : ?>
+                                                    <option value="<?= $block->escapeHtmlAttr($key); ?>">
+                                                        <?= $block->escapeHtmlAttr($value) ?>
+                                                    </option>
+                                                <?php endforeach ?>
+                                            </select>
+                                        </td>
+                                        <td
+                                            class="col id"
+                                            role="gridcell"
+                                            data-th="<?= $block->escapeHtmlAttr(__('Number:')) ?>"
+                                        >
+                                            <input
+                                                type="text"
+                                                class="input__field"
+                                                value=""
+                                                name="tracking_number_input"
+                                                id="tracking_number_input"
+                                                data-validate="{required:true}"
+                                                aria-label="Tracking number"
+                                            >
+                                        </td>
+                                        <td
+                                            class="col actions"
+                                            role="gridcell"
+                                            data-th="<?= $block->escapeHtmlAttr(__('Action:')) ?>"
+                                        >
+                                            <button
+                                                type="button"
+                                                class="
+                                                    button
+                                                    button--fluid
+                                                    button--secondary
+                                                "
+                                                id="btn-add-track-number"
+                                                title="<?= $block->escapeHtmlAttr(__('Add')); ?>"
+                                            >
+                                                <?= $block->escapeHtml(__('Add')); ?>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            <?php endif ?>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    <?php endif ?>
+    <div class="dashboard-table">
+        <div class="dashboard-table__header">
+            <h2 class="dashboard-table__title">
+                <?= $block->escapeHtml(__('Items Return Requested For')); ?>
+            </h2>
+        </div>
+        <div class="dashboard-table__content">
+            <table
+                class="table margin-0"
+                id="my-returns-items-table"
+                role="table"
+            >
+                <caption class="table__caption">
+                    <?= $block->escapeHtml(__('Items Return Requested For')); ?>
+                </caption>
+                <thead>
+                    <tr role="row">
+                        <?php $availableAttributes = $block->getVisibleAttributes(); ?>
+                        <th
+                            scope="col"
+                            role="columnheader"
+                            class="col id"
+                        >
+                            <?= $block->escapeHtml(__('Product Name')); ?>
+                        </th>
+                        <th
+                            scope="col"
+                            role="columnheader"
+                            class="col sku"
+                        >
+                            <?= $block->escapeHtml(__('SKU')); ?>
+                        </th>
+                        <?php if (isset($availableAttributes['condition'])) : ?>
+                            <th
+                                scope="col"
+                                role="columnheader"
+                                class="col condition"
+                            >
+                                <?= $block->escapeHtml(__('Condition')); ?>
+                            </th>
+                        <?php endif; ?>
+                        <?php if (isset($availableAttributes['condition'])) : ?>
+                            <th
+                                scope="col"
+                                role="columnheader"
+                                class="col resolution"
+                            >
+                                <?= $block->escapeHtml(__('Resolution')); ?>
+                            </th>
+                        <?php endif; ?>
+                        <th
+                            scope="col"
+                            role="columnheader"
+                            class="col request qty"
+                        >
+                            <?= $block->escapeHtml(__('Request Qty')) ?>
+                        </th>
+                        <th
+                            scope="col"
+                            role="columnheader"
+                            class="col qty"
+                        >
+                            <?= $block->escapeHtml(__('Qty')); ?>
+                        </th>
+                        <th
+                            scope="col"
+                            role="columnheader"
+                            class="col status"
+                        >
+                            <?= $block->escapeHtml(__('Status')); ?>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php $_qna = null; ?>
+                <?php foreach ($block->getItems() as $key => $item) : ?>
+                    <?php foreach ($block->getRealValueAttributes($item->getId()) as $code => $attribute) {
+                        if (!in_array($code, $block->getAttributeFilter()) && !empty($attribute['value']) && $block->getAttributeLabel($item->getId(), $code)
+                            && false !== $block->getAttributeValue($item->getId(), $code)) {
+                            $_qna .= '
+                                    <tr role="row">
+                                        <td
+                                            class="col questions"
+                                            role="gridcell"
+                                            data-th="Product Name:"
+                                        >'
+                                            . $block->getAttributeLabel($item->getId(), $code) .
+                                        '</td>
+                                        <td
+                                            class="col answers"
+                                            role="gridcell"
+                                            data-th="SKU:"
+                                        >'
+                                            . $block->getAttributeValue($item->getId(), $code) .
+                                        '</td>
+                                    </tr>
+                                ';
+                        }
+                    } ?>
+                    <tr role="row">
+                        <td
+                            data-th="<?= $block->escapeHtmlAttr(__('Product Name:')) ?>"
+                            class="col id"
+                            role="gridcell"
+                        >
+                            <?= $block->escapeHtml($item->getProductName()) ?>
+                            <?php if ($_options = $block->getItemOptions($item)) : ?>
+                                <dl class="item options">
+                                    <?php foreach ($_options as $_option) : ?>
+                                        <dt>
+                                            <?= $block->escapeHtml($_option['label']); ?>
+                                        </dt>
+                                        <dd>
+                                            <?= $block->escapeHtml($_option['value']); ?>
+                                        </dd>
+                                    <?php endforeach; ?>
+                                </dl>
+                            <?php endif; ?>
+                            <?php if ($_qna) : ?>
+                                <button
+                                    class="action details"
+                                    type="button"
+                                    data-mage-init='
+                                        {
+                                            "toggleAdvanced": {
+                                                "newLabel": "<?= $block->escapeHtmlAttr(__('Hide Details')); ?>",
+                                                "toggleContainers": "#shf_<?= $block->escapeHtmlAttr($key); ?>"
+                                            }
+                                        }
+                                    '
+                                >
+                                    <?= $block->escapeHtml(__('Show Details')); ?>
+                                </button>
+                            <?php endif; ?>
+                        </td>
+                        <td
+                            data-th="<?= $block->escapeHtmlAttr(__('SKU')) ?>"
+                            class="col sku"
+                            role="gridcell"
+                        >
+                            <?= $block->escapeHtml($item->getProductSku()) ?>
+                        </td>
+                        <?php if (false !== $block->getAttributeValue($item->getId(), 'condition')) : ?>
+                            <td
+                                data-th="<?= $block->escapeHtmlAttr(__('Condition')) ?>"
+                                class="col condition"
+                                role="gridcell"
+                            >
+                                <?= $block->escapeHtml($block->getAttributeValue($item->getId(), 'condition')) ?>
+                            </td>
+                        <?php endif; ?>
+                        <?php if (false !== $block->getAttributeValue($item->getId(), 'condition')) : ?>
+                            <td
+                                data-th="<?= $block->escapeHtmlAttr(__('Resolution')) ?>"
+                                class="col resolution"
+                                role="gridcell"
+                            >
+                                <?= $block->escapeHtml($block->getAttributeValue($item->getId(), 'resolution')) ?>
+                            </td>
+                        <?php endif; ?>
+                        <td
+                            data-th="<?= $block->escapeHtmlAttr(__('Request Qty')) ?>"
+                            class="col request qty"
+                            role="gridcell"
+                        >
+                            <?= $block->escapeHtml($rmaHelper->parseQuantity($item->getQtyRequested(), $item)) ?>
+                        </td>
+                        <td
+                            data-th="<?= $block->escapeHtmlAttr(__('Qty')) ?>"
+                            class="col qty"
+                            role="gridcell"
+                        >
+                            <?= $block->escapeHtml($rmaHelper->getQty($item)) ?>
+                        </td>
+                        <td
+                            data-th="<?= $block->escapeHtmlAttr(__('Status')) ?>"
+                            class="col status"
+                            role="gridcell"
+                        >
+                            <?= $block->escapeHtml($item->getStatusLabel()) ?>
+                        </td>
+                    </tr>
+                    <?php if ($_qna) : ?>
+                        <tr
+                            id="shf_<?= $block->escapeHtmlAttr($key); ?>"
+                            class="hidden returns-details"
+                            role="row"
+                        >
+                            <td
+                                colspan="7"
+                                role="gridcell"
+                            >
+                                <table
+                                    class="table margin-0"
+                                    role="table"
+                                >
+                                    <caption class="table__caption">
+                                        <?= $block->escapeHtml(__('Questions and Answers')); ?>
+                                    </caption>
+                                    <thead>
+                                        <tr role="row">
+                                            <th
+                                                class="col questions"
+                                                scope="col"
+                                                role="columnheader"
+                                            >
+                                                <?= $block->escapeHtml(__('Questions')); ?>
+                                            </th>
+                                            <th
+                                                class="col answers"
+                                                scope="col"
+                                                role="columnheader"
+                                            >
+                                                <?= $block->escapeHtml(__('Answers')); ?>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <?= /* @noEscape */ $_qna ?>
+                                </table>
+                            </td>
+                        </tr>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="dashboard-items">
+        <h2 class="dashboard-items__title margin-bottom-sm">
+            <?= $block->escapeHtml(__('Comments')); ?>
+        </h2>
+        <div class="dashboard-items__content">
+            <dl class="returns-comments">
+                <?php $_comments = $block->getComments(); ?>
+                <?php if (!empty($_comments)) : ?>
+                    <?php foreach ($_comments as $_comment) : ?>
+                        <?php if ($_comment->getIsVisibleOnFront()) : ?>
+                            <div class="dashboard-items__item">
+                                <dt class="dashboard-items__subtitle">
+                                    <strong>
+                                        <?php if ($_comment->getIsAdmin()) : ?>
+                                            <?= $block->escapeHtml(__('Customer Service')); ?>
+                                        <?php else : ?>
+                                            <?= $block->escapeHtml($block->getCustomerName()) ?>
+                                        <?php endif; ?>
+                                    </strong>
+                                    <?= $block->escapeHtml($block->formatDate($_comment->getCreatedAt())); ?> 
+                                    <?= $block->escapeHtml($block->formatTime($_comment->getCreatedAt())); ?>
+                                </dt>
+                                <dd class="margin-bottom-xs">
+                                    <?= /* @noEscape */ nl2br($block->escapeHtml($_comment->getComment())) ?>
+                                </dd>
+                            </div>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </dl>
+            <form
+                method="post"
+                id="rma_comment"
+                action="<?= $block->escapeUrl($block->getSubmitUrl()); ?>"
+                class="form margin-top-sm"
+                data-mage-init='{"validation":{}}'
+            >
+                <fieldset class="fieldset">
+                    <legend
+                        class="
+                            fieldset__legend
+                            fieldset__legend--hidden
+                        "
+                    >
+                        <?= __('Leave Comment') ?>
+                    </legend>
+                    <label
+                        class="label input__label"
+                        for="rma_comment_text"
+                    >
+                        <?= $block->escapeHtml(__('Leave Comment')); ?>
+                    </label>
+                    <div class="input">
+                        <textarea
+                            class="input__field input__field--textarea"
+                            id="rma_comment_text"
+                            rows="3"
+                            name="comment"
+                            data-validate="{required:true}"
+                        ></textarea>
+                    </div>
+                </fieldset>
+                <div class="actions-group margin-top-sm">
+                    <div class="actions-group__handler">
+                        <button
+                            type="submit"
+                            class="
+                                button
+                                actions-group__button
+                                submit
+                            "
+                            id="submit.save"
+                        >
+                            <?= $block->escapeHtml(__('Submit Comment')); ?>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
