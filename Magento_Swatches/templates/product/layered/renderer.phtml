@@ -1,6 +1,7 @@
 <?php
 $swatchData = $block->getSwatchData();
-$swatchCode = $swatchData['attribute_code'] . 'Filter';
+$swatchCode = $swatchData['attribute_code'];
+$swatchCodeScope = $swatchCode . 'Filter';
 $swatchLabel = $swatchData['attribute_label'];
 ?>
 <li
@@ -19,7 +20,7 @@ $swatchLabel = $swatchData['attribute_label'];
         <button
             type="button"
             class="dropdown-list__label"
-            aria-controls="<?= $swatchCode ?>"
+            aria-controls="<?= $swatchCodeScope ?>"
             aria-expanded="true"
         >
             <h3 class="filter__heading">
@@ -44,14 +45,20 @@ $swatchLabel = $swatchData['attribute_label'];
             dropdown-list__content
             filter__content
         "
-        id="<?= $swatchCode ?>"
+        id="<?= $swatchCodeScope ?>"
         aria-hidden="false"
     >
         <div
             class="more-info"
-            data-mage-init='{ "moreInfo": { } }'
+            data-mage-init='{
+                "moreInfo": {
+                    "path": "/rest/V1/snowproductattributedescription/description/:attributeCode",
+                    "variable": ":attributeCode",
+                    "data": "<?= $swatchCode ?>"
+                }
+            }'
+            aria-hidden="true"
         >
-            <!--TO DO - get data from module snowdog/module-product-attribute-description (#60916)-->
             <button
                 class="
                     button
@@ -84,10 +91,10 @@ $swatchLabel = $swatchData['attribute_label'];
             >
                 <div class="more-info__content">
                     <h3 class="more-info__heading">
-                        Example title
+                        <?= $swatchLabel; ?>
                     </h3>
 
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam venenatis nisl quis imperdiet tincidunt. Nulla massa diam, aliquet vitae laoreet a, fermentum eu velit. Quisque ornare erat in orci hendrerit feugiat at sit amet neque. Fusce elementum semper feugiat. Curabitur egestas neque in leo finibus ultricies.
+                    <div class="more-info__data"></div>
 
                     <button
                         class="
@@ -117,7 +124,7 @@ $swatchLabel = $swatchData['attribute_label'];
                 list
                 filter__list
             "
-            attribute-code="<?= $block->escapeHtmlAttr($swatchCode) ?>"
+            attribute-code="<?= $block->escapeHtmlAttr($swatchCodeScope) ?>"
             attribute-id="<?= $block->escapeHtmlAttr($swatchData['attribute_id']) ?>"
         >
             <?php foreach ($swatchData['options'] as $option => $label): ?>
@@ -228,7 +235,7 @@ $swatchLabel = $swatchData['attribute_label'];
                 ],
                 function ($)
                 {
-                    $('.swatch-layered.<?= $block->escapeHtmlAttr($swatchCode) ?>')
+                    $('.swatch-layered.<?= $block->escapeHtmlAttr($swatchCodeScope) ?>')
                     .find('[option-type="1"], [option-type="2"], [option-type="0"], [option-type="3"]')
                     .SwatchRendererTooltip();
                 }
