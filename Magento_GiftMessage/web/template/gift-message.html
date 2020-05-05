@@ -1,12 +1,36 @@
 <!-- ko if: isActive() || hasActiveOptions() -->
 <div class="cart-gift-item">
-    <div class="gift-item-block block"
-         data-collapsible="true"
-         data-bind="css: {_active: formBlockVisibility() || resultBlockVisibility()}">
-        <div class="title" data-role="title" data-bind="click: $data.toggleFormBlockVisibility.bind($data)">
-            <span data-bind="i18n: 'Gift options'"></span>
-        </div>
-        <div class="content" data-role="content" data-bind="visible: formBlockVisibility() || resultBlockVisibility()">
+    <div
+        class="gift-item-block cart-discount"
+        data-collapsible="true"
+        data-bind="css: {_active: formBlockVisibility() || resultBlockVisibility()}"
+    >
+        <button
+            class="cart-discount__button"
+            type="button"
+            aria-expanded="false"
+            data-bind="click: $data.toggleFormBlockVisibility.bind($data)"
+        >
+            <span
+                class="cart-discount__button-text"
+                data-role="title"
+                data-bind="i18n: 'Gift options'"
+            >
+            </span>
+
+            <svg
+                class="icon cart-discount__button-icon"
+                role="presentation"
+                focusable="false"
+            >
+                <use data-bind="attr: { 'xlink:href': require.toUrl('images/icons-sprite.svg#angle-down') }" xlink:href=''></use>
+            </svg>
+        </button>
+        <div
+            class="content"
+            data-role="content"
+            data-bind="visible: formBlockVisibility() || resultBlockVisibility()"
+        >
             <!-- ko ifnot: resultBlockVisibility() -->
             <div class="gift-options">
                 <!-- ko foreach: getRegion('additionalOptions') -->
@@ -29,13 +53,23 @@
                     <!-- /ko -->
                     <div class="actions-toolbar">
                         <div class="secondary">
-                            <button type="submit"
-                                    class="action action-edit"
-                                    data-bind="attr: {title: $t('Edit')}, click: $data.editOptions.bind($data)">
+                            <button
+                                type="submit"
+                                class="action action-edit"
+                                data-bind="
+                                    attr: {title: $t('Edit')},
+                                    click: $data.editOptions.bind($data)
+                                "
+                            >
                                 <span data-bind="i18n: 'Edit'"></span>
                             </button>
-                            <button class="action action-delete"
-                                    data-bind="attr: {title: $t('Delete')}, click: $data.deleteOptions.bind($data)">
+                            <button
+                                class="action action-delete"
+                                data-bind="
+                                    attr: {title: $t('Delete')},
+                                    click: $data.deleteOptions.bind($data)
+                                "
+                            >
                                 <span data-bind="i18n: 'Delete'"></span>
                             </button>
                         </div>
