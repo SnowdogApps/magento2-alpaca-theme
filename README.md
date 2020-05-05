@@ -350,3 +350,74 @@ $sliderBlock->setData(['slider_html'=>'after-slides', ...]);
 ?>
 <?= $sliderBlock->toHtml(); ?>
 ```
+
+## Alpaca Content - Set up your store, admin / db changes for alpaca theme
+
+### Menu - to display menu use [Snowog's magento2-menu](https://github.com/SnowdogApps/magento2-menu) module
+1. Desktop menu:
+  * identifier: main-desktop
+  * Menu Main CSS Class: mega-menu
+2. Mobile menu:
+  * identifier: main-mobile
+  * Menu Main CSS Class: dropdown-list
+3. Footer links menu
+  * identifier: main-footer
+  * Menu Main Class: dropdown-list
+
+
+You can use Alpaca styles implementation to use different configuration of menu items, by adding classes to nodes, check Alpaca components for details to build menu's adjusted to your project's needs, for example: to create a column, create node "wrapper" with Node CSS Classes: list__column list__column--hidden
+
+### Header & Footer CMS blocks
+
+We use cms block to display and customise some content in header and footer, check `vendor/snowdog/theme-frontend-colibri/Magento_Theme/layout/default.xml`  which cms block we use and Alpaca components to buld the content structure
+
+### Homepage blocks
+
+Homepage content is build using static blocks, check `vendor/snowdog/theme-frontend-colibri/Magento_Cms/layout/cms_index_index.xml` to see which cms blocks are displayed by default and check Alpaca components to build HTML structure
+
+### SVG icons in cms block:
+
+* {{block class="Magento\Framework\View\Element\Template" template="Magento_Theme::html/svg-icon.phtml" icon="<icon-code>" icon_class="icon" title="<svg-title>" role="presentation" focusable="false"}}
+* as `icon` value use icon id (Alpaca components)
+* as `title` use accessible title that describe the icon image
+* base class for icon is `icon` you can add, adjust class according to your needs
+* a11y - use role="presentation" and focusable="false" if an icon is only decorative to hide in a11y API tree
+
+### Responsive images
+
+* to display responsive image for banners and slider items, we use:
+* template picture.phtml: `vendor/snowdog/theme-frontend-colibri/Magento_Theme/templates/html/picture.phtml` you can adjust it for your needs in the child theme.
+* usage of phtml in cms block/page: {{block class="Magento\Framework\View\Element\Template" template="Magento_Theme::html/picture.phtml" img480="<img-url>" img768="<img-url>" img960="<img-url>" img1024="<img-url>" img1328="<img-url>" img_full="<img-url>" picture_class="image" picture_alt="<descriptive image alternative text>" }}
+* by default you can use different image for media query breakpoints, you can also implement images with different device-pixel-ratio, check the template's code for details
+
+### Slider
+* we use Blackbird Content Manager (paid extension) for sliders, but you can use the structure from Alpaca components and build it using template and CMS blocks
+
+### Blog
+* we use Blackbird Content Manager (paid extension) for blog
+
+### Shipping latency - snowdog/module-shipping-latency
+
+* is an extension to display additional information about shipping time
+* Extension work on catalog and product detail page, to customise it you need to set attribute (dropdown) option and create cms block for popup content
+* check [Shipping latency extension details](https://lab.snowdog.pro/colibri/magento2-shipping-latency) and theme implementation in: `vendor/snowdog/theme-frontend-colibri/Magento_Catalog/templates/product/list.phtml` (for catalog) and `vendor/snowdog/theme-frontend-colibri/Magento_Catalog/templates/product/view/shipping-latency.phtml` (for product detail page)
+
+### Bullet points - snowdog/module-bullet-points
+* Extension is used to display product attributes listed on product list item on catalog page
+* check [Bullet points extension details](https://lab.snowdog.pro/colibri/magento2-bullet-points)
+
+### Category attributes - snowdog/module-category-attributes
+* it add a field for additional content on the bottom of catalog page
+* check [Category attributes extension details](https://lab.snowdog.pro/colibri/magento2-category-attributes)
+
+### Product attribute description - snowdog/module-product-attribute-description
+* Extension allow to add additional description for attribute, implemented from admin level
+* check [Product attribute description extension details](https://lab.snowdog.pro/colibri/magento2-product-attribute-description)
+* in theme is implemented on catalog level as an additional tooltip, check implementation:
+  * `vendor/snowdog/theme-frontend-colibri/Smile_ElasticsuiteCatalog/templates/layer/filter/attribute.phtml`
+  * `vendor/snowdog/theme-frontend-colibri/Magento_Swatches/templates/product/layered/renderer.phtml` (swatches)
+  * `vendor/snowdog/theme-frontend-colibri/Smile_ElasticsuiteCatalog/templates/layer/filter/slider.phtml` (range filter)
+
+### Wishlist unlocker -  snowdog/module-wishlist-unlocker
+* This extension allow to show more than 3 items in sidebar wishlist (M2 default is 3)
+* Limit value can be set in admin: Store -> COnfiguration -> Customer -> Wish List -> General option -> Items Limit
