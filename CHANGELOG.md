@@ -3,8 +3,26 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Added
-### Changed 
+- atomic classes - uppercase/lowecase/none-text-transform (#65259)
+- button--light (#65259)
+- condition for compare and wishlist button in add to cart (#65259)
+- posibility to change margins from 768px for .container class (#65259)
+- conditions for compare and wishlist in dashboard nav (#65259)
+- EE - dashboard - returns: 2. my return (#66362)
+- EE - dashboard - returns: 3. return view (#66363)
+### Changed
+- account wish list share with friends styling (#65997)
+- link--button in atoms hover color (#65259)
+- updaate contact-us variables (#65359)
+- quantity update - optional label & event trigger for plus & minus buttons (#65259)
+- update variables, link and titles in dashboard components (#65259)
+- update variables in orders summary, shipping, estimation, discount (#65259)
+- EE - dashboard - invitations (#65718)
+- EE - hide the notification displayed on top (#65699)
+- switch "signout" button to secondary CTA (#65952)
 ### Fixed
+- missing & double `!default` (#65259)
+- quicksearch error (#66300)
 ### Removed
 
 ## [Released]
@@ -18,6 +36,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 - qty input error message styling (#66161)
 - styles for privacy settings in dashboard (#66022)
+- dashboard form, items and actions group spacers in templates (#65058)
 - "See all brands button" styling broken (#66281)
 
 ## [1.4.0] - 2020-04-17

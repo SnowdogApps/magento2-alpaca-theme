@@ -23,17 +23,23 @@ module.exports = {
       text: 'My Dashboard'
     },
     action: {
+      class: 'margin-top-l',
       sides: [
         {
           action: [
             {
-              title: 'Back'
+              link: {
+                title: 'Back',
+                text: 'Back',
+                class: 'actions-group__link'
+              }
             }
           ]
         }
       ]
     },
     toolbar: {
+      class: 'margin-top-xl',
       showMode: false,
       showSorter: false,
       showAmount: true,
@@ -60,24 +66,40 @@ module.exports = {
             {
               action: [
                 {
-                  title: 'Reorder',
+                  link: {
+                    title: 'Reorder',
+                    text: 'Reorder',
+                    class: 'actions-group__link'
+                  }
                 },
                 {
-                  title: 'Return'
+                  link: {
+                    title: 'Return',
+                    text: 'Return',
+                    class: 'actions-group__link'
+                  }
                 }
               ]
             },
             {
               action: [
                 {
-                  title: 'Print Order'
-                }
+                  link: {
+                    title: 'Print Order',
+                    text: 'Print Order',
+                    class: 'actions-group__link'
+                  }
+                },
               ]
             }
           ]
         },
         itemsOrdered: {
-          title: 'Items Ordered',
+          title: {
+            tag: 'h2',
+            class: 'dashboard-table__title',
+            text: 'Items Ordered'
+          },
           table: {
             mainTags: [
               {
@@ -240,7 +262,11 @@ module.exports = {
           }
         },
         invoice: {
-          title: 'Invoices',
+          title: {
+            tag: 'h2',
+            class: 'dashboard-table__title',
+            text: 'Invoices'
+          },
           link: 'Print Invoice',
           table: {
             mainTags: [
@@ -390,7 +416,11 @@ module.exports = {
           }
         },
         orderShipment: {
-          title: 'Order Shipments',
+          title: {
+            tag: 'h2',
+            class: 'dashboard-table__title',
+            text: 'Order Shipments'
+          },
           link: 'Print Shipment',
           table: {
             mainTags: [
@@ -464,13 +494,17 @@ module.exports = {
             ]
           }
         },
-        orderInfoTitle: 'Order Information',
+        orderInfoTitle: {
+          tag: 'h2',
+          class: 'dashboard__title',
+          text: 'Order Information'
+        },
         orderInfo: {
           informations: [
             {
               heading: {
                 tag: 'h3',
-                class: 'heading dashboard__subtitle',
+                class: 'dashboard__subtitle margin-bottom-l',
                 text: 'Shipping Address'
               },
               class: 'col-sm-3',
@@ -479,7 +513,7 @@ module.exports = {
             {
               heading: {
                 tag: 'h3',
-                class: 'heading dashboard__subtitle',
+                class: 'dashboard__subtitle margin-bottom-l',
                 text: 'Shipping Method'
               },
               class: 'col-sm-3',
@@ -488,7 +522,7 @@ module.exports = {
             {
               heading: {
                 tag: 'h3',
-                class: 'heading dashboard__subtitle',
+                class: 'dashboard__subtitle margin-bottom-l',
                 text: 'Billing Address'
               },
               class: 'col-sm-3',
@@ -497,7 +531,7 @@ module.exports = {
             {
               heading: {
                 tag: 'h3',
-                class: 'heading dashboard__subtitle',
+                class: 'dashboard__subtitle margin-bottom-l',
                 text: 'Payment Method'
               },
               class: 'col-sm-3',
@@ -510,7 +544,11 @@ module.exports = {
             {
               action: [
                 {
-                  title: 'Back to My Orders'
+                  link: {
+                    title: 'Back to My Orders',
+                    text: 'Back to My Orders',
+                    class: 'actions-group__link'
+                  }
                 }
               ]
             }
@@ -522,6 +560,7 @@ module.exports = {
       name: 'return',
       context: {
         title: 'New Return for Order #0000003',
+        titleClass: 'margin-bottom-m',
         info: {
           informations: [
             {
@@ -575,7 +614,11 @@ module.exports = {
           }
         },
         form: {
-          title: 'Return Items Information',
+          title: {
+            tag: 'h2',
+            class: 'dashboard-form__title margin-bottom-sm',
+            text: 'Return Items Information'
+          },
           contentClass: 'grid',
           fields: [
             {
@@ -688,25 +731,31 @@ module.exports = {
           }
         },
         addReturnItem: {
-          class: 'margin-bottom-l',
+          class: 'margin-bottom-l margin-top-sm',
           sides: [
             {
               action: [
                 {
-                  button: true,
-                  title: 'Add Item to Return'
+                  button: {
+                    text: 'Add Item to Return',
+                    class: 'button actions-group__button'
+                  }
                 }
+
               ]
             }
           ]
         },
         action: {
+          class: 'margin-top-l',
           sides: [
             {
               action: [
                 {
-                  button: true,
-                  title: 'Submit'
+                  button: {
+                    text: 'Submit',
+                    class: 'button actions-group__button'
+                  }
                 }
               ]
             }
