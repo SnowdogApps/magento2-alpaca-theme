@@ -21,6 +21,7 @@ All notable changes to this project will be documented in this file.
 - EE - dashboard - invitations (#65718)
 - EE - hide the notification displayed on top (#65699)
 - switch "signout" button to secondary CTA (#65952)
+- EE - account wish list (#65714)
 ### Fixed
 - missing & double `!default` (#65259)
 - quicksearch error (#66300)
