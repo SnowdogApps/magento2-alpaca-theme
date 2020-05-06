@@ -499,7 +499,7 @@ module.exports = {
         headingMyWishList: {
           class: 'margin-bottom-0',
           tag: 'h2',
-          text: 'Active Wishlist'
+          text: 'Active Wish List'
         },
         headingInfoWishList: {
           class: '',
