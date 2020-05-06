@@ -1,13 +1,11 @@
-define(['jquery'], function ($) {
+define([
+    'jquery',
+], function ($) {
     'use strict';
-
     return function (widget) {
         $.widget('mage.promptEditWithList', widget, {
-            /**
-             * @return {*|jQuery|HTMLElement}
-             */
             getNoticeTemplate: function () {
-                var template = $('<div class="field choice">' +
+                var template = $('<div class="custom classes">' +
                     '<input id="wishlist-public" type="checkbox" name="' + this.options.isPublicFieldAttributeName + '">' +
                     '<label for="wishlist-public" class="label">' +
                     '<span>' + this.options.isPublicFieldLabel + '</span>' +
