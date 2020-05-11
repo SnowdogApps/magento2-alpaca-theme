@@ -25,6 +25,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 - missing & double `!default` (#65259)
 - quicksearch error (#66300)
+- set attributes in tab.babel.js (#66667)
 ### Removed
 
 ## [Released]
