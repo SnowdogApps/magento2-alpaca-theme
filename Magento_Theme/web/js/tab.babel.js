@@ -8,14 +8,20 @@ define(() => (config, element) => {
   function clean(item) {
     item.classList.remove(activeTitleClass);
     item.classList.remove(activeContentClass);
+    item.setAttribute('aria-expanded', false);
+    item.setAttribute('aria-selected', false);
   }
 
   function setActiveContent(item, tabTitle) {
     if (item.classList.contains('tab__content') && tabTitle === item.dataset.content) {
       item.classList.add(activeContentClass);
+      item.setAttribute('aria-expanded', true);
+      item.setAttribute('aria-selected', true);
     }
     else if (tabTitle === item.dataset.tab) {
       item.classList.add(activeTitleClass);
+      item.setAttribute('aria-expanded', true);
+      item.setAttribute('aria-selected', true);
     }
   }
 
