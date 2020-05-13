@@ -4,6 +4,7 @@ module.exports = {
     contactBar: true,
     sideMenu: true,
     search: true,
+    quicksearch: false,
     megaMenu: true,
     skipNav: true,
     marketingBar: true,
@@ -103,12 +104,19 @@ module.exports = {
   },
   variants: [
     {
+      name: 'width-quicksearch',
+      context: {
+        quicksearch: true,
+      }
+    },
+    {
       name: 'checkout',
       context: {
         class: 'header--checkout',
         contactBar: false,
         sideMenu: false,
         search: false,
+        quicksearch: false,
         megaMenu: false,
         briefInfo: false,
         skipNav: false,
