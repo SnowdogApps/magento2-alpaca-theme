@@ -68,9 +68,9 @@
                                     <?php $_sole = $_sole && count($_rates) == 1; foreach ($_rates as $_rate): ?>
                                     <div class="radio__handler choice">
                                         <?php if ($_rate->getErrorMessage()): ?>
-                                        <strong>
-                                            <?= $block->escapeHtml($_rate->getCarrierTitle()) ?>: <?= $block->escapeHtml($_rate->getErrorMessage()) ?>
-                                        </strong>
+                                            <strong>
+                                                <?= $block->escapeHtml($_rate->getCarrierTitle()) ?>: <?= $block->escapeHtml($_rate->getErrorMessage()) ?>
+                                            </strong>
                                         <?php else: ?>
                                         <?php if ($_sole): ?>
                                             <input
@@ -78,7 +78,11 @@
                                                 name="shipping_method[<?= (int) $_address->getId() ?>]"
                                                 value="<?= $block->escapeHtmlAttr($_rate->getCode()) ?>"
                                                 id="s_method_<?= (int) $_address->getId() ?>_<?= $block->escapeHtmlAttr($_rate->getCode()) ?>"
-                                                class="radio__field solo method"
+                                                class="
+                                                    radio__field
+                                                    solo
+                                                    method
+                                                "
                                                 checked="checked"
                                             />
                                         <?php else: ?>
@@ -98,14 +102,13 @@
                                             <?= $block->escapeHtml($_rate->getMethodTitle()) ?>
                                             <?php $_excl = $block->getShippingPrice($_address, $_rate->getPrice(), $this->helper(Magento\Tax\Helper\Data::class)->displayShippingPriceIncludingTax()); ?>
                                             <?php $_incl = $block->getShippingPrice($_address, $_rate->getPrice(), true); ?>
-                                            <?php if ($this->helper(Magento\Tax\Helper\Data::class)->displayShippingBothPrices() && $_incl != $_excl) : ?>
-                                                <span class="price-including-tax" data-label="<?= $block->escapeHtmlAttr(__('Incl. Tax')) ?>">
-                                            <?php endif; ?>
-                                            <?= $block->escapeHtml($_incl, ['span']) ?>
-                                            <?php if ($this->helper(Magento\Tax\Helper\Data::class)->displayShippingBothPrices() && $_incl != $_excl) : ?>
+                                            <?php if ($this->helper(Magento\Tax\Helper\Data::class)->displayShippingBothPrices() && $_incl != $_excl): ?>
+                                                <span
+                                                    class="price-including-tax"
+                                                    data-label="<?= $block->escapeHtmlAttr(__('Incl. Tax')) ?>"
+                                                >
+                                                    <?= $block->escapeHtml($_incl, ['span']) ?>
                                                 </span>
-                                            <?php endif; ?>
-                                            <?php if ($this->helper(Magento\Tax\Helper\Data::class)->displayShippingBothPrices() && $_incl != $_excl) : ?>
                                                 <span
                                                     class="price-excluding-tax"
                                                     data-label="<?= $block->escapeHtmlAttr(__('Excl. Tax')) ?>"
