@@ -1,10 +1,4 @@
 <?php
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
-?>
-<?php
     /* @var $block \Magento\MultipleWishlist\Block\Behaviour */
 ?>
 <script id="form-tmpl-multiple" type="text/x-magento-template">
@@ -98,43 +92,75 @@
     </div>
 </script>
 <script id="split-btn-tmpl" type="text/x-magento-template">
-    <div class="split button wishlist">
-        <button type="button" data-post='<%- JSON.stringify(data.generalParams) %>' data-action="add-to-wishlist" class="label action split">
-            <span><%- data.buttonName %></span>
+    <div
+        class="
+            dropdown-list
+            dropdown-list--detailed-content
+        "
+        data-mage-init='{ "dropdownList": {} }'
+    >
+        <button
+            type="button"
+            data-post='<%- JSON.stringify(data.generalParams) %>'
+            data-action="add-to-wishlist"
+            class="label action split"
+        >
+            <%- data.buttonName %>
         </button>
-        <button class="action toggle change"
-                title="<%- window.jQuery.mage.__('Add to:') %>"
-                type="button"
-                data-mage-init='{"dropdown":{}}'
-                data-toggle="dropdown"
-                data-trigger-keypress-button="true">
-            <span><%- window.jQuery.mage.__('Add to:') %></span>
-        </button>
-        <ul class="items" data-target="dropdown">
-            <% _.each(data.wishlists, function(item) { %>
-                <li class="item">
-                    <% if (item.newClass) { %>
-                        <span role="button"
-                              tabindex="0"
-                              class="action <%- item.newClass %>"
-                              data-action-keypress="true"
-                              data-post-new-wishlist='<%- JSON.stringify(item.params) %>'
-                              data-action="add-to-wishlist"
-                              title="<%- item.name %>">
-                            <span><%- item.name %></span>
-                        </span>
-                    <% } else { %>
-                        <span role="button"
-                              tabindex="0"
-                              data-action-keypress="true"
-                              data-post='<%- JSON.stringify(item.params) %>'
-                              data-action="add-to-wishlist"
-                              title="<%- item.name %>">
-                            <%- item.name %>
-                        </span>
-                    <% } %>
-                </li>
-            <% }); %>
+
+        <ul class="dropdown-list__list" >
+            <li class="dropdown-list__item dropdown-list__item--collapse">
+                <button
+                    class="action toggle change dropdown-list__label"
+                    title="<%- window.jQuery.mage.__('Add to:') %>"
+                    type="button"
+                    aria-expanded="false"
+                    aria-controls="dropdown-wishlist-content"
+                >
+                    <%- window.jQuery.mage.__('Add to:') %>
+                    <svg
+                        class="icon dropdown-list__icon"
+                        aria-hidden="true"
+                        role="img"
+                    >
+                        <title><?= __('Arrow Down'); ?></title>
+                        <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#angle-down')) ?>"></use>
+                    </svg>
+                </button>
+                <div
+                    id="dropdown-wishlist-content"
+                    class="dropdown-list__content"
+                    aria-hidden="true"
+                >
+                    <ul class="list">
+                        <% _.each(data.wishlists, function(item) { %>
+                            <li class="list__item">
+                                <% if (item.newClass) { %>
+                                    <span role="button"
+                                        tabindex="0"
+                                        class="action <%- item.newClass %>"
+                                        data-action-keypress="true"
+                                        data-post-new-wishlist='<%- JSON.stringify(item.params) %>'
+                                        data-action="add-to-wishlist"
+                                        title="<%- item.name %>">
+                                        <span><%- item.name %></span>
+                                    </span>
+                                <% } else { %>
+                                    <span role="button"
+                                        tabindex="0"
+                                        data-action-keypress="true"
+                                        data-post='<%- JSON.stringify(item.params) %>'
+                                        data-action="add-to-wishlist"
+                                        title="<%- item.name %>">
+                                        <%- item.name %>
+                                    </span>
+                                <% } %>
+                            </li>
+                        <% }); %>
+                    </ul>
+                </div>
+            </li>
+
         </ul>
     </div>
 </script>
