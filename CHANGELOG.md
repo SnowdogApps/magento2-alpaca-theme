@@ -22,6 +22,7 @@ All notable changes to this project will be documented in this file.
 - EE - hide the notification displayed on top (#65699)
 - switch "signout" button to secondary CTA (#65952)
 - EE - account wish list (#65714)
+- EE - style gift options in cart (#65721)
 ### Fixed
 - missing & double `!default` (#65259)
 - quicksearch error (#66300)
