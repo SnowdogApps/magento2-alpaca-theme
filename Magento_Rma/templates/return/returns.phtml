@@ -1,0 +1,53 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+//phpcs:disable Magento2.Templates.ThisInTemplate.FoundThis
+/** @var $block \Magento\Rma\Block\Returns\Returns */
+?>
+<?php $_returns = $block->getReturns(); ?>
+<?php if ($_returns->getSize()) : ?>
+<div class="order-details-items rma">
+    <?= $block->getChildHtml('info') ?>
+    <div class="order-title"><strong><?= $block->escapeHtml(__('My Returns')) ?></strong></div>
+    <div class="toolbar">
+        <?= $block->getPagerHtml() ?>
+    </div>
+    <?= $block->getLayout()->getMessagesBlock()->getGroupedHtml() ?>
+    <?= $block->getChildHtml('info') ?>
+    <div class="table-wrapper order-items returns">
+        <table class="data table table-order-items returns" id="my-returns-table">
+            <caption class="table-caption"><?= $block->escapeHtml(__('My Returns')) ?></caption>
+            <thead>
+                <tr>
+                    <th scope="col" class="col id"><?= $block->escapeHtml(__('Return #')) ?></th>
+                    <th scope="col" class="col date"><?= $block->escapeHtml(__('Date')) ?></th>
+                    <th scope="col" class="col shipping"><?= $block->escapeHtml(__('Ship From')) ?></th>
+                    <th scope="col" class="col status"><?= $block->escapeHtml(__('Return Status')) ?></th>
+                    <th scope="col" class="col actions">&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php $_odd = ''; ?>
+                <?php foreach ($_returns as $_return) : ?>
+                <tr>
+                    <td data-th="<?= $block->escapeHtmlAttr(__('Return #')) ?>" class="col id" data-th="<?= $block->escapeHtmlAttr(__('Return #')) ?>"><?= $block->escapeHtml($_return->getIncrementId()) ?></td>
+                    <td data-th="<?= $block->escapeHtmlAttr(__('Date')) ?>" class="col date" data-th="<?= $block->escapeHtmlAttr(__('Date')) ?>"><?= $block->escapeHtml($this->helper(Magento\Rma\Helper\Data::class)->getFormatedDate($_return->getDateRequested())) ?></td>
+                    <td data-th="<?= $block->escapeHtmlAttr(__('Ship From')) ?>" class="col shipping" data-th="<?= $block->escapeHtmlAttr(__('Ship From')) ?>"><?= $block->escapeHtml($_return->getCustomerName()) ?></td>
+                    <td data-th="<?= $block->escapeHtmlAttr(__('Return Status')) ?>" class="col status" data-th="<?= $block->escapeHtmlAttr(__('Return Status')) ?>"><?= $block->escapeHtml($_return->getStatusLabel()) ?></td>
+                    <td data-th="<?= $block->escapeHtmlAttr(__('Actions')) ?>" class="col actions" data-th="<?= $block->escapeHtmlAttr(__('Actions')) ?>">
+                        <a href="<?= $block->escapeUrl($block->getViewUrl($_return)) ?>" class="cation view"><span><?= $block->escapeHtml(__('View Return')) ?></span></a>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    <div class="toolbar">
+        <?= $block->getPagerHtml() ?>
+    </div>
+</div>
+<?php else : ?>
+    <div class="message info empty"><span><?= $block->escapeHtml(__('You have placed no returns.')) ?></span></div>
+<?php endif ?>
