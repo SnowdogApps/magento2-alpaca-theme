@@ -1,18 +1,20 @@
-<?php
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
-?>
 <?php $_item = $block->getItem() ?>
 <?php $_order = $block->getItem()->getOrderItem()->getOrder() ?>
-<tr id="order-item-row-<?= (int) $_item->getId() ?>">
-    <td class="col name" data-th="<?= $block->escapeHtmlAttr(__('Product Name')) ?>">
-        <strong class="product name product-item-name"><?= $block->escapeHtml($_item->getName()) ?></strong>
+<tr
+    role="row"
+    id="order-item-row-<?= (int) $_item->getId() ?>"
+>
+    <td
+        data-th="<?= $block->escapeHtmlAttr(__('Product Name')) ?>"
+        role="gridcell"
+    >
+        <?= $block->escapeHtml($_item->getName()) ?>
         <?php if ($_options = $block->getItemOptions()) : ?>
             <dl class="item options">
             <?php foreach ($_options as $_option) : ?>
-                <dt><?= $block->escapeHtml($_option['label']) ?></dt>
+                <dt>
+                    <?= $block->escapeHtml($_option['label']) ?>
+                </dt>
                 <?php if (!$block->getPrintStatus()) : ?>
                     <?php $_formatedOptionValue = $block->getFormatedOptionValue($_option) ?>
                     <dd<?= (isset($_formatedOptionValue['full_view']) ? ' class="tooltip wrapper"' : '') ?>>
@@ -20,14 +22,20 @@
                         <?php if (isset($_formatedOptionValue['full_view'])) : ?>
                         <div class="tooltip content">
                             <dl class="item options">
-                                <dt><?= $block->escapeHtml($_option['label']) ?></dt>
-                                <dd><?= $block->escapeHtml($_formatedOptionValue['full_view']) ?></dd>
+                                <dt>
+                                    <?= $block->escapeHtml($_option['label']) ?>
+                                </dt>
+                                <dd>
+                                    <?= $block->escapeHtml($_formatedOptionValue['full_view']) ?>
+                                </dd>
                             </dl>
                         </div>
                         <?php endif; ?>
                     </dd>
                 <?php else : ?>
-                    <dd><?= $block->escapeHtml((isset($_option['print_value']) ? $_option['print_value'] : $_option['value'])) ?></dd>
+                    <dd>
+                        <?= $block->escapeHtml((isset($_option['print_value']) ? $_option['print_value'] : $_option['value'])) ?>
+                    </dd>
                 <?php endif; ?>
             <?php endforeach; ?>
             </dl>
@@ -38,6 +46,16 @@
         <?php endif; ?>
         <?= $block->escapeHtml($_item->getDescription()) ?>
     </td>
-    <td class="col sku" data-th="<?= $block->escapeHtmlAttr(__('SKU')) ?>"><?= /* @noEscape */ $block->prepareSku($block->getSku()) ?></td>
-    <td class="col qty" data-th="<?= $block->escapeHtmlAttr(__('Qty Shipped')) ?>"><?= (int) $_item->getQty() ?></td>
+    <td
+        role="gridcell"
+        data-th="<?= $block->escapeHtmlAttr(__('SKU')) ?>"
+    >
+        <?= /* @noEscape */ $block->prepareSku($block->getSku()) ?>
+    </td>
+    <td
+        role="gridcell"
+        data-th="<?= $block->escapeHtmlAttr(__('Qty Shipped')) ?>"
+    >
+        <?= (int) $_item->getQty() ?>
+    </td>
 </tr>
