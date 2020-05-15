@@ -104,7 +104,7 @@ module.exports = {
   },
   variants: [
     {
-      name: 'width-quicksearch',
+      name: 'with-quicksearch',
       context: {
         quicksearch: true,
       }
