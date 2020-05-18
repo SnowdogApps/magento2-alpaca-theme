@@ -1,0 +1,63 @@
+<div <?php if ($this->getField()->getHideLabel()) { ?>aria-label="<?php echo $this->getField()->getName() ?>"
+    <?php } else { ?> aria-labelledby="label_<?php echo $this->getFieldId() ?>" <?php } ?>>
+    <?php
+    $validate = '';
+    $options = $this->getFieldOptions();
+    foreach ($this->getFieldOptions() as $i => $option) {
+        $checked = false;
+        if ($option["checked"]) {
+            $checked = 'checked';
+        }
+        if ($this->getField()->getRequired() && $i == (count($options) - 1)) {
+            $validate = "validate-one-required-by-name";
+            if ($this->getField()->getData('validate_regex')) {
+                $validate .= ' validate-field-' . $this->getField()->getId();
+            }
+        }
+        if(!$this->getField()->getValidationAdvice()){
+            $this->getField()->setValidationAdvice(__('Please select one of the options.'));
+        }
+        if (isset($option["value"])  && empty($option['optgroup']) && empty($option['optgroup_close'])) {
+            $label = $option["label"];
+            if ($option["image_src"]) {
+                $label = "<figure><img src='{$option['image_src']}'/><figcaption>{$label}</figcaption></figure>";
+            }
+            ?>
+
+            <div class='field choice option-<?php echo $i?>' style='<?php echo $this->getFieldStyle() ?>'>
+                <input type='radio'
+                       id='<?php echo $this->getFieldId() . $i ?>'
+                       name='<?php echo $this->getFieldName() ?>'
+                       value="<?php echo htmlspecialchars($option["value"]) ?>"
+                       class='radio <?php echo $validate ?>'
+                       aria-labelledby="<?php echo $this->getFieldId() . $i ?>_label<?php if(!$this->getField()->getHideLabel()){?> label_<?php echo $this->getFieldId() ?><?php } ?>"
+                    <?php echo $checked ?> <?php if ($this->getField()->getDisabled()) { ?> disabled <?php } ?>
+                <?php echo htmlspecialchars($this->getField()->getCustomAttributes())?>
+                />
+                <label id="<?php echo $this->getFieldId() . $i ?>_label"
+                       for='<?php echo $this->getFieldId() . $i ?>'
+                       class='<?php echo $this->getFieldClass() ?>'><?php echo $label ?></label>
+                <?php
+                $tooltip = $this->getField()->getTooltip($option["value"]);
+                if ($tooltip) {
+                    echo $this->getLayout()->createBlock(
+                        'VladimirPopov\WebForms\Block\Script\Tooltip',
+                        null
+                    )->setField($this->getField())->setTooltip($tooltip)->toHtml();
+                }
+                ?>
+
+
+            </div>
+
+            <?php
+        }
+    }
+
+    ?>
+</div>
+<?php if ($validate && $this->getField()->getValidationAdvice()) { ?>
+    <div class="validation-advice"
+         id="advice-validate-one-required-by-name-<?php echo $this->getFieldId() . $i ?>"
+         style="display:none"><?php echo $this->getField()->getValidationAdvice() ?></div>
+<?php } ?>
