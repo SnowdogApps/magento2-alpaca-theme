@@ -47,57 +47,63 @@
             </h2>
         </div>
         <div class="block-content">
-            <div class="box box-billing-address">
-                <?php $address = $block->getBillingAddress() ?>
-                <strong class="box-title">
-                    <?= $block->escapeHtml(__('Billing Address')); ?>
-                    <a
-                        href="<?= $block->escapeUrl($block->getEditBillingAddressUrl($address)); ?>"
-                        class="
-                            button
-                            button--link
-                            padding-hz-xs
-                            action
-                            edit
-                        "
-                    >
-                        <?= $block->escapeHtml(__('Change')); ?>
-                    </a>
-                </strong>
-                <div class="box-content margin-bottom-m">
-                    <address>
-                        <?= /* @noEscape */ $address->format('html') ?>
-                    </address>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="box box-billing-address">
+                        <?php $address = $block->getBillingAddress() ?>
+                        <strong class="box-title">
+                            <?= $block->escapeHtml(__('Billing Address')); ?>
+                            <a
+                                href="<?= $block->escapeUrl($block->getEditBillingAddressUrl($address)); ?>"
+                                class="
+                                    button
+                                    button--link
+                                    padding-hz-xs
+                                    action
+                                    edit
+                                "
+                            >
+                                <?= $block->escapeHtml(__('Change')); ?>
+                            </a>
+                        </strong>
+                        <div class="box-content margin-bottom-m">
+                            <address>
+                                <?= /* @noEscape */ $address->format('html') ?>
+                            </address>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="box box-billing-method">
-                <strong class="box-title">
-                    <?= $block->escapeHtml(__('Payment Method')); ?>
-                    <a
-                        href="<?= $block->escapeUrl($block->getEditBillingUrl()); ?>"
-                        class="
-                            button
-                            button--link
-                            padding-hz-xs
-                            action
-                            edit
-                        "
-                    >
-                        <?= $block->escapeHtml(__('Change')); ?>
-                    </a>
-                </strong>
-                <div class="box-content">
-                    <input
-                        type="hidden"
-                        name="payment[cc_number]"
-                        value="<?= $block->escapeHtmlAttr($block->getPayment()->getCcNumber()) ?>"
-                    />
-                    <input
-                        type="hidden"
-                        name="payment[cc_cid]"
-                        value="<?= $block->escapeHtmlAttr($block->getPayment()->getCcCid()) ?>"
-                    />
-                    <?= /* @noEscape */ $block->getPaymentHtml() ?>
+                <div class="col-md-6">
+                    <div class="box box-billing-method">
+                        <strong class="box-title">
+                            <?= $block->escapeHtml(__('Payment Method')); ?>
+                            <a
+                                href="<?= $block->escapeUrl($block->getEditBillingUrl()); ?>"
+                                class="
+                                    button
+                                    button--link
+                                    padding-hz-xs
+                                    action
+                                    edit
+                                "
+                            >
+                                <?= $block->escapeHtml(__('Change')); ?>
+                            </a>
+                        </strong>
+                        <div class="box-content">
+                            <input
+                                type="hidden"
+                                name="payment[cc_number]"
+                                value="<?= $block->escapeHtmlAttr($block->getPayment()->getCcNumber()) ?>"
+                            />
+                            <input
+                                type="hidden"
+                                name="payment[cc_cid]"
+                                value="<?= $block->escapeHtmlAttr($block->getPayment()->getCcCid()) ?>"
+                            />
+                            <?= /* @noEscape */ $block->getPaymentHtml() ?>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -130,78 +136,84 @@
                         <?= $block->escapeHtml($error); ?>
                     </div>
                 <?php endif; ?>
-                <div class="box box-shipping-address">
-                    <strong class="box-title">
-                        <?= $block->escapeHtml(__('Shipping To')); ?>
-                        <a
-                            href="<?= $block->escapeUrl($block->getEditShippingAddressUrl($address)); ?>"
-                            class="
-                                button
-                                button--link
-                                padding-hz-xs
-                                action
-                                edit
-                            "
-                        >
-                            <?= $block->escapeHtml(__('Change')); ?>
-                        </a>
-                    </strong>
-                    <div class="box-content margin-bottom-m">
-                        <address>
-                            <?= /* @noEscape */ $address->format('html') ?>
-                        </address>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="box box-shipping-address">
+                            <strong class="box-title">
+                                <?= $block->escapeHtml(__('Shipping To')); ?>
+                                <a
+                                    href="<?= $block->escapeUrl($block->getEditShippingAddressUrl($address)); ?>"
+                                    class="
+                                        button
+                                        button--link
+                                        padding-hz-xs
+                                        action
+                                        edit
+                                    "
+                                >
+                                    <?= $block->escapeHtml(__('Change')); ?>
+                                </a>
+                            </strong>
+                            <div class="box-content margin-bottom-m">
+                                <address>
+                                    <?= /* @noEscape */ $address->format('html') ?>
+                                </address>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div
-                    class="
-                        box
-                        box-shipping-method
-                        margin-bottom-m
-                    "
-                >
-                    <strong class="box-title">
-                        <?= $block->escapeHtml(__('Shipping Method')); ?>
-                        <a
-                            href="<?= $block->escapeUrl($block->getEditShippingUrl()); ?>"
+                    <div class="col-md-6">
+                        <div
                             class="
-                                button
-                                button--link
-                                padding-hz-xs
-                                action
-                                edit
+                                box
+                                box-shipping-method
+                                margin-bottom-m
                             "
                         >
-                            <?= $block->escapeHtml(__('Change')); ?>
-                        </a>
-                    </strong>
-                    <?php if ($_rate = $block->getShippingAddressRate($address)): ?>
-                        <div class="box-content">
-                            <?= $block->escapeHtml($_rate->getCarrierTitle()) ?>
-                            (<?= $block->escapeHtml($_rate->getMethodTitle()) ?>)
-                            <?php
-                            $exclTax = $block->getShippingPriceExclTax($address);
-                            $inclTax = $block->getShippingPriceInclTax($address);
-                            $displayBothPrices = $this->helper(Magento\Tax\Helper\Data::class)
-                                ->displayShippingBothPrices() && $inclTax !== $exclTax;
-                            ?>
-                            <?php if ($displayBothPrices): ?>
-                                <span
-                                    class="price-including-tax"
-                                    data-label="<?= $block->escapeHtmlAttr(__('Incl. Tax')); ?>"
+                            <strong class="box-title">
+                                <?= $block->escapeHtml(__('Shipping Method')); ?>
+                                <a
+                                    href="<?= $block->escapeUrl($block->getEditShippingUrl()); ?>"
+                                    class="
+                                        button
+                                        button--link
+                                        padding-hz-xs
+                                        action
+                                        edit
+                                    "
                                 >
-                                    <?= /* @noEscape */ $inclTax ?>
-                                </span>
-                                <span
-                                    class="price-excluding-tax"
-                                    data-label="<?= $block->escapeHtmlAttr(__('Excl. Tax')); ?>"
-                                >
-                                    <?= /* @noEscape */ $exclTax; ?>
-                                </span>
-                            <?php else: ?>
-                                <?= /* @noEscape */ $inclTax ?>
+                                    <?= $block->escapeHtml(__('Change')); ?>
+                                </a>
+                            </strong>
+                            <?php if ($_rate = $block->getShippingAddressRate($address)): ?>
+                                <div class="box-content">
+                                    <?= $block->escapeHtml($_rate->getCarrierTitle()) ?>
+                                    (<?= $block->escapeHtml($_rate->getMethodTitle()) ?>)
+                                    <?php
+                                    $exclTax = $block->getShippingPriceExclTax($address);
+                                    $inclTax = $block->getShippingPriceInclTax($address);
+                                    $displayBothPrices = $this->helper(Magento\Tax\Helper\Data::class)
+                                        ->displayShippingBothPrices() && $inclTax !== $exclTax;
+                                    ?>
+                                    <?php if ($displayBothPrices): ?>
+                                        <span
+                                            class="price-including-tax"
+                                            data-label="<?= $block->escapeHtmlAttr(__('Incl. Tax')); ?>"
+                                        >
+                                            <?= /* @noEscape */ $inclTax ?>
+                                        </span>
+                                        <span
+                                            class="price-excluding-tax"
+                                            data-label="<?= $block->escapeHtmlAttr(__('Excl. Tax')); ?>"
+                                        >
+                                            <?= /* @noEscape */ $exclTax; ?>
+                                        </span>
+                                    <?php else: ?>
+                                        <?= /* @noEscape */ $inclTax ?>
+                                    <?php endif; ?>
+                                </div>
                             <?php endif; ?>
                         </div>
-                    <?php endif; ?>
+                    </div>
                 </div>
                 <div class="box-items margin-bottom-m">
                     <div class="box-content">
@@ -221,7 +233,11 @@
                                 <thead>
                                     <tr role="row">
                                         <th
-                                            class="col item"
+                                            class="
+                                                col
+                                                item
+                                                width-full
+                                            "
                                             scope="col"
                                             role="columnheader"
                                         >
@@ -251,7 +267,7 @@
                                             scope="col"
                                             role="columnheader"
                                         >
-                                            <?= $block->escapeHtml(__('Qty')); ?></th>
+                                            <?= $block->escapeHtml(__('Quantity')); ?></th>
                                         <th
                                             class="col subtotal"
                                             scope="col"
@@ -382,13 +398,13 @@
                 margin-bottom-m
             "
         >
-            <strong class="mark">
-                <?= $block->escapeHtml(__('Grand Total:')); ?>
-            </strong>
-            <strong class="amount">
-                <?= /* @noEscape */ $this->helper(Magento\Checkout\Helper\Data::class)
-                    ->formatPrice($block->getTotal()); ?>
-            </strong>
+            <div class="price">
+                <span class="price__value">
+                    <?= $block->escapeHtml(__('Grand Total:')); ?>
+                    <?= /* @noEscape */ $this->helper(Magento\Checkout\Helper\Data::class)
+                        ->formatPrice($block->getTotal()); ?>
+                </span>
+            </div>
         </div>
         <div
             class="actions-group"
