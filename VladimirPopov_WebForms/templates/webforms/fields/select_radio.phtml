@@ -22,7 +22,7 @@ $fieldId = $block->escapeHtmlAttr($this->getFieldId());
                     $validate .= ' validate-field-' . $this->getField()->getId();
                 }
             }
-            if(!$this->getField()->getValidationAdvice()){
+            if (!$this->getField()->getValidationAdvice()) {
                 $this->getField()->setValidationAdvice(__('Please select one of the options.'));
             }
         ?>
@@ -46,7 +46,7 @@ $fieldId = $block->escapeHtmlAttr($this->getFieldId());
                     id="<?= $fieldId . $i ?>"
                     name="<?= $block->escapeHtmlAttr($this->getFieldName()) ?>"
                     value="<?= $block->escapeHtmlAttr(htmlspecialchars($option['value'])) ?>"
-                    class="radio__field <?= $validate ?>""
+                    class="radio__field <?= $validate ?>"
                     aria-labelledby="
                         <?= $fieldId . $i ?>_label
                         <?php if(!$this->getField()->getHideLabel()): ?>
@@ -62,18 +62,17 @@ $fieldId = $block->escapeHtmlAttr($this->getFieldId());
                 <label
                     id="<?= $fieldId . $i ?>_label"
                     for="<?= $fieldId . $i ?>"
-                    class="radio__label <= $block->escapeHtmlAttr($this->getFieldClass()) ?>"
+                    class="radio__label <?= $block->escapeHtmlAttr($this->getFieldClass()) ?>"
                 >
                     <?= $label ?>
                 </label>
                 <?php
                     $tooltip = $this->getField()->getTooltip($option["value"]);
-                    if ($tooltip) {
-                        echo $this->getLayout()->createBlock(
-                            'VladimirPopov\WebForms\Block\Script\Tooltip',
-                            null
-                        )->setField($this->getField())->setTooltip($tooltip)->toHtml();
-                    }
+                ?>
+                <?= ($tooltip) ? $this->getLayout()->createBlock(
+                        'VladimirPopov\WebForms\Block\Script\Tooltip',
+                        null
+                    )->setField($this->getField())->setTooltip($tooltip)->toHtml() : '';
                 ?>
             </div>
         <?php endif; ?>
