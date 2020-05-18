@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file.
 - EE - dashboard - returns: 1. Create new return (#65986)
 - EE - dashboard - returns: 2. my return (#66362)
 - EE - dashboard - returns: 3. return view (#66363)
+- Dashboard - order view - cleanup (#66229)
 ### Changed
 - account wish list share with friends styling (#65997)
 - link--button in atoms hover color (#65259)
