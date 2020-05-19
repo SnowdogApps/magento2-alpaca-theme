@@ -15,7 +15,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - account wish list share with friends styling (#65997)
 - link--button in atoms hover color (#65259)
-- updaate contact-us variables (#65359)
+- update contact-us variables (#65359)
 - quantity update - optional label & event trigger for plus & minus buttons (#65259)
 - update variables, link and titles in dashboard components (#65259)
 - update variables in orders summary, shipping, estimation, discount (#65259)
@@ -24,6 +24,7 @@ All notable changes to this project will be documented in this file.
 - switch "signout" button to secondary CTA (#65952)
 - EE - account wish list (#65714)
 - EE - style gift options in cart (#65721)
+- multishipping checkout (#61692)
 ### Fixed
 - missing & double `!default` (#65259)
 - quicksearch error (#66300)
