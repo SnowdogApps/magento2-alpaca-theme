@@ -1,7 +1,7 @@
 define([], function () {
   'use strict';
 
-  return (config, element) {
+  return function (config, element) {
     const content = document.querySelector('.dashboard-nav__content'),
       currentItem = content.querySelector('.item.current'),
       mobileNav = document.querySelector('.dashboard-nav__mobile');
