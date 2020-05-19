@@ -25,6 +25,7 @@ All notable changes to this project will be documented in this file.
 - EE - account wish list (#65714)
 - EE - style gift options in cart (#65721)
 - multishipping checkout (#61692)
+- homepage home-brands-container block name (#66233-acm)
 ### Fixed
 - missing & double `!default` (#65259)
 - quicksearch error (#66300)
