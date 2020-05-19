@@ -4,10 +4,12 @@ define([
   'domReady!'
 ], function($, select2) {
   'use strict';
+
   function sorterFilter() {
     data => data.sort((a, b) => a.text.localeCompare(b.text));
   }
-  return function(config, select) {
+
+  return function (config, select) {
     const selectId = select.id,
       defaultOptions = {
         minimumResultsForSearch: Infinity,
