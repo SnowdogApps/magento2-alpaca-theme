@@ -13,7 +13,7 @@ define([
         visible: false,
         msgSelector: '.messages__wrap .message',
         listens: {
-          visible = 'onHiddenChange'
+          visible:'onHiddenChange'
         }
       },
 
