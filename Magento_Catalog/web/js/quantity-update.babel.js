@@ -63,7 +63,7 @@ define([], function () {
     }
   }
 
-  return (config, element) {
+  return function (config, element) {
     new QuantityUpdate(element);
   };
 });
