@@ -3,7 +3,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Added
-### Changed 
+### Changed
+- homepage home-brands-container block name (#66233-acm)
 ### Fixed
 ### Removed
 
