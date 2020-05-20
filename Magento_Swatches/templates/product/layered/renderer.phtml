@@ -8,6 +8,8 @@ $swatchLabel = $swatchData['attribute_label'];
         dropdown-list__item
         dropdown-list__item--collapse
         filter
+        swatch-layered
+        <?= $block->escapeHtmlAttr($swatchCode) ?>
     "
 >
     <div
@@ -126,7 +128,12 @@ $swatchLabel = $swatchData['attribute_label'];
                     switch ($swatchData['swatches'][$option]['type']) {
                         case '3': //other swatches
                     ?>
-                        <li class="filter__swatch-item">
+                        <li
+                            class="
+                                filter__swatch-item
+                                <?= $block->escapeHtmlAttr($label['custom_style']) ?>
+                            "
+                        >
                             <a
                                 class="filter__swatch-option"
                                 href="<?= $block->escapeUrl($label['link']) ?>"
@@ -151,7 +158,12 @@ $swatchLabel = $swatchData['attribute_label'];
                             'swatch_image',
                             $swatchData['swatches'][$option]['value']
                         ); ?>
-                        <li class="filter__color-item">
+                        <li
+                            class="
+                                filter__color-item
+                                <?= $block->escapeHtmlAttr($label['custom_style']) ?>
+                            "
+                        >
                             <a
                                 href="<?= $block->escapeUrl($label['link']) ?>"
                                 aria-label="<?= $block->escapeHtmlAttr($label['label']) ?>"
@@ -178,7 +190,12 @@ $swatchLabel = $swatchData['attribute_label'];
                             break;
                         case '1': //color swatch with #hex background
                     ?>
-                        <li class="filter__color-item">
+                        <li
+                            class="
+                                filter__color-item
+                                <?= $block->escapeHtmlAttr($label['custom_style']) ?>
+                            "
+                        >
                             <a
                                 href="<?= $block->escapeUrl($label['link']) ?>"
                                 class="filter__color-option"
@@ -201,7 +218,12 @@ $swatchLabel = $swatchData['attribute_label'];
                         case '0': //text swatch
                         default:
                     ?>
-                        <li class="filter__swatch-item">
+                        <li
+                            class="
+                                filter__swatch-item
+                                <?= $block->escapeHtmlAttr($label['custom_style']) ?>
+                            "
+                        >
                             <a
                                 href="<?= $block->escapeUrl($label['link']) ?>"
                                 class="filter__swatch-option"
@@ -219,7 +241,6 @@ $swatchLabel = $swatchData['attribute_label'];
                 <?php endif; ?>
             <?php endforeach; ?>
         </ul>
-
         <script>
             require(
                 [
@@ -229,8 +250,8 @@ $swatchLabel = $swatchData['attribute_label'];
                 function ($)
                 {
                     $('.swatch-layered.<?= $block->escapeHtmlAttr($swatchCode) ?>')
-                    .find('[option-type="1"], [option-type="2"], [option-type="0"], [option-type="3"]')
-                    .SwatchRendererTooltip();
+                        .find('[option-type="1"], [option-type="2"], [option-type="0"], [option-type="3"]')
+                        .SwatchRendererTooltip();
                 }
             );
         </script>
