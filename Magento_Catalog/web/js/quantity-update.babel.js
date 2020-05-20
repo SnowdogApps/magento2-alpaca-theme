@@ -10,20 +10,31 @@ class QuantityUpdate {
   }
 
   events() {
-    this.plus.addEventListener('click', () => {
+    this.plus.addEventListener('click', (ev) => {
       this.increment();
       this.evaluateConditions();
+      this.triggerInput(ev);
     });
-    this.minus.addEventListener('click', () => {
+    this.minus.addEventListener('click', (ev) => {
       this.decrement();
       this.evaluateConditions();
+      this.triggerInput(ev);
     });
     this.input.addEventListener('focusin', () => {
       this.elem.classList.add(this.activeClass);
     });
     this.input.addEventListener('focusout', () => {
       this.elem.classList.remove(this.activeClass);
-    })
+    });
+  }
+
+  triggerInput() {
+    const event = new Event('change', {
+      'bubbles': true,
+      'cancelable': true
+    });
+
+    this.input.dispatchEvent(event);
   }
 
   evaluateConditions() {
@@ -41,11 +52,11 @@ class QuantityUpdate {
   }
 
   disableMinus() {
-    this.minus.classList.remove('quantity-update__button--disabled')
+    this.minus.classList.remove('quantity-update__button--disabled');
   }
 
   enableMinus() {
-    this.minus.classList.add('quantity-update__button--disabled')
+    this.minus.classList.add('quantity-update__button--disabled');
   }
 }
 

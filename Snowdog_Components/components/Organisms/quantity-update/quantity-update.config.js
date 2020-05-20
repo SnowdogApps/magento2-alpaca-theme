@@ -1,5 +1,6 @@
 module.exports = {
   context: {
+    label: false,
     input: {
       id: 'qty',
       min: '1',

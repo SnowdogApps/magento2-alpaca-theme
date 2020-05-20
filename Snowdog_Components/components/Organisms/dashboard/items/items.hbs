@@ -1,17 +1,20 @@
 <div class="dashboard-items {{ class }}">
     {{#if title }}
-        <h2 class="dashboard-items__title {{ titleClass }}">
-            {{ title }}
-        </h2>
+        {{#if link}}
+            <div class="dashboard-table__header">
+                {{ render '@heading' title }}
+                {{ render '@link' link }}
+            </div>
+        {{else}}
+            {{ render '@heading' title }}
+        {{/if}}
     {{/if}}
     {{#if informations }}
         <div class="row {{ contentClass }}">
             {{#each informations }}
                 <div class="dashboard-items__item {{ this.class }}">
                     {{#if this.title }}
-                        <h3 class="heading dashboard-items__subtitle">
-                            {{ this.title }}
-                        </h3>
+                        {{ render '@heading' this.title }}
                     {{/if}}
                     {{#if this.information }}
                         <div class="{{ this.addressClass }}">

@@ -1,0 +1,94 @@
+<!-- ko if: isActive() -->
+<div class="gift-message">
+    <div class="gift-options-title">
+        <span data-bind="i18n: 'Gift Message (optional)'"></span>
+    </div>
+    <div class="gift-options-content">
+        <fieldset class="fieldset">
+            <div class="input field-to">
+                <label
+                    data-bind="attr: {for: 'gift-message-whole-to-' + index }"
+                    class="label"
+                >
+                    <span data-bind="i18n: 'To:'"></span>
+                </label>
+                <input
+                    type="text"
+                    class="input__field"
+                    data-bind="
+                        value: getObservable('recipient'),
+                        attr: { id: 'gift-message-whole-to-' + index }
+                    "
+                />
+            </div>
+
+            <div class="input field-from">
+                <label
+                    data-bind="attr: {for: 'gift-message-whole-from-' + index }"
+                    class="label"
+                >
+                    <span data-bind="i18n: 'From:'"></span>
+                </label>
+                <input
+                    type="text"
+                    class="input__field"
+                    data-bind="
+                        value: getObservable('sender'),
+                        attr: { id: 'gift-message-whole-from-' + index }
+                    "
+                />
+            </div>
+            <div class="input text">
+                <label
+                    for="gift-message-whole-message"
+                    class="label"
+                >
+                    <span data-bind="i18n: 'Message:'"></span>
+                </label>
+                <textarea
+                    id="gift-message-whole-message"
+                    class="input__field input__field--textarea"
+                    rows="5"
+                    cols="10"
+                    data-bind="value: getObservable('message')"
+                ></textarea>
+            </div>
+        </fieldset>
+    </div>
+</div>
+<!-- /ko -->
+<div class="actions-group margin-vc-m">
+    <div class="actions-group__handler">
+        <button
+            type="submit"
+            class="
+                button
+                actions-group__button
+                action
+                secondary
+                action-update
+            "
+            data-bind="
+                attr: {title: $t('Update')},
+                click: $data.submitOptions.bind($data)
+            "
+        >
+            <span data-bind="i18n: 'Update'"></span>
+        </button>
+        <button
+            class="
+                button
+                button--secondary
+                actions-group__button
+                action
+                action-cancel
+            "
+            data-bind="
+                attr: {title: $t('Cancel')},
+                click: $data.hideFormBlock.bind($data)
+            "
+        >
+            <span data-bind="i18n: 'Cancel'"></span>
+        </button>
+    </div>
+</div>

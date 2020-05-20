@@ -28,15 +28,20 @@ module.exports = {
         {
           action: [
             {
-              button: true,
-              title: 'Save'
+              button: {
+                text: 'Save',
+                class: 'actions-group__button'
+              }
             }
           ]
         },
         {
           action: [
             {
-              title: 'Go Back'
+              link: {
+                text: 'Back',
+                class: 'actions-group__link'
+              }
             }
           ]
         }
