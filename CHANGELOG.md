@@ -23,6 +23,7 @@ All notable changes to this project will be documented in this file.
 - switch "signout" button to secondary CTA (#65952)
 - EE - account wish list (#65714)
 - EE - style gift options in cart (#65721)
+- update variable, sku font weight in product view (#66979)
 ### Fixed
 - missing & double `!default` (#65259)
 - quicksearch error (#66300)
