@@ -29,6 +29,7 @@ All notable changes to this project will be documented in this file.
 - homepage home-brands-container block name (#66233-acm)
 - checkout staep-title and calendar icon (#65911)
 - account confirmation page (#66992)
+- update variables - account form legend text transform (#66892)
 ### Fixed
 - missing & double `!default` (#65259)
 - quicksearch error (#66300)
