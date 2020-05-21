@@ -28,6 +28,7 @@ All notable changes to this project will be documented in this file.
 - multishipping checkout (#61692)
 - homepage home-brands-container block name (#66233-acm)
 - checkout staep-title and calendar icon (#65911)
+- account confirmation page (#66992)
 ### Fixed
 - missing & double `!default` (#65259)
 - quicksearch error (#66300)
