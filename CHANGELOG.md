@@ -33,6 +33,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 - missing & double `!default` (#65259)
 - quicksearch error (#66300)
+- issue with double arrow on view order page in customer dashboard menu (#67109)
 ### Removed
 
 ## [Released]
