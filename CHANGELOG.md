@@ -35,6 +35,7 @@ All notable changes to this project will be documented in this file.
 - quicksearch error (#66300)
 - issue with double arrow on view order page in customer dashboard menu (#67109)
 - set attributes in tab.babel.js (#66667)
+- fix checkboxes on billing address (#65769)
 ### Removed
 - doubled add to cart for configurable products (#67192)
 
