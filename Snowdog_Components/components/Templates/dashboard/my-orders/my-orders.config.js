@@ -57,9 +57,16 @@ module.exports = {
     {
       name: 'details',
       context: {
-        orderNumber: 'Order #0000003',
-        orderNumberClass: 'margin-right-l',
+        heading: {
+          tag: 'h1',
+          class: 'heading dashboard__content-heading dashboard__content-heading--with-status margin-bottom-xs',
+          text: 'ORDER # 000000011'
+        },
         orderStatus: 'Pending',
+        orderStatusClass: 'margin-bottom-xs',
+        orderDateTitle: 'Created:',
+        orderDate: 'Apr 7, 2020',
+        orderDateClass: 'margin-bottom-sm',
         orderActions: {
           class: 'margin-bottom-l',
           sides: [
