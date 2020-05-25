@@ -1,6 +1,6 @@
-'use strict';
+define([], function () {
+  'use strict';
 
-define(function () {
   return function (options, element) {
     element.addEventListener('click', function () {
       window.scrollTo({
@@ -11,4 +11,3 @@ define(function () {
     });
   };
 });
-//# sourceMappingURL=scroll-top.babel.js.map
