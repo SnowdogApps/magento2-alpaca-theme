@@ -30,6 +30,7 @@ All notable changes to this project will be documented in this file.
 - checkout staep-title and calendar icon (#65911)
 - account confirmation page (#66992)
 - update variables - account form legend text transform (#66892)
+- update product list template (#62915)
 ### Fixed
 - missing & double `!default` (#65259)
 - quicksearch error (#66300)
