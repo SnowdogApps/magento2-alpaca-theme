@@ -34,6 +34,7 @@ All notable changes to this project will be documented in this file.
 - missing & double `!default` (#65259)
 - quicksearch error (#66300)
 - issue with double arrow on view order page in customer dashboard menu (#67109)
+- set attributes in tab.babel.js (#66667)
 ### Removed
 - doubled add to cart for configurable products (#67192)
 
