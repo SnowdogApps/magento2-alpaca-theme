@@ -3,6 +3,7 @@ module.exports = {
   context: {
     id: 'checkbox',
     name: 'checkbox-name',
+    attributes: '',
     label: {
       text: 'Checkbox field',
       class: ''

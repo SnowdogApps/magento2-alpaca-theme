@@ -1,0 +1,196 @@
+<?php
+// phpcs:disable Magento2.Templates.ThisInTemplate
+?>
+<?php /** @var $block \Magento\Invitation\Block\Form */?>
+<?= $block->getChildHtml('form_before') ?>
+
+<?php $maxPerSend = $block->getMaxInvitationsPerSend(); ?>
+<?php if ($maxPerSend) : ?>
+    <form
+        id="invitationForm"
+        action=""
+        method="post"
+        class="
+            dashboard-form
+            invitations
+        "
+        data-mage-init='{
+            "rowBuilder":{
+                "rowTemplate":"#add-email-friends-tmpl",
+                "rowContainer":"#invitations__email-wrapper",
+                "rowParentElem":"<div></div>",
+                "remEventSelector":"button",
+                "btnRemoveSelector":".remove",
+                "maxRows":"<?= /* @noEscape */ (int) $block->getMaxInvitationsPerSend() ?>",
+                "maxRowsMsg":"#max-emails-message",
+                "addRowBtn":"#add-email-button",
+                "additionalRowClass":"additional"
+            },
+            "validation":{}
+        }'
+        data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>">
+
+        <input
+            name="form_key"
+            type="hidden"
+            value="<?= $block->escapeHtmlAttr($block->getFormKeyValue()) ?>"
+        />
+
+        <h2 class="dashboard-form__title">
+            <?= $block->escapeHtml(__('Invite your friends by entering their email addresses')) ?>
+        </h2>
+
+        <fieldset class="fieldset">
+            <legend
+                class="
+                    fieldset__legend
+                    fieldset__legend--hidden
+                "
+            >
+                <?= $block->escapeHtml(__('Invite your friends by entering their email addresses')) ?>
+            </legend>
+
+            <div id="invitations__email-wrapper"></div>
+
+            <?php if ($block->isInvitationMessageAllowed()) : ?>
+                <div
+                    id="max-emails-message"
+                    style="display: none;"
+                    class="message"
+                    role="alert"
+                >
+                    <?= $block->escapeHtml(
+                        __('Maximum %1 email addresses allowed.', $block->getMaxInvitationsPerSend())
+                    ); ?>
+                </div>
+            <?php endif; ?>
+
+            <?php if (1 < $block->getMaxInvitationsPerSend()) : ?>
+                <button
+                    type="button"
+                    id="add-email-button"
+                    class="
+                        button
+                        margin-vc-m
+                    "
+                >
+                    <?= $block->escapeHtml(__('Add Email')) ?>
+                </button>
+            <?php endif; ?>
+
+            <?php if ($block->isInvitationMessageAllowed()) : ?>
+                <div class="input">
+                    <label
+                        for="message"
+                        class="
+                            label
+                            input__label
+                        "
+                    >
+                        <?= $block->escapeHtml(__('Message')) ?>
+                    </label>
+                    <textarea
+                        name="message"
+                        id="message"
+                        title="<?= $block->escapeHtmlAttr(__('Message')) ?>"
+                        class="
+                            input__field
+                            input__field--textarea
+                        "
+                    ></textarea>
+                </div>
+            <?php endif;?>
+        </fieldset>
+
+        <div class="actions-group">
+            <div class="actions-group__handler">
+                <button
+                    class="
+                        button
+                        actions-group__button
+                    "
+                    type="submit"
+                    aria-label="<?= $block->escapeHtmlAttr(__('Send Invitations')) ?>"
+                >
+                    <?= $block->escapeHtml(__('Send Invitations')) ?>
+                </button>
+            </div>
+            <div class="actions-group__handler">
+                <a
+                    href="
+                        <?= $block->escapeUrl($this->helper(\Magento\Invitation\Helper\Data::class)
+                            ->getCustomerInvitationUrl()) ?>
+                    "
+                    class="
+                        link
+                        actions-group__link
+                    "
+                    title="<?= $block->escapeHtmlAttr(__('Back to Invitations')) ?>"
+                >
+                    <?= $block->escapeHtml(__('Back to Invitations')) ?>
+                </a>
+            </div>
+        </div>
+    </form>
+
+    <script
+        id="add-email-friends-tmpl"
+        type="text/x-magento-template"
+    >
+        <div class="field">
+            <div class="input required">
+                <label
+                    class="
+                        label
+                        input__label
+                    "
+                    for="email_<%- data._index_ %>"
+                >
+                    <?= $block->escapeHtml(__('Email')) ?>
+                </label>
+                <input
+                    name="email[<%- data._index_ %>]"
+                    id="email_<%- data._index_ %>"
+                    title="<?= $block->escapeHtmlAttr(__('Email')) ?>"
+                    value=""
+                    class="input__field"
+                    type="email"
+                    data-validate="{required:true, 'validate-email':true}"
+                />
+            </div>
+            <button
+                type="button"
+                id="btn-remove<%- data._index_ %>"
+                class="
+                    button
+                    button--secondary
+                    margin-bottom-m
+                    remove
+                "
+            >
+                <?= $block->escapeJs(__('Remove')) ?>
+            </button>
+        </div>
+    </script>
+<?php else :?>
+    <div class="message">
+        <?= $block->escapeHtml(__('You cannot send more invitations')) ?>
+    </div>
+    <div class="actions-group">
+        <div class="actions-group__handler">
+            <a
+                href="
+                    <?= $block->escapeUrl($this->helper(\Magento\Invitation\Helper\Data::class)
+                        ->getCustomerInvitationUrl()) ?>
+                "
+                class="
+                    link
+                    actions-group__link
+                "
+                title="<?= $block->escapeHtmlAttr(__('Back to Invitations')) ?>"
+            >
+                <?= $block->escapeHtml(__('Back to Invitations')) ?>
+            </a>
+        </div>
+    </div>
+<?php endif; ?>

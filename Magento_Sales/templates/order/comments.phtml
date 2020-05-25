@@ -1,0 +1,57 @@
+<?php
+/**
+ * @var $block \Magento\Sales\Block\Order\Comments
+ * @see \Magento\Sales\Block\Order\Comments
+ */
+?>
+<?php if ($block->hasComments()) : ?>
+    <div class="dashboard-table">\
+        <div class="dashboard-table__header">
+            <h2 class="dashboard-table__title">
+                <?= $block->escapeHtml($block->getTitle()) ?>
+            </h2>
+        </div>
+        <div class="dashboard-table__content">
+            <table
+                class="table"
+                role="table"
+            >
+                <thead>
+                <tr role="row">
+                    <th
+                        scope="col"
+                        role="columnheader"
+                    >
+                        <?= __('Date'); ?>
+                    </th>
+                    <th
+                        scope="col"
+                        role="columnheader"
+                    >
+                        <?= __('Comment'); ?>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($block->getComments() as $_commentItem) : ?>
+                        <tr class="row">
+                            <td
+                                data-th="<?= __('Date'); ?>"
+                                role="gridcell"
+                            >
+                                <?= $block->formatDate($_commentItem
+                                    ->getCreatedAt(), \IntlDateFormatter::MEDIUM, true) ?>
+                            </td>
+                            <td
+                                data-th="<?= __('Comment'); ?>"
+                                role="gridcell"
+                            >
+                                <?= $block->escapeHtml($_commentItem->getComment()) ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+<?php endif;?>

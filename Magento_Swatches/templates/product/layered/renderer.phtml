@@ -123,7 +123,7 @@ $swatchLabel = $swatchData['attribute_label'];
             <?php foreach ($swatchData['options'] as $option => $label): ?>
                 <?php if (isset($swatchData['swatches'][$option]['type'])): ?>
                     <?php
-                        switch ($swatchData['swatches'][$option]['type']):
+                    switch ($swatchData['swatches'][$option]['type']) {
                         case '3': //other swatches
                     ?>
                         <li class="filter__swatch-item">
@@ -140,13 +140,17 @@ $swatchLabel = $swatchData['attribute_label'];
                             </a>
                         </li>
                     <?php
-                        break;
+                            break;
                         case '2': //color swatch with image background
                     ?>
-                        <?php $swatchThumbPath = $block->getSwatchPath('swatch_thumb',
-                        $swatchData['swatches'][$option]['value']); ?>
-                        <?php $swatchImagePath = $block->getSwatchPath('swatch_image',
-                        $swatchData['swatches'][$option]['value']); ?>
+                        <?php $swatchThumbPath = $block->getSwatchPath(
+                            'swatch_thumb',
+                            $swatchData['swatches'][$option]['value']
+                        ); ?>
+                        <?php $swatchImagePath = $block->getSwatchPath(
+                            'swatch_image',
+                            $swatchData['swatches'][$option]['value']
+                        ); ?>
                         <li class="filter__color-item">
                             <a
                                 href="<?= $block->escapeUrl($label['link']) ?>"
@@ -171,7 +175,7 @@ $swatchLabel = $swatchData['attribute_label'];
                             </a>
                         </li>
                     <?php
-                        break;
+                            break;
                         case '1': //color swatch with #hex background
                     ?>
                         <li class="filter__color-item">
@@ -193,7 +197,7 @@ $swatchLabel = $swatchData['attribute_label'];
                             </a>
                         </li>
                     <?php
-                        break;
+                            break;
                         case '0': //text swatch
                         default:
                     ?>
@@ -209,8 +213,8 @@ $swatchLabel = $swatchData['attribute_label'];
                             </a>
                         </li>
                     <?php
-                        break;
-                        endswitch;
+                            break;
+                    }
                     ?>
                 <?php endif; ?>
             <?php endforeach; ?>
@@ -220,7 +224,6 @@ $swatchLabel = $swatchData['attribute_label'];
             require(
                 [
                     "jquery",
-                    "jquery/ui",
                     "Magento_Swatches/js/swatch-renderer"
                 ],
                 function ($)

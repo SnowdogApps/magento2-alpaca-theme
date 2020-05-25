@@ -5,9 +5,62 @@ All notable changes to this project will be documented in this file.
 ### Added
 ### Changed
 ### Fixed
+### Removed
 
 
 ## [Released]
+
+## [1.6.0] - 2020-05-25
+### Added
+- atomic classes - uppercase/lowecase/none-text-transform (#65259)
+- button--light (#65259)
+- condition for compare and wishlist button in add to cart (#65259)
+- posibility to change margins from 768px for .container class (#65259)
+- conditions for compare and wishlist in dashboard nav (#65259)
+- EE - dashboard - returns: 1. Create new return (#65986)
+- EE - dashboard - returns: 2. my return (#66362)
+- EE - dashboard - returns: 3. return view (#66363)
+- Dashboard - order view - cleanup (#66229)
+- webforms radio styles (#66959)
+### Changed
+- account wish list share with friends styling (#65997)
+- link--button in atoms hover color (#65259)
+- update contact-us variables (#65359)
+- quantity update - optional label & event trigger for plus & minus buttons (#65259)
+- update variables, link and titles in dashboard components (#65259)
+- update variables in orders summary, shipping, estimation, discount (#65259)
+- EE - dashboard - invitations (#65718)
+- EE - hide the notification displayed on top (#65699)
+- switch "signout" button to secondary CTA (#65952)
+- EE - account wish list (#65714)
+- EE - style gift options in cart (#65721)
+- multishipping checkout (#61692)
+- homepage home-brands-container block name (#66233-acm)
+- checkout staep-title and calendar icon (#65911)
+- account confirmation page (#66992)
+- update variables - account form legend text transform (#66892)
+- update product list template (#62915)
+### Fixed
+- missing & double `!default` (#65259)
+- quicksearch error (#66300)
+- issue with double arrow on view order page in customer dashboard menu (#67109)
+- set attributes in tab.babel.js (#66667)
+- fix checkboxes on billing address (#65769)
+- add missing wishlist classes (#66220)
+### Removed
+- doubled add to cart for configurable products (#67192)
+
+## [1.5.0] - 2020-04-23
+### Changed
+- update Smile_Elasticsuite files in theme with Elastisuite 2.8.6 version changes (#66197)
+- EE - style dashbaord reward points (#65719)
+- usage of jquery/ui to jquery-ui-module/[module-name] (#66232)
+- improve accessability of modal popup templates (#66232)
+### Fixed
+- qty input error message styling (#66161)
+- styles for privacy settings in dashboard (#66022)
+- dashboard form, items and actions group spacers in templates (#65058)
+- "See all brands button" styling broken (#66281)
 
 ## [1.4.0] - 2020-04-17
 ### Changed
