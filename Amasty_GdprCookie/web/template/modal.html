@@ -1,0 +1,33 @@
+<!-- ko if: isShowModal -->
+<form id="amgdprcookie-form" class="amgdprcookie-settings-form" data-amcookie-js="form-cookie">
+    <div class="amgdprcookie-groups-container" data-amcookie-js="groups">
+        <!-- ko foreach: $data.groups -->
+        <div class="amgdprcookie-cookie-container -modal">
+            <div class="amgdprcookie-header">
+                <h3 class="amgdprcookie-caption" data-bind="text: $data.name"></h3>
+                <div class="amgdprcookie-toggle-cookie">
+                    <input class="amgdprcookie-input"
+                           type="checkbox"
+                           data-amcookie-js="field"
+                           name="groups[]"
+                           data-bind="attr: {id: 'switch-box-' + $index(), disabled: isEssential}, value: $data.groupId, css: {'disabled': isEssential}, checked: checked"
+                    />
+                    <label class="amgdprcookie-label" data-bind="attr: {for: 'switch-box-' + $index()}"></label>
+                </div>
+            </div>
+            <p class="amgdprcookie-text" data-bind="text: $data.description"></p>
+            <a class="amgdprcookie-link" target="_blank" data-bind="i18n: 'more information', attr: {href: $parent.settingsLink}"></a>
+        </div>
+        <!--/ko-->
+    </div>
+    <div class="amgdprcookie-policy-container" data-amcookie-js="policy">
+        <div class="amgdprcookie-text-container">
+            <p class="amgdprcookie-policy" data-bind="html: $data.cookieText"></p>
+        </div>
+        <div class="amgdprcookie-buttons-block">
+            <button class="amgdprcookie-button -allow" data-bind="i18n: 'Allow all Cookies', click: allowCookies"></button>
+            <button class="amgdprcookie-button -save" data-bind="i18n: 'save', click: saveCookie"></button>
+        </div>
+    </div>
+</form>
+<!--/ko-->
