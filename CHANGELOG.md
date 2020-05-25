@@ -3,6 +3,15 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Added
+### Changed
+### Fixed
+### Removed
+
+
+## [Released]
+
+## [1.6.0] - 2020-05-25
+### Added
 - atomic classes - uppercase/lowecase/none-text-transform (#65259)
 - button--light (#65259)
 - condition for compare and wishlist button in add to cart (#65259)
@@ -40,8 +49,6 @@ All notable changes to this project will be documented in this file.
 - add missing wishlist classes (#66220)
 ### Removed
 - doubled add to cart for configurable products (#67192)
-
-## [Released]
 
 ## [1.5.0] - 2020-04-23
 ### Changed
