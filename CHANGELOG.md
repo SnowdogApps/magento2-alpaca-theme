@@ -41,6 +41,7 @@ All notable changes to this project will be documented in this file.
 - account confirmation page (#66992)
 - update variables - account form legend text transform (#66892)
 - update product list template (#62915)
+- header brief info styles (#67195)
 ### Fixed
 - missing & double `!default` (#65259)
 - quicksearch error (#66300)
