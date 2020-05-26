@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Added
 ### Changed
+- shipping latency on catalog (#64632)
 ### Fixed
 
 ## [Released]
