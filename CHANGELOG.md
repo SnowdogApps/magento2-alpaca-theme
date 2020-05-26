@@ -3,6 +3,15 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Added
+### Changed
+### Fixed
+### Removed
+
+
+## [Released]
+
+## [1.6.0] - 2020-05-25
+### Added
 - atomic classes - uppercase/lowecase/none-text-transform (#65259)
 - button--light (#65259)
 - condition for compare and wishlist button in add to cart (#65259)
@@ -23,6 +32,7 @@ All notable changes to this project will be documented in this file.
 - EE - dashboard - invitations (#65718)
 - EE - hide the notification displayed on top (#65699)
 - switch "signout" button to secondary CTA (#65952)
+- standarize syntax of wrapping code in requirejs module files (#67166)
 - EE - account wish list (#65714)
 - EE - style gift options in cart (#65721)
 - multishipping checkout (#61692)
@@ -30,12 +40,17 @@ All notable changes to this project will be documented in this file.
 - checkout staep-title and calendar icon (#65911)
 - account confirmation page (#66992)
 - update variables - account form legend text transform (#66892)
+- update product list template (#62915)
 ### Fixed
 - missing & double `!default` (#65259)
 - quicksearch error (#66300)
+- uncessessary pollution of window object by some theme js files (#67166)
+- issue with double arrow on view order page in customer dashboard menu (#67109)
+- set attributes in tab.babel.js (#66667)
+- fix checkboxes on billing address (#65769)
+- add missing wishlist classes (#66220)
 ### Removed
-
-## [Released]
+- doubled add to cart for configurable products (#67192)
 
 ## [1.5.0] - 2020-04-23
 ### Changed
