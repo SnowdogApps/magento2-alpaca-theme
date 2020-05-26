@@ -1,0 +1,106 @@
+<?php
+//phpcs:disable Squiz.ControlStructures.ControlSignature.NewlineAfterOpenBrace
+//phpcs:disable Squiz.WhiteSpace.ScopeClosingBrace.ContentBefore
+//phpcs:disable Magento2.Templates.ThisInTemplate.FoundThis
+//phpcs:disable Magento2.Files.LineLength.MaxExceeded
+?>
+<?php /** @var  $block \Magento\Shipping\Block\Items */ ?>
+<?php  $_order = $block->getOrder() ?>
+<?php foreach ($_order->getShipmentsCollection() as $_shipment) : ?>
+    <div class="dashboard-table">
+        <div class="dashboard-table__header">
+            <h2 class="heading dashboard-table__title">
+                <?= $block->escapeHtml(__('Shipment #')) ?><?= $block->escapeHtml($_shipment->getIncrementId()) ?>
+            </h2>
+            <div>
+                <a
+                    href="<?= $block->escapeUrl($block->getPrintShipmentUrl($_shipment)) ?>"
+                    class="
+                        actions-group__link
+                        dashboard-table__link
+                        padding-0
+                        action
+                        print
+                    "
+                    target="_blank"
+                    rel="noopener"
+                    title="<?= $block->escapeHtmlAttr(__('Print Shipment')) ?>"
+                >
+                    <?= $block->escapeHtml(__('Print Shipment')) ?>
+                </a>
+                <button
+                    data-mage-init='{
+                        "popupWindow": {
+                            "windowURL": "<?=$block->escapeUrl($this->helper(Magento\Shipping\Helper\Data::class)
+                                ->getTrackingPopupUrlBySalesModel($_shipment)) ?>",
+                            "windowName": "trackshipment",
+                            "width": 800,
+                            "height": 600,
+                            "top": 0,
+                            "left": 0,
+                            "resizable": 1,
+                            "scrollbars": 1
+                        }
+                    }'
+                    aria-label="<?= $block->escapeHtmlAttr(__('Track this shipment')) ?>"
+                    class="
+                        actions-group__link
+                        dashboard-table__link
+                        button
+                        button--link
+                        padding-0
+                    "
+                    type="button"
+                >
+                    <?= $block->escapeHtml(__('Track shipment')) ?>
+                </button>
+
+                <?= $block->getChildHtml('magento.rma.info.button') ?>
+
+            </div>
+        </div>
+        <?php $tracks = $_shipment->getTracksCollection(); ?>
+        <div class="dashboard-table__content">
+            <table
+                class="table"
+                id="my-shipment-table-<?= (int) $_shipment->getId() ?>"
+                role="table"
+            >
+                <caption class="table__caption">
+                    <?= $block->escapeHtml(__('Items Shipped')) ?>
+                </caption>
+                <thead>
+                    <tr role="row">
+                        <th
+                            scope="col"
+                            role="columnheader"
+                        >
+                            <?= $block->escapeHtml(__('Product Name')) ?>
+                        </th>
+                        <th
+                            scope="col"
+                            role="columnheader"
+                        >
+                            <?= $block->escapeHtml(__('SKU')) ?>
+                        </th>
+                        <th
+                            scope="col"
+                            role="columnheader"
+                        >
+                            <?= $block->escapeHtml(__('Qty Shipped')) ?>
+                        </th>
+                    </tr>
+                </thead>
+                <?php $_items = $_shipment->getAllItems(); ?>
+                <?php foreach ($_items as $_item) : ?>
+                    <?php if (!$_item->getOrderItem()->getParentItem()) : ?>
+                        <tbody>
+                            <?= $block->getItemHtml($_item) ?>
+                        </tbody>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </table>
+        </div>
+    </div>
+    <?= $block->getCommentsHtml($_shipment) ?>
+<?php endforeach; ?>

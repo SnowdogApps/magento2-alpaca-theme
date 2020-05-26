@@ -1,0 +1,114 @@
+<!-- ko if: showAppliedBlock() -->
+<div class="gift-wrapping-summary">
+    <!-- ko if: getObservable('activeWrappingLabel')() -->
+    <span
+        class="gift-wrapping-summary-title"
+        data-bind="i18n: 'Gift wrapping' + ':'"
+    ></span>
+    <span
+        class="gift-wrapping-name"
+        data-bind="text: getObservable('activeWrappingLabel')()"
+    ></span>
+    <!-- /ko -->
+
+    <!-- ko if: getObservable('activeWrappingLabel')() -->
+    <!-- ko if: isDisplayWrappingBothPrices() -->
+    <span
+        class="price-including-tax"
+        data-bind="{
+            attr: {
+                'data-label': $t('Price Incl. Tax')
+            }
+        }"
+    >
+        <span
+            class="price__value"
+            data-bind="text: getObservable('activeWrappingPriceWithTax')()"
+        ></span>
+    </span>
+    <span
+        class="price-excluding-tax"
+        data-bind="{
+            attr: {
+                'data-label': $t('Price Excl. Tax')
+            }
+        }"
+    >
+        <span
+            class="price__value"
+            data-bind="text: getObservable('activeWrappingPriceWithoutTax')()"
+        ></span>
+    </span>
+    <!-- /ko -->
+    <!-- ko ifnot: isDisplayWrappingBothPrices() -->
+    <span
+        class="regular-price"
+        data-bind="{attr: {'data-label': $t('Price')}}"
+    >
+        <span
+            class="price__value"
+            data-bind="text: getObservable('activeWrappingPrice')()"
+        ></span>
+    </span>
+    <!-- /ko -->
+    <!-- /ko -->
+
+    <!-- ko if: getObservable('printedCard')() && levelIdentifier == 'orderLevel' -->
+    <div class="margin-top-xs">
+        <span
+            class="label"
+            data-bind="i18n: 'Printed card'"
+        ></span>
+    </div>
+    <!-- ko if: isDisplayCardBothPrices() -->
+    <span
+        class="price-including-tax"
+        data-bind="{attr: {'data-label': $t('Price Incl. Tax')}}"
+    >
+        <span
+            class="price__value"
+            data-bind="text: getPrintedCardPriceWithTax()"
+        ></span>
+    </span>
+    <span
+        class="price-excluding-tax"
+        data-bind="{
+            attr: {
+                'data-label': $t('Price Excl. Tax')
+            }
+        }"
+    >
+        <span
+            class="price__value"
+            id="regular-card-price"
+            data-bind="text: getPrintedCardPriceWithoutTax()"
+        ></span>
+    </span>
+    <!-- /ko -->
+    <!-- ko ifnot: isDisplayCardBothPrices() -->
+    <span
+        class="regular-price"
+        data-bind="{
+            attr: {
+                'data-label': $t('Price')
+            }
+        }"
+    >
+        <span
+            class="price__value"
+            data-bind="text: getPrintedCardPrice()"
+        ></span>
+    </span>
+    <!-- /ko -->
+
+    <!-- /ko -->
+    <!-- ko if: getObservable('giftReceipt')() && levelIdentifier == 'orderLevel' -->
+    <div class="margin-top-xs">
+        <span
+            class="label"
+            data-bind="i18n: 'Gift receipt'"
+        ></span>
+    </div>
+    <!-- /ko -->
+</div>
+<!-- /ko -->

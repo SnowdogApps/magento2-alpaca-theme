@@ -1,0 +1,442 @@
+<?php
+// phpcs:disable Magento2.Templates.ThisInTemplate
+
+/** @var \Magento\Multishipping\Block\Checkout\Overview $block */
+?>
+<?php $errors = $block->getCheckoutData()->getAddressErrors(); ?>
+<?php foreach ($errors as $addressId => $error) : ?>
+    <div
+        class="
+            message
+            message-error
+            error
+        "
+    >
+        <?= $block->escapeHtml($error); ?>
+        <?= $block->escapeHtml(__('Please see')); ?>
+        <a href="#<?= $block->escapeHtmlAttr($block->getCheckoutData()->getAddressAnchorName($addressId)); ?>">
+            <?= $block->escapeHtml(__('details below')); ?>
+        </a>
+    </div>
+<?php endforeach; ?>
+<form
+    action="<?= $block->escapeUrl($block->getPostActionUrl()); ?>"
+    method="post"
+    id="review-order-form"
+    data-mage-init='{
+        "orderOverview": {},
+        "validation":{}
+    }'
+    class="
+        form
+        multicheckout
+        order-review
+    "
+>
+    <?= /* @noEscape */ $block->getBlockHtml('formkey'); ?>
+    <div
+        class="
+            block
+            block-billing
+            margin-bottom-m
+        "
+    >
+        <div class="block-title">
+            <h2 class="heading">
+                <?= $block->escapeHtml(__('Billing Information')); ?>
+            </h2>
+        </div>
+        <div class="block-content">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="box box-billing-address">
+                        <?php $address = $block->getBillingAddress() ?>
+                        <strong class="box-title">
+                            <?= $block->escapeHtml(__('Billing Address')); ?>
+                            <a
+                                href="<?= $block->escapeUrl($block->getEditBillingAddressUrl($address)); ?>"
+                                class="
+                                    button
+                                    button--link
+                                    padding-hz-xs
+                                    action
+                                    edit
+                                "
+                            >
+                                <?= $block->escapeHtml(__('Change')); ?>
+                            </a>
+                        </strong>
+                        <div class="box-content margin-bottom-m">
+                            <address>
+                                <?= /* @noEscape */ $address->format('html') ?>
+                            </address>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="box box-billing-method">
+                        <strong class="box-title">
+                            <?= $block->escapeHtml(__('Payment Method')); ?>
+                            <a
+                                href="<?= $block->escapeUrl($block->getEditBillingUrl()); ?>"
+                                class="
+                                    button
+                                    button--link
+                                    padding-hz-xs
+                                    action
+                                    edit
+                                "
+                            >
+                                <?= $block->escapeHtml(__('Change')); ?>
+                            </a>
+                        </strong>
+                        <div class="box-content">
+                            <input
+                                type="hidden"
+                                name="payment[cc_number]"
+                                value="<?= $block->escapeHtmlAttr($block->getPayment()->getCcNumber()) ?>"
+                            />
+                            <input
+                                type="hidden"
+                                name="payment[cc_cid]"
+                                value="<?= $block->escapeHtmlAttr($block->getPayment()->getCcCid()) ?>"
+                            />
+                            <?= /* @noEscape */ $block->getPaymentHtml() ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="block-shipping margin-bottom-m">
+        <div class="block-title">
+            <h2 class="heading">
+                <?= $block->escapeHtml(__('Shipping Information')); ?>
+            </h2>
+        </div>
+        <?php $mergedCells = ($this->helper(Magento\Tax\Helper\Data::class)->displayCartBothPrices() ? 2 : 1); ?>
+        <?php foreach ($block->getShippingAddresses() as $index => $address): ?>
+            <div class="block-content">
+                <a
+                    name="<?= $block->escapeHtmlAttr($block->getCheckoutData()->getAddressAnchorName($address->getId())); ?>"
+                    class="display-none"
+                >
+                </a>
+                <div class="title">
+                    <strong>
+                        <?= $block->escapeHtml(__('Address')); ?> <?= $block->escapeHtml($index + 1); ?>
+                        <span>
+                            <?= $block->escapeHtml(__('of')); ?>
+                            <?= $block->escapeHtml($block->getShippingAddressCount()) ?>
+                        </span>
+                    </strong>
+                </div>
+                <?php if ($error = $block->getCheckoutData()->getAddressError($address)) : ?>
+                    <div class="error-description">
+                        <?= $block->escapeHtml($error); ?>
+                    </div>
+                <?php endif; ?>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="box box-shipping-address">
+                            <strong class="box-title">
+                                <?= $block->escapeHtml(__('Shipping To')); ?>
+                                <a
+                                    href="<?= $block->escapeUrl($block->getEditShippingAddressUrl($address)); ?>"
+                                    class="
+                                        button
+                                        button--link
+                                        padding-hz-xs
+                                        action
+                                        edit
+                                    "
+                                >
+                                    <?= $block->escapeHtml(__('Change')); ?>
+                                </a>
+                            </strong>
+                            <div class="box-content margin-bottom-m">
+                                <address>
+                                    <?= /* @noEscape */ $address->format('html') ?>
+                                </address>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div
+                            class="
+                                box
+                                box-shipping-method
+                                margin-bottom-m
+                            "
+                        >
+                            <strong class="box-title">
+                                <?= $block->escapeHtml(__('Shipping Method')); ?>
+                                <a
+                                    href="<?= $block->escapeUrl($block->getEditShippingUrl()); ?>"
+                                    class="
+                                        button
+                                        button--link
+                                        padding-hz-xs
+                                        action
+                                        edit
+                                    "
+                                >
+                                    <?= $block->escapeHtml(__('Change')); ?>
+                                </a>
+                            </strong>
+                            <?php if ($_rate = $block->getShippingAddressRate($address)): ?>
+                                <div class="box-content">
+                                    <?= $block->escapeHtml($_rate->getCarrierTitle()) ?>
+                                    (<?= $block->escapeHtml($_rate->getMethodTitle()) ?>)
+                                    <?php
+                                    $exclTax = $block->getShippingPriceExclTax($address);
+                                    $inclTax = $block->getShippingPriceInclTax($address);
+                                    $displayBothPrices = $this->helper(Magento\Tax\Helper\Data::class)
+                                        ->displayShippingBothPrices() && $inclTax !== $exclTax;
+                                    ?>
+                                    <?php if ($displayBothPrices): ?>
+                                        <span
+                                            class="price-including-tax"
+                                            data-label="<?= $block->escapeHtmlAttr(__('Incl. Tax')); ?>"
+                                        >
+                                            <?= /* @noEscape */ $inclTax ?>
+                                        </span>
+                                        <span
+                                            class="price-excluding-tax"
+                                            data-label="<?= $block->escapeHtmlAttr(__('Excl. Tax')); ?>"
+                                        >
+                                            <?= /* @noEscape */ $exclTax; ?>
+                                        </span>
+                                    <?php else: ?>
+                                        <?= /* @noEscape */ $inclTax ?>
+                                    <?php endif; ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-items margin-bottom-m">
+                    <div class="box-content">
+                        <div class="order-review-wrapper table-wrapper">
+                            <table
+                                class="
+                                    items
+                                    data
+                                    table
+                                    table-order-review
+                                "
+                                id="overview-table-<?= $block->escapeHtmlAttr($address->getId()); ?>"
+                            >
+                                <caption class="table__caption">
+                                    <?= $block->escapeHtml(__('Order Review')); ?>
+                                </caption>
+                                <thead>
+                                    <tr role="row">
+                                        <th
+                                            class="
+                                                col
+                                                item
+                                                width-full
+                                            "
+                                            scope="col"
+                                            role="columnheader"
+                                        >
+                                            <?= $block->escapeHtml(__('Item')); ?>
+                                            <a
+                                                href="<?= $block->escapeUrl($block->getAddressesEditUrl()); ?>"
+                                                class="
+                                                    button
+                                                    button--link
+                                                    padding-hz-xs
+                                                    action
+                                                    edit
+                                                "
+                                            >
+                                                <?= $block->escapeHtml(__('Edit')); ?>
+                                            </a>
+                                        </th>
+                                        <th
+                                            class="col price"
+                                            scope="col"
+                                            role="columnheader"
+                                        >
+                                            <?= $block->escapeHtml(__('Price')); ?>
+                                        </th>
+                                        <th
+                                            class="col qty"
+                                            scope="col"
+                                            role="columnheader"
+                                        >
+                                            <?= $block->escapeHtml(__('Quantity')); ?></th>
+                                        <th
+                                            class="col subtotal"
+                                            scope="col"
+                                            role="columnheader"
+                                        >
+                                            <?= $block->escapeHtml(__('Subtotal')); ?>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($block->getShippingAddressItems($address) as $item) : ?>
+                                        <?= /* @noEscape */ $block->getRowItemHtml($item) ?>
+                                    <?php endforeach; ?>
+                                </tbody>
+                                <tfoot>
+                                    <?= /* @noEscape */ $block->renderTotals(
+                                        $block->getShippingAddressTotals($address)
+                                    ); ?>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+
+    <?php if ($block->getQuote()->hasVirtualItems()) : ?>
+        <div class="block block-other">
+            <?php $billingAddress = $block->getQuote()->getBillingAddress(); ?>
+            <a
+                name="<?= $block->escapeHtmlAttr($block->getCheckoutData()->getAddressAnchorName($billingAddress->getId())); ?>"
+            >
+            </a>
+            <div class="block-title">
+                <strong>
+                    <?= $block->escapeHtml(__('Other items in your order')); ?>
+                </strong>
+            </div>
+            <?php if ($error = $block->getCheckoutData()->getAddressError($billingAddress)): ?>
+                <div class="error-description">
+                    <?= $block->escapeHtml($error); ?>
+                </div>
+            <?php endif; ?>
+            <div class="block-content">
+                <strong class="subtitle">
+                    <span>
+                        <?= $block->escapeHtml(__('Items')); ?>
+                    </span>
+                    <a
+                        href="<?= $block->escapeUrl($block->getVirtualProductEditUrl()); ?>"
+                        class="action edit"
+                    >
+                        <?= $block->escapeHtml(__('Edit Items')); ?>
+                    </a>
+                </strong>
+                <?php $mergedCells = ($this->helper(Magento\Tax\Helper\Data::class)->displayCartBothPrices() ? 2 : 1); ?>
+                <div class="order-review-wrapper table-wrapper">
+                    <table
+                        class="
+                            items
+                            data
+                            table
+                            table-order-review
+                        "
+                        id="virtual-overview-table"
+                    >
+                        <caption class="table__caption">
+                            <?= $block->escapeHtml(__('Items')); ?>
+                        </caption>
+                        <thead>
+                            <tr role="row">
+                                <th
+                                    class="col item"
+                                    scope="col"
+                                    role="columnheader"
+                                >
+                                    <?= $block->escapeHtml(__('Product Name')); ?>
+                                </th>
+                                <th
+                                    class="col price"
+                                    scope="col"
+                                    role="columnheader"
+                                >
+                                    <?= $block->escapeHtml(__('Price')); ?>
+                                </th>
+                                <th
+                                    class="col qty"
+                                    scope="col"
+                                    role="columnheader"
+                                >
+                                    <?= $block->escapeHtml(__('Qty')); ?>
+                                </th>
+                                <th
+                                    class="col subtotal"
+                                    scope="col"
+                                    role="columnheader"
+                                >
+                                    <?= $block->escapeHtml(__('Subtotal')); ?>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($block->getVirtualItems() as $_item) : ?>
+                                <?= /* @noEscape */ $block->getRowItemHtml($_item) ?>
+                            <?php endforeach; ?>
+                        </tbody>
+                        <tfoot>
+                            <?= /* @noEscape */ $block->renderTotals($block->getBillingAddressTotals()); ?>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    <?php endif; ?>
+
+    <?= /* @noEscape */ $block->getChildHtml('items_after') ?>
+
+    <div
+        id="checkout-review-submit"
+        class="checkout-review"
+    >
+        <?= /* @noEscape */ $block->getChildHtml('agreements') ?>
+        <div
+            class="
+                grand
+                totals
+                margin-bottom-m
+            "
+        >
+            <div class="price">
+                <span class="price__value">
+                    <?= $block->escapeHtml(__('Grand Total:')); ?>
+                    <?= /* @noEscape */ $this->helper(Magento\Checkout\Helper\Data::class)
+                        ->formatPrice($block->getTotal()); ?>
+                </span>
+            </div>
+        </div>
+        <div
+            class="actions-group"
+            id="review-buttons-container"
+        >
+            <div class="actions-group__handler">
+                <button
+                    type="submit"
+                    class="
+                        button
+                        actions-group__button
+                        action
+                        primary
+                        submit
+                    "
+                    id="review-button"
+                >
+                    <?= $block->escapeHtml(__('Place Order')); ?>
+                </button>
+            </div>
+            <div class="actions-group__handler">
+                <a
+                    href="<?= $block->escapeUrl($block->getBackUrl()); ?>"
+                    class="
+                        actions-group__link
+                        action
+                        back
+                    "
+                >
+                    <?= $block->escapeHtml(__('Back to Billing Information')); ?>
+                </a>
+            </div>
+        </div>
+    </div>
+</form>

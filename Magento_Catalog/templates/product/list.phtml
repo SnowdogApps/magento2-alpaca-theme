@@ -86,7 +86,6 @@ $_helper = $this->helper(Magento\Catalog\Helper\Output::class);
                                             badge
                                             badge--<?= $block->escapeHtmlAttr(preg_replace('/[[:space:]]+/', '-', mb_strtolower($productBadges, 'UTF-8'))) ?>
                                         "
-                                        "
                                     >
                                         <?= $block->escapeHtml($productBadges) ?>
                                     </div>
@@ -109,13 +108,13 @@ $_helper = $this->helper(Magento\Catalog\Helper\Output::class);
                                     "
                                     title="<?= $block->escapeHtmlAttr($productName) ?>"
                                 >
-                                    <?= $productName; ?>
+                                    <?= $block->escapeHtml($productName) ?>
                                 </a>
                             </h2>
 
                             <div class="product-list-item__sku">
                                 <?= __('SKU:') ?>
-                                <?= $_product['sku'] ?>
+                                <?= $block->escapeHtml($_product['sku']) ?>
                             </div>
 
                             <?php if (isset($_product['selling_features_bullets'])): ?>
@@ -260,10 +259,7 @@ $_helper = $this->helper(Magento\Catalog\Helper\Output::class);
                                     <div
                                         class="
                                             badge
-                                            class="
-                                            badge
                                             badge--<?= $block->escapeHtmlAttr(preg_replace('/[[:space:]]+/', '-', mb_strtolower($productBadges, 'UTF-8'))) ?>
-                                        "
                                         "
                                     >
                                         <?= $block->escapeHtml($productBadges) ?>
@@ -290,6 +286,8 @@ $_helper = $this->helper(Magento\Catalog\Helper\Output::class);
                                 class="product-grid-item__name-link"
                             >
                                 <?php
+                                    $productName = $block->escapeHtml($productName);
+
                                     if (strlen($productName) > 42) {
                                         $productName = substr($productName, 0, 42) . '...';
                                     }
