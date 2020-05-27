@@ -1,6 +1,7 @@
 <?php
 $swatchData = $block->getSwatchData();
-$swatchCode = $swatchData['attribute_code'] . 'Filter';
+$swatchCode = $swatchData['attribute_code'];
+$swatchCodeScope = $swatchCode . 'Filter';
 $swatchLabel = $swatchData['attribute_label'];
 $helper = $this->helper('Snowdog\ProductAttributeDescription\Helper\Attribute');
 $attributeDescriptions = $helper->getAttributesDescriptions(['color']);
@@ -23,7 +24,7 @@ $attributeDescriptions = $helper->getAttributesDescriptions(['color']);
         <button
             type="button"
             class="dropdown-list__label"
-            aria-controls="<?= $swatchCode ?>"
+            aria-controls="<?= $swatchCodeScope ?>"
             aria-expanded="true"
         >
             <h3 class="filter__heading">
@@ -47,13 +48,29 @@ $attributeDescriptions = $helper->getAttributesDescriptions(['color']);
             dropdown-list__content
             filter__content
         "
-        id="<?= $swatchCode ?>"
+        id="<?= $swatchCodeScope ?>"
         aria-hidden="false"
     >
-        <?php if ($attributeDescriptions['color']): ?>
-            <div
-                class="more-info margin-bottom-xs"
-                data-mage-init='{ "moreInfo": { } }'
+        <div
+            class="more-info"
+            data-mage-init='{
+                "moreInfo": {
+                    "path": "/rest/V1/snowproductattributedescription/description/:attributeCode",
+                    "variable": ":attributeCode",
+                    "data": "<?= $swatchCode ?>"
+                }
+            }'
+            aria-hidden="true"
+        >
+            <button
+                class="
+                    button
+                    button--icon
+                    button--fluid
+                    more-info__trigger
+                "
+                type="button"
+                aria-expanded="false"
             >
                 <button
                     class="
@@ -81,18 +98,16 @@ $attributeDescriptions = $helper->getAttributesDescriptions(['color']);
                     </svg>
                 </button>
 
-                <div
-                    class="more-info__content-wrapper"
-                    aria-hidden="true"
-                >
-                    <div class="more-info__content">
-                        <h3 class="more-info__heading">
-                            <?= $block->escapeHtml(__('Color')) ?>
-                        </h3>
+            <div
+                class="more-info__content-wrapper"
+                aria-hidden="true"
+            >
+                <div class="more-info__content">
+                    <h3 class="more-info__heading">
+                        <?= $swatchLabel; ?>
+                    </h3>
 
-                        <div class="more-info__data">
-                            <?= /* @noEscape */ $attributeDescriptions['color'] ?>
-                        </div>
+                    <div class="more-info__data"></div>
 
                         <button
                             class="
@@ -123,7 +138,7 @@ $attributeDescriptions = $helper->getAttributesDescriptions(['color']);
                 list
                 filter__list
             "
-            attribute-code="<?= $block->escapeHtmlAttr($swatchCode) ?>"
+            attribute-code="<?= $block->escapeHtmlAttr($swatchCodeScope) ?>"
             attribute-id="<?= $block->escapeHtmlAttr($swatchData['attribute_id']) ?>"
         >
             <?php foreach ($swatchData['options'] as $option => $label): ?>
@@ -253,7 +268,7 @@ $attributeDescriptions = $helper->getAttributesDescriptions(['color']);
                 ],
                 function ($)
                 {
-                    $('.swatch-layered.<?= $block->escapeHtmlAttr($swatchCode) ?>')
+                    $('.swatch-layered.<?= $block->escapeHtmlAttr($swatchCodeScope) ?>')
                         .find('[option-type="1"], [option-type="2"], [option-type="0"], [option-type="3"]')
                         .SwatchRendererTooltip();
                 }
