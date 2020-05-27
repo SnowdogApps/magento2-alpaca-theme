@@ -1,7 +1,7 @@
-# Colibri - components & theme for Magento 2.3
+# Alpaca - components & theme for Magento 2.3
 
 ## Description
-Colibri Theme for Magento 2 is part of a `colibri-packages`
+Alpaca Theme for Magento 2 is part of a `alpaca-packages`
 To make it work with all features, we use following modules:
 
 Open source
@@ -11,16 +11,17 @@ Open source
 * smile/elasticsuite
 * snowdog/module-bullet-points
 * snowdog/module-category-attributes
-* snowdog/module-colibri-acm-fixes
-* snowdog/module-colibri-acm
+* snowdog/module-alpaca-acm
 * snowdog/module-menu
 * snowdog/module-product-attribute-description
 * snowdog/module-shipping-latency
-* snowdog/theme-frontend-colibri
 * webshopapps/module-matrixrate
 
-Additional, non-opensource modules the theme works with
+and module-alpaca-acm (from github) which will be added in p.1
+
+Additional, non-opensource modules the theme works with to cover additional features:
 * amasty/adminactionslog
+* amasty/module-gdpr
 * amasty/module-gift-card
 * amasty/module-google-rich-snippets
 * amasty/module-product-feed
@@ -36,7 +37,7 @@ Additional, non-opensource modules the theme works with
 
 ## Installation
 Install whole package using composer:
-`composer require snowdog/colibri-packages`
+`composer require snowdog/alpaca-packages`
 
 Node >=12.13.0 <13.0.0 is required for frontools and components
 
@@ -50,7 +51,7 @@ Node >=12.13.0 <13.0.0 is required for frontools and components
     "description": "Child frontend theme",
     "type": "magento2-theme",
     "require": {
-        "snowdog/theme-frontend-colibri": "<latest-version>",
+        "snowdog/theme-frontend-alpaca": "<latest-version>",
         "vendor/module-child-theme-frontools": "<latest-version>"
     },
     "autoload": {
@@ -60,7 +61,7 @@ Node >=12.13.0 <13.0.0 is required for frontools and components
     }
   }
   ```
-  * in `theme.xml` set Colibri theme as a parent: `<parent>Snowdog/colibri</parent>`
+  * in `theme.xml` set Alpaca theme as a parent: `<parent>Snowdog/alpaca</parent>`
   * add following files:
     * `styles/styles.scss`
     ```scss
@@ -106,9 +107,9 @@ Example: `vendor/module-child-theme-frontools`.
 
   ```json
   {
-    "colibri": {
-      "src": "vendor/snowdog/theme-frontend-colibri",
-      "dest": "pub/static/frontend/Snowdog/colibri",
+    "alpaca": {
+      "src": "vendor/snowdog/theme-frontend-alpaca",
+      "dest": "pub/static/frontend/Snowdog/alpaca",
       "locale": ["en_US"],
       "ignore": [
         "**/node_modules/**",
@@ -117,7 +118,7 @@ Example: `vendor/module-child-theme-frontools`.
       ]
     },
     "child-theme": {
-      "parent": "colibri",
+      "parent": "alpaca",
       "src": "vendor/theme-frontend-child-theme",
       "dest": "pub/static/frontend/Vendor/child-theme",
       "locale": ["en_US"],
@@ -155,16 +156,16 @@ Example: `vendor/module-child-theme-frontools`.
 `composer require vendor/theme-frontend-child-theme`
 
 ### Components
-`theme-frontend-colibri/Snowdog_Components` it's separate [fractal.build](https://fractal.build/guide/) project integrated with Magento 2 Theme. It is not set as a separate composer package (neither separate git repository) to work with Magento theme easier and faster.
+`theme-frontend-alpaca/Snowdog_Components` it's separate [fractal.build](https://fractal.build/guide/) project integrated with Magento 2 Theme. It is not set as a separate composer package (neither separate git repository) to work with Magento theme easier and faster.
 But you can work on components separately and run them outside of Magento.
 
-#### To build custom components based on Colibri components:
+#### To build custom components based on Alpaca components:
 
 1. Copy-paste `package.json`, `gulpfile.js`, `.eslintignore`, `.eslintrc`, `.sass-lint.yml`, `.stylelintrc` files into `theme-frontend-<child-theme>/Snowdog_Components`:
 
 2. Update project names in `package.json` and `gulpfile.js`
 
-3. Copy `styles.scss` from `theme-frontend-colibri/Snowdog_Components/docs/styles/` and add child project variables import there.
+3. Copy `styles.scss` from `theme-frontend-alpaca/Snowdog_Components/docs/styles/` and add child project variables import there.
 The file should look like this:
 
 ```scss
@@ -179,18 +180,18 @@ The file should look like this:
 @import 'fractal';
 ```
 4. Create `modules.json` file with an array of paths to parent components libraries.
-To inherit dependencies from Colibri components, you have to define path to `theme-forntend-colibri/Snowdog_Components`.
+To inherit dependencies from Alpaca components, you have to define path to `theme-forntend-alpaca/Snowdog_Components`.
 In most cases it will look like this:
   ```json
   [
-      "../../../snowdog/theme-frontend-colibri/Snowdog_Components"
+      "../../../snowdog/theme-frontend-alpaca/Snowdog_Components"
   ]
   ```
-5. Customize or add new files following the same structure as in Colibri components
+5. Customize or add new files following the same structure as in Alpaca components
 
 6. Run `yarn` and `yarn dev` to run components in fractal :tada:
 
-If you don't work with Magento and want to use only components for some other project, you can create separate repository or/and composer package from `theme-frontend-colibri/Snowdog_Components` and set dependence to Colibri components (`theme-frontend-colibri/Snowdog_Components`) inside it.
+If you don't work with Magento and want to use only components for some other project, you can create separate repository or/and composer package from `theme-frontend-alpaca/Snowdog_Components` and set dependence to Alpaca components (`theme-frontend-alpaca/Snowdog_Components`) inside it.
 
 ## Working with components & theme - customisation guide
 
@@ -208,7 +209,7 @@ You can overwrite single variable and add it to the global file or copy particul
 * Overwrite the same file in Snowdog_Components files structure (`.hbs`, `.config.js`, `.scss`)
 * Creating new components and import styles for it
 
-More about working with Colibri Components directly in components' [README.md](Snowdog_Components/README.md)
+More about working with Alpaca Components directly in components' [README.md](Snowdog_Components/README.md)
 
 ### Customising theme files
 * Follow standard Magento way to work with [Theme inheritance](https://devdocs.magento.com/guides/v2.3/frontend-dev-guide/themes/theme-inherit.html)
@@ -218,8 +219,8 @@ Remember:
 
 ### styles
 
-Styles in Colibri are separated:
-* Components styles inside `theme-frontend-colibri/Snowdog_Components` to work with components directly.
+Styles in Alpaca are separated:
+* Components styles inside `theme-frontend-alpaca/Snowdog_Components` to work with components directly.
   Components are divided into Atomic groups (Atoms, Molecules, Organisms, Templates) and imported in [main styles file](Snowdog_Components/docs/styles/styles.scss)
 
   Those styles are also imported inside the theme in [main styles file](styles/styles.scss)
@@ -242,7 +243,7 @@ If you use ES6, you should use babel support, just add `.babel` in file name bef
 
 ### Sliders
 Used lib: [slick slider](https://kenwheeler.github.io/slick/)
-Magento Theme: One template for all sliders (theme-frontend-colibri/Magento_Theme/templates/html/slider.phtml)
+Magento Theme: One template for all sliders (theme-frontend-alpaca/Magento_Theme/templates/html/slider.phtml)
 How to use:
 1. If possible define block in xml:
 ```
@@ -256,7 +257,7 @@ How to use:
             some_slider_name
         </argument>
 
-        //required option for sliders using content type colibri_pictures as slides
+        //required option for sliders using content type `pictures` as slides
         <argument
             name="slider_picture_block"
             xsi:type="string"
@@ -349,3 +350,74 @@ $sliderBlock->setData(['slider_html'=>'after-slides', ...]);
 ?>
 <?= $sliderBlock->toHtml(); ?>
 ```
+
+## Alpaca Content - Set up your store, admin / db changes for alpaca theme
+
+### Menu - to display menu use [Snowog's magento2-menu](https://github.com/SnowdogApps/magento2-menu) module
+1. Desktop menu:
+  * identifier: main-desktop
+  * Menu Main CSS Class: mega-menu
+2. Mobile menu:
+  * identifier: main-mobile
+  * Menu Main CSS Class: dropdown-list
+3. Footer links menu
+  * identifier: main-footer
+  * Menu Main Class: dropdown-list
+
+
+You can use Alpaca styles implementation to use different configuration of menu items, by adding classes to nodes, check Alpaca components for details to build menu's adjusted to your project's needs, for example: to create a column, create node "wrapper" with Node CSS Classes: list__column list__column--hidden
+
+### Header & Footer CMS blocks
+
+We use cms block to display and customise some content in header and footer, check `vendor/snowdog/theme-frontend-colibri/Magento_Theme/layout/default.xml`  which cms block we use and Alpaca components to buld the content structure
+
+### Homepage blocks
+
+Homepage content is build using static blocks, check `vendor/snowdog/theme-frontend-colibri/Magento_Cms/layout/cms_index_index.xml` to see which cms blocks are displayed by default and check Alpaca components to build HTML structure
+
+### SVG icons in cms block:
+
+* {{block class="Magento\Framework\View\Element\Template" template="Magento_Theme::html/svg-icon.phtml" icon="<icon-code>" icon_class="icon" title="<svg-title>" role="presentation" focusable="false"}}
+* as `icon` value use icon id (Alpaca components)
+* as `title` use accessible title that describe the icon image
+* base class for icon is `icon` you can add, adjust class according to your needs
+* a11y - use role="presentation" and focusable="false" if an icon is only decorative to hide in a11y API tree
+
+### Responsive images
+
+* to display responsive image for banners and slider items, we use:
+* template picture.phtml: `vendor/snowdog/theme-frontend-colibri/Magento_Theme/templates/html/picture.phtml` you can adjust it for your needs in the child theme.
+* usage of phtml in cms block/page: {{block class="Magento\Framework\View\Element\Template" template="Magento_Theme::html/picture.phtml" img480="<img-url>" img768="<img-url>" img960="<img-url>" img1024="<img-url>" img1328="<img-url>" img_full="<img-url>" picture_class="image" picture_alt="<descriptive image alternative text>" }}
+* by default you can use different image for media query breakpoints, you can also implement images with different device-pixel-ratio, check the template's code for details
+
+### Slider
+* we use Blackbird Content Manager (paid extension) for sliders, but you can use the structure from Alpaca components and build it using template and CMS blocks
+
+### Blog
+* we use Blackbird Content Manager (paid extension) for blog
+
+### Shipping latency - snowdog/module-shipping-latency
+
+* is an extension to display additional information about shipping time
+* Extension work on catalog and product detail page, to customise it you need to set attribute (dropdown) option and create cms block for popup content
+* check [Shipping latency extension details](https://lab.snowdog.pro/colibri/magento2-shipping-latency) and theme implementation in: `vendor/snowdog/theme-frontend-colibri/Magento_Catalog/templates/product/list.phtml` (for catalog) and `vendor/snowdog/theme-frontend-colibri/Magento_Catalog/templates/product/view/shipping-latency.phtml` (for product detail page)
+
+### Bullet points - snowdog/module-bullet-points
+* Extension is used to display product attributes listed on product list item on catalog page
+* check [Bullet points extension details](https://lab.snowdog.pro/colibri/magento2-bullet-points)
+
+### Category attributes - snowdog/module-category-attributes
+* it add a field for additional content on the bottom of catalog page
+* check [Category attributes extension details](https://lab.snowdog.pro/colibri/magento2-category-attributes)
+
+### Product attribute description - snowdog/module-product-attribute-description
+* Extension allow to add additional description for attribute, implemented from admin level
+* check [Product attribute description extension details](https://lab.snowdog.pro/colibri/magento2-product-attribute-description)
+* in theme is implemented on catalog level as an additional tooltip, check implementation:
+  * `vendor/snowdog/theme-frontend-colibri/Smile_ElasticsuiteCatalog/templates/layer/filter/attribute.phtml`
+  * `vendor/snowdog/theme-frontend-colibri/Magento_Swatches/templates/product/layered/renderer.phtml` (swatches)
+  * `vendor/snowdog/theme-frontend-colibri/Smile_ElasticsuiteCatalog/templates/layer/filter/slider.phtml` (range filter)
+
+### Wishlist unlocker -  snowdog/module-wishlist-unlocker
+* This extension allow to show more than 3 items in sidebar wishlist (M2 default is 3)
+* Limit value can be set in admin: Store -> COnfiguration -> Customer -> Wish List -> General option -> Items Limit

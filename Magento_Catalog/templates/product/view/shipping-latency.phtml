@@ -1,10 +1,10 @@
 <?php /* @var $block \Magento\Catalog\Block\Product\View\AbstractView */?>
 <?php
 $_product = $block->getProduct();
+/** @var \Snowdog\ShippingLatency\Helper\Data $shippingLatencyHelper */
 $shippingLatencyHelper = $this->helper('Snowdog\ShippingLatency\Helper\Data');
-$productQty = $_product->getExtensionAttributes()->getStockItem()->getQty();
-$isShownInStock = (float) ($productQty) > 0 || $_product->getData('display_instock_frontend');
 $shippingLatencyText = $_product->getAttributeText('shipping_latency');
+$isShownInStock = $shippingLatencyHelper->isShippingLatencyAllowed($_product);
 ?>
 
 <?php if($shippingLatencyHelper && ($isShownInStock || $shippingLatencyText)): ?>
@@ -24,6 +24,8 @@ $shippingLatencyText = $_product->getAttributeText('shipping_latency');
             <?= $block->escapeHtml(__('In stock')) ?>
         <?php elseif ($shippingLatencyText->getText() !== 'None'): ?>
             <?= $block->escapeHtml($shippingLatencyText); ?>
+        <?php else: ?>
+            <?= $block->escapeHtml(__('Out of stock')) ?>
         <?php endif; ?>
     </button>
     <div

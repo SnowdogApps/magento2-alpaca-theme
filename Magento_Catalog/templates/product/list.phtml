@@ -3,17 +3,10 @@ use Magento\Framework\App\Action\Action;
 
 ?>
 <?php
-// phpcs:disable Magento2.Templates.ThisInTemplate.FoundThis
-
-/**
- * Product list template
- *
- * @var $block \Magento\Catalog\Block\Product\ListProduct
- */
-?>
-<?php
-$_productCollection = $block->getLoadedProductCollection();
-$_helper = $this->helper(Magento\Catalog\Helper\Output::class);
+    $_productCollection = $block->getLoadedProductCollection();
+    $_helper = $this->helper(\Magento\Catalog\Helper\Output::class);
+    /** @var \Snowdog\ShippingLatency\Helper\Data $shippingLatencyHelper */
+    $shippingLatencyHelper = $this->helper(\Snowdog\ShippingLatency\Helper\Data::class);
 ?>
 <?php if (!$_productCollection->count()): ?>
     <div class="message info empty">
@@ -130,28 +123,81 @@ $_helper = $this->helper(Magento\Catalog\Helper\Output::class);
                         </div>
 
                         <div class="product-list-item__actions">
-                            <?php if ($_product->getIsSalable()): ?>
-                                <button
-                                    class="
-                                        button
-                                        button--link
-                                        product-list-item__stock
-                                    "
-                                    type="button"
-                                >
-                                    <?= __('In stock') ?>
-                                </button>
-                            <?php else: ?>
-                                <button
-                                    class="
-                                        button
-                                        button--link
-                                        product-list-item__stock
-                                    "
-                                    type="button"
-                                >
-                                    <?= __('Out of stock') ?>
-                                </button>
+                            <?php
+                                $shippingLatencyText = $_product->getAttributeText('shipping_latency');
+                                $isShownInStock = $shippingLatencyHelper->isShippingLatencyAllowed($_product);
+                            ?>
+                            <?php if ($isShownInStock || $shippingLatencyText): ?>
+                                <div class="shipping_latency">
+                                    <button
+                                            class="
+                                                button
+                                                button--link
+                                                modal-trigger
+                                                product-view__stock
+                                            "
+                                            type="button"
+                                            aria-expanded="false"
+                                            data-modal-trigger="shipping-latency-popup"
+                                            data-mage-init='{ "modal" : {} }'
+                                    >
+                                        <?php if ($isShownInStock): ?>
+                                            <?= $block->escapeHtml(__('In stock')) ?>
+                                        <?php elseif ($shippingLatencyText->getText() !== 'None'): ?>
+                                            <?= $block->escapeHtml($shippingLatencyText); ?>
+                                        <?php else: ?>
+                                            <?= $block->escapeHtml(__('Out of stock')) ?>
+                                        <?php endif; ?>
+                                    </button>
+                                    <div
+                                            id="shipping-latency-popup-<?= $_product->getId(); ?>"
+                                            role="dialog"
+                                            aria-hidden="true"
+                                            data-modal="shipping-latency-popup"
+                                            aria-labelledby="shipping-latency-title"
+                                            class="modal"
+                                    >
+                                        <div
+                                                class="modal__container"
+                                                role="document"
+                                                tabindex="0"
+                                        >
+                                            <div class="modal__content">
+                                                <?php if ($isShownInStock): ?>
+                                                    <?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('one-day-shipping')->toHtml(); ?>
+                                                <?php else: ?>
+                                                    <h3 id="shipping-latency-title">
+                                                        <?= $block->escapeHtml($shippingLatencyText); ?>
+                                                    </h3>
+                                                    <?= $shippingLatencyHelper->getProductPopupHtml($_product->getData()); ?>
+                                                <?php endif ?>
+                                            </div>
+                                            <button
+                                                    class="
+                                                        button
+                                                        button--icon
+                                                        button--rotate-icon
+                                                        modal__close-button
+                                                    "
+                                                    type="button"
+                                                    aria-label="<?= $block->escapeHtmlAttr(__('Close modal')) ?>"
+                                            >
+                                                <svg
+                                                        class="
+                                                            icon
+                                                            button__icon
+                                                            modal__close-button-icon
+                                                        "
+                                                        role="presentation"
+                                                        focusable="false"
+                                                >
+                                                    <title><?= __('Close') ?></title>
+                                                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#close')); ?>"></use>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                             <?php endif; ?>
 
                             <div class="product-list-item__price">

@@ -96,7 +96,7 @@ module.exports = {
     {
       name: 'description',
       context: {
-        attributes: 'title="Colibri description list"',
+        attributes: 'title="Alpaca description list"',
         elements: [
           {
             label: 'Lorem ipsum',
@@ -277,7 +277,7 @@ module.exports = {
         class: 'list--table',
         listTag: 'ul',
         elementTag: 'li',
-        attributes: 'title="Colibri table list"',
+        attributes: 'title="Alpaca table list"',
         elements: [
           {
             label: 'Lorem ipsum long label',

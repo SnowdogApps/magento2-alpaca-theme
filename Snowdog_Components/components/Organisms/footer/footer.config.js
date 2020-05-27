@@ -221,7 +221,7 @@ module.exports = {
         }
       ]
     },
-    copyrightText: 'Copyright © 2019 Colibri',
+    copyrightText: 'Copyright © 2019 Alpaca',
     bottomBar: {
       handlerClass: 'container'
     },
