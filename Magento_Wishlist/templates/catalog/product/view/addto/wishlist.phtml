@@ -2,7 +2,8 @@
 // @codingStandardsIgnoreFile
 
 /** @var \Magento\Wishlist\Block\Catalog\Product\View\AddTo\Wishlist $block */
-$buttonText = $block->getHasText();
+$hasText = $block->getHasText();
+$buttonText = $block->getText();
 $additionalClass = $block->getAdditionalClass();
 $productId = $block->getProduct()->getId();
 ?>
@@ -12,8 +13,6 @@ $productId = $block->getProduct()->getId();
         class="
             button
             button--icon
-            action
-            towishlist
             <?= $block->escapeHtmlAttr($additionalClass) ?>
         "
         type="button"
@@ -36,9 +35,9 @@ $productId = $block->getProduct()->getId();
         >
             <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#heart')); ?>"></use>
         </svg>
-        <?php if($buttonText): ?>
+        <?php if($hasText): ?>
             <span class="button__text">
-                <?= __('Wishlist') ?>
+                <?= $block->escapeHtml($buttonText) ?>
             </span>
         <?php endif; ?>
     </button>

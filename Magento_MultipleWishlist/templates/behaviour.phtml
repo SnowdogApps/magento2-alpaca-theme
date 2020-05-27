@@ -92,34 +92,68 @@
     </div>
 </script>
 <script id="split-btn-tmpl" type="text/x-magento-template">
+    <button
+        type="button"
+        data-post='<%- JSON.stringify(data.generalParams) %>'
+        data-action="add-to-wishlist"
+        class="
+            button
+            product-view__update-wishlist
+        "
+    >
+        <%- data.buttonName %>
+    </button>
     <div
         class="
+            product-view__multiwishlist
             dropdown-list
-            dropdown-list--detailed-content
+            dropdown-list--buttons
         "
         data-mage-init='{ "dropdownList": {} }'
     >
-        <button
-            type="button"
-            data-post='<%- JSON.stringify(data.generalParams) %>'
-            data-action="add-to-wishlist"
-            class="label action split"
-        >
-            <%- data.buttonName %>
-        </button>
-
         <ul class="dropdown-list__list" >
-            <li class="dropdown-list__item dropdown-list__item--collapse">
+            <li
+                class="
+                    dropdown-list__item
+                    dropdown-list__item--collapse
+                "
+            >
                 <button
-                    class="action toggle change dropdown-list__label"
-                    title="<%- window.jQuery.mage.__('Add to:') %>"
+                    class="
+                        dropdown-list__label
+                        button
+                        button--icon
+                    "
+                    title="<%- window.jQuery.mage.__('Wish List') %>"
                     type="button"
                     aria-expanded="false"
                     aria-controls="dropdown-wishlist-content"
                 >
-                    <%- window.jQuery.mage.__('Add to:') %>
                     <svg
-                        class="icon dropdown-list__icon"
+                        class="
+                            icon
+                            button__icon
+                        "
+                        role="presentation"
+                        focusable="false"
+                    >
+                        <title><?= __('Wishlist heart') ?></title>
+                        <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#heart')) ?>"></use>
+                    </svg>
+                    <span
+                        class="
+                            button__text
+                            dropdown-list__text
+                        "
+                    >
+                        <%- window.jQuery.mage.__('Wish List') %>
+                    </span>
+                    <svg
+                        class="
+                            icon
+                            dropdown-list__icon
+                            button__icon
+                        "
                         aria-hidden="true"
                         role="img"
                     >
@@ -134,33 +168,40 @@
                 >
                     <ul class="list">
                         <% _.each(data.wishlists, function(item) { %>
-                            <li class="list__item">
-                                <% if (item.newClass) { %>
-                                    <span role="button"
-                                        tabindex="0"
-                                        class="action <%- item.newClass %>"
-                                        data-action-keypress="true"
-                                        data-post-new-wishlist='<%- JSON.stringify(item.params) %>'
-                                        data-action="add-to-wishlist"
-                                        title="<%- item.name %>">
-                                        <span><%- item.name %></span>
-                                    </span>
-                                <% } else { %>
-                                    <span role="button"
+                            <% if (item.newClass) { %>
+                                <span
+                                    role="button"
+                                    tabindex="0"
+                                    class="
+                                        button
+                                        margin-top-m
+                                        <%- item.newClass %>
+                                    "
+                                    data-action-keypress="true"
+                                    data-post-new-wishlist='<%- JSON.stringify(item.params) %>'
+                                    data-action="add-to-wishlist"
+                                    title="<%- item.name %>"
+                                >
+                                    <%- item.name %>
+                                </span>
+                            <% } else { %>
+                                <li class="list__item">
+                                    <span
+                                        role="button"
                                         tabindex="0"
                                         data-action-keypress="true"
                                         data-post='<%- JSON.stringify(item.params) %>'
                                         data-action="add-to-wishlist"
-                                        title="<%- item.name %>">
+                                        title="<%- item.name %>"
+                                    >
                                         <%- item.name %>
                                     </span>
-                                <% } %>
-                            </li>
+                                </li>
+                            <% } %>
                         <% }); %>
                     </ul>
                 </div>
             </li>
-
         </ul>
     </div>
 </script>
