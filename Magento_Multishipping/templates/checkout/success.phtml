@@ -1,0 +1,64 @@
+<?php
+
+/** @var \Magento\Multishipping\Block\Checkout\Success $block */
+?>
+<form
+    action="<?= $block->escapeUrl($block->getContinueUrl()); ?>"
+    method="post"
+>
+    <div class="multicheckout success">
+        <p>
+            <?= $block->escapeHtml(__('For successfully order items, you\'ll receive a confirmation email including ' .
+                'order numbers, tracking information and more details.')) ?>
+        </p>
+        <?php if ($orderIds = $block->getOrderIds()) : ?>
+            <h2>
+                <?= $block->escapeHtml(__('Successfully ordered')) ?>
+            </h2>
+            <div class="orders-succeed">
+                <ul class="orders-list list">
+                    <?php foreach ($orderIds as $orderId => $incrementId) : ?>
+                        <li class="shipping-list list__item">
+                            <div class="order-id">
+                                <a href="<?= $block->escapeUrl($block->getViewOrderUrl($orderId)); ?>">
+                                    <?= $block->escapeHtml($incrementId); ?>
+                                </a>
+                            </div>
+                            <?php $shippingAddress = $block->getCheckoutData()->getOrderShippingAddress($orderId); ?>
+                            <div class="shipping-item">
+                                <?php if ($shippingAddress) : ?>
+                                    <span class="shipping-label">
+                                        <?= $block->escapeHtml(__('Ship to:')); ?>
+                                    </span>
+                                    <span class="shipping-address">
+                                        <?= $block->escapeHtml(
+                                            $block->getCheckoutData()->formatOrderShippingAddress($shippingAddress)
+                                        ); ?>
+                                    </span>
+                                <?php else: ?>
+                                    <span class="shipping-address">
+                                        <?= $block->escapeHtml(__('No shipping required.')); ?>
+                                    </span>
+                                <?php endif; ?>
+                            </div>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        <?php endif; ?>
+        <?= $block->getChildHtml() ?>
+        <div
+            class="actions-group"
+            id="review-buttons-container"
+        >
+            <div class="actions-group__handler">
+                <button
+                    type="submit"
+                    class="button action primary submit"
+                >
+                    <?= $block->escapeHtml(__('Continue Shopping')); ?>
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
