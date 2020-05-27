@@ -5,7 +5,7 @@ define([
   'mage/template',
   'Magento_Catalog/js/price-utils',
   'Magento_Ui/js/lib/knockout/template/loader',
-  'jquery/ui',
+  'Magento_Ui/js/modal/modal',
   'mage/translate',
   'Magento_Search/js/form-mini'
 ], function (ko, $, _, mageTemplate, priceUtil, templateLoader) {
@@ -102,7 +102,7 @@ define([
 
         this.submitBtn.disabled = this._isEmpty(value);
 
-        if (value.length >= parseInt(this.options.minSearchLength, 10)) {
+        if (value.trim().length >= parseInt(this.options.minSearchLength, 10)) {
           this.searchForm.addClass('processing');
           this.currentRequest = $.ajax({
             method: "GET",
@@ -146,15 +146,11 @@ define([
               $.each(sidebarElements, function(index, element) {
                 if (!lastElement || (lastElement && lastElement.type !== element.type)) {
                    var sidebarSection = this._getSidebarSection(element.type, data);
-                }
+                   var elementHtml = this._renderItem(element, index);
 
-                var elementHtml = this._renderItem(element, index);
-
-                sidebarSection.append(elementHtml);
-
-                if (!lastElement || (lastElement && lastElement.type !== element.type)) {
-                  sidebarWrapper.append(sidebarSection);
-                  content.append(sidebarWrapper);
+                   sidebarSection.append(elementHtml);
+                   sidebarWrapper.append(sidebarSection);
+                   content.append(sidebarWrapper);
                 }
 
                 lastElement = element;

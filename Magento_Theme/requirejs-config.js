@@ -12,6 +12,7 @@ var config = {
       "bannerCollapsible": "Magento_Theme/js/banner-collapsible.babel",
       "cookieMessage"    : "Magento_Theme/js/cookie-message.babel",
       "dropdownList"     : "Magento_Theme/js/dropdown-list.babel",
+      "fileUpload"       : "Magento_Theme/js/file-upload.babel",
       "marketingBar"     : "Magento_Theme/js/marketing-bar.babel",
       "modal"            : "Magento_Theme/js/modal.babel",
       "select2"          : "Magento_Theme/js/lib/select2",

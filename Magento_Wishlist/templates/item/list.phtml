@@ -6,24 +6,33 @@ $columns = $block->getColumns();
 <?php if (count($block->getItems())): ?>
     <div
         class="
+            products-grid
             wishlist
-            wishlist__grid
             row
+            wishlist__grid
         "
     >
         <?php foreach ($block->getItems() as $item): ?>
             <div
                 id="item_<?= $block->escapeHtmlAttr($item->getId()) ?>"
                 class="
-                    col-xs-6
+                    col-xs-12
+                    col-sm-6
                     col-md-4
                     wishlist__item
+                    margin-bottom-sm
                 "
                 data-row="product-item"
             >
                 <?php foreach ($columns as $column): ?>
+                    <?php if ($column->getStartWrapper()): ?>
+                        <div class="wishlist__item-content margin-hz-xs">
+                    <?php endif; ?>
                     <?php $column->setItem($item); ?>
                     <?= $column->toHtml($item); ?>
+                    <?php if ($column->getEndWrapper()): ?>
+                        </div>
+                    <?php endif; ?>
                 <?php endforeach; ?>
             </div>
         <?php endforeach; ?>

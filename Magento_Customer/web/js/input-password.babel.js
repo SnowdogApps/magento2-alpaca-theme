@@ -1,12 +1,10 @@
-define(() => (config, element) => {
-  'use strict'
+define([], function () {
+  'use strict';
 
-  const components = [...document.querySelectorAll('.input--password')],
-        activeClass = 'input__button-pass--active';
-
-  components.forEach(component => {
-    const input = component.querySelector('.input__field'),
-          button = component.querySelector('.input__button-pass');
+  return function (config, element) {
+    const button = element,
+      input = element.closest('.input--password').querySelector('.input__field'),
+      activeClass = 'input__button-pass--active';
 
     button.addEventListener('click', () => {
       if (!button.classList.contains(activeClass)) {
@@ -17,6 +15,7 @@ define(() => (config, element) => {
         button.classList.remove(activeClass);
         input.type = 'password';
       }
-    })
-  })
-})
+    });
+  };
+});
+

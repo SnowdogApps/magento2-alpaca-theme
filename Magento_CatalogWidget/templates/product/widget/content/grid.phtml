@@ -141,12 +141,13 @@ use Magento\Framework\App\Action\Action;
                                 title="<?= $block->escapeHtmlAttr($_item->getName()) ?>"
                             >
                                 <?php
-                                    $productName = $_item->getName();
+                                    $productName = $block->escapeHtml($_item->getName());
+
                                     if (strlen($productName) > 50) {
                                         $productName = substr($productName, 0, 50) . '...';
                                     }
                                 ?>
-                                <?= $block->escapeHtml($productName) ?>
+                                <?= $productName ?>
                             </a>
                         </h3>
                         <div class="product-grid-item__details-bottom">
@@ -161,7 +162,9 @@ use Magento\Framework\App\Action\Action;
                                             class="product-grid-item__secondary-action"
                                             data-role="add-to-links"
                                         >
+                                            <?php //phpcs:disable ?>
                                             <?php if ($this->helper(\Magento\Wishlist\Helper\Data::class)->isAllow() && $showWishlist) : ?>
+                                            <?php //phpcs:enable ?>
                                                 <button
                                                     class="
                                                         button
@@ -188,7 +191,9 @@ use Magento\Framework\App\Action\Action;
                                             <?php endif; ?>
 
                                             <?php if ($block->getAddToCompareUrl() && $showCompare) : ?>
+                                                <?php //phpcs:disable ?>
                                                 <?php $compareHelper = $this->helper(\Magento\Catalog\Helper\Product\Compare::class);?>
+                                                <?php //phpcs:enable ?>
                                                 <button
                                                     class="
                                                         button

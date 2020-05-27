@@ -1,19 +1,14 @@
 <?php $_order = $block->getOrder() ?>
-
 <div class="dashboard-table">
+
     <div class="dashboard-table__header">
         <h2 class="heading dashboard-table__title">
             <?= __('Invoice #') ?>
             <?= $_order->getIncrementId(); ?>
         </h2>
 
-        <a
-            href="<?= $block->escapeUrl($block->getPrintAllInvoicesUrl($_order)) ?>"
-            class="link dashboard-table__link"
-            target="_blank"
-        >
-            <?= __('Print All Invoices') ?>
-        </a>
+        <?= $block->getChildHtml('order_actions') ?>
+
     </div>
 
     <?php foreach ($_order->getInvoiceCollection() as $_invoice): ?>
@@ -52,7 +47,7 @@
                 <?php $_count = count($_items) ?>
 
                 <?php foreach ($_items as $_item): ?>
-                    <?php if ($_item->getOrderItem()->getParentItem()): continue; endif; ?>
+                    <?php if ($_item->getOrderItem()->getParentItem()) continue; ?>
 
                     <tbody>
                         <?= $block->getItemHtml($_item) ?>

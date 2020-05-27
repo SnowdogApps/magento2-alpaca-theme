@@ -1,8 +1,8 @@
 <aside
     class="
         modal-<%= data.type %> <%= data.modalClass %>
-        <% if(data.responsive){ %><%= data.responsiveClass %><% } %>
-        <% if(data.innerScroll){ %><%= data.innerScrollClass %><% } %>
+        <% if (data.responsive) { %><%= data.responsiveClass %><% } %>
+        <% if (data.innerScroll) { %><%= data.innerScrollClass %><% } %>
     "
     data-role="modal"
     data-type="<%= data.type %>"
@@ -15,7 +15,7 @@
         data-role="focusable-scope"
     >
         <header class="modal-header">
-            <% if(data.title){ %>
+            <% if (data.title) { %>
                 <h1 class="heading heading--page" data-role="title">
                     <%= data.title %>
                 </h1>
@@ -29,6 +29,7 @@
                 "
                 data-role="closeBtn"
                 type="button"
+                aria-label="<%= data.closeText %>"
             >
                 <svg
                     class="
@@ -39,16 +40,22 @@
                     role="presentation"
                     focusable="false"
                 >
-                    <use xlink:href="<%= data.closeText %>"></use>
+                    <use xlink:href="<%= data.closeIconSvgUrl %>"></use>
                 </svg>
             </button>
         </header>
         <div class="modal-content" data-role="content"></div>
-        <% if(data.buttons.length > 0){ %>
+        <% if (data.buttons.length > 0) { %>
             <footer class="modal-footer">
                 <% _.each(data.buttons, function(button) { %>
                     <button
-                        class="button button--secondary <%= button.class %>"
+                        class="
+                            button
+                            <% if (button.class && button.class.indexOf('secondary') !== -1) { %>
+                                button--secondary
+                            <% } %>
+                            <%= button.class %>
+                        "
                         type="button"
                         data-role="action"
                     >
