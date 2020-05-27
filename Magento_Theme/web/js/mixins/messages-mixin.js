@@ -8,11 +8,15 @@ define([
   'use strict';
 
   return function (targetModule) {
-    targetModule.defaults.visible = false;
-    targetModule.defaults.listens.visible = 'onHiddenChange';
-    targetModule.defaults.msgSelector = '.messages__wrap .message';
-
     return targetModule.extend({
+      defaults: {
+        visible: false,
+        msgSelector: '.messages__wrap .message',
+        listens: {
+          visible:'onHiddenChange'
+        }
+      },
+
       initialize: function () {
         let original = this._super();
         return original;
