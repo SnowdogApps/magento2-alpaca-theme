@@ -40,7 +40,7 @@ switch ($type = $block->getType()) {
 
             $showAddTo = true;
             $showCart = true;
-            $templateType = null;
+            $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
             $description = false;
         }
     break;
@@ -58,7 +58,7 @@ switch ($type = $block->getType()) {
 
             $showAddTo = true;
             $showCart = true;
-            $templateType = null;
+            $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
             $description = false;
             $canItemsAddToCart = false;
         }
@@ -78,7 +78,7 @@ switch ($type = $block->getType()) {
 
             $showAddTo = true;
             $showCart = true;
-            $templateType = null;
+            $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
             $description = false;
             $canItemsAddToCart = false;
         }
@@ -291,12 +291,13 @@ $sliderResponsiveConfig = '[
                                     title="<?= $block->escapeHtmlAttr($_item->getName()) ?>"
                                 >
                                     <?php
-                                        $productName = $_item->getName();
+                                        $productName = $block->escapeHtml($_item->getName());
+
                                         if (strlen($productName) > 42) {
                                             $productName = substr($productName, 0, 42) . '...';
                                         }
                                     ?>
-                                    <?= $block->escapeHtml($productName); ?>
+                                    <?= $productName ?>
                                 </a>
                             </h3>
                             <div class="product-grid-item__details-bottom">

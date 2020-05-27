@@ -1,0 +1,95 @@
+<?php
+
+/** @var \Magento\Multishipping\Block\Checkout\Address\Select $block */
+?>
+<div class="multicheckout">
+    <div class="block block-billing">
+        <?php foreach ($block->getAddress() as $address): ?>
+            <div class="box box-billing-address">
+                <div class="box-content">
+                    <address>
+                        <?= $block->getAddressAsHtml($address) ?>
+                        <div>
+                            <?php if ($block->isAddressDefaultBilling($address)): ?>
+                                <strong>
+                                    <?= $block->escapeHtml(__('Default Billing')); ?>
+                                </strong>
+                            <?php endif; ?>
+                            <?php if ($block->isAddressDefaultShipping($address)): ?>
+                                <strong>
+                                    <?= $block->escapeHtml(__('Default Shipping')); ?>
+                                </strong>
+                            <?php endif; ?>
+                        </div>
+                    </address>
+                </div>
+                <div class="box-actions">
+                    <a
+                        href="<?= $block->escapeUrl($block->getEditAddressUrl($address)); ?>"
+                        class="
+                            button
+                            button--link
+                            padding-hz-0
+                            action
+                            edit
+                        "
+                    >
+                        <?= $block->escapeHtml(__('Edit Address')); ?>
+                    </a>
+                    <a
+                        href="<?= $block->escapeUrl($block->getSetAddressUrl($address)); ?>"
+                        class="
+                            button
+                            button--link
+                            padding-hz-xs
+                            action
+                            select
+                        "
+                    >
+                        <?= $block->escapeHtml(__('Select Address')); ?>
+                    </a>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+    <div class="actions-group">
+        <div class="actions-group__handler">
+            <button
+                type="button"
+                class="
+                    button
+                    actions-group__button
+                    action
+                    add
+                    primary
+                "
+                role="add-address"
+                title="<?= $block->escapeHtmlAttr(__('Add New Address')); ?>"
+            >
+                <?= $block->escapeHtml(__('Add New Address')); ?>
+            </button>
+        </div>
+        <div class="actions-group__handler">
+            <a
+                href="<?= $block->escapeUrl($block->getBackUrl()); ?>"
+                class="
+                    actions-group__link
+                    action
+                    back
+                "
+            >
+                <?= $block->escapeHtml(__('Back to Billing Information')); ?>
+            </a>
+        </div>
+    </div>
+</div>
+<script type="text/x-magento-init">
+    {
+        ".action": {
+            "address": {
+                "addAddress": "button[role='add-address']",
+                "addAddressLocation": "<?= $block->escapeUrl($block->getAddNewUrl()); ?>"
+            }
+        }
+    }
+</script>

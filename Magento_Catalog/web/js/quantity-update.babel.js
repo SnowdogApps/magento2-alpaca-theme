@@ -1,65 +1,69 @@
-class QuantityUpdate {
-  constructor(element) {
-    this.elem        = element;
-    this.plus        = this.elem.querySelector('.quantity-update__button--plus');
-    this.minus       = this.elem.querySelector('.quantity-update__button--minus');
-    this.input       = this.elem.querySelector('.quantity-update__input');
-    this.activeClass = 'quantity-update--active';
-    this.events();
-    this.evaluateConditions();
-  }
+define([], function () {
+  'use strict';
 
-  events() {
-    this.plus.addEventListener('click', (ev) => {
-      this.increment();
+  class QuantityUpdate {
+    constructor(element) {
+      this.elem        = element;
+      this.plus        = this.elem.querySelector('.quantity-update__button--plus');
+      this.minus       = this.elem.querySelector('.quantity-update__button--minus');
+      this.input       = this.elem.querySelector('.quantity-update__input');
+      this.activeClass = 'quantity-update--active';
+      this.events();
       this.evaluateConditions();
-      this.triggerInput(ev);
-    });
-    this.minus.addEventListener('click', (ev) => {
-      this.decrement();
-      this.evaluateConditions();
-      this.triggerInput(ev);
-    });
-    this.input.addEventListener('focusin', () => {
-      this.elem.classList.add(this.activeClass);
-    });
-    this.input.addEventListener('focusout', () => {
-      this.elem.classList.remove(this.activeClass);
-    });
-  }
+    }
 
-  triggerInput() {
-    const event = new Event('change', {
-      'bubbles': true,
-      'cancelable': true
-    });
+    events() {
+      this.plus.addEventListener('click', (ev) => {
+        this.increment();
+        this.evaluateConditions();
+        this.triggerInput(ev);
+      });
+      this.minus.addEventListener('click', (ev) => {
+        this.decrement();
+        this.evaluateConditions();
+        this.triggerInput(ev);
+      });
+      this.input.addEventListener('focusin', () => {
+        this.elem.classList.add(this.activeClass);
+      });
+      this.input.addEventListener('focusout', () => {
+        this.elem.classList.remove(this.activeClass);
+      });
+    }
 
-    this.input.dispatchEvent(event);
-  }
+    triggerInput() {
+      const event = new Event('change', {
+        'bubbles': true,
+        'cancelable': true
+      });
 
-  evaluateConditions() {
-    this.input.value > 0 ? this.disableMinus() : this.enableMinus();
-  }
+      this.input.dispatchEvent(event);
+    }
 
-  increment() {
-    this.input.value = Number(this.input.value) + 1;
-  }
+    evaluateConditions() {
+      this.input.value > 0 ? this.disableMinus() : this.enableMinus();
+    }
 
-  decrement() {
-    if (this.input.value >= 1) {
-      this.input.value = Number(this.input.value) - 1;
+    increment() {
+      this.input.value = Number(this.input.value) + 1;
+    }
+
+    decrement() {
+      if (this.input.value >= 1) {
+        this.input.value = Number(this.input.value) - 1;
+      }
+    }
+
+    disableMinus() {
+      this.minus.classList.remove('quantity-update__button--disabled');
+    }
+
+    enableMinus() {
+      this.minus.classList.add('quantity-update__button--disabled');
     }
   }
 
-  disableMinus() {
-    this.minus.classList.remove('quantity-update__button--disabled');
-  }
-
-  enableMinus() {
-    this.minus.classList.add('quantity-update__button--disabled');
-  }
-}
-
-define(() => (config, element) => {
-  new QuantityUpdate(element);
+  return function (config, element) {
+    new QuantityUpdate(element);
+  };
 });

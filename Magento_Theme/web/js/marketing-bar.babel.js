@@ -1,5 +1,6 @@
-define(function() {
+define([], function () {
   'use strict'
+
   class MarketingBar {
     constructor() {
       this.closing = document.querySelectorAll('.marketing-bar__close');
