@@ -1,0 +1,96 @@
+<?php $_order = $block->getOrder() ?>
+
+<?php foreach ($_order->getCreditmemosCollection() as $_creditmemo) : ?>
+    <div class="dashboard-table">
+        <div class="dashboard-table__header">
+            <h2 class="heading dashboard-table__title">
+                <?= $block->escapeHtml(__('Refund #')) ?><?= $block->escapeHtml($_creditmemo->getIncrementId()) ?>
+            </h2>
+            <a
+                href="<?= $block->escapeUrl($block->getPrintCreditmemoUrl($_creditmemo)) ?>"
+                class="
+                    actions-group__link
+                    dashboard-table__link
+                    padding-0
+                    action
+                    print
+                "
+                target="_blank"
+                rel="noopener"
+                title="<?= $block->escapeHtmlAttr(__('Print Refund')) ?>"
+            >
+                <?= $block->escapeHtml(__('Print Refund')) ?>
+            </a>
+        </div>
+
+        <div class="dashboard-table__content">
+            <table
+                class="table"
+                id="my-refund-table-<?= (int) $_creditmemo->getId() ?>"
+                role="table"
+            >
+                <caption class="table__caption">
+                    <?= $block->escapeHtml(__('Items Refunded')) ?>
+                </caption>
+                <thead>
+                    <tr role="row">
+                        <th
+                            scope="col"
+                            role="columnheader"
+                        >
+                            <?= $block->escapeHtml(__('Product Name')) ?>
+                        </th>
+                        <th
+                            scope="col"
+                            role="columnheader"
+                        >
+                            <?= $block->escapeHtml(__('SKU')) ?>
+                        </th>
+                        <th
+                            scope="col"
+                            role="columnheader"
+                        >
+                            <?= $block->escapeHtml(__('Price')) ?>
+                        </th>
+                        <th
+                            scope="col"
+                            role="columnheader"
+                        >
+                            <?= $block->escapeHtml(__('Qty')) ?>
+                        </th>
+                        <th
+                            scope="col"
+                            role="columnheader"
+                        >
+                            <?= $block->escapeHtml(__('Subtotal')) ?>
+                        </th>
+                        <th
+                            scope="col"
+                            role="columnheader"
+                        >
+                            <?= $block->escapeHtml(__('Discount Amount')) ?>
+                        </th>
+                        <th
+                            scope="col"
+                            role="columnheader"
+                        >
+                            <?= $block->escapeHtml(__('Row Total')) ?>
+                        </th>
+                    </tr>
+                </thead>
+                <?php $_items = $_creditmemo->getAllItems(); ?>
+                <?php foreach ($_items as $_item) : ?>
+                    <?php if (!$_item->getOrderItem()->getParentItem()) : ?>
+                        <tbody>
+                            <?= $block->getItemHtml($_item) ?>
+                        </tbody>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+                <tfoot>
+                    <?= $block->getTotalsHtml($_creditmemo) ?>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    <?= $block->getCommentsHtml($_creditmemo) ?>
+<?php endforeach; ?>

@@ -1,4 +1,6 @@
-define(['slider'], function (slider) {
+define([
+  'slider'
+], function (slider) {
   'use strict';
 
   return function (listing) {
@@ -37,5 +39,5 @@ define(['slider'], function (slider) {
         return this.element.displayAs;
       }
     });
-  }
+  };
 });

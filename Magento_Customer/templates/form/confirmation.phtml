@@ -1,0 +1,66 @@
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+?>
+<div class="account-form">
+    <p class="account-form__info margin-top-0">
+        <?= __('Please enter your email below and we will send you the confirmation link.') ?>
+    </p>
+    <form
+        action=""
+        method="post"
+        id="form-validate"
+        class="account-form__form"
+        data-mage-init='{"validation":{}}'
+    >
+        <fieldset
+            class="fieldset account-form__fieldset"
+            data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
+        >
+            <legend class="fieldset__legend fieldset__legend--hidden">
+                <?= __('Email') ?>
+            </legend>
+            <div
+                class="
+                    input
+                    account-form__input
+                    required
+                "
+            >
+                <label
+                    for="email_address"
+                    class="label input__label"
+                >
+                    <?= $block->escapeHtml(__('Email')) ?>
+                </label>
+                <input
+                    type="email"
+                    name="email"
+                    id="email_address"
+                    class="input__field"
+                    value="<?= $block->escapeHtmlAttr($block->getEmail()) ?>"
+                    data-validate="
+                        {
+                            required: true,
+                            'validate-email': true
+                        }
+                    "
+                    data-mage-init='{"mage/trim-input":{}}'
+                >
+            </div>
+        </fieldset>
+        <div class="account-form__actions">
+            <button
+                type="submit"
+                class="button account-form__button"
+            >
+                <?= $block->escapeHtml(__('Send Confirmation Link')) ?>
+            </button>
+            <a
+                href="<?= $block->escapeUrl($block->getLoginUrl()) ?>"
+                class="account-form__link"
+            >
+                <?= $block->escapeHtml(__('Back to Sign In')) ?>
+            </a>
+        </div>
+    </form>
+</div>
