@@ -1,24 +1,28 @@
-# Colibri Components
+# Alpaca Components
 
 ## Introduction
-Components library of Colibri [design system](https://www.uxpin.com/studio/blog/design-systems-vs-pattern-libraries-vs-style-guides-whats-difference/) created to speed up the process of working with design on Magento 2 stores, by creating each UI element, module, and view in a simplified, front-end developer friendly, environment.
+Components library of Alpaca [design system](https://www.uxpin.com/studio/blog/design-systems-vs-pattern-libraries-vs-style-guides-whats-difference/) created to speed up the process of working with design on Magento 2 stores, by creating each UI element, module, and view in a simplified, front-end developer friendly, environment.
 
 This components library is built on top of [Fractal.js](http://fractal.build/guide).
-It was created based on [Alpaca Components](https://github.com/SnowdogApps/magento2-alpaca-components).
+It's separate npm package, created based on [Alpaca Components](https://github.com/SnowdogApps/magento2-alpaca-components). To make the work easier, now it's implemented inside the theme, as a part of theme composer package.
 
 Magento 2 experience is not required to work with this code.
+
+## Requirements
+- node version >=12.13.0 <13.0.0 installed globally
+- npm or yarn installed globally
 
 ## Installation
 - Install dependencies using `yarn`
 - Run `yarn dev` to start Fractal.js development server
 - Run `yarn build` if you want to generate static files (for example to deploy them)
 
-## How to create a components library on top of Colibri Components
+## How to create a components library on top of Alpaca Components
 1. Copy-paste `package.json`, `gulpfile.js`, `.eslintignore`, `.eslintrc`, `.sass-lint.yml`, `.stylelintrc` files into `theme-frontend-<child-theme>/Snowdog_Components`:
 
 2. Update project name in `package.json` and `gulpfile.js`
 
-3. Copy `styles.scss` from `theme-frontend-colibri/Snowdog_Components/docs/styles/` and add child project variables import there.
+3. Copy `styles.scss` from `theme-frontend-alpaca/Snowdog_Components/docs/styles/` and add child project variables import there.
 The file should look like this:
 
 ```scss
@@ -33,14 +37,14 @@ The file should look like this:
 @import 'fractal';
 ```
 
-4. Create `modules.json` file with an array of paths to parent components libraries. To inherit dependencies from Colibri components, you have to define path to `theme-forntend-colibri/Snowdog_Components`.
+4. Create `modules.json` file with an array of paths to parent components libraries. To inherit dependencies from Alpaca components, you have to define path to `theme-forntend-alpaca/Snowdog_Components`.
    In most cases, inside Magento, it will look like this:
   ```json
   [
-      "../../../snowdog/theme-frontend-colibri/Snowdog_Components"
+      "../../../snowdog/theme-frontend-alpaca/Snowdog_Components"
   ]
   ```
-5. Customize or add new files following the same structure as in Colibri components
+5. Customize or add new files following the same structure as in Alpaca components
 
 6. Run `yarn` and `yarn dev` to run components in fractal.build. :tada:
 
@@ -75,7 +79,7 @@ Components are divided into 4 groups based on [Atomic Design](http://atomicdesig
 * Avoid naming two components in similar way i.e. `cms-subcategories` and `cms-subcategory`
 
 ### Colors
-* By default Colibri components uses up to 7 step grayscale
+* By default Alpaca components uses up to 7 step grayscale
 * `$color-primary` & `$color-secondary` are mainly used inside components styles
 
 ### SASS Variables naming
