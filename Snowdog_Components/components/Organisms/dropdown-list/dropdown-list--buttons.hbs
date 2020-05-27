@@ -1,0 +1,46 @@
+<div
+    id="{{ id }}"
+    class="dropdown-list {{ class }}" {{{ attributes }}}
+>
+    <ul class="dropdown-list__list">
+        {{#each dropdowns as |dropdown|}}
+            <li class="
+                    dropdown-list__item
+                    {{#if collapse }}
+                        dropdown-list__item--collapse
+                    {{/if}}
+                "
+            >
+                <{{ itemTag }}
+                   class="dropdown-list__label {{ class }}"
+                   {{{ itemAttributes }}}
+                    {{#if collapse }}
+                        aria-controls="{{ id }}"
+                    {{/if}}
+                >
+                    {{ title }}
+
+                    {{#if collapse }}
+                        {{ render '@icon' collapse }}
+                    {{/if}}
+                </{{ itemTag }}>
+
+                {{#if contentElement}}
+                    <div
+                        id="{{ id }}"
+                        class="dropdown-list__content {{ class }}"
+                        aria-hidden="true"
+                    >
+                        {{ render (component contentElement) contentContext }}
+                    </div>
+                {{/if}}
+            </li>
+        {{/each}}
+    </ul>
+</div>
+
+{{#if id}}
+    <script type="text/javascript">
+        new DropdownList(document.getElementById('{{ id }}'));
+    </script>
+{{/if}}

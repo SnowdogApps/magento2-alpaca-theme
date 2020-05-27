@@ -1,0 +1,35 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var $block \Magento\RequisitionList\Block\Catalog\Product\View\Addto\Requisition */
+?>
+<div class="block block-requisition-list social-button" data-bind="scope: 'requisition_<?= (int) $block->getComponentId(); ?>'">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+</div>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "requisition_<?= (int) $block->getComponentId() ?>": {
+                        "component": "Magento_RequisitionList/js/requisition/action/product/view/add",
+                        "editModuleName": "requisition_<?= (int) $block->getComponentId() ?>.edit",
+                        "title": "<?= $block->escapeJs(__('Add to Requisition List')); ?>",
+                        "action": "<?= $block->escapeUrl($block->getUrl('requisition_list/item/add')); ?>",
+                        "sku": "<?= $block->escapeJs($block->getProduct()->getSku()) ?>",
+                        "productFormSelector": "#product_addtocart_form"
+                    },
+                    "requisition_<?= (int) $block->getComponentId() ?>.edit": {
+                        "component": "Magento_RequisitionList/js/requisition/list/edit",
+                        "modal": "add_to_requisition_popup",
+                        "saveUrl": "<?= $block->escapeUrl($block->getUrl('rest/V1/requisition_lists')) ?>"
+                    }
+                }
+            }
+        }
+    }
+</script>
+
