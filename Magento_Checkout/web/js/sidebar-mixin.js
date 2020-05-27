@@ -69,7 +69,11 @@ define([
                  * @param {jQuery.Event} event
                  */
                 events['keyup ' + this.options.item.qty] = function (event) {
-                    self._showItemButton($(event.target));
+                    var code = (event.keyCode ? event.keyCode : event.which);
+                    if (code !== 9) {
+                        self._showItemButton($(event.target));
+                    }
+
                 };
 
                 /**
