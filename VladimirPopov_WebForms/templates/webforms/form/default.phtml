@@ -99,42 +99,42 @@ if ($this->getForm()->getIsActive() == \VladimirPopov\WebForms\Model\Form::STATU
                         <input
                             name="form_key"
                             type="hidden"
-                            value="<?= $this->getFormKey() ?>"
+                            value="<?= $block->escapeHtmlAttr($this->getFormKey()) ?>"
                         />
                         <input
                             type="hidden"
-                            name="submitForm_<?= $this->getForm()->getId() ?>"
+                            name="submitForm_<?= $block->escapeHtmlAttr($this->getForm()->getId()) ?>"
                             value="1"
                         />
                         <input
                             type="hidden"
                             name="webform_id"
-                            value="<?= $this->getForm()->getId() ?>"
+                            value="<?= $block->escapeHtmlAttr($this->getForm()->getId()) ?>"
                         />
 
                         <?php if (is_array($this->getData('hidden'))): ?>
                             <?php foreach ($this->getData('hidden') as $key => $value): ?>
                                 <input
                                     type="hidden"
-                                    name="<?= $key ?>"
-                                    value="<?= $value ?>"
+                                    name="<?= $block->escapeHtmlAttr($key) ?>"
+                                    value="<?= $block->escapeHtmlAttr($value) ?>"
                                 />
                             <?php endforeach; ?>
                         <?php endif; ?>
 
-                        <?php if (count($this->getForm()->_getHidden())) {
-                            foreach ($this->getForm()->_getHidden() as $field) {
-                                echo $field->toHtml();
-                            }
-                        } ?>
+                        <?php if (count($this->getForm()->_getHidden())): ?>
+                            <?php foreach ($this->getForm()->_getHidden() as $field): ?>
+                                <?= $field->toHtml(); ?>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
 
                         <?php foreach ($this->getForm()->_getFieldsToFieldsets() as $fieldset_id => $fieldset): ?>
                             <fieldset
                                 id="fieldset_<?= $_uid . $fieldset_id ?>"
                                 class="fieldset fieldset-<?= $fieldset_id ?>
-                                <?php if (!empty($fieldset['css_class'])) echo $fieldset['css_class']; ?>"
-                                style="<?php if (!empty($fieldset['css_style'])) echo $fieldset['css_style'] . ";"; ?>
-                                <?php if ($fieldset['logic_visibility'] == \VladimirPopov\WebForms\Model\Logic::VISIBILITY_HIDDEN) echo 'display:none'; ?>"
+                                <?= (!empty($fieldset['css_class'])) ? $fieldset['css_class'] : ''; ?>"
+                                style="<?= (!empty($fieldset['css_style'])) ? $fieldset['css_style'] . ';' : ''; ?>
+                                <?= ($fieldset['logic_visibility'] == \VladimirPopov\WebForms\Model\Logic::VISIBILITY_HIDDEN) ? 'display:none' : ''; ?>"
                                 role="group"
                                 <?php if ($fieldset_id): ?>
                                     aria-labelledby="legend_<?= $_uid . $fieldset_id ?>"
@@ -145,7 +145,7 @@ if ($this->getForm()->getIsActive() == \VladimirPopov\WebForms\Model\Form::STATU
                                         class="fieldset__legend fieldset__legend--hidden"
                                         id="legend_<?= $_uid . $fieldset_id ?>"
                                     >
-                                        <?= $fieldset['name'] ?>
+                                        <?= $block->escapeHtml($fieldset['name']) ?>
                                     </legend>
                                 <?php endif ?>
 
@@ -153,26 +153,30 @@ if ($this->getForm()->getIsActive() == \VladimirPopov\WebForms\Model\Form::STATU
                                     // set temporary value
                                     $field->setData('result', $tmpResult);
                                     $field->setData('uid', $_uid);
+                                    $fieldId = $block->escapeHtmlAttr($field->getId());
+                                    $fieldUid = $this->getFieldUid($fieldId);
                                     $field_css_type = 'type-' . str_replace('/', '-', $field->getType());
                                     if ($field->getType() == 'subscribe') $field_css_type .= ' choice';
-                                    $aria_labelledby = "aria-labelledby=\"label_field" . $this->getFieldUid($field->getId()) . "\"";
+                                    $aria_labelledby = "aria-labelledby=\"label_field" . $fieldUid . "\"";
                                     if (in_array($field->getType(), ["html", "subscribe"]) || $field->getHideLabel())
                                         $aria_labelledby = "";
-                                    $label_for = "for=\"field" . $this->getFieldUid($field->getId()) . "\"";
+                                    $label_for = "for=\"field" . $fieldUid . "\"";
                                     if (in_array($field->getType(), ["select/radio", "select/checkbox"])) {
                                         $label_for = "";
                                     }
 
                                     $aria_describedby = "";
-                                    if ($field->getComment()) $aria_describedby = "aria-describedby=\"comment_field" . $this->getFieldUid($field->getId()) . "\"";
+                                    if ($field->getComment()) $aria_describedby = "aria-describedby=\"comment_field" . $fieldUid . "\"";
                                     ?>
                                     <div
-                                        id="field_<?= $this->getFieldUid($field->getId()) ?>"
+                                        id="field_<?= $fieldUid ?>"
                                         role="group"
                                         class="
-                                            <?= $field->getCssClassContainer() ?> <?= $field_css_type ?> webforms-fields-<?= $field->getId() ?>
-                                            <?php if ($field->getCode()) { ?> webforms-fields-<?= $field->getCode(); } ?>
-                                            <?php if ($field->getRequired()) { ?>required<?php } ?>
+                                            <?= $field->getCssClassContainer() ?>
+                                            <?= $field_css_type ?>
+                                            webforms-fields-<?= $field->getId() ?>
+                                            <?= ($field->getCode()) ? 'webforms-fields-' . $field->getCode() : ''; ?>
+                                            <?= ($field->getRequired()) ? 'required' : ''; ?>
                                         "
                                         <?= $aria_labelledby ?>
                                         <?= $aria_describedby ?>
@@ -184,17 +188,17 @@ if ($this->getForm()->getIsActive() == \VladimirPopov\WebForms\Model\Form::STATU
                                             <?= $aria_labelledby ?>
                                         >
                                             <?php if ($field->getType() != 'html' && $field->getType() != 'subscribe' && !$field->getHideLabel()): ?>
-                                                <label class="label" id="label_field<?= $this->getFieldUid($field->getId()) ?>" <?= $label_for ?>>
-                                                    <?= $field->getName() ?>
-                                                    <?php
-                                                        $tooltip = $field->getTooltip();
-                                                        if ($tooltip) {
-                                                            echo $this->getLayout()->createBlock(
-                                                                'VladimirPopov\WebForms\Block\Script\Tooltip',
-                                                                null
-                                                            )->setField($field)->setTooltip($tooltip)->toHtml();
-                                                        }
-                                                    ?>
+                                                <label
+                                                    class="label"
+                                                    id="label_field<?= $fieldUid ?>"
+                                                    <?= $label_for ?>
+                                                >
+                                                    <?= $block->escapeHtml($field->getName()) ?>
+                                                    <?php $tooltip = $field->getTooltip(); ?>
+                                                    <?= ($tooltip) ? $this->getLayout()->createBlock(
+                                                        'VladimirPopov\WebForms\Block\Script\Tooltip',
+                                                        null
+                                                    )->setField($field)->setTooltip($tooltip)->toHtml() : ''; ?>
                                                 </label>
                                             <?php endif; ?>
 
@@ -203,19 +207,19 @@ if ($this->getForm()->getIsActive() == \VladimirPopov\WebForms\Model\Form::STATU
                                             <?php if ($field->getValidationAdvice()): ?>
                                                 <div
                                                     class="validation-advice display-none"
-                                                    id="advice-required-entry-field<?= $this->getFieldUid($field->getId()) ?>"
+                                                    id="advice-required-entry-field<?= $fieldUid ?>"
                                                 >
-                                                    <?= $field->getValidationAdvice() ?>
+                                                    <?= $block->escapeHtml($field->getValidationAdvice()) ?>
                                                 </div>
                                             <?php endif; ?>
 
                                             <?php if ($field->getComment()): ?>
                                                 <p
                                                     class="webforms-fields-comment"
-                                                    id="comment_field<?= $this->getFieldUid($field->getId()) ?>"
+                                                    id="comment_field<?= $fieldUid ?>"
                                                     tabindex="0"
                                                 >
-                                                    <?= nl2br($field->getComment()) ?>
+                                                    <?= $block->escapeHtml(nl2br($field->getComment())) ?>
                                                 </p>
                                             <?php endif; ?>
                                         </div>
@@ -263,11 +267,11 @@ if ($this->getForm()->getIsActive() == \VladimirPopov\WebForms\Model\Form::STATU
                                     type="submit"
                                     class="button contact-us__button"
                                     id="webform_<?= $_uid ?>_submit_button"
-                                    title="<?= __($this->getForm()->getSubmitButtonText()) ?>"
+                                    title="<?= $block->escapeHtmlAttr(__($this->getForm()->getSubmitButtonText())) ?>"
                                     name="field[submit]"
                                     onclick="return false;"
                                 >
-                                    <?= __($this->getForm()->getSubmitButtonText()) ?>
+                                    <?= $block->escapeHtml(__($this->getForm()->getSubmitButtonText())) ?>
                                 </button>
                             </div>
                             <div class="secondary">

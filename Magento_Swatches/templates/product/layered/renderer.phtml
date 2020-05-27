@@ -1,13 +1,18 @@
 <?php
 $swatchData = $block->getSwatchData();
-$swatchCode = $swatchData['attribute_code'] . 'Filter';
+$swatchCode = $swatchData['attribute_code'];
+$swatchCodeScope = $swatchCode . 'Filter';
 $swatchLabel = $swatchData['attribute_label'];
+$helper = $this->helper('Snowdog\ProductAttributeDescription\Helper\Attribute');
+$attributeDescriptions = $helper->getAttributesDescriptions(['color']);
 ?>
 <li
     class="
         dropdown-list__item
         dropdown-list__item--collapse
         filter
+        swatch-layered
+        <?= $block->escapeHtmlAttr($swatchCode) ?>
     "
 >
     <div
@@ -19,7 +24,7 @@ $swatchLabel = $swatchData['attribute_label'];
         <button
             type="button"
             class="dropdown-list__label"
-            aria-controls="<?= $swatchCode ?>"
+            aria-controls="<?= $swatchCodeScope ?>"
             aria-expanded="true"
         >
             <h3 class="filter__heading">
@@ -38,20 +43,25 @@ $swatchLabel = $swatchData['attribute_label'];
             </svg>
         </button>
     </div>
-
     <div
         class="
             dropdown-list__content
             filter__content
         "
-        id="<?= $swatchCode ?>"
+        id="<?= $swatchCodeScope ?>"
         aria-hidden="false"
     >
         <div
             class="more-info"
-            data-mage-init='{ "moreInfo": { } }'
+            data-mage-init='{
+                "moreInfo": {
+                    "path": "/rest/V1/snowproductattributedescription/description/:attributeCode",
+                    "variable": ":attributeCode",
+                    "data": "<?= $swatchCode ?>"
+                }
+            }'
+            aria-hidden="true"
         >
-            <!--TO DO - get data from module snowdog/module-product-attribute-description (#60916)-->
             <button
                 class="
                     button
@@ -62,21 +72,31 @@ $swatchLabel = $swatchData['attribute_label'];
                 type="button"
                 aria-expanded="false"
             >
-                <span class="button__text">
-                    <?= __('More information') ?>
-                </span>
-                <svg
+                <button
                     class="
-                        icon
-                        button__icon
+                        button
+                        button--icon
+                        button--fluid
+                        more-info__trigger
                     "
-                    role="presentation"
-                    focusable="false"
+                    type="button"
+                    aria-expanded="false"
                 >
-                    <title><?= __('Show tooltip') ?></title>
-                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#info')); ?>"></use>
-                </svg>
-            </button>
+                    <span class="button__text">
+                        <?= $block->escapeHtml(__('More information')) ?>
+                    </span>
+                    <svg
+                        class="
+                            icon
+                            button__icon
+                        "
+                        role="presentation"
+                        focusable="false"
+                    >
+                        <title><?= $block->escapeHtml(__('Show tooltip')) ?></title>
+                        <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#info')); ?>"></use>
+                    </svg>
+                </button>
 
             <div
                 class="more-info__content-wrapper"
@@ -84,40 +104,41 @@ $swatchLabel = $swatchData['attribute_label'];
             >
                 <div class="more-info__content">
                     <h3 class="more-info__heading">
-                        Example title
+                        <?= $swatchLabel; ?>
                     </h3>
 
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam venenatis nisl quis imperdiet tincidunt. Nulla massa diam, aliquet vitae laoreet a, fermentum eu velit. Quisque ornare erat in orci hendrerit feugiat at sit amet neque. Fusce elementum semper feugiat. Curabitur egestas neque in leo finibus ultricies.
+                    <div class="more-info__data"></div>
 
-                    <button
-                        class="
-                            button
-                            button--icon
-                            button--rotate-icon
-                            more-info__close
-                        "
-                        type="button"
-                        aria-label="<?= $block->escapeHtmlAttr(__('Close more information')) ?>"
-                    >
-                        <svg
-                            class="icon"
-                            role="presentation"
-                            focusable="false"
+                        <button
+                            class="
+                                button
+                                button--icon
+                                button--rotate-icon
+                                more-info__close
+                            "
+                            type="button"
+                            aria-label="<?= $block->escapeHtmlAttr(__('Close more information')) ?>"
                         >
-                            <title><?= __('Close') ?></title>
-                            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#close')); ?>"></use>
-                        </svg>
-                    </button>
+                            <svg
+                                class="icon"
+                                role="presentation"
+                                focusable="false"
+                            >
+                                <title><?= $block->escapeHtml(__('Close')) ?></title>
+                                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#close')); ?>"></use>
+                            </svg>
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
+        <?php endif; ?>
 
         <ul
             class="
                 list
                 filter__list
             "
-            attribute-code="<?= $block->escapeHtmlAttr($swatchCode) ?>"
+            attribute-code="<?= $block->escapeHtmlAttr($swatchCodeScope) ?>"
             attribute-id="<?= $block->escapeHtmlAttr($swatchData['attribute_id']) ?>"
         >
             <?php foreach ($swatchData['options'] as $option => $label): ?>
@@ -126,7 +147,12 @@ $swatchLabel = $swatchData['attribute_label'];
                     switch ($swatchData['swatches'][$option]['type']) {
                         case '3': //other swatches
                     ?>
-                        <li class="filter__swatch-item">
+                        <li
+                            class="
+                                filter__swatch-item
+                                <?= $block->escapeHtmlAttr($label['custom_style']) ?>
+                            "
+                        >
                             <a
                                 class="filter__swatch-option"
                                 href="<?= $block->escapeUrl($label['link']) ?>"
@@ -151,7 +177,12 @@ $swatchLabel = $swatchData['attribute_label'];
                             'swatch_image',
                             $swatchData['swatches'][$option]['value']
                         ); ?>
-                        <li class="filter__color-item">
+                        <li
+                            class="
+                                filter__color-item
+                                <?= $block->escapeHtmlAttr($label['custom_style']) ?>
+                            "
+                        >
                             <a
                                 href="<?= $block->escapeUrl($label['link']) ?>"
                                 aria-label="<?= $block->escapeHtmlAttr($label['label']) ?>"
@@ -178,7 +209,12 @@ $swatchLabel = $swatchData['attribute_label'];
                             break;
                         case '1': //color swatch with #hex background
                     ?>
-                        <li class="filter__color-item">
+                        <li
+                            class="
+                                filter__color-item
+                                <?= $block->escapeHtmlAttr($label['custom_style']) ?>
+                            "
+                        >
                             <a
                                 href="<?= $block->escapeUrl($label['link']) ?>"
                                 class="filter__color-option"
@@ -201,7 +237,12 @@ $swatchLabel = $swatchData['attribute_label'];
                         case '0': //text swatch
                         default:
                     ?>
-                        <li class="filter__swatch-item">
+                        <li
+                            class="
+                                filter__swatch-item
+                                <?= $block->escapeHtmlAttr($label['custom_style']) ?>
+                            "
+                        >
                             <a
                                 href="<?= $block->escapeUrl($label['link']) ?>"
                                 class="filter__swatch-option"
@@ -219,7 +260,6 @@ $swatchLabel = $swatchData['attribute_label'];
                 <?php endif; ?>
             <?php endforeach; ?>
         </ul>
-
         <script>
             require(
                 [
@@ -228,9 +268,9 @@ $swatchLabel = $swatchData['attribute_label'];
                 ],
                 function ($)
                 {
-                    $('.swatch-layered.<?= $block->escapeHtmlAttr($swatchCode) ?>')
-                    .find('[option-type="1"], [option-type="2"], [option-type="0"], [option-type="3"]')
-                    .SwatchRendererTooltip();
+                    $('.swatch-layered.<?= $block->escapeHtmlAttr($swatchCodeScope) ?>')
+                        .find('[option-type="1"], [option-type="2"], [option-type="0"], [option-type="3"]')
+                        .SwatchRendererTooltip();
                 }
             );
         </script>
