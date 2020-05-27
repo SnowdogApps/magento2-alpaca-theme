@@ -9,6 +9,10 @@ All notable changes to this project will be documented in this file.
 
 
 ## [Released]
+## [2.0.1] - 2020-05-27
+### Fixed
+- swatches layered template (hotfix 2.0.1)
+
 ## [2.0.0] - 2020-05-26
 
 ### Changed
