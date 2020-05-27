@@ -29,7 +29,17 @@
                 "
             >
                 {{ render '@heading' heading }}
-                <div class="row wishlist__grid">
+                {{#if toolbar}}
+                    {{ render '@toolbar' toolbar merge=true }}
+                {{/if}}
+                <div
+                    class="
+                        products-grid
+                        wishlist
+                        row
+                        wishlist__grid
+                    "
+                >
                     {{#each wishlistItems}}
                         <div class="wishlist__item {{ product.class }}">
                             <a
@@ -39,44 +49,51 @@
                             >
                                 {{ render '@image' product.image }}
                             </a>
-                            <div class="wishlist__item-name">
-                                {{ render '@link' product.name }}
-                            </div>
-                            {{ render '@price' product.price merge=true }}
 
-                            {{ render '@input--textarea' textarea }}
+                            {{#if selectAll}}
+                                <div class="wishlist__select {{ this.itemSelectClass }}">
+                                    {{ render '@checkbox' this.checkbox }}
+                                </div>
+                            {{/if}}
+
+                            <div class="wishlist__item-content {{ this.itemContentClass }}">
+                                <div class="wishlist__rating-wrapper">
+                                    {{ render '@rating--secondary' }}
+                                </div>
+
+                                <div class="wishlist__item-name {{ this.itemNameClass }}">
+                                    {{ render '@link' product.name }}
+                                </div>
+
+                                {{#if product.price}}
+                                    {{ render '@price' product.price merge=true }}
+                                {{else}}
+                                    {{ render '@price--with-special-price' product.priceSpecial merge=true }}
+                                {{/if}}
+                            </div>
 
                             <div class="wishlist__item-inner">
-                                {{ render '@input--inline' qty }}
+								{{ render '@input--textarea' textarea }}
+                                <div class="{{ qty.class }}">
+                                    {{ render '@label' qty.label }}
+                                    {{ render '@quantity-update' qty.field merge=true }}
+                                </div>
                                 <div class="wishlist__item-actions">
                                     {{ render '@button--icon' editIcon }}
                                     {{ render '@button--icon' removeIcon }}
                                 </div>
-                                <div
-                                    class="
-                                        wishlist__item-actions
-                                        wishlist__item-actions--to-cart
-                                    "
-                                >
+
+                                <div class="wishlist__item-actions wishlist__item-actions--to-cart">
                                     {{ render '@button' addToCart }}
                                 </div>
                             </div>
                         </div>
                     {{/each}}
                 </div>
-                <div class="actions-group {{ actionsGroupClass }}">
-                    <div class="actions-group__handler">
-                        {{#each actions}}
-                            {{ render '@button--secondary' this }}
-                        {{/each}}
-                    </div>
-                    <div class="actions-group__handler">
-                        {{ render '@link' backLink }}
-                    </div>
-                </div>
+                {{ render '@actions-group' actions }}
             </div>
-        </main>
-    </div>
+        </div>
+    </main>
 </div>
 
 {{ render '@footer' }}

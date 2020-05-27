@@ -33,7 +33,7 @@ bluebird.config({
 });
 
 // Fractal configuration
-fractal.set('project.title', 'Colibri components for Magento 2');
+fractal.set('project.title', 'Alpaca components for Magento 2');
 fractal.components.set('path', __dirname + '/build/components');
 fractal.docs.set('path', __dirname + '/build/docs');
 fractal.web.set('static.path', __dirname + '/build/public');
