@@ -18,6 +18,66 @@ define(['jquery'], function ($) {
                 $('#' + this.options.createTmplData.popupWishlistFormId).attr('action', url);
                 $(this.options.createTmplData.focusElement).focus();
                 this.createAjax = isAjax;
+            },
+
+            _createEditWishlistModal: function (e)  {
+                var json = $(e.currentTarget).data('wishlist-edit'),
+                    self = this;
+
+                this.options.editTmplData.url = json.url;
+                this.options.editTmplData.name = json.name;
+                this.options.editTmplData.isPublic = json.isPublic;
+
+                $.mage.promptEditWithList({
+                    title: json.title,
+                    value: this.options.editTmplData.name,
+                    label: $.mage.__('Wish List Name'),
+                    isPublicFieldLabel: $.mage.__('Public Wish List'),
+                    isPublicFieldAttributeName: 'visibility',
+                    isPublicFieldChecked: this.options.editTmplData.isPublic,
+                    hiddenFieldValue: json.formKey,
+                    attributesField: {
+                        name: 'name',
+                        'data-validate': '{required:true}',
+                        maxlength: '255'
+                    },
+                    attributesForm: {
+                        id: this.options.editTmplData.popupWishlistFormId,
+                        action: this.options.editTmplData.url,
+                        novalidate: 'novalidate'
+                    },
+                    buttons: [{
+                        text: $.mage.__('Save'),
+
+                        /**
+                         * Click action.
+                         */
+                        click: function () {
+                            $.ajax({
+                                url: self.options.editTmplData.url,
+                                data: $('#' + self.options.editTmplData.popupWishlistFormId).serialize(),
+                                dataType: 'json',
+                                method: 'post'
+                            }).done(function (data) {
+                                window.location.href = data.redirect;
+                            });
+                        }
+                    }, {
+                        text: $.mage.__('Close'),
+
+                        /**
+                         * Click action.
+                         */
+                        click: function () {
+                            this.closeModal();
+                            this.modal.one(this.options.transitionEvent, function () {
+                                this._remove();
+                            }.bind(this, arguments));
+                        }
+                    }]
+                });
+
+                return false;
             }
         });
 
