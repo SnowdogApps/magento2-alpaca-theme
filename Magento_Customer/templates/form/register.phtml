@@ -68,7 +68,13 @@
                     ->toHtml()
                 ?>
                 <?php if ($block->isNewsletterEnabled()) : ?>
-                    <div class="checkbox account-form__newsletter-checkbox">
+                    <div
+                        class="
+                            checkbox
+                            account-form__newsletter-checkbox
+                            margin-bottom-m
+                        "
+                    >
                         <input
                             type="checkbox"
                             id="is_subscribed"
@@ -323,10 +329,13 @@
 <script>
     require([
         'jquery',
-        'mage/mage'
+        'mage/mage',
+        'domReady!'
     ], function($) {
         var dataForm = $('#form-validate'),
             ignore = <?= $_dob->isEnabled() ? '\'input[id$="full"]\'' : 'null' ?>;
+
+        $('._has-datepicker').datepicker('option', 'showMonthAfterYear', true);
 
         dataForm.mage('validation', {
             <?php if ($_dob->isEnabled()) : ?>
