@@ -3,6 +3,7 @@ define(['jquery'], function ($) {
 
     return function (widget) {
         $.widget('mage.multipleWishlist', widget, {
+
             /**
              * Show create wishlist popup block
              * @private
@@ -20,6 +21,11 @@ define(['jquery'], function ($) {
                 this.createAjax = isAjax;
             },
 
+            /**
+             * Edit wishlist
+             * @private
+             * @param {jQuery.Event} e - Edit wishlist button
+             */
             _createEditWishlistModal: function (e)  {
                 var json = $(e.currentTarget).data('wishlist-edit'),
                     self = this;
