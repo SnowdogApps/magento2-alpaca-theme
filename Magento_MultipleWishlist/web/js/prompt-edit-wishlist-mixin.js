@@ -26,12 +26,30 @@ define([
              * @return {*|jQuery|HTMLElement}
              */
             getNoticeTemplate: function () {
-                var template = $('<div class="field choice">' +
-                    '<input id="wishlist-public" type="checkbox" name="' + this.options.isPublicFieldAttributeName + '">' +
-                    '<label for="wishlist-public" class="label">' +
-                    '<span>' + this.options.isPublicFieldLabel + '</span>' +
+                var template = $('<div class="checkbox">' +
+                    '<input ' +
+                        'class="checkbox__field" ' +
+                        'id="wishlist-public" ' +
+                        'type="checkbox" ' +
+                        'name="' + this.options.isPublicFieldAttributeName +
+                    '">' +
+                    '<svg class="checkbox__icon checkbox__icon--checked" role="presentation" focusable="false">' +
+                        '<use xlink:href="' +  this.options.iconCheckboxChecked + '"></use>' +
+                    '</svg>' +
+                    '<svg class="checkbox__icon checkbox__icon--unchecked" role="presentation" focusable="false">' +
+                        '<use xlink:href="' +  this.options.iconCheckboxUnchecked + '"></use>' +
+                    '</svg>' +
+                    '<label ' +
+                        'for="wishlist-public" ' +
+                        'class="checkbox__label"' +
+                    '>' +
+                        this.options.isPublicFieldLabel +
                     '</label>' +
-                    '<input name="form_key" type="hidden" value="' + this.options.hiddenFieldValue + '">' +
+                    '<input ' +
+                        'name="form_key" ' +
+                        'type="hidden" ' +
+                        'value="' + this.options.hiddenFieldValue +
+                    '">' +
                     '</div>');
 
                 if (this.options.isPublicFieldChecked) {

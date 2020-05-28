@@ -36,6 +36,8 @@ define(['jquery'], function ($) {
                     isPublicFieldAttributeName: 'visibility',
                     isPublicFieldChecked: this.options.editTmplData.isPublic,
                     hiddenFieldValue: json.formKey,
+                    iconCheckboxUnchecked: json.iconCheckboxUnchecked,
+                    iconCheckboxChecked: json.iconCheckboxChecked,
                     attributesField: {
                         name: 'name',
                         'data-validate': '{required:true}',
