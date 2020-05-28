@@ -1,8 +1,4 @@
 <?php
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
 
 /** @var \Magento\Customer\Block\Widget\Dob $block */
 
@@ -27,11 +23,18 @@ $fieldCssClass = 'field date field-' . $block->getHtmlId();
 $fieldCssClass .= $block->isRequired() ? ' required' : '';
 ?>
 <div class="<?= $block->escapeHtmlAttr($fieldCssClass) ?>">
-    <label class="label" for="<?= $block->escapeHtmlAttr($block->getHtmlId()) ?>"><span><?= $block->escapeHtml($block->getStoreLabel('dob')) ?></span></label>
-    <div class="control customer-dob">
+    <label
+        class="label"
+        for="<?= $block->escapeHtmlAttr($block->getHtmlId()) ?>"
+    >
+        <?= $block->escapeHtml($block->getStoreLabel('dob')) ?>
+    </label>
+    <div class="input input--datepicker">
         <?= $block->getFieldHtml() ?>
-        <?php if ($_message = $block->getAdditionalDescription()) : ?>
-            <div class="note"><?= $block->escapeHtml($_message) ?></div>
+        <?php if ($_message = $block->getAdditionalDescription()): ?>
+            <div class="message">
+                <?= $block->escapeHtml($_message) ?>
+            </div>
         <?php endif; ?>
     </div>
 </div>
