@@ -1,48 +1,93 @@
-<div class="split requisition-list-action">
-    <h2 data-bind="i18n: getTitle()"></h2>
-    <div
-        class="items"
-        data-target="dropdown"
-    >
-        <ul class="list list-items">
-            <!-- ko foreach: {data: requisition().items, as: 'item'} -->
-                <!-- ko if: $parent.isListVisible(item) -->
-                <li
-                    class="list__item"
-                >
-                    <a
-                        href="#"
-                        class="item-name"
-                        data-action="add-to-requisition-list"
-                        data-bind="
-                            attr: {
-                                title: item.name,
-                            },
-                            text: item.name,
-                            click: $parent.performListAction.bind($parent, item)
-                        "
-                    >
-                    </a>
-                </li>
-                <!-- /ko -->
-            <!-- /ko -->
-            <!-- ko if: isCanCreateList() -->
-            <li class="list__item">
-                <a
-                    href="#"
-                    class="action new"
-                    data-action="add-to-requisition-list"
-                    data-bind="
-                        click: performNewListAction,
+<div
+    class="
+        dropdown-list
+        dropdown-list--requisition-list-action
+        dropdown-list--detailed-content
+    "
+    data-mage-init='{ "dropdownList": { } }'
+>
+    <ul class="dropdown-list__list">
+        <li
+            class="
+                dropdown-list__item
+                dropdown-list__item--collapse
+            "
+        >
+            <button
+                class="dropdown-list__label"
+                aria-expanded="false"
+                data-bind="
+                    {
                         attr: {
-                            title: $t('Create New Requisition List')
+                            'aria-controls': getTitle().toLowerCase().replace(/ /g,'-')
                         }
-                    "
+                    }
+                "
+            >
+                <!-- ko i18n: getTitle() --><!-- /ko -->
+                <svg
+                    class="icon dropdown-list__icon"
+                    aria-hidden="true"
+                    role="presentation"
                 >
-                    <span data-bind="i18n: 'Create New Requisition List'"></span>
-                </a>
-            </li>
-            <!-- /ko -->
-        </ul>
-    </div>
+                    <title>
+                        <?= __('Arrow Down'); ?>
+                    </title>
+                    <use data-bind="attr: {'xlink:href': require.toUrl('images/icons-sprite.svg#angle-down')}" xlink:href=''></use>
+                </svg>
+            </button>
+
+            <div
+                class="dropdown-list__content padding-m"
+                aria-hidden="true"
+                data-bind="
+                    {
+                        attr: {
+                            'id': getTitle().toLowerCase().replace(/ /g,'-')
+                        }
+                    }
+                "
+            >
+                <ul class="list list-items">
+                    <!-- ko foreach: {data: requisition().items, as: 'item'} -->
+                        <!-- ko if: $parent.isListVisible(item) -->
+                        <li
+                            class="list__item"
+                        >
+                            <a
+                                href="#"
+                                class="item-name"
+                                data-action="add-to-requisition-list"
+                                data-bind="
+                                    attr: {
+                                        title: item.name,
+                                    },
+                                    text: item.name,
+                                    click: $parent.performListAction.bind($parent, item)
+                                "
+                            ></a>
+                        </li>
+                        <!-- /ko -->
+                    <!-- /ko -->
+                    <!-- ko if: isCanCreateList() -->
+                    <li class="list__item padding-bottom-0">
+                        <a
+                            href="#"
+                            class="action new"
+                            data-action="add-to-requisition-list"
+                            data-bind="
+                                click: performNewListAction,
+                                attr: {
+                                    title: $t('Create New Requisition List')
+                                }
+                            "
+                        >
+                            <span data-bind="i18n: 'Create New Requisition List'"></span>
+                        </a>
+                    </li>
+                    <!-- /ko -->
+                </ul>
+            </div>
+        </li>
+    </ul>
 </div>
