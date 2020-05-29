@@ -130,32 +130,31 @@
                 id="street"
                 class="
                     input__field
-                    margin-bottom-m
                     <?= $_streetValidationClass ?>
                 "
             />
-            <div class="nested">
-                <?php $_streetValidationClass = trim(str_replace('required-entry', '', $_streetValidationClass)); ?>
-                <?php for ($_i = 1, $_n = $this->helper(\Magento\Customer\Helper\Address::class)->getStreetLines(); $_i < $_n; $_i++) : ?>
-                    <?php $lineNo = (int) ($_i + 1); ?>
-                    <div class="input additional">
-                        <label
-                            class="label"
-                            for="street_<?= $lineNo ?>"
-                        >
-                            <?= $block->escapeHtml(__('Street Address %1', $lineNo)) ?>
-                        </label>
-                        <input
-                            type="text"
-                            name="billing[street][]"
-                            value="<?= $block->escapeHtmlAttr($block->getStreetLine($lineNo)) ?>"
-                            title="<?= $block->escapeHtmlAttr(__('Street Address %1', $lineNo)) ?>"
-                            id="street_<?= $lineNo ?>"
-                            class="input__field <?= $_streetValidationClass ?>"
-                        >
-                    </div>
-                <?php endfor; ?>
-            </div>
+        </div>
+        <div class="nested">
+            <?php $_streetValidationClass = trim(str_replace('required-entry', '', $_streetValidationClass)); ?>
+            <?php for ($_i = 1, $_n = $this->helper(\Magento\Customer\Helper\Address::class)->getStreetLines(); $_i < $_n; $_i++) : ?>
+                <?php $lineNo = (int) ($_i + 1); ?>
+                <div class="input additional">
+                    <label
+                        class="label"
+                        for="street_<?= $lineNo ?>"
+                    >
+                        <?= $block->escapeHtml(__('Street Address %1', $lineNo)) ?>
+                    </label>
+                    <input
+                        type="text"
+                        name="billing[street][]"
+                        value="<?= $block->escapeHtmlAttr($block->getStreetLine($lineNo)) ?>"
+                        title="<?= $block->escapeHtmlAttr(__('Street Address %1', $lineNo)) ?>"
+                        id="street_<?= $lineNo ?>"
+                        class="input__field <?= $_streetValidationClass ?>"
+                    >
+                </div>
+            <?php endfor; ?>
         </div>
         <div
             class="
@@ -367,7 +366,6 @@
         </div>
         <div
             class="
-                input
                 date
                 required
             "
@@ -384,6 +382,7 @@
                     fields
                     group
                     group-2
+                    row
                 "
             >
                 <div
@@ -392,6 +391,7 @@
                         select--native
                         no-label
                         month
+                        col-md-6
                     "
                 >
                     <select
@@ -421,6 +421,7 @@
                         select--native
                         no-label
                         year
+                        col-md-6
                     "
                 >
                     <?php $_ccExpYear = $block->getCard()->getAdditional('cc_exp_year'); ?>
