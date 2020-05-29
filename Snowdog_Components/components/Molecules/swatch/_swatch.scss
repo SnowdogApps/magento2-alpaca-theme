@@ -3,7 +3,6 @@ $swatch__margin--catalog              : 0 0 $spacer 0 !default;
 $swatch__transition                   : $transition-base !default;
 
 $swatch__wrapper-justify              : flex-start !default;
-$swatch__wrapper-justify--catalog     : flex-end !default;
 $swatch__container-min-height         : 100px !default;
 $swatch__container-min-height--catalog: 56px !default;
 
@@ -20,14 +19,21 @@ $swatch__option-background            : $white !default;
 $swatch__option-color                 : $color-secondary !default;
 $swatch__option-border                : 2px solid $white !default;
 $swatch__option-border-width          : 0 0 2px 0 !default;
-$swatch__option-border--white         : 2px solid $gray-lighter !default;
-$swatch__option-border--white-catalog : 1px solid $gray-light !default;
+$swatch__option-border--white         : 2px $border-style-base $gray-lighter !default;
+$swatch__option-border--white-catalog : $border-width-base $border-style-base $gray-light !default;
 $swatch__option-border-color--active  : $color-primary !default;
+$swatch__option-border--size          : $border-width-base $border-style-base $gray-light !default;
 
 .swatch {
     display: flex;
     flex-wrap: wrap;
     margin: $swatch__margin;
+
+    &[class*="size"] {
+        .swatch__option {
+            border: $swatch__option-border--size;
+        }
+    }
 
     &__container {
         // magento container for loading
@@ -40,10 +46,6 @@ $swatch__option-border-color--active  : $color-primary !default;
 
             .swatch {
                 margin: $swatch__margin--catalog;
-
-                &__wrapper {
-                    justify-content: $swatch__wrapper-justify--catalog;
-                }
 
                 &__option-container {
                     padding: $spacer;
