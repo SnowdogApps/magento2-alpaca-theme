@@ -1,0 +1,48 @@
+<?php
+/** @var \ParadoxLabs\TokenBase\Block\Customer\Cards $block */
+// @codingStandardsIgnoreFile
+?>
+<div class="block block-addresses-list">
+    <div class="block-title">
+        <h2><?php echo $block->escapeHtml($block->getPaymentMethodTitle()); ?></h2>
+    </div>
+    <div class="block-content items addresses checkout-payment-method">
+        <?php $cards = $block->getCards(); ?>
+        <?php if (!empty($cards)): ?>
+            <?php /** @var \ParadoxLabs\TokenBase\Model\Card $card */ ?>
+            <?php foreach ($cards as $card): ?>
+                <?php $card = $card->getTypeInstance(); ?>
+                <fieldset class="box-address-billing payment-method-title fieldset<?php if ($card->getExpires() != '' && strtotime($card->getExpires()) < time()): ?> expired<?php endif; ?>">
+                    <legend class="box-title legend">
+                        <?php if (!empty($card->getType())): ?>
+                            <img class="credit-card-type payment-icon" src="<?php echo $block->getViewFileUrl('Magento_Payment::images/cc/' . strtolower($card->getType()) . '.png'); ?>" alt="<?php echo $block->escapeQuote($block->getCcTypeLabel($card)); ?>" />
+                        <?php endif; ?>
+                        <strong class="payment-icon">
+                            <span>
+                                <?php echo $block->escapeHtml($card->getLabel(empty($card->getType()))); ?>
+                            </span>
+                        </strong>
+                        <?php if ($card->getExpires() != ''): ?>
+                            <small><?php echo $block->escapeHtml(__('(Expires %1)', date('m/Y', strtotime($card->getExpires())))); ?></small>
+                        <?php endif; ?>
+                    </legend>
+                    <div class="box-content">
+                        <address>
+                            <?php echo $block->getFormattedCardAddress($card->getAddressObject()); ?>
+                        </address>
+                        <div class="item actions">
+                            <?php if ($card->isInUse()): ?>
+                                <abbr title="<?php echo $block->escapeQuote(__('This payment record cannot be modified while associated with pending orders.')); ?>"><?php echo $block->escapeHtml(__('Card In Use')); ?></abbr>
+                            <?php else: ?>
+                                <a class="action edit" href="<?php echo $block->escapeUrl($block->getUrl('*/*', ['_secure' => true, 'form_key' => $block->getFormKey(), 'method' => $card->getMethod(), 'id' => $card->getHash()])) ?>"><span><?php echo $block->escapeHtml(__('Edit')) ?></span></a>
+                                <a class="action delete" href="<?php echo $block->escapeUrl($block->getUrl('*/*/delete', ['_secure' => true, 'form_key' => $block->getFormKey(), 'method' => $card->getMethod(), 'id' => $card->getHash()])) ?>"><span><?php echo $block->escapeHtml(__('Delete')) ?></span></a>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </fieldset>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p><?php echo $block->escapeHtml(__('You do not have any payment data saved yet.')) ?></p>
+        <?php endif; ?>
+    </div>
+</div>
