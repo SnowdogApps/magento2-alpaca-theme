@@ -27,12 +27,9 @@
                 <!-- ko i18n: getTitle() --><!-- /ko -->
                 <svg
                     class="icon dropdown-list__icon"
-                    aria-hidden="true"
+                    focusable="false"
                     role="presentation"
                 >
-                    <title>
-                        <?= __('Arrow Down'); ?>
-                    </title>
                     <use data-bind="attr: {'xlink:href': require.toUrl('images/icons-sprite.svg#angle-down')}" xlink:href=''></use>
                 </svg>
             </button>
@@ -51,40 +48,38 @@
                 <ul class="list list-items">
                     <!-- ko foreach: {data: requisition().items, as: 'item'} -->
                         <!-- ko if: $parent.isListVisible(item) -->
-                        <li
-                            class="list__item"
-                        >
-                            <a
-                                href="#"
-                                class="item-name"
-                                data-action="add-to-requisition-list"
-                                data-bind="
-                                    attr: {
-                                        title: item.name,
-                                    },
-                                    text: item.name,
-                                    click: $parent.performListAction.bind($parent, item)
-                                "
-                            ></a>
-                        </li>
+                            <li class="list__item">
+                                <a
+                                    href="#"
+                                    class="item-name"
+                                    data-action="add-to-requisition-list"
+                                    data-bind="
+                                        attr: {
+                                            title: item.name,
+                                        },
+                                        text: item.name,
+                                        click: $parent.performListAction.bind($parent, item)
+                                    "
+                                ></a>
+                            </li>
                         <!-- /ko -->
                     <!-- /ko -->
                     <!-- ko if: isCanCreateList() -->
-                    <li class="list__item padding-bottom-0">
-                        <a
-                            href="#"
-                            class="action new"
-                            data-action="add-to-requisition-list"
-                            data-bind="
-                                click: performNewListAction,
-                                attr: {
-                                    title: $t('Create New Requisition List')
-                                }
-                            "
-                        >
-                            <span data-bind="i18n: 'Create New Requisition List'"></span>
-                        </a>
-                    </li>
+                        <li class="list__item padding-bottom-0">
+                            <a
+                                href="#"
+                                class="action new"
+                                data-action="add-to-requisition-list"
+                                data-bind="
+                                    click: performNewListAction,
+                                    attr: {
+                                        title: $t('Create New Requisition List')
+                                    }
+                                "
+                            >
+                                <span data-bind="i18n: 'Create New Requisition List'"></span>
+                            </a>
+                        </li>
                     <!-- /ko -->
                 </ul>
             </div>
