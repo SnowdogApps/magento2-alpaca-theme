@@ -94,6 +94,8 @@
                     fields
                     additional
                     deletable-item
+                    quickorder__item
+                    margin-top-s
                 "
                 data-role="new-block"
                 data-mage-init='{
@@ -111,6 +113,7 @@
                         sku
                         required
                         ui-front
+                        quickorder__input
                     "
                 >
                     <label class="label">
@@ -143,7 +146,14 @@
                     ></div>
                 </div>
                 <div
-                    class="input qty required">
+                    class="
+                        input
+                        qty
+                        required
+                        quickorder__input
+                        quickorder__input--qty
+                    "
+                >
                     <label class="label">
                         <?= $block->escapeHtml(__('Qty')) ?>
                     </label>
@@ -167,17 +177,27 @@
                 <div class="margin-bottom-m">
                     <button
                         type="button"
+                        title="<?= __('Remove Item'); ?>"
                         class="
                             button
-                            button--secondary
-                            quickorder__button
+                            button--icon
                             action
+                            quickorder__button
                             remove
                         "
-                        title="<?= $block->escapeHtmlAttr(__('Remove Row')) ?>"
                         data-role="delete"
                     >
-                        <?= $block->escapeHtml(__('Remove Row')) ?>
+                        <svg
+                            class="
+                                icon
+                                button__icon
+                            "
+                            role="presentation"
+                            focusable="false"
+                        >
+                            <title><?= __('Remove'); ?></title>
+                            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#remove')) ?>"></use>
+                        </svg>
                     </button>
                 </div>
             </div>
