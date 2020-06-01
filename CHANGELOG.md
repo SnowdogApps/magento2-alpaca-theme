@@ -11,6 +11,10 @@ All notable changes to this project will be documented in this file.
 
 
 ## [Released]
+## [2.0.2] - 2020-05-29
+### Added
+- missing ACM templates
+
 ## [2.0.1] - 2020-05-27
 ### Fixed
 - swatches layered template (hotfix 2.0.1)
