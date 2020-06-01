@@ -110,6 +110,7 @@ All notable changes to this project will be documented in this file.
 - success page styles - spacing and standard header & footer (#64572)
 - layerd navigation - spaceing alignment (#64572)
 - removed double header tag & skip nav link (#64572)
+- EE - Dashboard - mutliple requisition lists - toolbar adjustments (#66171)
 
 ### Removed
 - doubled add to cart for configurable products (#67192)
