@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 - pdp fotorama placeholder set size only of the main image (#66198)
 - PDP - sticky footer product name only one line with dots (#66196)
 - PDP - Product name under image on mobile (#66196)
+- Quick order change styling for single sku row (#66172)
 ### Fixed
 ### Removed
 
