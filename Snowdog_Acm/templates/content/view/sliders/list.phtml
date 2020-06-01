@@ -1,0 +1,161 @@
+<?php
+
+/**
+ * @see \Blackbird\ContentManager\Block\ContentList
+ * @var \Blackbird\ContentManager\Block\ContentList $block
+ */
+?>
+<?php
+$collection = $block->getCollection();
+$sliderClassName = $block->getSliderClass();
+$sliderWrapperClass = $block->getWrapperClass();
+$sliderTitleClassName = $block->getSliderTitleClass();
+
+$sliderPictureBlock = $this->getSliderPictureBlock();
+$sliderBlock = $this->getSliderBlock();
+
+$picturePrefix = $this->getPicturePrefix();
+$sliderPrefix = $this->getSliderPrefix();
+$wrapperClass = $this->getWrapperClass();
+
+// banners attrubutes to show
+$sliderPrefix = $sliderPrefix ? $sliderPrefix : 'cb_slider_';
+$picturePrefix = $picturePrefix ? $picturePrefix : 'cb_pic_';
+$bannersAttributes = '*';
+$bannersArray = [];
+$sliderItemClass = 'slider__item';
+?>
+
+<?php foreach ($collection as $content) : ?>
+    <?php
+    //slider config
+    $sliderInfinite = $content->getData($sliderPrefix . 'infinite');
+    $sliderCenterMode = $content->getData($sliderPrefix . 'center');
+    $sliderDots = $content->getData($sliderPrefix . 'dots');
+    $sliderArrows = ($content->getData($sliderPrefix . 'arrows') === 'no') ? false : true;
+    $sliderAutoplay = $content->getData($sliderPrefix . 'autoplay');
+    $sliderAutoplaySpeed = $content->getData($sliderPrefix . 'speed');
+    $sliderPauseOnFocus = $content->getData($sliderPrefix . 'focus');
+    $sliderPauseOnHover = $content->getData($sliderPrefix . 'hover');
+    $sliderSlidesToShow = $content->getData($sliderPrefix . 'slidestoshow');
+    $sliderSlidesToScroll = $content->getData($sliderPrefix . 'slidestoscroll');
+    $sliderResponsiveConfig = $content->getData($sliderPrefix . 'responsive_cfg');
+
+    $sliderTitle = $block->escapeHtml($content->getData($sliderPrefix . 'title'));
+    $sliderDisplayTitle = $block->escapeHtml($content->getData($sliderPrefix . 'display_title'));
+    $sliderDisplayTitle = ($sliderDisplayTitle === 'no') ? false : true;
+    $sliderContentBefore =
+        $content->getData($sliderPrefix . 'ct_before') ?
+            $content->render($sliderPrefix . 'ct_before') :
+            false;
+    $sliderContentAfter =
+        $content->getData($sliderPrefix . 'ct_after') ?
+            $content->render($sliderPrefix . 'ct_after') :
+            false;
+
+    $sliderBanners = $content->getContentCollection($sliderPrefix . 'banners', $bannersAttributes);
+
+    foreach ($sliderBanners as $index => $banner) {
+        $bannersArray[$index]['title'] = $banner->getData($picturePrefix . 'title');
+        $bannersArray[$index]['alt'] = $banner->getData($picturePrefix . 'alt');
+        $bannersArray[$index]['url'] = $banner->getData($picturePrefix . 'url');
+        $bannersArray[$index]['url_target'] = $banner->getData($picturePrefix . 'url_target');
+        $bannersArray[$index]['is_main'] = $banner->getData($picturePrefix . 'main_image');
+        $bannersArray[$index]['order'] = $banner->getData($picturePrefix . 'order');
+        $bannersArray[$index]['default'] = $banner->getFile($picturePrefix . 'default');
+        $bannersArray[$index]['max_480'] =
+            $banner->getData($picturePrefix . 'max_480') ? $banner->getFile($picturePrefix . 'max_480') : false;
+        $bannersArray[$index]['max_768'] =
+            $banner->getData($picturePrefix . 'max_768') ? $banner->getFile($picturePrefix . 'max_768') : false;
+        $bannersArray[$index]['max_1024'] =
+            $banner->getData($picturePrefix . 'max_1024') ? $banner->getFile($picturePrefix . 'max_1024') : false;
+        $bannersArray[$index]['max_1328'] =
+            $banner->getData($picturePrefix . 'max_1328') ? $banner->getFile($picturePrefix . 'max_1328') : false;
+        $bannersArray[$index]['full'] =
+            $banner->getData($picturePrefix . 'full') ? $banner->getFile($picturePrefix . 'full') : false;
+        //2x
+        $bannersArray[$index]['max_480_2x'] =
+            $banner->getData($picturePrefix . 'max_480_2x') ? $banner->getFile($picturePrefix . 'max_480_2x') : false;
+        $bannersArray[$index]['max_768_2x'] =
+            $banner->getData($picturePrefix . 'max_768_2x') ? $banner->getFile($picturePrefix . 'max_768_2x') : false;
+        $bannersArray[$index]['max_1024_2x'] =
+            $banner->getData($picturePrefix . 'max_1024_2x') ? $banner->getFile($picturePrefix . 'max_1024_2x') : false;
+        $bannersArray[$index]['max_1328_2x'] =
+            $banner->getData($picturePrefix . 'max_1328_2x') ? $banner->getFile($picturePrefix . 'max_1328_2x') : false;
+        $bannersArray[$index]['full_2x'] =
+            $banner->getData($picturePrefix . 'full_2x') ? $banner->getFile($picturePrefix . 'full_2x') : false;
+    }
+
+    // sorting banners collection by order
+    usort($bannersArray, function ($a, $b) {
+        return $a['order'] - $b['order'];
+    });
+    ?>
+
+    <?php
+    $block->getChildBlock($sliderBlock)->setData([
+        'slider_html'       => 'before-slides',
+        'slider_class'      => $sliderClassName,
+        'wrapper_class'     => $sliderWrapperClass,
+        'display_title'     => $sliderDisplayTitle,
+        'slider_title'      => $sliderTitle,
+        'title_class'       => $sliderTitleClassName,
+        'content_before'    => $sliderContentBefore,
+        'infinite'          => $sliderInfinite,
+        'center_mode'       => $sliderCenterMode,
+        'dots'              => $sliderDots,
+        'arrows'            => $sliderArrows,
+        'autoplay'          => $sliderAutoplay,
+        'autoplay_speed'    => $sliderAutoplaySpeed,
+        'pause_on_focus'    => $sliderPauseOnFocus,
+        'pause_on_hover'    => $sliderPauseOnHover,
+        'slides_to_show'    => $sliderSlidesToShow,
+        'slides_to_scroll'  => $sliderSlidesToScroll,
+        'responsive_config' => $sliderResponsiveConfig
+    ]);
+    ?>
+    <?= $block->getChildHtml($sliderBlock, false); ?>
+
+    <?php if ($bannersArray): ?>
+        <?php foreach ($bannersArray as $banner): ?>
+            <?php
+            $bannerUrl = $block->escapeUrl($banner['url']);
+            $bannerUrlTarget = $block->escapeUrl(($banner['url_target'] == 'blank') ? '_blank' : '_self');
+
+            $block->getChildBlock($sliderPictureBlock)->setData([
+                'picture_class' => 'banner__image',
+                'picture_full_url' => true,
+                'img_default' => $banner['default'],
+                'img_480' => $banner['max_480'],
+                'img_768' => $banner['max_768'],
+                'img_1024' => $banner['max_1024'],
+                'img_1328' => $banner['max_1328'],
+                'img_full' => $banner['full'],
+                'img_4802x' => $banner['max_480_2x'],
+                'img_7682x' => $banner['max_768_2x'],
+                'img_10242x' => $banner['max_1024_2x'],
+                'img_13282x' => $banner['max_1328_2x'],
+                'img_full_2x' => $banner['full_2x'],
+                'picture_alt' => $banner['alt']
+            ]);
+            ?>
+        <div class="<?= $block->escapeHtmlAttr($sliderItemClass) ?>">
+            <<?= $bannerUrl ? 'a href="' . $bannerUrl . '" target="' . $bannerUrlTarget . '"' : 'div'; ?>
+            class="banner"
+            >
+            <?= $block->getChildHtml($sliderPictureBlock, false); ?>
+            </<?= $bannerUrl ? 'a' : 'div'; ?>>
+            </div>
+        <?php endforeach; ?>
+    <?php endif; ?>
+
+    <?php
+    $block->getChildBlock($sliderBlock)->setData([
+        'slider_html'   => 'after-slides',
+        'wrapper_class' => $sliderWrapperClass,
+        'content_after' => $sliderContentAfter
+    ]);
+    ?>
+
+    <?= $block->getChildHtml($sliderBlock, false); ?>
+<?php endforeach; ?>
