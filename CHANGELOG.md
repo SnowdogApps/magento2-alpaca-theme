@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 - PDP - sticky footer product name only one line with dots (#66196)
 - PDP - Product name under image on mobile (#66196)
 - Quick order change styling for single sku row (#66172)
+- Cookie popup amasty styling (#67268)
 ### Fixed
 ### Removed
 
