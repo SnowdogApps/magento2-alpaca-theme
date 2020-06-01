@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - shipping latency on catalog (#64632)
 - pdp fotorama placeholder set size only of the main image (#66198)
+- PDP - sticky footer product name only one line with dots (#66196)
+- PDP - Product name under image on mobile (#66196)
 ### Fixed
 ### Removed
 
