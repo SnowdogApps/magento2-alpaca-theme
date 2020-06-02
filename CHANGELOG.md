@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 - PDP - Product name under image on mobile (#66196)
 - Quick order change styling for single sku row (#66172)
 - Cookie popup amasty styling (#67268)
+- My payment data template (#66712)
 ### Fixed
 ### Removed
 
