@@ -79,11 +79,22 @@
                 id="company"
                 title="<?= $block->escapeHtmlAttr(__('Company')) ?>"
                 value="<?= $block->escapeHtmlAttr($block->getAddress()->getCompany()) ?>"
-                class="input__field <?= $block->escapeHtmlAttr($this->helper(\Magento\Customer\Helper\Address::class)->getAttributeValidationClass('company')) ?>"
+                class="
+                    input__field
+                    <?= $block->escapeHtmlAttr($this->helper(\Magento\Customer\Helper\Address::class)->getAttributeValidationClass('company')) ?>
+                "
             >
         </div>
         <?php $phoneValidation = $this->helper(\Magento\Customer\Helper\Address::class)->getAttributeValidationClass('telephone'); ?>
-        <div class="input telephone<?php if (strpos($phoneValidation, 'required') !== false) : ?> required<?php endif; ?>">
+        <div
+            class="
+                input
+                telephone
+                <?php if (strpos($phoneValidation, 'required') !== false): ?>
+                    required
+                <?php endif; ?>
+            "
+        >
             <label
                 class="label"
                 for="telephone"
@@ -108,7 +119,11 @@
             <?= $block->escapeHtml(__('Cardholder Address')) ?>
         </legend>
 
-        <?php $_streetValidationClass = $block->escapeHtmlAttr($this->helper(\Magento\Customer\Helper\Address::class)->getAttributeValidationClass('street')); ?>
+        <?php
+            $_streetValidationClass = $block->escapeHtmlAttr(
+                $this->helper(\Magento\Customer\Helper\Address::class)->getAttributeValidationClass('street')
+            );
+        ?>
         <div
             class="
                 input
@@ -151,7 +166,10 @@
                         value="<?= $block->escapeHtmlAttr($block->getStreetLine($lineNo)) ?>"
                         title="<?= $block->escapeHtmlAttr(__('Street Address %1', $lineNo)) ?>"
                         id="street_<?= $lineNo ?>"
-                        class="input__field <?= $_streetValidationClass ?>"
+                        class="
+                            input__field
+                            <?= $_streetValidationClass ?>
+                        "
                     >
                 </div>
             <?php endfor; ?>
@@ -309,7 +327,13 @@
             "
         >
             <?php $_ccType = $block->getCard()->getAdditional('cc_type') ?>
-            <ul class="credit-card-types list list--horizontal">
+            <ul
+                class="
+                    credit-card-types
+                    list
+                    list--horizontal
+                "
+            >
                 <?php foreach ($block->getCcBlock()->getCcAvailableTypes() as $_typeCode => $_typeName) : ?>
                     <li
                         class="
@@ -319,11 +343,11 @@
                         "
                         data-type="<?= $block->escapeHtmlAttr($_typeCode); ?>"
                     >
-                        <div class="lazyload-wrapper">
+                        <div>
                             <img
                                 src="<?= $block->getViewFileUrl('Magento_Payment::images/cc/' . strtolower($_typeCode) . '.png'); ?>"
                                 alt="<?= $block->escapeHtmlAttr($_typeName); ?>"
-                                class="image lazyload width-auto"
+                                class="image width-auto"
                             />
                         </div>
                     </li>
