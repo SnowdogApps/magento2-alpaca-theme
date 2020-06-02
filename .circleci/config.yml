@@ -1,0 +1,27 @@
+version: 2.1
+jobs:
+  lint-theme:
+    docker:
+      - image: circleci/php:7.1-fpm-node-browsers
+    environment:
+      - THEME_PATH: "vendor/snowdog/theme-frontend-alpaca"
+      - CONFIG_PATH: "vendor/snowdog/theme-frontend-alpaca/.circleci/frontools/config"
+    steps:
+      - run: sudo apt-get install rsync
+      - checkout
+      - run: mkdir -p $THEME_PATH
+      - run: rsync -r --delete . $THEME_PATH
+      - run: cp "$THEME_PATH/composer.json" .
+      - run: composer update --no-dev --no-interaction --prefer-dist --no-progress --ignore-platform-reqs
+      - run: mkdir -p dev/tools/frontools
+      - run: cp -r $CONFIG_PATH dev/tools/frontools
+      - run: cd vendor/snowdog/frontools && yarn && yarn setup
+      - run: cd tools && yarn inheritance
+      - run: cd tools && yarn sasslint --ci
+      - run: cd tools && yarn styles --ci --pipeline
+      - run: cd tools && yarn csslint --ci
+
+workflows:
+  theme:
+    jobs:
+      - lint-theme
