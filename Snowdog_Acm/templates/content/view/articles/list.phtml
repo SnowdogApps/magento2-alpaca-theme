@@ -1,0 +1,200 @@
+<?php
+
+/**
+ * @see \Blackbird\ContentManager\Block\ContentList
+ * @var \Blackbird\ContentManager\Block\ContentList $block
+ */
+?>
+<?php
+$collection = $block->getCollection();
+$ctPrefix = 'cb_article_';
+$ctPicPrefix = 'cb_pic_';
+$filtersBlock = $block->getChildBlock('blog-filter');
+$filters = $filtersBlock->getFilters();
+$recentArticlesBlock = $block->getChildBlock('recent-articles');
+$recentArticles = $recentArticlesBlock->getCollection();
+?>
+
+<?php if ($collection->count()): ?>
+    <div
+            class="
+            blog
+            row
+            between-lg
+        "
+    >
+        <div class="blog__articles col-md-8">
+            <?php if ($block->hasPagerTop() && $block->getChildBlock('pager')) : ?>
+                <?= $block->getChildBlock('pager')
+                    ->setData([
+                        'use_container' => false
+                    ])->toHtml();
+                ?>
+            <?php endif; ?>
+            <ul class="list blog__articles-list">
+                <?php foreach ($collection as $content) : ?>
+                    <?php
+                    $link = $block->escapeUrl($content->getLinkUrl());
+                    $date = new DateTime($content->getData($ctPrefix . 'date'));
+                    $dateFormatted = $date->format('F j\,\ Y');
+                    $title = $content->getData($ctPrefix . 'title');
+                    $description = $content->getData($ctPrefix . 'short_desc');
+
+                    $imageAttributes = ['*'];
+                    $imageCollection = $content->getContentCollection($ctPrefix . 'image', $imageAttributes);
+
+                    foreach ($imageCollection as $index => $imageContent) {
+                        $thumbnail = $imageContent->getData($ctPicPrefix . 'thumbnail');
+
+                        if ($thumbnail) {
+                            $image['title'] = $imageContent->getData($ctPicPrefix . 'title');
+                            $image['alt'] = $imageContent->getData($ctPicPrefix . 'alt');
+                            $image['url'] = $imageContent->getData($ctPicPrefix . 'url');
+                            $image['url_target'] = $imageContent->getData($ctPicPrefix . 'url_target');
+                            $image['is_main'] = $imageContent->getData($ctPicPrefix . 'main_image');
+                            $image['order'] = $imageContent->getData($ctPicPrefix . 'order');
+                            $image['default'] = $imageContent->getFile($ctPicPrefix . 'default');
+                            $image['max_480'] =
+                                $imageContent->getData($ctPicPrefix . 'max_480') ? $imageContent->getFile($ctPicPrefix . 'max_480') : false;
+                            $image['max_768'] =
+                                $imageContent->getData($ctPicPrefix . 'max_768') ? $imageContent->getFile($ctPicPrefix . 'max_768') : false;
+                            $image['max_1024'] =
+                                $imageContent->getData($ctPicPrefix . 'max_1024') ? $imageContent->getFile($ctPicPrefix . 'max_1024') : false;
+                            $image['max_1328'] =
+                                $imageContent->getData($ctPicPrefix . 'max_1328') ? $imageContent->getFile($ctPicPrefix . 'max_1328') : false;
+                            $image['full'] =
+                                $imageContent->getData($ctPicPrefix . 'full') ? $imageContent->getFile($ctPicPrefix . 'full') : false;
+                            //2x
+                            $image['max_480_2x'] =
+                                $imageContent->getData($ctPicPrefix . 'max_480_2x') ? $imageContent->getFile($ctPicPrefix . 'max_480_2x') : false;
+                            $image['max_768_2x'] =
+                                $imageContent->getData($ctPicPrefix . 'max_768_2x') ? $imageContent->getFile($ctPicPrefix . 'max_768_2x') : false;
+                            $image['max_1024_2x'] =
+                                $imageContent->getData($ctPicPrefix . 'max_1024_2x') ? $imageContent->getFile($ctPicPrefix . 'max_1024_2x') : false;
+                            $image['max_1328_2x'] =
+                                $imageContent->getData($ctPicPrefix . 'max_1328_2x') ? $imageContent->getFile($ctPicPrefix . 'max_1328_2x') : false;
+                            $image['full_2x'] =
+                                $imageContent->getData($ctPicPrefix . 'full_2x') ? $imageContent->getFile($ctPicPrefix . 'full_2x') : false;
+
+                            $block->getChildBlock('blog-thumbnail')->setData([
+                                'picture_class' => 'thumbnail__image',
+                                'picture_full_url' => true,
+                                'img_default' => $image['default'],
+                                'img_480' => $image['max_480'],
+                                'img_768' => $image['max_768'],
+                                'img_1024' => $image['max_1024'],
+                                'img_1328' => $image['max_1328'],
+                                'img_full' => $image['full'],
+                                'img_4802x' => $image['max_480_2x'],
+                                'img_7682x' => $image['max_768_2x'],
+                                'img_10242x' => $image['max_1024_2x'],
+                                'img_13282x' => $image['max_1328_2x'],
+                                'img_full_2x' => $image['full_2x'],
+                                'picture_alt' => $image['alt']
+                            ]);
+                        }
+                    }
+                    ?>
+                    <li class="list__item blog__article-item">
+                        <article class="article-item">
+                            <header class="article-item__header">
+                                <h2 class="article-item__title heading--font-secondary">
+                                    <?= $block->escapeHtml($title) ?>
+                                </h2>
+                                <span class="article-item__sub-title heading--font-secondary">
+                                    <?= $dateFormatted ?>
+                                </span>
+                            </header>
+                            <section class="article-item__container row">
+                                <div class="article-item__media col-lg-4">
+                                    <a
+                                            href="<?= $link ?>"
+                                            class="banner article-item__banner"
+                                    >
+                                        <?= $block->getChildHtml('blog-thumbnail', false); ?>
+                                    </a>
+                                </div>
+                                <div class="article-item__body col-lg-8">
+                                    <div class="article-item__content">
+                                        <?= $description ?>
+                                    </div>
+                                    <footer class="article-item__footer">
+                                        <a
+                                                class="link article-item__footer-link"
+                                                href="<?= $link ?>"
+                                                title="<?= $block->escapeHtmlAttr(__('Read more')) ?>"
+                                        >
+                                            <?= __('Read more') ?>
+                                        </a>
+                                    </footer>
+                                </div>
+                            </section>
+                        </article>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+            <?php if ($block->hasPagerBottom() && $block->getChildBlock('pager')) : ?>
+                <?= $block->getChildBlock('pager')
+                    ->setData([
+                        'use_container' => false
+                    ])->toHtml();
+                ?>
+            <?php endif; ?>
+        </div>
+        <nav
+                class="
+                blog__nav
+                col-md-4
+                col-lg-3
+            "
+        >
+            <div class="blog__recommended">
+                <h3 class="blog__nav-heading heading--font-secondary">
+                    <?= __('Recent Posts') ?>
+                </h3>
+
+                <ul class="list blog__nav-list">
+                    <?php foreach ($recentArticles as $article) : ?>
+                        <?php
+                        $link = $block->escapeUrl($article->getLinkUrl());
+                        $title = $article->getData($ctPrefix . 'title');
+                        ?>
+                        <li class="list__item">
+                            <a
+                                    href="<?= $link ?>"
+                                    class="link"
+                            >
+                                <?= $block->escapeHtml($title) ?>
+                            </a>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+            <?php if (!empty($filters)) : ?>
+                <div class="blog__categories">
+                    <h3 class="blog__nav-heading heading--font-secondary">
+                        <?= __('Categories') ?>
+                    </h3>
+                    <ul class="list blog__nav-list">
+                        <?php foreach ($filters as $filter) : ?>
+                            <?php foreach ($filter->getAllOptions() as $option) : ?>
+                                <li class="list__item">
+                                    <a
+                                            href="<?= $block->escapeUrl($filtersBlock->getFilterUrl($filter->getIdentifier(), $option['value'])) ?>"
+                                            class="link"
+                                    >
+                                        <?= $block->escapeHtml($option['label']) ?>
+                                    </a>
+                                </li>
+                            <?php endforeach; ?>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            <?php endif; ?>
+        </nav>
+    </div>
+<?php else : ?>
+    <div class="message">
+        <?= __('We can\'t find contents matching the selection.') ?>
+    </div>
+<?php endif; ?>

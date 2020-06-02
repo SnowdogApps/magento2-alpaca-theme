@@ -1,0 +1,228 @@
+<?php
+
+/**
+ * @see \Blackbird\ContentManager\Block\View
+ */
+?>
+<?php
+/*
+ *
+ *
+ * AVAILABLE METHODS
+ *
+ * Get all raw values as an array
+ * $content->getData();
+ *
+ * Get a specific value by his field identifier
+ * $content->getData('field_identifier');
+ * $content->getFieldIdentifier();
+ * $content->getAttributeText('field_identifier');
+ *
+ * Get content type model
+ * $content->getContentType();
+ *
+ * Get image URL for an image field type.
+ * $content->getImage($attributeName, $width, $height, $keepRatio, $cropped = false);
+ *
+ * Get file absolute URL, for a file field typ
+ * $content->getFile($field_identifier);
+ *
+ * Get content url
+ * $content->getLinkUrl();
+ *
+ * Render a field in HTML
+ * $content->render($element, $params);
+ *
+ * See the complete documentation and more examples at:
+ * http://www.advancedcontentmanager.com/documentation/
+ *
+ */
+?>
+<?php
+/** @var \Blackbird\ContentManager\Model\Content $content */
+$content = $block->getContent();
+$ctPrefix = 'cb_article_';
+$ctPicPrefix = 'cb_pic_';
+$date = new DateTime($content->getData($ctPrefix . 'date'));
+$dateFormatted = $date->format('F j\,\ Y');
+$title = $content->getData($ctPrefix . 'title');
+
+$imageAttributes = ['*'];
+$imageCollection = $content->getContentCollection($ctPrefix . 'image', $imageAttributes);
+
+foreach ($imageCollection as $index => $imageContent) {
+    $image['title'] = $imageContent->getData($ctPicPrefix . 'title');
+    $image['alt'] = $imageContent->getData($ctPicPrefix . 'alt');
+    $image['url'] = $imageContent->getData($ctPicPrefix . 'url');
+    $image['url_target'] = $imageContent->getData($ctPicPrefix . 'url_target');
+    $image['is_main'] = $imageContent->getData($ctPicPrefix . 'main_image');
+    $image['order'] = $imageContent->getData($ctPicPrefix . 'order');
+    $image['default'] = $imageContent->getFile($ctPicPrefix . 'default');
+    $image['max_480'] =
+        $imageContent->getData($ctPicPrefix . 'max_480') ? $imageContent->getFile($ctPicPrefix . 'max_480') : false;
+    $image['max_768'] =
+        $imageContent->getData($ctPicPrefix . 'max_768') ? $imageContent->getFile($ctPicPrefix . 'max_768') : false;
+    $image['max_1024'] =
+        $imageContent->getData($ctPicPrefix . 'max_1024') ? $imageContent->getFile($ctPicPrefix . 'max_1024') : false;
+    $image['max_1328'] =
+        $imageContent->getData($ctPicPrefix . 'max_1328') ? $imageContent->getFile($ctPicPrefix . 'max_1328') : false;
+    $image['full'] =
+        $imageContent->getData($ctPicPrefix . 'full') ? $imageContent->getFile($ctPicPrefix . 'full') : false;
+    //2x
+    $image['max_480_2x'] =
+        $imageContent->getData($ctPicPrefix . 'max_480_2x') ? $imageContent->getFile($ctPicPrefix . 'max_480_2x') : false;
+    $image['max_768_2x'] =
+        $imageContent->getData($ctPicPrefix . 'max_768_2x') ? $imageContent->getFile($ctPicPrefix . 'max_768_2x') : false;
+    $image['max_1024_2x'] =
+        $imageContent->getData($ctPicPrefix . 'max_1024_2x') ? $imageContent->getFile($ctPicPrefix . 'max_1024_2x') : false;
+    $image['max_1328_2x'] =
+        $imageContent->getData($ctPicPrefix . 'max_1328_2x') ? $imageContent->getFile($ctPicPrefix . 'max_1328_2x') : false;
+    $image['full_2x'] =
+        $imageContent->getData($ctPicPrefix . 'full_2x') ? $imageContent->getFile($ctPicPrefix . 'full_2x') : false;
+}
+
+$block->getChildBlock('article-image')->setData([
+    'picture_class' => 'article__image',
+    'picture_full_url' => true,
+    'img_default' => $image['default'],
+    'img_480' => $image['max_480'],
+    'img_768' => $image['max_768'],
+    'img_1024' => $image['max_1024'],
+    'img_1328' => $image['max_1328'],
+    'img_full' => $image['full'],
+    'img_4802x' => $image['max_480_2x'],
+    'img_7682x' => $image['max_768_2x'],
+    'img_10242x' => $image['max_1024_2x'],
+    'img_13282x' => $image['max_1328_2x'],
+    'img_full_2x' => $image['full_2x'],
+    'picture_alt' => $image['alt']
+]);
+
+$categories = explode(',', $content->getData($ctPrefix . 'category'));
+
+$filtersBlock = $block->getChildBlock('blog-filter');
+$filters = $filtersBlock->getFilters();
+
+$recentArticlesBlock = $block->getChildBlock('recent-articles');
+$recentArticles = $recentArticlesBlock->getCollection();
+
+$entityId = $content->getData('entity_id');
+?>
+
+<div class="blog-post row">
+    <article
+            class="
+            article-item
+            article-item--single
+            col-md-8
+            col-lg-9
+        "
+    >
+        <header class="article-item__header">
+            <h1 class="article-item__title">
+                <?= $block->escapeHtml($title) ?>
+            </h1>
+            <span class="article-item__sub-title heading--font-secondary">
+                <?= $dateFormatted ?>
+            </span>
+        </header>
+        <section class="article-item__container">
+            <div class="article-item__media">
+                <div class="banner article-item__banner">
+                    <?= $block->getChildHtml('article-image', false); ?>
+                </div>
+            </div>
+            <div class="article-item__body">
+                <div class="article-item__content">
+                    <?= $content->render($ctPrefix . 'text'); ?>
+                </div>
+                <?php if (count(array_filter($categories))) : ?>
+                    <footer class="article-item__footer">
+                        <ul
+                                class="
+                                list
+                                list--horizontal
+                                article-item__links-list
+                            "
+                        >
+                            <li class="list__item">
+                                <strong>
+                                    <?= __('Posted in:') ?>
+                                </strong>
+                            </li>
+                            <?php foreach ($filters as $filter) : ?>
+                                <?php foreach ($filter->getAllOptions() as $option) : ?>
+                                    <?php if (in_array($option['value'], $categories)) : ?>
+                                        <li class="list__item">
+                                            <a
+                                                    class="link"
+                                                    href="<?= $block->escapeUrl('/blog?' . $filter->getIdentifier() . '=' . $option['value']) ?>"
+                                                    title="<?= $block->escapeHtmlAttr($option['label']) ?>"
+                                            >
+                                                <?= $block->escapeHtml($option['label']) ?>
+                                            </a>
+                                        </li>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            <?php endforeach; ?>
+                        </ul>
+                    </footer>
+                <?php endif; ?>
+            </div>
+        </section>
+    </article>
+
+    <nav
+            class="
+            blog__nav
+            col-md-4
+            col-lg-3
+        "
+    >
+        <div class="blog__recommended">
+            <h3 class="blog__nav-heading heading--font-secondary">
+                <?= __('Recent Posts') ?>
+            </h3>
+
+            <ul class="list blog__nav-list">
+                <?php foreach ($recentArticles as $article) : ?>
+                    <?php if ($entityId !== $article->getData('entity_id')) : ?>
+                        <?php
+                        $link = $block->escapeUrl($article->getLinkUrl());
+                        $title = $article->getData($ctPrefix . 'title');
+                        ?>
+                        <li class="list__item">
+                            <a
+                                    href="<?= $link ?>"
+                                    class="link"
+                            >
+                                <?= $block->escapeHtml($title) ?>
+                            </a>
+                        </li>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+        <?php if (!empty($filters)) : ?>
+            <div class="blog__categories">
+                <h3 class="blog__nav-heading heading--font-secondary">
+                    <?= __('Categories') ?>
+                </h3>
+                <ul class="list blog__nav-list">
+                    <?php foreach ($filters as $filter) : ?>
+                        <?php foreach ($filter->getAllOptions() as $option) : ?>
+                            <li class="list__item">
+                                <a
+                                        href="<?= $block->escapeUrl('/blog?' . $filter->getIdentifier() . '=' . $option['value']) ?>"
+                                        class="link"
+                                >
+                                    <?= $block->escapeHtml($option['label']) ?>
+                                </a>
+                            </li>
+                        <?php endforeach; ?>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        <?php endif; ?>
+    </nav>
+</div>
