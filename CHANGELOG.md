@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Added
+- swatches on catalog (#67196)
 ### Changed
 - shipping latency on catalog (#64632)
 - pdp fotorama placeholder set size only of the main image (#66198)
