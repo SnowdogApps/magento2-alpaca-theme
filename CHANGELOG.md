@@ -71,6 +71,7 @@ All notable changes to this project will be documented in this file.
 - grouped product options with styles (#64633)
 - checkbox, header, contact-bar, cookie-message (#61954)
 - update variables + cleanup (#58633)
+- EE - gift card view (#65866)
 
 ### Added
 - atomic classes - uppercase/lowecase/none-text-transform (#65259)
