@@ -1,9 +1,60 @@
+// Variables
+$quickorder__image-max-width             : 250px;
+
+$quickorder__input-flex                  : 1 0 100%;
+$quickorder__input-flex\@small           : 1 0 calc(100% - 180px);
+$quickorder__input-max-width\@small      : calc(100% - 180px);
+$quickorder__input-margin                : 0 0 $spacer--extra-small;
+$quickorder__input-margin\@small         : 0;
+
+$quickorder__input-qty-flex              : 1 0 calc(100% - 64px);
+$quickorder__input-qty-flex\@small       : 1 0 100px;
+$quickorder__input-qty-max-width         : calc(100% - 64px);
+$quickorder__input-qty-max-width\@small  : 100px;
+$quickorder__input-qty-margin\@small     : 0 0 0 $spacer--medium;
+
+$quickorder__button-remove-margin        : 25px 0 0 $spacer--medium;
+
 .quickorder {
     &__image {
         max-width: 250px;
     }
 
+    &__item {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        &:last-of-type {
+            .remove {
+                display: none;
+            }
+        }
+    }
+
+    &__input {
+        flex: $quickorder__input-flex;
+        margin: $quickorder__input-margin;
+        @include mq($screen-s) {
+            flex: $quickorder__input-flex\@small;
+            max-width: $quickorder__input-max-width\@small;
+            margin: $quickorder__input-margin\@small;
+        }
+
+        &--qty {
+            flex: $quickorder__input-qty-flex;
+            max-width: $quickorder__input-qty-max-width;
+            @include mq($screen-s) {
+                flex: $quickorder__input-qty-flex\@small;
+                max-width: $quickorder__input-qty-max-width\@small;
+                margin: $quickorder__input-qty-margin\@small;
+            }
+        }
+    }
+
     &__button {
-        min-width: 170px;
+        &.remove {
+            margin: $quickorder__button-remove-margin;
+        }
     }
 }
