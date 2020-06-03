@@ -4,11 +4,23 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Added
 ### Changed
+- shipping latency on catalog (#64632)
+- pdp fotorama placeholder set size only of the main image (#66198)
+- PDP - sticky footer product name only one line with dots (#66196)
+- PDP - Product name under image on mobile (#66196)
+- Quick order change styling for single sku row (#66172)
+- Cookie popup amasty styling (#67268)
+- Customer orders and returns form (#66891)
+- update variables, sku font weight and display in product view (#66979)
 ### Fixed
 ### Removed
 
 
 ## [Released]
+## [2.0.2] - 2020-05-29
+### Added
+- missing ACM templates
+
 ## [2.0.1] - 2020-05-27
 ### Fixed
 - swatches layered template (hotfix 2.0.1)
@@ -59,6 +71,7 @@ All notable changes to this project will be documented in this file.
 - grouped product options with styles (#64633)
 - checkbox, header, contact-bar, cookie-message (#61954)
 - update variables + cleanup (#58633)
+- EE - gift card view (#65866)
 
 ### Added
 - atomic classes - uppercase/lowecase/none-text-transform (#65259)
