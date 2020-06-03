@@ -82,16 +82,15 @@
                                     button--icon
                                     previous
                                 "
-                                href="<?= $block->getPreviousPageUrl() ?>"
-                                title="<?= $text ? $text : __('Previous') ?>"
-                                aria-label="<?= $text ? $text : __('Previous') ?>"
+                                href="<?= $block->escapeUrl($block->getPreviousPageUrl()) ?>"
+                                title="<?= $text ? $text : $block->escapeHtmlAttr(__('Link to previous page')) ?>"
+                                aria-label="<?= $text ? $text : $block->escapeHtmlAttr(__('Link to previous page')) ?>"
                             >
                                 <svg
                                     class="icon pager__icon"
                                     role="presentation"
                                     focusable="false"
                                 >
-                                    <title><?= __('Arrow left') ?></title>
                                     <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#arrow-left')); ?>"></use>
                                 </svg>
                             </a>
@@ -105,7 +104,8 @@
                                     pager__link
                                     link
                                 "
-                                href="<?= $block->getFirstPageUrl() ?>"
+                                href="<?= $block->escapeUrl($block->getFirstPageUrl()) ?>"
+                                aria-label="<?= $block->escapeHtmlAttr(__('Link to page 1')) ?>"
                             >
                                 1
                             </a>
@@ -119,7 +119,7 @@
                                     pager__link
                                     link
                                 "
-                                href="<?= $block->getPreviousJumpUrl() ?>"
+                                href="<?= $block->escapeUrl($block->getPreviousJumpUrl()) ?>"
                             >
                                 <span>...</span>
                             </a>
@@ -128,7 +128,11 @@
 
                     <?php foreach ($block->getFramePages() as $_page): ?>
                         <?php if ($block->isPageCurrent($_page)): ?>
-                            <li class="pager__item pager__item--current">
+                            <li
+                                class="pager__item pager__item--current"
+                                aria-current="page"
+                                aria-label="<?= $block->escapeHtmlAttr(__('Page ') . $_page . __(', current page')) ?>"
+                            >
                                 <?= $_page ?>
                             </li>
                         <?php else: ?>
@@ -138,7 +142,8 @@
                                         pager__link
                                         link
                                     "
-                                    href="<?= $block->getPageUrl($_page) ?>"
+                                    href="<?= $block->escapeUrl($block->getPageUrl($_page)) ?>"
+                                    aria-label="<?= $block->escapeHtmlAttr(__('Link to page ') . $_page) ?>"
                                 >
                                     <?= $_page ?>
                                 </a>
@@ -153,7 +158,7 @@
                                     pager__link
                                     link
                                 "
-                                href="<?= $block->getNextJumpUrl() ?>"
+                                href="<?= $block->escapeUrl($block->getNextJumpUrl()) ?>"
                             >
                                 <span>...</span>
                             </a>
@@ -167,7 +172,8 @@
                                     pager__link
                                     link
                                 "
-                                href="<?= $block->getLastPageUrl() ?>"
+                                href="<?= $block->escapeUrl($block->getLastPageUrl()) ?>"
+                                aria-label="<?= $block->escapeHtmlAttr(__('Link to page ') . $block->getLastPageNum()) ?>"
                             >
                                 <?= $block->getLastPageNum() ?>
                             </a>
@@ -186,16 +192,15 @@
                                     button--icon
                                     next
                                 "
-                                href="<?= $block->getNextPageUrl() ?>"
-                                title="<?= $text ? $text : __('Next') ?>"
-                                aria-label="<?= $text ? $text : __('Next') ?>"
+                                href="<?= $block->escapeUrl($block->getNextPageUrl()) ?>"
+                                title="<?= $text ? $text : $block->escapeHtmlAttr(__('Link to next page')) ?>"
+                                aria-label="<?= $text ? $text : $block->escapeHtmlAttr(__('Link to next page')) ?>"
                             >
                                 <svg
                                     class="icon pager__icon"
                                     role="presentation"
                                     focusable="false"
                                 >
-                                    <title><?= __('Arrow right') ?></title>
                                     <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#arrow-right')); ?>"></use>
                                 </svg>
                             </a>
