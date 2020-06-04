@@ -1,0 +1,431 @@
+<div
+    class="payment-method"
+    data-bind="css: {'_active': (getCode() == isChecked())}"
+>
+    <div
+        class="
+            payment-method-title
+            field
+            choice
+        "
+    >
+        <input
+            type="radio"
+            name="payment[method]"
+            class="radio"
+            data-bind="
+                attr: {'id': getCode()},
+                value: getCode(),
+                checked: isChecked,
+                click: selectPaymentMethod,
+                visible: isRadioButtonVisible()
+            "
+        />
+        <label
+            class="label"
+            data-bind="attr: {'for': getCode()}"
+        >
+            <span data-bind="text: getTitle()"></span>
+        </label>
+    </div>
+
+    <form
+        class="payment-method-content"
+        data-bind="
+            mageInit: {
+                'tokenbaseCardFormatter': {},
+                'validation': {}
+            }
+        "
+    >
+        <!-- ko if: (useAcceptJs()) -->
+            <input
+                type="hidden"
+                name="payment[acceptjs_key]"
+                value=""
+                data-bind="
+                    attr: {
+                        id: getCode() + '-acceptjs-key'
+                    },
+                    value: acceptJsKey
+                "
+            />
+            <input
+                type="hidden"
+                name="payment[acceptjs_value]"
+                value=""
+                data-bind="
+                    attr: {
+                        id: getCode() + '-acceptjs-value'
+                    },
+                    value: acceptJsValue
+                "
+            />
+            <input
+                type="hidden"
+                name="payment[cc_last4]"
+                value=""
+                data-bind="
+                    attr: {
+                        id: getCode() + '-cc-last4'
+                    },
+                    value: creditCardLast4
+                "
+            />
+            <!-- ko if: (canStoreBin()) -->
+                <input
+                    type="hidden"
+                    name="payment[cc_bin]"
+                    value=""
+                    data-bind="
+                        attr: {
+                            id: getCode() + '-cc-bin'
+                        },
+                        value: creditCardBin
+                    "
+                />
+            <!-- /ko -->
+        <!-- /ko -->
+        <div class="payment-method-billing-address">
+            <!-- ko foreach: $parent.getRegion(getBillingAddressFormName()) -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+        </div>
+        <div class="credit-card">
+            <fieldset
+                data-bind="
+                    attr: {
+                        class: 'fieldset payment items ccard ' + getCode(),
+                        id: getCode() + '-form-cc'
+                    }
+                "
+            >
+                <!-- ko if: (isShowLegend())-->
+                <legend class="legend">
+                    <span><!-- ko text: $t('Credit Card Information')--><!-- /ko --></span>
+                </legend><br />
+                <!-- /ko -->
+                <!-- ko if: (getLogoImage())-->
+                <div class="sorter">
+                    <img
+                        data-bind="attr: {
+                            'src': getLogoImage(),
+                            'alt': $t('Processed by Authorize.Net')
+                        }"
+                    />
+                </div>
+                <!--/ko-->
+                <!-- ko if: (useVault()) -->
+                <div>
+                    <label
+                        data-bind="attr: {for: getCode() + '-card-id'}"
+                        class="label"
+                    >
+                        <span>
+                            <!-- ko text: $t('Payment Information')--><!-- /ko -->
+                        </span>
+                    </label>
+                    <div class="select">
+                        <select
+                            name="payment[card_id]"
+                            class="select__field select__field--native"
+                            data-bind="
+                                attr: {id: getCode() + '-card-id', 'data-container': getCode() + '-card-id'},
+                                mageInit: {creditCardType:{creditCardTypeContainer:'#' + getCode() + '-cc-type-ss-div'}},
+                                enable: true,
+                                options: getStoredCards(),
+                                optionsValue: 'id',
+                                optionsText: 'label',
+                                optionsCaption: $t('Add new card'),
+                                value: selectedCard
+                            "
+                        >
+                        </select>
+                    </div>
+                </div>
+                <div>&nbsp;</div>
+                <!-- /ko -->
+                <div
+                    class="
+                        field
+                        type
+                        required
+                        widget
+                    "
+                    data-bind="visible: isFormShown"
+                >
+                    <div>
+                        <ul class="credit-card-types">
+                            <!-- ko foreach: {data: getCcAvailableTypesValues(), as: 'item'} -->
+                            <li
+                                class="item"
+                                data-bind="css: {_active: $parent.selectedCardType() == item.value}"
+                            >
+                                <!--ko if: $parent.getIcons(item.value) -->
+                                <img
+                                    data-bind="attr: {
+                                        'src': $parent.getIcons(item.value).url,
+                                        'alt': item.type,
+                                        'width': $parent.getIcons(item.value).width,
+                                        'height': $parent.getIcons(item.value).height
+                                    }"
+                                >
+                                <!--/ko-->
+                            </li>
+                            <!--/ko-->
+                        </ul>
+                        <input
+                            type="hidden"
+                            name="payment[cc_type]"
+                            value=""
+                            data-bind="
+                                attr: {
+                                    id: getCode() + '-cc-type',
+                                    'data-container': getCode() + '-cc-type'
+                                },
+                                textInput: creditCardType
+                        "
+                        >
+                    </div>
+                </div>
+                <div
+                    class="
+                        field
+                        number
+                        required
+                    "
+                    data-bind="visible: isFormShown"
+                >
+                    <label
+                        data-bind="attr: {for: getCode() + '-cc-number'}"
+                        class="label"
+                    >
+                        <span>
+                            <!-- ko text: $t('Credit Card Number')--><!-- /ko -->
+                        </span>
+                    </label>
+                    <div class="input credit-card__number">
+                        <input
+                            type="text"
+                            class="input__field"
+                            value=""
+                            autocomplete="cc-number"
+                            data-bind="
+                                attr: {
+                                    id: getCode() + '-cc-number',
+                                    name: !useAcceptJs() ? 'payment[cc_number]' : null,
+                                    title: $t('Credit Card Number'),
+                                    'data-container': getCode() + '-cc-number',
+                                    'data-validate': JSON.stringify({'required':true,
+                                    'validate-cc-number':'#' + getCode() + '-cc-type',
+                                    'validate-cc-type':'#' + getCode() + '-cc-type'})
+                                },
+                                enable: true, textInput: creditCardNumberFormatted
+                            "
+                        />
+                    </div>
+                </div>
+                <div
+                    class="field date required"
+                    data-bind="attr: {id: getCode() + '-cc-type-exp-div'}, visible: isFormShown"
+                >
+                    <label
+                        data-bind="attr: {for: getCode() + '-cc-exp-month'}"
+                        class="label"
+                    >
+                        <span>
+                            <!-- ko text: $t('Expiration Date')--><!-- /ko -->
+                        </span>
+                    </label>
+                    <div class="credit-card__date">
+                        <div
+                            class="
+                                select
+                                credit-card__select
+                                margin-right-s
+                                margin-bottom-0
+                            "
+                        >
+                            <select
+                                name="payment[cc_exp_month]"
+                                class="
+                                    select__field
+                                    select__field--native
+                                    credit-card__field
+                                    month
+                                "
+                                autocomplete="cc-exp-month"
+                                data-bind="
+                                    attr: {
+                                        id: getCode() + '-cc-exp-month',
+                                        'data-container': getCode() + '-cc-month',
+                                        'data-validate': JSON.stringify({required:true, 'validate-cc-exp':'#' + getCode() + '-cc-exp-year'})
+                                    },
+                                    enable: true,
+                                    options: getCcMonthsValues(),
+                                    optionsValue: 'value',
+                                    optionsText: 'month',
+                                    optionsCaption: $t('Month'),
+                                    value: creditCardExpMonth
+                                "
+                            >
+                            </select>
+                        </div>
+                        <div
+                            class="
+                                select
+                                credit-card__select
+                                margin-bottom-0
+                            "
+                        >
+                            <select
+                                name="payment[cc_exp_year]"
+                                class="
+                                    select__field
+                                    select__field--native
+                                    credit-card__field year
+                                "
+                                autocomplete="cc-exp-year"
+                                data-bind="
+                                    attr: {
+                                        id: getCode() + '-cc-exp-year',
+                                        'data-container': getCode() + '-cc-year',
+                                        'data-validate': JSON.stringify({required:true})
+                                    },
+                                    enable: true,
+                                    options: getCcYearsValues(),
+                                    optionsValue: 'value',
+                                    optionsText: 'year',
+                                    optionsCaption: $t('Year'),
+                                    value: creditCardExpYear
+                                "
+                            >
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!-- ko if: (hasVerification())-->
+                <div
+                    class="input field cvv required"
+                    data-bind="attr: {id: getCode() + '-cc-type-cvv-div'}, visible: (isCcvShown)"
+                >
+                    <label
+                        data-bind="attr: {for: getCode() + '-cc-cid'}"
+                        class="label"
+                    >
+                        <span>
+                            <!-- ko text: $t('Card Verification Number')--><!-- /ko -->
+                        </span>
+                    </label>
+                    <input
+                        type="text"
+                        class="input__field cvv"
+                        name="payment[cc_cid]"
+                        value=""
+                        autocomplete="cc-csc"
+                        maxlength="4"
+                        data-bind="
+                            attr: {
+                                id: getCode() + '-cc-cid',
+                                title: $t('Card Verification Number'),
+                                'data-container': getCode() + '-cc-cvv',
+                                'data-validate': JSON.stringify({'required-number':true, 'validate-cc-cvn':'#' + getCode() + '-cc-type'})
+                            },
+                            enable: true,
+                            textInput: creditCardVerificationNumber
+                        "
+                    />
+                </div>
+                <!-- /ko -->
+                <!-- ko if: (canSaveCard)-->
+                <div
+                    class="field"
+                    data-bind="visible: isFormShown"
+                >
+                    <label class="label">
+                        <span></span>
+                    </label>
+                    <div class="checkbox">
+                        <!-- ko if: (forceSaveCard)-->
+                        <input
+                            type="hidden"
+                            name="payment[save]"
+                            value="1"
+                            checked="checked"
+                            class="checkbox"
+                            data-bind="attr: {id: getCode() + '-save'}, checked: save"
+                        />
+                        <label
+                            class="label"
+                            data-bind="attr: {for: getCode() + '-save'}"
+                        >
+                            <span>
+                                <!-- ko text: $t('For your convenience, this data will be stored securely by our payment processor.')--><!-- /ko -->
+                            </span>
+                        </label>
+                        <!-- /ko -->
+                        <!-- ko if: (!forceSaveCard)-->
+                        <input
+                            type="checkbox"
+                            name="payment[save]"
+                            value="1"
+                            checked="checked"
+                            class="checkbox__field"
+                            data-bind="attr: {id: getCode() + '-save'}, checked: save"
+                        />
+                        <svg
+                            class="checkbox__icon checkbox__icon--checked"
+                            role="presentation"
+                            focusable="false"
+                        >
+                            <use data-bind="attr: { 'xlink:href': require.toUrl('images/icons-sprite.svg#checked') }" xlink:href=''></use>
+                        </svg>
+                        <svg
+                            class="checkbox__icon checkbox__icon--unchecked"
+                            role="presentation"
+                            focusable="false"
+                        >
+                            <use data-bind="attr: { 'xlink:href': require.toUrl('images/icons-sprite.svg#unchecked') }" xlink:href=''></use>
+                        </svg>
+                        <label
+                            class="checkbox__label"
+                            data-bind="attr: {for: getCode() + '-save'}"
+                        >
+                            <span>
+                                <!-- ko text: $t('Save for next time')--><!-- /ko -->
+                            </span>
+                        </label>
+                        <!-- /ko -->
+                    </div>
+                </div>
+                <!-- /ko -->
+            </fieldset>
+        </div>
+        <div class="checkout-agreements-block">
+            <!-- ko foreach: $parent.getRegion('before-place-order') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+        </div>
+        <div class="actions-toolbar">
+            <div class="primary">
+                <button
+                    class="
+                        action
+                        primary
+                        checkout
+                    "
+                    type="submit"
+                    data-bind="
+                        click: placeOrder,
+                        attr: {title: $t('Place Order'), id: getCode() + '-submit'},
+                        enable: (getCode() == isChecked() && isPlaceOrderActionAllowed()),
+                        css: {disabled: !isPlaceOrderActionAllowed()}
+                    "
+                    disabled
+                >
+                    <span data-bind="text: $t('Place Order')"></span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
