@@ -23,7 +23,7 @@ module.exports = {
       },
     ],
     total: {
-      tag: 'h3',
+      tag: 'h2',
       text: 'Order Total',
       class: 'order-summary__title-total'
     },
