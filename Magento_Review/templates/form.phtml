@@ -36,34 +36,33 @@
 
                 <span id="input-message-box"></span>
 
-                <fieldset
-                    class="fieldset"
-                    aria-lebeledby="rating-label-legend"
-                >
-                    <legend
-                        id="rating-label-legend"
-                        class="review__rating-legend"
-                    >
+                <fieldset class="fieldset">
+                    <legend class="review__rating-legend">
                         <?= $block->escapeHtml(__('Your Rating')) ?>
                     </legend>
                     <?php
                         $dislayLabel = count($block->getRatings()) > 1;
                     ?>
                     <?php foreach ($block->getRatings() as $_rating): ?>
-                        <?php $options = $_rating->getOptions(); ?>
+                        <?php
+                            $options = $_rating->getOptions();
+                            $_ratingCode = $_rating->getRatingCode();
+                        ?>
                         <?php if ($dislayLabel): ?>
                             <label
                                 class="review__rating-legend"
-                                id="<?= $block->escapeHtmlAttr($_rating->getRatingCode()) ?>_rating_label"
+                                id="<?= $block->escapeHtmlAttr($_ratingCode) ?>_rating_label"
                             >
-                                <?= $block->escapeHtml($_rating->getRatingCode()) ?>
+                                <?= $block->escapeHtml($_ratingCode) ?>
                             </label>
                         <?php endif; ?>
                         <div
                             class="rating rating--rate"
                             role="listbox"
                             aria-required="true"
-                            aria-labelledby=""
+                            <?php if ($dislayLabel): ?>
+                                aria-labelledby="<?= $block->escapeHtmlAttr($_ratingCode) ?>_rating_label"
+                            <?php endif; ?>
                             tabindex="0"
                             data-mage-init='{
                                 "ratingPicker": {
@@ -73,15 +72,15 @@
                             }'
                         >
                             <?php foreach ($options as $_option):
-                                $_optionValue = $block->escapeHtmlAttr($_option->getId());
+                                $_optionId = $block->escapeHtmlAttr($_option->getId());
+                                $_optionValue = $_option->getValue();
                                 $_inputId =
-                                    $block->escapeHtmlAttr(str_replace(' ', '_', $_rating->getRatingCode())) . '_' .
-                                    $block->escapeHtmlAttr($_option->getValue());
-                                ?>
+                                    $block->escapeHtmlAttr(str_replace(' ', '_', $_ratingCode) . '_' . $_optionValue);
+                            ?>
                                 <div
                                     class="rating__rate-item"
                                     role="option"
-                                    aria-selected="false"
+                                    aria-checked="false"
                                 >
 
                                     <label
@@ -90,14 +89,22 @@
                                             rating__star
                                             rating__star--rate
                                         "
-                                        aria-label="<?= $block->escapeHtmlAttr(__('Rate option ') . $_optionValue . __(' of 5. Click to vote')); ?>"
                                     >
                                         <input
                                             type="radio"
-                                            name="ratings[<?= $block->escapeHtmlAttr($_optionValue); ?>]"
+                                            name="ratings[<?= $block->escapeHtmlAttr($_optionId); ?>]"
                                             id="<?= $block->escapeHtmlAttr($_inputId); ?>"
-                                            value="<?= $block->escapeHtmlAttr($_optionValue); ?>"
+                                            value="<?= $block->escapeHtmlAttr($_optionId); ?>"
                                             class="radio__field"
+                                            aria-label="
+                                                <?php
+                                                    if ($_optionValue === '1'){
+                                                        echo $block->escapeHtmlAttr($_optionValue . __(' star') . __(' out of 5'));
+                                                    } else {
+                                                        echo $block->escapeHtmlAttr($_optionValue . __(' stars') . __(' out of 5'));
+                                                    }
+                                                ?>
+                                            "
                                         />
 
                                         <span class="rating__indicator"></span>
@@ -138,6 +145,7 @@
                         class="input__field"
                         data-validate="{ required:true }"
                         data-bind="value: nickname()"
+                        required
                     />
                 </div>
 
@@ -156,6 +164,7 @@
                         class="input__field"
                         data-validate="{ required:true }"
                         data-bind="value: review().title"
+                        required
                     />
                 </div>
 
@@ -184,6 +193,7 @@
                         "
                         data-validate="{ required:true }"
                         data-bind="value: review().detail"
+                        required
                     ></textarea>
                 </div>
                 <button

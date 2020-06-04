@@ -16,6 +16,7 @@ define([], function() {
 
         oneRank.querySelector('.radio__field').checked = true;
         oneRank.classList.add(activeItemClass);
+        oneRank.setAttribute('aria-checked', true);
         optionChoosen = true;
 
         if (reviewError.classList.contains(errorVisibleClass)) {
@@ -42,6 +43,7 @@ define([], function() {
     function deleteOtherRates() {
       ratingElements.forEach(item => {
         item.classList.remove(activeItemClass);
+        item.setAttribute('aria-checked', false);
       });
     }
   }
