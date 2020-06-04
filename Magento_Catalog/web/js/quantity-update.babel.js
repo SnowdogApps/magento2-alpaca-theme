@@ -7,6 +7,7 @@ define([], function () {
       this.plus        = this.elem.querySelector('.quantity-update__button--plus');
       this.minus       = this.elem.querySelector('.quantity-update__button--minus');
       this.input       = this.elem.querySelector('.quantity-update__input');
+      this.alert       = this.elem.querySelector('.quantity-update__alert');
       this.activeClass = 'quantity-update--active';
       this.events();
       this.evaluateConditions();
@@ -46,11 +47,15 @@ define([], function () {
 
     increment() {
       this.input.value = Number(this.input.value) + 1;
+      this.alert.textContent = `The quantity was increased to ${this.input.value}.`;
+      this.alert.classList.remove('display-none');
     }
 
     decrement() {
       if (this.input.value >= 1) {
         this.input.value = Number(this.input.value) - 1;
+        this.alert.textContent = `The quantity was decreased to ${this.input.value}.`;
+        this.alert.classList.remove('display-none');
       }
     }
 
