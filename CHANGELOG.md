@@ -11,6 +11,8 @@ All notable changes to this project will be documented in this file.
 - Quick order change styling for single sku row (#66172)
 - Cookie popup amasty styling (#67268)
 - My payment data template (#66712)
+- Customer orders and returns form (#66891)
+- update variables, sku font weight and display in product view (#66979)
 ### Fixed
 ### Removed
 
@@ -70,6 +72,7 @@ All notable changes to this project will be documented in this file.
 - grouped product options with styles (#64633)
 - checkbox, header, contact-bar, cookie-message (#61954)
 - update variables + cleanup (#58633)
+- EE - gift card view (#65866)
 
 ### Added
 - atomic classes - uppercase/lowecase/none-text-transform (#65259)
