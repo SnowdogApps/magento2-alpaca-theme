@@ -1,22 +1,57 @@
-<div class="webforms-gdpr">
-    <?php if ($this->getShowAgreementText()) { ?>
+<div class="input">
+    <?php if ($this->getShowAgreementText()): ?>
         <div class="webforms-gdpr-text">
-            <?php echo $this->getAgreementText() ?>
+            <?= $this->getAgreementText() ?>
         </div>
-    <?php } ?>
-    <?php if ($this->getShowCheckbox()) { ?>
-        <div class="webforms-gdpr-checkbox field choice" role="group">
-                <input id="gdpr_<?php echo $this->getUid() ?>" type="checkbox" name="gdpr"
-                       class="checkbox <?php if ($this->getCheckboxRequired()) { ?>required-entry<?php } ?>"
-                       value="1">
+    <?php endif; ?>
+    <?php if ($this->getShowCheckbox()): ?>
+        <div class="checkbox" role="group">
+            <input
+                id="gdpr_<?= $this->getUid() ?>"
+                type="checkbox"
+                name="gdpr"
+                class="
+                    checkbox__field
+                    <?= $this->getCheckboxRequired() ? 'required-entry' : '' ?>
+                "
+               value="1"
+            >
+            <svg
+                class="
+                    checkbox__icon
+                    checkbox__icon--checked
+                "
+                role="presentation"
+                focusable="false"
+            >
+                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#checked')) ?>"></use>
+            </svg>
 
-            <label for="gdpr_<?php echo $this->getUid() ?>"><span><?php echo $this->getCheckboxLabel() ?></span></label>
-            <?php if (strlen($this->getErrorText()) > 0) { ?>
-                <div class="validation-advice" style="display: none"
-                     id="advice-required-entry-gdpr_<?php echo $this->getUid() ?>">
-                    <?php echo $this->getErrorText() ?>
+            <svg
+                class="
+                    checkbox__icon
+                    checkbox__icon--unchecked
+                "
+                role="presentation"
+                focusable="false"
+            >
+                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#unchecked')) ?>"></use>
+            </svg>
+            <label
+                for="gdpr_<?= $this->getUid() ?>"
+                class="checkbox__label"
+            >
+                <?= $this->getCheckboxLabel() ?>
+            </label>
+            <?php if (strlen($this->getErrorText()) > 0): ?>
+                <div
+                    class="validation-advice"
+                    style="display: none"
+                    id="advice-required-entry-gdpr_<?= $this->getUid() ?>"
+                >
+                    <?= $this->getErrorText() ?>
                 </div>
-            <?php } ?>
+            <?php endif; ?>
         </div>
-    <?php } ?>
+    <?php endif; ?>
 </div>
