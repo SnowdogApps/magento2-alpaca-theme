@@ -95,6 +95,7 @@ All notable changes to this project will be documented in this file.
 - login modal templates/styles (#63465)
 - configure module-product-attribute-description (#63606)
 - quotes styles fixes (#63543)
+- styles for date picker (#66584)
 
 ### Fixed
 - missing & double `!default` (#65259)
