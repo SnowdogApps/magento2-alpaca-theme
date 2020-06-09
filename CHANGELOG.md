@@ -14,6 +14,7 @@ All notable changes to this project will be documented in this file.
 - My payment data template (#66712)
 - Customer orders and returns form (#66891)
 - update variables, sku font weight and display in product view (#66979)
+- EE - dashboard - wishlist - create new / edit wishlist popup (#65998)
 ### Fixed
 ### Removed
 
