@@ -7,6 +7,8 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 - fix missing tag in product-view--bundle.hbs (#67829)
 - fix variable name $catalog-gird-item__primary-margin -> $product-gird-item__primary-margin (#61542)
+- Focus on qty product button in minicart hidding update btn (#65973)
+- fix single customer review template (#67837)
 - fix add product with swatches to cart from catalog (#67842)
 ### Removed
 
