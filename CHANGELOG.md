@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Added
+### Changed
+### Fixed
+### Removed
+
+## [Released]
+## [2.1.0] - 2020-06-09
+### Added
 - swatches on catalog (#67196)
 ### Changed
 - shipping latency on catalog (#64632)
@@ -15,11 +22,7 @@ All notable changes to this project will be documented in this file.
 - Customer orders and returns form (#66891)
 - update variables, sku font weight and display in product view (#66979)
 - EE - dashboard - wishlist - create new / edit wishlist popup (#65998)
-### Fixed
-### Removed
 
-
-## [Released]
 ## [2.0.2] - 2020-05-29
 ### Added
 - missing ACM templates
