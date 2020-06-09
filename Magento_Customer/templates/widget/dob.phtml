@@ -29,13 +29,21 @@ $fieldCssClass = 'input input--inline date input-' . $block->getHtmlId();
 $fieldCssClass .= $block->isRequired() ? ' required' : '';
 ?>
 <div class="<?= $fieldCssClass; ?>">
-    <label class="input__label" for="<?= $block->getHtmlId()?>">
-        <?= $block->getLabel() ?>
+    <label class="input__label" for="<?= /* @noEscape */ $block->getHtmlId()?>">
+        <?= $block->escapeHtml($block->getStoreLabel('dob')) ?>
     </label>
     <?= $block->getFieldHtml(); ?>
     <?php if ($_message = $block->getAdditionalDescription()) : ?>
         <div class="input__note">
-            <?= $_message; ?>
+            <?= $block->escapeHtml($_message); ?>
         </div>
     <?php endif; ?>
 </div>
+
+<script type="text/x-magento-init">
+    {
+       "*": {
+           "Magento_Customer/js/validation": {}
+       }
+    }
+ </script>
