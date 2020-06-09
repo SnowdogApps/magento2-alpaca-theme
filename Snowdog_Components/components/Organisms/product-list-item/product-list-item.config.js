@@ -2,6 +2,7 @@ module.exports = {
   context: {
     tag: 'section',
     class: '',
+    swatches: true,
     image: {
       wrapperClass: 'product-list-item__image',
       dataSrc: '/images/product/product-160_240.jpg'
