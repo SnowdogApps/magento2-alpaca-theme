@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 ### Changed
 ### Fixed
+- fix missing tag in product-view--bundle.hbs (#67829)
 ### Removed
 
 ## [Released]
