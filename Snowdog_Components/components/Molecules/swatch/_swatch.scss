@@ -1,34 +1,83 @@
-$swatch__transition                 : $transition-base !default;
+$swatch__margin                       : 0 !default;
+$swatch__margin--catalog              : 0 0 $spacer 0 !default;
+$swatch__transition                   : $transition-base !default;
 
-$swatch__title-margin               : 0 0 $spacer !default;
-$swatch__title-font-size            : $font-size-base !default;
-$swatch__title-color                : $color-secondary !default;
+$swatch__wrapper-justify              : flex-start !default;
+$swatch__container-min-height         : 100px !default;
+$swatch__container-min-height--catalog: 56px !default;
 
-$swatch__option-size                : 40px !default;
-$swatch__option-size--image         : 48px !default;
-$swatch__option-margin              : 0 $spacer 0 0 !default;
-$swatch__option-padding             : 0 0 1px 0 !default;
-$swatch__option-background          : $white !default;
-$swatch__option-color               : $color-secondary !default;
-$swatch__option-border              : 2px solid $white !default;
-$swatch__option-border-width        : 0 0 2px 0 !default;
-$swatch__option-border--white       : 2px solid $gray-lighter !default;
-$swatch__option-border-color--active: $color-primary !default;
+$swatch__title-margin                 : 0 0 $spacer !default;
+$swatch__title-font-size              : $font-size-base !default;
+$swatch__title-color                  : $color-secondary !default;
+
+$swatch__option-size                  : 40px !default;
+$swatch__option-size--catalog         : 30px !default;
+$swatch__option-size--image           : 48px !default;
+$swatch__option-margin                : 0 $spacer 0 0 !default;
+$swatch__option-padding               : 0 0 1px 0 !default;
+$swatch__option-background            : $white !default;
+$swatch__option-color                 : $color-secondary !default;
+$swatch__option-border                : 2px solid $white !default;
+$swatch__option-border-width          : 0 0 2px 0 !default;
+$swatch__option-border--white         : 2px $border-style-base $gray-lighter !default;
+$swatch__option-border--white-catalog : $border-width-base $border-style-base $gray-light !default;
+$swatch__option-border-color--active  : $color-primary !default;
+$swatch__option-border--size          : $border-width-base $border-style-base $gray-light !default;
 
 .swatch {
     display: flex;
     flex-wrap: wrap;
+    margin: $swatch__margin;
+
+    &[class*="size"] {
+        .swatch__option {
+            border: $swatch__option-border--size;
+        }
+    }
 
     &__container {
         // magento container for loading
         position: relative;
-        min-height: 100px;
+        min-height: $swatch__container-min-height;
+
+        &--catalog {
+            width: 100%;
+            min-height: $swatch__container-min-height--catalog;
+
+            .swatch {
+                margin: $swatch__margin--catalog;
+
+                &__option-container {
+                    padding: $spacer;
+                    margin: 0;
+
+                    &:hover,
+                    &:focus,
+                    &.selected {
+                        .swatch__option--white {
+                            border: $swatch__option-border--white-catalog;
+                        }
+                    }
+                }
+
+                &__option {
+                    min-width: $swatch__option-size--catalog;
+                    min-height: $swatch__option-size--catalog;
+
+                    &--white {
+                        border: $swatch__option-border--white-catalog;
+                    }
+                }
+            }
+
+        }
     }
 
     &__wrapper {
         display: flex;
         flex-wrap: wrap;
         width: 100%;
+        justify-content: $swatch__wrapper-justify;
     }
 
     &__option-container {
