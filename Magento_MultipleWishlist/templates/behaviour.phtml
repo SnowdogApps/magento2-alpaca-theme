@@ -1,0 +1,284 @@
+<?php
+/* @var $block \Magento\MultipleWishlist\Block\Behaviour */
+?>
+<script
+    id="form-tmpl-multiple"
+    type="text/x-magento-template"
+>
+    <form
+        id="wishlist-hidden-form"
+        method="post"
+        action="<%- data.url %>"
+        class="no-display"
+    >
+        <% if (data.itemId) { %>
+            <input
+                name="item_id"
+                value="<%- data.itemId %>"
+            >
+        <% } %>
+        <% if (data.wishlistId) { %>
+            <input
+                name="wishlist_id"
+                value="<%- data.wishlistId %>"
+            >
+        <% } %>
+        <% if (data.qty) { %>
+            <input
+                name="qty"
+                value="<%- data.qty %>"
+            >
+        <% } %>
+        <% if (data.item) { %>
+            <input
+                name="item"
+                value="<%- data.item %>"
+            >
+        <% } %>
+        <% if (data.entity) { %>
+            <input
+                name="entity"
+                value="<%- data.entity %>"
+            >
+        <% } %>
+        <% if (data.form_key) { %>
+            <input
+                name="form_key"
+                value="<%- data.form_key %>"
+            >
+        <% } %>
+    </form>
+</script>
+<script
+    id="popup-tmpl"
+    type="text/x-magento-template"
+>
+    <div
+        id="<%- data.popupWishlistBlockId %>"
+        class="
+            modals-overlay
+            modal-popup
+            window
+            wishlist
+            popup
+            active
+            _show
+        "
+    >
+        <div class="modal-inner-wrap">
+            <header class="modal-header">
+                <h2
+                    class="
+                        heading
+                        heading--page
+                    "
+                    data-role="title"
+                >
+                    <% if (data.isEdit) { %>
+                        <%- data.translate.editWishlist %>
+                    <% } else { %>
+                        <%- data.translate.createNewWishlist %>
+                    <% } %>
+                </h2>
+            </header>
+            <button
+                class="
+                    button
+                    button--icon
+                    button--rotate-icon
+                    modal__close-button
+                    <%- data.btnCloseClass %>
+                "
+                type="button"
+                aria-label="<%- data.translate.close %>"
+                data-dismiss="popup"
+            >
+                <svg
+                    class="
+                        icon
+                        button__icon
+                        modal__close-button-icon
+                    "
+                    role="presentation"
+                    focusable="false"
+                >
+                    <title><?= __('Close') ?></title>
+                    <use xlink:href="<?= $block->escapeUrl($block
+                        ->getViewFileUrl('images/icons-sprite.svg#close')); ?>"></use>
+                </svg>
+            </button>
+            <div
+                class="modal-content"
+                data-role="content"
+            >
+                <form
+                    id="<%- data.popupWishlistFormId %>"
+                    method="post"
+                    action="<%- data.url %>"
+                >
+                    <input
+                        name="form_key"
+                        type="hidden"
+                        value="<%- data.formKey %>"
+                    >
+                    <fieldset class="fieldset">
+                        <legend
+                            class="
+                                fieldset__legend
+                                fieldset__legend--hidden
+                            "
+                        >
+                            <%- window.jQuery.mage.__('Wish List') %>
+                        </legend>
+                        <div class="input required">
+                            <label
+                                for="wishlist-name"
+                                class="label"
+                            >
+                                <%- data.translate.wishListName %>
+                            </label>
+                            <input
+                                id="wishlist-name"
+                                class="input__field"
+                                data-role="prompt-field"
+                                data-validate="{required:true}"
+                                type="text"
+                                name="name"
+                                maxlength="255"
+                                value="<%- data.name %>"
+                            />
+                        </div>
+                        <div class="checkbox">
+                            <input
+                                id="wishlist-public"
+                                type="checkbox"
+                                class="checkbox__field"
+                                name="visibility"<% if (data.isPublic) { %> checked=true<% } %>"
+                            />
+                            <svg
+                                class="
+                                    checkbox__icon
+                                    checkbox__icon--checked
+                                "
+                                role="presentation"
+                                focusable="false"
+                            >
+                                <use xlink:href="<?= $block->escapeUrl($block
+                                    ->getViewFileUrl('/images/icons-sprite.svg#checked')) ?>"></use>
+                            </svg>
+                            <svg
+                                class="
+                                    checkbox__icon
+                                    checkbox__icon--unchecked
+                                "
+                                role="presentation"
+                                focusable="false"
+                            >
+                                <use xlink:href="<?= $block->escapeUrl($block
+                                    ->getViewFileUrl('/images/icons-sprite.svg#unchecked')) ?>"></use>
+                            </svg>
+                            <label
+                                class="checkbox__label"
+                                for="wishlist-public"
+                            >
+                                <%- data.translate.publicWishList %>
+                            </label>
+                        </div>
+                        <div class="modal__bottom">
+                            <div class="modal__bottom-actions">
+                                <div class="modal__bottom-action">
+                                    <button
+                                        class="
+                                            button
+                                            action
+                                            primary
+                                            confirm
+                                        "
+                                        type="submit"
+                                        title="<%- window.jQuery.mage.__('Save') %>"
+                                    >
+                                        <%- data.translate.save %>
+                                    </button>
+                                </div>
+                                <div class="modal__bottom-action">
+                                    <button
+                                        class="
+                                            action
+                                            button
+                                            button--secondary
+                                            <%- data.btnCloseClass %>
+                                        "
+                                        type="button"
+                                        title="<%- window.jQuery.mage.__('Cancel') %>"
+                                    >
+                                        <%- data.translate.cancel %>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</script>
+<script id="split-btn-tmpl" type="text/x-magento-template">
+    <div class="split button wishlist">
+        <button type="button" data-post='<%- JSON.stringify(data.generalParams) %>' data-action="add-to-wishlist" class="label action split">
+            <span><%- data.buttonName %></span>
+        </button>
+        <button class="action toggle change"
+                title="<%- window.jQuery.mage.__('Add to:') %>"
+                type="button"
+                data-mage-init='{"dropdown":{}}'
+                data-toggle="dropdown"
+                data-trigger-keypress-button="true">
+            <span><%- window.jQuery.mage.__('Add to:') %></span>
+        </button>
+        <ul class="items" data-target="dropdown">
+            <% _.each(data.wishlists, function(item) { %>
+            <li class="item">
+                <% if (item.newClass) { %>
+                <span role="button"
+                      tabindex="0"
+                      class="action <%- item.newClass %>"
+                      data-action-keypress="true"
+                      data-post-new-wishlist='<%- JSON.stringify(item.params) %>'
+                      data-action="add-to-wishlist"
+                      title="<%- item.name %>">
+                            <span><%- item.name %></span>
+                        </span>
+                <% } else { %>
+                <span role="button"
+                      tabindex="0"
+                      data-action-keypress="true"
+                      data-post='<%- JSON.stringify(item.params) %>'
+                      data-action="add-to-wishlist"
+                      title="<%- item.name %>">
+                            <%- item.name %>
+                        </span>
+                <% } %>
+            </li>
+            <% }); %>
+        </ul>
+    </div>
+</script>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "multipleWishlist": {
+                        "component": "Magento_MultipleWishlist/js/view/multiple-wishlist",
+                        "config": {
+                            "multipleWishlistOptions": {
+                                "createUrl": "<?= $block->escapeUrl($block->getCreateUrl()) ?>",
+                                "wishlistLink": ".action.towishlist"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+</script>

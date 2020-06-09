@@ -7,8 +7,22 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 ### Removed
 
-
 ## [Released]
+## [2.1.0] - 2020-06-09
+### Added
+- swatches on catalog (#67196)
+### Changed
+- shipping latency on catalog (#64632)
+- pdp fotorama placeholder set size only of the main image (#66198)
+- PDP - sticky footer product name only one line with dots (#66196)
+- PDP - Product name under image on mobile (#66196)
+- Quick order change styling for single sku row (#66172)
+- Cookie popup amasty styling (#67268)
+- My payment data template (#66712)
+- Customer orders and returns form (#66891)
+- update variables, sku font weight and display in product view (#66979)
+- EE - dashboard - wishlist - create new / edit wishlist popup (#65998)
+
 ## [2.0.2] - 2020-05-29
 ### Added
 - missing ACM templates
@@ -63,6 +77,7 @@ All notable changes to this project will be documented in this file.
 - grouped product options with styles (#64633)
 - checkbox, header, contact-bar, cookie-message (#61954)
 - update variables + cleanup (#58633)
+- EE - gift card view (#65866)
 
 ### Added
 - atomic classes - uppercase/lowecase/none-text-transform (#65259)
@@ -84,6 +99,7 @@ All notable changes to this project will be documented in this file.
 - login modal templates/styles (#63465)
 - configure module-product-attribute-description (#63606)
 - quotes styles fixes (#63543)
+- styles for date picker (#66584)
 
 ### Fixed
 - missing & double `!default` (#65259)
