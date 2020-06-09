@@ -1,6 +1,9 @@
 <?php
 // @codingStandardsIgnoreFile
 
+use Magento\Catalog\ViewModel\Product\Listing\PreparePostData;
+use Magento\Framework\App\ActionInterface;
+
 /* @var $block \Magento\Catalog\Block\Product\AbstractProduct */
 ?>
 
@@ -345,26 +348,31 @@ $sliderResponsiveConfig = '[
                                                     <?php else: ?>
                                                         <!-- Adding to cart with ajax when product has required option and is available -->
                                                         <?php
-                                                            $postDataHelper = $this->helper('Magento\Framework\Data\Helper\PostHelper');
-                                                            $postParamsString = $postDataHelper->getPostData($block->getAddToCartUrl($_item), ['product' => $_item->getEntityId()]);
-                                                            $postParams = json_decode($postParamsString, true);
+
+                                                            /** @var $viewModel PreparePostData */
+                                                            $viewModel = $block->getViewModel();
+                                                            $postArray = $viewModel->getPostData(
+                                                                $block->escapeUrl($block->getAddToCartUrl($_item)),
+                                                                ['product' => $_item->getEntityId()]
+                                                            );
+                                                            $postParams = $postArray['data'][ActionInterface::PARAM_NAME_URL_ENCODED];
                                                         ?>
                                                         <form
                                                             class="product-grid-item__primary-action"
                                                             data-role="tocart-form"
                                                             data-product-sku="<?= $block->escapeHtmlAttr($_item->getSku()) ?>"
-                                                            action="<?= $block->escapeUrl($postParams['action']) ?>"
+                                                            action="<?= $block->escapeUrl($block->getAddToCartUrl($_item)) ?>"
                                                             method="post"
                                                         >
                                                             <input
                                                                 type="hidden"
                                                                 name="product"
-                                                                value="<?= /* @noEscape */ $postParams['data']['product'] ?>"
+                                                                value="<?= /* @noEscape */ (int)$_item->getEntityId() ?>"
                                                             >
                                                             <input
                                                                 type="hidden"
                                                                 name="<?= /* @noEscape */ Magento\Framework\App\Action\Action::PARAM_NAME_URL_ENCODED ?>"
-                                                                value="<?= /* @noEscape */ $postParams['data'][Magento\Framework\App\Action\Action::PARAM_NAME_URL_ENCODED] ?>"
+                                                                value="<?= /* @noEscape */ $postParams ?>"
                                                             >
                                                             <?= $block->getBlockHtml('formkey') ?>
                                                             <button

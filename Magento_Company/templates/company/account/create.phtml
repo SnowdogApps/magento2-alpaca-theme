@@ -1,5 +1,8 @@
 <?php
 // phpcs:disable Magento2.Templates.ThisInTemplate
+use Magento\Customer\Block\Widget\Gender;
+use Magento\Customer\Block\Widget\Name;
+use Magento\Directory\Helper\Data;
 ?>
 <?php
 /**
@@ -351,7 +354,7 @@
                     </label>
                     <input
                         type="text"
-                        name="job_title"
+                        name="company[job_title]"
                         id="job_title"
                         value=""
                         title="<?= $block->escapeHtmlAttr(__('Job Title')) ?>"
@@ -368,7 +371,7 @@
                     </label>
                     <input
                         type="email"
-                        name="email"
+                        name="customer[email]"
                         autocomplete="email"
                         id="email_address"
                         value=""
@@ -383,14 +386,23 @@
                     />
                 </div>
 
-                <?= $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Name::class)
+                <?= $block->getLayout()->createBlock(Name::class)
+                    ->setFieldNameFormat('customer[%s]')
                     ->setObject($block->getFormData())
                     ->setNoWrap(true)
                     ->setForceUseCustomerAttributes(true)
                     ->toHtml() ?>
 
-                <?php $gender = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Gender::class) ?>
-                <?= $gender->setGender($block->getFormData()->getGender())->toHtml() ?>
+                <?= $block->getLayout()->createBlock(Gender::class)
+                    ->setFieldNameFormat('customer[%s]')
+                    ->setGender($block->getFormData()->getGender())
+                    ->toHtml() ?>
+
+                <?php $userDefinedAttributes = $block->getLayout()->getBlock('customer_form_user_attributes'); ?>
+                <?php if ($userDefinedAttributes): ?>
+                    <?php $userDefinedAttributes->setFieldNameFormat('customer[%1$s]'); ?>
+                    <?= $userDefinedAttributes->toHtml() ?>
+                <?php endif; ?>
 
                 <?= $block->getChildHtml('form.additional.info') ?>
             </fieldset>
@@ -413,7 +425,7 @@
         </form>
     </div>
 </div>
-
+<?php $countries = $this->helper(Data::class)->getCountriesWithOptionalZip(true) ?>
 <script>
     require([
         'jquery',
@@ -437,9 +449,9 @@
                 "regionInputId": "#region",
                 "postcodeId": "#zip",
                 "form": "#form-validate",
-                "regionJson": <?= /* @noEscape */ $this->helper(\Magento\Directory\Helper\Data::class)->getRegionJson() ?>,
+                "regionJson": <?= /* @noEscape */ $this->helper(Data::class)->getRegionJson() ?>,
                 "defaultRegion": "",
-                "countriesWithOptionalZip": <?= /* @noEscape */ $this->helper(\Magento\Directory\Helper\Data::class)->getCountriesWithOptionalZip(true) ?>
+                "countriesWithOptionalZip": <?= /* @noEscape */ $countries ?>
             }
         }
     }
