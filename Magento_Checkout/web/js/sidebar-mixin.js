@@ -70,7 +70,7 @@ define([
                  */
                 events['keyup ' + this.options.item.qty] = function (event) {
                     var code = (event.keyCode ? event.keyCode : event.which);
-                    if (code !== 9) {
+                    if (code !== 9 && code !== 16) {
                         self._showItemButton($(event.target));
                     }
 
