@@ -87,7 +87,7 @@ define([
           isInProductView = false;
 
         productId = this.element
-          .parents('[class*="-item__details"]')
+          .parents('[class*="-item__swatches"]')
           .find('.price-box.price-final_price')
           .attr('data-product-id');
 
