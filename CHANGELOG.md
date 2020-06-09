@@ -16,6 +16,7 @@ All notable changes to this project will be documented in this file.
 - update variables, sku font weight and display in product view (#66979)
 - EE - dashboard - wishlist - create new / edit wishlist popup (#65998)
 ### Fixed
+- fix variable name $catalog-gird-item__primary-margin -> $product-gird-item__primary-margin (#61542)
 ### Removed
 
 
