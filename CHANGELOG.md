@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 ### Added
 ### Changed
 ### Fixed
+- fix missing tag in product-view--bundle.hbs (#67829)
+- fix variable name $catalog-gird-item__primary-margin -> $product-gird-item__primary-margin (#61542)
 ### Removed
 
 ## [Released]
@@ -22,6 +24,7 @@ All notable changes to this project will be documented in this file.
 - Customer orders and returns form (#66891)
 - update variables, sku font weight and display in product view (#66979)
 - EE - dashboard - wishlist - create new / edit wishlist popup (#65998)
+
 
 ## [2.0.2] - 2020-05-29
 ### Added
