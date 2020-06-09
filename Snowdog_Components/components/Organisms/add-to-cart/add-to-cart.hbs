@@ -1,5 +1,8 @@
 <div
-    class="add-to-cart"
+    class="
+        add-to-cart 
+        {{ class }}
+    "
     data-aos="fade-up"
     data-aos-anchor="#submit-add-to-cart-main"
     data-aos-anchor-placement="bottom-top"
@@ -14,26 +17,28 @@
         </div>
         <div class="add-to-cart__action">
             {{ render '@button--add-to' addToCartBtn merge=true }}
-            <button
-                class="
-                    button
-                    button--icon
-                    add-to-cart__button-more
-                "
-                type="button"
-                aria-expanded="false"
-            >
-                {{ render '@icon' moreIcon }}
-                {{ render '@icon' moreIconClose }}
-            </button>
-            <div class="add-to-cart__action-secondary">
-                {{#if wishlistBtn}}
-                    {{ render '@button--icon' wishlistBtn }}
-                {{/if}}
-                {{#if compareBtn}}
-                    {{ render '@button--icon' compareBtn }}
-                {{/if}}
-            </div>
+            {{#unless hiddenForEE}}
+                <button
+                    class="
+                        button
+                        button--icon
+                        add-to-cart__button-more
+                    "
+                    type="button"
+                    aria-expanded="false"
+                >
+                    {{ render '@icon' moreIcon }}
+                    {{ render '@icon' moreIconClose }}
+                </button>
+                <div class="add-to-cart__action-secondary">
+                    {{#if wishlistBtn}}
+                        {{ render '@button--icon' wishlistBtn }}
+                    {{/if}}
+                    {{#if compareBtn}}
+                        {{ render '@button--icon' compareBtn }}
+                    {{/if}}
+                </div>
+            {{/unless}}
 
         </div>
 

@@ -429,6 +429,16 @@ module.exports = {
           ]
         }
       }
+    },
+    {
+      name: 'ee',
+      context: {
+        addToCartFixed: {
+          hiddenForEE: true,
+          class: 'add-to-cart--ee',
+          title: 'Bluzka ONLSANSA SINGLET WVN',
+        }
+      }
     }
   ]
 };
