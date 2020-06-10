@@ -21,8 +21,8 @@ define([
             .html();
           template = mageTemplate($.trim(template), {
             data: {
-              _label_: this.cache.currentElement.options[key].title,
-            },
+              _label_: this.cache.currentElement.options[key].title
+            }
           });
 
           this.cache.currentKey = key;
@@ -52,8 +52,8 @@ define([
             _quantity_: this.cache.currentElement.options[this.cache.currentKey]
               .selections[optionIndex].qty,
             _label_: this.cache.currentElement.options[this.cache.currentKey]
-              .selections[optionIndex].name,
-          },
+              .selections[optionIndex].name
+          }
         });
         this.cache.summaryContainer
           .find(this.options.optionSelector)
