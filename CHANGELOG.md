@@ -10,6 +10,8 @@ All notable changes to this project will be documented in this file.
 - Focus on qty product button in minicart hidding update btn (#65973)
 - fix single customer review template (#67837)
 - fix add product with swatches to cart from catalog (#67842)
+- Focus on qty product button in minicart hidding update btn (#65973)
+- update theme templates for M v2.3.5 (#66621)
 - extend extend messages class for backend generated notifications (#67840)
 - fix bundle PDP (#67863)
 ### Removed
