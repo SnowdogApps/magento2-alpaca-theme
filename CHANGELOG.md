@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 - fix missing tag in product-view--bundle.hbs (#67829)
 - fix variable name $catalog-gird-item__primary-margin -> $product-gird-item__primary-margin (#61542)
 - Focus on qty product button in minicart hidding update btn (#65973)
+- update theme templates for M v2.3.5 (#66621)
 ### Removed
 
 ## [Released]
