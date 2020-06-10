@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 - fix variable name $catalog-gird-item__primary-margin -> $product-gird-item__primary-margin (#61542)
 - fix add product with swatches to cart from catalog (#67842)
 - Focus on qty product button in minicart hidding update btn (#65973)
+- update theme templates for M v2.3.5 (#66621)
 ### Removed
 
 ## [Released]
