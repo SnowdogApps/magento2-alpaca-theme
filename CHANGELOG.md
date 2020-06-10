@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 - fix missing tag in product-view--bundle.hbs (#67829)
 - fix variable name $catalog-gird-item__primary-margin -> $product-gird-item__primary-margin (#61542)
+- extend extend messages class for backend generated notifications (#67840)
 ### Removed
 
 ## [Released]
