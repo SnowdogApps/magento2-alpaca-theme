@@ -1,0 +1,49 @@
+<?php
+/** @var $block \Magento\Swatches\Block\Product\Renderer\Listing\Configurable */
+$productId = $block->getProduct()->getId();
+/** @var \Magento\Swatches\ViewModel\Product\Renderer\Configurable $configurableViewModel */
+$configurableViewModel = $block->getConfigurableViewModel()
+?>
+<div
+    class="
+        swatch-opt-<?= $block->escapeHtmlAttr($productId) ?>
+        swatch__container
+        swatch__container--catalog
+    "
+    data-role="swatch-option-<?= $block->escapeHtmlAttr($productId) ?>"
+>
+    <div class="loader loader--visible">
+        <div class="loader__icon"></div>
+    </div>
+</div>
+
+<script type="text/x-magento-init">
+    {
+        "[data-role=swatch-option-<?= $block->escapeJs($productId) ?>]": {
+            "Magento_Swatches/js/swatch-renderer": {
+                "selectorProduct": ".product-item-details",
+                "onlySwatches": true,
+                "enableControlLabel": false,
+                "numberToShow": <?=  $block->escapeJs($block->getNumberSwatchesPerProduct()) ?>,
+                "jsonConfig": <?= /* @noEscape */ $block->getJsonConfig() ?>,
+                "jsonSwatchConfig": <?= /* @noEscape */ $block->getJsonSwatchConfig() ?>,
+                "mediaCallback": "<?= $block->escapeJs($block->escapeUrl($block->getMediaCallback())) ?>",
+                "jsonSwatchImageSizeConfig": <?= /* @noEscape */ $block->getJsonSwatchSizeConfig() ?>,
+                "showTooltip": <?= $block->escapeJs($configurableViewModel->getShowSwatchTooltip()) ?>
+            }
+        }
+    }
+</script>
+
+<script type="text/x-magento-init">
+    {
+        "[data-role=priceBox][data-price-box=product-id-<?= $block->escapeJs($productId) ?>]": {
+            "priceBox": {
+                "priceConfig": {
+                    "priceFormat": <?= /* @noEscape */ $block->getPriceFormatJson(); ?>,
+                    "prices": <?= /* @noEscape */ $block->getPricesJson(); ?>
+                }
+            }
+        }
+    }
+</script>
