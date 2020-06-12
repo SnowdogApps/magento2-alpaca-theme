@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 - fix add product with swatches to cart from catalog (#67842)
 - Focus on qty product button in minicart hidding update btn (#65973)
 - update theme templates for M v2.3.5 (#66621)
+- Contact form - sending with webforms (#67205)
 ### Removed
 
 ## [Released]
