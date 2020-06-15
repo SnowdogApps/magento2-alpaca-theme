@@ -7,6 +7,9 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 ### Removed
 
+### Fixed
+- product tabs sorting (#67940)
+
 ## [Released]
 ## [2.2.0] - 2020-06-15
 ### Fixed
