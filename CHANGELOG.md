@@ -12,6 +12,8 @@ All notable changes to this project will be documented in this file.
 - update theme templates for M v2.3.5 (#66621)
 - Contact form - sending with webforms (#67205)
 - fix single customer review template (#67837)
+- fix add to wishlist (#67188)
+
 ### Removed
 
 ## [Released]
