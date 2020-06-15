@@ -14,6 +14,7 @@ All notable changes to this project will be documented in this file.
 - fix single customer review template (#67837)
 - fix add to wishlist (#67188)
 - fix bundle PDP (#67863)
+- extend extend messages class for backend generated notifications (#67840)
 
 ### Removed
 
