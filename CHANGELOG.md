@@ -13,6 +13,7 @@ All notable changes to this project will be documented in this file.
 - Contact form - sending with webforms (#67205)
 - fix single customer review template (#67837)
 - fix add to wishlist (#67188)
+- fix bundle PDP (#67863)
 
 ### Removed
 
