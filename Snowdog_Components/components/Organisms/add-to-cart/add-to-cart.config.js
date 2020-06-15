@@ -3,6 +3,7 @@ module.exports = {
     title: 'Bluzka ONLSANSA SINGLET WVN',
     hiddenForEE: false,
     class: '',
+	classTitle: 'padding-right-m',
     moreIcon: {
       id: 'more',
       title: 'More',

@@ -4,7 +4,7 @@ $categoryImage = $this->getChildHtml('category.image');
 $categoryDescription = $this->getChildHtml('category.description');
 $categoryCms = $this->getChildHtml('category.cms');
 ?>
-<?php if ($categoryDescription): ?>
+<?php if ($categoryImage): ?>
     <div
         class="
             banner
@@ -14,7 +14,9 @@ $categoryCms = $this->getChildHtml('category.cms');
                 banner--category-image
             <?php endif; ?>
         "
-        data-mage-init='{ "bannerCollapsible": {} }'
+        <?php if ($categoryDescription): ?>
+            data-mage-init='{ "bannerCollapsible": {} }'
+        <?php endif; ?>
     >
         <div class="banner__wrapper">
             <div class="banner__image-wrapper">
@@ -27,84 +29,85 @@ $categoryCms = $this->getChildHtml('category.cms');
                 <div class="banner__heading">
                     <?= $pageTitle ?>
                 </div>
-                <button
-                    class="
-                        button
-                        button--icon
-                        banner__button
-                        banner__button-collapse
-                    "
-                    type="button"
-                    aria-label="<?= $block->escapeHtmlAttr(__('check category description')) ?>"
-                    aria-expanded="false"
-                >
-                    <span
+                <?php if ($categoryDescription): ?>
+                    <button
                         class="
-                            button__text
-                            banner__button-text
-                            banner__button-text--open
+                            button
+                            button--icon
+                            banner__button
+                            banner__button-collapse
                         "
+                        type="button"
+                        aria-label="<?= $block->escapeHtmlAttr(__('check category description')) ?>"
+                        aria-expanded="false"
                     >
-                        <?= __('More information') ?>
-                    </span>
+                        <span
+                            class="
+                                button__text
+                                banner__button-text
+                                banner__button-text--open
+                            "
+                        >
+                            <?= __('More information') ?>
+                        </span>
 
-                    <span
-                        class="
-                            button__text
-                            banner__button-text
-                            banner__button-text--close
-                            display-none
-                        "
-                    >
-                        <?= __('Hide Details') ?>
-                    </span>
+                        <span
+                            class="
+                                button__text
+                                banner__button-text
+                                banner__button-text--close
+                                display-none
+                            "
+                        >
+                            <?= __('Hide Details') ?>
+                        </span>
 
-                    <svg
-                        class="icon banner__button-icon"
-                        role="presentation"
-                        focusable="false"
-                    >
-                        <title><?= __('Arrow down') ?></title>
-                        <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#angle-down')) ?>"></use>
-                    </svg>
-                </button>
+                        <svg
+                            class="icon banner__button-icon"
+                            role="presentation"
+                            focusable="false"
+                        >
+                            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#angle-down')) ?>"></use>
+                        </svg>
+                    </button>
+                <?php endif; ?>
             </div>
         </div>
+        <?php if ($categoryDescription): ?>
+            <div
+                class="banner__content--category"
+                tabindex="-1"
+                aria-hidden="true"
+            >
+                <?= $categoryDescription ?>
 
-        <div
-            class="banner__content--category"
-            tabindex="-1"
-            aria-hidden="true"
-        >
-            <?= $categoryDescription ?>
-
-            <div class="banner__actions-wrapper">
-                <button
-                    class="
-                        button
-                        button--icon
-                        banner__button
-                        banner__button-close
-                        margin-vc-xs
-                    "
-                    type="button"
-                    aria-label="<?= $block->escapeHtmlAttr(__('hide details')) ?>"
-                >
-                    <span class="button__text banner__button-text">
-                        <?= __('Hide details') ?>
-                    </span>
-
-                    <svg
-                        class="icon banner__button-icon"
-                        role="presentation"
-                        focusable="false"
+                <div class="banner__actions-wrapper">
+                    <button
+                        class="
+                            button
+                            button--icon
+                            banner__button
+                            banner__button-close
+                            margin-vc-xs
+                        "
+                        type="button"
+                        aria-label="<?= $block->escapeHtmlAttr(__('hide details')) ?>"
                     >
-                        <title><?= __('Arrow down') ?></title>
-                        <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#angle-up')) ?>"></use>
-                    </svg>
-                </button>
+                        <span class="button__text banner__button-text">
+                            <?= __('Hide details') ?>
+                        </span>
+
+                        <svg
+                            class="icon banner__button-icon"
+                            role="presentation"
+                            focusable="false"
+                        >
+                            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#angle-up')) ?>"></use>
+                        </svg>
+                    </button>
+                </div>
             </div>
-        </div>
+        <?php endif; ?>
     </div>
 <?php else: ?>
     <?= $pageTitle ?>

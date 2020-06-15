@@ -2,6 +2,7 @@ module.exports = {
   context: {
     tag: 'div',
     class: '',
+    swatches: true,
     productBadges: {
       class: 'product-grid-item__badges',
       badges: [
