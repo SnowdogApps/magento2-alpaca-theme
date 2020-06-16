@@ -5,18 +5,27 @@ All notable changes to this project will be documented in this file.
 ### Added
 ### Changed
 ### Fixed
+### Removed
+
+### Fixed
+- product tabs sorting (#67940)
+
+## [Released]
+## [2.2.0] - 2020-06-15
+### Fixed
+- update theme templates for M v2.3.5 (#66621)
 - fix missing tag in product-view--bundle.hbs (#67829)
 - fix variable name $catalog-gird-item__primary-margin -> $product-gird-item__primary-margin (#61542)
 - Focus on qty product button in minicart hidding update btn (#65973)
-- fix single customer review template (#67837)
 - fix add product with swatches to cart from catalog (#67842)
 - Focus on qty product button in minicart hidding update btn (#65973)
-- update theme templates for M v2.3.5 (#66621)
-- extend extend messages class for backend generated notifications (#67840)
+- Contact form - sending with webforms (#67205)
+- fix single customer review template (#67837)
+- fix add to wishlist (#67188)
 - fix bundle PDP (#67863)
-### Removed
+- extend extend messages class for backend generated notifications (#67840)
+- update theme templates for M v2.3.5 (#66621)
 
-## [Released]
 ## [2.1.0] - 2020-06-09
 ### Added
 - swatches on catalog (#67196)
