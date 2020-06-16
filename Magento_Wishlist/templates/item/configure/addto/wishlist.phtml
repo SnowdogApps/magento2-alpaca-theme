@@ -1,7 +1,7 @@
 <?php
 /** @var \Magento\Wishlist\Block\Item\Configure $block */
 ?>
-<?php if ($this->helper('Magento\Wishlist\Helper\Data')->isAllow()): ?>
+<?php if ($this->helper(\Magento\Wishlist\Helper\Data::class)->isAllow()): ?>
     <button
         class="
             button
@@ -11,16 +11,16 @@
             towishlist
             updated
         "
-        data-post='<?= $block->getUpdateParams() ?>'
+        data-post='<?= /* @noEscape */ $block->getUpdateParams() ?>'
         data-action="add-to-wishlist"
     >
-        <?= __('Update Wish List') ?>
+        <?= $block->escapeHtml(__('Update Wish List')) ?>
     </button>
 <?php endif; ?>
 <script type="text/x-magento-init">
     {
         "body": {
-            "addToWishlist": <?= $this->helper('Magento\Framework\Json\Helper\Data')->jsonEncode($block->getWishlistOptions()) ?>
+            "addToWishlist": <?= $this->helper(\Magento\Framework\Json\Helper\Data::class)->jsonEncode($block->getWishlistOptions()) ?>
         }
     }
 </script>

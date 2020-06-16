@@ -1,5 +1,5 @@
 <?php
-$wishlistHelper = $this->helper('Magento\Wishlist\Helper\Data');
+$wishlistHelper = $this->helper(\Magento\Wishlist\Helper\Data::class);
 ?>
 <?php if ($wishlistHelper->isAllow()) : ?>
     <div data-bind="scope: 'wishlist'">
@@ -9,7 +9,7 @@ $wishlistHelper = $this->helper('Magento\Wishlist\Helper\Data');
         >
             <div class="sidebar-block__heading">
                 <h2 class="heading--first-level sidebar-block__title">
-                    <?= $block->getTitle(); ?>
+                    <?= $block->escapeHtml($block->getTitle()); ?>
                 </h2>
                 <!-- ko if: wishlist().counter -->
                 <span
@@ -52,7 +52,7 @@ $wishlistHelper = $this->helper('Magento\Wishlist\Helper\Data');
                                     data-bind="attr: { href: product_url }"
                                     class="link sidebar-block__link"
                                 >
-                                    <span data-bind="text: product_name"></span>
+                                    <span data-bind="html: product_name"></span>
                                 </a>
                                 <div data-bind="html: product_price"></div>
                             </div>
@@ -62,21 +62,21 @@ $wishlistHelper = $this->helper('Magento\Wishlist\Helper\Data');
                                 <button
                                     type="button"
                                     class="button button--secondary sidebar-block__action"
-                                    title="<?= __('Add product to cart') ?>"
+                                    title="<?= $block->escapeHtmlAttr(__('Add product to cart')) ?>"
                                     data-bind="attr: {'data-post': add_to_cart_params}"
                                     data-testid="add-to-cart-wishlist"
                                 >
-                                    <?= __('Add to Cart') ?>
+                                    <?= $block->escapeHtml(__('Add to Cart')) ?>
                                 </button>
                             <!-- /ko -->
 
                             <button
                                 type="button"
                                 class="button button--link button--secondary sidebar-block__action"
-                                title="<?= __('Remove product from wish list') ?>"
+                                title="<?= $block->escapeHtmlAttr(__('Remove product from wish list')) ?>"
                                 data-bind="attr: {'data-post': delete_item_params}"
                             >
-                                <?= __('Remove') ?>
+                                <?= $block->escapeHtml(__('Remove')) ?>
                             </button>
                         </div>
                     </li>
@@ -84,12 +84,12 @@ $wishlistHelper = $this->helper('Magento\Wishlist\Helper\Data');
 
                 <a
                     class="button button--link sidebar-block__hidden"
-                    href="<?= $wishlistHelper->getListUrl() ?>"
-                    title="<?= __('Go to Wish List') ?>"
+                    href="<?= $block->escapeUrl9$wishlistHelper->getListUrl()) ?>"
+                    title="<?= $block->escapeHtmlAttr(__('Go to Wish List')) ?>"
                     data-bind="css: { 'sidebar-block__hidden': null }"
                     data-testid="go-to-wishlist-link"
                 >
-                    <?= __('Go to Wish List') ?>
+                    <?= $block->escapeHtml(__('Go to Wish List')) ?>
                 </a>
             <!-- /ko -->
 
@@ -99,7 +99,7 @@ $wishlistHelper = $this->helper('Magento\Wishlist\Helper\Data');
             >
                 <!-- ko ifnot: wishlist().counter -->
                     <div class="message empty sidebar-block__message">
-                        <?= __('You have no items in your wish list.') ?>
+                        <?= $block->escapeHtml(__('You have no items in your wish list.')) ?>
                     </div>
                 <!-- /ko -->
             </div>

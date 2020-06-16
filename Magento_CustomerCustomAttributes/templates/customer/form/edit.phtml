@@ -4,7 +4,7 @@
     action="<?= $block->getUrl('customer/account/editPost') ?>"
     method="post"
     enctype="multipart/form-data"
-    data-hasrequired="<?= __('* Required Fields') ?>"
+    data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
     autocomplete="off"
 >
     <?= $block->getBlockHtml('formkey') ?>
@@ -22,9 +22,9 @@
         ?>
 
         <?php
-            $_dob    = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Dob');
-            $_taxvat = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Taxvat');
-            $_gender = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Gender');
+            $_dob    = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Dob::class);
+            $_taxvat = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Taxvat::class);
+            $_gender = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Gender::class);
         ?>
 
         <?php if ($_dob->isEnabled()): ?>
@@ -51,7 +51,7 @@
             >
 
             <svg class="checkbox__icon">
-                <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#checked'); ?>"></use>
+                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#checked'); ?>"></use>
             </svg>
 
             <label class="checkbox__label" for="change-email">
@@ -74,7 +74,7 @@
             >
 
             <svg class="checkbox__icon">
-                <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#checked'); ?>"></use>
+                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#checked'); ?>"></use>
             </svg>
 
             <label class="checkbox__label" for="change-password">

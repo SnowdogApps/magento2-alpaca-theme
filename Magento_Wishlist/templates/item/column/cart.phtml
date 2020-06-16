@@ -1,8 +1,11 @@
 <?php
-    /* @var $block \Magento\Wishlist\Block\Customer\Wishlist\Item\Column\Cart */
-    /* @var \Magento\Wishlist\Model\Item $item */
-    $item = $block->getItem();
-    $product = $item->getProduct();
+/* @var $block \Magento\Wishlist\Block\Customer\Wishlist\Item\Column\Cart */
+/* @var \Magento\Wishlist\Model\Item $item */
+$item = $block->getItem();
+$product = $item->getProduct();
+/** @var \Magento\Wishlist\ViewModel\AllowedQuantity $viewModel */
+$viewModel = $block->getData('allowedQuantityViewModel');
+$allowedQty = $viewModel->setItem($item)->getMinMaxQty();
 ?>
 <?php foreach ($block->getChildNames() as $childName): ?>
     <?= $block->getLayout()->renderElement($childName, false); ?>
@@ -25,10 +28,18 @@
             data-role="qty"
             id="qty[<?= $item->getId() ?>]"
             class="input__field wishlist__field-qty qty"
-            data-validate="{'required-number':true,'validate-greater-than-zero':true}"
-            name="qty[<?= $item->getId() ?>]"
-            value="<?= $block->getAddToCartQty($item) * 1 ?>"
-        />
+            data-validate="{
+                'required-number':true,
+                'validate-greater-than-zero':true,
+                'validate-item-quantity': {
+                    'minAllowed':<?= /* @noEscape */ $allowedQty['minAllowed'] ?>,
+                    'maxAllowed':<?= /* @noEscape */ $allowedQty['maxAllowed'] ?>
+                }
+            }"
+            name="qty[<?= $block->escapeHtmlAttr($item->getId()) ?>]"
+            value="<?= /* @noEscape */ $block->getAddToCartQty($item) * 1 ?>"
+            <?= $product->isSaleable() ? '' : 'disabled="disabled"' ?>
+        >
     </div>
 <?php endif; ?>
 
@@ -38,7 +49,7 @@
             type="button"
             data-role="tocart"
             data-post='<?= $block->getItemAddToCartParams($item) ?>'
-            title="<?= __('Add to Cart') ?>"
+            title="<?= $block->escapeHtmlAttr(__('Add to Cart')) ?>"
             data-item-id="<?= $item->getId() ?>"
             class="
                 button
@@ -53,11 +64,11 @@
     </div>
 <?php else: ?>
     <?php if ($product->getIsSalable()): ?>
-        <p class="available stock" title="<?= __('Availability') ?>">
+        <p class="available stock" title="<?= $block->escapeHtmlAttr(__('Availability')) ?>">
             <?= __('In stock') ?>
         </p>
     <?php else: ?>
-        <p class="unavailable stock" title="<?= __('Availability') ?>">
+        <p class="unavailable stock" title="<?= $block->escapeHtmlAttr(__('Availability')) ?>">
             <?= __('Out of stock') ?>
         </p>
     <?php endif; ?>
