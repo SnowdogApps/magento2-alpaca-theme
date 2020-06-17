@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Added
+- swatches to products widget, related, upsells, crosssells (#64777)
+- adding to cart with ajax in product widget (#64777)
 ### Changed
 ### Fixed
 ### Removed
