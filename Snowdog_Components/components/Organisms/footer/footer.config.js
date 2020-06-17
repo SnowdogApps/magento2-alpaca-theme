@@ -8,7 +8,7 @@ module.exports = {
     scrollToTop: {
       tag: 'button',
       class: 'footer__scroll-top',
-      attributes: 'type="button" aria-label="scroll to top"',
+      attributes: 'type="button" data-focus-top="skip-nav-top" aria-label="scroll to top"',
       icon: {
         title: 'Scroll to top',
         id: 'arrow-up',
