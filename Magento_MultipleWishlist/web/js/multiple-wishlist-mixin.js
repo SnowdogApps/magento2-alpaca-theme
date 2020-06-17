@@ -100,10 +100,13 @@ define([
                         tmplData = {
                             wishlists: [],
                             generalParams: generalParams,
-                            buttonName: buttonName
+                            buttonName: buttonName,
+                            dropdownContent: 'dropdown-wishlist-content-' + index,
                         },
                         i, currentData, currentParams;
-                        
+
+                        this.options.createTmplData.multipleWishListId = 'dropdown-wishlist-content-' + index;
+
                         for (i = 0; i < this.options.wishlists.length; i++) {
                             currentData = $.extend({}, generalParams.data, {
                                 'wishlist_id': this.options.wishlists[i].id
