@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 - adding to cart with ajax in product widget (#64777)
 ### Changed
 ### Fixed
+- search autocomplete product image size (#68106)
 ### Removed
 
 ### Fixed
