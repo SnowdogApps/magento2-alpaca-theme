@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Added
 ### Changed
+- update variables - brief-info--link title color, newsletter subtitle & checkbox, footer scroll top background (#67878)
 ### Fixed
 ### Removed
 
