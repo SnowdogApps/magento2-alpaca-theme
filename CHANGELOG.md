@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Added
 ### Changed
+- update variables name and styles in product view, swatches, mega menu (#62512)
 ### Fixed
 ### Removed
 
