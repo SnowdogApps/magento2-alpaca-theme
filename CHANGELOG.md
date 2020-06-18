@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 - swatches to products widget, related, upsells, crosssells (#64777)
 - adding to cart with ajax in product widget (#64777)
 ### Changed
+- update variables name and styles in product view, swatches, mega menu (#62512)
 ### Fixed
 - search autocomplete product image size (#68106)
 ### Removed
