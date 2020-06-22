@@ -7,6 +7,10 @@ use Magento\Framework\App\Action\Action;
     $_helper = $this->helper(\Magento\Catalog\Helper\Output::class);
     /** @var \Snowdog\ShippingLatency\Helper\Data $shippingLatencyHelper */
     $shippingLatencyHelper = $this->helper(\Snowdog\ShippingLatency\Helper\Data::class);
+
+    // TODO get magento version without objectManager
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $productMetadata = $objectManager->get('Magento\Framework\App\ProductMetadataInterface');
 ?>
 <?php if (!$_productCollection->count()): ?>
     <div class="message info empty">
@@ -221,7 +225,12 @@ use Magento\Framework\App\Action\Action;
                                 <?= $block->getProductDetailsHtml($_product) ?>
                             <?php endif; ?>
 
-                            <div class="product-list-item__actions-inner">
+                            <div 
+                                class="
+                                    product-list-item__actions-inner
+                                    <?= ($productMetadata->getEdition() == 'B2B') ? 'product-list-item__actions-inner--ee' : '' ?>
+                                "
+                            >
                                 <?php if ($addToBlock = $block->getChildBlock('addto')): ?>
                                     <?= $addToBlock->setProduct($_product)->getChildHtml() ?>
                                 <?php endif ?>
@@ -384,7 +393,12 @@ use Magento\Framework\App\Action\Action;
                                 </div>
                             </div>
 
-                            <div class="product-grid-item__actions">
+                            <div 
+                                class="
+                                    product-grid-item__actions
+                                    <?= ($productMetadata->getEdition() == 'B2B') ? 'product-grid-item__actions--ee' : '' ?>
+                                "
+                            >
                                 <div class="product-grid-item__secondary-action">
                                     <?php if ($addToBlock = $block->getChildBlock('addto')): ?>
                                         <?= $addToBlock->setProduct($_product)->getChildHtml() ?>

@@ -1,48 +1,113 @@
-<div class="split requisition-list-action">
-    <h2 data-bind="i18n: getTitle()"></h2>
-    <div
-        class="items"
-        data-target="dropdown"
-    >
-        <ul class="list list-items">
-            <!-- ko foreach: {data: requisition().items, as: 'item'} -->
-                <!-- ko if: $parent.isListVisible(item) -->
-                <li
-                    class="list__item"
+<div
+    class="
+        dropdown-list
+        dropdown-list--buttons
+    "
+    data-target="dropdown"
+    data-bind='mageInit: {dropdownList: {}}'
+>
+    <ul class="dropdown-list__list">
+        <li
+            class="
+                dropdown-list__item
+                dropdown-list__item--collapse
+            "
+        >
+            <button
+                class="
+                    dropdown-list__label
+                    button
+                    button--icon
+                "
+                type="button"
+                aria-expanded="false"
+                data-bind="attr: {'aria-controls': editModuleName}"
+            >
+                <svg
+                    class="
+                        icon
+                        button__icon
+                    "
+                    role="presentation"
+                    focusable="false"
                 >
-                    <a
-                        href="#"
-                        class="item-name"
-                        data-action="add-to-requisition-list"
-                        data-bind="
-                            attr: {
-                                title: item.name,
-                            },
-                            text: item.name,
-                            click: $parent.performListAction.bind($parent, item)
-                        "
-                    >
-                    </a>
-                </li>
-                <!-- /ko -->
-            <!-- /ko -->
-            <!-- ko if: isCanCreateList() -->
-            <li class="list__item">
-                <a
-                    href="#"
-                    class="action new"
-                    data-action="add-to-requisition-list"
-                    data-bind="
-                        click: performNewListAction,
-                        attr: {
-                            title: $t('Create New Requisition List')
-                        }
+                    <title data-bind="i18n: 'Requisition List'"></title>
+                    <use data-bind="attr: { 'xlink:href': require.toUrl('images/icons-sprite.svg#requisition-list') }" xlink:href=''></use>
+                </svg>
+                <span
+                    class="
+                        button__text
+                        dropdown-list__text
                     "
                 >
-                    <span data-bind="i18n: 'Create New Requisition List'"></span>
-                </a>
-            </li>
-            <!-- /ko -->
-        </ul>
-    </div>
+                    <!-- ko ifnot: $data.productFormSelector -->
+                        <!-- ko i18n: getTitle() --><!-- /ko -->
+                    <!--/ko-->
+
+                    <!-- ko if: $data.productFormSelector -->
+                        <!-- ko i18n: 'Requisition List' --><!-- /ko -->
+                    <!--/ko-->
+                </span>
+                <svg
+                    class="
+                        icon
+                        dropdown-list__icon
+                        button__icon
+                        margin-0
+                    "
+                    aria-hidden="true"
+                    role="img"
+                >
+                    <title data-bind="i18n: 'Arrow Down'"></title>
+                    <use data-bind="attr: { 'xlink:href': require.toUrl('images/icons-sprite.svg#angle-down') }" xlink:href=''></use>
+                </svg>
+            </button>
+            <div
+                class="dropdown-list__content"
+                aria-hidden="true"
+                data-bind="attr: {id: editModuleName}"
+            >
+                <ul class="list">
+                    <!-- ko foreach: {data: requisition().items, as: 'item'} -->
+                        <!-- ko if: $parent.isListVisible(item) -->
+                            <li
+                                class="list__item"
+                            >
+                                <span
+                                    class="item-name"
+                                    data-action="add-to-requisition-list"
+                                    data-bind="
+                                        attr: {
+                                            title: item.name,
+                                        },
+                                        text: item.name,
+                                        click: $parent.performListAction.bind($parent, item)
+                                    "
+                                >
+                                </span>
+                            </li>
+                        <!-- /ko -->
+                    <!-- /ko -->
+                    <!-- ko if: isCanCreateList() -->
+                        <button
+                            type="button"
+                            class="
+                                button
+                                margin-top-m
+                            "
+                            data-action="add-to-requisition-list"
+                            data-bind="
+                                click: performNewListAction,
+                                attr: {
+                                    title: $t('Create New Requisition List')
+                                },
+                                i18n: 'Create New Requisition List'
+                            "
+                        >
+                        </button>
+                    <!-- /ko -->
+                </ul>
+            </div>
+        </li>
+    </ul>
 </div>

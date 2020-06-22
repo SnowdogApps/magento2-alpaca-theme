@@ -100,18 +100,24 @@
                                 name="product.column.right.qty"
                                 template="Magento_Catalog::product/view/qty.phtml"
                             />
-
-                            <container
-                                name="product.column.right.extra.actions"
-                                htmlClass="product-view__buttons"
-                                htmlTag="div"
+                            <block
+                                class="Magento\Framework\View\Element\Template"
+                                name="product.column.right.extra.actions.wrapper"
+                                template="Magento_Catalog::product/view/extra-actions.phtml"
                             >
-                                <referenceContainer
-                                    name="product.info.social"
-                                    htmlClass="product-view__extra-actions margin-left-xs"
+                                <container
+                                    name="product.column.right.extra.actions"
+                                    htmlClass="product-view__buttons"
                                     htmlTag="div"
-                                />
-                            </container>
+                                >
+                                    <referenceContainer
+                                        name="product.info.social"
+                                        htmlClass="product-view__extra-actions"
+                                        htmlTag="div"
+                                    />
+                                </container>
+                            </block>
+                            
                             <container name="product.addto.sticky">
                                 <block
                                     class="Magento\Catalog\Block\Product\View"
@@ -162,6 +168,13 @@
                                             >
                                                 true
                                             </argument>
+                                            <argument
+                                                translate="true"
+                                                name="text"
+                                                xsi:type="string"
+                                            >
+                                                Wishlist
+                                            </argument>
                                         </arguments>
                                     </block>
                                     <block
@@ -187,6 +200,13 @@
                                                 xsi:type="boolean"
                                             >
                                                 true
+                                            </argument>
+                                            <argument
+                                                translate="true"
+                                                name="text"
+                                                xsi:type="string"
+                                            >
+                                                Wishlist
                                             </argument>
                                         </arguments>
                                     </block>
@@ -273,9 +293,23 @@
                     name="additional_class"
                     xsi:type="string"
                 >
-                    product-view__button product-view__button--wishlist
+                    action towishlist display-none
+                </argument>
+                <argument
+                    name="has_text"
+                    xsi:type="boolean"
+                >
+                    true
+                </argument>
+                <argument
+                    translate="true"
+                    name="text"
+                    xsi:type="string"
+                >
+                    Add to Wishlist
                 </argument>
             </arguments>
+
         </referenceBlock>
 
         <referenceBlock name="view.addto.compare">
@@ -332,6 +366,54 @@
             </block>
         </referenceBlock>
 
+        <referenceBlock name="related.product.addto.wishlist">
+            <arguments>
+                <argument
+                    name="additional_class"
+                    xsi:type="string"
+                >
+                    action towishlist
+                </argument>
+                <argument
+                    name="has_text"
+                    xsi:type="boolean"
+                >
+                    false
+                </argument>
+                <argument
+                    translate="true"
+                    name="text"
+                    xsi:type="string"
+                >
+                    Add to Wishlist
+                </argument>
+            </arguments>
+        </referenceBlock>
+
+        <referenceBlock name="upsell.product.addto.wishlist">
+            <arguments>
+                <argument
+                    name="additional_class"
+                    xsi:type="string"
+                >
+                    action towishlist
+                </argument>
+                <argument
+                    name="has_text"
+                    xsi:type="boolean"
+                >
+                    false
+                </argument>
+                <argument
+                    translate="true"
+                    name="text"
+                    xsi:type="string"
+                >
+                    Add to Wishlist
+                </argument>
+            </arguments>
+        </referenceBlock>
+
         <!--Moved blocks-->
         <move
             element="product.info.form.content"
@@ -386,15 +468,22 @@
         <move
             element="product.info.addtocart"
             destination="product.column.right.extra.actions"
+            before="-"
         />
         <move
             element="product.info.social"
             destination="product.column.right.extra.actions"
+            after="product.info.addtocart"
         />
         <move
             element="view.addto.wishlist"
-            destination="product.info.social"
-            before="-"
+            destination="product.column.right.extra.actions"
+            after="product.info.social"
+        />
+        <move
+            element="view.addto.requisition"
+            destination="product.column.right.extra.actions"
+            after="view.addto.wishlist"
         />
         <move
             element="view.addto.compare"
@@ -441,6 +530,9 @@
         />
 
         <!-- Removed blocks -->
-        <referenceBlock name="product.info.addto" remove="true" />
+        <referenceBlock 
+            name="product.info.addto" 
+            remove="true" 
+        />
     </body>
 </page>
