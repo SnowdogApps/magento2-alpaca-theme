@@ -1,20 +1,39 @@
-<!--
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
- -->
 <!-- ko if: isActive() || hasActiveOptions() -->
-<button class="action action-gift"
-        data-bind="
-            click: $data.toggleFormBlockVisibility.bind($data),
-            css: {_active: formBlockVisibility() || resultBlockVisibility()}
-        ">
-    <span data-bind="i18n: 'Gift options'"></span>
+<button
+    class="action action-gift dropdown-list__label"
+    aria-expanded="false"
+    type="button"
+    data-bind="
+        click: $data.toggleFormBlockVisibility.bind($data),
+        css: {_active: formBlockVisibility() || resultBlockVisibility()}
+    "
+>
+    <!-- ko i18n: 'Gift options'--><!-- /ko -->
+    <svg
+        class="dropdown-list__icon"
+        role="presentation"
+        focusable="false"
+    >
+        <use data-bind="attr: {'xlink:href': require.toUrl('images/icons-sprite.svg#angle-down')}" xlink:href=''></use>
+    </svg>
 </button>
-<div class="gift-content" data-bind="css: {_active: formBlockVisibility() || resultBlockVisibility()}"> <!-- add class "active" to display the content -->
+<!-- add class "active" to display the content -->
+<div
+    class="
+        gift-content
+        dropdown-list__content
+    "
+    data-bind="css: {
+        _active: formBlockVisibility() || resultBlockVisibility()
+    }"
+>
     <!-- ko ifnot: resultBlockVisibility() -->
-        <div class="gift-options">
+        <div
+            class="
+                gift-options
+                margin-vc-m
+            "
+        >
             <!-- ko foreach: getRegion('additionalOptions') -->
                 <!-- ko template: getTemplate() --><!-- /ko -->
             <!-- /ko -->
@@ -22,29 +41,59 @@
         </div>
     <!-- /ko -->
     <!-- ko if: resultBlockVisibility() -->
-        <div class="gift-summary">
+        <div
+            class="
+                gift-summary
+                margin-vc-m
+            "
+        >
             <!-- ko foreach: getRegion('additionalOptions') -->
                 <!--ko template: appliedTemplate --><!-- /ko -->
             <!-- /ko -->
 
             <!-- ko if: getObservable('message') -->
-                <div class="gift-message-summary">
+                <div
+                    class="
+                        gift-message-summary
+                        margin-bottom-m
+                    "
+                >
                     <span data-bind="i18n: 'Message' + ':'"></span>
                     <!-- ko text: getObservable('message') --><!-- /ko -->
                 </div>
             <!-- /ko -->
-            
-            <div class="actions-toolbar">
-                <div class="secondary">
-                    <button type="submit" class="action action-edit" data-bind="
+
+            <div class="actions-group">
+                <div class="actions-group__handler">
+                    <button
+                        type="submit"
+                        class="
+                            action
+                            action-edit
+                            actions-group__button
+                            button
+                        "
+                        data-bind="
                             click: $data.editOptions.bind($data),
-                            attr: {title: $t('Edit')">
-                        <span data-bind="i18n: 'Edit'"></span>
+                            attr: {title: $t('Edit')
+                        "
+                    >
+                        <!-- ko i18n: 'Edit'--><!-- /ko -->
                     </button>
-                    <button class="action action-delete" data-bind="
+                    <button
+                        class="
+                            action
+                            action-delete
+                            actions-group__button
+                            button
+                            button--secondary
+                        "
+                        data-bind="
                             click: $data.deleteOptions.bind($data),
-                            attr: {title: $t('Delete')">
-                        <span data-bind="i18n: 'Delete'"></span>
+                            attr: {title: $t('Delete')
+                        "
+                    >
+                        <!-- ko i18n: 'Delete'--><!-- /ko -->
                     </button>
                 </div>
             </div>
