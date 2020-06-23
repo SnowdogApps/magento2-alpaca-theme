@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 - swatches to products widget, related, upsells, crosssells (#64777)
 - adding to cart with ajax in product widget (#64777)
+- extra variables to mega-menu template (#68257)
 ### Changed
 - update variables name and styles in product view, swatches, mega menu (#62512)
 ### Fixed
