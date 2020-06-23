@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 - product tabs sorting (#67940)
+- remove duplicated add to cart button (#67929)
 
 ## [Released]
 ## [2.2.0] - 2020-06-15
