@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 ### Fixed
 - search autocomplete product image size (#68106)
+- a translate function `__()` call in product view Qty template (#68056)
 ### Removed
 
 ### Fixed
