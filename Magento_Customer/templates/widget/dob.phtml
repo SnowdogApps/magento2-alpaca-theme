@@ -19,22 +19,21 @@ NOTE: Regarding styles - if we leave it this way, we'll move it to boxes.css. Al
 automatically using block input parameters.
 */
 
-$fieldCssClass = 'field date field-' . $block->getHtmlId();
+$fieldCssClass = 'input input--datepicker field-' . $block->getHtmlId();
 $fieldCssClass .= $block->isRequired() ? ' required' : '';
 ?>
 <div class="<?= $block->escapeHtmlAttr($fieldCssClass) ?>">
     <label
-        class="label"
+        class="input__label"
         for="<?= $block->escapeHtmlAttr($block->getHtmlId()) ?>"
     >
         <?= $block->escapeHtml($block->getStoreLabel('dob')) ?>
     </label>
-    <div class="input input--datepicker">
-        <?= $block->getFieldHtml() ?>
-        <?php if ($_message = $block->getAdditionalDescription()): ?>
-            <div class="message">
-                <?= $block->escapeHtml($_message) ?>
-            </div>
-        <?php endif; ?>
-    </div>
+    <!-- TODO add to generated from backend input class 'input__field' -->
+    <?= $block->getFieldHtml() ?>
+    <?php if ($_message = $block->getAdditionalDescription()): ?>
+        <div class="message">
+            <?= $block->escapeHtml($_message) ?>
+        </div>
+    <?php endif; ?>
 </div>
