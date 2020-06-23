@@ -35,7 +35,7 @@ define([
         //selector of product images gallery wrapper
         mediaGallerySelector: '[data-gallery-role=gallery-placeholder]',
         // selector of category product tile wrapper
-        selectorProductTile: '.product-item-details',
+        selectorProductTile: '[class*="-item__swatches"]',
         // number of controls to show (false or zero = show all)
         numberToShow: false,
         // show only swatch controls
@@ -78,8 +78,29 @@ define([
         select2options: {
           minimumResultsForSearch: Infinity,
           width: null,
-          position: 'bottom'
+          position: 'bottom',
+        },
+      },
+      _determineProductData: function () {
+        // Check if product is in a list of products.
+        var productId,
+          isInProductView = false;
+
+        productId = this.element
+          .parents('[class*="-item__swatches"]')
+          .find('.price-box.price-final_price')
+          .attr('data-product-id');
+
+        if (!productId) {
+          // Check individual product.
+          productId = $('[name=product]').val();
+          isInProductView = productId > 0;
         }
+
+        return {
+          productId: productId,
+          isInProductView: isInProductView,
+        };
       },
       _RenderControls: function () {
         var $widget = this,
@@ -252,12 +273,12 @@ define([
             // Default
             html += '">' + label;
           }
-          html += '</div></div>'
+          html += '</div></div>';
         });
 
         return html;
       },
-       _RenderSwatchSelect: function (config, chooseText) {
+      _RenderSwatchSelect: function (config, chooseText) {
         var html;
 
         if (this.options.jsonSwatchConfig.hasOwnProperty(config.id)) {
@@ -365,7 +386,7 @@ define([
           .find('.' + this.options.classes.optionContainerClass).attr('aria-selected', false);
         $this.attr('aria-selected', true);
       },
-       _Rebuild: function () {
+      _Rebuild: function () {
         var $widget = this,
           controls = $widget.element.find('.' + $widget.options.classes.attributeClass + '[attribute-id]'),
           selected = controls.filter('[option-selected]');

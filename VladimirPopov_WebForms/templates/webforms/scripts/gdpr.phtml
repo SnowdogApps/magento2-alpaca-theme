@@ -1,0 +1,57 @@
+<div class="input">
+    <?php if ($this->getShowAgreementText()): ?>
+        <div class="webforms-gdpr-text">
+            <?= $this->getAgreementText() ?>
+        </div>
+    <?php endif; ?>
+    <?php if ($this->getShowCheckbox()): ?>
+        <div class="checkbox" role="group">
+            <input
+                id="gdpr_<?= $this->getUid() ?>"
+                type="checkbox"
+                name="gdpr"
+                class="
+                    checkbox__field
+                    <?= $this->getCheckboxRequired() ? 'required-entry' : '' ?>
+                "
+               value="1"
+            >
+            <svg
+                class="
+                    checkbox__icon
+                    checkbox__icon--checked
+                "
+                role="presentation"
+                focusable="false"
+            >
+                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#checked')) ?>"></use>
+            </svg>
+
+            <svg
+                class="
+                    checkbox__icon
+                    checkbox__icon--unchecked
+                "
+                role="presentation"
+                focusable="false"
+            >
+                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#unchecked')) ?>"></use>
+            </svg>
+            <label
+                for="gdpr_<?= $block->escapeHtmlAttr($this->getUid()); ?>"
+                class="checkbox__label"
+            >
+                <?= $this->getCheckboxLabel() ?>
+            </label>
+            <?php if (strlen($this->getErrorText()) > 0): ?>
+                <div
+                    class="validation-advice"
+                    style="display: none"
+                    id="advice-required-entry-gdpr_<?= $block->escapeHtmlAttr($this->getUid()); ?>"
+                >
+                    <?= $this->getErrorText() ?>
+                </div>
+            <?php endif; ?>
+        </div>
+    <?php endif; ?>
+</div>

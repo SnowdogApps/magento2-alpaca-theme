@@ -39,7 +39,12 @@ use Magento\Framework\App\Action\Action;
     <?php if($viewMode === 'products-list'): ?>
         <ul class="list">
             <?php foreach ($_productCollection as $_product): ?>
-                <li class="product-list-item">
+                <li
+                    class="
+                        product-list-item
+                        product-item-info
+                    "
+                >
                     <?php
                         $productImage = $block->getImage($_product, $imageDisplayArea);
                         $productName = $_product['name'];
@@ -86,7 +91,12 @@ use Magento\Framework\App\Action\Action;
                             </div>
                         <?php endif; ?>
                     </a>
-                    <div class="product-list-item__main">
+                    <div
+                        class="
+                            product-list-item__main
+                            product-list-item__swatches
+                        "
+                    >
                         <div class="product-list-item__details">
                             <div class="product-list-item__rating">
                                 <?= $block->getReviewsSummaryHtml($_product, $templateType) ?>
@@ -208,6 +218,10 @@ use Magento\Framework\App\Action\Action;
                                 </div>
                             </div>
 
+                            <?php if ($_product->isAvailable()) :?>
+                                <?= $block->getProductDetailsHtml($_product) ?>
+                            <?php endif; ?>
+
                             <div class="product-list-item__actions-inner">
                                 <?php if ($addToBlock = $block->getChildBlock('addto')): ?>
                                     <?= $addToBlock->setProduct($_product)->getChildHtml() ?>
@@ -217,10 +231,16 @@ use Magento\Framework\App\Action\Action;
                                     <?php $postParams = $block->getAddToCartPostParams($_product) ?>
                                     <form
                                         data-role="tocart-form"
+                                        data-product-sku="<?= $block->escapeHtmlAttr($_product->getSku()) ?>"
                                         class="product-list-item__add-to-action"
                                         action="<?= $postParams['action'] ?>"
                                         method="post"
                                     >
+                                        <input
+                                            type="hidden"
+                                            name="product"
+                                            value="<?= /* @noEscape */ $postParams['data']['product'] ?>"
+                                        >
                                         <input
                                             type="hidden"
                                             name="<?= Action::PARAM_NAME_URL_ENCODED ?>"
@@ -272,7 +292,10 @@ use Magento\Framework\App\Action\Action;
                     $productName = $_product['name'];
                 ?>
                 <li
-                    class="product-grid-item"
+                    class="
+                        product-grid-item
+                        product-item-info
+                    "
                     data-container="product-grid"
                     tabindex="0"
                     data-testid="list-product-item"
@@ -319,7 +342,12 @@ use Magento\Framework\App\Action\Action;
                             <?= $productImage->toHtml() ?>
                         </div>
                     </a>
-                    <section class="product-grid-item__details">
+                    <section
+                        class="
+                            product-grid-item__details
+                            product-grid-item__swatches
+                        "
+                    >
                         <div class="product-grid-item__rating">
                             <?= $block->getReviewsSummaryHtml($_product, $templateType) ?>
                         </div>
@@ -341,6 +369,11 @@ use Magento\Framework\App\Action\Action;
                                 <?= $productName; ?>
                             </a>
                         </div>
+
+                        <?php if ($_product->isAvailable()) :?>
+                            <?= $block->getProductDetailsHtml($_product) ?>
+                        <?php endif; ?>
+
                         <div class="product-grid-item__details-bottom">
                             <div class="product-grid-item__price">
                                 <div
@@ -364,10 +397,16 @@ use Magento\Framework\App\Action\Action;
                                     <?php $postParams = $block->getAddToCartPostParams($_product) ?>
                                     <form
                                         class="product-grid-item__primary-action"
+                                        data-product-sku="<?= $block->escapeHtmlAttr($_product->getSku()) ?>"
                                         data-role="tocart-form"
                                         action="<?= $postParams['action'] ?>"
                                         method="post"
                                     >
+                                        <input
+                                            type="hidden"
+                                            name="product"
+                                            value="<?= /* @noEscape */ $postParams['data']['product'] ?>"
+                                        >
                                         <input
                                             type="hidden"
                                             name="<?= Action::PARAM_NAME_URL_ENCODED ?>"

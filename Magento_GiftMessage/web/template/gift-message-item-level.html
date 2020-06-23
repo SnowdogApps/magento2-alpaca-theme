@@ -1,0 +1,103 @@
+<!-- ko if: isActive() || hasActiveOptions() -->
+<button
+    class="action action-gift dropdown-list__label"
+    aria-expanded="false"
+    type="button"
+    data-bind="
+        click: $data.toggleFormBlockVisibility.bind($data),
+        css: {_active: formBlockVisibility() || resultBlockVisibility()}
+    "
+>
+    <!-- ko i18n: 'Gift options'--><!-- /ko -->
+    <svg
+        class="dropdown-list__icon"
+        role="presentation"
+        focusable="false"
+    >
+        <use data-bind="attr: {'xlink:href': require.toUrl('images/icons-sprite.svg#angle-down')}" xlink:href=''></use>
+    </svg>
+</button>
+<!-- add class "active" to display the content -->
+<div
+    class="
+        gift-content
+        dropdown-list__content
+    "
+    data-bind="css: {
+        _active: formBlockVisibility() || resultBlockVisibility()
+    }"
+>
+    <!-- ko ifnot: resultBlockVisibility() -->
+        <div
+            class="
+                gift-options
+                margin-vc-m
+            "
+        >
+            <!-- ko foreach: getRegion('additionalOptions') -->
+                <!-- ko template: getTemplate() --><!-- /ko -->
+            <!-- /ko -->
+            <!-- ko template: formTemplate --><!--/ko-->
+        </div>
+    <!-- /ko -->
+    <!-- ko if: resultBlockVisibility() -->
+        <div
+            class="
+                gift-summary
+                margin-vc-m
+            "
+        >
+            <!-- ko foreach: getRegion('additionalOptions') -->
+                <!--ko template: appliedTemplate --><!-- /ko -->
+            <!-- /ko -->
+
+            <!-- ko if: getObservable('message') -->
+                <div
+                    class="
+                        gift-message-summary
+                        margin-bottom-m
+                    "
+                >
+                    <span data-bind="i18n: 'Message' + ':'"></span>
+                    <!-- ko text: getObservable('message') --><!-- /ko -->
+                </div>
+            <!-- /ko -->
+
+            <div class="actions-group">
+                <div class="actions-group__handler">
+                    <button
+                        type="submit"
+                        class="
+                            action
+                            action-edit
+                            actions-group__button
+                            button
+                        "
+                        data-bind="
+                            click: $data.editOptions.bind($data),
+                            attr: {title: $t('Edit')
+                        "
+                    >
+                        <!-- ko i18n: 'Edit'--><!-- /ko -->
+                    </button>
+                    <button
+                        class="
+                            action
+                            action-delete
+                            actions-group__button
+                            button
+                            button--secondary
+                        "
+                        data-bind="
+                            click: $data.deleteOptions.bind($data),
+                            attr: {title: $t('Delete')
+                        "
+                    >
+                        <!-- ko i18n: 'Delete'--><!-- /ko -->
+                    </button>
+                </div>
+            </div>
+        </div>
+    <!-- /ko -->
+</div>
+<!-- /ko -->
