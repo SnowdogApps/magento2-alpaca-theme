@@ -1,7 +1,10 @@
+<?php
+// phpcs:disable Magento2.Templates.ThisInTemplate.FoundThis
+?>
 <?php /** @var $block Magento\Bundle\Block\Catalog\Product\View\Type\Bundle */ ?>
 <?php
 $product = $block->getProduct();
-$helper = $this->helper('Magento\Catalog\Helper\Output');
+$helper = $this->helper(Magento\Catalog\Helper\Output::class);
 $stripSelection = $product->getConfigureMode() ? true : false;
 $options = $block->decorateArray($block->getOptions($stripSelection));
 ?>
@@ -11,7 +14,7 @@ $options = $block->decorateArray($block->getOptions($stripSelection));
             {
                 "#product_addtocart_form": {
                     "priceBundle": {
-                        "optionConfig": <?= $block->getJsonConfig() ?>,
+                        "optionConfig": <?= /* @noEscape */ $block->getJsonConfig() ?>,
                         "controlContainer": ".bundle-option"
                     }
                 }
@@ -20,7 +23,7 @@ $options = $block->decorateArray($block->getOptions($stripSelection));
         <div class="product-view__customization">
             <div class="product-view__description product-view__description-bundle">
                 <span class="product-view__description-title">
-                    <?= __('Customize %1', $helper->productAttribute($product, $product->getName(), 'name')) ?>
+                    <?= $block->escapeHtml(__('Customize %1', $helper->productAttribute($product, $product->getName(), 'name'))) ?>
                 </span>
             </div>
             <?= $block->getChildHtml('product_info_bundle_options_top') ?>
@@ -33,7 +36,7 @@ $options = $block->decorateArray($block->getOptions($stripSelection));
         </div>
     <?php else: ?>
         <p>
-            <?= __('No options of this product are available.') ?>
+            <?= $block->escapeHtml(__('No options of this product are available.')) ?>
         </p>
     <?php endif; ?>
 <?php endif; ?>
