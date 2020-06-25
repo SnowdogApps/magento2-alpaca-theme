@@ -1,10 +1,11 @@
 <?php
-use Magento\Catalog\Model\Product\ProductList\Toolbar;
+/** @var $block \Magento\Catalog\Block\Product\ProductList\Toolbar */
 ?>
+
 <div class="toolbar__limiter">
     <div class="select toolbar__limiter-wrapper">
         <label class="label toolbar__limiter-label" for="limiter">
-            <?= __('Show') ?>
+            <?= $block->escapeHtml(__('Show')) ?>
         </label>
         <select
             id="limiter"
@@ -16,10 +17,10 @@ use Magento\Catalog\Model\Product\ProductList\Toolbar;
         >
             <?php foreach ($block->getAvailableLimit() as $_key => $_limit): ?>
                 <option
-                    value="<?= $_key ?>"
+                    value="<?= $block->escapeHtmlAttr($_key) ?>"
                     <?= ($block->isLimitCurrent($_key)) ? 'selected="selected"' : '' ?>
                 >
-                    <?= $_limit ?>
+                    <?= $block->escapeHtml($_limit) ?>
                 </option>
             <?php endforeach ?>
         </select>

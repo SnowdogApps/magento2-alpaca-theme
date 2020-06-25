@@ -1,4 +1,10 @@
-<?php /* @var $block \Magento\Catalog\Block\Product\Compare\ListCompare */ ?>
+<?php
+// phpcs:disable Magento2.Templates.ThisInTemplate.FoundThis
+// phpcs:disable PSR2.ControlStructures.SwitchDeclaration
+// phpcs:disable Generic.WhiteSpace.ScopeIndent
+
+/* @var $block \Magento\Catalog\Block\Product\Compare\ListCompare */
+?>
 <?php $_total = $block->getItems()->getSize() ?>
 <?php if ($_total): ?>
     <div class="container">
@@ -27,7 +33,7 @@
                                     scope="row"
                                     class="compare__label"
                                 >
-                                    <?= __('Product') ?>
+                                    <?= $block->escapeHtml(__('Product')) ?>
                                 </th>
                             <?php endif; ?>
                             <td
@@ -38,7 +44,7 @@
                                     <a
                                         class="compare__link"
                                         href="<?= $block->escapeUrl($block->getProductUrl($_item)) ?>"
-                                        title="<?= $block->stripTags($_item->getName(), null, true) ?>"
+                                        title="<?= /* @noEscape */ $block->stripTags($_item->getName(), null, true) ?>"
                                     >
                                         <?= $block->getImage($_item, 'product_comparison_list')->toHtml() ?>
                                     </a>
@@ -47,7 +53,7 @@
                                         href="<?= $block->escapeUrl($block->getProductUrl($_item)) ?>"
                                         title="<?= $block->stripTags($_item->getName(), null, true) ?>"
                                     >
-                                        <?= $_helper->productAttribute($_item, $_item->getName(), 'name') ?>
+                                        <?= /* @noEscape */ $_helper->productAttribute($_item, $_item->getName(), 'name') ?>
                                     </a>
                                     <?php
                                     $rating = $block->getReviewsSummaryHtml($_item, 'short');
@@ -56,7 +62,7 @@
                                             <?= $rating ?>
                                         </div>
                                     <?php endif ?>
-                                    <?= $block->getProductPrice($_item) ?>
+                                    <?= /* @noEscape */ $block->getProductPrice($_item) ?>
                                     <div class="compare__buttons-container">
                                         <?php if ($_item->isSaleable()): ?>
                                             <form
@@ -79,7 +85,7 @@
                                                     aria-label="<?= $block->escapeHtmlAttr(__('Add to Cart')) ?>"
                                                 >
                                                     <span class="compare__cart-text">
-                                                        <?= __('Add to Cart') ?>
+                                                        <?= $block->escapeHtml(__('Add to Cart')) ?>
                                                     </span>
                                                     <svg class="icon compare__cart-icon">
                                                         <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#shopping-cart')) ?>"></use>
@@ -88,9 +94,9 @@
                                             </form>
                                         <?php else: ?>
                                             <?php if ($_item->getIsSalable()): ?>
-                                                <?= __('In stock') ?>
+                                                <?= $block->escapeHtml(__('In stock')) ?>
                                             <?php else: ?>
-                                                <?= __('Out of stock') ?>
+                                                <?= $block->escapeHtml(__('Out of stock')) ?>
                                             <?php endif; ?>
                                         <?php endif; ?>
                                         <div class="compare__secondary-buttons">
@@ -99,7 +105,7 @@
                                                     <button
                                                         class="action towishlist button button--icon compare__wishlist"
                                                         type="button"
-                                                        data-post='<?= $block->getAddToWishlistParams($_item) ?>'
+                                                        data-post='<?= /* @noEscape */ $block->getAddToWishlistParams($_item) ?>'
                                                         data-action="add-to-wishlist"
                                                         title="<?= $block->escapeHtmlAttr(__('Add to Wish List')) ?>"
                                                         aria-label="<?= $block->escapeHtmlAttr(__('Add to Wish List')) ?>"
@@ -113,7 +119,7 @@
                                             <?php $compareHelper = $this->helper('Magento\Catalog\Helper\Product\Compare');?>
                                             <button
                                                 type="button"
-                                                data-post='<?= $compareHelper->getPostDataRemove($_item) ?>'
+                                                data-post='<?= /* @noEscape */ $compareHelper->getPostDataRemove($_item) ?>'
                                                 class="action delete button button--icon compare__remove"
                                                 title="<?= $block->escapeHtmlAttr(__('Remove from Compare')) ?>"
                                                 aria-label="<?= $block->escapeHtmlAttr(__('Remove from Compare')) ?>"
@@ -132,10 +138,12 @@
 
                 <tbody>
                     <?php foreach ($block->getAttributes() as $_attribute): ?>
+                        <?php $index = 0; ?>
+                        <?php if ($block->hasAttributeValueForProducts($attribute)) :?>
                         <tr>
-                            <?php $_i = 0 ?>
+                            <?php $index = 0 ?>
                             <?php foreach ($block->getItems() as $_item): ?>
-                                <?php if ($_i++ === 0): ?>
+                                <?php if ($index++ === 0): ?>
                                     <th
                                         scope="row"
                                         class="compare__label"
@@ -147,7 +155,7 @@
                                     <?php switch ($_attribute->getAttributeCode()) {
                                         case "price": ?>
                                             <?=
-                                                $block->getProductPrice(
+                                                /* @noEscape */ $block->getProductPrice(
                                                     $_item,
                                                     '-compare-list-' . $_attribute->getCode()
                                                 )
@@ -157,8 +165,12 @@
                                             <?php $block->getImage($_item, 'product_small_image')->toHtml(); ?>
                                             <?php break;
                                         default: ?>
-                                            <?= $_helper->productAttribute($_item, $block->getProductAttributeValue($_item, $_attribute), $_attribute->getAttributeCode()) ?>
-                                        <?php break;
+                                            <?php if (is_string($block->getProductAttributeValue($item, $attribute))) :?>
+                                                <?= /* @noEscape */ $helper->productAttribute($item, $block->getProductAttributeValue($item, $attribute), $attribute->getAttributeCode()) ?>
+                                            <?php else : ?>
+                                                <?=  $block->escapeHtml($helper->productAttribute($item, $block->getProductAttributeValue($item, $attribute), $attribute->getAttributeCode())) ?>
+                                            <?php endif; ?>
+                                            <?php break;
                                     } ?>
                                 </td>
                             <?php endforeach; ?>
@@ -179,6 +191,6 @@
     <?php endif; ?>
 <?php else: ?>
     <div class="message info empty">
-        <?= __('You have no items to compare.') ?>
+        <?= $block->escapeHtml(__('You have no items to compare.')) ?>
     </div>
 <?php endif; ?>

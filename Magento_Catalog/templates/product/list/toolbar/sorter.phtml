@@ -1,10 +1,10 @@
 <?php
-use Magento\Catalog\Model\Product\ProductList\Toolbar;
+/** @var $block \Magento\Catalog\Block\Product\ProductList\Toolbar */
 ?>
 <div class="toolbar__sorter">
     <div class="select toolbar__sorter-wrapper">
         <label class="label toolbar__sorter-label" for="sort-by">
-            <?= __('Sort By') ?>
+            <?= $block->escapeHtml(__('Sort By')) ?>
         </label>
         <select
             id="sort-by"
@@ -16,10 +16,10 @@ use Magento\Catalog\Model\Product\ProductList\Toolbar;
         >
             <?php foreach ($block->getAvailableOrders() as $_key => $_order): ?>
                 <option
-                    value="<?= $_key ?>"
+                    value="<?= $block->escapeHtmlAttr($_key) ?>"
                     <?= ($block->isOrderCurrent($_key)) ? 'selected="selected"' : '' ?>
                 >
-                    <?= __($_order) ?>
+                    <?= $block->escapeHtml(__($_order)) ?>
                 </option>
             <?php endforeach ?>
         </select>
@@ -27,7 +27,7 @@ use Magento\Catalog\Model\Product\ProductList\Toolbar;
             <div
                 class="toolbar__sorter-icon-wrapper"
                 title="<?= $block->escapeHtmlAttr(__('Set Ascending Direction')) ?>"
-                aria-label="<?= __('Set Ascending Direction') ?>"
+                aria-label="<?= $block->escapeHtmlAttr(__('Set Ascending Direction')) ?>"
                 data-role="direction-switcher"
                 data-value="asc"
                 tabindex="0"
@@ -39,8 +39,8 @@ use Magento\Catalog\Model\Product\ProductList\Toolbar;
             <?php else: ?>
             <div
                 class="toolbar__sorter-icon-wrapper"
-                title="<?= __('Set Descending Direction') ?>"
-                aria-label="<?= __('Set Descending Direction') ?>"
+                title="<?= $block->escapeHtmlAttr(__('Set Descending Direction')) ?>"
+                aria-label="<?= $block->escapeHtmlAttr(__('Set Descending Direction')) ?>"
                 data-role="direction-switcher"
                 data-value="desc"
                 tabindex="0"
