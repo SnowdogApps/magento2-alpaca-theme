@@ -1,7 +1,4 @@
 <?php
-
-// @codingStandardsIgnoreFile
-
 /** @var $block \Magento\Checkout\Block\Cart\Sidebar */
 ?>
 
@@ -13,7 +10,7 @@
             <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#shopping-cart')); ?>"></use>
         </svg>
         <span class="counter qty empty minicart-trigger__counter"
-              data-bind="css: { empty: !!getCartParam('summary_count') == false }, blockLoader: isLoading">
+              data-bind="css: { empty: !!getCartParam('summary_count') == false && !isLoading() }, blockLoader: isLoading">
             <span class="counter-number minicart-trigger__counter-qty"><!-- ko text: getCartParam('summary_count') --><!-- /ko --></span>
             <span class="counter-label minicart-trigger__counter-label">
             <!-- ko if: getCartParam('summary_count') -->
@@ -43,6 +40,14 @@
             </div>
             <?=  $block->getChildHtml('minicart.addons'); ?>
         </div>
+    <?php else :?>
+        <script>
+            require(['jquery'], function ($) {
+                $('a.action.showcart').click(function() {
+                    $(document.body).trigger('processStart');
+                });
+            });
+        </script>
     <?php endif; ?>
     <script>
         window.checkout = <?= \Zend_Json::encode($block->getConfig()); ?>;
@@ -53,7 +58,9 @@
             "Magento_Ui/js/core/app": <?= $block->getJsLayout(); ?>
         },
         "*": {
-            "Magento_Ui/js/block-loader": "<?= $block->escapeUrl($block->getViewFileUrl('images/loader-1.gif')); ?>"
+            "Magento_Ui/js/block-loader": "<?= $block->escapeJs(
+                $block->escapeUrl($block->getViewFileUrl('images/loader-1.gif'))
+            ); ?>"
         }
     }
     </script>

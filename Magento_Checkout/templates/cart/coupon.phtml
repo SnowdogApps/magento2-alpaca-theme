@@ -1,8 +1,17 @@
+<?php
+/**
+ * @var \Magento\Framework\View\Element\AbstractBlock $block
+ */
+
+// We should use strlen function because coupon code could be "0", converted to bool will lead to false
+$hasCouponCode = (bool) strlen($block->getCouponCode());
+?>
 <div
     class="block discount"
     id="block-discount"
     data-mage-init='{
         "collapsible":{
+            "active": <?= $hasCouponCode ? 'true' : 'false' ?>,
             "openedState": "active",
             "saveState": false
         }
@@ -13,7 +22,7 @@
             class="discount__title-text"
             data-testid="apply-discount-title"  
         >
-            <?= __('Apply Discount Code') ?>
+            <?= $block->escapeHtml(__('Apply Discount Code')) ?>
         </span>
         <svg class="icon discount__title-icon">
             <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#arrow-down')) ?>"></use>
@@ -27,7 +36,7 @@
         <form
             id="discount-coupon-form"
             class="form"
-            action="<?= $block->getUrl('checkout/cart/couponPost') ?>"
+            action="<?= $block->escapeUrl($block->getUrl('checkout/cart/couponPost')) ?>"
             method="post"
             data-mage-init='{
                 "discountCode":{
@@ -44,13 +53,13 @@
                     form__content
                     coupon
                     discount__controls
-                    <?php strlen($block->getCouponCode()) ? 'applied' : '' ?>
+                    <?php $block->escapeHtmlAttr($hasCouponCode) ? 'applied' : '' ?>
                 "
             >
                 <input type="hidden" name="remove" id="remove-coupon" value="0">
                 <div class="input discount__input">
                     <label for="coupon_code" class="label label--hidden">
-                        <?= __('Enter discount code'); ?>
+                        <?= $block->escapeHtml(__('Enter discount code')); ?>
                     </label>
                     <input
                         type="text"
@@ -61,14 +70,14 @@
                         placeholder="<?= $block->escapeHtmlAttr(__('Enter discount code')) ?>"
                     >
                 </div>
-                <?php if (!strlen($block->getCouponCode())): ?>
+                <?php if (!$hasCouponCode) :?>
                     <button
                         class="action apply button button--apply discount__button"
                         type="button"
                         value="<?= $block->escapeHtmlAttr(__('Apply Discount')) ?>"
                         data-testid="apply-discount-button"
                     >
-                        <?= __('Apply Discount'); ?>
+                        <?= $block->escapeHtml(__('Apply Discount')); ?>
                     </button>
                 <?php else: ?>
                     <button
@@ -76,10 +85,13 @@
                         class="button action cancel button--cancel discount__button"
                         value="<?= $block->escapeHtmlAttr(__('Cancel Coupon')) ?>"
                     >
-                        <?= __('Cancel Coupon') ?>
+                        <?= $block->escapeHtml(__('Cancel Coupon')) ?>
                     </button>
                 <?php endif; ?>
             </div>
+            <?php if (!$hasCouponCode) : ?>
+                <?= /* @noEscape */ $block->getChildHtml('captcha') ?>
+            <?php endif; ?>
         </form>
     </div>
 </div>
