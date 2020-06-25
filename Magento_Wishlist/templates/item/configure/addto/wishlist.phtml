@@ -1,18 +1,34 @@
 <?php
 /** @var \Magento\Wishlist\Block\Item\Configure $block */
+
+// TODO get magento version without objectManager
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$productMetadata = $objectManager->get('Magento\Framework\App\ProductMetadataInterface');
 ?>
 <?php if ($this->helper(\Magento\Wishlist\Helper\Data::class)->isAllow()) : ?>
     <button
         data-post='<?= /* @noEscape */ $block->getUpdateParams() ?>'
         class="
-            display-none
+            button
+            button--icon
             action
             towishlist
+            product-view__addtowishlist
+            product-view__addtowishlist--update
         "
         data-action="add-to-wishlist"
         type="button"
     >
-        <?= $block->escapeHtml(__('Update Wish List')) ?>
+        <svg
+            class="icon button__icon"
+            role="presentation"
+            focusable="false"
+        >
+            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#heart')); ?>"></use>
+        </svg>
+        <span class="button__text">
+            <?= ($productMetadata->getEdition() == 'B2B') ? __('Update Wish List') : __('Update') ?>
+        </span>
     </button>
 <?php endif; ?>
 <script type="text/x-magento-init">

@@ -170,14 +170,18 @@
     }
 
     &__buttons-wrapper {
-        display: none;
-
-        @include mq($screen-m) {
-            display: block;
-        }
-
         &--ee {
-            display: block;
+            .product-view__extra-actions {
+                display: flex;
+            }
+
+            .product-view__update-wishlist {
+                order: 4;
+            }
+
+            .towishlist {
+                display: none;
+            }
         }
     }
 
@@ -190,12 +194,13 @@
     }
 
     &__extra-actions {
-        display: flex;
+        display: none;
         align-items: center;
         justify-content: space-between;
         width: $product-view__extra-actions-width;
 
         @include mq($screen-m) {
+            display: flex;
             width: $product-view__extra-actions-width\@medium; 
         }
     }
@@ -222,14 +227,18 @@
             &.button--icon-filled {
                 @extend .button--icon-fill;
                 @include button-fill-bg();
+                background-color: $product-view__button-bg;
+
                 &:hover {
                     &:before {
                         background-color: $product-view__button-wishlist-filled-bg-color-hover;
                     }
+
                     &:after {
                         display: block;
                         background-image: $product-view__button-wishlist-filled-bg-image-after-hover;
                     }
+                    
                     .icon {
                         fill: $white;
                     }
@@ -240,6 +249,33 @@
 
     &__extra-actions {
         order: $product-view__extra-actions-order;
+    }
+
+    &__addtowishlist {
+        display: none;
+        width: $product-view__button-wishlist-width;
+        min-height: $product-view__button-wishlist-min-height;
+        min-width: $product-view__button-wishlist-min-width;
+        background-color: $gray-lighter;
+        order: $product-view__update-wishlist-order;
+
+        @include mq($screen-m) {
+            display: flex;
+            width: $product-view__button-wishlist-width\@medium;
+            margin: $product-view__button-wishlist-margin\@medium
+        }
+
+        .button__text {
+            display: none;
+        }
+        
+        &--update {
+            display: flex;
+
+            .button__text {
+                display: inline-block;
+            }  
+        }
     }
 
     &__update-wishlist {
@@ -636,15 +672,23 @@
 
 .catalog-product-view {
     .product-view {
-        &__update-wishlist {
-            display: none;
+        &__buttons-wrapper {
+            &--ee {
+                .product-view__update-wishlist {
+                    display: none;
+                }
+            }
         }
     }
 
     &.wishlist-index-configure {
         .product-view {
-            &__update-wishlist {
-                display: block;
+            &__buttons-wrapper {
+                &--ee {
+                    .product-view__update-wishlist {
+                        display: flex;
+                    }
+                }
             }
         }
     }

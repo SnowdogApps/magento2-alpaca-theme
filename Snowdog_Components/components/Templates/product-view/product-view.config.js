@@ -518,7 +518,13 @@ module.exports = {
         updateWishList: {
           tag: 'button',
           text: 'Update Wish List',
-          class: 'button product-view__update-wishlist',
+          class: 'button button--icon product-view__update-wishlist product-view__addtowishlist product-view__addtowishlist--update',
+          iconBefore: {
+            id: 'heart',
+            title: 'Heart',
+            class: 'button__icon',
+            attributes: 'aria-hidden="true"'
+          },
         }
       }
     }
