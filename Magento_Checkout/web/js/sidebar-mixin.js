@@ -1,6 +1,9 @@
 define([
-    'jquery'
-], function ($) {
+    'jquery',
+    'Magento_Customer/js/model/authentication-popup',
+    'Magento_Customer/js/customer-data',
+    'Magento_Ui/js/modal/confirm',
+], function ($, authenticationPopup, customerData, confirm) {
     'use strict';
 
     return function (widget) {
