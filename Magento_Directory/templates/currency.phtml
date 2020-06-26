@@ -8,65 +8,65 @@
 // temporary component used: dropdown-list, TODO: should use simpler component
 ?>
 <?php if ($block->getCurrencyCount() > 1): ?>
-<?php $currencies = $block->getCurrencies(); ?>
-<?php $currentCurrencyCode = $block->getCurrentCurrencyCode(); ?>
-<?php $id = $block->getIdModifier() ? '-' . $block->getIdModifier() : ''?>
+    <?php $currencies = $block->getCurrencies(); ?>
+    <?php $currentCurrencyCode = $block->getCurrentCurrencyCode(); ?>
+    <?php $id = $block->getIdModifier() ? '-' . $block->getIdModifier() : ''?>
 
-<div
-    class="dropdown-list dropdown-list--item-wide"
-    id="switcher-currency<?= $id?>"
-    data-mage-init='{"dropdownList": {}}'
->
-    <ul
-        class="
-            dropdown-list__list
-            dropdown-list__item--parent
-        "
+    <div
+        class="dropdown-list dropdown-list--item-wide"
+        id="switcher-currency<?= $id?>"
+        data-mage-init='{"dropdownList": {}}'
     >
-        <li class="dropdown-list__item">
-            <span
-                class="dropdown-list__link"
-                aria-controls="language-<?= $block->escapeHtml($block->getCurrentCurrencyCode()) ?>"
-            >
-                <?= $block->escapeHtml(__('Currency') . ':') ?> <?= $block->escapeHtml($currentCurrencyCode) ?> - <?= $currencies[$currentCurrencyCode] ? $block->escapeHtml($currencies[$currentCurrencyCode]) : '' ?>
-                <svg
-                    class="
-                        dropdown-list__icon
-                        dropdown-list__icon--inner
-                    "
-                    role="presentation"
+        <ul
+            class="
+                dropdown-list__list
+                dropdown-list__item--parent
+            "
+        >
+            <li class="dropdown-list__item">
+                <span
+                    class="dropdown-list__link"
+                    aria-controls="language-<?= $block->escapeHtml($block->getCurrentCurrencyCode()) ?>"
                 >
-                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#arrow-down')); ?>"></use>
-                </svg>
-            </span>
-            <ul
-                class="
-                    dropdown-list__inner-list
-                    dropdown-list__inner-list--level1
-                "
-                aria-controls="language-<?= $block->escapeHtmlAttr($block->getCurrentCurrencyCode()) ?>"
-            >
-                <?php foreach ($currencies as $_code => $_name): ?>
-                    <?php if ($_code != $currentCurrencyCode): ?>
-                        <li
-                            class="
-                                dropdown-list__inner-item
-                                dropdown-list__inner-item--level1
-                            "
-                        >
-                            <a
-                                href="#"
-                                title="<?= $block->escapeHtmlAttr(__('currency') . ':' . $block->getSwitchCurrencyPostData($_code)); ?>"
-                                class="dropdown-list__inner-link"
-                                data-post='<?= /* @noEscape */ $block->getSwitchCurrencyPostData($_code); ?>'
+                    <?= $block->escapeHtml(__('Currency') . ':') ?> <?= $block->escapeHtml($currentCurrencyCode) ?> - <?= $currencies[$currentCurrencyCode] ? $block->escapeHtml($currencies[$currentCurrencyCode]) : '' ?>
+                    <svg
+                        class="
+                            dropdown-list__icon
+                            dropdown-list__icon--inner
+                        "
+                        role="presentation"
+                    >
+                        <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#arrow-down')); ?>"></use>
+                    </svg>
+                </span>
+                <ul
+                    class="
+                        dropdown-list__inner-list
+                        dropdown-list__inner-list--level1
+                    "
+                    aria-controls="language-<?= $block->escapeHtmlAttr($block->getCurrentCurrencyCode()) ?>"
+                >
+                    <?php foreach ($currencies as $_code => $_name): ?>
+                        <?php if ($_code != $currentCurrencyCode): ?>
+                            <li
+                                class="
+                                    dropdown-list__inner-item
+                                    dropdown-list__inner-item--level1
+                                "
                             >
-                                <?= $block->escapeHtml($_code) ?> - <?= $block->escapeHtml($_name) ?>
-                           </a>
-                        </li>
-                    <?php endif; ?>
-                <?php endforeach; ?>
-            </ul>
-        </li>
-    </ul>
-</div>
+                                <a
+                                    href="#"
+                                    title="<?= $block->escapeHtmlAttr(__('currency') . ':' . $block->getSwitchCurrencyPostData($_code)); ?>"
+                                    class="dropdown-list__inner-link"
+                                    data-post='<?= /* @noEscape */ $block->getSwitchCurrencyPostData($_code); ?>'
+                                >
+                                    <?= $block->escapeHtml($_code) ?> - <?= $block->escapeHtml($_name) ?>
+                            </a>
+                            </li>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </ul>
+            </li>
+        </ul>
+    </div>
 <?php endif; ?>
