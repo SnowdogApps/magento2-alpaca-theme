@@ -2,13 +2,13 @@
 <input type="hidden" name="type_id" id="type_id" value="<?= $block->getTypeId(); ?>" />
 
 <h3 class="dashboard-form__title">
-    <?= __('General Information') ?>
+    <?= $block->escapeHtml(__('General Information')) ?>
 </h3>
 
 <div class="information">
     <p class="information__text">
         <span>
-            <?= __('Type:') ?>
+            <?= $block->escapeHtml(__('Type:')) ?>
         </span>
 
         <strong>
@@ -20,7 +20,7 @@
 <div class="dashboard-form__divider " >
     <div class="input required">
         <label for="title" class="label">
-            <?= __('Event') ?>
+            <?= $block->escapeHtml(__('Event')) ?>
         </label>
 
         <input type="text"
@@ -35,7 +35,7 @@
 
     <div class="input required">
         <label for="message" class="label">
-            <?= __('Message') ?>
+            <?= $block->escapeHtml(__('Message')) ?>
         </label>
 
         <textarea name="message"
@@ -50,7 +50,7 @@
 
     <div class="select dashboard-form__select required" data-mage-init='{"loadSelect": {}}'>
         <label for="is_public" class="label">
-            <?= __('Privacy Settings') ?>
+            <?= $block->escapeHtml(__('Privacy Settings')) ?>
         </label>
 
         <?= $block->getIsPublicHtml() ?>
@@ -58,7 +58,7 @@
 
     <div class="select dashboard-form__select required">
         <label for="status" class="label">
-            <?= __('Status') ?>
+            <?= $block->escapeHtml(__('Status')) ?>
         </label>
 
         <select data-validate="{required:true}"
@@ -81,7 +81,7 @@ $fieldsets = $block->getGroupedRegistryAttributes();
 
 foreach ($fieldsets as $fieldset => $fields) : ?>
     <h3 class="dashboard-form__title">
-        <?= $block->getGroupLabel($fieldset); ?>
+        <?= $block->escapeHtml($block->getGroupLabel($fieldset)); ?>
     </h3>
 
     <?php foreach ($fields as $field => $data) : ?>
@@ -98,7 +98,7 @@ foreach ($fieldsets as $fieldset => $fields) : ?>
         ?>
                     <div class="select dashboard-form__select required">
                         <label for="<?= $id; ?>" class="label">
-                            <?= __($data['label']) ?>
+                            <?= $block->escapeHtml(__($data['label'])) ?>
                         </label>
 
                         <select data-validate="{required:true}"
@@ -108,12 +108,12 @@ foreach ($fieldsets as $fieldset => $fields) : ?>
                                 data-mage-init='{"select": {}}'
                         >
                             <option value="" disabled selected>
-                                <?php  echo __('Please Select a country'); ?>
+                                <?= $block->escapeHtml(__('Please Select a country')); ?>
                             </option>
 
                             <?php foreach ($options as $option):?>
                                 <option value="<?= $option['value'] ?>">
-                                    <?= __($option['label']) ?>
+                                    <?= $block->escapeHtml(__($option['label'])) ?>
                                 </option>
                             <?php endforeach; ?>
                         </select>
@@ -126,16 +126,16 @@ foreach ($fieldsets as $fieldset => $fields) : ?>
         ?>
                     <div class="input required">
                         <label for="<?= $id.'_text'; ?>" class="label">
-                            <?= __($data['label']) ?>
+                            <?= $block->escapeHtml(__($data['label'])) ?>
                         </label>
 
                         <input type="text"
-                               id="<?= $id.'_text'; ?>"
-                               name="<?= $id.'_text'; ?>"
-                               value="<?= $value; ?>"
+                               id="<?= $block->escapeHtmlAttr($id.'_text'); ?>"
+                               name="<?= $block->escapeHtmlAttr($id.'_text'); ?>"
+                               value="<?= $block->escapeHtmlAttr($value); ?>"
                                title="<?= $block->escapeHtmlAttr(__('State/Province')) ?>"
-                               class="input__field <?= $block->getRegionValidationClass(); ?>"
-                               <?= $block->displayAll(); ?>
+                               class="input__field <?= $block->escapeHtmlAttr($block->getRegionValidationClass()); ?>"
+                               <?= $block->escapeHtml($block->displayAll()); ?>
                         />
                     </div>
         <?php
@@ -164,7 +164,7 @@ foreach ($fieldsets as $fieldset => $fields) : ?>
         ?>
                     <div class="select dashboard-form__select required">
                         <label for="<?= $id; ?>" class="label">
-                            <?= __($data['label']) ?>
+                            <?= $block->escapeHtml(__($data['label'])) ?>
                         </label>
 
                         <div class="select--native">
@@ -186,13 +186,13 @@ foreach ($fieldsets as $fieldset => $fields) : ?>
                          "
                     >
                         <label for="<?= $field ?>" class="label">
-                            <?= __($data['label']); ?>
+                            <?= $block->escapeHtml(__($data['label'])); ?>
                         </label>
 
                         <input type="number"
                                class="input__field required-entry"
-                               name="<?= $id; ?>"
-                               id="<?= $id; ?>"
+                               name="<?= $block->escapeHtmlAttr($id); ?>"
+                               id="<?= $block->escapeHtmlAttr($id); ?>"
                         />
                     </div>
         <?php
@@ -215,8 +215,8 @@ foreach ($fieldsets as $fieldset => $fields) : ?>
                     );
         ?>
                     <div class="input <?= $requiredField; ?>">
-                        <label for="<?= $field ?>" class="label">
-                            <?= __($data['label']); ?>
+                        <label for="<?= $block->escapeHtmlAttr($field) ?>" class="label">
+                            <?= $block->escapeHtml(__($data['label'])); ?>
                         </label>
 
                         <?=  $this->fetchView($template); ?>
