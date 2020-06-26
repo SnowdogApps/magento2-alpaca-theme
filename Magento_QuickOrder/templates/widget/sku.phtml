@@ -10,7 +10,7 @@
     data-role="block-addbysku"
     data-mage-init='{
         "quickOrderItemTable": {
-            "addBlockData": {"widgetId":"<?= $block->getUniqueId() ?>"},
+            "addBlockData": {"widgetId":"<?= $block->escapeHtmlAttr($block->getUniqueId()) ?>"},
             "addEvent": "addNewRow",
             "addSelector": "[data-role=new-block]"
         }
@@ -28,13 +28,13 @@
     <?php if (!$block->getIsTitleHidden()): ?>
         <div class="block-title">
             <strong role="heading" aria-level="2">
-                <?= __('Order by SKU') ?>
+                <?= $block->escapeHtml(__('Order by SKU')) ?>
             </strong>
         </div>
     <?php endif ?>
     <div class="quickorder">
         <form
-            action="<?= $block->getUrl('quickorder/sku/uploadfile') ?>"
+            action="<?= $block->escapeUrl($block->getUrl('quickorder/sku/uploadfile')) ?>"
             method="post"
             data-role="send-sku"
             data-mage-init='{"validation": {}, "quickOrderAddToCart": {}}'
@@ -51,7 +51,7 @@
                     data-action="submit-sku"
                     disabled
                 >
-                    <?= __('Add to Cart') ?>
+                    <?= $block->escapeHtml(__('Add to Cart')) ?>
                 </button>
                 <?php if ($block->getLink()): ?>
                     <?= $block->getLink() ?>
@@ -67,13 +67,13 @@
                     "productSkuItem": {
                         "rowIndex": "<%- data.rowIndex %>",
                         "tableWigetSelector":"[data-role=block-addbysku]",
-                        "urlSku":"<?= $block->getUrl('quickorder/ajax/search') ?>"
+                        "urlSku":"<?= $block->escapeUrl($block->getUrl('quickorder/ajax/search')) ?>"
                     }
                 }'
             >
                 <div class="input required">
                     <label class="label" for="id-items<%- data.widgetId %><%- data.rowIndex %>sku">
-                        <?= __('Enter SKU or Product Name') ?>
+                        <?= $block->escapeHtml(__('Enter SKU or Product Name')) ?>
                     </label>
                     <input
                         class="input__field"
@@ -85,7 +85,7 @@
                         aria-required="true"
                         data-mage-init='{
                             "Magento_QuickOrder/js/sku/autocomplete": {
-                                "sourceUrl": "<?= $block->getUrl('quickorder/ajax/product_suggest') ?>"
+                                "sourceUrl": "<?= $block->escapeUrl($block->getUrl('quickorder/ajax/product_suggest')) ?>"
                             }
                         }'
                         data-validate='{
@@ -103,7 +103,7 @@
                         class="label"
                         for="id-items<%- data.widgetId %><%- data.rowIndex %>qty"
                     >
-                        <?= __('Qty') ?>
+                        <?= $block->escapeHtml(__('Qty')) ?>
                     </label>
                     <input
                         type="number"
@@ -127,7 +127,7 @@
                     class="button button--secondary"
                     data-role="delete"
                 >
-                    <?= __('Remove Row') ?>
+                    <?= $block->escapeHtml(__('Remove Row')) ?>
                 </button>
             </div>
         </script>

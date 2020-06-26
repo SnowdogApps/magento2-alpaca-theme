@@ -4,26 +4,26 @@
  */
 $fieldNameFile = \Magento\AdvancedCheckout\Model\Import::FIELD_NAME_SOURCE_FILE;
 $fieldImportedFlagFile = \Magento\AdvancedCheckout\Helper\Data::REQUEST_PARAMETER_SKU_FILE_IMPORTED_FLAG;
-$extErrorText = __(
+$extErrorText = $block->escapeHtml(__(
     'The file could not be uploaded because it is in the wrong format. Please select a CSV file to upload.'
-);
+));
 ?>
 <li class="list__item quickorder__list-item">
     <p>
-        <?= __('Add from File') ?>
+        <?= $block->escapeHtml(__('Add from File')) ?>
     </p>
     <div
         class="control"
         data-mage-init='{
             "fieldsetControls": {},
             "fileChooser": {
-                "fileNameSelector": "[name=<?= $block->escapeHtml($fieldNameFile) ?>]",
-                "fileNameIndicatorSelector": "[name=<?= $block->escapeHtml($fieldImportedFlagFile) ?>]"
+                "fileNameSelector": "[name=<?= $block->escapeHtmlAttr($fieldNameFile) ?>]",
+                "fileNameIndicatorSelector": "[name=<?= $block->escapeHtmlAttr($fieldImportedFlagFile) ?>]"
             },
             "quickOrderFile":{
-                "fileNameSelector": "[name=<?= $block->escapeHtml($fieldNameFile) ?>]",
-                "extErrorText": "<?= $block->escapeHtml($extErrorText) ?>",
-                "urlSku":"<?= $block->escapeHtml($block->getUrl('quickorder/ajax/search')) ?>"
+                "fileNameSelector": "[name=<?= $block->escapeHtmlAttr($fieldNameFile) ?>]",
+                "extErrorText": "<?= $block->escapeHtmlAttr($extErrorText) ?>",
+                "urlSku":"<?= $block->escapeUrl($block->getUrl('quickorder/ajax/search')) ?>"
             }
         }'>
         <p>
@@ -32,14 +32,14 @@ $extErrorText = __(
         </p>
         <div class="upload-container">
             <label for="customer_sku_csv">
-                <?= __('Choose File') ?>
+                <?= $block->escapeHtml(__('Choose File')) ?>
             </label>
             <input
                 id="customer_sku_csv"
                 type="file"
                 data-reset="true"
                 accept=".csv"
-                name="<?= $block->escapeHtml($fieldNameFile) ?>"
+                name="<?= $block->escapeHtmlAttr($fieldNameFile) ?>"
             >
         </div>
     </div>
