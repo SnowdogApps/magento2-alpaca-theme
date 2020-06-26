@@ -13,7 +13,7 @@
             class="filters__switcher"
             data-state-current="hidden"
         >
-            <?= __('Shopping Options') ?>
+            <?= $block->escapeHtml(__('Shopping Options')) ?>
             <svg class="icon filters__switcher-icon" role="presentation">
                 <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#angle-down')) ?>"></use>
             </svg>
@@ -31,7 +31,7 @@
             }'
         >
             <h2 class="filters__heading filters__heading--mobile-hidden">
-                <?= __('Shopping Options') ?>
+                <?= $block->escapeHtml(__('Shopping Options')) ?>
             </h2>
             <div class="divider filters__divider"></div>
             <ul class="dropdown-list__list">
@@ -47,7 +47,7 @@
                             <button
                                 type="button"
                                 class="dropdown-list__label filter__label"
-                                aria-controls="filter-<?= __($filter->getName()) ?>"
+                                aria-controls="filter-<?= $block->escapeHtmlAttr(__($filter->getName())) ?>"
                                 aria-expanded="false"
                             >
                                 <h3 class="filter__label-title">
@@ -63,7 +63,7 @@
                                 aria-hidden="true"
                             >
                                 <ul class="list">
-                                    <?= $block->getChildBlock('renderer')->render($filter) ?>
+                                    <?= /* @noEscape */ $block->getChildBlock('renderer')->render($filter) ?>
                                 </ul>
                             </div>
                         </li>

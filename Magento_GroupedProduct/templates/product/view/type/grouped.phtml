@@ -9,14 +9,15 @@
     tabindex="0"
     role="table"
     id="super-product-table"
+    data-mage-init='{ "Magento_GroupedProduct/js/product-ids-resolver": {} }'
 >
     <caption class="table__caption">
-        <?= __('Grouped product items') ?>
+        <?= $block->escapeHtml(__('Grouped product items')) ?>
     </caption>
     <thead>
         <tr role="row">
             <th scope="col" role="columnheader">
-                <?= __('Product Name') ?>
+                <?= $block->escapeHtml(__('Product Name')) ?>
             </th>
             <?php if ($_product->isSaleable()): ?>
                 <th
@@ -24,42 +25,42 @@
                     scope="col"
                     role="columnheader"
                 >
-                    <?= __('Qty') ?>
+                    <?= $block->escapeHtml(__('Qty')) ?>
                 </th>
             <?php endif; ?>
         </tr>
     </thead>
     <?php if ($_hasAssociatedProducts): ?>
-        <?php foreach ($_associatedProducts as $_item): ?>
-            <tbody>
+        <tbody>
+            <?php foreach ($_associatedProducts as $_item): ?>
                 <tr role="row">
-                    <td data-th="<?= __('Product Name') ?>:" role="gridcell">
+                    <td data-th="<?= $block->escapeHtmlAttr(__('Product Name')) ?>:" role="gridcell">
                         <span class="product-view__grouped-product-name">
                             <?= $block->escapeHtml($_item->getName()) ?>
                         </span>
                         <span>
                             <?php if ($block->getCanShowProductPrice($_product)): ?>
                                 <?php if ($block->getCanShowProductPrice($_item)): ?>
-                                    <?= $block->getProductPrice($_item) ?>
+                                    <?= /* @noEscape */ $block->getProductPrice($_item) ?>
                                 <?php endif; ?>
                             <?php endif; ?>
                         </span>
                     </td>
                     <?php if ($_product->isSaleable()): ?>
-                        <td data-th="<?= __('Qty') ?>:" role="gridcell">
+                        <td data-th="<?= $block->escapeHtmlAttr(__('Qty')) ?>:" role="gridcell">
                             <?php if ($_item->isSaleable()) : ?>
                                 <div class="input product-view__grouped-qty">
                                     <label class="label label--hidden" for="field-id-1">
-                                        <? __('Qty') ?>
+                                        <? $block->escapeHtml(__('Qty')) ?>
                                     </label>
                                     <input
                                         class="input__field input-text qty"
                                         id="field-id-1"
-                                        name="super_group[<?= $_item->getId() ?>]"
+                                        name="super_group[<?= $block->escapeHtmlAttr($_item->getId()) ?>]"
                                         type="number"
                                         min="0"
-                                        value="<?= $_item->getQty() * 1 ?>"
-                                        data-selector="super_group[<?= $_item->getId() ?>]"
+                                        value="<?= $block->escapeHtmlAttr($_item->getQty()) * 1 ?>"
+                                        data-selector="super_group[<?= $block->escapeHtmlAttr($_item->getId()) ?>]"
                                         data-validate="{'validate-grouped-qty':'#super-product-table'}"
                                         data-errors-message-box="#validation-message-box"
                                     >
@@ -71,7 +72,7 @@
                                         product-view__stock-status--alert
                                     "
                                 >
-                                    <?= __('Out of stock') ?>
+                                    <?= $block->escapeHtml(__('Out of stock')) ?>
                                 </div>
                             <?php endif; ?>
                         </td>
@@ -93,13 +94,13 @@
                         </td>
                     </tr>
                 <?php endif; ?>
-            </tbody>
-        <?php endforeach; ?>
+            <?php endforeach; ?>
+        </tbody>
     <?php else: ?>
         <tbody>
             <tr>
                 <td colspan="2">
-                    <?= __('No options of this product are available.') ?>
+                    <?= $block->escapeHtml(__('No options of this product are available.')) ?>
                 </td>
             </tr>
         </tbody>
