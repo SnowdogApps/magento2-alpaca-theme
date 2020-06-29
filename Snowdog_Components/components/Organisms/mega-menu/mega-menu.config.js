@@ -4,7 +4,7 @@ module.exports = {
     script: true,
     class: '',
     attributes: '',
-    classList: '',
+    listClass: '',
     menulist: [
       {
         class: 'mega-menu__item--parent mega-menu__item--secondary',
