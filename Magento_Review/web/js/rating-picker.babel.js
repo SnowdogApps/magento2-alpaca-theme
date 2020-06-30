@@ -6,7 +6,8 @@ define([], function() {
           errorVisibleClass = 'rating__error--visible',
           reviewError       = document.getElementById(config.reviewError),
           ratingElements    = [...element.querySelectorAll('.rating__rate-item')],
-          submitButton      = document.getElementById(config.submitButton);
+          submitButton      = document.getElementById(config.submitButton),
+          reviewForm        = document.getElementById(config.reviewForm);
 
     let optionChoosen = false;
 
@@ -33,9 +34,12 @@ define([], function() {
       });
     });
 
-    submitButton.addEventListener('click', () => {
+    reviewForm.addEventListener('submit', (e) => {
       if (!optionChoosen) {
         reviewError.classList.add(errorVisibleClass);
+        submitButton.disabled = false;
+        e.preventDefault();
+        return false;
       }
     });
 

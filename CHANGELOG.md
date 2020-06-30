@@ -4,13 +4,17 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Added
+- extra variables to mega-menu template (#68257)
+- styling for multiselect (#67928)
 ### Changed
 - update variables name and styles in product view, swatches, mega menu (#62512)
 - quicksearch display, variables & components view (#65066)
 ### Fixed
 - search autocomplete product image size (#68106)
 - a translate function `__()` call in product view Qty template (#68056)
+- product review stars validation (#67930)
 ### Removed
+- recently ordered from left column in catalog (#67862)
 ### Fixed
 
 - product tabs sorting (#67940)
