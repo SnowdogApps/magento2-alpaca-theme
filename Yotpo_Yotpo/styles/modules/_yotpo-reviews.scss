@@ -4,187 +4,210 @@
 }
 
 //sass-lint:disable no-important
-.product-view {
-    .yotpo {
-        div,
-        span,
-        p,
-        a,
-        img,
-        i,
-        strong,
-        sup,
-        ul,
-        li,
-        form,
-        label,
-        .yotpo-default-button,
-        input[type="button"].yotpo-default-button {
-            font-family: $font-family-base;
-            font-size: $font-size-base;
-        }
+.page-main {
+    .product-view {
+        .yotpo {
+            div,
+            span,
+            p,
+            a,
+            img,
+            i,
+            strong,
+            sup,
+            ul,
+            li,
+            form,
+            label,
+            .yotpo-default-button,
+            input[type="button"].yotpo-default-button {
+                font-family: $font-family-base;
+                font-size: $font-size-base;
+            }
 
-        a {
-            color: $color-primary !important;
-            background: transparent !important;
-
-            &:hover,
-            &:focus {
-                color: $color-secondary !important;
+            a {
+                color: $color-primary !important;
                 background: transparent !important;
-            }
-        }
 
-        .yotpo-default-button,
-        input[type="button"].yotpo-default-button {
-            min-height: 48px;
-            background: $color-secondary;
-            font-weight: $font-weight-bold !important;
-            letter-spacing: 1px;
-            transition: $transition-base;
-
-            &:hover,
-            &:focus {
-                background: $color-primary !important;
-            }
-        }
-
-        .yotpo-bottomline {
-            .yotpo-icon-star,
-            .yotpo-icon-half-star,
-            .yotpo-icon-empty-star {
-                color: $yellow !important;
-            }
-        }
-
-        &.yotpo-main-widget {
-            .yotpo-icon-btn {
-                display: inline-flex;
-                align-items: center;
+                &:hover,
+                &:focus {
+                    color: $color-secondary !important;
+                    background: transparent !important;
+                }
             }
 
-            .yotpo-thank-you {
-                .yotpo-icon-btn {
-                    .yotpo-icon-button-text {
-                        display: none;
+            .yotpo-default-button,
+            input[type="button"].yotpo-default-button {
+                @extend .button;
+                // external yotpo script use for this !important :(
+                // perhaps better to set this colors in yotpo panel
+                &:hover {
+                    background-color: $button__background-hover !important;
+                    text-decoration: $button__text-decoration-hover !important;
+
+                    &:before {
+                        display: $button__before-display-hover !important;
+                        transform: $button__before-transform-hover !important;
+                    }
+
+                    &:after {
+                        display: $button__after-display-hover !important;
+                        left: $button__after-position-left-hover !important;
+                        opacity: $button__after-opacity-hover !important;
+                    }
+                }
+
+                &:disabled,
+                &[disabled] {
+                    background-color: $button__background-disabled !important;
+                    border-color: $button__background-disabled !important;
+                    color: $button__text-color !important;
+                    cursor: not-allowed !important;
+
+                    .icon {
+                        fill: $button__text-color !important;
+                    }
+
+                    &:hover {
+                        background-color: $button__background-disabled !important;
+
+                        &:before,
+                        &:after {
+                            display: none;
+                        }
                     }
                 }
             }
-        }
 
-        .yotpo-review {
-            .yotpo-header {
-                .yotpo-review-stars {
+            .yotpo-bottomline {
+                .yotpo-icon-star,
+                .yotpo-icon-half-star,
+                .yotpo-icon-empty-star {
+                    color: $yellow !important;
+                }
+            }
+
+            &.yotpo-main-widget {
+                .yotpo-icon-btn {
+                    display: inline-flex;
+                    align-items: center;
+                }
+
+                .yotpo-thank-you {
+                    .yotpo-icon-btn {
+                        .yotpo-icon-button-text {
+                            display: none;
+                        }
+                    }
+                }
+            }
+
+            .yotpo-review {
+                .yotpo-header {
+                    .yotpo-review-stars {
+                        .yotpo-icon {
+                            color: $yellow;
+                        }
+                    }
+                }
+            }
+
+            .write-question-button:not(.write-first-question-button),
+            .write-button:not(.write-first-review-button) {
+
+                .yotpo-icon {
+                    margin-right: 4px;
+                }
+            }
+
+            .write-review {
+                .connect-wrapper {
+                    padding-left: 200px;
+
+                    .form-element {
+                        .form-input-error {
+                            @extend %error;
+                        }
+                    }
+                }
+
+                .yotpo-header {
+                    .y-label {
+                        .form-input-error {
+                            @extend %error;
+                        }
+                    }
+
+                    .yotpo-header-title {
+                        @extend .heading;
+                        @extend .heading--second-level;
+                    }
+
                     .yotpo-icon {
                         color: $yellow;
                     }
                 }
+
+                .submit-button {
+
+                    .form-input-error {
+                        @extend %error;
+
+                        margin: $spacer--medium 0;
+                    }
+                }
+
+
+                .socialize-wrapper {
+                    .yotpo-or {
+                        margin: 68px 8px 0;
+                        width: auto;
+                    }
+                }
+            }
+
+            .form-group .form-element .form-input-error {
+                @extend %error;
+            }
+
+            .yotpo-regular-box {
+                margin: 0 $spacer $spacer--medium;
+            }
+
+            input,
+            textarea {
+                @extend .input__field;
+            }
+
+            textarea {
+                @extend .input__field--textarea;
             }
         }
 
-        .write-question-button:not(.write-first-question-button),
-        .write-button:not(.write-first-review-button) {
-            min-height: auto;
+        .yotpoBottomLine {
+            a {
+                margin-right: $spacer--small;
+            }
 
-            .yotpo-icon {
+            .yotpo-stars {
+                margin-right: $spacer;
+            }
+
+            .yotpo-icon-double-bubble {
                 margin-right: 4px;
             }
         }
 
-        .write-review {
-            .connect-wrapper {
-                padding-left: 200px;
+        .bottomLine,
+        .QABottomLine {
+            margin-bottom: $spacer;
+        }
 
-                .form-element {
-                    .form-input-error  {
-                        @extend %error;
-                    }
-                }
+        .y-label {
+            &.yotpo-header-title {
+                @extend .heading;
+                @extend .heading--second-level;
             }
-
-            .yotpo-header {
-                .y-label {
-                    .form-input-error {
-                        @extend %error;
-                    }
-                }
-
-                .yotpo-header-title {
-                    @extend .heading;
-                    @extend .heading--second-level;
-                }
-
-                .yotpo-icon {
-                    color: $yellow;
-                }
-            }
-
-            .submit-button {
-                display: flex;
-                flex-direction: column;
-                justify-content: flex-end;
-                align-items: flex-end;
-
-                .form-input-error {
-                    @extend %error;
-
-                    margin: $spacer--medium 0;
-                }
-            }
-
-            .yotpo-submit {
-                max-width: 148px;
-            }
-
-            .socialize-wrapper {
-                .yotpo-or {
-                    margin: 68px 8px 0;
-                    width: auto;
-                }
-            }
-        }
-
-        .form-group .form-element .form-input-error {
-            @extend %error;
-        }
-
-        .yotpo-regular-box {
-            margin: 0 $spacer $spacer--medium;
-        }
-
-        input,
-        textarea {
-            @extend .input__field;
-        }
-
-        textarea {
-            @extend .input__field--textarea;
-        }
-    }
-
-    .yotpoBottomLine {
-        a {
-            margin-right: $spacer--small;
-        }
-
-        .yotpo-stars {
-            margin-right: $spacer;
-        }
-
-        .yotpo-icon-double-bubble {
-            margin-right: 4px;
-        }
-    }
-
-    .bottomLine,
-    .QABottomLine {
-        margin-bottom: $spacer;
-    }
-
-    .y-label {
-        &.yotpo-header-title {
-            @extend .heading;
-            @extend .heading--second-level;
         }
     }
 }
