@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file.
 - search autocomplete product image size (#68106)
 - a translate function `__()` call in product view Qty template (#68056)
 ### Removed
+- grouped product option table top border (#67844)
 ### Fixed
 
 - product tabs sorting (#67940)
