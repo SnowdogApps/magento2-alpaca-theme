@@ -2,13 +2,21 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
-### Added
-### Changed
-### Fixed
-### Removed
 
+### Added
+- extra variables to mega-menu template (#68257)
+### Changed
+- update variables name and styles in product view, swatches, mega menu (#62512)
+- quicksearch display, variables & components view (#65066)
 ### Fixed
+- search autocomplete product image size (#68106)
+- a translate function `__()` call in product view Qty template (#68056)
+### Removed
+- recently ordered from left column in catalog (#67862)
+### Fixed
+
 - product tabs sorting (#67940)
+- remove duplicated add to cart button (#67929)
 
 ## [Released]
 ## [2.2.0] - 2020-06-15
