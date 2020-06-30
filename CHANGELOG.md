@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 - extra variables to mega-menu template (#68257)
+- styling for multiselect (#67928)
 ### Changed
 - update variables name and styles in product view, swatches, mega menu (#62512)
 - quicksearch display, variables & components view (#65066)
