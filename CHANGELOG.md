@@ -4,18 +4,23 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Added
+- swatches to products widget, related, upsells, crosssells (#64777)
+- adding to cart with ajax in product widget (#64777)
+- extra variables to mega-menu template (#68257)
 ### Changed
 - update variables name and styles in product view, swatches, mega menu (#62512)
 - quicksearch display, variables & components view (#65066)
 ### Fixed
 - search autocomplete product image size (#68106)
 - a translate function `__()` call in product view Qty template (#68056)
+- templates for mobile menu (#68012)
 ### Removed
 - grouped product option table top border (#67844)
+- recently ordered from left column in catalog (#67862)
 ### Fixed
-
 - product tabs sorting (#67940)
 - remove duplicated add to cart button (#67929)
+- escape keydown event binding on catalog (#59884)
 
 ## [Released]
 ## [2.2.0] - 2020-06-15
@@ -23,6 +28,7 @@ All notable changes to this project will be documented in this file.
 - update theme templates for M v2.3.5 (#66621)
 - fix missing tag in product-view--bundle.hbs (#67829)
 - fix variable name $catalog-gird-item__primary-margin -> $product-gird-item__primary-margin (#61542)
+- Focus on qty product button in minicart hidding update btn (#65973)
 - fix add product with swatches to cart from catalog (#67842)
 - Focus on qty product button in minicart hidding update btn (#65973)
 - Contact form - sending with webforms (#67205)
@@ -30,6 +36,7 @@ All notable changes to this project will be documented in this file.
 - fix add to wishlist (#67188)
 - fix bundle PDP (#67863)
 - extend extend messages class for backend generated notifications (#67840)
+- update theme templates for M v2.3.5 (#66621)
 
 ## [2.1.0] - 2020-06-09
 ### Added
