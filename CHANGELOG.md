@@ -12,9 +12,9 @@ All notable changes to this project will be documented in this file.
 - a translate function `__()` call in product view Qty template (#68056)
 ### Removed
 ### Fixed
-
 - product tabs sorting (#67940)
 - remove duplicated add to cart button (#67929)
+- escape keydown event binding on catalog (#59884)
 
 ## [Released]
 ## [2.2.0] - 2020-06-15
