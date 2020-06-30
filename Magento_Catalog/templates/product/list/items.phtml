@@ -5,6 +5,10 @@ use Magento\Catalog\ViewModel\Product\Listing\PreparePostData;
 use Magento\Framework\App\ActionInterface;
 
 /* @var $block \Magento\Catalog\Block\Product\AbstractProduct */
+
+// TODO get magento version without objectManager
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$productMetadata = $objectManager->get('Magento\Framework\App\ProductMetadataInterface');
 ?>
 
 <?php
@@ -308,7 +312,13 @@ $sliderResponsiveConfig = '[
                                     <?= $block->getProductPrice($_item) ?>
                                 </div>
                                 <?php if ($showAddTo || $showCart): ?>
-                                    <div class="product-grid-item__actions">
+                                    <div 
+                                        class="
+                                            product-grid-item__actions
+                                            <?= ($productMetadata->getEdition() == 'B2B') ? 'product-grid-item__actions--ee' : '' ?>
+                                            product-grid-item__actions--slider
+                                        "
+                                    >
                                         <?php if ($showAddTo): ?>
                                             <?php if ($addToBlock = $block->getChildBlock('addto')): ?>
                                                 <div class="product-grid-item__secondary-action">

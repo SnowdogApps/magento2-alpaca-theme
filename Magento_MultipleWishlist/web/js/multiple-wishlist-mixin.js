@@ -1,4 +1,7 @@
-define(['jquery'], function ($) {
+define([
+    'jquery',
+    'mage/template'
+], function ($, mageTemplate) {
     'use strict';
 
     return function (widget) {
@@ -86,6 +89,52 @@ define(['jquery'], function ($) {
                 });
 
                 return false;
+            },
+
+            _buildWishlistDropdown: function () {
+                if (this.options.wishlists && this.options.wishlists.length > 0) {
+                    $(this.options.wishlistLink).each($.proxy(function (index, e) {
+                        var element = $(e),
+                        buttonName = element.text().trim(),
+                        generalParams = element.data('post'),
+                        tmplData = {
+                            wishlists: [],
+                            generalParams: generalParams,
+                            buttonName: buttonName,
+                            dropdownContent: 'dropdown-wishlist-content-' + index,
+                        },
+                        i, currentData, currentParams;
+
+                        this.options.createTmplData.multipleWishListId = 'dropdown-wishlist-content-' + index;
+
+                        for (i = 0; i < this.options.wishlists.length; i++) {
+                            currentData = $.extend({}, generalParams.data, {
+                                'wishlist_id': this.options.wishlists[i].id
+                            });
+                            currentParams = {
+                                action: generalParams.action,
+                                data: currentData
+                            };
+                            tmplData.wishlists.push({
+                                name: this.options.wishlists[i].name,
+                                params: currentParams
+                            });
+                        }
+    
+                        if (this.options.canCreate) {
+                            tmplData.wishlists.push({
+                                newClass: 'new',
+                                name: $.mage.__('Create New Wish List'),
+                                params: generalParams
+                            });
+                        }
+                        $(mageTemplate(this.options.splitBtnTmpl, {
+                            data: tmplData
+                        })).prependTo(element.parent());
+                        element.parent().trigger('contentUpdated');
+                        element.remove();
+                    }, this));
+                }
             }
         });
 
