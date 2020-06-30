@@ -70,18 +70,22 @@
                                     <a href="<?= $block->escapeUrl($block->getDownloadUrl($_item)) ?>"
                                        title="<?= $block->escapeHtmlAttr(__('Start Download')) ?>"
                                        class="link download"
-                                       <?= $block->escapeHtml($clickFunction); ?>
+                                       <?= /* @noEscape */ $clickFunction; ?>
                                     >
                                         <?= $block->escapeHtml($_item->getLinkTitle()) ?>
                                     </a>
                                 <?php endif; ?>
                             </td>
 
-                            <td data-th="<?= $block->escapeHtmlAttr(__('Status')) ?>" class="status">
+                            <td
+                                data-th="<?= $block->escapeHtmlAttr(__('Status')) ?>"
+                                class="status"
+                            >
                                 <?= __(ucfirst($_item->getStatus())) ?>
                             </td>
 
-                            <td data-th="<?= $block->escapeHtmlAttr(__('Remaining Downloads')) ?>"
+                            <td 
+                                data-th="<?= $block->escapeHtmlAttr(__('Remaining Downloads')) ?>"
                                 class="remaining"
                             >
                                 <?= $block->getRemainingDownloads($_item) ?>
