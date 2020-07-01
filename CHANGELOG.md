@@ -16,6 +16,7 @@ All notable changes to this project will be documented in this file.
 - product review stars validation (#67930)
 ### Removed
 - recently ordered from left column in catalog (#67862)
+- grouped product option table top border (#67844)
 ### Fixed
 - product tabs sorting (#67940)
 - remove duplicated add to cart button (#67929)
