@@ -30,11 +30,11 @@
     </div>
     <div class="payment-method-content">
         <!-- ko foreach: getRegion('messages') -->
-        <!-- ko template: getTemplate() --><!-- /ko -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
         <!--/ko-->
         <div class="payment-method-billing-address">
             <!-- ko foreach: $parent.getRegion(getBillingAddressFormName()) -->
-            <!-- ko template: getTemplate() --><!-- /ko -->
+                <!-- ko template: getTemplate() --><!-- /ko -->
             <!--/ko-->
         </div>
         <form
@@ -48,33 +48,35 @@
                 }"
             >
                 <!-- ko if: (isShowLegend())-->
-                <legend class="legend">
-                    <span><!-- ko i18n: 'Credit Card Information'--><!-- /ko --></span>
-                </legend>
-                <br/>
+                    <legend class="legend">
+                        <span>
+                            <!-- ko i18n: 'Credit Card Information'--><!-- /ko -->
+                        </span>
+                    </legend>
+                    <br/>
                 <!-- /ko -->
                 <div class="field type">
                     <div class="control">
                         <ul class="credit-card-types">
                             <!-- ko foreach: {data: getCcAvailableTypesValues(), as: 'item'} -->
-                            <li
-                                class="item"
-                                data-bind="css: {
-                                    _active: $parent.selectedCardType() == item.value,
-                                    _inactive: $parent.selectedCardType() != null && $parent.selectedCardType() != item.value
-                                }"
-                            >
-                                <!--ko if: $parent.getIcons(item.value) -->
-                                <img
-                                    data-bind="attr: {
-                                        'src': $parent.getIcons(item.value).url,
-                                        'alt': item.type,
-                                        'width': $parent.getIcons(item.value).width,
-                                        'height': $parent.getIcons(item.value).height
+                                <li
+                                    class="item"
+                                    data-bind="css: {
+                                        _active: $parent.selectedCardType() == item.value,
+                                        _inactive: $parent.selectedCardType() != null && $parent.selectedCardType() != item.value
                                     }"
                                 >
-                                <!--/ko-->
-                            </li>
+                                    <!--ko if: $parent.getIcons(item.value) -->
+                                    <img
+                                        data-bind="attr: {
+                                            'src': $parent.getIcons(item.value).url,
+                                            'alt': item.type,
+                                            'width': $parent.getIcons(item.value).width,
+                                            'height': $parent.getIcons(item.value).height
+                                        }"
+                                    >
+                                    <!--/ko-->
+                                </li>
                             <!--/ko-->
                         </ul>
                         <input
@@ -232,96 +234,98 @@
                     </div>
                 </div>
                 <!-- ko if: (hasVerification())-->
-                <div
-                    class="field cvv required"
-                    data-bind="attr: {id: getCode() + '_cc_type_cvv_div'}"
-                >
-                    <label
-                        data-bind="attr: {for: getCode() + '_cc_cid'}"
-                        class="label"
+                    <div
+                        class="field cvv required"
+                        data-bind="attr: {id: getCode() + '_cc_type_cvv_div'}"
                     >
-                        <span><!-- ko i18n: 'Card Verification Number'--><!-- /ko --></span>
-                    </label>
-                    <div class="control _with-tooltip">
-                        <input
-                            type="number"
-                            class="input__field credit-card__field cvv"
-                            name="payment[cc_cid]"
-                            value=""
-                            data-bind="
-                                attr: {
-                                    id: getCode() + '_cc_cid',
-                                    title: $t('Card Verification Number'),
-                                    'data-container': getCode() + '-cc-cvv',
-                                    'data-validate': JSON.stringify({
-                                        'required-number':true,
-                                        'validate-card-cvv':'#' + getCode() + '_cc_type'})
-                                    },
-                                value: creditCardVerificationNumber
-                            "
-                        />
-                        <button
-                            class="
-                                button
-                                button--secondary
-                                modal-trigger
-                            "
-                            type="button"
-                            aria-expanded="false"
-                            data-modal-trigger="credit-card-popup"
-                            data-bind="mageInit: { 'modal' : {} }"
+                        <label
+                            data-bind="attr: {for: getCode() + '_cc_cid'}"
+                            class="label"
                         >
-                            <!-- ko i18n: 'What is this?'--><!-- /ko -->
-                        </button>
-                        <div
-                            id="credit-card-popup"
-                            role="dialog"
-                            aria-hidden="true"
-                            data-modal="credit-card-popup"
-                            aria-labelledby="credit-card-title"
-                            class="modal"
-                        >
+                            <span>
+                                <!-- ko i18n: 'Card Verification Number'--><!-- /ko -->
+                            </span>
+                        </label>
+                        <div class="control _with-tooltip">
+                            <input
+                                type="number"
+                                class="input__field credit-card__field cvv"
+                                name="payment[cc_cid]"
+                                value=""
+                                data-bind="
+                                    attr: {
+                                        id: getCode() + '_cc_cid',
+                                        title: $t('Card Verification Number'),
+                                        'data-container': getCode() + '-cc-cvv',
+                                        'data-validate': JSON.stringify({
+                                            'required-number':true,
+                                            'validate-card-cvv':'#' + getCode() + '_cc_type'})
+                                        },
+                                    value: creditCardVerificationNumber
+                                "
+                            />
+                            <button
+                                class="
+                                    button
+                                    button--secondary
+                                    modal-trigger
+                                "
+                                type="button"
+                                aria-expanded="false"
+                                data-modal-trigger="credit-card-popup"
+                                data-bind="mageInit: { 'modal' : {} }"
+                            >
+                                <!-- ko i18n: 'What is this?'--><!-- /ko -->
+                            </button>
                             <div
-                                class="modal__container"
-                                role="document"
-                                tabindex="0"
+                                id="credit-card-popup"
+                                role="dialog"
+                                aria-hidden="true"
+                                data-modal="credit-card-popup"
+                                aria-labelledby="credit-card-title"
+                                class="modal"
                             >
                                 <div
-                                    class="
-                                        modal__content
-                                        padding-hz-xl
-                                        padding-vc-xl
-                                    "
-                                    data-bind="html: getCvvImageHtml()"
-                                ></div>
-                                <button
-                                    class="
-                                        button
-                                        button--icon
-                                        button--rotate-icon
-                                        modal__close-button
-                                    "
-                                    type="button"
-                                    data-bind="attr: {
-                                        'aria-label': $t('Close modal')
-                                    }"
+                                    class="modal__container"
+                                    role="document"
+                                    tabindex="0"
                                 >
-                                    <svg
+                                    <div
                                         class="
-                                            icon
-                                            button__icon
-                                            modal__close-button-icon
+                                            modal__content
+                                            padding-hz-xl
+                                            padding-vc-xl
                                         "
-                                        role="presentation"
-                                        focusable="false"
+                                        data-bind="html: getCvvImageHtml()"
+                                    ></div>
+                                    <button
+                                        class="
+                                            button
+                                            button--icon
+                                            button--rotate-icon
+                                            modal__close-button
+                                        "
+                                        type="button"
+                                        data-bind="attr: {
+                                            'aria-label': $t('Close modal')
+                                        }"
                                     >
-                                        <use data-bind="attr: { 'xlink:href': require.toUrl('images/icons-sprite.svg#checked') }" xlink:href=''></use>
-                                    </svg>
-                                </button>
+                                        <svg
+                                            class="
+                                                icon
+                                                button__icon
+                                                modal__close-button-icon
+                                            "
+                                            role="presentation"
+                                            focusable="false"
+                                        >
+                                            <use data-bind="attr: { 'xlink:href': require.toUrl('images/icons-sprite.svg#checked') }" xlink:href=''></use>
+                                        </svg>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 <!-- /ko -->
 
                 <!-- ko if: (isVaultEnabled())-->
@@ -365,7 +369,7 @@
         </form>
         <div class="checkout-agreements-block">
             <!-- ko foreach: $parent.getRegion('before-place-order') -->
-            <!-- ko template: getTemplate() --><!-- /ko -->
+                <!-- ko template: getTemplate() --><!-- /ko -->
             <!--/ko-->
         </div>
         <div class="actions-toolbar">
