@@ -393,6 +393,35 @@ module.exports = {
           }
         ]
       }
-    }
+    },
+    {
+      name: 'Buttons',
+      context: {
+        class: 'dropdown-list--buttons',
+        dropdowns: [
+          {
+            itemTag: 'button',
+            itemAttributes: 'type="button" aria-expanded="false"',
+            title: 'dropdown title',
+            textClass: 'dropdown-list__text margin-hz-s',
+            id: 'dropdown-buttons-content',
+            class: 'button button--icon',
+            iconBefore: {
+              id: 'heart',
+              title: 'Heart',
+              class: 'button__icon',
+              attributes: 'aria-hidden="true"'
+            },
+            collapse: {
+              id: 'angle-down',
+              title: 'Arrow Down',
+              class: 'dropdown-list__icon button__icon margin-0',
+              attributes: 'aria-hidden="true"'
+            },
+            contentElement: 'list'
+          }
+        ]
+      }
+    },
   ]
 };

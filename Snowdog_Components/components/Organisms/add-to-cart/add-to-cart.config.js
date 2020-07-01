@@ -1,6 +1,8 @@
 module.exports = {
   context: {
     title: 'Bluzka ONLSANSA SINGLET WVN',
+    hiddenForEE: false,
+    class: '',
     classTitle: 'padding-right-m',
     moreIcon: {
       id: 'more',

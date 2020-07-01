@@ -49,6 +49,35 @@ module.exports = {
           class: 'select__button'
         }
       }
-    }
+    },
+    {
+      name: 'multi',
+      context: {
+        script: false,
+        class: 'select--multi',
+        field: {
+          class: 'padding-0',
+          attributes: 'multiple="multiple"'
+        },
+        options: [
+          {
+            class: 'padding-hz-m',
+            value: 'option1',
+            text: 'Option 1'
+          },
+          {
+            class: 'padding-hz-m',
+            value: 'option2',
+            text: 'Option 2'
+          },
+          {
+            class: 'padding-hz-m',
+            value: 'option3',
+            text: 'Option 3',
+            attributes: 'disabled'
+          }
+        ]
+      }
+    },
   ]
 };
