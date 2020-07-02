@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - update variables name and styles in product view, swatches, mega menu (#62512)
 - quicksearch display, variables & components view (#65066)
+- show category description when category image isn't set (#68329)
 ### Fixed
 - search autocomplete product image size (#68106)
 - a translate function `__()` call in product view Qty template (#68056)
