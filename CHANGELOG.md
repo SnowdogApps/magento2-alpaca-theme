@@ -22,7 +22,7 @@ All notable changes to this project will be documented in this file.
 - product tabs sorting (#67940)
 - remove duplicated add to cart button (#67929)
 - escape keydown event binding on catalog (#59884)
-- product grid item lazyload height, image_with_borders.phtml src value
+- product grid item lazyload height, product grid display on safari, image_with_borders.phtml src value
 
 ## [Released]
 ## [2.2.0] - 2020-06-15
