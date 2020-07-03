@@ -16,6 +16,7 @@ All notable changes to this project will be documented in this file.
 - search autocomplete product image size (#68106)
 - a translate function `__()` call in product view Qty template (#68056)
 - product review stars validation (#67930)
+- templates for mobile menu (#68012)
 ### Removed
 - recently ordered from left column in catalog (#67862)
 - grouped product option table top border (#67844)
