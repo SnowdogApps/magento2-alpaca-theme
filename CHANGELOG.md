@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Added
+### Changed
+### Fixed
+### Removed
+
+
+## [Released]
+
+## [2.3.0] - 2020-07-03
+### Added
 - extra variables to mega-menu template (#68257)
 - styling for multiselect (#67928)
 - requisition and wishlist dropdown to site (#66270)
@@ -21,16 +30,14 @@ All notable changes to this project will be documented in this file.
 - product review stars validation (#67930)
 - templates for mobile menu (#68012)
 - amasty gift card price on init on PDP (#68423)
-### Removed
-- recently ordered from left column in catalog (#67862)
-- grouped product option table top border (#67844)
-### Fixed
 - product tabs sorting (#67940)
 - remove duplicated add to cart button (#67929)
 - escape keydown event binding on catalog (#59884)
 - product grid item lazyload height, product grid display on safari, image_with_borders.phtml src value
+### Removed
+- recently ordered from left column in catalog (#67862)
+- grouped product option table top border (#67844)
 
-## [Released]
 ## [2.2.0] - 2020-06-15
 ### Fixed
 - update theme templates for M v2.3.5 (#66621)
