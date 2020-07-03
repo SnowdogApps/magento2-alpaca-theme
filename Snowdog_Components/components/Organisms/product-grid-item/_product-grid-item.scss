@@ -9,7 +9,6 @@
     border: $product-grid-item__border;
     border-width: $product-grid-item__border-width;
     padding: $product-grid-item__padding;
-    display: -webkit-box; // sass-lint:disable-line no-vendor-prefixes
     @include darken-layout-hover('.product-grid-item__image-wrapper');
 
     @include isIE() {
@@ -17,6 +16,13 @@
         width: $product-grid-item__IE-width;
         @include mq($screen-m) {
             width: $product-grid-item__IE-width\@medium;
+        }
+    }
+
+    /* Safari 11+ */
+    @media not all and (min-resolution:.001dpcm) {
+        @supports (-webkit-appearance:none) and (stroke-color:transparent) {
+            display: -webkit-box;
         }
     }
 
