@@ -2,12 +2,42 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
 ### Added
 ### Changed
 ### Fixed
 ### Removed
 
+
 ## [Released]
+
+## [2.3.0] - 2020-07-03
+### Added
+- extra variables to mega-menu template (#68257)
+- styling for multiselect (#67928)
+- requisition and wishlist dropdown to site (#66270)
+- AuthorizeNet CC, PaypalExpress payment methods, Amazon_Payment checkout login adjustment (#68526)
+- swatches to products widget, related, upsells, crosssells (#64777)
+- adding to cart with ajax in product widget (#64777)
+### Changed
+- update variables name and styles in product view, swatches, mega menu (#62512)
+- quicksearch display, variables & components view (#65066)
+- show category description when category image isn't set (#68329)
+- update variables - brief-info--link title color, newsletter subtitle & checkbox, footer scroll top background (#67878)
+### Fixed
+- search autocomplete product image size (#68106)
+- a translate function `__()` call in product view Qty template (#68056)
+- product review stars validation (#67930)
+- templates for mobile menu (#68012)
+- amasty gift card price on init on PDP (#68423)
+- product tabs sorting (#67940)
+- remove duplicated add to cart button (#67929)
+- escape keydown event binding on catalog (#59884)
+- product grid item lazyload height, product grid display on safari, image_with_borders.phtml src value
+### Removed
+- recently ordered from left column in catalog (#67862)
+- grouped product option table top border (#67844)
+
 ## [2.2.0] - 2020-06-15
 ### Fixed
 - update theme templates for M v2.3.5 (#66621)

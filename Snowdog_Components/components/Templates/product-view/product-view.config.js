@@ -430,6 +430,103 @@ module.exports = {
           ]
         }
       }
+    },
+    {
+      name: 'ee',
+      context: {
+        addToCartFixed: {
+          hiddenForEE: true,
+          class: 'add-to-cart--ee',
+          title: 'Bluzka ONLSANSA SINGLET WVN',
+        },
+        compareBtn: {
+          text: 'Compare',
+          tag: 'button',
+          class: 'product-view__button',
+          iconBefore: {
+            id: 'compare',
+            title: 'Add to compare list',
+            class: 'button__icon',
+            hidden: true
+          },
+          attributes: 'type="button" aria-label="Compare product"'
+        },
+        emailBtn: {
+          tag: 'a',
+          text: 'Email',
+          class: 'product-view__button',
+          iconBefore: {
+            id: 'envelope',
+            title: 'Arrow left',
+            class: 'button__icon',
+            hidden: true
+          },
+          attributes: 'aria-label="Mail to friend"'
+        },
+        requisitionListDropdown: {
+          class: 'dropdown-list--buttons',
+          dropdowns: [
+            {
+              itemTag: 'button',
+              itemAttributes: 'type="button" aria-expanded="false"',
+              title: 'Requisition List',
+              textClass: 'dropdown-list__text margin-hz-s',
+              id: 'dropdown-buttons-content',
+              class: 'button button--icon',
+              iconBefore: {
+                id: 'requisition-list',
+                title: 'Requisition List',
+                class: 'button__icon',
+                attributes: 'aria-hidden="true"'
+              },
+              collapse: {
+                id: 'angle-down',
+                title: 'Arrow Down',
+                class: 'dropdown-list__icon button__icon margin-0',
+                attributes: 'aria-hidden="true"'
+              },
+              contentElement: 'list'
+            }
+          ]
+        },
+        wishListDropdown: {
+          class: 'product-view__multiwishlist dropdown-list--buttons',
+          dropdowns: [
+            {
+              itemTag: 'button',
+              itemAttributes: 'type="button" aria-expanded="false"',
+              title: 'Wish List',
+              textClass: 'dropdown-list__text margin-hz-s',
+              id: 'dropdown-buttons-content2',
+              class: 'button button--icon',
+              iconBefore: {
+                id: 'heart',
+                title: 'Heart',
+                class: 'button__icon',
+                attributes: 'aria-hidden="true"'
+              },
+              collapse: {
+                id: 'angle-down',
+                title: 'Arrow Down',
+                class: 'dropdown-list__icon button__icon margin-0',
+                attributes: 'aria-hidden="true"'
+              },
+              contentElement: 'list'
+            }
+          ]
+        },
+        updateWishList: {
+          tag: 'button',
+          text: 'Update Wish List',
+          class: 'button button--icon product-view__update-wishlist product-view__addtowishlist product-view__addtowishlist--update',
+          iconBefore: {
+            id: 'heart',
+            title: 'Heart',
+            class: 'button__icon',
+            attributes: 'aria-hidden="true"'
+          },
+        }
+      }
     }
   ]
 };
