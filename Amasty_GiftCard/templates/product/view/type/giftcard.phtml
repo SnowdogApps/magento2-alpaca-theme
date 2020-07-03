@@ -6,6 +6,12 @@
     <div
         class="fieldset"
         data-amgiftcard-js="amgiftcard-fieldset"
+        data-mage-init='{ "amastyGiftCardMain": {
+            "productId": "<?= $_product->getId(); ?>",
+            "feeType": "<?= $_product->getAmGiftcardFeeType(); ?>",
+            "feeValue": "<?= $block->getFeeAmount(); ?>"
+          }
+        }'
     >
         <?php if ($block->isMultiAmount() || $_product->getAmGiftcardPrices()) : ?>
             <div class="field required">
@@ -390,16 +396,9 @@
         <script>
             require([
                 'jquery',
-                'Amasty_GiftCard/js/main',
                 "mage/calendar",
                 "mage/tooltip"
             ], function ($) {
-                $('[data-amgiftcard-js="amgiftcard-fieldset"]').amGiftcard({
-                    productId: "<?= $_product->getId(); ?>",
-                    feeType: "<?= $_product->getAmGiftcardFeeType(); ?>",
-                    feeValue: "<?= $block->getFeeAmount(); ?>"
-                });
-
                 if ($('[data-amgiftcard-js="amgiftcard-delivery-date"]')) {
                     $('[data-amgiftcard-js="amgiftcard-delivery-date"]').calendar({
                         showTime: false,
