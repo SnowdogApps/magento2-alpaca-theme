@@ -8,6 +8,8 @@ All notable changes to this project will be documented in this file.
 - styling for multiselect (#67928)
 - requisition and wishlist dropdown to site (#66270)
 - AuthorizeNet CC, PaypalExpress payment methods, Amazon_Payment checkout login adjustment (#68526)
+- swatches to products widget, related, upsells, crosssells (#64777)
+- adding to cart with ajax in product widget (#64777)
 ### Changed
 - update variables name and styles in product view, swatches, mega menu (#62512)
 - quicksearch display, variables & components view (#65066)
