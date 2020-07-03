@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 - extra variables to mega-menu template (#68257)
 - styling for multiselect (#67928)
 - requisition and wishlist dropdown to site (#66270)
+- AuthorizeNet CC, PaypalExpress payment methods, Amazon_Payment checkout login adjustment (#68526)
 ### Changed
 - update variables name and styles in product view, swatches, mega menu (#62512)
 - quicksearch display, variables & components view (#65066)
