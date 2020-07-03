@@ -21,6 +21,7 @@ All notable changes to this project will be documented in this file.
 - product review stars validation (#67930)
 - templates for mobile menu (#68012)
 - amasty gift card price on init on PDP (#68423)
+- customer account address country list `for` loop (#68610)
 ### Removed
 - recently ordered from left column in catalog (#67862)
 - grouped product option table top border (#67844)
