@@ -30,6 +30,7 @@ All notable changes to this project will be documented in this file.
 - product review stars validation (#67930)
 - templates for mobile menu (#68012)
 - amasty gift card price on init on PDP (#68423)
+- customer account address country list `for` loop (#68610)
 - product tabs sorting (#67940)
 - remove duplicated add to cart button (#67929)
 - escape keydown event binding on catalog (#59884)
