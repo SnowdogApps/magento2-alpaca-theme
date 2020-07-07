@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 - styled subscribe checkbox (#68462)
 ### Changed
+- reduced spacing above Available in stores (#68585)
 ### Fixed
 ### Removed
 
