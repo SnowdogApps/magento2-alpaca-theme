@@ -25,6 +25,7 @@ All notable changes to this project will be documented in this file.
 - update variables name and styles in product view, swatches, mega menu (#62512)
 - quicksearch display, variables & components view (#65066)
 - show category description when category image isn't set (#68329)
+- gift card template (#68589)
 - update variables - brief-info--link title color, newsletter subtitle & checkbox, footer scroll top background (#67878)
 ### Fixed
 - search autocomplete product image size (#68106)
