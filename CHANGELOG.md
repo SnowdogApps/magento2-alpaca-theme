@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 - styled subscribe checkbox (#68462)
+- zoom icon to product gallery (#68584)
 ### Changed
 ### Fixed
 ### Removed
