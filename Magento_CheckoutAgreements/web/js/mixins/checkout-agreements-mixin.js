@@ -9,8 +9,8 @@ define([], function () {
         return e.childNodes[0].nodeValue;
       },
 
-      getCheckboxText: function (element) {
-        return this.htmlDecode(element.checkboxText);
+      getCheckboxText: function (data) {
+        return this.htmlDecode(data.checkboxText);
       }
     });
   };
