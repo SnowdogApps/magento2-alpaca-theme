@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 - styled subscribe checkbox (#68462)
+- html support for terms and conditions checkbox text (#68597)
 ### Changed
 - reduced spacing above Available in stores (#68585)
 ### Fixed
