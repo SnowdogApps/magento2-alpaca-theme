@@ -70,6 +70,19 @@ $yotpo-reviews__login-socialize-wrapper-width       : calc(#{$yotpo-reviews__log
 $yotpo-reviews__logo-text-color                     : $color-info !default;
 $yotpo-reviews__logo-icon-color                     : $color-info !default;
 
+$yotpo-reviews__pager-page-color                    : $color-primary !default;
+$yotpo-reviews__pager-page-color-hover              : $blue !default;
+$yotpo-reviews__pager-page-color-active             : $color-primary !default;
+$yotpo-reviews__pager-page-font-size                : $font-size-medium !default;
+$yotpo-reviews__pager-page-icon-size                : $spacer--extra-large !default;
+$yotpo-reviews__pager-page-text-decoration-hover    : underline !default;
+$yotpo-reviews__pager-arrow-icon-color              : $color-primary !default;
+$yotpo-reviews__pager-arrow-icon-color-hover        : $white !default;
+$yotpo-reviews__pager-arrow-icon-bg-color-hover     : $color-primary !default;
+$yotpo-reviews__pager-arrow-font-size               : $font-size-base !default;
+$yotpo-reviews__pager-arrow-font-weight             : $font-weight-bold !default;
+$yotpo-reviews__pager-arrow-size                    : $spacer--extra-large !default;
+
 $yotpo-reviews__review-icon-size                    : 20px !default;
 $yotpo-reviews__star-color                          : $color-primary !default;
 
@@ -167,21 +180,83 @@ $yotpo-reviews__date-font-weight                    : $font-weight-normal !defau
             }
 
             .yotpo-pager {
-
+                display: flex;
+                align-items: center;
+                justify-content: center;
                 .goTo {
-                    width: 32px;
-                    height: 32px;
+                    @extend .link;
+                    position: relative;
+                    width: $yotpo-reviews__pager-page-icon-size;
+                    height: $yotpo-reviews__pager-page-icon-size;
                     display: inline-flex;
                     align-items: center;
                     justify-content: center;
+                    margin: 0;
+                    color: $yotpo-reviews__pager-page-color;
+                    font-size: $yotpo-reviews__pager-page-font-size;
+                    &:hover {
+                        color: $yotpo-reviews__pager-page-color-hover !important;
+                        text-decoration: $yotpo-reviews__pager-page-text-decoration-hover !important;
+                    }
+                    + .goTo {
+                        margin-left: $spacer;
+                    }
+                    &.yotpo-active {
+                        color: $yotpo-reviews__pager-page-color-active !important;
+                        &:hover {
+                            cursor: default !important;
+                            color: $yotpo-reviews__pager-page-color-active !important;
+                            text-decoration: none !important;
+                        }
+                        &:after {
+                            @extend .pager__item--current:after;
+                        }
+                    }
                 }
 
                 .yotpo-icon {
+                    @extend .link;
+                    color: $yotpo-reviews__pager-arrow-icon-color;
+                    font-size: $yotpo-reviews__pager-arrow-font-size !important;
+                    font-weight: $yotpo-reviews__pager-arrow-font-weight;
+                    width: $yotpo-reviews__pager-arrow-size !important;
+                    height: $yotpo-reviews__pager-arrow-size !important;
+                    align-items: center;
+                    justify-content: center;
+                    position: relative;
+                    &:before {
+                        @extend %button-after:after;
+                        opacity: 1;
+                        z-index: 1;
+                    }
+                    &:after {
+                        @extend %button-after:after;
+                    }
+                    &:hover {
+                        color: $yotpo-reviews__pager-arrow-icon-color-hover !important;
+                        background-color: $yotpo-reviews__pager-arrow-icon-bg-color-hover!important;
+                        &:after {
+                            opacity: 1;
+                            z-index: 10;
+                        }
+                    }
                     &.yotpo-icon-left-arrow {
-                        margin-right: $spacer;
+                        margin-right: $spacer--medium;
+                        &:before {
+                            content: url("../images/icons/arrow-left.svg") !important;
+                        }
+                        &:after {
+                            content: url("../images/icons/arrow-left-light.svg") !important;
+                        }
                     }
                     &.yotpo-icon-right-arrow {
-                        margin-left: $spacer;
+                        margin-left: $spacer--medium;
+                        &:before {
+                            content: url("../images/icons/arrow-right.svg") !important;
+                        }
+                        &:after {
+                            content: url("../images/icons/arrow-right-light.svg") !important;
+                        }
                     }
                 }
             }
