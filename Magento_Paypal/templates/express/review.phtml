@@ -1,10 +1,5 @@
 <?php
 /**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
-
-/**
  * @var \Magento\Paypal\Block\Express\Review $block
  */
 ?>
@@ -14,31 +9,52 @@
             <?php if ($block->getShippingAddress()) : ?>
                 <div class="box box-order-shipping-method">
                     <strong class="box-title">
-                        <span><?= $block->escapeHtml(__('Shipping Method')) ?></span>
+                        <span>
+                            <?= $block->escapeHtml(__('Shipping Method')) ?>
+                        </span>
                     </strong>
                     <div class="box-content">
-                        <form method="post" id="shipping-method-form"
-                              action="<?= $block->escapeUrl($block->getShippingMethodSubmitUrl()) ?>"
-                              class="form">
+                        <form
+                            method="post"
+                            id="shipping-method-form"
+                            action="<?= $block->escapeUrl($block->getShippingMethodSubmitUrl()) ?>"
+                            class="form"
+                        >
                             <?php if ($block->canEditShippingMethod()) : ?>
                                 <?php if ($groups = $block->getShippingRateGroups()) : ?>
                                     <?php $currentRate = $block->getCurrentShippingRate(); ?>
-                                    <div class="field shipping required">
-                                        <select name="shipping_method" id="shipping-method" class="select">
+                                    <div
+                                        class="
+                                            field
+                                            shipping
+                                            required
+                                        "
+                                    >
+                                        <select
+                                            name="shipping_method"
+                                            id="shipping-method"
+                                            class="select"
+                                        >
                                             <?php if (!$currentRate) : ?>
-                                                <option value=""><?= $block->escapeHtml(__('Please select a shipping method...')); ?></option>
+                                                <option value="">
+                                                    <?= $block->escapeHtml(__('Please select a shipping method...')); ?>
+                                                </option>
                                             <?php endif; ?>
                                             <?php foreach ($groups as $code => $rates) : ?>
-                                                <optgroup label="<?= $block->escapeHtmlAttr($block->getCarrierName($code)); ?>">
+                                                <optgroup
+                                                    label="<?= $block->escapeHtmlAttr($block->getCarrierName($code)); ?>"
+                                                >
                                                     <?php foreach ($rates as $rate) : ?>
-                                                        <option value="<?=
-                                                                        $block->escapeHtml(
-                                                                            $block->renderShippingRateValue($rate)
-                                                                        );
-                                                                        ?>"
-                                                            <?= ($currentRate === $rate) ?
-                                                                ' selected="selected"' : '';
-                                                            ?>>
+                                                        <option
+                                                            value="
+                                                                <?=
+                                                                    $block->escapeHtml(
+                                                                        $block->renderShippingRateValue($rate)
+                                                                    );
+                                                                ?>
+                                                            "
+                                                            <?= ($currentRate === $rate) ? ' selected="selected"' : ''; ?>
+                                                        >
                                                             <?= /* @noEscape */ $block->renderShippingRateOption($rate); ?>
                                                         </option>
                                                     <?php endforeach; ?>
@@ -48,8 +64,11 @@
                                     </div>
                                     <div class="actions-toolbar">
                                         <div class="primary">
-                                            <button id="update-shipping-method-submit" type="submit"
-                                                    class="action update primary">
+                                            <button
+                                                id="update-shipping-method-submit"
+                                                type="submit"
+                                                class="action update primary"
+                                            >
                                                 <span>
                                                     <?= $block->escapeHtml(__('Update Shipping Method')) ?>
                                                 </span>
@@ -58,9 +77,7 @@
                                     </div>
                                 <?php else : ?>
                                     <p>
-                                        <?= $block->escapeHtml(__(
-                                            'Sorry, no quotes are available for this order right now.'
-                                        )); ?>
+                                        <?= $block->escapeHtml(__('Sorry, no quotes are available for this order right now.')); ?>
                                     </p>
                                 <?php endif; ?>
                             <?php else : ?>
@@ -75,37 +92,54 @@
                 </div>
                 <div class="box box-order-shipping-address">
                     <strong class="box-title">
-                        <span><?= $block->escapeHtml(__('Shipping Address')) ?></span>
+                        <span>
+                            <?= $block->escapeHtml(__('Shipping Address')) ?>
+                        </span>
                     </strong>
                     <div class="box-content">
                         <address>
-                            <?= $block->escapeHtml(
-                                $block->renderAddress($block->getShippingAddress()),
-                                ['br']
-                            );?>
+                            <?= $block->escapeHtml($block->renderAddress($block->getShippingAddress()), ['br']);?>
                         </address>
                     </div>
                     <?php if ($block->getCanEditShippingAddress()) : ?>
                         <div class="box-actions">
-                            <a href="<?= $block->escapeUrl($block->getEditUrl()) ?>" class="action edit">
-                                <span><?= $block->escapeHtml(__('Edit')) ?></span>
+                            <a
+                                href="<?= $block->escapeUrl($block->getEditUrl()) ?>"
+                                class="action edit"
+                            >
+                                <span>
+                                    <?= $block->escapeHtml(__('Edit')) ?>
+                                </span>
                             </a>
                         </div>
                     <?php endif; ?>
                 </div>
             <?php endif; ?>
             <div class="box box-order-billing-address">
-                <strong class="box-title"><span><?= $block->escapeHtml(__('Payment Method')) ?></span></strong>
+                <strong class="box-title">
+                    <span>
+                        <?= $block->escapeHtml(__('Payment Method')) ?>
+                    </span>
+                </strong>
                 <div class="box-content">
-                    <?= $block->escapeHtml($block->getPaymentMethodTitle()) ?><br>
-                    <?= $block->escapeHtml($block->getEmail()) ?> <br>
-                    <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/pp-acceptance-medium.png"
-                         alt="<?= $block->escapeHtmlAttr(__('Buy now with PayPal')) ?>"/>
+                    <?= $block->escapeHtml($block->getPaymentMethodTitle()) ?>
+                    <br>
+                    <?= $block->escapeHtml($block->getEmail()) ?>
+                    <br>
+                    <img
+                        src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/pp-acceptance-medium.png"
+                        alt="<?= $block->escapeHtmlAttr(__('Buy now with PayPal')) ?>"
+                    />
                 </div>
             <?php if ($block->getEditUrl()) : ?>
                 <div class="box-actions">
-                    <a href="<?= $block->escapeUrl($block->getEditUrl()) ?>" class="action edit">
-                        <span><?= $block->escapeHtml(__('Edit Payment Information')) ?></span>
+                    <a
+                        href="<?= $block->escapeUrl($block->getEditUrl()) ?>"
+                        class="action edit"
+                    >
+                        <span>
+                            <?= $block->escapeHtml(__('Edit Payment Information')) ?>
+                        </span>
                     </a>
                 </div>
             <?php endif ?>
@@ -119,27 +153,53 @@
 
     <div class="paypal-review-items">
         <div class="paypal-review-title">
-            <strong><?= $block->escapeHtml(__('Items in Your Shopping Cart')) ?></strong>
-            <a href="<?= $block->escapeUrl($block->getUrl('checkout/cart')) ?>" class="action edit">
-                <span><?= $block->escapeHtml(__('Edit Shopping Cart')) ?></span>
+            <strong>
+                <?= $block->escapeHtml(__('Items in Your Shopping Cart')) ?>
+            </strong>
+            <a
+                href="<?= $block->escapeUrl($block->getUrl('checkout/cart')) ?>"
+                class="action edit"
+            >
+                <span>
+                    <?= $block->escapeHtml(__('Edit Shopping Cart')) ?>
+                </span>
             </a>
         </div>
 
         <?= $block->getChildHtml('details') ?>
 
-        <form method="post" id="order-review-form" action="<?= $block->escapeUrl($block->getPlaceOrderUrl()) ?>"
-              class="form order-review-form">
+        <form
+            method="post"
+            id="order-review-form"
+            action="<?= $block->escapeUrl($block->getPlaceOrderUrl()) ?>"
+            class="form order-review-form"
+        >
             <?= $block->getChildHtml('agreements') ?>
-            <div class="actions-toolbar" id="review-buttons-container">
+            <div
+                class="actions-toolbar"
+                id="review-buttons-container"
+            >
                 <div class="primary">
-                    <button type="button" id="review-button" class="action checkout primary"
-                            value="<?= $block->escapeHtmlAttr(__('Place Order')) ?>">
-                        <span><?= $block->escapeHtml(__('Place Order')) ?></span>
+                    <button
+                        type="button"
+                        id="review-button"
+                        class="action checkout primary"
+                        value="<?= $block->escapeHtmlAttr(__('Place Order')) ?>"
+                    >
+                        <span>
+                            <?= $block->escapeHtml(__('Place Order')) ?>
+                        </span>
                     </button>
                 </div>
-                <span class="please-wait load indicator" id="review-please-wait" style="display: none;"
-                      data-text="<?= $block->escapeHtmlAttr(__('Submitting order information...')) ?>">
-                   <span><?= $block->escapeHtml(__('Submitting order information...')) ?></span>
+                <span
+                    class="please-wait load indicator"
+                    id="review-please-wait"
+                    style="display: none;"
+                    data-text="<?= $block->escapeHtmlAttr(__('Submitting order information...')) ?>"
+                >
+                   <span>
+                       <?= $block->escapeHtml(__('Submitting order information...')) ?>
+                    </span>
                 </span>
             </div>
         </form>
