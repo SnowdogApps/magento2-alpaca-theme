@@ -16,6 +16,9 @@ All notable changes to this project will be documented in this file.
 
 ## [Released]
 
+### Fixed
+- issue with special characters in product name in minicart (#68844)
+
 ## [2.3.0] - 2020-07-03
 ### Added
 - extra variables to mega-menu template (#68257)
