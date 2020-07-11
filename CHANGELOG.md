@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 - html support for terms and conditions checkbox text (#68597)
 ### Changed
 - reduced spacing above Available in stores (#68585)
+- $font-family-sans-serif to $font-family-base (#68405)
 ### Fixed
 - bundle with multiselect - options in summary (#68469)
 - add mising price wrapper class (#61546)
