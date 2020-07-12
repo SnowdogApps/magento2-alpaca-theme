@@ -81,6 +81,7 @@ $yotpo-reviews__listing-review-line-height          : $font-line-height !default
 $yotpo-reviews__listing-review-margin-left          : $spacer !default;
 
 $yotpo-reviews__login-connect-wrapper-width         : 320px !default;
+$yotpo-reviews__login-username-top-offset           : 62px !default;
 $yotpo-reviews__login-socialize-wrapper-width       : calc(#{$yotpo-reviews__login-connect-wrapper-width} + 10px) !default;
 
 $yotpo-reviews__logo-text-color                     : $color-info !default;
@@ -622,24 +623,33 @@ $yotpo-reviews__date-font-weight                    : $font-weight-normal !defau
                 .yotpo-footer {
                     @include mq($yotpo-reviews__footer-breakpoint) {
                         display : flex !important;
+                        flex-direction: row;
                         justify-content: space-between;
-                        align-items: flex-end;
                     }
                     @include mq($yotpo-reviews__footer-breakpoint) {
                         justify-content: flex-start;
+                    }
+                    &.visible {
+                        display: flex !important;
+                        flex-direction: column;
+                        @include mq($yotpo-reviews__footer-breakpoint) {
+                            flex-direction: row;
+                        }
                     }
                     .socialize-wrapper.visible {
                         display: flex !important;
                         flex-wrap: wrap;
                         justify-content: flex-start;
                         flex-direction: column;
+                        order: 3;
+                        margin-top: $spacer--large;
                         @include mq($yotpo-reviews__footer-breakpoint) {
-                            order: 2;
                             left: auto;
                             right: 0;
                             width: calc(50% - #{$spacer--semi-medium});
                             margin-left: $spacer--semi-medium;
-                            padding-top: 20px;
+                            margin-top: $yotpo-reviews__login-username-top-offset;
+                            padding-top: 0;
                         }
                         .connected {
                             width: 100%;
