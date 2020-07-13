@@ -4,8 +4,8 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Added
+- yotpo reviews  support (#68077) 
 - styled subscribe checkbox (#68462)
-- html support for terms and conditions checkbox text (#68597)
 - zoom icon to product gallery (#68584)
 ### Changed
 - reduced spacing above Available in stores (#68585)
@@ -14,7 +14,6 @@ All notable changes to this project will be documented in this file.
 - bundle with multiselect - options in summary (#68469)
 - add mising price wrapper class (#61546)
 ### Removed
-
 
 ## [Released]
 
