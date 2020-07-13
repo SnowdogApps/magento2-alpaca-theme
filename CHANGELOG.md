@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Added
+- yotpo reviews  support (#68077) 
 - extra variables to mega-menu template (#68257)
 - styling for multiselect (#67928)
 - requisition and wishlist dropdown to site (#66270)
