@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 
 
 ## [Released]
+
+## [2.4.0] - 2020-07-13
 ### Added
 - yotpo reviews  support (#68077) 
 - styled subscribe checkbox (#68462)
