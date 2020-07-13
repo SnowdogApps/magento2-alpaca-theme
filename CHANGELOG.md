@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 - styled subscribe checkbox (#68462)
 - html support for terms and conditions checkbox text (#68597)
+- zoom icon to product gallery (#68584)
 ### Changed
 - reduced spacing above Available in stores (#68585)
 - $font-family-sans-serif to $font-family-base (#68405)
