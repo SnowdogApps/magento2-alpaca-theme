@@ -8,9 +8,10 @@ All notable changes to this project will be documented in this file.
 
 ## [2.4.0] - 2020-07-13
 ### Added
-- yotpo reviews  support (#68077) 
+- yotpo reviews  support (#68077)
 - styled subscribe checkbox (#68462)
 - zoom icon to product gallery (#68584)
+- map object from original require-config file (#68776)
 ### Changed
 - reduced spacing above Available in stores (#68585)
 - $font-family-sans-serif to $font-family-base (#68405)
