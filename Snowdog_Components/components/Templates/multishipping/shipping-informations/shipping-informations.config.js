@@ -1,12 +1,65 @@
 module.exports = {
   preview: '@checkout',
   context: {
-    heading: {
-      tag: 'strong',
-      class: 'block-title',
-      text: 'Address 1 of 1'
-    },
     shippingClass: 'margin-bottom-m',
+    addresses: {
+      title: {
+        tag: 'h2',
+        class: 'dashboard-table__title',
+        text: 'Address 1 of 1'
+      },
+      link: {
+        text: 'Manage Addresses',
+        class: 'dashboard-table__link'
+      },
+      informations: [
+        {
+          title: {
+            tag: 'h3',
+            class: 'dashboard-items__subtitle margin-bottom-l',
+            text: 'Shipping to'
+          },
+          class: 'col-sm-6',
+          information: 'qweqwe qwe 136 N. Bay Road',
+          actions: {
+            sides: [
+              {
+                action: [
+                  {
+                    link: {
+                      text: 'Change',
+                      class: 'actions-group__link'
+                    }
+                  },
+                ]
+              }
+            ]
+          }
+        },
+        {
+          title: {
+            tag: 'h3',
+            class: 'dashboard-items__subtitle margin-bottom-l',
+            text: 'Shipping Method'
+          },
+          class: 'col-sm-6',
+          contentComponent: 'radio',
+          contentContext: {
+            name: 'radio1',
+            legendClass: '',
+            fieldsetClass: 'Flat Rate',
+            legend: 'Choose option',
+            legendId: 'legend-id',
+            options: [
+              {
+                id: 'id1',
+                label: 'Option one'
+              },
+            ]
+          },
+        }
+      ]
+    },
     table: {
       table: {
         captionText: 'This sis a table. Binded text in caption should explain what kind of data this table presents. Can be also a longer text with inline HTML elements inside',
