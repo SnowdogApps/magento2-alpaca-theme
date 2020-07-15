@@ -2,13 +2,14 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+## [Released]
+
+## [2.5.0] - 2020-07-15
 ### Fixed
 - cart & checkout discount summary (#68737)
 ## Removed
 - 'what is paypal?' from paypal express template (#68737)
-
-
-## [Released]
 
 ## [2.4.0] - 2020-07-13
 ### Added
