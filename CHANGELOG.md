@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Added
 - pointer cursor for zoom in icon (#69031)
+### Fixed
+- modal close icon overlay on text (#69152)
 
 ## [Released]
 
