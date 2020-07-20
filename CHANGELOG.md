@@ -2,17 +2,30 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
-
 ### Added
-- styled subscribe checkbox (#68462)
-### Changed
-- reduced spacing above Available in stores (#68585)
-### Fixed
-- bundle with multiselect - options in summary (#68469)
-### Removed
-
+- pointer cursor for zoom in icon (#69031)
 
 ## [Released]
+
+## [2.5.0] - 2020-07-15
+### Fixed
+- cart & checkout discount summary (#68737)
+## Removed
+- 'what is paypal?' from paypal express template (#68737)
+
+## [2.4.0] - 2020-07-13
+### Added
+- yotpo reviews  support (#68077)
+- styled subscribe checkbox (#68462)
+- zoom icon to product gallery (#68584)
+- map object from original require-config file (#68776)
+### Changed
+- reduced spacing above Available in stores (#68585)
+- $font-family-sans-serif to $font-family-base (#68405)
+### Fixed
+- bundle with multiselect - options in summary (#68469)
+- issue with special characters in product name in minicart (#68844)
+- missing price wrapper class (#61546)
 
 ## [2.3.0] - 2020-07-03
 ### Added
