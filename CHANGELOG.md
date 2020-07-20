@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 ### Added
 - pointer cursor for zoom in icon (#69031)
 
+### Removed
+- unused code (#64998)
+
+### Fixed
+- sasslint warnings (#64998)
+
 ## [Released]
 
 ## [2.5.0] - 2020-07-15
