@@ -18,6 +18,7 @@ module.exports = {
         class: 'heading--third-level',
         text: 'Shipping Address'
       },
+      details: '<address>John Doe<br> ul. Mostowa 11<br> Poznań, Armed Forces Africa 60-688<br> United States<br> <a href="tel:887887887"> 887887887 </a></address>',
       actions: {
         class: '',
         sides: [
@@ -40,6 +41,7 @@ module.exports = {
         class: 'heading--third-level',
         text: 'Payment method'
       },
+      details: '<div>PayPal<br> qwe@qwe.com</div>',
       actions: {
         class: '',
         sides: [
@@ -121,7 +123,7 @@ module.exports = {
                 {
                   childTag: 'td',
                   childTagAttributes: 'data-th="Item:" role="gridcell"',
-                  content: '<div class="row middle-sm"><img class="paypal-review__product-image lazyload margin-right-m" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAABCAQAAABN/Pf1AAAAC0lEQVR42mNkwAIAACoAAgu1Hc4AAAAASUVORK5CYII=" data-src="/images/product/product-160_240.jpg" alt="Image of product Bluzka \'ONLSANSA SINGLET WVN\'"><div class="paypal-review__product-details"><span> Bluzka \'ONLSANSA SINGLET WVN\'</span></div></div>'
+                  content: '<div class="row middle-sm"><img class="paypal-review__product-image lazyload margin-right-m" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAABCAQAAABN/Pf1AAAAC0lEQVR42mNkwAIAACoAAgu1Hc4AAAAASUVORK5CYII=" data-src="/images/product/product-160_240.jpg" alt="Image of product Bluzka \'ONLSANSA SINGLET WVN\'"><div class="paypal-review__product-details"><span class="paypal-review__product-name">Bluzka \'ONLSANSA SINGLET WVN\'</span></div></div>'
                 },
                 {
                   childTag: 'td',
@@ -147,7 +149,7 @@ module.exports = {
                 {
                   childTag: 'td',
                   childTagAttributes: 'data-th="Item:" role="gridcell"',
-                  content: '<div class="row middle-sm"><img class="paypal-review__product-image lazyload margin-right-m" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAABCAQAAABN/Pf1AAAAC0lEQVR42mNkwAIAACoAAgu1Hc4AAAAASUVORK5CYII=" data-src="/images/product/product-160_240.jpg" alt="Image of product Bluzka \'ONLSANSA SINGLET WVN\'"><span> Bluzka \'ONLSANSA SINGLET WVN\'</span></div>'
+                  content: '<div class="row middle-sm"><img class="paypal-review__product-image lazyload margin-right-m" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAABCAQAAABN/Pf1AAAAC0lEQVR42mNkwAIAACoAAgu1Hc4AAAAASUVORK5CYII=" data-src="/images/product/product-160_240.jpg" alt="Image of product Bluzka \'ONLSANSA SINGLET WVN\'"><span class="paypal-review__product-name">Bluzka \'ONLSANSA SINGLET WVN\'</span></div>'
                 },
                 {
                   childTag: 'td',
@@ -173,7 +175,7 @@ module.exports = {
                 {
                   childTag: 'td',
                   childTagAttributes: 'data-th="Item:" role="gridcell"',
-                  content: '<div class="row middle-sm"><img class="paypal-review__product-image lazyload margin-right-m" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAABCAQAAABN/Pf1AAAAC0lEQVR42mNkwAIAACoAAgu1Hc4AAAAASUVORK5CYII=" data-src="/images/product/product-160_240.jpg" alt="Image of product Bluzka \'ONLSANSA SINGLET WVN\'"><span> Bluzka \'ONLSANSA SINGLET WVN\'</span></div>'
+                  content: '<div class="row middle-sm"><img class="paypal-review__product-image lazyload margin-right-m" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAABCAQAAABN/Pf1AAAAC0lEQVR42mNkwAIAACoAAgu1Hc4AAAAASUVORK5CYII=" data-src="/images/product/product-160_240.jpg" alt="Image of product Bluzka \'ONLSANSA SINGLET WVN\'"><span class="paypal-review__product-name">Bluzka \'ONLSANSA SINGLET WVN\'</span></div>'
                 },
                 {
                   childTag: 'td',
@@ -270,6 +272,6 @@ module.exports = {
       text: 'Place order',
       class: 'button--fluid margin-top-m',
       attributes: 'type="submit"'
-    },
+    }
   }
 }
