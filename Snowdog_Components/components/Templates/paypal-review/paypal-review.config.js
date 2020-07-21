@@ -18,9 +18,9 @@ module.exports = {
         class: 'heading--third-level',
         text: 'Shipping Address'
       },
-      details: '<address>John Doe<br> ul. Mostowa 11<br> Poznań, Armed Forces Africa 60-688<br> United States<br> <a href="tel:887887887"> 887887887 </a></address>',
+      details: 'John Doe<br> ul. Mostowa 11<br> Poznań, Armed Forces Africa 60-688<br> United States<br> <a href="tel:887887887"> 887887887 </a>',
       actions: {
-        class: '',
+        class: 'actions-toolbar',
         sides: [
           {
             action: [
@@ -41,9 +41,9 @@ module.exports = {
         class: 'heading--third-level',
         text: 'Payment method'
       },
-      details: '<div>PayPal<br> qwe@qwe.com</div>',
+      details: 'PayPal<br> qwe@qwe.com',
       actions: {
-        class: '',
+        class: 'actions-toolbar',
         sides: [
           {
             action: [
@@ -65,7 +65,7 @@ module.exports = {
         text: 'Items in your shopping cart'
       },
       actions: {
-        class: '',
+        class: 'actions-toolbar',
         sides: [
           {
             action: [
