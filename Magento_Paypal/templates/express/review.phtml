@@ -9,6 +9,7 @@
             payapal-review__details
             row
             margin-bottom-m
+            block-order-details-view
         "
     >
         <div class="block-content">
@@ -84,7 +85,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="actions-group">
+                                    <div class="actions-group actions-toolbar">
                                         <div class="actions-group__handler">
                                             <button
                                                 id="update-shipping-method-submit"
@@ -121,6 +122,7 @@
                         payapal-review__details-item
                         col-lg-3
                         margin-bottom-m
+                        box-order-shipping-address
                     "
                 >
                     <h2 class="heading--third-level">
@@ -155,6 +157,7 @@
                     payapal-review__details-item
                     col-lg-3
                     margin-bottom-m
+                    box-order-shipping-address
                 "
             >
                 <h2 class="heading--third-level">
@@ -181,7 +184,7 @@
                             </a>
                         </div>
                     </div>
-                <?php endif ?>
+                <?php endif; ?>
             </div>
         </div>
     </div>
@@ -191,6 +194,7 @@
             paypal-review__discount
             row
             margin-bottom-xl
+            paypal-review-discount
         "
     >
         <div class="col-lg-5">
@@ -198,7 +202,7 @@
         </div>
     </div>
 
-    <div class="payapal-review__shopping-cart">
+    <div class="payapal-review__shopping-cart paypal-review-items">
         <h2 class="heading--third-level">
             <?= $block->escapeHtml(__('Items in your shopping cart')) ?>
         </h2>
@@ -206,7 +210,12 @@
             <div class="actions-group__handler">
                 <a
                     href="<?= $block->escapeUrl($block->getEditUrl()) ?>"
-                    class="actions-group__link padding-top-0 action edit"
+                    class="
+                        actions-group__link
+                        padding-top-0
+                        action
+                        edit
+                    "
                 >
                     <?= $block->escapeHtml(__('Edit Shopping Cart')) ?>
                 </a>
@@ -221,29 +230,38 @@
             class="form order-review-form"
         >
             <?= $block->getChildHtml('agreements') ?>
-            <button
-                type="button"
-                id="review-button"
-                class="
-                    button
-                    button button--fluid
-                    margin-top-m
-                    action
-                    checkout
-                    primary
-                "
-                value="<?= $block->escapeHtmlAttr(__('Place Order')) ?>"
+            <div
+                class="actions-toolbar"
+                id="review-buttons-container"
             >
-                <?= $block->escapeHtml(__('Place Order')) ?>
-            </button>
-            <span
-                class="please-wait load indicator"
-                id="review-please-wait"
-                style="display: none;"
-                data-text="<?= $block->escapeHtmlAttr(__('Submitting order information...')) ?>"
-            >
-                <?= $block->escapeHtml(__('Submitting order information...')) ?>
-            </span>
+                <button
+                    type="button"
+                    id="review-button"
+                    class="
+                        button
+                        button button--fluid
+                        margin-top-m
+                        action
+                        checkout
+                        primary
+                    "
+                    value="<?= $block->escapeHtmlAttr(__('Place Order')) ?>"
+                >
+                    <?= $block->escapeHtml(__('Place Order')) ?>
+                </button>
+                <span
+                    class="
+                        please-wait
+                        load
+                        indicator
+                        display-none
+                    "
+                    id="review-please-wait"
+                    data-text="<?= $block->escapeHtmlAttr(__('Submitting order information...')) ?>"
+                >
+                    <?= $block->escapeHtml(__('Submitting order information...')) ?>
+                </span>
+            </div>
         </form>
     </div>
 </div>
