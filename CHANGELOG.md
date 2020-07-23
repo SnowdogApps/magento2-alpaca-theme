@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 - pointer cursor for zoom in icon (#69031)
 ### Fixed
 - modal close icon overlay on text (#69152)
+- typo in newsletter (#67925)
 
 ### Removed
 - unused code (#64998)
