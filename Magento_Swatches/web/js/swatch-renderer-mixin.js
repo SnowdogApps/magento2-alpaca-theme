@@ -22,7 +22,8 @@ define([
           selectClass: 'select__field',
           moreButton: 'swatch-more',
           loader: 'swatch-option-loading',
-          initLoader: 'loader'
+          initLoader: 'loader',
+          specialPrice: '.price__value--special'
         },
         // option's json config
         jsonConfig: {},
@@ -65,6 +66,8 @@ define([
         gallerySwitchStrategy: 'replace',
         // whether swatches are rendered in product list or on product page
         inProductList: false,
+        // sly-final-price block selector
+        slyFinalPriceSelector: '.sly-final-price',
         // sly-old-price block selector
         slyOldPriceSelector: '.sly-old-price',
         // tier prise selectors start
@@ -433,6 +436,8 @@ define([
         var $widget = this,
           $product = $widget.element.parents($widget.options.selectorProduct),
           $productPrice = $product.find(this.options.selectorProductPrice),
+          $productSlyOldPriceSelector = $product.find(this.options.slyOldPriceSelector),
+          $productSlyFinalPriceSelector = $product.find(this.options.slyFinalPriceSelector),
           options = _.object(_.keys($widget.optionsMap), {}),
           result,
           tierPriceHtml;
@@ -452,9 +457,13 @@ define([
         );
 
         if (typeof result != 'undefined' && result.oldPrice.amount !== result.finalPrice.amount) {
-          $(this.options.slyOldPriceSelector).show();
+          $productSlyOldPriceSelector.show();
+          $productSlyFinalPriceSelector.addClass('price__value--special');
+          $productSlyFinalPriceSelector.removeClass('price__value--normal');
         } else {
-          $(this.options.slyOldPriceSelector).hide();
+          $productSlyOldPriceSelector.hide();
+          $productSlyFinalPriceSelector.removeClass('price__value--special');
+          $productSlyFinalPriceSelector.addClass('price__value--normal');
         }
 
         if (typeof result != 'undefined' && result.tierPrices.length) {
