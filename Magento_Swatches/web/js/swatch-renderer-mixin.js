@@ -439,6 +439,7 @@ define([
           $productSlyOldPriceSelector = $product.find(this.options.slyOldPriceSelector),
           $productSlyFinalPriceSelector = $product.find(this.options.slyFinalPriceSelector),
           options = _.object(_.keys($widget.optionsMap), {}),
+          newPrices,
           result,
           tierPriceHtml;
 
@@ -448,15 +449,17 @@ define([
           options[attributeId] = $(this).attr('option-selected');
         });
 
-        result = $widget.options.jsonConfig.optionPrices[_.findKey($widget.options.jsonConfig.index, options)];
+        newPrices = $widget.options.jsonConfig.optionPrices[_.findKey($widget.options.jsonConfig.index, options)];
 
         $productPrice.trigger(
           'updatePrice', {
-            'prices': $widget._getPrices(result, $productPrice.priceBox('option').prices)
+            'prices': $widget._getPrices(newPrices, $productPrice.priceBox('option').prices)
           }
         );
 
-        if (typeof result != 'undefined' && result.oldPrice.amount !== result.finalPrice.amount) {
+        result = newPrices ? newPrices : $productPrice.priceBox('option').prices;
+
+        if (result.oldPrice.amount !== result.finalPrice.amount) {
           $productSlyOldPriceSelector.show();
           $productSlyFinalPriceSelector.addClass('price__value--special');
           $productSlyFinalPriceSelector.removeClass('price__value--normal');
@@ -466,7 +469,7 @@ define([
           $productSlyFinalPriceSelector.addClass('price__value--normal');
         }
 
-        if (typeof result != 'undefined' && result.tierPrices.length) {
+        if (typeof newPrices != 'undefined' && result.tierPrices.length) {
           if (this.options.tierPriceTemplate) {
             tierPriceHtml = mageTemplate(
               this.options.tierPriceTemplate, {
