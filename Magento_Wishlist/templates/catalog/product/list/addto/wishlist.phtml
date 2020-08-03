@@ -1,12 +1,24 @@
+<?php 
+    // TODO get magento version without objectManager
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $productMetadata = $objectManager->get('Magento\Framework\App\ProductMetadataInterface');
+
+    $hasText = $block->getHasText();
+    $buttonText = $block->getText();
+    $additionalClass = $block->getAdditionalClass(); 
+?>
+
 <?php if ($block->getWishlistHelper()->isAllow()): ?>
     <?php $productId = $block->getProduct()->getId(); ?>
     <button
         class="
             button
             button--icon
+            button--wishlist
             add-to-wishlist
-            action
-            towishlist
+            <?php if ($productMetadata->getEdition() == 'B2B'): ?>
+                <?= $block->escapeHtmlAttr($additionalClass) ?>
+            <?php endif; ?>
         "
         type="button"
         title="<?= $block->escapeHtmlAttr(__('Add to Wish List')) ?>"
