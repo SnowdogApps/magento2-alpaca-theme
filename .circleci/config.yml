@@ -32,7 +32,8 @@ jobs:
       - checkout
       - run: cd Snowdog_Components && yarn
       - run: cd Snowdog_Components && yarn build --ci
-      - run: echo
+      - run: echo $CIRCLE_BRANCH
+      - run: echo << pipeline.git.branch >>
       - run: sudo npm install --global --unsafe-perm --silent now@16.7
       - run: cd Snowdog_Components && DEPLOYMENT_URL=$(now --force --token ${NOW_TOKEN} --scope ${NOW_SCOPE} --name ${NOW_PROJECT} `if [ $BUILD_ENV ]; then echo "--build-env $BUILD_ENV"; fi` `if [ $ENV ]; then echo "--env $ENV"; fi` `if [ $PRODUCTION ]; then echo "--prod"; fi`)
       - run: cd Snowdog_Components && now --token ${NOW_TOKEN} --scope ${NOW_SCOPE} alias set ${DEPLOYMENT_URL} ${NOW_URL}
