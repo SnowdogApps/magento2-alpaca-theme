@@ -462,7 +462,7 @@ define([
           }
         );
 
-        result = newPrices ? newPrices : $productPrice.priceBox('option').prices;
+        result = newPrices ? newPrices : $widget._getNewPrices();
 
         $widget._updateSpecialPrice(result);
 
