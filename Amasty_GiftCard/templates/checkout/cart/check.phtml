@@ -4,27 +4,27 @@
 $card = $block->getCard();
 $currentBalance = $block->getCurrentBalance($card->getCurrentValue());
 if ($card->getExpiredDate()) {
-    $_validTill = $block->getExpiredDate($card->getExpiredDate());
+    $_validTill = /* @noEscape */ $block->getExpiredDate($card->getExpiredDate());
 } else {
-    $_validTill = __('Unlimited');
+    $_validTill = /* @noEscape */ $block->escapeHtml(__('Unlimited'));
 }
 ?>
 <?php if ($card && $card->getId()): ?>
     <div class="amgiftcard-info">
         <div class="information">
             <p class="information__text">
-                <?= __("Status: %1", $card->getStatus()) ?>
+                <?= /* @noEscape */ $block->escapeHtml(__("Status: %1", $card->getStatus())) ?>
             </p>
             <p class="information__text">
-                <?= __('Current Balance: %1', $currentBalance) ?>
+                <?= /* @noEscape */ $block->escapeHtml(__('Current Balance: %1', $currentBalance)) ?>
             </p>
             <p class="information__text">
-                <?= __('Valid till: %1', $_validTill) ?>
+                <?= /* @noEscape */ $block->escapeHtml(__('Valid till: %1', $_validTill)) ?>
             </p>
         </div>
     </div>
 <?php else: ?>
     <div class="message message--error">
-        <?= __('Wrong Gift Card Code.') ?>
+        <?= /* @noEscape */ $block->escapeHtml(__('Wrong Gift Card Code.')) ?>
     </div>
 <?php endif; ?>
