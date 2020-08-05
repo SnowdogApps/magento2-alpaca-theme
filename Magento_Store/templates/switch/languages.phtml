@@ -5,18 +5,15 @@
     <?php $id = $block->getIdModifier() ? '-' . $block->getIdModifier() : '' ?>
     <div 
         class="
-            switcher 
-            language 
-            switcher-language
+            dropdown-list
+            dropdown-list--detailed-content
+            footer__dropdown-switcher
+            margin-right-xs
         " 
         data-ui-id="language-switcher" 
+        data-mage-init='{ "dropdownList": {} }'
         id="switcher-language<?= $block->escapeHtmlAttr($id) ?>"
     >
-        <strong class="label switcher-label">
-            <span>
-                <?= $block->escapeHtml(__('Language')) ?>
-            </span>
-        </strong>
         <div 
             class="
                 actions 
@@ -25,37 +22,64 @@
                 switcher-options
             "
         >
-            <div 
-                class="
-                    action 
-                    toggle 
-                    switcher-trigger
-                "
-                id="switcher-language-trigger<?= $block->escapeHtmlAttr($id) ?>"
-                data-mage-init='{"dropdown":{}}'
-                data-toggle="dropdown"
-                data-trigger-keypress-button="true"
-            >
-                <strong class="view-<?= $block->escapeHtml($block->getCurrentStoreCode()) ?>">
-                    <span>
+            <ul class="dropdown-list__list">
+                <li
+                    class="
+                        dropdown-list__item
+                        dropdown-list__item--collapse
+                    "
+                >
+                    <button
+                        class="dropdown-list__label"
+                        aria-expanded="false"
+                        aria-controls="dropdown-language-content"
+                    >
                         <?= $block->escapeHtml($block->getStoreName()) ?>
-                    </span>
-                </strong>
-            </div>
-            <ul 
-                class="dropdown switcher-dropdown"
-                data-target="dropdown"
-            >
-                <?php foreach ($block->getStores() as $_lang) : ?>
-                    <?php if ($_lang->getId() != $block->getCurrentStoreId()) : ?>
-                        <li class="view-<?= $block->escapeHtml($_lang->getCode()) ?> switcher-option">
-                            <a href="<?= $block->escapeUrl($block->getViewModel()->getTargetStoreRedirectUrl($_lang)) ?>">
-                                <?= $block->escapeHtml($_lang->getName()) ?>
-                            </a>
-                        </li>
-                    <?php endif; ?>
-                <?php endforeach; ?>
+                        <svg
+                            class="
+                                icon 
+                                dropdown-list__icon
+                            "
+                            aria-hidden="true"
+                            role="img"
+                        >
+                            <title><?= __('Arrow Down'); ?></title>
+                            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#angle-down')) ?>"></use>
+                        </svg>
+                    </button>
+                    <div
+                        id="dropdown-language-content"
+                        class="dropdown-list__content"
+                        aria-hidden="true"
+                    >
+                        <ul 
+                            class="list"
+                            data-target="dropdown"
+                        >
+                            <?php foreach ($block->getStores() as $_lang) : ?>
+                                <?php if ($_lang->getId() != $block->getCurrentStoreId()) : ?>
+                                    <li 
+                                        class="
+                                            list__item
+                                            view-<?= $block->escapeHtml($_lang->getCode()) ?> 
+                                            switcher-option
+                                        "
+                                    >
+                                        <a 
+                                            href="<?= $block->escapeUrl($block->getViewModel()->getTargetStoreRedirectUrl($_lang)) ?>"
+                                            class="link"
+                                            title="<?= $block->escapeHtmlAttr($_lang->getName()) ?>"
+                                        >
+                                            <?= $block->escapeHtml($_lang->getName()) ?>
+                                        </a>
+                                    </li>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                </li>
             </ul>
+    
         </div>
     </div>
 <?php endif; ?>

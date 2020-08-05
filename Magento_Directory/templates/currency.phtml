@@ -12,17 +12,13 @@
     <?php $id = $block->getIdModifier() ? '-' . $block->getIdModifier() : '' ?>
     <div 
         class="
-            switcher 
-            currency 
-            switcher-currency
-        " 
+            dropdown-list
+            dropdown-list--detailed-content
+            footer__dropdown-switcher
+        "
+        data-mage-init='{ "dropdownList": {} }'
         id="switcher-currency<?= $block->escapeHtmlAttr($id) ?>"
     >
-        <strong class="label switcher-label">
-            <span>
-                <?= $block->escapeHtml(__('Currency')) ?>
-            </span>
-        </strong>
         <div 
             class="
                 actions 
@@ -31,42 +27,63 @@
                 switcher-options
             "
         >
-            <div 
-                class="
-                    action 
-                    toggle 
-                    switcher-trigger
-                "
-                id="switcher-currency-trigger<?= $block->escapeHtmlAttr($id) ?>"
-                data-mage-init='{"dropdown":{}}'
-                data-toggle="dropdown"
-                data-trigger-keypress-button="true"
-            >
-                <strong class="language-<?= $block->escapeHtml($block->getCurrentCurrencyCode()) ?>">
-                    <span>
-                        <?= $block->escapeHtml($currentCurrencyCode) ?> - <?= $currencies[$currentCurrencyCode] ? $block->escapeHtml($currencies[$currentCurrencyCode]) : '' ?>
-                    </span>
-                </strong>
-            </div>
-            <ul 
-                class="
-                    dropdown 
-                    switcher-dropdown
-                " 
-                data-target="dropdown"
-            >
-                <?php foreach ($currencies as $_code => $_name) : ?>
-                    <?php if ($_code != $currentCurrencyCode) : ?>
-                        <li class="currency-<?= $block->escapeHtmlAttr($_code) ?> switcher-option">
-                            <a 
-                                href="#" 
-                                data-post='<?= /* @noEscape */ $block->getSwitchCurrencyPostData($_code) ?>'
-                            >
-                                <?= $block->escapeHtml($_code) ?> - <?= $block->escapeHtml($_name) ?>
-                            </a>
-                        </li>
-                    <?php endif; ?>
-                <?php endforeach; ?>
+            <ul class="dropdown-list__list">
+                <li
+                    class="
+                        dropdown-list__item
+                        dropdown-list__item--collapse
+                    "
+                >
+                    <button
+                        class="dropdown-list__label"
+                        aria-expanded="false"
+                        aria-controls="dropdown-currency-content"
+                    >
+                        <?= $block->escapeHtml($currentCurrencyCode) ?> - <?= $currencies[$currentCurrencyCode] ?
+                            $block->escapeHtml($currencies[$currentCurrencyCode]) : ''
+                        ?>
+                        <svg
+                            class="
+                                icon 
+                                dropdown-list__icon
+                            "
+                            aria-hidden="true"
+                            role="img"
+                        >
+                            <title><?= __('Arrow Down'); ?></title>
+                            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#angle-down')) ?>"></use>
+                        </svg>
+                    </button>
+
+                    <div
+                        id="dropdown-currency-content"
+                        class="dropdown-list__content"
+                        aria-hidden="true"
+                    >
+                        <ul class="list">
+                            <?php foreach ($currencies as $_code => $_name) : ?>
+                                <?php if ($_code != $currentCurrencyCode) : ?>
+                                    <li 
+                                        class="
+                                            list__item
+                                            currency-<?= $block->escapeHtmlAttr($_code) ?> 
+                                            switcher-option
+                                        "
+                                    >
+                                        <a 
+                                            href="#" 
+                                            data-post='<?= /* @noEscape */ $block->getSwitchCurrencyPostData($_code) ?>'
+                                            title="<?= $block->escapeHtmlAttr($_code) ?> - <?= $block->escapeHtmlAttr($_name) ?>"
+                                            class="link"
+                                        >
+                                            <?= $block->escapeHtml($_code) ?> - <?= $block->escapeHtml($_name) ?>
+                                        </a>
+                                    </li>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                </li>
             </ul>
         </div>
     </div>
