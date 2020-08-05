@@ -1,7 +1,10 @@
 <?php /** @var \Snowdog\Menu\Block\Menu $block */ ?>
 <?php if ($block->getMenu()): ?>
     <?php $menuClass = $block->getMenu()->getCssClass() ?>
-    <div class="side-menu" data-mage-init='{ "sideMenu": { } }'>
+    <div
+        class="side-menu"
+        data-mage-init='{ "sideMenu": {} }'
+    >
         <button
             class="side-menu__trigger"
             type="button"
@@ -11,7 +14,7 @@
                 <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#mobile-menu')) ?>"></use>
             </svg>
             <span class="side-menu__trigger-text">
-                <?=  __('Menu') ?>
+                <?= $block->escapeHtml(__('Menu')) ?>
             </span>
         </button>
         <div class="side-menu__content">
@@ -25,12 +28,15 @@
                         <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#close')) ?>"></use>
                     </svg>
                     <span class="header-button__text">
-                        <?=  __('Menu') ?>
+                        <?= $block->escapeHtml(__('Menu')) ?>
                     </span>
                 </button>
             </div>
-             <nav class="<?= $menuClass ?>" data-mage-init='{ "dropdownList": {} }'>
-                <ul class="<?= $menuClass ?>__list">
+             <nav
+                 class="<?= $block->escapeHtmlAttr($menuClass) ?>"
+                 data-mage-init='{ "dropdownList": {} }'
+             >
+                <ul class="<?= $block->escapeHtmlAttr($menuClass) ?>__list">
                     <?php foreach ($block->getNodes() as $node): ?>
                         <?php
                             $childrenLevel = $node->getLevel() + 1;
@@ -46,7 +52,7 @@
                         </li>
                     <?php endforeach ?>
                 </ul>
-                <div class="<?= $menuClass ?>__mobile-bg"></div>
+                <div class="<?= $block->escapeHtmlAttr($menuClass) ?>__mobile-bg"></div>
             </nav>
         </div>
         <div class="side-menu__overlay"></div>

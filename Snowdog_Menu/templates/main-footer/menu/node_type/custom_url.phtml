@@ -17,13 +17,16 @@
 
 <?php if ($block->getIsRoot()): ?>
     <button type="button" <?= implode(' ', $attributes) ?>>
-        <?= $title ?>
+        <?= $block->escapeHtml($title) ?>
         <svg class="dropdown-list__icon" role="presentation">
             <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#angle-down')) ?>"></use>
         </svg>
     </button>
 <?php else: ?>
-    <a href="<?= $block->getContent() ?>" class="<?= $classLink ?>">
-        <?= $title ?>
+    <a
+        href="<?= $block->escapeUrl($block->getContent()) ?>"
+        class="<?= $block->escapeHtmlAttr($classLink) ?>"
+    >
+        <?= $block->escapeHtml($title) ?>
     </a>
 <?php endif; ?>
