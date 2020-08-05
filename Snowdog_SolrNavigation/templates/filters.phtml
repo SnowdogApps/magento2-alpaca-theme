@@ -7,24 +7,24 @@ $filters = $block->getFilterBlocks();
     type="button"
     data-mage-init='{"skipFilters": {}}'
 >
-    <?= __('Skip to products') ?>
+    <?= $block->escapeHtml(__('Skip to products')) ?>
 </button>
 <?php if (!empty($filters)): ?>
     <h2 class="filters__heading">
-        <?= __('Now Shopping by') ?>
+        <?= $block->escapeHtml(__('Now Shopping by')) ?>
     </h2>
     <div class="divider filters__divider"></div>
     <div class="filters__active">
         <ul class="active-filters list">
             <?php foreach ($filters as $filterBlock): ?>
-                <?= $filterBlock->toHtml() ?>
+                <?= /* @noEscape */ $filterBlock->toHtml() ?>
             <?php endforeach; ?>
             <a
                 href="<?= $block->escapeUrl($block->getCleanUrl()) ?>"
                 class="active-filters__clear-all"
                 title="<?= $block->escapeHtmlAttr(__('Clear all filters')) ?>"
             >
-                <?= __('Clear All') ?>
+                <?= $block->escapeHtml(__('Clear All')) ?>
             </a>
         </ul>
     </div>
