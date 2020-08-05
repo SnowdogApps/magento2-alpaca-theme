@@ -16,6 +16,7 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 - sasslint warnings (#64998)
+- configurable produt special price visibility and styling, updating product price on swatch change (#69349)
 
 ## [Released]
 
