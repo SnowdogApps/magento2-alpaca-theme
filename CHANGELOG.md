@@ -8,6 +8,9 @@ All notable changes to this project will be documented in this file.
 - modal close icon overlay on text (#69152)
 - typo in newsletter (#67925)
 
+### Changed
+- loader to sth "standard" (#68653)
+
 ### Removed
 - unused code (#64998)
 
