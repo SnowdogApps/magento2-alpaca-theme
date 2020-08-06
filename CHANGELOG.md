@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+## [Released]
+## [2.6.0] - 2020-08-06
 ### Added
 - pointer cursor for zoom in icon (#69031)
 ### Fixed
@@ -17,8 +20,6 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 - sasslint warnings (#64998)
 - configurable produt special price visibility and styling, updating product price on swatch change (#69349)
-
-## [Released]
 
 ## [2.5.0] - 2020-07-15
 ### Fixed
