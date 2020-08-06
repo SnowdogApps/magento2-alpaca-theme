@@ -2,8 +2,18 @@ define([], function () {
   'use strict';
 
   return function (config, element) {
+    const pageWasReloaded = getUrlFromLocalStorage() === window.location.search
+    
     element.addEventListener('click', changeActiveTab);
 
+    if (window.location.search.indexOf('?p=') >= 0 && !pageWasReloaded) {
+      changeActiveTab();
+
+      jumpToAnchor('review-form');
+
+      setUrlToLocalStorage(window.location.search);      
+    }
+    
     function changeActiveTab() {
       const element = document.getElementById(config.reviewId);
 
@@ -39,6 +49,18 @@ define([], function () {
           }
         }
       });
+    }
+
+    function getUrlFromLocalStorage() {
+      return window.localStorage.getItem('oldSearchUrl');
+    }
+
+    function setUrlToLocalStorage(url) {
+      window.localStorage.setItem('oldSearchUrl', url);
+    }
+
+    function jumpToAnchor(id) {
+      window.location.href = "#"+id;
     }
   };
 });
