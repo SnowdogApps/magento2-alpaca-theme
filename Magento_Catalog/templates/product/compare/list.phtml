@@ -140,41 +140,42 @@
                     <?php foreach ($block->getAttributes() as $_attribute): ?>
                         <?php $index = 0; ?>
                         <?php if ($block->hasAttributeValueForProducts($attribute)) :?>
-                        <tr>
-                            <?php $index = 0 ?>
-                            <?php foreach ($block->getItems() as $_item): ?>
-                                <?php if ($index++ === 0): ?>
-                                    <th
-                                        scope="row"
-                                        class="compare__label"
-                                    >
-                                        <?= $block->escapeHtml($_attribute->getStoreLabel() ? $_attribute->getStoreLabel() : __($_attribute->getFrontendLabel())) ?>
-                                    </th>
-                                <?php endif; ?>
-                                <td class="compare__cell">
-                                    <?php switch ($_attribute->getAttributeCode()) {
-                                        case "price": ?>
-                                            <?=
-                                                /* @noEscape */ $block->getProductPrice(
-                                                    $_item,
-                                                    '-compare-list-' . $_attribute->getCode()
-                                                )
-                                            ?>
-                                            <?php break;
-                                        case "small_image": ?>
-                                            <?php $block->getImage($_item, 'product_small_image')->toHtml(); ?>
-                                            <?php break;
-                                        default: ?>
-                                            <?php if (is_string($block->getProductAttributeValue($item, $attribute))) :?>
-                                                <?= /* @noEscape */ $helper->productAttribute($item, $block->getProductAttributeValue($item, $attribute), $attribute->getAttributeCode()) ?>
-                                            <?php else : ?>
-                                                <?=  $block->escapeHtml($helper->productAttribute($item, $block->getProductAttributeValue($item, $attribute), $attribute->getAttributeCode())) ?>
-                                            <?php endif; ?>
-                                            <?php break;
-                                    } ?>
-                                </td>
-                            <?php endforeach; ?>
-                        </tr>
+                            <tr>
+                                <?php $index = 0 ?>
+                                <?php foreach ($block->getItems() as $_item): ?>
+                                    <?php if ($index++ === 0): ?>
+                                        <th
+                                            scope="row"
+                                            class="compare__label"
+                                        >
+                                            <?= $block->escapeHtml($_attribute->getStoreLabel() ? $_attribute->getStoreLabel() : __($_attribute->getFrontendLabel())) ?>
+                                        </th>
+                                    <?php endif; ?>
+                                    <td class="compare__cell">
+                                        <?php switch ($_attribute->getAttributeCode()) {
+                                            case "price": ?>
+                                                <?=
+                                                    /* @noEscape */ $block->getProductPrice(
+                                                        $_item,
+                                                        '-compare-list-' . $_attribute->getCode()
+                                                    )
+                                                ?>
+                                                <?php break;
+                                            case "small_image": ?>
+                                                <?php $block->getImage($_item, 'product_small_image')->toHtml(); ?>
+                                                <?php break;
+                                            default: ?>
+                                                <?php if (is_string($block->getProductAttributeValue($item, $attribute))) :?>
+                                                    <?= /* @noEscape */ $helper->productAttribute($item, $block->getProductAttributeValue($item, $attribute), $attribute->getAttributeCode()) ?>
+                                                <?php else : ?>
+                                                    <?=  $block->escapeHtml($helper->productAttribute($item, $block->getProductAttributeValue($item, $attribute), $attribute->getAttributeCode())) ?>
+                                                <?php endif; ?>
+                                                <?php break;
+                                        } ?>
+                                    </td>
+                                <?php endforeach; ?>
+                            </tr>
+                        <?php endif; ?>
                     <?php endforeach; ?>
                 </tbody>
             </table>
