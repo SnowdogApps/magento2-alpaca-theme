@@ -2,12 +2,74 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
-### Added
-### Changed
-### Fixed
-### Removed
 
 ## [Released]
+## [2.6.0] - 2020-08-06
+### Added
+- pointer cursor for zoom in icon (#69031)
+### Fixed
+- modal close icon overlay on text (#69152)
+- typo in newsletter (#67925)
+
+### Changed
+- loader to sth "standard" (#68653)
+
+### Removed
+- unused code (#64998)
+
+### Fixed
+- sasslint warnings (#64998)
+- configurable produt special price visibility and styling, updating product price on swatch change (#69349)
+
+## [2.5.0] - 2020-07-15
+### Fixed
+- cart & checkout discount summary (#68737)
+## Removed
+- 'what is paypal?' from paypal express template (#68737)
+
+## [2.4.0] - 2020-07-13
+### Added
+- yotpo reviews  support (#68077)
+- styled subscribe checkbox (#68462)
+- zoom icon to product gallery (#68584)
+- map object from original require-config file (#68776)
+### Changed
+- reduced spacing above Available in stores (#68585)
+- $font-family-sans-serif to $font-family-base (#68405)
+### Fixed
+- bundle with multiselect - options in summary (#68469)
+- issue with special characters in product name in minicart (#68844)
+- missing price wrapper class (#61546)
+
+## [2.3.0] - 2020-07-03
+### Added
+- extra variables to mega-menu template (#68257)
+- styling for multiselect (#67928)
+- requisition and wishlist dropdown to site (#66270)
+- AuthorizeNet CC, PaypalExpress payment methods, Amazon_Payment checkout login adjustment (#68526)
+- swatches to products widget, related, upsells, crosssells (#64777)
+- adding to cart with ajax in product widget (#64777)
+### Changed
+- update variables name and styles in product view, swatches, mega menu (#62512)
+- quicksearch display, variables & components view (#65066)
+- show category description when category image isn't set (#68329)
+- gift card template (#68589)
+- update variables - brief-info--link title color, newsletter subtitle & checkbox, footer scroll top background (#67878)
+### Fixed
+- search autocomplete product image size (#68106)
+- a translate function `__()` call in product view Qty template (#68056)
+- product review stars validation (#67930)
+- templates for mobile menu (#68012)
+- amasty gift card price on init on PDP (#68423)
+- customer account address country list `for` loop (#68610)
+- product tabs sorting (#67940)
+- remove duplicated add to cart button (#67929)
+- escape keydown event binding on catalog (#59884)
+- product grid item lazyload height, product grid display on safari, image_with_borders.phtml src value
+### Removed
+- recently ordered from left column in catalog (#67862)
+- grouped product option table top border (#67844)
+
 ## [2.2.0] - 2020-06-15
 ### Fixed
 - update theme templates for M v2.3.5 (#66621)
