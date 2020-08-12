@@ -355,7 +355,7 @@ $sliderBlock->setData(['slider_html'=>'after-slides', ...]);
 ```
 5. Full width variant
 
-To display slider full width, just add  class `slider--full-with`, by extending block `homepage-slider` with argument `slider_class` in `cms_index_index.xml`.
+To display slider full width, just add  class `slider--full-with`, by extending block `home-slider` with argument `slider_class` in `cms_index_index.xml`.
 
 ## Alpaca Content - Set up your store, admin / db changes for alpaca theme
 
