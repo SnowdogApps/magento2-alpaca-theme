@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Added
+- full with variant styles to slider (#69023)
 
 ## [Released]
 ## [2.6.0] - 2020-08-06
