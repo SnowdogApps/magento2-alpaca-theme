@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Fixed
+- Amasty Store Locator template for module version 2.4.2 (#69148)
 
 ## [Released]
 ## [2.6.0] - 2020-08-06

@@ -2,13 +2,12 @@
 <?php
 $productId = (int) $block->getRequest()->getParam('product');
 
-if ($productId):
+if ($productId) :
     $product = $block->getProductById($productId);
-    ?>
+?>
     <h1>
         <?= $block->escapeHtml($product->getName()); ?><?= $block->escapeHtml(__(' can be found at the following stores:&nbsp;')); ?>
     </h1>
-    <hr>
 <?php endif; ?>
 <div
     class="
@@ -35,13 +34,7 @@ if ($productId):
                         amlocator-current-location
                     "
                 >
-                    <div
-                        class="
-                            amlocator-wrapper
-                            input
-                            input--password
-                        "
-                    >
+                    <div class="input input--password">
                         <label
                             for="store-locator-search"
                             class="label label--hidden"
@@ -51,16 +44,15 @@ if ($productId):
                         <input
                             type="text"
                             value=""
-                            class="
-                                input__field
-                                amlocator-text
-                            "
-                            id="store-locator-search"
+                            class="input__field amlocator-text"
                             name="address"
+                            id="store-locator-search"
                             placeholder="<?= $block->escapeHtmlAttr(__('Current location')); ?>"
                             data-amlocator-js="address"
                             autocomplete="off"
-                        >
+                        />
+                        <!-- <span class="amlocator-search" data-amlocator-js="search"></span> -->
+                        <!-- <span class="amlocator-reset -hidden" data-amlocator-js="reset"></span> -->
                         <button
                             type="button"
                             class="
@@ -68,8 +60,10 @@ if ($productId):
                                 button--icon
                                 input__button-pass
                                 store-locator__button-search
+                                amlocator-search
                             "
                             data-amlocator-js="search"
+                            aria-label="<?= $block->escapeHtmlAttr(__('Search')) ?>"
                         >
                             <svg
                                 class="
@@ -81,30 +75,6 @@ if ($productId):
                                 focusable="false"
                             >
                                 <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#search')); ?>"></use>
-                            </svg>
-                        </button>
-                        <button
-                            type="button"
-                            class="
-                                amlocator-reset
-                                -hidden
-                                button
-                                button--icon
-                                input__button-pass
-                                store-locator__button-search
-                            "
-                            data-amlocator-js="reset"
-                        >
-                            <svg
-                                class="
-                                    icon
-                                    icon--secondary
-                                    input__button-pass-icon-view
-                                "
-                                role="presentation"
-                                focusable="false"
-                            >
-                                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#close')); ?>"></use>
                             </svg>
                         </button>
                     </div>
@@ -124,7 +94,7 @@ if ($productId):
                     >
                         <?= $block->escapeHtml(__('Search Radius')); ?>
                     </label>
-                    <?php if ($block->getDistanceConfig() == 'choose'): ?>
+                    <?php if ($block->getDistanceConfig() == 'choose') : ?>
                         <div
                             class="
                                 amlocator-select
@@ -133,10 +103,7 @@ if ($productId):
                             "
                         >
                             <select
-                                class="
-                                    -measurement
-                                    select__field
-                                "
+                                class="-measurement"
                                 id="amlocator-measurement"
                                 name="measurement"
                                 data-amlocator-js="measurment-select"
@@ -153,45 +120,41 @@ if ($productId):
                         <label class="amlocator-title">
                             , <?= $block->escapeHtml($block->getDistanceConfig()) ?>
                         </label>
-                    <?php endif; ?>
+                    <?php endif ?>
                     <div class="amlocator-wrapper">
                         <?php if ($block->getRadiusType() == 'select' || empty($block->getRadiusType())): ?>
                             <div
                                 class="
+                                    amlocator-select
                                     select
                                     select--native
-                                    amlocator-select
                                 "
                             >
                                 <select
                                     class="select__field"
                                     data-amlocator-js="radius-select"
+                                    id="<?= $block->escapeHtmlAttr($block->getSearchRadiusId()); ?>"
                                     name="radius"
                                 >
-                                    <?php foreach ($block->getSearchRadius() as $range): ?>
+                                    <?php foreach ($block->getSearchRadius() as $range) : ?>
                                         <option value="<?= is_numeric($range) ? (int) $range : ''; ?>">
                                             <?= $block->escapeHtml($range) ?>
                                         </option>
                                     <?php endforeach;?>
                                 </select>
                             </div>
-                        <?php else:?>
+                        <?php else: ?>
                             <div
                                 class="amlocator-range-slider"
                                 data-amlocator-js="range-slider"
                             >
-                                <div
-                                    class="
-                                        amlocator-handle
-                                        ui-slider-handle
-                                    "
-                                >
+                                <div class="amlocator-handle ui-slider-handle">
                                     <div class="amlocator-tooltip">
                                         <span data-amlocator-js="radius-value"></span>
                                         <span data-amlocator-js="radius-measurment">
-                                            <?= ($block->getDistanceConfig() != 'choose')
-                                                ? $block->escapeHtml($block->getDistanceConfig())
-                                                : '' ?>
+                                            <?= ($block->getDistanceConfig() != 'choose') ? $block->escapeHtml(
+                                                $block->getDistanceConfig()
+                                            ) : '' ?>
                                         </span>
                                     </div>
                                 </div>
@@ -200,6 +163,7 @@ if ($productId):
                                 type="hidden"
                                 name="radius"
                                 data-amlocator-js="radius-select"
+                                id="<?= $block->escapeHtmlAttr($block->getSearchRadiusId()); ?>"
                                 value="<?= (int) $block->getMaxRadiusValue(); ?>"
                                 min="<?= (int) $block->getMinRadiusValue(); ?>"
                                 max="<?= (int) $block->getMaxRadiusValue(); ?>"
@@ -212,10 +176,8 @@ if ($productId):
                 </div>
                 <button
                     class="
-                        button
+                        -nearby button
                         button--fluid
-                        amlocator-button
-                        -nearby
                     "
                     title="<?= $block->escapeHtmlAttr(__('Locate Nearby')); ?>"
                 >
@@ -226,14 +188,9 @@ if ($productId):
                 </div>
             </div>
         <?php endif; ?>
-        <?php if ($block->getShowLocations()): ?>
+        <?php if ($block->getShowLocations()) : ?>
             <?php if ($attributes = $block->getAttributes()): ?>
-                <div
-                    class="
-                        amlocator-block
-                        -filter
-                    "
-                >
+                <div class="amlocator-block -filter">
                     <div class="amlocator-filters-container">
                         <div
                             class="
@@ -248,90 +205,80 @@ if ($productId):
                             <span
                                 class="
                                     amlocator-arrow
-                                    <?= $block->escapeHtml($block->getFilterClass()) ? ' -down' : ''; ?>
+                                    <?= $block->escapeHtmlAttr($block->getFilterClass()) ? ' -down' : ''; ?>
                                 "
                             ></span>
                         </div>
                         <div
-                            class="amlocator-content<?= $block->escapeHtml($block->getFilterClass()); ?>"
+                            class="amlocator-content<?= $block->escapeHtmlAttr($block->getFilterClass()); ?>"
                             data-amlocator-js="filters-container"
                         >
-                            <?php $attributes = $block->getAttributes(); ?>
-                            <form
-                                class="attributes"
-                                action="#"
-                                data-amlocator-js="attributes-form"
-                            >
-                                <?php foreach ($attributes as $attribute): ?>
-                                    <div class="amlocator-attribute-wrapper">
-                                        <div class="amlocator-label">
-                                            <?= $block->escapeHtml($attribute['label']); ?>
-                                        </div>
-                                        <div
-                                            class="
-                                                amlocator-input
-                                                select
-                                                select--native
-                                            "
-                                        >
-                                            <select
-                                                name="<?= (int) $attribute['attribute_id']; ?>"
-                                                class="amlocator-select"
-                                                <?php if ($attribute['frontend_input'] == 'multiselect'): ?>
-                                                    multiple="multiple"
-                                                    data-amlocator-js="multiple-select"
-                                                <?php endif; ?>
+                            <?php $attributes = $block->getAttributes();?>
+                                <form
+                                    class="attributes"
+                                    action="#"
+                                    data-amlocator-js="attributes-form"
+                                >
+                                    <?php foreach ($attributes as $attribute) : ?>
+                                        <div class="amlocator-attribute-wrapper">
+                                            <div class="amlocator-label">
+                                                <?= $block->escapeHtml($attribute['label']); ?>
+                                            </div>
+                                            <div
+                                                class="
+                                                    amlocator-select
+                                                    amlocator-input
+                                                    select
+                                                    select--native
+                                                "
                                             >
-                                                <?php if ($attribute['frontend_input'] != 'multiselect'):?>
-                                                    <option value="" selected>
-                                                        <?= $block->escapeHtml(__('Please Select')); ?>
-                                                    </option>
-                                                <?php endif?>
-                                                <?php foreach ($attribute['options'] as $valueId => $option): ?>
-                                                    <option
-                                                        <?php if ($block->isOptionSelected(
-                                                            $attribute,
-                                                            $option
-                                                        )): ?>
-                                                            selected
-                                                        <?php endif; ?>
-                                                        value="<?= (int)$option['value'] ?>">
-                                                        <?= $block->escapeHtml(
-                                                            $option['label']
-                                                        ); ?>
-                                                    </option>
-                                                <?php endforeach;?>
-                                            </select>
+                                                <select
+                                                    name="<?= (int) $attribute['attribute_id'];?>"
+                                                    class="select__field"
+                                                    <?php if ($attribute['frontend_input'] == 'multiselect') : ?>
+                                                        multiple="multiple"
+                                                        data-amlocator-js="multiple-select"
+                                                    <?php endif;?>
+                                                >
+                                                    <?php if ($attribute['frontend_input'] != 'multiselect') :?>
+                                                        <option value="" selected>
+                                                            <?= $block->escapeHtml(__('Please Select')); ?>
+                                                        </option>
+                                                    <?php endif?>
+                                                    <?php foreach ($attribute['options'] as $valueId => $option) : ?>
+                                                        <option
+                                                            <?php if ($block->isOptionSelected(
+                                                                $attribute,
+                                                                $option
+                                                            )) : ?>
+                                                                selected
+                                                            <?php endif; ?>
+                                                            value="<?= (int) $option['value'] ?>">
+                                                            <?= $block->escapeHtml(
+                                                                $option['label']
+                                                            ); ?>
+                                                        </option>
+                                                    <?php endforeach;?>
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
-                                <?php endforeach;?>
-                            </form>
-                            <div
-                                class="
-                                    amlocator-actions
-                                    store-locator__filter-actions
-                                "
-                            >
+                                    <?php endforeach;?>
+                                </form>
+                            <div class="store-locator__filter-actions">
                                 <span
                                     class="
-                                        amlocator-clear
                                         button
                                         button--secondary
                                         margin-right-s
                                     "
-                                   title="<?= $block->escapeHtml(__('Reset')); ?>"
-                                   data-amlocator-js="clear-filters"
+                                    title="<?= $block->escapeHtmlAttr(__('Reset')); ?>"
+                                    data-amlocator-js="clear-filters"
                                 >
                                     <?= $block->escapeHtml(__('Reset')); ?>
                                 </span>
                                 <button
-                                    class="
-                                        button
-                                        amlocator-button
-                                        amlocator-filter-attribute
-                                    "
-                                    type="button"
-                                    title="<?= $block->escapeHtml(__('Filter')) ?>"
+                                    class="button filter-attribute"
+                                    title="<?= $block->escapeHtmlAttr(__('Filter')) ?>"
                                 >
                                     <?= $block->escapeHtml(__('Filter')); ?>
                                 </button>
@@ -353,7 +300,7 @@ if ($productId):
         <div class="amlocator-block -map">
             <div
                 class="amlocator-map"
-                id="<?= $block->escapeHtml($block->getMapId()); ?>"
+                id="<?= $block->escapeHtmlAttr($block->getMapId()); ?>"
             ></div>
         </div>
     </div>
@@ -366,8 +313,8 @@ if ($productId):
         'Amasty_Storelocator/js/cluster',
         'domReady!',
         'https://maps.googleapis.com/maps/api/js?libraries=places&key=<?= $block->escapeHtml(
-            $block->configProvider->getApiKey()
-        ); ?>'
+                $block->configProvider->getApiKey()
+                ); ?>'
     ], function ($) {
         var mapId = "#" + "<?= $block->escapeHtml($block->getMapId()); ?>";
         $(mapId).amLocator({
@@ -380,7 +327,7 @@ if ($productId):
             enableSuggestionClickSearch: "<?= (bool) $block->getSuggestionClickSearch(); ?>",
             enableCountingDistance: "<?= (bool) $block->getCountingDistance(); ?>",
             distanceConfig: "<?= $block->escapeHtml($block->getDistanceConfig()); ?>",
-            useGeoConfig: "<?= (bool)$block->getGeoUse()?>",
+            useGeoConfig: "<?= (bool) $block->getGeoUse()?>",
             allowedCountries: <?= /* @noEscape */ $block->getAllowedCountries(); ?>,
             ajaxCallUrl: "<?= $block->escapeHtml(
                 $block->getUrl('amlocator/index/ajax') . $block->getQueryString()
@@ -388,10 +335,10 @@ if ($productId):
             useBrowserLocation: "<?= (bool) $block->getUseBrowserLocation()?>",
             jsonLocations: <?= /* @noEscape */ $block->getJsonLocations() ?>,
             imageLocations: "<?= $block->escapeHtml($block->getViewFileUrl('Amasty_Storelocator::images/')); ?>",
-            mapId : "<?= $block->escapeHtml($block->getMapId()); ?>",
+            mapId: "<?= $block->escapeHtml($block->getMapId()); ?>",
             mapContainerId: "<?= $block->escapeHtml($block->getMapContainerId()); ?>",
             showSearch: <?= (int) $block->getShowSearch(); ?>,
-            <?php if ($block->getRadiusType() == 'range'):?>
+            <?php if ($block->getRadiusType() == 'range') :?>
                 isRadiusSlider: <?= $block->escapeHtml($block->getRadiusType()) == 'range'?>,
                 maxRadiusValue: <?= (int) $block->getMaxRadiusValue(); ?>,
                 minRadiusValue: <?= (int) $block->getMinRadiusValue(); ?>,
