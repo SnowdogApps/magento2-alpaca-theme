@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- 67443: color property with variable for easier override of select2 styles
+
 ## [Released]
 ## [2.6.0] - 2020-08-06
 ### Added
