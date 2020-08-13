@@ -2,19 +2,24 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+## [Released]
+## [2.6.0] - 2020-08-06
 ### Added
 - pointer cursor for zoom in icon (#69031)
 ### Fixed
 - modal close icon overlay on text (#69152)
 - typo in newsletter (#67925)
 
+### Changed
+- loader to sth "standard" (#68653)
+
 ### Removed
 - unused code (#64998)
 
 ### Fixed
 - sasslint warnings (#64998)
-
-## [Released]
+- configurable produt special price visibility and styling, updating product price on swatch change (#69349)
 
 ## [2.5.0] - 2020-07-15
 ### Fixed
