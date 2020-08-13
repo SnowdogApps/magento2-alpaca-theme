@@ -1,11 +1,5 @@
 <?php
 /**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
-?>
-<?php
-/**
  * Category view template
  *
  * @var $block \Magento\Catalog\Block\Category\View
@@ -16,17 +10,34 @@
 // phpcs:disable Magento2.Security.LanguageConstruct.DirectOutput
 ?>
 <?php
-    $_helper    = $this->helper(Magento\Catalog\Helper\Output::class);
-    $_category  = $block->getCurrentCategory();
-    $_imgHtml   = '';
+    $_helper = $this->helper(Magento\Catalog\Helper\Output::class);
+    $_category = $block->getCurrentCategory();
+    $_imgHtml = '';
+    // TODO Get height and width of category image
+    $imgHeight = 230;
+    $imgWidth = 400;
+    $aspectRatio = ($imgHeight / $imgWidth) * 100;
     if ($_imgUrl = $_category->getImageUrl()) {
-        $_imgHtml = '<div class="category-image"><img src="'
-            . $block->escapeUrl($_imgUrl)
-            . '" alt="'
-            . $block->escapeHtmlAttr($_category->getName())
-            . '" title="'
-            . $block->escapeHtmlAttr($_category->getName())
-            . '" class="image" /></div>';
+        $_imgHtml = '
+            <div 
+                class="
+                    category-image 
+                    ratio-container
+                "
+                style="padding-bottom:' . $aspectRatio . '%"
+            >
+                <img 
+                    src="' . $block->escapeUrl($_imgUrl) . '" 
+                    alt="' . $block->escapeHtmlAttr($_category->getName()) . '" 
+                    title="' . $block->escapeHtmlAttr($_category->getName()) . '" 
+                    class="
+                        image 
+                        lazyload
+                        ratio-image
+                    " 
+                />
+            </div>
+        ';
         $_imgHtml = $_helper->categoryAttribute($_category, $_imgHtml, 'image');
         /* @noEscape */ echo $_imgHtml;
     }

@@ -29,20 +29,24 @@
     $aspectRatioWidth = $block->getImgRatioWidth();
     $aspectRatioHeight = $block->getImgRatioHeight();
 
-    $pictureAspectRatio = false;
+    $pictureAspectRatio = true;
 
     if ($aspectRatioHeight && $aspectRatioWidth) {
         $pictureAspectRatio = ($aspectRatioHeight / $aspectRatioWidth) * 100;
     }
 
-    if ($pictureAspectRatio) {
+    if ($aspectRatioHeight && $aspectRatioWidth) {
         $pictureClass .= ' ratio-container';
+        $imgClass .= ' ratio-image';
     }
 ?>
 <?php if ($pictureClass): ?>
     <picture
-        class="image <?= $block->escapeHtmlAttr($pictureClass) ?>"
-        <?php if($pictureAspectRatio): ?>
+        class="
+            image 
+            <?= $block->escapeHtmlAttr($pictureClass) ?>
+        "
+        <?php if($aspectRatioHeight && $aspectRatioWidth): ?>
             style="padding-bottom: <?= $block->escapeHtmlAttr($pictureAspectRatio) . '%'; ?>"
         <?php endif; ?>
     >
@@ -113,7 +117,10 @@
             />
         <?php endif ?>
         <img
-            class="lazyload <?= $block->escapeHtmlAttr($imgClass) ?>"
+            class="
+                lazyload 
+                <?= $block->escapeHtmlAttr($imgClass) ?>
+            "
             data-src="<?= $block->escapeUrl($mediaUrl . $imgDefault) ?>"
             alt="<?= $block->escapeHtmlAttr($pictureAlt) ?>"
             src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAABCAQAAABN/Pf1AAAAC0lEQVR42mNkwAIAACoAAgu1Hc4AAAAASUVORK5CYII="

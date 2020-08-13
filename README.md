@@ -393,6 +393,26 @@ Homepage content is build using static blocks, check `vendor/snowdog/theme-front
 * usage of phtml in cms block/page: {{block class="Magento\Framework\View\Element\Template" template="Magento_Theme::html/picture.phtml" img480="<img-url>" img768="<img-url>" img960="<img-url>" img1024="<img-url>" img1328="<img-url>" img_full="<img-url>" picture_class="image" picture_alt="<descriptive image alternative text>" }}
 * by default you can use different image for media query breakpoints, you can also implement images with different device-pixel-ratio, check the template's code for details
 
+### Preventing images from jumping on load
+* to prevent jumping we need aspect ratio of image which we can calculate with formula: $aspectRatio = (imgHeight / imgWidth) * 100  
+* usage for single image: 
+```
+<div 
+    class="ratio-container"
+    style="padding-bottom: $aspectRatio%"
+>
+    <img 
+        src="#" 
+        alt="#"
+        class="ratio-image"
+    />
+</div>
+```
+* usage for images added with picture.phtml. To work we need set img_ratio width and img_ratio_height:
+```
+{{block class="Magento\Framework\View\Element\Template" template="Magento_Theme::html/picture.phtml" img_default="cms/home/banners/#" img_ratio_width="656" img_ratio_height="264"}}
+```
+
 ### Slider
 * we use Blackbird Content Manager (paid extension) for sliders, but you can use the structure from Alpaca components and build it using template and CMS blocks
 
