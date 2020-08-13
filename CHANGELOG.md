@@ -2,7 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
-
+### Changed
+- zoomed in image background opacity & close button to dark (#69145)
 ## [Released]
 ## [2.6.0] - 2020-08-06
 ### Added
