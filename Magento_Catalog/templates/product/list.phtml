@@ -40,7 +40,7 @@ use Magento\Framework\App\Action\Action;
 
 
     <?php /** @var $_product \Magento\Catalog\Model\Product */ ?>
-    <?php if($viewMode === 'products-list'): ?>
+    <?php if ($viewMode === 'products-list'): ?>
         <ul class="list">
             <?php foreach ($_productCollection as $_product): ?>
                 <li
@@ -131,7 +131,7 @@ use Magento\Framework\App\Action\Action;
                                     aria-label="<?= $block->escapeHtmlAttr(__('Product description list')) ?>"
                                     tabindex="0"
                                 >
-                                    <?= $_product['selling_features_bullets'] ?>
+                                    <?= $block->escapeHtml($_product['selling_features_bullets']) ?>
                                 </div>
                             <?php endif; ?>
                         </div>
@@ -164,7 +164,7 @@ use Magento\Framework\App\Action\Action;
                                         <?php endif; ?>
                                     </button>
                                     <div
-                                            id="shipping-latency-popup-<?= $_product->getId(); ?>"
+                                            id="shipping-latency-popup-<?= $block->escapeHtmlAttr($_product->getId()); ?>"
                                             role="dialog"
                                             aria-hidden="true"
                                             data-modal="shipping-latency-popup"
@@ -216,16 +216,16 @@ use Magento\Framework\App\Action\Action;
                             <div class="product-list-item__price">
                                 <div class="price">
                                     <span class="price__value">
-                                        <?= $block->getProductPrice($_product) ?>
+                                        <?= $block->escapeHtml($block->getProductPrice($_product)) ?>
                                     </span>
                                 </div>
                             </div>
 
-                            <?php if ($_product->isAvailable()) :?>
+                            <?php if ($_product->isAvailable()): ?>
                                 <?= $block->getProductDetailsHtml($_product) ?>
                             <?php endif; ?>
 
-                            <div 
+                            <div
                                 class="
                                     product-list-item__actions-inner
                                     <?= ($productMetadata->getEdition() == 'B2B') ? 'product-list-item__actions-inner--ee' : '' ?>
@@ -251,8 +251,8 @@ use Magento\Framework\App\Action\Action;
                                         >
                                         <input
                                             type="hidden"
-                                            name="<?= Action::PARAM_NAME_URL_ENCODED ?>"
-                                            value="<?= $postParams['data'][Action::PARAM_NAME_URL_ENCODED] ?>"
+                                            name="<?= $block->escapeHtmlAttr(Action::PARAM_NAME_URL_ENCODED) ?>"
+                                            value="<?= $block->escapeHtml($postParams['data'][Action::PARAM_NAME_URL_ENCODED]) ?>"
                                         >
                                         <?= $block->getBlockHtml('formkey') ?>
                                         <button
@@ -373,11 +373,11 @@ use Magento\Framework\App\Action\Action;
                                         $productName = substr($productName, 0, 42) . '...';
                                     }
                                 ?>
-                                <?= $productName; ?>
+                                <?= $block->escapeHtml($productName) ?>
                             </a>
                         </div>
 
-                        <?php if ($_product->isAvailable()) :?>
+                        <?php if ($_product->isAvailable()): ?>
                             <?= $block->getProductDetailsHtml($_product) ?>
                         <?php endif; ?>
 
@@ -388,7 +388,7 @@ use Magento\Framework\App\Action\Action;
                                     data-testid="list-product-item-price"
                                 >
                                     <span class="price__value">
-                                        <?= $block->getProductPrice($_product) ?>
+                                        <?= $block->escapeHtml($block->getProductPrice($_product)) ?>
                                     </span>
                                 </div>
                             </div>
@@ -411,7 +411,7 @@ use Magento\Framework\App\Action\Action;
                                         class="product-grid-item__primary-action"
                                         data-product-sku="<?= $block->escapeHtmlAttr($_product->getSku()) ?>"
                                         data-role="tocart-form"
-                                        action="<?= $postParams['action'] ?>"
+                                        action="<?= $block->escapeHtml($postParams['action']) ?>"
                                         method="post"
                                     >
                                         <input
@@ -421,8 +421,8 @@ use Magento\Framework\App\Action\Action;
                                         >
                                         <input
                                             type="hidden"
-                                            name="<?= Action::PARAM_NAME_URL_ENCODED ?>"
-                                            value="<?= $postParams['data'][Action::PARAM_NAME_URL_ENCODED] ?>"
+                                            name="<?= $block->escapeHtml(Action::PARAM_NAME_URL_ENCODED) ?>"
+                                            value="<?= $block->escapeHtml($postParams['data'][Action::PARAM_NAME_URL_ENCODED]) ?>"
                                         >
                                         <?= $block->getBlockHtml('formkey') ?>
                                         <button

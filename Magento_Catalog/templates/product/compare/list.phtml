@@ -30,7 +30,7 @@ $compareHelper = $this->helper(Magento\Catalog\Helper\Product\Compare::class);
                             $index = 0;
                         ?>
                         <?php /** @var $item \Magento\Catalog\Model\Product */ ?>
-                        <?php foreach ($block->getItems() as $item) : ?>
+                        <?php foreach ($block->getItems() as $item): ?>
                             <?php if ($index++ == 0): ?>
                                 <th
                                     scope="row"
@@ -59,9 +59,9 @@ $compareHelper = $this->helper(Magento\Catalog\Helper\Product\Compare::class);
                                         href="<?= $block->escapeUrl($block->getProductUrl($item)) ?>"
                                         title="<?= $block->escapeHtmlAttr($block->stripTags($item->getName(), null, true)) ?>"
                                     >
-                                        <?= $helper->productAttribute($item, $item->getName(), 'name') ?>
+                                        <?= $block->escapeHtml($helper->productAttribute($item, $item->getName(), 'name')) ?>
                                     </a>
-                                    <?= $block->getProductPrice($item, '-compare-list-top') ?>
+                                    <?= $block->escapeHtml($block->getProductPrice($item, '-compare-list-top')) ?>
                                     <div class="compare__buttons-container hidden-print">
                                         <?php if ($this->helper(Magento\Wishlist\Helper\Data::class)->isAllow()): ?>
                                             <div
@@ -76,7 +76,7 @@ $compareHelper = $this->helper(Magento\Catalog\Helper\Product\Compare::class);
                                                     type="submit"
                                                     title="<?= $block->escapeHtmlAttr(__('Remove Product')) ?>"
                                                     aria-label="<?= $block->escapeHtmlAttr(__('Remove Product')) ?>"
-                                                    data-post='<?= $compareHelper->getPostDataRemove($item) ?>'
+                                                    data-post='<?= $block->escapeHtml($compareHelper->getPostDataRemove($item)) ?>'
                                                 >
                                                     <svg
                                                         class="icon button__icon"
@@ -146,7 +146,7 @@ $compareHelper = $this->helper(Magento\Catalog\Helper\Product\Compare::class);
                         <?php if ($block->hasAttributeValueForProducts($attribute)): ?>
                             <tr class="compare__row">
                                 <?php foreach ($block->getItems() as $item): ?>
-                                    <?php if ($index++ == 0) : ?>
+                                    <?php if ($index++ == 0): ?>
                                         <th
                                             scope="row"
                                             class="compare__label"
@@ -156,23 +156,27 @@ $compareHelper = $this->helper(Magento\Catalog\Helper\Product\Compare::class);
                                     <?php endif; ?>
                                     <td class="compare__cell">
                                         <div class="attribute value">
-                                            <?php switch ($attribute->getAttributeCode()) {
-                                                case "price": ?>
-                                                    <?= $block->getProductPrice(
-                                                            $item,
-                                                            '-compare-list-' . $attribute->getCode()
-                                                        )
-                                                    ?>
-                                                <?php break;
-                                                case "small_image": ?>
-                                                    <?php $block->getImage($item, 'product_small_image')->toHtml(); ?>
-                                                <?php break;
-                                                default: ?>
-                                                    <?php if (is_string($block->getProductAttributeValue($item, $attribute))): ?>
-                                                        <?= $helper->productAttribute($item, $block->getProductAttributeValue($item, $attribute), $attribute->getAttributeCode()) ?>
-                                                    <?php endif; ?>
-                                                <?php break;
-                                            } ?>
+                                            <?php
+                                                $block->escapeHtml(
+                                                    switch ($attribute->getAttributeCode()) {
+                                                        case "price": ?>
+                                                            <?= $block->getProductPrice(
+                                                                    $item,
+                                                                    '-compare-list-' . $attribute->getCode()
+                                                                )
+                                                            ?>
+                                                        <?php break;
+                                                        case "small_image": ?>
+                                                            <?php $block->getImage($item, 'product_small_image')->toHtml(); ?>
+                                                        <?php break;
+                                                        default: ?>
+                                                            <?php if (is_string($block->getProductAttributeValue($item, $attribute))): ?>
+                                                                <?= $helper->productAttribute($item, $block->getProductAttributeValue($item, $attribute), $attribute->getAttributeCode()) ?>
+                                                            <?php endif; ?>
+                                                        <?php break;
+                                                    }
+                                                )
+                                            ?>
                                         </div>
                                     </td>
                                 <?php endforeach; ?>
