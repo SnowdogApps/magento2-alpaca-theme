@@ -1,0 +1,55 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+?>
+<?php if (count($block->getItems()) > 0) :?>
+<form action="<?= $block->escapeUrl($block->getActionUpdateUrl()) ?>"
+      method="post"
+      id="gift-registry-items-form"
+      class="form giftregistry items"
+      data-mage-init='{"validation":{}}'>
+    <fieldset class="fieldset">
+        <?= $block->getBlockHtml('formkey') ?>
+        <div class="table-wrapper giftregistry">
+            <table id="shopping-cart-table" class="data table table-giftregistry-items">
+                <caption class="table-caption"><?= $block->escapeHtml(__('Gift Registry')) ?></caption>
+                <thead>
+                    <tr>
+                        <th scope="col" class="col product"><?= $block->escapeHtml(__('Product')) ?></th>
+                        <th scope="col" class="col note"><?= $block->escapeHtml(__('Note')) ?></th>
+                        <th scope="col" class="col date"><?= $block->escapeHtml(__('Added On')) ?></th>
+                        <th scope="col" class="col qty"><?= $block->escapeHtml(__('Qty')) ?></th>
+                        <th scope="col" class="col fulfilled"><?= $block->escapeHtml(__('Qty Fulfilled')) ?></th>
+                        <th scope="col" class="col actions"><?= $block->escapeHtml(__('Delete')) ?></th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($block->getItems() as $_item) :?>
+                    <?= $block->getItemHtml($_item) ?>
+                <?php endforeach ?>
+                </tbody>
+            </table>
+        </div>
+        <div class="actions-toolbar">
+            <div class="primary">
+                <button type="submit" class="action primary update">
+                    <span><?= $block->escapeHtml(__('Update Gift Registry')) ?></span>
+                </button>
+            </div>
+            <div class="secondary">
+                <a href="<?= $block->escapeUrl($block->getBackUrl()) ?>" class="action back"><span><?= $block->escapeHtml(__('Back')) ?></span></a>
+            </div>
+        </div>
+    </fieldset>
+</form>
+<?php else :?>
+    <div class="message info empty"><span><?= $block->escapeHtml(__('This gift registry has no items.')) ?></span></div>
+    <div class="actions-toolbar">
+        <div class="secondary">
+            <a href="<?= $block->escapeUrl($block->getBackUrl()) ?>" class="action back"><span><?= $block->escapeHtml(__('Back')) ?></span></a>
+        </div>
+    </div>
+<?php endif ?>
