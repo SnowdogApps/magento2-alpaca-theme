@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<layout
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_layout.xsd"
+>
+    <referenceContainer
+        name="product.info.details.after.wrapper.columns"
+        htmlClass="product-view container"
+    >
+        <container
+            name="product.info.tabs.wrapper"
+            htmlTag="div"
+            htmlClass="product-view__tabs"
+        >
+            <block
+                class="Magento\Framework\View\Element\Template"
+                name="product.info.tabs"
+                template="Magento_Catalog::product/view/details.phtml"
+            >
+                <block
+                    class="Magento\Framework\View\Element\Template"
+                    name="product.attributes.details"
+                    template="Magento_PageBuilder::catalog/product/view/section_wrapper.phtml"
+                    group="detailed_info"
+                >
+                    <arguments>
+                        <argument name="title" translate="true" xsi:type="string">Details</argument>
+                    </arguments>
+                </block>
+                <block
+                    class="Magento\Framework\View\Element\Template"
+                    name="product.attributes.more"
+                    template="Magento_PageBuilder::catalog/product/view/section_wrapper.phtml"
+                    after="product.attributes.details"
+                    group="detailed_info"
+                >
+                    <arguments>
+                        <argument name="title" translate="true" xsi:type="string">More Information</argument>
+                    </arguments>
+                </block>
+                <block
+                    class="Magento\Framework\View\Element\Template"
+                    name="product.attributes.reviews"
+                    after="product.attributes.more"
+                    template="Magento_PageBuilder::catalog/product/view/section_wrapper.phtml"
+                    group="detailed_info"
+                >
+                    <arguments>
+                        <argument name="title" translate="true" xsi:type="string">Reviews</argument>
+                    </arguments>
+                </block>
+            </block>
+        </container>
+    </referenceContainer>
+
+    <move
+        element="product.info.description"
+        destination="product.attributes.details"
+    />
+
+    <move
+        element="product.attributes.exclude.pagebuilder"
+        destination="product.attributes.more"
+    />
+
+    <move
+        element="reviews.tab"
+        destination="product.attributes.reviews"
+    />
+
+    <referenceContainer
+        name="product.info.details.after.wrapper.main"
+        remove="true"
+    />
+</layout>

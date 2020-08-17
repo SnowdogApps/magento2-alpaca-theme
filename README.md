@@ -16,6 +16,9 @@ Open source
 * snowdog/module-product-attribute-description
 * snowdog/module-shipping-latency
 * webshopapps/module-matrixrate
+* paradoxlabs/authnetcim
+* paradoxlabs/tokenbase
+* authorizenet/magento-module-creditcard
 
 and module-alpaca-acm (from github) which will be added in p.1
 

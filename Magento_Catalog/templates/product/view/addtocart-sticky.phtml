@@ -1,20 +1,28 @@
 <?php
 /** @var $block \Magento\Catalog\Block\Product\View */
-?>
 
+// TODO get magento version without objectManager
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$productMetadata = $objectManager->get('Magento\Framework\App\ProductMetadataInterface');
+?>
+    
 <?php $_product = $block->getProduct(); ?>
 <?php $buttonTitle = __('Add to Cart'); ?>
 
 <?php if ($_product->isSaleable()): ?>
 <div
-    class="add-to-cart aos-init"
+    class="
+        add-to-cart 
+        aos-init
+        <?= ($productMetadata->getEdition() == 'B2B') ? 'add-to-cart--ee' : '' ?>
+    "
     data-aos="fade-up"
     data-aos-anchor="#product-addtocart-button"
     data-aos-anchor-placement="bottom-top"
     data-aos-id="addtocart-sticky"
 >
     <div class="add-to-cart__wrapper">
-        <div class="add-to-cart__title">
+        <div class="add-to-cart__title padding-right-m">
             <h2 class="heading heading--page">
                 <?= $block->escapeHtml($_product->getName()) ?>
             </h2>
@@ -46,42 +54,43 @@
                     <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#shopping-cart')); ?>"></use>
                 </svg>
             </button>
-
-            <button
-                class="
-                    button
-                    button--icon
-                    add-to-cart__button-more
-                "
-                type="button"
-                aria-expanded="false"
-                data-mage-init='{"addToCartMore": {} }'
-            >
-                <svg
+            <?php if ($productMetadata->getEdition() !== 'B2B'): ?>
+                <button
                     class="
-                        icon
-                        button__icon
+                        button
+                        button--icon
+                        add-to-cart__button-more
                     "
-                    role="presentation"
-                    focusable="false"
+                    type="button"
+                    aria-expanded="false"
+                    data-mage-init='{"addToCartMore": {} }'
                 >
-                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#more')); ?>"></use>
-                </svg>
-                <svg
-                    class="
-                        icon
-                        button__icon-close
-                    "
-                    role="presentation"
-                    focusable="false"
-                >
-                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#close')); ?>"></use>
-                </svg>
-            </button>
-            <div class="add-to-cart__action-secondary">
-                <?= $block->getChildHtml('view.addto.wishlist.sticky') ?>
-                <?= $block->getChildHtml('view.addto.compare.sticky') ?>
-            </div>
+                    <svg
+                        class="
+                            icon
+                            button__icon
+                        "
+                        role="presentation"
+                        focusable="false"
+                    >
+                        <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#more')); ?>"></use>
+                    </svg>
+                    <svg
+                        class="
+                            icon
+                            button__icon-close
+                        "
+                        role="presentation"
+                        focusable="false"
+                    >
+                        <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#close')); ?>"></use>
+                    </svg>
+                </button>
+                <div class="add-to-cart__action-secondary">
+                    <?= $block->getChildHtml('view.addto.wishlist.sticky') ?>
+                    <?= $block->getChildHtml('view.addto.compare.sticky') ?>
+                </div>
+            <?php endif; ?>
         </div>
 
     </div>

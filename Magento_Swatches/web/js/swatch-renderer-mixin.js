@@ -35,7 +35,7 @@ define([
         //selector of product images gallery wrapper
         mediaGallerySelector: '[data-gallery-role=gallery-placeholder]',
         // selector of category product tile wrapper
-        selectorProductTile: '.product-item-details',
+        selectorProductTile: '[class*="-item__swatches"]',
         // number of controls to show (false or zero = show all)
         numberToShow: false,
         // show only swatch controls
@@ -65,6 +65,10 @@ define([
         gallerySwitchStrategy: 'replace',
         // whether swatches are rendered in product list or on product page
         inProductList: false,
+        // special price wrapper selector
+        specialPriceWrapper: '.price__wrapper',
+        // sly-final-price block selector
+        slyFinalPriceSelector: '.sly-final-price',
         // sly-old-price block selector
         slyOldPriceSelector: '.sly-old-price',
         // tier prise selectors start
@@ -78,14 +82,37 @@ define([
         select2options: {
           minimumResultsForSearch: Infinity,
           width: null,
-          position: 'bottom'
+          position: 'bottom',
+        },
+      },
+      _determineProductData: function () {
+        // Check if product is in a list of products.
+        var productId,
+          isInProductView = false;
+
+        productId = this.element
+          .parents('[class*="-item__swatches"]')
+          .find('.price-box.price-final_price')
+          .attr('data-product-id');
+
+        if (!productId) {
+          // Check individual product.
+          productId = $('[name=product]').val();
+          isInProductView = productId > 0;
         }
+
+        return {
+          productId: productId,
+          isInProductView: isInProductView,
+        };
       },
       _RenderControls: function () {
         var $widget = this,
           container = this.element,
           classes = this.options.classes,
-          chooseText = this.options.jsonConfig.chooseText;
+          chooseText = this.options.jsonConfig.chooseText,
+          $product = $widget.element.parents($widget.options.selectorProduct),
+          prices = $widget._getNewPrices();
 
         $widget.optionsMap = {};
 
@@ -164,6 +191,10 @@ define([
 
         // Hide all elements below more button
         $('.' + classes.moreButton).nextAll().hide();
+
+        // Display special price
+        $widget._updateSpecialPrice(prices);
+        $product.find(this.options.specialPriceWrapper).removeClass('display-none');
 
         // Handle events like click or change
         $widget._EventListener();
@@ -252,12 +283,12 @@ define([
             // Default
             html += '">' + label;
           }
-          html += '</div></div>'
+          html += '</div></div>';
         });
 
         return html;
       },
-       _RenderSwatchSelect: function (config, chooseText) {
+      _RenderSwatchSelect: function (config, chooseText) {
         var html;
 
         if (this.options.jsonSwatchConfig.hasOwnProperty(config.id)) {
@@ -365,7 +396,7 @@ define([
           .find('.' + this.options.classes.optionContainerClass).attr('aria-selected', false);
         $this.attr('aria-selected', true);
       },
-       _Rebuild: function () {
+      _Rebuild: function () {
         var $widget = this,
           controls = $widget.element.find('.' + $widget.options.classes.attributeClass + '[attribute-id]'),
           selected = controls.filter('[option-selected]');
@@ -413,6 +444,7 @@ define([
           $product = $widget.element.parents($widget.options.selectorProduct),
           $productPrice = $product.find(this.options.selectorProductPrice),
           options = _.object(_.keys($widget.optionsMap), {}),
+          newPrices,
           result,
           tierPriceHtml;
 
@@ -422,21 +454,19 @@ define([
           options[attributeId] = $(this).attr('option-selected');
         });
 
-        result = $widget.options.jsonConfig.optionPrices[_.findKey($widget.options.jsonConfig.index, options)];
+        newPrices = $widget.options.jsonConfig.optionPrices[_.findKey($widget.options.jsonConfig.index, options)];
 
         $productPrice.trigger(
           'updatePrice', {
-            'prices': $widget._getPrices(result, $productPrice.priceBox('option').prices)
+            'prices': $widget._getPrices(newPrices, $productPrice.priceBox('option').prices)
           }
         );
 
-        if (typeof result != 'undefined' && result.oldPrice.amount !== result.finalPrice.amount) {
-          $(this.options.slyOldPriceSelector).show();
-        } else {
-          $(this.options.slyOldPriceSelector).hide();
-        }
+        result = newPrices ? newPrices : $widget._getNewPrices();
 
-        if (typeof result != 'undefined' && result.tierPrices.length) {
+        $widget._updateSpecialPrice(result);
+
+        if (typeof newPrices != 'undefined' && result.tierPrices.length) {
           if (this.options.tierPriceTemplate) {
             tierPriceHtml = mageTemplate(
               this.options.tierPriceTemplate, {
@@ -467,6 +497,22 @@ define([
             }
           }
         }.bind(this));
+      },
+      _updateSpecialPrice: function(result) {
+        var $widget = this,
+          $product = $widget.element.parents($widget.options.selectorProduct),
+          $productSlyOldPriceSelector = $product.find(this.options.slyOldPriceSelector),
+          $productSlyFinalPriceSelector = $product.find(this.options.slyFinalPriceSelector);
+
+        if (result.oldPrice.amount !== result.finalPrice.amount) {
+          $productSlyOldPriceSelector.show();
+          $productSlyFinalPriceSelector.addClass('price__value--special');
+          $productSlyFinalPriceSelector.removeClass('price__value--normal');
+        } else {
+          $productSlyOldPriceSelector.hide();
+          $productSlyFinalPriceSelector.removeClass('price__value--special');
+          $productSlyFinalPriceSelector.addClass('price__value--normal');
+        }
       },
       _EnableProductMediaLoader: function ($this) {
         var $widget = this;

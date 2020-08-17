@@ -7,6 +7,10 @@ use Magento\Framework\App\Action\Action;
     $_helper = $this->helper(\Magento\Catalog\Helper\Output::class);
     /** @var \Snowdog\ShippingLatency\Helper\Data $shippingLatencyHelper */
     $shippingLatencyHelper = $this->helper(\Snowdog\ShippingLatency\Helper\Data::class);
+
+    // TODO get magento version without objectManager
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $productMetadata = $objectManager->get('Magento\Framework\App\ProductMetadataInterface');
 ?>
 <?php if (!$_productCollection->count()): ?>
     <div class="message info empty">
@@ -39,7 +43,14 @@ use Magento\Framework\App\Action\Action;
     <?php if($viewMode === 'products-list'): ?>
         <ul class="list">
             <?php foreach ($_productCollection as $_product): ?>
-                <li class="product-list-item">
+                <li
+                    class="
+                        product-list-item
+                        product-item
+                        product-item-info
+                        product-item-details
+                    "
+                >
                     <?php
                         $productImage = $block->getImage($_product, $imageDisplayArea);
                         $productName = $_product['name'];
@@ -86,7 +97,12 @@ use Magento\Framework\App\Action\Action;
                             </div>
                         <?php endif; ?>
                     </a>
-                    <div class="product-list-item__main">
+                    <div
+                        class="
+                            product-list-item__main
+                            product-list-item__swatches
+                        "
+                    >
                         <div class="product-list-item__details">
                             <div class="product-list-item__rating">
                                 <?= $block->getReviewsSummaryHtml($_product, $templateType) ?>
@@ -191,7 +207,6 @@ use Magento\Framework\App\Action\Action;
                                                         role="presentation"
                                                         focusable="false"
                                                 >
-                                                    <title><?= __('Close') ?></title>
                                                     <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#close')); ?>"></use>
                                                 </svg>
                                             </button>
@@ -208,7 +223,16 @@ use Magento\Framework\App\Action\Action;
                                 </div>
                             </div>
 
-                            <div class="product-list-item__actions-inner">
+                            <?php if ($_product->isAvailable()) :?>
+                                <?= $block->getProductDetailsHtml($_product) ?>
+                            <?php endif; ?>
+
+                            <div 
+                                class="
+                                    product-list-item__actions-inner
+                                    <?= ($productMetadata->getEdition() == 'B2B') ? 'product-list-item__actions-inner--ee' : '' ?>
+                                "
+                            >
                                 <?php if ($addToBlock = $block->getChildBlock('addto')): ?>
                                     <?= $addToBlock->setProduct($_product)->getChildHtml() ?>
                                 <?php endif ?>
@@ -217,10 +241,16 @@ use Magento\Framework\App\Action\Action;
                                     <?php $postParams = $block->getAddToCartPostParams($_product) ?>
                                     <form
                                         data-role="tocart-form"
+                                        data-product-sku="<?= $block->escapeHtmlAttr($_product->getSku()) ?>"
                                         class="product-list-item__add-to-action"
                                         action="<?= $postParams['action'] ?>"
                                         method="post"
                                     >
+                                        <input
+                                            type="hidden"
+                                            name="product"
+                                            value="<?= /* @noEscape */ $postParams['data']['product'] ?>"
+                                        >
                                         <input
                                             type="hidden"
                                             name="<?= Action::PARAM_NAME_URL_ENCODED ?>"
@@ -251,7 +281,6 @@ use Magento\Framework\App\Action\Action;
                                                 role="presentation"
                                                 focusable="false"
                                             >
-                                                <title><?= __('Shopping cart') ?></title>
                                                 <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#shopping-cart')) ?>"></use>
                                             </svg>
 
@@ -272,7 +301,12 @@ use Magento\Framework\App\Action\Action;
                     $productName = $_product['name'];
                 ?>
                 <li
-                    class="product-grid-item"
+                    class="
+                        product-grid-item
+                        product-item
+                        product-item-info
+                        product-item-details
+                    "
                     data-container="product-grid"
                     tabindex="0"
                     data-testid="list-product-item"
@@ -319,7 +353,12 @@ use Magento\Framework\App\Action\Action;
                             <?= $productImage->toHtml() ?>
                         </div>
                     </a>
-                    <section class="product-grid-item__details">
+                    <section
+                        class="
+                            product-grid-item__details
+                            product-grid-item__swatches
+                        "
+                    >
                         <div class="product-grid-item__rating">
                             <?= $block->getReviewsSummaryHtml($_product, $templateType) ?>
                         </div>
@@ -341,6 +380,11 @@ use Magento\Framework\App\Action\Action;
                                 <?= $productName; ?>
                             </a>
                         </div>
+
+                        <?php if ($_product->isAvailable()) :?>
+                            <?= $block->getProductDetailsHtml($_product) ?>
+                        <?php endif; ?>
+
                         <div class="product-grid-item__details-bottom">
                             <div class="product-grid-item__price">
                                 <div
@@ -353,7 +397,12 @@ use Magento\Framework\App\Action\Action;
                                 </div>
                             </div>
 
-                            <div class="product-grid-item__actions">
+                            <div 
+                                class="
+                                    product-grid-item__actions
+                                    <?= ($productMetadata->getEdition() == 'B2B') ? 'product-grid-item__actions--ee' : '' ?>
+                                "
+                            >
                                 <div class="product-grid-item__secondary-action">
                                     <?php if ($addToBlock = $block->getChildBlock('addto')): ?>
                                         <?= $addToBlock->setProduct($_product)->getChildHtml() ?>
@@ -364,10 +413,16 @@ use Magento\Framework\App\Action\Action;
                                     <?php $postParams = $block->getAddToCartPostParams($_product) ?>
                                     <form
                                         class="product-grid-item__primary-action"
+                                        data-product-sku="<?= $block->escapeHtmlAttr($_product->getSku()) ?>"
                                         data-role="tocart-form"
                                         action="<?= $postParams['action'] ?>"
                                         method="post"
                                     >
+                                        <input
+                                            type="hidden"
+                                            name="product"
+                                            value="<?= /* @noEscape */ $postParams['data']['product'] ?>"
+                                        >
                                         <input
                                             type="hidden"
                                             name="<?= Action::PARAM_NAME_URL_ENCODED ?>"
@@ -382,13 +437,13 @@ use Magento\Framework\App\Action\Action;
                                                 tocart
                                             "
                                             type="submit"
+                                            aria-label="<?= $block->escapeHtmlAttr(__('Add to cart')) ?>"
                                         >
                                             <svg
                                                 class="icon button__icon"
                                                 role="presentation"
                                                 focusable="false"
                                             >
-                                                <title><?= __('Shopping cart') ?></title>
                                                 <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#shopping-cart')) ?>"></use>
                                             </svg>
                                         </button>

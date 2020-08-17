@@ -80,12 +80,17 @@ use Magento\Framework\App\Action\Action;
         <?php foreach ($items as $key => $_item) : ?>
             <div
                 class="
+                    product-item
                     <?= $block->escapeHtmlAttr($sliderItemClass) ?>
                     <?= $key + 1 === 1 ? 'active' : '' ?>
                 "
             >
                 <div
-                    class="product-grid-item product-grid-item--slider-item"
+                    class="
+                        product-grid-item
+                        product-grid-item--slider-item
+                        product-item-info
+                    "
                     tabindex="0"
                 >
                     <a
@@ -128,7 +133,13 @@ use Magento\Framework\App\Action\Action;
                             <?= $block->getImage($_item, $image)->toHtml() ?>
                         </div>
                     </a>
-                    <section class="product-grid-item__details">
+                    <section
+                        class="
+                            product-grid-item__details
+                            product-grid-item__swatches
+                            product-item-details
+                        "
+                    >
                         <div class="product-grid-item__rating">
                             <?php if ($templateType) : ?>
                                 <?= $block->getReviewsSummaryHtml($_item, $templateType) ?>
@@ -150,11 +161,13 @@ use Magento\Framework\App\Action\Action;
                                 <?= $productName ?>
                             </a>
                         </h3>
+                        <?php if ($_item->isAvailable()) :?>
+                            <?= $block->getProductDetailsHtml($_item) ?>
+                        <?php endif; ?>
                         <div class="product-grid-item__details-bottom">
                             <div class="product-grid-item__price">
                                 <?= $block->getProductPriceHtml($_item, $type) ?>
                             </div>
-                            <?= $block->getProductDetailsHtml($_item) ?>
                             <?php if ($showWishlist || $showCompare || $showCart) : ?>
                                 <div class="product-grid-item__actions">
                                     <?php if ($showWishlist || $showCompare) : ?>
@@ -184,7 +197,6 @@ use Magento\Framework\App\Action\Action;
                                                         role="presentation"
                                                         focusable="false"
                                                     >
-                                                        <title><?= __('Wishlist heart') ?></title>
                                                         <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#heart')) ?>"></use>
                                                     </svg>
                                                 </button>
@@ -209,7 +221,6 @@ use Magento\Framework\App\Action\Action;
                                                         role="presentation"
                                                         focusable="false"
                                                     >
-                                                        <title><?= __('Add to Compare') ?></title>
                                                         <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#compare')) ?>"></use>
                                                     </svg>
                                                 </button>
@@ -242,6 +253,8 @@ use Magento\Framework\App\Action\Action;
                                                         class="
                                                             button
                                                             button--add-to
+                                                            action
+                                                            tocart
                                                         "
                                                         type="submit"
                                                         aria-label="<?= $block->escapeHtmlAttr(__('Add to cart')) ?>"
@@ -251,11 +264,21 @@ use Magento\Framework\App\Action\Action;
                                                             role="presentation"
                                                             focusable="false"
                                                         >
-                                                            <title><?= __('Add to cart') ?></title>
                                                             <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#shopping-cart')) ?>"></use>
                                                         </svg>
                                                     </button>
                                                 </form>
+                                                <?php if (!$block->isRedirectToCartEnabled()) :?>
+                                                    <script type="text/x-magento-init">
+                                                    {
+                                                        "[data-role=tocart-form], .form.map.checkout": {
+                                                            "catalogAddToCart": {
+                                                                "product_sku": "<?= $block->escapeJs($_item->getSku()) ?>"
+                                                            }
+                                                        }
+                                                    }
+                                                    </script>
+                                                <?php endif; ?>
                                             <?php else : ?>
                                                 <?php if ($_item->getIsSalable()) : ?>
                                                     <div class="stock available">

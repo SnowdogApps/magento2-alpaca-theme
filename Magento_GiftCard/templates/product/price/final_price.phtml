@@ -1,0 +1,168 @@
+<?php /** @var \Magento\GiftCard\Pricing\Render\FinalPriceBox $block */ ?>
+<?php $productId = $block->getSaleableItem()->getId(); ?>
+
+<?php if ($block->getCanShowPrice() !== false && !$block->getRenderForm()): ?>
+    <div class="price-box price">
+        <?php if ($block->isMinEqualToMax()): ?>
+            <span
+                class="price__value"
+                id="product-price-<?= $block->escapeHtmlAttr($productId) ?><?= $block->escapeHtmlAttr($block->getIdSuffix()) ?>"
+            >
+            <?= $block->escapeHtml($block->convertAndFormatCurrency($block->getMinValue(), false)) ?>
+        </span>
+        <?php elseif ($block->getMinValue() !== 0): ?>
+            <span class="price-label price__text">
+                <?= $block->escapeHtml(__('From')) ?>
+            </span>
+            <span
+                class="price__value"
+                id="min-product-price-<?= $block->escapeHtmlAttr($productId) ?><?= $block->escapeHtmlAttr($block->getIdSuffix()) ?>"
+            >
+            <?= $block->escapeHtml($block->convertAndFormatCurrency($block->getMinValue(), false)) ?>
+        </span>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>
+
+<?php if ($block->getRenderForm()): ?>
+    <?php if ($block->isRegularPrice()): ?>
+        <div
+            class="
+                price-box
+                price-final
+                price-final_price
+                product-view__price
+                padding-top-0
+            "
+        >
+            <span
+                class="
+                    price-container
+                    price-final
+                    price-final_price
+                "
+            >
+                <span
+                    class="price-wrapper"
+                    id="product-price-<?= $block->escapeHtmlAttr($productId) ?><?= $block->escapeHtmlAttr($block->getIdSuffix()) ?>"
+                >
+                    <span class="price__value">
+                        <?= $block->escapeHtml($block->convertAndFormatCurrency($block->getRegularPrice(), false)) ?>
+                    </span>
+                </span>
+            </span>
+        </div>
+    <?php else : ?>
+        <fieldset class="fieldset giftcard-amount">
+            <?php if ($block->isAmountAvailable()): ?>
+                <div class="required amount">
+                    <?php $configValue = $block->getGiftcardAmount(); ?>
+                    <div class="select select--native">
+                        <label
+                            for="giftcard-amount"
+                            id="amount-label-select"
+                            class="label"
+                        >
+                            <?= $block->escapeHtml(__('Amount')) ?>
+                        </label>
+                        <select
+                            name="giftcard_amount"
+                            id="giftcard-amount"
+                            data-mage-init='{
+                                "toggleGiftCard":{
+                                    "amountLabelSelector" : null
+                                },
+                                "select": {}
+                            }'
+                            class="
+                                select__field
+                                required-entry
+                                giftcard-amount-entry
+                            "
+                        >
+                            <option value="">
+                                <?= $block->escapeHtml(__('Choose an Amount...')) ?>
+                            </option>
+                            <?php foreach ($block->getAmounts() as $value) : ?>
+                                <option
+                                    value="<?= $block->escapeHtmlAttr($value) ?>"
+                                    <?= (($configValue == $value) ? 'selected' : '')?>
+                                >
+                                    <?= $block->escapeHtml($block->convertAndFormatCurrency($value, false)) ?>
+                                </option>
+                            <?php endforeach; ?>
+
+                            <?php if ($block->isOpenAmountAvailable()) : ?>
+                                <option
+                                    value="custom"
+                                    <?= (($configValue == 'custom') ? 'selected' : '')?>
+                                >
+                                    <?= $block->escapeHtml(__('Other Amount...')) ?>
+                                </option>
+                            <?php endif; ?>
+                        </select>
+                    </div>
+                </div>
+            <?php endif; ?>
+
+            <?php if ($block->isOpenAmountAvailable()) : ?>
+                <div
+                    id="giftcard-amount-box"
+                    class="field required open-amount"
+                >
+                    <div class="input">
+                        <label
+                            for="giftcard-amount-input"
+                            id="amount-label-input"
+                            class="label"
+                        >
+                            <?= $block->escapeHtml(__('Amount in %1', $block->getCurrentCurrency())) ?>
+                        </label>
+                        <input
+                            type="text"
+                            id="giftcard-amount-input"
+                            name="custom_giftcard_amount"
+                            class="input__field"
+                            data-validate="{
+                                number: true,
+                                required: true
+                                <?php if ($block->getOpenAmountMin()): ?>
+                                    <?= ',min: '; ?>
+                                    <?= $block->escapeHtml($block->convertCurrency($block->getOpenAmountMin())); ?>
+                                <?php endif; ?>
+                                <?php if ($block->getOpenAmountMax()): ?>
+                                    <?= ',max: '; ?>
+                                    <?= $block->escapeHtml($block->convertCurrency($block->getOpenAmountMax())); ?>
+                                <?php endif; ?>
+                            }"
+                            value="<?= $block->escapeHtmlAttr($block->getSaleableItem()->getPreconfiguredValues()->getData('custom_giftcard_amount')) ?>"
+                        />
+
+                        <?php if ($block->getOpenAmountMin() || $block->getOpenAmountMax()): ?>
+                            <?php $min = $block->convertAndFormatCurrency($block->getOpenAmountMin(), false); ?>
+                            <?php $max = $block->convertAndFormatCurrency($block->getOpenAmountMax(), false); ?>
+                            <p class="note">
+                                <?php if ($block->getOpenAmountMax() && $block->getOpenAmountMin()): ?>
+                                    <span>
+                                        <?= $block->escapeHtml(__('Minimum: %1', $min)) ?>
+                                    </span>
+                                    <span>
+                                        <?= $block->escapeHtml(__('Maximum: %1', $max)) ?>
+                                    </span>
+                                <?php elseif ($block->getOpenAmountMin()) : ?>
+                                    <span>
+                                        <?= $block->escapeHtml(__('Minimum: %1', $min)) ?>
+                                    </span>
+                                <?php elseif ($block->getOpenAmountMax()) : ?>
+                                    <span>
+                                        <?= $block->escapeHtml(__('Maximum: %1', $max)) ?>
+                                    </span>
+                                <?php endif; ?>
+                            </p>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+        </fieldset>
+    <?php endif; ?>
+<?php endif; ?>

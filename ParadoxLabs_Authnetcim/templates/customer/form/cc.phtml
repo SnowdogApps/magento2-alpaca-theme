@@ -1,0 +1,639 @@
+<?php
+
+/** @var \ParadoxLabs\TokenBase\Block\Customer\Form $block */
+// @codingStandardsIgnoreFile
+?>
+<?php $code = $block->escapeHtmlAttr($block->getCode()); ?>
+
+<div class="block-title">
+    <h2>
+        <?php if ($block->isEdit()): ?>
+            <?= $block->escapeHtml(__('Editing %1', $block->getCard()->getLabel())); ?>
+        <?php else : ?>
+            <?= $block->escapeHtml(__('Add A Credit Card')); ?>
+        <?php endif; ?>
+    </h2>
+</div>
+<form
+    action="<?= $block->escapeUrl($block->getAction()); ?>"
+    method="post"
+    id="form-validate"
+    class="checkout-payment-method"
+    data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
+>
+    <?= $block->getBlockHtml('formkey'); ?>
+    <input
+        type="hidden"
+        name="id"
+        value="<?= $block->getCard()->getId() ? $block->escapeHtmlAttr($block->getCard()->getHash()) : ''; ?>"
+    />
+    <input
+        type="hidden"
+        name="method"
+        value="<?= $code; ?>"
+    />
+    <?php if ($block->getMethod()->isAcceptJsEnabled() === true): ?>
+        <input
+            type="hidden"
+            name="payment[acceptjs_key]"
+            id="<?= $code ?>-acceptjs-key"
+            value=""
+        />
+        <input
+            type="hidden"
+            name="payment[acceptjs_value]"
+            id="<?= $code ?>-acceptjs-value"
+            value=""
+        />
+        <input
+            type="hidden"
+            name="payment[cc_last4]"
+            id="<?= $code ?>-cc-last4"
+            value=""
+        />
+        <?php if ($block->getMethod()->getConfigData('can_store_bin') == 1): ?>
+            <input
+                type="hidden"
+                name="payment[cc_bin]"
+                id="<?= $code ?>-cc-bin"
+                value=""
+            />
+        <?php endif; ?>
+    <?php endif; ?>
+    <fieldset class="fieldset">
+        <legend class="fieldset__legend fieldset__legend--hidden">
+            <?= $block->escapeHtml(__('Cardholder Information')) ?>
+        </legend>
+
+        <?= $block->getNameBlockHtml() ?>
+        <div class="input company">
+            <label
+                class="label"
+                for="company"
+            >
+                <?= $block->escapeHtml(__('Company')) ?>
+            </label>
+            <input
+                type="text"
+                name="billing[company]"
+                id="company"
+                title="<?= $block->escapeHtmlAttr(__('Company')) ?>"
+                value="<?= $block->escapeHtmlAttr($block->getAddress()->getCompany()) ?>"
+                class="
+                    input__field
+                    <?= $block->escapeHtmlAttr($this->helper(\Magento\Customer\Helper\Address::class)->getAttributeValidationClass('company')) ?>
+                "
+            >
+        </div>
+        <?php $phoneValidation = $this->helper(\Magento\Customer\Helper\Address::class)->getAttributeValidationClass('telephone'); ?>
+        <div
+            class="
+                input
+                telephone
+                <?php if (strpos($phoneValidation, 'required') !== false): ?>
+                    required
+                <?php endif; ?>
+            "
+        >
+            <label
+                class="label"
+                for="telephone"
+            >
+               <?= $block->escapeHtml(__('Phone Number')) ?>
+            </label>
+            <input
+                type="text"
+                name="billing[telephone]"
+                value="<?= $block->escapeHtmlAttr($block->getAddress()->getTelephone()) ?>"
+                title="<?= $block->escapeHtmlAttr(__('Phone Number')) ?>"
+                class="
+                    input__field
+                    <?= $block->escapeHtmlAttr($phoneValidation) ?>
+                "
+                id="telephone"
+            >
+        </div>
+    </fieldset>
+    <fieldset class="fieldset margin-bottom-m">
+        <legend class="fieldset__legend fieldset__legend--hidden">
+            <?= $block->escapeHtml(__('Cardholder Address')) ?>
+        </legend>
+
+        <?php
+            $_streetValidationClass = $block->escapeHtmlAttr(
+                $this->helper(\Magento\Customer\Helper\Address::class)->getAttributeValidationClass('street')
+            );
+        ?>
+        <div
+            class="
+                input
+                street
+                required
+            "
+        >
+            <label
+                for="street"
+                class="label"
+            >
+                <?= $block->escapeHtml(__('Street')) ?>
+            </label>
+            <input
+                type="text"
+                name="billing[street][]"
+                value="<?= $block->escapeHtmlAttr($block->getStreetLine(1)) ?>"
+                title="<?= $block->escapeHtmlAttr(__('Street Address')) ?>"
+                id="street"
+                class="
+                    input__field
+                    <?= $_streetValidationClass ?>
+                "
+            />
+        </div>
+        <div class="nested">
+            <?php $_streetValidationClass = trim(str_replace('required-entry', '', $_streetValidationClass)); ?>
+            <?php for ($_i = 1, $_n = $this->helper(\Magento\Customer\Helper\Address::class)->getStreetLines(); $_i < $_n; $_i++) : ?>
+                <?php $lineNo = (int) ($_i + 1); ?>
+                <div class="input additional">
+                    <label
+                        class="label"
+                        for="street_<?= $lineNo ?>"
+                    >
+                        <?= $block->escapeHtml(__('Street Address %1', $lineNo)) ?>
+                    </label>
+                    <input
+                        type="text"
+                        name="billing[street][]"
+                        value="<?= $block->escapeHtmlAttr($block->getStreetLine($lineNo)) ?>"
+                        title="<?= $block->escapeHtmlAttr(__('Street Address %1', $lineNo)) ?>"
+                        id="street_<?= $lineNo ?>"
+                        class="
+                            input__field
+                            <?= $_streetValidationClass ?>
+                        "
+                    >
+                </div>
+            <?php endfor; ?>
+        </div>
+        <div
+            class="
+                input
+                city
+                required
+            "
+        >
+            <label
+                class="label"
+                for="city"
+            >
+                <?= $block->escapeHtml(__('City')) ?>
+            </label>
+            <input
+                type="text"
+                name="billing[city]"
+                value="<?= $block->escapeHtmlAttr($block->getAddress()->getCity()) ?>"
+                title="<?= $block->escapeHtmlAttr(__('City')) ?>"
+                class="
+                    input__field
+                    <?= $block->escapeHtmlAttr($this->helper(\Magento\Customer\Helper\Address::class)->getAttributeValidationClass('city')) ?>
+                "
+                id="city"
+            >
+        </div>
+        <div
+            class="
+                select
+                select--native
+                region
+                required
+            "
+        >
+            <label
+                class="label"
+                for="region-id"
+            >
+                <?= $block->escapeHtml(__('State/Province')) ?>
+            </label>
+            <select
+                id="region-id"
+                name="billing[region_id]"
+                title="<?= $block->escapeHtmlAttr(__('State/Province')) ?>"
+                class="select__field validate-select"
+                <?= (!$block->getConfig('general/region/display_all')) ? ' disabled="disabled"' : ''; ?>
+                data-mage-init='{"select": {}}'
+            >
+                <option value="">
+                    <?= $block->escapeHtml(__('Please select a region, state or province.')) ?>
+                </option>
+            </select>
+            <input
+                type="text"
+                id="region"
+                name="billing[region]"
+                value="<?= $block->escapeHtmlAttr($block->getRegion()) ?>"
+                title="<?= $block->escapeHtmlAttr(__('State/Province')) ?>"
+                class="
+                    input__field
+                    display-none
+                    <?= $block->escapeHtmlAttr($this->helper(\Magento\Customer\Helper\Address::class)->getAttributeValidationClass('region')) ?>
+                "
+                <?= (!$block->getConfig('general/region/display_all')) ? ' disabled="disabled"' : ''; ?>
+            />
+        </div>
+        <div
+            class="
+                input
+                zip
+                required
+            "
+        >
+            <label
+                class="label"
+                for="zip"
+            >
+                <?= $block->escapeHtml(__('Zip/Postal Code')) ?>
+            </label>
+            <input
+                type="text"
+                name="billing[postcode]"
+                value="<?= $block->escapeHtmlAttr($block->getAddress()->getPostcode()) ?>"
+                title="<?= $block->escapeHtmlAttr(__('Zip/Postal Code')) ?>"
+                id="zip"
+                class="
+                    input__field
+                    validate-zip-international
+                    <?= $block->escapeHtmlAttr($this->helper(\Magento\Customer\Helper\Address::class)->getAttributeValidationClass('postcode')) ?>
+                "
+            >
+        </div>
+        <div
+            class="
+                select
+                select--native
+                country
+                required
+            "
+        >
+            <label
+                class="label"
+                for="country"
+            >
+                <?= $block->escapeHtml(__('Country')) ?>
+            </label>
+            <?php
+                $countries = $block->getCountryCollection()
+                    ->setForegroundCountries($block->getTopDestinations())
+                    ->toOptionArray();
+                $countryValue = $block->getAddress()->getCountryId() ?? $block->getCountryId();
+            ?>
+            <select
+                id="country"
+                name="billing[country_id]"
+                class="select__field required-entry"
+                title="<?= $block->escapeHtmlAttr(__('Country')) ?>"
+                data-validate="{'validate-select':true}"
+                data-mage-init='{"select": {}}'
+            >
+                <?php foreach ($countries as $country): ?>
+                    <option
+                        value="<?= $country['value'] ?>"
+                        <?php if ($country['value'] === $countryValue): ?>
+                            selected="selected"
+                        <?php endif ?>
+                    >
+                        <?= $block->escapeHtml($country['label']) ?>
+                    </option>
+                <?php endforeach ?>
+            </select>
+        </div>
+    </fieldset>
+    <fieldset
+        class="
+            fieldset
+            payment
+            items
+            ccard
+            <?= $code ?>
+        "
+    >
+        <legend class="fieldset__legend">
+            <?= $block->escapeHtml(__('Credit Card Information')) ?>
+        </legend>
+
+        <div
+            class="
+                input
+                type
+                required
+            "
+        >
+            <?php $_ccType = $block->getCard()->getAdditional('cc_type') ?>
+            <ul
+                class="
+                    credit-card-types
+                    list
+                    list--horizontal
+                "
+            >
+                <?php foreach ($block->getCcBlock()->getCcAvailableTypes() as $_typeCode => $_typeName) : ?>
+                    <li
+                        class="
+                            list__item
+                            item<?php if ($_typeCode == $_ccType) : ?>
+                            _active<?php endif; ?>
+                        "
+                        data-type="<?= $block->escapeHtmlAttr($_typeCode); ?>"
+                    >
+                        <div>
+                            <img
+                                src="<?= $block->getViewFileUrl('Magento_Payment::images/cc/' . strtolower($_typeCode) . '.png'); ?>"
+                                alt="<?= $block->escapeHtmlAttr($_typeName); ?>"
+                                class="image width-auto"
+                            />
+                        </div>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+            <input
+                type="hidden"
+                name="payment[cc_type]"
+                id="<?= $code ?>-cc-type"
+                value="<?= $block->escapeHtmlAttr($_ccType); ?>"
+            />
+        </div>
+        <div
+            class="
+                input
+                number
+                required
+            "
+        >
+            <label
+                for="<?= $code ?>-cc-number"
+                class="label"
+            >
+                <?= $block->escapeHtml(__('CC Number')) ?>
+            </label>
+            <input
+                type="text"
+                id="<?= $code ?>-cc-number"
+                name="payment[cc_number]"
+                title="<?= $block->escapeHtmlAttr(__('Credit Card Number')) ?>"
+                class="input__field"
+                value="<?= $block->escapeHtmlAttr($block->getCard()->getLabel(false)); ?>"
+                data-validate='{
+                    "required-number":true,
+                    "validate-cc-number":"#<?= $code ?>-cc-type",
+                    "validate-cc-type":"#<?= $code ?>-cc-type"
+                }'
+                autocomplete="cc-number"
+            />
+        </div>
+        <div
+            class="
+                date
+                required
+            "
+            id="<?= $code ?>-cc-type_exp_div"
+        >
+            <label
+                for="<?= $code ?>-cc-exp-month"
+                class="label"
+            >
+                <?= $block->escapeHtml(__('Expiration')) ?>
+            </label>
+            <div
+                class="
+                    fields
+                    group
+                    group-2
+                    row
+                "
+            >
+                <div
+                    class="
+                        select
+                        select--native
+                        no-label
+                        month
+                        col-md-6
+                    "
+                >
+                    <select
+                        id="<?= $code ?>-cc-exp-month"
+                        name="payment[cc_exp_month]"
+                        class="select__field month"
+                        data-validate='{required:true, "validate-cc-exp":"#<?= $code ?>-cc-exp-year"}'
+                        autocomplete="cc-exp-month"
+                        data-mage-init='{"select": {}}'
+                    >
+                        <?php $_ccExpMonth = $block->getCard()->getAdditional('cc_exp_month'); ?>
+                        <?php foreach ($block->getCcBlock()->getCcMonths() as $k => $v) : ?>
+                            <option
+                                value="<?= $k ? $block->escapeHtmlAttr($k) : '' ?>"
+                                <?php if ($k == $_ccExpMonth) : ?>
+                                    selected="selected"
+                                <?php endif ?>
+                            >
+                                <?= $block->escapeHtml($v) ?>
+                            </option>
+                        <?php endforeach ?>
+                    </select>
+                </div>
+                <div
+                    class="
+                        select
+                        select--native
+                        no-label
+                        year
+                        col-md-6
+                    "
+                >
+                    <?php $_ccExpYear = $block->getCard()->getAdditional('cc_exp_year'); ?>
+                    <select
+                        id="<?= $code ?>-cc-exp-year"
+                        name="payment[cc_exp_year]"
+                        class="select__field year"
+                        data-validate='{required:true}'
+                        autocomplete="cc-exp-year"
+                        data-mage-init='{"select": {}}'
+                    >
+                        <?php foreach ($block->getCcBlock()->getCcYears() as $k => $v) : ?>
+                            <option
+                                value="<?= $k ? $block->escapeHtmlAttr($k) : '' ?>"
+                                <?php if ($k == $_ccExpYear) : ?>
+                                    selected="selected"
+                                <?php endif ?>
+                            >
+                                <?= $block->escapeHtml($v) ?>
+                            </option>
+                        <?php endforeach ?>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <?php if ($block->getMethod()->getConfigData('useccv')) : ?>
+            <div
+                class="
+                    input
+                    cvv
+                    required
+                "
+                id="<?= $code ?>-cc-type_cvv_div"
+            >
+                <label
+                    for="<?= $code ?>-cc-cid"
+                    class="label"
+                >
+                    <?= $block->escapeHtml(__('CCV')) ?>
+                </label>
+                <div class="control _with-tooltip">
+                    <input
+                        type="text"
+                        title="<?= $block->escapeHtmlAttr(__('Card Verification Number')) ?>"
+                        class="
+                            input__field
+                            cvv
+                            margin-bottom-m
+                        "
+                        id="<?= $code ?>-cc-cid" name="payment[cc_cid]"
+                        value=""
+                        data-validate='{
+                            "required-number":true,
+                            "validate-cc-cvn":"#<?= $code ?>-cc-type"
+                        }'
+                        autocomplete="cc-csc"
+                        maxlength="4"
+                    />
+                    <button
+                        class="
+                            button
+                            button--secondary
+                            modal-trigger
+                        "
+                        type="button"
+                        aria-expanded="false"
+                        data-modal-trigger="credit-card-popup"
+                        data-mage-init='{ "modal" : {} }'
+                    >
+                        <?= $block->escapeHtml(__('What is this?')) ?>
+                    </button>
+                    <div
+                        id="credit-card-popup"
+                        role="dialog"
+                        aria-hidden="true"
+                        data-modal="credit-card-popup"
+                        aria-labelledby="credit-card-title"
+                        class="modal"
+                    >
+                        <div
+                            class="modal__container"
+                            role="document"
+                            tabindex="0"
+                        >
+                            <div
+                                class="
+                                    modal__content
+                                    padding-hz-xl
+                                    padding-vc-xl
+                                "
+                            >
+                                <img
+                                    src="<?= $block->escapeUrl($block->getViewFileUrl('Magento_Checkout::cvv.png')) ?>"
+                                    alt="<?= $block->escapeHtmlAttr(__('Card Verification Number Visual Reference')) ?>"
+                                    class="image width-auto"
+                                />
+                            </div>
+                            <button
+                                class="
+                                    button
+                                    button--icon
+                                    button--rotate-icon
+                                    modal__close-button
+                                "
+                                type="button"
+                                aria-label="<?= $block->escapeHtmlAttr(__('Close modal')) ?>"
+                            >
+                                <svg
+                                    class="
+                                        icon
+                                        button__icon
+                                        modal__close-button-icon
+                                    "
+                                    role="presentation"
+                                    focusable="false"
+                                >
+                                    <title><?= __('Close') ?></title>
+                                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#close')); ?>"></use>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
+    </fieldset>
+    <div class="actions-group">
+        <div class="actions-group__handler">
+            <button
+                type="submit"
+                class="
+                    actions-group__button
+                    button
+                    action
+                    save
+                    primary
+                "
+                data-action="save-address"
+                title="<?= $block->escapeHtmlAttr(__('Save')) ?>"
+            >
+                <?= $block->escapeHtml(__('Save')) ?>
+            </button>
+        </div>
+        <div class="actions-group__handler">
+            <a
+                class="
+                    link
+                    actions-group__link
+                    action
+                    back
+                "
+                href="<?= $block->escapeUrl($block->getBackUrl()) ?>"
+            >
+                <?= $block->escapeHtml(__('Cancel')) ?>
+            </a>
+        </div>
+    </div>
+</form>
+<script type="text/x-magento-init">
+    {
+        "#form-validate": {
+            "validation": {},
+            "tokenbaseCardFormatter": {
+                "ccTypeSelector": "#<?= $code ?>-cc-type",
+                "ccTypeContainer": ".credit-card-types"
+            }
+            <?php if ($block->getMethod()->isAcceptJsEnabled() === true) : ?>,
+            "authnetcimAcceptjs": {
+                "apiLoginId": "<?= $block->escapeJsQuote($block->getMethod()->getConfigData('login')); ?>",
+                "clientKey": "<?= $block->escapeJsQuote($block->getMethod()->getConfigData('client_key')); ?>",
+                "method": "<?= $code; ?>",
+                "formSelector": "#form-validate",
+                "submitSelector": "#form-validate button[type=submit]",
+                "sandbox": <?= $block->getMethod()->getConfigData('test') ? 'true' : 'false'; ?>
+            }
+            <?php endif; ?>
+        },
+        "#country": {
+            "regionUpdater": {
+                "optionalRegionAllowed": <?= ($block->getConfig('general/region/display_all') ? 'true' : 'false'); ?>,
+                "regionListId": "#region-id",
+                "regionInputId": "#region",
+                "postcodeId": "#zip",
+                "form": "#form-validate",
+                "regionJson": <?= $this->helper(\Magento\Directory\Helper\Data::class)->getRegionJson() ?>,
+                "defaultRegion": "<?= (int) $block->getRegionId() ?>",
+                "countriesWithOptionalZip": <?= $this->helper(\Magento\Directory\Helper\Data::class)->getCountriesWithOptionalZip(true) ?>
+            }
+        }
+    }
+</script>
