@@ -83,7 +83,7 @@
                 />
                 <?= $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Name::class)->setObject($block->getFormData())->setForceUseCustomerAttributes(true)->toHtml() ?>
 
-                <?php if ($block->isNewsletterEnabled()) : ?>
+                <?php if ($block->isNewsletterEnabled()): ?>
                 <div
                     class="
                         checkbox
@@ -137,28 +137,28 @@
                 <?php endif ?>
 
                 <?php $_dob = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Dob::class) ?>
-                <?php if ($_dob->isEnabled()) : ?>
+                <?php if ($_dob->isEnabled()): ?>
                     <?= $_dob->setDate($block->getFormData()->getDob())->toHtml() ?>
                 <?php endif ?>
 
                 <?php $_taxvat = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Taxvat::class) ?>
-                <?php if ($_taxvat->isEnabled()) : ?>
+                <?php if ($_taxvat->isEnabled()): ?>
                     <?= $_taxvat->setTaxvat($block->getFormData()->getTaxvat())->toHtml() ?>
                 <?php endif ?>
 
                 <?php $_gender = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Gender::class) ?>
-                <?php if ($_gender->isEnabled()) : ?>
+                <?php if ($_gender->isEnabled()): ?>
                     <?= $_gender->setGender($block->getFormData()->getGender())->toHtml() ?>
                 <?php endif ?>
 
                 <?php $customerAttributes = $block->getChildBlock('customer_form_user_attributes');?>
-                <?php if ($customerAttributes) : ?>
+                <?php if ($customerAttributes): ?>
                     <?php $customerAttributes->setObject($block->getFormData())->setEntityType('customer')->setShowContainer(false);?>
                     <?php $block->restoreSessionData($customerAttributes->getMetadataForm());?>
                     <?= $customerAttributes->toHtml() ?>
                 <?php endif;?>
             </fieldset>
-        <?php if ($block->getShowAddressFields()) : ?>
+        <?php if ($block->getShowAddressFields()): ?>
             <fieldset
                 class="
                     fieldset
@@ -249,7 +249,7 @@
                         "
                     />
                     <?php $_streetValidationClass = trim(str_replace('required-entry', '', $_streetValidationClass)); ?>
-                    <?php for ($_i = 2, $_n = $this->helper(\Magento\Customer\Helper\Address::class)->getStreetLines(); $_i <= $_n; $_i++) : ?>
+                    <?php for ($_i = 2, $_n = $this->helper(\Magento\Customer\Helper\Address::class)->getStreetLines(); $_i <= $_n; $_i++): ?>
                         <div
                             class="
                                 input
@@ -371,7 +371,7 @@
                     <?= $block->getCountryHtmlSelect() ?>
                 </div>
                     <?php $addressAttributes = $block->getChildBlock('customer_form_address_user_attributes');?>
-                    <?php if ($addressAttributes) : ?>
+                    <?php if ($addressAttributes): ?>
                         <?php $addressAttributes->setEntityType('customer_address'); ?>
                         <?php $addressAttributes->setFieldIdFormat('address:%1$s')->setFieldNameFormat('address[%1$s]');?>
                         <?php $block->restoreSessionData($addressAttributes->getMetadataForm(), 'address');?>
@@ -583,7 +583,7 @@
 </div>
 <script type="text/x-magento-init">
     {
-        <?php if ($block->getShowAddressFields()) : ?>
+        <?php if ($block->getShowAddressFields()): ?>
         "#country": {
             "regionUpdater": {
                 "optionalRegionAllowed": <?= /* @noEscape */ ($block->getConfig("general/region/display_all") ? "true" : "false") ?>,

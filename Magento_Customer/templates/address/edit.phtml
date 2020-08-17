@@ -34,15 +34,15 @@
 
             <?= $block->getNameBlockHtml() ?>
 
-            <?php if ($_company->isEnabled()) : ?>
+            <?php if ($_company->isEnabled()): ?>
                 <?= $_company->setCompany($block->getAddress()->getCompany())->toHtml() ?>
             <?php endif ?>
 
-            <?php if ($_telephone->isEnabled()) : ?>
+            <?php if ($_telephone->isEnabled()): ?>
                 <?= $_telephone->setTelephone($block->getAddress()->getTelephone())->toHtml() ?>
             <?php endif ?>
 
-            <?php if ($_fax->isEnabled()) : ?>
+            <?php if ($_fax->isEnabled()): ?>
                 <?= $_fax->setFax($block->getAddress()->getFax())->toHtml() ?>
             <?php endif ?>
         </div>
@@ -64,7 +64,7 @@
                 "
             >
                 <label for="street_1" class="label">
-                    <?= $block->getAttributeData()->getFrontendLabel('street') ?>
+                    <?= $block->escapeHtml($block->getAttributeData()->getFrontendLabel('street')) ?>
                 </label>
 
                 <input
@@ -105,13 +105,13 @@
                 </div>
             <?php endfor; ?>
 
-            <?php if ($this->helper(\Magento\Customer\Helper\Address::class)->isVatAttributeVisible()) : ?>
+            <?php if ($this->helper(\Magento\Customer\Helper\Address::class)->isVatAttributeVisible()): ?>
                 <div class="input taxvat">
                     <label
                         class="label"
                         for="vat_id"
                     >
-                        <?= $block->getAttributeData()->getFrontendLabel('vat_id') ?>
+                        <?= $block->escapeHtml($block->getAttributeData()->getFrontendLabel('vat_id')) ?>
                     </label>
 
                     <input
@@ -139,7 +139,7 @@
                     class="label"
                     for="city"
                 >
-                    <?= $block->getAttributeData()->getFrontendLabel('city') ?>
+                    <?= $block->escapeHtml($block->getAttributeData()->getFrontendLabel('city')) ?>
                 </label>
 
                 <input
@@ -166,7 +166,7 @@
                     class="label"
                     for="region_id"
                 >
-                    <?= $block->getAttributeData()->getFrontendLabel('region') ?>
+                    <?= $block->escapeHtml($block->getAttributeData()->getFrontendLabel('region')) ?>
                 </label>
 
                 <div
@@ -217,7 +217,7 @@
                     class="label"
                     for="zip"
                 >
-                    <?= $block->getAttributeData()->getFrontendLabel('postcode') ?>
+                    <?= $block->escapeHtml($block->getAttributeData()->getFrontendLabel('postcode')) ?>
                 </label>
 
                 <input
@@ -254,7 +254,7 @@
                     class="label"
                     for="country"
                 >
-                    <?= $block->getAttributeData()->getFrontendLabel('country_id') ?>
+                    <?= $block->escapeHtml($block->getAttributeData()->getFrontendLabel('country_id')) ?>
                 </label>
 
                 <div
@@ -267,11 +267,11 @@
                 </div>
             </div>
 
-            <?php if ($block->isDefaultBilling()) : ?>
+            <?php if ($block->isDefaultBilling()): ?>
                 <div class="message message--info">
                     <?= $block->escapeHtml(__("It's a default billing address.")) ?>
                 </div>
-            <?php elseif ($block->canSetAsDefaultBilling()) : ?>
+            <?php elseif ($block->canSetAsDefaultBilling()): ?>
                 <div
                     class="
                         checkbox
@@ -316,7 +316,7 @@
                         <?= $block->escapeHtml(__('Use as my default billing address')) ?>
                     </label>
                 </div>
-            <?php else : ?>
+            <?php else: ?>
                 <input
                     type="hidden"
                     name="default_billing"
@@ -324,11 +324,11 @@
                 />
             <?php endif; ?>
 
-            <?php if ($block->isDefaultShipping()) : ?>
+            <?php if ($block->isDefaultShipping()): ?>
                 <div class="message message--info">
                     <?= $block->escapeHtml(__("It's a default shipping address.")) ?>
                 </div>
-            <?php elseif ($block->canSetAsDefaultShipping()) : ?>
+            <?php elseif ($block->canSetAsDefaultShipping()): ?>
                 <div
                     class="
                         checkbox
@@ -373,7 +373,7 @@
                         <?= $block->escapeHtml(__('Use as my default shipping address')) ?>
                     </label>
                 </div>
-            <?php else : ?>
+            <?php else: ?>
                 <input
                     type="hidden"
                     name="default_shipping"
@@ -422,7 +422,7 @@
     {
         "#form-validate": {
             "addressValidation": {
-                "postCodes": <?= $block->getPostCodeConfig()->getSerializedPostCodes(); ?>
+                "postCodes": <?= $block->escapeJs($block->getPostCodeConfig()->getSerializedPostCodes()) ?>
             }
         },
         "#country": {
@@ -432,9 +432,9 @@
                 "regionInputId": "#region",
                 "postcodeId": "#zip",
                 "form": "#form-validate",
-                "regionJson": <?= $this->helper(\Magento\Directory\Helper\Data::class)->getRegionJson() ?>,
+                "regionJson": <?= $block->escapeJs($this->helper(\Magento\Directory\Helper\Data::class)->getRegionJson()) ?>,
                 "defaultRegion": "<?= (int) $block->getRegionId() ?>",
-                "countriesWithOptionalZip": <?= $this->helper(\Magento\Directory\Helper\Data::class)->getCountriesWithOptionalZip(true) ?>
+                "countriesWithOptionalZip": <?= $block->escapeJs($this->helper(\Magento\Directory\Helper\Data::class)->getCountriesWithOptionalZip(true)) ?>
             }
         }
     }

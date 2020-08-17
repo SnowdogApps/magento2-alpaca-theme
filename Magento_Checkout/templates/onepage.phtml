@@ -22,7 +22,7 @@
         }
     </script>
     <script>
-        window.checkoutConfig = <?= $block->getSerializedCheckoutConfig() ?>;
+        window.checkoutConfig = <?= $block->escapeJs(($block->getSerializedCheckoutConfig()) ?>;
         // Create aliases for customer.js model from customer module
         window.isCustomerLoggedIn = window.checkoutConfig.isCustomerLoggedIn;
         window.customerData = window.checkoutConfig.customerData;
@@ -32,8 +32,8 @@
             'mage/url',
             'Magento_Ui/js/block-loader'
         ], function(url, blockLoader) {
-            blockLoader("<?= $block->getViewFileUrl('images/loader-1.gif') ?>");
-            return url.setBaseUrl('<?= $block->getBaseUrl() ?>');
+            blockLoader("<?= $block->escapeJs($block->getViewFileUrl('images/loader-1.gif')) ?>");
+            return url.setBaseUrl('<?= $block->escapeJs($block->getBaseUrl()) ?>');
         })
     </script>
 </div>

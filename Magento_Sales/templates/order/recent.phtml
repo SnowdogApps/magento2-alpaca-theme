@@ -84,14 +84,14 @@
                                 data-th="<?= $block->escapeHtmlAttr(__('Order #')) ?>"
                                 role="gridcell"
                             >
-                                <?= $_order->getRealOrderId() ?>
+                                <?= $block->escapeHtml($_order->getRealOrderId()) ?>
                             </td>
 
                             <td
                                 data-th="<?= $block->escapeHtmlAttr(__('Date')) ?>"
                                 role="gridcell"
                             >
-                                <?= $block->formatDate($_order->getCreatedAt()) ?>
+                                <?= $block->escapeHtml($block->formatDate($_order->getCreatedAt())) ?>
                             </td>
 
                             <td
@@ -109,14 +109,14 @@
                                 data-th="<?= $block->escapeHtmlAttr(__('Order Total')) ?>"
                                 role="gridcell"
                             >
-                                <?= $block->stripTags($_order->formatPrice($_order->getGrandTotal())) ?>
+                                <?= $block->escapeHtml($block->stripTags($_order->formatPrice($_order->getGrandTotal()))) ?>
                             </td>
 
                             <td
                                 data-th="<?= $block->escapeHtmlAttr(__('Status')) ?>"
                                 role="gridcell"
                             >
-                                <?= $_order->getStatusLabel() ?>
+                                <?= $block->escapeHtml($_order->getStatusLabel()) ?>
                             </td>
 
                             <td
@@ -134,7 +134,7 @@
                                     |
                                     <a
                                         href="#"
-                                        data-post='<?= $this->helper(\Magento\Framework\Data\Helper\PostHelper::class)->getPostData($block->getReorderUrl($_order)); ?>'
+                                        data-post='<?= $block->escapeHtmlAttr($this->helper(\Magento\Framework\Data\Helper\PostHelper::class)->getPostData($block->getReorderUrl($_order))) ?>'
                                         class="dashboard-table__link"
                                     >
                                         <?= $block->escapeHtml(__('Reorder')) ?>

@@ -75,21 +75,21 @@
                                 data-th="<?= $block->escapeHtmlAttr(__('Order #')) ?>"
                                 role="gridcell"
                             >
-                                <?= $_order->getRealOrderId() ?>
+                                <?= $block->escapeHtml($_order->getRealOrderId()) ?>
                             </td>
 
                             <td
                                 data-th="<?= $block->escapeHtmlAttr(__('Date')) ?>"
                                 role="gridcell"
                             >
-                                <?= $block->formatDate($_order->getCreatedAt()) ?>
+                                <?= $block->escapeHtml($block->formatDate($_order->getCreatedAt())) ?>
                             </td>
 
                             <?php $extra = $block->getChildBlock('extra.container'); ?>
 
                             <?php if ($extra): ?>
                                 <?php $extra->setOrder($_order); ?>
-                                <?php echo $extra->getChildHtml() ?>
+                                <?= $extra->getChildHtml() ?>
                             <?php endif; ?>
 
                             <td
@@ -107,14 +107,14 @@
                                 data-th="<?= $block->escapeHtmlAttr(__('Order Total')) ?>"
                                 role="gridcell"
                             >
-                                <?= $block->stripTags($_order->formatPrice($_order->getGrandTotal())) ?>
+                                <?= $block->escapeHtml($block->stripTags($_order->formatPrice($_order->getGrandTotal()))) ?>
                             </td>
 
                             <td
                                 data-th="<?= $block->escapeHtmlAttr(__('Status')) ?>"
                                 role="gridcell"
                             >
-                                <?= $_order->getStatusLabel() ?>
+                                <?= $block->escapeHtml($_order->getStatusLabel()) ?>
                             </td>
 
                             <td
@@ -128,11 +128,11 @@
                                     <?= $block->escapeHtml(__('View Order')) ?>
                                 </a>
 
-                                <?php if ($this->helper('Magento\Sales\Helper\Reorder')->canReorder($_order->getEntityId())) : ?>
+                                <?php if ($this->helper('Magento\Sales\Helper\Reorder')->canReorder($_order->getEntityId())): ?>
                                      |
                                     <a
                                         href="#"
-                                        data-post='<?= $this->helper(\Magento\Framework\Data\Helper\PostHelper::class)->getPostData($block->getReorderUrl($_order)); ?>'
+                                        data-post='<?= $block->escapeHtmlAttr($this->helper(\Magento\Framework\Data\Helper\PostHelper::class)->getPostData($block->getReorderUrl($_order))) ?>'
                                         class="link dashboard-table__link"
                                     >
                                         <?= $block->escapeHtml(__('Reorder')) ?>
