@@ -1,0 +1,90 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+?>
+<?php
+$_item = $block->getItem();
+$escapedProductName = $block->escapeHtml($block->getProductName());
+?>
+<tr>
+    <td data-th="<?= $block->escapeHtmlAttr(__('Product')) ?>" class="col product">
+        <?php if ($block->hasProductUrl()) :?>
+        <a href="<?= $block->escapeUrl($block->getProductUrl()) ?>"
+           class="product-image"
+           title="<?= $block->escapeHtmlAttr($block->getProductName()) ?>"
+        >
+        <?php endif;?>
+            <?= $block->getImage($block->getProductForThumbnail(), 'product_thumbnail_image')->toHtml() ?>
+        <?php if ($block->hasProductUrl()) :?>
+        </a>
+        <?php endif;?>
+
+        <?php if ($block->hasProductUrl()) :?>
+            <a href="<?= $block->escapeUrl($block->getProductUrl()) ?>"><?= /** @noEscape */$escapedProductName ?>
+            </a>
+        <?php else :?>
+            <?= /** @noEscape */$escapedProductName ?>
+        <?php endif; ?>
+        <?php if ($_options = $block->getOptionList()) :?>
+        <dl class="product options list">
+            <?php foreach ($_options as $_option) : ?>
+                <?php $_formatedOptionValue = $block->getFormatedOptionValue($_option) ?>
+                <dt><?= $block->escapeHtml($_option['label']) ?></dt>
+                <dd
+                    <?php if (isset($_formatedOptionValue['full_view'])) :?>
+                        class="tooltip wrapper"
+                    <?php endif; ?>
+                >
+                    <?= $block->escapeHtml($_formatedOptionValue['value'], ['a']) ?>
+                    <?php if (isset($_formatedOptionValue['full_view'])) :?>
+                        <div class="tooltip content">
+                            <dl class="item-options">
+                                <dt><?= $block->escapeHtml($_option['label']) ?></dt>
+                                <dd><?= $block->escapeHtml($_formatedOptionValue['full_view']) ?></dd>
+                            </dl>
+                        </div>
+                    <?php endif; ?>
+                </dd>
+            <?php endforeach; ?>
+        </dl>
+        <?php endif;?>
+    </td>
+    <td data-th="<?= $block->escapeHtmlAttr(__('Note')) ?>" class="col note">
+        <div class="field note">
+            <div class="control">
+                <textarea name="items[<?= $block->escapeHtmlAttr($_item->getId()) ?>][note]"
+                          rows="3"
+                          cols="10"><?= $block->escapeHtml($_item->getNote()) ?></textarea>
+            </div>
+        </div>
+    </td>
+    <td data-th="<?= $block->escapeHtmlAttr(__('Added On')) ?>" class="col date">
+        <?= $block->escapeHtml($block->formatDate($_item->getAddedAt(), \IntlDateFormatter::MEDIUM)) ?>
+    </td>
+    <td data-th="<?= $block->escapeHtmlAttr(__('Qty')) ?>" class="col qty">
+        <div class="field qty">
+            <div class="control">
+                <input class="input-text qty"
+                       type="number" data-validate="{'validate-greater-than-zero':true}"
+                       name="items[<?= $block->escapeHtmlAttr($_item->getId()) ?>][qty]"
+                       value="<?= $_item->getQty()*1 ?>"
+                />
+            </div>
+        </div>
+    </td>
+    <td data-th="<?= $block->escapeHtmlAttr(__('Qty Fulfilled')) ?>" class="col fulfilled">
+        <?= $_item->getQtyFulfilled()*1 ?>
+    </td>
+    <td data-th="<?= $block->escapeHtmlAttr(__('Delete')) ?>" class="col actions">
+        <div class="field choice">
+            <input type="checkbox"
+                   class="checkbox"
+                   name="items[<?= $block->escapeHtmlAttr($_item->getItemId()) ?>][delete]"
+                   value="1"
+            />
+        </div>
+    </td>
+</tr>
