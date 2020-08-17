@@ -7,9 +7,11 @@
 
 ?>
 <?php if ($block->getCurrencyCount() > 1) : ?>
-    <?php $currencies = $block->getCurrencies(); ?>
-    <?php $currentCurrencyCode = $block->getCurrentCurrencyCode(); ?>
-    <?php $id = $block->getIdModifier() ? '-' . $block->getIdModifier() : '' ?>
+    <?php
+        $currencies = $block->getCurrencies();
+        $currentCurrencyCode = $block->getCurrentCurrencyCode();
+        $id = $block->getIdModifier() ? '-' . $block->getIdModifier() : ''
+    ?>
     <div 
         class="
             dropdown-list
@@ -70,14 +72,18 @@
                                             switcher-option
                                         "
                                     >
-                                        <a 
-                                            href="#" 
+                                        <button 
+                                            type="button"
                                             data-post='<?= /* @noEscape */ $block->getSwitchCurrencyPostData($_code) ?>'
                                             title="<?= $block->escapeHtmlAttr($_code) ?> - <?= $block->escapeHtmlAttr($_name) ?>"
-                                            class="link"
+                                            class="
+                                                button 
+                                                button--link
+                                                padding-0
+                                            "
                                         >
                                             <?= $block->escapeHtml($_code) ?> - <?= $block->escapeHtml($_name) ?>
-                                        </a>
+                                        </button>
                                     </li>
                                 <?php endif; ?>
                             <?php endforeach; ?>
