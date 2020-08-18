@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Added
-- EE - gift registry (#65717), Affects: datepicker styles
+- EE - gift registry (#65717), Affects: all gift registry pages ('/giftregistry/*'), datepicker styles
 
 ## [Released]
 ## [2.6.0] - 2020-08-06
