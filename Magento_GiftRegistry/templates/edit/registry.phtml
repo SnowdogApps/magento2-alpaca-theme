@@ -94,7 +94,23 @@
         >
             <?= $block->escapeHtml(__('Privacy Settings')) ?>
         </label>
-        <?= $block->getIsPublicHtml() ?>
+
+        <select
+            name="is_public"
+            id="is_public"
+            class="global-scope required-entry"
+            title="<?= $block->escapeHtmlAttr(__('Privacy Settings')) ?>"
+            data-mage-init='{ "select": {}}'
+        >
+            <option value="">
+                <?= $block->escapeHtmlAttr(__('Please Select')) ?>
+            </option>
+            <?php foreach($block->getEntity()->getOptionsIsPublic() as $key => $option): ?>
+                <option value="<?= $block->escapeHtmlAttr($key) ?>">
+                    <?= $block->escapeHtml($option->getText()) ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
     </div>
     <div
         class="
@@ -110,7 +126,20 @@
         >
             <?= $block->escapeHtml(__('Status')) ?>
         </label>
-        <?= $block->getStatusHtml() ?>
+
+        <select
+            name="is_active"
+            id="is_active"
+            class="global-scope required-entry"
+            title="<?= $block->escapeHtmlAttr(__('Status')) ?>"
+            data-mage-init='{ "select": {}}'
+        >
+            <?php foreach($block->getEntity()->getOptionsStatus() as $key => $option): ?>
+                <option value="<?= $block->escapeHtmlAttr($key) ?>">
+                    <?= $block->escapeHtml($option->getText()) ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
     </div>
 </fieldset>
 
@@ -129,7 +158,7 @@ foreach ($fieldsets as $fieldset => $fields) : ?>
                     input
                     <?= ($isRequired ? ' required' : ''); ?>
                     <?= $field == 'event_date' ? ' date' : '' ?>
-                    <?= in_array($field, ['event_country','baby_gender'], true) ? ' select--native' : '' ?>
+                    <?= in_array($field, ['event_country','baby_gender'], true) ? ' select select--native' : '' ?>
                 "
             >
                 <label
