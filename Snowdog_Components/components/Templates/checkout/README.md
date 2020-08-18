@@ -16,6 +16,7 @@ Templates components:
 - Templates/shipping-step
 - Templates/payment-step
 - Templates/success-page
+- Templates/paypal-review
 
 Files used by checkout:
 - Magento_Ui/components

@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- paypal review component (#59142)
+### Changed
+- paypal review order page (#59142)
+
 ## [Released]
 ## [2.6.0] - 2020-08-06
 ### Added
