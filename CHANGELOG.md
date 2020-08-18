@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - paypal review order page (#59142)
 - contact-bar template to show/hide email/phone depending on config settings (#69969)
+- basic variable with component variable for easier updates of mega menu (#69969)
 
 ## [Released]
 ## [2.6.0] - 2020-08-06
