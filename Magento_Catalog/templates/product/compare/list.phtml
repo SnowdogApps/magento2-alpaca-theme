@@ -59,9 +59,9 @@ $compareHelper = $this->helper(Magento\Catalog\Helper\Product\Compare::class);
                                         href="<?= $block->escapeUrl($block->getProductUrl($item)) ?>"
                                         title="<?= $block->escapeHtmlAttr($block->stripTags($item->getName(), null, true)) ?>"
                                     >
-                                        <?= $block->escapeHtml($helper->productAttribute($item, $item->getName(), 'name')) ?>
+                                        <?= /* @noEscape */ $helper->productAttribute($item, $item->getName(), 'name') ?>
                                     </a>
-                                    <?= $block->escapeHtml($block->getProductPrice($item, '-compare-list-top')) ?>
+                                    <?= /* @noEscape */ $block->getProductPrice($item, '-compare-list-top') ?>
                                     <div class="compare__buttons-container hidden-print">
                                         <?php if ($this->helper(Magento\Wishlist\Helper\Data::class)->isAllow()): ?>
                                             <div
@@ -95,7 +95,7 @@ $compareHelper = $this->helper(Magento\Catalog\Helper\Product\Compare::class);
                                                     type="submit"
                                                     title="<?= $block->escapeHtmlAttr(__('Add to Wish List')) ?>"
                                                     aria-label="<?= $block->escapeHtmlAttr(__('Add to Wish List')) ?>"
-                                                    data-post='<?= $block->escapeHtmlAttr($block->getAddToWishlistParams($item)) ?>'
+                                                    data-post='<?= /* @noEscape */ $block->getAddToWishlistParams($item) ?>'
                                                     data-action="add-to-wishlist"
                                                 >
                                                     <svg
@@ -156,26 +156,22 @@ $compareHelper = $this->helper(Magento\Catalog\Helper\Product\Compare::class);
                                     <?php endif; ?>
                                     <td class="compare__cell">
                                         <div class="attribute value">
-                                            <?php
-                                                $block->escapeHtml(
-                                                    switch ($attribute->getAttributeCode()) {
-                                                        case "price": ?>
-                                                            <?= $block->getProductPrice(
-                                                                    $item,
-                                                                    '-compare-list-' . $attribute->getCode()
-                                                                )
-                                                            ?>
-                                                        <?php break;
-                                                        case "small_image": ?>
-                                                            <?php $block->getImage($item, 'product_small_image')->toHtml(); ?>
-                                                        <?php break;
-                                                        default: ?>
-                                                            <?php if (is_string($block->getProductAttributeValue($item, $attribute))): ?>
-                                                                <?= $helper->productAttribute($item, $block->getProductAttributeValue($item, $attribute), $attribute->getAttributeCode()) ?>
-                                                            <?php endif; ?>
-                                                        <?php break;
-                                                    }
-                                                )
+                                            <?php switch ($attribute->getAttributeCode()) {
+                                                case "price": ?>
+                                                    <?= /* @noEscape */ $block->getProductPrice(
+                                                        $item,
+                                                        '-compare-list-' . $attribute->getCode()
+                                                    ) ?>
+                                                    <?php break;
+                                                case "small_image": ?>
+                                                    <?php $block->getImage($item, 'product_small_image')->toHtml(); ?>
+                                                <?php break;
+                                                default: ?>
+                                                    <?php if (is_string($block->getProductAttributeValue($item, $attribute))): ?>
+                                                        <?= /* @noEscape */ $helper->productAttribute($item, $block->getProductAttributeValue($item, $attribute), $attribute->getAttributeCode()) ?>
+                                                    <?php endif; ?>
+                                                    <?php break;
+                                            }
                                             ?>
                                         </div>
                                     </td>

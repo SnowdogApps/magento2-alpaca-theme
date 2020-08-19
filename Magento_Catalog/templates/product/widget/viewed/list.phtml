@@ -76,28 +76,25 @@
         ?>
         <?= $sliderBlockBefore->toHtml(); ?>
 
-        <?= $block->escapeHtml(
-            $block->renderApp([
-                'widget_columns' => [
-                    'displayMode' => 'grid',
-                    'displayAs' => 'slider',
-                    'itemWrapperClasses' => 'slider__item',
-                    'itemClasses' => 'product-grid-item product-grid-item--slider-item'
-                ],
-                'image' => [
-                    'imageCode' => 'recently_viewed_products_grid_content_widget'
-                ]
-            ])
-        )?>
+        <?= /* @noEscape */ $block->renderApp([
+            'widget_columns' => [
+                'displayMode' => 'grid',
+                'displayAs' => 'slider',
+                'itemWrapperClasses' => 'slider__item',
+                'itemClasses' => 'product-grid-item product-grid-item--slider-item'
+            ],
+            'image' => [
+                'imageCode' => 'recently_viewed_products_grid_content_widget'
+            ]
+        ]) ?>
 
-        <?php $block->escapeHtml(
-            $sliderBlockAfter = $this->getLayout()
-                ->createBlock("Magento\Framework\View\Element\Template")
-                ->setTemplate("Magento_Theme::html/slider.phtml"),
+        <?php $sliderBlockAfter = $this->getLayout()
+            ->createBlock("Magento\Framework\View\Element\Template")
+            ->setTemplate("Magento_Theme::html/slider.phtml"),
             $sliderBlockAfter->setData([
                 'slider_html'   => 'after-slides'
             ])
-        )?>
-        <?= $sliderBlockAfter->toHtml(); ?>
+        ?>
+        <?=  /* @noEscape */ $sliderBlockAfter->toHtml(); ?>
     </div>
 </section>

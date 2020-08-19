@@ -150,13 +150,13 @@ use Magento\Framework\App\Action\Action;
                                 title="<?= $block->escapeHtmlAttr($_item->getName()) ?>"
                             >
                                 <?php
-                                    $productName = $block->escapeHtml($_item->getName());
+                                    $productName = $_item->getName();
 
                                     if (strlen($productName) > 50) {
                                         $productName = substr($productName, 0, 50) . '...';
                                     }
                                 ?>
-                                <?= /* @noEscape */ $productName ?>
+                                <?= $block->escapeHtml($productName) ?>
                             </a>
                         </h3>
                         <?php if ($_item->isAvailable()): ?>
@@ -184,7 +184,7 @@ use Magento\Framework\App\Action\Action;
                                                     "
                                                     type="submit"
                                                     aria-label="<?= $block->escapeHtmlAttr(__('Add to Wish List')) ?>"
-                                                    data-post='<?= $block->escapeHtmlAttr($block->getAddToWishlistParams($_item)) ?>'
+                                                    data-post='<?= /* @noEscape */ $block->getAddToWishlistParams($_item) ?>'
                                                     data-action="add-to-wishlist"
                                                 >
                                                     <svg
@@ -211,7 +211,7 @@ use Magento\Framework\App\Action\Action;
                                                     "
                                                     type="submit"
                                                     aria-label="<?= $block->escapeHtmlAttr(__('Add to Compare')) ?>"
-                                                    data-post='<?= $block->escapeHtmlAttr($compareHelper->getPostDataParams($_item)) ?>'
+                                                    data-post='<?= /* @noEscape */ $compareHelper->getPostDataParams($_item) ?>'
                                                     data-testid="add-to-compare-button"
                                                 >
                                                     <svg
@@ -243,8 +243,8 @@ use Magento\Framework\App\Action\Action;
                                                     />
                                                     <input
                                                         type="hidden"
-                                                        name="<?= $block->escapeHtmlAttr(Action::PARAM_NAME_URL_ENCODED) ?>"
-                                                        value="<?= $block->escapeHtmlAttr($postParams['data'][Action::PARAM_NAME_URL_ENCODED]) ?>"
+                                                        name="<?= /* @noEscape */ Action::PARAM_NAME_URL_ENCODED ?>"
+                                                        value="<?= /* @noEscape */ $postParams['data'][Action::PARAM_NAME_URL_ENCODED] ?>"
                                                     />
                                                     <?= $block->getBlockHtml('formkey') ?>
                                                     <button
