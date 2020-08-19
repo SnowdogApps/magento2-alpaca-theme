@@ -11,7 +11,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - paypal review order page (#59142)
 - contact-bar template to show/hide email/phone depending on config settings (#69969)
-- checkboxs globally aligned vertically center (#68654)
+- checkboxes to be globally aligned vertically to center (#68654)
 - zoomed in image background opacity & close button to dark (#69145)
 
 ## [Released]
