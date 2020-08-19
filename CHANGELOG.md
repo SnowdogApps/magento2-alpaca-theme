@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Fixed
 - gdpr agreements templates after update (#68654)
+- wrong name for review input field (#70089)
 ### Added
 - paypal review component (#59142)
 ### Changed
