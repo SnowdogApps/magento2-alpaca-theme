@@ -2,12 +2,14 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
-
+### Fixed
+- gdpr agreements templates after update (#68654)
 ### Added
 - paypal review component (#59142)
 ### Changed
 - paypal review order page (#59142)
 - contact-bar template to show/hide email/phone depending on config settings (#69969)
+- checkboxs globally aligned vertically center (#68654)
 
 ## [Released]
 ## [2.6.0] - 2020-08-06
