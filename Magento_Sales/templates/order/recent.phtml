@@ -91,7 +91,7 @@
                                 data-th="<?= $block->escapeHtmlAttr(__('Date')) ?>"
                                 role="gridcell"
                             >
-                                <?= $block->escapeHtml($block->formatDate($_order->getCreatedAt())) ?>
+                                <?= /* @noEscape */ $block->formatDate($_order->getCreatedAt()) ?>
                             </td>
 
                             <td
@@ -109,7 +109,7 @@
                                 data-th="<?= $block->escapeHtmlAttr(__('Order Total')) ?>"
                                 role="gridcell"
                             >
-                                <?= $block->escapeHtml($block->stripTags($_order->formatPrice($_order->getGrandTotal()))) ?>
+                                <?= /* @noEscape */ $_order->formatPrice($_order->getGrandTotal()) ?>
                             </td>
 
                             <td
@@ -134,7 +134,7 @@
                                     |
                                     <a
                                         href="#"
-                                        data-post='<?= $block->escapeHtmlAttr($this->helper(\Magento\Framework\Data\Helper\PostHelper::class)->getPostData($block->getReorderUrl($_order))) ?>'
+                                        data-post='<?= /* @noEscape */ $this->helper(\Magento\Framework\Data\Helper\PostHelper::class)->getPostData($block->getReorderUrl($_order)) ?>'
                                         class="dashboard-table__link"
                                     >
                                         <?= $block->escapeHtml(__('Reorder')) ?>

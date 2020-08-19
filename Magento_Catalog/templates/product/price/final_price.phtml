@@ -14,37 +14,31 @@ $schema = ($block->getZone() == 'item_view') ? true : false;
 <div class="price">
     <?php if ($block->hasSpecialPrice()): ?>
         <span class="price__value price__value--old">
-            <?= $block->escapeHtml(
-                $block->renderAmount($priceModel->getAmount(), [
-                    'display_label'     => __('Regular Price'),
-                    'price_id'          => $block->getPriceId('old-price-' . $idSuffix),
-                    'price_type'        => 'oldPrice',
-                    'include_container' => false,
-                    'skip_adjustments'  => true
-                ])
-            ) ?>
+            <?= /* @noEscape */ $block->renderAmount($priceModel->getAmount(), [
+                'display_label'     => __('Regular Price'),
+                'price_id'          => $block->getPriceId('old-price-' . $idSuffix),
+                'price_type'        => 'oldPrice',
+                'include_container' => false,
+                'skip_adjustments'  => true
+            ]); ?>
         </span>
         <span class="price__value price__value--special">
-            <?= $block->escapeHtml(
-                $block->renderAmount($finalPriceModel->getAmount(), [
-                    'display_label'     => __('Special Price'),
-                    'price_id'          => $block->getPriceId('product-price-' . $idSuffix),
-                    'price_type'        => 'finalPrice',
-                    'include_container' => false,
-                    'schema' => $schema
-                ])
-            ) ?>
+            <?= /* @noEscape */ $block->renderAmount($finalPriceModel->getAmount(), [
+                'display_label'     => __('Special Price'),
+                'price_id'          => $block->getPriceId('product-price-' . $idSuffix),
+                'price_type'        => 'finalPrice',
+                'include_container' => false,
+                'schema' => $schema
+            ]); ?>
         </span>
     <?php else: ?>
         <span class="price__value">
-            <?= $block->escapeHtml(
-                $block->renderAmount($finalPriceModel->getAmount(), [
-                    'price_id'          => $block->getPriceId('product-price-' . $idSuffix),
-                    'price_type'        => 'finalPrice',
-                    'include_container' => false,
-                    'schema' => $schema
-                ])
-            ) ?>
+            <?= /* @noEscape */ $block->renderAmount($finalPriceModel->getAmount(), [
+                'price_id'          => $block->getPriceId('product-price-' . $idSuffix),
+                'price_type'        => 'finalPrice',
+                'include_container' => false,
+                'schema' => $schema
+            ]); ?>
         </span>
     <?php endif; ?>
 </div>
@@ -54,11 +48,11 @@ $schema = ($block->getZone() == 'item_view') ? true : false;
             href="<?= $block->escapeUrl($block->getSaleableItem()->getProductUrl()) ?>"
             class="minimal-price-link"
         >
-            <?= $block->escapeHtml($block->renderAmountMinimal()) ?>
+            <?= /* @noEscape */ $block->renderAmountMinimal() ?>
         </a>
     <?php else: ?>
         <span class="minimal-price-link">
-            <?= $block->escapeHtml($block->renderAmountMinimal()) ?>
+            <?= /* @noEscape */ $block->renderAmountMinimal() ?>
         </span>
     <?php endif; ?>
 <?php endif; ?>

@@ -4,7 +4,7 @@
         <?= $block->getChildHtml($_total->getBlockName(), false) ?>
     <?php else: ?>
         <tr class="<?= $block->escapeHtmlAttr($_code) ?>">
-            <td <?= $block->escapeHtmlAttr($block->getLabelProperties()) ?> colspan="4">
+            <td <?= /* @noEscape */ $block->getLabelProperties() ?> colspan="4">
                 <?php if ($_total->getStrong()):?>
                     <?= $block->escapeHtml($_total->getLabel()) ?>
                 <?php else:?>
@@ -12,11 +12,11 @@
                 <?php endif?>
             </th>
 
-            <td <?= $block->escapeHtmlAttr($block->getValueProperties()) ?>>
+            <td <?= /* @noEscape */ $block->getValueProperties() ?>>
                 <?php if ($_total->getStrong()):?>
-                    <?= $block->escapeHtml($block->formatValue($_total)) ?>
+                    <?= /* @noEscape */ $block->formatValue($_total) ?>
                 <?php else:?>
-                    <?= $block->escapeHtml($block->formatValue($_total)) ?>
+                    <?= /* @noEscape */ $block->formatValue($_total) ?>
                 <?php endif?>
             </td>
         </tr>

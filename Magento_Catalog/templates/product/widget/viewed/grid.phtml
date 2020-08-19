@@ -74,19 +74,17 @@
         ?>
         <?= $sliderBlockBefore->toHtml(); ?>
 
-        <?= $block->escapeHtml(
-            $block->renderApp([
-                'widget_columns' => [
-                    'displayMode' => 'grid',
-                    'displayAs' => 'slider',
-                    'itemWrapperClasses' => 'slider__item',
-                    'itemClasses' => 'product-grid-item product-grid-item--slider-item'
-                ],
-                'image' => [
-                    'imageCode' => 'recently_viewed_products_grid_content_widget'
-                ]
-            ])
-        ) ?>
+        <?= /* @noEscape */ $block->renderApp([
+            'widget_columns' => [
+                'displayMode' => 'grid',
+                'displayAs' => 'slider',
+                'itemWrapperClasses' => 'slider__item',
+                'itemClasses' => 'product-grid-item product-grid-item--slider-item'
+            ],
+            'image' => [
+                'imageCode' => 'recently_viewed_products_grid_content_widget'
+            ]
+        ]); ?>
 
         <?php
         $sliderBlockAfter = $this->getLayout()

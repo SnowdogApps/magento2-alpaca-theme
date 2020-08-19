@@ -131,7 +131,7 @@ use Magento\Framework\App\Action\Action;
                                     aria-label="<?= $block->escapeHtmlAttr(__('Product description list')) ?>"
                                     tabindex="0"
                                 >
-                                    <?= $block->escapeHtml($_product['selling_features_bullets']) ?>
+                                    <?= /* @noEscape */ $_product['selling_features_bullets'] ?>
                                 </div>
                             <?php endif; ?>
                         </div>
@@ -216,7 +216,7 @@ use Magento\Framework\App\Action\Action;
                             <div class="product-list-item__price">
                                 <div class="price">
                                     <span class="price__value">
-                                        <?= $block->escapeHtml($block->getProductPrice($_product)) ?>
+                                        <?= /* @noEscape */ $block->getProductPrice($_product) ?>
                                     </span>
                                 </div>
                             </div>
@@ -241,7 +241,7 @@ use Magento\Framework\App\Action\Action;
                                         data-role="tocart-form"
                                         data-product-sku="<?= $block->escapeHtmlAttr($_product->getSku()) ?>"
                                         class="product-list-item__add-to-action"
-                                        action="<?= $block->escapeHtmlAttr($postParams['action']) ?>"
+                                        action="<?= $block->escapeUrl($postParams['action']) ?>"
                                         method="post"
                                     >
                                         <input
@@ -251,8 +251,8 @@ use Magento\Framework\App\Action\Action;
                                         >
                                         <input
                                             type="hidden"
-                                            name="<?= $block->escapeHtmlAttr(Action::PARAM_NAME_URL_ENCODED) ?>"
-                                            value="<?= $block->escapeHtml($postParams['data'][Action::PARAM_NAME_URL_ENCODED]) ?>"
+                                            name="<?= /* @noEscape */ Action::PARAM_NAME_URL_ENCODED ?>"
+                                            value="<?= /* @noEscape */ $postParams['data'][Action::PARAM_NAME_URL_ENCODED] ?>"
                                         >
                                         <?= $block->getBlockHtml('formkey') ?>
                                         <button
@@ -388,7 +388,7 @@ use Magento\Framework\App\Action\Action;
                                     data-testid="list-product-item-price"
                                 >
                                     <span class="price__value">
-                                        <?= $block->escapeHtml($block->getProductPrice($_product)) ?>
+                                        <?= /* @noEscape */ $block->getProductPrice($_product) ?>
                                     </span>
                                 </div>
                             </div>
@@ -411,7 +411,7 @@ use Magento\Framework\App\Action\Action;
                                         class="product-grid-item__primary-action"
                                         data-product-sku="<?= $block->escapeHtmlAttr($_product->getSku()) ?>"
                                         data-role="tocart-form"
-                                        action="<?= $block->escapeHtml($postParams['action']) ?>"
+                                        action="<?= $block->escapeUrl($postParams['action']) ?>"
                                         method="post"
                                     >
                                         <input
@@ -421,8 +421,8 @@ use Magento\Framework\App\Action\Action;
                                         >
                                         <input
                                             type="hidden"
-                                            name="<?= $block->escapeHtml(Action::PARAM_NAME_URL_ENCODED) ?>"
-                                            value="<?= $block->escapeHtml($postParams['data'][Action::PARAM_NAME_URL_ENCODED]) ?>"
+                                            name="<?= /* @noEscape */ Action::PARAM_NAME_URL_ENCODED ?>"
+                                            value="<?= /* @noEscape */ $postParams['data'][Action::PARAM_NAME_URL_ENCODED] ?>"
                                         >
                                         <?= $block->getBlockHtml('formkey') ?>
                                         <button
