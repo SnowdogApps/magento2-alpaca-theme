@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 - Amasty Store Locator template for module version 2.4.2 (#69148)
 ### Added
 - paypal review component (#59142)
+- curreny and language switchers in footer (#67313)
 ### Changed
 - paypal review order page (#59142)
 - contact-bar template to show/hide email/phone depending on config settings (#69969)
