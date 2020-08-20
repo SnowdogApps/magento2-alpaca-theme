@@ -25,7 +25,7 @@
             </ul>
             <input type="hidden"
                    name="payment[cc_type]"
-                   class="input-text"
+                   class="input__field"
                    value=""
                    data-bind="attr: {id: getCode() + '_cc_type', 'data-container': getCode() + '-cc-type'},
                    value: creditCardType
@@ -37,7 +37,7 @@
             <span><!-- ko i18n: 'Credit Card Number'--><!-- /ko --></span>
         </label>
         <div class="control">
-            <input type="number" name="payment[cc_number]" class="input-text" value=""
+            <input type="number" name="payment[cc_number]" class="input-text input__field" value=""
                    data-bind="attr: {
                                     autocomplete: off,
                                     id: getCode() + '_cc_number',
@@ -57,44 +57,47 @@
             <div class="fields group group-2">
                 <div class="field no-label month">
                     <div class="control">
-                        <select  name="payment[cc_exp_month]"
-                                 class="select select-month"
-                                 data-bind="attr: {id: getCode() + '_expiration', 'data-container': getCode() + '-cc-month', 'data-validate': JSON.stringify({required:true, 'validate-cc-exp':'#' + getCode() + '_expiration_yr'})},
-                                            enable: isActive($parents),
-                                            options: getCcMonthsValues(),
-                                            optionsValue: 'value',
-                                            optionsText: 'month',
-                                            optionsCaption: $t('Month'),
-                                            value: creditCardExpMonth">
-                        </select>
+                        <div class="select select--native">
+                            <select  name="payment[cc_exp_month]"
+                                     class="select-month select__field"
+                                     data-bind="attr: {id: getCode() + '_expiration', 'data-container': getCode() + '-cc-month', 'data-validate': JSON.stringify({required:true, 'validate-cc-exp':'#' + getCode() + '_expiration_yr'})},
+                                                enable: isActive($parents),
+                                                options: getCcMonthsValues(),
+                                                optionsValue: 'value',
+                                                optionsText: 'month',
+                                                optionsCaption: $t('Month'),
+                                                value: creditCardExpMonth">
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="field no-label year">
                     <div class="control">
-                        <select name="payment[cc_exp_year]"
-                                class="select select-year"
-                                data-bind="attr: {id: getCode() + '_expiration_yr', 'data-container': getCode() + '-cc-year', 'data-validate': JSON.stringify({required:true})},
-                                           enable: isActive($parents),
-                                           options: getCcYearsValues(),
-                                           optionsValue: 'value',
-                                           optionsText: 'year',
-                                           optionsCaption: $t('Year'),
-                                           value: creditCardExpYear">
-                        </select>
+                        <div class="select select--native">
+                            <select name="payment[cc_exp_year]"
+                                    class="select-year select__field"
+                                    data-bind="attr: {id: getCode() + '_expiration_yr', 'data-container': getCode() + '-cc-year', 'data-validate': JSON.stringify({required:true})},
+                                               enable: isActive($parents),
+                                               options: getCcYearsValues(),
+                                               optionsValue: 'value',
+                                               optionsText: 'year',
+                                               optionsCaption: $t('Year'),
+                                               value: creditCardExpYear">
+                            </select>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- ko if: (hasVerification())-->
-    <div class="field cvv required" data-bind="attr: {id: getCode() + '_cc_type_cvv_div'}">
+    <div class="field type cvv required" data-bind="attr: {id: getCode() + '_cc_type_cvv_div'}">
         <label data-bind="attr: {for: getCode() + '_cc_cid'}" class="label">
             <span><!-- ko i18n: 'Card Verification Number'--><!-- /ko --></span>
         </label>
         <div class="control _with-tooltip">
             <input type="number"
                    autocomplete="off"
-                   class="input-text cvv"
+                   class="input-text input__field cvv"
                    name="payment[cc_cid]"
                    value=""
                    data-bind="attr: {id: getCode() + '_cc_cid',

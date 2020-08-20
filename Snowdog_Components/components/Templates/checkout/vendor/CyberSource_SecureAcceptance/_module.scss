@@ -1,0 +1,71 @@
+$cybersource__control-margin               : 0 !default;
+$cybersource__control-with-tooltip-display : flex !default;
+$cybersource__credit-cards-justify-content : flex-start !default;
+$cybersource__cvv-width                    : 110px !default;
+$cybersource__field-tooltip-height         : 48px !default;
+$cybersource__field-tooltip-left-offset    : 0 !default;
+$cybersource__fieldset-margin-bottom       : $spacer--large !default;
+$cybersource__select-padding-left          : 0 !default;
+$cybersource__select-padding-right         : 0 !default;
+$cybersource__select-year-min-width        : 100px !default;
+
+.checkout-payment-method {
+    .fieldset {
+        > .field,
+        > .fields > .field {
+            @include lib-form-field();
+        }
+    }
+
+    .payment-method-content fieldset.chcybersource {
+        margin-bottom: $cybersource__fieldset-margin-bottom;
+
+        .credit-card-types {
+            justify-content: $cybersource__credit-cards-justify-content;
+        }
+
+        // hide spinners for number input (cc, ccv fields)
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+
+        .field.type .control {
+            margin: $cybersource__control-margin;
+        }
+
+        .field.type.cvv .control {
+            margin: $cybersource__control-margin;
+            &._with-tooltip {
+                display: $cybersource__control-with-tooltip-display;
+                .cvv {
+                    width: $cybersource__cvv-width;
+                }
+                .field-tooltip {
+                    position: relative;
+                }
+            }
+            .field-tooltip {
+                height: $cybersource__field-tooltip-height;
+                left: $cybersource__field-tooltip-left-offset;
+            }
+        }
+
+        > .field.date {
+            .select-year {
+                min-width: $cybersource__select-year-min-width;
+            }
+        }
+
+        // reset Snowdog_Blank styles without overriding _select.scss styles
+        .select {
+            padding-left: $cybersource__select-padding-left;
+            padding-right: $cybersource__select-padding-right;
+        }
+    }
+}
