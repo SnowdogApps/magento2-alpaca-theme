@@ -4,9 +4,11 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Added
 - pointer cursor for zoom in icon (#69031)
+
 ### Fixed
 - modal close icon overlay on text (#69152)
 - typo in newsletter (#67925)
+- preventing images from jumping on load (#69133)
 
 ### Removed
 - unused code (#64998)
