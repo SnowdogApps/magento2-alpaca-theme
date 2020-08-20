@@ -389,21 +389,30 @@ Homepage content is build using static blocks, check `vendor/snowdog/theme-front
 ### Responsive images
 
 * to display responsive image for banners and slider items, we use:
-* template picture.phtml: `vendor/snowdog/theme-frontend-colibri/Magento_Theme/templates/html/picture.phtml` you can adjust it for your needs in the child theme.
+* template `picture.phtml`: `vendor/snowdog/theme-frontend-colibri/Magento_Theme/templates/html/picture.phtml` you can adjust it for your needs in the child theme.
 * usage of phtml in cms block/page: {{block class="Magento\Framework\View\Element\Template" template="Magento_Theme::html/picture.phtml" img480="<img-url>" img768="<img-url>" img960="<img-url>" img1024="<img-url>" img1328="<img-url>" img_full="<img-url>" picture_class="image" picture_alt="<descriptive image alternative text>" }}
 * by default you can use different image for media query breakpoints, you can also implement images with different device-pixel-ratio, check the template's code for details
 
+### Lazyloading images
+We use [lazysizes](https://github.com/aFarkas/lazysizes) in project, so when you implement images with `<img>` tag (ex. in CMS content), use:
+* placeholder in `src` attribute: `data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAABCAQAAABN/Pf1AAAAC0lEQVR42mNkwAIAACoAAgu1Hc4AAAAASUVORK5CYII=`
+* image url in `data-src` attribute
+* `lazyload` class on `<img>` tag
+
+This solution is already implemented on responsive solution in `picture.phtml` template
+
 ### Preventing images from jumping on load
-* to prevent jumping we need aspect ratio of image which we can calculate with formula: $aspectRatio = (imgHeight / imgWidth) * 100  
-* usage for single image: 
+* to prevent jumping we need aspect ratio of image which we can calculate with formula: $aspectRatio = (imgHeight / imgWidth) * 100
+* usage for single image (with lazyloading):
 ```
-<div 
+<div
     class="ratio-container"
     style="padding-bottom: $aspectRatio%"
 >
-    <img 
-        src="#" 
-        alt="#"
+    <img
+        src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAABCAQAAABN/Pf1AAAAC0lEQVR42mNkwAIAACoAAgu1Hc4AAAAASUVORK5CYII="
+        data-src="<image url>"
+        alt="<descriptive alternative text for image>"
         class="ratio-image"
     />
 </div>
