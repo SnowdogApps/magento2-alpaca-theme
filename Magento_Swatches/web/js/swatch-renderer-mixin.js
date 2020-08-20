@@ -65,6 +65,10 @@ define([
         gallerySwitchStrategy: 'replace',
         // whether swatches are rendered in product list or on product page
         inProductList: false,
+        // special price wrapper selector
+        specialPriceWrapper: '.price__wrapper',
+        // sly-final-price block selector
+        slyFinalPriceSelector: '.sly-final-price',
         // sly-old-price block selector
         slyOldPriceSelector: '.sly-old-price',
         // tier prise selectors start
@@ -106,7 +110,9 @@ define([
         var $widget = this,
           container = this.element,
           classes = this.options.classes,
-          chooseText = this.options.jsonConfig.chooseText;
+          chooseText = this.options.jsonConfig.chooseText,
+          $product = $widget.element.parents($widget.options.selectorProduct),
+          prices = $widget._getNewPrices();
 
         $widget.optionsMap = {};
 
@@ -185,6 +191,10 @@ define([
 
         // Hide all elements below more button
         $('.' + classes.moreButton).nextAll().hide();
+
+        // Display special price
+        $widget._updateSpecialPrice(prices);
+        $product.find(this.options.specialPriceWrapper).removeClass('display-none');
 
         // Handle events like click or change
         $widget._EventListener();
@@ -434,6 +444,7 @@ define([
           $product = $widget.element.parents($widget.options.selectorProduct),
           $productPrice = $product.find(this.options.selectorProductPrice),
           options = _.object(_.keys($widget.optionsMap), {}),
+          newPrices,
           result,
           tierPriceHtml;
 
@@ -443,21 +454,19 @@ define([
           options[attributeId] = $(this).attr('option-selected');
         });
 
-        result = $widget.options.jsonConfig.optionPrices[_.findKey($widget.options.jsonConfig.index, options)];
+        newPrices = $widget.options.jsonConfig.optionPrices[_.findKey($widget.options.jsonConfig.index, options)];
 
         $productPrice.trigger(
           'updatePrice', {
-            'prices': $widget._getPrices(result, $productPrice.priceBox('option').prices)
+            'prices': $widget._getPrices(newPrices, $productPrice.priceBox('option').prices)
           }
         );
 
-        if (typeof result != 'undefined' && result.oldPrice.amount !== result.finalPrice.amount) {
-          $(this.options.slyOldPriceSelector).show();
-        } else {
-          $(this.options.slyOldPriceSelector).hide();
-        }
+        result = newPrices ? newPrices : $widget._getNewPrices();
 
-        if (typeof result != 'undefined' && result.tierPrices.length) {
+        $widget._updateSpecialPrice(result);
+
+        if (typeof newPrices != 'undefined' && result.tierPrices.length) {
           if (this.options.tierPriceTemplate) {
             tierPriceHtml = mageTemplate(
               this.options.tierPriceTemplate, {
@@ -488,6 +497,22 @@ define([
             }
           }
         }.bind(this));
+      },
+      _updateSpecialPrice: function(result) {
+        var $widget = this,
+          $product = $widget.element.parents($widget.options.selectorProduct),
+          $productSlyOldPriceSelector = $product.find(this.options.slyOldPriceSelector),
+          $productSlyFinalPriceSelector = $product.find(this.options.slyFinalPriceSelector);
+
+        if (result.oldPrice.amount !== result.finalPrice.amount) {
+          $productSlyOldPriceSelector.show();
+          $productSlyFinalPriceSelector.addClass('price__value--special');
+          $productSlyFinalPriceSelector.removeClass('price__value--normal');
+        } else {
+          $productSlyOldPriceSelector.hide();
+          $productSlyFinalPriceSelector.removeClass('price__value--special');
+          $productSlyFinalPriceSelector.addClass('price__value--normal');
+        }
       },
       _EnableProductMediaLoader: function ($this) {
         var $widget = this;

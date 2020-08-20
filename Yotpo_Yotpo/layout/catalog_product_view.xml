@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<page
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd"
+>
+    <body>
+        <referenceContainer name="product.info.details">
+            <!-- yotpo module unset in php review.tabs so we need add new yotpo review tab this way -->
+            <block
+                class="Yotpo\Yotpo\Block\Yotpo"
+                name="product.yotpo.reviews"
+                template="Yotpo_Yotpo::widget_div.phtml"
+                ifconfig="yotpo/settings/active"
+                group="detailed_info"
+            >
+                <arguments>
+                    <argument name="sort_order" xsi:type="string">40</argument>
+                    <argument translate="true" name="title" xsi:type="string">Reviews</argument>
+                    <argument name="class" xsi:type="string">reviews</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+
+        <!-- remove original block added below tabs -->
+        <referenceBlock
+            name="yotpo_widget_div"
+            remove="true"
+        />
+    </body>
+</page>

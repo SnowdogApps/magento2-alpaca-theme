@@ -2,24 +2,56 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
-
+### Fixed
+- gdpr agreements templates after update (#68654)
+- wrong name for review input field (#70089)
+- Amasty Store Locator template for module version 2.4.2 (#69148)
 ### Added
+- paypal review component (#59142)
+- curreny and language switchers in footer (#67313)
+### Changed
+- paypal review order page (#59142)
+- contact-bar template to show/hide email/phone depending on config settings (#69969)
+- checkboxes to be globally aligned vertically to center (#68654)
+- zoomed in image background opacity & close button to dark (#69145)
+
+## [Released]
+## [2.6.0] - 2020-08-06
+### Added
+- pointer cursor for zoom in icon (#69031)
+### Fixed
+- modal close icon overlay on text (#69152)
+- typo in newsletter (#67925)
+
+### Changed
+- loader to sth "standard" (#68653)
+
+### Removed
+- unused code (#64998)
+
+### Fixed
+- sasslint warnings (#64998)
+- configurable produt special price visibility and styling, updating product price on swatch change (#69349)
+
+## [2.5.0] - 2020-07-15
+### Fixed
+- cart & checkout discount summary (#68737)
+## Removed
+- 'what is paypal?' from paypal express template (#68737)
+
+## [2.4.0] - 2020-07-13
+### Added
+- yotpo reviews  support (#68077)
 - styled subscribe checkbox (#68462)
-- html support for terms and conditions checkbox text (#68597)
 - zoom icon to product gallery (#68584)
+- map object from original require-config file (#68776)
 ### Changed
 - reduced spacing above Available in stores (#68585)
 - $font-family-sans-serif to $font-family-base (#68405)
 ### Fixed
 - bundle with multiselect - options in summary (#68469)
-- add mising price wrapper class (#61546)
-### Removed
-
-
-## [Released]
-
-### Fixed
 - issue with special characters in product name in minicart (#68844)
+- missing price wrapper class (#61546)
 
 ## [2.3.0] - 2020-07-03
 ### Added
