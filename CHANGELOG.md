@@ -2,11 +2,11 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
-
 ### Added
 ### Changed
 - update variables name and styles in product view, swatches, mega menu (#62512)
 - quicksearch display, variables & components view (#65066)
+- styles and validation for datepicker (#67654), Affects: structure of files (datepicker customization)
 ### Fixed
 - search autocomplete product image size (#68106)
 - a translate function `__()` call in product view Qty template (#68056)
