@@ -18,6 +18,7 @@ Open source
 * webshopapps/module-matrixrate
 * paradoxlabs/authnetcim
 * paradoxlabs/tokenbase
+* authorizenet/magento-module-creditcard
 
 and module-alpaca-acm (from github) which will be added in p.1
 
@@ -355,7 +356,7 @@ $sliderBlock->setData(['slider_html'=>'after-slides', ...]);
 
 ## Alpaca Content - Set up your store, admin / db changes for alpaca theme
 
-### Menu - to display menu use [Snowog's magento2-menu](https://github.com/SnowdogApps/magento2-menu) module
+### Menu - to display menu use [Snowdog's magento2-menu](https://github.com/SnowdogApps/magento2-menu) module
 1. Desktop menu:
   * identifier: main-desktop
   * Menu Main CSS Class: mega-menu

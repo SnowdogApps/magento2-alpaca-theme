@@ -1,0 +1,27 @@
+<?php
+/**
+ * @see \Magento\Checkout\Block\Cart\Totals
+ */
+?>
+<?php if ($block->getTotals()) : ?>
+    <?php $_colspan = 3; ?>
+    <?= /* @noEscape */ $block->renderTotals(null, $_colspan) ?>
+    <?= /* @noEscape */ $block->renderTotals('footer', $_colspan) ?>
+    <?php if ($block->needDisplayBaseGrandtotal()) : ?>
+    <tr role="row">
+        <th 
+            colspan="<?= /* @noEscape */ $_colspan ?>"
+            scope="row"
+            role="rowheader"
+        >
+            <?= $block->escapeHtml(__('Your credit card will be charged for')) ?>
+        </th>
+        <td 
+            data-th="<?= $block->escapeHtmlAttr(__('Your credit card will be charged for')) ?>"
+            role="gridcell"
+        >
+            <?= /* @noEscape */ $block->displayBaseGrandtotal() ?>
+        </td>
+    </tr>
+    <?php endif?>
+<?php endif; ?>
