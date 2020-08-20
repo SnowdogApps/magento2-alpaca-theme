@@ -6,10 +6,7 @@ define([
     return function (widget) {
         $.widget('mage.orderOverview', widget, {
             options: {
-                opacity: 0.5, // CSS opacity for the 'Place Order' button when it's clicked and then disabled.
-                pleaseWaitLoader: 'span.please-wait', // 'Submitting order information...' Ajax loader.
-                placeOrderSubmit: 'button[type="submit"]', // The 'Place Order' button.
-                agreements: '.checkout-review' // Container for all of the checkout agreements and terms/conditions
+                agreements: '.checkout-review'
             },
             /**
              * Verify that all agreements and terms/conditions are checked. Show the Ajax loader. Disable
@@ -18,7 +15,7 @@ define([
              * @private
              */
             _showLoader: function () {
-                if ($(this.options.agreements).find('input[type="checkbox"]:not(:checked)').length > 0) {
+                if ($(this.options.agreements).find('.checkbox.required input[type="checkbox"]:not(:checked)').length > 0) {
                     return false;
                 }
                 this.element.find(this.options.pleaseWaitLoader).show().end()
@@ -30,5 +27,4 @@ define([
     
         return $.mage.orderOverview;
     }
-  });
-  
+});
