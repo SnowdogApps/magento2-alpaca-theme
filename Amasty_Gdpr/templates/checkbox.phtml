@@ -10,7 +10,7 @@ if (method_exists($block, 'getConsents')):
 ?>
     <div
         class="
-            input
+            checkbox
             gdpr
             <?php if ($consent->isRequired()): ?>
                 required
@@ -26,7 +26,14 @@ if (method_exists($block, 'getConsents')):
             value="0"
         >
 
-        <div class="checkbox">
+        <div 
+            class="
+                checkbox
+                <?php if ($consent->isRequired()): ?>
+                    required
+                <?php endif; ?>
+            "
+        >
             <input
                 type="checkbox"
                 name="amgdpr_agreement[<?= $block->escapeHtmlAttr($consent->getConsentCode()) ?>]"
@@ -67,7 +74,9 @@ if (method_exists($block, 'getConsents')):
                 for="<?= $block->escapeHtmlAttr($uniqueKey) ?>"
                 class="checkbox__label"
             >
-                <?= $block->escapeHtml($block->getConsentText($consent), ['a']) ?>
+                <span>
+                    <?= $block->escapeHtml($block->getConsentText($consent), ['a']) ?>
+                </span>
             </label>
         </div>
     </div>
@@ -90,7 +99,12 @@ if (method_exists($block, 'getConsents')):
     id="amprivacy-checkbox"
     data-role="amasty-gdpr-consent"
 >
-    <div class="checkbox">
+    <div 
+        class="
+            checkbox
+            required
+        "
+    >
         <input
             type="checkbox"
             name="amgdpr_agree_contact"
@@ -128,7 +142,9 @@ if (method_exists($block, 'getConsents')):
             for="amgdpr_agree_contact"
             class="checkbox__label"
         >
-            <?= $block->getConsentText() ?>
+            <span>
+                <?= $block->escapeHtml($block->getConsentText($consent), ['a']) ?>
+            </span>
         </label>
     </div>
 </div>
