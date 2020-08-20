@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 - paypal review component (#59142)
 - curreny and language switchers in footer (#67313)
 - EE - gift registry (#65717), Affects: all gift registry pages ('/giftregistry/*'), datepicker styles
+- Component and styling for multishipping (#66917)
 ### Changed
 - paypal review order page (#59142)
 - contact-bar template to show/hide email/phone depending on config settings (#69969)
