@@ -1,21 +1,23 @@
+@import 'store-locator-variables';
+
 .store-locator {
     &__button-search {
         top: 0;
     }
 
     &__today-label {
-        font-size: $font-size-small;
+        font-size: $store-locator__label-font-size;
         @include mq($screen-m) {
-            font-size: $font-size-base;
+            font-size: $store-locator__label-font-size\@medium;
         }
     }
 
     &__filter-actions {
         display: flex;
         flex-wrap: nowrap;
-        justify-content: flex-end;
-        align-items: center;
-        padding: $spacer $spacer--medium;
+        justify-content: $store-locator__filter-action-justify;
+        align-items: $store-locator__filter-action-align;
+        padding: $store-locator__filter-action-padding;
     }
 
     &__stores {
@@ -30,17 +32,18 @@
     // adjust store-locator styles
     .amlocator-search-container
     .amlocator-title {
-        margin-bottom: $spacer--medium;
+        margin: $store-locator__search-title-margin;
         .amlocator-link {
             word-break: keep-all;
         }
     }
 
     .amlocator-search-container {
-        background-color: transparent;
-        border-bottom: $border-base;
-        padding-bottom: $spacer--medium;
-        margin-bottom: $spacer--medium;
+        border: $store-locator__search-border-width;
+        background-color: $store-locator__search-bg;
+        border-width: $store-locator__search-border-width;
+        padding: $store-locator__search-padding;
+        margin: $store-locator__search-margin;
     }
 
     .amlocator-filters-container {
@@ -48,13 +51,22 @@
     }
 
     .amlocator-store-desc {
-        background-color: $gray-lighter;
+        background-color: $store-locator__store-description-bg;
         &.-active {
-            background-color: $color-primary;
+            background-color: $store-locator__store-description-bg--active;
+            color: $store-locator__store-description-color--active;
+
+            .amlocator-schedule-table {
+                color: $store-locator__store-schedule-color--active;
+            }
+
+            & + .amlocator-schedule-container {
+                background-color: $store-locator__store-schedule-bg--active;
+            }
 
             .amlocator-today {
-                color: $color-primary;
-                background-color: $color-info;
+                color: $store-locator__store-schedule-color--active;
+                background-color: $store-locator__store-schedule-label-bg--active;
                 @include mq($screen-m, $screen-xl) {
                     flex-wrap: wrap;
                 }
@@ -70,12 +82,12 @@
     }
 
     .amlocator-schedule-table {
-        margin-top: $spacer--medium;
+        margin: $store-locator__store-schedule-margin;
     }
 
     // maps popup
     .amlocator-description {
-        margin-top: $spacer;
+        margin: $store-locator__store-description-margin;
     }
     .amlocator-info-popup {
         font-weight: $font-weight-base;
@@ -91,17 +103,63 @@
     .input__field {
         font-size: $font-size-base;
     }
+    // to overwrite amasty styles loaded in php script :/
+    &.amlocator-main-container {
+        .amlocator-button {
+            color: $white;
+            background-color: $store-locator__button-bg;
+            border: $store-locator__border;
+
+            &:hover,
+            &:focus,
+            &.focus-visible {
+                background-color: $store-locator__button-bg--active;
+            }
+        }
+        .amlocator-search-container .amlocator-button.-nearby {
+            color: $white;
+            background-color: $store-locator__button-bg;
+
+            &:hover,
+            &:focus,
+            &.focus-visible {
+                background-color: $store-locator__button-bg--active;
+            }
+        }
+    }
+
+    .amlocator-current-location .amlocator-text {
+        height: $store-locator__action-height;
+
+        &:hover,
+        &:focus,
+        &.ficus-visible {
+            border: $store-locator__input-border--active;
+        }
+    }
 
     // overwrite google maps popup styles
     .amlocator-map-container .amlocator-map button {
         // sass-lint:disable-block no-important
-        width: 40px !important;
-        height: 40px !important;
+        width: $store-locator__action-height !important;
+        height: $store-locator__action-height !important;
         right: $spacer--extra-small !important;
 
         & > img {
-            width: 24px !important;
-            height: 24px !important;
+            width: $store-locator__action-icon-size !important;
+            height: $store-locator__action-icon-size !important;
         }
     }
+}
+
+.amlocator-schedule-container {
+    background-color: $gray-lighter;
+    .amlocator-today {
+        min-height: $store-locator__action-height;
+        align-items: center;
+        &:before {
+            display: none;
+        }
+    }
+
 }

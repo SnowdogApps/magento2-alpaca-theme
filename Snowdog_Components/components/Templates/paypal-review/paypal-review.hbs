@@ -1,0 +1,98 @@
+<div class="page-wrapper">
+    {{ render '@header' }}
+    <main
+        id="maincontent"
+        class="page-main container"
+    >
+        {{ render '@heading' heading }}
+
+        <div class="paypal-review">
+            <div
+                class="
+                    payapal-review__details
+                    margin-bottom-m
+                    block-order-details-view
+                "
+            >
+                <div class="block-content row">
+                    <div
+                        class="
+                            payapal-review__details-item
+                            col-lg-4
+                            margin-right-auto
+                            margin-bottom-m
+                        "
+                    >
+                        <form class="form">
+                            {{ render '@select--native' shippingMethodSelect merge=true }}
+                        </form>
+                    </div>
+
+                    <div
+                        class="
+                            payapal-review__details-item
+                            col-lg-3
+                            margin-bottom-m
+                            box-order-shipping-address
+                        "
+                    >
+                        {{ render '@heading' shippingAddress.title }}
+
+                        <address>
+                            {{{ shippingAddress.details }}}
+                        </address>
+
+                        {{ render '@actions-group' shippingAddress.actions }}
+                    </div>
+
+                    <div
+                        class="
+                            payapal-review__details-item
+                            col-lg-3
+                            margin-bottom-m
+                            box-order-billing-address
+                        "
+                    >
+                        {{ render '@heading' paymentMethod.title }}
+
+                        <div class="box-content">
+                            {{{ paymentMethod.details }}}
+                        </div>
+
+                        {{ render '@actions-group' paymentMethod.actions }}
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="
+                    payapal-review__discount
+                    row
+                    margin-bottom-xl
+                    paypal-review-discount
+                "
+            >
+                <div class="col-lg-5">
+                    {{ render '@discount-code' }}
+                </div>
+            </div>
+
+            <div class="payapal-review__shopping-cart paypal-review-items">
+                {{ render '@heading' shoppingCart.title }}
+                {{ render '@actions-group' shoppingCart.actions }}
+
+                <div class="table-wrapper order-items">
+                    {{ render '@table' table }}
+                </div>
+            </div>
+
+            <form class="form order-review-form">
+                <div class="actions-toolbar">
+                    {{ render '@button' submitBtn }}
+                </div>
+            </form>
+        </div>
+    </main>
+</div>
+
+{{ render '@footer' }}
