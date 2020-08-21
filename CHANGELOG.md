@@ -17,13 +17,12 @@ All notable changes to this project will be documented in this file.
 - checkboxes to be globally aligned vertically to center (#68654)
 - zoomed in image background opacity & close button to dark (#69145)
 - styles and validation for datepicker (#67654), Affects: structure of files (datepicker customization)
+- escaping php variables in templates, Affects: amasty gdpr elements and pages (newsletter, agreements, ettings, etc.) - can limit html output there (#67311)
 
 ## [Released]
 ## [2.6.0] - 2020-08-06
 ### Added
 - pointer cursor for zoom in icon (#69031)
-- escaping php variables in templates (#67311)
-- amasty gdpr elements and pages (newsletter, agreements, ettings, etc.) can limit html output there (#67311)
 
 ### Fixed
 - modal close icon overlay on text (#69152)
