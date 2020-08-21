@@ -13,6 +13,7 @@ All notable changes to this project will be documented in this file.
 - Component and styling for multishipping (#66917)
 ### Changed
 - paypal review order page (#59142)
+- paypal express button (#69885)
 - contact-bar template to show/hide email/phone depending on config settings (#69969)
 - checkboxes to be globally aligned vertically to center (#68654)
 - zoomed in image background opacity & close button to dark (#69145)
