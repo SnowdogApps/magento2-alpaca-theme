@@ -2,6 +2,24 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Fixed
+- gdpr agreements templates after update (#68654)
+- wrong name for review input field (#70089)
+- Amasty Store Locator template for module version 2.4.2 (#69148)
+### Added
+- paypal review component (#59142)
+- curreny and language switchers in footer (#67313)
+- EE - gift registry (#65717), Affects: all gift registry pages ('/giftregistry/*'), datepicker styles
+- Component and styling for multishipping (#66917)
+### Changed
+- paypal review order page (#59142)
+- contact-bar template to show/hide email/phone depending on config settings (#69969)
+- checkboxes to be globally aligned vertically to center (#68654)
+- zoomed in image background opacity & close button to dark (#69145)
+- styles and validation for datepicker (#67654), Affects: structure of files (datepicker customization)
+
+## [Released]
+## [2.6.0] - 2020-08-06
 ### Added
 - pointer cursor for zoom in icon (#69031)
 - escaping php variables in templates (#67311)
@@ -11,13 +29,15 @@ All notable changes to this project will be documented in this file.
 - modal close icon overlay on text (#69152)
 - typo in newsletter (#67925)
 
+### Changed
+- loader to sth "standard" (#68653)
+
 ### Removed
 - unused code (#64998)
 
 ### Fixed
 - sasslint warnings (#64998)
-
-## [Released]
+- configurable produt special price visibility and styling, updating product price on swatch change (#69349)
 
 ## [2.5.0] - 2020-07-15
 ### Fixed

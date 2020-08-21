@@ -1,0 +1,280 @@
+<?php
+
+// phpcs:disable Magento2.Templates.ThisInTemplate
+// phpcs:disable Magento2.Files.LineLength.MaxExceeded
+// phpcs:disable Squiz.ControlStructures.ControlSignature.NewlineAfterOpenBrace
+// phpcs:disable Squiz.WhiteSpace.ScopeClosingBrace.ContentBefore
+
+/* @var $block \Magento\GiftRegistry\Block\Customer\Address\Edit */
+?>
+
+<fieldset class="fieldset shipping_address">
+    <legend class="fieldset__legend">
+        <?= $block->escapeHtml(__('Shipping Address')) ?>
+    </legend>
+    <?php if ($block->customerHasAddresses()) : ?>
+        <div
+            class="
+                select
+                select--native
+                address
+            "
+        >
+            <label
+                for="address_type_or_id"
+                class="label"
+            >
+                <?= $block->escapeHtml(__('Select a shipping address from your address book or enter a new address.')) ?>
+            </label>
+            <div
+                class="control"
+                data-shipping-address="<?= $block->getEntity()->getShippingAddress() ? 'true' : 'false' ?>"
+            >
+                <?= $block->getAddressHtmlSelect('address_type_or_id') ?>
+            </div>
+        </div>
+    <?php endif ?>
+
+    <fieldset
+        class="
+            fieldset
+            <?php if ($block->customerHasAddresses()): ?>
+                display-none
+            <?php endif ?>
+        "
+        id="shipping-new-address-form"
+    >
+        <?= $block->getLayout()->createBlock(Magento\Customer\Block\Widget\Name::class)->setObject($block->getAddress())->setFieldNameFormat('address[%s]')->toHtml() ?>
+
+        <div class="input company">
+            <label
+                for="address:company"
+                class="label"
+            >
+                <?= $block->escapeHtml(__('Company')) ?>
+            </label>
+            <input
+                type="text"
+                id="address:company"
+                name="address[company]"
+                value="<?= $block->escapeHtmlAttr($block->getAddress()->getCompany()) ?>"
+                title="<?= $block->escapeHtmlAttr(__('Company')) ?>"
+                class="input__field <?= $block->escapeHtmlAttr($this->helper(Magento\Customer\Helper\Address::class)->getAttributeValidationClass('company')) ?>"
+            />
+        </div>
+
+        <?php $_streetValidationClass = $block->escapeHtmlAttr($this->helper(Magento\Customer\Helper\Address::class)->getAttributeValidationClass('street')); ?>
+        <div
+            class="
+                input
+                address
+                street
+                required
+            "
+        >
+            <label
+                for="address:street1"
+                class="label"
+            >
+                <?= $block->escapeHtml(__('Address')) ?>
+            </label>
+            <input
+                type="text"
+                title="<?= $block->escapeHtmlAttr(__('Street Address')) ?>"
+                name="address[street][]"
+                id="address:street1"
+                value="<?= $block->escapeHtmlAttr($block->getAddress()->getStreetLine(1)) ?>"
+                class="
+                    input__field
+                    margin-bottom-m
+                    <?= /* @noEscape */ $_streetValidationClass ?>
+                "
+            />
+
+            <div class="nested">
+                <?php $_streetValidationClass = trim(str_replace('required-entry', '', $_streetValidationClass)); ?>
+                <?php for ($_i = 2, $_n = $this->helper(Magento\Customer\Helper\Address::class)->getStreetLines(); $_i <= $_n; $_i++) :?>
+                    <div
+                        class="
+                            input
+                            additional
+                            no-label
+                        "
+                    >
+                        <input
+                            type="text"
+                            title="<?= $block->escapeHtmlAttr(__('Street Address %1', $_i)) ?>"
+                            name="address[street][]"
+                            id="address:street<?= /* @noEscape */ $_i ?>"
+                            value="<?= $block->escapeHtmlAttr($block->getAddress()->getStreetLine($_i)) ?>"
+                            class="input__field <?= /* @noEscape */ $_streetValidationClass ?>"
+                        />
+                    </div>
+                <?php endfor; ?>
+            </div>
+        </div>
+
+        <div
+            class="
+                input
+                address
+                city
+                required
+            "
+        >
+            <label
+                for="address:city"
+                class="label"
+            >
+                <?= $block->escapeHtml(__('City')) ?>
+            </label>
+            <input
+                type="text"
+                title="<?= $block->escapeHtmlAttr(__('City')) ?>"
+                name="address[city]"
+                value="<?= $block->escapeHtmlAttr($block->getAddress()->getCity()) ?>"
+                class="input__field <?= $block->escapeHtmlAttr($this->helper(Magento\Customer\Helper\Address::class)->getAttributeValidationClass('city')) ?>"
+                id="address:city"
+            />
+        </div>
+        <div
+            class="
+                field
+                address
+                region
+                required
+            "
+        >
+            <label
+                for="address:region"
+                class="label"
+            >
+                <?= $block->escapeHtml(__('State/Province')) ?>
+            </label>
+            <div class="select select--native">
+                <div class="addon">
+                    <select
+                        id="address:region_id"
+                        name="address[region_id]"
+                        title="<?= $block->escapeHtmlAttr(__('State/Province')) ?>"
+                        class="validate-select display-none"
+                        data-mage-init='{ "select": {}}'
+                    >
+                        <option value="">
+                            <?= $block->escapeHtml(__('Please select a region, state or province.')) ?>
+                        </option>
+                    </select>
+                    <input
+                        type="text"
+                        id="address:region"
+                        name="address[region]"
+                        value="<?= $block->escapeHtmlAttr($block->getAddress()->getRegion()) ?>"
+                        title="<?= $block->escapeHtmlAttr(__('State/Province')) ?>"
+                        class="input__field display-none <?= $block->escapeHtmlAttr($this->helper(Magento\Customer\Helper\Address::class)->getAttributeValidationClass('region')) ?>"
+                    />
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="
+                input
+                address
+                postcode
+                required
+            "
+        >
+            <label
+                for="address:postcode"
+                class="label"
+            >
+                <?= $block->escapeHtml(__('Zip/Postal Code')) ?>
+            </label>
+            <input
+                type="text"
+                title="<?= $block->escapeHtmlAttr(__('Zip/Postal Code')) ?>"
+                name="address[postcode]"
+                id="address:postcode"
+                value="<?= $block->escapeHtmlAttr($block->getAddress()->getPostcode()) ?>"
+                class="input__field validate-zip-international <?= $block->escapeHtmlAttr($this->helper(Magento\Customer\Helper\Address::class)->getAttributeValidationClass('postcode')) ?>"
+                data-validate="{'required':true, 'validate-zip-international':true}"
+            />
+        </div>
+        <div
+            class="
+                select
+                select--native
+                address country
+                required
+            "
+        >
+            <label
+                for="address:country_id"
+                class="label"
+            >
+                <?= $block->escapeHtml(__('Country')) ?>
+            </label>
+            <?= $block->getCountryHtmlSelect($block->getAddress()->getCountryId(), 'address[country_id]', 'address:country_id') ?>
+        </div>
+
+        <div
+            class="
+                input
+                address
+                telephone
+                required
+            "
+        >
+            <label
+                for="address:telephone"
+                class="label"
+            >
+                <?= $block->escapeHtml(__('Phone Number')) ?>
+            </label>
+            <input
+                type="text"
+                name="address[telephone]"
+                value="<?= $block->escapeHtmlAttr($block->getAddress()->getTelephone()) ?>"
+                title="<?= $block->escapeHtmlAttr(__('Phone Number')) ?>"
+                class="input__field <?= $block->escapeHtmlAttr($this->helper(Magento\Customer\Helper\Address::class)->getAttributeValidationClass('telephone')) ?>"
+                id="address:telephone"
+            />
+        </div>
+        <div
+            class="
+                input
+                address
+                fax
+            "
+        >
+            <label
+                for="address:fax"
+                class="label"
+            >
+                <?= $block->escapeHtml(__('Fax')) ?>
+            </label>
+            <input
+                type="text"
+                name="address[fax]"
+                value="<?= $block->escapeHtmlAttr($block->getAddress()->getFax()) ?>"
+                title="<?= $block->escapeHtmlAttr(__('Fax')) ?>"
+                class="input__field <?= $block->escapeHtmlAttr($this->helper(Magento\Customer\Helper\Address::class)->getAttributeValidationClass('fax')) ?>"
+                id="address:fax"
+            />
+        </div>
+    </fieldset>
+</fieldset>
+<script type="text/x-magento-init">
+    {
+        "#address\\:country_id": {
+            "regionUpdater": {
+                "optionalRegionAllowed": <?= ($block->getConfig('general/region/display_all') ? 'true' : 'false') ?>,
+                "regionListId": "#address\\:region_id",
+                "regionInputId": "#address\\:region",
+                "postcodeId": "#address\\:postcode",
+                "regionJson": <?= /* @noEscape */ $this->helper(Magento\Directory\Helper\Data::class)->getRegionJson() ?>,
+                "defaultRegion": "<?= /* @noEscape */ $block->getAddress()->getRegionId() ?>"
+            }
+        }
+    }
+</script>
