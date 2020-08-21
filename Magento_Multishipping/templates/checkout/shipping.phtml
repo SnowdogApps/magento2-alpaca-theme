@@ -17,193 +17,185 @@
 >
     <?php foreach ($block->getAddresses() as $_index => $_address) : ?>
     <div class="block-shipping margin-bottom-m">
-        <div class="block-title">
-            <strong>
-                <?= $block->escapeHtml(__('Address %1 <span>of %2</span>', ($_index+1), $block->getAddressCount()), ['span']) ?>
-            </strong>
-        </div>
-        <div class="block-content">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="box box-shipping-address">
-                        <strong class="box-title">
-                            <?= $block->escapeHtml(__('Shipping To')) ?>
+        <div class="dashboard-items">
+            <div class="dashboard-table__header">
+                <h2 class="dashboard-table__title">
+                    <?= $block->escapeHtml(__('Address %1 <span>of %2</span>', ($_index+1), $block->getAddressCount()), ['span']) ?>
+                </h2>
+            </div>
+            <div class="row dashboard-items__content">
+                <div class="col-sm-6 dashboard-items__item">
+                    <h3 class="heading dashboard-items__subtitle">
+                        <?= $block->escapeHtml(__('Shipping To')) ?>
+                    </h3>
+                    <div class="margin-bottom-m">
+                        <address>
+                            <?= /* @noEscape */ $_address->format('html') ?>
+                        </address>
+                    </div>
+                    <div class="actions-group margin-bottom-xl">
+                        <div class="actions-group__handler">
                             <a
                                 href="<?= $block->escapeUrl($block->getAddressEditUrl($_address)) ?>"
                                 class="
-                                    button
-                                    button--link
-                                    padding-hz-xs
-                                    action
-                                    edit
+                                    link 
+                                    actions-group__link
                                 "
+                                title="<?= $block->escapeHtmlAttr(__('Change')) ?>"
                             >
                                 <?= $block->escapeHtml(__('Change')) ?>
                             </a>
-                        </strong>
-                        <div class="box-content margin-bottom-m">
-                            <address>
-                                <?= /* @noEscape */ $_address->format('html') ?>
-                            </address>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="box box-shipping-method">
-                        <strong class="box-title">
-                            <?= $block->escapeHtml(__('Shipping Method')) ?>
-                        </strong>
-                        <div class="box-content">
-                            <?php if (!($_shippingRateGroups = $block->getShippingRates($_address))): ?>
-                                <p>
-                                    <?= $block->escapeHtml(__('Sorry, no quotes are available for this order right now.')) ?>
-                                </p>
-                            <?php else: ?>
-                            <dl class="items methods-shipping">
-                                <?php $_sole = count($_shippingRateGroups) == 1; foreach ($_shippingRateGroups as $code => $_rates): ?>
-                                    <dt class="item-title">
-                                        <?= $block->escapeHtml($block->getCarrierName($code)) ?>
-                                    </dt>
-                                    <dd class="item-content radio">
-                                        <fieldset class="fieldset">
-                                            <legend class="fieldset__legend fieldset__legend--hidden">
-                                                <?= $block->escapeHtml($block->getCarrierName($code)) ?>
-                                            </legend>
-                                            <?php $_sole = $_sole && count($_rates) == 1; foreach ($_rates as $_rate): ?>
-                                            <div class="radio__handler choice">
-                                                <?php if ($_rate->getErrorMessage()): ?>
-                                                    <strong>
-                                                        <?= $block->escapeHtml($_rate->getCarrierTitle()) ?>: <?= $block->escapeHtml($_rate->getErrorMessage()) ?>
-                                                    </strong>
+                <div class="col-sm-6 dashboard-items__item">
+                    <h3 class="heading dashboard-items__subtitle">
+                        <?= $block->escapeHtml(__('Shipping Method')) ?>
+                    </h3>
+                    <div class="margin-bottom-m">
+                        <?php if (!($_shippingRateGroups = $block->getShippingRates($_address))): ?>
+                            <p>
+                                <?= $block->escapeHtml(__('Sorry, no quotes are available for this order right now.')) ?>
+                            </p>
+                        <?php else: ?>
+                        <dl class="items methods-shipping">
+                            <?php $_sole = count($_shippingRateGroups) == 1; foreach ($_shippingRateGroups as $code => $_rates): ?>
+                                <dd class="item-content radio">
+                                    <fieldset class="fieldset">
+                                        <legend class="fieldset__legend margin-bottom-0">
+                                            <?= $block->escapeHtml($block->getCarrierName($code)) ?>
+                                        </legend>
+                                        <?php $_sole = $_sole && count($_rates) == 1; foreach ($_rates as $_rate): ?>
+                                        <div class="radio__handler choice">
+                                            <?php if ($_rate->getErrorMessage()): ?>
+                                                <strong>
+                                                    <?= $block->escapeHtml($_rate->getCarrierTitle()) ?>: <?= $block->escapeHtml($_rate->getErrorMessage()) ?>
+                                                </strong>
+                                            <?php else: ?>
+                                            <?php if ($_sole): ?>
+                                                <input
+                                                    type="radio"
+                                                    name="shipping_method[<?= (int) $_address->getId() ?>]"
+                                                    value="<?= $block->escapeHtmlAttr($_rate->getCode()) ?>"
+                                                    id="s_method_<?= (int) $_address->getId() ?>_<?= $block->escapeHtmlAttr($_rate->getCode()) ?>"
+                                                    class="
+                                                        radio__field
+                                                        solo
+                                                        method
+                                                    "
+                                                    checked="checked"
+                                                />
+                                            <?php else: ?>
+                                                <input
+                                                    type="radio"
+                                                    name="shipping_method[<?= (int) $_address->getId() ?>]"
+                                                    value="<?= $block->escapeHtmlAttr($_rate->getCode()) ?>"
+                                                    id="s_method_<?= (int) $_address->getId() ?>_<?= $block->escapeHtmlAttr($_rate->getCode()) ?>"
+                                                    <?= ($_rate->getCode()===$block->getAddressShippingMethod($_address)) ? ' checked="checked"' : '' ?>
+                                                    class="radio__field"
+                                                />
+                                            <?php endif; ?>
+                                            <label
+                                                for="s_method_<?= (int) $_address->getId() ?>_<?= $block->escapeHtmlAttr($_rate->getCode()) ?>"
+                                                class="radio__label"
+                                            >
+                                                <?= $block->escapeHtml($_rate->getMethodTitle()) ?>
+                                                <?php $_excl = $block->getShippingPrice($_address, $_rate->getPrice(), $this->helper(Magento\Tax\Helper\Data::class)->displayShippingPriceIncludingTax()); ?>
+                                                <?php $_incl = $block->getShippingPrice($_address, $_rate->getPrice(), true); ?>
+                                                <?php if ($this->helper(Magento\Tax\Helper\Data::class)->displayShippingBothPrices() && $_incl != $_excl): ?>
+                                                    <span
+                                                        class="price-including-tax padding-left-xs"
+                                                        data-label="<?= $block->escapeHtmlAttr(__('Incl. Tax')) ?>"
+                                                    >
+                                                        <?= $block->escapeHtml($_incl, ['span']) ?>
+                                                    </span>
+                                                    <span
+                                                        class="price-excluding-tax padding-left-xs"
+                                                        data-label="<?= $block->escapeHtmlAttr(__('Excl. Tax')) ?>"
+                                                    >
+                                                        <?= $block->escapeHtml($_excl, ['span']) ?>
+                                                    </span>
                                                 <?php else: ?>
-                                                <?php if ($_sole): ?>
-                                                    <input
-                                                        type="radio"
-                                                        name="shipping_method[<?= (int) $_address->getId() ?>]"
-                                                        value="<?= $block->escapeHtmlAttr($_rate->getCode()) ?>"
-                                                        id="s_method_<?= (int) $_address->getId() ?>_<?= $block->escapeHtmlAttr($_rate->getCode()) ?>"
-                                                        class="
-                                                            radio__field
-                                                            solo
-                                                            method
-                                                        "
-                                                        checked="checked"
-                                                    />
-                                                <?php else: ?>
-                                                    <input
-                                                        type="radio"
-                                                        name="shipping_method[<?= (int) $_address->getId() ?>]"
-                                                        value="<?= $block->escapeHtmlAttr($_rate->getCode()) ?>"
-                                                        id="s_method_<?= (int) $_address->getId() ?>_<?= $block->escapeHtmlAttr($_rate->getCode()) ?>"
-                                                        <?= ($_rate->getCode()===$block->getAddressShippingMethod($_address)) ? ' checked="checked"' : '' ?>
-                                                        class="radio__field"
-                                                    />
+                                                    <span class="padding-left-xs">
+                                                        <?= $block->escapeHtml($_incl, ['span']) ?>
+                                                    </span>
                                                 <?php endif; ?>
-                                                <label
-                                                    for="s_method_<?= (int) $_address->getId() ?>_<?= $block->escapeHtmlAttr($_rate->getCode()) ?>"
-                                                    class="radio__label"
-                                                >
-                                                    <?= $block->escapeHtml($_rate->getMethodTitle()) ?>
-                                                    <?php $_excl = $block->getShippingPrice($_address, $_rate->getPrice(), $this->helper(Magento\Tax\Helper\Data::class)->displayShippingPriceIncludingTax()); ?>
-                                                    <?php $_incl = $block->getShippingPrice($_address, $_rate->getPrice(), true); ?>
-                                                    <?php if ($this->helper(Magento\Tax\Helper\Data::class)->displayShippingBothPrices() && $_incl != $_excl): ?>
-                                                        <span
-                                                            class="price-including-tax padding-left-xs"
-                                                            data-label="<?= $block->escapeHtmlAttr(__('Incl. Tax')) ?>"
-                                                        >
-                                                            <?= $block->escapeHtml($_incl, ['span']) ?>
-                                                        </span>
-                                                        <span
-                                                            class="price-excluding-tax padding-left-xs"
-                                                            data-label="<?= $block->escapeHtmlAttr(__('Excl. Tax')) ?>"
-                                                        >
-                                                            <?= $block->escapeHtml($_excl, ['span']) ?>
-                                                        </span>
-                                                    <?php else: ?>
-                                                        <span class="padding-left-xs">
-                                                            <?= $block->escapeHtml($_incl, ['span']) ?>
-                                                        </span>
-                                                    <?php endif; ?>
-                                                </label>
-                                                <?php endif ?>
-                                            </div>
-                                            <?php endforeach; ?>
-                                        </fieldset>
-                                    </dd>
-                                <?php endforeach; ?>
-                            </dl>
-                            <?php endif; ?>
-                            <?= /* @noEscape */ $block->getItemsBoxTextAfter($_address) ?>
-                        </div>
+                                            </label>
+                                            <?php endif ?>
+                                        </div>
+                                        <?php endforeach; ?>
+                                    </fieldset>
+                                </dd>
+                            <?php endforeach; ?>
+                        </dl>
+                        <?php endif; ?>
+                        <?= /* @noEscape */ $block->getItemsBoxTextAfter($_address) ?>
                     </div>
                 </div>
             </div>
-            <div class="box box-items">
-                <strong class="box-title">
+        </div>
+        <div class="dashboard-items dashboard-table">
+            <div class="dashboard-table__header">
+                <h2 class="dashboard-table__title">
                     <?= $block->escapeHtml(__('Items')) ?>
-                    <a
-                        href="<?= $block->escapeUrl($block->getItemsEditUrl($_address)) ?>"
-                        class="
-                            button
-                            button--link
-                            padding-hz-xs
-                            action
-                            edit
-                        "
-                    >
-                        <?= $block->escapeHtml(__('Edit Items')) ?>
-                    </a>
-                </strong>
-                <div class="box-content">
-                    <div class="table-wrapper">
-                        <table
-                            class="items data table"
-                            id="shipping-table-<?= (int) $_address->getId() ?>"
-                        >
-                            <caption class="table__caption">
-                                <?= $block->escapeHtml(__('Items')) ?>
-                            </caption>
-                            <thead>
-                                <tr role="row">
-                                    <th
-                                        class="col item"
-                                        scope="col"
-                                        role="columnheader"
-                                    >
-                                        <?= $block->escapeHtml(__('Product Name')) ?>
-                                    </th>
-                                    <th
-                                        class="col qty"
-                                        scope="col"
-                                        role="columnheader"
-                                    >
-                                        <?= $block->escapeHtml(__('Qty')) ?>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($block->getAddressItems($_address) as $_item): ?>
-                                    <tr role="row">
-                                        <td
-                                            class="col item"
-                                            data-th="<?= $block->escapeHtmlAttr(__('Product Name')) ?>"
-                                            role="gridcell"
-                                        >
-                                            <?= $block->getItemHtml($_item->getQuoteItem()) ?>
-                                        </td>
-                                        <td
-                                            class="col qty"
-                                            data-th="<?= $block->escapeHtmlAttr(__('Qty')) ?>"
-                                            role="gridcell"
-                                        >
-                                            <?= $block->escapeHtml($_item->getQty()) ?>
-                                        </td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                </h2>
+                <a
+                    href="<?= $block->escapeUrl($block->getItemsEditUrl($_address)) ?>"
+                    class="
+                        link 
+                        dashboard-table__link
+                    "
+                >
+                    <?= $block->escapeHtml(__('Edit Items')) ?>
+                </a>
+            </div>
+            <div class="dashboard-table__content">
+                <table
+                    class="items data table"
+                    id="shipping-table-<?= (int) $_address->getId() ?>"
+                >
+                    <caption class="table__caption">
+                        <?= $block->escapeHtml(__('Items')) ?>
+                    </caption>
+                    <thead>
+                        <tr role="row">
+                            <th
+                                class="col item"
+                                scope="col"
+                                role="columnheader"
+                            >
+                                <?= $block->escapeHtml(__('Product Name')) ?>
+                            </th>
+                            <th
+                                class="col qty"
+                                scope="col"
+                                role="columnheader"
+                            >
+                                <?= $block->escapeHtml(__('Qty')) ?>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($block->getAddressItems($_address) as $_item): ?>
+                            <tr role="row">
+                                <td
+                                    class="col item"
+                                    data-th="<?= $block->escapeHtmlAttr(__('Product Name')) ?>"
+                                    role="gridcell"
+                                >
+                                    <?= $block->getItemHtml($_item->getQuoteItem()) ?>
+                                </td>
+                                <td
+                                    class="col qty"
+                                    data-th="<?= $block->escapeHtmlAttr(__('Qty')) ?>"
+                                    role="gridcell"
+                                >
+                                    <?= $block->escapeHtml($_item->getQty()) ?>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

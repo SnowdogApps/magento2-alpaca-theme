@@ -8,11 +8,15 @@ All notable changes to this project will be documented in this file.
 - Amasty Store Locator template for module version 2.4.2 (#69148)
 ### Added
 - paypal review component (#59142)
+- curreny and language switchers in footer (#67313)
+- EE - gift registry (#65717), Affects: all gift registry pages ('/giftregistry/*'), datepicker styles
+- Component and styling for multishipping (#66917)
 ### Changed
 - paypal review order page (#59142)
 - contact-bar template to show/hide email/phone depending on config settings (#69969)
-- checkboxs globally aligned vertically center (#68654)
+- checkboxes to be globally aligned vertically to center (#68654)
 - zoomed in image background opacity & close button to dark (#69145)
+- styles and validation for datepicker (#67654), Affects: structure of files (datepicker customization)
 
 ## [Released]
 ## [2.6.0] - 2020-08-06
