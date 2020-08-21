@@ -1,0 +1,46 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+/**
+ * @var \CyberSource\PayPal\Block\Express\Shortcut $block
+ */
+?>
+<?php
+$labelPosition = '';
+if ($block->isOrPositionBefore()) {
+    $labelPosition = ' before';
+} elseif ($block->isOrPositionAfter()) {
+    $labelPosition = ' after';
+}
+$shortcutHtmlId = $block->escapeHtml($block->getShortcutHtmlId());
+$isInCatalogProduct = false;
+if ($block->getIsInCatalogProduct()) {
+    $isInCatalogProduct = $block->getIsInCatalogProduct();
+}
+?>
+<div data-label="<?php echo $block->escapeHtml(__('or')) ?>"
+     class="paypal checkout <?php echo /* @noEscape */ $labelPosition ?> paypal-logo
+        <?php echo /* @noEscape */ $shortcutHtmlId ?>"
+     data-mage-init='{
+     "paypalCheckout": {
+                "isCatalogProduct": "<?php echo /* @noEscape */ !empty($isInCatalogProduct) ? (bool)$isInCatalogProduct : false ?>",
+                "shortcutContainerClass": "<?php echo /* @noEscape */ "." . $shortcutHtmlId ?>"
+            }
+     }'
+    >
+    <input type="image" data-action="checkout-form-submit"
+           data-checkout-url="<?php echo $block->escapeUrl($block->getCheckoutUrl()) ?>"
+           src="<?php echo $block->escapeUrl($block->getImageUrl()) ?>"
+           alt="<?php echo $block->escapeHtml(__('Checkout with PayPal')) ?>"
+           title="<?php echo $block->escapeHtml(__('Checkout with PayPal')) ?>"/>
+    <?php if ($block->getAdditionalLinkImage()): ?>
+        <?php $linkImage = $block->getAdditionalLinkImage(); ?>
+        <a href="<?php echo $block->escapeUrl($linkImage['href']) ?>">
+            <img src="<?php echo $block->escapeHtml($linkImage['src']) ?>" />
+        </a>
+    <?php endif; ?>
+</div>
