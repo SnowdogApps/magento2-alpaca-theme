@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Added
 - pointer cursor for zoom in icon (#69031)
+- escaping php variables in templates (#67311)
+- amasty gdpr elements and pages (newsletter, agreements, ettings, etc.) can limit html output there (#67311)
+
 ### Fixed
 - modal close icon overlay on text (#69152)
 - typo in newsletter (#67925)
