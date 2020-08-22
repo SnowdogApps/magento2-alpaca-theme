@@ -35,7 +35,7 @@ describe('Category toolbar', () => {
   })
 
   describe('Limiter', () => {
-    it('Set limiter to 15 items', () => {
+    it('Set limiter to second option', () => {
       cy.get('.toolbar__limiter').should('be.visible')
 
       // Open select
@@ -46,10 +46,18 @@ describe('Category toolbar', () => {
         '.toolbar__limiter .choices__list--dropdown .select__field-item[data-id="2"]'
       ).click()
 
-      cy.url().should('include', 'limit=15')
-      cy.get('.catalog-grid-item').should($el => {
-        expect($el).to.have.length(15)
-      })
+      let optionLimit = 0
+      const regex = /limit=(\d+)/i;
+      cy.url().then(($url) => {
+        let limit = $url.match(regex)
+        if (limit) {
+          optionLimit = limit[0].replace('limit=', '')
+          cy.url().should('include', 'limit=' + optionLimit)
+          cy.get('.catalog-grid-item').should($el => {
+            expect($el).to.have.length(optionLimit)
+          })
+        }
+      });
     })
   })
 
