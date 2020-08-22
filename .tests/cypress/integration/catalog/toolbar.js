@@ -47,8 +47,8 @@ describe('Category toolbar', () => {
       ).click()
 
       let optionLimit = 0
-      const regex = /limit=(\d+)/i;
-      cy.url().then(($url) => {
+      const regex = /limit=(\d+)/i
+      cy.url().then($url => {
         let limit = $url.match(regex)
         if (limit) {
           optionLimit = limit[0].replace('limit=', '')
@@ -57,14 +57,14 @@ describe('Category toolbar', () => {
             expect($el).to.have.length(optionLimit)
           })
         }
-      });
+      })
     })
   })
 
   describe('View modes', () => {
     it('List mode switch', () => {
-      // Wait for the slowest part to be sure that the page is fully loaded
-      cy.waitForCustomerData()
+      // TODO: find better way
+      cy.wait(8000)
 
       // TODO: Add data-testid
       cy.get('.toolbar__mode-button[data-value="list"]').click()
@@ -76,8 +76,8 @@ describe('Category toolbar', () => {
     })
 
     it('Grid mode switch', () => {
-      // Wait for the slowest part to be sure that the page is fully loaded
-      cy.waitForCustomerData()
+      // TODO: find better way
+      cy.wait(8000)
 
       // TODO: Add data-testid
       cy.get('.toolbar__mode-button[data-value="grid"]').click()
