@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 - gdpr agreements templates after update (#68654)
 - wrong name for review input field (#70089)
 - Amasty Store Locator template for module version 2.4.2 (#69148)
+- untranslatable aria-label text for close button in ElasticSuite quicksearch autocomplete template (#67310)
 ### Added
 - paypal review component (#59142)
 - curreny and language switchers in footer (#67313)
