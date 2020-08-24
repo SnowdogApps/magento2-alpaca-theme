@@ -254,6 +254,44 @@ module.exports = {
           class: 'footer__payments-list-icon footer__payments-list-icon--paypal'
         }
       ]
+    },
+    language: {
+      class: 'dropdown-list--detailed-content footer__dropdown-switcher',
+      id: 'language-dropdown',
+      dropdowns: [
+        {
+          itemTag: 'a',
+          itemAttributes: 'href="#" aria-expanded="false"',
+          title: 'German',
+          id: 'dropdown-detailed-content1',
+          collapse: {
+            id: 'angle-down',
+            title: 'Arrow Down',
+            class: 'dropdown-list__icon',
+            attributes: 'aria-hidden="true"'
+          },
+          contentElement: 'list'
+        }
+      ]
+    },
+    currency: {
+      class: 'dropdown-list--detailed-content footer__dropdown-switcher margin-right-xs',
+      id: 'currency-dropdown',
+      dropdowns: [
+        {
+          itemTag: 'a',
+          itemAttributes: 'href="#" aria-expanded="false"',
+          title: 'USD - US Dollar',
+          id: 'dropdown-detailed-content2',
+          collapse: {
+            id: 'angle-down',
+            title: 'Arrow Down',
+            class: 'dropdown-list__icon',
+            attributes: 'aria-hidden="true"'
+          },
+          contentElement: 'list'
+        }
+      ]
     }
   },
   variants: [

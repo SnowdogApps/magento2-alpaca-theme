@@ -34,83 +34,77 @@
     "
 >
     <?= /* @noEscape */ $block->getBlockHtml('formkey'); ?>
-    <div
-        class="
-            block
-            block-billing
-            margin-bottom-m
-        "
-    >
+    <div class="dashboard-items">
         <div class="block-title">
-            <h2 class="heading">
+            <h2 class="dashboard-items__title margin-bottom-sm">
                 <?= $block->escapeHtml(__('Billing Information')); ?>
             </h2>
         </div>
         <div class="block-content">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="box box-billing-address">
-                        <?php $address = $block->getBillingAddress() ?>
-                        <strong class="box-title">
-                            <?= $block->escapeHtml(__('Billing Address')); ?>
-                            <a
-                                href="<?= $block->escapeUrl($block->getEditBillingAddressUrl($address)); ?>"
+            <div class="row margin-0">
+                <div class="dashboard-items__item col-sm-6">
+                    <?php $address = $block->getBillingAddress() ?>
+                    <h3 class="dashboard-items__subtitle">
+                        <?= $block->escapeHtml(__('Billing Address')); ?>
+                    </h3>
+                    <div class="margin-bottom-l">
+                        <address>
+                            <?= /* @noEscape */ $address->format('html') ?>
+                        </address>
+                    </div>
+                    <div class="actions-group margin-bottom-l">
+                        <div class="actions-group__handler">
+                            <a 
+                                href="<?= $block->escapeUrl($block->getEditBillingAddressUrl($address)); ?>" 
                                 class="
-                                    button
-                                    button--link
-                                    padding-hz-xs
-                                    action
-                                    edit
+                                    link 
+                                    actions-group__link
                                 "
+                                title="<?= $block->escapeHtmlAttr(__('Change')); ?>"
                             >
-                                <?= $block->escapeHtml(__('Change')); ?>
+                                <?= $block->escapeHtml(__('Change Billing Address')); ?>
                             </a>
-                        </strong>
-                        <div class="box-content margin-bottom-m">
-                            <address>
-                                <?= /* @noEscape */ $address->format('html') ?>
-                            </address>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="box box-billing-method">
-                        <strong class="box-title">
-                            <?= $block->escapeHtml(__('Payment Method')); ?>
-                            <a
-                                href="<?= $block->escapeUrl($block->getEditBillingUrl()); ?>"
+                <div class="dashboard-items__item col-sm-6">
+                    <h3 class="dashboard-items__subtitle">
+                        <?= $block->escapeHtml(__('Payment Method')); ?>
+                    </h3>
+                    <div class="margin-bottom-l">
+                        <input
+                            type="hidden"
+                            name="payment[cc_number]"
+                            value="<?= $block->escapeHtmlAttr($block->getPayment()->getCcNumber()) ?>"
+                        />
+                        <input
+                            type="hidden"
+                            name="payment[cc_cid]"
+                            value="<?= $block->escapeHtmlAttr($block->getPayment()->getCcCid()) ?>"
+                        />
+                        <?= /* @noEscape */ $block->getPaymentHtml() ?>
+                    </div>
+                    <div class="actions-group margin-bottom-l">
+                        <div class="actions-group__handler">
+                            <a 
+                                href="<?= $block->escapeUrl($block->getEditBillingUrl()); ?>" 
                                 class="
-                                    button
-                                    button--link
-                                    padding-hz-xs
-                                    action
-                                    edit
+                                    link 
+                                    actions-group__link
                                 "
+                                title="<?= $block->escapeHtmlAttr(__('Change Payment Method')); ?>"
                             >
                                 <?= $block->escapeHtml(__('Change')); ?>
                             </a>
-                        </strong>
-                        <div class="box-content">
-                            <input
-                                type="hidden"
-                                name="payment[cc_number]"
-                                value="<?= $block->escapeHtmlAttr($block->getPayment()->getCcNumber()) ?>"
-                            />
-                            <input
-                                type="hidden"
-                                name="payment[cc_cid]"
-                                value="<?= $block->escapeHtmlAttr($block->getPayment()->getCcCid()) ?>"
-                            />
-                            <?= /* @noEscape */ $block->getPaymentHtml() ?>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="block-shipping margin-bottom-m">
+    <div class="dashboard-items">
         <div class="block-title">
-            <h2 class="heading">
+            <h2 class="dashboard-items__title margin-bottom-sm">
                 <?= $block->escapeHtml(__('Shipping Information')); ?>
             </h2>
         </div>
@@ -122,96 +116,88 @@
                     class="display-none"
                 >
                 </a>
-                <div class="title">
-                    <strong>
-                        <?= $block->escapeHtml(__('Address')); ?> <?= $block->escapeHtml($index + 1); ?>
-                        <span>
-                            <?= $block->escapeHtml(__('of')); ?>
-                            <?= $block->escapeHtml($block->getShippingAddressCount()) ?>
-                        </span>
-                    </strong>
-                </div>
+                <h3 class="dashboard-items__subtitle">
+                    <?= $block->escapeHtml(__('Address')); ?> <?= $block->escapeHtml($index + 1); ?>
+                    <span>
+                        <?= $block->escapeHtml(__('of')); ?>
+                        <?= $block->escapeHtml($block->getShippingAddressCount()) ?>
+                    </span>
+                </h3>
                 <?php if ($error = $block->getCheckoutData()->getAddressError($address)) : ?>
                     <div class="error-description">
                         <?= $block->escapeHtml($error); ?>
                     </div>
                 <?php endif; ?>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="box box-shipping-address">
-                            <strong class="box-title">
-                                <?= $block->escapeHtml(__('Shipping To')); ?>
-                                <a
-                                    href="<?= $block->escapeUrl($block->getEditShippingAddressUrl($address)); ?>"
+                <div class="row margin-0">
+                    <div class="dashboard-items__item col-sm-6">
+                        <h3 class="dashboard-items__subtitle">
+                            <?= $block->escapeHtml(__('Shipping To')); ?>
+                        </h3>
+                        <div class="margin-bottom-l">
+                            <address>
+                                <?= /* @noEscape */ $address->format('html') ?>
+                            </address>
+                        </div>
+                        <div class="actions-group margin-bottom-l">
+                            <div class="actions-group__handler">
+                                <a 
+                                    href="<?= $block->escapeUrl($block->getEditShippingAddressUrl($address)); ?>" 
                                     class="
-                                        button
-                                        button--link
-                                        padding-hz-xs
-                                        action
-                                        edit
+                                        link 
+                                        actions-group__link
                                     "
+                                    title="<?= $block->escapeHtmlAttr(__('Change Shipping To Address')); ?>"
                                 >
                                     <?= $block->escapeHtml(__('Change')); ?>
                                 </a>
-                            </strong>
-                            <div class="box-content margin-bottom-m">
-                                <address>
-                                    <?= /* @noEscape */ $address->format('html') ?>
-                                </address>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div
-                            class="
-                                box
-                                box-shipping-method
-                                margin-bottom-m
-                            "
-                        >
-                            <strong class="box-title">
-                                <?= $block->escapeHtml(__('Shipping Method')); ?>
-                                <a
-                                    href="<?= $block->escapeUrl($block->getEditShippingUrl()); ?>"
+                    <div class="dashboard-items__item col-sm-6">
+                        <h3 class="dashboard-items__subtitle">
+                            <?= $block->escapeHtml(__('Shipping Method')); ?>
+                        </h3>
+                        <?php if ($_rate = $block->getShippingAddressRate($address)): ?>
+                            <div class="margin-bottom-l">
+                                <?= $block->escapeHtml($_rate->getCarrierTitle()) ?>
+                                (<?= $block->escapeHtml($_rate->getMethodTitle()) ?>)
+                                <?php
+                                $exclTax = $block->getShippingPriceExclTax($address);
+                                $inclTax = $block->getShippingPriceInclTax($address);
+                                $displayBothPrices = $this->helper(Magento\Tax\Helper\Data::class)
+                                    ->displayShippingBothPrices() && $inclTax !== $exclTax;
+                                ?>
+                                <?php if ($displayBothPrices): ?>
+                                    <span
+                                        class="price-including-tax"
+                                        data-label="<?= $block->escapeHtmlAttr(__('Incl. Tax')); ?>"
+                                    >
+                                        <?= /* @noEscape */ $inclTax ?>
+                                    </span>
+                                    <span
+                                        class="price-excluding-tax"
+                                        data-label="<?= $block->escapeHtmlAttr(__('Excl. Tax')); ?>"
+                                    >
+                                        <?= /* @noEscape */ $exclTax; ?>
+                                    </span>
+                                <?php else: ?>
+                                    <?= /* @noEscape */ $inclTax ?>
+                                <?php endif; ?>
+                            </div>
+                        <?php endif; ?>
+                        <div class="actions-group margin-bottom-l">
+                            <div class="actions-group__handler">
+                                <a 
+                                    href="<?= $block->escapeUrl($block->getEditShippingUrl()); ?>" 
                                     class="
-                                        button
-                                        button--link
-                                        padding-hz-xs
-                                        action
-                                        edit
+                                        link 
+                                        actions-group__link
                                     "
+                                    title="<?= $block->escapeHtmlAttr(__('Change Shipping Method')); ?>"
                                 >
                                     <?= $block->escapeHtml(__('Change')); ?>
                                 </a>
-                            </strong>
-                            <?php if ($_rate = $block->getShippingAddressRate($address)): ?>
-                                <div class="box-content">
-                                    <?= $block->escapeHtml($_rate->getCarrierTitle()) ?>
-                                    (<?= $block->escapeHtml($_rate->getMethodTitle()) ?>)
-                                    <?php
-                                    $exclTax = $block->getShippingPriceExclTax($address);
-                                    $inclTax = $block->getShippingPriceInclTax($address);
-                                    $displayBothPrices = $this->helper(Magento\Tax\Helper\Data::class)
-                                        ->displayShippingBothPrices() && $inclTax !== $exclTax;
-                                    ?>
-                                    <?php if ($displayBothPrices): ?>
-                                        <span
-                                            class="price-including-tax"
-                                            data-label="<?= $block->escapeHtmlAttr(__('Incl. Tax')); ?>"
-                                        >
-                                            <?= /* @noEscape */ $inclTax ?>
-                                        </span>
-                                        <span
-                                            class="price-excluding-tax"
-                                            data-label="<?= $block->escapeHtmlAttr(__('Excl. Tax')); ?>"
-                                        >
-                                            <?= /* @noEscape */ $exclTax; ?>
-                                        </span>
-                                    <?php else: ?>
-                                        <?= /* @noEscape */ $inclTax ?>
-                                    <?php endif; ?>
-                                </div>
-                            <?php endif; ?>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -224,6 +210,7 @@
                                     data
                                     table
                                     table-order-review
+                                    margin-bottom-l
                                 "
                                 id="overview-table-<?= $block->escapeHtmlAttr($address->getId()); ?>"
                             >
@@ -390,7 +377,6 @@
         id="checkout-review-submit"
         class="checkout-review"
     >
-        <?= /* @noEscape */ $block->getChildHtml('agreements') ?>
         <div
             class="
                 grand
@@ -398,7 +384,7 @@
                 margin-bottom-m
             "
         >
-            <div class="price">
+            <div class="price margin-bottom-m">
                 <span class="price__value">
                     <?= $block->escapeHtml(__('Grand Total:')); ?>
                     <?= /* @noEscape */ $this->helper(Magento\Checkout\Helper\Data::class)
@@ -406,8 +392,12 @@
                 </span>
             </div>
         </div>
+        <?= /* @noEscape */ $block->getChildHtml('agreements') ?>
         <div
-            class="actions-group"
+            class="
+                actions-group 
+                margin-vc-m
+            "
             id="review-buttons-container"
         >
             <div class="actions-group__handler">
