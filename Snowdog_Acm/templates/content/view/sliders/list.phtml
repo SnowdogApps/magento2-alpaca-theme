@@ -21,6 +21,28 @@ $wrapperClass = $this->getWrapperClass();
 // banners attrubutes to show
 $sliderPrefix = $sliderPrefix ? $sliderPrefix : 'cb_slider_';
 $picturePrefix = $picturePrefix ? $picturePrefix : 'cb_pic_';
+$pictureData = [
+    'title',
+    'alt',
+    'url',
+    'url_target',
+    'main_image',
+    'order'
+];
+$pictureFiles = [
+    'default',
+    'max_480',
+    'max_480_2x',
+    'max_768',
+    'max_768_2x',
+    'max_1024',
+    'max_1024_2x',
+    'max_1328',
+    'max_1328_2x',
+    'full',
+    'full_2x'
+];
+
 $bannersAttributes = '*';
 $bannersArray = [];
 $sliderItemClass = 'slider__item';
@@ -56,34 +78,14 @@ $sliderItemClass = 'slider__item';
     $sliderBanners = $content->getContentCollection($sliderPrefix . 'banners', $bannersAttributes);
 
     foreach ($sliderBanners as $index => $banner) {
-        $bannersArray[$index]['title'] = $banner->getData($picturePrefix . 'title');
-        $bannersArray[$index]['alt'] = $banner->getData($picturePrefix . 'alt');
-        $bannersArray[$index]['url'] = $banner->getData($picturePrefix . 'url');
-        $bannersArray[$index]['url_target'] = $banner->getData($picturePrefix . 'url_target');
-        $bannersArray[$index]['is_main'] = $banner->getData($picturePrefix . 'main_image');
-        $bannersArray[$index]['order'] = $banner->getData($picturePrefix . 'order');
-        $bannersArray[$index]['default'] = $banner->getFile($picturePrefix . 'default');
-        $bannersArray[$index]['max_480'] =
-            $banner->getData($picturePrefix . 'max_480') ? $banner->getFile($picturePrefix . 'max_480') : false;
-        $bannersArray[$index]['max_768'] =
-            $banner->getData($picturePrefix . 'max_768') ? $banner->getFile($picturePrefix . 'max_768') : false;
-        $bannersArray[$index]['max_1024'] =
-            $banner->getData($picturePrefix . 'max_1024') ? $banner->getFile($picturePrefix . 'max_1024') : false;
-        $bannersArray[$index]['max_1328'] =
-            $banner->getData($picturePrefix . 'max_1328') ? $banner->getFile($picturePrefix . 'max_1328') : false;
-        $bannersArray[$index]['full'] =
-            $banner->getData($picturePrefix . 'full') ? $banner->getFile($picturePrefix . 'full') : false;
-        //2x
-        $bannersArray[$index]['max_480_2x'] =
-            $banner->getData($picturePrefix . 'max_480_2x') ? $banner->getFile($picturePrefix . 'max_480_2x') : false;
-        $bannersArray[$index]['max_768_2x'] =
-            $banner->getData($picturePrefix . 'max_768_2x') ? $banner->getFile($picturePrefix . 'max_768_2x') : false;
-        $bannersArray[$index]['max_1024_2x'] =
-            $banner->getData($picturePrefix . 'max_1024_2x') ? $banner->getFile($picturePrefix . 'max_1024_2x') : false;
-        $bannersArray[$index]['max_1328_2x'] =
-            $banner->getData($picturePrefix . 'max_1328_2x') ? $banner->getFile($picturePrefix . 'max_1328_2x') : false;
-        $bannersArray[$index]['full_2x'] =
-            $banner->getData($picturePrefix . 'full_2x') ? $banner->getFile($picturePrefix . 'full_2x') : false;
+        foreach ($pictureData as $pictureDataAttr) {
+            $bannersArray[$index][$pictureDataAttr] = $banner->getData($picturePrefix . $pictureDataAttr);
+        }
+
+        foreach ($pictureFiles as $pictureFile) {
+            $bannersArray[$index][$pictureFile] =
+                $banner->getData($picturePrefix . $pictureFile) ? $banner->getFile($picturePrefix . $pictureFile) : false;
+        }
     }
 
     // sorting banners collection by order
