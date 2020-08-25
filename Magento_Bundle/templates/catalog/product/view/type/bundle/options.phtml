@@ -11,7 +11,7 @@ $options = $block->decorateArray($block->getOptions($stripSelection));
             {
                 "#product_addtocart_form": {
                     "priceBundle": {
-                        "optionConfig": <?= $block->getJsonConfig() ?>,
+                        "optionConfig": <?= $block->escapeJs($block->getJsonConfig()) ?>,
                         "controlContainer": ".bundle-option"
                     }
                 }
@@ -19,7 +19,7 @@ $options = $block->decorateArray($block->getOptions($stripSelection));
         </script>
         <div class="product-view__customization">
             <div class="product-view__description-bundle">
-                <?= __('Customize %1', $helper->productAttribute($product, $product->getName(), 'name')) ?>
+                <?= $block->escapeHtml(__('Customize %1', $helper->productAttribute($product, $product->getName(), 'name'))) ?>
             </div>
             <?= $block->getChildHtml('product_info_bundle_options_top') ?>
             <?php foreach ($options as $option): ?>
@@ -31,7 +31,7 @@ $options = $block->decorateArray($block->getOptions($stripSelection));
         </div>
     <?php else: ?>
         <p>
-            <?= __('No options of this product are available.') ?>
+            <?= $block->escapeHtml(__('No options of this product are available.')) ?>
         </p>
     <?php endif; ?>
 <?php endif; ?>

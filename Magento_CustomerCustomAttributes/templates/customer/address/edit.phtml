@@ -38,7 +38,7 @@ $requiredAttributesPrechecked = $block->getData('required_attributes_prechecked'
                 value="<?= $block->escapeUrl($block->getErrorUrl()) ?>"
             />
             <?= $block->getNameBlockHtml() ?>
-            <?php if ($addressHelper->isAttributeVisible('company')) : ?>
+            <?php if ($addressHelper->isAttributeVisible('company')): ?>
                 <div
                     class="
                         input
@@ -66,7 +66,7 @@ $requiredAttributesPrechecked = $block->getData('required_attributes_prechecked'
                     />
                 </div>
             <?php endif; ?>
-            <?php if ($addressHelper->isAttributeVisible('telephone')) : ?>
+            <?php if ($addressHelper->isAttributeVisible('telephone')): ?>
                 <div
                     class="
                         input
@@ -95,7 +95,7 @@ $requiredAttributesPrechecked = $block->getData('required_attributes_prechecked'
                     />
                 </div>
             <?php endif; ?>
-            <?php if ($addressHelper->isAttributeVisible('fax')) : ?>
+            <?php if ($addressHelper->isAttributeVisible('fax')): ?>
                 <div class="input fax">
                     <label
                         class="label"
@@ -153,7 +153,7 @@ $requiredAttributesPrechecked = $block->getData('required_attributes_prechecked'
                 />
             </div>
             <?php $_streetValidationClass = trim(str_replace('required-entry', '', $_streetValidationClass)); ?>
-            <?php for ($_i = 2, $_n = $addressHelper->getStreetLines(); $_i <= $_n; $_i++) : ?>
+            <?php for ($_i = 2, $_n = $addressHelper->getStreetLines(); $_i <= $_n; $_i++): ?>
                 <div class="input additional">
                     <label
                         class="label"
@@ -172,7 +172,7 @@ $requiredAttributesPrechecked = $block->getData('required_attributes_prechecked'
                 </div>
             <?php endfor; ?>
         </fieldset>
-        <?php if ($addressHelper->isVatAttributeVisible()) : ?>
+        <?php if ($addressHelper->isVatAttributeVisible()): ?>
             <div
                 class="
                     input
@@ -250,7 +250,7 @@ $requiredAttributesPrechecked = $block->getData('required_attributes_prechecked'
                     validate-select
                     region_id
                 "
-                <?= $isFieldDisabled; ?>
+                <?= /* @noEscape */ $isFieldDisabled ?>
             >
                 <option
                     value=""
@@ -269,7 +269,7 @@ $requiredAttributesPrechecked = $block->getData('required_attributes_prechecked'
                     input__field
                     <?= /* @noEscape */ $this->helper(\Magento\Customer\Helper\Address::class)->getAttributeValidationClass('region') ?>
                 "
-                <?= $isFieldDisabled; ?>
+                <?= /* @noEscape */ $isFieldDisabled ?>
             />
         </div>
         <div
@@ -339,29 +339,29 @@ $requiredAttributesPrechecked = $block->getData('required_attributes_prechecked'
                     value=""
                     disabled
                 >
-                    <?= __('Please select a country.') ?>
+                    <?= $block->escapeHtml(__('Please select a country.')) ?>
                 </option>
 
                 <?php for ($i = 0, $n = count($countryList); $i < $n; $i++): ?>
                     <option
-                        value="<?= $countryList[$i]['value'] ?>"
+                        value="<?= $block->escapeHtmlAttr($countryList[$i]['value']) ?>"
                         <?php if ($block->getCountryId() === $countryList[$i]['value']) echo 'selected' ?>
                     >
-                        <?= $countryList[$i]['label']; ?>
+                        <?= $block->escapeHtml($countryList[$i]['label']) ?>
                     </option>
                 <?php endfor ?>
             </select>
         </div>
 
         <?php $userDefinedAttributes = $block->getLayout()->getBlock('customer_form_address_user_attributes'); ?>
-        <?php if ($userDefinedAttributes) :?>
+        <?php if ($userDefinedAttributes): ?>
             <?= $userDefinedAttributes->setShowContainer(false)->toHtml() ?>
         <?php endif;?>
-        <?php if ($block->isDefaultBilling()) : ?>
+        <?php if ($block->isDefaultBilling()): ?>
             <div class="message info">
                 <?= $block->escapeHtml(__("This is your default billing address.")) ?>
             </div>
-        <?php elseif ($block->canSetAsDefaultBilling()) : ?>
+        <?php elseif ($block->canSetAsDefaultBilling()): ?>
             <div class="checkbox">
                 <input
                     type="checkbox"
@@ -397,7 +397,7 @@ $requiredAttributesPrechecked = $block->getData('required_attributes_prechecked'
                     <?= $block->escapeHtml(__('Use as my default billing address')) ?>
                 </label>
             </div>
-        <?php else : ?>
+        <?php else: ?>
             <input
                 type="hidden"
                 name="default_billing"
@@ -405,11 +405,11 @@ $requiredAttributesPrechecked = $block->getData('required_attributes_prechecked'
             />
         <?php endif; ?>
 
-        <?php if ($block->isDefaultShipping()) : ?>
+        <?php if ($block->isDefaultShipping()): ?>
             <div class="message info">
                 <?= $block->escapeHtml(__("This is your default shipping address.")) ?>
             </div>
-        <?php elseif ($block->canSetAsDefaultShipping()) : ?>
+        <?php elseif ($block->canSetAsDefaultShipping()): ?>
             <div class="checkbox dashboard-form__divider">
                 <input
                     type="checkbox"
@@ -445,7 +445,7 @@ $requiredAttributesPrechecked = $block->getData('required_attributes_prechecked'
                     <?= $block->escapeHtml(__('Use as my default shipping address')) ?>
                 </label>
             </div>
-        <?php else : ?>
+        <?php else: ?>
             <input type="hidden" name="default_shipping" value="1"/>
         <?php endif; ?>
     </div>
