@@ -1,0 +1,100 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var $block \Magento\GiftWrapping\Block\Checkout\Options */
+?>
+<?php if ($block->canDisplayGiftWrapping()) : ?>
+
+    <?php if ($block->getDesignCollectionCount()
+        && ($block->getAllowForOrder() || $block->getAllowForItems() || $block->getGiftWrappingAvailable())) : ?>
+    <script id="gift-wrapping-container" type="text/x-magento-template">
+        <div class="field gift-wrapping">
+            <label class="label"><span><?= $block->escapeHtml(__('Gift Wrapping Design')) ?></span></label>
+            <div class="control">
+                <?= $block->getDesignSelectHtml() ?>
+                <div class="nested design no-display">
+                    <img id="image-box-<%- data._id_ %>" alt="<?= $block->escapeHtmlAttr(__('Preview')) ?>"
+                         src="<?= $block->escapeUrl($block->getViewFileUrl('images/spacer.gif')) ?>" />
+                    <div class="price-box" id="price-box-<%- data._id_ %>">
+                    <?php if ($block->getDisplayWrappingBothPrices()) : ?>
+                        <span class="price-including-tax" data-label="<?= $block->escapeHtmlAttr(__('Price Incl. Tax')) ?>">
+                            <span class="price" id="price-including-tax-<%- data._id_ %>"></span>
+                        </span>
+                        <span class="price-excluding-tax" data-label="<?= $block->escapeHtmlAttr(__('Price Excl. Tax')) ?>">
+                            <span class="price" id="price-excluding-tax-<%- data._id_ %>"></span>
+                        </span>
+                    <?php else : ?>
+                        <span class="regular-price" data-label="<?= $block->escapeHtmlAttr(__('Price')) ?>">
+                            <span class="price" id="regular-price-<%- data._id_ %>"></span>
+                        </span>
+                    <?php endif;?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+    <?php endif;?>
+
+<script id="gift-options-container" type="text/x-magento-template">
+    <?php if ($block->getAllowGiftReceipt()) : ?>
+    <div class="field choice receipt">
+        <input type="checkbox"
+               name="giftwrapping[<%- data.type %>][<%- data.id %>][allow_gift_receipt]"
+               id="allow-gift-receipt-<%- data.id %>"
+               value="1"
+               class="checkbox" />
+        <label for="allow-gift-receipt-<%- data.id %>" class="label">
+            <span><?= $block->escapeHtml(__('Send Gift Receipt')) ?></span>
+        </label>
+    </div>
+    <?php endif;?>
+    <?php if ($block->getAllowPrintedCard()) : ?>
+    <div class="field choice card">
+        <input type="checkbox"
+               name="giftwrapping[<%- data.type %>][<%- data.id %>][add_printed_card]"
+               id="add-printed-card-<%- data.id %>"
+               value="1"
+               onclick=""
+               class="checkbox" />
+        <label for="add-printed-card-<%- data.id %>" class="label">
+            <span><?= $block->escapeHtml(__('Add Printed Card')) ?></span>
+        </label>
+    </div>
+    <div class="price-box no-display" id="price-options-box-<%- data.id %>">
+        <?php if ($block->getDisplayCardBothPrices()) : ?>
+        <span class="price-including-tax" data-label="<?= $block->escapeHtmlAttr(__('Price Incl. Tax')) ?>">
+            <span class="price" id="price-card-including-tax-<%- data.id %>"><%- data.price_incl_tax %></span>
+        </span>
+        <span class="price-excluding-tax" data-label="<?= $block->escapeHtmlAttr(__('Price Excl. Tax')) ?>">
+            <span class="price" id="price-card-excluding-tax-<%- data.id %>"><%- data.price_excl_tax %></span>
+        </span>
+        <?php else : ?>
+        <span class="regular-price" data-label="<?= $block->escapeHtmlAttr(__('Price')) ?>">
+            <span class="price" id="regular-card-price-<%- data.id %>"><%- data.price %></span>
+        </span>
+        <?php endif;?>
+    </div>
+    <?php endif;?>
+</script>
+<script type="text/x-magento-init">
+    {
+        "#checkoutSteps, #shipping_method_form": {
+            "giftWrapping": {
+                "designsInfo": <?= /* @noEscape */ $block->getDesignsInfo()->toJson() ?>,
+                "itemsInfo": <?= /* @noEscape */ $block->getItemsInfo()->toJson() ?>,
+                "cardInfo": <?= /* @noEscape */ $block->getCardInfo()->toJson() ?>,
+                "allowForOrder": <?= (int)$block->getAllowForOrder() ?>,
+                "allowGiftReceipt": <?= (int)$block->getAllowGiftReceipt() ?>,
+                "allowPrintedCard": <?= (int)$block->getAllowPrintedCard() ?>,
+                "orderLevelType": "<?= $block->escapeJs($block->getCheckoutTypeVariable('order_level')) ?>",
+                "orderItemType": "<?= $block->escapeJs($block->getCheckoutTypeVariable('item_level')) ?>",
+                "imgBoxSrc": "<?= $block->escapeJs($block->escapeUrl($block->getViewFileUrl('images/spacer.gif'))) ?>"
+            }
+        }
+    }
+</script>
+<?php endif; ?>
+
