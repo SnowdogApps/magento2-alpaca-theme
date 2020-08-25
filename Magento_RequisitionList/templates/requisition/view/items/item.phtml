@@ -45,7 +45,7 @@ $item = $block->getItem();
             for="requisition-select-all"
         >
             <span class="label--hidden">
-                <?= __('Select item') ?>
+                <?= $block->escapeHtml(__('Select item')) ?>
             </span>
         </label>
     </div>
@@ -56,7 +56,7 @@ $item = $block->getItem();
 >
     <div>
         <div class="product-item-description margin-bottom-xs">
-            <?php if ($block->getRequisitionListProduct()) : ?>
+            <?php if ($block->getRequisitionListProduct()): ?>
                 <span class="product-item-name">
                     <a href="<?= $block->escapeUrl($block->getProductUrlByItem()) ?>">
                         <?= $block->escapeHtml($block->getRequisitionListProduct()->getName()) ?>
@@ -73,7 +73,7 @@ $item = $block->getItem();
             </div>
             <?php $block->getChildBlock('requisition.list.item.options')->setItem($item); ?>
             <?= $block->getChildHtml('requisition.list.item.options', false) ?>
-            <?php if ($block->getItemError()) : ?>
+            <?php if ($block->getItemError()): ?>
                 <div class="message error item-error">
                     <span>
                         <?= $block->escapeHtml($block->getItemError()) ?>
@@ -90,9 +90,9 @@ $item = $block->getItem();
     class="col price"
     data-th="<?= $block->escapeHtmlAttr(__('Price')) ?>"
 >
-    <?php if (!$block->isOptionsUpdated() && $block->getRequisitionListProduct()) : ?>
+    <?php if (!$block->isOptionsUpdated() && $block->getRequisitionListProduct()): ?>
         <?= /* @noEscape */ $block->getFormattedPrice() ?>
-        <?php if ($block->displayBothPrices()) : ?>
+        <?php if ($block->displayBothPrices()): ?>
             <span
                 class="price-excluding-tax"
                 data-label="<?= $block->escapeHtmlAttr(__('Excl. Tax')) ?>"
@@ -138,7 +138,7 @@ $item = $block->getItem();
             id="item-<?= (int) $item->getId() ?>-qty"
             name="qty[<?= (int) $item->getId() ?>]"
             value="<?= (float) ($item->getQty() * 1) ?>"
-            <?php if (!$block->canEditQty()) : ?>
+            <?php if (!$block->canEditQty()): ?>
                 disabled="disabled"
             <?php endif; ?>
             type="number"
@@ -183,9 +183,9 @@ $item = $block->getItem();
     data-th="<?= $block->escapeHtmlAttr(__('Subtotal')) ?>"
 >
     <div class="product-item-subtotal">
-        <?php if (!$block->isOptionsUpdated() && $block->getRequisitionListProduct()) : ?>
+        <?php if (!$block->isOptionsUpdated() && $block->getRequisitionListProduct()): ?>
             <?= /* @noEscape */ $block->getFormattedSubtotal() ?>
-            <?php if ($block->displayBothPrices()) : ?>
+            <?php if ($block->displayBothPrices()): ?>
                 <span
                     class="price-excluding-tax"
                     data-label="<?= $block->escapeHtmlAttr(__('Excl. Tax')) ?>"
@@ -202,7 +202,7 @@ $item = $block->getItem();
 >
     <div class="actions-group">
         <div class="actions-group__handler">
-            <?php if ($block->canEdit()) : ?>
+            <?php if ($block->canEdit()): ?>
                 <button
                     type="button"
                     title="<?= $block->escapeHtmlAttr(__('Edit item')) ?>"

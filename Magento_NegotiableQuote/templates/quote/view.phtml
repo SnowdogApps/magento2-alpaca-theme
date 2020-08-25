@@ -32,16 +32,16 @@ $quoteTabs[3]['content'] = $block->getChildHtml('quote_history');
 >
     <?php foreach ($quoteTabs as $key => $quoteTab): ?>
         <button
-            id="tab-title-<?= $key; ?>"
+            id="tab-title-<?= $block->escapeHtmlAttr($key) ?>"
             class="tab__title <?= ($key == 1) ? 'tab__title--active' : ''; ?>"
-            data-tab="tab-<?= $key; ?>"
-            aria-controls="tab-<?= $key; ?>"
+            data-tab="tab-<?= $block->escapeHtmlAttr($key) ?>"
+            aria-controls="tab-<?= $block->escapeHtmlAttr($key) ?>"
             data-testid="product-tab__title"
             aria-selected="<?= ($key == 1) ? 'true' : 'false'; ?>"
             aria-expanded="<?= ($key == 1) ? 'true' : 'false'; ?>"
             role="tab"
         >
-            <?= $quoteTab['title']; ?>
+            <?= $block->escapeHtml($quoteTab['title']) ?>
 
             <svg
                 class="icon tab__icon"
@@ -53,18 +53,18 @@ $quoteTabs[3]['content'] = $block->getChildHtml('quote_history');
         </button>
 
         <div
-            id="tab-<?= $key; ?>"
+            id="tab-<?= $block->escapeHtmlAttr($key) ?>"
             class="
                 tab__content
                 tab__content--secondary
                 <?= ($key == 1) ? 'tab__content--active' : ''; ?>
             "
-            data-content="tab-<?= $key; ?>"
-            aria-labelledby="tab-title-<?= $key; ?>"
+            data-content="tab-<?= $block->escapeHtmlAttr($key) ?>"
+            aria-labelledby="tab-title-<?= $block->escapeHtmlAttr($key) ?>"
             aria-hidden="<?= ($key == 1) ? 'false' : 'true'; ?>"
             role="tabpanel"
         >
-            <?= $quoteTab['content']; ?>
+            <?= $block->escapeHtml($quoteTab['content']) ?>
         </div>
     <?php endforeach; ?>
 </div>

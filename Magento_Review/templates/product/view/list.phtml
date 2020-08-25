@@ -38,7 +38,7 @@ $urlForm = $block->getReviewsUrl() . '#review-form';
                                 itemprop="datePublished"
                                 datetime="<?= $block->escapeHtmlAttr($block->formatDate($_review->getCreatedAt(), $format)); ?>"
                             >
-                                <?= $block->escapeHtml($block->formatDate($_review->getCreatedAt(), $format)); ?>
+                                <?= /* @noEscape */ $block->formatDate($_review->getCreatedAt(), $format); ?>
                             </time>
 
                             <?php if (count($_review->getRatingVotes())): ?>
@@ -54,7 +54,7 @@ $urlForm = $block->getReviewsUrl() . '#review-form';
                                         itemprop="reviewRating"
                                         itemscope
                                         itemtype="http://schema.org/Rating"
-                                        aria-label="<?= __('Rating') . $_votePercetage; ?>%"
+                                        aria-label="<?= $block->escapeHtmlAttr(__('Rating') . $_votePercetage); ?>%"
                                         tabindex="0"
                                     >
                                         <?php if ($dislayLabel): ?>

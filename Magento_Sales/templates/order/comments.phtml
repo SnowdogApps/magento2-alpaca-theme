@@ -4,7 +4,7 @@
  * @see \Magento\Sales\Block\Order\Comments
  */
 ?>
-<?php if ($block->hasComments()) : ?>
+<?php if ($block->hasComments()): ?>
     <div class="dashboard-table">\
         <div class="dashboard-table__header">
             <h2 class="dashboard-table__title">
@@ -22,28 +22,29 @@
                         scope="col"
                         role="columnheader"
                     >
-                        <?= __('Date'); ?>
+                        <?= $block->escapeHtml(__('Date')); ?>
                     </th>
                     <th
                         scope="col"
                         role="columnheader"
                     >
-                        <?= __('Comment'); ?>
+                        <?= $block->escapeHtml(__('Comment')); ?>
                     </th>
                 </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($block->getComments() as $_commentItem) : ?>
+                    <?php foreach ($block->getComments() as $_commentItem): ?>
                         <tr class="row">
                             <td
-                                data-th="<?= __('Date'); ?>"
+                                data-th="<?= $block->escapeHtmlAttr(__('Date')); ?>"
                                 role="gridcell"
                             >
-                                <?= $block->formatDate($_commentItem
-                                    ->getCreatedAt(), \IntlDateFormatter::MEDIUM, true) ?>
+                                <?= /* @noEscape */ $block->formatDate($_commentItem
+                                    ->getCreatedAt(), \IntlDateFormatter::MEDIUM, true)
+                                ?>
                             </td>
                             <td
-                                data-th="<?= __('Comment'); ?>"
+                                data-th="<?= $block->escapeHtmlAttr(__('Comment')); ?>"
                                 role="gridcell"
                             >
                                 <?= $block->escapeHtml($_commentItem->getComment()) ?>

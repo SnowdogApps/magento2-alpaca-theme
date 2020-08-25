@@ -26,7 +26,7 @@
                     margin-0
                 "
             >
-                <?= __('Recently Viewed') ?>
+                <?= $block->escapeHtml(__('Recently Viewed')) ?>
             </h2>
         </div>
 
@@ -76,7 +76,7 @@
         ?>
         <?= $sliderBlockBefore->toHtml(); ?>
 
-        <?= $block->renderApp([
+        <?= /* @noEscape */ $block->renderApp([
             'widget_columns' => [
                 'displayMode' => 'grid',
                 'displayAs' => 'slider',
@@ -86,18 +86,15 @@
             'image' => [
                 'imageCode' => 'recently_viewed_products_grid_content_widget'
             ]
-        ]);
-        ?>
+        ]) ?>
 
-        <?php
-        $sliderBlockAfter = $this->getLayout()
+        <?php $sliderBlockAfter = $this->getLayout()
             ->createBlock("Magento\Framework\View\Element\Template")
-            ->setTemplate("Magento_Theme::html/slider.phtml");
-
-        $sliderBlockAfter->setData([
-            'slider_html'   => 'after-slides'
-        ]);
+            ->setTemplate("Magento_Theme::html/slider.phtml"),
+            $sliderBlockAfter->setData([
+                'slider_html'   => 'after-slides'
+            ])
         ?>
-        <?= $sliderBlockAfter->toHtml(); ?>
+        <?=  /* @noEscape */ $sliderBlockAfter->toHtml(); ?>
     </div>
 </section>

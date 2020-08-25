@@ -4,11 +4,11 @@
  */
 ?>
 <?php $_items = $block->getItems(); ?>
-<?php if (count($_items)) : ?>
+<?php if (count($_items)): ?>
     <div class="dashboard-table">
         <div class="dashboard-table__header">
             <h2 class="heading dashboard-table__title">
-                <?= __('Downloadable Products') ?>
+                <?= $block->escapeHtml(__('Downloadable Products')) ?>
             </h2>
         </div>
         <div class="dashboard-table__content">
@@ -18,7 +18,7 @@
                 role="table"
             >
                 <caption class="table__caption">
-                    <?= __('Downloadable Products') ?>
+                    <?= $block->escapeHtml(__('Downloadable Products')) ?>
                 </caption>
                 <thead>
                     <tr role="row">
@@ -26,31 +26,31 @@
                             scope="col"
                             role="columnheader"
                         >
-                            <?= __('Order #') ?>
+                            <?= $block->escapeHtml(__('Order #')) ?>
                         </th>
                         <th
                             scope="col"
                             role="columnheader"
                         >
-                            <?= __('Date') ?>
+                            <?= $block->escapeHtml(__('Date')) ?>
                         </th>
                         <th
                             scope="col"
                             role="columnheader"
                         >
-                            <?= __('Title') ?>
+                            <?= $block->escapeHtml(__('Title')) ?>
                         </th>
                         <th
                             scope="col"
                             role="columnheader"
                         >
-                            <?= __('Status') ?>
+                            <?= $block->escapeHtml(__('Status')) ?>
                         </th>
                         <th
                             scope="col"
                             role="columnheader"
                         >
-                            <?= __('Remaining Downloads') ?>
+                            <?= $block->escapeHtml(__('Remaining Downloads')) ?>
                         </th>
                     </tr>
                 </thead>
@@ -73,7 +73,7 @@
                             data-th="<?= $block->escapeHtmlAttr(__('Date')) ?>"
                             role="gridcell"
                         >
-                            <?= $block->escapeHtml($block->formatDate($_item->getPurchased()->getCreatedAt())) ?>
+                            <?= /* @noEscape */ $block->formatDate($_item->getPurchased()->getCreatedAt()) ?>
                         </td>
                         <td
                             data-th="<?= $block->escapeHtmlAttr(__('Title')) ?>"
@@ -116,7 +116,7 @@
     <?php endif; ?>
 <?php else: ?>
     <div class="message">
-        <?= __('You have not purchased any downloadable products yet.') ?>
+        <?= $block->escapeHtml(__('You have not purchased any downloadable products yet.')) ?>
     </div>
 <?php endif; ?>
 
@@ -126,7 +126,7 @@
             href="<?= $block->escapeUrl($block->getBackUrl()) ?>"
             class="link actions-group__link"
         >
-            <?= __('Back') ?>
+            <?= $block->escapeHtml(__('Back')) ?>
         </a>
     </div>
 </div>
