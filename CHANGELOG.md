@@ -2,6 +2,23 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Fixed
+- gdpr agreements templates after update (#68654)
+- wrong name for review input field (#70089)
+- Amasty Store Locator template for module version 2.4.2 (#69148)
+- jumpung gallery while loading (#70217)
+### Added
+- paypal review component (#59142)
+- curreny and language switchers in footer (#67313)
+- EE - gift registry (#65717), Affects: all gift registry pages ('/giftregistry/*'), datepicker styles
+- Component and styling for multishipping (#66917)
+### Changed
+- paypal review order page (#59142)
+- contact-bar template to show/hide email/phone depending on config settings (#69969)
+- checkboxes to be globally aligned vertically to center (#68654)
+- zoomed in image background opacity & close button to dark (#69145)
+- styles and validation for datepicker (#67654), Affects: structure of files (datepicker customization)
+- store locator active store color (#69151)
 
 ## [Released]
 ## [2.6.0] - 2020-08-06
