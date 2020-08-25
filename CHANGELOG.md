@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 - gdpr agreements templates after update (#68654)
 - wrong name for review input field (#70089)
 - Amasty Store Locator template for module version 2.4.2 (#69148)
+- jumpung gallery while loading (#70217)
 ### Added
 - paypal review component (#59142)
 - curreny and language switchers in footer (#67313)
@@ -18,6 +19,8 @@ All notable changes to this project will be documented in this file.
 - zoomed in image background opacity & close button to dark (#69145)
 - styles and validation for datepicker (#67654), Affects: structure of files (datepicker customization)
 - escaping php variables in templates, Affects: amasty gdpr elements and pages (newsletter, agreements, ettings, etc.) - can limit html output there (#67311)
+- store locator active store color (#69151)
+
 
 ## [Released]
 ## [2.6.0] - 2020-08-06
