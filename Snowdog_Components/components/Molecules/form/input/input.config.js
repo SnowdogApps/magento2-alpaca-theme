@@ -57,6 +57,15 @@ module.exports = {
         },
         errorText: 'This is required field'
       }
+    },
+    {
+      name: 'datepicker',
+      context: {
+        class: 'date',
+        field: {
+          class: 'datetime-picker'
+        },
+      }
     }
   ]
 };

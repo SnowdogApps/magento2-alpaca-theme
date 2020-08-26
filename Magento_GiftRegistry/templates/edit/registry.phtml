@@ -1,0 +1,198 @@
+<?php
+// phpcs:disable Magento2.Templates.ThisInTemplate
+// phpcs:disable Magento2.Files.LineLength.MaxExceeded
+
+/** @var $block \Magento\GiftRegistry\Block\Customer\Edit\Registry */
+?>
+
+<input
+    type="hidden"
+    name="entity_id"
+    id="entity_id"
+    value="<?= $block->escapeHtmlAttr($block->getEntity()->getEntityId())?>"
+/>
+<input
+    type="hidden"
+    name="type_id"
+    id="type_id"
+    value="<?= $block->escapeHtmlAttr($block->getTypeId()) ?>"
+/>
+
+<p class="giftregistry-type">
+    <span class="label">
+        <?= $block->escapeHtml(__('Type:')) ?>
+    </span>
+    <strong>
+        <?= $block->escapeHtml($block->getTypeLabel()) ?>
+    </strong>
+</p>
+
+<fieldset class="fieldset">
+    <legend class="fieldset__legend">
+        <?= $block->escapeHtml(__('General Information')) ?>
+    </legend>
+
+    <div
+        class="
+            input
+            event
+            required
+        "
+    >
+        <label
+            for="title"
+            class="label"
+        >
+            <?= $block->escapeHtml(__('Event')) ?>
+        </label>
+        <input
+            type="text"
+            name="title"
+            id="title"
+            value="<?= $block->escapeHtmlAttr($block->getEntity()->getTitle()) ?>"
+            title="<?= $block->escapeHtmlAttr(__('Event')) ?>"
+            class="input__field"
+            data-validate="{required:true}"
+        />
+    </div>
+    <div
+        class="
+            input
+            textarea
+            required
+        "
+    >
+        <label
+            for="message"
+            class="label"
+        >
+            <span>
+                <?= $block->escapeHtml(__('Message')) ?>
+            </span>
+        </label>
+        <textarea
+            name="message"
+            id="message"
+            class="input__field input__field--textarea"
+            cols="5"
+            rows="3"
+            title="<?= $block->escapeHtmlAttr(__('Message')) ?>"
+            data-validate="{required:true}"
+        ><?= $block->escapeHtml($block->getEntity()->getMessage()) ?></textarea>
+    </div>
+    <div
+        class="
+            select
+            select--native
+            privacy
+            required
+        "
+    >
+        <div class="addon">
+            <label
+                for="is_public"
+                class="label"
+            >
+                <?= $block->escapeHtml(__('Privacy Settings')) ?>
+            </label>
+
+            <select
+                name="is_public"
+                id="is_public"
+                class="global-scope required-entry"
+                title="<?= $block->escapeHtmlAttr(__('Privacy Settings')) ?>"
+                data-mage-init='{ "select": {}}'
+            >
+                <option value="">
+                    <?= $block->escapeHtmlAttr(__('Please Select')) ?>
+                </option>
+                <?php foreach($block->getEntity()->getOptionsIsPublic() as $key => $option): ?>
+                    <option value="<?= $block->escapeHtmlAttr($key) ?>">
+                        <?= $block->escapeHtml($option->getText()) ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+    </div>
+    <div
+        class="
+            select
+            select--native
+            status
+            required
+        "
+    >
+        <label
+            for="select"
+            class="label"
+        >
+            <?= $block->escapeHtml(__('Status')) ?>
+        </label>
+
+        <select
+            name="is_active"
+            id="is_active"
+            class="global-scope required-entry"
+            title="<?= $block->escapeHtmlAttr(__('Status')) ?>"
+            data-mage-init='{ "select": {}}'
+        >
+            <?php foreach($block->getEntity()->getOptionsStatus() as $key => $option): ?>
+                <option value="<?= $block->escapeHtmlAttr($key) ?>">
+                    <?= $block->escapeHtml($option->getText()) ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+</fieldset>
+
+<?php
+$fieldsets = $block->getGroupedRegistryAttributes();
+foreach ($fieldsets as $fieldset => $fields) : ?>
+    <fieldset class="fieldset">
+        <legend class="fieldset__legend">
+            <?= $block->escapeHtml($block->getGroupLabel($fieldset)) ?>
+        </legend>
+
+        <?php foreach ($fields as $field => $data) : ?>
+            <?php $isRequired = $block->isAttributeRequired($data); ?>
+            <div
+                class="
+                    input
+                    <?= ($isRequired ? ' required' : ''); ?>
+                    <?= $field == 'event_date' ? ' date' : '' ?>
+                    <?= in_array($field, ['event_country','baby_gender'], true) ? ' select select--native' : '' ?>
+                "
+            >
+                <label
+                    for="<?= $block->escapeHtmlAttr($field) ?>"
+                    class="label"
+                >
+                    <?= $block->escapeHtml(__($data['label'])) ?>
+                </label>
+                <?= /* @noEscape */ $block->renderField($data, $field) ?>
+            </div>
+        <?php endforeach; ?>
+        <?php foreach ($fields as $field => $data) : ?>
+            <?php if ($block->useRegionUpdater($data)) : ?>
+                <script type="text/x-magento-init">
+                {
+                    "#<?= $block->escapeJs($field) ?>": {
+                        "regionUpdater": {
+                            "optionalRegionAllowed": <?= ($block->getConfig('general/region/display_all') ? 'true' : 'false') ?>,
+                            "regionListId": "#<?= $block->escapeJs($field) ?>_region",
+                            "regionInputId": "#<?= $block->escapeJs($field) ?>_region_text",
+                            "isRegionRequired": false,
+                            "isZipRequired": false,
+                            "isCountryRequired": true,
+                            <?php if ($block->getEntity()->getFieldValue($data['id'] . '_region')) : ?>
+                            "currentRegion": <?= $block->escapeJs($block->getEntity()->getFieldValue($data['id'] . '_region')) ?>,
+                            <?php endif; ?>
+                            "regionJson": <?= /* @noEscape */ $this->helper(Magento\Directory\Helper\Data::class)->getRegionJson() ?>
+                        }
+                    }
+                }
+                </script>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </fieldset>
+<?php endforeach; ?>
