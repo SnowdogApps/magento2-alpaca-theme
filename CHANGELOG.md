@@ -23,6 +23,11 @@ All notable changes to this project will be documented in this file.
 - store locator active store color (#69151)
 
 
+### Added
+- color property with variable for easier override of select2 styles (#67443)
+### Removed
+- duplicate variables in contact-bar (#67443)
+
 ## [Released]
 ## [2.6.0] - 2020-08-06
 ### Added
