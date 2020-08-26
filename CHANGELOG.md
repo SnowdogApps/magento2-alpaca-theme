@@ -2,16 +2,30 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+### Fixed
+### Added
+### Changed
+### Removed
+
+
+## [Released]
+
+## [2.7.0] - 2020-08-20
 ### Fixed
 - gdpr agreements templates after update (#68654)
 - wrong name for review input field (#70089)
 - Amasty Store Locator template for module version 2.4.2 (#69148)
 - jumpung gallery while loading (#70217)
+- untranslatable aria-label text for close button in ElasticSuite quicksearch autocomplete template (#67310)
+
 ### Added
 - paypal review component (#59142)
 - curreny and language switchers in footer (#67313)
 - EE - gift registry (#65717), Affects: all gift registry pages ('/giftregistry/*'), datepicker styles
 - Component and styling for multishipping (#66917)
+- color property with variable for easier override of select2 styles (#67443)
+
 ### Changed
 - paypal review order page (#59142)
 - contact-bar template to show/hide email/phone depending on config settings (#69969)
@@ -21,8 +35,10 @@ All notable changes to this project will be documented in this file.
 - escaping php variables in templates, Affects: amasty gdpr elements and pages (newsletter, agreements, ettings, etc.) - can limit html output there (#67311)
 - store locator active store color (#69151)
 
+### Removed
+- duplicate variables in contact-bar (#67443)
 
-## [Released]
+
 ## [2.6.0] - 2020-08-06
 ### Added
 - pointer cursor for zoom in icon (#69031)
