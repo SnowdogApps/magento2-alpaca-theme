@@ -17,26 +17,26 @@ $settings = $block->getPrivacySettings();
                 <input
                     name="form_key"
                     type="hidden"
-                    value="<?= /* @escapeNotVerified */ $block->getFormKey(); ?>"
+                    value="<?= $block->escapeHtmlAttr($block->getFormKey()) ?>"
                 />
                 <input
                     name="is_order"
                     type="hidden"
-                    value="<?= /* @escapeNotVerified */ $block->isOrder(); ?>"
+                    value="<?= $block->escapeHtmlAttr($block->isOrder()) ?>"
                 />
                 <input
                     name="order_increment_id"
                     type="hidden"
-                    value="<?= /* @escapeNotVerified */ $block->getCurrentOderIncrementId(); ?>"
+                    value="<?= $block->escapeHtmlAttr($block->getCurrentOderIncrementId()) ?>"
                 />
                 <p class="policy-content">
-                    <?= $setting['content'] ?>
+                    <?= $block->escapeHtml($setting['content']) ?>
                 </p>
                 <?php if ($setting['hasCheckbox']): ?>
                     <div class="checkbox margin-bottom-m">
                         <input
                             type="checkbox"
-                            id="agree-<?= /* @escapeNotVerified */ $setting['actionCode'] ?>"
+                            id="agree-<?= $block->escapeHtmlAttr($setting['actionCode']) ?>"
                             name="agree"
                             class="checkbox__field"
                             data-validate="{required:true}"
@@ -60,7 +60,7 @@ $settings = $block->getPrivacySettings();
                             <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#unchecked')) ?>"></use>
                         </svg>
                         <label
-                            for="agree-<?= /* @escapeNotVerified */ $setting['actionCode'] ?>"
+                            for="agree-<?= $block->escapeHtmlAttr($setting['actionCode']) ?>"
                             class="checkbox__label"
                         >
                             <span class="checkbox__text">
@@ -97,7 +97,7 @@ $settings = $block->getPrivacySettings();
                                 type="password"
                                 class="input__field"
                                 name="current_password"
-                                id="current-password-<?= /* @escapeNotVerified */ $setting['actionCode'] ?>"
+                                id="current-password-<?= /* @noEscape */ $setting['actionCode'] ?>"
                                 data-input="current-password"
                                 autocomplete="off"
                                 aria-required="true"

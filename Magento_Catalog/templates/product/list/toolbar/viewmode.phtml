@@ -6,7 +6,7 @@ use Magento\Catalog\Model\Product\ProductList\Toolbar;
         <?php $_modes = $block->getModes() ?>
         <?php if ($_modes && count($_modes) > 1): ?>
             <?php foreach ($block->getModes() as $_code => $_label):
-                $_modeName    = $block->escapeHtmlAttr(strtolower($_code));
+                $_modeName    = strtolower($_code);
                 $_modeIconUrl = 'images/icons-sprite.svg#' . $_modeName;
             ?>
                 <button
@@ -18,11 +18,11 @@ use Magento\Catalog\Model\Product\ProductList\Toolbar;
                         button--icon-light
                         <?= ($block->isModeActive($_code)) ? 'toolbar__mode-button--active' : '' ?>
                     "
-                    data-value="<?= $_modeName ?>"
+                    data-value="<?= $block->escapeHtmlAttr($_modeName) ?>"
                     title="<?= $block->escapeHtmlAttr($_label) ?>"
                     aria-label="<?= $block->escapeHtmlAttr($_label) ?>"
                     <?php if (!$block->isModeActive($_code)): ?>
-                        id="mode-<?= $_modeName ?>"
+                        id="mode-<?= $block->escapeHtmlAttr($_modeName) ?>"
                         data-role="mode-switcher"
                     <?php endif ?>
                 >
@@ -34,7 +34,7 @@ use Magento\Catalog\Model\Product\ProductList\Toolbar;
                         role="presentation"
                         focusable="false"
                     >
-                        <title><?= $_modeName ?></title>
+                        <title><?= $block->escapeHtml($_modeName) ?></title>
                         <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl($_modeIconUrl)) ?>"></use>
                     </svg>
                 </button>

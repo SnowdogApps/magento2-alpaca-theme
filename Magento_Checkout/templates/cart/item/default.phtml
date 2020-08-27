@@ -77,9 +77,9 @@ $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinima
                                     </dt>
                                     <dd class="list__value">
                                         <?php if (isset($_formatedOptionValue['full_view'])): ?>
-                                            <?= $_formatedOptionValue['full_view'] ?>
+                                            <?= $block->escapeHtml($_formatedOptionValue['full_view']) ?>
                                         <?php else: ?>
-                                            <?= $_formatedOptionValue['value'] ?>
+                                            <?= $block->escapeHtml($_formatedOptionValue['value']) ?>
                                         <?php endif; ?>
                                     </dd>
                                 <?php endforeach; ?>
@@ -95,7 +95,7 @@ $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinima
         <div class="cart-list-item__details">
             <div class="cart-list-item__wrapper">
                 <span class="cart-list-item__label margin-right-xs">
-                    <?= __('Price') ?>:
+                    <?= $block->escapeHtml(__('Price')) ?>:
                 </span>
 
                 <span class="cart-list-item__price">
@@ -120,14 +120,14 @@ $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinima
                         input__label
                         cart-list-item__label
                     "
-                    for="cart-<?= $itemId ?>-qty"
+                    for="cart-<?= $block->escapeHtmlAttr($itemId) ?>-qty"
                 >
-                    <?= __('Qty') ?>
+                    <?= $block->escapeHtml(__('Qty')) ?>
                 </label>
 
                 <input
-                    id="cart-<?= $itemId ?>-qty"
-                    name="cart[<?= $itemId ?>][qty]"
+                    id="cart-<?= $block->escapeHtmlAttr($itemId) ?>-qty"
+                    name="cart[<?= $block->escapeHtmlAttr($itemId) ?>][qty]"
                     data-cart-item-id="<?= $block->escapeHtmlAttr($_item->getSku()) ?>"
                     value="<?= $block->escapeHtmlAttr($block->getQty()) ?>"
                     type="text"
@@ -148,7 +148,7 @@ $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinima
 
             <div class="cart-list-item__wrapper">
                 <span class="cart-list-item__label margin-right-xs">
-                    <?= __('Subtotal') ?>:
+                    <?= $block->escapeHtml(__('Subtotal')) ?>:
                 </span>
 
                 <span class="cart-list-item__total">
@@ -162,7 +162,7 @@ $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinima
         </div>
 
         <div class="cart-list-item__actions">
-            <?= $block->getActions($_item) ?>
+            <?= /* @noEscape */ $block->getActions($_item) ?>
         </div>
     </div>
 </section>

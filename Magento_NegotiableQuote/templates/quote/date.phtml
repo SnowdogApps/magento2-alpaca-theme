@@ -8,7 +8,7 @@
         </span>
         <span class="list__value">
             <date>
-                <?= $block->formatDate($block->getQuote()->getCreatedAt(), \IntlDateFormatter::LONG) ?>
+                <?= /* @noEscape */ $block->formatDate($block->getQuote()->getCreatedAt(), \IntlDateFormatter::LONG) ?>
             </date>
             (<?= $block->escapeHtml($block->getQuoteOwnerFullName()) ?>)
         </span>
@@ -18,11 +18,11 @@
             <?= $block->escapeHtml(__('Expires:')) ?>
         </span>
         <span class="list__value">
-            <?php if ($block->isQuoteExpirationDateDisplayed()) : ?>
+            <?php if ($block->isQuoteExpirationDateDisplayed()): ?>
                 <date>
-                    <?= $block->formatDate($block->getExpirationPeriodTime(), \IntlDateFormatter::LONG); ?>
+                    <?= /* @noEscape */ $block->formatDate($block->getExpirationPeriodTime(), \IntlDateFormatter::LONG) ?>
                 </date>
-            <?php else : ?>
+            <?php else: ?>
                 <?= $block->escapeHtml(__('Never')) ?>
             <?php endif; ?>
         </span>

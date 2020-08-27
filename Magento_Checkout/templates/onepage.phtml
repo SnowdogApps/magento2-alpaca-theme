@@ -8,7 +8,7 @@
         <div
             class="loader loader--visible"
             aria-live="polite"
-            aria-label="<?= __('Do not refresh the page') ?>"
+            aria-label="<?= $block->escapeHtml(__('Do not refresh the page')) ?>"
         >
             <div class="loader__icon"></div>
         </div>
@@ -22,7 +22,7 @@
         }
     </script>
     <script>
-        window.checkoutConfig = <?= $block->getSerializedCheckoutConfig() ?>;
+        window.checkoutConfig = <?= /* @noEscape */ $block->getSerializedCheckoutConfig() ?>;
         // Create aliases for customer.js model from customer module
         window.isCustomerLoggedIn = window.checkoutConfig.isCustomerLoggedIn;
         window.customerData = window.checkoutConfig.customerData;
@@ -32,8 +32,8 @@
             'mage/url',
             'Magento_Ui/js/block-loader'
         ], function(url, blockLoader) {
-            blockLoader("<?= $block->getViewFileUrl('images/loader-1.gif') ?>");
-            return url.setBaseUrl('<?= $block->getBaseUrl() ?>');
+            blockLoader("<?= $block->escapeJs($block->getViewFileUrl('images/loader-1.gif')) ?>");
+            return url.setBaseUrl('<?= $block->escapeJs($block->getBaseUrl()) ?>');
         })
     </script>
 </div>
