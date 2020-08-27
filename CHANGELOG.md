@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 ### Added
 ### Changed
+- basic variable with component variable for easier updates of mega menu (#69969)
 ### Removed
 
 
@@ -37,7 +38,6 @@ All notable changes to this project will be documented in this file.
 
 ### Removed
 - duplicate variables in contact-bar (#67443)
-
 
 ## [2.6.0] - 2020-08-06
 ### Added
