@@ -3,6 +3,14 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Changed
+- hide label for tooltip icon after updates in template (#66923)
+### Fixed
+- container styles for customer/checkout. Affects: containers positioning/spacing in those areas (#66923)
+- styles for modal heading (#66923) 
+### Removed
+- some row classess from totals related templates (Magento_Ui). Affects: checkout/cart totals/shipping methods etc. (#66923)
+
 ## [1.5.0] - 2020-05-26
 ### Added
 - Page builder styles
