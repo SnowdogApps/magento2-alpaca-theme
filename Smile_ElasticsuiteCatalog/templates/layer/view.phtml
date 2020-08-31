@@ -1,4 +1,4 @@
-<?php if ($block->canShowBlock()) : ?>
+<?php if ($block->canShowBlock()): ?>
 <?php
 $filtersCollection = $block->getFilters();
 $categoryFilter = 'category';
@@ -25,7 +25,7 @@ $isAnyFilterActive = false;
             <?php if ($filter->getItemsCount()): ?>
                 <?php if ($filterId === $categoryFilter): ?>
                     <div class="filters__item">
-                        <?= $block->getChildBlock('renderer')->render($filter); ?>
+                        <?= /* @noEscape */ $block->getChildBlock('renderer')->render($filter); ?>
                     </div>
                 <?php else: ?>
                     <?php
@@ -53,14 +53,14 @@ $isAnyFilterActive = false;
                     data-mage-init='{ "modal": {} }'
                 >
                     <span class="button__text">
-                        <?= __('Shopping Options') ?>
+                        <?= $block->escapeHtml(__('Shopping Options')) ?>
                     </span>
                     <svg
                         class="icon"
                         role="presentation"
                         focusable="false"
                     >
-                        <title><?= __('Arrow right') ?></title>
+                        <title><?= $block->escapeHtml(__('Arrow right')) ?></title>
                         <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#angle-right')); ?>"></use>
                     </svg>
                 </button>
@@ -104,7 +104,7 @@ $isAnyFilterActive = false;
                                     "
                                     id="filters-option-title"
                                 >
-                                    <?= __('Shopping options') ?>
+                                    <?= $block->escapeHtml(__('Shopping options')) ?>
                                 </h2>
                             </div>
 
@@ -135,7 +135,7 @@ $isAnyFilterActive = false;
                                             );
                                             ?>
                                             <?php if ($filter->getItemsCount() && $filterId != $categoryFilter): ?>
-                                                <?= $block->getChildBlock('renderer')->render($filter) ?>
+                                                <?= /* @noEscape */ $block->getChildBlock('renderer')->render($filter) ?>
                                             <?php endif; ?>
                                         <?php endforeach; ?>
                                     </ul>
@@ -163,7 +163,7 @@ $isAnyFilterActive = false;
                                 role="presentation"
                                 focusable="false"
                             >
-                                <title><?= __('Close') ?></title>
+                                <title><?= $block->escapeHtml(__('Close')) ?></title>
                                 <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#close')); ?>"></use>
                             </svg>
                         </button>

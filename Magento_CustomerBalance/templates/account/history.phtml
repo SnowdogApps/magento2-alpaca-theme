@@ -1,0 +1,102 @@
+<?php
+// phpcs:disable Magento2.Templates.ThisInTemplate
+?>
+<?php if ($block->canShow() && $block->getEvents() && count($block->getEvents())) : ?>
+<div
+    class="
+        dashboard-table
+        block
+        block-balance-history
+    "
+>
+    <div class="dashboard-table__header block-title">
+        <h2 class="dashboard-table__title">
+            <?= $block->escapeHtml(__('Balance History')) ?>
+        </h2>
+    </div>
+    <div class="block-content">
+        <div class="table-wrapper balance-history">
+            <table
+                id="customerbalance-history"
+                class="
+                    data
+                    table
+                    table-balance-history
+                "
+                tabindex="0"
+                role="table"
+            >
+                <caption class="table__caption">
+                    <?= $block->escapeHtml(__('Balance History')) ?>
+                </caption>
+                <thead>
+                    <tr role="row">
+                        <th
+                            scope="col"
+                            class="col actions"
+                            role="columnheader"
+                        >
+                            <?= $block->escapeHtml(__('Action')) ?>
+                        </th>
+                        <th
+                            scope="col"
+                            class="col change"
+                            role="columnheader"
+                        >
+                            <?= $block->escapeHtml(__('Balance Change')) ?>
+                        </th>
+                        <th
+                            scope="col"
+                            class="col balance"
+                            role="columnheader"
+                        >
+                            <?= $block->escapeHtml(__('Balance')) ?>
+                        </th>
+                        <th
+                            scope="col"
+                            class="col date"
+                            role="columnheader"
+                        >
+                            <?= $block->escapeHtml(__('Date')) ?>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($block->getEvents() as $event) : ?>
+                    <tr role="row">
+                        <td
+                            data-th="<?= $block->escapeHtmlAttr(__('Action')) ?>"
+                            class="col actions"
+                            role="gridcell"
+                        >
+                            <?= $block->escapeHtml($block->getActionLabel($event->getAction())) ?>
+                        </td>
+                        <td
+                            data-th="<?= $block->escapeHtmlAttr(__('Balance Change')) ?>"
+                            class="col change"
+                            role="gridcell"
+                        >
+                            <?= /* @noEscape */ $this->helper(Magento\Framework\Pricing\Helper\Data::class)->currency($event->getBalanceDelta()) ?>
+                            </td>
+                        <td
+                            data-th="<?= $block->escapeHtmlAttr(__('Balance')) ?>"
+                            class="col balance"
+                            role="gridcell"
+                        >
+                            <?= /* @noEscape*/ $this->helper(Magento\Framework\Pricing\Helper\Data::class)->currency($event->getBalanceAmount()) ?>
+                        </td>
+                        <td
+                            data-th="<?= $block->escapeHtmlAttr(__('Date')) ?>"
+                            class="col date"
+                            role="gridcell"
+                        >
+                            <?= /* @noEscape*/ $block->formatDate($event->getUpdatedAt(), \IntlDateFormatter::SHORT, true) ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<?php endif; ?>

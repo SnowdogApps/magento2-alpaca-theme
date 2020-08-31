@@ -19,8 +19,8 @@
             </div>
             <div class="actions-group">
                 <div class="actions-group__handler">
-                    <?php if ($block->isAllowedManage()) : ?>
-                        <?php if (count($addresses)) : ?>
+                    <?php if ($block->isAllowedManage()): ?>
+                        <?php if (count($addresses)): ?>
                             <a
                                 class="
                                     link
@@ -57,9 +57,9 @@
                 <?= $block->escapeHtml(__('Shipping Method')) ?>
             </h3>
             <div class="box-content">
-                <?php if ($snapshot->getShippingAddress()->getShippingDescription()) : ?>
+                <?php if ($snapshot->getShippingAddress()->getShippingDescription()): ?>
                     <?= $block->escapeHtml($snapshot->getShippingAddress()->getShippingDescription()) ?>
-                <?php else : ?>
+                <?php else: ?>
                     <?= $block->escapeHtml(__('No shipping information available')) ?>
                 <?php endif; ?>
             </div>
@@ -74,7 +74,7 @@
             "quoteId": "<?= $block->escapeHtml($quote->getId()) ?>",
             "updateUrl": "<?= $block->escapeUrl($block->getUpdateShippingAddressUrl()) ?>",
             "msg": "<?= $block->escapeHtml(__('Select a shipping address from your address book.')) ?>",
-            "addressId": "<?= $block->getQuoteShippingAddressId() ?>"
+            "addressId": "<?= $block->escapeJs($block->getQuoteShippingAddressId()) ?>"
         }
     }'
     data-role="edit-address-popup"
@@ -103,7 +103,7 @@
                         "select": {}
                     }'
                 >
-                    <?php foreach ($addresses as $address) : ?>
+                    <?php foreach ($addresses as $address): ?>
                         <option value="<?= $block->escapeHtmlAttr($address->getId()) ?>"
                             <?= /* @noEscape */ $block->isDefaultAddress($address->getId()) ? 'selected' : '' ?>>
                             <?= $block->getLineAddressHtml($address->getId()) ?>

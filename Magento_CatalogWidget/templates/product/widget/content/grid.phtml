@@ -3,7 +3,7 @@ use Magento\Framework\App\Action\Action;
 
 /** @var \Magento\CatalogWidget\Block\Product\ProductsList $block */
 ?>
-<?php if ($exist = ($block->getProductCollection() && $block->getProductCollection()->getSize())) : ?>
+<?php if ($exist = ($block->getProductCollection() && $block->getProductCollection()->getSize())): ?>
     <?php
     $type = 'widget-product-grid';
 
@@ -58,7 +58,7 @@ use Magento\Framework\App\Action\Action;
     <?php endif ?>
 
     <div class="section__content section__content--products">
-        <?= '<!-- ' . $image . '-->' ?>
+        <?= /* @noEscape */ '<!-- ' . $image . '-->' ?>
         <?php
         $sliderBlockBefore = $this->getLayout()
             ->createBlock("Magento\Framework\View\Element\Template")
@@ -77,7 +77,7 @@ use Magento\Framework\App\Action\Action;
 
         <?= $sliderBlockBefore->toHtml(); ?>
 
-        <?php foreach ($items as $key => $_item) : ?>
+        <?php foreach ($items as $key => $_item): ?>
             <div
                 class="
                     product-item
@@ -141,7 +141,7 @@ use Magento\Framework\App\Action\Action;
                         "
                     >
                         <div class="product-grid-item__rating">
-                            <?php if ($templateType) : ?>
+                            <?php if ($templateType): ?>
                                 <?= $block->getReviewsSummaryHtml($_item, $templateType) ?>
                             <?php endif; ?>
                         </div>
@@ -152,25 +152,25 @@ use Magento\Framework\App\Action\Action;
                                 title="<?= $block->escapeHtmlAttr($_item->getName()) ?>"
                             >
                                 <?php
-                                    $productName = $block->escapeHtml($_item->getName());
+                                    $productName = $_item->getName();
 
                                     if (strlen($productName) > 50) {
                                         $productName = substr($productName, 0, 50) . '...';
                                     }
                                 ?>
-                                <?= $productName ?>
+                                <?= $block->escapeHtml($productName) ?>
                             </a>
                         </h3>
-                        <?php if ($_item->isAvailable()) :?>
+                        <?php if ($_item->isAvailable()): ?>
                             <?= $block->getProductDetailsHtml($_item) ?>
                         <?php endif; ?>
                         <div class="product-grid-item__details-bottom">
                             <div class="product-grid-item__price">
                                 <?= $block->getProductPriceHtml($_item, $type) ?>
                             </div>
-                            <?php if ($showWishlist || $showCompare || $showCart) : ?>
+                            <?php if ($showWishlist || $showCompare || $showCart): ?>
                                 <div class="product-grid-item__actions">
-                                    <?php if ($showWishlist || $showCompare) : ?>
+                                    <?php if ($showWishlist || $showCompare): ?>
                                         <div
                                             class="product-grid-item__secondary-action"
                                             data-role="add-to-links"
@@ -186,7 +186,7 @@ use Magento\Framework\App\Action\Action;
                                                     "
                                                     type="submit"
                                                     aria-label="<?= $block->escapeHtmlAttr(__('Add to Wish List')) ?>"
-                                                    data-post='<?= $block->getAddToWishlistParams($_item) ?>'
+                                                    data-post='<?= /* @noEscape */ $block->getAddToWishlistParams($_item) ?>'
                                                     data-action="add-to-wishlist"
                                                 >
                                                     <svg
@@ -202,7 +202,7 @@ use Magento\Framework\App\Action\Action;
                                                 </button>
                                             <?php endif; ?>
 
-                                            <?php if ($block->getAddToCompareUrl() && $showCompare) : ?>
+                                            <?php if ($block->getAddToCompareUrl() && $showCompare): ?>
                                                 <?php //phpcs:disable ?>
                                                 <?php $compareHelper = $this->helper(\Magento\Catalog\Helper\Product\Compare::class);?>
                                                 <?php //phpcs:enable ?>
@@ -213,7 +213,7 @@ use Magento\Framework\App\Action\Action;
                                                     "
                                                     type="submit"
                                                     aria-label="<?= $block->escapeHtmlAttr(__('Add to Compare')) ?>"
-                                                    data-post='<?= $compareHelper->getPostDataParams($_item) ?>'
+                                                    data-post='<?= /* @noEscape */ $compareHelper->getPostDataParams($_item) ?>'
                                                     data-testid="add-to-compare-button"
                                                 >
                                                     <svg
@@ -228,9 +228,9 @@ use Magento\Framework\App\Action\Action;
                                         </div>
                                     <?php endif; ?>
 
-                                    <?php if ($showCart) : ?>
+                                    <?php if ($showCart): ?>
                                         <div class="product-grid-item__primary-action">
-                                            <?php if ($_item->isSaleable()) : ?>
+                                            <?php if ($_item->isSaleable()): ?>
                                                 <?php $postParams = $block->getAddToCartPostParams($_item); ?>
                                                 <form
                                                     data-role="tocart-form"
@@ -245,8 +245,8 @@ use Magento\Framework\App\Action\Action;
                                                     />
                                                     <input
                                                         type="hidden"
-                                                        name="<?= Action::PARAM_NAME_URL_ENCODED ?>"
-                                                        value="<?= $postParams['data'][Action::PARAM_NAME_URL_ENCODED] ?>"
+                                                        name="<?= /* @noEscape */ Action::PARAM_NAME_URL_ENCODED ?>"
+                                                        value="<?= /* @noEscape */ $postParams['data'][Action::PARAM_NAME_URL_ENCODED] ?>"
                                                     />
                                                     <?= $block->getBlockHtml('formkey') ?>
                                                     <button
@@ -268,7 +268,7 @@ use Magento\Framework\App\Action\Action;
                                                         </svg>
                                                     </button>
                                                 </form>
-                                                <?php if (!$block->isRedirectToCartEnabled()) :?>
+                                                <?php if (!$block->isRedirectToCartEnabled()): ?>
                                                     <script type="text/x-magento-init">
                                                     {
                                                         "[data-role=tocart-form], .form.map.checkout": {
@@ -279,12 +279,12 @@ use Magento\Framework\App\Action\Action;
                                                     }
                                                     </script>
                                                 <?php endif; ?>
-                                            <?php else : ?>
-                                                <?php if ($_item->getIsSalable()) : ?>
+                                            <?php else: ?>
+                                                <?php if ($_item->getIsSalable()): ?>
                                                     <div class="stock available">
                                                         <?= $block->escapeHtml(__('In stock')) ?>
                                                     </div>
-                                                <?php else : ?>
+                                                <?php else: ?>
                                                     <div class="stock unavailable">
                                                         <?= $block->escapeHtml(__('Out of stock')) ?>
                                                     </div>
