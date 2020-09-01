@@ -1,16 +1,22 @@
-$cybersource__control-margin                : 0 !default;
-$cybersource__control-with-tooltip-display  : flex !default;
-$cybersource__credit-cards-justify-content  : flex-start !default;
-$cybersource__cvv-width                     : 110px !default;
-$cybersource__cvv-field-tooltip-position    : relative !default;
-$cybersource__field-tooltip-height          : 48px !default;
-$cybersource__field-tooltip-left-offset     : 0 !default;
-$cybersource__fieldset-margin               : 0 0 $spacer--large 0 !default;
-$cybersource__select-padding                : 0 !default;
-$cybersource__select-year-min-width         : 100px !default;
-$cybersource__spin-button-margin            : 0 !default;
-$cybersource__spin-button-moz-appearance    : textfield !default;
-$cybersource__spin-button-webkit-appearance : none !default;
+$cybersource__control-margin                 : 0 !default;
+$cybersource__control-with-tooltip-display   : flex !default;
+$cybersource__credit-cards-justify-content   : flex-start !default;
+$cybersource__cvv-width                      : 110px !default;
+$cybersource__cvv-field-tooltip-position     : relative !default;
+$cybersource__cvv-field-tooltip-order        : 2 !default;
+$cybersource__field-tooltip-height           : 48px !default;
+$cybersource__field-tooltip-left-offset      : 0 !default;
+$cybersource__fieldset-margin                : 0 0 $spacer--large 0 !default;
+$cybersource__mage-error-cvv-display         : block !default;
+$cybersource__mage-error-cvv-order           : 3 !default;
+$cybersource__mage-error-cvv-width           : 100% !default;
+$cybersource__mage-error-min-width           : 120px !default;
+$cybersource__mage-error-min-width\@screen-s : 150px !default;
+$cybersource__select-padding                 : 0 !default;
+$cybersource__select-year-min-width          : 100px !default;
+$cybersource__spin-button-margin             : 0 !default;
+$cybersource__spin-button-moz-appearance     : textfield !default;
+$cybersource__spin-button-webkit-appearance  : none !default;
 
 .checkout-payment-method {
     .fieldset {
@@ -42,15 +48,29 @@ $cybersource__spin-button-webkit-appearance : none !default;
             margin: $cybersource__control-margin;
         }
 
+        div.mage-error {
+            min-width: $cybersource__mage-error-min-width;
+            @include mq($screen-s) {
+                min-width: $cybersource__mage-error-min-width\@screen-s;
+            }
+        }
+
         .field.type.cvv .control {
             margin: $cybersource__control-margin;
             &._with-tooltip {
                 display: $cybersource__control-with-tooltip-display;
+                flex-wrap: wrap;
+                div.mage-error {
+                    display: $cybersource__mage-error-cvv-display;
+                    order: $cybersource__mage-error-cvv-order;
+                    width: $cybersource__mage-error-cvv-width;
+                }
                 .cvv {
                     width: $cybersource__cvv-width;
                 }
                 .field-tooltip {
                     position: $cybersource__cvv-field-tooltip-position;
+                    order: $cybersource__cvv-field-tooltip-order;
                 }
             }
             .field-tooltip {
