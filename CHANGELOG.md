@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Fixed
+- missing actions group on Account Information page
 ### Added
 ### Changed
 - basic variable with component variable for easier updates of mega menu (#69969)
