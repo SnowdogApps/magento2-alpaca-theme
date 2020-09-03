@@ -19,6 +19,7 @@ All notable changes to this project will be documented in this file.
 - Amasty Store Locator template for module version 2.4.2 (#69148)
 - jumpung gallery while loading (#70217)
 - untranslatable aria-label text for close button in ElasticSuite quicksearch autocomplete template (#67310)
+- user registration - gdpr checkbox after validation missing checked icon (#70169)
 
 ### Added
 - paypal review component (#59142)
