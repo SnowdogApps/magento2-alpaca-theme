@@ -5,9 +5,20 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 - missing actions group on Account Information page
+- spaces bewteen buttons uneven on EE product list (#68745)
+- typo in shipping address config (#68745)
+- item checkbox in requisition list (#68745)
+- wishlist item actions covering active textarea border (#68745)
+- js error on bundle PDP - removed escaping method from bundle options template (#68745)
 ### Added
+- customer balance history template (#68745)
+- grouped product final price template (#68745)
+- missing dashboard-table__link class to account dashboard templates (#68745)
 ### Changed
 - basic variable with component variable for easier updates of mega menu (#69969)
+- sidebar 'Compare' link classes (#68745)
+- bundle product price template and styling (#68745)
+- make compare__product div take up 100% height of td & space items between (#68745)
 ### Removed
 
 

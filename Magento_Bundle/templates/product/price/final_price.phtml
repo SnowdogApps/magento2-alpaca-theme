@@ -28,44 +28,63 @@ $minimalRegularPrice = $regularPriceModel->getMinimalPrice();
         <?= /* @noEscape */ $block->renderAmount($minimalPrice, [
             'price_id' => $block->getPriceId('from-')
         ]); ?>
-
     </span>
 <?php else: ?>
     <?php if ($block->showRangePrice()): ?>
-        <span class="price-from price__value price__value--between">
-            <span class="price__text">
-                <?= $block->escapeHtml(__('From')) ?>
-            </span>
-            <?= /* @noEscape */ $block->renderAmount($minimalPrice, [
-                'price_id'   => $block->getPriceId('from-'),
-                'price_type' => 'minPrice'
-            ]); ?>
-            <?php if ($minimalPrice < $minimalRegularPrice): ?>
-                <span class="old-price price__value price__value--old">
-                    <?= /* @noEscape */ $block->renderAmount($minimalRegularPrice, [
-                        'price_id'         => $block->getPriceId('old-price-' . $idSuffix),
-                        'skip_adjustments' => true
-                    ]); ?>
+        <div class="price price--between">
+            <span class="price-from">
+                <span class="price__text">
+                    <?= $block->escapeHtml(__('From')) ?>
                 </span>
-            <?php endif ?>
-        </span>
-        <span class="price-to price__value price__value--between">
-            <span class="price__text">
-                <?= $block->escapeHtml(__('To')) ?>
+                <?php if ($minimalPrice < $minimalRegularPrice): ?>
+                    <span class="old-price price__value price__value--old">
+                        <?= /* @noEscape */ $block->renderAmount($minimalRegularPrice, [
+                            'price_id'         => $block->getPriceId('old-price-' . $idSuffix),
+                            'skip_adjustments' => true
+                        ]); ?>
+                    </span>
+                    <span class="price__value price__value--special">
+                        <?= /* @noEscape */ $block->renderAmount($minimalPrice, [
+                            'price_id'   => $block->getPriceId('from-'),
+                            'price_type' => 'minPrice'
+                        ]); ?>
+                    </span>
+                <?php else: ?>
+                    <span class="price__value">
+                        <?= /* @noEscape */ $block->renderAmount($minimalPrice, [
+                            'price_id'   => $block->getPriceId('from-'),
+                            'price_type' => 'minPrice'
+                        ]); ?>
+                    </span>
+                <?php endif ?>
             </span>
-            <?php if ($maximalPrice < $maximalRegularPrice): ?>
-                <span class="old-price price__value price__value--old">
-                    <?= /* @noEscape */ $block->renderAmount($maximalRegularPrice, [
-                        'price_id'         => $block->getPriceId('old-price-' . $idSuffix),
-                        'skip_adjustments' => true
-                    ]); ?>
+            <span class="price-to">
+                <span class="price__text">
+                    <?= $block->escapeHtml(__('To')) ?>
                 </span>
-            <?php endif ?>
-            <?= /* @noEscape */ $block->renderAmount($maximalPrice, [
-                'price_id'   => $block->getPriceId('to-'),
-                'price_type' => 'maxPrice'
-            ]); ?>
-        </span>
+                <?php if ($maximalPrice < $maximalRegularPrice): ?>
+                    <span class="old-price price__value price__value--old">
+                        <?= /* @noEscape */ $block->renderAmount($maximalRegularPrice, [
+                            'price_id'         => $block->getPriceId('old-price-' . $idSuffix),
+                            'skip_adjustments' => true
+                        ]); ?>
+                    </span>
+                    <span class="price__value price__value--special">
+                        <?= /* @noEscape */ $block->renderAmount($maximalPrice, [
+                            'price_id'   => $block->getPriceId('to-'),
+                            'price_type' => 'maxPrice'
+                        ]); ?>
+                    </span>
+                <?php else: ?>
+                    <span class="price__value">
+                        <?= /* @noEscape */ $block->renderAmount($maximalPrice, [
+                            'price_id'   => $block->getPriceId('to-'),
+                            'price_type' => 'maxPrice'
+                        ]); ?>
+                    </span>
+                <?php endif ?>
+            </span>
+        </div>
     <?php else: ?>
         <span class="price__value">
             <?php if ($minimalPrice < $minimalRegularPrice): ?>
