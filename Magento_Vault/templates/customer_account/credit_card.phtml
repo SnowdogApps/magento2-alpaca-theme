@@ -8,10 +8,11 @@ use Magento\Vault\Block\CardRendererInterface;
 $ccNumberView = $block->escapeHtml($block->getNumberLast4Digits());
 ?>
 
-<tr>
+<tr role="row">
     <td
         data-th="<?= $block->escapeHtmlAttr(__('Card Number')) ?>"
         class="col card-number"
+        role="gridcell"
     >
         <?= $block->escapeHtml(__('ending')) ?>
         <?= /* @noEscape */ $ccNumberView ?>
@@ -19,12 +20,14 @@ $ccNumberView = $block->escapeHtml($block->getNumberLast4Digits());
     <td
         data-th="<?= $block->escapeHtmlAttr(__('Expiration Date')) ?>"
         class="col card-expire"
+        role="gridcell"
     >
         <?= $block->escapeHtml($block->getExpDate()) ?>
     </td>
     <td
         data-th="<?= $block->escapeHtmlAttr(__('Type')) ?>"
         class="col card-type"
+        role="gridcell"
     >
         <img
             src="<?= /* @noEscape */ $block->getIconUrl() ?>"
@@ -35,6 +38,7 @@ $ccNumberView = $block->escapeHtml($block->getNumberLast4Digits());
     <td
         data-th="<?= $block->escapeHtmlAttr(__('Actions')) ?>"
         class="col actions"
+        role="gridcell"
     >
         <form
             class="form"
@@ -49,7 +53,12 @@ $ccNumberView = $block->escapeHtml($block->getNumberLast4Digits());
             />
             <button
                 type="submit"
-                class="action delete"
+                class="
+                    link
+                    dashboard-table__link
+                    action
+                    delete
+                "
                 data-mage-init='{
                     "Magento_Vault/js/customer_account/deleteWidget":{
                         "type": "popup",
