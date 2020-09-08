@@ -354,6 +354,16 @@ $sliderBlock->setData(['slider_html'=>'after-slides', ...]);
 <?= $sliderBlock->toHtml(); ?>
 ```
 
+5. Sliders created using Advanced Content Manager can be placed in any CMS content using Content Manager Content List widget.
+Click on "Insert Widget..." button when editing CMS content with wysiwyg editor. Select "Content Manager Content List" as Widget Type. Set options:
+"Content Type" -> "Sliders"
+"Number of Contents to Display" -> 1
+"Template" -> "Slider Content List Template"
+"Condition" -> Slider ID is "your-slider-id"
+"Attributes to show" -> not required
+Click on "Insert Widget"
+
+
 ## Alpaca Content - Set up your store, admin / db changes for alpaca theme
 
 ### Menu - to display menu use [Snowdog's magento2-menu](https://github.com/SnowdogApps/magento2-menu) module
