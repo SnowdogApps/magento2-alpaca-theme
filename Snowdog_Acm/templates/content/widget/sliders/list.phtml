@@ -129,8 +129,8 @@ $sliderItemClass = 'slider__item';
     <?php if ($bannersArray): ?>
         <?php foreach ($bannersArray as $banner): ?>
             <?php
-            $bannerUrl = $block->escapeUrl($banner['url']);
-            $bannerUrlTarget = $block->escapeUrl(($banner['url_target'] == 'blank') ? '_blank' : '_self');
+            $escapedBannerUrl = $block->escapeUrl($banner['url']);
+            $bannerUrlTarget = ($banner['url_target'] == 'blank') ? '_blank' : '_self';
 
             $sliderPictureBlock->setData([
                 'picture_class' => 'banner__image',
@@ -150,11 +150,11 @@ $sliderItemClass = 'slider__item';
             ]);
             ?>
             <div class="<?= $block->escapeHtmlAttr($sliderItemClass) ?>">
-                <<?= $bannerUrl ? 'a href="' . $bannerUrl . '" target="' . $bannerUrlTarget . '"' : 'div'; ?>
+                <<?= $escapedBannerUrl ? 'a href="' . $escapedBannerUrl . '" target="' . $bannerUrlTarget . '"' : 'div'; ?>
                 class="banner"
                 >
                     <?= $sliderPictureBlock->toHtml(); ?>
-                </<?= $bannerUrl ? 'a' : 'div'; ?>>
+                </<?= $escapedBannerUrl ? 'a' : 'div'; ?>>
             </div>
         <?php endforeach; ?>
     <?php endif; ?>
