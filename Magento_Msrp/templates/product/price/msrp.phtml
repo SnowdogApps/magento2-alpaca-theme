@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Template for displaying product price at product view page, gift registry and wish-list
  *
@@ -44,9 +45,9 @@ $priceElementIdPrefix = $block->getPriceElementIdPrefix() ? $block->getPriceElem
             $product,
             ['_query' => [
                 \Magento\Framework\App\ActionInterface::PARAM_NAME_URL_ENCODED =>
-                    $this->helper(\Magento\Framework\Url\Helper\Data::class)->getEncodedUrl(
-                        $addToCartUrlGenerator->getAddToCartUrl($product)
-                    ),
+                $this->helper(\Magento\Framework\Url\Helper\Data::class)->getEncodedUrl(
+                    $addToCartUrlGenerator->getAddToCartUrl($product)
+                ),
             ]]
         );
         // phpcs:enable
@@ -55,7 +56,7 @@ $priceElementIdPrefix = $block->getPriceElementIdPrefix() ? $block->getPriceElem
     $priceElementId = $priceElementIdPrefix . $productId . $block->getIdSuffix();
     $popupId = 'msrp-popup-' . $productId . $block->getRandomString(20);
     $data = [
-        'origin'=> 'msrp',
+        'origin' => 'msrp',
         'popupId' => '#' . $popupId,
         'productName' => $block->escapeJs($block->escapeHtml($product->getName())),
         'productId' => $productId,
@@ -74,34 +75,54 @@ $priceElementIdPrefix = $block->getPriceElementIdPrefix() ? $block->getPriceElem
         $data['addToCartButton'] = sprintf(
             'form:has(input[type="hidden"][name="product"][value="%s"]) button[type="submit"]',
             (int) $productId . ',' .
-            sprintf(
-                '.block.widget .price-box[data-product-id=%s]+.product-item-actions button.tocart',
-                (int)$productId
-            )
+                sprintf(
+                    '.block.widget .price-box[data-product-id=%s]+.product-item-actions button.tocart',
+                    (int)$productId
+                )
         );
     }
     ?>
     <span id="<?= $block->escapeHtmlAttr($block->getPriceId() ? $block->getPriceId() : $priceElementId) ?>" style="display:none"></span>
-    <a href="javascript:void(0);"
-       id="<?= /* @noEscape */ ($popupId) ?>"
-       class="action map-show-info"
-       <?php //phpcs:disable ?>
-       data-mage-init='{"addToCart":<?= /* @noEscape */ $this->helper(\Magento\Framework\Json\Helper\Data::class)->jsonEncode($data) ?>}'>
-        <?php //phpcs:enable ?>
+    <a href="javascript:void(0);" id="<?= /* @noEscape */ ($popupId) ?>" class="action map-show-info" <?php //phpcs:disable
+                                                                                                        ?> data-mage-init='{"addToCart":<?= /* @noEscape */ $this->helper(\Magento\Framework\Json\Helper\Data::class)->jsonEncode($data) ?>}'>
+        <?php //phpcs:enable
+        ?>
         <?= $block->escapeHtml(__('Click for price')) ?>
     </a>
 <?php else : ?>
-    <span class="msrp-message">
-     <?= $block->escapeHtml($priceType->getMsrpPriceMessage()) ?>
-    </span>
+    <div class="tooltip" data-mage-init='{"tooltip": {}}'>
+        <button class="button button--icon tooltip__trigger-button" type="button" aria-label="See more information">
+            <svg class="icon " role="img">
+                <title><?= $block->escapeHtml(__('Show tooltip')) ?></title>
+                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#info')); ?>"></use>
+            </svg>
+
+        </button>
+
+        <div class="tooltip__content-wrapper" aria-hidden="true" tabindex="-1">
+            <button class="button button--icon button--rotate-icon tooltip__close-button" type="button" aria-label="Close tooltip">
+                <svg class="icon " role="presentation" focusable="false">
+                    <title>Close tooltip</title>
+                    <use xlink:href="/images/icons-sprite.svg#close"></use>
+                </svg>
+
+            </button>
+
+
+            <h3 class="tooltip__heading">
+                Example title
+            </h3>
+
+            <div class="tooltip__content">
+                <?= $block->escapeHtml($priceType->getMsrpPriceMessage()) ?>
+            </div>
+        </div>
+    </div>
 <?php endif; ?>
 
 <?php if ($block->getZone() == \Magento\Framework\Pricing\Render::ZONE_ITEM_VIEW) : ?>
     <?php $helpLinkId = 'msrp-help-' . $productId . $block->getRandomString(20); ?>
-    <a href="javascript:void(0);"
-       id="<?= /* @noEscape */ $helpLinkId ?>"
-       class="action map-show-info"
-       data-mage-init='{"addToCart":{"origin": "info",
+    <a href="javascript:void(0);" id="<?= /* @noEscape */ $helpLinkId ?>" class="action map-show-info" data-mage-init='{"addToCart":{"origin": "info",
                                      "helpLinkId": "#<?= /* @noEscape */ $helpLinkId ?>",
                                      "productName": "<?= $block->escapeJs($block->escapeHtml($product->getName())) ?>",
                                      "closeButtonId": "#map-popup-close"}}'><span><?= $block->escapeHtml(__("What's this?")) ?></span>
