@@ -75,13 +75,15 @@ $priceElementIdPrefix = $block->getPriceElementIdPrefix() ? $block->getPriceElem
         } else {
             $data['addToCartButton'] = sprintf(
                 'form:has(input[type="hidden"][name="product"][value="%s"]) button[type="submit"]',
-                (int) $productId . ',' .
-                    sprintf(
-                        '.block.widget .price-box[data-product-id=%s]+.product-item-actions button.tocart',
-                        (int)$productId
-                    )
+                (int) $productId
+            );
+
+            $data['addToCartButton'] .= sprintf(
+                ',.block.widget .price-box[data-product-id=%s]+.product-item-actions button.tocart',
+                (int)$productId
             );
         }
+
         ?>
         <span
             id="<?= $block->escapeHtmlAttr($block->getPriceId() ? $block->getPriceId() : $priceElementId) ?>"
@@ -104,11 +106,6 @@ $priceElementIdPrefix = $block->getPriceElementIdPrefix() ? $block->getPriceElem
                 <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#info')); ?>"></use>
             </svg>
         </button>
-
-
-
-
-
     <?php else : ?>
         <div class="tooltip msrp__tooltip" data-mage-init='{"tooltip": {}}'>
             <button class="button button--icon tooltip__trigger-button msrp__tooltip-trigger-button" type="button" aria-label="See more information">
