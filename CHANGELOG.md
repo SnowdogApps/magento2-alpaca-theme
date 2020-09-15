@@ -4,25 +4,30 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Fixed
-- missing actions group on Account Information page
-- spaces bewteen buttons uneven on EE product list (#68745)
-- typo in shipping address config (#68745)
-- item checkbox in requisition list (#68745)
-- wishlist item actions covering active textarea border (#68745)
-- js error on bundle PDP - removed escaping method from bundle options template (#68745)
 ### Added
-- customer balance history template (#68745)
-- grouped product final price template (#68745)
-- missing dashboard-table__link class to account dashboard templates (#68745)
 ### Changed
-- basic variable with component variable for easier updates of mega menu (#69969)
-- sidebar 'Compare' link classes (#68745)
-- bundle product price template and styling (#68745)
-- make compare__product div take up 100% height of td & space items between (#68745)
 ### Removed
 
 
 ## [Released]
+
+## [2.8.0] - 2020-09-15
+### Fixed
+- missing actions group on Account Information page; Affects: dashboard account information page
+- spaces between buttons uneven on EE product list (#68745); Affects: catalog product list
+- typo in shipping address config (#68745)
+- item checkbox in requisition list (#68745); Affects: Requisition list
+- wishlist item actions covering active textarea border (#68745)
+- js error on bundle PDP - removed escaping method from bundle options template (#68745); Affects: Bundle PDP
+### Added
+- customer balance history template (#68745)
+- grouped product final price template (#68745); Affects: Grouped PDP
+- missing dashboard-table__link class to account dashboard templates (#68745); Affects: dashboard
+### Changed
+- basic variable with component variable for easier updates of mega menu (#69969); Affects: mega menu
+- sidebar 'Compare' link classes (#68745): Affects: catalog sidebar
+- bundle product price template and styling (#68745); Affects: Bundle PDP
+- make compare__product div take up 100% height of td & space items between (#68745)
 
 ## [2.7.0] - 2020-08-20
 ### Fixed
