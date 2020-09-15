@@ -25,6 +25,16 @@ $urlForm = $block->getReviewsUrl() . '#review-form';
                         itemprop="review"
                         itemtype="http://schema.org/Review"
                     >
+                        <div
+                            itemprop="itemReviewed"
+                            itemscope
+                            itemtype="http://schema.org/Product"
+                        >
+                            <meta
+                                itemprop="name"
+                                content="<?= $block->escapeHtmlAttr($this->getProduct()->getName()) ?>"
+                            />
+                        </div>
                         <div class="review__details">
                             <h3
                                 class="review__author"
@@ -63,9 +73,18 @@ $urlForm = $block->getReviewsUrl() . '#review-form';
                                             </span>
                                         <?php endif; ?>
 
-                                        <meta itemprop="worstRating" content="1"/>
-
-                                        <meta itemprop="bestRating" content="100"/>
+                                        <meta
+                                            itemprop="worstRating"
+                                            content="1"
+                                        />
+                                        <meta
+                                            itemprop="bestRating"
+                                            content="100"
+                                        />
+                                        <meta
+                                            itemprop="ratingValue"
+                                            content="<?= $_votePercetage ?>"
+                                        />
 
                                         <div
                                             class="rating__star"
@@ -79,10 +98,7 @@ $urlForm = $block->getReviewsUrl() . '#review-form';
                             <?php endif; ?>
                         </div>
 
-                        <div
-                            class="review__details"
-                            itemprop="description"
-                        >
+                        <div class="review__details">
                             <h4
                                 class="review__title"
                                 itemprop="name"
@@ -90,7 +106,10 @@ $urlForm = $block->getReviewsUrl() . '#review-form';
                                 <?= $block->escapeHtml($_review->getTitle()); ?>
                             </h4>
 
-                            <p class="product-view__review-content-text">
+                            <p
+                                class="product-view__review-content-text"
+                                itemprop="description"
+                            >
                                 <?= nl2br($block->escapeHtml($_review->getDetail())); ?>
                             </p>
                         </div>

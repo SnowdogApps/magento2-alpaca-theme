@@ -10,19 +10,42 @@ $urlForm = $block->getReviewsUrl() . '#review-form';
         $reviewsCount = $block->getReviewsCount();
         $rating = $block->getRatingSummary();
     ?>
-    <div class="review review--summary">
+    <div
+        class="review review--summary"
+        itemprop="aggregateRating"
+        itemscope
+        itemtype="http://schema.org/AggregateRating"
+    >
+        <div
+            itemprop="itemReviewed"
+            itemscope
+            itemtype="http://schema.org/Product"
+        >
+            <meta
+                itemprop="name"
+                content="<?= $block->escapeHtmlAttr($this->getProduct()->getName()) ?>"
+            />
+        </div>
         <?php if ($rating): ?>
             <div class="review__summary-handle">
                 <div
                     class="rating rating--secondary"
-                    aria-label="<?= $block->escapeHtmlAttr(__('Average rating') . ': ' . $rating . '%'); ?>"
-                    title="<?= $block->escapeHtmlAttr(__('Average rating') . ': ' . $rating . '%'); ?>"
+                    aria-label="<?= $block->escapeHtmlAttr(__('Average rating') . ': ' . $block->escapeHtmlAttr($rating) . '%'); ?>"
+                    title="<?= $block->escapeHtmlAttr(__('Average rating') . ': ' . $block->escapeHtmlAttr($rating) . '%'); ?>"
                     tabindex="0"
                 >
+                    <meta
+                        itemprop="ratingValue"
+                        content="<?= $block->escapeHtmlAttr($rating) ?>"
+                    />
+                    <meta
+                        itemprop="bestRating"
+                        content="100"
+                    />
                     <div
                         class="rating__star"
                         role="presentation"
-                        style="width:<?=  $rating; ?>%"
+                        style="width:<?=  $block->escapeHtmlAttr($rating) ?>%"
                     >
                         <span class="rating__indicator"></span>
                     </div>
@@ -35,7 +58,10 @@ $urlForm = $block->getReviewsUrl() . '#review-form';
                     data-mage-init='{ "goToReview": { "reviewId": "reviews" } }'
                     aria-label="<?= $block->escapeHtmlAttr(__('See ') . $reviewsCount . __(' reviews')); ?>"
                 >
-                    <?= $reviewsCount . $block->escapeHtml(__(' Reviews')); ?>
+                    <span itemprop="reviewCount">
+                        <?= $block->escapeHtml($block->getReviewsCount()) ?>
+                    </span>
+                    <?= $block->escapeHtml(__(' Reviews')) ?>
                 </a>
                 <a
                     href="<?= $block->escapeHtmlAttr($urlForm) ?>"
