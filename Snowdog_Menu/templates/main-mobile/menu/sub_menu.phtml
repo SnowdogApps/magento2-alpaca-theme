@@ -27,9 +27,9 @@
             ]
         ];
     ?>
-    <div <?= $block->buildAttrFromArray($wrapperAttributes) ?>>
-        <div<?= $block->buildAttrFromArray($contentAttributes) ?>>
-            <ul<?= $block->buildAttrFromArray($listAttributes) ?>>
+    <div <?= /* @noEscape */ $block->buildAttrFromArray($wrapperAttributes) ?>>
+        <div<?= /* @noEscape */ $block->buildAttrFromArray($contentAttributes) ?>>
+            <ul<?= /* @noEscape */ $block->buildAttrFromArray($listAttributes) ?>>
                 <?php foreach ($block->getSubmenuNodes() as $node): ?>
                     <?php
                         $childrenLevel = $node->getLevel() + 1;
@@ -51,9 +51,9 @@
                             $nodeAttributes['class'][] = $node->getClasses();
                         }
                     ?>
-                    <li<?= $block->buildAttrFromArray($nodeAttributes) ?>>
-                        <?= $block->renderMenuNode($node) ?>
-                        <?= $block->renderSubmenu($children, $node, $childrenLevel) ?>
+                    <li<?= /* @noEscape */ $block->buildAttrFromArray($nodeAttributes) ?>>
+                        <?= /* @noEscape */ $block->renderMenuNode($node) ?>
+                        <?= /* @noEscape */ $block->renderSubmenu($children, $node, $childrenLevel) ?>
                     </li>
                 <?php endforeach; ?>
             </ul>

@@ -6,20 +6,20 @@ $cssClass = $block->hasCssClass() ? $block->getCssClass() : '';
 <?php if (is_array($anchor) && is_array($label)): ?>
     <ul class="list">
         <?php foreach ($anchor as $key => $value): ?>
-            <li class="list__item <?= $key ?>">
+            <li class="list__item <?= $block->escapeHtmlAttr($key) ?>">
                 <a
-                    href="<?= $value ?>"
-                    class="skip-nav <?= $cssClass; ?>"
+                    href="<?= $block->escapeUrl($value) ?>"
+                    class="skip-nav <?= $block->escapeHtmlAttr($cssClass); ?>"
                     data-mage-init='{"skipNav": {} }'
                 >
-                    <?= $label[$key]; ?>
+                    <?= $block->escapeHtml($label[$key]); ?>
                 </a>
             </li>
         <?php endforeach ?>
     </ul>
 <?php else: ?>
     <a
-        href="<?= $anchor ?>"
+        href="<?= $block->escapeUrl($anchor) ?>"
         class="skip-nav <?php $cssClass; ?>"
         data-mage-init='{"skipNav": {} }'
     >

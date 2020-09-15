@@ -66,14 +66,14 @@
                             class="
                                 dropdown-list
                                 dropdown-list--with-nested
-                                <?= $menuClass ?>
+                                <?= $block->escapeHtmlAttr($menuClass) ?>
                             "
                             data-mage-init='{ "dropdownList": {} }'
                         >
                             <ul
                                 class="
                                     dropdown-list__list
-                                    <?= $menuClass ?>__list
+                                    <?= $block->escapeHtmlAttr($menuClass) ?>__list
                                 "
                             >
                                 <?php foreach ($block->getNodes() as $node): ?>
@@ -85,9 +85,9 @@
                                         $additionalClasses = $node->getClasses() ? ' ' . $node->getClasses() : '';
                                         $itemClasses = $parentClass . $additionalClasses;
                                     ?>
-                                    <li class="<?= $menuClass ?>__item<?= $itemClasses ?>">
-                                        <?= $block->renderMenuNode($node) ?>
-                                        <?= $block->renderSubmenu($children, $node, $childrenLevel) ?>
+                                    <li class="<?= $block->escapeHtmlAttr($menuClass) ?>__item<?= $block->escapeHtmlAttr($itemClasses) ?>">
+                                        <?= /* @noEscape */ $block->renderMenuNode($node) ?>
+                                        <?= /* @noEscape */ $block->renderSubmenu($children, $node, $childrenLevel) ?>
                                     </li>
                                 <?php endforeach ?>
                             </ul>
@@ -120,7 +120,7 @@
                                         "
                                     >
                                         <div class="contact-bar__container">
-                                            <?= $contactBar ?>
+                                            <?= /* @noEscape */ $contactBar ?>
                                         </div>
                                     </div>
                                 </div>
@@ -148,7 +148,7 @@
                         role="img"
                     >
                         <title><?= $block->escapeHtml(__('Close')) ?></title>
-                        <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#close') ?>"></use>
+                        <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#close')) ?>"></use>
                     </svg>
                     <span class="side-menu__close-button-text">
                         <?= $block->escapeHtml(__('Menu')) ?>

@@ -14,7 +14,7 @@
             'data-menu' => 'menu-' . $parentNode->getNodeId()
         ];
     ?>
-    <ul<?= $block->buildAttrFromArray($wrapperAttributes) ?>>
+    <ul<?= /* @noEscape */ $block->buildAttrFromArray($wrapperAttributes) ?>>
         <?php foreach ($block->getSubmenuNodes() as $idx => $node): ?>
             <?php
                 $childrenLevel = $node->getLevel() + 1;
@@ -40,9 +40,9 @@
                     $nodeAttributes['class'][] = $node->getClasses();
                 }
             ?>
-            <li<?= $block->buildAttrFromArray($nodeAttributes) ?>>
-                <?= $block->renderMenuNode($node) ?>
-                <?= $block->renderSubmenu($children, $node, $childrenLevel) ?>
+            <li<?= /* @noEscape */ $block->buildAttrFromArray($nodeAttributes) ?>>
+                <?= /* @noEscape */ $block->renderMenuNode($node) ?>
+                <?= /* @noEscape */ $block->renderSubmenu($children, $node, $childrenLevel) ?>
             </li>
         <?php endforeach; ?>
     </ul>

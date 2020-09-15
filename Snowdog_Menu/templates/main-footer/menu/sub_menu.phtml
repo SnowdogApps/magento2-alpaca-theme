@@ -31,14 +31,14 @@
                         $nodeAttributes['class'][] = $node->getClasses();
                     }
                 ?>
-                <li <?= $block->buildAttrFromArray($nodeAttributes) ?>>
-                    <?= $block->renderMenuNode($node) ?>
-                    <?= $block->renderSubmenu($children, $node, $childrenLevel) ?>
+                <li <?= /* @noEscape */ $block->buildAttrFromArray($nodeAttributes) ?>>
+                    <?= /* @noEscape */ $block->renderMenuNode($node) ?>
+                    <?= /* @noEscape */ $block->renderSubmenu($children, $node, $childrenLevel) ?>
                 </li>
             <?php endforeach; ?>
         </ul>
     <?php else: ?>
-        <div <?= $block->buildAttrFromArray($wrapperAttributes) ?> data-level="<?= $level ?>">
+        <div <?= /* @noEscape */ $block->buildAttrFromArray($wrapperAttributes) ?> data-level="<?= $block->escapeHtmlAttr($level) ?>">
             <ul
                 class="
                     list
@@ -62,9 +62,9 @@
                             $nodeAttributes['class'][] = $node->getClasses();
                         }
                     ?>
-                    <li <?= $block->buildAttrFromArray($nodeAttributes) ?>>
-                        <?= $block->renderMenuNode($node) ?>
-                        <?= $block->renderSubmenu($children, $node, $childrenLevel) ?>
+                    <li <?= /* @noEscape */ $block->buildAttrFromArray($nodeAttributes) ?>>
+                        <?= /* @noEscape */ $block->renderMenuNode($node) ?>
+                        <?= /* @noEscape */ $block->renderSubmenu($children, $node, $childrenLevel) ?>
                     </li>
                 <?php endforeach; ?>
             </ul>
