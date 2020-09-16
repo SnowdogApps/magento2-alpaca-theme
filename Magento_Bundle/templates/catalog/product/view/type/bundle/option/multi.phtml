@@ -15,7 +15,7 @@ $_selections = $_option->getSelections();
         <?= $block->escapeHtml($_option->getTitle()) ?>
     </h4>
     <?php if ($block->showSingle()): ?>
-        <?= $block->getSelectionQtyTitlePrice($_selections[0]) ?>
+        <?= /* @noEscape */ $block->getSelectionQtyTitlePrice($_selections[0]) ?>
         <input
             type="hidden"
             name="bundle_option[<?= $block->escapeHtmlAttr($_optionId) ?>]"
@@ -36,7 +36,7 @@ $_selections = $_option->getSelections();
                 data-selector="bundle_option[<?= $block->escapeHtmlAttr($_optionId) ?>][]"
                 class="
                     bundle-option-<?= $block->escapeHtmlAttr($_optionId) ?>
-                    select__field 
+                    select__field
                     padding-0
                     bundle
                     option
@@ -46,12 +46,12 @@ $_selections = $_option->getSelections();
                     data-validate="{'required':'true'}" ?>
                 <?php endif ?>
             >
-                <?php if(!$_option->getRequired()): ?>
+                <?php if (!$_option->getRequired()): ?>
                     <option
-                        class="padding-hz-m" 
+                        class="padding-hz-m"
                         value=""
                     >
-                        <?= __('None') ?>
+                        <?= $block->escapeHtml(__('None')) ?>
                     </option>
                 <?php endif; ?>
                 <?php foreach ($_selections as $_selection): ?>
@@ -66,7 +66,7 @@ $_selections = $_option->getSelections();
                             disabled="disabled"
                         <?php endif; ?>
                     >
-                        <?= $block->getSelectionQtyTitlePrice($_selection, false) ?>
+                        <?= /* @noEscape */ $block->getSelectionQtyTitlePrice($_selection, false) ?>
                     </option>
                 <?php endforeach; ?>
             </select>
