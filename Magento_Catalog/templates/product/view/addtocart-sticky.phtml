@@ -5,14 +5,14 @@
 $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 $productMetadata = $objectManager->get('Magento\Framework\App\ProductMetadataInterface');
 ?>
-    
+
 <?php $_product = $block->getProduct(); ?>
 <?php $buttonTitle = __('Add to Cart'); ?>
 
 <?php if ($_product->isSaleable()): ?>
 <div
     class="
-        add-to-cart 
+        add-to-cart
         aos-init
         <?= ($productMetadata->getEdition() == 'B2B') ? 'add-to-cart--ee' : '' ?>
     "
@@ -43,7 +43,7 @@ $productMetadata = $objectManager->get('Magento\Framework\App\ProductMetadataInt
                 aria-label="<?= $block->escapeHtmlAttr($buttonTitle) ?>"
             >
                 <span class="button__text">
-                    <?= $buttonTitle ?>
+                    <?= $block->escapeHtml($buttonTitle) ?>
                 </span>
                 <svg
                     class="icon button__icon"
@@ -97,7 +97,7 @@ $productMetadata = $objectManager->get('Magento\Framework\App\ProductMetadataInt
 </div>
 <?php endif; ?>
 
-<?php if ($block->isRedirectToCartEnabled()) : ?>
+<?php if ($block->isRedirectToCartEnabled()): ?>
     <script type="text/x-magento-init">
         {
             "#product_addtocart_form": {

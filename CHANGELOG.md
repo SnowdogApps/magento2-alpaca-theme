@@ -2,26 +2,68 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+### Fixed
+- input and select styles in poduct gift card template (#70690); Affects: gift card PDP
+- review snippets (#69786)
+### Added
+- minimum advertised price on grid and product page (#70656); Info: @import '../Magento_Msrp/styles/module'; should be added to /styles/theme.scss
+### Changed
+### Removed
+
+
+## [Released]
+
+## [2.8.0] - 2020-09-15
+### Fixed
+- missing actions group on Account Information page; Affects: dashboard account information page
+- spaces between buttons uneven on EE product list (#68745); Affects: catalog product list
+- typo in shipping address config (#68745)
+- item checkbox in requisition list (#68745); Affects: Requisition list
+- wishlist item actions covering active textarea border (#68745)
+- js error on bundle PDP - removed escaping method from bundle options template (#68745); Affects: Bundle PDP
+### Added
+- customer balance history template (#68745)
+- grouped product final price template (#68745); Affects: Grouped PDP
+- missing dashboard-table__link class to account dashboard templates (#68745); Affects: dashboard
+### Changed
+- basic variable with component variable for easier updates of mega menu (#69969); Affects: mega menu
+- sidebar 'Compare' link classes (#68745): Affects: catalog sidebar
+- bundle product price template and styling (#68745); Affects: Bundle PDP
+- make compare__product div take up 100% height of td & space items between (#68745)
+
+## [2.7.0] - 2020-08-20
 ### Fixed
 - gdpr agreements templates after update (#68654)
 - wrong name for review input field (#70089)
 - Amasty Store Locator template for module version 2.4.2 (#69148)
+- jumpung gallery while loading (#70217)
+- untranslatable aria-label text for close button in ElasticSuite quicksearch autocomplete template (#67310)
+- user registration - gdpr checkbox after validation missing checked icon (#70169)
+
 ### Added
 - paypal review component (#59142)
 - curreny and language switchers in footer (#67313)
 - EE - gift registry (#65717), Affects: all gift registry pages ('/giftregistry/*'), datepicker styles
 - Component and styling for multishipping (#66917)
+- color property with variable for easier override of select2 styles (#67443)
+
 ### Changed
 - paypal review order page (#59142)
 - contact-bar template to show/hide email/phone depending on config settings (#69969)
 - checkboxes to be globally aligned vertically to center (#68654)
 - zoomed in image background opacity & close button to dark (#69145)
 - styles and validation for datepicker (#67654), Affects: structure of files (datepicker customization)
+- escaping php variables in templates, Affects: amasty gdpr elements and pages (newsletter, agreements, ettings, etc.) - can limit html output there (#67311)
+- store locator active store color (#69151)
 
-## [Released]
+### Removed
+- duplicate variables in contact-bar (#67443)
+
 ## [2.6.0] - 2020-08-06
 ### Added
 - pointer cursor for zoom in icon (#69031)
+
 ### Fixed
 - modal close icon overlay on text (#69152)
 - typo in newsletter (#67925)

@@ -1,0 +1,28 @@
+<?php
+$minProduct = $block->getSaleableItem()
+    ->getPriceInfo()
+    ->getPrice(\Magento\Catalog\Pricing\Price\FinalPrice::PRICE_CODE)
+    ->getMinProduct();
+
+if ($minProduct) {
+    $amountRender = $block->getRendererPool()
+        ->createAmountRender(
+            $minProduct->getPriceInfo()->getPrice('final_price')->getAmount(),
+            $minProduct,
+            $minProduct->getPriceInfo()->getPrice('final_price'),
+            ['include_container' => true]
+        );
+}
+?>
+<div class="price-box">
+    <?php if ($minProduct && \Magento\Framework\Pricing\Render::ZONE_ITEM_VIEW != $block->getZone()) : ?>
+    <div class="minimal-price">
+        <span class="price__text price-label">
+            <?= $block->escapeHtml(__('Starting at')) ?>
+        </span>
+        <span class="price__value">
+            <?= $amountRender->toHtml() ?>
+        </span>
+    </div>
+    <?php endif ?>
+</div>

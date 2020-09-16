@@ -19,7 +19,7 @@
                 class="cart-discount__button-text"
                 data-testid="apply-gift-card-title"
             >
-                <?= __('Apply Gift Card Code') ?>
+                <?= $block->escapeHtml(__('Apply Gift Card Code')) ?>
             </span>
 
             <svg
@@ -27,7 +27,9 @@
                 role="presentation"
                 focusable="false"
             >
-                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#angle-down')) ?>"></use>
+                <use xlink:href="
+                    <?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#angle-down')) ?>
+                "></use>
             </svg>
         </button>
 
@@ -52,7 +54,7 @@
                 <?php if (count($getAppliedCodes)): ?>
                     <?php foreach ($getAppliedCodes as $code): ?>
                         <div>
-                            <?= $code->getCode(); ?>
+                            <?= $block->escapeHtml($code->getCode()) ?>
 
                             <a
                                 class="
@@ -71,7 +73,7 @@
                                 title="<?= $block->escapeHtmlAttr(__('Remove')) ?>"
                                 data-amgiftcard-js="amgiftcard-remove"
                             >
-                                <?= __('Remove') ?>
+                                <?= $block->escapeHtml(__('Remove')) ?>
                             </a>
                         </div>
                     <?php endforeach; ?>
@@ -101,6 +103,9 @@
 
                 <div class="cart-discount__controls">
                     <div class="input cart-discount__content-input">
+                        <?php
+                            $enterGiftCardLabel = __('Enter gift card code');
+                        ?>
                         <label
                             for="coupon_code"
                             class="
@@ -109,7 +114,7 @@
                                 input__label
                             "
                         >
-                            <?= __('Enter gift card code') ?>
+                            <?= $block->escapeHtml($enterGiftCardLabel) ?>
                         </label>
 
                         <input
@@ -118,27 +123,31 @@
                             name="am_giftcard_code"
                             value=""
                             class="input__field cart-discount__content-field"
-                            placeholder="<?= $block->escapeHtmlAttr(__('Enter gift card code')) ?>"
+                            placeholder="<?= $block->escapeHtmlAttr($enterGiftCardLabel) ?>"
                             data-validate="{required:true}"
                         >
                     </div>
-
+                    <?php
+                        $addGiftCartLabel = __('Add Gift Card');
+                    ?>
                     <button
                         class="button cart-discount__content-button"
                         type="submit"
-                        value="<?= $block->escapeHtmlAttr(__('Add Gift Card')) ?>"
+                        value="<?= $block->escapeHtmlAttr($addGiftCartLabel) ?>"
                     >
-                        <?= __('Add Gift Card') ?>
+                        <?= $block->escapeHtml($addGiftCartLabel) ?>
                     </button>
                 </div>
-
+                <?php
+                    $checkGiftCartLabel = __('Check Gift Card status');
+                ?>
                 <button
                     type="button"
                     class="button"
-                    value="<?= $block->escapeHtmlAttr(__('Check Gift Card status')) ?>"
+                    value="<?= $block->escapeHtmlAttr($checkGiftCartLabel) ?>"
                     data-amgiftcard-js="amgiftcard-check-status"
                 >
-                    <?= __('Check Gift Card status') ?>
+                    <?= $block->escapeHtml($checkGiftCartLabel) ?>
                 </button>
 
                 <script>

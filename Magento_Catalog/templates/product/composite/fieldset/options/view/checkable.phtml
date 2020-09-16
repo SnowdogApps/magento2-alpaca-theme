@@ -5,7 +5,7 @@ use Magento\Catalog\Model\Product\Option;
  * @var $block \Magento\Catalog\Block\Product\View\Options\Type\Select\Checkable
  */
 $option = $block->getOption();
-if ($option) : ?>
+if ($option): ?>
     <?php
     $configValue = $block->getPreconfiguredValue($option);
     $optionType = $option->getType();
@@ -17,7 +17,7 @@ if ($option) : ?>
         class="options-list nested"
         id="options-<?= $block->escapeHtmlAttr($option->getId()) ?>-list"
     >
-    <?php if ($optionType === Option::OPTION_TYPE_RADIO && !$option->getIsRequire()) : ?>
+    <?php if ($optionType === Option::OPTION_TYPE_RADIO && !$option->getIsRequire()): ?>
         <div
             class="
                 radio__handler
@@ -40,13 +40,13 @@ if ($option) : ?>
                 for="options_<?= $block->escapeHtmlAttr($option->getId()) ?>"
             >
                 <span class="radio__text">
-                    <?= __('None') ?>
+                    <?= $block->escapeHtml(__('None')) ?>
                 </span>
             </label>
         </div>
     <?php endif; ?>
 
-    <?php foreach ($option->getValues() as $value) : ?>
+    <?php foreach ($option->getValues() as $value): ?>
         <?php
         $checked = '';
         $count++;
@@ -60,7 +60,7 @@ if ($option) : ?>
             $dataSelector .= '[' . $value->getOptionTypeId() . ']';
         }
         ?>
-        <?php if($optionType === Option::OPTION_TYPE_RADIO): ?>
+        <?php if ($optionType === Option::OPTION_TYPE_RADIO): ?>
             <!-- when formatted, don't find proper container with elem.up(div.choice) method -->
             <div class="choice field radio__handler">
                 <input
@@ -85,7 +85,7 @@ if ($option) : ?>
                     <span class="radio__text">
                         <?= $block->escapeHtml($value->getTitle()) ?>
                     </span>
-                    <?php if($block->formatPrice($value)): ?>
+                    <?php if ($block->formatPrice($value)): ?>
                         <span class="product-options__price">
                             <?= /* @noEscape */ $block->formatPrice($value) ?>
                         </span>
@@ -141,7 +141,7 @@ if ($option) : ?>
                     <span class="checkbox__text">
                         <?= $block->escapeHtml($value->getTitle()) ?>
                     </span>
-                    <?php if($block->formatPrice($value)): ?>
+                    <?php if ($block->formatPrice($value)): ?>
                         <span class="product-options__price">
                             <?= /* @noEscape */ $block->formatPrice($value) ?>
                         </span>
