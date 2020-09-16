@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Fixed
+- input and select styles in poduct gift card template (#70690); Affects: gift card PDP
 ### Added
 ### Changed
 ### Removed

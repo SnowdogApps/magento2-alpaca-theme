@@ -27,7 +27,10 @@
                             <select
                                 id="am_giftcard_amount"
                                 name="am_giftcard_amount"
-                                class="required-entry select__field"
+                                class="
+                                    select__field
+                                    required-entry
+                                "
                                 data-amgiftcard-js="amgiftcard-amount"
                                 data-mage-init='{"select": {}}'
                             >
@@ -111,26 +114,28 @@
                 >
                     <?= $block->escapeHtml(__('Choose card type')); ?>
                 </label>
-                <select
-                    id="am_giftcard_type"
-                    name="am_giftcard_type"
-                    class="required-entry"
-                    data-amgiftcard-js="amgiftcard-type"
-                >
-                    <option value="">
-                        <?= $block->escapeHtml(__('-- Please Select --')); ?>
-                    </option>
-                    <?php foreach ($block->getListCardTypes() as $_cardType): ?>
-                        <option
-                            value="<?= $block->escapeHtmlAttr($_cardType['value']); ?>"
-                            <?php if ($block->getDefaultValue('am_giftcard_type') == $_cardType['value']): ?>
-                                selected
-                            <?php endif; ?>
-                        >
-                            <?= $block->escapeHtml($_cardType['label']); ?>
+                <div class="select select--native">
+                    <select
+                        id="am_giftcard_type"
+                        name="am_giftcard_type"
+                        class="select__field required-entry"
+                        data-amgiftcard-js="amgiftcard-type"
+                    >
+                        <option value="">
+                            <?= $block->escapeHtml(__('-- Please Select --')); ?>
                         </option>
-                    <?php endforeach; ?>
-                </select>
+                        <?php foreach ($block->getListCardTypes() as $_cardType): ?>
+                            <option
+                                value="<?= $block->escapeHtmlAttr($_cardType['value']); ?>"
+                                <?php if ($block->getDefaultValue('am_giftcard_type') == $_cardType['value']): ?>
+                                    selected
+                                <?php endif; ?>
+                            >
+                                <?= $block->escapeHtml($_cardType['label']); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
                 <p class="note amgiftcard-delivery-info">
                     <?= $block->escapeHtml(__('Please be aware that printed gift card will be sent to the shipping address you specify during checkout.')); ?>
                 </p>
@@ -138,18 +143,25 @@
         <?php endif; ?>
 
         <?php if ($_images = $block->getImages()): ?>
-            <div data-amgiftcard-js="amgiftcard-images">
+            <div
+                class="margin-bottom-m"
+                data-amgiftcard-js="amgiftcard-images"
+            >
                 <div class="input required">
                     <label
                         for="am_giftcard_image"
-                        class="label"
+                        class="input__label label"
                     >
                         <?= $block->escapeHtml(__('Choose card Image')); ?>
                     </label>
                     <input
                         type="text"
                         name="am_giftcard_image"
-                        class="amgiftcard-image-input required-entry"
+                        class="
+                            input__field
+                            amgiftcard-image-input
+                            required-entry
+                        "
                         value="<?= $block->escapeHtmlAttr($block->getDefaultValue('am_giftcard_image')); ?>"
                         data-amgiftcard-js="amgiftcard-image-input"
                     />
@@ -184,7 +196,7 @@
                         ></span>
                     </div>
                     <div class="amgiftcard-browse-container margin-top-xs">
-                        <div class="file-upload ">
+                        <div class="file-upload">
                             <input
                                 class="amgiftcard-image-input file-upload__input"
                                 type="file"
@@ -212,10 +224,10 @@
                             </label>
                         </div>
                     </div>
-                <p
-                    class="amgiftcard-error"
-                    data-amgiftcard-js="amgiftcard-userimage-error"
-                ></p>
+                    <p
+                        class="amgiftcard-error"
+                        data-amgiftcard-js="amgiftcard-userimage-error"
+                    ></p>
                 <?php endif; ?>
             </div>
         <?php endif; ?>
@@ -223,7 +235,7 @@
             <div class="input required">
                 <label
                     for="am_giftcard_sender_name"
-                    class="label"
+                    class="input__label label"
                 >
                     <?= $block->escapeHtml(__('Sender Name')); ?>
                 </label>
@@ -240,7 +252,7 @@
             <div class="input required">
                 <label
                     for="am_giftcard_sender_email"
-                    class="label"
+                    class="input__label label"
                 >
                     <?= $block->escapeHtml(__('Sender Email')); ?>
                 </label>
@@ -269,7 +281,7 @@
                 >
                     <label
                         for="am_giftcard_recipient_name"
-                        class="label"
+                        class="input__label label"
                     >
                         <?= $block->escapeHtml(__('Recipient Name')); ?>
                     </label>
@@ -292,7 +304,7 @@
             >
                 <label
                     for="am_giftcard_recipient_email"
-                    class="label"
+                    class="input__label label"
                 >
                     <?= $block->escapeHtml(__('Recipient Email')); ?>
                 </label>
@@ -318,18 +330,21 @@
                 >
                     <?= $block->escapeHtml(__('Date of Certificate Delivery')); ?>
                 </label>
-                <input
-                    name="am_giftcard_date_delivery"
-                    id="am_giftcard_date_delivery"
-                    value="<?= $block->escapeHtmlAttr($block->getDefaultValue('am_giftcard_date_delivery')); ?>"
-                    class="
-                        required-entry
-                        datetime-picker
-                        validate-date date
-                    "
-                    type="text"
-                    data-amgiftcard-js="amgiftcard-delivery-date"
-                >
+                <div class="input input--datepicker">
+                    <input
+                        name="am_giftcard_date_delivery"
+                        id="am_giftcard_date_delivery"
+                        value="<?= $block->escapeHtmlAttr($block->getDefaultValue('am_giftcard_date_delivery')); ?>"
+                        class="
+                            required-entry
+                            datetime-picker
+                            validate-date
+                            date
+                        "
+                        type="text"
+                        data-amgiftcard-js="amgiftcard-delivery-date"
+                    >
+                </div>
                 <p
                     class="amgiftcard-delivery-info display-none"
                     data-amgiftcard-js="amgiftcard-delivery-info"
@@ -348,23 +363,25 @@
                 >
                     <?= $block->escapeHtml(__('Select timezone')); ?>
                 </label>
-                <select
-                    class="required-entry"
-                    name="am_giftcard_date_delivery_timezone"
-                    id="am_giftcard_date_delivery_timezone"
-                >
-                    <option value=""></option>
-                    <?php foreach ($block->getListTimezones() as $_timezone): ?>
-                        <option
-                            value="<?= $block->escapeHtmlAttr($_timezone['value']); ?>"
-                            <?php if ($block->getDefaultValue('am_giftcard_date_delivery_timezone') == $_timezone['value']): ?>
-                                selected
-                            <?php endif; ?>
-                        >
-                            <?= $block->escapeHtml($_timezone['label']); ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
+                <div class="select select--native">
+                    <select
+                        class="select__field required-entry"
+                        name="am_giftcard_date_delivery_timezone"
+                        id="am_giftcard_date_delivery_timezone"
+                    >
+                        <option value=""></option>
+                        <?php foreach ($block->getListTimezones() as $_timezone): ?>
+                            <option
+                                value="<?= $block->escapeHtmlAttr($_timezone['value']); ?>"
+                                <?php if ($block->getDefaultValue('am_giftcard_date_delivery_timezone') == $_timezone['value']): ?>
+                                    selected
+                                <?php endif; ?>
+                            >
+                                <?= $block->escapeHtml($_timezone['label']); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
             </div>
         <?php endif; ?>
 
@@ -372,7 +389,7 @@
             <div class="input">
                 <label
                     for="am_giftcard_message"
-                    class="label"
+                    class="input__label label"
                 >
                     <?= $block->escapeHtml(__('Message')); ?>
                 </label>
