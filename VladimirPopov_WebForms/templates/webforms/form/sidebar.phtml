@@ -25,7 +25,7 @@
         ?>
             <meta http-equiv="refresh" content="0;url=<?= $block->escapeUrl($this->getRegistry()->registry('redirect_url')) ?>">
             <script type="text/javascript">
-                window.location = '<?= $block->escapeUrl($this->getRegistry()->registry('redirect_url')) ?>';
+                window.location = '<?= $block->escapeJs($block->escapeUrl($this->getRegistry()->registry('redirect_url'))) ?>';
             </script>
         <?php
         }
@@ -54,7 +54,7 @@
             if ($this->getSuccess()) {
             ?>
                 <div class="webforms-success-text">
-                    <?= $block->escapeHtml($this->getSuccessText()) ?>
+                    <?= /* @noEscape */ $this->getSuccessText() ?>
                 </div>
             <?php
             }
@@ -66,7 +66,7 @@
                 >
                     <?php if ($this->getDescription()) { ?>
                         <div class="webforms-description-text">
-                            <?= $block->escapeHtml($this->getDescription()); ?>
+                            <?= /* @noEscape */ $this->getDescription(); ?>
                         </div>
                     <?php } ?>
 
@@ -80,7 +80,7 @@
 
                     <form
                         class="form"
-                        action="<?= $block->escapeHtmlAttr($this->getFormAction()) ?>"
+                        action="<?= $block->escapeUrl($this->getFormAction()) ?>"
                         method="post"
                         name="webform_<?= $block->escapeHtmlAttr($_uid) ?>"
                         id="webform_<?= $block->escapeHtmlAttr($_uid) ?>"
@@ -197,7 +197,7 @@
                                                     class="validation-advice"
                                                     id="advice-required-entry-field<?= $block->escapeHtmlAttr($this->getFieldUid($field->getId())) ?>"
                                                 >
-                                                    <?= $block->escapeHtml($field->getValidationAdvice()) ?>
+                                                    <?= /* @noEscape */ $field->getValidationAdvice() ?>
                                                 </div>
                                             <?php } ?>
 

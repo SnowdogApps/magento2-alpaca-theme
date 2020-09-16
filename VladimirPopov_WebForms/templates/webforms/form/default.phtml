@@ -4,10 +4,10 @@
 if ($this->getRegistry()->registry('redirect_url')): ?>
     <meta
         http-equiv="refresh"
-        content="0;url=<?= $block->escapeHtmlAttr($this->getRegistry()->registry('redirect_url')) ?>"
+        content="0;url=<?= $block->escapeUrl($this->getRegistry()->registry('redirect_url')) ?>"
     >
     <script type="text/javascript">
-        window.location = '<?= $block->escapeJs($this->getRegistry()->registry('redirect_url')) ?>';
+        window.location = '<?= $block->escapeUrl($this->getRegistry()->registry('redirect_url')) ?>';
     </script>
 <?php endif; ?>
 
@@ -21,7 +21,7 @@ if (!empty($tmpData['field']) && is_array($tmpData['field'])) {
     }
 }
 if ($this->getForm()->getIsActive() == \VladimirPopov\WebForms\Model\Form::STATUS_DISABLED || !$this->isDirectAvailable()): ?>
-    <?= $block->escapeHtml($this->getNotAvailableMessage()); ?>
+    <?= /* @noEscape */ $this->getNotAvailableMessage(); ?>
 <?php else: ?>
     <?php if ($this->isAjax()): ?>
         <div
@@ -37,7 +37,7 @@ if ($this->getForm()->getIsActive() == \VladimirPopov\WebForms\Model\Form::STATU
 
     <?php if ($this->getSuccess()): ?>
         <div class="webforms-success-text">
-            <?= $block->escapeHtml($this->getSuccessText()) ?>
+            <?= /* @noEscape */ $this->getSuccessText() ?>
         </div>
     <?php endif; ?>
     <?php if (!$this->getSuccess() || $this->getData('after_submission_form')): ?>
@@ -64,7 +64,7 @@ if ($this->getForm()->getIsActive() == \VladimirPopov\WebForms\Model\Form::STATU
         >
             <?php if ($this->getDescription()): ?>
                 <div id="<?= $block->escapeHtmlAttr($_uid) ?>form_description">
-                    <?= $block->escapeHtml($this->getDescription()); ?>
+                    <?= /* @noEscape */ $this->getDescription(); ?>
                 </div>
             <?php endif; ?>
 
@@ -94,7 +94,7 @@ if ($this->getForm()->getIsActive() == \VladimirPopov\WebForms\Model\Form::STATU
                 >
                     <form
                         class="form"
-                        action="<?= $block->escapeHtmlAttr($this->getFormAction()) ?>"
+                        action="<?= $block->escapeUrl($this->getFormAction()) ?>"
                         method="post"
                         name="webform_<?= $block->escapeHtmlAttr($_uid) ?>"
                         id="webform_<?= $block->escapeHtmlAttr($_uid) ?>"
