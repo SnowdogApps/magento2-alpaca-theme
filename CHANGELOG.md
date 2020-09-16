@@ -19,6 +19,7 @@ All notable changes to this project will be documented in this file.
 - sidebar 'Compare' link classes (#68745)
 - bundle product price template and styling (#68745)
 - make compare__product div take up 100% height of td & space items between (#68745)
+- escaping php variables in templates (#70322)
 ### Removed
 
 
