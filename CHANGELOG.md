@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 - minimum advertised price on grid and product page (#70656); Info: @import '../Magento_Msrp/styles/module'; should be added to /styles/theme.scss
 ### Changed
+- recaptcha badge position on mobile PDP (#70725); Affects: PDP
 ### Removed
 
 
