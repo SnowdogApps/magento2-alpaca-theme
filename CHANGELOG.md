@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Fixed
+- issue with arrows looking wrong if gallery vertical/horizontal nav breakpoints are changed via configuration (#71113); Affects: gallery navigation
 - input and select styles in poduct gift card template (#70690); Affects: gift card PDP
 - review snippets (#69786)
 ### Added
