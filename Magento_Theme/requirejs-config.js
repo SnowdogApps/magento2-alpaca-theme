@@ -20,7 +20,8 @@ var config = {
       "scrollTop"        : "Magento_Theme/js/scroll-top.babel",
       "skipNav"          : "Magento_Theme/js/skip-nav.babel",
       "slider"           : "Magento_Theme/js/slider.babel",
-      "tab"              : "Magento_Theme/js/tab.babel"
+      "tab"              : "Magento_Theme/js/tab.babel",
+      "tooltip"          : "Magento_Theme/js/tooltip.babel"
     }
   },
   config: {

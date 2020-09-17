@@ -1,7 +1,6 @@
 @import 'tooltip-variables';
 
 .tooltip {
-    position: relative;
     display: flex;
     justify-content: center;
 
@@ -32,6 +31,7 @@
         z-index: $tooltip__content-wrapper-z-index;
         display: none;
         width: $tooltip__content-wrapper-width;
+        min-width: $tooltip__content-wrapper-min-width;
         height: auto;
         padding: $spacer--medium $spacer--large $spacer--large;
         background: $tooltip__content-background;
@@ -46,9 +46,18 @@
         }
 
         @include mq($screen-m) {
+            min-width: $tooltip__content-wrapper-min-width\@medium;
+        }
+
+        @include mq($screen-l) {
             left: 50%;
+            min-width: $tooltip__content-wrapper-min-width\@large;
             transform: translate(-50%, -100%);
         }
+    }
+
+    &__content {
+        font-weight: $tooltip__content-font-weight;
     }
 
     &__heading {
@@ -75,6 +84,21 @@
         top: $spacer--small;
         margin: 0;
         background-color: $tooltip__close-bg-color;
+
+        &:before {
+            display: none;
+        }
+
+        &:hover,
+        &.focus-visible {
+            &:before {
+                display: none;
+            }
+
+            .icon {
+                fill: $tooltip__close-icon-fill;
+            }
+        }
 
         .icon {
             fill: $tooltip__close-icon-fill;
