@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 - input and select styles in poduct gift card template (#70690); Affects: gift card PDP
 - review snippets (#69786)
+- amasty gdpr module error on checkout page (#71078)
 ### Added
 - minimum advertised price on grid and product page (#70656); Info: @import '../Magento_Msrp/styles/module'; should be added to /styles/theme.scss
 ### Changed
