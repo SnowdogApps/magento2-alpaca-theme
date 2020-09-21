@@ -5,14 +5,22 @@
  * @var \Blackbird\ContentManager\Block\ContentList $block
  */
 ?>
+
 <?php
 $collection = $block->getCollection();
 $sliderClassName = $block->getSliderClass();
 $sliderWrapperClass = $block->getWrapperClass();
 $sliderTitleClassName = $block->getSliderTitleClass();
 
-$sliderPictureBlock = $this->getSliderPictureBlock();
-$sliderBlock = $this->getSliderBlock();
+$sliderPictureBlock = $this->getLayout()
+    ->createBlock("Magento\Framework\View\Element\Template")
+    ->setTemplate("Magento_Theme::html/picture.phtml");
+$sliderBlockBefore = $this->getLayout()
+    ->createBlock("Magento\Framework\View\Element\Template")
+    ->setTemplate("Magento_Theme::html/slider.phtml");
+$sliderBlockAfter = $this->getLayout()
+    ->createBlock("Magento\Framework\View\Element\Template")
+    ->setTemplate("Magento_Theme::html/slider.phtml");
 
 $picturePrefix = $this->getPicturePrefix();
 $sliderPrefix = $this->getSliderPrefix();
@@ -95,7 +103,7 @@ $sliderItemClass = 'slider__item';
     ?>
 
     <?php
-    $block->getChildBlock($sliderBlock)->setData([
+    $sliderBlockBefore->setData([
         'slider_html'       => 'before-slides',
         'slider_class'      => $sliderClassName,
         'wrapper_class'     => $sliderWrapperClass,
@@ -116,7 +124,7 @@ $sliderItemClass = 'slider__item';
         'responsive_config' => $sliderResponsiveConfig
     ]);
     ?>
-    <?= $block->getChildHtml($sliderBlock, false); ?>
+    <?= $sliderBlockBefore->toHtml(); ?>
 
     <?php if ($bannersArray): ?>
         <?php foreach ($bannersArray as $banner): ?>
@@ -124,7 +132,7 @@ $sliderItemClass = 'slider__item';
             $escapedBannerUrl = $block->escapeUrl($banner['url']);
             $bannerUrlTarget = ($banner['url_target'] == '_blank') ? '_blank' : '_self';
 
-            $block->getChildBlock($sliderPictureBlock)->setData([
+            $sliderPictureBlock->setData([
                 'picture_class' => 'banner__image',
                 'picture_full_url' => true,
                 'img_default' => $banner['default'],
@@ -141,23 +149,23 @@ $sliderItemClass = 'slider__item';
                 'picture_alt' => $banner['alt']
             ]);
             ?>
-        <div class="<?= $block->escapeHtmlAttr($sliderItemClass) ?>">
-            <<?= $escapedBannerUrl ? 'a href="' . $escapedBannerUrl . '" target="' . $bannerUrlTarget . '"' : 'div'; ?>
-            class="banner"
-            >
-            <?= $block->getChildHtml($sliderPictureBlock, false); ?>
-            </<?= $escapedBannerUrl ? 'a' : 'div'; ?>>
+            <div class="<?= $block->escapeHtmlAttr($sliderItemClass) ?>">
+                <<?= $escapedBannerUrl ? 'a href="' . $escapedBannerUrl . '" target="' . $bannerUrlTarget . '"' : 'div'; ?>
+                class="banner"
+                >
+                    <?= $sliderPictureBlock->toHtml(); ?>
+                </<?= $escapedBannerUrl ? 'a' : 'div'; ?>>
             </div>
         <?php endforeach; ?>
     <?php endif; ?>
 
     <?php
-    $block->getChildBlock($sliderBlock)->setData([
+    $sliderBlockAfter->setData([
         'slider_html'   => 'after-slides',
         'wrapper_class' => $sliderWrapperClass,
         'content_after' => $sliderContentAfter
     ]);
     ?>
 
-    <?= $block->getChildHtml($sliderBlock, false); ?>
+    <?= $sliderBlockAfter->toHtml(); ?>
 <?php endforeach; ?>
