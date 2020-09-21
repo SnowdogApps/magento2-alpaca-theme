@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Fixed
+### Added
+### Changed
+### Removed
+
+## [Released]
+
+## [2.9.0] - 2020-09-21
+### Fixed
 - input and select styles in poduct gift card template (#70690); Affects: gift card PDP
 - review snippets (#69786)
 - amasty gdpr module error on checkout page (#71078)
@@ -12,10 +20,6 @@ All notable changes to this project will be documented in this file.
 - minimum advertised price on grid and product page (#70656); Info: @import '../Magento_Msrp/styles/module'; should be added to /styles/theme.scss
 ### Changed
 - recaptcha badge position on mobile PDP (#70725); Affects: PDP
-### Removed
-
-
-## [Released]
 
 ## [2.8.0] - 2020-09-15
 ### Fixed
