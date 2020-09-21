@@ -1,11 +1,11 @@
 <?php
-    $messageHelper = $this->helper('Magento\GiftMessage\Helper\Message');
+    $messageHelper = $this->helper(\Magento\GiftMessage\Helper\Message::class);
 ?>
 
 <div class="dashboard-table">
     <div class="dashboard-table__header">
         <h2 class="heading dashboard-table__title">
-            <?= __('Items Ordered') ?>
+            <?= $block->escapeHtml(__('Items Ordered')) ?>
         </h2>
 
         <?= $block->getChildHtml('order_actions') ?>
@@ -32,23 +32,23 @@
 
                 <tr>
                     <th>
-                        <?= __('Product Name') ?>
+                        <?= $block->escapeHtml(__('Product Name')) ?>
                     </th>
 
                     <th>
-                        <?= __('SKU') ?>
+                        <?= $block->escapeHtml(__('SKU')) ?>
                     </th>
 
                     <th>
-                        <?= __('Price') ?>
+                        <?= $block->escapeHtml(__('Price')) ?>
                     </th>
 
                     <th>
-                        <?= __('Qty') ?>
+                        <?= $block->escapeHtml(__('Qty')) ?>
                     </th>
 
                     <th>
-                        <?= __('Subtotal') ?>
+                        <?= $block->escapeHtml(__('Subtotal')) ?>
                     </th>
                 </tr>
             </thead>
@@ -78,12 +78,12 @@
                             >
                                 <a
                                     href="#"
-                                    id="order-item-gift-message-link-<?= $giftId ?>"
+                                    id="order-item-gift-message-link-<?= $block->escapeHtmlAttr($giftId) ?>"
                                     class="action show"
-                                    aria-controls="order-item-gift-message-<?= $giftId ?>"
-                                    data-item-id="<?= $giftId ?>"
+                                    aria-controls="order-item-gift-message-<?= $block->escapeHtmlAttr($giftId) ?>"
+                                    data-item-id="<?= $block->escapeHtmlAttr($giftId) ?>"
                                 >
-                                   <?= __('Gift Message') ?>
+                                   <?= $block->escapeHtml(__('Gift Message')) ?>
                                 </a>
 
                                 <?php
@@ -93,7 +93,7 @@
 
                                 <div
                                     class="order-gift-message"
-                                    id="order-item-gift-message-<?= $giftId ?>"
+                                    id="order-item-gift-message-<?= $block->escapeHtmlAttr($giftId) ?>"
                                     role="region"
                                     aria-expanded="false"
                                     tabindex="-1"
@@ -101,16 +101,16 @@
                                     <a
                                         href="#"
                                         title="<?= $block->escapeHtmlAttr(__('Close')) ?>"
-                                        aria-controls="order-item-gift-message-<?= $giftId ?>"
-                                        data-item-id="<?= $giftId ?>"
+                                        aria-controls="order-item-gift-message-<?= $block->escapeHtmlAttr($giftId) ?>"
+                                        data-item-id="<?= $block->escapeHtmlAttr($giftId) ?>"
                                         class="link">
-                                        <?= __('Close') ?>
+                                        <?= $block->escapeHtml(__('Close')) ?>
                                     </a>
 
                                     <dl class="item-options">
                                         <dt class="item-sender">
                                             <strong class="label">
-                                                <?= __('From') ?>
+                                                <?= $block->escapeHtml(__('From')) ?>
                                             </strong>
 
                                             <?= $block->escapeHtml($giftMessage->getSender()) ?>
@@ -118,14 +118,14 @@
 
                                         <dt class="item-recipient">
                                             <strong class="label">
-                                                <?= __('To') ?>
+                                                <?= $block->escapeHtml(__('To')) ?>
                                             </strong>
 
                                             <?= $block->escapeHtml($giftMessage->getRecipient()) ?>
                                         </dt>
 
                                         <dd class="item-message">
-                                            <?= $escapeGiftMessage ?>
+                                            <?= /* @noEscape */ $messageHelper->getEscapedGiftMessage($item) ?>
                                         </dd>
                                     </dl>
                                 </div>

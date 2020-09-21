@@ -1,0 +1,48 @@
+<a
+    class="
+        link
+        dashboard-table__link
+        action-menu-item
+    "
+    if="$col.isSingle($row()._rowIndex)"
+    repeat="foreach: $col.getVisibleActions($row()._rowIndex), item: '$action'"
+    click="$col.getActionHandler($action())"
+    text="$action().label"
+    attr="target: $col.getTarget($action()), href: $action().href"
+/>
+
+<div
+    class="action-select-wrap"
+    if="$col.isMultiple($row()._rowIndex)"
+    collapsible
+>
+    <button
+        class="
+            button
+            button--secondary
+            action-select
+        "
+        translate="'Select'"
+        toggleCollapsible
+    />
+    <ul
+        class="list action-menu"
+        css="_active: $collapsible.opened"
+    >
+        <li
+            class="list__item"
+            repeat="foreach: $col.getVisibleActions($row()._rowIndex), item: '$action'"
+        >
+            <a
+                class="
+                    link
+                    dashboard-table__link
+                    action-menu-item
+                "
+                click="$col.getActionHandler($action())"
+                text="$action().label"
+                attr="target: $col.getTarget($action()), href: $action().href, 'data-action': 'item-' + $action().index"
+            />
+        </li>
+    </ul>
+</div>

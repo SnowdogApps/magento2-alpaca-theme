@@ -28,9 +28,44 @@
             margin: $slider__heading-margin--products;
         }
 
+        .slider__slides {
+            display: flex;
+
+            &.slick-initialized {
+                display: block;
+            }
+        }
+
         .slider__item {
             padding: $slider__item-padding--products;
-            height: auto;
+
+            &:nth-child(n + 2) {
+                display: flex;
+            }
+
+            &:nth-child(n + #{$slider__hidden-item-number--products}) {
+                display: none;
+
+                @include mq($screen-m) {
+                    display: flex;
+                }
+            }
+
+            &:nth-child(n + #{$slider__hidden-item-number\@medium--products}) {
+                @include mq($screen-m) {
+                    display: none;
+                }
+
+                @include mq($screen-l) {
+                    display: flex;
+                }
+            }
+
+            &:nth-child(n + #{$slider__hidden-item-number\@large--products}) {
+                @include mq($screen-l) {
+                    display: none;
+                }
+            }
         }
     }
 
@@ -94,6 +129,37 @@
                 overflow: hidden;
             }
         }
+
+        .slider__slides {
+            display: flex;
+            justify-content: center;
+
+            &.slick-initialized {
+                display: block;
+            }
+        }
+
+        .slider__item {
+            max-width: $slider__item-width--brands;
+
+            @include mq($screen-m) {
+                max-width: $slider__item-width\@medium--brands;
+            }
+
+            @include mq($screen-l) {
+                max-width: $slider__item-width\@large--brands;
+            }
+
+            @include mq($max-content-width) {
+                max-width: $slider__item-width\@max-width--brands;
+            }
+        }
+    }
+
+    &--nested {
+        .slider__slides {
+            display: block;
+        }
     }
 
     &__handler {
@@ -115,7 +181,15 @@
 
     &__item {
         height: auto;
-        opacity: 0;
+        display: flex;
+
+        &:nth-child(n + 2) {
+            display: none;
+
+            .slick-initialized & {
+                display: flex;
+            }
+        }
     }
 
     &__navigation {
@@ -200,6 +274,10 @@
                     top: 50%;
                     margin-top: -($slider__dot-size / 2);
                 }
+            }
+
+            &:only-child {
+                display: none;
             }
         }
 
