@@ -4,8 +4,9 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Fixed
+- jumping images: in products grid on catalog, in widgets for cms banners images (#69133); Affects: cms blocks width images (homepage), catalog grid and list, products widgets, blog, sliders
 ### Added
-- adjust sliders loading time + add slider widget template (#65842)
+- adjust sliders loading time + add slider widget template (#65842); Affects
 ### Changed
 ### Removed
 
