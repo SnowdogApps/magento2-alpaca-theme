@@ -7,6 +7,14 @@ define([], function () {
     function changeActiveTab() {
       const element = document.getElementById(config.reviewId);
 
+      if (config.triggerClickSelector) {
+        const clickSelector = document.querySelector(config.triggerClickSelector);
+
+        if (clickSelector) {
+          clickSelector.click();
+        }
+      }
+
       if (element) {
         const parentElement = findAncestor(element, 'tab__content');
         setActiveFormTab(parentElement, parentElement.dataset.content);
