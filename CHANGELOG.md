@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Fixed
+- amasty gdpr cookie modal on checkout (#71134)
 ### Added
 - adjust sliders loading time + add slider widget template (#65842)
 ### Changed
