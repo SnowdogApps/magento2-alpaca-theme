@@ -10,31 +10,33 @@
 // phpcs:disable Magento2.Security.LanguageConstruct.DirectOutput
 ?>
 <?php
+    /** @var \Snowdog\CategoryAttributes\ViewModel\ImageSize $categoryImageViewModel */
+    $categoryImageViewModel = $block->getCategoryImageViewModel();
     $_helper = $this->helper(Magento\Catalog\Helper\Output::class);
     $_category = $block->getCurrentCategory();
     $_imgHtml = '';
-    // TODO Get height and width of category image
-    $imgHeight = 230;
-    $imgWidth = 400;
+    $imgSize = $categoryImageViewModel->get($_category);
+    $imgWidth = $imgSize['width'];
+    $imgHeight = $imgSize['height'];
     $aspectRatio = ($imgHeight / $imgWidth) * 100;
     if ($_imgUrl = $_category->getImageUrl()) {
         $_imgHtml = '
-            <div 
+            <div
                 class="
-                    category-image 
+                    category-image
                     ratio-container
                 "
                 style="padding-bottom:' . $aspectRatio . '%"
             >
-                <img 
-                    src="' . $block->escapeUrl($_imgUrl) . '" 
-                    alt="' . $block->escapeHtmlAttr($_category->getName()) . '" 
-                    title="' . $block->escapeHtmlAttr($_category->getName()) . '" 
+                <img
+                    src="' . $block->escapeUrl($_imgUrl) . '"
+                    alt="' . $block->escapeHtmlAttr($_category->getName()) . '"
+                    title="' . $block->escapeHtmlAttr($_category->getName()) . '"
                     class="
-                        image 
+                        image
                         lazyload
                         ratio-image
-                    " 
+                    "
                 />
             </div>
         ';
