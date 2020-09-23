@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Fixed
-- a translate function `__()` syntax error in whishlist item column cart template (#71267)
+- a translate function `__()` syntax error in wishlist item column cart template (#71267)
 ### Added
 - adjust sliders loading time + add slider widget template (#65842)
 ### Changed
