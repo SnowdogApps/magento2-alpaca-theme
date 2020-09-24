@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 ### Added
 - adjust sliders loading time + add slider widget template (#65842)
+- downloadable product PDP (#70550)
 ### Changed
 ### Removed
 
