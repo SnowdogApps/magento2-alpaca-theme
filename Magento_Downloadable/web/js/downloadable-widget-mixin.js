@@ -19,11 +19,13 @@ define([
 
         this.element.find(this.options.allElements).on('change', function () {
           if (this.checked) {
+            // CHANGED: selector
             $('label[for="' + this.id + '"]').text($(this).attr('data-checked'));
             self.element.find(self.options.linkElement + ':not(:checked)').each(function () {
               $(this).trigger('click');
             });
           } else {
+            // CHANGED: selector
             $('[for="' + this.id + '"]').text($(this).attr('data-notchecked'));
             self.element.find(self.options.linkElement + ':checked').each(function () {
               $(this).trigger('click');
@@ -36,8 +38,10 @@ define([
       reloadAllCheckText: function () {
         var allChecked = true,
           allElementsCheck = $(this.options.allElements),
+          // CHANGED: selector
           allElementsLabel = $('label[for="' + allElementsCheck.attr('id') + '"]');
 
+        // CHANGED: selector
         this.element.find(this.options.linkElement).each(function () {
           if (!this.checked) {
             allChecked = false;
