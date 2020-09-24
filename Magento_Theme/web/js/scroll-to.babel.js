@@ -51,7 +51,7 @@ define([], function () {
       }
 
       if (this.config.event.trigger) {
-        this.triggerEvent(event);
+        this.triggerEvent();
       }
 
       const target = document.querySelector(this.config.selector);
