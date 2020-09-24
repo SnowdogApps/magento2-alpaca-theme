@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 ### Added
 - adjust sliders loading time + add slider widget template (#65842)
+- scroll-to.js file and added it for reviews on product page (#71248); Affects: Reviews buttons on PDP
 ### Changed
 ### Removed
 
