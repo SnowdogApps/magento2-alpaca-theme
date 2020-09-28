@@ -23,14 +23,8 @@
                 <?= !$_linksPurchasedSeparately ? 'downloads-no-separately' : '' ?>
             "
         >
-            <label
-                class="
-                    heading
-                    heading--fourth-level
-                    heading--font-secondary
-                "
-            >
-                <?= $block->escapeHtml($block->getLinksTitle()) ?>
+            <label class="product-view__short-description-heading">
+                <?= $block->escapeHtml($block->getLinksTitle() . ':') ?>
             </label>
             <div
                 class="control"
@@ -98,27 +92,27 @@
                             "
                             for="links_<?= $block->escapeHtmlAttr($_link->getId()) ?>"
                         >
-                            <span class="margin-right-xs">
+                            <span class="checkbox__text">
                                 <?= $block->escapeHtml($_link->getTitle()) ?>
+
+                                <?php if ($_link->getSampleFile() || $_link->getSampleUrl()) : ?>
+                                    <a
+                                        class="
+                                            link
+                                            link--invert
+                                            sample
+                                        "
+                                        href="<?= $block->escapeUrl($block->getLinkSampleUrl($_link)) ?>"
+                                        <?= $block->getIsOpenInNewWindow() ? 'target="_blank"' : '' ?>
+                                    >
+                                        <?= $block->escapeHtml(__('Sample')) ?>
+                                    </a>
+                                <?php endif; ?>
+
+                                <?php if ($_linksPurchasedSeparately) : ?>
+                                    <?= /* @noEscape */ $block->getLinkPrice($_link) ?>
+                                <?php endif; ?>
                             </span>
-                            <?php if ($_link->getSampleFile() || $_link->getSampleUrl()) : ?>
-                                <a
-                                    class="
-                                        link
-                                        link--invert
-                                        sample
-                                        link
-                                        margin-right-xs
-                                    "
-                                    href="<?= $block->escapeUrl($block->getLinkSampleUrl($_link)) ?>"
-                                    <?= $block->getIsOpenInNewWindow() ? 'target="_blank"' : '' ?>
-                                >
-                                    <?= $block->escapeHtml(__('Sample')) ?>
-                                </a>
-                            <?php endif; ?>
-                            <?php if ($_linksPurchasedSeparately) : ?>
-                                <?= /* @noEscape */ $block->getLinkPrice($_link) ?>
-                            <?php endif; ?>
                         </label>
                     </div>
                 <?php endforeach; ?>
@@ -146,7 +140,9 @@
                             "
                             for="links_all"
                         >
-                            <?= $block->escapeHtml(__('Select all')) ?>
+                            <span class="checkbox__text">
+                                <?= $block->escapeHtml(__('Select all')) ?>
+                            </span>
                         </label>
                     </div>
                 <?php endif; ?>
