@@ -1,5 +1,5 @@
 <?php
-use Magento\Catalog\Model\Product\ProductList\Toolbar;
+/** @var $block \Magento\Catalog\Block\Product\ProductList\Toolbar */
 ?>
 <?php if ($block->isEnabledViewSwitcher()): ?>
     <div class="toolbar__mode">
@@ -12,11 +12,11 @@ use Magento\Catalog\Model\Product\ProductList\Toolbar;
                 <button
                     type="button"
                     class="toolbar__mode-button"
-                    data-value="<?= $_modeName ?>"
-                    title="<?= $_label ?>"
-                    aria-label="<?= $_label ?>"
+                    data-value="<?= $block->escapeHtmlAttr($_modeName) ?>"
+                    title="<?= $block->escapeHtmlAttr($_label) ?>"
+                    aria-label="<?= $block->escapeHtmlAttr($_label) ?>"
                     <?php if (!$block->isModeActive($_code)): ?>
-                        id="mode-<?= $_modeName ?>"
+                        id="mode-<?= $block->escapeHtmlAttr($_modeName) ?>"
                         data-role="mode-switcher"
                     <?php endif ?>
                 >
@@ -27,7 +27,7 @@ use Magento\Catalog\Model\Product\ProductList\Toolbar;
                             <?= ($block->isModeActive($_code)) ? 'toolbar__mode-icon--active' : '' ?>
                         "
                     >
-                        <use xlink:href="<?= $block->getViewFileUrl($_modeIconUrl) ?>"></use>
+                        <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl($_modeIconUrl)) ?>"></use>
                     </svg>
                 </button>
             <?php endforeach ?>

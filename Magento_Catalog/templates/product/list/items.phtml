@@ -1,5 +1,9 @@
 <?php
-// @codingStandardsIgnoreFile
+use Magento\Catalog\ViewModel\Product\Listing\PreparePostData;
+use Magento\Framework\App\ActionInterface;
+
+// phpcs:disable Magento2.Templates.ThisInTemplate.FoundThis
+// phpcs:disable Generic.WhiteSpace.ScopeIndent.Incorrect
 
 /* @var $block \Magento\Catalog\Block\Product\AbstractProduct */
 ?>
@@ -143,30 +147,31 @@ switch ($type = $block->getType()) {
     case 'other':
     break;
 }
+$_item = null;
 ?>
 
 <?php if ($exist): ?>
     <?php if ($type == 'related' || $type == 'upsell'): ?>
         <?php if ($type == 'related'): ?>
             <div
-                class="product-view__slider <?= $class ?>"
-                data-limit="<?= $limit ?>"
-                data-shuffle="<?= $shuffle ?>"
+                class="product-view__slider <?= $block->escapeHtmlAttr($class) ?>"
+                data-limit="<?= $block->escapeHtmlAttr($limit) ?>"
+                data-shuffle="<?= /* @noEscape */ $shuffle ?>"
             >
         <?php else: ?>
             <div
-                class="product-view__slider <?= $class ?>"
+                class="product-view__slider <?= $block->escapeHtmlAttr($class) ?>"
                 data-mage-init='{ "upsellProducts": {} }'
-                data-limit="<?= $limit ?>"
-                data-shuffle="<?= $shuffle ?>"
+                data-limit="<?= $block->escapeHtmlAttr($limit) ?>"
+                data-shuffle="<?= /* @noEscape */ $shuffle ?>"
             >
         <?php endif; ?>
     <?php else: ?>
-        <div class="product-view__slider <?= $class ?>">
+        <div class="product-view__slider <?= $block->escapeHtmlAttr($class) ?>">
     <?php endif; ?>
 
-        <h4 id="block-<?= $class ?>-heading">
-            <?= $title ?>
+        <h4 id="block-<?= $block->escapeHtmlAttr($class) ?>-heading">
+            <?= $block->escapeHtml($title) ?>
         </h4>
 
         <div
@@ -185,10 +190,10 @@ switch ($type = $block->getType()) {
                         <?= ($iterator++ == 1) ? '<div class="slider__item product-view__slide-item active">' : '</div><div class="slider__item product-view__slide-item">' ?>
 
                         <div class="catalog-grid-item product-view__grid-item">
-                            <?= '<!-- ' . $image . '-->' ?>
+                            <?= /* @noEscape */ '<!-- ' . $image . '-->' ?>
 
                             <a
-                                href="<?= $block->getProductUrl($_item) ?>"
+                                href="<?= $block->escapeUrl($block->getProductUrl($_item)) ?>"
                                 class="catalog-grid-item__link"
                             >
                                 <div class="catalog-grid-item__image-wrapper">
@@ -199,7 +204,7 @@ switch ($type = $block->getType()) {
                             <section class="catalog-grid-item__details">
                                 <h2 class="catalog-grid-item__name">
                                     <a
-                                        href="<?= $block->getProductUrl($_item) ?>"
+                                        href="<?= $block->escapeUrl($block->getProductUrl($_item)) ?>"
                                         class="catalog-grid-item__name-link"
                                         title="<?= $block->escapeHtml($_item->getName()) ?>"
                                     >
@@ -207,7 +212,7 @@ switch ($type = $block->getType()) {
                                     </a>
                                 </h2>
                                 <div class="catalog-grid-item__price">
-                                    <?= $block->getProductPrice($_item) ?>
+                                    <?= /* @noEscape */ $block->getProductPrice($_item) ?>
                                 </div>
                                 <?php if ($templateType): ?>
                                     <?= $block->getReviewsSummaryHtml($_item, $templateType) ?>
@@ -217,7 +222,7 @@ switch ($type = $block->getType()) {
                                         <?php if ($showCart): ?>
                                             <?php if ($_item->isSaleable()): ?>
                                                 <div class="catalog-grid-item__primary-form">
-                                                    <?php if ($_item->getTypeInstance()->hasRequiredOptions($_item)): ?>
+                                                    <?php if (!$_item->getTypeInstance()->isPossibleBuyFromList($_item)): ?>
                                                         <button
                                                             class="
                                                                 button
@@ -231,52 +236,80 @@ switch ($type = $block->getType()) {
                                                                 }
                                                             }'
                                                             type="button"
-                                                            title="<?= __('Add to Cart') ?>"
+                                                            title="<?= $block->escapeHtmlAttr(__('Add to Cart')) ?>"
                                                             data-testid="add-to-cart-button"
                                                         >
                                                             <span class="catalog-grid-item__cart-text">
-                                                                <?= __('Add to Cart') ?>
+                                                                <?= $block->escapeHtml(__('Add to Cart')) ?>
                                                             </span>
                                                             <svg class="icon catalog-grid-item__cart-icon">
-                                                                <title><?= __('Add to Cart') ?></title>
-                                                                <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#shopping-cart') ?>"></use>
+                                                                <title><?= $block->escapeHtml(__('Add to Cart')) ?></title>
+                                                                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#shopping-cart')) ?>"></use>
                                                             </svg>
                                                         </button>
                                                     <?php else: ?>
                                                         <?php
-                                                        $postDataHelper = $this->helper('Magento\Framework\Data\Helper\PostHelper');
-                                                        $postData = $postDataHelper->getPostData($block->getAddToCartUrl($_item), ['product' => $_item->getEntityId()])
+                                                            /** @var $viewModel PreparePostData */
+                                                            $viewModel = $block->getViewModel();
+                                                            $postArray = $viewModel->getPostData(
+                                                                $block->escapeUrl($block->getAddToCartUrl($_item)),
+                                                                ['product' => $_item->getEntityId()]
+                                                            );
+                                                            $value = $postArray['data'][ActionInterface::PARAM_NAME_URL_ENCODED];
                                                         ?>
-                                                        <button
-                                                            class="
-                                                                button
-                                                                button--secondary
-                                                                catalog-grid-item__primary-action
-                                                                tocart
-                                                            "
-                                                            data-post='<?= $postData ?>'
-                                                            type="button"
-                                                            title="<?= __('Add to Cart') ?>"
-                                                            data-testid="add-to-cart-button"
+                                                        <form 
+                                                            data-role="tocart-form"
+                                                            data-product-sku="<?= $block->escapeHtmlAttr($_item->getSku()) ?>"
+                                                            action="<?= $block->escapeUrl($block->getAddToCartUrl($_item)) ?>"
+                                                            method="post"
                                                         >
-                                                            <span class="catalog-grid-item__cart-text">
-                                                                <?= __('Add to Cart') ?>
-                                                            </span>
-                                                            <svg class="icon catalog-grid-item__cart-icon">
-                                                                <title><?= __('Add to Cart') ?></title>
-                                                                <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#shopping-cart') ?>"></use>
-                                                            </svg>
-                                                        </button>
+                                                            <input 
+                                                                type="hidden" 
+                                                                name="product"
+                                                                value="<?= /* @noEscape */ (int)$_item->getEntityId() ?>"
+                                                            >
+                                                            <input 
+                                                                type="hidden"
+                                                                name="<?= /* @noEscape */ ActionInterface::PARAM_NAME_URL_ENCODED?>"
+                                                                value="<?= /* @noEscape */ $value ?>"
+                                                            >
+                                                            <?= $block->getBlockHtml('formkey') ?>
+                                                            <button 
+                                                                type="submit"
+                                                                title="<?= $block->escapeHtmlAttr(__('Add to Cart')) ?>"
+                                                                class="action tocart primary"
+                                                            >
+                                                            <button
+                                                                class="
+                                                                    button
+                                                                    button--secondary
+                                                                    catalog-grid-item__primary-action
+                                                                    tocart
+                                                                "
+                                                                data-post='<?= $postData ?>'
+                                                                type="button"
+                                                                title="<?= $block->escapeHtmlAttr(__('Add to Cart')) ?>"
+                                                                data-testid="add-to-cart-button"
+                                                            >
+                                                                <span class="catalog-grid-item__cart-text">
+                                                                    <?= $block->escapeHtml(__('Add to Cart')) ?>
+                                                                </span>
+                                                                <svg class="icon catalog-grid-item__cart-icon">
+                                                                    <title><?= $block->escapeHtml(__('Add to Cart')) ?></title>
+                                                                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#shopping-cart')) ?>"></use>
+                                                                </svg>
+                                                            </button>
+                                                        </form>
                                                     <?php endif; ?>
                                                 </div>
                                             <?php else: ?>
                                                 <?php if ($_item->getIsSalable()): ?>
                                                     <div class="stock available">
-                                                        <?= __('In stock') ?>
+                                                        <?= $block->escapeHtml(__('In stock')) ?>
                                                     </div>
                                                 <?php else: ?>
                                                     <div class="stock unavailable">
-                                                        <?= __('Out of stock') ?>
+                                                        <?= $block->escapeHtml(__('Out of stock')) ?>
                                                     </div>
                                                 <?php endif; ?>
                                             <?php endif; ?>

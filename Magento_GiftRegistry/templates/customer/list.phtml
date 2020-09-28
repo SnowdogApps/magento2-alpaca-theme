@@ -4,7 +4,7 @@
     <div class="dashboard-table ">
         <div class="dashboard-table__header">
             <h3 class="dashboard-table__title">
-                <?=  __('Gift Registry'); ?>
+                <?= $block->escapeHtml(__('Gift Registry')); ?>
             </h3>
         </div>
 
@@ -13,15 +13,15 @@
                 <thead>
                     <tr>
                         <th scope="col" class="col event">
-                            <?=  __('Event'); ?>
+                            <?= $block->escapeHtml(__('Event')); ?>
                         </th>
 
                         <th scope="col" class="col create">
-                            <?=  __('Created On'); ?>
+                            <?= $block->escapeHtml(__('Created On')); ?>
                         </th>
 
                         <th scope="col" class="col info">
-                            <?=  __('Message'); ?>
+                            <?= $block->escapeHtml(__('Message')); ?>
                         </th>
 
                         <th scope="col" class="col actions">
@@ -33,56 +33,56 @@
                 <tbody>
                     <?php foreach ($entityCollection as $item): ?>
                         <tr>
-                            <td data-th="<?= $block->escapeHtml(__('Event')); ?>"
+                            <td data-th="<?= $block->escapeHtmlAttr(__('Event')); ?>"
                                 class="col event"
-                                title="<?= $block->getEscapedTitle($item) ?>"
+                                title="<?= $block->escapeHtmlAttr($block->getEscapedTitle($item)) ?>"
                             >
                                 <?= $block->truncateString($block->getEscapedTitle($item), 70)?>
                             </td>
 
-                            <td data-th="<?= $block->escapeHtml(__('Created On')); ?>"
+                            <td data-th="<?= $block->escapeHtmlAttr(__('Created On')); ?>"
                                 class="col create"
                             >
                                 <?= $block->getFormattedDate($item) ?>
                             </td>
 
-                            <td data-th="<?= $block->escapeHtml(__('Message')); ?>"
+                            <td data-th="<?= $block->escapeHtmlAttr(__('Message')); ?>"
                                 class="col info"
                             >
                                 <?= $block->getEscapedMessage($item) ?>
                             </td>
 
-                            <td data-th="<?= $block->escapeHtml(__('Action')); ?>"
+                            <td data-th="<?= $block->escapeHtmlAttr(__('Action')); ?>"
                                 class="col actions"
                             >
-                                <a href="<?= $block->getItemsUrl($item) ?>"
+                                <a href="<?= $block->escapeUrl($block->getItemsUrl($item)) ?>"
                                    class="action manage"
-                                   title="<?=  __('Manage Items') ?>"
+                                   title="<?= $block->escapeHtmlAttr(__('Manage Items')) ?>"
                                 >
-                                    <?=  __('Manage Items') ?>
+                                    <?= $block->escapeHtml(__('Manage Items')) ?>
                                 </a>
 
                                 <a href="<?= $block->getShareUrl($item) ?>"
                                    class="action share"
-                                   title="<?=  __('Share') ?>"
+                                   title="<?= $block->escapeHtmlAttr(__('Share')) ?>"
                                 >
-                                    <?=  __('Share') ?>
+                                    <?= $block->escapeHtml(__('Share')) ?>
                                 </a>
 
                                 <a href="<?= $block->getEditUrl($item) ?>"
                                    class="action edit"
-                                   title="<?=  __('Edit') ?>"
+                                   title="<?= $block->escapeHtmlAttr(__('Edit')) ?>"
                                 >
-                                    <?=  __('Edit') ?>
+                                    <?= $block->escapeHtml(__('Edit')) ?>
                                 </a>
 
                                 <a href="#"
                                    data-post='<?= $block->getDeleteParams($item) ?>'
                                    class="action delete"
-                                   title="<?=  __('Delete') ?>"
+                                   title="<?= $block->escapeHtmlAttr(__('Delete')) ?>"
                                    data-role="remove-gift-registry"
                                 >
-                                    <?=  __('Delete') ?>
+                                    <?= $block->escapeHtml(__('Delete')) ?>
                                 </a>
                             </td>
                         </tr>
@@ -98,7 +98,7 @@
 
 <?php else:?>
     <div class="message info empty">
-        <?=  __('You haven\'t created a gift registry yet.'); ?>
+        <?= $block->escapeHtml(__('You haven\'t created a gift registry yet.')); ?>
     </div>
 <?php endif;?>
 
@@ -108,7 +108,7 @@
             <a href="<?= $block->escapeUrl($block->getAddUrl()) ?>"
                class="link action__link primary add"
             >
-                <?=  __('Add New') ?>
+                <?= $block->escapeHtml(__('Add New')) ?>
             </a>
         <?php endif;?>
     </div>
@@ -117,7 +117,7 @@
         <a href="<?= $block->escapeUrl($block->getBackUrl()) ?>"
            class="link action__link back"
         >
-            <?=  __('Back') ?>
+            <?= $block->escapeHtml(__('Back')) ?>
         </a>
     </div>
 </div>
@@ -135,7 +135,7 @@
 
                 event.stopPropagation();
                 confirm({
-                    content: '<?=  __('Are you sure you want to delete this gift registry?') ?>',
+                    content: '<?= $block->escapeHtml(__('Are you sure you want to delete this gift registry?')) ?>',
                     actions: {
                         confirm: function () {
                             dataPost().postData(params);

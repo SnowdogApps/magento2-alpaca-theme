@@ -25,7 +25,7 @@
                 "downloadable": {
                     "linkElement": "input:checkbox[value]",
                     "allElements": "#links-all",
-                    "config":<?= $block->getJsonConfig() ?>
+                    "config":<?= $block->escapeHtmlAttr($block->getJsonConfig()) ?>
                 }
             }'
             data-container-for="downloadable-links"
@@ -42,13 +42,13 @@
                             <?php endif; ?>
                             name="links[]"
                             class="checkbox__field"
-                            id="links-<?= $_link->getId() ?>"
-                            value="<?= $_link->getId() ?>"
-                            <?= $block->getLinkCheckedValue($_link) ?>
+                            id="links-<?= $block->escapeHtmlAttr($_link->getId()) ?>"
+                            value="<?= $block->escapeHtmlAttr($_link->getId()) ?>"
+                            <?= $block->escapeHtml($block->getLinkCheckedValue($_link)) ?>
                         />
 
                         <svg class="checkbox__icon">
-                            <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#checked'); ?>"></use>
+                            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#checked')); ?>"></use>
                         </svg>
 
                         <label class="checkbox__label" for="links-<?= $_link->getId() ?>">
@@ -57,15 +57,15 @@
                             <?php if ($_link->getSampleFile() || $_link->getSampleUrl()): ?>
                                 <a
                                     class="link"
-                                    href="<?= $block->getLinkSampleUrl($_link) ?>"
+                                    href="<?= $block->escapeUrl($block->getLinkSampleUrl($_link)) ?>"
                                     <?= $block->getIsOpenInNewWindow() ? 'target="_blank"' : '' ?>
                                 >
-                                    <?= __('sample') ?>
+                                    <?= $block->escapeHtml(__('sample')) ?>
                                 </a>
                             <?php endif; ?>
 
                             <?php if ($_linksPurchasedSeparately): ?>
-                                <?= $block->getLinkPrice($_link) ?>
+                                <?= /* @noEscape */ $block->getLinkPrice($_link) ?>
                             <?php endif; ?>
                         </label>
                     </div>
@@ -76,10 +76,10 @@
                         <?php if ($_link->getSampleFile() || $_link->getSampleUrl()): ?>
                             <a
                                 class="link"
-                                href="<?= $block->getLinkSampleUrl($_link) ?>"
+                                href="<?= $block->escapeUrl($block->getLinkSampleUrl($_link)) ?>"
                                 <?= $block->getIsOpenInNewWindow() ? 'target="_blank"' : '' ?>
                             >
-                                <?= __('sample') ?>
+                                <?= $block->escapeHtml(__('sample')) ?>
                             </a>
                         <?php endif; ?>
                     </p>
@@ -91,17 +91,17 @@
                     <input
                         type="checkbox"
                         class="checkbox__field"
-                        data-notchecked="<?= __('Select all') ?>"
-                        data-checked="<?= __('Unselect all') ?>"
+                        data-notchecked="<?= $block->escapeHtmlAttr(__('Select all')) ?>"
+                        data-checked="<?= $block->escapeHtmlAttr(__('Unselect all')) ?>"
                         id="links-all"
                     />
 
                     <svg class="checkbox__icon">
-                        <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#checked'); ?>"></use>
+                        <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#checked')); ?>"></use>
                     </svg>
 
                     <label class="checkbox__label" for="links-all">
-                        <?= __('Select all') ?>
+                        <?= $block->escapeHtml(__('Select all')) ?>
                     </label>
                 </div>
             <?php endif; ?>

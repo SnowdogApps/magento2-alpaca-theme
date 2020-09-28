@@ -1,22 +1,22 @@
 <?php $url = $block->getReviewsUrl() . '#reviews'; ?>
 <?php $urlForm = $block->getReviewsUrl() . '#review-form'; ?>
 
-<?php if ($block->getReviewsCount()): ?>
+<?php if ($block->isReviewEnabled() && $block->getReviewsCount()) : ?>
     <?php $rating = $block->getRatingSummary(); ?>
     <?php if ($rating):?>
         <div
             class="rating__star"
-            aria-label="<?= __('Average rating') . ': ' . $rating . '%'; ?>"
-            title="<?= __('Average rating') . ': ' . $rating . '%'; ?>"
+            aria-label="<?= $block->escapeHtmlAttr(__('Average rating') . ': ' . $rating . '%'); ?>"
+            title="<?= $block->escapeHtmlAttr(__('Average rating') . ': ' . $rating . '%'); ?>"
             style="width:<?= $rating ?>%"
         >
             <span class="rating__indicator"></span>
         </div>
     <?php endif; ?>
-<?php elseif ($block->getDisplayIfEmpty()): ?>
+<?php elseif ($block->isReviewEnabled() && $block->getDisplayIfEmpty()) : ?>
     <div class="product-reviews-summary short empty">
-        <a class="action add" href="<?=  $urlForm ?>">
-            <?=  __('Be the first to review this product') ?>
+        <a class="action add" href="<?= $block->escapeUrl($urlForm) ?>">
+            <?= $block->escapeHtml(__('Be the first to review this product')) ?>
         </a>
     </div>
 <?php endif; ?>

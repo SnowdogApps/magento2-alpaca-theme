@@ -1,3 +1,8 @@
+<?php
+// phpcs:disable Magento2.Templates.ThisInTemplate.FoundThis
+
+/* @var $block \Magento\Framework\View\Element\Template */
+?>
 <div
     data-bind="scope: 'compareProducts'"
     data-role="compare-products-sidebar"
@@ -8,7 +13,7 @@
     >
         <div class="sidebar-block__heading">
             <h2 class="heading--first-level sidebar-block__title">
-                <?= __('Compare Products') ?>
+                <?= $block->escapeHtml(__('Compare Products')) ?>
             </h2>
             <!-- ko if: compareProducts().count -->
                 <span
@@ -46,12 +51,12 @@
                     <button
                         type="button"
                         class="button sidebar-block__remove"
-                        aria-label="<?= __('Remove product from compare') ?>"
-                        title="<?= __('Remove product from compare') ?>"
+                        aria-label="<?= $block->escapeHtmlAttr(__('Remove product from compare')) ?>"
+                        title="<?= $block->escapeHtmlAttr(__('Remove product from compare')) ?>"
                         data-bind="attr: {'data-post': remove_url}"
                     >
                         <svg class="icon sidebar-block__remove-icon">
-                            <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#close') ?>"></use>
+                            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#close')) ?>"></use>
                         </svg>
                     </button>
                     <a
@@ -69,17 +74,17 @@
                     data-bind="attr: {'href': compareProducts().listUrl}"
                     class="button button--link sidebar-block__action"
                 >
-                    <?= __('Compare') ?>
+                    <?= $block->escapeHtml(__('Compare')) ?>
                 </a>
                 <button
                     id="compare-clear-all"
                     class="button sidebar-block__action"
                     data-post="<?= $block->escapeHtml($this
-                        ->helper('Magento\Catalog\Helper\Product\Compare')
+                        ->helper(Magento\Catalog\Helper\Product\Compare::class)
                         ->getPostDataClearList())
                     ?>"
                 >
-                    <?= __('Clear All') ?>
+                    <?= $block->escapeHtml(__('Clear All')) ?>
                 </button>
             </div>
         <!-- /ko -->
@@ -90,7 +95,7 @@
         >
             <!-- ko ifnot: compareProducts().count -->
                 <div class="message empty sidebar-block__message">
-                    <?= __('You have no items to compare.') ?>
+                    <?= $block->escapeHtml(__('You have no items to compare.')) ?>
                 </div>
             <!-- /ko -->
         </div>
@@ -100,7 +105,7 @@
 <script type="text/x-magento-init">
     {
         "[data-role=compare-products-sidebar]": {
-            "Magento_Ui/js/core/app": <?= $block->getJsLayout() ?>
+            "Magento_Ui/js/core/app": <?= /* @noEscape */ $block->getJsLayout() ?>
         }
     }
 </script>

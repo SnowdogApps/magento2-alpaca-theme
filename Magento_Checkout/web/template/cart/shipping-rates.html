@@ -2,7 +2,7 @@
       data-bind="blockLoader: isLoading, visible: isVisible()"
       class="cart-summary__shipping-methods"
 >
-    <p class="field note" data-bind="visible: (shippingRates().length <= 0)">
+    <p class="field note" data-bind="visible: (!isLoading() && shippingRates().length <= 0)">
         <!-- ko text: $t('Sorry, no quotes are available for this order at this time')--><!-- /ko -->
     </p>
     <div class="rate" data-bind="visible: (shippingRates().length > 0)">
@@ -32,7 +32,8 @@
                                    checked: $parents[1].selectedShippingMethod,
                                    attr: {
                                        value: carrier_code + '_' + method_code,
-                                       id: 's_method_' + method_code
+                                       id: 's_method_' + method_code,
+                                       disabled: false
                                    }
                                "
                         >

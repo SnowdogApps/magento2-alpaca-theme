@@ -1,16 +1,19 @@
 <?php
+    // phpcs:disable Magento2.Templates.ThisInTemplate
+    // phpcs:disable Magento2.Files.LineLength.MaxExceeded
+
     $_item = $block->getItem();
     $product = $_item->getProduct();
     $isVisibleProduct = $product->isVisibleInSiteVisibility();
     /** @var \Magento\Msrp\Helper\Data $helper */
-    $helper = $this->helper('Magento\Msrp\Helper\Data');
+    $helper = $this->helper(Magento\Msrp\Helper\Data::class);
     $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinimalPriceLessMsrp($product);
 ?>
 
 <div class="cart-list-item">
     <a
         class="cart-list-item__image"
-        href="<?= $block->getProductUrl() ?>"
+        href="<?= $block->escapeUrl($block->getProductUrl()) ?>"
     >
         <?= $block->getImage($block->getProductForThumbnail(), 'cart_page_product_thumbnail')->toHtml() ?>
     </a>
@@ -18,7 +21,7 @@
         <div class="cart-list-item__data">
             <?php if ($block->hasProductUrl()): ?>
                 <a
-                    href="<?= $block->getProductUrl() ?>"
+                    href="<?= $block->escapeUrl($block->getProductUrl()) ?>"
                     class="link link--invert cart-list-item__name"
                 >
                     <?= $block->escapeHtml($block->getProductName()) ?>
@@ -33,17 +36,17 @@
                     <div class="input cart-list-item__qty-wrapper">
                         <label
                             class="label label--hidden"
-                            for="cart-<?= $_item->getId() ?>-qty"
+                            for="cart-<?= $block->escapeHtmlAttr($_item->getId()) ?>-qty"
                         >
-                            <?= __('Qty') ?>
+                            <?= $block->escapeHtml(__('Qty')) ?>
                         </label>
                         <input
-                            id="cart-<?= $_item->getId() ?>-qty"
-                            name="cart[<?= $_item->getId() ?>][qty]"
-                            data-cart-item-id="<?= $_item->getSku() ?>"
-                            value="<?= $block->getQty() ?>"
+                            id="cart-<?= $block->escapeHtmlAttr($_item->getId()) ?>-qty"
+                            name="cart[<?= $block->escapeHtmlAttr($_item->getId()) ?>][qty]"
+                            data-cart-item-id="<?= $block->escapeHtmlAttr($_item->getSku()) ?>"
+                            value="<?= $block->escapeHtmlAttr($block->getQty()) ?>"
                             type="text"
-                            title="<?= $block->escapeHtml(__('Qty')) ?>"
+                            title="<?= $block->escapeHtmlAttr(__('Qty')) ?>"
                             class="input__field cart-list-item__qty-input"
                             maxlength="12"
                             data-validate="{
@@ -102,7 +105,7 @@
             <?php endif; ?>
         </div>
         <div class="cart-list-item__actions">
-            <?= $block->getActions($_item) ?>
+            <?= /* @noEscape */ $block->getActions($_item) ?>
         </div>
     </div>
 </div>
