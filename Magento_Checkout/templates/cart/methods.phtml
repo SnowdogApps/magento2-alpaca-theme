@@ -4,9 +4,10 @@
 <?php if (!$block->hasError()): ?>
     <?php $methods = $block->getMethods('methods') ?: $block->getMethods('top_methods') ?>
     <?php foreach ($methods as $method): ?>
-        <?php if ($methodHtml = $block->getMethodHtml($method)): ?>
+        <?php $methodHtml = $block->getMethodHtml($method); ?>
+        <?php if (trim($methodHtml) !== '') :?>
             <div class="cart-summary__item">
-                <?= $methodHtml; ?>
+                <?= /* @noEscape */ $methodHtml; ?>
             </div>
         <?php endif; ?>
     <?php endforeach; ?>

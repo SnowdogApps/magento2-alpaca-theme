@@ -6,14 +6,14 @@
     >
         <div class="sidebar-block__heading">
             <h2 class="heading--first-level sidebar-block__title">
-                <?= __('Recently Ordered') ?>
+                <?= $block->escapeUrl(__('Recently Ordered')) ?>
             </h2>
         </div>
         <div class="divider sidebar-block__divider"></div>
         <form
             id="reorder-validate-detail"
             method="post"
-            action="<?= $block->getFormActionUrl() ?>"
+            action="<?= $block->escapeUrl($block->getFormActionUrl()) ?>"
         >
             <ol
                 id="cart-sidebar-reorder"
@@ -34,19 +34,25 @@
                         <input
                             type="checkbox"
                             name="order_items[]"
-                            data-bind="attr: {id: 'reorder-item-' + id, value: id}"
-                            title="<?= __('Add to Cart') ?>"
+                            data-bind="
+                                attr: {
+                                    id: 'reorder-item-' + id,
+                                    value: id,
+                                    title: is_saleable ? '<?= $block->escapeHtml(__('Add to Cart')) ?>' : '<?= $block->escapeHtml(__('Product is not salable.')) ?>'
+                                },
+                                disable: !is_saleable
+                            "
                             class="checkbox__field"
                             data-validate='{"validate-one-checkbox-required-by-name": true}'
                         />
                         <svg class="checkbox__icon">
-                            <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#checked'); ?>"></use>
+                            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#checked')); ?>"></use>
                         </svg>
                         <label
                             class="checkbox__label"
                             data-bind="attr: {'for': 'reorder-item-' + id}"
                         >
-                            <?= __('Add to Cart') ?>
+                            <?= $block->escapeHtml(__('Add to Cart')) ?>
                         </label>
                     </div>
                 </li>
@@ -59,14 +65,14 @@
                     type="submit"
                     class="button sidebar-block__action"
                 >
-                    <?= __('Add to Cart') ?>
+                    <?= $block->escapeHtml(__('Add to Cart')) ?>
                 </button>
 
                 <a
                     class="button button--link sidebar-block__action"
-                    href="<?= $block->getUrl('customer/account') ?>"
+                    href="<?= $block->escapeUrl($block->getUrl('customer/account')) ?>"
                 >
-                    <?= __('View All'); ?>
+                    <?= $block->escapeHtml(__('View All')); ?>
                 </a>
             </div>
         </form>

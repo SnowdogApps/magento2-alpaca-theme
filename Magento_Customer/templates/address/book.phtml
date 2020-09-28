@@ -6,14 +6,14 @@
 ?>
 <div class="dashboard-items">
     <h3 class="dashboard-items__title">
-        <?= __('Default Addresses') ?>
+        <?= $block->escapeHtml(__('Default Addresses')) ?>
     </h3>
 
     <div class="row dashboard-items__content">
         <?php if ($_pAddsses = $block->getDefaultBilling()): ?>
             <div class="col-sm-6 dashboard-items__item">
                 <h4>
-                    <?= __('Default Billing Address') ?>
+                    <?= $block->escapeHtml(__('Default Billing Address')) ?>
                 </h4>
 
                 <div class="dashboard-items__address">
@@ -25,9 +25,9 @@
                 <div class="action">
                     <div class="action__handler">
                         <a class="link action__link"
-                           href="<?= $block->getAddressEditUrl($_pAddsses) ?>"
+                           href="<?= $block->escapeUrl($block->getAddressEditUrl($_pAddsses)) ?>"
                         >
-                            <?= __('Change Billing Address') ?>
+                            <?= $block->escapeHtml(__('Change Billing Address')) ?>
                         </a>
                     </div>
                 </div>
@@ -35,12 +35,12 @@
         <?php else: ?>
             <div class="col-sm-6 dashboard-items__item">
                 <h4>
-                    <?= __('Default Billing Address') ?>
+                    <?= $block->escapeHtml(__('Default Billing Address')) ?>
                 </h4>
 
                 <div class="dashboard-items__address">
                     <p>
-                        <?= __('You have no default billing address in your address book.') ?>
+                        <?= $block->escapeHtml(__('You have no default billing address in your address book.')) ?>
                     </p>
                 </div>
             </div>
@@ -49,7 +49,7 @@
         <?php if ($_pAddsses = $block->getDefaultShipping()): ?>
             <div class="col-sm-6 dashboard-items__item">
                 <h4>
-                    <?= __('Default Shipping Address') ?>
+                    <?= $block->escapeHtml(__('Default Shipping Address')) ?>
                 </h4>
 
                 <div class="dashboard-items__address">
@@ -61,9 +61,9 @@
                 <div class="action">
                     <div class="action__handler">
                         <a class="link action__link"
-                           href="<?= $block->getAddressEditUrl($_pAddsses) ?>"
+                           href="<?= $block->escapeUrl($block->getAddressEditUrl($_pAddsses)) ?>"
                         >
-                            <?= __('Change Shipping Address') ?>
+                            <?= $block->escapeHtml(__('Change Shipping Address')) ?>
                         </a>
                     </div>
                 </div>
@@ -71,88 +71,15 @@
         <?php else: ?>
             <div class="col-sm-6 dashboard-items__item">
                 <h4>
-                    <?= __('Default Shipping Address') ?>
+                    <?= $block->escapeHtml(__('Default Shipping Address')) ?>
                 </h4>
 
                 <div class="dashboard-items__address">
                     <p>
-                        <?= __('You have no default shipping address in your address book.') ?>
+                        <?= $block->escapeHtml(__('You have no default shipping address in your address book.')) ?>
                     </p>
                 </div>
             </div>
         <?php endif ?>
     </div>
 </div>
-
-<div class="dashboard-items">
-    <h3 class="dashboard-items__title ">
-        <?= __('Additional Address Entries') ?>
-    </h3>
-
-    <div class="row dashboard-items__content ">
-        <?php if ($_pAddsses = $block->getAdditionalAddresses()): ?>
-            <div class="col-sm-6 dashboard-items__item">
-                <?php foreach ($_pAddsses as $_address): ?>
-                    <div class="dashboard-items__address">
-                        <address>
-                            <?= $block->getAddressHtml($_address) ?>
-                        </address>
-                    </div>
-
-                    <div class="action">
-                        <div class="action__handler">
-                            <a class="link action__link"
-                               href="<?= $block->getUrl('customer/address/edit', ['id' => $_address->getId()]) ?>"
-                            >
-                                <?= __('Edit Address') ?>
-                            </a>
-
-                            <a class="link action__link"
-                               href="#"
-                               role="delete-address"
-                               data-address="<?= $_address->getId() ?>"
-                            >
-                                <?= __('Delete Address') ?>
-                            </a>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
-            </div>
-        <?php else: ?>
-            <div class="message empty">
-                <?= __('You have no other address entries in your address book.') ?>
-            </div>
-        <?php endif; ?>
-    </div>
-</div>
-
-<div class="action">
-    <div class="action__handler">
-        <button type="button"
-                role="add-address"
-                title="<?= __('Add New Address') ?>"
-                class="button action__button"
-        >
-            <?= __('Add New Address') ?>
-        </button>
-    </div>
-
-    <div class="action__handler">
-        <a class="link action__link" href="<?= $block->escapeUrl($block->getBackUrl()) ?>">
-            <?= __('Back') ?>
-        </a>
-    </div>
-</div>
-
-<script type="text/x-magento-init">
-    {
-        ".page-main": {
-            "address": {
-                "deleteAddress": ".dashboard-items__item a[role='delete-address']",
-                "deleteUrlPrefix": "<?= $block->getDeleteUrl() ?>id/",
-                "addAddress": "button[role='add-address']",
-                "addAddressLocation": "<?= $block->getAddAddressUrl() ?>"
-            }
-        }
-    }
-</script>

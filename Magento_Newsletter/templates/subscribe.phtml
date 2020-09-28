@@ -1,33 +1,37 @@
 <form
     class="newsletter"
     novalidate
-    action="<?= $block->getFormActionUrl() ?>"
+    action="<?= $block->escapeUrl($block->getFormActionUrl()) ?>"
     method="post"
     data-mage-init='{"validation": {"errorClass": "mage-error"}}'
     id="newsletter-validate-detail"
 >
     <div class="newsletter__heading">
-        <?= __('Sing up to our twisted newsletter') ?>
+        <?= $block->escapeHtml(__('Sing up to our twisted newsletter')) ?>
     </div>
     <div class="newsletter__controls">
         <div class="input newsletter__input">
-            <label class="label newsletter__label" for="newsletter">
-                <?= __('Your email') ?>
+            <label
+                class="label newsletter__label"
+                for="newsletter"
+            >
+                <?= $block->escapeHtml(__('Your email')) ?>
             </label>
             <input
                 name="email"
                 type="email"
                 id="newsletter"
                 class="input__field newsletter__field"
-                placeholder="<?= __('Enter your email') ?>"
+                placeholder="<?= $block->escapeHtmlAttr(__('Enter your email')) ?>"
                 required
+                data-mage-init='{"mage/trim-input":{}}'
             />
         </div>
         <button
             class="button newsletter__button"
             data-testid="submit-newsletter-button"
         >
-            <?= __('Submit') ?>
+            <?= $block->escapeHtml(__('Submit')) ?>
         </button>
     </div>
     <div class="newsletter__agreements">
@@ -40,14 +44,17 @@
                 required
             >
             <svg class="checkbox__icon">
-                <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#checked') ?>"></use>
+                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#checked')) ?>"></use>
             </svg>
-            <label for="newsletterAgrrement" class="checkbox__label">
-                <?= __('I agree to') ?>
+            <label
+                for="newsletterAgrrement"
+                class="checkbox__label"
+            >
+                <?= $block->escapeHtml(__('I agree to')) ?>
                 <a href="#">
-                    <?= __('Terms and conditions') ?>
+                    <?= $block->escapeHtml(__('Terms and conditions')) ?>
                 </a>
-                <?= __('and I am happy to receive your newsletter with all your promotions.') ?>
+                <?= $block->escapeHtml(__('and I am happy to receive your newsletter with all your promotions.')) ?>
             </label>
         </div>
     </div>

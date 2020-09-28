@@ -1,10 +1,19 @@
-<?php $mergedCells = ($this->helper('Magento\Tax\Helper\Data')->displayCartBothPrices() ? 2 : 1); ?>
+<?php 
+// phpcs:disable Magento2.Templates.ThisInTemplate 
+/**  @var $block \Magento\Checkout\Block\Cart\Grid */
+?>
+<?php $mergedCells = ($this->helper(Magento\Tax\Helper\Data::class)->displayCartBothPrices() ? 2 : 1); ?>
 <?= $block->getChildHtml('form_before') ?>
 <form
-    action="<?= $block->getUrl('checkout/cart/updatePost') ?>"
+    action="<?= $block->escapeUrl($block->getUrl('checkout/cart/updatePost')) ?>"
     method="post"
     id="form-validate"
-    data-mage-init='{"validation":{}}'
+    data-mage-init='{
+        "Magento_Checkout/js/action/update-shopping-cart": {
+            "validationURL" : "<?= $block->escapeUrl($block->getUrl('checkout/cart/updateItemQty')) ?>",
+            "updateCartActionContainer": "#update_cart_action_container"
+        }
+    }'
     class="form form-cart cart__products-list"
 >
     <?= $block->getBlockHtml('formkey') ?>
@@ -27,10 +36,10 @@
                         cart-actions__button--continue
                     "
                     href="<?= $block->escapeUrl($block->getContinueShoppingUrl()) ?>"
-                    title="<?= $block->escapeHtml(__('Continue Shopping')) ?>"
+                    title="<?= $block->escapeHtmlAttr(__('Continue Shopping')) ?>"
                     data-testid="continue-shopping-link"
                 >
-                    <?= __('Continue Shopping') ?>
+                    <?= $block->escapeHtml(__('Continue Shopping')) ?>
                 </a>
             <?php endif; ?>
             <button
@@ -38,22 +47,22 @@
                 name="update_cart_action"
                 data-cart-empty=""
                 value="empty_cart"
-                title="<?= $block->escapeHtml(__('Clear Shopping Cart')) ?>"
+                title="<?= $block->escapeHtmlAttr(__('Clear Shopping Cart')) ?>"
                 class="button button--secondary cart-actions__button"
                 id="empty_cart_button"
             >
-                <?= __('Clear Shopping Cart') ?>
+                <?= $block->escapeHtml(__('Clear Shopping Cart')) ?>
             </button>
             <button
                 type="submit"
                 name="update_cart_action"
                 data-cart-item-update=""
                 value="update_qty"
-                title="<?= $block->escapeHtml(__('Update Shopping Cart')) ?>"
+                title="<?= $block->escapeHtmlAttr(__('Update Shopping Cart')) ?>"
                 class="button button--secondary cart-actions__button"
                 data-testid="update-cart-button"
             >
-                <?= __('Update Shopping Cart') ?>
+                <?= $block->escapeHtml(__('Update Shopping Cart')) ?>
             </button>
             <input
                 type="hidden"

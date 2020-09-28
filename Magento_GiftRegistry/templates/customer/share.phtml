@@ -1,12 +1,12 @@
 <script id="add-recipient-tmpl" type="text/x-magento-template">
     <div class="input required">
         <label for="recipients-name<%- data._index_ %>" class="label">
-            <?=  __('First Name') ?>
+            <?= $block->escapeHtml(__('First Name')) ?>
         </label>
 
         <input name="recipients[<%- data._index_ %>][name]"
                type="text"
-               title="<?=  __('Name')?>"
+               title="<?= $block->escapeHtmlAttr(__('Name'))?>"
                class="input__field"
                id="recipients-name<%- data._index_ %>"
                data-validate="{required:true}"
@@ -14,11 +14,11 @@
     </div>
     <div class="input required dashboard-form__divider">
         <label for="recipients-email<%- data._index_ %>" class="label">
-            <?=  __('Email') ?>
+            <?= $block->escapeHtml(__('Email')) ?>
         </label>
 
         <input name="recipients[<%- data._index_ %>][email]"
-               title="<?=  __('Email') ?>"
+               title="<?= $block->escapeHtmlAttr(__('Email')) ?>"
                id="recipients-email<%- data._index_ %>"
                type="email"
                class="input__field"
@@ -29,7 +29,7 @@
     <div class="action dashboard-form__divider">
         <div class="action__handler">
             <button type="button" class="button action__button remove" id="btn-remove<%- data._index_ %>">
-                <?=  __('Remove') ?>
+                <?= $block->escapeHtml(__('Remove')) ?>
             </button>
         </div>
     </div>
@@ -45,12 +45,12 @@
           method="post"
           id="giftregistry-sharing-form"
           class="form form-giftregistry-share validation"
-          data-hasrequired="<?=  __('* Required Fields') ?>"
+          data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
     >
             <?= $block->getBlockHtml('formkey') ?>
             <div class="information">
                 <h4 class="information__title">
-                    <?=  __('Sender') ?>
+                    <?= $block->escapeHtml(__('Sender')) ?>
                 </h4>
             </div>
 
@@ -65,12 +65,12 @@
                 ?>
 
                 <label for="sender_name" class="label">
-                    <?=  __('Name') ?>
+                    <?= $block->escapeHtml(__('Name')) ?>
                 </label>
 
                 <input name="sender_name"
-                       value="<?= $getSenderNameValue ?>"
-                       title="<?=  __('Name') ?>"
+                       value="<?= $block->escapeHtmlAttr($getSenderNameValue) ?>"
+                       title="<?= $block->escapeHtmlAttr(__('Name')) ?>"
                        id="sender_name"
                        type="text"
                        class="input__field"
@@ -80,7 +80,7 @@
 
             <div class="input required dashboard-form__divider">
                 <label for="sender_message" class="label">
-                    <?=  __('Message') ?>
+                    <?= $block->escapeHtml(__('Message')) ?>
                 </label>
 
                 <textarea name="sender_message"
@@ -94,7 +94,7 @@
 
             <div class="information">
                 <h4 class="information__title">
-                    <?=  __('Invitee') ?>
+                    <?= $block->escapeHtml(__('Invitee')) ?>
                 </h4>
             </div>
 
@@ -102,7 +102,7 @@
 
             <?php if ($block->getRecipientsLimit()): ?>
                 <div id="max-recipient-message" style="display: none" class="message notice limit">
-                    <?=  __('Maximum %1 email addresses.', $block->getRecipientsLimit()) ?>
+                    <?= $block->escapeHtml(__('Maximum %1 email addresses.', $block->getRecipientsLimit())) ?>
                 </div>
             <?php endif; ?>
 
@@ -110,7 +110,7 @@
                 <div class="action__handler">
                     <?php if ($block->getRecipientsLimit()): ?>
                         <button type="button" id="add-recipient-button" class="button action__button add">
-                            <?=  __('Add Invitee') ?>
+                            <?= $block->escapeHtml(__('Add Invitee')) ?>
                         </button>
                     <?php endif; ?>
                 </div>
@@ -119,7 +119,7 @@
         <div class="action">
             <div class="action__handler">
                 <button type="submit" class="button action__button primary share">
-                    <?=  __('Share Gift Registry') ?>
+                    <?= $block->escapeHtml(__('Share Gift Registry')) ?>
                 </button>
             </div>
 
@@ -127,7 +127,7 @@
                 <a href="<?= $block->escapeUrl($block->getBackUrl()) ?>"
                    class="link action__link back"
                 >
-                    <?=  __('Back') ?>
+                    <?= $block->escapeHtml(__('Back')) ?>
                 </a>
             </div>
         </div>
@@ -140,7 +140,7 @@
             "rowBuilder": {
                 "rowTemplate": "#add-recipient-tmpl",
                 "rowContainer": "#recipients-options",
-                "maxRows": "<?=  $block->getRecipientsLimit() ?>",
+                "maxRows": "<?= $block->escapeHtmlAttr($block->getRecipientsLimit()) ?>",
                 "maxRowsMsg": "#max-recipient-message",
                 "addRowBtn": "#add-recipient-button",
                 "rowParentElem": "<div></div>",
@@ -149,7 +149,7 @@
                 "additionalRowClass": "additional",
                 "formDataPost": {
                         <?php if (is_array($block->getFormData('recipients'))): ?>
-                            "formData": <?=  json_encode($block->getFormData('recipients')); ?>,
+                            "formData": <?= $block->escapeHtmlAttr(json_encode($block->getFormData('recipients'))); ?>,
                         <?php endif; ?>
                     "templateFields": ["recipients-name", "recipients-email"]
                 }

@@ -4,30 +4,30 @@
     <?= $block->getChildHtml('customer.form.register.extra') ?>
     <form
         class="col-xs-12 col-md-6 form registration__content"
-        action="<?= $block->getPostActionUrl() ?>"
+        action="<?= $block->escapeUrl($block->getPostActionUrl()) ?>"
         method="post"
         id="form-validate"
         enctype="multipart/form-data"
         autocomplete="off"
     >
-        <?= $block->getBlockHtml('formkey'); ?>
+        <?= /* @noEscape */ $block->getBlockHtml('formkey'); ?>
         <fieldset class="fieldset registration__fieldset">
             <legend class="form__legend fieldset__legend registration__legend">
-                <?= __('Personal Information') ?>
+                <?= $block->escapeHtml(__('Personal Information')) ?>
             </legend>
             <div class="divider registration__divider"></div>
             <input
                 type="hidden"
                 name="success_url"
-                value="<?= $block->getSuccessUrl() ?>"
+                value="<?= $block->escapeUrl($block->getSuccessUrl()) ?>"
             >
             <input
                 type="hidden"
                 name="error_url"
-                value="<?= $block->getErrorUrl() ?>"
+                value="<?= $block->escapeUrl($block->getErrorUrl()) ?>"
             >
             <?= $block->getLayout()
-                ->createBlock('Magento\Customer\Block\Widget\Name')
+                ->createBlock(\Magento\Customer\Block\Widget\Name::class)
                 ->setObject($block->getFormData())
                 ->setForceUseCustomerAttributes(true)
                 ->toHtml()
@@ -37,18 +37,18 @@
                     <input
                         type="checkbox"
                         name="is_subscribed"
-                        title="<?= __('Sign Up for Newsletter') ?>"
+                        title="<?= $block->escapeHtmlAttr(__('Sign Up for Newsletter')) ?>"
                         value="1"
                         id="is_subscribed"
                         class="checkbox__field registration__newsletter-checkbox-field"
-                        <?= ($block->getFormData()->getIsSubscribed()) ? 'checked="checked"' : '' ?>
+                        <?= /* @noEscape */ ($block->getFormData()->getIsSubscribed()) ? 'checked="checked"' : '' ?>
                     >
                     <svg
                         class="checkbox__icon registration__newsletter-checkbox-icon"
                         role="img"
                         aria-hidden="true"
                     >
-                        <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#checked') ?>"></use>
+                        <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#checked')) ?>"></use>
                     </svg>
                     <label
                         for="is_subscribed"
@@ -57,49 +57,50 @@
                             registration__newsletter-checkbox-label
                         "
                     >
-                        <?= __('Sign Up for Newsletter') ?>
+                        <?= $block->escapeHtml(__('Sign Up for Newsletter')) ?>
                     </label>
                 </div>
                 <?php /* Extensions placeholder */ ?>
                 <?= $block->getChildHtml('customer.form.register.newsletter') ?>
             <?php endif ?>
-            <?php $_dob = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Dob') ?>
+            <?php $_dob = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Dob::class) ?>
             <?php if ($_dob->isEnabled()): ?>
                 <?= $_dob->setDate($block->getFormData()->getDob())
                     ->setHtmlClass('input__field')
                     ->toHtml();
                 ?>
             <?php endif; ?>
-            <?php $_taxvat = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Taxvat') ?>
+            <?php $_taxvat = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Taxvat::class) ?>
             <?php if ($_taxvat->isEnabled()): ?>
                 <?= $_taxvat->setTaxvat($block->getFormData()->getTaxvat())->toHtml() ?>
             <?php endif; ?>
 
-            <?php $_gender = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Gender') ?>
+            <?php $_gender = $block->getLayout()->createBlock(Magento\Customer\Block\Widget\Gender::class) ?>
             <?php if ($_gender->isEnabled()): ?>
                 <?= $_gender->setGender($block->getFormData()->getGender())->toHtml() ?>
             <?php endif; ?>
         </fieldset>
         <fieldset
             class="fieldset registration__fieldset"
-            data-hasrequired="<?= __('* Required Fields') ?>"
+            data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
         >
             <legend class="form__legend fieldset__legend registration__legend">
-                <?= __('Sign-in Information') ?>
+                <?= $block->escapeHtml(__('Sign-in Information')) ?>
             </legend>
             <div class="divider registration__divider"></div>
             <div class="input registration__input required">
                 <label for="email_address" class="input__label">
-                    <?= __('Email') ?>
+                    <?= $block->escapeHtml(__('Email')) ?>
                 </label>
                 <input
                     type="email"
                     name="email"
                     autocomplete="email"
                     id="email_address"
-                    value="<?= $block->escapeHtml($block->getFormData()->getEmail()) ?>"
-                    title="<?= __('Email') ?>"
+                    value="<?= $block->escapeHtmlAttr($block->getFormData()->getEmail()) ?>"
+                    title="<?= $block->escapeHtmlAttr(__('Email')) ?>"
                     class="input__field"
+                    data-mage-init='{"mage/trim-input":{}}'
                     data-validate="{required:true, 'validate-email':true}"
                 >
             </div>
@@ -113,16 +114,16 @@
             >
                 <div class="input required">
                     <label for="password" class="input__label">
-                        <?= __('Password') ?>
+                        <?= $block->escapeHtml(__('Password')) ?>
                     </label>
                     <input
                         type="password"
                         name="password"
                         id="password"
-                        title="<?= __('Password') ?>"
+                        title="<?= $block->escapeHtmlAttr(__('Password')) ?>"
                         class="input__field"
-                        data-password-min-length="<?= $block->escapeHtml($block->getMinimumPasswordLength()) ?>"
-                        data-password-min-character-sets="<?= $block->escapeHtml($block->getRequiredCharacterClassesNumber()) ?>"
+                        data-password-min-length="<?= $block->escapeHtmlAttr($block->getMinimumPasswordLength()) ?>"
+                        data-password-min-character-sets="<?= $block->escapeHtmlAttr($block->getRequiredCharacterClassesNumber()) ?>"
                         data-validate="{
                             required: true,
                             'validate-customer-password': true
@@ -136,13 +137,13 @@
                         data-role="password-strength-meter"
                     >
                         <div class="password-strength__handle">
-                            <?= __('Password Strength'); ?>:
+                            <?= $block->escapeHtml(__('Password Strength')) ?>:
                             <span
                                 class="password-strength__indicator"
                                 data-role="password-strength-meter-label"
                                 aria-live="polite"
                             >
-                                <?= __('No Password'); ?>
+                                <?= $block->escapeHtml(__('No Password')) ?>
                             </span>
                         </div>
                     </div>
@@ -150,12 +151,12 @@
             </div>
             <div class="input registration__input required">
                 <label for="password-confirmation" class="input__label">
-                    <?= __('Confirm Password') ?>
+                    <?= $block->escapeHtml(__('Confirm Password')) ?>
                 </label>
                 <input
                     type="password"
                     name="password_confirmation"
-                    title="<?= __('Confirm Password') ?>"
+                    title="<?= $block->escapeHtmlAttr(__('Confirm Password')) ?>"
                     id="password-confirmation"
                     class="input__field"
                     data-validate="{required:true, equalTo:'#password'}"
@@ -167,10 +168,10 @@
         <button
             type="submit"
             class="button"
-            title="<?= __('Create an Account') ?>"
+            title="<?= $block->escapeHtmlAttr(__('Create an Account')) ?>"
             data-testid="create-account-button"
         >
-            <?= __('Create an Account') ?>
+            <?= $block->escapeHtml(__('Create an Account')) ?>
         </button>
     </form>
 </div>

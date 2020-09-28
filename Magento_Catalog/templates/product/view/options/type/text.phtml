@@ -1,4 +1,4 @@
-<?php // @codingStandardsIgnoreFile ?>
+<?php /* @var $block \Magento\Catalog\Block\Product\View\Options\Type\Text */ ?>
 <?php
 $_option = $block->getOption();
 $class = ($_option->getIsRequire()) ? ' required' : '';
@@ -22,13 +22,13 @@ if ($_option->getMaxCharacters()) {
         <?php if ($_option->getType() == $isTextarea): ?>
             textarea
         <?php endif; ?>
-        <?= $class ?>
+        <?= /* @noEscape */ $class ?>
     "
 >
-    <label class="label" for="options_<?= $_option->getId() ?>_text">
+    <label class="label" for="options_<?= $block->escapeHtmlAttr($_option->getId()) ?>_text">
         <?= $block->escapeHtml($_option->getTitle()) ?>
 
-        <?= $block->getFormatedPrice() ?>
+        <?= /* @noEscape */ $block->getFormatedPrice() ?>
     </label>
 
     <?php if ($_option->getType() == $isTextField): ?>
@@ -45,13 +45,13 @@ if ($_option->getMaxCharacters()) {
         />
     <?php elseif ($_option->getType() == $isTextarea): ?>
         <textarea
-            id="options_<?= $_option->getId() ?>_text"
+            id="options_<?= $block->escapeHtmlAttr($_option->getId()) ?>_text"
             class="input__field input__field--textarea"
             <?php if (!empty($_textValidate)) {?>
-                data-validate="<?= $block->escapeHtml(json_encode($_textValidate)) ?>"
+                data-validate="<?= $block->escapeHtmlAttr(json_encode($_textValidate)) ?>"
             <?php } ?>
-            name="options[<?= $_option->getId() ?>]"
-            data-selector="options[<?= $_option->getId() ?>]"
+            name="options[<?= $block->escapeHtmlAttr($_option->getId()) ?>]"
+            data-selector="options[<?= $block->escapeHtmlAttr($_option->getId()) ?>]"
             rows="5"
             cols="25"
         ><?= $block->escapeHtml($block->getDefaultValue()) ?></textarea>
@@ -59,11 +59,24 @@ if ($_option->getMaxCharacters()) {
 
     <?php if ($_option->getMaxCharacters()): ?>
         <p>
-            <?= __('Maximum number of characters:') ?>
-
+            <?= $block->escapeHtml(__('Maximum number of characters:')) ?>
+            <span class="character-counter no-display"></span>
             <strong>
                 <?= $_option->getMaxCharacters() ?>
             </strong>
         </p>
+    <?php endif; ?>
+    <?php if ($_option->getMaxCharacters()) :?>
+        <script type="text/x-magento-init">
+        {
+            "[data-selector='options[<?= $block->escapeJs($_option->getId()) ?>]']": {
+                "Magento_Catalog/js/product/remaining-characters": {
+                    "maxLength":  "<?= (int)$_option->getMaxCharacters() ?>",
+                    "noteSelector": ".note_<?= $block->escapeJs($_option->getId()) ?>",
+                    "counterSelector": ".note_<?= $block->escapeJs($_option->getId()) ?> .character-counter"
+                }
+            }
+        }
+    </script>
     <?php endif; ?>
 </div>

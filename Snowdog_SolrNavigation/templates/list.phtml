@@ -10,39 +10,39 @@ $solrDataHelper = $this->helper('Snowdog\SolrNavigation\Helper\Data');
 <?php if ($block->getMode() == 'list') : ?>
     <?php if (count($block->getProducts()) == 0): ?>
         <div class="message info empty">
-            <?= __('We can\'t find products matching the selection.') ?>
+            <?= $block->escapeHtml(__('We can\'t find products matching the selection.')) ?>
         </div>
     <?php else: ?>
         <?php foreach ($block->getProducts() as $_product): ?>
             <section class="catalog-list-item catalog-list__item">
                 <a
-                    href="<?= $block->getProductUrl($_product) ?>"
+                    href="<?= $block->escapeUrl($block->getProductUrl($_product)) ?>"
                     class="catalog-list-item__link"
-                    title="<?= $_product['name'] ?>"
+                    title="<?= $block->escapeHtmlAttr($_product['name']) ?>"
                 >
                     <div class="lazyload-wrapper catalog-list-item__image-wrapper">
                         <img
                             class="image lazyload"
                             src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-                            data-src="<?= $solrDataHelper->getImageUrl($_product['small_image'], 564, 700) ?>"
-                            alt="<?= $_product['image_label'] ?>"
+                            data-src="<?= $block->escapeUrl($solrDataHelper->getImageUrl($_product['small_image'], 564, 700)) ?>"
+                            alt="<?= $block->escapeHtmlAttr($_product['image_label']) ?>"
                         />
                     </div>
                 </a>
                 <div class="catalog-list-item__main">
                     <?php if ($solrDataHelper->isProductNew($_product) === true): ?>
                         <div class="badge catalog-list-item__badge">
-                            <?= __('NEW') ?>
+                            <?= $block->escapeHtml(__('NEW')) ?>
                         </div>
                     <?php endif; ?>
                     <div class="catalog-list-item__details">
                         <h2 class="catalog-list-item__name">
                             <a
-                                href="<?= $block->getProductUrl($_product) ?>"
+                                href="<?= $block->escapeUrl($block->getProductUrl($_product)) ?>"
                                 class="catalog-list-item__link"
-                                title="<?= $_product['name'] ?>"
+                                title="<?= $block->escapeHtmlAttr($_product['name']) ?>"
                             >
-                                <?= $_product['name'] ?>
+                                <?= $block->escapeHtml($_product['name']) ?>
                             </a>
                         </h2>
                         <div class="catalog-list-item__reviews">
@@ -53,8 +53,8 @@ $solrDataHelper = $this->helper('Snowdog\SolrNavigation\Helper\Data');
                             <?php if ($rating): ?>
                                 <div
                                     class="rating catalog-grid-item__rating"
-                                    aria-label="<?= __('Average rating') ?>: <?= $rating ?>%"
-                                    title="<?= __('Average rating') ?>: <?= $rating ?>%"
+                                    aria-label="<?= $block->escapeHtmlAttr(__('Average rating')) ?>: <?= $block->escapeHtmlAttr($rating) ?>%"
+                                    title="<?= $block->escapeHtmlAttr(__('Average rating')) ?>: <?= $block->escapeHtmlAttr($rating) ?>%"
                                     tabindex="0"
                                 >
                                     <div class="rating__star" style="width: <?= $rating ?>%">
@@ -67,7 +67,7 @@ $solrDataHelper = $this->helper('Snowdog\SolrNavigation\Helper\Data');
                     <div class="catalog-list-item__price">
                         <div class="price">
                             <span class="price__value">
-                                <?= $solrDataHelper->getPrice($_product) ?>
+                                <?= $block->escapeHtml($solrDataHelper->getPrice($_product)) ?>
                             </span>
                         </div>
                     </div>
@@ -77,12 +77,12 @@ $solrDataHelper = $this->helper('Snowdog\SolrNavigation\Helper\Data');
                                 action="<?= $block->escapeUrl($block->getAddToUrl('cart', $_product['entity_id'], false)) ?>"
                                 method="post"
                                 data-mage-init='{ "solrAddToCart": {} }'
-                                data-product-sku="<?= $_product['sku'] ?>"
+                                data-product-sku="<?= $block->escapeHtmlAttr($_product['sku']) ?>"
                             >
                                 <input
                                     type="hidden"
                                     name="product"
-                                    value="<?= $_product['entity_id'] ?>"
+                                    value="<?= $block->escapeHtmlAttr($_product['entity_id']) ?>"
                                 />
 
                                 <?= $block->getBlockHtml('formkey') ?>
@@ -99,7 +99,7 @@ $solrDataHelper = $this->helper('Snowdog\SolrNavigation\Helper\Data');
                                     disabled
                                 >
                                     <span>
-                                        <?= __('Add to Cart') ?>
+                                        <?= $block->escapeHtml(__('Add to Cart')) ?>
                                     </span>
                                 </button>
                             </form>
@@ -108,29 +108,29 @@ $solrDataHelper = $this->helper('Snowdog\SolrNavigation\Helper\Data');
                             <button
                                 class="button button--icon"
                                 type="button"
-                                aria-label="<?= __('Add to wishlist') ?>"
+                                aria-label="<?= $block->escapeHtmlAttr(__('Add to wishlist')) ?>"
                                 data-post='{
-                                    "action": "<?= $block->escapeUrl($block->getAddToUrl('wishlist', $_product['entity_id'], false)) ?>",
-                                    "data": { "product": <?= $_product['entity_id'] ?> }
+                                    "action": "<?= $block->escapeJs($block->getAddToUrl('wishlist', $_product['entity_id'], false)) ?>",
+                                    "data": { "product": <?= $block->escapeJs(['entity_id']) ?> }
                                 }'
                                 data-action="add-to-wishlist"
                             >
                                 <svg class="button__icon">
-                                    <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#heart') ?>"></use>
+                                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#heart')) ?>"></use>
                                 </svg>
                             </button>
                             <button
                                 class="button button--icon"
                                 type="button"
-                                aria-label="<?= __('Add to compare') ?>"
+                                aria-label="<?= $block->escapeHtmlAttr(__('Add to compare')) ?>"
                                 data-post='{
-                                    "action": "<?= $block->escapeUrl($block->getAddToUrl('compare', $_product['entity_id'], false)) ?>",
-                                    "data": { "product": <?= $_product['entity_id'] ?> }
+                                    "action": "<?= $block->escapeJs($block->getAddToUrl('compare', $_product['entity_id'], false)) ?>",
+                                    "data": { "product": <?= $block->escapeJs(['entity_id']) ?> }
                                 }'
                                 data-action="add-to-compare"
                             >
                                 <svg class="button__icon">
-                                    <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#compare') ?>"></use>
+                                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#compare')) ?>"></use>
                                 </svg>
                             </button>
                         </div>

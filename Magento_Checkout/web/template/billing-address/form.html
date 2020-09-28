@@ -1,9 +1,9 @@
-<div class="billing-address-form" data-bind="fadeVisible: isAddressFormVisible">
+<div class="billing-address-form">
     <!-- ko foreach: getRegion('before-fields') -->
         <!-- ko template: getTemplate() --><!-- /ko -->
     <!--/ko-->
     <form data-bind="attr: {'data-hasrequired': $t('* Required Fields')}">
-        <fieldset class="fieldset address">
+        <fieldset class="fieldset address" data-form="billing-new-address">
             <!-- ko foreach: getRegion('additional-fieldsets') -->
                 <!-- ko template: getTemplate() --><!-- /ko -->
             <!--/ko-->
@@ -13,14 +13,17 @@
                         type="checkbox"
                         class="checkbox__field"
                         id="billing-save-in-address-book"
-                        data-bind="checked: saveInAddressBook"
+                        data-bind="
+                            checked: saveInAddressBook, 
+                            attr: {id: 'billing-save-in-address-book-' + getCode($parent)}
+                        "
                     >
                     <svg class="checkbox__icon">
                         <use data-bind="attr: { 'xlink:href': require.toUrl('images/icons-sprite.svg#checked') }" xlink:href=''></use>
                     </svg>
                     <label
                         class="label checkbox__label"
-                        for="billing-save-in-address-book"
+                        data-bind="attr: {for: 'billing-save-in-address-book-' + getCode($parent)}"
                     >
                         <span data-bind="i18n: 'Save in address book'"></span>
                     </label>

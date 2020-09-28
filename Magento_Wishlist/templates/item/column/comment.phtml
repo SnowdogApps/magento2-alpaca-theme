@@ -1,7 +1,7 @@
 <?php
 /* @var \Magento\Wishlist\Model\Item $item */
 
-$item        = $block->getItem();
+$item = $block->getItem();
 $placeholder = $this->helper('Magento\Wishlist\Helper\Data')->defaultCommentString();
 ?>
 
@@ -10,7 +10,8 @@ $placeholder = $this->helper('Magento\Wishlist\Helper\Data')->defaultCommentStri
         id="product-item-comment-<?= $item->getWishlistItemId() ?>"
         placeholder="<?= $placeholder; ?>"
         name="description[<?= $item->getWishlistItemId() ?>]"
-        title="<?= __('Comment') ?>"
+        title="<?= $block->escapeHtmlAttr(__('Comment')) ?>"
         class="input__field input__field--textarea"
+        <?= $item->getProduct()->isSaleable() ? '' : 'disabled="disabled"' ?>
     ><?= ($block->escapeHtml($item->getDescription())) ?></textarea>
 </div>

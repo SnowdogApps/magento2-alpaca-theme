@@ -2,33 +2,33 @@
 
 <div class="block block-order-details-view">
     <h3 class="dashboard__title">
-        <?= __('Order Information') ?>
+        <?= $block->escapeHtml(__('Order Information')) ?>
     </h3>
 
     <div class="row">
         <?php if (!$_order->getIsVirtual()): ?>
             <div class="col-sm-3 information">
                 <h4 class="information__title">
-                    <?= __('Shipping Address') ?>
+                    <?= $block->escapeHtml(__('Shipping Address')) ?>
                 </h4>
 
                 <p class="information__text">
                     <address>
-                        <?= $block->getFormattedAddress($_order->getShippingAddress()); ?>
+                        <?= $block->escapeHtml($block->getFormattedAddress($_order->getShippingAddress())); ?>
                     </address>
                 </p>
             </div>
 
             <div class="col-sm-3 information">
                 <h4 class="information__title">
-                    <?= __('Shipping Method') ?>
+                    <?= $block->escapeHtml(__('Shipping Method')) ?>
                 </h4>
 
                 <p class="information__text">
                     <?php if ($_order->getShippingDescription()): ?>
                         <?= $block->escapeHtml($_order->getShippingDescription()) ?>
                     <?php else: ?>
-                        <?= __('No shipping information available'); ?>
+                        <?= $block->escapeHtml(__('No shipping information available')); ?>
                     <?php endif; ?>
                 </p>
             </div>
@@ -36,23 +36,23 @@
 
         <div class="col-sm-3 information">
             <h4 class="information__title">
-                <?= __('Billing Address') ?>
+                <?= $block->escapeHtml(__('Billing Address')) ?>
             </h4>
 
             <p class="information__text">
                 <address>
-                    <?= $block->getFormattedAddress($_order->getBillingAddress()); ?>
+                    <?= /* @noEscape */ $block->getFormattedAddress($_order->getBillingAddress()); ?>
                 </address>
             </p>
         </div>
 
         <div class="col-sm-3 information">
             <h4 class="information__title">
-                <?= __('Payment Method') ?>
+                <?= $block->escapeHtml(__('Payment Method')) ?>
             </h4>
 
             <p class="information__text">
-                <?= $block->getPaymentInfoHtml() ?>
+                <?= /* @noEscape */ $block->getPaymentInfoHtml() ?>
             </p>
         </div>
     </div>

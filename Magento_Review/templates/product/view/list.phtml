@@ -14,7 +14,7 @@ $urlForm = $block->getReviewsUrl() . '#review-form';
         class="product-review__reviews"
         id="reviews"
         tabindex="0"
-        aria-label="<?= __('Reviews list'); ?>"
+        aria-label="<?= $block->escapeHtmlAttr(__('Reviews list')); ?>"
     >
         <ul class="list">
             <?php foreach ($_items as $_review): ?>
@@ -54,7 +54,7 @@ $urlForm = $block->getReviewsUrl() . '#review-form';
                                         itemprop="reviewRating"
                                         itemscope
                                         itemtype="http://schema.org/Rating"
-                                        aria-label="<?= __('Rating') . $_votePercetage; ?>%"
+                                        aria-label="<?= $block->escapeHtmlAttr(__('Rating') . $_votePercetage); ?>%"
                                         tabindex="0"
                                     >
                                         <?php if ($dislayLabel): ?>
@@ -91,7 +91,7 @@ $urlForm = $block->getReviewsUrl() . '#review-form';
                             </h4>
 
                             <p class="product-view__review-content-text">
-                                <?= nl2br($block->escapeHtml($_review->getDetail())); ?>
+                                <?= /* @noEscape */ nl2br($block->escapeHtml($_review->getDetail())); ?>
                             </p>
                         </div>
                     </div>

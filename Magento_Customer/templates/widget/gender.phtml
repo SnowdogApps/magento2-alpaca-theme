@@ -1,25 +1,28 @@
 <div class="input <?= $block->isRequired() ?'required' : '' ?>">
-    <label class="input__label"
-           for="<?= $block->getFieldId('gender') ?>"
+    <label
+        class="input__label"
+        for="<?= $block->escapeHtmlAttr($block->getFieldId('gender')) ?>"
     >
-        <?= __('Gender') ?>
+        <?= $block->escapeHtml($block->getStoreLabel('gender')) ?>
     </label>
     <?php $is_required = $block->isRequired(); ?>
-        <select id="<?= $block->getFieldId('gender') ?>"
-                name="<?= $block->getFieldName('gender') ?>"
-                title="<?= __('Gender') ?>"
-                class="select <?= ($is_required) ? ' validate-select': ''?>"
-                data-mage-init='{"select": {}}'
-                <?= $is_required ? 'data-validate="{required:true}"' : '' ?>
-                <?= $block->getFieldParams() ?>
+        <select
+            id="<?= $block->getFieldId('gender') ?>"
+            name="<?= $block->getFieldName('gender') ?>"
+            title="<?= $block->escapeHtml($block->getStoreLabel('gender')) ?>"
+            class="select <?= ($is_required) ? ' validate-select': ''?>"
+            data-mage-init='{"select": {}}'
+            <?= $is_required ? 'data-validate="{required:true}"' : '' ?>
+            <?= $block->getFieldParams() ?>
         >
             <?php $options = $block->getGenderOptions(); ?>
             <?php $value = $block->getGender(); ?>
             <?php foreach ($options as $option): ?>
-                <option value="<?= $option->getValue() ?>"
-                        <?= $option->getValue() == $value ? 'selected="selected"' : '' ?>
+                <option
+                    value="<?= $block->escapeHtmlAttr($option->getValue()) ?>"
+                    <?= $option->getValue() == $value ? 'selected="selected"' : '' ?>
                 >
-                    <?= __($option->getLabel()) ?>
+                    <?= $block->escapeHtml(__($option->getLabel())) ?>
                 </option>
             <?php endforeach;?>
         </select>

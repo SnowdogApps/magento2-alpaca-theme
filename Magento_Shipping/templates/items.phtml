@@ -1,3 +1,9 @@
+<?php
+//phpcs:disable Squiz.ControlStructures.ControlSignature.NewlineAfterOpenBrace
+//phpcs:disable Squiz.WhiteSpace.ScopeClosingBrace.ContentBefore
+//phpcs:disable Magento2.Templates.ThisInTemplate.FoundThis
+//phpcs:disable Magento2.Files.LineLength.MaxExceeded
+?>
 <div class="dashboard-table dashboard-table--tab">
     <?php $_order = $block->getOrder(); ?>
     <?php if ($_order->getTracksCollection()->count()): ?>
@@ -5,10 +11,13 @@
     <?php endif; ?>
 
     <?php if (sizeof($_order->getItems()) > 0): ?>
-        <a class="link dashboard-table__link"
+        <a
+            class="link dashboard-table__link"
             href="<?=  $block->getPrintAllShipmentsUrl($_order) ?>"
+            target="_blank"
+            rel="noopener"
         >
-            <?=  __('Print All Shipments') ?>
+            <?=  $block->escapeHtml(__('Print All Shipments')) ?>
         </a>
     <?php endif; ?>
 
@@ -16,26 +25,28 @@
         <div class="dashboard-table__content">
             <div class="dashboard-table__header">
                 <?php
-                    $getTrackingUrl = $this->helper('Magento\Shipping\Helper\Data')
+                    $getTrackingUrl = $this->helper(Magento\Shipping\Helper\Data::class)
                                            ->getTrackingPopupUrlBySalesModel($_shipment);
                 ?>
 
                 <h3 class="dashboard-table__title">
-                    <?=  __('Shipment #') ?>
-                    <?=  $_shipment->getIncrementId(); ?>
+                    <?= $block->escapeHtml(__('Shipment #')) ?>
+                    <?= (int) $_shipment->getIncrementId(); ?>
                 </h3>
 
-                <a href="<?=  $block->getPrintShipmentUrl($_shipment) ?>"
-                   onclick="this.target='_blank'"
-                   class="link dashboard-table__spacer"
+                <a
+                    href="<?= $block->escapeUrl($block->getPrintShipmentUrl($_shipment)) ?>"
+                    target="blank"
+                    class="link dashboard-table__spacer"
+                    rel="noopener"
                 >
-                    <?=  __('Print Shipment') ?>
+                    <?= $block->escapeHtml(__('Print Shipment')) ?>
                 </a>
 
                 <a href="#"
                    data-mage-init='{
                        "popupWindow": {
-                           "windowURL": "<?= $getTrackingUrl ?>",
+                           "windowURL": "<?= $block->escapeUrl($getTrackingUrl) ?>",
                            "windowName": "trackshipment",
                            "width":800,
                            "height":600,
@@ -45,10 +56,10 @@
                            "scrollbars":1
                         }
                    }'
-                   title="<?=  __('Track this shipment') ?>"
+                   title="<?= $block->escapeHtmlAttr(__('Track this shipment')) ?>"
                    class="link"
                 >
-                    <?=  __('Track this shipment') ?>
+                    <?= $block->escapeHtml(__('Track this shipment')) ?>
                 </a>
             </div>
 
@@ -56,17 +67,17 @@
 
             <?php if ($tracks->count()): ?>
                 <strong>
-                    <?=  __('Tracking Number(s):') ?>
+                    <?=  $block->escapeHtml(__('Tracking Number(s):')) ?>
                 </strong>
 
-                <ul class="list" id="my-tracking-table-<?=  $_shipment->getId(); ?>">
+                <ul class="list" id="my-tracking-table-<?= (int) $_shipment->getId(); ?>">
                     <?php
                         $i = 1;
                         $_size = $tracks->count();
                     ?>
                     <?php foreach ($tracks as $track): ?>
                         <?php
-                            $getPopupUrl = $this->helper('Magento\Shipping\Helper\Data')->getTrackingPopupUrlBySalesModel($track);
+                            $getPopupUrl = $this->helper(Magento\Shipping\Helper\Data::class)->getTrackingPopupUrlBySalesModel($track);
                         ?>
 
                         <li class="list__item">
@@ -76,7 +87,7 @@
                                 <a href="#"
                                    data-mage-init='{
                                         "popupWindow": {
-                                            "windowURL": "<?= $getPopupUrl ?>",
+                                            "windowURL": "<?= $block->escapeUrl($getPopupUrl) ?>",
                                             "windowName":"trackorder",
                                             "width":800,
                                             "height":600,
@@ -101,19 +112,19 @@
                 </ul>
             <?php  endif; ?>
 
-            <table class="table" id="my-shipment-table-<?=  $_shipment->getId(); ?>">
+            <table class="table" id="my-shipment-table-<?= (int) $_shipment->getId(); ?>">
                 <thead>
                     <tr>
                         <th class="name">
-                            <?=  __('Product Name') ?>
+                            <?= $block->escapeHtml(__('Product Name')) ?>
                         </th>
 
                         <th class="sku">
-                            <?=  __('SKU') ?>
+                            <?= $block->escapeHtml(__('SKU')) ?>
                         </th>
 
                         <th class="qty">
-                            <?=  __('Qty Shipped') ?>
+                            <?= $block->escapeHtml(__('Qty Shipped')) ?>
                         </th>
                     </tr>
                 </thead>

@@ -4,13 +4,13 @@
     action="<?= $block->getUrl('customer/account/editPost') ?>"
     method="post"
     enctype="multipart/form-data"
-    data-hasrequired="<?= __('* Required Fields') ?>"
+    data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
     autocomplete="off"
 >
     <?= $block->getBlockHtml('formkey') ?>
 
     <h3 class="dashboard-form__title">
-        <?= __('Account Information') ?>
+        <?= $block->escapeHtml(__('Account Information')) ?>
     </h3>
 
     <div class="dashboard-form__divider">
@@ -22,9 +22,9 @@
         ?>
 
         <?php
-            $_dob    = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Dob');
-            $_taxvat = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Taxvat');
-            $_gender = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Gender');
+            $_dob    = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Dob::class);
+            $_taxvat = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Taxvat::class);
+            $_gender = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Gender::class);
         ?>
 
         <?php if ($_dob->isEnabled()): ?>
@@ -47,15 +47,15 @@
                 name="change_email"
                 data-role="change-email"
                 value="1"
-                title="<?= __('Change Email') ?>"
+                title="<?= $block->escapeHtmlAttr(__('Change Email')) ?>"
             >
 
             <svg class="checkbox__icon">
-                <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#checked'); ?>"></use>
+                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#checked')); ?>"></use>
             </svg>
 
             <label class="checkbox__label" for="change-email">
-                <?= __('Change Email') ?>
+                <?= $block->escapeHtmlAttr(__('Change Email')) ?>
             </label>
         </div>
 
@@ -67,18 +67,18 @@
                 name="change_password"
                 data-role="change-password"
                 value="1"
-                title="<?= __('Change Password') ?>"
+                title="<?= $block->escapeHtmlAttr(__('Change Password')) ?>"
                 <?php if ($block->getChangePassword()): ?>
                     checked="checked"
                 <?php endif; ?>
             >
 
             <svg class="checkbox__icon">
-                <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#checked'); ?>"></use>
+                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#checked')); ?>"></use>
             </svg>
 
             <label class="checkbox__label" for="change-password">
-                <?= __('Change Password') ?>
+                <?= $block->escapeHtmlAttr(__('Change Password')) ?>
             </label>
         </div>
 
@@ -88,7 +88,7 @@
         >
             <h4 class="dashboard-form__title-form dashboard-form__divider">
                 <span data-title="change-email-password">
-                    <?= __('Change Email and Password') ?>
+                    <?= $block->escapeHtmlAttr(__('Change Email and Password')) ?>
                 </span>
             </h4>
 
@@ -97,7 +97,7 @@
                 data-container="change-email"
             >
                 <label class="label" for="email">
-                    <?= __('Email') ?>
+                    <?= $block->escapeHtml(__('Email')) ?>
                 </label>
 
                 <input
@@ -107,15 +107,15 @@
                     type="email"
                     autocomplete="email"
                     data-input="change-email"
-                    value="<?= $block->escapeHtml($block->getCustomer()->getEmail()) ?>"
-                    title="<?= __('Email') ?>"
+                    value="<?= $block->escapeHtmlAttr($block->getCustomer()->getEmail()) ?>"
+                    title="<?= $block->escapeHtmlAttr(__('Email')) ?>"
                     data-validate="{required:true, 'validate-email':true}"
                 >
             </div>
 
             <div class="input password required">
                 <label class="label" for="current-password">
-                    <?= __('Current Password') ?>
+                    <?= $block->escapeHtml(__('Current Password')) ?>
                 </label>
 
                 <input
@@ -143,7 +143,7 @@
                  ?>
 
                 <label class="label" for="password">
-                    <?= __('New Password') ?>
+                    <?= $block->escapeHtml(__('New Password')) ?>
                 </label>
 
                 <input
@@ -151,8 +151,8 @@
                     class="input__field"
                     type="password"
                     name="password"
-                    data-password-min-length="<?= $getMinPasswordLength; ?>"
-                    data-password-min-character-sets="<?= $getMaxPasswordLength ?>"
+                    data-password-min-length="<?= $block->escapeHtmlAttr($getMinPasswordLength); ?>"
+                    data-password-min-character-sets="<?= $block->escapeHtmlAttr($getMaxPasswordLength); ?>"
                     data-input="new-password"
                     data-validate="{required:true, 'validate-customer-password':true}"
                     autocomplete="off"
@@ -163,13 +163,13 @@
                         data-role="password-strength-meter"
                     >
                         <div class="password-strength__handle">
-                            <?= __('Password Strength'); ?>:
+                            <?= $block->escapeHtml(__('Password Strength')); ?>:
                             <span
                                 class="password-strength__indicator"
                                 data-role="password-strength-meter-label"
                                 aria-live="polite"
                             >
-                                <?= __('No Password'); ?>
+                                <?= $block->escapeHtml(__('No Password')); ?>
                             </span>
                         </div>
                     </div>
@@ -181,7 +181,7 @@
                 data-container="confirm-password"
             >
                 <label class="label" for="password-confirmation">
-                    <?= __('Confirm New Password') ?>
+                    <?= $block->escapeHtml(__('Confirm New Password')) ?>
                 </label>
 
                 <input
@@ -203,9 +203,9 @@
             <button
                 type="submit"
                 class="button action__button"
-                title="<?= __('Save') ?>"
+                title="<?= $block->escapeHtmlAttr(__('Save')) ?>"
             >
-                <?= __('Save') ?>
+                <?= $block->escapeHtml(__('Save')) ?>
             </button>
         </div>
 
@@ -214,7 +214,7 @@
                 class="action__link"
                 href="<?= $block->escapeUrl($block->getBackUrl()) ?>"
             >
-                <?= __('Go back') ?>
+                <?= $block->escapeHtml(__('Go back')) ?>
             </a>
         </div>
     </div>
