@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 - review snippets (#69786)
 - tooltip text align on product list (#71074)
 - amasty gdpr cookie modal on checkout (#71134)
+- a translate function `__()` syntax error in wishlist item column cart template (#71267)
 ### Added
 - adjust sliders loading time + add slider widget template (#65842)
 - scroll-to.js file and added it for reviews on product page (#71248); Affects: Reviews buttons on PDP
