@@ -11,6 +11,10 @@ All notable changes to this project will be documented in this file.
 ### Removed
 - some row classess from totals related templates (Magento_Ui). Affects: checkout/cart totals/shipping methods etc. (#66923)
 
+## [1.6.0] - 2020-09-26
+### Changed
+- update theme files to Magento 2.3.5 p1
+
 ## [1.5.0] - 2020-05-26
 ### Added
 - Page builder styles
