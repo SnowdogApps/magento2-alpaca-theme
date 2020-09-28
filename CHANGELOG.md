@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 - input and select styles in poduct gift card template (#70690); Affects: gift card PDP
 - review snippets (#69786)
 - tooltip text align on product list (#71074)
+- amasty gdpr cookie modal on checkout (#71134)
 ### Added
 - adjust sliders loading time + add slider widget template (#65842)
 - scroll-to.js file and added it for reviews on product page (#71248); Affects: Reviews buttons on PDP
