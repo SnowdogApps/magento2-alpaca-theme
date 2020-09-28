@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 - adjust sliders loading time + add slider widget template (#65842)
 - scroll-to.js file and added it for reviews on product page (#71248); Affects: Reviews buttons on PDP
 ### Changed
+-  grouped product template for shipping latency module (#71448)
 ### Removed
 
 ## [Released]
