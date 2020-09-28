@@ -1,21 +1,30 @@
 <?php if ($this->helper(\Magento\Wishlist\Helper\Data::class)->isAllow()) : ?>
-    <div class="toolbar wishlist-toolbar"><?= $block->getChildHtml('wishlist_item_pager'); ?></div>
+    <div
+        class="
+            wishlist__toolbar
+            wishlist__toolbar--top
+        "
+    >
+        <?= $block->getChildHtml('wishlist_item_pager'); ?>
+    </div>
     <?= ($block->getChildHtml('wishlist.rss.link')); ?>
 
     <?php
         $getFormAction = $block->getUrl('wishlist/index/update', ['wishlist_id' => $block->getWishlistInstance()->getId()]);
     ?>
 
-    <form class="wishlist" id="wishlist-view-form"
-          data-mage-init='{
+    <form
+        class="wishlist"
+        id="wishlist-view-form"
+        data-mage-init='{
             "wishlist":{
-                "addToCartUrl":<?= $block->getItemAddToCartParams("%item%");?>,
-                "addAllToCartUrl":<?= $block->getAddAllToCartParams(); ?>,
+                "addToCartUrl":<?= /* @noEscape */ $block->getItemAddToCartParams("%item%");?>,
+                "addAllToCartUrl":<?= /* @noEScape */ $block->getAddAllToCartParams(); ?>,
                 "commentString":""
             },
             "validation": {}
           }'
-          action="<?= $getFormAction; ?>"
+          action="<?= $block->escapeUrl($getFormAction); ?>"
           method="post"
     >
         <?= $block->getChildHtml('top'); ?>
@@ -28,7 +37,7 @@
             <?= $block->getChildHtml('items'); ?>
         <?php else: ?>
             <div class="message info empty">
-                <?= __('You have no items in your wish list.') ?>
+                <?= $block->escapeHtml(__('You have no items in your wish list.')) ?>
             </div>
         <?php endif; ?>
 
@@ -40,15 +49,23 @@
             </div>
 
             <div class="action__handler">
-                <a href="<?= $block->escapeUrl($block->getBackUrl()) ?>" class="link action__link back">
-                    <?= __('Back') ?>
+                <a
+                    href="<?= $block->escapeUrl($block->getBackUrl()) ?>"
+                    class="link action__link back"
+                >
+                    <?= $block->escapeHtml(__('Back')) ?>
                 </a>
             </div>
         </div>
     </form>
 
     <script id="form-tmpl" type="text/x-magento-template">
-        <form id="wishlist-hidden-form" method="post" action="<%- data.url %>" class="no-display">
+        <form
+            id="wishlist-hidden-form"
+            method="post"
+            action="<%- data.url %>"
+            class="no-display"
+        >
             <% if (data.qty) { %>
                 <input name="qty" value="<%- data.qty %>">
             <% } %>
@@ -62,5 +79,12 @@
             <% } %>
         </form>
     </script>
-    <div class="toolbar wishlist-toolbar"><br><?= $block->getChildHtml('wishlist_item_pager'); ?></div>
+    <div
+        class="
+            wishlist__toolbar
+            wishlist__toolbar--bottom
+        "
+    >
+        <?= $block->getChildHtml('wishlist_item_pager'); ?>
+    </div>
 <?php endif; ?>
