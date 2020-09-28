@@ -8,12 +8,23 @@ All notable changes to this project will be documented in this file.
 - review snippets (#69786)
 - tooltip text align on product list (#71074)
 ### Added
-- minimum advertised price on grid and product page (#70656); Info: @import '../Magento_Msrp/styles/module'; should be added to /styles/theme.scss
+- adjust sliders loading time + add slider widget template (#65842)
+- scroll-to.js file and added it for reviews on product page (#71248); Affects: Reviews buttons on PDP
 ### Changed
 ### Removed
 
-
 ## [Released]
+
+## [2.9.0] - 2020-09-21
+### Fixed
+- input and select styles in poduct gift card template (#70690); Affects: gift card PDP
+- review snippets (#69786)
+- amasty gdpr module error on checkout page (#71078)
+- account - stored payment methods table (#70628)
+### Added
+- minimum advertised price on grid and product page (#70656); Info: @import '../Magento_Msrp/styles/module'; should be added to /styles/theme.scss
+### Changed
+- recaptcha badge position on mobile PDP (#70725); Affects: PDP
 
 ## [2.8.0] - 2020-09-15
 ### Fixed
