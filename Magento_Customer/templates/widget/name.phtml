@@ -28,14 +28,14 @@ $suffix = $block->showSuffix();
         class="
             input
             required
-            <?= $block->getContainerClassName() ?>
+            <?= $block->escapeHtmlAttr($block->getContainerClassName()) ?>
         "
     >
         <label
-            for="<?= $block->getFieldId('firstname') ?>"
+            for="<?= $block->escapeHtmlAttr($block->getFieldId('firstname')) ?>"
             class="input__label"
         >
-            <?= __('Name') ?>
+            <?= $block->escapeHtml(__('Name')) ?>
         </label>
         <fieldset class="form__fieldset">
 <?php endif; ?>
@@ -49,36 +49,36 @@ $suffix = $block->showSuffix();
     >
         <label
             class="input__label"
-            for="<?= $block->getFieldId('prefix') ?>"
+            for="<?= $block->escapeHtmlAttr($block->getFieldId('prefix')) ?>"
         >
-            <?= $block->getStoreLabel('prefix') ?>
+            <?= $block->escapeHtml($block->getStoreLabel('prefix')) ?>
         </label>
         <?php if ($block->getPrefixOptions() === false): ?>
             <input
                 type="text"
-                id="<?= $block->getFieldId('prefix') ?>"
-                name="<?= $block->getFieldName('prefix') ?>"
+                id="<?= $block->escapeHtmlAttr($block->getFieldId('prefix')) ?>"
+                name="<?= $block->escapeHtmlAttr($block->getFieldName('prefix')) ?>"
                 value="<?= $block->escapeHtmlAttr($block->getObject()->getPrefix()) ?>"
-                title="<?= $block->getStoreLabel('prefix') ?>"
-                class="input__field <?= $block->getAttributeValidationClass('prefix') ?>"
+                title="<?= $block->escapeHtmlAttr($block->getStoreLabel('prefix')) ?>"
+                class="input__field <?= $block->escapeHtmlAttr($block->getAttributeValidationClass('prefix')) ?>"
                 <?= $block->getFieldParams() ?>
                 <?= $block->isPrefixRequired() ?'data-validate="{required:true}"' : '' ?>
             >
         <?php else: ?>
             <select
-                id="<?= $block->getFieldId('prefix') ?>"
-                name="<?= $block->getFieldName('prefix') ?>"
-                title="<?= $block->getStoreLabel('prefix') ?>"
-                class="select <?= $block->getAttributeValidationClass('prefix') ?>"
+                id="<?= $block->escapeHtmlAttr($block->getFieldId('prefix')) ?>"
+                name="<?= $block->escapeHtmlAttr($block->getFieldName('prefix')) ?>"
+                title="<?= $block->escapeHtmlAttr($block->getStoreLabel('prefix')) ?>"
+                class="select <?= $block->escapeHtmlAttr($block->getAttributeValidationClass('prefix')) ?>"
                 <?= $block->getFieldParams() ?>
                 <?= ($block->isPrefixRequired()) ? ' data-validate="{required:true}"' : '' ?>
             >
                 <?php foreach ($block->getPrefixOptions() as $_option): ?>
                     <option
-                        value="<?= $_option ?>"
+                        value="<?= $block->escapeHtmlAttr($_option) ?>"
                         <?= $block->getObject()->getPrefix() == $_option ? 'selected="selected"' : '' ?>
                     >
-                        <?= __($_option) ?>
+                        <?= $block->escapeHtml(__($_option)) ?>
                     </option>
                 <?php endforeach; ?>
             </select>
@@ -88,17 +88,17 @@ $suffix = $block->showSuffix();
     <div class="input required">
         <label
             class="input__label"
-            for="<?= $block->getFieldId('firstname') ?>"
+            for="<?= $block->escapeHtmlAttr($block->getFieldId('firstname')) ?>"
         >
-            <?= $block->getStoreLabel('firstname') ?>
+            <?= $block->escapeHtml($block->getStoreLabel('firstname')) ?>
         </label>
         <input
             type="text"
-            id="<?= $block->getFieldId('firstname') ?>"
-            name="<?= $block->getFieldName('firstname') ?>"
+            id="<?= $block->escapeHtmlAttr($block->getFieldId('firstname')) ?>"
+            name="<?= $block->escapeHtmlAttr($block->getFieldName('firstname')) ?>"
             value="<?= $block->escapeHtmlAttr($block->getObject()->getFirstname()) ?>"
-            title="<?= $block->getStoreLabel('firstname') ?>"
-            class="input__field <?= $block->getAttributeValidationClass('firstname') ?>"
+            title="<?= $block->escapeHtmlAttr($block->getStoreLabel('firstname')) ?>"
+            class="input__field <?= $block->escapeHtmlAttr($block->getAttributeValidationClass('firstname')) ?>"
             autocomplete="given-name"
             <?= $block->getFieldParams() ?>
             <?= ($block->getAttributeValidationClass('firstname') == 'required-entry') ? ' data-validate="{required:true}"' : '' ?>
@@ -114,18 +114,18 @@ $suffix = $block->showSuffix();
     >
         <label
             class="input__label"
-            for="<?= $block->getFieldId('middlename') ?>"
+            for="<?= $block->escapeHtmlAttr($block->getFieldId('middlename')) ?>"
         >
-            <?= $block->getStoreLabel('middlename') ?>
+            <?= $block->escapeHtml($block->getStoreLabel('middlename')) ?>
         </label>
         <input
             type="text"
-            id="<?= $block->getFieldId('middlename') ?>"
-            name="<?= $block->getFieldName('middlename') ?>"
+            id="<?= $block->escapeHtmlAttr($block->getFieldId('middlename')) ?>"
+            name="<?= $block->escapeHtmlAttr($block->getFieldName('middlename')) ?>"
             value="<?= $block->escapeHtmlAttr($block->getObject()->getMiddlename()) ?>"
-            title="<?= $block->getStoreLabel('middlename') ?>"
+            title="<?= $block->escapeHtmlAttr($block->getStoreLabel('middlename')) ?>"
             autocomplete="additional-name"
-            class="input__field <?= $block->getAttributeValidationClass('middlename') ?>"
+            class="input__field <?= $block->escapeHtmlAttr($block->getAttributeValidationClass('middlename')) ?>"
             <?= $block->getFieldParams() ?>
             <?= $isMiddlenameRequired ? ' data-validate="{required:true}"' : '' ?>
         >
@@ -134,17 +134,17 @@ $suffix = $block->showSuffix();
     <div class="input required">
         <label
             class="input__label"
-            for="<?= $block->getFieldId('lastname') ?>"
+            for="<?= $block->escapeHtmlAttr($block->getFieldId('lastname')) ?>"
         >
-            <?= $block->getStoreLabel('lastname') ?>
+            <?= $block->escapeHtml($block->getStoreLabel('lastname')) ?>
         </label>
         <input
             type="text"
-            id="<?= $block->getFieldId('lastname') ?>"
-            name="<?= $block->getFieldName('lastname') ?>"
+            id="<?= $block->escapeHtmlAttr($block->getFieldId('lastname')) ?>"
+            name="<?= $block->escapeHtmlAttr($block->getFieldName('lastname')) ?>"
             value="<?= $block->escapeHtmlAttr($block->getObject()->getLastname()) ?>"
-            title="<?= $block->getStoreLabel('lastname') ?>"
-            class="input__field <?= $block->getAttributeValidationClass('lastname') ?>"
+            title="<?= $block->escapeHtmlAttr($block->getStoreLabel('lastname')) ?>"
+            class="input__field <?= $block->escapeHtmlAttr($block->getAttributeValidationClass('lastname')) ?>"
             autocomplete="family-name"
             <?= $block->getFieldParams() ?>
             <?= ($block->getAttributeValidationClass('lastname') == 'required-entry') ? ' data-validate="{required:true}"' : '' ?>
@@ -159,36 +159,36 @@ $suffix = $block->showSuffix();
     >
         <label
             class="input__label"
-            for="<?= $block->getFieldId('suffix') ?>"
+            for="<?= $block->escapeHtmlAttr($block->getFieldId('suffix')) ?>"
         >
-            <?= $block->getStoreLabel('suffix') ?>
+            <?= $block->escapeHtml($block->getStoreLabel('suffix')) ?>
         </label>
         <?php if ($block->getSuffixOptions() === false): ?>
             <input
                 type="text"
-                id="<?= $block->getFieldId('suffix') ?>"
-                name="<?= $block->getFieldName('suffix') ?>"
+                id="<?= $block->escapeHtmlAttr($block->getFieldId('suffix')) ?>"
+                name="<?= $block->escapeHtmlAttr($block->getFieldName('suffix')) ?>"
                 value="<?= $block->escapeHtmlAttr($block->getObject()->getSuffix()) ?>"
-                title="<?= $block->getStoreLabel('suffix') ?>"
-                class="input__field <?= $block->getAttributeValidationClass('suffix') ?>"
+                title="<?= $block->escapeHtmlAttr($block->getStoreLabel('suffix')) ?>"
+                class="input__field <?= $block->escapeHtmlAttr($block->getAttributeValidationClass('suffix')) ?>"
                 <?= $block->getFieldParams() ?>
                 <?= $block->isSuffixRequired() ? ' data-validate="{required:true}"' : '' ?>
             >
         <?php else: ?>
             <select
-                id="<?= $block->getFieldId('suffix') ?>"
-                name="<?= $block->getFieldName('suffix') ?>"
-                title="<?= $block->getStoreLabel('suffix') ?>"
-                class="select <?= $block->getAttributeValidationClass('suffix') ?>"
+                id="<?= $block->escapeHtmlAttr($block->getFieldId('suffix')) ?>"
+                name="<?= $block->escapeHtmlAttr($block->getFieldName('suffix')) ?>"
+                title="<?= $block->escapeHtmlAttr($block->getStoreLabel('suffix')) ?>"
+                class="select <?= $block->escapeHtmlAttr($block->getAttributeValidationClass('suffix')) ?>"
                 <?= $block->getFieldParams() ?>
                 <?= ($block->isSuffixRequired()) ? ' data-validate="{required:true}"' : '' ?>
             >
                 <?php foreach ($block->getSuffixOptions() as $_option): ?>
                     <option
-                        value="<?= $_option ?>"
+                        value="<?= $block->escapeHtmlAttr($_option) ?>"
                         <?= $block->getObject()->getSuffix() == $_option ? 'selected="selected"' : '' ?>
                     >
-                        <?= __($_option) ?>
+                        <?= $block->escapeHtml(__($_option)) ?>
                     </option>
                 <?php endforeach; ?>
             </select>

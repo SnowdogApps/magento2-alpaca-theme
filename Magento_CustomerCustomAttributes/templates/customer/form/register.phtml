@@ -16,7 +16,7 @@
                 auth__link
             "
         >
-            <?= __('Login') ?>
+            <?= $block->escapeHtml(__('Login')) ?>
             <svg
                 class="icon auth__icon"
                 aria-hidden="true"
@@ -32,7 +32,7 @@
                 auth__link--active
             "
         >
-            <?= __('Create account') ?>
+            <?= $block->escapeHtml(__('Create account')) ?>
             <svg
                 class="icon auth__icon"
                 aria-hidden="true"
@@ -43,7 +43,7 @@
     </div>
     <div class="account-form">
         <p class="account-form__info">
-            <?= __('Creating an account has many benefits: check out faster, keep more than one address, track orders and more.') ?>
+            <?= $block->escapeHtml(__('Creating an account has many benefits: check out faster, keep more than one address, track orders and more.')) ?>
         </p>
         <?= $block->getChildHtml('form_fields_before') ?>
         <?php /* Extensions placeholder */ ?>
@@ -83,7 +83,7 @@
                 />
                 <?= $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Name::class)->setObject($block->getFormData())->setForceUseCustomerAttributes(true)->toHtml() ?>
 
-                <?php if ($block->isNewsletterEnabled()) : ?>
+                <?php if ($block->isNewsletterEnabled()): ?>
                 <div
                     class="
                         checkbox
@@ -137,28 +137,28 @@
                 <?php endif ?>
 
                 <?php $_dob = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Dob::class) ?>
-                <?php if ($_dob->isEnabled()) : ?>
+                <?php if ($_dob->isEnabled()): ?>
                     <?= $_dob->setDate($block->getFormData()->getDob())->toHtml() ?>
                 <?php endif ?>
 
                 <?php $_taxvat = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Taxvat::class) ?>
-                <?php if ($_taxvat->isEnabled()) : ?>
+                <?php if ($_taxvat->isEnabled()): ?>
                     <?= $_taxvat->setTaxvat($block->getFormData()->getTaxvat())->toHtml() ?>
                 <?php endif ?>
 
                 <?php $_gender = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Gender::class) ?>
-                <?php if ($_gender->isEnabled()) : ?>
+                <?php if ($_gender->isEnabled()): ?>
                     <?= $_gender->setGender($block->getFormData()->getGender())->toHtml() ?>
                 <?php endif ?>
 
                 <?php $customerAttributes = $block->getChildBlock('customer_form_user_attributes');?>
-                <?php if ($customerAttributes) : ?>
+                <?php if ($customerAttributes): ?>
                     <?php $customerAttributes->setObject($block->getFormData())->setEntityType('customer')->setShowContainer(false);?>
                     <?php $block->restoreSessionData($customerAttributes->getMetadataForm());?>
                     <?= $customerAttributes->toHtml() ?>
                 <?php endif;?>
             </fieldset>
-        <?php if ($block->getShowAddressFields()) : ?>
+        <?php if ($block->getShowAddressFields()): ?>
             <fieldset
                 class="
                     fieldset
@@ -249,7 +249,7 @@
                         "
                     />
                     <?php $_streetValidationClass = trim(str_replace('required-entry', '', $_streetValidationClass)); ?>
-                    <?php for ($_i = 2, $_n = $this->helper(\Magento\Customer\Helper\Address::class)->getStreetLines(); $_i <= $_n; $_i++) : ?>
+                    <?php for ($_i = 2, $_n = $this->helper(\Magento\Customer\Helper\Address::class)->getStreetLines(); $_i <= $_n; $_i++): ?>
                         <div
                             class="
                                 input
@@ -371,7 +371,7 @@
                     <?= $block->getCountryHtmlSelect() ?>
                 </div>
                     <?php $addressAttributes = $block->getChildBlock('customer_form_address_user_attributes');?>
-                    <?php if ($addressAttributes) : ?>
+                    <?php if ($addressAttributes): ?>
                         <?php $addressAttributes->setEntityType('customer_address'); ?>
                         <?php $addressAttributes->setFieldIdFormat('address:%1$s')->setFieldNameFormat('address[%1$s]');?>
                         <?php $block->restoreSessionData($addressAttributes->getMetadataForm(), 'address');?>
@@ -468,7 +468,7 @@
                                 role="presentation"
                                 focusable="false"
                             >
-                                <title><?= __('View password icon') ?></title>
+                                <title><?= $block->escapeHtml(__('View password icon')) ?></title>
                                 <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#visibility-off')); ?>"></use>
                             </svg>
 
@@ -481,7 +481,7 @@
                                 role="presentation"
                                 focusable="false"
                             >
-                                <title><?= __('Hide password icon') ?></title>
+                                <title><?= $block->escapeHtml(__('Hide password icon')) ?></title>
                                 <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#visibility')); ?>"></use>
                             </svg>
                         </button>
@@ -492,13 +492,13 @@
                             data-role="password-strength-meter"
                         >
                             <div class="password-strength__handle">
-                                <?= __('Password Strength') ?>:
+                                <?= $block->escapeHtml(__('Password Strength')) ?>:
                                 <span
                                     class="password-strength__indicator"
                                     data-role="password-strength-meter-label"
                                     aria-live="polite"
                                 >
-                                    <?= __('No Password') ?>
+                                    <?= $block->escapeHtml(__('No Password')) ?>
                                 </span>
                             </div>
                         </div>
@@ -543,7 +543,7 @@
                             role="presentation"
                             focusable="false"
                         >
-                            <title><?= __('View password icon') ?></title>
+                            <title><?= $block->escapeHtml(__('View password icon')) ?></title>
                             <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#visibility-off')); ?>"></use>
                         </svg>
 
@@ -556,7 +556,7 @@
                             role="presentation"
                             focusable="false"
                         >
-                            <title><?= __('Hide password icon') ?></title>
+                            <title><?= $block->escapeHtml(__('Hide password icon')) ?></title>
                             <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#visibility')); ?>"></use>
                         </svg>
                     </button>
@@ -583,7 +583,7 @@
 </div>
 <script type="text/x-magento-init">
     {
-        <?php if ($block->getShowAddressFields()) : ?>
+        <?php if ($block->getShowAddressFields()): ?>
         "#country": {
             "regionUpdater": {
                 "optionalRegionAllowed": <?= /* @noEscape */ ($block->getConfig("general/region/display_all") ? "true" : "false") ?>,

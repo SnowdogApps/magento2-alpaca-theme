@@ -1,0 +1,155 @@
+<?php /* @var $block \Magento\Downloadable\Block\Catalog\Product\Links */ ?>
+<?php $_linksPurchasedSeparately = $block->getLinksPurchasedSeparately(); ?>
+<?php if ($block->getProduct()->isSaleable() && $block->hasLinks()) :?>
+    <?php $_links = $block->getLinks(); ?>
+    <?php $_linksLength = 0; ?>
+    <?php $_isRequired = $block->getLinkSelectionRequired(); ?>
+    <fieldset class="fieldset">
+        <legend
+            class="
+                fieldset__legend
+                fieldset__legend--hidden
+                legend
+                links-title
+            "
+        >
+            <?= $block->escapeHtml($block->getLinksTitle()) ?>
+        </legend>
+        <div
+            class="
+                field
+                downloads
+                <?= $_isRequired ? 'required' : '' ?>
+                <?= !$_linksPurchasedSeparately ? 'downloads-no-separately' : '' ?>
+            "
+        >
+            <label class="product-view__short-description-heading">
+                <?= $block->escapeHtml($block->getLinksTitle() . ':') ?>
+            </label>
+            <div
+                class="control"
+                id="downloadable-links-list"
+                data-mage-init='{
+                    "downloadable":{
+                        "linkElement":"input:checkbox[value]",
+                        "allElements":"#links_all",
+                        "config":<?= $block->escapeHtmlAttr($block->getJsonConfig()) ?>
+                    }
+                }'
+                data-container-for="downloadable-links"
+            >
+                <?php foreach ($_links as $_link) : ?>
+                    <?php $_linksLength++;?>
+                    <div
+                        class="
+                            checkbox
+                            field
+                            choice
+                        "
+                        data-role="link"
+                    >
+                        <?php if ($_linksPurchasedSeparately) : ?>
+                            <input
+                                type="checkbox"
+                                class="checkbox__field"
+                                <?php if ($_isRequired) : ?>
+                                    data-validate="{
+                                        'validate-one-checkbox-required-by-name':'downloadable-links-list'
+                                    }"
+                                <?php endif; ?>
+                                name="links[]"
+                                id="links_<?= $block->escapeHtmlAttr($_link->getId()) ?>"
+                                value="<?= $block->escapeHtmlAttr($_link->getId()) ?>"
+                                <?= $block->escapeHtml($block->getLinkCheckedValue($_link))?>
+                            />
+
+                            <svg
+                                class="
+                                    checkbox__icon
+                                    checkbox__icon--checked
+                                "
+                                role="presentation"
+                                focusable="false"
+                            >
+                                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#checked')) ?>"></use>
+                            </svg>
+
+                            <svg
+                                class="
+                                    checkbox__icon
+                                    checkbox__icon--unchecked
+                                "
+                                role="presentation"
+                                focusable="false"
+                            >
+                                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#unchecked')) ?>"></use>
+                            </svg>
+                        <?php endif; ?>
+                        <label
+                            class="
+                                label
+                                <?= $_linksPurchasedSeparately ? 'checkbox__label' : '' ?>
+                            "
+                            for="links_<?= $block->escapeHtmlAttr($_link->getId()) ?>"
+                        >
+                            <span class="checkbox__text">
+                                <?= $block->escapeHtml($_link->getTitle()) ?>
+
+                                <?php if ($_link->getSampleFile() || $_link->getSampleUrl()) : ?>
+                                    <a
+                                        class="
+                                            link
+                                            link--invert
+                                            sample
+                                        "
+                                        href="<?= $block->escapeUrl($block->getLinkSampleUrl($_link)) ?>"
+                                        <?= $block->getIsOpenInNewWindow() ? 'target="_blank"' : '' ?>
+                                    >
+                                        <?= $block->escapeHtml(__('Sample')) ?>
+                                    </a>
+                                <?php endif; ?>
+
+                                <?php if ($_linksPurchasedSeparately) : ?>
+                                    <?= /* @noEscape */ $block->getLinkPrice($_link) ?>
+                                <?php endif; ?>
+                            </span>
+                        </label>
+                    </div>
+                <?php endforeach; ?>
+                <?php if ($_linksPurchasedSeparately && $_linksLength > 1) : ?>
+                    <div
+                        class="
+                            checkbox
+                            field
+                            choice
+                            downloads-all
+                        "
+                    >
+                        <input
+                            type="checkbox"
+                            class="checkbox__field"
+                            data-notchecked="<?= $block->escapeHtmlAttr(__('Select all')) ?>"
+                            data-checked="<?= $block->escapeHtmlAttr(__('Unselect all')) ?>"
+                            id="links_all"
+                        />
+                        <label
+                            class="
+                                checkbox__label
+                                checkbox__label--no-icon
+                                label
+                            "
+                            for="links_all"
+                        >
+                            <span class="checkbox__text">
+                                <?= $block->escapeHtml(__('Select all')) ?>
+                            </span>
+                        </label>
+                    </div>
+                <?php endif; ?>
+            </div>
+            <?php if ($_isRequired) : ?>
+                <span id="links-advice-container"></span>
+            <?php endif;?>
+        </div>
+    </fieldset>
+<?php endif; ?>

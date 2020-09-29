@@ -1,0 +1,46 @@
+<?php
+/**
+ * Category view template
+ *
+ * @var $block \Magento\Catalog\Block\Category\View
+ */
+
+// phpcs:disable Magento2.Templates.ThisInTemplate.FoundThis
+// phpcs:disable Generic.WhiteSpace.ScopeIndent.IncorrectExact
+// phpcs:disable Magento2.Security.LanguageConstruct.DirectOutput
+?>
+<?php
+    /** @var \Snowdog\CategoryAttributes\ViewModel\ImageSize $categoryImageViewModel */
+    $categoryImageViewModel = $block->getCategoryImageViewModel();
+    $_helper = $this->helper(Magento\Catalog\Helper\Output::class);
+    $_category = $block->getCurrentCategory();
+    $_imgHtml = '';
+    if ($_imgUrl = $_category->getImageUrl()) {
+        $imgSize = $categoryImageViewModel->get($_category);
+        $imgWidth = $imgSize['width'];
+        $imgHeight = $imgSize['height'];
+        $aspectRatio = ($imgHeight / $imgWidth) * 100;
+        $_imgHtml = '
+            <div
+                class="
+                    category-image
+                    ratio-container
+                "
+                style="padding-bottom:' . $aspectRatio . '%"
+            >
+                <img
+                    src="' . $block->escapeUrl($_imgUrl) . '"
+                    alt="' . $block->escapeHtmlAttr($_category->getName()) . '"
+                    title="' . $block->escapeHtmlAttr($_category->getName()) . '"
+                    class="
+                        image
+                        lazyload
+                        ratio-image
+                    "
+                />
+            </div>
+        ';
+        $_imgHtml = $_helper->categoryAttribute($_category, $_imgHtml, 'image');
+        /* @noEscape */ echo $_imgHtml;
+    }
+?>

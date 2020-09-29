@@ -9,18 +9,18 @@
 $currencyHelper = $this->helper('Magento\Framework\Pricing\Helper\Data');
 
 $filter = $block->getFilter();
-$filterCode = $block->escapeHtmlAttr($filter->getRequestVar());
-$filterName = $block->escapeHtml($filter->getName());
+$filterCode = $filter->getRequestVar();
+$filterName = $filter->getName();
 $filterConfig = json_decode($block->getJsonConfig(), true);
 
 $filterMinValue = $filterConfig['minValue'];
 $filterMaxValue = $filterConfig['maxValue'];
 $filterMinValueNumber = number_format($filterMinValue, 2);
 $filterMaxValueNumber = number_format($filterMaxValue, 2);
-$filterCurrentValueFrom = $block->escapeHtmlAttr($filterConfig['currentValue']['from']);
-$filterCurrentValueTo = $block->escapeHtmlAttr($filterConfig['currentValue']['to']);
+$filterCurrentValueFrom = $filterConfig['currentValue']['from'];
+$filterCurrentValueTo = $filterConfig['currentValue']['to'];
 $filterUrl = $filterConfig['urlTemplate'];
-$filterSymbolPattern = $block->escapeHtml($filterConfig['fieldFormat']['pattern']);
+$filterSymbolPattern = $filterConfig['fieldFormat']['pattern'];
 $filterSymbol = str_replace('%s', '', $filterSymbolPattern);
 ?>
 <?php if (!($filterMinValueNumber === $filterMaxValueNumber)): ?>
@@ -41,11 +41,11 @@ $filterSymbol = str_replace('%s', '', $filterSymbolPattern);
         <button
             type="button"
             class="dropdown-list__label"
-            aria-controls="<?= $filterCode; ?>Filter"
+            aria-controls="<?= $block->escapeHtmlAttr($filterCode); ?>Filter"
             aria-expanded="true"
         >
             <h3 class="filter__heading">
-                <?= $filterName; ?>
+                <?= $block->escapeHtml($filterName); ?>
             </h3>
 
             <svg
@@ -56,14 +56,14 @@ $filterSymbol = str_replace('%s', '', $filterSymbolPattern);
                 role="presentation"
                 focusable="false"
             >
-                <title><?= __('Arrow down') ?></title>
+                <title><?= $block->escapeHtml(__('Arrow down')) ?></title>
                 <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#angle-down')); ?>"></use>
             </svg>
         </button>
     </div>
 
     <div
-        id="<?= $filterCode; ?>Filter"
+        id="<?= $block->escapeHtmlAttr($filterCode); ?>Filter"
         class="
             dropdown-list__content
             filter__content
@@ -77,7 +77,7 @@ $filterSymbol = str_replace('%s', '', $filterSymbolPattern);
                 "moreInfo": {
                     "path": "/rest/V1/snowproductattributedescription/description/:attributeCode",
                     "variable": ":attributeCode",
-                    "data": "<?= $filterCode ?>"
+                    "data": "<?= $block->escapeHtmlAttr($filterCode) ?>"
                 }
             }'
             aria-hidden="true"
@@ -93,7 +93,7 @@ $filterSymbol = str_replace('%s', '', $filterSymbolPattern);
                 aria-expanded="false"
             >
                 <span class="button__text">
-                    <?= __('More information') ?>
+                    <?= $block->escapeHtml(__('More information')) ?>
                 </span>
                 <svg
                     class="
@@ -103,7 +103,7 @@ $filterSymbol = str_replace('%s', '', $filterSymbolPattern);
                     role="presentation"
                     focusable="false"
                 >
-                    <title><?= __('Show tooltip') ?></title>
+                    <title><?= $block->escapeHtml(__('Show tooltip')) ?></title>
                     <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#info')); ?>"></use>
                 </svg>
             </button>
@@ -114,7 +114,7 @@ $filterSymbol = str_replace('%s', '', $filterSymbolPattern);
             >
                 <div class="more-info__content">
                     <h3 class="more-info__heading">
-                        <?= $filterName ?>
+                        <?= $block->escapeHtml($filterName) ?>
                     </h3>
 
                     <div class="more-info__data"></div>
@@ -134,7 +134,7 @@ $filterSymbol = str_replace('%s', '', $filterSymbolPattern);
                             role="presentation"
                             focusable="false"
                         >
-                            <title><?= __('Close') ?></title>
+                            <title><?= $block->escapeHtml(__('Close')) ?></title>
                             <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#close')); ?>"></use>
                         </svg>
                     </button>
@@ -162,9 +162,9 @@ $filterSymbol = str_replace('%s', '', $filterSymbolPattern);
                             label
                             range-filter__label
                         "
-                        for="<?= $filterCode ?>-lower"
+                        for="<?= $block->escapeHtmlAttr($filterCode) ?>-lower"
                     >
-                        <?= __('Minimum value') ?>
+                        <?= $block->escapeHtml(__('Minimum value')) ?>
                     </label>
                     <input
                         class="
@@ -172,15 +172,15 @@ $filterSymbol = str_replace('%s', '', $filterSymbolPattern);
                             range-filter__field
                             range-filter__field--lower
                         "
-                        id="<?= $filterCode ?>-lower"
+                        id="<?= $block->escapeHtmlAttr($filterCode) ?>-lower"
                         name="range-filter-min"
                         type="number"
-                        value="<?= $filterCurrentValueFrom ?>"
-                        placeholder="<?= $filterCurrentValueFrom ?>"
+                        value="<?= $block->escapeHtmlAttr($filterCurrentValueFrom) ?>"
+                        placeholder="<?= $block->escapeHtmlAttr($filterCurrentValueFrom) ?>"
                     >
                 </div>
                 <span class="range-filter__suffix">
-                    <?= $filterSymbol ?>
+                    <?= $block->escapeHtml($filterSymbol) ?>
                 </span>
                 <span class="range-filter__dash">-</span>
                 <div
@@ -195,9 +195,9 @@ $filterSymbol = str_replace('%s', '', $filterSymbolPattern);
                             label
                             range-filter__label
                         "
-                        for="<?= $filterCode ?>-upper"
+                        for="<?= $block->escapeHtmlAttr($filterCode) ?>-upper"
                     >
-                        <?= __('Maximum value') ?>
+                        <?= $block->escapeHtml(__('Maximum value')) ?>
                     </label>
                     <input
                         class="
@@ -205,15 +205,15 @@ $filterSymbol = str_replace('%s', '', $filterSymbolPattern);
                             range-filter__field
                             range-filter__field--upper
                         "
-                        id="<?= $filterCode ?>-upper"
+                        id="<?= $block->escapeHtmlAttr($filterCode) ?>-upper"
                         name="range-filter-max"
                         type="number"
-                        value="<?= $filterCurrentValueTo ?>"
-                        placeholder="<?= $filterCurrentValueTo ?>"
+                        value="<?= $block->escapeHtmlAttr($filterCurrentValueTo) ?>"
+                        placeholder="<?= $block->escapeHtmlAttr($filterCurrentValueTo) ?>"
                     >
                 </div>
                 <span class="range-filter__suffix">
-                    <?= $filterSymbol ?>
+                    <?= $block->escapeHtml($filterSymbol) ?>
                 </span>
             </div>
         </div>
@@ -225,15 +225,15 @@ $filterSymbol = str_replace('%s', '', $filterSymbolPattern);
                 margin-vc-sm
             "
             type="button"
-            id="<?= $filterCode ?>-filter"
+            id="<?= $block->escapeHtmlAttr($filterCode) ?>-filter"
             data-filter-url="<?= $block->escapeUrl($filterUrl) ?>"
             href="<?= $block->escapeUrl($filterUrl) ?>"
             data-min="<?= $block->escapeHtmlAttr($filterMinValueNumber) ?>"
             data-max="<?= $block->escapeHtmlAttr($filterMaxValueNumber) ?>"
-            data-attribute="<?= $filterCode ?>"
+            data-attribute="<?= $block->escapeHtmlAttr($filterCode) ?>"
             data-mage-init='{ "priceRange": { } }'
         >
-            <?= __('Apply') ?>
+            <?= $block->escapeHtml(__('Apply')) ?>
         </button>
     </div>
 </li>

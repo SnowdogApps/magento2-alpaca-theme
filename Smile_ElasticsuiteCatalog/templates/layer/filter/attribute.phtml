@@ -6,7 +6,7 @@
  */
 ?>
 <?php
-$datasId = $block->escapeHtmlAttr($this->getFilter()->getRequestVar());
+$datasId = $this->getFilter()->getRequestVar();
 $datascope = $datasId . 'Filter';
 ?>
 <li
@@ -26,7 +26,7 @@ $datascope = $datasId . 'Filter';
         <button
             type="button"
             class="dropdown-list__label"
-            aria-controls="<?= $datascope ?>"
+            aria-controls="<?= $block->escapeHtmlAttr($datascope) ?>"
             aria-expanded="true"
         >
             <h3 class="filter__heading">
@@ -40,7 +40,7 @@ $datascope = $datasId . 'Filter';
                 role="presentation"
                 focusable="false"
             >
-                <title><?= __('Arrow down') ?></title>
+                <title><?= $block->escapeHtml(__('Arrow down')) ?></title>
                 <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#angle-down')); ?>"></use>
             </svg>
         </button>
@@ -51,7 +51,7 @@ $datascope = $datasId . 'Filter';
             dropdown-list__content
             filter__content
         "
-        id="<?= $datascope ?>"
+        id="<?= $block->escapeHtmlAttr($datascope) ?>"
         aria-hidden="false"
     >
         <div
@@ -60,7 +60,7 @@ $datascope = $datasId . 'Filter';
                 "moreInfo": {
                     "path": "/rest/V1/snowproductattributedescription/description/:attributeCode",
                     "variable": ":attributeCode",
-                    "data": "<?= $datasId ?>"
+                    "data": "<?= $block->escapeJs($datasId) ?>"
                 }
             }'
             aria-hidden="true"
@@ -76,7 +76,7 @@ $datascope = $datasId . 'Filter';
                 aria-expanded="false"
             >
                 <span class="button__text">
-                    <?= __('More information') ?>
+                    <?= $block->escapeHtml(__('More information')) ?>
                 </span>
                 <svg
                     class="
@@ -86,7 +86,7 @@ $datascope = $datasId . 'Filter';
                     role="presentation"
                     focusable="false"
                 >
-                    <title><?= __('Show tooltip') ?></title>
+                    <title><?= $block->escapeHtml(__('Show tooltip')) ?></title>
                     <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#info')); ?>"></use>
                 </svg>
             </button>
@@ -117,7 +117,7 @@ $datascope = $datasId . 'Filter';
                             role="presentation"
                             focusable="false"
                         >
-                            <title><?= __('Close') ?></title>
+                            <title><?= $block->escapeHtml(__('Close')) ?></title>
                             <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#close')); ?>"></use>
                         </svg>
                     </button>
@@ -125,7 +125,7 @@ $datascope = $datasId . 'Filter';
             </div>
         </div>
 
-        <div data-bind="scope: '<?= $datascope; ?>'">
+        <div data-bind="scope: '<?= $block->escapeHtmlAttr($datascope); ?>'">
             <!-- ko template: getTemplate() --> <!-- /ko -->
         </div>
 
@@ -134,7 +134,7 @@ $datascope = $datasId . 'Filter';
                 "*" : {
                     "Magento_Ui/js/core/app": {
                         "components": {
-                            "<?= $datascope; ?>": <?= /* @escapeNotVerified */ $this->getJsLayout(); ?>
+                            "<?= $block->escapeJs($datascope); ?>": <?= /* @escapeNotVerified */ $this->getJsLayout(); ?>
                         }
                     }
                 }

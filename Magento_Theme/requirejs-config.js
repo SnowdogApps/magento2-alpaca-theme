@@ -18,9 +18,11 @@ var config = {
       "select2"          : "Magento_Theme/js/lib/select2",
       "select"           : "Magento_Theme/js/select.babel",
       "scrollTop"        : "Magento_Theme/js/scroll-top.babel",
+      "scrollTo"         : "Magento_Theme/js/scroll-to.babel",
       "skipNav"          : "Magento_Theme/js/skip-nav.babel",
       "slider"           : "Magento_Theme/js/slider.babel",
-      "tab"              : "Magento_Theme/js/tab.babel"
+      "tab"              : "Magento_Theme/js/tab.babel",
+      "tooltip"          : "Magento_Theme/js/tooltip.babel"
     }
   },
   config: {

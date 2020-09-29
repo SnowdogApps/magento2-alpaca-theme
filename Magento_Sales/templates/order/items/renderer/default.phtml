@@ -1,12 +1,12 @@
 <?php $_item = $block->getItem(); ?>
 
-<tr id="order-item-row-<?= $_item->getId() ?>">
+<tr id="order-item-row-<?= $block->escapeHtmlAttr($_item->getId()) ?>">
     <td data-th="<?= $block->escapeHtmlAttr(__('Product Name')) ?>">
         <?= $block->escapeHtml($_item->getName()) ?>
 
         <?php if ($_options = $block->getItemOptions()): ?>
             <ul class="list">
-                <?php foreach ($_options as $_option) : ?>
+                <?php foreach ($_options as $_option): ?>
                     <li>
                         <?= $block->escapeHtml($_option['label']) ?>
 
@@ -18,7 +18,7 @@
                             <?php if (isset($_formatedOptionValue['full_view'])): ?>
                                 <strong>
                                     <?= $block->escapeHtml($_option['label']) ?>:&nbsp;
-                                    <?= $_formatedOptionValue['full_view'] ?>
+                                    <?= $block->escapeHtml($_formatedOptionValue['full_view']) ?>
                                 </strong>
                             <?php endif; ?>
                         <?php else: ?>
@@ -33,7 +33,7 @@
 
         <?php $addtInfoBlock = $block->getProductAdditionalInformationBlock(); ?>
 
-        <?php if ($addtInfoBlock) : ?>
+        <?php if ($addtInfoBlock): ?>
             <?= $addtInfoBlock->setItem($_item)->toHtml() ?>
         <?php endif; ?>
 
@@ -41,7 +41,7 @@
     </td>
 
     <td data-th="<?= $block->escapeHtmlAttr(__('SKU')) ?>">
-        <?= $block->prepareSku($block->getSku()) ?>
+        <?= /* @noEscape */ $block->prepareSku($block->getSku()) ?>
     </td>
 
     <td data-th="<?= $block->escapeHtmlAttr(__('Price')) ?>">
@@ -50,19 +50,19 @@
 
     <td data-th="<?= $block->escapeHtmlAttr(__('Qty')) ?>">
         <?php if ($block->getItem()->getQtyOrdered() > 0): ?>
-            <?= __('Ordered') ?>:&nbsp;<?= (float) $block->getItem()->getQtyOrdered() ?>
+            <?= $block->escapeHtml(__('Ordered')) ?>:&nbsp;<?= (float) $block->getItem()->getQtyOrdered() ?>
         <?php endif; ?>
 
         <?php if ($block->getItem()->getQtyShipped() > 0): ?>
-            <?= __('Shipped') ?>:&nbsp;<?= (float) $block->getItem()->getQtyShipped() ?>
+            <?= $block->escapeHtml(__('Shipped')) ?>:&nbsp;<?= (float) $block->getItem()->getQtyShipped() ?>
         <?php endif; ?>
 
         <?php if ($block->getItem()->getQtyCanceled() > 0): ?>
-            <?= __('Canceled') ?>:&nbsp;<?= (float) $block->getItem()->getQtyCanceled() ?>
+            <?= $block->escapeHtml(__('Canceled')) ?>:&nbsp;<?= (float) $block->getItem()->getQtyCanceled() ?>
         <?php endif; ?>
 
         <?php if ($block->getItem()->getQtyRefunded() > 0): ?>
-            <?= __('Refunded') ?>:&nbsp;<?= (float) $block->getItem()->getQtyRefunded() ?>
+            <?= $block->escapeHtml(__('Refunded')) ?>:&nbsp;<?= (float) $block->getItem()->getQtyRefunded() ?>
         <?php endif; ?>
     </td>
 

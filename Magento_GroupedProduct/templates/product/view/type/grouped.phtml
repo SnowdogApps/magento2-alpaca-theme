@@ -31,7 +31,7 @@ $_hasAssociatedProducts = count($_associatedProducts) > 0;
             >
                 <?= $block->escapeHtml(__('Product Name')) ?>
             </th>
-            <?php if ($_product->isSaleable()) : ?>
+            <?php if ($_product->isSaleable()): ?>
                 <th
                     role="columnheader"
                     scope="col"
@@ -42,9 +42,9 @@ $_hasAssociatedProducts = count($_associatedProducts) > 0;
         </tr>
     </thead>
 
-    <?php if ($_hasAssociatedProducts) : ?>
+    <?php if ($_hasAssociatedProducts): ?>
         <tbody>
-            <?php foreach ($_associatedProducts as $_item) : ?>
+            <?php foreach ($_associatedProducts as $_item): ?>
                 <tr role="row">
                     <td
                         class="product-view__grouped-product-name-cell"
@@ -54,19 +54,19 @@ $_hasAssociatedProducts = count($_associatedProducts) > 0;
                         <span class="product-view__grouped-product-name">
                             <?= $block->escapeHtml($_item->getName()) ?>
                         </span>
-                        <?php if ($block->getCanShowProductPrice($_product)) : ?>
-                            <?php if ($block->getCanShowProductPrice($_item)) : ?>
+                        <?php if ($block->getCanShowProductPrice($_product)): ?>
+                            <?php if ($block->getCanShowProductPrice($_item)): ?>
                                 <?= /* @noEscape */ $block->getProductPrice($_item) ?>
                             <?php endif; ?>
                         <?php endif; ?>
                     </td>
-                <?php if ($_product->isSaleable()) : ?>
+                <?php if ($_product->isSaleable()): ?>
                     <td
                         data-th="<?= $block->escapeHtmlAttr(__('Qty')) ?>"
                         class="product-view__grouped-product-qty-td"
                         role="gridcell"
                     >
-                        <?php if ($_item->isSaleable()) : ?>
+                        <?php if ($_item->isSaleable()): ?>
                             <div class="input product-view__grouped-qty">
                                 <label
                                     class="
@@ -90,7 +90,7 @@ $_hasAssociatedProducts = count($_associatedProducts) > 0;
                                     data-errors-message-box="#validation-message-box"
                                 />
                             </div>
-                        <?php else : ?>
+                        <?php else: ?>
                             <div
                                 class="stock unavailable"
                                 title="<?= $block->escapeHtmlAttr(__('Availability')) ?>"
@@ -103,12 +103,14 @@ $_hasAssociatedProducts = count($_associatedProducts) > 0;
                     </td>
                 <?php endif; ?>
             </tr>
-            <?php if ($block->getCanShowProductPrice($_product)
-            && $block->getCanShowProductPrice($_item)
-            && trim($block->getProductPriceHtml(
-                $_item,
-                \Magento\Catalog\Pricing\Price\TierPrice::PRICE_CODE
-            ))) : ?>
+            <?php
+                if ($block->getCanShowProductPrice($_product)
+                && $block->getCanShowProductPrice($_item)
+                && trim($block->getProductPriceHtml(
+                    $_item,
+                    \Magento\Catalog\Pricing\Price\TierPrice::PRICE_CODE
+                ))) :
+            ?>
                 <tr class="row-tier-price">
                     <td colspan="2">
                         <?= $block->getProductPriceHtml(
@@ -125,7 +127,7 @@ $_hasAssociatedProducts = count($_associatedProducts) > 0;
             <tr role="row">
                 <td
                     class="unavailable"
-                    colspan="<?php if ($_product->isSaleable()) : ?>4<?php else : ?>3<?php endif; ?>"
+                    colspan="<?php if ($_product->isSaleable()): ?>4<?php else: ?>3<?php endif; ?>"
                     role="gridcell"
                 >
                     <?= $block->escapeHtml(__('No options of this product are available.')) ?>
