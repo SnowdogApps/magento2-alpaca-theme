@@ -9,7 +9,7 @@ define([], function () {
     if (window.location.search.indexOf('?p=') >= 0 && !pageWasReloaded) {
       changeActiveTab();
 
-      jumpToAnchor('review-form');
+      jumpToAnchor(config.reviewId);
 
       setUrlToLocalStorage(window.location.search);      
     }
@@ -60,7 +60,7 @@ define([], function () {
     }
 
     function jumpToAnchor(id) {
-      window.location.href = "#"+id;
+      window.location.href = "#" + id;
     }
   };
 });
