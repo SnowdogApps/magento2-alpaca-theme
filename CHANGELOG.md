@@ -8,7 +8,7 @@ All notable changes to this project will be documented in this file.
   Affects: cms blocks width images (homepage), catalog grid and list (products images & catgeory image), products widgets, banners (CT), blog, sliders;
   required: import scss file: `_image-ratio.scss`, additional fields in banner content type
 ### Added
-- adjust sliders loading time + add slider widget template (#65842); Affects
+- adjust sliders loading time + add slider widget template (#65842);
 ### Changed
 ### Removed
 
