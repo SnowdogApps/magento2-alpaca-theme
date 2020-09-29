@@ -3,11 +3,11 @@ define([
     'jquery-ui-modules/widget',
     'Magento_Catalog/js/price-box'
 ], function ($) {
-    'use strict';
+  'use strict';
 
   return function (widget) {
     /**
-     * Downloadable widget
+     * Downloadable widget mixin
      */
     $.widget('mage.downloadable', widget, {
       _create: function () {
