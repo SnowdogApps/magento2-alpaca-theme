@@ -4,7 +4,9 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Fixed
-- jumping images: in products grid on catalog, in widgets for cms banners images (#69133); Affects: cms blocks width images (homepage), catalog grid and list, products widgets, blog, sliders
+- jumping images: in products grid & list on catalog, in widgets, in banners and cms images (#69133);
+  Affects: cms blocks width images (homepage), catalog grid and list (products images & catgeory image), products widgets, banners (CT), blog, sliders;
+  required: import scss file: `_image-ratio.scss`, additional fields in banner content type
 ### Added
 - adjust sliders loading time + add slider widget template (#65842); Affects
 ### Changed
@@ -76,7 +78,6 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 - modal close icon overlay on text (#69152)
 - typo in newsletter (#67925)
-- preventing images from jumping on load (#69133)
 
 ### Changed
 - loader to sth "standard" (#68653)
