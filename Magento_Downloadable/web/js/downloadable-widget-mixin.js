@@ -1,7 +1,7 @@
 define([
-    'jquery',
-    'jquery-ui-modules/widget',
-    'Magento_Catalog/js/price-box'
+  'jquery',
+  'jquery-ui-modules/widget',
+  'Magento_Catalog/js/price-box'
 ], function ($) {
   'use strict';
 
