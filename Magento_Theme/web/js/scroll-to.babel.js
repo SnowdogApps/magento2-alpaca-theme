@@ -1,4 +1,4 @@
-define([], function () {
+define(['tab'], function () {
   'use strict';
 
   class ScrollTo {
@@ -20,6 +20,7 @@ define([], function () {
       }
 
       this.init();
+      this.openReviewsOnChangePagination();
     }
 
     init() {
@@ -64,6 +65,23 @@ define([], function () {
           behavior: 'smooth'
         });
       }
+    }
+
+    openReviewsOnChangePagination() {
+      console.log('reviews')
+      const pageWasReloaded = this.getUrlFromLocalStorage() === window.location.search
+      if (window.location.search.indexOf('?p=') >= 0 && !pageWasReloaded) {
+        this.openTab();
+        this.setUrlToLocalStorage(window.location.search);
+      }
+    }
+
+    getUrlFromLocalStorage() {
+      return window.localStorage.getItem('oldSearchUrl');
+    }
+
+    setUrlToLocalStorage(url) {
+      window.localStorage.setItem('oldSearchUrl', url);
     }
   }
 
