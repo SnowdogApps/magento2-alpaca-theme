@@ -48,9 +48,9 @@
                     id="items:item<%- data._index_ %>"
                     data-args='{"index":<%- data._index_ %>}'
                 >
-                    <?php foreach ($_items as $_item) : ?>
+                    <?php foreach ($_items as $_item): ?>
                         <?php $totalAvlQty += $block->getAvailableQty($_item); ?>
-                        <?php if ($i == 0) : ?>
+                        <?php if ($i == 0): ?>
                             <?php
                                 $firstItemId = $_item->getId();
                                 $productType = $_item->getProductType();
@@ -59,10 +59,10 @@
                                 $i = 1;
                             ?>
                         <?php endif; ?>
-                        <?php if ($_item->getProductType() == \Magento\Catalog\Model\Product\Type::TYPE_BUNDLE) : ?>
+                        <?php if ($_item->getProductType() == \Magento\Catalog\Model\Product\Type::TYPE_BUNDLE): ?>
                             <?php $bundleID = $_item->getId(); ?>
                         <?php endif; ?>
-                        <?php if (!$_item->getParentItemId() || $_item->getParentItemId() != $bundleID) : ?>
+                        <?php if (!$_item->getParentItemId() || $_item->getParentItemId() != $bundleID): ?>
                             <option
                                 value="<?= (int) $_item->getId() ?>"
                                 id="item:order_item_id<%- data._index_ %>_<?= (int) $_item->getId() ?>"
@@ -71,8 +71,8 @@
                                 <?= $block->escapeHtml($_item->getName()) ?>
                             </option>
                         <?php endif; ?>
-                        <?php if ($_item->getParentItemId() != null && $_item->getParentItemId() == $bundleID) : ?>
-                            <?php if ($_item->getIsOrdered()) : ?>
+                        <?php if ($_item->getParentItemId() != null && $_item->getParentItemId() == $bundleID): ?>
+                            <?php if ($_item->getIsOrdered()): ?>
                                 <?php
                                     $html[$bundleID][] = [
                                         $_item->getId(),
@@ -81,7 +81,7 @@
                                         1,
                                     ];
                                 ?>
-                            <?php else : ?>
+                            <?php else: ?>
                                 <?php
                                     $html[$bundleID][] = [
                                         $_item->getId(),
@@ -95,8 +95,8 @@
                     <?php endforeach; ?>
                 </select>
             </div>
-            <?php if (!empty($html)) : ?>
-                <?php foreach ($html as $bundleID => $node) : ?>
+            <?php if (!empty($html)): ?>
+                <?php foreach ($html as $bundleID => $node): ?>
                     <div class="nested">
                         <div id="radio:item<%- data._index_ %>_<?= (int) $bundleID ?>">
                             <div class="table-wrapper">
@@ -138,7 +138,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach ($node as $item) : ?>
+                                        <?php foreach ($node as $item): ?>
                                             <tr role="row">
                                                 <td
                                                     data-th="<?= $block->escapeHtmlAttr(__('Product')) ?>"
@@ -149,13 +149,13 @@
                                                     "
                                                     role="gridcell
                                                 >
-                                                    <?php if ($item[3]) : ?>
+                                                    <?php if ($item[3]): ?>
                                                         <input
                                                             type="checkbox"
                                                             disabled
                                                             class="checkbox__field"
                                                         >
-                                                    <?php else : ?>
+                                                    <?php else: ?>
                                                         <input
                                                             id="items[<%- data._index_ %>][<?= (int) $bundleID ?>][checkbox][item][<?= $block->escapeHtmlAttr($item[0]) ?>]"
                                                             data-validate="
@@ -225,7 +225,7 @@
                                                     "
                                                     role="gridcell
                                                 >
-                                                    <?php if (!$item[3]) : ?>
+                                                    <?php if (!$item[3]): ?>
                                                         <input
                                                             id="items[<%- data._index_ %>][<?= (int) $bundleID ?>][checkbox][qty][<?= $block->escapeHtmlAttr($item[0]) ?>]"
                                                             name="items[<%- data._index_ %>][items][<?=$block->escapeHtmlAttr($item[0]) ?>]"
@@ -295,9 +295,9 @@
             </div>
         </div>
 
-        <?php foreach ($block->getAttributes() as $attribute) :?>
+        <?php foreach ($block->getAttributes() as $attribute): ?>
             <?php $attributeContent = $block->getAttributeHtml($attribute);?>
-            <?php if ($attributeContent) : ?>
+            <?php if ($attributeContent): ?>
                 <?= /* @noEscape */ $attributeContent ?>
             <?php endif;?>
         <?php endforeach;?>
@@ -385,9 +385,9 @@
                 "fileElement": {},
                 "rmaCreate": {
                     <?php $i = 0; ?>
-                    <?php if ($_data) : ?>
+                    <?php if ($_data): ?>
                         <?php $formDataPost = $_data->getItems(); ?>
-                        <?php if (is_array($formDataPost)) : ?>
+                        <?php if (is_array($formDataPost)): ?>
                             "formDataPost": <?= /* @noEscape */ json_encode($formDataPost) ?>,
                         <?php endif; ?>
                     <?php endif; ?>

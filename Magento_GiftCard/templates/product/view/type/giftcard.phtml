@@ -33,7 +33,7 @@
                     value="<?= $block->escapeHtmlAttr($block->getDefaultSenderName()) ?>"
                 />
             </div>
-            <?php if ($block->isEmailAvailable($_product)) : ?>
+            <?php if ($block->isEmailAvailable($_product)): ?>
                 <div
                     class="
                         input
@@ -83,7 +83,7 @@
                     value="<?= $block->escapeHtmlAttr($block->getDefaultValue('giftcard_recipient_name')) ?>"
                 />
             </div>
-            <?php if ($block->isEmailAvailable($_product)) : ?>
+            <?php if ($block->isEmailAvailable($_product)): ?>
                 <div
                     class="
                         input
@@ -112,7 +112,7 @@
                 </div>
             <?php endif; ?>
 
-            <?php if ($block->isMessageAvailable($_product)) : ?>
+            <?php if ($block->isMessageAvailable($_product)): ?>
                 <div class="input text">
                     <label
                         for="giftcard-message"
@@ -136,7 +136,7 @@
 
                             <?= 'data-validate="{maxlength:'
                                 . $block->escapeHtmlAttr($block->getMessageMaxLength())
-                                . ',messages:{maxlength:' . $errorMessage
+                                . ',messages:{maxlength:' . $block->escapeHtmlAttr($block->escapeJs($errorMessage))
                                 . '}}"';
                             ?>
                         <?php endif; ?>
@@ -146,7 +146,7 @@
                 </div>
             <?php endif; ?>
         </fieldset>
-    <?php elseif ($_product->isAvailable() && $block->isConfigured($_product)) : ?>
+    <?php elseif ($_product->isAvailable() && $block->isConfigured($_product)): ?>
         <?= /* @noEscape */ $block->getProductPrice($_product) ?>
     <?php endif; ?>
 </div>

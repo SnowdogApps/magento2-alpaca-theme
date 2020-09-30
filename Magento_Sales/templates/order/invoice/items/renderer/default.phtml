@@ -1,12 +1,12 @@
 <?php $_item = $block->getItem() ?>
 
-<tr id="order-item-row-<?= $_item->getId() ?>">
+<tr id="order-item-row-<?= $block->escapeHtmlAttr($_item->getId()) ?>">
     <td data-th="<?= $block->escapeHtmlAttr(__('Product Name')); ?>">
         <?= $block->escapeHtml($_item->getName()) ?>
 
         <?php if ($_options = $block->getItemOptions()): ?>
             <ul class="list">
-                <?php foreach ($_options as $_option) : ?>
+                <?php foreach ($_options as $_option): ?>
                     <li>
                         <?= $block->escapeHtml($_option['label']) ?>:&nbsp;
 
@@ -18,7 +18,7 @@
                             <?php if (isset($_formatedOptionValue['full_view'])): ?>
                                 <strong>
                                     <?= $block->escapeHtml($_option['label']) ?>:&nbsp;
-                                    <?= $_formatedOptionValue['full_view'] ?>
+                                    <?= $block->escapeHtml($_formatedOptionValue['full_view']) ?>
                                 </strong>
                             <?php endif; ?>
                         <?php else: ?>
@@ -33,7 +33,7 @@
 
         <?php $addInfoBlock = $block->getProductAdditionalInformationBlock(); ?>
 
-        <?php if ($addInfoBlock) :?>
+        <?php if ($addInfoBlock): ?>
             <?= $addInfoBlock->setItem($_item->getOrderItem())->toHtml(); ?>
         <?php endif; ?>
 
@@ -41,7 +41,7 @@
     </td>
 
     <td data-th="<?= $block->escapeHtmlAttr(__('SKU')); ?>">
-        <?= $block->prepareSku($block->getSku()) ?>
+        <?= /* @noEscape */ $block->prepareSku($block->getSku()) ?>
     </td>
 
     <td data-th="<?= $block->escapeHtmlAttr(__('Price')); ?>">
