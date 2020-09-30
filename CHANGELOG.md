@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Fixed
+- issue with arrows looking wrong if gallery vertical/horizontal nav breakpoints are changed via configuration (#71113); Affects: gallery navigation
 - input and select styles in poduct gift card template (#70690); Affects: gift card PDP
 - review snippets (#69786)
 - tooltip text align on product list (#71074)
@@ -13,6 +14,7 @@ All notable changes to this project will be documented in this file.
   Affects: cms blocks width images (homepage), catalog grid and list (products images & category image), products widgets, banners (CT), blog, sliders;
   required: import scss file: `_image-ratio.scss`, additional fields in banner content type
 - division by zero warning (#71513)
+- AuthorizeNet 'Save for later use' checkbox styling in checkout (#71077)
 ### Added
 - adjust sliders loading time + add slider widget template (#65842)
 - scroll-to.js file and added it for reviews on product page (#71248); Affects: Reviews buttons on PDP
