@@ -19,12 +19,13 @@
         $imgSize = $categoryImageViewModel->get($_category);
         $imgWidth = $imgSize['width'];
         $imgHeight = $imgSize['height'];
-        $aspectRatio = ($imgHeight / $imgWidth) * 100;
+        $aspectRatio = $imgHeight && $imgWidth ? ($imgHeight / $imgWidth) * 100 : 0;
+        $aspectRatioClass = $aspectRatio > 0 ? 'ratio-container' : '';
         $_imgHtml = '
             <div
                 class="
                     category-image
-                    ratio-container
+                    '. $aspectRatioClass .'
                 "
                 style="padding-bottom:' . $aspectRatio . '%"
             >
