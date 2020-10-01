@@ -27,7 +27,7 @@ define(['tab'], function () {
       this.element.addEventListener('click', this.scrollTo.bind(this));
 
       if (this.config.tab.open) {
-        this.openReviewsOnChangePagination();
+        this.openTabOnChangePagination();
       }
     }
 
@@ -70,7 +70,7 @@ define(['tab'], function () {
       }
     }
 
-    openReviewsOnChangePagination() {
+    openTabOnChangePagination() {
       const pageWasReloaded = this.getUrlFromLocalStorage() === window.location.search
       if (window.location.search.indexOf('?p=') >= 0 && !pageWasReloaded) {
         this.openTab();
