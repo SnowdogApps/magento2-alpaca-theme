@@ -20,12 +20,15 @@ define(['tab'], function () {
       }
 
       this.init();
-      this.openReviewsOnChangePagination();
     }
 
     init() {
       this.config = Object.assign({}, this.defaults, this.config);
       this.element.addEventListener('click', this.scrollTo.bind(this));
+
+      if (this.config.tab.open) {
+        this.openReviewsOnChangePagination();
+      }
     }
 
     openTab() {
@@ -68,7 +71,6 @@ define(['tab'], function () {
     }
 
     openReviewsOnChangePagination() {
-      console.log('reviews')
       const pageWasReloaded = this.getUrlFromLocalStorage() === window.location.search
       if (window.location.search.indexOf('?p=') >= 0 && !pageWasReloaded) {
         this.openTab();
