@@ -1,4 +1,4 @@
-// File is deprecated, new file - scroll-to.babel.js
+// File is deprecated, please use Magento_Theme/web/js/scroll-to.babel.js instead
 define([], function () {
   'use strict';
 
