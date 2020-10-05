@@ -28,6 +28,29 @@ module.exports = {
       text: 'In stock',
       attributes: 'type="button" data-modal-trigger="shipping-latency-product"'
     },
+    downloadableSamples: {
+      label: {
+        text: 'Trailers:',
+        class: 'product-view__short-description-heading margin-bottom-xs'
+      },
+      elements: [
+        {
+          href: '#',
+          text: 'Trailer #1',
+          class: 'link--invert item-link samples-item-link'
+        },
+        {
+          href: '#',
+          text: 'Trailer #2',
+          class: 'link--invert item-link samples-item-link'
+        },
+        {
+          href: '#',
+          text: 'Trailer #3',
+          class: 'link--invert item-link samples-item-link'
+        }
+      ]
+    },
     shortDescription: {
       class: 'margin-top-m',
       heading: {
@@ -36,6 +59,71 @@ module.exports = {
         text: 'Short description:'
       },
       text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry. Lorem Ipsum has been the industry.'
+    },
+    downloadableLinks: {
+      legend: {
+        class: 'fieldset__legend--hidden legend links-title',
+        text: 'Downloads'
+      },
+      label: {
+        class: 'product-view__short-description-heading',
+        text: 'Downloads:'
+      },
+      checkboxes: [
+        {
+          id: 'links_1',
+          class: 'field choice',
+          attributes: 'value="1"',
+          label: {
+            text: `
+              Episode 1
+              <a
+                class="
+                  link
+                  link--invert
+                  sample
+                "
+                href="#"
+              >
+                Sample
+              </a>
+              <span class="price-wrapper">
+                $9.00
+              </span>
+            `,
+          }
+        },
+        {
+          id: 'links_2',
+          class: 'field choice',
+          attributes: 'value="2"',
+          label: {
+            text: `
+              Episode 2
+              <a
+                class="
+                  link
+                  link--invert
+                  sample
+                "
+                href="#"
+              >
+                Sample
+              </a>
+              <span class="price-wrapper">
+                $9.00
+              </span>
+            `
+          }
+        }
+      ],
+      selectAll: {
+        id: 'links-all',
+        attributes: 'data-notchecked="Select all" data-checked="Unselect all"',
+        label: {
+          text: 'Select all'
+        }
+      }
     },
     shippingLatencyModal: {
       modal: {

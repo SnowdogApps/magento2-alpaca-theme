@@ -38,6 +38,16 @@ module.exports = {
           text: 'Checkbox link'
         },
       }
+    },
+    {
+      name: 'no-icon',
+      context: {
+        id: 'checkbox-no-icon',
+        class: '',
+        label: {
+          text: 'Checkbox no icon'
+        },
+      }
     }
   ]
 };

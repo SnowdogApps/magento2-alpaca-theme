@@ -1,0 +1,47 @@
+<?php
+/** @var \Magento\Vault\Block\Customer\AccountTokens $block */
+$tokens = $block->getPaymentTokens();
+?>
+
+<?php if (count($tokens) !== 0) : ?>
+    <div
+        class="
+            dashboard-table
+            table-wrapper
+            my-credit-cards
+        "
+    >
+        <table
+            class="
+                data
+                table
+                table-credit-cards
+            "
+            id="token-list-table"
+        >
+            <thead>
+                <tr role="row">
+                    <th
+                        scope="col"
+                        class="col"
+                        role="columnheader"
+                    >
+                        <?= $block->escapeHtml(__('PayPal Account')) ?>
+                    </th>
+                    <th
+                        scope="col"
+                        class="col actions"
+                        role="columnheader"
+                    >
+                        &nbsp;
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($tokens as $token) : ?>
+                <?= /* @noEscape */ $block->renderTokenHtml($token) ?>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+<?php endif; ?>
