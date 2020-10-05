@@ -124,8 +124,7 @@ define([
             input = $widget._RenderFormInput(item),
             listLabel = '',
             label = '',
-            initLoader = $('.' + $widget.options.classes.initLoader);
-
+            initLoader = container.find($('.' + $widget.options.classes.initLoader)) ;
           // Show only swatch controls
           if ($widget.options.onlySwatches && !$widget.options.jsonSwatchConfig.hasOwnProperty(item.id)) {
             return;
