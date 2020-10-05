@@ -7,6 +7,7 @@ define(['tab'], function () {
       this.config = config;
       this.defaults = {
         selector: '',
+        scrollOnReload: false,
         offset: 0,
         tab: {
           open: false,
@@ -26,7 +27,7 @@ define(['tab'], function () {
       this.config = Object.assign({}, this.defaults, this.config);
       this.element.addEventListener('click', this.scrollTo.bind(this));
 
-      if (this.config.tab.open) {
+      if (this.config.scrollOnReload) {
         this.openTabOnChangePagination();
       }
     }
@@ -47,8 +48,10 @@ define(['tab'], function () {
       }
     }
 
-    scrollTo(e) {
-      e.preventDefault();
+    scrollTo(e = null) {
+      if (e) {
+        e.preventDefault();
+      }
 
       if (this.config.tab.open) {
         this.openTab();
@@ -71,19 +74,9 @@ define(['tab'], function () {
     }
 
     openTabOnChangePagination() {
-      const pageWasReloaded = this.getUrlFromLocalStorage() === window.location.search
-      if (window.location.search.indexOf('?p=') >= 0 && !pageWasReloaded) {
-        this.openTab();
-        this.setUrlToLocalStorage(window.location.search);
+      if (window.location.search.includes('?p=')) {
+        this.scrollTo();
       }
-    }
-
-    getUrlFromLocalStorage() {
-      return window.localStorage.getItem('oldSearchUrl');
-    }
-
-    setUrlToLocalStorage(url) {
-      window.localStorage.setItem('oldSearchUrl', url);
     }
   }
 
