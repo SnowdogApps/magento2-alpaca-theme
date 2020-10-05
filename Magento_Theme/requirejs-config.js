@@ -27,6 +27,9 @@ var config = {
   },
   config: {
     mixins: {
+      "mage/gallery/gallery": {
+        "Magento_Theme/js/mixins/gallery-mixin": true
+      },
       "Magento_Theme/js/view/messages": {
         "Magento_Theme/js/mixins/messages-mixin": true
       },
