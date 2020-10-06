@@ -28,6 +28,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 ### Removed
 - unnecessary title from svgs with role presentation (#71268)
+- reference to Magento\Rma\Block\Order\Button block on OS (#71741); Affects: order view, order invoice & order shipment
 
 ## [Released]
 
