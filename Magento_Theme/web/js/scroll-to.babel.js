@@ -1,14 +1,16 @@
 define(['tab'], function () {
   'use strict';
 
+  let initialized = false;
+
   class ScrollTo {
     constructor(element, config) {
       this.element = element;
       this.config = config;
       this.defaults = {
         selector: '',
-        scrollOnReload: false,
         offset: 0,
+        scrollOnReload: false,
         tab: {
           open: false,
           selector: ''
@@ -27,9 +29,11 @@ define(['tab'], function () {
       this.config = Object.assign({}, this.defaults, this.config);
       this.element.addEventListener('click', this.scrollTo.bind(this));
 
-      if (this.config.scrollOnReload) {
+      if (this.config.scrollOnReload && !initialized) {
         this.openTabOnChangePagination();
       }
+
+      initialized = true
     }
 
     openTab() {
