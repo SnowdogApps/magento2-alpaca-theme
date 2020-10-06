@@ -1,5 +1,7 @@
-define([], function () {
+define(['tab'], function () {
   'use strict';
+
+  let initialized = false;
 
   class ScrollTo {
     constructor(element, config) {
@@ -8,6 +10,7 @@ define([], function () {
       this.defaults = {
         selector: '',
         offset: 0,
+        scrollOnReload: false,
         tab: {
           open: false,
           selector: ''
@@ -25,6 +28,12 @@ define([], function () {
     init() {
       this.config = Object.assign({}, this.defaults, this.config);
       this.element.addEventListener('click', this.scrollTo.bind(this));
+
+      if (this.config.scrollOnReload && !initialized) {
+        this.openTabOnChangePagination();
+      }
+
+      initialized = true
     }
 
     openTab() {
@@ -43,8 +52,10 @@ define([], function () {
       }
     }
 
-    scrollTo(e) {
-      e.preventDefault();
+    scrollTo(e = null) {
+      if (e) {
+        e.preventDefault();
+      }
 
       if (this.config.tab.open) {
         this.openTab();
@@ -63,6 +74,12 @@ define([], function () {
           top: position,
           behavior: 'smooth'
         });
+      }
+    }
+
+    openTabOnChangePagination() {
+      if (window.location.search.includes('?p=')) {
+        this.scrollTo();
       }
     }
   }
