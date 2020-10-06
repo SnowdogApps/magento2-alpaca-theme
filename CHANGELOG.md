@@ -18,12 +18,14 @@ All notable changes to this project will be documented in this file.
 - AuthorizeNet 'Save for later use' checkbox styling in checkout (#71077)
 - swatch images on product page (#71579); Affects: swatch images
 - gallery rendering on page load so current breakpoint configuration isn't replaced by any other configuration (fix from Magento 2.4-develop PR 29934) (#71518)
+- loader scope for in swatches (#71300)
 ### Added
 - adjust sliders loading time + add slider widget template (#65842)
 - scroll-to.js file and added it for reviews on product page (#71248); Affects: Reviews buttons on PDP
 - variables for footer bottom bar (#71488)
 - downloadable product PDP (#70550)
 - wishlist - config items - show "see details" with selected options (#71268); Affects: wishlist in dashboard
+- loader for picture element (#71300)
 ### Changed
 ### Removed
 - unnecessary title from svgs with role presentation (#71268)
