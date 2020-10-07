@@ -186,8 +186,14 @@ use Magento\Framework\App\Action\Action;
                                                     "
                                                     type="submit"
                                                     aria-label="<?= $block->escapeHtmlAttr(__('Add to Wish List')) ?>"
-                                                    data-post='<?= /* @noEscape */ $block->getAddToWishlistParams($_item) ?>'
-                                                    data-action="add-to-wishlist"
+
+                                                    data-mage-init='{
+                                                        "wishlistItem": {
+                                                            "productId": "<?= $_item->getId() ?>",
+                                                            "class": "button--icon-filled",
+                                                            "addToParams": <?= $block->getAddToWishlistParams($_item) ?>
+                                                        }
+                                                    }'
                                                 >
                                                     <svg
                                                         class="
