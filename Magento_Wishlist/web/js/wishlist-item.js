@@ -19,7 +19,7 @@ define([
     function moreWishlistButton() {
       if (button.hasClass(pdpButtonClass)) {
         // for PDP - if is on product view,
-        // add class to all add to wishlist button
+        // add class to all add to wishlist buttons
         $('.' + pdpButtonClass).addClass(config.class);
       }
     }
@@ -50,7 +50,7 @@ define([
               });
               // remove msg from cookie to not show after reload the page
               $.cookieStorage.set('mage-messages', '');
-            }, 1000);
+            }, 1500);
           }
         }
         else {
