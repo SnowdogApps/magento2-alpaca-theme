@@ -4,15 +4,43 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Fixed
+- issue with arrows looking wrong if gallery vertical/horizontal nav breakpoints are changed via configuration (#71113); Affects: gallery navigation
 - input and select styles in poduct gift card template (#70690); Affects: gift card PDP
 - review snippets (#69786)
+- tooltip text align on product list (#71074)
+- amasty gdpr cookie modal on checkout (#71134)
+- a translate function `__()` syntax error in wishlist item column cart template (#71267)
+- jumping images: in products grid & list on catalog, in widgets, in banners and cms images (#69133);
+  Affects: cms blocks width images (homepage), catalog grid and list (products images & category image), products widgets, banners (CT), blog, sliders;
+  required: import scss file: `_image-ratio.scss`, additional fields in banner content type
+- paypal express button (#71512)
+- division by zero warning (#71513)
+- AuthorizeNet 'Save for later use' checkbox styling in checkout (#71077)
+- swatch images on product page (#71579); Affects: swatch images
+- gallery rendering on page load so current breakpoint configuration isn't replaced by any other configuration (fix from Magento 2.4-develop PR 29934) (#71518)
+### Added
+- adjust sliders loading time + add slider widget template (#65842)
+- scroll-to.js file and added it for reviews on product page (#71248); Affects: Reviews buttons on PDP
+- variables for footer bottom bar (#71488)
+- downloadable product PDP (#70550)
+- wishlist - config items - show "see details" with selected options (#71268); Affects: wishlist in dashboard
+### Changed
+### Removed
+- unnecessary title from svgs with role presentation (#71268)
+- reference to Magento\Rma\Block\Order\Button block on OS (#71741); Affects: order view, order invoice & order shipment
+
+## [Released]
+
+## [2.9.0] - 2020-09-21
+### Fixed
+- input and select styles in poduct gift card template (#70690); Affects: gift card PDP
+- review snippets (#69786)
+- amasty gdpr module error on checkout page (#71078)
+- account - stored payment methods table (#70628)
 ### Added
 - minimum advertised price on grid and product page (#70656); Info: @import '../Magento_Msrp/styles/module'; should be added to /styles/theme.scss
 ### Changed
-### Removed
-
-
-## [Released]
+- recaptcha badge position on mobile PDP (#70725); Affects: PDP
 
 ## [2.8.0] - 2020-09-15
 ### Fixed
