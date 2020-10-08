@@ -18,6 +18,7 @@ All notable changes to this project will be documented in this file.
 - AuthorizeNet 'Save for later use' checkbox styling in checkout (#71077)
 - swatch images on product page (#71579); Affects: swatch images
 - gallery rendering on page load so current breakpoint configuration isn't replaced by any other configuration (fix from Magento 2.4-develop PR 29934) (#71518)
+- adding products to wishlist with ajax (on grid, catalog, PDP), adding configurable product selected options, adding specified qty if on PDP (#70731)
 ### Added
 - adjust sliders loading time + add slider widget template (#65842)
 - scroll-to.js file and added it for reviews on product page (#71248); Affects: Reviews buttons on PDP
