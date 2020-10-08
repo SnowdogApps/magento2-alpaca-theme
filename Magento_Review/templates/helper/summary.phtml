@@ -9,6 +9,7 @@ $urlForm = $block->getReviewsUrl() . '#review-form';
     <?php
         $reviewsCount = $block->getReviewsCount();
         $rating = $block->getRatingSummary();
+        $productName = $block->escapeHtmlAttr($this->getProduct()->getName());
     ?>
     <div
         class="review review--summary"
@@ -23,14 +24,15 @@ $urlForm = $block->getReviewsUrl() . '#review-form';
         >
             <meta
                 itemprop="name"
-                content="<?= $block->escapeHtmlAttr($this->getProduct()->getName()) ?>"
+                content="<?= $productName; ?>"
             />
         </div>
         <?php if ($rating): ?>
             <div class="review__summary-handle">
                 <div
                     class="rating rating--secondary"
-                    aria-label="<?= $block->escapeHtmlAttr(__('Average rating') . ': ' . $block->escapeHtmlAttr($rating) . '%'); ?>"
+                    role="region"
+                    aria-label="<?= $block->escapeHtmlAttr(__('Average rating') . 'for ' . $productName . ': ' . $block->escapeHtmlAttr($rating) . '%'); ?>"
                     title="<?= $block->escapeHtmlAttr(__('Average rating') . ': ' . $block->escapeHtmlAttr($rating) . '%'); ?>"
                     tabindex="0"
                 >
