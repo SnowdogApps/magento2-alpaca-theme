@@ -40,6 +40,8 @@ define([
           uenc: config.addToParams.data.uenc
         };
 
+      // for condfigurable products
+      // add options if selected
       if (swatchContainer) {
         const swatchOptionContainerArray = swatchContainer.querySelectorAll(swatchOptionContainerClass);
 
@@ -52,6 +54,8 @@ define([
         });
       }
 
+      // if it's product's PDP
+      // add specified qty
       if (button.hasClass(pdpButtonClass)) {
         const quantityInput = document.querySelector(quantityInputClass);
         data['qty'] = quantityInput.value;
@@ -72,7 +76,7 @@ define([
               });
               // remove msg from cookie to not show after reload the page
               $.cookieStorage.set('mage-messages', '');
-            }, 1500);
+            }, 1000);
           }
         }
         else {
