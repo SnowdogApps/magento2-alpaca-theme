@@ -1,7 +1,7 @@
 var config = {
   map: {
     '*': {
-      wishlistItem: 'Magento_Wishlist/js/wishlist-item',
+      wishlistItem: 'Magento_Wishlist/js/wishlist-item.babel',
     }
   }
 };
