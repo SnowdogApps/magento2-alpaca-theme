@@ -25,7 +25,7 @@
                     "
                     for="newsletter"
                 >
-                    <?= __('Email for newsletter subscription') ?>
+                    <?= $block->escapeHtml(__('Email for newsletter subscription')) ?>
                 </label>
                 <input
                     name="email"
@@ -45,16 +45,22 @@
                 data-testid="submit-newsletter-button"
                 type="submit"
             >
-                <?= __('Sign Up') ?>
+                <?= $block->escapeHtml(__('Sign Up')) ?>
             </button>
         </div>
-        <?php if ($block->getChildHtml('newsletter-agreement')) : ?>
+        <?php if ($block->getChildHtml('newsletter-agreement')): ?>
             <div class="newsletter__agreements">
-                <div class="checkbox newsletter__checkbox">
+                <div
+                    class="
+                        checkbox
+                        newsletter__checkbox
+                        required
+                    "
+                >
                     <input
                         type="checkbox"
-                        id="newsletterAgrrement"
-                        name="newsletterAgrrement"
+                        id="newsletterAgreement"
+                        name="newsletterAgreement"
                         class="checkbox__field"
                         required
                     >
@@ -79,10 +85,12 @@
                         <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#unchecked')) ?>"></use>
                     </svg>
                     <label
-                        for="newsletterAgrrement"
+                        for="newsletterAgreement"
                         class="checkbox__label"
                     >
-                        <?= $block->getChildHtml('newsletter-agreement') ?>
+                        <span class="checkbox__text">
+                            <?= $block->getChildHtml('newsletter-agreement') ?>
+                        </span>
                     </label>
                 </div>
             </div>

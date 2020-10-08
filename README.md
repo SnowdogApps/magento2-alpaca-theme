@@ -18,6 +18,7 @@ Open source
 * webshopapps/module-matrixrate
 * paradoxlabs/authnetcim
 * paradoxlabs/tokenbase
+* authorizenet/magento-module-creditcard
 
 and module-alpaca-acm (from github) which will be added in p.1
 
@@ -353,9 +354,19 @@ $sliderBlock->setData(['slider_html'=>'after-slides', ...]);
 <?= $sliderBlock->toHtml(); ?>
 ```
 
+5. Sliders created using Advanced Content Manager can be placed in any CMS content using Content Manager Content List widget.
+Click on "Insert Widget..." button when editing CMS content with wysiwyg editor. Select "Content Manager Content List" as Widget Type. Set options:
+"Content Type" -> "Sliders"
+"Number of Contents to Display" -> 1
+"Template" -> "Slider Content List Template"
+"Condition" -> Slider ID is "your-slider-id"
+"Attributes to show" -> not required
+Click on "Insert Widget"
+
+
 ## Alpaca Content - Set up your store, admin / db changes for alpaca theme
 
-### Menu - to display menu use [Snowog's magento2-menu](https://github.com/SnowdogApps/magento2-menu) module
+### Menu - to display menu use [Snowdog's magento2-menu](https://github.com/SnowdogApps/magento2-menu) module
 1. Desktop menu:
   * identifier: main-desktop
   * Menu Main CSS Class: mega-menu
@@ -388,12 +399,55 @@ Homepage content is build using static blocks, check `vendor/snowdog/theme-front
 ### Responsive images
 
 * to display responsive image for banners and slider items, we use:
-* template picture.phtml: `vendor/snowdog/theme-frontend-colibri/Magento_Theme/templates/html/picture.phtml` you can adjust it for your needs in the child theme.
-* usage of phtml in cms block/page: {{block class="Magento\Framework\View\Element\Template" template="Magento_Theme::html/picture.phtml" img480="<img-url>" img768="<img-url>" img960="<img-url>" img1024="<img-url>" img1328="<img-url>" img_full="<img-url>" picture_class="image" picture_alt="<descriptive image alternative text>" }}
+* template `picture.phtml`: `vendor/snowdog/theme-frontend-colibri/Magento_Theme/templates/html/picture.phtml` you can adjust it for your needs in the child theme.
+* usage of phtml in cms block/page:
+```
+{{block class="Magento\Framework\View\Element\Template" template="Magento_Theme::html/picture.phtml" img480="<img-url>" img768="<img-url>" img960="<img-url>" img1024="<img-url>" img1328="<img-url>" img_full="<img-url>" picture_class="image" picture_alt="<descriptive image alternative text>" }}
+```
 * by default you can use different image for media query breakpoints, you can also implement images with different device-pixel-ratio, check the template's code for details
 
-### Slider
-* we use Blackbird Content Manager (paid extension) for sliders, but you can use the structure from Alpaca components and build it using template and CMS blocks
+### Lazyloading images
+We use [lazysizes](https://github.com/aFarkas/lazysizes) in project, so when you implement images with `<img>` tag (ex. in CMS content), use:
+* placeholder in `src` attribute: `data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAABCAQAAABN/Pf1AAAAC0lEQVR42mNkwAIAACoAAgu1Hc4AAAAASUVORK5CYII=`
+* image url in `data-src` attribute
+* `lazyload` class on `<img>` tag
+
+This solution is already implemented on responsive solution in `picture.phtml` template
+
+### Preventing images from jumping on load
+* to prevent jumping we need aspect ratio of image which we can calculate with formula: $aspectRatio = (imgHeight / imgWidth) * 100
+* usage for single image (with lazyloading):
+```
+<div
+    class="ratio-container"
+    style="padding-bottom: $aspectRatio%"
+>
+    <img
+        src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAABCAQAAABN/Pf1AAAAC0lEQVR42mNkwAIAACoAAgu1Hc4AAAAASUVORK5CYII="
+        data-src="<image url>"
+        alt="<descriptive alternative text for image>"
+        class="ratio-image"
+    />
+</div>
+```
+* usage for images added with picture.phtml. To work we need set `img_ratio_width` and `img_ratio_height`:
+```
+{{block class="Magento\Framework\View\Element\Template" template="Magento_Theme::html/picture.phtml" img_default="cms/home/banners/my-file.jpg" img_ratio_width="656" img_ratio_height="264"}}
+```
+* aspect ratio for responsive images implemented using `picture.phtml`:
+If responsive images - images for different viewports - have different aspect ratio than the default image, we should implement each of them: or in picture content type (if blackbird contentmanager is used), or with picture.phtml template. We need to add unique `id`, which is required to make it works.
+Use additional attribute for responsive aspect ratio:
+  `img_ratio_width_480` -> for image max-width 480px
+  `img_ratio_width_768` -> for image max-width 768px
+  `img_ratio_width_1024` -> for image max-width 1024px
+  `img_ratio_width_1328` -> for image min-width 1025px
+
+usage example:
+```
+{{block class="Magento\Framework\View\Element\Template" template="Magento_Theme::html/picture.phtml" img_768="<img-url>" img_1024="<img-url>" img_full="<img-url>" img_default="<img-url>" picture_alt="<descriptive alternative text for image>" img_ratio_width="1200" img_ratio_height="600" img_ratio_width_768="768" img_ratio_height_768="500" img_ratio_width_1024="472" img_ratio_height_1024="376" img_ratio_width_1328="1328" img_ratio_height_1328="1200" id="<unique-id>"}}
+```
+!Important Note:
+If responisve image aspect ratio is added, additional styles inline are generated, so use it ONLY if needed (if aspect ratio for responsive image is different that for default image) to keep your code as clean as possible.
 
 ### Blog
 * we use Blackbird Content Manager (paid extension) for blog

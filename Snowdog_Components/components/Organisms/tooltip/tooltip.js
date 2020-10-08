@@ -18,7 +18,6 @@ class Tooltip {
   open() {
     this.element.classList.add(this.openClass);
     this.contentWrapper.setAttribute('aria-hidden', 'false');
-    this.calculatePosition();
     this.contentWrapper.focus();
 
     // Add events only if tooltip is open - prevent overuse.
@@ -28,41 +27,8 @@ class Tooltip {
   close() {
     this.element.classList.remove(this.openClass);
     this.contentWrapper.setAttribute('aria-hidden', 'true');
-    this.setContentPosition(null, null);
     this.triggerButton.focus();
     this.killListeners();
-  }
-
-  setContentPosition(left, width) {
-    this.contentWrapper.style.left = left;
-    this.contentWrapper.style.width = width;
-  }
-
-  // TODO: This calculation needs refactor - There's a lot of issues on different viewports size.
-  calculatePosition() {
-    let currentPosition = this.contentWrapper.getBoundingClientRect(),
-        leftBound = currentPosition.left,
-        rightBound = currentPosition.right,
-        windowWidth = window.innerWidth;
-
-    if (window.matchMedia(this.mq).matches) {
-      // Calculate full-width tooltip__content (it's positioned absolutly)
-      this.setContentPosition(-leftBound, windowWidth);
-    }
-    else {
-      if (leftBound <= 0) {
-        // Move tooltip__content inside window, if it bound to the left border
-        this.setContentPosition(-leftBound + 20, null);
-      }
-      else if (rightBound >= windowWidth) {
-        // Move tooltip__content inside window, if it bound to the right border
-        this.setContentPosition(-(rightBound - windowWidth), null);
-      }
-      else {
-        // Reset tooltip__content position
-        this.setContentPosition(null, null);
-      }
-    }
   }
 
   createGlobalEventHandlers() {

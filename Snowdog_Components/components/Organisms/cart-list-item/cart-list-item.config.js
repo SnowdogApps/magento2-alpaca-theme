@@ -79,6 +79,25 @@ module.exports = {
         hidden: true
       },
       attributes: 'type="button" aria-label="Click to remove this product"'
+    },
+    giftOptionsDropwdown: {
+      id: 'gift-options-dropdown',
+      class: 'dropdown-list--detailed-content cart-list-item__gift-dropdown',
+      dropdowns: [
+        {
+          itemTag: 'button',
+          itemAttributes: 'type="button" aria-expanded="false"',
+          title: 'Gift options',
+          id: 'dropdown-detailed-content-1',
+          collapse: {
+            id: 'angle-down',
+            title: 'Arrow Down',
+            class: 'dropdown-list__icon',
+            attributes: 'aria-hidden="true"'
+          },
+          contentElement: 'paragraph'
+        }
+      ]
     }
   }
 }

@@ -86,7 +86,7 @@
                     <referenceBlock name="product.info">
                         <container
                             name="product.column.right.options"
-                            htmlClass="product-view__options"
+                            htmlClass="product-view__options margin-bottom-m"
                             htmlTag="div"
                         />
 
@@ -100,18 +100,24 @@
                                 name="product.column.right.qty"
                                 template="Magento_Catalog::product/view/qty.phtml"
                             />
-
-                            <container
-                                name="product.column.right.extra.actions"
-                                htmlClass="product-view__buttons"
-                                htmlTag="div"
+                            <block
+                                class="Magento\Framework\View\Element\Template"
+                                name="product.column.right.extra.actions.wrapper"
+                                template="Magento_Catalog::product/view/extra-actions.phtml"
                             >
-                                <referenceContainer
-                                    name="product.info.social"
-                                    htmlClass="product-view__extra-actions margin-left-xs"
+                                <container
+                                    name="product.column.right.extra.actions"
+                                    htmlClass="product-view__buttons"
                                     htmlTag="div"
-                                />
-                            </container>
+                                >
+                                    <referenceContainer
+                                        name="product.info.social"
+                                        htmlClass="product-view__extra-actions"
+                                        htmlTag="div"
+                                    />
+                                </container>
+                            </block>
+
                             <container name="product.addto.sticky">
                                 <block
                                     class="Magento\Catalog\Block\Product\View"
@@ -162,6 +168,13 @@
                                             >
                                                 true
                                             </argument>
+                                            <argument
+                                                translate="true"
+                                                name="text"
+                                                xsi:type="string"
+                                            >
+                                                Wishlist
+                                            </argument>
                                         </arguments>
                                     </block>
                                     <block
@@ -187,6 +200,13 @@
                                                 xsi:type="boolean"
                                             >
                                                 true
+                                            </argument>
+                                            <argument
+                                                translate="true"
+                                                name="text"
+                                                xsi:type="string"
+                                            >
+                                                Wishlist
                                             </argument>
                                         </arguments>
                                     </block>
@@ -234,6 +254,10 @@
                 htmlTag="div"
             >
                 <referenceBlock name="reviews.tab">
+                    <arguments>
+                        <argument name="class" translate="true" xsi:type="string">reviews</argument>
+                    </arguments>
+
                     <block
                         class="Magento\Catalog\Block\Product\View"
                         name="product.review.summary"
@@ -273,9 +297,26 @@
                     name="additional_class"
                     xsi:type="string"
                 >
-                    product-view__button product-view__button--wishlist
+                    action
+                    towishlist
+                    product-view__button--wishlist
+                    product-view__addtowishlist
+                </argument>
+                <argument
+                    name="has_text"
+                    xsi:type="boolean"
+                >
+                    true
+                </argument>
+                <argument
+                    translate="true"
+                    name="text"
+                    xsi:type="string"
+                >
+                    Add to Wishlist
                 </argument>
             </arguments>
+
         </referenceBlock>
 
         <referenceBlock name="view.addto.compare">
@@ -287,6 +328,107 @@
                     product-view__button
                 </argument>
             </arguments>
+        </referenceBlock>
+
+        <referenceBlock name="related.product.addto.wishlist">
+            <arguments>
+                <argument
+                    name="additional_class"
+                    xsi:type="string"
+                >
+                    action towishlist
+                </argument>
+                <argument
+                    name="has_text"
+                    xsi:type="boolean"
+                >
+                    false
+                </argument>
+                <argument
+                    translate="true"
+                    name="text"
+                    xsi:type="string"
+                >
+                    Add to Wishlist
+                </argument>
+            </arguments>
+        </referenceBlock>
+
+        <referenceBlock name="upsell.product.addto.wishlist">
+            <arguments>
+                <argument
+                    name="additional_class"
+                    xsi:type="string"
+                >
+                    action towishlist
+                </argument>
+                <argument
+                    name="has_text"
+                    xsi:type="boolean"
+                >
+                    false
+                </argument>
+                <argument
+                    translate="true"
+                    name="text"
+                    xsi:type="string"
+                >
+                    Add to Wishlist
+                </argument>
+            </arguments>
+        </referenceBlock>
+
+        <referenceBlock name="catalog.product.related">
+            <block
+                class="Magento\Framework\View\Element\RendererList"
+                name="related.product.type.details.renderers"
+                as="details.renderers"
+            >
+                <block class="Magento\Framework\View\Element\Template" as="default"/>
+                <block
+                    class="Magento\Swatches\Block\Product\Renderer\Listing\Configurable"
+                    name="related.product.type.details.renderers.configurable"
+                    as="configurable"
+                    template="Magento_Swatches::product/listing/renderer.phtml"
+                >
+                    <arguments>
+                        <argument
+                            name="configurable_view_model"
+                            xsi:type="object"
+                        >
+                            Magento\Swatches\ViewModel\Product\Renderer\Configurable
+                        </argument>
+                    </arguments>
+                </block>
+            </block>
+        </referenceBlock>
+
+        <referenceBlock name="product.info.upsell">
+            <block
+                class="Magento\Framework\View\Element\RendererList"
+                name="upsells.product.type.details.renderers"
+                as="details.renderers"
+            >
+                <block
+                    class="Magento\Framework\View\Element\Template"
+                    as="default"
+                />
+                <block
+                    class="Magento\Swatches\Block\Product\Renderer\Listing\Configurable"
+                    name="upsells.product.type.details.renderers.configurable"
+                    as="configurable"
+                    template="Magento_Swatches::product/listing/renderer.phtml"
+                >
+                    <arguments>
+                        <argument
+                            name="configurable_view_model"
+                            xsi:type="object"
+                        >
+                            Magento\Swatches\ViewModel\Product\Renderer\Configurable
+                        </argument>
+                    </arguments>
+                </block>
+            </block>
         </referenceBlock>
 
         <!--Moved blocks-->
@@ -343,15 +485,22 @@
         <move
             element="product.info.addtocart"
             destination="product.column.right.extra.actions"
+            before="-"
         />
         <move
             element="product.info.social"
             destination="product.column.right.extra.actions"
+            after="product.info.addtocart"
         />
         <move
             element="view.addto.wishlist"
-            destination="product.info.social"
-            before="-"
+            destination="product.column.right.extra.actions"
+            after="product.info.social"
+        />
+        <move
+            element="view.addto.requisition"
+            destination="product.column.right.extra.actions"
+            after="view.addto.wishlist"
         />
         <move
             element="view.addto.compare"
@@ -398,6 +547,13 @@
         />
 
         <!-- Removed blocks -->
-        <referenceBlock name="product.info.addto" remove="true" />
+        <referenceBlock
+            name="product.info.addto"
+            remove="true"
+        />
+        <referenceBlock
+            name="product.info.addtocart.additional"
+            remove="true"
+        />
     </body>
 </page>
