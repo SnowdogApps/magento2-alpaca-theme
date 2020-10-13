@@ -22,6 +22,7 @@ All notable changes to this project will be documented in this file.
 - variables for footer bottom bar (#71488)
 - downloadable product PDP (#70550)
 - swatch variables (#71396), Affects: swatches on catalog
+- base.scss variables (#71396)
 ### Changed
 ### Removed
 
