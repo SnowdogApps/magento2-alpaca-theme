@@ -15,7 +15,7 @@
         width: $tab__title-width;
         height: $tab__title-size;
         padding: $tab__title-padding;
-        border-bottom: $tab__title-border;
+        border: $tab__title-border;
         border-width: $tab__title-border-width;
         background: $tab__title-background;
         color: $tab__title-color;
@@ -24,7 +24,7 @@
         font-weight: $tab__title-font-weight;
         text-align: $tab__title-text-align;
         text-transform: $tab__title-text-transform;
-        transition: $transition-base;
+        transition: $tab__title-transition;
         cursor: pointer;
 
         @include mq($screen-l) {
@@ -32,7 +32,7 @@
         }
 
         @include mq($screen-l) {
-            flex: 1;
+            flex: $tab__title-flex\@large;
             order: -1;
         }
 
@@ -47,9 +47,10 @@
             background: $tab__title-background--active;
             color: $tab__title-color--active;
             font-weight: $tab__title-font-weight--active;
+            z-index: $tab__title-z-index--active;
 
             @include mq($screen-l) {
-                z-index: 1;
+                z-index: $tab__title-z-index--active\@large;
             }
 
             .tab__icon {
@@ -90,7 +91,7 @@
     &__content {
         position: relative;
         display: none;
-        z-index: -1;
+        z-index: $tab__content-z-index;
         width: $tab__content-width;
         padding: $tab__content-padding;
         line-height: $tab__content-line-height;
@@ -100,7 +101,7 @@
         @include mq($screen-m) {
             padding: $tab__content-padding\@medium;
             flex-basis: 100%;
-            z-index: 1;
+            z-index: $tab__content-z-index\@medium;
         }
 
         @include mq($screen-l) {
@@ -117,10 +118,12 @@
             z-index: 1;
 
             &:not(:nth-last-child(1)) {
-                border-bottom: $tab__title-border;
+                border: $tab__content-border--active;
+                border-width: $tab__content-border-width--active;
 
                 @include mq($screen-l) {
-                    border-bottom: none;
+                    border: $tab__content-border--active\@large;
+                    border-width: $tab__content-border-width--active;
                 }
             }
         }
