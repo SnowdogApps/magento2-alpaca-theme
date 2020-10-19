@@ -8,35 +8,51 @@ define([
   'use strict';
 
   return function(config, elem) {
-    const button                 = $(elem),
+    const button                 = elem,
       customer                   = customerData.get('customer'),
       wishlist                   = customerData.get('wishlist'),
       items                      = wishlist().items,
-      productId                  = config.productId,
+      productId                  = config.addToParams.data.product.toString(),
+      buttonClass                = config.class,
+      isEEVersion                = config.isEEVersion,
       loginUrl                   = url.build('customer/account'),
       pdpButtonClass             = 'product-view__button--wishlist',
-      swatchContainerClassPrefix = '.swatch-opt',
+      swatchContainerClass       = `.swatch-opt-${productId}`,
       swatchOptionContainerClass = '.swatch',
-      quantityInputClass         = '.quantity-update__input';
+      qtyContainerClass          = `.qty-${productId}`,
+      qtyInputClass              = '.quantity-update__input',
+      multiwishlistButtonClass   = `.multiwishlist-btn-${productId}`;
 
-    function moreWishlistButton() {
-      if (button.hasClass(pdpButtonClass)) {
-        // for PDP - if is on product view,
-        // add class to all add to wishlist buttons
-        $('.' + pdpButtonClass).addClass(config.class);
+    function addButtonClass() {
+      if (isEEVersion) {
+        const multiwishlistBtn = document.querySelector(multiwishlistButtonClass);
+
+        multiwishlistBtn.classList.add(buttonClass);
+      } else {
+        button.classList.add(buttonClass);
       }
     }
 
-    button.on('click', function() {
+    function moreWishlistButton() {
+      // for PDP on OS - if is on product view,
+      // add class to all add to wishlist buttons
+      if (button.classList.contains(pdpButtonClass)) {
+        const pdpButton = document.querySelector(`.${pdpButtonClass}`)
 
+        pdpButton.classList.add(buttonClass);
+      }
+    }
+
+    button.addEventListener('click', () => {
       const url = config.addToParams.action,
         formKey = $.mage.cookies.get('form_key'),
-        product = config.addToParams.data.product,
-        swatchContainer = document.querySelector(`${swatchContainerClassPrefix}-${product}`),
+        wishlistId = config.addToParams.data.wishlist_id,
+        swatchContainer = document.querySelector(swatchContainerClass),
+        qtyContainer = document.querySelector(qtyContainerClass),
         data = {
           action: 'add-to-wishlist',
           form_key: formKey,
-          product: product,
+          product: productId,
           uenc: config.addToParams.data.uenc
         };
 
@@ -47,8 +63,9 @@ define([
 
         swatchOptionContainerArray.forEach(swatchOptionContainer => {
           if (swatchOptionContainer.hasAttribute('option-selected')) {
-            const key = `super_attribute[${swatchOptionContainer.getAttribute('attribute-id')}]`;
-            const value = swatchOptionContainer.getAttribute('option-selected');
+            const key = `super_attribute[${swatchOptionContainer.getAttribute('attribute-id')}]`,
+              value = swatchOptionContainer.getAttribute('option-selected');
+
             data[key] = value;
           }
         });
@@ -56,9 +73,16 @@ define([
 
       // if it's product's PDP
       // add specified qty
-      if (button.hasClass(pdpButtonClass)) {
-        const quantityInput = document.querySelector(quantityInputClass);
+      if (qtyContainer) {
+        const quantityInput = qtyContainer.querySelector(qtyInputClass);
+
         data['qty'] = quantityInput.value;
+      }
+
+      // if it's EE
+      // add item to the specified list
+      if (wishlistId) {
+        data['wishlist_id'] = wishlistId;
       }
 
       $.post(url, data).done(function() {
@@ -66,7 +90,7 @@ define([
           const addToMessage = $.cookieStorage.get('mage-messages');
           // add class to mark that product is added to wishlist
           if (addToMessage[0].type === 'success') {
-            button.addClass(config.class);
+            addButtonClass();
             moreWishlistButton();
             // delay is needed, because M2 reload customer data
             // and msg dissapear after a second
@@ -76,7 +100,7 @@ define([
               });
               // remove msg from cookie to not show after reload the page
               $.cookieStorage.set('mage-messages', '');
-            }, 1000);
+            }, 2000);
           }
         }
         else {
@@ -88,7 +112,7 @@ define([
     if (items) {
       items.forEach(item => {
         if (item.product_id === productId) {
-          button.addClass(config.class);
+          addButtonClass();
         }
       });
     }
