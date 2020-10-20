@@ -22,6 +22,7 @@ All notable changes to this project will be documented in this file.
 - gallery rendering on page load so current breakpoint configuration isn't replaced by any other configuration (fix from Magento 2.4-develop PR 29934) (#71518)
 - a11y in header, footer & homepage: fieldset & legend, inputs wrong ids, keyboard support, focus management, sidebar menu, aria roles, semantic HTML (#66038)
 - loader scope for in swatches (#71300)
+- tab content in quote view - removed escaping (#72243)
 ### Added
 - adjust sliders loading time + add slider widget template (#65842)
 - scroll-to.js file and added it for reviews on product page (#71248); Affects: Reviews buttons on PDP
