@@ -21,7 +21,7 @@ All notable changes to this project will be documented in this file.
 - scroll-to.js file and added it for reviews on product page (#71248); Affects: Reviews buttons on PDP
 - variables for footer bottom bar (#71488)
 - downloadable product PDP (#70550)
-- variables fro product-view, review and tab (#71110)
+- variables for product-view, review and tab (#71110);
 ### Changed
 ### Removed
 
