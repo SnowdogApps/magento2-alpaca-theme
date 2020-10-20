@@ -363,6 +363,9 @@ Click on "Insert Widget..." button when editing CMS content with wysiwyg editor.
 "Attributes to show" -> not required
 Click on "Insert Widget"
 
+6. Full width variant
+
+To display slider full width, just add  class `slider--full-with`, by extending block `home-slider` with argument `slider_class` in `cms_index_index.xml`.
 
 ## Alpaca Content - Set up your store, admin / db changes for alpaca theme
 
