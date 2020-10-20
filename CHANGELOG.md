@@ -5,10 +5,100 @@ All notable changes to this project will be documented in this file.
 ### Added
 - full with variant styles to slider (#69023)
 
+### Fixed
+- issue with arrows looking wrong if gallery vertical/horizontal nav breakpoints are changed via configuration (#71113); Affects: gallery navigation
+- input and select styles in poduct gift card template (#70690); Affects: gift card PDP
+- review snippets (#69786)
+- tooltip text align on product list (#71074)
+- amasty gdpr cookie modal on checkout (#71134)
+- a translate function `__()` syntax error in wishlist item column cart template (#71267)
+- jumping images: in products grid & list on catalog, in widgets, in banners and cms images (#69133);
+  Affects: cms blocks width images (homepage), catalog grid and list (products images & category image), products widgets, banners (CT), blog, sliders;
+  required: import scss file: `_image-ratio.scss`, additional fields in banner content type
+- paypal express button (#71512)
+- division by zero warning (#71513)
+- AuthorizeNet 'Save for later use' checkbox styling in checkout (#71077)
+- swatch images on product page (#71579); Affects: swatch images
+- gallery rendering on page load so current breakpoint configuration isn't replaced by any other configuration (fix from Magento 2.4-develop PR 29934) (#71518)
+- a11y in header, footer & homepage: fieldset & legend, inputs wrong ids, keyboard support, focus management, sidebar menu, aria roles, semantic HTML (#66038)
+- loader scope for in swatches (#71300)
+### Added
+- adjust sliders loading time + add slider widget template (#65842)
+- scroll-to.js file and added it for reviews on product page (#71248); Affects: Reviews buttons on PDP
+- variables for footer bottom bar (#71488)
+- downloadable product PDP (#70550)
+- wishlist - config items - show "see details" with selected options (#71268); Affects: wishlist in dashboard
+- loader for picture element (#71300)
+- swatch variables (#71396), Affects: swatches on catalog
+- base.scss variables (#71396)
+### Changed
+### Removed
+- unnecessary title from svgs with role presentation (#71268)
+- reference to Magento\Rma\Block\Order\Button block on OS (#71741); Affects: order view, order invoice & order shipment
+
 ## [Released]
+
+## [2.9.0] - 2020-09-21
+### Fixed
+- input and select styles in poduct gift card template (#70690); Affects: gift card PDP
+- review snippets (#69786)
+- amasty gdpr module error on checkout page (#71078)
+- account - stored payment methods table (#70628)
+### Added
+- minimum advertised price on grid and product page (#70656); Info: @import '../Magento_Msrp/styles/module'; should be added to /styles/theme.scss
+### Changed
+- recaptcha badge position on mobile PDP (#70725); Affects: PDP
+
+## [2.8.0] - 2020-09-15
+### Fixed
+- missing actions group on Account Information page; Affects: dashboard account information page
+- spaces between buttons uneven on EE product list (#68745); Affects: catalog product list
+- typo in shipping address config (#68745)
+- item checkbox in requisition list (#68745); Affects: Requisition list
+- wishlist item actions covering active textarea border (#68745)
+- js error on bundle PDP - removed escaping method from bundle options template (#68745); Affects: Bundle PDP
+### Added
+- customer balance history template (#68745)
+- grouped product final price template (#68745); Affects: Grouped PDP
+- missing dashboard-table__link class to account dashboard templates (#68745); Affects: dashboard
+### Changed
+- basic variable with component variable for easier updates of mega menu (#69969); Affects: mega menu
+- sidebar 'Compare' link classes (#68745): Affects: catalog sidebar
+- bundle product price template and styling (#68745); Affects: Bundle PDP
+- make compare__product div take up 100% height of td & space items between (#68745)
+
+## [2.7.0] - 2020-08-20
+### Fixed
+- gdpr agreements templates after update (#68654)
+- wrong name for review input field (#70089)
+- Amasty Store Locator template for module version 2.4.2 (#69148)
+- jumpung gallery while loading (#70217)
+- untranslatable aria-label text for close button in ElasticSuite quicksearch autocomplete template (#67310)
+- user registration - gdpr checkbox after validation missing checked icon (#70169)
+
+### Added
+- paypal review component (#59142)
+- curreny and language switchers in footer (#67313)
+- EE - gift registry (#65717), Affects: all gift registry pages ('/giftregistry/*'), datepicker styles
+- Component and styling for multishipping (#66917)
+- color property with variable for easier override of select2 styles (#67443)
+
+### Changed
+- paypal review order page (#59142)
+- contact-bar template to show/hide email/phone depending on config settings (#69969)
+- checkboxes to be globally aligned vertically to center (#68654)
+- zoomed in image background opacity & close button to dark (#69145)
+- styles and validation for datepicker (#67654), Affects: structure of files (datepicker customization)
+- escaping php variables in templates, Affects: amasty gdpr elements and pages (newsletter, agreements, ettings, etc.) - can limit html output there (#67311)
+- store locator active store color (#69151)
+
+### Removed
+- duplicate variables in contact-bar (#67443)
+
 ## [2.6.0] - 2020-08-06
 ### Added
 - pointer cursor for zoom in icon (#69031)
+
 ### Fixed
 - modal close icon overlay on text (#69152)
 - typo in newsletter (#67925)

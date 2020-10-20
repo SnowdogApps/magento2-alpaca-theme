@@ -3,17 +3,17 @@
 ?>
 <div class="quote-comments">
     <div class="quote-comments__list">
-        <?php foreach ($block->getQuoteComments() as $comment) : ?>
+        <?php foreach ($block->getQuoteComments() as $comment): ?>
             <?php /** @var $comment \Magento\NegotiableQuote\Model\Comment */?>
             <div class="quote-comments__item">
                 <date class="quote-comments__date">
-                    <?= $block->formatDate($comment->getCreatedAt(), \IntlDateFormatter::MEDIUM, true) ?>
+                    <?= /* @noEscape */ $block->formatDate($comment->getCreatedAt(), \IntlDateFormatter::MEDIUM, true) ?>
                 </date>
                 <span class="quote-comments__author">
                     <?= $block->escapeHtml($block->getCommentCreator($comment)) ?>
                 </span>
                 <div class="quote-comments__content">
-                    <?php if ($comment->getIsDecline()) : ?>
+                    <?php if ($comment->getIsDecline()): ?>
                         <b class="comments-request-declined">
                             <?= $block->escapeHtml(__('Request Declined. Reason: ')) ?>
                         </b>
@@ -22,7 +22,7 @@
                 </div>
 
                 <?php $attachments = $block->getCommentAttachments($comment->getEntityId()) ?>
-                <?php if ($attachments->count() > 0) : ?>
+                <?php if ($attachments->count() > 0): ?>
                     <div class="quote-comments__attachments">
                         <ul
                             class="
@@ -31,7 +31,7 @@
                                 quote-comments__attachments-list
                             "
                         >
-                            <?php foreach ($attachments as $file) : ?>
+                            <?php foreach ($attachments as $file): ?>
                                 <?php /** @var $file \Magento\NegotiableQuote\Model\CommentAttachment */ ?>
                                 <li class="list__item">
                                     <a

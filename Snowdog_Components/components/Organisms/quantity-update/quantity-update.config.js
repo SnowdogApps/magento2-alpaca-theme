@@ -31,5 +31,15 @@ module.exports = {
       }
     },
     script: true
-  }
+  },
+  variants: [
+    {
+      name: 'full',
+      title: 'Full',
+      context: {
+        qtyClass: 'input',
+        qtyLabel: 'Qty'
+      }
+    }
+  ]
 }
