@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+## [Released]
+## [2.10.0] - 2020-10-21
+
 ### Added
 - full with variant styles to slider (#69023)
 
@@ -40,7 +44,7 @@ All notable changes to this project will be documented in this file.
 - unnecessary title from svgs with role presentation (#71268)
 - reference to Magento\Rma\Block\Order\Button block on OS (#71741); Affects: order view, order invoice & order shipment
 
-## [Released]
+
 
 ## [2.9.0] - 2020-09-21
 ### Fixed
