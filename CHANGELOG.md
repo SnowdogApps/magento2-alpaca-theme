@@ -32,6 +32,7 @@ All notable changes to this project will be documented in this file.
 - swatch variables (#71396), Affects: swatches on catalog
 - base.scss variables (#71396)
 - variables for product-view, review and tab (#71110);
+- pager to wishlist (#71692)
 ### Changed
 ### Removed
 - unnecessary title from svgs with role presentation (#71268)
