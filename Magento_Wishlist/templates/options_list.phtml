@@ -1,0 +1,79 @@
+<?php
+/* @var \Magento\Wishlist\Block\Customer\Wishlist\Item\Options $block */
+?>
+
+<?php $options = $block->getOptionList(); ?>
+<?php if ($options) : ?>
+    <div
+        class="
+            more-info
+            wrapper
+            product-item-tooltip
+            margin-bottom-xs
+        "
+        data-mage-init='{"moreInfo": {}}'
+        aria-hidden="false"
+    >
+        <button
+            class="
+                button
+                button--icon
+                button--fluid
+                more-info__trigger
+            "
+            type="button"
+            aria-expanded="false"
+        >
+            <span class="button__text">
+                <?= $block->escapeHtml(__('See Details')) ?>
+            </span>
+        </button>
+
+        <div
+            class="more-info__content-wrapper"
+            aria-hidden="true"
+        >
+            <div class="more-info__content">
+                <h3 class="more-info__heading">
+                    <?= $block->escapeHtml(__('Options Details')) ?>
+                </h3>
+
+                <div class="more-info__data">
+                    <dl>
+                        <?php foreach ($options as $option) : ?>
+                        <dt class="label">
+                            <?= $block->escapeHtml($option['label'] . ':') ?>
+                        </dt>
+                        <dd class="values margin-bottom-xs">
+                            <?php if (is_array($option['value'])) : ?>
+                                <?= /* @noEscape */ nl2br(implode("\n", $option['value'])) ?>
+                            <?php else : ?>
+                                <?= /* @noEscape */ $option['value'] ?>
+                            <?php endif; ?>
+                        </dd>
+                        <?php endforeach; ?>
+                    </dl>
+                </div>
+
+                <button
+                    class="
+                        button
+                        button--icon
+                        button--rotate-icon
+                        more-info__close
+                    "
+                    type="button"
+                    aria-label="<?= $block->escapeHtmlAttr(__('Close details')) ?>"
+                >
+                    <svg
+                        class="icon"
+                        role="presentation"
+                        focusable="false"
+                    >
+                        <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#close')); ?>"></use>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+<?php endif ?>

@@ -124,8 +124,7 @@ define([
             input = $widget._RenderFormInput(item),
             listLabel = '',
             label = '',
-            initLoader = $('.' + $widget.options.classes.initLoader);
-
+            initLoader = container.find($('.' + $widget.options.classes.initLoader)) ;
           // Show only swatch controls
           if ($widget.options.onlySwatches && !$widget.options.jsonSwatchConfig.hasOwnProperty(item.id)) {
             return;
@@ -313,6 +312,25 @@ define([
         html += '</select>';
 
         return html;
+      },
+      /**
+         * Input for submit form.
+         * This control shouldn't have "type=hidden", "display: none" for validation work :(
+         *
+         * @param {Object} config
+         * @private
+         */
+        _RenderFormInput: function (config) {
+          return '<input class="' + this.options.classes.attributeInput + ' super-attribute-select" ' +
+            'name="super_attribute[' + config.id + ']" ' +
+            'type="text" ' +
+            'value="" ' +
+            'data-selector="super_attribute[' + config.id + ']" ' +
+            'data-validate="{required: true}" ' +
+            'aria-required="true" ' +
+            'aria-invalid="false" ' +
+            'aria-label="super_attribute[' + config.id + ']" ' +
+            'tabindex="-1">';
       },
       _EventListener: function () {
         var $widget = this,
