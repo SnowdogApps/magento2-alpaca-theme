@@ -1,9 +1,4 @@
 /**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
-
-/**
  * @api
  */
 define([
@@ -11,10 +6,9 @@ define([
   'underscore',
   './utils',
   'moment',
-  'tinycolor',
   'jquery/validate',
   'mage/translate'
-], function ($, _, utils, moment, tinycolor) {
+], function ($, _, utils, moment) {
   'use strict';
 
   /**
@@ -1051,16 +1045,6 @@ define([
               return moment.utc(value, params.dateFormat).unix() <= maxValue;
           },
           $.mage.__('The date is not within the specified range.')
-      ],
-      'validate-color': [
-          function (value) {
-              if (value === '') {
-                  return true;
-              }
-
-              return tinycolor(value).isValid();
-          },
-          $.mage.__('Wrong color format. Please specify color in HEX, RGBa, HSVa, HSLa or use color name.')
       ],
       'blacklist-url': [
           function (value, param) {

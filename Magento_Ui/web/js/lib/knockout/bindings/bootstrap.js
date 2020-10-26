@@ -1,7 +1,3 @@
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
 define(function (require) {
     'use strict';
 
@@ -37,7 +33,6 @@ define(function (require) {
         bindHtml:       require('./bind-html'),
         tooltip:        require('./tooltip'),
         repeat:         require('knockoutjs/knockout-repeat'),
-        fastForEach:    require('knockoutjs/knockout-fast-foreach'),
-        colorPicker:    require('./color-picker')
+        fastForEach:    require('knockoutjs/knockout-fast-foreach')
     };
 });
