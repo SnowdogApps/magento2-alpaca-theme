@@ -18,21 +18,18 @@ define(function (require) {
         resizable:      require('./resizable'),
         i18n:           require('./i18n'),
         scope:          require('./scope'),
-        range:          require('./range'),
         mageInit:       require('./mage-init'),
         keyboard:       require('./keyboard'),
         optgroup:       require('./optgroup'),
-        afterRender:     require('./after-render'),
+        afterRender:    require('./after-render'),
         autoselect:     require('./autoselect'),
-        datepicker:     require('./datepicker'),
         outerClick:     require('./outer_click'),
         fadeVisible:    require('./fadeVisible'),
         collapsible:    require('./collapsible'),
         staticChecked:  require('./staticChecked'),
         simpleChecked:  require('./simple-checked'),
         bindHtml:       require('./bind-html'),
-        tooltip:        require('./tooltip'),
         repeat:         require('knockoutjs/knockout-repeat'),
-        fastForEach:    require('knockoutjs/knockout-fast-foreach')
+        fastForEach:    require('knockoutjs/knockout-fast-foreach'),
     };
 });
