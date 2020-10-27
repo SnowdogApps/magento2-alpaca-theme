@@ -8,6 +8,9 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 - full with variant styles to slider (#69023)
+- "back" link to requisiton list page (#70586)
+### Changed
+- requisition list toolbar styling (#70586)
 
 ### Fixed
 - issue with arrows looking wrong if gallery vertical/horizontal nav breakpoints are changed via configuration (#71113); Affects: gallery navigation
