@@ -77,7 +77,7 @@ define([
         tierPriceTemplate: '',
         // tier prise selectors end
         // A price label selector
-        normalPriceLabelSelector: '.normal-price .price-label',
+        normalPriceLabelSelector: '.product-info-main .normal-price .price-label',
         // option for select2 lib
         select2options: {
           minimumResultsForSearch: Infinity,
