@@ -1,0 +1,786 @@
+<?php
+//phpcs:disable Squiz.ControlStructures.ControlSignature
+//phpcs:disable Squiz.WhiteSpace.ScopeClosingBrace
+//phpcs:disable PSR2.ControlStructures.SwitchDeclaration
+//phpcs:disable Magento2.Files.LineLength.MaxExceeded
+?>
+<?php $_giftMessage = false; ?>
+<?php switch ($block->getCheckoutType()) : case 'onepage_checkout': ?>
+    <fieldset class="fieldset gift-message">
+        <legend class="fieldset__legend fieldset__legend--hidden">
+            <?= $block->escapeHtml(__('Do you have any gift items in your order?')) ?>
+        </legend>
+        <h3 class="heading dashboard-items__subtitle">
+            <?= $block->escapeHtml(__('Do you have any gift items in your order?')) ?>
+        </h3>
+
+        <div 
+            class="checkbox" 
+            id="add-gift-options-<?= (int) $block->getEntity()->getId() ?>"
+        >
+            <input 
+                type="checkbox" 
+                name="allow_gift_options" 
+                id="allow_gift_options" 
+                data-mage-init='{"giftOptions":{}}' 
+                value="1" 
+                data-selector='{"id":"#allow-gift-options-container"}'
+                <?php if ($block->getItemsHasMesssages() || $block->getEntityHasMessage()): ?> 
+                    checked="checked"
+                <?php endif; ?> 
+                class="checkbox__input"
+            />
+            <svg
+                class="
+                    checkbox__icon
+                    checkbox__icon--checked
+                "
+                role="presentation"
+                focusable="false"
+            >
+                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#checked')) ?>"></use>
+            </svg>
+
+            <svg
+                class="
+                    checkbox__icon
+                    checkbox__icon--unchecked
+                "
+                role="presentation"
+                focusable="false"
+            >
+                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#unchecked')) ?>"></use>
+            </svg>
+            <label 
+                for="allow_gift_options" 
+                class="checkbox__label"
+            >
+                <?= $block->escapeHtml(__('Add Gift Options')) ?>
+            </label>
+        </div>
+
+        <dl 
+            class="
+                options-items
+                display-none
+            " 
+            id="allow-gift-options-container"
+        >
+            <?php if ($block->isMessagesAvailable()): ?>
+            <dt 
+                id="add-gift-options-for-order-<?= (int) $block->getEntity()->getId() ?>" 
+                class="order-title"
+            >
+                <div class="checkbox">
+                    <input 
+                        type="checkbox" 
+                        name="allow_gift_messages_for_order" 
+                        id="allow_gift_options_for_order" 
+                        data-mage-init='{"giftOptions":{}}' 
+                        value="1" 
+                        data-selector='{"id":"#allow-gift-options-for-order-container"}'
+                        <?php if ($block->getEntityHasMessage()): ?> 
+                            checked="checked"
+                        <?php endif; ?> 
+                        class="checkbox__input" 
+                    />
+                    <svg
+                        class="
+                            checkbox__icon
+                            checkbox__icon--checked
+                        "
+                        role="presentation"
+                        focusable="false"
+                    >
+                        <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#checked')) ?>"></use>
+                    </svg>
+
+                    <svg
+                        class="
+                            checkbox__icon
+                            checkbox__icon--unchecked
+                        "
+                        role="presentation"
+                        focusable="false"
+                    >
+                        <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#unchecked')) ?>"></use>
+                    </svg>
+                    <label 
+                        for="allow_gift_options_for_order" 
+                        class="checkbox__label"
+                    >
+                        <?= $block->escapeHtml(__('Gift Options for the Entire Order')) ?>
+                    </label>
+                </div>
+            </dt>
+
+            <dd 
+                id="allow-gift-options-for-order-container" 
+                class="order-options"
+            >
+                <div 
+                    class="options-order-container" 
+                    id="options-order-container-<?= (int) $block->getEntity()->getId() ?>"
+                >
+                    <button 
+                        class="
+                            button
+                            button--secondary
+                            action-gift
+                        "
+                        data-mage-init='{
+                            "toggleAdvanced": {
+                                "selectorsToggleClass":"hidden", 
+                                "toggleContainers":"#allow-gift-messages-for-order-container"
+                            }
+                        }'
+                    >
+                        <?= $block->escapeHtml(__('Gift Message')) ?>
+                    </button>
+                    <div 
+                        id="allow-gift-messages-for-order-container" 
+                        class="
+                            gift-messages-order 
+                            hidden
+                        "
+                    >
+                        <fieldset class="fieldset">
+                            <p>
+                                <?= $block->escapeHtml(__('Leave this box blank if you don\'t want to leave a gift message for the entire order.')) ?>
+                            </p>
+                            <div class="input from">
+                                <label 
+                                    for="gift-message-whole-from" 
+                                    class="input__label"
+                                >
+                                    <?= $block->escapeHtml(__('From')) ?>
+                                </label>
+                                <input 
+                                    type="text" 
+                                    name="giftmessage[quote][<?= (int) $block->getEntity()->getId() ?>][from]" 
+                                    id="gift-message-whole-from" 
+                                    title="<?= $block->escapeHtmlAttr(__('From')) ?>"  
+                                    value="<?= /* @noEscape */ $block->getEscaped($block->getMessage()->getSender(), $block->getDefaultFrom()) ?>" 
+                                    class="input__field"
+                                >
+                            </div>
+                            <div class="input to">
+                                <label 
+                                    for="gift-message-whole-to" 
+                                    class="input__label"
+                                >
+                                    <?= $block->escapeHtml(__('To')) ?>
+                                </label>
+                                <input 
+                                    type="text" 
+                                    name="giftmessage[quote][<?= (int) $block->getEntity()->getId() ?>][to]" 
+                                    id="gift-message-whole-to" 
+                                    title="<?= $block->escapeHtmlAttr(__('To')) ?>" 
+                                    value="<?= /* @noEscape */ $block->getEscaped($block->getMessage()->getRecipient(), $block->getDefaultTo()) ?>" 
+                                    class="input__field"
+                                >
+                            </div>
+                            <div class="input text">
+                                <label 
+                                    for="gift-message-whole-message" 
+                                    class="input__label"
+                                >
+                                    <?= $block->escapeHtml(__('Message')) ?>
+                                </label>
+                                <textarea 
+                                    id="gift-message-whole-message" 
+                                    class="
+                                        input__field 
+                                        input__field--textarea
+                                    " 
+                                    name="giftmessage[quote][<?= (int) $block->getEntity()->getId() ?>][message]" 
+                                    title="<?= $block->escapeHtmlAttr(__('Message')) ?>" 
+                                    rows="5" 
+                                    cols="10"
+                                ><?= /* @noEscape */ $block->getEscaped($block->getMessage()->getMessage()) ?></textarea>
+                            </div>
+                        </fieldset>
+                        <script>
+                            require(['jquery'], function(jQuery){
+                                jQuery('#add-gift-options-<?= (int) $block->getEntity()->getId() ?>')
+                                    .add('#add-gift-options-for-order-<?= (int) $block->getEntity()->getId() ?>')
+                                    .removeClass('hidden');
+                            });
+                        </script>
+                    </div>
+                </div>
+            </dd>
+            <?php endif ?>
+            <?php if ($block->isItemsAvailable()): ?>
+            <dt 
+                id="add-gift-options-for-items-<?= (int) $block->getEntity()->getId() ?>" 
+                class="order-title individual"
+            >
+                <div class="checkbox">
+                    <input 
+                        type="checkbox" 
+                        name="allow_gift_options_for_items" 
+                        id="allow_gift_options_for_items" 
+                        data-mage-init='{"giftOptions":{}}' 
+                        value="1" 
+                        data-selector='{"id":"#allow-gift-options-for-items-container"}'
+                        <?php if ($block->getItemsHasMesssages()): ?> 
+                            checked="checked"
+                        <?php endif; ?> 
+                        class="checkbox__field" 
+                    />
+                    <svg
+                        class="
+                            checkbox__icon
+                            checkbox__icon--checked
+                        "
+                        role="presentation"
+                        focusable="false"
+                    >
+                        <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#checked')) ?>"></use>
+                    </svg>
+
+                    <svg
+                        class="
+                            checkbox__icon
+                            checkbox__icon--unchecked
+                        "
+                        role="presentation"
+                        focusable="false"
+                    >
+                        <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#unchecked')) ?>"></use>
+                    </svg>
+                    <label 
+                        for="allow_gift_options_for_items" 
+                        class="checkbox__label"
+                    >
+                        <?= $block->escapeHtml(__('Gift Options for Individual Items')) ?>
+                    </label>
+                </div>
+            </dt>
+
+            <dd 
+                id="allow-gift-options-for-items-container" 
+                class="order-options individual"
+            >
+                <div class="items">
+                    <?php foreach ($block->getItems() as $_index => $_item): ?>
+                        <?php $_product = $_item->getProduct() ?>
+                        <div class="item">
+                            <div class="product">
+                                <div class="margin-vc-m">
+                                    <span class="product-grid-item__name-link">
+                                        <?= $block->escapeHtml($_product->getName()) ?>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="options">
+                                <div 
+                                    class="options-items-container" 
+                                    id="options-items-container-<?= (int) $block->getEntity()->getId() ?>-<?= (int) $_item->getId() ?>"
+                                ></div>
+                                <?php if ($block->isItemMessagesAvailable($_item)): ?>
+                                <button 
+                                    class="
+                                        button
+                                        button__secondary
+                                        action-gift
+                                    "
+                                    data-mage-init='{
+                                        "toggleAdvanced": {
+                                            "selectorsToggleClass": "hidden", 
+                                            "toggleContainers": "#gift-messages-for-item-container-<?= (int) $_item->getId() ?>"
+                                        }
+                                    }'
+                                >
+                                    <?= $block->escapeHtml(__('Gift Message')) ?>
+                                </button>
+                                <div 
+                                    id="gift-messages-for-item-container-<?= (int) $_item->getId() ?>" 
+                                    class="
+                                        block
+                                        message
+                                        hidden
+                                    "
+                                >
+                                    <fieldset class="fieldset">
+                                        <p>
+                                            <?= $block->escapeHtml(__('Leave a box blank if you don\'t want to add a gift message for that item.')) ?>
+                                        </p>
+                                        <div class="input from">
+                                            <label 
+                                                for="gift-message-<?= (int) $_item->getId() ?>-from" 
+                                                class="input__label"
+                                            >
+                                                <?= $block->escapeHtml(__('From')) ?>
+                                            </label>
+                                            <input 
+                                                type="text" 
+                                                name="giftmessage[quote_item][<?= (int) $_item->getId() ?>][from]" 
+                                                id="gift-message-<?= (int) $_item->getId() ?>-from" 
+                                                title="<?= $block->escapeHtmlAttr(__('From')) ?>" 
+                                                value="<?= /* @noEscape */ $block->getEscaped($block->getMessage($_item)->getSender(), $block->getDefaultFrom()) ?>" 
+                                                class="input__field"
+                                            >
+                                        </div>
+                                        <div class="input to">
+                                            <label 
+                                                for="gift-message-<?= (int) $_item->getId() ?>-to" 
+                                                class="input__label"
+                                            >
+                                                <?= $block->escapeHtml(__('To')) ?>
+                                            </label>
+                                            <input 
+                                                type="text" 
+                                                name="giftmessage[quote_item][<?= (int) $_item->getId() ?>][to]" 
+                                                id="gift-message-<?= (int) $_item->getId() ?>-to" 
+                                                title="<?= $block->escapeHtmlAttr(__('To')) ?>" 
+                                                value="<?= /* @noEscape */ $block->getEscaped($block->getMessage($_item)->getRecipient(), $block->getDefaultTo()) ?>" 
+                                                class="input__field"
+                                            >
+                                        </div>
+                                        <div class="input">
+                                            <label 
+                                                for="gift-message-<?= (int) $_item->getId() ?>-message" 
+                                                class="input__label"
+                                            >
+                                                <?= $block->escapeHtml(__('Message')) ?>
+                                            </label>
+                                            <textarea 
+                                                id="gift-message-<?= (int) $_item->getId() ?>-message" 
+                                                class="
+                                                    input__field
+                                                    input__field--textarea
+                                                    giftmessage-area
+                                                "
+                                                name="giftmessage[quote_item][<?= (int) $_item->getId() ?>][message]" 
+                                                title="<?= $block->escapeHtmlAttr(__('Message')) ?>" 
+                                                rows="5" 
+                                                cols="40"
+                                            ><?= /* @noEscape */ $block->getEscaped($block->getMessage($_item)->getMessage()) ?></textarea>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </dd>
+            <script>
+                require(['jquery'], function(jQuery){
+                    jQuery('#add-gift-options-<?= (int) $block->getEntity()->getId() ?>')
+                        .add('#add-gift-options-for-items-<?= (int) $block->getEntity()->getId() ?>')
+                        .removeClass('hidden');
+                });
+            </script>
+            <?php endif; ?>
+            <dt class="extra-options-container" id="extra-options-container-<?= (int) $block->getEntity()->getId() ?>"></dt>
+        </dl>
+    </fieldset>
+    <script type="text/x-magento-init">
+    {
+        "#allow_gift_options, #allow_gift_options_for_order, #allow_gift_options_for_items": {
+            "giftOptions": {}
+        }
+    }
+    </script>
+<?php break;
+case 'multishipping_address': ?>
+    <fieldset id="add-gift-options-<?= (int) $block->getEntity()->getId() ?>" class="fieldset gift-message">
+        <legend class="fieldset__legend fieldset__legend--hidden">
+            <?= $block->escapeHtml(__('Do you have any gift items in your order?')) ?>
+        </legend>
+        <h3 class="heading dashboard-items__subtitle">
+            <?= $block->escapeHtml(__('Do you have any gift items in your order?')) ?>
+        </h3>
+
+        <div 
+            class="checkbox field choice" 
+            id="add-gift-options-<?= (int) $block->getEntity()->getId() ?>"
+        >
+            <input 
+                type="checkbox" 
+                name="allow_gift_options_<?= (int) $block->getEntity()->getId() ?>" 
+                id="allow_gift_options_<?= (int) $block->getEntity()->getId() ?>" 
+                data-mage-init='{"giftOptions":{}}' 
+                value="1" 
+                data-selector='{"id":"#allow-gift-options-container-<?= (int) $block->getEntity()->getId() ?>"}'
+                <?php if ($block->getItemsHasMesssages() || $block->getEntityHasMessage()): ?> 
+                    checked="checked"
+                <?php endif; ?> 
+                class="checkbox__field" 
+            />
+            <svg
+                class="
+                    checkbox__icon
+                    checkbox__icon--checked
+                "
+                role="presentation"
+                focusable="false"
+            >
+                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#checked')) ?>"></use>
+            </svg>
+
+            <svg
+                class="
+                    checkbox__icon
+                    checkbox__icon--unchecked
+                "
+                role="presentation"
+                focusable="false"
+            >
+                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#unchecked')) ?>"></use>
+            </svg>
+            <label 
+                for="allow_gift_options_<?= (int) $block->getEntity()->getId() ?>" 
+                class="checkbox__label"
+            >
+                <?= $block->escapeHtml(__('Add Gift Options')) ?>
+            </label>
+        </div>
+
+        <dl 
+            class="
+                options-items
+                display-none
+            " 
+            id="allow-gift-options-container-<?= (int) $block->getEntity()->getId() ?>"
+        >
+            <?php if ($block->isMessagesOrderAvailable() || $block->isMessagesAvailable()): ?>
+            <dt 
+                id="add-gift-options-for-order-<?= (int) $block->getEntity()->getId() ?>" 
+                class="order-title"
+            >
+                <div class="checkbox">
+                    <input 
+                        type="checkbox" 
+                        name="allow_gift_options_for_order_<?= (int) $block->getEntity()->getId() ?>" 
+                        id="allow_gift_options_for_order_<?= (int) $block->getEntity()->getId() ?>" 
+                        data-mage-init='{"giftOptions":{}}' 
+                        value="1" 
+                        data-selector='{"id":"#allow-gift-options-for-order-container-<?= (int) $block->getEntity()->getId() ?>"}'
+                        <?php if ($block->getEntityHasMessage()): ?> 
+                            checked="checked"
+                        <?php endif; ?> 
+                        class="checkbox__field"
+                    />
+                    <svg
+                        class="
+                            checkbox__icon
+                            checkbox__icon--checked
+                        "
+                        role="presentation"
+                        focusable="false"
+                    >
+                        <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#checked')) ?>"></use>
+                    </svg>
+
+                    <svg
+                        class="
+                            checkbox__icon
+                            checkbox__icon--unchecked
+                        "
+                        role="presentation"
+                        focusable="false"
+                    >
+                        <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#unchecked')) ?>"></use>
+                    </svg>
+                    <label 
+                        for="allow_gift_options_for_order_<?= (int) $block->getEntity()->getId() ?>" 
+                        class="checkbox__label"
+                    >
+                        <?= $block->escapeHtml(__('Add Gift Options for the Entire Order')) ?>
+                    </label>
+                </div>
+            </dt>
+
+            <dd 
+                id="allow-gift-options-for-order-container-<?= (int) $block->getEntity()->getId() ?>" 
+                class="order-options"
+            >
+                <div 
+                    class="options-order-container" 
+                    id="options-order-container-<?= (int) $block->getEntity()->getId() ?>"
+                >
+                    <?php if ($block->isMessagesAvailable()): ?>
+                        <?php $_giftMessage = true; ?>
+                        <button 
+                            class="
+                                button
+                                button__secondary 
+                                action-gift
+                            "
+                            data-mage-init='{
+                                "toggleAdvanced": { 
+                                    "selectorsToggleClass": "hidden", 
+                                    "toggleContainers": "#gift-messages-for-order-container-<?= (int) $block->getEntity()->getId() ?>"
+                                }
+                            }'
+                        >
+                            <?= $block->escapeHtml(__('Gift Message')) ?>
+                        </button>
+                        <div 
+                            id="gift-messages-for-order-container-<?= (int) $block->getEntity()->getId() ?>" 
+                            class="
+                                gift-messages-order 
+                                hidden
+                            "
+                        >
+                            <fieldset class="fieldset">
+                                <p>
+                                    <?= $block->escapeHtml(__('You can leave this box blank if you don\'t want to add a gift message for this address.')) ?>
+                                </p>
+                                <div class="field from">
+                                    <label 
+                                        for="gift-message-<?= (int) $block->getEntity()->getId() ?>-from" 
+                                        class="input__label"
+                                    >
+                                        <?= $block->escapeHtml(__('From')) ?>
+                                    </label>
+                                    <input 
+                                        type="text" 
+                                        name="giftmessage[quote_address][<?= (int) $block->getEntity()->getId() ?>][from]" 
+                                        id="gift-message-<?= (int) $block->getEntity()->getId() ?>-from" 
+                                        title="<?= $block->escapeHtmlAttr(__('From')) ?>" 
+                                        value="<?= /* @noEscape */ $block->getEscaped($block->getMessage()->getSender(), $block->getDefaultFrom()) ?>" 
+                                        class="input__field"
+                                    >
+                                </div>
+                                <div class="input to">
+                                    <label 
+                                        for="gift-message-<?= (int) $block->getEntity()->getId() ?>-to" 
+                                        class="input__label"
+                                    >
+                                        <?= $block->escapeHtml(__('To')) ?>
+                                    </label>
+                                    <input 
+                                        type="text" 
+                                        name="giftmessage[quote_address][<?= (int) $block->getEntity()->getId() ?>][to]" 
+                                        id="gift-message-<?= (int) $block->getEntity()->getId() ?>-to" 
+                                        title="<?= $block->escapeHtmlAttr(__('To')) ?>" 
+                                        value="<?= /* @noEscape */ $block->getEscaped($block->getMessage()->getRecipient(), $block->getDefaultTo()) ?>" 
+                                        class="input__field">
+                                </div>
+                                <div class="input text">
+                                    <label 
+                                        for="gift-message-<?= (int) $block->getEntity()->getId() ?>-message" 
+                                        class="input__label"
+                                    >
+                                        <?= $block->escapeHtml(__('Message')) ?>
+                                    </label>
+                                    <textarea 
+                                        id="gift-message-<?= (int) $block->getEntity()->getId() ?>-message" 
+                                        class="
+                                            input__field
+                                            input__field--textarea
+                                        " 
+                                        name="giftmessage[quote_address][<?= (int) $block->getEntity()->getId() ?>][message]" 
+                                        title="<?= $block->escapeHtmlAttr(__('Message')) ?>" 
+                                        rows="5" 
+                                        cols="40"
+                                    ><?= /* @noEscape */ $block->getEscaped($block->getMessage()->getMessage()) ?></textarea>
+                                </div>
+                            </fieldset>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </dd>
+            <?php endif; ?>
+            <?php if ($block->isItemsAvailable()): ?>
+            <dt 
+                id="add-gift-options-for-items-<?= (int) $block->getEntity()->getId() ?>" 
+                class="
+                    order-title 
+                    individual
+                "
+            >
+                <div class="checkbox">
+                    <input 
+                        type="checkbox" 
+                        name="allow_gift_options_for_items_<?= (int) $block->getEntity()->getId() ?>" 
+                        id="allow_gift_options_for_items_<?= (int) $block->getEntity()->getId() ?>" 
+                        data-mage-init='{"giftOptions":{}}' 
+                        value="1"
+                        data-selector='{"id":"#allow-gift-options-for-items-container-<?= (int) $block->getEntity()->getId() ?>"}'
+                        <?php if ($block->getItemsHasMesssages()): ?> 
+                            checked="checked"
+                        <?php endif; ?>
+                        class="checkbox__field" 
+                    />
+                    <svg
+                        class="
+                            checkbox__icon
+                            checkbox__icon--checked
+                        "
+                        role="presentation"
+                        focusable="false"
+                    >
+                        <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#checked')) ?>"></use>
+                    </svg>
+
+                    <svg
+                        class="
+                            checkbox__icon
+                            checkbox__icon--unchecked
+                        "
+                        role="presentation"
+                        focusable="false"
+                    >
+                        <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#unchecked')) ?>"></use>
+                    </svg>
+                    <label 
+                        for="allow_gift_options_for_items_<?= (int) $block->getEntity()->getId() ?>" 
+                        class="checkbox__label"
+                    >
+                        <?= $block->escapeHtml(__('Add Gift Options for Individual Items')) ?>
+                    </label>
+                </div>
+            </dt>
+
+            <dd 
+                id="allow-gift-options-for-items-container-<?= (int) $block->getEntity()->getId() ?>" 
+                class="
+                    order-options
+                    individual
+                "
+            >
+                <div class="items">
+                    <?php foreach ($block->getItems() as $_index => $_item): ?>
+                        <?php $_product = $_item->getProduct() ?>
+                        <div class="item">
+                            <div class="product">
+                                <div class="margin-vc-m">
+                                    <span class="product-grid-item__name-link">
+                                        <?= $block->escapeHtml($_product->getName()) ?>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="options">
+                                <div 
+                                    class="options-items-container" 
+                                    id="options-items-container-<?= (int) $block->getEntity()->getId() ?>-<?= (int) $_item->getId() ?>"
+                                ></div>
+                                <input 
+                                    type="hidden" 
+                                    name="giftoptions[quote_address_item][<?= (int) $_item->getId() ?>][address]" 
+                                    value="<?= (int) $block->getEntity()->getId() ?>" 
+                                />
+                                <?php if ($block->isItemMessagesAvailable($_item)): ?>
+                                    <?php $_giftMessage = true; ?>
+                                    <button 
+                                        class="
+                                            button
+                                            button__secondary 
+                                            action-gift
+                                        "
+                                        data-mage-init='{
+                                            "toggleAdvanced": {
+                                                "selectorsToggleClass": "hidden", 
+                                                "toggleContainers": "#gift-messages-for-item-container-<?= (int) $_item->getId() ?>"
+                                            }
+                                        }'
+                                    >
+                                        <?= $block->escapeHtml(__('Gift Message')) ?>
+                                    </button>
+                                    <div 
+                                        id="gift-messages-for-item-container-<?= (int) $_item->getId() ?>" 
+                                        class="
+                                            block
+                                            message
+                                            hidden
+                                        "
+                                    >
+                                        <fieldset class="fieldset">
+                                            <p>
+                                                <?= $block->escapeHtml(__('You can leave this box blank if you don\'t want to add a gift message for the item.')) ?>
+                                            </p>
+                                            <input 
+                                                type="hidden" name="giftmessage[quote_address_item][<?= (int) $_item->getId() ?>][address]" 
+                                                value="<?= (int) $block->getEntity()->getId() ?>" 
+                                            />
+                                            <div class="input from">
+                                                <label 
+                                                    for="gift-message-<?= (int) $_item->getId() ?>-from" 
+                                                    class="input__label"
+                                                >
+                                                    <?= $block->escapeHtml(__('From')) ?>
+                                                </label>
+                                                <input 
+                                                    type="text" 
+                                                    name="giftmessage[quote_address_item][<?= (int) $_item->getId() ?>][from]" 
+                                                    id="gift-message-<?= (int) $_item->getId() ?>-from" 
+                                                    title="<?= $block->escapeHtmlAttr(__('From')) ?>"  
+                                                    value="<?= /* @noEscape */ $block->getEscaped($block->getMessage($_item)->getSender(), $block->getDefaultFrom()) ?>" 
+                                                    class="input__field"
+                                                >
+                                            </div>
+                                            <div class="input to">
+                                                <label 
+                                                    for="gift-message-<?= (int) $_item->getId() ?>-to" 
+                                                    class="input__label"
+                                                >
+                                                    <?= $block->escapeHtml(__('To')) ?>
+                                                </label>
+                                                <input 
+                                                    type="text" 
+                                                    name="giftmessage[quote_address_item][<?= (int) $_item->getId() ?>][to]" 
+                                                    id="gift-message-<?= (int) $_item->getId() ?>-to" 
+                                                    title="<?= $block->escapeHtmlAttr(__('To')) ?>" 
+                                                    value="<?= /* @noEscape */ $block->getEscaped($block->getMessage($_item)->getRecipient(), $block->getDefaultTo()) ?>" 
+                                                    class="input__field"
+                                                >
+                                            </div>
+                                            <div class="input text">
+                                                <label 
+                                                    for="gift-message-<?= (int) $_item->getId() ?>-message" 
+                                                    class="input__label"
+                                                >
+                                                    <?= $block->escapeHtml(__('Message')) ?>
+                                                </label>
+                                                <textarea 
+                                                    id="gift-message-<?= (int) $_item->getId() ?>-message" 
+                                                    class="
+                                                        input__field
+                                                        input__field--textarea
+                                                        giftmessage-area
+                                                    "
+                                                    name="giftmessage[quote_address_item][<?= (int) $_item->getId() ?>][message]" 
+                                                    title="<?= $block->escapeHtmlAttr(__('Message')) ?>" 
+                                                    rows="5" 
+                                                    cols="10"
+                                                ><?= /* @noEscape */ $block->getEscaped($block->getMessage($_item)->getMessage()) ?></textarea>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </dd>
+            <?php endif; ?>
+            <dt 
+                class="extra-options-container" 
+                id="extra-options-container-<?= (int) $block->getEntity()->getId() ?>"
+            ></dt>
+        </dl>
+    </fieldset>
+    <script type="text/x-magento-init">
+        {
+            "#allow_gift_options_<?= (int) $block->getEntity()->getId() ?>, #allow_gift_options_for_order_<?= (int) $block->getEntity()->getId() ?>, #allow_gift_options_for_items_<?= (int) $block->getEntity()->getId() ?>": {
+                "giftOptions": {}
+            }
+        }
+    </script>
+    <?php break; ?>
+<?php endswitch ?>
+<?php if ($_giftMessage): ?>
+<script type="text/x-magento-init">
+    {
+        "#shipping_method_form": {
+            "validation": {}
+        }
+    }
+</script>
+<?php endif; ?>
