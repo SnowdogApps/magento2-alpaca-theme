@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Updated
+- theme to Magento 2.3.6 (#72223)
 
 ## [Released]
 ## [2.10.0] - 2020-10-21
