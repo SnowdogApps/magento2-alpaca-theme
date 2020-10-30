@@ -1,0 +1,74 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<li class="admin__action-multiselect-menu-inner-item _root"
+    data-role="option-group"
+    css="_parent: $data.optgroup">
+    <div class="action-menu-item"
+         css="_hover: $parent.isHovered(option, $element), _unclickable: $parent.isLabelDecoration($data), _last: $parent.addLastElement($data), '_with-checkbox': $parent.showCheckbox">
+        <div class="address-details">
+            <div>
+                <span text="option.firstname"/>
+                <span text="option.lastname"/>
+            </div>
+            <div>
+                <text args="_.values(option.street).join(', ')"/>
+            </div>
+            <div>
+                <span text="option.region"/>
+                <span text="option.city"/>
+                <span text="option.postcode"/>
+            </div>
+            <if args="$parent.getCountryName(option.countryId)">
+                <text args="$parent.getCountryName(option.countryId)"/>
+            </if>
+            <each args="data: option.customAttributes, as: 'element'">
+                <each args="data: Object.keys(element), as: 'attribute'">
+                    <if args="typeof element[attribute] === 'object'">
+                        <if args="element[attribute].label">
+                            <text args="element[attribute].label"/>
+                        </if>
+                        <ifnot args="element[attribute].label">
+                            <if args="element[attribute].value">
+                                <text args="element[attribute].value"/>
+                            </if>
+                        </ifnot>
+                    </if>
+                    <if args="typeof element[attribute] === 'string'">
+                        <text args="element[attribute]"/>
+                    </if>
+                    <br/>
+                </each>
+            </each>
+        </div>
+        <div class="select-address" ifnot="$parent.isAddressSelected(option)">
+            <button type="button"
+                    class="action-primary action-select-billing-item"
+                    click="$parent.selectBillingAddress.bind($parent, option)">
+                <span translate="'Select'"></span>
+            </button>
+        </div>
+        <div class="address-selected" if="$parent.isAddressSelected(option)">
+            <button type="button"
+                    class="action-primary">
+                <span translate="'Selected'"></span>
+            </button>
+        </div>
+        <div class="edit-address" if="$parent.isAddressEditable(option)">
+            <button type="button"
+                    class="action-primary action-select-shipping-item"
+                    click="$parent.editAction.bind($parent, option)">
+                <span translate="'Edit'"></span>
+            </button>
+        </div>
+        <div class="default-address" if="option.isDefaultBilling()">
+            <button type="button"
+                    class="action-primary">
+                <span translate="'Default'"></span>
+            </button>
+        </div>
+    </div>
+</li>

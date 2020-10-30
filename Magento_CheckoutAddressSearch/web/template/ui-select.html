@@ -1,0 +1,60 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+
+<div class="admin__action-multiselect-wrap action-select-wrap"
+     tabindex="0"
+     attr="id: uid"
+     css="_active: listVisible, 'admin__action-multiselect-tree': isTree()"
+     event="focusin: onFocusIn, focusout: onFocusOut, keydown: keydownSwitcher">
+    <div class="action-menu" css="{ _active: listVisible}">
+        <div data-role="spinner"
+             class="admin__data-grid-loading-mask"
+             visible="loading"
+             if="loading">
+            <div class="spinner">
+                <span repeat="8"/>
+            </div>
+        </div>
+        <div class="admin__action-multiselect-search-wrap"
+             if="filterOptions">
+            <input class="admin__control-text admin__action-multiselect-search"
+                   data-role="advanced-select-text"
+                   type="text"
+                   attr="id: uid+2, placeholder: filterPlaceholder"
+                   event="keydown: filterOptionsKeydown"
+                   ko-value="filterInputValue"
+                   hasFocus="filterOptionsFocus"
+                   data-bind="valueUpdate: 'afterkeydown'">
+            <div class="block block-search">
+                <div class="action search"></div>
+            </div>
+            <label class="admin__action-multiselect-search-label"
+                   data-action="advanced-select-search"
+                   attr="for: uid+2">
+            </label>
+            <div class="admin__action-select-shipping-addressmultiselect-search-count"
+                 if="itemsQuantity"
+                 text="itemsQuantity">
+            </div>
+        </div>
+        <div ifnot="options().length"
+             class="admin__action-multiselect-empty-area">
+            <ul html="emptyOptionsHtml"/>
+        </div>
+        <ul class="admin__action-multiselect-menu-inner _root"
+            data-bind="event: {
+                mousemove: function(data, event){onMousemove($data, $index(), event)},
+                scroll: function(data, event){onScrollDown(data, event)}
+            }">
+            <each args="data: options, as: 'option'">
+                <with args="$parent">
+                    <render args="name: addressTmpl, data: option"/>
+                </with>
+            </each>
+        </ul>
+    </div>
+</div>
