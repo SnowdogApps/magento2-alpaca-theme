@@ -1,9 +1,3 @@
-<!--
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
--->
 <div class="billing-address-details">
     <if args="_.isEmpty(currentBillingAddress())">
         <p text="noAddressMessage"></p>
@@ -23,9 +17,12 @@
         <br/>
         <text args="getCountryName(currentBillingAddress().countryId)"/>
         <br/>
-        <a if="currentBillingAddress().telephone" attr="'href': 'tel:' + currentBillingAddress().telephone"
-           text="currentBillingAddress().telephone"></a><br/>
-
+        <a
+            if="currentBillingAddress().telephone"
+            attr="'href': 'tel:' + currentBillingAddress().telephone"
+            text="currentBillingAddress().telephone"
+        ></a>
+        <br/>
         <each args="data: currentBillingAddress().customAttributes, as: 'element'">
             <each args="data: Object.keys(element), as: 'attribute'">
                 <if args="typeof element[attribute] === 'object'">
@@ -46,18 +43,32 @@
         </each>
     </ifnot>
 
-    <div class="edit-address-popup">
-        <button type="button"
-                class="action action-additional"
-                visible="isAddressEditable(currentBillingAddress())"
-                click="editAddress">
+    <div class="margin-bottom-m edit-address-popup">
+        <button
+            type="button"
+            class="
+                button
+                action
+                action-additional
+            "
+            visible="isAddressEditable(currentBillingAddress())"
+            click="editAddress"
+        >
             <span translate="'Edit'"></span>
         </button>
     </div>
-    <div class="change-address-popup">
-        <button type="button"
-                class="action action-additional"
-                click="openAddressSelection">
+    <div class="margin-bottom-m change-address-popup">
+        <button
+            type="button"
+            class="
+                button
+                button--secondary
+                button--fluid
+                action
+                action-additional
+            "
+            click="openAddressSelection"
+        >
             <span translate="'Change Address'"></span>
         </button>
     </div>
