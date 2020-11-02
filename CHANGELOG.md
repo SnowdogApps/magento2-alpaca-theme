@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Added
+- adjustments to checkout address search templates (#72454)
 
 ## [Released]
 ## [2.10.0] - 2020-10-21
