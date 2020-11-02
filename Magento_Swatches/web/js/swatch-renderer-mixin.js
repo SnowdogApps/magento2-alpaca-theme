@@ -329,7 +329,7 @@ define([
             'data-validate="{required: true}" ' +
             'aria-required="true" ' +
             'aria-invalid="false" ' +
-            'aria-label="super_attribute[' + config.id + ']" ' +
+            'aria-hidden="true" ' +
             'tabindex="-1">';
       },
       _EventListener: function () {
