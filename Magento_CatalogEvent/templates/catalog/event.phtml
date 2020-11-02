@@ -1,9 +1,4 @@
 <?php
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
-
 // phpcs:disable Squiz.ControlStructures.SwitchDeclaration
 // phpcs:disable PSR2.ControlStructures.SwitchDeclaration
 
@@ -15,60 +10,156 @@
 ?>
 <?php $_event = $block->getEvent(); ?>
 <?php if ($block->canDisplay()) : ?>
-<div class="block block-category-event <?= $block->escapeHtmlAttr($_event->getStatus()) ?>">
-    <div class="block-title">
-        <strong>
+    <section
+        class="
+            catalog-event
+            section
+            block
+            block-category-event
+            <?= $block->escapeHtmlAttr($_event->getStatus()) ?>
+        "
+    >
+        <h2
+            class="
+                heading
+                heading--second-level
+                text-center
+                margin-bottom-0
+                block-title
+            "
+        >
             <?= $block->escapeHtml($block->getStatusText($_event)) ?>
-        </strong>
-    </div>
-    <div class="block-content">
-        <?php switch ($_event->getStatus()) :
-            case \Magento\CatalogEvent\Model\Event::STATUS_UPCOMING: ?>
-            <div class="dates">
-                <div class="start">
-                    <span class="date"><?= $block->escapeHtml($block->getEventDate('start', $_event)) ?></span>
-                    <span class="time"><?= $block->escapeHtml($block->getEventTime('start', $_event, 'hh a zzz')) ?></span>
+        </h2>
+        <div class="block-content">
+            <?php switch ($_event->getStatus()) :
+                case \Magento\CatalogEvent\Model\Event::STATUS_UPCOMING: ?>
+                <div
+                    class="catalog-event__ticker dates"
+                >
+                    <div class="catalog-event__ticker-item start">
+                        <p class="catalog-event__ticker-value date">
+                            <?= $block->escapeHtml($block->getEventDate('start', $_event)) ?>
+                        </p>
+                        <span class="catalog-event__ticker-label time">
+                            <?= $block->escapeHtml($block->getEventTime('start', $_event, 'hh a zzz')) ?>
+                        </span>
+                    </div>
+                    <p class="catalog-event__ticker-value margin-hz-m">
+                        -
+                    </p>
+                    <div class="catalog-event__ticker-item end">
+                        <p class="catalog-event__ticker-value date">
+                            <?= $block->escapeHtml($block->getEventDate('end', $_event)) ?>
+                        </p>
+                        <span class="catalog-event__ticker-label time">
+                            <?= $block->escapeHtml($block->getEventTime('end', $_event, 'hh a zzz')) ?>
+                        </span>
+                    </div>
                 </div>
-                <div class="end">
-                    <span class="date"><?= $block->escapeHtml($block->getEventDate('end', $_event)) ?></span>
-                    <span class="time"><?= $block->escapeHtml($block->getEventTime('end', $_event, 'hh a zzz')) ?></span>
+            <?php break;
+                case \Magento\CatalogEvent\Model\Event::STATUS_OPEN: ?>
+                <ul
+                    class="catalog-event__ticker list ticker"
+                    id="event-ticker-<?= $block->escapeHtmlAttr($_event->getId()) ?>"
+                    data-mage-init='
+                        {
+                            "ticker": {
+                                "eventEndTimeUTC": <?= $block->escapeHtmlAttr($block->getEndTimeUTC($_event)) ?>
+                            }
+                        }
+                    '
+                >
+                    <li
+                        class="
+                            catalog-event__ticker-item
+                            list__item
+                            days
+                        "
+                    >
+                        <span
+                            data-container="days"
+                            class="catalog-event__ticker-value value"
+                        >
+                            &nbsp;
+                        </span>
+                        <span class="catalog-event__ticker-label label">
+                            <?= $block->escapeHtml(__('Dayclears')) ?>
+                        </span>
+                    </li>
+                    <li
+                        class="
+                            catalog-event__ticker-item
+                            list__item
+                            hour
+                        "
+                    >
+                        <span
+                            data-container="hour"
+                            class="catalog-event__ticker-value value"
+                        >
+                            &nbsp;
+                        </span>
+                        <span class="catalog-event__ticker-label label">
+                            <?= $block->escapeHtml(__('Hrs')) ?>
+                        </span>
+                    </li>
+                    <li
+                        class="
+                            catalog-event__ticker-item
+                            list__item
+                            minute
+                        "
+                    >
+                        <span
+                            data-container="minute"
+                            class="catalog-event__ticker-value value"
+                        >
+                            &nbsp;
+                        </span>
+                        <span class="catalog-event__ticker-label label">
+                            <?= $block->escapeHtml(__('Mins')) ?>
+                        </span>
+                    </li>
+                    <li
+                        class="
+                            catalog-event__ticker-item
+                            list__item
+                            second
+                        "
+                    >
+                        <span
+                            data-container="second"
+                            class="catalog-event__ticker-value value"
+                        >
+                            &nbsp;
+                        </span>
+                        <span class="catalog-event__ticker-label label">
+                            <?= $block->escapeHtml(__('Sec')) ?>
+                        </span>
+                    </li>
+                </ul>
+            <?php break;
+                case \Magento\CatalogEvent\Model\Event::STATUS_CLOSED: ?>
+                <div class="catalog-event__ticker dates">
+                    <div class="catalog-event__ticker-item start">
+                        <span class="catalog-event__ticker-value date">
+                            <?= $block->escapeHtml($block->getEventDate('start', $_event)) ?>
+                        </span>
+                        <span class="catalog-event__ticker-label time">
+                            <?= $block->escapeHtml($block->getEventTime('start', $_event, 'hh a zzz')) ?>
+                        </span>
+                    </div>
+                    <div class="catalog-event__ticker-item end">
+                        <span class="catalog-event__ticker-value date">
+                            <?= $block->escapeHtml($block->getEventDate('end', $_event)) ?>
+                        </span>
+                        <span class="catalog-event__ticker-label time">
+                            <?= $block->escapeHtml($block->getEventTime('end', $_event, 'hh a zzz')) ?>
+                        </span>
+                    </div>
                 </div>
-            </div>
-        <?php break;
-            case \Magento\CatalogEvent\Model\Event::STATUS_OPEN: ?>
-            <ul class="ticker" id="event-ticker-<?= $block->escapeHtmlAttr($_event->getId()) ?>"
-                data-mage-init='{"ticker":{"eventEndTimeUTC": <?= $block->escapeHtmlAttr($block->getEndTimeUTC($_event)) ?>}}'>
-                <li class="days">
-                    <span data-container="days" class="value">&nbsp;</span>
-                    <span class="label"><?= $block->escapeHtml(__('Dayclears')) ?></span>
-                </li>
-                <li class="hour">
-                    <span data-container="hour" class="value">&nbsp;</span>
-                    <span class="label"><?= $block->escapeHtml(__('Hrs')) ?></span>
-                </li>
-                <li class="minute">
-                    <span data-container="minute" class="value">&nbsp;</span>
-                    <span class="label"><?= $block->escapeHtml(__('Mins')) ?></span>
-                </li>
-                <li class="second">
-                    <span data-container="second" class="value">&nbsp;</span>
-                    <span class="label"><?= $block->escapeHtml(__('Sec')) ?></span>
-                </li>
-            </ul>
-        <?php break;
-            case \Magento\CatalogEvent\Model\Event::STATUS_CLOSED: ?>
-            <div class="dates">
-                <div class="start">
-                    <span class="date"><?= $block->escapeHtml($block->getEventDate('start', $_event)) ?></span>
-                    <span class="time"><?= $block->escapeHtml($block->getEventTime('start', $_event, 'hh a zzz')) ?></span>
-                </div>
-                <div class="end">
-                    <span class="date"><?= $block->escapeHtml($block->getEventDate('end', $_event)) ?></span>
-                    <span class="time"><?= $block->escapeHtml($block->getEventTime('end', $_event, 'hh a zzz')) ?></span>
-                </div>
-            </div>
-        <?php break; ?>
-    <?php endswitch; ?>
-    </div>
-</div>
+            <?php break; ?>
+            <?php endswitch; ?>
+        </div>
+    </section>
 <?php endif; ?>
