@@ -40,6 +40,9 @@ All notable changes to this project will be documented in this file.
 - variables for product-view, review and tab (#71110);
 - pager to wishlist (#71692)
 ### Changed
+- a11y skip links (go to filters/products), a11y open mediaQuery modal feature, update a11y labels, focus management update, mobile menu View all link added (#66040);
+Affects: if catalog (toolbar, filters, list) or mobile menu templates are overwritten in theme, update required
+
 ### Removed
 - unnecessary title from svgs with role presentation (#71268)
 - reference to Magento\Rma\Block\Order\Button block on OS (#71741); Affects: order view, order invoice & order shipment
