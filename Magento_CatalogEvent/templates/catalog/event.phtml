@@ -1,0 +1,74 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// phpcs:disable Squiz.ControlStructures.SwitchDeclaration
+// phpcs:disable PSR2.ControlStructures.SwitchDeclaration
+
+/**
+ * Catalog Event product page
+ *
+ * @var $block \Magento\CatalogEvent\Block\Catalog\Product\Event
+ */
+?>
+<?php $_event = $block->getEvent(); ?>
+<?php if ($block->canDisplay()) : ?>
+<div class="block block-category-event <?= $block->escapeHtmlAttr($_event->getStatus()) ?>">
+    <div class="block-title">
+        <strong>
+            <?= $block->escapeHtml($block->getStatusText($_event)) ?>
+        </strong>
+    </div>
+    <div class="block-content">
+        <?php switch ($_event->getStatus()) :
+            case \Magento\CatalogEvent\Model\Event::STATUS_UPCOMING: ?>
+            <div class="dates">
+                <div class="start">
+                    <span class="date"><?= $block->escapeHtml($block->getEventDate('start', $_event)) ?></span>
+                    <span class="time"><?= $block->escapeHtml($block->getEventTime('start', $_event, 'hh a zzz')) ?></span>
+                </div>
+                <div class="end">
+                    <span class="date"><?= $block->escapeHtml($block->getEventDate('end', $_event)) ?></span>
+                    <span class="time"><?= $block->escapeHtml($block->getEventTime('end', $_event, 'hh a zzz')) ?></span>
+                </div>
+            </div>
+        <?php break;
+            case \Magento\CatalogEvent\Model\Event::STATUS_OPEN: ?>
+            <ul class="ticker" id="event-ticker-<?= $block->escapeHtmlAttr($_event->getId()) ?>"
+                data-mage-init='{"ticker":{"eventEndTimeUTC": <?= $block->escapeHtmlAttr($block->getEndTimeUTC($_event)) ?>}}'>
+                <li class="days">
+                    <span data-container="days" class="value">&nbsp;</span>
+                    <span class="label"><?= $block->escapeHtml(__('Dayclears')) ?></span>
+                </li>
+                <li class="hour">
+                    <span data-container="hour" class="value">&nbsp;</span>
+                    <span class="label"><?= $block->escapeHtml(__('Hrs')) ?></span>
+                </li>
+                <li class="minute">
+                    <span data-container="minute" class="value">&nbsp;</span>
+                    <span class="label"><?= $block->escapeHtml(__('Mins')) ?></span>
+                </li>
+                <li class="second">
+                    <span data-container="second" class="value">&nbsp;</span>
+                    <span class="label"><?= $block->escapeHtml(__('Sec')) ?></span>
+                </li>
+            </ul>
+        <?php break;
+            case \Magento\CatalogEvent\Model\Event::STATUS_CLOSED: ?>
+            <div class="dates">
+                <div class="start">
+                    <span class="date"><?= $block->escapeHtml($block->getEventDate('start', $_event)) ?></span>
+                    <span class="time"><?= $block->escapeHtml($block->getEventTime('start', $_event, 'hh a zzz')) ?></span>
+                </div>
+                <div class="end">
+                    <span class="date"><?= $block->escapeHtml($block->getEventDate('end', $_event)) ?></span>
+                    <span class="time"><?= $block->escapeHtml($block->getEventTime('end', $_event, 'hh a zzz')) ?></span>
+                </div>
+            </div>
+        <?php break; ?>
+    <?php endswitch; ?>
+    </div>
+</div>
+<?php endif; ?>
