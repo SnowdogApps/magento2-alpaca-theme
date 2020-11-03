@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Fixed
 - scroll-to.js so that it doesn't open "skip to content" link (#72451)
+- scroll top button focus styles (#72451)
 
 ## [Released]
 ## [2.10.0] - 2020-10-21
