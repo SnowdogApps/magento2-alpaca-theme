@@ -1,49 +1,54 @@
-$catalog-event-background-color               : $gray-lightest !default;
-$catalog-event-background-padding             : $spacer--large 0 $spacer--extra-large !default;
-
-$catalog-event__ticker-display                : flex !default;
-$catalog-event__ticker-justify-content        : center !default;
-
-$catalog-event__ticker-item-min-width         : 80px !default;
-$catalog-event__ticker-item-min-width\@medium : 160px !default;
-$catalog-event__ticker-item-text-align        : center !default;
-
-$catalog-event__ticker-value-font-faily       : $font-family-serif !default;
-$catalog-event__ticker-value-font-size        : $font-size-super-extra-large !default;
-$catalog-event__ticker-value-font-size\@medium: calc(#{$font-size-super-extra-large} * 2) !default;
-
-$catalog-event__ticker-label-font-size        : $font-size-base !default;
-$catalog-event__ticker-label-text-transform   : none !default;
+@import "catalog-event-variables";
 
 .catalog-event {
+    display: $catalog-event-display;
+    flex-direction: $catalog-event-flex-direction;
+    justify-content: $catalog-event-justify-content;
+    align-items: $catalog-event-align-items;
     background-color: $catalog-event-background-color;
     padding: $catalog-event-background-padding;
+    @include darken-layout-hover('.lazyload-wrapper');
 
-    &__ticker {
-        display: $catalog-event__ticker-display;
-        justify-content: $catalog-event__ticker-justify-content;
+    @include mq($screen-m) {
+        padding: $catalog-event-background-padding\@medium;
     }
 
-    &__ticker-item {
-        min-width: $catalog-event__ticker-item-min-width;
-        text-align: $catalog-event__ticker-item-text-align;
+    &__wrapper {
+        display: $catalog-event__date-wrapper-display;
+        flex-direction: $catalog-event__date-wrapper-flex-direction;
+        align-items: $catalog-event__date-wrapper-align-items;
+    }
+
+    &__date {
+        display: $catalog-event__date-display;
+        justify-content: $catalog-event__date-justify-content;
+    }
+
+    &__date-item {
+        min-width: $catalog-event__date-item-min-width;
+        text-align: $catalog-event__date-item-text-align;
 
         @include mq($screen-m) {
-            min-width: $catalog-event__ticker-item-min-width\@medium;
+            min-width: $catalog-event__date-item-min-width\@medium;
         }
     }
 
-    &__ticker-value {
-        font-family: $catalog-event__ticker-value-font-faily;
-        font-size: $catalog-event__ticker-value-font-size;
+    &__date-value {
+        font-family: $catalog-event__date-value-font-faily;
+        font-size: $catalog-event__date-value-font-size;
 
         @include mq($screen-m) {
-            font-size: $catalog-event__ticker-value-font-size\@medium;
+            font-size: $catalog-event__date-value-font-size\@medium;
         }
     }
 
-    &__ticker-label {
-        font-size: $catalog-event__ticker-label-font-size;
-        text-transform: $catalog-event__ticker-label-text-transform;
+    &__date-label {
+        color: $catalog-event__date-label-color;
+        font-size: $catalog-event__date-label-font-size;
+        text-transform: $catalog-event__date-label-text-transform;
+    }
+
+    &__button {
+        min-width: $catalog-event__button-min-width;
     }
 }
