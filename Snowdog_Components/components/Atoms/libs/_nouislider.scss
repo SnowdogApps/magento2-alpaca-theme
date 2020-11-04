@@ -1,10 +1,11 @@
 // sass-lint:disable-all
- /* stylelint-disable */
-/*! nouislider - 10.0.0 - 2017-05-28 14:52:48 */
+/* stylelint-disable */
+/*! nouislider - 14.5.0 - 5/11/2020 */
 /* Functional styling;
  * These styles are required for noUiSlider to function.
  * You don't need to change these rules to apply your design.
  */
+
 .noUi-target,
 .noUi-target * {
   -webkit-touch-callout: none;
@@ -20,47 +21,76 @@
 }
 .noUi-target {
   position: relative;
-  direction: ltr;
 }
-.noUi-base {
+.noUi-base,
+.noUi-connects {
   width: 100%;
   height: 100%;
   position: relative;
   z-index: 1;
-  /* Fix 401 */
+}
+/* Wrapper for all connect elements.
+ */
+.noUi-connects {
+  overflow: hidden;
+  z-index: 0;
+}
+.noUi-connect,
+.noUi-origin {
+  will-change: transform;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  -ms-transform-origin: 0 0;
+  -webkit-transform-origin: 0 0;
+  -webkit-transform-style: preserve-3d;
+  transform-origin: 0 0;
+  transform-style: flat;
 }
 .noUi-connect {
-  position: absolute;
-  right: 0;
-  top: 0;
-  left: 0;
-  bottom: 0;
+  height: 100%;
+  width: 100%;
 }
 .noUi-origin {
-  position: absolute;
-  height: 0;
+  height: 10%;
+  width: 10%;
+}
+
+/* Offset direction
+ */
+.noUi-txt-dir-rtl.noUi-horizontal .noUi-origin {
+  left: 0;
+  right: auto;
+}
+
+/* Give origins 0 height/width so they don't interfere with clicking the
+ * connect elements.
+ */
+.noUi-vertical .noUi-origin {
   width: 0;
 }
+.noUi-horizontal .noUi-origin {
+  height: 0;
+}
 .noUi-handle {
-  position: relative;
-  z-index: 1;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  position: absolute;
+}
+.noUi-touch-area {
+  height: 100%;
+  width: 100%;
 }
 .noUi-state-tap .noUi-connect,
 .noUi-state-tap .noUi-origin {
-  -webkit-transition: top 0.3s, right 0.3s, bottom 0.3s, left 0.3s;
-  transition: top 0.3s, right 0.3s, bottom 0.3s, left 0.3s;
+  -webkit-transition: transform 0.3s;
+  transition: transform 0.3s;
 }
 .noUi-state-drag * {
   cursor: inherit !important;
 }
-/* Painting and performance;
- * Browsers can paint handles in their own layer.
- */
-.noUi-base,
-.noUi-handle {
-  -webkit-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
-}
+
 /* Slider size and handle placement;
  */
 .noUi-horizontal {
@@ -69,7 +99,7 @@
 .noUi-horizontal .noUi-handle {
   width: 34px;
   height: 28px;
-  left: -17px;
+  right: -17px;
   top: -6px;
 }
 .noUi-vertical {
@@ -78,24 +108,30 @@
 .noUi-vertical .noUi-handle {
   width: 28px;
   height: 34px;
-  left: -6px;
+  right: -6px;
   top: -17px;
 }
+.noUi-txt-dir-rtl.noUi-horizontal .noUi-handle {
+  left: -17px;
+  right: auto;
+}
+
 /* Styling;
+ * Giving the connect element a border radius causes issues with using transform: scale
  */
 .noUi-target {
-  background: #FAFAFA;
+  background: #fafafa;
   border-radius: 4px;
-  border: 1px solid #D3D3D3;
-  box-shadow: inset 0 1px 1px #F0F0F0, 0 3px 6px -5px #BBB;
+  border: 1px solid #d3d3d3;
+  box-shadow: inset 0 1px 1px #f0f0f0, 0 3px 6px -5px #bbb;
+}
+.noUi-connects {
+  border-radius: 3px;
 }
 .noUi-connect {
-  background: #3FB8AF;
-  border-radius: 4px;
-  box-shadow: inset 0 0 3px rgba(51, 51, 51, 0.45);
-  -webkit-transition: background 450ms;
-  transition: background 450ms;
+  background: #3fb8af;
 }
+
 /* Handles and cursors;
  */
 .noUi-draggable {
@@ -105,15 +141,16 @@
   cursor: ns-resize;
 }
 .noUi-handle {
-  border: 1px solid #D9D9D9;
+  border: 1px solid #d9d9d9;
   border-radius: 3px;
-  background: #FFF;
+  background: #fff;
   cursor: default;
-  box-shadow: inset 0 0 1px #FFF, inset 0 1px 7px #EBEBEB, 0 3px 6px -3px #BBB;
+  box-shadow: inset 0 0 1px #fff, inset 0 1px 7px #ebebeb, 0 3px 6px -3px #bbb;
 }
 .noUi-active {
-  box-shadow: inset 0 0 1px #FFF, inset 0 1px 7px #DDD, 0 3px 6px -3px #BBB;
+  box-shadow: inset 0 0 1px #fff, inset 0 1px 7px #ddd, 0 3px 6px -3px #bbb;
 }
+
 /* Handle stripes;
  */
 .noUi-handle:before,
@@ -123,7 +160,7 @@
   position: absolute;
   height: 14px;
   width: 1px;
-  background: #E8E7E6;
+  background: #e8e7e6;
   left: 14px;
   top: 6px;
 }
@@ -140,16 +177,19 @@
 .noUi-vertical .noUi-handle:after {
   top: 17px;
 }
+
 /* Disabled state;
  */
+
 [disabled] .noUi-connect {
-  background: #B8B8B8;
+  background: #b8b8b8;
 }
 [disabled].noUi-target,
 [disabled].noUi-handle,
 [disabled] .noUi-handle {
   cursor: not-allowed;
 }
+
 /* Base;
  *
  */
@@ -162,9 +202,10 @@
   position: absolute;
   color: #999;
 }
+
 /* Values;
- *
- */
+  *
+  */
 .noUi-value {
   position: absolute;
   white-space: nowrap;
@@ -174,22 +215,24 @@
   color: #ccc;
   font-size: 10px;
 }
+
 /* Markings;
- *
- */
+  *
+  */
 .noUi-marker {
   position: absolute;
-  background: #CCC;
+  background: #ccc;
 }
 .noUi-marker-sub {
-  background: #AAA;
+  background: #aaa;
 }
 .noUi-marker-large {
-  background: #AAA;
+  background: #aaa;
 }
+
 /* Horizontal layout;
- *
- */
+  *
+  */
 .noUi-pips-horizontal {
   padding: 10px 0;
   height: 80px;
@@ -198,9 +241,13 @@
   width: 100%;
 }
 .noUi-value-horizontal {
-  -webkit-transform: translate3d(-50%, 50%, 0);
-  transform: translate3d(-50%, 50%, 0);
+  transform: translate(-50%, 50%);
+
+  .noUi-rtl & {
+    transform: translate(50%, 50%);
+  }
 }
+
 .noUi-marker-horizontal.noUi-marker {
   margin-left: -1px;
   width: 2px;
@@ -212,9 +259,10 @@
 .noUi-marker-horizontal.noUi-marker-large {
   height: 15px;
 }
+
 /* Vertical layout;
- *
- */
+  *
+  */
 .noUi-pips-vertical {
   padding: 0 10px;
   height: 100%;
@@ -222,10 +270,14 @@
   left: 100%;
 }
 .noUi-value-vertical {
-  -webkit-transform: translate3d(0, 50%, 0);
-  transform: translate3d(0, 50%, 0);
+  transform: translate(0, -50%);
   padding-left: 25px;
+
+  .noUi-rtl & {
+    transform: translate(0, 50%);
+  }
 }
+
 .noUi-marker-vertical.noUi-marker {
   width: 5px;
   height: 2px;
@@ -237,10 +289,11 @@
 .noUi-marker-vertical.noUi-marker-large {
   width: 15px;
 }
+
 .noUi-tooltip {
   display: block;
   position: absolute;
-  border: 1px solid #D9D9D9;
+  border: 1px solid #d9d9d9;
   border-radius: 3px;
   background: #fff;
   color: #000;
@@ -249,16 +302,25 @@
   white-space: nowrap;
 }
 .noUi-horizontal .noUi-tooltip {
-  -webkit-transform: translate(-50%, 0);
   transform: translate(-50%, 0);
   left: 50%;
   bottom: 120%;
 }
 .noUi-vertical .noUi-tooltip {
-  -webkit-transform: translate(0, -50%);
   transform: translate(0, -50%);
   top: 50%;
   right: 120%;
 }
+.noUi-horizontal .noUi-origin > .noUi-tooltip {
+  transform: translate(50%, 0);
+  left: auto;
+  bottom: 10px;
+}
+.noUi-vertical .noUi-origin > .noUi-tooltip {
+  transform: translate(0, -18px);
+  top: auto;
+  right: 28px;
+}
+
 /* stylelint-enable */
 // sass-lint:enable-all

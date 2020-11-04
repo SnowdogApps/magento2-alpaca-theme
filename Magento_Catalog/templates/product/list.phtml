@@ -37,11 +37,21 @@ use Magento\Framework\App\Action\Action;
      */
     $pos = $block->getPositioned();
     ?>
-
+    <a
+        href="#layered-filter-block"
+        class="skip-nav"
+        data-mage-init='{"skipNav": {} }'
+    >
+        <?= $block->escapeHtml(__('Go to filters')); ?>
+    </a>
 
     <?php /** @var $_product \Magento\Catalog\Model\Product */ ?>
+
     <?php if ($viewMode === 'products-list'): ?>
-        <ul class="list">
+        <ul
+            class="list"
+            id="products-list"
+        >
             <?php foreach ($_productCollection as $_product): ?>
                 <li
                     class="
@@ -294,7 +304,10 @@ use Magento\Framework\App\Action\Action;
             <?php endforeach; ?>
         </ul>
     <?php else: ?>
-        <ul class="catalog-grid">
+        <ul
+            class="catalog-grid"
+            id="products-list"
+        >
             <?php foreach ($_productCollection as $_product): ?>
                 <?php
                     $productImage = $block->getImage($_product, $imageDisplayArea);
