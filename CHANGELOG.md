@@ -8,7 +8,7 @@ All notable changes to this project will be documented in this file.
 - adjustments to checkout address search templates (#72454)
 
 ### Changed
-- aa1y features on PDP - headings order, bundle fields, price labels, buttons labels, qty update buttons, rating form (#66039); Affects: bundles options and price templates, add to cart sticky, qty update implementation, rating, requires templates update is overwritten
+- a11y features on PDP - headings order, bundle fields, price labels, buttons labels, qty update buttons, rating form (#66039); Affects: bundles options and price templates, add to cart sticky, qty update implementation, rating, requires templates update is overwritten
 
 ## [Released]
 ## [2.10.0] - 2020-10-21
