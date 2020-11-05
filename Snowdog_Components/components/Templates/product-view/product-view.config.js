@@ -28,6 +28,29 @@ module.exports = {
       text: 'In stock',
       attributes: 'type="button" data-modal-trigger="shipping-latency-product"'
     },
+    downloadableSamples: {
+      label: {
+        text: 'Trailers:',
+        class: 'product-view__short-description-heading margin-bottom-xs'
+      },
+      elements: [
+        {
+          href: '#',
+          text: 'Trailer #1',
+          class: 'link--invert item-link samples-item-link'
+        },
+        {
+          href: '#',
+          text: 'Trailer #2',
+          class: 'link--invert item-link samples-item-link'
+        },
+        {
+          href: '#',
+          text: 'Trailer #3',
+          class: 'link--invert item-link samples-item-link'
+        }
+      ]
+    },
     shortDescription: {
       class: 'margin-top-m',
       heading: {
@@ -36,6 +59,71 @@ module.exports = {
         text: 'Short description:'
       },
       text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry. Lorem Ipsum has been the industry.'
+    },
+    downloadableLinks: {
+      legend: {
+        class: 'fieldset__legend--hidden legend links-title',
+        text: 'Downloads'
+      },
+      label: {
+        class: 'product-view__short-description-heading',
+        text: 'Downloads:'
+      },
+      checkboxes: [
+        {
+          id: 'links_1',
+          class: 'field choice',
+          attributes: 'value="1"',
+          label: {
+            text: `
+              Episode 1
+              <a
+                class="
+                  link
+                  link--invert
+                  sample
+                "
+                href="#"
+              >
+                Sample
+              </a>
+              <span class="price-wrapper">
+                $9.00
+              </span>
+            `,
+          }
+        },
+        {
+          id: 'links_2',
+          class: 'field choice',
+          attributes: 'value="2"',
+          label: {
+            text: `
+              Episode 2
+              <a
+                class="
+                  link
+                  link--invert
+                  sample
+                "
+                href="#"
+              >
+                Sample
+              </a>
+              <span class="price-wrapper">
+                $9.00
+              </span>
+            `
+          }
+        }
+      ],
+      selectAll: {
+        id: 'links-all',
+        attributes: 'data-notchecked="Select all" data-checked="Unselect all"',
+        label: {
+          text: 'Select all'
+        }
+      }
     },
     shippingLatencyModal: {
       modal: {
@@ -428,6 +516,103 @@ module.exports = {
               ]
             }
           ]
+        }
+      }
+    },
+    {
+      name: 'ee',
+      context: {
+        addToCartFixed: {
+          hiddenForEE: true,
+          class: 'add-to-cart--ee',
+          title: 'Bluzka ONLSANSA SINGLET WVN',
+        },
+        compareBtn: {
+          text: 'Compare',
+          tag: 'button',
+          class: 'product-view__button',
+          iconBefore: {
+            id: 'compare',
+            title: 'Add to compare list',
+            class: 'button__icon',
+            hidden: true
+          },
+          attributes: 'type="button" aria-label="Compare product"'
+        },
+        emailBtn: {
+          tag: 'a',
+          text: 'Email',
+          class: 'product-view__button',
+          iconBefore: {
+            id: 'envelope',
+            title: 'Arrow left',
+            class: 'button__icon',
+            hidden: true
+          },
+          attributes: 'aria-label="Mail to friend"'
+        },
+        requisitionListDropdown: {
+          class: 'dropdown-list--buttons',
+          dropdowns: [
+            {
+              itemTag: 'button',
+              itemAttributes: 'type="button" aria-expanded="false"',
+              title: 'Requisition List',
+              textClass: 'dropdown-list__text margin-hz-s',
+              id: 'dropdown-buttons-content',
+              class: 'button button--icon',
+              iconBefore: {
+                id: 'requisition-list',
+                title: 'Requisition List',
+                class: 'button__icon',
+                attributes: 'aria-hidden="true"'
+              },
+              collapse: {
+                id: 'angle-down',
+                title: 'Arrow Down',
+                class: 'dropdown-list__icon button__icon margin-0',
+                attributes: 'aria-hidden="true"'
+              },
+              contentElement: 'list'
+            }
+          ]
+        },
+        wishListDropdown: {
+          class: 'product-view__multiwishlist dropdown-list--buttons',
+          dropdowns: [
+            {
+              itemTag: 'button',
+              itemAttributes: 'type="button" aria-expanded="false"',
+              title: 'Wish List',
+              textClass: 'dropdown-list__text margin-hz-s',
+              id: 'dropdown-buttons-content2',
+              class: 'button button--icon',
+              iconBefore: {
+                id: 'heart',
+                title: 'Heart',
+                class: 'button__icon',
+                attributes: 'aria-hidden="true"'
+              },
+              collapse: {
+                id: 'angle-down',
+                title: 'Arrow Down',
+                class: 'dropdown-list__icon button__icon margin-0',
+                attributes: 'aria-hidden="true"'
+              },
+              contentElement: 'list'
+            }
+          ]
+        },
+        updateWishList: {
+          tag: 'button',
+          text: 'Update Wish List',
+          class: 'button button--icon product-view__update-wishlist product-view__addtowishlist product-view__addtowishlist--update',
+          iconBefore: {
+            id: 'heart',
+            title: 'Heart',
+            class: 'button__icon',
+            attributes: 'aria-hidden="true"'
+          },
         }
       }
     }

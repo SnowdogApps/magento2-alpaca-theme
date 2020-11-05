@@ -126,7 +126,11 @@ module.exports = {
       ]
     },
     form: {
-      title: 'Email Notification Settings',
+      title: {
+        tag: 'h2',
+        class: 'dashboard-form__title margin-bottom-sm',
+        text: 'Email Notification Settings'
+      },
       checkboxes: [
         {
           checkbox: {

@@ -1,15 +1,31 @@
+<?php 
+    // TODO get magento version without objectManager
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $productMetadata = $objectManager->get('Magento\Framework\App\ProductMetadataInterface');
+
+    $hasText = $block->getHasText();
+    $buttonText = $block->getText();
+    $additionalClass = $block->getAdditionalClass(); 
+?>
+
 <?php if ($block->getWishlistHelper()->isAllow()): ?>
     <?php $productId = $block->getProduct()->getId(); ?>
     <button
         class="
             button
             button--icon
+            button--wishlist
             add-to-wishlist
+            <?php if ($productMetadata->getEdition() == 'B2B'): ?>
+                <?= $block->escapeHtmlAttr($additionalClass) ?>
+            <?php endif; ?>
         "
         type="button"
         title="<?= $block->escapeHtmlAttr(__('Add to Wish List')) ?>"
         aria-label="<?= $block->escapeHtmlAttr(__('Add to Wish List')) ?>"
         data-testid="add-to-wishlist-button"
+        data-post='<?= /* @noEscape */ $block->getAddToWishlistParams($block->getProduct()) ?>'
+        data-action="add-to-wishlist"
         data-mage-init='{
             "wishlistItem": {
                 "productId": "<?= $productId ?>",
@@ -23,7 +39,6 @@
             role="presentation"
             focusable="false"
         >
-            <title><?= __('Wishlist heart') ?></title>
             <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#heart') ?>"></use>
         </svg>
     </button>

@@ -1,0 +1,157 @@
+<li
+    class="
+        list__item
+        padding-bottom-0
+        admin__action-multiselect-menu-inner-item
+        _root
+    "
+    data-role="option-group"
+    css="_parent: $data.optgroup"
+>
+    <div
+        class="
+            row
+            padding-top-m
+            middle-sm
+            action-menu-item
+        "
+        css="
+            _hover: $parent.isHovered(option, $element),
+            _unclickable: $parent.isLabelDecoration($data),
+            _last: $parent.addLastElement($data),
+            '_with-checkbox': $parent.showCheckbox
+        "
+    >
+        <div
+            class="
+                col-xs-12
+                col-md-6
+                margin-bottom-m
+                address-details
+            "
+        >
+            <div>
+                <span text="$data.firstname"/>
+                <span text="$data.lastname"/>
+            </div>
+            <div>
+                <text args="_.values($data.street).join(', ')"/>
+            </div>
+            <div>
+                <span text="$data.region"/>
+                <span text="$data.city"/>
+                <span text="$data.postcode"/>
+            </div>
+            <if args="$parent.getCountryName($data.countryId)">
+                <text args="$parent.getCountryName($data.countryId)"/>
+            </if>
+            <each args="data: $data.customAttributes, as: 'element'">
+                <each args="data: Object.keys(element), as: 'attribute'">
+                    <if args="typeof element[attribute] === 'object'">
+                        <if args="element[attribute].label">
+                            <text args="element[attribute].label"/>
+                        </if>
+                        <ifnot args="element[attribute].label">
+                            <if args="element[attribute].value">
+                                <text args="element[attribute].value"/>
+                            </if>
+                        </ifnot>
+                    </if>
+                    <if args="typeof element[attribute] === 'string'">
+                        <text args="element[attribute]"/>
+                    </if>
+                    <br/>
+                </each>
+            </each>
+        </div>
+        <div
+            class="
+                col-xs-12
+                col-md-3
+                margin-left-auto
+                margin-bottom-m
+                ship-here
+            "
+            ifnot="$parent.isAddressSelected($data)"
+        >
+            <button
+                type="button"
+                class="
+                    button
+                    button--fluid
+                    action-primary
+                    action-select-shipping-item
+                "
+                click="$parent.selectShippingAddress.bind($parent, option)"
+            >
+                <span translate="'Ship Here'"/>
+            </button>
+        </div>
+        <div
+            class="
+                col-xs-12
+                col-md-3
+                margin-left-auto
+                margin-bottom-m
+                address-selected
+            "
+            if="$parent.isAddressSelected($data)"
+        >
+            <button
+                type="button"
+                class="
+                    button
+                    button--fluid
+                    action-primary
+                "
+                disabled="disabled"
+            >
+                <span translate="'Selected'"/>
+            </button>
+        </div>
+        <div
+            class="
+                col-xs-12
+                col-md-3
+                margin-bottom-m
+                edit-address
+            "
+            if="$data.isEditable()"
+        >
+            <button
+                type="button"
+                class="
+                    button
+                    button--fluid
+                    action-primary
+                    action-select-shipping-item
+                "
+                click="$parent.editAction.bind($parent)"
+            >
+                <span translate="'Edit'"/>
+            </button>
+        </div>
+        <div
+            class="
+                col-xs-12
+                col-md-3
+                margin-bottom-m
+                margin-left-auto
+                default-address
+            "
+            if="option.isDefaultBilling()"
+        >
+            <button
+                type="button"
+                class="
+                    button
+                    button--fluid
+                    action-primary
+                "
+                disabled="disabled"
+            >
+                <span translate="'Default'"></span>
+            </button>
+        </div>
+    </div>
+</li>

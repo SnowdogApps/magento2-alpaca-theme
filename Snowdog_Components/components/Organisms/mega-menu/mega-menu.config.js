@@ -2,6 +2,9 @@ module.exports = {
   title: 'Mega menu',
   context: {
     script: true,
+    class: '',
+    attributes: '',
+    listClass: '',
     menulist: [
       {
         class: 'mega-menu__item--parent mega-menu__item--secondary',

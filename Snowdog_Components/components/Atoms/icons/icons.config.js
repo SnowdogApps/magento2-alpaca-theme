@@ -193,6 +193,11 @@ module.exports = {
         class: 'icons__single-icon'
       },
       {
+        id: 'pinterest',
+        title: 'Pinterest',
+        class: 'icons__single-icon'
+      },
+      {
         id: 'pin',
         title: 'Pin',
         class: 'icons__single-icon'

@@ -9,7 +9,7 @@ define([], function () {
       this.firstLevelLinks = [...this.menu.querySelectorAll('.mega-menu__link')];
       this.content = document.getElementById('contentarea');
       this.removeInnerFocus();
-      this.childrenLinksSelector = '.mega-menu__inner-link';
+      this.childrenLinksSelector = '.mega-menu__inner-item:not(.mega-menu__column-hidden) .mega-menu__inner-link';
       this.setKeyboardListeners();
     }
 

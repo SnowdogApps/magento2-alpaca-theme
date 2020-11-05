@@ -30,6 +30,21 @@
     <div <?= $block->buildAttrFromArray($wrapperAttributes) ?>>
         <div<?= $block->buildAttrFromArray($contentAttributes) ?>>
             <ul<?= $block->buildAttrFromArray($listAttributes) ?>>
+                <?php if ($block->isViewAllLinkAllowed($parentNode->getType())): ?>
+                    <?php
+                    $viewAllAttributes = [
+                        'class' => [
+                            $menuClass . '__item',
+                            $menuClass . '__item--all',
+                            $menuClass . '__item--level' . $level
+                        ]
+                    ];
+                    ?>
+
+                    <li <?= $block->buildAttrFromArray($viewAllAttributes) ?>>
+                        <?= $block->renderViewAllLink($parentNode) ?>
+                    </li>
+                <?php endif ?>
                 <?php foreach ($block->getSubmenuNodes() as $node): ?>
                     <?php
                         $childrenLevel = $node->getLevel() + 1;

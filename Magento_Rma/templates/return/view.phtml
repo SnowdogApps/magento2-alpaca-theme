@@ -23,22 +23,22 @@
             <?= $block->escapeHtml(__('Request Information')); ?>
         </h3>
         <div class="margin-bottom-l">
-            <?= $block->escapeHtml(__('ID')); ?>: 
+            <?= $block->escapeHtml(__('ID')); ?>:
             <?= $block->escapeHtml($_rma->getIncrementId()) ?>
             <br>
-            <?= $block->escapeHtml(__('Order ID')); ?>: 
+            <?= $block->escapeHtml(__('Order ID')); ?>:
             <a href="<?= $block->escapeUrl($block->getOrderUrl($_rma)); ?>">
                 <?= $block->escapeHtml($_rma->getOrderIncrementId()) ?>
             </a>
             <br>
-            <?= $block->escapeHtml(__('Date Requested')); ?>: 
+            <?= $block->escapeHtml(__('Date Requested')); ?>:
             <?= $block->escapeHtml($rmaHelper->getFormatedDate($_rma->getDateRequested())); ?>
             <br>
-            <?= $block->escapeHtml(__('Email')); ?>: 
+            <?= $block->escapeHtml(__('Email')); ?>:
             <?= $block->escapeHtml($_order->getCustomerEmail()) ?>
-            <?php if ($_rma->getCustomerCustomEmail()) : ?>
+            <?php if ($_rma->getCustomerCustomEmail()): ?>
                 <br>
-                <?= $block->escapeHtml(__('Contact Email Address')); ?>: 
+                <?= $block->escapeHtml(__('Contact Email Address')); ?>:
                 <?= $block->escapeHtml($_rma->getCustomerCustomEmail()) ?>
             <?php endif ?>
         </div>
@@ -69,14 +69,14 @@
     </span>
 
     <?php $trackingNumbers = $block->getTrackingNumbers() ?>
-    <?php if ($block->isPrintShippingLabelAllowed() || $trackingNumbers->count()) : ?>
+    <?php if ($block->isPrintShippingLabelAllowed() || $trackingNumbers->count()): ?>
         <div class="dashboard-table">
             <div class="dashboard-table__header">
                 <h2 class="dashboard-table__title">
                     <?= $block->escapeHtml(__('Shipping and Tracking Information')); ?>
                 </h2>
-                <?php if ($trackingNumbers->count() || $block->canShowButtons()) : ?>
-                    <?php if ($trackingNumbers->count()) : ?>
+                <?php if ($trackingNumbers->count() || $block->canShowButtons()): ?>
+                    <?php if ($trackingNumbers->count()): ?>
                         <a
                             class="dashboard-table__link"
                             href="#"
@@ -99,7 +99,7 @@
                             <?= $block->escapeHtml(__('Track this shipment')) ?>
                         </a>
                     <?php endif ?>
-                    <?php if ($block->canShowButtons()) : ?>
+                    <?php if ($block->canShowButtons()): ?>
                         <a
                             href="<?= $block->escapeUrl($rmaHelper->getPackagePopupUrlByRmaModel($block->getRma(), 'printlabel')) ?>"
                             title="<?= $block->escapeHtmlAttr(__('Print Shipping Label')) ?>"
@@ -183,7 +183,7 @@
                             >
                                 <?= /* @noEscape */ $block->getTrackingInfo('tracking') ?>
                             </tbody>
-                            <?php if ($block->isPrintShippingLabelAllowed()) : ?>
+                            <?php if ($block->isPrintShippingLabelAllowed()): ?>
                                 <tfoot>
                                     <tr role="row">
                                         <td
@@ -203,7 +203,7 @@
                                                 data-validate="{required:true}"
                                             >
                                                 <option value=""></option>
-                                                <?php foreach ($block->getCarriers() as $key => $value) : ?>
+                                                <?php foreach ($block->getCarriers() as $key => $value): ?>
                                                     <option value="<?= $block->escapeHtmlAttr($key); ?>">
                                                         <?= $block->escapeHtmlAttr($value) ?>
                                                     </option>
@@ -284,7 +284,7 @@
                         >
                             <?= $block->escapeHtml(__('SKU')); ?>
                         </th>
-                        <?php if (isset($availableAttributes['condition'])) : ?>
+                        <?php if (isset($availableAttributes['condition'])): ?>
                             <th
                                 scope="col"
                                 role="columnheader"
@@ -293,7 +293,7 @@
                                 <?= $block->escapeHtml(__('Condition')); ?>
                             </th>
                         <?php endif; ?>
-                        <?php if (isset($availableAttributes['condition'])) : ?>
+                        <?php if (isset($availableAttributes['condition'])): ?>
                             <th
                                 scope="col"
                                 role="columnheader"
@@ -327,7 +327,7 @@
                 </thead>
                 <tbody>
                 <?php $_qna = null; ?>
-                <?php foreach ($block->getItems() as $key => $item) : ?>
+                <?php foreach ($block->getItems() as $key => $item): ?>
                     <?php foreach ($block->getRealValueAttributes($item->getId()) as $code => $attribute) {
                         if (!in_array($code, $block->getAttributeFilter()) && !empty($attribute['value']) && $block->getAttributeLabel($item->getId(), $code)
                             && false !== $block->getAttributeValue($item->getId(), $code)) {
@@ -358,9 +358,9 @@
                             role="gridcell"
                         >
                             <?= $block->escapeHtml($item->getProductName()) ?>
-                            <?php if ($_options = $block->getItemOptions($item)) : ?>
+                            <?php if ($_options = $block->getItemOptions($item)): ?>
                                 <dl class="item options">
-                                    <?php foreach ($_options as $_option) : ?>
+                                    <?php foreach ($_options as $_option): ?>
                                         <dt>
                                             <?= $block->escapeHtml($_option['label']); ?>
                                         </dt>
@@ -370,7 +370,7 @@
                                     <?php endforeach; ?>
                                 </dl>
                             <?php endif; ?>
-                            <?php if ($_qna) : ?>
+                            <?php if ($_qna): ?>
                                 <button
                                     class="action details"
                                     type="button"
@@ -394,7 +394,7 @@
                         >
                             <?= $block->escapeHtml($item->getProductSku()) ?>
                         </td>
-                        <?php if (false !== $block->getAttributeValue($item->getId(), 'condition')) : ?>
+                        <?php if (false !== $block->getAttributeValue($item->getId(), 'condition')): ?>
                             <td
                                 data-th="<?= $block->escapeHtmlAttr(__('Condition')) ?>"
                                 class="col condition"
@@ -403,7 +403,7 @@
                                 <?= $block->escapeHtml($block->getAttributeValue($item->getId(), 'condition')) ?>
                             </td>
                         <?php endif; ?>
-                        <?php if (false !== $block->getAttributeValue($item->getId(), 'condition')) : ?>
+                        <?php if (false !== $block->getAttributeValue($item->getId(), 'condition')): ?>
                             <td
                                 data-th="<?= $block->escapeHtmlAttr(__('Resolution')) ?>"
                                 class="col resolution"
@@ -434,7 +434,7 @@
                             <?= $block->escapeHtml($item->getStatusLabel()) ?>
                         </td>
                     </tr>
-                    <?php if ($_qna) : ?>
+                    <?php if ($_qna): ?>
                         <tr
                             id="shf_<?= $block->escapeHtmlAttr($key); ?>"
                             class="hidden returns-details"
@@ -487,19 +487,19 @@
         <div class="dashboard-items__content">
             <dl class="returns-comments">
                 <?php $_comments = $block->getComments(); ?>
-                <?php if (!empty($_comments)) : ?>
-                    <?php foreach ($_comments as $_comment) : ?>
-                        <?php if ($_comment->getIsVisibleOnFront()) : ?>
+                <?php if (!empty($_comments)): ?>
+                    <?php foreach ($_comments as $_comment): ?>
+                        <?php if ($_comment->getIsVisibleOnFront()): ?>
                             <div class="dashboard-items__item">
                                 <dt class="dashboard-items__subtitle">
                                     <strong>
-                                        <?php if ($_comment->getIsAdmin()) : ?>
+                                        <?php if ($_comment->getIsAdmin()): ?>
                                             <?= $block->escapeHtml(__('Customer Service')); ?>
-                                        <?php else : ?>
+                                        <?php else: ?>
                                             <?= $block->escapeHtml($block->getCustomerName()) ?>
                                         <?php endif; ?>
                                     </strong>
-                                    <?= $block->escapeHtml($block->formatDate($_comment->getCreatedAt())); ?> 
+                                    <?= /* @noEscape */ $block->formatDate($_comment->getCreatedAt()); ?>
                                     <?= $block->escapeHtml($block->formatTime($_comment->getCreatedAt())); ?>
                                 </dt>
                                 <dd class="margin-bottom-xs">
@@ -524,7 +524,7 @@
                             fieldset__legend--hidden
                         "
                     >
-                        <?= __('Leave Comment') ?>
+                        <?= $block->escapeHtml(__('Leave Comment')) ?>
                     </legend>
                     <label
                         class="label input__label"
