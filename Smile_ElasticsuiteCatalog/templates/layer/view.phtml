@@ -4,9 +4,18 @@ $filtersCollection = $block->getFilters();
 $categoryFilter = 'category';
 $isAnyFilterActive = false;
 ?>
+    <a
+        href="#products-list"
+        class="skip-nav"
+        data-mage-init='{"skipNav": {} }'
+    >
+        <?= $block->escapeHtml(__('Go to products')); ?>
+    </a>
     <div
         class="filters"
         id="layered-filter-block"
+        role='navigation'
+        aria-label="<?= $block->escapeHtmlAttr(__('Category filters')) ?>"
     >
         <?= $block->getChildHtml('state') ?>
 
@@ -50,7 +59,9 @@ $isAnyFilterActive = false;
                     aria-label="<?= $block->escapeHtmlAttr(__('Open shopping options')) ?>"
                     data-modal-trigger="filters-options"
                     aria-expanded="false"
-                    data-mage-init='{ "modal": {} }'
+                    data-mage-init='{ "modal": {
+                        "mqOpen": "(min-width: 1024px)"
+                    } }'
                 >
                     <span class="button__text">
                         <?= $block->escapeHtml(__('Shopping Options')) ?>
@@ -75,7 +86,7 @@ $isAnyFilterActive = false;
                     aria-hidden="true"
                     id="filters-options"
                     data-modal="filters-options"
-                    aria-lebelledby="filters-option-title"
+                    aria-labelledby="filters-option-title"
                 >
                     <div
                         role="document"
@@ -172,4 +183,11 @@ $isAnyFilterActive = false;
             </div>
         <?php endif; ?>
     </div>
+    <a
+        href="#products-list"
+        class="skip-nav"
+        data-mage-init='{"skipNav": {} }'
+    >
+        <?= $block->escapeHtml(__('Go to products')); ?>
+    </a>
 <?php endif; ?>

@@ -7,10 +7,14 @@ $urlForm = $block->escapeUrl($block->getReviewsUrl()) . '#review-form';
     <?php $rating = $block->escapeHtmlAttr($block->getRatingSummary()); ?>
     <div class="product-reviews-summary short<?= !$rating ? ' no-rating' : '' ?>">
         <?php if ($rating): ?>
+            <?php
+            $productName = $block->escapeHtmlAttr($this->getProduct()->getName());
+            ?>
             <div
                 class="rating rating--secondary"
-                aria-label="<?= $block->escapeHtmlAttr(__('Average rating')) ?>: <?= $rating ?>%"
-                title="<?= $block->escapeHtmlAttr(__('Average rating')) ?>: <?= $rating ?>%"
+                role="region"
+                aria-label="<?= $block->escapeHtmlAttr(__('Average rating')) . 'for ' . $productName ?>: <?= $rating ?>%"
+                title="<?= $block->escapeHtmlAttr(__('Average rating')) . 'for ' . $productName ?>: <?= $rating ?>%"
                 tabindex="0"
             >
                 <div
