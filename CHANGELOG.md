@@ -7,7 +7,7 @@ All notable changes to this project will be documented in this file.
 - store credit dashboard to components (#72456)
 - adjustments to checkout address search templates (#72454)
 ### Fixed
-- selects on catalog page (#70830)
+- selects on catalog page and product list images (#70830)
 
 ## [Released]
 ## [2.10.0] - 2020-10-21
