@@ -21,6 +21,7 @@ define([
       swatchOptionContainerClass = '.swatch',
       qtyContainerClass          = `.qty-${productId}`,
       qtyInputClass              = '.quantity-update__input',
+      groupedPDPTableClass       = '.product-view__grouped-table',
       multiwishlistButtonClass   = `.multiwishlist-btn-${productId}`;
 
     function addButtonClass() {
@@ -49,6 +50,7 @@ define([
         wishlistId = config.addToParams.data.wishlist_id,
         swatchContainer = document.querySelector(swatchContainerClass),
         qtyContainer = document.querySelector(qtyContainerClass),
+        bundlePDPTable = document.querySelector(groupedPDPTableClass),
         data = {
           action: 'add-to-wishlist',
           form_key: formKey,
@@ -74,9 +76,23 @@ define([
       // if it's product's PDP
       // add specified qty
       if (qtyContainer) {
-        const quantityInput = qtyContainer.querySelector(qtyInputClass);
+        const quantityInput = qtyContainer.querySelector(qtyInputClass),
+          value = quantityInput.value;
 
-        data['qty'] = quantityInput.value;
+        data['qty'] = value;
+      }
+
+      // for grouped products
+      // add qty of every product
+      if (bundlePDPTable) {
+        const quantityInputArray = bundlePDPTable.querySelectorAll('.input__field.qty');
+
+        quantityInputArray.forEach(quantityInput => {
+          const key = quantityInput.getAttribute('name'),
+            value = quantityInput.value;
+
+          data[key] = value;
+        })
       }
 
       // if it's EE
