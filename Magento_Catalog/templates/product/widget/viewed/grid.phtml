@@ -24,7 +24,7 @@
                     margin-0
                 "
             >
-                <?= __('Recently Viewed') ?>
+                <?= $block->escapeHtml(__('Recently Viewed')) ?>
             </h2>
         </div>
 
@@ -32,7 +32,7 @@
         //slider config
         $sliderIsAjax           = true;
         $sliderArrows           = true;
-        $sliderClass            = 'slider--products';
+        $sliderClass            = 'slider--products slider--nested';
         $sliderInfinite         = 'no';
         $sliderSlidesToShow     = '2';
         $sliderSlidesToScroll   = '1';
@@ -74,7 +74,7 @@
         ?>
         <?= $sliderBlockBefore->toHtml(); ?>
 
-        <?= $block->renderApp([
+        <?= /* @noEscape */ $block->renderApp([
             'widget_columns' => [
                 'displayMode' => 'grid',
                 'displayAs' => 'slider',
@@ -84,8 +84,7 @@
             'image' => [
                 'imageCode' => 'recently_viewed_products_grid_content_widget'
             ]
-        ]);
-        ?>
+        ]); ?>
 
         <?php
         $sliderBlockAfter = $this->getLayout()

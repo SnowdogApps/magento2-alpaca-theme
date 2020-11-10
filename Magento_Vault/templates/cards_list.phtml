@@ -1,0 +1,82 @@
+<?php
+/** @var \Magento\Vault\Block\Customer\CreditCards $block */
+$tokens = $block->getPaymentTokens();
+?>
+
+<?php if (count($tokens) !== 0) : ?>
+    <div
+        class="
+            dashboard-table
+            table-wrapper
+            my-credit-cards
+        "
+    >
+        <div class="dashboard-table__header block-title">
+            <h2 class="dashboard-table__title">
+                <?= $block->escapeHtml(__('Stored Payment Methods')) ?>
+            </h2>
+        </div>
+        <table
+            class="
+                data
+                table
+                table-credit-cards
+            "
+            id="my-orders-table"
+        >
+            <caption class="table__caption">
+                <?= $block->escapeHtml(__('Stored Payment Methods')) ?>
+            </caption>
+            <thead>
+                <tr role="row">
+                    <th
+                        scope="col"
+                        class="col card-number"
+                        role="columnheader"
+                    >
+                        <?= $block->escapeHtml(__('Card Number')) ?>
+                    </th>
+                    <th
+                        scope="col"
+                        class="col expire"
+                        role="columnheader"
+                    >
+                        <?= $block->escapeHtml(__('Expiration Date')) ?>
+                    </th>
+                    <th
+                        scope="col"
+                        class="col card-type"
+                        role="columnheader"
+                    >
+                        <?= $block->escapeHtml(__('Type')) ?>
+                    </th>
+                    <th
+                        scope="col"
+                        class="col actions"
+                        role="columnheader"
+                    >
+                        &nbsp;
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php
+            foreach ($tokens as $token) {
+                echo $block->renderTokenHtml($token);
+            }
+            ?>
+            </tbody>
+        </table>
+    </div>
+
+<?php elseif (!$block->isExistsCustomerTokens()) : ?>
+    <div
+        class="
+            message
+            info
+            empty
+        "
+    >
+        <?= $block->escapeHtml(__('You have no stored payment methods.')) ?>
+    </div>
+<?php endif ?>

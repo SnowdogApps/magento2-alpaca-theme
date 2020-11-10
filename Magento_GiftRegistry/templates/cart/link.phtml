@@ -1,0 +1,52 @@
+<?php
+// phpcs:disable Magento2.Files.LineLength.MaxExceeded
+$entityValues = $block->getEntityValues()
+?>
+<?php if ($block->getEnabled() && count($entityValues)) : ?>
+    <form
+        action="<?= $block->escapeUrl($block->getAddUrl()) ?>"
+        method="post"
+        id="add-cart-items-to-gift-registry"
+        class="form giftregistry"
+        data-mage-init='{"validation":{}}'
+    >
+        <fieldset class="fieldset">
+            <div class="field giftregistry">
+                <div class="select select--native">
+                    <label class="label">
+                        <?= $block->escapeHtml(__('Gift Registry')) ?>
+                    </label>
+                    <select
+                        id="giftregistry_entity"
+                        class="select__field"
+                        name="entity"
+                        title="<?= $block->escapeHtmlAttr(__('Gift Registry')) ?>"
+                        data-validate="{required:true}"
+                        data-mage-init='{"select":{}}'
+                    >
+                        <?php foreach ($entityValues as $_entity) : ?>
+                            <option
+                                value="<?= $block->escapeHtmlAttr($_entity->getValue()) ?>"
+                                title="<?= $block->escapeHtmlAttr($_entity->getTitle()) ?>"
+                            >
+                                <?= $block->escapeHtml($block->truncateString($_entity->getTitle(), 40)) ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            <button
+                type="submit"
+                class="
+                    action
+                    primary
+                    add
+                    button
+                    button--fluid
+                "
+            >
+                <?= $block->escapeHtml(__('Add All To Gift Registry')) ?>
+            </button>
+        </fieldset>
+    </form>
+<?php endif; ?>

@@ -12,9 +12,9 @@ $idSuffix = $block->getIdSuffix() ? $block->getIdSuffix() : '';
 $schema = ($block->getZone() == 'item_view') ? true : false;
 ?>
 <div class="price">
-    <?php if ($block->hasSpecialPrice()) :?>
+    <?php if ($block->hasSpecialPrice()): ?>
         <span class="price__value price__value--old">
-            <?= $block->renderAmount($priceModel->getAmount(), [
+            <?= /* @noEscape */ $block->renderAmount($priceModel->getAmount(), [
                 'display_label'     => __('Regular Price'),
                 'price_id'          => $block->getPriceId('old-price-' . $idSuffix),
                 'price_type'        => 'oldPrice',
@@ -23,7 +23,7 @@ $schema = ($block->getZone() == 'item_view') ? true : false;
             ]); ?>
         </span>
         <span class="price__value price__value--special">
-            <?= $block->renderAmount($finalPriceModel->getAmount(), [
+            <?= /* @noEscape */ $block->renderAmount($finalPriceModel->getAmount(), [
                 'display_label'     => __('Special Price'),
                 'price_id'          => $block->getPriceId('product-price-' . $idSuffix),
                 'price_type'        => 'finalPrice',
@@ -31,9 +31,9 @@ $schema = ($block->getZone() == 'item_view') ? true : false;
                 'schema' => $schema
             ]); ?>
         </span>
-    <?php else :?>
+    <?php else: ?>
         <span class="price__value">
-            <?= $block->renderAmount($finalPriceModel->getAmount(), [
+            <?= /* @noEscape */ $block->renderAmount($finalPriceModel->getAmount(), [
                 'price_id'          => $block->getPriceId('product-price-' . $idSuffix),
                 'price_type'        => 'finalPrice',
                 'include_container' => false,
@@ -48,11 +48,11 @@ $schema = ($block->getZone() == 'item_view') ? true : false;
             href="<?= $block->escapeUrl($block->getSaleableItem()->getProductUrl()) ?>"
             class="minimal-price-link"
         >
-            <?= $block->renderAmountMinimal() ?>
+            <?= /* @noEscape */ $block->renderAmountMinimal() ?>
         </a>
     <?php else: ?>
         <span class="minimal-price-link">
-            <?= $block->renderAmountMinimal() ?>
+            <?= /* @noEscape */ $block->renderAmountMinimal() ?>
         </span>
     <?php endif; ?>
 <?php endif; ?>

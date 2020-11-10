@@ -1,0 +1,33 @@
+<?php
+/** @var $block \Magento\GiftMessage\Block\Cart\Item\Renderer\Actions\GiftOptions */
+?>
+<?php if (!$block->isVirtual()): ?>
+    <div
+        id="gift-options-cart-item-<?= (int) $block->getItem()->getId() ?>"
+        data-bind="scope:'giftOptionsCartItem-<?= (int) $block->getItem()->getId() ?>'"
+        class="
+            gift-options-cart-item
+            cart-list-item__gift-dropdown
+            dropdown-list
+            dropdown-list--detailed-content
+        "
+    >
+        <ul class="dropdown-list__list">
+            <li
+                class="
+                    dropdown-list__item
+                    dropdown-list__item--collapse
+                "
+            >
+                <!-- ko template: getTemplate() --><!-- /ko -->
+            </li>
+        </ul>
+    </div>
+    <script type="text/x-magento-init">
+        {
+            "#gift-options-cart-item-<?= (int) $block->getItem()->getId() ?>": {
+                "Magento_Ui/js/core/app": <?= /* @noEscape */ $block->getJsLayout() ?>
+            }
+        }
+    </script>
+<?php endif ?>

@@ -14,11 +14,15 @@
         ?>
         data-price-amount="<?= $block->escapeHtmlAttr($block->getDisplayValue()) ?>"
         data-price-type="<?= $block->escapeHtmlAttr($block->getPriceType()) ?>"
-        class="<?= $block->escapeHtmlAttr($block->getPriceWrapperCss()) ?>"
+        class="
+            price-wrapper
+            <?= $block->escapeHtmlAttr($block->getPriceWrapperCss()) ?>
+        "
+        aria-label="<?= $block->escapeHtmlAttr($block->getPriceType() . ' ' . $block->formatCurrency($block->getDisplayValue(), false))?>"
     >
         <?= $block->escapeHtml($block->formatCurrency($block->getDisplayValue(), (bool)$block->getIncludeContainer()), ['span']) ?>
     </span>
-    <?php if ($block->hasAdjustmentsHtml()) :?>
+    <?php if ($block->hasAdjustmentsHtml()): ?>
         <?= $block->getAdjustmentsHtml() ?>
     <?php endif; ?>
     <?php if ($block->getSchema()): ?>

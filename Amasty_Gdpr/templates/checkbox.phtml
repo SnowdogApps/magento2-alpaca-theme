@@ -10,15 +10,17 @@ if (method_exists($block, 'getConsents')):
 ?>
     <div
         class="
-            input
+            checkbox
+            amgdpr-checkbox
             gdpr
+            field
+            choice
             <?php if ($consent->isRequired()): ?>
                 required
             <?php endif; ?>
         "
-        id="amprivacy-checkbox"
         data-role="amasty-gdpr-consent"
-        data-amgdpr-content-from="<?= $block->escapeHtmlAttr($block->getScope()) ?>">
+        data-amgdpr-content-from="<?= $block->escapeHtmlAttr($block->getScope()) ?>"
     >
         <input
             type="hidden"
@@ -26,75 +28,18 @@ if (method_exists($block, 'getConsents')):
             value="0"
         >
 
-        <div class="checkbox">
-            <input
-                type="checkbox"
-                name="amgdpr_agreement[<?= $block->escapeHtmlAttr($consent->getConsentCode()) ?>]"
-                value="1"
-                id="<?= $block->escapeHtmlAttr($uniqueKey) ?>"
-                class="amprivacy-checkbox-<?= (int) $consent->getConsentId() ?>"
-                <?php if ($consent->isRequired()): ?>
-                    data-validate="{required:true}"
-                <?php endif; ?>
-            >
-
-            <svg
-                class="
-                    checkbox__icon
-                    checkbox__icon--checked
-                "
-                role="presentation"
-                focusable="false"
-            >
-                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#checked')) ?>"></use>
-            </svg>
-
-            <svg
-                class="
-                    checkbox__icon
-                    checkbox__icon--unchecked
-                "
-                role="presentation"
-                focusable="false"
-            >
-                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#unchecked')) ?>"></use>
-            </svg>
-
-            <label
-                for="<?= $block->escapeHtmlAttr($uniqueKey) ?>"
-                class="checkbox__label"
-            >
-                <?= $block->escapeHtml($block->getConsentText($consent), ['a']) ?>
-            </label>
-        </div>
-    </div>
-<?php endforeach; ?>
-<input
-    hidden
-    name="<?= $block->escapeHtmlAttr($block->getConsentFromLocation()) ?>"
-    value="<?= $block->escapeHtmlAttr($block->getScope()) ?>"
->
-<?php
-    // Compatibility changes with the older version of GDPR extension
-    else:
-?>
-<div
-    class="
-        input
-        gdpr
-        required
-    "
-    id="amprivacy-checkbox"
-    data-role="amasty-gdpr-consent"
->
-    <div class="checkbox">
         <input
             type="checkbox"
-            name="amgdpr_agree"
+            name="amgdpr_agreement[<?= $block->escapeHtmlAttr($consent->getConsentCode()) ?>]"
             value="1"
-            id="amgdpr_agree"
-            class="checkbox__field"
-            data-validate="{required:true}"
+            id="<?= $block->escapeHtmlAttr($uniqueKey) ?>"
+            class="
+                amprivacy-checkbox-<?= (int) $consent->getConsentId() ?>
+                checkbox__field
+            "
+            <?php if ($consent->isRequired()): ?>
+                data-validate="{required:true}"
+            <?php endif; ?>
         >
 
         <svg
@@ -120,10 +65,79 @@ if (method_exists($block, 'getConsents')):
         </svg>
 
         <label
-            for="amgdpr_agree"
+            for="<?= $block->escapeHtmlAttr($uniqueKey) ?>"
             class="checkbox__label"
         >
-            <?= $block->getConsentText() ?>
+            <span>
+                <?= $block->escapeHtml($block->getConsentText($consent), ['a']) ?>
+            </span>
+        </label>
+    </div>
+<?php endforeach; ?>
+<input
+    hidden
+    name="<?= $block->escapeHtmlAttr($block->getConsentFromLocation()) ?>"
+    value="<?= $block->escapeHtmlAttr($block->getScope()) ?>"
+>
+<?php
+    // Compatibility changes with the older version of GDPR extension
+    else:
+?>
+<div
+    class="
+        input
+        gdpr
+        required
+    "
+    id="amprivacy-checkbox"
+    data-role="amasty-gdpr-consent"
+>
+    <div 
+        class="
+            checkbox
+            required
+        "
+    >
+        <input
+            type="checkbox"
+            name="amgdpr_agree_contact"
+            value="1"
+            id="amgdpr_agree_contact"
+            class="
+                checkbox__field
+                required-entry
+            "
+        >
+
+        <svg
+            class="
+                checkbox__icon
+                checkbox__icon--checked
+            "
+            role="presentation"
+            focusable="false"
+        >
+            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#checked')) ?>"></use>
+        </svg>
+
+        <svg
+            class="
+                checkbox__icon
+                checkbox__icon--unchecked
+            "
+            role="presentation"
+            focusable="false"
+        >
+            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#unchecked')) ?>"></use>
+        </svg>
+
+        <label
+            for="amgdpr_agree_contact"
+            class="checkbox__label"
+        >
+            <span>
+                <?= $block->escapeHtml($block->getConsentText($consent), ['a']) ?>
+            </span>
         </label>
     </div>
 </div>

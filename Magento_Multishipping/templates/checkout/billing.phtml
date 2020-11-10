@@ -39,40 +39,40 @@
     class="form multicheckout billing"
 >
     <div class="block-billing margin-bottom-m">
-        <div class="block-content">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="box box-billing-address">
-                        <strong class="box-title">
-                            <?= $block->escapeHtml(__('Billing Address')); ?>
+        <div class="dashboard-items">
+            <div class="row dashboard-items__content">
+                <div class="col-sm-6 dashboard-items__item">
+                    <h3 class="heading dashboard-items__subtitle">
+                        <?= $block->escapeHtml(__('Billing Address')); ?>
+                    </h3>
+                    <div class="margin-bottom-m">
+                        <address>
+                            <?= /* @noEscape */ $block->getCheckoutData()->getAddressHtml($block->getAddress()); ?>
+                        </address>
+                    </div>
+                    <div class="actions-group margin-bottom-xl">
+                        <div class="actions-group__handler">
                             <a
                                 href="<?= $block->escapeUrl($block->getSelectAddressUrl()); ?>"
                                 class="
-                                    button
-                                    button--link
-                                    padding-hz-xs
-                                    action
+                                    link 
+                                    actions-group__link
                                 "
                             >
                                 <?= $block->escapeHtml(__('Change')); ?>
                             </a>
-                        </strong>
-                        <div class="box-content margin-bottom-m">
-                            <address>
-                                <?= /* @noEscape */ $block->getCheckoutData()->getAddressHtml($block->getAddress()); ?>
-                            </address>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="box box-billing-method">
+                <div class="col-sm-6 dashboard-items__item">
+                    <h3 class="heading dashboard-items__subtitle">
+                        <?= $block->escapeHtml(__('Payment Method')); ?>
+                    </h3>
+                    <div class="margin-bottom-m">
                         <fieldset class="fieldset">
                             <legend class="fieldset__legend fieldset__legend--hidden">
                                 <?= $block->escapeHtml(__('Payment Method')); ?>
                             </legend>
-                            <strong class="box-title">
-                                <?= $block->escapeHtml(__('Payment Method')); ?>
-                            </strong>
                             <div class="box-content">
                                 <?= $block->getChildHtml('payment_methods_before') ?>
                                 <?php /* Payment methods forms list */ ?>
@@ -85,7 +85,7 @@
                                     $methodsCount = count($methods);
                                     $methodsForms = $block->hasFormTemplates() ? $block->getFormTemplates() : [];
 
-                                    foreach ($methods as $_method) :
+                                    foreach ($methods as $_method):
                                         $code = $_method->getCode();
                                         $checked = $block->getSelectedMethodCode() === $code;
 
@@ -95,7 +95,7 @@
                                     ?>
                                         <div data-bind="scope: 'payment_method_<?= $block->escapeHtml($code); ?>'">
                                             <dt class="item-title radio__handler">
-                                                <?php if ($methodsCount > 1) : ?>
+                                                <?php if ($methodsCount > 1): ?>
                                                     <input
                                                         type="radio"
                                                         id="p_method_<?= $block->escapeHtmlAttr($code); ?>"
@@ -113,7 +113,7 @@
                                                         <?php endif; ?>
                                                         class="radio__field"
                                                     />
-                                                <?php else : ?>
+                                                <?php else: ?>
                                                     <input
                                                         type="radio"
                                                         id="p_method_<?= $block->escapeHtml($code); ?>"

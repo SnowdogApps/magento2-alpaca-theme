@@ -72,10 +72,12 @@ module.exports = {
       title: 'Category',
       items: [
         {
-          name: 'Category 1'
+          name: 'Category 1',
+          class: 'quicksearch__link--sidebar'
         },
         {
-          name: 'Category 2'
+          name: 'Category 2',
+          class: 'quicksearch__link--sidebar'
         }
       ]
     },

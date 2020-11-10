@@ -1,4 +1,7 @@
 <?php if ($block->getCollection()->getSize()): ?>
+    <?php
+        $lastPageNumber = $block->getLastPageNum();
+    ?>
     <?php if ($block->getUseContainer()): ?>
         <div class="toolbar toolbar--secondary">
     <?php endif; ?>
@@ -6,12 +9,12 @@
         <?php if ($block->getShowAmounts()): ?>
             <div class="toolbar__amount">
                 <span class="toolbar__amount-content">
-                    <?php if ($block->getLastPageNum() > 1): ?>
-                        <?= __('Items %1 to %2 of %3 total', $block->getFirstNum(), $block->getLastNum(), $block->getTotalNum()) ?>
+                    <?php if ($lastPageNumber > 1): ?>
+                        <?= $block->escapeHtml(__('Items %1 to %2 of %3 total', $block->getFirstNum(), $block->getLastNum(), $block->getTotalNum())) ?>
                     <?php elseif ($block->getTotalNum() == 1): ?>
-                        <?= __('%1 Item', $block->getTotalNum()) ?>
+                        <?= $block->escapeHtml(__('%1 Item', $block->getTotalNum())) ?>
                     <?php else: ?>
-                        <?= __('%1 Item(s)', $block->getTotalNum()) ?>
+                        <?= $block->escapeHtml(__('%1 Item(s)', $block->getTotalNum())) ?>
                     <?php endif; ?>
                 </span>
             </div>
@@ -35,7 +38,7 @@
                     "
                     for="limiter"
                 >
-                    <?= __('Show') ?>
+                    <?= $block->escapeHtml(__('Show')) ?>
                 </label>
 
                 <select
@@ -49,6 +52,7 @@
                         }
                     '
                     class="select__field"
+                    aria=label="<?= $block->escapeHtmlAttr(__('Show products on page')) ?>"
                 >
                     <?php foreach ($block->getAvailableLimit() as $_key => $_limit): ?>
                         <option
@@ -64,11 +68,11 @@
             </div>
         <?php endif; ?>
 
-        <?php if ($block->getLastPageNum() > 1): ?>
+        <?php if ($lastPageNumber > 1): ?>
             <div class="pager toolbar__pager margin-vc-xl">
                 <ul
                     class="pager__list"
-                    aria-labelledby="paging-label"
+                    aria-label="<?= $block->escapeHtmlAttr(__('Pager')); ?>"
                 >
                     <?php if (!$block->isFirstPage()): ?>
                         <li class="pager__item">
@@ -105,7 +109,7 @@
                                     link
                                 "
                                 href="<?= $block->escapeUrl($block->getFirstPageUrl()) ?>"
-                                aria-label="<?= $block->escapeHtmlAttr(__('Link to page 1')) ?>"
+                                aria-label="<?= $block->escapeHtmlAttr(__('Page 1')) ?>"
                             >
                                 1
                             </a>
@@ -120,6 +124,7 @@
                                     link
                                 "
                                 href="<?= $block->escapeUrl($block->getPreviousJumpUrl()) ?>"
+                                aria-label="<?= $block->escapeHtmlAttr(__('more pages')) ?>"
                             >
                                 <span>...</span>
                             </a>
@@ -143,7 +148,7 @@
                                         link
                                     "
                                     href="<?= $block->escapeUrl($block->getPageUrl($_page)) ?>"
-                                    aria-label="<?= $block->escapeHtmlAttr(__('Link to page ') . $_page) ?>"
+                                    aria-label="<?= $block->escapeHtmlAttr(__('Page ') . $_page) ?>"
                                 >
                                     <?= $_page ?>
                                 </a>
@@ -159,6 +164,7 @@
                                     link
                                 "
                                 href="<?= $block->escapeUrl($block->getNextJumpUrl()) ?>"
+                                aria-label="<?= $block->escapeHtmlAttr(__('more pages')) ?>"
                             >
                                 <span>...</span>
                             </a>
@@ -173,9 +179,9 @@
                                     link
                                 "
                                 href="<?= $block->escapeUrl($block->getLastPageUrl()) ?>"
-                                aria-label="<?= $block->escapeHtmlAttr(__('Link to page ') . $block->getLastPageNum()) ?>"
+                                aria-label="<?= $block->escapeHtmlAttr(__('Page ') . $lastPageNumber) ?>"
                             >
-                                <?= $block->getLastPageNum() ?>
+                                <?= $block->escpaeHtml($lastPageNumber) ?>
                             </a>
                         </li>
                     <?php endif; ?>

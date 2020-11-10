@@ -1,0 +1,128 @@
+<div
+    class="admin__action-multiselect-wrap action-select-wrap"
+    tabindex="0"
+    attr="id: uid"
+    css="
+        _active: listVisible,
+        'admin__action-multiselect-tree': isTree()
+    "
+    event="
+        focusin: onFocusIn,
+        focusout: onFocusOut,
+        keydown: keydownSwitcher
+    "
+>
+    <div
+        class="action-menu"
+        css="{ _active: listVisible}"
+    >
+        <div
+            data-role="spinner"
+            class="admin__data-grid-loading-mask"
+            visible="loading"
+            if="loading"
+        >
+            <div class="spinner">
+                <span repeat="8"/>
+            </div>
+        </div>
+        <div class="search-form">
+            <div
+                class="
+                    input
+                    search-form__input-wrapper
+                    admin__action-multiselect-search-wrap
+                "
+                if="filterOptions"
+            >
+                <input
+                    class="
+                        input__field
+                        search-form__input
+                        admin__control-text
+                        admin__action-multiselect-search
+                    "
+                    data-role="advanced-select-text"
+                    type="text"
+                    attr="
+                        id: uid+2,
+                        placeholder: filterPlaceholder
+                    "
+                    event="keydown: filterOptionsKeydown"
+                    ko-value="filterInputValue"
+                    hasFocus="filterOptionsFocus"
+                    data-bind="valueUpdate: 'afterkeydown'"
+                >
+                <button
+                    class="
+                        button
+                        button--icon
+                        search-form__button
+                        search
+                    "
+                    type="submit"
+                    data-bind='
+                        attr: {
+                            "aria-label": $t("Search")
+                        }
+                    '
+                >
+                    <svg
+                        class="icon button__icon"
+                        role="presentation"
+                        focusable="false"
+                    >
+                        <use data-bind="attr: { 'xlink:href': require.toUrl('images/icons-sprite.svg#search') }" xlink:href=''></use>
+                    </svg>
+                </button>
+                <label
+                    class="
+                        label
+                        label--hidden
+                        input__label
+                        admin__action-multiselect-search-label
+                    "
+                    data-action="advanced-select-search"
+                    attr="for: uid+2"
+                ></label>
+            </div>
+            <div
+                class="
+                    margin-bottom-m
+                    admin__action-select-shipping-addressmultiselect-search-count
+                "
+                if="itemsQuantity"
+                text="itemsQuantity"
+            >
+            </div>
+        </div>
+        <div
+            ifnot="options().length"
+            class="admin__action-multiselect-empty-area"
+        >
+            <ul
+                class="list"
+                html="emptyOptionsHtml"
+            />
+        </div>
+        <ul
+            class="
+                list
+                admin__action-multiselect-menu-inner
+                _root
+            "
+            data-bind="
+                event: {
+                    mousemove: function(data, event){onMousemove($data, $index(), event)},
+                    scroll: function(data, event){onScrollDown(data, event)}
+                }
+            "
+        >
+            <each args="data: options, as: 'option'">
+                <with args="$parent">
+                    <render args="name: addressTmpl, data: option"/>
+                </with>
+            </each>
+        </ul>
+    </div>
+</div>

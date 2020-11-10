@@ -2,7 +2,8 @@ define([], function () {
   'use strict';
 
   class Modal { // eslint-disable-line
-    constructor(modalTrigger) {
+    constructor(modalTrigger, config) {
+      this.config = config
       this.setListeners(modalTrigger);
     }
 
@@ -27,6 +28,16 @@ define([], function () {
           }
         }
       }
+    }
+
+    modalOpenMq(modal) {
+      modal.el.setAttribute('aria-hidden', false);
+      modal.trigger.setAttribute('aria-expanded', true);
+    }
+
+    closeOpenMq(modal) {
+      modal.el.setAttribute('aria-hidden', true);
+      modal.trigger.setAttribute('aria-expanded', false);
     }
 
     openModal(modal) {
@@ -65,6 +76,7 @@ define([], function () {
           () => this.closeModal(modal)
         );
       }
+
       // clicking anywhere outside of the modal closes the modal
       window.addEventListener('click', (e) => {
         if (e.target === modal.el
@@ -82,10 +94,24 @@ define([], function () {
           this.closeModal(modal)
         }
       });
+
+      if (this.config && this.config.mqOpen) {
+        const mqOpenBreakpoint = window.matchMedia(this.config.mqOpen);
+        if (mqOpenBreakpoint.matches) {
+          this.modalOpenMq(modal)
+        }
+        window.addEventListener('resize', (e) => {
+          if (mqOpenBreakpoint.matches) {
+            this.modalOpenMq(modal);
+          } else {
+            this.closeOpenMq(modal);
+          }
+        })
+      }
     }
   }
 
   return function (config, element) {
-    new Modal(element);
+    new Modal(element, config);
   };
 });

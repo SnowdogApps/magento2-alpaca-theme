@@ -1,0 +1,40 @@
+<div 
+    class="
+        qty 
+        {{ qtyClass }}
+    "
+>
+    <label 
+        for="{{ input.id }}"
+        class="
+           label 
+           input__label
+        "
+    >
+        {{ qtyLabel }}
+    </label>
+    <div
+        class="quantity-update {{ class }}"
+        {{{ attributes }}}
+    >
+        {{ render '@button--icon' minusQtyButton }}
+
+        <input
+            class="quantity-update__input {{ input.class }}"
+            type="number"
+            id="{{ input.id }}"
+            min="{{ input.min }}"
+            value="{{ input.defaultValue }}"
+            {{#unless label}}
+                aria-label="{{ input.ariaLabel }}"
+            {{/unless}}
+            {{{ input.attributes }}}
+        />
+
+        {{ render '@button--icon' plusQtyButton }}
+    </div>
+</div>
+
+{{#if script}}
+    <script src="{{ static '../quantity-update/quantity-update.js' }}"></script>
+{{/if}}

@@ -1,0 +1,85 @@
+<?php
+/** @var \Magento\Store\Block\Switcher $block */
+?>
+<?php if (count($block->getStores()) > 1) : ?>
+    <?php $id = $block->getIdModifier() ? '-' . $block->getIdModifier() : '' ?>
+    <div 
+        class="
+            dropdown-list
+            dropdown-list--detailed-content
+            footer__dropdown-switcher
+            margin-right-xs
+        " 
+        data-ui-id="language-switcher" 
+        data-mage-init='{ "dropdownList": {} }'
+        id="switcher-language<?= $block->escapeHtmlAttr($id) ?>"
+    >
+        <div 
+            class="
+                actions 
+                dropdown 
+                options
+                switcher-options
+            "
+        >
+            <ul class="dropdown-list__list">
+                <li
+                    class="
+                        dropdown-list__item
+                        dropdown-list__item--collapse
+                    "
+                >
+                    <button
+                        class="dropdown-list__label"
+                        aria-expanded="false"
+                        aria-controls="dropdown-language-content"
+                    >
+                        <?= $block->escapeHtml($block->getStoreName()) ?>
+                        <svg
+                            class="
+                                icon 
+                                dropdown-list__icon
+                            "
+                            aria-hidden="true"
+                            role="img"
+                        >
+                            <title><?= __('Arrow Down'); ?></title>
+                            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#angle-down')) ?>"></use>
+                        </svg>
+                    </button>
+                    <div
+                        id="dropdown-language-content"
+                        class="dropdown-list__content"
+                        aria-hidden="true"
+                    >
+                        <ul 
+                            class="list"
+                            data-target="dropdown"
+                        >
+                            <?php foreach ($block->getStores() as $_lang) : ?>
+                                <?php if ($_lang->getId() != $block->getCurrentStoreId()) : ?>
+                                    <li 
+                                        class="
+                                            list__item
+                                            view-<?= $block->escapeHtml($_lang->getCode()) ?> 
+                                            switcher-option
+                                        "
+                                    >
+                                        <a 
+                                            href="<?= $block->escapeUrl($block->getViewModel()->getTargetStoreRedirectUrl($_lang)) ?>"
+                                            class="link"
+                                            title="<?= $block->escapeHtmlAttr($_lang->getName()) ?>"
+                                        >
+                                            <?= $block->escapeHtml($_lang->getName()) ?>
+                                        </a>
+                                    </li>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+    
+        </div>
+    </div>
+<?php endif; ?>

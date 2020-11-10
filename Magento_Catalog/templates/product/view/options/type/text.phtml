@@ -5,6 +5,7 @@ $_optionId = $_option->getId();
 $class = ($_option->getIsRequire()) ? ' required' : '';
 $isTextarea = \Magento\Catalog\Api\Data\ProductCustomOptionInterface::OPTION_TYPE_AREA;
 $isTextField = \Magento\Catalog\Api\Data\ProductCustomOptionInterface::OPTION_TYPE_FIELD;
+$maxCharacters = $_option->getMaxCharacters();
 
 $_textValidate = null;
 
@@ -12,8 +13,8 @@ if ($_option->getIsRequire()) {
     $_textValidate['required'] = true;
 }
 
-if ($_option->getMaxCharacters()) {
-    $_textValidate['maxlength'] = $_option->getMaxCharacters();
+if ($maxCharacters) {
+    $_textValidate['maxlength'] = $maxCharacters;
 }
 ?>
 
@@ -63,12 +64,12 @@ if ($_option->getMaxCharacters()) {
             ><?= $block->escapeHtml($block->getDefaultValue()) ?></textarea>
         <?php endif; ?>
 
-        <?php if ($_option->getMaxCharacters()): ?>
+        <?php if ($maxCharacters): ?>
             <p class="note note_<?= $block->escapeHtmlAttr($_option->getId()) ?>">
-                <?= $block->escapeHtml(__('Maximum %1 characters', $_option->getMaxCharacters())) ?>
+                <?= $block->escapeHtml(__('Maximum %1 characters', $maxCharacters)) ?>
 
                 <strong class="character-counter no-display">
-                    <?= $_option->getMaxCharacters() ?>
+                    <?= $maxCharacters ?>
                 </strong>
             </p>
         <?php endif; ?>
