@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 - store credit dashboard to components (#72456)
 - adjustments to checkout address search templates (#72454)
 
+
 ## [Released]
 ## [2.10.0] - 2020-10-21
 
@@ -15,6 +16,7 @@ All notable changes to this project will be documented in this file.
 - "back" link to requisiton list page (#70586)
 ### Changed
 - requisition list toolbar styling (#70586)
+- a11y dashboard & blog (#66042) - labels, titles, skip to navigation.content links, form fields; Affects: dashboard template required update if overwritten, dashboard xml updated
 
 ### Fixed
 - issue with arrows looking wrong if gallery vertical/horizontal nav breakpoints are changed via configuration (#71113); Affects: gallery navigation
