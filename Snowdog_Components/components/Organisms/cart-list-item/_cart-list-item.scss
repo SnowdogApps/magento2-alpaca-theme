@@ -6,6 +6,7 @@
 
     @include mq($screen-m) {
         display: flex;
+        flex-flow: row wrap;
     }
 
     &__left {
@@ -152,13 +153,13 @@
     }
 
     &__actions {
-        display: none;
+        display: $cart-list-item__actions-display;
+        flex-flow: row wrap;
 
         @include mq($screen-m) {
-            display: flex;
+            display: $cart-list-item__actions-display\@medium;
             flex-basis: 100%;
             justify-content: flex-end;
-            height: $cart-list-item__actions-height\@medium;
         }
     }
 
@@ -172,6 +173,33 @@
 
     &__attributes-list {
         @extend .minicart-product__attributes-list;
+    }
+
+    &__gift-dropdown {
+        width: 100%;
+        @include mq($screen-m) {
+            text-align: right;
+        }
+        .dropdown-list {
+            &__content {
+                display: none;
+                &._active {
+                    display: block;
+                }
+            }
+
+            &__label {
+                @include mq($screen-m) {
+                    margin: $cart-list-item__gift-dropdown-label-margin\@medium;
+                }
+
+                &._active {
+                    .dropdown-list__icon {
+                        transform: rotate(180deg);
+                    }
+                }
+            }
+        }
     }
 
     &__alert {

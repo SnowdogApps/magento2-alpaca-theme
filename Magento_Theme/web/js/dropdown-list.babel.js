@@ -34,6 +34,21 @@ define([], function () {
       return (dropdownBlock.classList.contains(this.mqClass)) && window.matchMedia(this.mq).matches;
     }
 
+    getRightOffset(dropdownContent) {
+      return window.innerWidth - dropdownContent.getBoundingClientRect().right;
+    }
+
+    setDropdownPosition(dropdownContent, rightOffset) {
+      const dropdownContentRight = 'dropdown-list__content--right';
+      if (rightOffset < 0) {
+        if (!dropdownContent.classList.contains(dropdownContentRight)) {
+          dropdownContent.classList.add(dropdownContentRight);
+        }
+      } else {
+        dropdownContent.classList.remove(dropdownContentRight);
+      }
+    }
+
     resetMqMediumOpen(item) {
       const dropdownItem    = item.parentNode,
             dropdownContent = dropdownItem.querySelector(`.${this.contentClass}`);
@@ -63,6 +78,8 @@ define([], function () {
           }
         }
       }
+
+      this.setDropdownPosition(dropdownContent, this.getRightOffset(dropdownContent));
     }
 
     setMediumOpen() {

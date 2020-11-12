@@ -179,13 +179,99 @@
         justify-content: flex-end;
 
         .button--icon:not(.button--add-to) {
-            background: $product-list-item__action-background;
             margin: $product-list-item__action-margin;
 
             @include mq($screen-m) {
                 margin: $product-list-item__action-margin\@medium;
             }
 
+        }
+
+        &--ee {
+            display: flex;
+            align-items: center;
+
+            .button--tocompare {
+                background-color: $product-list-item-ee__tocompare-background-color;
+            }
+
+            .button {
+                justify-content: center;
+                order: 1;
+
+                &__text {
+                    display: none;
+                }
+            }
+
+            .product-list-item__add-to-action {
+                flex-grow: 0;
+                width: auto;
+                order: 4;
+
+                .button {
+                    .button__text {
+                        display: none;
+
+                        @include mq($screen-xl) {
+                            display: block;
+                        }
+                    }
+
+                    .button__icon {
+                        display: block;
+
+                        @include mq($screen-xl) {
+                            display: none;
+                        }
+                    }
+                }
+            }
+
+            .block-requisition-list {
+                order: 3;
+            }
+
+            .product-view {
+                &__update-wishlist {
+                    display: none;
+                }
+
+                &__multiwishlist {
+                    width: $product-list-item-ee__multiwishlist-width;
+                    margin: $product-list-item-ee__multiwishlist-margin;
+                    order: 2;
+
+                    .dropdown-list__label {
+                        justify-content: center;
+                    }
+                }
+            }
+
+            .dropdown-list {
+                &__content {
+                    top: $product-list-item-ee__dropdown-list-content-top;
+                    bottom: $product-list-item-ee__dropdown-list-content-bottom;
+                    width: $product-list-item-ee__dropdown-list-content-width;
+
+                    @include mq($screen-m) {
+                        width: $product-list-item-ee__dropdown-list-content-width\@medium; 
+                    }
+                }
+
+                &__icon {
+                    display: none;
+                }
+
+                &__label {
+                    width: $product-list-item-ee__dropdown-list-label-width;
+                    height: $product-list-item-ee__dropdown-list-label-height;
+                }
+
+                &__item {
+                    position: relative;
+                }
+            }
         }
     }
 
@@ -255,10 +341,50 @@
         }
     }
 
+    .button--wishlist {
+        &.button--icon-filled {
+            @include button-fill-bg();
+            
+            &.button--icon-filled {
+                @extend .button--icon-fill;
+                @include button-fill-bg();
+
+                &:hover,
+                &:active {
+                    &:before {
+                        background-color: $product-list-item__wishlist-filled-bg-color-hover;
+                    }
+
+                    &:after {
+                        display: block;
+                        background-image: $product-list-item__wishlist-filled-bg-image-after-hover;
+                    }
+                    
+                    .icon {
+                        fill: $white;
+                    }
+                }
+            }
+        }
+    }
+
     &__rating {
         .review__amount,
         .review__summary-add {
             display: none;
+        }
+    }
+
+    // swatch & loader
+    .swatch {
+        &__container--catalog {
+            .loader__icon {
+                margin:  $product-list-item__swatch-loader-icon-margin;
+            }
+        }
+
+        &__wrapper {
+            justify-content: flex-end;
         }
     }
 }

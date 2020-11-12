@@ -12,11 +12,10 @@ use Magento\Catalog\Model\Product\ProductList\Toolbar;
         "
         for="sorter"
     >
-        <?= __('Sort By') ?>
+        <?= $block->escapeHtml(__('Sort By')) ?>
     </label>
 
     <select
-        id="sorter"
         class="
             select__field
             toolbar__sorter-select
@@ -24,6 +23,7 @@ use Magento\Catalog\Model\Product\ProductList\Toolbar;
         name="sorter"
         data-role="sorter"
         data-mage-init='{ "select": {} }'
+        aria-label="<?= $block->escapeHtmlAttr(__('Sort By')); ?>"
     >
         <?php foreach ($block->getAvailableOrders() as $_key => $_order): ?>
             <option
@@ -34,7 +34,7 @@ use Magento\Catalog\Model\Product\ProductList\Toolbar;
             </option>
         <?php endforeach ?>
     </select>
-    <?php if ($block->getCurrentDirection() == 'desc') :?>
+    <?php if ($block->getCurrentDirection() == 'desc'): ?>
         <a
             title="<?= $block->escapeHtmlAttr(__('Set Ascending Direction')) ?>"
             href="#"
@@ -42,22 +42,34 @@ use Magento\Catalog\Model\Product\ProductList\Toolbar;
                 action
                 button
                 button--link
+                button--icon
                 toolbar__sorter-link
                 sorter-action
                 sort-desc
             "
             data-role="direction-switcher"
             data-value="asc"
+            aria-label="<?= $block->escapeHtmlAttr(__('Set Ascending Direction')) ?>"
         >
-            <?= $block->escapeHtml(__('Asc')) ?>
+            <svg
+                class="
+                    icon
+                    toolbar__sorter-icon
+                "
+                role="presentation"
+                focusable="false"
+            >
+                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#arrow-up')) ?>"></use>
+            </svg>
         </a>
-    <?php else :?>
+    <?php else: ?>
         <a
             title="<?= $block->escapeHtmlAttr(__('Set Descending Direction')) ?>"
             href="#"
             class="
                 button
                 button--link
+                button--icon
                 toolbar__sorter-link
                 action
                 sorter-action
@@ -65,8 +77,18 @@ use Magento\Catalog\Model\Product\ProductList\Toolbar;
             "
             data-role="direction-switcher"
             data-value="desc"
+            aria-label="<?= $block->escapeHtmlAttr(__('Set Descending Direction')) ?>"
         >
-            <?= $block->escapeHtml(__('Desc')) ?>
+            <svg
+                class="
+                    icon
+                    toolbar__sorter-icon
+                "
+                role="presentation"
+                focusable="false"
+            >
+                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#arrow-down')) ?>"></use>
+            </svg>
         </a>
     <?php endif; ?>
 </div>

@@ -4,29 +4,32 @@ $categoryImage = $this->getChildHtml('category.image');
 $categoryDescription = $this->getChildHtml('category.description');
 $categoryCms = $this->getChildHtml('category.cms');
 ?>
-<?php if ($categoryDescription): ?>
-    <div
-        class="
-            banner
-            banner--category
-            catalog-list__banner
-            <?php if ($categoryImage) : ?>
-                banner--category-image
-            <?php endif; ?>
-        "
-        data-mage-init='{ "bannerCollapsible": {} }'
-    >
-        <div class="banner__wrapper">
-            <div class="banner__image-wrapper">
-                <?php if ($categoryImage) : ?>
-                    <?= $categoryImage ?>
-                <?php endif; ?>
-            </div>
 
-            <div class="banner__heading-wrapper">
-                <div class="banner__heading">
-                    <?= $pageTitle ?>
-                </div>
+<div
+    class="
+        banner
+        banner--category
+        catalog-list__banner
+        <?php if ($categoryImage): ?>
+            banner--category-image
+        <?php endif; ?>
+    "
+    <?php if ($categoryDescription): ?>
+        data-mage-init='{ "bannerCollapsible": {} }'
+    <?php endif; ?>
+>
+    <div class="banner__wrapper">
+        <div class="banner__image-wrapper">
+            <?php if ($categoryImage): ?>
+                <?= /* @noEscape */ $categoryImage ?>
+            <?php endif; ?>
+        </div>
+
+        <div class="banner__heading-wrapper">
+            <div class="banner__heading">
+                <?= /* @noEscape */ $pageTitle ?>
+            </div>
+            <?php if ($categoryDescription): ?>
                 <button
                     class="
                         button
@@ -45,7 +48,7 @@ $categoryCms = $this->getChildHtml('category.cms');
                             banner__button-text--open
                         "
                     >
-                        <?= __('More information') ?>
+                        <?= $block->escapeHtml(__('More information')) ?>
                     </span>
 
                     <span
@@ -56,7 +59,7 @@ $categoryCms = $this->getChildHtml('category.cms');
                             display-none
                         "
                     >
-                        <?= __('Hide Details') ?>
+                        <?= $block->escapeHtml(__('Hide Details')) ?>
                     </span>
 
                     <svg
@@ -64,19 +67,19 @@ $categoryCms = $this->getChildHtml('category.cms');
                         role="presentation"
                         focusable="false"
                     >
-                        <title><?= __('Arrow down') ?></title>
                         <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#angle-down')) ?>"></use>
                     </svg>
                 </button>
-            </div>
+            <?php endif; ?>
         </div>
-
+    </div>
+    <?php if ($categoryDescription): ?>
         <div
             class="banner__content--category"
             tabindex="-1"
             aria-hidden="true"
         >
-            <?= $categoryDescription ?>
+            <?= /* @noEscape */ $categoryDescription ?>
 
             <div class="banner__actions-wrapper">
                 <button
@@ -91,7 +94,7 @@ $categoryCms = $this->getChildHtml('category.cms');
                     aria-label="<?= $block->escapeHtmlAttr(__('hide details')) ?>"
                 >
                     <span class="button__text banner__button-text">
-                        <?= __('Hide details') ?>
+                        <?= $block->escapeHtml(__('Hide details')) ?>
                     </span>
 
                     <svg
@@ -99,15 +102,12 @@ $categoryCms = $this->getChildHtml('category.cms');
                         role="presentation"
                         focusable="false"
                     >
-                        <title><?= __('Arrow down') ?></title>
                         <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#angle-up')) ?>"></use>
                     </svg>
                 </button>
             </div>
         </div>
-    </div>
-<?php else: ?>
-    <?= $pageTitle ?>
-<?php endif; ?>
+    <?php endif; ?>
+</div>
 
-<?= $categoryCms ?>
+<?= /* @noEscape */ $categoryCms ?>

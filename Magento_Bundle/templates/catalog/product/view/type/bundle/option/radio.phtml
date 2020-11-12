@@ -7,8 +7,8 @@ $_optionId = $_option->getId();
 list($_defaultQty, $_canChangeQty) = $block->getDefaultValues();
 ?>
 
-<div class="bundle-option">
-    <h4
+<div class="bundle-option <?= ($_option->getRequired()) ? ' required': '' ?>">
+    <h2
         id="bundle-option-title-<?= $block->escapeHtmlAttr($_optionId) ?>"
         class="
             bundle-option__title
@@ -16,7 +16,7 @@ list($_defaultQty, $_canChangeQty) = $block->getDefaultValues();
         "
     >
         <?= $block->escapeHtml($_option->getTitle()) ?>
-    </h4>
+    </h2>
     <div
         class="
             radio
@@ -28,6 +28,14 @@ list($_defaultQty, $_canChangeQty) = $block->getDefaultValues();
             class="fieldset nested"
             aria-labelledby="bundle-option-title-<?= $block->escapeHtmlAttr($_optionId) ?>"
         >
+            <legend
+                class="
+                    fieldset__legend
+                    fieldset__legend--hidden
+                "
+            >
+                <?= $block->escapeHtml($_option->getTitle()) ?>
+            </legend>
             <?php if ($block->showSingle()): ?>
                 <?= /* @noEscape */ $block->getSelectionTitlePrice($_selections[0]) ?>
                 <?= /* @noEscape */ $block->getTierPriceRenderer()->renderTierPrice($_selections[0]) ?>
@@ -55,7 +63,7 @@ list($_defaultQty, $_canChangeQty) = $block->getDefaultValues();
                             class="radio__label"
                             for="bundle-option-<?= $block->escapeHtmlAttr($_optionId) ?>"
                         >
-                            <?= __('None') ?>
+                            <?= $block->escapeHtml(__('None')) ?>
                         </label>
                     </div>
                 <?php endif; ?>
@@ -85,7 +93,7 @@ list($_defaultQty, $_canChangeQty) = $block->getDefaultValues();
                             class="radio__label"
                             for="bundle-option-<?= $block->escapeHtmlAttr($_optionId) ?>-<?= $block->escapeHtmlAttr($_selectionId) ?>"
                         >
-                            <?= $block->getSelectionTitlePrice($_selection) ?>
+                            <?= /* @noEscape */ $block->getSelectionTitlePrice($_selection) ?>
                             <?= /* @noEscape */ $block->getTierPriceRenderer()->renderTierPrice($_selection) ?>
                         </label>
                     </div>

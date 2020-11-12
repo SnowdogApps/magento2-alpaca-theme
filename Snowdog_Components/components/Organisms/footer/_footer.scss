@@ -11,7 +11,15 @@
             padding: $footer__bottom-bar-handler-padding--checkout;
 
             @include mq($screen-m) {
-                padding: 0;
+                padding: $footer__bottom-bar-handler-padding--checkout\@medium;
+            }
+
+            @include mq($screen-l) {
+                padding: $footer__bottom-bar-handler-padding--checkout\@large;
+            }
+
+            @include mq($screen-xl) {
+                padding: $footer__bottom-bar-handler-padding--checkout\@extra-large;
             }
         }
     }
@@ -248,6 +256,7 @@
         @include mq($screen-m) {
             justify-content: space-between;
             flex-direction: row;
+            flex-wrap: wrap;
         }
 
         @include mq($screen-l) {
@@ -281,6 +290,7 @@
         margin: $footer__payments-list-margin;
 
         @include mq($screen-m) {
+            flex-flow: row wrap;
             margin: $footer__payments-list-margin\@medium;
             order: 2;
         }
@@ -308,10 +318,86 @@
 
         &:before {
             transform: $footer__scroll-top-before-transform;
+            background: none;
+        }
+
+        &:hover {
+            background-color: $footer__scroll-top-bg-hover;
         }
 
         .icon {
             fill: $footer__scroll-top-icon-fill;
+        }
+    }
+
+    &__switchers {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        padding: $footer__switchers-padding;
+        order: $footer__switchers-order;
+
+        @include mq($screen-s) {
+            flex-direction: row;
+            justify-content: center;
+            width: $footer__switchers-width\@small;
+        }
+
+        @include mq($screen-xl) {
+            width: $footer__switchers-width\@xl;
+        }
+    }
+
+    &__dropdown-switcher {
+        width: auto;
+        background-color: $footer__switcher-background-color;
+
+        .dropdown-list__label  {
+            background-color: $footer__switcher-label-background-color;
+            padding: $footer__switcher-label-padding;
+            color: $footer__switcher-label-color;
+            white-space: nowrap;
+
+            &[aria-expanded=true] {
+                background-color: $footer__switcher-label-color;
+                color: $footer__switcher-label-background-color;
+
+                &:hover {
+                    .dropdown-list__icon {
+                        fill: $footer__switcher-label-background-color;
+                    }
+                }
+            }
+
+            &:hover {
+                .dropdown-list__icon {
+                    fill: $footer__switcher-label-color;
+                }
+            }
+        }
+
+        .dropdown-list__content  {
+            position: absolute;
+            bottom: $footer__switcher-content-bottom;
+            width: $footer__switcher-content-width;
+            padding: $footer__switcher-content-padding;
+            background-color: $footer__switcher-label-color;
+
+            .button {
+                font-weight: $footer__switcher-button-font-weight;
+                min-height: $footer__switcher-button-min-height;
+                text-decoration: $footer__switcher-button-text-decoration;
+
+                &:hover,
+                &:focus,
+                &.focus-visible {
+                    text-decoration: $footer__switcher-button-hover-text-decoration;
+                }
+            }
+        }
+
+        .dropdown-list__icon {
+            fill: $footer__switcher-label-color;
         }
     }
 }

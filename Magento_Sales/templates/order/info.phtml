@@ -1,31 +1,31 @@
 <?php $_order = $block->getOrder() ?>
 
 <h2 class="heading dashboard__title">
-    <?= __('Order Information') ?>
+    <?= $block->escapeHtml(__('Order Information')) ?>
 </h2>
 
 <div class="row">
     <?php if (!$_order->getIsVirtual()): ?>
         <div class="col-sm-3 information">
             <h3 class="heading dashboard__subtitle">
-                <?= __('Shipping Address') ?>
+                <?= $block->escapeHtml(__('Shipping Address')) ?>
             </h3>
 
             <address class="information__text">
-                <?= $block->getFormattedAddress($_order->getShippingAddress()); ?>
+                <?= /* @noEscape */ $block->getFormattedAddress($_order->getShippingAddress()) ?>
             </address>
         </div>
 
         <div class="col-sm-3 information">
             <h3 class="heading dashboard__subtitle">
-                <?= __('Shipping Method') ?>
+                <?= $block->escapeHtml(__('Shipping Method')) ?>
             </h3>
 
             <div class="information__text">
                 <?php if ($_order->getShippingDescription()): ?>
                     <?= $block->escapeHtml($_order->getShippingDescription()) ?>
                 <?php else: ?>
-                    <?= __('No shipping information available'); ?>
+                    <?= $block->escapeHtml(__('No shipping information available')); ?>
                 <?php endif; ?>
             </div>
         </div>
@@ -33,17 +33,17 @@
 
     <div class="col-sm-3 information">
         <h3 class="heading dashboard__subtitle">
-            <?= __('Billing Address') ?>
+            <?= $block->escapeHtml(__('Billing Address')) ?>
         </h3>
 
         <address class="information__text">
-            <?= $block->getFormattedAddress($_order->getBillingAddress()); ?>
+            <?= /* @noEscape */ $block->getFormattedAddress($_order->getBillingAddress()) ?>
         </address>
     </div>
 
     <div class="col-sm-3 information">
         <h3 class="heading dashboard__subtitle">
-            <?= __('Payment Method') ?>
+            <?= $block->escapeHtml(__('Payment Method')) ?>
         </h3>
 
         <div class="information__text">
