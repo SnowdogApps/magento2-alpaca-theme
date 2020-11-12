@@ -9,18 +9,20 @@ list($_defaultQty, $_canChangeQty) = $block->getDefaultValues();
 ?>
 
 <div class="bundle-option">
-    <h4
+    <label
         class="
             bundle-option__title
             <?= ($_option->getRequired()) ? 'bundle-option__title--required': '' ?>
         "
+        for="bundle-option-<?= $block->escapeHtmlAttr($_optionId) ?>"
     >
         <?= $block->escapeHtml($_optionTitle) ?>
-    </h4>
+    </label>
     <?php if ($block->showSingle()): ?>
         <?= /* @noEscape */ $block->getSelectionTitlePrice($_selections[0]) ?>
         <?= /* @noEscape */ $block->getTierPriceRenderer()->renderTierPrice($_selections[0]) ?>
         <input
+            id="bundle-option-<?= $block->escapeHtmlAttr($_optionId) ?>"
             type="hidden"
             class="
                 bundle-option-<?= $block->escapeHtmlAttr($_optionId) ?>
@@ -48,9 +50,9 @@ list($_defaultQty, $_canChangeQty) = $block->getDefaultValues();
                     bundle
                     option
                 "
-                aria-label="<?= $block->escapeHtml($_optionTitle) ?>"
                 <?php if ($_option->getRequired()): ?>
                     data-validate="{'required': 'true'}"
+                    required
                 <?php endif ?>
                 data-mage-init='{"select": {}}'
             >
