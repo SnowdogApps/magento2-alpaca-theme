@@ -4,12 +4,24 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Updated
 - theme to Magento 2.3.6 (#72223)
+### Added
+- adjustems to store credit templates (#72456) Affects: store credit daschboard & checkout payment step
+- store credit dashboard to components (#72456)
+- adjustments to checkout address search templates (#72454)
+
+### Changed
+- a11y features on PDP - headings order, bundle fields, price labels, buttons labels, qty update buttons, rating form (#66039); Affects: bundles options and price templates, add to cart sticky, qty update implementation, rating, requires templates update is overwritten
+- a11y dashboard & blog (#66042) - labels, titles, skip to navigation.content links, form fields; Affects: dashboard template required update if overwritten, dashboard xml updated
+- a11y cart & checkout (#66041) - labels, fields, fieldset, semantic elements. Affects: checkout and card templates - update required if overwritten
 
 ## [Released]
 ## [2.10.0] - 2020-10-21
 
 ### Added
 - full with variant styles to slider (#69023)
+- "back" link to requisiton list page (#70586)
+### Changed
+- requisition list toolbar styling (#70586)
 
 ### Fixed
 - issue with arrows looking wrong if gallery vertical/horizontal nav breakpoints are changed via configuration (#71113); Affects: gallery navigation
@@ -42,6 +54,9 @@ All notable changes to this project will be documented in this file.
 - variables for product-view, review and tab (#71110);
 - pager to wishlist (#71692)
 ### Changed
+- a11y catalog update - skip links (go to filters/products), a11y open mediaQuery modal feature (filters), update a11y labels (sorter, pager), focus management update, mobile menu View all link added (#66040);
+Affects: if catalog (toolbar, filters, list) or mobile menu templates are overwritten in theme, update required
+
 ### Removed
 - unnecessary title from svgs with role presentation (#71268)
 - reference to Magento\Rma\Block\Order\Button block on OS (#71741); Affects: order view, order invoice & order shipment

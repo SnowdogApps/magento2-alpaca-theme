@@ -12,8 +12,15 @@ $isVisibleProduct = $product->isVisibleInSiteVisibility();
 $helper = $this->helper(Magento\Msrp\Helper\Data::class);
 $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinimalPriceLessMsrp($product);
 ?>
-<section class="cart-list-item">
-    <div class="cart-list-item__left">
+<div
+    class="cart-list-item"
+    role="row"
+>
+    <div
+        class="cart-list-item__left"
+        data-th="<?= $block->escapeHtmlAttr(__('Item:')); ?>"
+        role="gridcell"
+    >
         <a
             class="cart-list-item__image"
             href="<?= $block->escapeUrl($block->getProductUrl()) ?>"
@@ -93,7 +100,11 @@ $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinima
 
     <div class="cart-list-item__right">
         <div class="cart-list-item__details">
-            <div class="cart-list-item__wrapper">
+            <div
+                class="cart-list-item__wrapper"
+                data-th="<?= $block->escapeHtmlAttr(__('Price:')); ?>"
+                role="gridcell"
+            >
                 <span class="cart-list-item__label margin-right-xs">
                     <?= $block->escapeHtml(__('Price')) ?>:
                 </span>
@@ -113,6 +124,8 @@ $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinima
                     input--inline
                     cart-list-item__qty
                 "
+                data-th="<?= $block->escapeHtmlAttr(__('Quantity:')); ?>"
+                role="gridcell"
             >
                 <label
                     class="
@@ -144,9 +157,20 @@ $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinima
                     }"
                     data-role="cart-item-qty"
                 >
+                <p
+                    role="alert"
+                    aria-live="polite"
+                    class="cart-list-item__alert"
+                >
+                    <?= __('After changing quantity click update shopping cart button') ?>
+                </p>
             </div>
 
-            <div class="cart-list-item__wrapper">
+            <div
+                class="cart-list-item__wrapper"
+                data-th="<?= $block->escapeHtmlAttr(__('Subtotal:')); ?>"
+                role="gridcell"
+            >
                 <span class="cart-list-item__label margin-right-xs">
                     <?= $block->escapeHtml(__('Subtotal')) ?>:
                 </span>
@@ -161,8 +185,12 @@ $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinima
             </div>
         </div>
 
-        <div class="cart-list-item__actions">
+        <div
+            class="cart-list-item__actions"
+            data-th="<?= $block->escapeHtmlAttr(__('Actions:')); ?>"
+            role="gridcell"
+        >
             <?= /* @noEscape */ $block->getActions($_item) ?>
         </div>
     </div>
-</section>
+</div>
