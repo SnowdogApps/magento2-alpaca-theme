@@ -646,11 +646,9 @@ module.exports = {
         heading: false,
         slides: [
           {
-            itemClass: 'slider__slide-item',
             content: 'catalog-event--slider-item'
           },
           {
-            itemClass: 'slider__slide-item',
             content: 'catalog-event--slider-item'
           }
         ]
