@@ -19,6 +19,7 @@
         <referenceContainer
             name="div.sidebar.main"
             htmlClass="col-xs-12 col-lg-3 dashboard__sidebar"
+            htmlId="dashboard-navigation"
         />
         <referenceContainer name="sidebar.main">
             <block
@@ -73,13 +74,39 @@
                     </arguments>
                 </block>
             </block>
+            <block
+                class="Magento\Framework\View\Element\Template"
+                name="skip-to-dashboard-content"
+                template="Magento_Theme::html/skip-nav.phtml"
+                before="-"
+            >
+                <arguments>
+                    <argument name="link_text" xsi:type="string" translate="true">Skip to dashboard content</argument>
+                    <argument name="link_anchor" xsi:type="string">#dashboard-content</argument>
+                    <argument name="css_class" xsi:type="string">skip-nav--relative</argument>
+                </arguments>
+            </block>
         </referenceContainer>
 
         <referenceContainer
             name="main"
             htmlTag="div"
             htmlClass="col-xs-12 col-lg-9 dashboard__content"
-        />
+            htmlId="dashboard-content"
+        >
+            <block
+                class="Magento\Framework\View\Element\Template"
+                name="skip-to-dashboard-navigation"
+                template="Magento_Theme::html/skip-nav.phtml"
+                after="-"
+            >
+                <arguments>
+                    <argument name="link_text" xsi:type="string" translate="true">Skip to dashboard navigation</argument>
+                    <argument name="link_anchor" xsi:type="string">#dashboard-navigation</argument>
+                    <argument name="css_class" xsi:type="string">skip-nav--relative</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
 
         <referenceBlock name="page.main.title">
             <arguments>

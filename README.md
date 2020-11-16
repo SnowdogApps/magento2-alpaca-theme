@@ -408,6 +408,7 @@ Homepage content is build using static blocks, check `vendor/snowdog/theme-front
 {{block class="Magento\Framework\View\Element\Template" template="Magento_Theme::html/picture.phtml" img480="<img-url>" img768="<img-url>" img960="<img-url>" img1024="<img-url>" img1328="<img-url>" img_full="<img-url>" picture_class="image" picture_alt="<descriptive image alternative text>" }}
 ```
 * by default you can use different image for media query breakpoints, you can also implement images with different device-pixel-ratio, check the template's code for details
+* `picture_class` is a required attribute
 
 ### Lazyloading images
 We use [lazysizes](https://github.com/aFarkas/lazysizes) in project, so when you implement images with `<img>` tag (ex. in CMS content), use:
@@ -435,11 +436,11 @@ This solution is already implemented on responsive solution in `picture.phtml` t
 ```
 * usage for images added with picture.phtml. To work we need set `img_ratio_width` and `img_ratio_height`:
 ```
-{{block class="Magento\Framework\View\Element\Template" template="Magento_Theme::html/picture.phtml" img_default="cms/home/banners/my-file.jpg" img_ratio_width="656" img_ratio_height="264"}}
+{{block class="Magento\Framework\View\Element\Template" template="Magento_Theme::html/picture.phtml" img_default="cms/home/banners/my-file.jpg" picture_class="image" img_ratio_width="656" img_ratio_height="264"}}
 ```
 * aspect ratio for responsive images implemented using `picture.phtml`:
-If responsive images - images for different viewports - have different aspect ratio than the default image, we should implement each of them: or in picture content type (if blackbird contentmanager is used), or with picture.phtml template. We need to add unique `id`, which is required to make it works.
-Use additional attribute for responsive aspect ratio:
+If responsive images - images for different viewports - have different aspect ratio than the default image, we should implement each of them: either in picture content type (if blackbird contentmanager is used), or in picture.phtml template. We need to add a unique `id` and `picture_class` attribute, which is required to make it works.
+Use additional attributes for responsive aspect ratio:
   `img_ratio_width_480` -> for image max-width 480px
   `img_ratio_width_768` -> for image max-width 768px
   `img_ratio_width_1024` -> for image max-width 1024px
@@ -447,7 +448,7 @@ Use additional attribute for responsive aspect ratio:
 
 usage example:
 ```
-{{block class="Magento\Framework\View\Element\Template" template="Magento_Theme::html/picture.phtml" img_768="<img-url>" img_1024="<img-url>" img_full="<img-url>" img_default="<img-url>" picture_alt="<descriptive alternative text for image>" img_ratio_width="1200" img_ratio_height="600" img_ratio_width_768="768" img_ratio_height_768="500" img_ratio_width_1024="472" img_ratio_height_1024="376" img_ratio_width_1328="1328" img_ratio_height_1328="1200" id="<unique-id>"}}
+{{block class="Magento\Framework\View\Element\Template" template="Magento_Theme::html/picture.phtml" img_768="<img-url>" img_1024="<img-url>" img_full="<img-url>" img_default="<img-url>" picture_class="image" picture_alt="<descriptive alternative text for image>" img_ratio_width="1200" img_ratio_height="600" img_ratio_width_768="768" img_ratio_height_768="500" img_ratio_width_1024="472" img_ratio_height_1024="376" img_ratio_width_1328="1328" img_ratio_height_1328="1200" id="<unique-id>"}}
 ```
 !Important Note:
 If responisve image aspect ratio is added, additional styles inline are generated, so use it ONLY if needed (if aspect ratio for responsive image is different that for default image) to keep your code as clean as possible.

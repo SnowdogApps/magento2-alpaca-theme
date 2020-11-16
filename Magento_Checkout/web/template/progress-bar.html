@@ -2,7 +2,14 @@
     <!-- ko foreach: { data: steps().sort(sortItems), as: 'item' } -->
         <li
             class="progress-bar__item"
-            data-bind="css: item.isVisible() ? 'progress-bar__item--active' : ($parent.isProcessed(item) ? 'progress-bar__item--complete' : '')"
+            data-bind="
+                {
+                    css: item.isVisible() ? 'progress-bar__item--active' : ($parent.isProcessed(item) ? 'progress-bar__item--complete' : ''),
+                    attr: {
+                        'aria-label': $t('Checkout step: ') + item.title
+                    }
+                }
+            "
         >
             <div
                 class="progress-bar__line"

@@ -1,20 +1,21 @@
-## Checkout pages
-Currently we are rewriting checkout module to components, and it's on very early stage.
+## Checkout
 
 Organisms components:
-- Organisms/order-summary (Cart and Checkout - Used both)
+- Organisms/order-summary (used in both Cart and Checkout)
 - Organisms/checkout/authentication
+- Organisms/checkout/credit-card
+- Organisms/checkout/discount-code
 - Organisms/checkout/estimated-section
 - Organisms/checkout/payment-methods
 - Organisms/checkout/progress-bar
 - Organisms/checkout/shipping-address
+- Organisms/checkout/shipping-information
 - Organisms/checkout/shipping-methods
 - Organisms/checkout/sidebar
-- Organisms/checkout/discount
 
 Templates components:
-- Templates/shipping-step
-- Templates/payment-step
+- Templates/checkout/shipping-step
+- Templates/checkout/payment-step
 - Templates/success-page
 - Templates/paypal-review
 
