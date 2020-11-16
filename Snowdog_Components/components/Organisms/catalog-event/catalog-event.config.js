@@ -1,6 +1,6 @@
 module.exports = {
   context: {
-    class: 'section',
+    class: '',
     heading: {
       tag: 'h2',
       class: 'heading heading--second-level margin-bottom-0',
@@ -47,9 +47,9 @@ module.exports = {
   },
   variants: [
     {
-      name: 'slider',
+      name: 'slider item',
       context: {
-        class: 'catalog-event--slider',
+        class: 'catalog-event--slider-item',
         heading: {
           tag: 'h2',
           class: 'heading heading--second-level',
