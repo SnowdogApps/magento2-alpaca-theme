@@ -7,6 +7,13 @@ All notable changes to this project will be documented in this file.
 - adjustems to store credit templates (#72456) Affects: store credit daschboard & checkout payment step
 - store credit dashboard to components (#72456)
 - adjustments to checkout address search templates (#72454)
+- scroll-to.js so that it doesn't open "skip to content" link (#72451)
+- scroll top button focus styles (#72451)
+
+### Changed
+- a11y features on PDP - headings order, bundle fields, price labels, buttons labels, qty update buttons, rating form (#66039); Affects: bundles options and price templates, add to cart sticky, qty update implementation, rating, requires templates update is overwritten
+- a11y dashboard & blog (#66042) - labels, titles, skip to navigation.content links, form fields; Affects: dashboard template required update if overwritten, dashboard xml updated
+- a11y cart & checkout (#66041) - labels, fields, fieldset, semantic elements. Affects: checkout and card templates - update required if overwritten
 
 ### Fixed
 - adding products to wishlist with ajax (on grid, catalog, PDP), adding configurable product selected options, adding specified qty if on PDP (#70731)

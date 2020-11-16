@@ -27,7 +27,10 @@ $product = $item->getProduct();
         </label>
         <div
             class="quantity-update"
-            data-mage-init='{ "qtyUpdater": {} }'
+            data-mage-init='{ "qtyUpdater": {
+                "increaseText": "<?= $block->escapeHtml(__('The quantity was increased to')) ?>",
+                "decreseText": "<?= $block->escapeHtml(__('The quantity was decreased to')) ?>"
+            } }'
         >
             <button
                 class="
@@ -65,6 +68,7 @@ $product = $item->getProduct();
                 data-validate="{'required-number':true,'validate-greater-than-zero':true}"
                 name="qty[<?= $block->escapeHtmlAttr($item->getId()) ?>]"
                 value="<?= $block->escapeHtmlAttr($block->getAddToCartQty($item) * 1) ?>"
+                required
             />
             <button
                 class="
@@ -89,6 +93,10 @@ $product = $item->getProduct();
                     <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#plus')); ?>"></use>
                 </svg>
             </button>
+            <p
+                role="alert"
+                class="quantity-update__alert display-none"
+            ></p>
         </div>
     </div>
 <?php endif; ?>
