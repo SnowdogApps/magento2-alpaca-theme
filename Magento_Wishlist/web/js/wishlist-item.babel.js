@@ -22,6 +22,9 @@ define([
       qtyContainerClass          = `.qty-${productId}`,
       qtyInputClass              = '.quantity-update__input',
       groupedPDPTableClass       = '.product-view__grouped-table',
+      bundleOptionClass          = '.bundle-option',
+      bundleOptionQtyClass       = '.bundle-option__qty-input',
+      downloadableContainerClass = '.product-options',
       multiwishlistButtonClass   = `.multiwishlist-btn-${productId}`;
 
     function addButtonClass() {
@@ -51,6 +54,8 @@ define([
         swatchContainer = document.querySelector(swatchContainerClass),
         qtyContainer = document.querySelector(qtyContainerClass),
         bundlePDPTable = document.querySelector(groupedPDPTableClass),
+        bundleOptionGroupArray = document.querySelectorAll(bundleOptionClass),
+        downloadableContainer = document.querySelector(downloadableContainerClass),
         data = {
           action: 'add-to-wishlist',
           form_key: formKey,
@@ -92,6 +97,65 @@ define([
             value = quantityInput.value;
 
           data[key] = value;
+        })
+      }
+
+      // for bundle product
+      // add options and qty if selected
+      if (bundleOptionGroupArray) {
+        const bundleOptionQtyArray = document.querySelectorAll(bundleOptionQtyClass);
+
+        bundleOptionQtyArray.forEach(bundleOptionQty => {
+          const key = bundleOptionQty.getAttribute('name'),
+            value = bundleOptionQty.value;
+
+          data[key] = value;
+        })
+
+        bundleOptionGroupArray.forEach(budnleOptionGroup => {
+          const budnleOptionArray = budnleOptionGroup.querySelectorAll('.option')
+          budnleOptionArray.forEach(bundleOption => {
+            const key = bundleOption.getAttribute('name');
+
+            // for checkbox and radio
+            if (bundleOption.checked) {
+              const value = bundleOption.value;
+
+              data[key] = value;
+            }
+
+            // for select and multiselect
+            bundleOption.querySelectorAll('option').forEach(selectOption => {
+              if(selectOption.selected) {
+                const value = selectOption.value;
+
+                if (key in data) {
+                  data[key].push(value);
+                } else {
+                  data[key] = [value];
+                }
+              }
+            })
+          })
+        })
+      }
+
+      // for downloadable product
+      // add options if selected
+      if (downloadableContainer){
+        const checkboxArray = downloadableContainer.querySelectorAll('.checkbox__field');
+
+        checkboxArray.forEach(checkbox => {
+          if (checkbox.checked) {
+            const key = checkbox.getAttribute('name'),
+              value = checkbox.value;
+
+            if (key in data) {
+              data[key].push(value);
+            } else {
+              data[key] = [value];
+            }
+          }
         })
       }
 
