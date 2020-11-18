@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 - adjustments to checkout address search templates (#72454)
 - scroll-to.js so that it doesn't open "skip to content" link (#72451)
 - scroll top button focus styles (#72451)
+- catalog event component, adjustments to related templates (#72233)
 
 ### Fixed
 - performance, changes for magepack - optimise js (minify js libs, datapicker, calendar, M2 bootstrap, marketing bar), styles loading (preload, remove useless variables), fonts (swap)

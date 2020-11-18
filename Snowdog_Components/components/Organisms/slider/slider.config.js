@@ -575,6 +575,84 @@ module.exports = {
           }
         ]
       }
+    },
+    {
+      name: 'catalog events',
+      context: {
+        class: 'slider--catalog-events',
+        attributes: [
+          {
+            attr: 'data-mobile-first="true"'
+          },
+          {
+            attr: 'data-infinite="true"'
+          },
+          {
+            attr: 'data-center-mode="false"'
+          },
+          {
+            attr: 'data-dots="true"'
+          },
+          {
+            attr: 'data-autoplay="false"'
+          },
+          {
+            attr: 'data-autoplay-speed="3000"'
+          },
+          {
+            attr: 'data-pause-on-focus="true"'
+          },
+          {
+            attr: 'data-pause-on-hover="true"'
+          },
+          {
+            attr: 'data-slides-to-show="1"'
+          },
+          {
+            attr: 'data-slides-to-scroll="1"'
+          },
+          {
+            attr: 'data-swipe-to-slide="true"'
+          },
+          {
+            attr: 'data-element-slides=".slider__slides"'
+          },
+          {
+            attr: 'data-dots-class="slider__dots"'
+          },
+          {
+            attr: 'data-loading-class="slider--loading"'
+          },
+          {
+            attr: 'data-loader-visible-class="loader--visible"'
+          },
+          {
+            attr: 'data-element-slide=".slider__item"'
+          },
+          {
+            attr: 'data-element-loader=".loader"'
+          },
+          {
+            attr: 'data-element-nav-prev=".slider__prev"'
+          },
+          {
+            attr: 'data-element-nav-next=".slider__next"'
+          },
+          {
+            // eslint-disable-next-line
+            attr: 'data-responsive-config=\'[]\''
+          }
+        ],
+        heading: false,
+        slides: [
+          {
+            content: 'catalog-event--slider-item'
+          },
+          {
+            content: 'catalog-event--slider-item'
+          }
+        ]
+      }
     }
   ]
 }

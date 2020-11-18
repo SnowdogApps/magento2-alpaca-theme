@@ -302,8 +302,8 @@ $sliderBlock = $this->getLayout()
 2. Initialize "before-slides" block in .phtml file
 ```
 <?php
-$sliderBlock = $this->getSliderBlock(); //
-$sliderBlock->setData(['slider_html'=>'before-slides', ...]);
+$sliderBlockBefore = $this->getSliderBlock(); //
+$sliderBlockBefore->setData(['slider_html'=>'before-slides', ...]);
 ?>
 <?= $sliderBlockBefore->toHtml(); ?>
 ```
@@ -318,7 +318,7 @@ $sliderBlock->setData([
     'slider_title'      => '', //optional slider title
     'title_class'       => '', //optional slider title class name
     'content_before'    => '', //optional content before slides
-    'arrows'            => '', //optional value (yes/no)
+    'arrows'            => '', //optional bool value
     'is_ajax'           => '', //bool value - set to true when slides are loaded with ajax
 
     //below options are optional and described in: [https://kenwheeler.github.io/slick/#settings]
@@ -349,9 +349,9 @@ $sliderBlock->setData([
 4. Initialize "after-slides" block in .phtml file
 ```
 <?php
-$sliderBlock->setData(['slider_html'=>'after-slides', ...]);
+$sliderBlockAfter->setData(['slider_html'=>'after-slides', ...]);
 ?>
-<?= $sliderBlock->toHtml(); ?>
+<?= $sliderBlockAfter->toHtml(); ?>
 ```
 
 5. Sliders created using Advanced Content Manager can be placed in any CMS content using Content Manager Content List widget.
