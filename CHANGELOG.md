@@ -9,14 +9,43 @@ All notable changes to this project will be documented in this file.
 - scroll-to.js so that it doesn't open "skip to content" link (#72451)
 - scroll top button focus styles (#72451)
 - catalog event component, adjustments to related templates (#72233)
+- margin to storelocator button on PDP (#68780)
+- product count to product compare page (#68780)
+- swatch option selected styles (#68780)
 
 ### Fixed
 - performance, changes for magepack - optimise js (minify js libs, datapicker, calendar, M2 bootstrap, marketing bar), styles loading (preload, remove useless variables), fonts (swap)
+- search input styling on iOS (#68780)
+- slider container before & after gradient on Safari & iOS (#68780)
+- product add to cart sticky covering footer on Safari & iOS (#68780)
+- images stretching vertically inside links on Safari & iOS (#68780)
+- dropdown list styling in checkout footer (#68780)
+- 'back' link styling in 'my product reviews' (#68780)
+- actions toolabr styling in 'company users' (#68780)
+- order table in account sachboard (#68780)
+- discount & gift card templates from checkout (#68780)
+- giftcard account action-toolbar styles (#68780)
+- link href in reward/customer/info/ (#68780)
+- thicker table bottom border (#68780)
+- order-summary background color in checkout sidebar (#68780)
 
 ### Changed
 - a11y features on PDP - headings order, bundle fields, price labels, buttons labels, qty update buttons, rating form (#66039); Affects: bundles options and price templates, add to cart sticky, qty update implementation, rating, requires templates update is overwritten
 - a11y dashboard & blog (#66042) - labels, titles, skip to navigation.content links, form fields; Affects: dashboard template required update if overwritten, dashboard xml updated
 - a11y cart & checkout (#66041) - labels, fields, fieldset, semantic elements. Affects: checkout and card templates - update required if overwritten
+- header wishlist & minicart buttons margins on mobile (#68780)
+- dashboard-table__header direction & alignment on mobile (#68780)
+- no-results_link width (#68780)
+- contact us button & description styles (#68780)
+- shipping method options paddings & radio margin (#68780)
+- discount-code__content paddings in checkout & cart (#68780)
+- discount-code__input margin (#68780)
+- checkout email templates (adjusted classes) (#68780)
+- content-block__link margin (#68780)
+- show phone input tooltip in checkout shipping address modal (#68780)
+
+### Removed
+- unnecessary header-button margin styles (#68780)
 
 ## [Released]
 ## [2.10.0] - 2020-10-21

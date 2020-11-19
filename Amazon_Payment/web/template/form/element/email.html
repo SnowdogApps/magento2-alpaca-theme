@@ -8,7 +8,11 @@
 <!-- ko template: getTemplate() --><!-- /ko -->
 <!-- /ko -->
 <form
-    class="form form-login"
+    class="
+        form
+        form-login
+        shipping-address__form-login
+    "
     data-role="email-with-possible-login"
     data-bind="submit:login"
     method="post"
@@ -18,27 +22,36 @@
         class="fieldset"
         data-bind="blockLoader: isLoading"
     >
-        <div class="field required">
+        <div
+            class="
+                field
+                input
+                required
+            "
+        >
             <label
-                class="label"
+                class="label input__label"
                 for="customer-email"
             >
                 <span data-bind="i18n: 'Email Address'"></span>
             </label>
             <div class="control _with-tooltip">
                 <input
-                    class="input-text"
+                    class="input-text input__field"
                     type="email"
                     data-bind="
                         textInput: email,
                         hasFocus: emailFocused"
                     name="username"
-                    data-validate="{required:true, 'validate-email':true}"
+                    data-validate="{
+                        required: true,
+                        'validate-email':true
+                    }"
                     id="customer-email"
                 />
                 <!-- ko template: 'ui/form/element/helper/tooltip' --><!-- /ko -->
                 <span
-                    class="note"
+                    class="margin-top-xs note"
                     data-bind="fadeVisible: isPasswordVisible() == false"
                 >
                     <!-- ko i18n: 'You can create an account after checkout.'--><!-- /ko -->
@@ -59,23 +72,21 @@
                 "
             >
                 <label
-                    class="input__label"
+                    class="label input__label"
                     for="customer-password"
                 >
                     <span data-bind="i18n: 'Password'"></span>
                 </label>
                 <div class="control">
                     <input
-                        class="
-                            input-text
-                            input__field
-                        "
+                        class="input-text input__field"
                         placeholder="optional"
                         type="password"
                         name="password"
                         id="customer-password"
                         data-validate="{ required: true }"
                         autocomplete="off"
+                        data-bind="attr:{ placeholder: $t('optional')}"
                     />
                     <button
                         type="button"
