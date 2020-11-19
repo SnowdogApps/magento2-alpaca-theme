@@ -12,13 +12,18 @@
                 modal-trigger
             "
             type="button"
-            aria-label="<?= $block->escapeHtmlAttr(__('Shopping cart dropdown trigger')) ?>"
+            aria-labelledby="minicart-link-title"
             aria-expanded="false"
             data-testid="minicart-link"
             data-bind="scope: 'minicart_content'"
             data-modal-trigger="modal-minicart"
             data-mage-init='{ "modal": {} }'
         >
+            <span
+                class="visually-hidden"
+                id="minicart-link-title"
+                data-bind="i18n: $t('Shopping cart dropdown trigger, %1 products in your shopping cart').replace('%1', getCartParam('summary_count') || '0')"
+            ></span>
             <svg
                 class="
                     icon
@@ -31,18 +36,18 @@
                 <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#shopping-cart')); ?>"></use>
             </svg>
             <!-- ko if: getCartParam('summary_count') -->
-            <span
-                class="
-                    header-button__counter
-                    header-button__counter--hidden
-                "
-                data-bind="css: {'header-button__counter--hidden': null}"
-            >
-                <span class="header-button__summary-count">
-                    <!-- ko text: getCartParam('summary_count') --><!-- /ko -->
+                <span
+                    class="
+                        header-button__counter
+                        header-button__counter--hidden
+                    "
+                    data-bind="css: {'header-button__counter--hidden': null}"
+                >
+                    <span class="header-button__summary-count">
+                        <!-- ko text: getCartParam('summary_count') --><!-- /ko -->
+                    </span>
+                    <span class="header-button__counter-dot"></span>
                 </span>
-                <span class="header-button__counter-dot"></span>
-            </span>
             <!-- /ko -->
         </button>
     </div>

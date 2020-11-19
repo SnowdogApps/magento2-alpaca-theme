@@ -112,19 +112,20 @@ define([
           classes = this.options.classes,
           chooseText = this.options.jsonConfig.chooseText,
           $product = $widget.element.parents($widget.options.selectorProduct),
-          prices = $widget._getNewPrices();
+          prices = $widget._getNewPrices(),
+          productData = this._determineProductData();
 
         $widget.optionsMap = {};
 
         $.each(this.options.jsonConfig.attributes, function () {
           var item = this,
-            controlLabelId = 'option-label-' + item.code + '-' + item.id,
+            controlLabelId = 'option-label-' + productData.productId + '-' + item.code + '-' + item.id,
             options = $widget._RenderSwatchOptions(item, controlLabelId),
             select = $widget._RenderSwatchSelect(item, chooseText),
             input = $widget._RenderFormInput(item),
             listLabel = '',
             label = '',
-            initLoader = $('.' + $widget.options.classes.initLoader);
+            initLoader = container.find($('.' + $widget.options.classes.initLoader)) ;
 
           // Show only swatch controls
           if ($widget.options.onlySwatches && !$widget.options.jsonSwatchConfig.hasOwnProperty(item.id)) {
@@ -219,7 +220,6 @@ define([
           moreText = this.options.moreButtonText,
           countAttributes = 0,
           html = '';
-
         if (!this.options.jsonSwatchConfig.hasOwnProperty(config.id)) {
           return '';
         }
@@ -249,12 +249,11 @@ define([
           attr =
             ' id="' + controlId + '-item-' + id + '"' +
             ' aria-selected="false"' +
-            ' aria-describedby="' + controlId + '"' +
             ' tabindex="0"' +
             ' option-type="' + type + '"' +
             ' option-id="' + id + '"' +
             ' option-label="' + label + '"' +
-            ' aria-label="' + label + '"' +
+            ' aria-label="' + config.code + ' ' + label + '"' +
             ' option-tooltip-thumb="' + thumb + '"' +
             ' option-tooltip-value="' + value + '"' +
             ' role="option"';
@@ -313,6 +312,25 @@ define([
         html += '</select>';
 
         return html;
+      },
+      /**
+         * Input for submit form.
+         * This control shouldn't have "type=hidden", "display: none" for validation work :(
+         *
+         * @param {Object} config
+         * @private
+         */
+        _RenderFormInput: function (config) {
+          return '<input class="' + this.options.classes.attributeInput + ' super-attribute-select" ' +
+            'name="super_attribute[' + config.id + ']" ' +
+            'type="text" ' +
+            'value="" ' +
+            'data-selector="super_attribute[' + config.id + ']" ' +
+            'data-validate="{required: true}" ' +
+            'aria-required="true" ' +
+            'aria-invalid="false" ' +
+            'aria-hidden="true" ' +
+            'tabindex="-1">';
       },
       _EventListener: function () {
         var $widget = this,

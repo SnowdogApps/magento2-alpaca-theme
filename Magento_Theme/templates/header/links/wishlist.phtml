@@ -10,10 +10,16 @@
         button--icon-fill
     "
     data-testid="wishlist-link"
-    aria-label="<?= $block->escapeHtmlAttr(__('Wishlist')) ?>"
+    aria-labelledby="wishlist-header-link-title"
     data-bind="scope: 'wishlist'"
-    <?= $block->getLinkAttributes() ?>
+    <?= /* @noEscape */ $block->getLinkAttributes() ?>
+
 >
+    <span
+        class="visually-hidden"
+        id="wishlist-header-link-title"
+        data-bind="i18n: $t('Wishlist, %1').replace('%1', wishlist().counter || '0 items')"
+    ></span>
     <svg
         class="icon header-button__icon"
         role="presentation"

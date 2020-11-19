@@ -17,7 +17,9 @@ function($) {
         this.createGlobalEventHandlers();
         this.moreInfo.addEventListener('click', this.onToggleEvent);
 
-        this.fetchData(config);
+        if (config.variable) {
+          this.fetchData(config);
+        }
       }
 
       open(state) {

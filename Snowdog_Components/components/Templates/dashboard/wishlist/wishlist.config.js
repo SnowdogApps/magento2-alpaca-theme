@@ -218,6 +218,7 @@ module.exports = {
       }
     ],
     actions: {
+      class: 'wishlist__actions',
       sides: [
         {
           action: [

@@ -9,39 +9,86 @@ $urlForm = $block->getReviewsUrl() . '#review-form';
     <?php
         $reviewsCount = $block->getReviewsCount();
         $rating = $block->getRatingSummary();
+        $productName = $block->escapeHtmlAttr($this->getProduct()->getName());
     ?>
-    <div class="review review--summary">
+    <div
+        class="review review--summary"
+        itemprop="aggregateRating"
+        itemscope
+        itemtype="http://schema.org/AggregateRating"
+    >
+        <div
+            itemprop="itemReviewed"
+            itemscope
+            itemtype="http://schema.org/Product"
+        >
+            <meta
+                itemprop="name"
+                content="<?= $productName; ?>"
+            />
+        </div>
         <?php if ($rating): ?>
             <div class="review__summary-handle">
                 <div
                     class="rating rating--secondary"
-                    aria-label="<?= $block->escapeHtmlAttr(__('Average rating') . ': ' . $rating . '%'); ?>"
-                    title="<?= $block->escapeHtmlAttr(__('Average rating') . ': ' . $rating . '%'); ?>"
+                    role="region"
+                    aria-label="<?= $block->escapeHtmlAttr(__('Average rating') . 'for ' . $productName . ': ' . $block->escapeHtmlAttr($rating) . '%'); ?>"
+                    title="<?= $block->escapeHtmlAttr(__('Average rating') . ': ' . $block->escapeHtmlAttr($rating) . '%'); ?>"
                     tabindex="0"
                 >
+                    <meta
+                        itemprop="ratingValue"
+                        content="<?= $block->escapeHtmlAttr($rating) ?>"
+                    />
+                    <meta
+                        itemprop="bestRating"
+                        content="100"
+                    />
                     <div
                         class="rating__star"
                         role="presentation"
-                        style="width:<?=  $rating; ?>%"
+                        style="width:<?=  $block->escapeHtmlAttr($rating) ?>%"
                     >
                         <span class="rating__indicator"></span>
                     </div>
                 </div>
 
                 <a
-                    href="<?= $url ?>"
+                    href="<?= $block->escapeUrl($url) ?>"
                     class="review__amount"
                     title="<?= $block->escapeHtmlAttr($reviewsCount . __(' reviews')); ?>"
-                    data-mage-init='{ "goToReview": { "reviewId": "reviews" } }'
                     aria-label="<?= $block->escapeHtmlAttr(__('See ') . $reviewsCount . __(' reviews')); ?>"
+                    data-mage-init='{
+                        "scrollTo": {
+                            "selector": ".product-review .toolbar",
+                            "offset": "48",
+                            "scrollOnReload": true,
+                            "tab": {
+                                "open": true,
+                                "selector": ".tab__title--reviews"
+                            }
+                        }
+                    }'
                 >
-                    <?= $reviewsCount . $block->escapeHtml(__(' Reviews')); ?>
+                    <span itemprop="reviewCount">
+                        <?= $block->escapeHtml($block->getReviewsCount()) ?>
+                    </span>
+                    <?= $block->escapeHtml(__(' Reviews')) ?>
                 </a>
                 <a
-                    href="<?= $block->escapeHtmlAttr($urlForm) ?>"
+                    href="<?= $block->escapeUrl($urlForm) ?>"
                     title="<?= $block->escapeHtmlAttr(__('Add Your Review')) ?>"
                     class="review__summary-add"
-                    data-mage-init='{ "goToReview": { "reviewId": "review-form" } }'
+                    data-mage-init='{
+                        "scrollTo": {
+                            "selector": "#review-form",
+                            "offset": "48",
+                            "tab": {
+                                "open": true,
+                                "selector": ".tab__title--reviews"
+                            }
+                        }
+                    }'
                 >
                     <?=  $block->escapeHtml(__('Add Your Review')) ?>
                 </a>
@@ -51,9 +98,18 @@ $urlForm = $block->getReviewsUrl() . '#review-form';
 <?php elseif ($block->getDisplayIfEmpty()): ?>
     <div class="review review--summary empty">
         <a
-            href="<?=  $urlForm; ?>"
+            href="<?= $block->escapeUrl($urlForm); ?>"
             title="<?=  $block->escapeHtmlAttr(__('Be the first to review this product')) ?>"
-            data-mage-init='{ "goToReview": { "reviewId": "review-form" } }'
+            data-mage-init='{
+                "scrollTo": {
+                    "selector": "#review-form",
+                    "offset": "48",
+                    "tab": {
+                        "open": true,
+                        "selector": ".tab__title--reviews"
+                    }
+                }
+            }'
         >
             <?=  $block->escapeHtml(__('Be the first to review this product')) ?>
         </a>
