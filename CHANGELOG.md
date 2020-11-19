@@ -28,6 +28,7 @@ All notable changes to this project will be documented in this file.
 - link href in reward/customer/info/ (#68780)
 - thicker table bottom border (#68780)
 - order-summary background color in checkout sidebar (#68780)
+- table - scope row variant borders (#73250)
 
 ### Changed
 - a11y features on PDP - headings order, bundle fields, price labels, buttons labels, qty update buttons, rating form (#66039); Affects: bundles options and price templates, add to cart sticky, qty update implementation, rating, requires templates update is overwritten
