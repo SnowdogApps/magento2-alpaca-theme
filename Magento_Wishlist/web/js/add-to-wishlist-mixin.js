@@ -7,7 +7,8 @@ define([
   return function (widget) {
     $.widget('mage.addToWishlist', widget, {
       options: {
-        bundleInfo: 'div.control [name^=bundle_option]',
+        // CHANGED: bundle selector
+        bundleInfo: 'div.bundle-option [name^=bundle_option]',
         configurableInfo: '.super-attribute-select',
         groupedInfo: '#super-product-table input',
         downloadableInfo: '#downloadable-links-list input',
@@ -21,8 +22,9 @@ define([
        */
       _updateWishlistData: function (event) {
         var dataToAdd = {},
-            isFileUploaded = false,
-            self = this;
+          isFileUploaded = false,
+          self = this,
+          updateWishlistBtn = $('.product-view__addtowishlist--update');
 
         if (event.handleObj.selector == this.options.qtyInfo) { //eslint-disable-line eqeqeq
           this._updateAddToWishlistButton({});
@@ -40,6 +42,17 @@ define([
               $(element).is('textarea') ||
               $('#' + element.id + ' option:selected').length
           ) {
+            // ADDED: for configurable product edit wishlist PDP,
+            // don't update dataToAdd if element doesn't belong to the product
+            if ($(element).hasClass('super-attribute-select') && updateWishlistBtn.length) {
+              var btnProduct = updateWishlistBtn.data('post').data.product,
+                elementProduct = $(element).data('product').toString();
+
+              if (btnProduct !== elementProduct) {
+                  return;
+              }
+            }
+
             if ($(element).data('selector') || $(element).attr('name')) {
               dataToAdd = $.extend({}, dataToAdd, self._getElementData(element));
             }

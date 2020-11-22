@@ -16,15 +16,10 @@ define([
       buttonClass                = config.class,
       isEEVersion                = config.isEEVersion,
       loginUrl                   = url.build('customer/account'),
+      productViewWrapperClass    = '.product-view__wrapper',
       pdpButtonClass             = 'product-view__button--wishlist',
       swatchContainerClass       = `.swatch-opt-${productId}`,
       swatchOptionContainerClass = '.swatch',
-      qtyContainerClass          = `.qty-${productId}`,
-      qtyInputClass              = '.quantity-update__input',
-      groupedPDPTableClass       = '.product-view__grouped-table',
-      bundleOptionClass          = '.bundle-option',
-      bundleOptionQtyClass       = '.bundle-option__qty-input',
-      downloadableContainerClass = '.product-options',
       multiwishlistButtonClass   = `.multiwishlist-btn-${productId}`;
 
     function addButtonClass() {
@@ -47,15 +42,23 @@ define([
       }
     }
 
+    function addElementData(data, key, value) {
+      if (key.substr(key.length - 2) == '[]') {
+        key = key.substring(0, key.length - 2);
+        data[`${key}[${value}]`] = value;
+      } else {
+        data[key] = value;
+      }
+
+      return data;
+    }
+
     button.addEventListener('click', () => {
       const url = config.addToParams.action,
         formKey = $.mage.cookies.get('form_key'),
+        productViewWrapper = document.querySelector(productViewWrapperClass),
         wishlistId = config.addToParams.data.wishlist_id,
         swatchContainer = document.querySelector(swatchContainerClass),
-        qtyContainer = document.querySelector(qtyContainerClass),
-        bundlePDPTable = document.querySelector(groupedPDPTableClass),
-        bundleOptionGroupArray = document.querySelectorAll(bundleOptionClass),
-        downloadableContainer = document.querySelector(downloadableContainerClass),
         data = {
           action: 'add-to-wishlist',
           form_key: formKey,
@@ -78,84 +81,33 @@ define([
         });
       }
 
-      // if it's product's PDP
-      // add specified qty
-      if (qtyContainer) {
-        const quantityInput = qtyContainer.querySelector(qtyInputClass),
-          value = quantityInput.value;
+      // if it's PDP, add selected options (other than swatches)
+      // avoid adding options if it's not the main product
+      // (i.e. it's in related products widget)
+      if (productViewWrapper && productViewWrapper.contains(button)) {
+        const inputArray = productViewWrapper.querySelectorAll('input'),
+          selectArray = productViewWrapper.querySelectorAll('select');
 
-        data['qty'] = value;
-      }
+        inputArray.forEach(input => {
+          if (input.checked || input.type === 'number') {
+            const key = input.getAttribute('name'),
+              value = input.value;
 
-      // for grouped products
-      // add qty of every product
-      if (bundlePDPTable) {
-        const quantityInputArray = bundlePDPTable.querySelectorAll('.input__field.qty');
-
-        quantityInputArray.forEach(quantityInput => {
-          const key = quantityInput.getAttribute('name'),
-            value = quantityInput.value;
-
-          data[key] = value;
-        })
-      }
-
-      // for bundle product
-      // add options and qty if selected
-      if (bundleOptionGroupArray) {
-        const bundleOptionQtyArray = document.querySelectorAll(bundleOptionQtyClass);
-
-        bundleOptionQtyArray.forEach(bundleOptionQty => {
-          const key = bundleOptionQty.getAttribute('name'),
-            value = bundleOptionQty.value;
-
-          data[key] = value;
+            addElementData(data, key, value);
+          }
         })
 
-        bundleOptionGroupArray.forEach(budnleOptionGroup => {
-          const budnleOptionArray = budnleOptionGroup.querySelectorAll('.option')
-          budnleOptionArray.forEach(bundleOption => {
-            const key = bundleOption.getAttribute('name');
+        selectArray.forEach(select => {
+          const key = select.getAttribute('name'),
+            selectOptionArray = select.querySelectorAll('option');
 
-            // for checkbox and radio
-            if (bundleOption.checked) {
-              const value = bundleOption.value;
-
-              data[key] = value;
-            }
-
-            // for select and multiselect
-            bundleOption.querySelectorAll('option').forEach(selectOption => {
-              if(selectOption.selected) {
+            selectOptionArray.forEach(selectOption => {
+              if (selectOption.selected) {
                 const value = selectOption.value;
 
-                if (key in data) {
-                  data[key].push(value);
-                } else {
-                  data[key] = [value];
-                }
+                addElementData(data, key, value);
               }
             })
-          })
-        })
-      }
-
-      // for downloadable product
-      // add options if selected
-      if (downloadableContainer){
-        const checkboxArray = downloadableContainer.querySelectorAll('.checkbox__field');
-
-        checkboxArray.forEach(checkbox => {
-          if (checkbox.checked) {
-            const key = checkbox.getAttribute('name'),
-              value = checkbox.value;
-
-            if (key in data) {
-              data[key].push(value);
-            } else {
-              data[key] = [value];
-            }
-          }
         })
       }
 
