@@ -16,7 +16,11 @@ All notable changes to this project will be documented in this file.
 - a11y cart & checkout (#66041) - labels, fields, fieldset, semantic elements. Affects: checkout and card templates - update required if overwritten
 
 ### Fixed
-- adding products to wishlist with ajax (on grid, catalog, PDP), adding configurable product selected options, adding specified qty if on PDP (#70731)
+- adding products to wishlist with ajax (on grid, catalog, PDP) with selected product options (#70731)
+- bundle product - price styling in wishlist (#70731)
+- bundle/downloadable PDP for editing wishlist item - broken layout (#70731)
+- bundle/configurable PDP for editing wishlist item - selected options don't save after clicking "update wish list" (#70731)
+- bundle product - in cart html visible in product description (#70731)
 
 ## [Released]
 ## [2.10.0] - 2020-10-21
