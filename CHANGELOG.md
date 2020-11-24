@@ -116,7 +116,8 @@ Affects: if catalog (toolbar, filters, list) or mobile menu templates are overwr
 - typo in shipping address config (#68745)
 - item checkbox in requisition list (#68745); Affects: Requisition list
 - wishlist item actions covering active textarea border (#68745)
-- js error on bundle PDP - removed escaping method from bundle options template (#68745); Affects: Bundle PDP
+- js error on bundle PDP - removed escaping method from bundle options template (#68745)
+- fixed problems when cms blocks saved with Page Builder (#69990)
 ### Added
 - customer balance history template (#68745)
 - grouped product final price template (#68745); Affects: Grouped PDP

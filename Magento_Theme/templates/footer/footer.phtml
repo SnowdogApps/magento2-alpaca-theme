@@ -5,6 +5,9 @@
     $footerMenu = $this->getChildHtml('footer-menu');
     $bottomBar = $this->getChildHtml('footer-bottom-bar');
     $cookieMessage = $this->getChildHtml('footer-cookie-message');
+
+    //custom css classes
+    $socialCustomClass = $block->getData('social-custom-class');
 ?>
 
 <?php if ($scrollTop || $footerNewsletter || $footerSocial || $footerMenu): ?>
@@ -20,7 +23,12 @@
         <?php endif; ?>
 
         <?php if ($footerSocial): ?>
-            <div class="footer__social-handler">
+            <div
+                class="
+                    footer__social
+                    <?= $socialCustomClass ? $block->escapeHtmlAttr($socialCustomClass) : 'footer__social-handler' ?>
+                "
+            >
                 <?= $footerSocial ?>
             </div>
         <?php endif; ?>
