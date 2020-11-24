@@ -1,0 +1,287 @@
+<?php
+// phpcs:disable Squiz.ControlStructures.SwitchDeclaration
+// phpcs:disable PSR2.ControlStructures.SwitchDeclaration
+
+/**
+ * Catalog Event category page
+ *
+ * @var $block \Magento\CatalogEvent\Block\Event\Lister
+ */
+?>
+
+<div
+    class="
+        block
+        widget
+        block-event
+    "
+    <?= ($block->hasWidth()) ? ' style="width: ' . (int)$block->getWidth() . 'px !important;"' : '' ?>
+>
+    <?php
+        $sliderBlockBefore = $this->getLayout()
+            ->createBlock("Magento\Framework\View\Element\Template")
+            ->setTemplate("Magento_Theme::html/slider.phtml");
+
+        $sliderBlockBefore->setData([
+            'slider_html'       => 'before-slides',
+            'display_title'     => false,
+            'arrows'            => true,
+            'slider_class'      => 'slider--catalog-events'
+        ]);
+    ?>
+    <?= $sliderBlockBefore->toHtml(); ?>
+
+    <?php foreach ($block->getEvents() as $_event): ?>
+        <?php $_category = $_event->getCategory(); ?>
+        <div
+            class="
+                slider__item
+                catalog-event
+                catalog-event--slider-item
+                item
+            "
+        >
+            <a
+                class="action show"
+                href="<?= $block->escapeUrl($block->getCategoryUrl($_category)) ?>"
+                title="<?= $block->escapeHtmlAttr($_category->getName()) ?>"
+            >
+                <?php if ($block->getEventImageUrl($_event)): ?>
+                    <div class="lazyload-wrapper margin-bottom-m">
+                        <img
+                            class="image lazyload"
+                            src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAABCAQAAABN/Pf1AAAAC0lEQVR42mNkwAIAACoAAgu1Hc4AAAAASUVORK5CYII="
+                            data-src="<?= $block->escapeUrl($block->getEventImageUrl($_event)) ?>"
+                            title="<?= $block->escapeHtmlAttr($_category->getName()) ?>"
+                            alt="<?= $block->escapeHtmlAttr($_category->getName()) ?>"
+                        />
+                    </div>
+                <?php else: ?>
+                    <h2
+                        class="
+                            heading
+                            heading--second-level
+                            category-name
+                        "
+                    >
+                        <?= $block->escapeHtml($_category->getName()) ?>
+                    </h2>
+                <?php endif; ?>
+            </a>
+            <div
+                class="
+                    catalog-event__wrapper
+                    box
+                    box-event
+                    <?= $block->escapeHtmlAttr($_event->getStatus()) ?>
+                "
+            >
+                <?php if ($block->getEventImageUrl($_event)): ?>
+                    <h2
+                        class="
+                            heading
+                            heading--third-level
+                            margin-bottom-0
+                            box-title
+                        "
+                    >
+                        <?= $block->escapeHtml($block->getStatusText($_event)) ?>
+                    </h2>
+                <?php else: ?>
+                    <h3
+                        class="
+                            heading
+                            heading--third-level
+                            margin-bottom-0
+                            box-title
+                        "
+                    >
+                        <?= $block->escapeHtml($block->getStatusText($_event)) ?>
+                    </h3>
+                <?php endif; ?>
+                <div class="catalog-event__wrapper box-content">
+                    <?php switch ($_event->getStatus()):
+                        case \Magento\CatalogEvent\Model\Event::STATUS_UPCOMING: ?>
+                            <div class="catalog-event__date dates">
+                                <div class="catalog-event__date-item start">
+                                    <p class="catalog-event__date-value date">
+                                        <?= $block->escapeHtml($block->getEventDate('start', $_event)) ?>
+                                    </p>
+                                    <span class="catalog-event__date-label time">
+                                        <?= $block->escapeHtml($block->getEventTime('start', $_event, 'hh a zzz')) ?>
+                                    </span>
+                                </div>
+                                <div class="catalog-event__date-value margin-hz-m">
+                                    -
+                                </div>
+                                <div class="catalog-event__date-item end">
+                                    <p class="catalog-event__date-value date">
+                                        <?= $block->escapeHtml($block->getEventDate('end', $_event)) ?>
+                                    </p>
+                                    <span class="catalog-event__date-label time">
+                                        <?= $block->escapeHtml($block->getEventTime('end', $_event, 'hh a zzz')) ?>
+                                    </span>
+                                </div>
+                            </div>
+                            <a
+                                class="
+                                    catalog-event__button
+                                    button
+                                    margin-top-m
+                                    action
+                                    event
+                                "
+                                href="<?= $block->escapeUrl($block->getCategoryUrl($_category)) ?>"
+                            >
+                                <?= $block->escapeHtml(__('Preview Sale')) ?>
+                            </a>
+                        <?php break;
+                        case \Magento\CatalogEvent\Model\Event::STATUS_OPEN: ?>
+                            <ul
+                                class="
+                                    catalog-event__date
+                                    list
+                                    ticker
+                                "
+                                id="<?= /* @noEscape */ $block->getHtmlId() ?>-event-ticker-<?= $block->escapeHtmlAttr($_event->getId()) ?>"
+                                data-mage-init='
+                                    {
+                                        "ticker": {
+                                            "secondsToClose": <?= $block->escapeHtmlAttr($block->getSecondsToClose($_event)) ?>,
+                                            "eventEndTimeUTC": <?= $block->escapeHtmlAttr($block->getEndTimeUTC($_event)) ?>
+                                        }
+                                    }
+                                '
+                            >
+                                <li
+                                    class="
+                                        catalog-event__date-item
+                                        list__item
+                                        days
+                                    "
+                                >
+                                    <p
+                                        data-container="days"
+                                        class="catalog-event__date-value value"
+                                    >
+                                        &nbsp;
+                                    </p>
+                                    <span class="catalog-event__date-label label">
+                                        <?= $block->escapeHtml(__('Days')) ?>
+                                    </span>
+                                </li>
+                                <li
+                                    class="
+                                        catalog-event__date-item
+                                        list__item
+                                        hour
+                                    "
+                                >
+                                    <p
+                                        data-container="hour"
+                                        class="catalog-event__date-value value"
+                                    >
+                                        &nbsp;
+                                    </p>
+                                    <span class="catalog-event__date-label label">
+                                        <?= $block->escapeHtml(__('Hrs')) ?>
+                                    </span>
+                                </li>
+                                <li
+                                    class="
+                                        catalog-event__date-item
+                                        list__item
+                                        minute
+                                    "
+                                >
+                                    <p
+                                        data-container="minute"
+                                        class="catalog-event__date-value value"
+                                    >
+                                        &nbsp;
+                                    </p>
+                                    <span class="catalog-event__date-label label">
+                                        <?= $block->escapeHtml(__('Mins')) ?>
+                                    </span>
+                                </li>
+                                <li
+                                    class="
+                                        catalog-event__date-item
+                                        list__item
+                                        second
+                                    "
+                                >
+                                    <p
+                                        data-container="second"
+                                        class="catalog-event__date-value value"
+                                    >
+                                        &nbsp;
+                                    </p>
+                                    <span class="catalog-event__date-label label">
+                                        <?= $block->escapeHtml(__('Sec')) ?>
+                                    </span>
+                                </li>
+                            </ul>
+                            <a
+                                class="
+                                    catalog-event__button
+                                    button
+                                    action
+                                    event
+                                "
+                                href="<?= $block->escapeUrl($block->getCategoryUrl($_category)) ?>"
+                            >
+                                <?= $block->escapeHtml(__('Go To Sale')) ?>
+                            </a>
+                        <?php break;
+                        case \Magento\CatalogEvent\Model\Event::STATUS_CLOSED: ?>
+                            <div class="catalog-event__date dates">
+                                <div class="catalog-event__date-item start">
+                                    <p class="catalog-event__date-value date">
+                                        <?= $block->escapeHtml($block->getEventDate('start', $_event)) ?>
+                                    </p>
+                                    <span class="catalog-event__date-label time">
+                                        <?= $block->escapeHtml($block->getEventTime('start', $_event, 'hh a zzz')) ?>
+                                    </span>
+                                </div>
+                                <div class="catalog-event__date-value margin-hz-m">
+                                    -
+                                </div>
+                                <div class="catalog-event__date-item end">
+                                    <p class="catalog-event__date-value date">
+                                        <?= $block->escapeHtml($block->getEventDate('end', $_event)) ?>
+                                    </p>
+                                    <span class="catalog-event__date-label time">
+                                        <?= $block->escapeHtml($block->getEventTime('end', $_event, 'hh a zzz')) ?>
+                                    </span>
+                                </div>
+                            </div>
+                            <a
+                                class="
+                                    catalog-event__button
+                                    button
+                                    margin-top-m
+                                    action
+                                    event
+                                "
+                                href="<?= $block->escapeUrl($block->getCategoryUrl($_category)) ?>"
+                            >
+                                <?= $block->escapeHtml(__('View Sale')) ?>
+                            </a>
+                        <?php break; ?>
+                    <?php endswitch; ?>
+                </div>
+            </div>
+        </div>
+    <?php endforeach; ?>
+    <?php
+    $sliderBlockAfter = $this->getLayout()
+        ->createBlock("Magento\Framework\View\Element\Template")
+        ->setTemplate("Magento_Theme::html/slider.phtml");
+
+    $sliderBlockAfter->setData([
+        'slider_html'   => 'after-slides'
+    ]);
+    ?>
+    <?= $sliderBlockAfter->toHtml(); ?>
+</div>
