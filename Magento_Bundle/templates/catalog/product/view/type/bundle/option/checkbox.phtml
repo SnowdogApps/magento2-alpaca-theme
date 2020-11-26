@@ -4,16 +4,15 @@ $_option = $block->getOption();
 $_optionId = $_option->getId();
 $_selections = $_option->getSelections();
 ?>
-
 <div class="bundle-option <?= ($_option->getRequired()) ? ' required': '' ?>">
-    <h4
+    <h2
         class="
             bundle-option__title
             <?= ($_option->getRequired()) ? 'bundle-option__title--required': '' ?>
         "
     >
         <?= $block->escapeHtml($_option->getTitle()) ?>
-    </h4>
+    </h2>
     <div class="control">
         <?php if ($block->showSingle()): ?>
             <?= /* @noEscape */ $block->getSelectionQtyTitlePrice($_selections[0]) ?>
@@ -27,7 +26,7 @@ $_selections = $_option->getSelections();
                 "
                 name="bundle_option[<?= $block->escapeHtmlAttr($_optionId) ?>]"
                 value="<?= $block->escapeHtmlAttr($_selections[0]->getSelectionId()) ?>"
-            >
+            />
         <?php else: ?>
             <?php foreach ($_selections as $_selection): ?>
                 <?php
@@ -62,7 +61,7 @@ $_selections = $_option->getSelections();
                         <?php endif; ?>
                         value="<?= $block->escapeHtmlAttr($_selectionId) ?>"
                         data-errors-message-box="#validation-message-box"
-                    />
+                    >
                     <svg
                         class="
                             checkbox__icon

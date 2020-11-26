@@ -17,19 +17,32 @@
             ></use>
         </svg>
     <!-- /ko -->
-    <!-- ko text: address().prefix --><!-- /ko --> <!-- ko text: address().firstname --><!-- /ko --> <!-- ko text: address().middlename --><!-- /ko -->
-    <!-- ko text: address().lastname --><!-- /ko --> <!-- ko text: address().suffix --><!-- /ko --><br/>
-    <!-- ko text: _.values(address().street).join(", ") --><!-- /ko --><br/>
-    <!-- ko text: address().city --><!-- /ko -->, <span data-bind="html: address().region"></span> <!-- ko text: address().postcode --><!-- /ko --><br/>
-    <!-- ko text: getCountryName(address().countryId) --><!-- /ko --><br/>
+    <!-- ko text: address().prefix --><!-- /ko -->
+    <p class="shipping-address-item__text">
+        <!-- ko text: address().firstname --><!-- /ko --> <!-- ko text: address().middlename --><!-- /ko -->
+        <!-- ko text: address().lastname --><!-- /ko --> <!-- ko text: address().suffix --><!-- /ko -->
+    </p>
+    <p class="shipping-address-item__text">
+        <!-- ko text: _.values(address().street).join(", ") --><!-- /ko -->
+    </p>
+    <p class="shipping-address-item__text">
+        <!-- ko text: address().city --><!-- /ko -->, 
+        <span data-bind="html: address().region"></span> 
+        <!-- ko text: address().postcode --><!-- /ko -->
+    </p>
+    <p class="shipping-address-item__text">
+        <!-- ko text: getCountryName(address().countryId) --><!-- /ko -->
+    </p>
     <!-- ko if: (address().telephone) -->
-    <a
-        data-bind="
-            text: address().telephone,
-            attr: { 'href': 'tel:' + address().telephone }
-        "
-    ></a>
-    <!-- /ko --><br/>
+        <p class="shipping-address-item__text">
+            <a
+                data-bind="
+                    text: address().telephone,
+                    attr: { 'href': 'tel:' + address().telephone }
+                "
+            ></a>
+        </p>
+    <!-- /ko -->
     <!-- ko foreach: { data: address().customAttributes, as: 'element' } -->
         <!-- ko foreach: { data: Object.keys(element), as: 'attribute' } -->
             <!-- ko if: (typeof element[attribute] === "object") -->
@@ -49,14 +62,22 @@
                 button--secondary
                 shipping-address-item__edit-button
             "
-            data-bind="click: editAddress, visible: address().isEditable()"
+            data-bind="
+                click: editAddress,
+                visible: address().isEditable()
+            "
         >
             <span data-bind="i18n: 'Edit'"></span>
         </button>
     <!-- /ko -->
     <button
         type="button"
-        data-bind="click: selectAddress"
+        data-bind="
+            click: selectAddress,
+            attr: {
+                disabled: isSelected()
+            }
+        "
         class="
             action
             action-select-shipping-item

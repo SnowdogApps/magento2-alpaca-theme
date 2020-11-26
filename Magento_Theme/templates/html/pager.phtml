@@ -87,8 +87,8 @@
                                     previous
                                 "
                                 href="<?= $block->escapeUrl($block->getPreviousPageUrl()) ?>"
-                                title="<?= $text ? $text : __('Previous') ?>"
-                                aria-label="<?= $text ? $text : __('Previous') ?>"
+                                title="<?= $text ? $text : $block->escapeHtmlAttr(__('Link to previous page')) ?>"
+                                aria-label="<?= $text ? $text : $block->escapeHtmlAttr(__('Link to previous page')) ?>"
                             >
                                 <svg
                                     class="icon pager__icon"
@@ -133,7 +133,11 @@
 
                     <?php foreach ($block->getFramePages() as $_page): ?>
                         <?php if ($block->isPageCurrent($_page)): ?>
-                            <li class="pager__item pager__item--current">
+                            <li
+                                class="pager__item pager__item--current"
+                                aria-current="page"
+                                aria-label="<?= $block->escapeHtmlAttr(__('Page ') . $_page . __(', current page')) ?>"
+                            >
                                 <?= $_page ?>
                             </li>
                         <?php else: ?>
@@ -195,8 +199,8 @@
                                     next
                                 "
                                 href="<?= $block->escapeUrl($block->getNextPageUrl()) ?>"
-                                title="<?= $text ? $text : __('Next') ?>"
-                                aria-label="<?= $text ? $text : __('Next') ?>"
+                                title="<?= $text ? $text : $block->escapeHtmlAttr(__('Link to next page')) ?>"
+                                aria-label="<?= $text ? $text : $block->escapeHtmlAttr(__('Link to next page')) ?>"
                             >
                                 <svg
                                     class="icon pager__icon"
