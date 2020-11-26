@@ -1,3 +1,6 @@
+<?php
+/** @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer */
+?>
 <?php $entityCollection = $block->getEntityCollection(); ?>
 
 <?php if ($entityCollection && count($entityCollection)): ?>
@@ -166,29 +169,33 @@
         </a>
     </div>
 </div>
-<script>
-require([
-    'mage/dataPost',
-    'Magento_Ui/js/modal/confirm',
-    'prototype'
-], function(dataPost, confirm){
+<?php
+$confirmationMessage = $block->escapeJs(__('Are you sure you want to delete this gift registry?'));
+?>
+<?php $scriptString = <<<script
+    require([
+        'mage/dataPost',
+        'Magento_Ui/js/modal/confirm',
+        'prototype'
+    ], function(dataPost, confirm){
 //<![CDATA[
-    $$("[data-role='remove-gift-registry']").each(function(item){
-        Event.observe(item, "click", function (event) {
-            var params = JSON.parse(jQuery(event.currentTarget).attr('data-post'));
+        $$("[data-role='remove-gift-registry']").each(function(item){
+            Event.observe(item, "click", function (event) {
+                var params = JSON.parse(jQuery(event.currentTarget).attr('data-post'));
 
-            event.stopPropagation();
-            confirm({
-                content: '<?= $block->escapeJs($block->escapeHtml(__('Are you sure you want to delete this gift registry?'))) ?>',
-                actions: {
-                    confirm: function () {
-                        dataPost().postData(params);
+                event.stopPropagation();
+                confirm({
+                    content: '{$confirmationMessage}',
+                    actions: {
+                        confirm: function () {
+                            dataPost().postData(params);
+                        }
                     }
-                }
+                });
             });
         });
-    });
 //]]>
-});
-</script>
-
+    });
+script;
+?>
+<?= /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false); ?>
