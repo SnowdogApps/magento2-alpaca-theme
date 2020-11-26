@@ -91,10 +91,19 @@ module.exports = {
         }
       },
       button: {
-        class: 'contact-us__button',
-        tag: 'button',
-        attributes: 'type="submit"',
-        text: 'Submit message'
+        sides: [
+          {
+            action: [
+              {
+                button: {
+                  text: 'Submit message',
+                  class: 'contact-us__button actions-group__button',
+                  attributes: 'type="submit"'
+                }
+              }
+            ]
+          }
+        ]
       },
       validationTips: 'Fields marked * are mandatory'
     },

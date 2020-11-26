@@ -12,7 +12,7 @@ module.exports = {
     buttons: [
       {
         ariaLabel: 'Wishlist',
-        class: 'button--icon-fill margin-right-xs',
+        class: 'button--icon-fill',
         icon: {
           id: 'heart',
           title: 'Heart',

@@ -2,11 +2,13 @@ define([], function () {
   'use strict';
 
   class QuantityUpdate {
-    constructor(element) {
+    constructor(element, config) {
+      this.config = config;
       this.elem        = element;
       this.plus        = this.elem.querySelector('.quantity-update__button--plus');
       this.minus       = this.elem.querySelector('.quantity-update__button--minus');
       this.input       = this.elem.querySelector('.quantity-update__input');
+      this.alert       = this.elem.querySelector('.quantity-update__alert');
       this.activeClass = 'quantity-update--active';
       this.events();
       this.evaluateConditions();
@@ -46,11 +48,15 @@ define([], function () {
 
     increment() {
       this.input.value = Number(this.input.value) + 1;
+      this.alert.textContent = `${this.config.increaseText} ${this.input.value}.`;
+      this.alert.classList.remove('display-none');
     }
 
     decrement() {
       if (this.input.value >= 1) {
         this.input.value = Number(this.input.value) - 1;
+        this.alert.textContent = `${this.config.decreseText} ${this.input.value}.`;
+        this.alert.classList.remove('display-none');
       }
     }
 
@@ -64,6 +70,6 @@ define([], function () {
   }
 
   return function (config, element) {
-    new QuantityUpdate(element);
+    new QuantityUpdate(element, config);
   };
 });

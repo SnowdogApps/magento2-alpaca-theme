@@ -1,15 +1,15 @@
 define(['jquery'], function ($) {
-    'use strict';
+  'use strict'
 
-    var modalWidgetMixin = {
-        options: {
-            closeIconSvgUrl: window.closeIcon
-        }
-    };
+  var modalWidgetMixin = {
+    options: {
+      closeIconSvgUrl: require.toUrl('images/icons-sprite.svg#close')
+    }
+  }
 
-    return function (targetWidget) {
-        $.widget('mage.modal', targetWidget, modalWidgetMixin);
+  return function (targetWidget) {
+    $.widget('mage.modal', targetWidget, modalWidgetMixin)
 
-        return $.mage.modal;
-    };
-});
+    return $.mage.modal
+  }
+})
