@@ -6,12 +6,6 @@ All notable changes to this project will be documented in this file.
 - adjustems to store credit templates (#72456) Affects: store credit daschboard & checkout payment step
 - store credit dashboard to components (#72456)
 - adjustments to checkout address search templates (#72454)
-- scroll-to.js so that it doesn't open "skip to content" link (#72451)
-- scroll top button focus styles (#72451)
-- catalog event component, adjustments to related templates (#72233)
-- margin to storelocator button on PDP (#68780)
-- product count to product compare page (#68780)
-- swatch option selected styles (#68780)
 
 ### Fixed
 - performance, changes for magepack - optimise js (minify js libs, datapicker, calendar, M2 bootstrap, marketing bar), styles loading (preload, remove useless variables), fonts (swap)
@@ -30,6 +24,7 @@ All notable changes to this project will be documented in this file.
 - order-summary background color in checkout sidebar (#68780)
 - table - scope row variant borders (#73250)
 - fix gallery placeholder img size & position (#70469) Affects: PDP
+- selects on catalog page and product list images (#70830)
 
 ### Changed
 - a11y features on PDP - headings order, bundle fields, price labels, buttons labels, qty update buttons, rating form (#66039); Affects: bundles options and price templates, add to cart sticky, qty update implementation, rating, requires templates update is overwritten
