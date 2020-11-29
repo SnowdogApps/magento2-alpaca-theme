@@ -25,6 +25,7 @@ All notable changes to this project will be documented in this file.
 - table - scope row variant borders (#73250)
 - fix gallery placeholder img size & position (#70469) Affects: PDP
 - selects on catalog page and product list images (#70830)
+- product name in quicksearch, budnle options in cart, minicart z-index (#73341); affects: quicksearch product template, minicart template and cart item template
 
 ### Changed
 - a11y features on PDP - headings order, bundle fields, price labels, buttons labels, qty update buttons, rating form (#66039); Affects: bundles options and price templates, add to cart sticky, qty update implementation, rating, requires templates update is overwritten
