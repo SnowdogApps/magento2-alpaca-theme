@@ -56,12 +56,12 @@
                 >
                     <?php foreach ($block->getAvailableLimit() as $_key => $_limit): ?>
                         <option
-                            value="<?= $block->getLimitUrl($_key) ?>"
+                            value="<?= $block->escapeUrl($block->getLimitUrl($_key)) ?>"
                             <?php if ($block->isLimitCurrent($_key)): ?>
                                 selected
                             <?php endif; ?>
                         >
-                            <?= $_limit ?>
+                            <?= $block->escapeHtml($_limit) ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
@@ -87,8 +87,8 @@
                                     previous
                                 "
                                 href="<?= $block->escapeUrl($block->getPreviousPageUrl()) ?>"
-                                title="<?= $text ? $text : $block->escapeHtmlAttr(__('Link to previous page')) ?>"
-                                aria-label="<?= $text ? $text : $block->escapeHtmlAttr(__('Link to previous page')) ?>"
+                                title="<?= $text ? $block->escapeHtmlAttr($text) : $block->escapeHtmlAttr(__('Previous page')) ?>"
+                                aria-label="<?= $text ? $block->escapeHtmlAttr($text) : $block->escapeHtmlAttr(__('Previous page')) ?>"
                             >
                                 <svg
                                     class="icon pager__icon"
@@ -138,7 +138,7 @@
                                 aria-current="page"
                                 aria-label="<?= $block->escapeHtmlAttr(__('Page ') . $_page . __(', current page')) ?>"
                             >
-                                <?= $_page ?>
+                                <?= $block->escapeHtml($_page) ?>
                             </li>
                         <?php else: ?>
                             <li class="pager__item">
@@ -150,7 +150,7 @@
                                     href="<?= $block->escapeUrl($block->getPageUrl($_page)) ?>"
                                     aria-label="<?= $block->escapeHtmlAttr(__('Page ') . $_page) ?>"
                                 >
-                                    <?= $_page ?>
+                                    <?= $block->escapeHtml($_page) ?>
                                 </a>
                             </li>
                         <?php endif; ?>
@@ -199,8 +199,8 @@
                                     next
                                 "
                                 href="<?= $block->escapeUrl($block->getNextPageUrl()) ?>"
-                                title="<?= $text ? $text : $block->escapeHtmlAttr(__('Link to next page')) ?>"
-                                aria-label="<?= $text ? $text : $block->escapeHtmlAttr(__('Link to next page')) ?>"
+                                title="<?= $text ? $block->escapeHtmlAttr($text) : $block->escapeHtmlAttr(__('Next page')) ?>"
+                                aria-label="<?= $text ? $block->escapeHtmlAttr($text) : $block->escapeHtmlAttr(__('Next page')) ?>"
                             >
                                 <svg
                                     class="icon pager__icon"

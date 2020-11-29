@@ -123,6 +123,7 @@ Affects: if catalog (toolbar, filters, list) or mobile menu templates are overwr
 - sidebar 'Compare' link classes (#68745): Affects: catalog sidebar
 - bundle product price template and styling (#68745); Affects: Bundle PDP
 - make compare__product div take up 100% height of td & space items between (#68745)
+- escaping php variables in templates (#70322)
 
 ## [2.7.0] - 2020-08-20
 ### Fixed

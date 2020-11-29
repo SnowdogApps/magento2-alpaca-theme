@@ -1,13 +1,13 @@
 <div class="input">
     <?php if ($this->getShowAgreementText()): ?>
         <div class="webforms-gdpr-text">
-            <?= $this->getAgreementText() ?>
+            <?= /* @noEscape */ $this->getAgreementText() ?>
         </div>
     <?php endif; ?>
     <?php if ($this->getShowCheckbox()): ?>
         <div class="checkbox" role="group">
             <input
-                id="gdpr_<?= $this->getUid() ?>"
+                id="gdpr_<?= $block->escapeHtmlAttr($this->getUid()) ?>"
                 type="checkbox"
                 name="gdpr"
                 class="
@@ -41,7 +41,7 @@
                 for="gdpr_<?= $block->escapeHtmlAttr($this->getUid()); ?>"
                 class="checkbox__label"
             >
-                <?= $this->getCheckboxLabel() ?>
+                <?= $block->escapeHtml($this->getCheckboxLabel()) ?>
             </label>
             <?php if (strlen($this->getErrorText()) > 0): ?>
                 <div
@@ -49,7 +49,7 @@
                     style="display: none"
                     id="advice-required-entry-gdpr_<?= $block->escapeHtmlAttr($this->getUid()); ?>"
                 >
-                    <?= $this->getErrorText() ?>
+                    <?= /* @noEscape */ $this->getErrorText() ?>
                 </div>
             <?php endif; ?>
         </div>

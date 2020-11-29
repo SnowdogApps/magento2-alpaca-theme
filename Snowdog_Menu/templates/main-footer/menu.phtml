@@ -3,12 +3,12 @@
     <?php $menuClass = $block->getMenu()->getCssClass() ?>
     <div
         class="
-            <?= $menuClass ?>
-            <?= $menuClass ?>--with-breakpoint
+            <?= $block->escapeHtmlAttr($menuClass) ?>
+            <?= $block->escapeHtmlAttr($menuClass) ?>--with-breakpoint
         "
         data-mage-init='{ "dropdownList": {} }'
     >
-        <ul class="<?= $menuClass ?>__list">
+        <ul class="<?= $block->escapeHtmlAttr($menuClass) ?>__list">
             <?php foreach ($block->getNodes() as $node): ?>
                 <?php
                     $childrenLevel = $node->getLevel() + 1;
@@ -18,9 +18,9 @@
                     $additionalClasses = $node->getClasses() ? ' ' . $node->getClasses() : '';
                     $itemClasses = $parentClass . $additionalClasses;
                 ?>
-                <li class="<?= $menuClass ?>__item<?= $itemClasses ?>">
-                    <?= $block->renderMenuNode($node) ?>
-                    <?= $block->renderSubmenu($children, $node, $childrenLevel) ?>
+                <li class="<?= $block->escapeHtmlAttr($menuClass) ?>__item<?= $block->escapeHtmlAttr($itemClasses) ?>">
+                    <?= /* @noEscape */ $block->renderMenuNode($node) ?>
+                    <?= /* @noEscape */ $block->renderSubmenu($children, $node, $childrenLevel) ?>
                 </li>
             <?php endforeach; ?>
         </ul>

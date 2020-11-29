@@ -81,13 +81,13 @@
 
                             <div
                                 class="rating"
-                                aria-label="<?= $block->escapeHtml(__('Your rating')) . ': ' . $rating . '%' ?>"
-                                title="<?= $block->escapeHtml(__('Your rating')) . ': ' . $rating . '%' ?>"
+                                aria-label="<?= $block->escapeHtmlAttr(__('Your rating')) . ': ' . $block->escapeHtmlAttr($rating) . '%' ?>"
+                                title="<?= $block->escapeHtmlAttr(__('Your rating')) . ': ' . $block->escapeHtmlAttr($rating) . '%' ?>"
                                 tabindex="0"
                             >
                                 <div
                                     class="rating__star"
-                                    style="width:<?= $rating; ?>%"
+                                    style="width:<?= $block->escapeHtmlAttr($rating); ?>%"
                                     data-testid="product-rating-star"
                                 >
                                     <span class="rating__indicator"></span>
@@ -106,20 +106,20 @@
                 class="review__title"
                 itemprop="name"
             >
-                <?= $block->getReviewData()->getTitle() ?>
+                <?= $block->escapeHtml($block->getReviewData()->getTitle()) ?>
             </h4>
 
             <p class="product-view__review-content-text">
-                <?= nl2br($block->escapeHtml($block->getReviewData()->getDetail())) ?>
+                <?= /* @noEscape */ nl2br($block->escapeHtml($block->getReviewData()->getDetail())) ?>
             </p>
 
             <div class="review__divider review__date">
                 <?= $block->escapeHtml(__('Submitted on: ')) ?>
                 <time
                     itemprop="datePublished"
-                    datetime="<?= $block->dateFormat($block->getReviewData()->getCreatedAt()); ?>"
+                    datetime="<?= $block->escapeHtmlAttr($block->dateFormat($block->getReviewData()->getCreatedAt())); ?>"
                 >
-                    <?= $block->dateFormat($block->getReviewData()->getCreatedAt()); ?>
+                    <?= $block->escapeHtml($block->dateFormat($block->getReviewData()->getCreatedAt())); ?>
                 </time>
             </div>
         </div>

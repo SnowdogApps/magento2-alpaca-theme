@@ -6,24 +6,24 @@
         'jquery/jquery.cookie'
     ], function(VarienForm, jQuery, swal) {
         // page-cache.js compatibility fix
-        if ($('webform_<?= $this->getUid() ?>_iframe')) $('webform_<?= $this->getUid() ?>_iframe').prop = function(el) {};
+        if ($('webform_<?= $block->escapeJs($this->getUid()) ?>_iframe')) $('webform_<?= $block->escapeJs($this->getUid()) ?>_iframe').prop = function(el) {};
 
-        var webform_<?= $this->getUid() ?> = new VarienForm('webform_<?= $this->getUid() ?>', <?= (int) $this->getData('focus') ?>);
-        jQuery('#webform_<?= $this->getUid() ?>').find('input[name=form_key]')[0].value = jQuery.cookie('form_key');
-        $('webform_<?= $this->getUid() ?>_submit_button').observe('click', function() {
-            var form = webform_<?= $this->getUid() ?>;
+        var webform_<?= $block->escapeJs($this->getUid()) ?> = new VarienForm('webform_<?= $block->escapeJs($this->getUid()) ?>', <?= (int) $this->getData('focus') ?>);
+        jQuery('#webform_<?= $block->escapeJs($this->getUid()) ?>').find('input[name=form_key]')[0].value = jQuery.cookie('form_key');
+        $('webform_<?= $block->escapeJs($this->getUid()) ?>_submit_button').observe('click', function() {
+            var form = webform_<?= $block->escapeJs($this->getUid()) ?>;
             if (form.validator && form.validator.validate()) {
                 this.disable();
                 form.submit();
                 <?php if ($this->getAjax()) { ?>
                     this.disable();
-                    $('webform_<?= $this->getUid() ?>_sending_data').show();
+                    $('webform_<?= $block->escapeJs($this->getUid()) ?>_sending_data').show();
                 <?php } ?>
             }
         });
 
         <?php if ($this->getAjax()) { ?>
-            var iframe = $('webform_<?= $this->getUid() ?>_iframe');
+            var iframe = $('webform_<?= $block->escapeJs($this->getUid()) ?>_iframe');
             iframe.observe('load', function() {
                 var doc = this.contentDocument ? this.contentDocument : this.contentWindow.document;
                 var json = {
@@ -44,13 +44,13 @@
                     }
                     var successText = json.success_text.unescapeHTML();
                     <?php if ($this->getData('after_submission_form')) { ?>
-                        $('webform_<?= $this->getUid() ?>_sending_data').hide();
-                        $('webform_<?= $this->getUid() ?>_submit_button').enable();
-                        $('webform_<?= $this->getUid() ?>').reset();
+                        $('webform_<?= $block->escapeJs($this->getUid()) ?>_sending_data').hide();
+                        $('webform_<?= $block->escapeJs($this->getUid()) ?>_submit_button').enable();
+                        $('webform_<?= $block->escapeJs($this->getUid()) ?>').reset();
                         if (typeof DROPZONE !== "undefined") {
-                            if (typeof DROPZONE._<?= $this->getUid() ?> !== "undefined") {
-                                for (var i = 0; i < DROPZONE._<?= $this->getUid() ?>.length; i++) {
-                                    DROPZONE._<?= $this->getUid() ?>[i].reset();
+                            if (typeof DROPZONE._<?= $block->escapeJs($this->getUid()) ?> !== "undefined") {
+                                for (var i = 0; i < DROPZONE._<?= $block->escapeJs($this->getUid()) ?>.length; i++) {
+                                    DROPZONE._<?= $block->escapeJs($this->getUid()) ?>[i].reset();
                                 }
                             }
                         }
@@ -74,37 +74,37 @@
                         });
                     <?php } else { ?>
                         $('webform_<?= $block->escapeJs($this->getUid()) ?>_progress_text').update('<?= $block->escapeJs(__('Complete')) ?>');
-                        Effect.Fade('webform_<?= $this->getUid() ?>_form', {
+                        Effect.Fade('webform_<?= $block->escapeJs($this->getUid()) ?>_form', {
                             duration: 0.5,
                             from: 1,
                             to: 0,
                             afterFinish: function() {
-                                $('webform_<?= $this->getUid() ?>_success_text').update(successText).show();
-                                Effect.Fade('webform_<?= $this->getUid() ?>_success_text', {
+                                $('webform_<?= $block->escapeJs($this->getUid()) ?>_success_text').update(successText).show();
+                                Effect.Fade('webform_<?= $block->escapeJs($this->getUid()) ?>_success_text', {
                                     duration: 0.5,
                                     from: 0,
                                     to: 1
                                 });
                                 if (<?= (int) $this->getData('scroll_to') ?>)
-                                    Effect.ScrollTo('webform_<?= $this->getUid() ?>_success_text', {
+                                    Effect.ScrollTo('webform_<?= $block->escapeJs($this->getUid()) ?>_success_text', {
                                         diration: '0.1',
                                         offset: -window.innerHeight / 2
                                     });
                             }
                         });
                     <?php } ?>
-                    <?= $this->getData('after_submission_script') ?>
+                    <?= $block->escapeJs($this->getData('after_submission_script')) ?>
                 } else {
                     var errorTxt = '';
-                    $('webform_<?= $this->getUid() ?>_submit_button').enable();
-                    if ($('webform_<?= $this->getUid() ?>_sending_data'))
-                        $('webform_<?= $this->getUid() ?>_sending_data').hide();
-                    if ($('webform_<?= $this->getUid() ?>_submit_button'))
-                        $('webform_<?= $this->getUid() ?>_submit_button').enable();
+                    $('webform_<?= $block->escapeJs($this->getUid()) ?>_submit_button').enable();
+                    if ($('webform_<?= $block->escapeJs($this->getUid()) ?>_sending_data'))
+                        $('webform_<?= $block->escapeJs($this->getUid()) ?>_sending_data').hide();
+                    if ($('webform_<?= $block->escapeJs($this->getUid()) ?>_submit_button'))
+                        $('webform_<?= $block->escapeJs($this->getUid()) ?>_submit_button').enable();
                     if (json.errors && typeof(json.errors) == "string") {
                         errorTxt = json.errors.unescapeHTML();
                     } else {
-                        errorTxt = '<?= str_replace("'", "\'", __('Unknown error(s) occured')) ?>';
+                        errorTxt = '<?= /* @noEscape */ str_replace("'", "\'", $block->escapeJs(__('Unknown error(s) occured'))) ?>';
                     }
                     swal.fire({
                         title: '<?= $block->escapeJs(__('Error')) ?>',
