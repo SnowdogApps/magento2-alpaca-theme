@@ -1,5 +1,6 @@
 <?php
 /** @var $block \Magento\RequisitionList\Block\Catalog\Product\View\Addto\Requisition */
+/** @var $escaper \Magento\Framework\Escaper */
 ?>
 <div
     class="
@@ -19,19 +20,18 @@
                     "requisition_<?= (int) $block->getComponentId() ?>": {
                         "component": "Magento_RequisitionList/js/requisition/action/product/view/add",
                         "editModuleName": "requisition_<?= (int) $block->getComponentId() ?>.edit",
-                        "title": "<?= $block->escapeJs(__('Add to Requisition List')); ?>",
-                        "action": "<?= $block->escapeUrl($block->getUrl('requisition_list/item/add')); ?>",
-                        "sku": "<?= $block->escapeJs($block->getProduct()->getSku()) ?>",
+                        "title": "<?= $escaper->escapeJs(__('Add to Requisition List')); ?>",
+                        "action": "<?= $escaper->escapeUrl($block->getUrl('requisition_list/item/add')); ?>",
+                        "sku": "<?= $escaper->escapeJs($block->getProduct()->getSku()) ?>",
                         "productFormSelector": "#product_addtocart_form"
                     },
                     "requisition_<?= (int) $block->getComponentId() ?>.edit": {
                         "component": "Magento_RequisitionList/js/requisition/list/edit",
                         "modal": "add_to_requisition_popup",
-                        "saveUrl": "<?= $block->escapeUrl($block->getUrl('rest/V1/requisition_lists')) ?>"
+                        "saveUrl": "<?= $escaper->escapeUrl($block->getUrl('rest/V1/requisition_lists')) ?>"
                     }
                 }
             }
         }
     }
 </script>
-
