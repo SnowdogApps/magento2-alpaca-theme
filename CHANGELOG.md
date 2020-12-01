@@ -144,6 +144,7 @@ Affects: if catalog (toolbar, filters, list) or mobile menu templates are overwr
 
 ### Changed
 - paypal review order page (#59142)
+- paypal express button, Affects: product page, cart page, checkout payment step (#69885)
 - contact-bar template to show/hide email/phone depending on config settings (#69969)
 - checkboxes to be globally aligned vertically to center (#68654)
 - zoomed in image background opacity & close button to dark (#69145)
