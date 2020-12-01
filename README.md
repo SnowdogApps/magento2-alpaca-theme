@@ -506,7 +506,7 @@ yarn magepackBundle --config <config_path>
 ```
 
 ### Add assets
-* If you added fonts or external assest that can be load with `preload`, add them in:
+* If you added fonts or external assets that can be load with `preload`, add them in:
 `vendor/snowdog/theme-frontend-alpaca/Magento_Theme/templates/root.phtml` with `preload` attribute.
 
 * if assets come from external module which is not always enable, add preload assets in following way:
@@ -525,7 +525,7 @@ in module folder inside theme:
 
 To test magepack locally:
 * clear and enable cache,
-* enable mergin, minify and magepack budnling in your db:
+* enable merging, minifying and magepack budnling in your db:
 ```
 bin/magento config:set dev/js/enable_magepack_js_bundling 1
 bin/magento config:set dev/js/merge_files 1
@@ -538,7 +538,7 @@ bin/magento config:set dev/css/merge_css_files 1
 yarn styles --prod && yarn babel --prod && yarn svg
 ```
 * generate magepack config:
-yarn magepachGenerate ..
+yarn magepackGenerate ..
 
 * switch to production mode:
 ```
