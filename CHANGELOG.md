@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 - adjustems to store credit templates (#72456) Affects: store credit daschboard & checkout payment step
 - store credit dashboard to components (#72456)
 - adjustments to checkout address search templates (#72454)
+- variables for product view add to cart button and cms contact max-width (#73403)
 
 ### Fixed
 - performance, changes for magepack - optimise js (minify js libs, datapicker, calendar, M2 bootstrap, marketing bar), styles loading (preload, remove useless variables), fonts (swap)
