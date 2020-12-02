@@ -19,23 +19,29 @@
     <div>
         <?php if ($block->hasRewardMessage()): ?>
             <?=
-                $block->escapeHtml(__($block->getRewardMessage(),
-                $this->helper(\Magento\Reward\Helper\Data::class)->formatReward($block->getRewardPoints(),
-                $block->getRewardAmount(),
-                null,
-                '<strong>%s</strong>')),
-                ['strong'])
+                $block->escapeHtml(
+                    __($block->getRewardMessage(),
+                        $this->helper(\Magento\Reward\Helper\Data::class)->formatReward($block->getRewardPoints(),
+                        $block->getRewardAmount(),
+                        null,
+                        '<strong>%s</strong>')
+                    ),
+                    ['strong']
+                )
             ?>
         <?php endif;?>
         <?php if ($block->hasPointsBalance() && !$block->hasHideBalance()): ?>
             <span class="reward-balance">
                 <?=
-                    $block->escapeHtml(__('Your balance is %1.',
-                    $this->helper(\Magento\Reward\Helper\Data::class)->formatReward($block->getPointsBalance(),
-                    null,
-                    null,
-                    '<strong>%s</strong>')),
-                    ['strong'])
+                    $block->escapeHtml(
+                        __('Your balance is %1.',
+                            $this->helper(\Magento\Reward\Helper\Data::class)->formatReward($block->getPointsBalance(),
+                            null,
+                            null,
+                            '<strong>%s</strong>')
+                        ),
+                        ['strong']
+                    )
                 ?>
             </span>
         <?php endif;?>
