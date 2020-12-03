@@ -483,7 +483,9 @@ If responisve image aspect ratio is added, additional styles inline are generate
 * Limit value can be set in admin: Store -> COnfiguration -> Customer -> Wish List -> General option -> Items Limit
 
 ## Magepack
-for Magento version < 2.3.6,
+for Magento version < 2.3.6, mixins.js module patch is required/ [Patch provided and explained here](https://github.com/magento/baler/issues/23)
+
+Magepack is already integrated with [Frontools](https://github.com/SnowdogApps/magento2-frontools)
 
 ### Generate magepack config
 To start using magepack we need to generate magepack config.
