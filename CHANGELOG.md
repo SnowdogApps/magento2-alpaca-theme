@@ -27,6 +27,7 @@ All notable changes to this project will be documented in this file.
 - selects on catalog page and product list images (#70830)
 - product name in quicksearch, budnle options in cart, minicart z-index (#73341); affects: quicksearch product template, minicart template and cart item template
 - shipping latency modal on catalog list - always displays modal of the first product on the page (#73101)
+- amasty styles loading (#73336)
 
 ### Changed
 - a11y features on PDP - headings order, bundle fields, price labels, buttons labels, qty update buttons, rating form (#66039); Affects: bundles options and price templates, add to cart sticky, qty update implementation, rating, requires templates update is overwritten
