@@ -4,10 +4,10 @@
 if ($this->getRegistry()->registry('redirect_url')): ?>
     <meta
         http-equiv="refresh"
-        content="0;url=<?= $this->getRegistry()->registry('redirect_url') ?>"
+        content="0;url=<?= $block->escapeUrl($this->getRegistry()->registry('redirect_url')) ?>"
     >
     <script type="text/javascript">
-        window.location = '<?= $this->getRegistry()->registry('redirect_url') ?>';
+        window.location = '<?= $block->escapeUrl($this->getRegistry()->registry('redirect_url')) ?>';
     </script>
 <?php endif; ?>
 
@@ -21,11 +21,11 @@ if (!empty($tmpData['field']) && is_array($tmpData['field'])) {
     }
 }
 if ($this->getForm()->getIsActive() == \VladimirPopov\WebForms\Model\Form::STATUS_DISABLED || !$this->isDirectAvailable()): ?>
-    <?= $this->getNotAvailableMessage(); ?>
+    <?= /* @noEscape */ $this->getNotAvailableMessage(); ?>
 <?php else: ?>
     <?php if ($this->isAjax()): ?>
         <div
-            id="webform_<?= $_uid ?>_success_text"
+            id="webform_<?= $block->escapeHtmlAttr($_uid) ?>_success_text"
             class="
                 message
                 message--success
@@ -37,7 +37,7 @@ if ($this->getForm()->getIsActive() == \VladimirPopov\WebForms\Model\Form::STATU
 
     <?php if ($this->getSuccess()): ?>
         <div class="webforms-success-text">
-            <?= $this->getSuccessText() ?>
+            <?= /* @noEscape */ $this->getSuccessText() ?>
         </div>
     <?php endif; ?>
     <?php if (!$this->getSuccess() || $this->getData('after_submission_form')): ?>
@@ -45,7 +45,7 @@ if ($this->getForm()->getIsActive() == \VladimirPopov\WebForms\Model\Form::STATU
             <div class="message error">
                 <div>
                     <?php foreach ($messages as $message): ?>
-                        <?= $message ?>
+                        <?= /* @noEscape */ $message ?>
                     <?php endforeach; ?>
                 </div>
             </div>
@@ -58,20 +58,21 @@ if ($this->getForm()->getIsActive() == \VladimirPopov\WebForms\Model\Form::STATU
             }
         ?>
         <div
-            id="webform_<?= $_uid ?>_form"
-            class="webforms" <?= $aria_describedby ?>
+            id="webform_<?= $block->escapeHtmlAttr($_uid) ?>_form"
+            class="webforms"
+            <?= /* @noEscape */ $aria_describedby ?>
         >
             <?php if ($this->getDescription()): ?>
-                <div id="<?= $_uid ?>form_description">
-                    <?= $this->getDescription(); ?>
+                <div id="<?= $block->escapeHtmlAttr($_uid) ?>form_description">
+                    <?= /* @noEscape */ $this->getDescription(); ?>
                 </div>
             <?php endif; ?>
 
             <?php if ($this->isAjax()): ?>
                 <iframe
-                    title="<?= $this->getForm()->getName() ?>"
-                    id="webform_<?= $_uid ?>_iframe"
-                    name="webform_<?= $_uid ?>_iframe"
+                    title="<?= $block->escapeHtmlAttr($this->getForm()->getName()) ?>"
+                    id="webform_<?= $block->escapeHtmlAttr($_uid) ?>_iframe"
+                    name="webform_<?= $block->escapeHtmlAttr($_uid) ?>_iframe"
                     role="none"
                     style="width:0;height:0;border:0;position:absolute">
                 </iframe>
@@ -93,18 +94,18 @@ if ($this->getForm()->getIsActive() == \VladimirPopov\WebForms\Model\Form::STATU
                 >
                     <form
                         class="form"
-                        action="<?= $this->getFormAction() ?>"
+                        action="<?= $block->escapeUrl($this->getFormAction()) ?>"
                         method="post"
-                        name="webform_<?= $_uid ?>"
-                        id="webform_<?= $_uid ?>"
-                        enctype="<?= $this->getEnctype() ?>"
-                        class="webforms-<?= $this->getForm()->getCode() ?>"
+                        name="webform_<?= $block->escapeHtmlAttr($_uid) ?>"
+                        id="webform_<?= $block->escapeHtmlAttr($_uid) ?>"
+                        enctype="<?= $block->escapeHtmlAttr($this->getEnctype()) ?>"
+                        class="webforms-<?= $block->escapeHtmlAttr($this->getForm()->getCode()) ?>"
                         <?php if ($this->getDescription()): ?>
-                            aria-describedby="<?= $_uid ?>form_description"
+                            aria-describedby="<?= $block->escapeHtmlAttr($_uid) ?>form_description"
                         <?php endif ?>
-                        aria-label="<?= $this->getForm()->getName() ?>"
+                        aria-label="<?= $block->escapeHtmlAttr($this->getForm()->getName()) ?>"
                         <?php if ($this->isAjax()): ?>
-                            target="webform_<?= $_uid ?>_iframe"
+                            target="webform_<?= $block->escapeHtmlAttr($_uid) ?>_iframe"
                         <?php endif ?>
                         role="none">
 
@@ -142,20 +143,20 @@ if ($this->getForm()->getIsActive() == \VladimirPopov\WebForms\Model\Form::STATU
 
                         <?php foreach ($this->getForm()->_getFieldsToFieldsets() as $fieldset_id => $fieldset): ?>
                             <fieldset
-                                id="fieldset_<?= $_uid . $fieldset_id ?>"
-                                class="fieldset fieldset-<?= $fieldset_id ?>
-                                <?= (!empty($fieldset['css_class'])) ? $fieldset['css_class'] : ''; ?>"
-                                style="<?= (!empty($fieldset['css_style'])) ? $fieldset['css_style'] . ';' : ''; ?>
+                                id="fieldset_<?= $block->escapeHtmlAttr($_uid) . $block->escapeHtmlAttr($fieldset_id) ?>"
+                                class="fieldset fieldset-<?= $block->escapeHtmlAttr($fieldset_id) ?>
+                                <?= (!empty($fieldset['css_class'])) ? /* @noEscape */ $fieldset['css_class'] : ''; ?>"
+                                style="<?= (!empty($fieldset['css_style'])) ? $block->escapeHtmlAttr($fieldset['css_style']) . ';' : ''; ?>
                                 <?= ($fieldset['logic_visibility'] == \VladimirPopov\WebForms\Model\Logic::VISIBILITY_HIDDEN) ? 'display:none' : ''; ?>"
                                 role="group"
                                 <?php if ($fieldset_id): ?>
-                                    aria-labelledby="legend_<?= $_uid . $fieldset_id ?>"
+                                    aria-labelledby="legend_<?= $block->escapeHtmlAttr($_uid) . $block->escapeHtmlAttr($fieldset_id) ?>"
                                 <?php endif; ?>
                             >
                                 <?php if (!empty($fieldset['name'])): ?>
                                     <legend
                                         class="fieldset__legend fieldset__legend--hidden"
-                                        id="legend_<?= $_uid . $fieldset_id ?>"
+                                        id="legend_<?= $block->escapeHtmlAttr($_uid) . $block->escapeHtmlAttr($fieldset_id) ?>"
                                     >
                                         <?= $block->escapeHtml($fieldset['name']) ?>
                                     </legend>
@@ -181,30 +182,30 @@ if ($this->getForm()->getIsActive() == \VladimirPopov\WebForms\Model\Form::STATU
                                     if ($field->getComment()) $aria_describedby = "aria-describedby=\"comment_field" . $fieldUid . "\"";
                                     ?>
                                     <div
-                                        id="field_<?= $fieldUid ?>"
+                                        id="field_<?= $block->escapeHtmlAttr($fieldUid) ?>"
                                         role="group"
                                         class="
                                             webforms-field
-                                            <?= $field->getCssClassContainer() ?>
-                                            <?= $field_css_type ?>
-                                            webforms-fields-<?= $field->getId() ?>
-                                            <?= ($field->getCode()) ? 'webforms-fields-' . $field->getCode() : ''; ?>
+                                            <?= $block->escapeHtmlAttr($field->getCssClassContainer()) ?>
+                                            <?= $block->escapeHtmlAttr($field_css_type) ?>
+                                            webforms-fields-<?= $block->escapeHtmlAttr($field->getId()) ?>
+                                            <?= ($field->getCode()) ? 'webforms-fields-' . $block->escapeHtmlAttr($field->getCode()) : ''; ?>
                                             <?= ($field->getRequired()) ? 'required' : ''; ?>
                                         "
-                                        <?= $aria_labelledby ?>
-                                        <?= $aria_describedby ?>
+                                        <?= /* @noEscape */ $aria_labelledby ?>
+                                        <?= /* @noEscape */ $aria_describedby ?>
                                         <?php if ($field->getData('logic_visibility') == \VladimirPopov\WebForms\Model\Logic::VISIBILITY_HIDDEN) echo 'style="display:none"'; ?>
                                     >
                                         <div
                                             class="control"
                                             role="group"
-                                            <?= $aria_labelledby ?>
+                                            <?= /* @noEscape */ $aria_labelledby ?>
                                         >
                                             <?php if ($field->getType() != 'html' && $field->getType() != 'subscribe' && !$field->getHideLabel()): ?>
                                                 <label
                                                     class="label"
-                                                    id="label_field<?= $fieldUid ?>"
-                                                    <?= $label_for ?>
+                                                    id="label_field<?= $block->escapeHtmlAttr($fieldUid) ?>"
+                                                    <?= /* @noEscape */ $label_for ?>
                                                 >
                                                     <?= $block->escapeHtml($field->getName()) ?>
                                                     <?php $tooltip = $field->getTooltip(); ?>
@@ -220,7 +221,7 @@ if ($this->getForm()->getIsActive() == \VladimirPopov\WebForms\Model\Form::STATU
                                             <?php if ($field->getValidationAdvice()): ?>
                                                 <div
                                                     class="validation-advice display-none"
-                                                    id="advice-required-entry-field<?= $fieldUid ?>"
+                                                    id="advice-required-entry-field<?= $block->escapeHtmlAttr($fieldUid) ?>"
                                                 >
                                                     <?= $block->escapeHtml($field->getValidationAdvice()) ?>
                                                 </div>
@@ -229,7 +230,7 @@ if ($this->getForm()->getIsActive() == \VladimirPopov\WebForms\Model\Form::STATU
                                             <?php if ($field->getComment()): ?>
                                                 <p
                                                     class="webforms-fields-comment"
-                                                    id="comment_field<?= $fieldUid ?>"
+                                                    id="comment_field<?= $block->escapeHtmlAttr($fieldUid) ?>"
                                                     tabindex="0"
                                                 >
                                                     <?= $block->escapeHtml(nl2br($field->getComment())) ?>
@@ -250,7 +251,7 @@ if ($this->getForm()->getIsActive() == \VladimirPopov\WebForms\Model\Form::STATU
                         )->setForm($this->getForm())->toHtml();
                         ?>
                         <div
-                            id="submit<?= $_uid ?>"
+                            id="submit<?= $block->escapeHtmlAttr($_uid) ?>"
                             class="
                                 <?php if ($this->getSubmitVisibility() == 'hidden'): ?>
                                     display-none
@@ -275,25 +276,31 @@ if ($this->getForm()->getIsActive() == \VladimirPopov\WebForms\Model\Form::STATU
                                     ]
                                 )->toHtml(); ?>
                             <?php endif; ?>
-                            <div class="primary">
-                                <button
-                                    type="submit"
-                                    class="button contact-us__button"
-                                    id="webform_<?= $_uid ?>_submit_button"
-                                    title="<?= $block->escapeHtmlAttr(__($this->getForm()->getSubmitButtonText())) ?>"
-                                    name="field[submit]"
-                                    onclick="return false;"
-                                >
-                                    <?= $block->escapeHtml(__($this->getForm()->getSubmitButtonText())) ?>
-                                </button>
+                            <div class="actions-group">
+                                <div class="actions-group__handler primary">
+                                    <button
+                                        type="submit"
+                                        class="
+                                            button
+                                            actions-group__button
+                                            contact-us__button
+                                        "
+                                        id="webform_<?= $_uid ?>_submit_button"
+                                        title="<?= $block->escapeHtmlAttr(__($this->getForm()->getSubmitButtonText())) ?>"
+                                        name="field[submit]"
+                                        onclick="return false;"
+                                    >
+                                        <?= $block->escapeHtml(__($this->getForm()->getSubmitButtonText())) ?>
+                                    </button>
+                                </div>
                             </div>
                             <div class="secondary">
                                 <div
                                     class="please-wait display-none"
-                                    id="webform_<?= $_uid ?>_sending_data"
+                                    id="webform_<?= $block->escapeHtmlAttr($_uid) ?>_sending_data"
                                 >
                                     <div class="loading-indicator"></div>
-                                    <span id="webform_<?= $_uid ?>_progress_text">
+                                    <span id="webform_<?= $block->escapeHtmlAttr($_uid) ?>_progress_text">
                                         <?= $block->escapeHtml(__('Sending...')) ?>
                                     </span>
                                 </div>

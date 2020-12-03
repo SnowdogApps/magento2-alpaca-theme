@@ -97,6 +97,17 @@
                         background-color: $table__tr-background-odd--scope-row;
                     }
                 }
+
+                &:last-child {
+                    border-bottom: $table__tr-border-bottom;
+
+                    td {
+                        @include mq($screen-m) {
+                            border-bottom: $table__td-border-bottom\@medium;
+                        }
+                    }
+                }
+
                 @include mq($screen-s) {
                     th {
                         &[scope="row"] + td {
@@ -128,6 +139,16 @@
         display: block;
         padding: $table__tr-padding;
         border-bottom: $table__tr-border-bottom;
+
+        &:last-child {
+            border-bottom: 0;
+
+            td {
+                @include mq($screen-m) {
+                    border-bottom: 0;
+                }
+            }
+        }
 
         @include mq($screen-m) {
             display: table-row;
@@ -264,12 +285,18 @@
 
     tfoot {
         tr {
+            &:first-child {
+                border-top: $table__tfoot-tr-border-top-first-child;
+
+                @include mq($screen-m) {
+                    border-top: 0;
+                }
+            }
+
             &:last-child {
                 border-bottom: 0;
 
                 td {
-                    border-bottom: 0;
-
                     &:first-child {
                         @include mq($screen-m) {
                             border-bottom-left-radius: $table__border-radius;
@@ -294,7 +321,9 @@
                 display: table-cell;
                 padding: $table__tfoot-td-padding\@medium;
                 background: $table__tfoot-td-background\@medium;
+                border-top: $table__tfoot-td-border-top\@medium;
                 border-right: $table__tfoot-td-border-right\@medium;
+                border-bottom: 0;
             }
         }
     }

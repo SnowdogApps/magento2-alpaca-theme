@@ -11,7 +11,7 @@
 >
     <div class="margin-bottom-xs">
         <strong>
-            <?= $this->getForm()->getName() ?>
+            <?= $block->escapeHtml($this->getForm()->getName()) ?>
         </strong>
     </div>
     <div class="block-content">
@@ -23,9 +23,9 @@
 
         if ($this->getRegistry()->registry('redirect_url')) {
         ?>
-            <meta http-equiv="refresh" content="0;url=<?= $this->getRegistry()->registry('redirect_url') ?>">
+            <meta http-equiv="refresh" content="0;url=<?= $block->escapeUrl($this->getRegistry()->registry('redirect_url')) ?>">
             <script type="text/javascript">
-                window.location = '<?= $this->getRegistry()->registry('redirect_url') ?>';
+                window.location = '<?= $block->escapeJs($block->escapeUrl($this->getRegistry()->registry('redirect_url'))) ?>';
             </script>
         <?php
         }
@@ -39,12 +39,12 @@
             }
         }
         if ($this->getForm()->getIsActive() == \VladimirPopov\WebForms\Model\Form::STATUS_DISABLED || !$this->isDirectAvailable()) {
-            echo $this->getNotAvailableMessage();
+            /* @noEscape */ echo $this->getNotAvailableMessage();
         } else { ?>
 
             <?php if ($this->isAjax()) { ?>
                 <div
-                    id="webform_<?= $_uid ?>_success_text"
+                    id="webform_<?= $block->escapeHtmlAttr($_uid) ?>_success_text"
                     class="std webforms-success-text"
                     style="display:none"
                 ></div>
@@ -54,56 +54,56 @@
             if ($this->getSuccess()) {
             ?>
                 <div class="webforms-success-text">
-                    <?= $this->getSuccessText() ?>
+                    <?= /* @noEscape */ $this->getSuccessText() ?>
                 </div>
             <?php
             }
             if (!$this->getSuccess() || $this->getData('after_submission_form')) {
             ?>
                 <div
-                    id="webform_<?= $_uid ?>_form"
+                    id="webform_<?= $block->escapeHtmlAttr($_uid) ?>_form"
                     class="webforms"
                 >
                     <?php if ($this->getDescription()) { ?>
                         <div class="webforms-description-text">
-                            <?= $this->getDescription(); ?>
+                            <?= /* @noEscape */ $this->getDescription(); ?>
                         </div>
                     <?php } ?>
 
                     <?php if ($this->isAjax()) { ?>
                         <iframe
-                            id="webform_<?= $_uid ?>_iframe"
-                            name="webform_<?= $_uid ?>_iframe"
+                            id="webform_<?= $block->escapeHtmlAttr($_uid) ?>_iframe"
+                            name="webform_<?= $block->escapeHtmlAttr($_uid) ?>_iframe"
                             style="width:0;height:0;border:0;position:absolute"
                         ></iframe>
                     <?php } ?>
 
                     <form
                         class="form"
-                        action="<?= $this->getFormAction() ?>"
+                        action="<?= $block->escapeUrl($this->getFormAction()) ?>"
                         method="post"
-                        name="webform_<?= $_uid ?>"
-                        id="webform_<?= $_uid ?>"
-                        enctype="<?= $this->getEnctype() ?>"
-                        class="webforms-<?= $this->getForm()->getCode() ?>"
+                        name="webform_<?= $block->escapeHtmlAttr($_uid) ?>"
+                        id="webform_<?= $block->escapeHtmlAttr($_uid) ?>"
+                        enctype="<?= $block->escapeHtmlAttr($this->getEnctype()) ?>"
+                        class="webforms-<?= $block->escapeHtmlAttr($this->getForm()->getCode()) ?>"
                         <?php if ($this->isAjax()) { ?>
-                            target="webform_<?= $_uid ?>_iframe"
+                            target="webform_<?= $block->escapeHtmlAttr($_uid) ?>_iframe"
                         <?php } ?>>
 
                         <input
                             name="form_key"
                             type="hidden"
-                            value="<?php /* @escapeNotVerified */ echo $this->getFormKey() ?>"
+                            value="<?= $block->escapeHtmlAttr($this->getFormKey()) ?>"
                         />
                         <input
                             type="hidden"
-                            name="submitForm_<?= $this->getForm()->getId() ?>"
+                            name="submitForm_<?= $block->escapeHtmlAttr($this->getForm()->getId()) ?>"
                             value="1"
                         />
                         <input
                             type="hidden"
                             name="webform_id"
-                            value="<?= $this->getForm()->getId() ?>"
+                            value="<?= $block->escapeHtmlAttr($this->getForm()->getId()) ?>"
                         />
 
                         <?php if (is_array($this->getData('hidden'))) {
@@ -111,8 +111,8 @@
                         ?>
                                 <input
                                     ype="hidden"
-                                    name="<?= $key ?>"
-                                    value="<?= $value ?>"
+                                    name="<?= $block->escapeHtmlAttr($key) ?>"
+                                    value="<?= $block->escapeHtmlAttr($value) ?>"
                                 />
                         <?php
                             }
@@ -127,26 +127,26 @@
                         <?php foreach ($this->getForm()->_getFieldsToFieldsets() as $fieldset_id => $fieldset) { ?>
 
                             <fieldset
-                                id="fieldset_<?= $_uid . $fieldset_id ?>"
+                                id="fieldset_<?= $block->escapeHtmlAttr($_uid) . $block->escapeHtmlAttr($fieldset_id) ?>"
                                 class="
                                     fieldset
-                                    fieldset-<?= $fieldset_id ?>
-                                    <?php if (!empty($fieldset['css_class'])) echo $fieldset['css_class']; ?>
+                                    fieldset-<?= $block->escapeHtmlAttr($fieldset_id) ?>
+                                    <?php if (!empty($fieldset['css_class'])) echo $block->escapeHtmlAttr($fieldset['css_class']); ?>
                                 "
                                 style="
-                                    <?php if (!empty($fieldset['css_style'])) echo $fieldset['css_style'] . ";"; ?>
+                                    <?php if (!empty($fieldset['css_style'])) echo $block->escapeHtmlAttr($fieldset['css_style']) . ";"; ?>
                                     <?php if ($fieldset['logic_visibility'] == \VladimirPopov\WebForms\Model\Logic::VISIBILITY_HIDDEN) echo 'display:none'; ?>
                                 "
                                 role="group"
-                                aria-labelledby="legend_<?= $_uid . $fieldset_id ?>"
+                                aria-labelledby="legend_<?= $block->escapeHtmlAttr($_uid) . $block->escapeHtmlAttr($fieldset_id) ?>"
                             >
 
                                 <?php if (!empty($fieldset['name'])) { ?>
                                     <legend
                                         class="legend"
-                                        id="legend_<?= $_uid . $fieldset_id ?>"
+                                        id="legend_<?= $block->escapeHtmlAttr($_uid) . $block->escapeHtmlAttr($fieldset_id) ?>"
                                     >
-                                        <?= $fieldset['name'] ?>
+                                        <?= $block->escapeHtmlAttr($fieldset['name']) ?>
                                     </legend>
                                 <?php } ?>
 
@@ -159,12 +159,12 @@
                                     if ($field->getType() == 'subscribe') $field_css_type .= ' choice';
                                 ?>
                                     <div
-                                        id="field_<?= $this->getFieldUid($field->getId()) ?>"
+                                        id="field_<?= $block->escapeHtmlAttr($this->getFieldUid($field->getId())) ?>"
                                         class="
                                             field
-                                            <?= $field->getCssClassContainer() ?>
-                                            <?= $field_css_type ?> webforms-fields-<?= $field->getId() ?>
-                                            <?php if ($field->getCode()) { ?> webforms-fields-<?= $field->getCode();} ?>
+                                            <?= $block->escapeHtmlAttr($field->getCssClassContainer()) ?>
+                                            <?= $block->escapeHtmlAttr($field_css_type) ?> webforms-fields-<?= $block->escapeHtmlAttr($field->getId()) ?>
+                                            <?php if ($field->getCode()) { ?> webforms-fields-<?= $block->escapeHtmlAttr($field->getCode());} ?>
                                             <?php if ($field->getRequired()) { ?>required<?php } ?>"
                                             <?php if ($field->getData('logic_visibility') == \VladimirPopov\WebForms\Model\Logic::VISIBILITY_HIDDEN) echo 'style="display:none"'; ?>
                                         >
@@ -172,10 +172,10 @@
                                         <?php if ($field->getType() != 'html' && $field->getType() != 'subscribe' && !$field->getHideLabel()) { ?>
                                             <label
                                                 class="label"
-                                                id="label_field<?= $this->getFieldUid($field->getId()) ?>"
-                                                for="field<?= $this->getFieldUid($field->getId()) ?>"
+                                                id="label_field<?= $block->escapeHtmlAttr($this->getFieldUid($field->getId())) ?>"
+                                                for="field<?= $block->escapeHtmlAttr($this->getFieldUid($field->getId())) ?>"
                                             >
-                                                <?= $field->getName() ?>
+                                                <?= $block->escapeHtml($field->getName()) ?>
                                                 <?php
                                                 $tooltip = $field->getTooltip();
                                                 if ($tooltip) {
@@ -195,15 +195,15 @@
                                                 <div
                                                     style="display:none"
                                                     class="validation-advice"
-                                                    id="advice-required-entry-field<?= $this->getFieldUid($field->getId()) ?>"
+                                                    id="advice-required-entry-field<?= $block->escapeHtmlAttr($this->getFieldUid($field->getId())) ?>"
                                                 >
-                                                    <?= $field->getValidationAdvice() ?>
+                                                    <?= /* @noEscape */ $field->getValidationAdvice() ?>
                                                 </div>
                                             <?php } ?>
 
                                             <?php if ($field->getComment()) { ?>
                                                 <p class="webforms-fields-comment">
-                                                    <?= nl2br($field->getComment()) ?>
+                                                    <?= /* @noEscape */ nl2br($block->escapeHtml($field->getComment())) ?>
                                                 </p>
                                             <?php } ?>
                                         </div>
@@ -224,7 +224,7 @@
                         ?>
 
                         <div
-                            id="submit<?= $_uid ?>"
+                            id="submit<?= $block->escapeHtmlAttr($_uid) ?>"
                             class="actions-toolbar" <?php if ($this->getSubmitVisibility() == 'hidden') { ?>
                             style="display: none" <?php } ?>
                         >
@@ -251,7 +251,7 @@
                                 <button
                                     type="submit"
                                     class="button action submit primary"
-                                    id="webform_<?= $_uid ?>_submit_button"
+                                    id="webform_<?= $block->escapeHtmlAttr($_uid) ?>_submit_button"
                                     title="<?= $block->escapeHtmlAttr(__($this->getForm()->getSubmitButtonText())) ?>"
                                     onclick="return false;"
                                 >
@@ -261,11 +261,11 @@
                             <div class="secondary">
                                 <div
                                     class="please-wait"
-                                    id="webform_<?= $_uid ?>_sending_data"
+                                    id="webform_<?= $block->escapeHtmlAttr($_uid) ?>_sending_data"
                                     style="display:none;"
                                 >
                                     <div class="loading-indicator"></div>
-                                    <span id="webform_<?= $_uid ?>_progress_text">
+                                    <span id="webform_<?= $block->escapeHtmlAttr($_uid) ?>_progress_text">
                                         <?= $block->escapeHtml(__('Sending...')) ?>
                                     </span>
                                 </div>
