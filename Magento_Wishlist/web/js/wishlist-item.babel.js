@@ -10,8 +10,6 @@ define([
   return function(config, elem) {
     const button                 = elem,
       customer                   = customerData.get('customer'),
-      wishlist                   = customerData.get('wishlist'),
-      items                      = wishlist().items,
       productId                  = config.addToParams.data.product.toString(),
       buttonClass                = config.class,
       isEEVersion                = config.isEEVersion,
@@ -141,12 +139,17 @@ define([
       });
     });
 
-    if (items) {
-      items.forEach(item => {
-        if (item.product_id === productId) {
-          addButtonClass();
-        }
-      });
-    }
+    setTimeout(() => {
+      const wishlist = customerData.get('wishlist'),
+        items = wishlist().items;
+
+      if (items) {
+        items.forEach(item => {
+          if (item.product_id === productId) {
+            addButtonClass();
+          }
+        });
+      }
+    }, 1000);
   };
 });
