@@ -16,17 +16,18 @@ if ($this->getField()->getCheckedOptionValue($this->getLabel()))
 ?>
 <input
     type='hidden'
-    name='<?php echo $this->getFieldName() ?>'
+    name='<?php echo $block->escapeHtmlAttr($this->getFieldName()) ?>'
     value="0"
 />
 <div class="checkbox">
     <input
         type='checkbox'
-        name='<?php echo $this->getFieldName() ?>'
-        id='<?php echo $this->getFieldId() . 0 ?>'
+        name='<?php echo $block->escapeHtmlAttr($this->getFieldName()) ?>'
+        id='<?php echo $block->escapeHtmlAttr($this->getFieldId()) . 0 ?>'
         value="1"
-        class='checkbox__field <?php echo $validate ?>'
-        <?php echo $checked ?> <?php echo htmlspecialchars($this->getField()->getCustomAttributes())?>
+        class='checkbox__field <?php echo $block->escapeHtmlAttr($validate) ?>'
+        <?= /* @noEscape */ $checked ?>
+        <?= /* @noEscape */ htmlspecialchars($this->getField()->getCustomAttributes())?>
     />
     <svg
         class="
@@ -50,19 +51,19 @@ if ($this->getField()->getCheckedOptionValue($this->getLabel()))
         <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#unchecked')) ?>"></use>
     </svg>
     <label
-        for='<?php echo $this->getFieldId() . 0 ?>'
-        class='checkbox__label <?php echo $this->getFieldClass() ?>'
-        style='<?php echo $this->getFieldStyle() ?>'
+        for='<?php echo $block->escapeHtmlAttr($this->getFieldId()) . 0 ?>'
+        class='checkbox__label <?php echo $block->escapeHtmlAttr($this->getFieldClass()) ?>'
+        style='<?php echo $block->escapeHtmlAttr($this->getFieldStyle()) ?>'
     >
-        <?php echo $label ?>
+        <?php echo $block->escapeHtml($label) ?>
     </label>
     <?php if ($validate && $this->getField()->getValidationAdvice()) { ?>
         <div
             class="validation-advice"
-            id="advice-validate-one-required-by-name-<?php echo $this->getFieldId() . 0 ?>"
+            id="advice-validate-one-required-by-name-<?php echo $block->escapeHtmlAttr($this->getFieldId()) . 0 ?>"
             style="display:none"
         >
-            <?php echo $this->getField()->getValidationAdvice() ?>
+            <?php echo $block->escapeHtml($this->getField()->getValidationAdvice()) ?>
         </div>
     <?php } ?>
 </div>

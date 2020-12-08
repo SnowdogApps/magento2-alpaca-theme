@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 - adjustems to store credit templates (#72456) Affects: store credit daschboard & checkout payment step
 - store credit dashboard to components (#72456)
 - adjustments to checkout address search templates (#72454)
+- adjustments to reward points templates (#70571) Affects: cart & checkout payment step
 
 ### Fixed
 - performance, changes for magepack - optimise js (minify js libs, datapicker, calendar, M2 bootstrap, marketing bar), styles loading (preload, remove useless variables), fonts (swap)
@@ -25,6 +26,11 @@ All notable changes to this project will be documented in this file.
 - table - scope row variant borders (#73250)
 - fix gallery placeholder img size & position (#70469) Affects: PDP
 - selects on catalog page and product list images (#70830)
+- product name in quicksearch, budnle options in cart, minicart z-index (#73341); affects: quicksearch product template, minicart template and cart item template
+- shipping latency modal on catalog list - always displays modal of the first product on the page (#73101)
+- amasty styles loading (#73336)
+- product-grid-item on safari (#73677)
+- reward points tooltips position on cart view - moved inside messages (#70571)
 
 ### Changed
 - a11y features on PDP - headings order, bundle fields, price labels, buttons labels, qty update buttons, rating form (#66039); Affects: bundles options and price templates, add to cart sticky, qty update implementation, rating, requires templates update is overwritten
@@ -43,6 +49,7 @@ All notable changes to this project will be documented in this file.
 
 ### Removed
 - unnecessary header-button margin styles (#68780)
+- focus effect from button-add-to on mobile & desktop (caused issues on touch screens) (#73623)
 
 ## [Released]
 ## [2.10.0] - 2020-10-21
@@ -123,6 +130,7 @@ Affects: if catalog (toolbar, filters, list) or mobile menu templates are overwr
 - sidebar 'Compare' link classes (#68745): Affects: catalog sidebar
 - bundle product price template and styling (#68745); Affects: Bundle PDP
 - make compare__product div take up 100% height of td & space items between (#68745)
+- escaping php variables in templates (#70322)
 
 ## [2.7.0] - 2020-08-20
 ### Fixed
@@ -142,6 +150,7 @@ Affects: if catalog (toolbar, filters, list) or mobile menu templates are overwr
 
 ### Changed
 - paypal review order page (#59142)
+- paypal express button, Affects: product page, cart page, checkout payment step (#69885)
 - contact-bar template to show/hide email/phone depending on config settings (#69969)
 - checkboxes to be globally aligned vertically to center (#68654)
 - zoomed in image background opacity & close button to dark (#69145)

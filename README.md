@@ -481,3 +481,75 @@ If responisve image aspect ratio is added, additional styles inline are generate
 ### Wishlist unlocker -  snowdog/module-wishlist-unlocker
 * This extension allow to show more than 3 items in sidebar wishlist (M2 default is 3)
 * Limit value can be set in admin: Store -> COnfiguration -> Customer -> Wish List -> General option -> Items Limit
+
+## Magepack
+for Magento version < 2.3.6, mixins.js module patch is required/ [Patch provided and explained here](https://github.com/magento/baler/issues/23)
+
+Magepack is already integrated with [Frontools](https://github.com/SnowdogApps/magento2-frontools)
+
+### Generate magepack config
+To start using magepack we need to generate magepack config.
+Before start:
+* clear Magento cache
+* compile assest for production mode (in `/tools` directory):
+```
+yarn styles --prod && yarn babel --prod && yarn svg
+```
+* generate config with command (with appropriate path for each site):
+```
+yarn magepackGenerate --cms-url="https://baseUrl/" --category-url="https://baseUrl/categoryPage" --product-url="https://baseUrl/productPage"
+```
+Magepack config will be generated in `/tools` as `magepack.config.js` (which is a symlink to vendor/snowdog/frontools/magepack.config.js).
+You can move this file to main repo or to other location, add this to `.gitignore` and commit changes.
+
+With commited magepack config, during deployment, after assets compilation, run magepack bundling:
+```
+yarn magepackBundle --config <config_path>
+```
+
+### Add assets
+* If you added fonts or external assets that can be load with `preload`, add them in:
+`vendor/snowdog/theme-frontend-alpaca/Magento_Theme/templates/root.phtml` with `preload` attribute.
+
+* if assets come from external module which is not always enable, add preload assets in following way:
+in module folder inside theme:
+  * using xml layout add block in `head.additional` and in custom template add assets:
+  ```
+  <link
+    href="<?= $this->getViewFileUrl('Namespace_ModuleName::css/styles-file.min.css') ?>"
+    rel="stylesheet preload"
+    as="style"
+  />
+  ```
+  an example can be found here: `vendor/snowdog/theme-frontend-alpaca/Amasty_GdprCookie`
+
+### Test magepack locally
+
+To test magepack locally:
+* clear and enable cache,
+* enable merging, minifying and magepack budnling in your db:
+```
+bin/magento config:set dev/js/enable_magepack_js_bundling 1
+bin/magento config:set dev/js/merge_files 1
+bin/magento config:set dev/js/minify_files 1
+bin/magento config:set dev/css/minify_files 1
+bin/magento config:set dev/css/merge_css_files 1
+```
+* run tools compilation for production:
+```
+yarn styles --prod && yarn babel --prod && yarn svg
+```
+* generate magepack config:
+yarn magepackGenerate ..
+
+* switch to production mode:
+```
+bin/magento deploy:mode:set production
+```
+* bundle magepack
+in `/tools`
+```
+yarn magepackBundle --config <config_path>
+```
+* clear cache
+* check results in browser

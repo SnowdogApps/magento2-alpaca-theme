@@ -25,21 +25,21 @@
     }
 ?>
 <a
-    href="<?= $categoryUrl ?>"
-    class="<?= $classLink ?>"
-    <?= $dataAttribute ?>
+    href="<?= $block->escapeUrl($categoryUrl) ?>"
+    class="<?= $block->escapeHtmlAttr($classLink) ?>"
+    <?= /* @noEscape */ $dataAttribute ?>
     <?php if ($isContent && !$isViewAllLink): ?>
         role="button"
         aria-expanded="false"
     <?php endif; ?>
 >
-    <?= $title ?>
+    <?= $block->escapeHtml($title) ?>
     <?php if ($isContent && !$isViewAllLink): ?>
         <svg
             class="
                 icon
-                <?= $class ?>__icon
-                <?= ($block->getLevel() > 0) ? $class . '__icon--inner' : '' ?>
+                <?= $block->escapeHtmlAttr($class) ?>__icon
+                <?= ($block->getLevel() > 0) ? $block->escapeHtmlAttr($class) . '__icon--inner' : '' ?>
             "
             role="presentation"
             focusable="false"

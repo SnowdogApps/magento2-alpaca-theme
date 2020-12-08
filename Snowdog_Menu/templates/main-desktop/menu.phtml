@@ -4,12 +4,12 @@
 
     <nav
         id="mega-menu"
-        class="<?= $menuClass ?>"
+        class="<?= $block->escapeHtmlAttr($menuClass) ?>"
         data-action="navigation"
         aria-label="<?= $block->escapeHtmlAttr(__('Store navigation')) ?>"
         data-mage-init='{ "megaMenu": { } }'
     >
-        <ul class="<?= $menuClass ?>__list container">
+        <ul class="<?= $block->escapeHtmlAttr($menuClass) ?>__list container">
             <?php foreach ($block->getNodes() as $idx => $node): ?>
                 <?php
                     $childrenLevel = $node->getLevel() + 1;
@@ -20,12 +20,12 @@
                     $additionalClasses = $node->getClasses() ? ' ' . $node->getClasses() : '';
                     $itemClasses = $parentClass . $additionalClasses;
                 ?>
-                <li class="<?= $menuClass ?>__item<?= $itemClasses ?> nav-<?= $idx + 1 ?>">
-                    <?= $block->renderMenuNode($node) ?>
-                    <?= $block->renderSubmenu($children, $node, $childrenLevel) ?>
+                <li class="<?= $block->escapeHtmlAttr($menuClass) ?>__item<?= $block->escapeHtmlAttr($itemClasses) ?> nav-<?= $block->escapeHtmlAttr($idx) + 1 ?>">
+                    <?= /* @noEscape */ $block->renderMenuNode($node) ?>
+                    <?= /* @noEscape */ $block->renderSubmenu($children, $node, $childrenLevel) ?>
                 </li>
             <?php endforeach; ?>
         </ul>
-        <div class="<?= $menuClass ?>__mobile-bg"></div>
+        <div class="<?= $block->escapeHtmlAttr($menuClass) ?>__mobile-bg"></div>
     </nav>
 <?php endif; ?>

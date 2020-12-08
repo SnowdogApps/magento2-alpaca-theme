@@ -5,9 +5,9 @@ $fieldId = $block->escapeHtmlAttr($this->getFieldId());
 ?>
 <div
     <?php if ($this->getField()->getHideLabel()): ?>
-        aria-label="<?= $this->getField()->getName() ?>"
+        aria-label="<?= $block->escapeHtmlAttr($this->getField()->getName()) ?>"
     <?php else: ?>
-        aria-labelledby="label_<?= $fieldId ?>"
+        aria-labelledby="label_<?= $block->escapeHtmlAttr($fieldId) ?>"
     <?php endif; ?>
 >
     <?php foreach ($this->getFieldOptions() as $i => $option): ?>
@@ -37,34 +37,34 @@ $fieldId = $block->escapeHtmlAttr($this->getFieldId());
                 class="
                     field
                     choice
-                    option-<?= $i?>
+                    option-<?= $block->escapeHtmlAttr($i) ?>
                     radio__handler
                 "
                 style="<?= $block->escapeHtmlAttr($this->getFieldStyle()) ?>">
                 <input
                     type="radio"
-                    id="<?= $fieldId . $i ?>"
+                    id="<?= $block->escapeHtmlAttr($fieldId . $i) ?>"
                     name="<?= $block->escapeHtmlAttr($this->getFieldName()) ?>"
                     value="<?= $block->escapeHtmlAttr(htmlspecialchars($option['value'])) ?>"
-                    class="radio__field <?= $validate ?>"
+                    class="radio__field <?= $block->escapeHtmlAttr($validate) ?>"
                     aria-labelledby="
-                        <?= $fieldId . $i ?>_label
+                        <?= $block->escapeHtmlAttr($fieldId . $i) ?>_label
                         <?php if(!$this->getField()->getHideLabel()): ?>
-                             label_<?= $fieldId ?>
+                             label_<?= $block->escapeHtmlAttr($fieldId) ?>
                         <?php endif; ?>
                     "
-                    <?= $checked ?>
+                    <?= /* @noEscape */ $checked ?>
                     <?php if ($this->getField()->getDisabled()): ?>
                         disabled
                     <?php endif; ?>
-                    <?= htmlspecialchars($this->getField()->getCustomAttributes()) ?>
+                    <?= /* @noEscape */ htmlspecialchars($this->getField()->getCustomAttributes()) ?>
                 />
                 <label
-                    id="<?= $fieldId . $i ?>_label"
-                    for="<?= $fieldId . $i ?>"
+                    id="<?= $block->escapeHtmlAttr($fieldId . $i) ?>_label"
+                    for="<?= $block->escapeHtmlAttr($fieldId . $i) ?>"
                     class="radio__label <?= $block->escapeHtmlAttr($this->getFieldClass()) ?>"
                 >
-                    <?= $label ?>
+                    <?= $block->escapeHtml($label) ?>
                 </label>
                 <?php
                     $tooltip = $this->getField()->getTooltip($option["value"]);
@@ -83,9 +83,9 @@ $fieldId = $block->escapeHtmlAttr($this->getFieldId());
         class="
             validation-advice
         "
-        id="advice-validate-one-required-by-name-<?= $fieldId . $i ?>"
+        id="advice-validate-one-required-by-name-<?= $block->escapeHtmlAttr($fieldId . $i) ?>"
         style="display:none"
     >
-        <?= $this->getField()->getValidationAdvice() ?>
+        <?= $block->escapeHtml($this->getField()->getValidationAdvice()) ?>
     </div>
 <?php } ?>

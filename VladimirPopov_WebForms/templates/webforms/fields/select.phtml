@@ -1,23 +1,23 @@
 <div class="select select--native">
     <select
-        name='<?= $this->getFieldName() ?><?php if ($this->getMultiselect()) echo '[]' ?>'
-        id='<?= $this->getFieldId() ?>'
+        name='<?= $block->escapeHtmlAttr($this->getFieldName()) ?><?php if ($this->getMultiselect()) echo '[]' ?>'
+        id='<?= $block->escapeHtmlAttr($this->getFieldId()) ?>'
         class='
             select__field
-            <?= $this->getFieldClass() ?>
+            <?= $block->escapeHtmlAttr($this->getFieldClass()) ?>
         '
-        style='<?= $this->getFieldStyle() ?>'
+        style='<?= $block->escapeHtmlAttr($this->getFieldStyle()) ?>'
         data-mage-init='{"select": {"options": {"shouldSort": false}}}'
         <?php if ($this->getField()->getHideLabel()): ?>
-            aria-label="<?= $this->getField()->getName() ?>"
+            aria-label="<?= $block->escapeHtmlAttr($this->getField()->getName()) ?>"
         <?php else: ?>
-            aria-labelledby="label_<?= $this->getFieldId() ?>"
+            aria-labelledby="label_<?= $block->escapeHtmlAttr($this->getFieldId()) ?>"
         <?php endif; ?>
         <?php if ($this->getField()->getRequired()): ?>
             aria-required="true"
         <?php endif; ?>
         <?php if ($this->getField()->getBrowserAutocomplete()): ?>
-            autocomplete="<?= $this->getField()->getBrowserAutocomplete() ?>"
+            autocomplete="<?= $block->escapeHtmlAttr($this->getField()->getBrowserAutocomplete()) ?>"
         <?php endif; ?>
         <?php if ($this->getField()->getDisabled()): ?>
             disabled
@@ -25,7 +25,7 @@
         <?php if ($this->getMultiselect()): ?>
             multiple
         <?php endif; ?>
-        <?= htmlspecialchars($this->getField()->getCustomAttributes()) ?>
+        <?= /* @noEscape */ htmlspecialchars($this->getField()->getCustomAttributes()) ?>
     >
 
         <?php foreach ($this->getFieldOptions() as $option): ?>
@@ -47,11 +47,11 @@
                     }
                 ?>
                 <option
-                    value="<?= $value ?>"
-                    <?= $checked ?>
-                    <?= $disabled ?>
+                    value="<?= $block->escapeHtmlAttr($value) ?>"
+                    <?= /* @noEscape */ $checked ?>
+                    <?= /* @noEscape */ $disabled ?>
                 >
-                    <?= $option['label'] ?>
+                    <?= $block->escapeHtml($option['label']) ?>
                 </option>
             <?php endif; ?>
         <?php endforeach; ?>
