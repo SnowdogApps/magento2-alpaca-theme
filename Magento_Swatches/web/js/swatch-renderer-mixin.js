@@ -154,7 +154,7 @@ define([
             initLoader.removeClass('loader--visible');
           }
           container.append(
-            '<div class="' + classes.attributeClass + ' ' + item.code + '" ' +
+            '<div class="swatch-attribute ' + classes.attributeClass + ' ' + item.code + '" ' +
                   'attribute-code="' + item.code + '" ' +
                   'attribute-id="' + item.id + '">' +
                 label +
@@ -262,7 +262,7 @@ define([
             attr += ' option-empty="true"';
           }
 
-          html += '<div class="' + optionContainerClass + '" ' + attr + '><div class="' + optionClass;
+          html += '<div class="' + optionContainerClass + '" ' + attr + '><div class="swatch-option ' + optionClass;
           if (type === 0) {
             // Text
             html += '">' + (value ? value : label);
@@ -321,7 +321,7 @@ define([
          * @private
          */
         _RenderFormInput: function (config) {
-          return '<input class="' + this.options.classes.attributeInput + ' super-attribute-select" ' +
+          return '<input class="swatch-input ' + this.options.classes.attributeInput + ' super-attribute-select" ' +
             'name="super_attribute[' + config.id + ']" ' +
             'type="text" ' +
             'value="" ' +
