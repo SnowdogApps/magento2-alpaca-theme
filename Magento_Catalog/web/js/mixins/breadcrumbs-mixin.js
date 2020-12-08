@@ -1,7 +1,6 @@
 define([
   "jquery",
-  "Magento_Catalog/js/product/breadcrumbs",
-  "jquery/ui",
+  "Magento_Catalog/js/product/breadcrumbs"
 ], function ($) {
   "use strict";
   return function (parentWidget) {
@@ -28,18 +27,30 @@ define([
 
         if (classNav) {
           classNav = classNav[0];
-          parentClass = classNav.substr(0, classNav.lastIndexOf("-"));
+          // UPDATED: SUPPORT FOR MENU NODES WITH TYPE "WRAPPER"
+          // cover case when parentMenuItem is null because
+          // menu node of type "wrapper" doesn't contain a link
+          // in this case, look for a further ancestor
+          parentClass = this._getParentClass(classNav);
 
-          if (parentClass.lastIndexOf("-") !== -1) {
+          while (parentClass.lastIndexOf("-") !== -1 && parentMenuItem === null) {
             parentMenuItem = $(this.options.menuContainer).find(
               "." + parentClass + " > a"
             );
             parentMenuItem = parentMenuItem.length ? parentMenuItem : null;
+
+            if (parentMenuItem === null) {
+              parentClass = this._getParentClass(parentClass);
+            }
           }
         }
 
         return parentMenuItem;
       },
+
+      _getParentClass: function (className) {
+        return className.substr(0, className.lastIndexOf("-"));
+      }
     });
     return $.mage.breadcrumbs;
   };
