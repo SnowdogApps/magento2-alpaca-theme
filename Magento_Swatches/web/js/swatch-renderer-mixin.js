@@ -122,7 +122,7 @@ define([
             controlLabelId = 'option-label-' + productData.productId + '-' + item.code + '-' + item.id,
             options = $widget._RenderSwatchOptions(item, controlLabelId),
             select = $widget._RenderSwatchSelect(item, chooseText),
-            input = $widget._RenderFormInput(item),
+            input = $widget._RenderFormInput(item, productData),
             listLabel = '',
             label = '',
             initLoader = container.find($('.' + $widget.options.classes.initLoader)) ;
@@ -320,13 +320,14 @@ define([
          * @param {Object} config
          * @private
          */
-        _RenderFormInput: function (config) {
+        _RenderFormInput: function (config, productData) {
           return '<input class="' + this.options.classes.attributeInput + ' super-attribute-select" ' +
             'name="super_attribute[' + config.id + ']" ' +
             'type="text" ' +
             'value="" ' +
             'data-selector="super_attribute[' + config.id + ']" ' +
             'data-validate="{required: true}" ' +
+            'data-product="' + productData.productId + '"' +
             'aria-required="true" ' +
             'aria-invalid="false" ' +
             'aria-hidden="true" ' +
