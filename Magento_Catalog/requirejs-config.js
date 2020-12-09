@@ -10,6 +10,9 @@ var config = {
     mixins: {
       "Magento_Catalog/js/catalog-add-to-cart": {
         "Magento_Catalog/js/mixins/catalog-add-to-cart-mixin": true
+      },
+      "Magento_Theme/js/view/breadcrumbs": {
+        "Magento_Catalog/js/mixins/breadcrumbs-mixin": true
       }
     }
   }
