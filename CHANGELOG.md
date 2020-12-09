@@ -31,6 +31,7 @@ All notable changes to this project will be documented in this file.
 - amasty styles loading (#73336)
 - product-grid-item on safari (#73677)
 - reward points tooltips position on cart view - moved inside messages (#70571)
+- buttons alignemnt on PDP for out of stock product (#72455)
 
 ### Changed
 - a11y features on PDP - headings order, bundle fields, price labels, buttons labels, qty update buttons, rating form (#66039); Affects: bundles options and price templates, add to cart sticky, qty update implementation, rating, requires templates update is overwritten
