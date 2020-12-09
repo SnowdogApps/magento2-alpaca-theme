@@ -262,7 +262,7 @@ define([
             attr += ' option-empty="true"';
           }
 
-          html += '<div class="' + optionContainerClass + '" ' + attr + '><div class="swatch-option ' + optionClass;
+          html += '<div class="swatch-option ' + optionContainerClass + '" ' + attr + '><div class="' + optionClass;
           if (type === 0) {
             // Text
             html += '">' + (value ? value : label);
