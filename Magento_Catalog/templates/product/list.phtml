@@ -37,11 +37,21 @@ use Magento\Framework\App\Action\Action;
      */
     $pos = $block->getPositioned();
     ?>
-
+    <a
+        href="#layered-filter-block"
+        class="skip-nav"
+        data-mage-init='{"skipNav": {} }'
+    >
+        <?= $block->escapeHtml(__('Go to filters')); ?>
+    </a>
 
     <?php /** @var $_product \Magento\Catalog\Model\Product */ ?>
+
     <?php if ($viewMode === 'products-list'): ?>
-        <ul class="list">
+        <ul
+            class="list"
+            id="products-list"
+        >
             <?php foreach ($_productCollection as $_product): ?>
                 <li
                     class="
@@ -154,7 +164,7 @@ use Magento\Framework\App\Action\Action;
                                             "
                                             type="button"
                                             aria-expanded="false"
-                                            data-modal-trigger="shipping-latency-popup"
+                                            data-modal-trigger="shipping-latency-popup-<?= $block->escapeHtmlAttr($_product->getId()); ?>"
                                             data-mage-init='{ "modal" : {} }'
                                     >
                                         <?php if ($isShownInStock): ?>
@@ -169,7 +179,7 @@ use Magento\Framework\App\Action\Action;
                                             id="shipping-latency-popup-<?= $block->escapeHtmlAttr($_product->getId()); ?>"
                                             role="dialog"
                                             aria-hidden="true"
-                                            data-modal="shipping-latency-popup"
+                                            data-modal="shipping-latency-popup-<?= $block->escapeHtmlAttr($_product->getId()); ?>"
                                             aria-labelledby="shipping-latency-title"
                                             class="modal"
                                     >
@@ -294,7 +304,10 @@ use Magento\Framework\App\Action\Action;
             <?php endforeach; ?>
         </ul>
     <?php else: ?>
-        <ul class="catalog-grid">
+        <ul
+            class="catalog-grid"
+            id="products-list"
+        >
             <?php foreach ($_productCollection as $_product): ?>
                 <?php
                     $productImage = $block->getImage($_product, $imageDisplayArea);

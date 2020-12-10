@@ -4,10 +4,72 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ## [Released]
+## [2.11.0] - 2020-12-10
+
+### Added
+- adjustems to store credit templates (#72456) Affects: store credit daschboard & checkout payment step
+- store credit dashboard to components (#72456)
+- adjustments to checkout address search templates (#72454)
+- adjustments to reward points templates (#70571) Affects: cart & checkout payment step
+
+### Fixed
+- performance, changes for magepack - optimise js (minify js libs, datapicker, calendar, M2 bootstrap, marketing bar), styles loading (preload, remove useless variables), fonts (swap)
+- search input styling on iOS (#68780)
+- slider container before & after gradient on Safari & iOS (#68780)
+- product add to cart sticky covering footer on Safari & iOS (#68780)
+- images stretching vertically inside links on Safari & iOS (#68780)
+- dropdown list styling in checkout footer (#68780)
+- 'back' link styling in 'my product reviews' (#68780)
+- actions toolabr styling in 'company users' (#68780)
+- order table in account sachboard (#68780)
+- discount & gift card templates from checkout (#68780)
+- giftcard account action-toolbar styles (#68780)
+- link href in reward/customer/info/ (#68780)
+- thicker table bottom border (#68780)
+- order-summary background color in checkout sidebar (#68780)
+- table - scope row variant borders (#73250)
+- fix gallery placeholder img size & position (#70469) Affects: PDP
+- selects on catalog page and product list images (#70830)
+- product name in quicksearch, budnle options in cart, minicart z-index (#73341); affects: quicksearch product template, minicart template and cart item template
+- shipping latency modal on catalog list - always displays modal of the first product on the page (#73101)
+- amasty styles loading (#73336)
+- product-grid-item on safari (#73677)
+- reward points tooltips position on cart view - moved inside messages (#70571)
+- buttons alignemnt on PDP for out of stock product (#72455)
+- adding products to wishlist with ajax (on grid, catalog, PDP) with selected product options (#70731)
+- bundle product - price styling in wishlist (#70731)
+- bundle/downloadable PDP for editing wishlist item - broken layout (#70731)
+- bundle/configurable PDP for editing wishlist item - selected options don't save after clicking "update wish list" (#70731)
+- breadcrumbs on PDP - missing crumbs when some navigation nodes have type "wrapper" (#73409)
+- magepack issues with config generation for configurable products (#73183)
+
+### Changed
+- a11y features on PDP - headings order, bundle fields, price labels, buttons labels, qty update buttons, rating form (#66039); Affects: bundles options and price templates, add to cart sticky, qty update implementation, rating, requires templates update is overwritten
+- a11y dashboard & blog (#66042) - labels, titles, skip to navigation.content links, form fields; Affects: dashboard template required update if overwritten, dashboard xml updated
+- a11y cart & checkout (#66041) - labels, fields, fieldset, semantic elements. Affects: checkout and card templates - update required if overwritten
+- header wishlist & minicart buttons margins on mobile (#68780)
+- dashboard-table__header direction & alignment on mobile (#68780)
+- no-results_link width (#68780)
+- contact us button & description styles (#68780)
+- shipping method options paddings & radio margin (#68780)
+- discount-code__content paddings in checkout & cart (#68780)
+- discount-code__input margin (#68780)
+- checkout email templates (adjusted classes) (#68780)
+- content-block__link margin (#68780)
+- show phone input tooltip in checkout shipping address modal (#68780)
+
+### Removed
+- unnecessary header-button margin styles (#68780)
+- focus effect from button-add-to on mobile & desktop (caused issues on touch screens) (#73623)
+
+## [Released]
 ## [2.10.0] - 2020-10-21
 
 ### Added
 - full with variant styles to slider (#69023)
+- "back" link to requisiton list page (#70586)
+### Changed
+- requisition list toolbar styling (#70586)
 
 ### Fixed
 - issue with arrows looking wrong if gallery vertical/horizontal nav breakpoints are changed via configuration (#71113); Affects: gallery navigation
@@ -28,6 +90,7 @@ All notable changes to this project will be documented in this file.
 - loader scope for in swatches (#71300)
 - error on company profle page (#72234)
 - tab content in quote view - removed escaping (#72243)
+- loading state/province options (#72291)
 ### Added
 - adjust sliders loading time + add slider widget template (#65842)
 - scroll-to.js file and added it for reviews on product page (#71248); Affects: Reviews buttons on PDP
@@ -40,6 +103,9 @@ All notable changes to this project will be documented in this file.
 - variables for product-view, review and tab (#71110);
 - pager to wishlist (#71692)
 ### Changed
+- a11y catalog update - skip links (go to filters/products), a11y open mediaQuery modal feature (filters), update a11y labels (sorter, pager), focus management update, mobile menu View all link added (#66040);
+Affects: if catalog (toolbar, filters, list) or mobile menu templates are overwritten in theme, update required
+
 ### Removed
 - unnecessary title from svgs with role presentation (#71268)
 - reference to Magento\Rma\Block\Order\Button block on OS (#71741); Affects: order view, order invoice & order shipment
@@ -64,7 +130,8 @@ All notable changes to this project will be documented in this file.
 - typo in shipping address config (#68745)
 - item checkbox in requisition list (#68745); Affects: Requisition list
 - wishlist item actions covering active textarea border (#68745)
-- js error on bundle PDP - removed escaping method from bundle options template (#68745); Affects: Bundle PDP
+- js error on bundle PDP - removed escaping method from bundle options template (#68745)
+- fixed problems when cms blocks saved with Page Builder (#69990)
 ### Added
 - customer balance history template (#68745)
 - grouped product final price template (#68745); Affects: Grouped PDP
@@ -74,6 +141,7 @@ All notable changes to this project will be documented in this file.
 - sidebar 'Compare' link classes (#68745): Affects: catalog sidebar
 - bundle product price template and styling (#68745); Affects: Bundle PDP
 - make compare__product div take up 100% height of td & space items between (#68745)
+- escaping php variables in templates (#70322)
 
 ## [2.7.0] - 2020-08-20
 ### Fixed
@@ -93,6 +161,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 - paypal review order page (#59142)
+- paypal express button, Affects: product page, cart page, checkout payment step (#69885)
 - contact-bar template to show/hide email/phone depending on config settings (#69969)
 - checkboxes to be globally aligned vertically to center (#68654)
 - zoomed in image background opacity & close button to dark (#69145)

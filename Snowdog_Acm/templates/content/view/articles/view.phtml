@@ -123,7 +123,7 @@ $entityId = $content->getData('entity_id');
                 <?= $block->escapeHtml($title) ?>
             </h1>
             <span class="article-item__sub-title heading--font-secondary">
-                <?= $dateFormatted ?>
+                <?= $block->escapeHtml($dateFormatted) ?>
             </span>
         </header>
         <section class="article-item__container">
@@ -134,7 +134,7 @@ $entityId = $content->getData('entity_id');
             </div>
             <div class="article-item__body">
                 <div class="article-item__content">
-                    <?= $content->render($ctPrefix . 'text'); ?>
+                    <?= /* @noEscape */ $content->render($ctPrefix . 'text'); ?>
                 </div>
                 <?php if (count(array_filter($categories))) : ?>
                     <footer class="article-item__footer">
@@ -193,7 +193,7 @@ $entityId = $content->getData('entity_id');
                         ?>
                         <li class="list__item">
                             <a
-                                    href="<?= $link ?>"
+                                    href="<?= $block->escapeUrl($link) ?>"
                                     class="link"
                             >
                                 <?= $block->escapeHtml($title) ?>

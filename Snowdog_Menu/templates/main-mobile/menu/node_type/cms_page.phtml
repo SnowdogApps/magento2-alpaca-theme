@@ -6,35 +6,40 @@
     $pageUrl = $pageUrl ?: '#';
     $dataAttribute = '';
     $isContent = $block->getIsParent();
+    $isViewAllLink = $block->getIsViewAllLink();
 
-    $classLink = $block->getIsRoot() ? $class . '__label link--invert' : $class . '__label';
-    $title = $block->getTitle();
+    if ($isViewAllLink) {
+        $title = __('View All');
+        $classLink = $class . '__label link--invert';
+    } else {
+        $classLink = $block->getIsRoot() ? $class . '__label link--invert' : $class . '__label';
+        $title = $block->getTitle();
 
-    if ($nodeId && $isContent) {
-        $dataAttribute = ' aria-controls="dropdown-' . $nodeId . '"';
+        if ($nodeId && $isContent) {
+            $dataAttribute = ' aria-controls="dropdown-' . $nodeId . '"';
+        }
+
+        if ($block->isCurrentPage($nodeId)) {
+            $classLink .= ' current';
+        }
     }
-
-    if ($block->isCurrentPage($nodeId)) {
-        $classLink .= ' current';
-    }
-
 ?>
 <a
-    href="<?= $pageUrl ?>"
-    class="<?= $classLink ?>"
-    <?= $dataAttribute ?>
-    <?php if ($isContent): ?>
+    href="<?= $block->escapeUrl($pageUrl) ?>"
+    class="<?= $block->escapeHtmlAttr($classLink) ?>"
+    <?= /* @noEscape */ $dataAttribute ?>
+    <?php if ($isContent && !$isViewAllLink): ?>
         role="button"
         aria-expanded="false"
     <?php endif; ?>
 >
-    <?= $title ?>
-    <?php if ($isContent): ?>
+    <?= $block->escapeHtml($title) ?>
+    <?php if ($isContent && !$isViewAllLink): ?>
         <svg
             class="
                 icon
-                <?= $class ?>__icon
-                <?= ($block->getLevel() > 0) ? $class . '__icon--inner' : '' ?>
+                <?= $block->escapeHtmlAttr($class) ?>__icon
+                <?= ($block->getLevel() > 0) ? $block->escapeHtmlAttr($class) . '__icon--inner' : '' ?>
             "
             role="presentation"
             focusable="false"

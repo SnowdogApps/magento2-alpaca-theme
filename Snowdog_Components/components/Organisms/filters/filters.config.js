@@ -8,7 +8,7 @@ module.exports = {
       modal: {
         class: 'filters__modal modal--tertiary',
         id: 'filters-category',
-        attributes: 'aria-lebelledby="filters-categories-title"'
+        attributes: 'aria-labelledby="filters-categories-title"'
       },
       modalContainer: {
         class: 'filters__container'
@@ -47,7 +47,7 @@ module.exports = {
       modal: {
         class: 'filters__modal modal--tertiary',
         id: 'filters-options',
-        attributes: 'aria-lebelledby="filters-option-title"'
+        attributes: 'aria-labelledby="filters-option-title"'
       },
       modalContainer: {
         class: 'filters__container'

@@ -32,7 +32,8 @@
     transform: $button__transform;
     transition: $button__transition;
 
-    &:hover {
+    &:hover,
+    &.focus-visible {
         background-color: $button__background-hover;
         text-decoration: $button__text-decoration-hover;
 
@@ -59,7 +60,8 @@
             fill: $button__text-color;
         }
 
-        &:hover {
+        &:hover,
+        &.focus-visible {
             background-color: $button__background-disabled;
 
             &:before,
@@ -70,7 +72,7 @@
     }
 
     &--light {
-        text-transform: none;
+        text-transform: $button__text-transform--light;
         font-weight: $button__font-weight--light;
         text-transform: $button__text-transform--light;
     }
@@ -80,7 +82,8 @@
         background-color: $button__background--secondary;
         border: $button__border--secondary;
 
-        &:hover {
+        &:hover,
+        &.focus-visible {
             color: $button__color-hover--secondary;
             background-color: $button__background-hover--secondary;
             &:before {
@@ -92,7 +95,8 @@
         }
 
         &.action {
-            &:hover {
+            &:hover,
+            &.focus-visible {
                 &:after {
                     display: $button__after-display-hover--secondary;
                 }
@@ -115,7 +119,8 @@
         text-transform: $button__text-transform--link;
         text-decoration: $button__text-decoration--link;
 
-        &:hover {
+        &:hover,
+        &.focus-visible {
             color: $button__color-hover--link;
             background: $button__background-hover--link;
             &:before {
@@ -154,7 +159,8 @@
             pointer-events: none;
         }
 
-        &:hover {
+        &:hover,
+        &.focus-visible {
             background-color: $button__background-hover--icon;
             &:after {
                 display: none;
@@ -173,7 +179,8 @@
         &:before {
             background-color: $button__before-background--icon-light;
         }
-        &:hover {
+        &:hover,
+        &.focus-visible {
             background-color: $button__background-hover--icon-light;
             .icon,
             .button__icon {
@@ -189,7 +196,8 @@
         border: $button__border--icon-border;
         background-color: $button__background--icon-border;
 
-        &:hover {
+        &:hover,
+        &.focus-visible {
             background-color: $button__background-hover--icon-border;
             border: $button__border-hover--icon-border;
         }
@@ -199,7 +207,8 @@
         &:before {
             background-color: $button__before-background--rotate-icon;
         }
-        &:hover {
+        &:hover,
+        &.focus-visible {
             background-color: $button__background-hover--rotate-icon;
             &:after {
                 display: none;
@@ -221,7 +230,8 @@
             z-index: $button__icon-after-z-index--icon-fill;
         }
 
-        &:hover {
+        &:hover,
+        &.focus-visible {
             @include button-fill-bg();
             background-color: $button__background-hover--icon-fill;
         }
@@ -234,27 +244,54 @@
     &--add-to {
         overflow: hidden;
         @include add-to-button(block);
-        @include mq($screen-m) {
-            @include add-to-button(none);
-        }
 
         &:before {
             display: $button__before-display--add-to;
         }
 
         &:after {
+            display: $button__after-display--add-to;
             top: $button__after-position-top--add-to;
             left: $button__after-position-left--add-to;
             transform: $button__after-transform--add-to;
         }
 
-        .button__icon {
-            fill: $white;
+        &:hover,
+        &.focus-visible {
+            background-color: $button__background-hover--add-to;
+
+            &:before {
+                display: $button__before-display-hover--add-to;
+            }
+
+            &:after {
+                display: $button__after-display-hover--add-to;
+                transform: $button__after-transform-hover--add-to;
+            }
         }
 
-        &:hover {
+        .button__icon {
+            fill: $button__icon-fill--add-to;
+        }
+
+        @include mq($screen-m) {
+            @include add-to-button(none);
+        }
+
+        @include mq($screen-l) {
             &:after {
-                transform: $button__after-transform-hover--add-to;
+                display: $button__after-display--add-to\@large;
+            }
+
+            &:hover,
+            &.focus-visible {
+                &:before {
+                    display: $button__before-display-hover--add-to\@large;
+                }
+
+                &:after {
+                    display: $button__after-display-hover--add-to\@large;
+                }
             }
         }
     }

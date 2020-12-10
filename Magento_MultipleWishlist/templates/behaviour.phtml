@@ -222,8 +222,8 @@
         </div>
     </div>
 </script>
-<script 
-    id="split-btn-tmpl" 
+<script
+    id="split-btn-tmpl"
     type="text/x-magento-template"
 >
     <button
@@ -273,11 +273,14 @@
                         dropdown-list__label
                         button
                         button--icon
+                        product-view__button--wishlist
+                        multiwishlist-btn-<%- data.wishlists[0].params.data.product %>
                     "
                     title="<%- window.jQuery.mage.__('Wish List') %>"
                     type="button"
                     aria-expanded="false"
                     aria-controls="<%- data.dropdownContent %>"
+                    aria-label="<%- window.jQuery.mage.__('Add product to your wish list') %>"
                 >
                     <svg
                         class="
@@ -336,7 +339,7 @@
                                     <%- item.name %>
                                 </span>
                             <% } else { %>
-                                <li 
+                                <li
                                     class="
                                         list__item
                                         padding-0
@@ -346,9 +349,14 @@
                                         role="button"
                                         tabindex="0"
                                         data-action-keypress="true"
-                                        data-post='<%- JSON.stringify(item.params) %>'
-                                        data-action="add-to-wishlist"
                                         title="<%- item.name %>"
+                                        data-mage-init='{
+                                            "wishlistItem": {
+                                                "class": "button--icon-filled",
+                                                "addToParams": <%- JSON.stringify(item.params) %>,
+                                                "isEEVersion": true
+                                            }
+                                        }'
                                     >
                                         <%- item.name %>
                                     </span>

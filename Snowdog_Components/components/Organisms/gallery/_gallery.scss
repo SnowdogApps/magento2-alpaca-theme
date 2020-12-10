@@ -110,10 +110,24 @@
     }
 
     &__placeholder-image {
-        position: absolute;
-        top: 50%;
-        left: 0;
-        width: 100%;
-        transform: translateY(-50%);
+        max-height: 100%;
+        width: auto;
+        // sum of fotorama__stage padding & fotorama__nav__frame height
+        padding-bottom: calc(#{$spacer--medium} + 30px);
+
+        @include mq($screen-m) {
+            padding-bottom: 0;
+        }
+
+        @include mq($screen-l) {
+            max-height: none;
+        }
+
+        &.ratio-image {
+            @include mq($screen-l) {
+                top: 0;
+                transform: translate(-50%, 0);
+            }
+        }
     }
 }

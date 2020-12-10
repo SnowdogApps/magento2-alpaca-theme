@@ -11,7 +11,11 @@ define([], function () {
     }
 
     mobileNav.addEventListener('click', () => {
+      const ariaExpandedCurrent = mobileNav.getAttribute('aria-expanded'),
+            ariaExpandedNew = (ariaExpandedCurrent === 'true');
+
       mobileNav.classList.toggle('dashboard-nav__mobile--active');
+      mobileNav.setAttribute('aria-expanded', `${!ariaExpandedNew}`);
       content.classList.toggle('dashboard-nav__content--visible');
     });
   };

@@ -1,29 +1,29 @@
 <?php $placeholder = htmlspecialchars(trim($this->getPlaceholder())); ?>
 <div class="input">
     <textarea
-        name='<?= $this->getFieldName() ?>'
-        id='<?= $this->getFieldId() ?>'
+        name='<?= $block->escapeHtmlAttr($this->getFieldName()) ?>'
+        id='<?= $block->escapeHtmlAttr($this->getFieldId()) ?>'
         class='
             input__field
             input__field--textarea
-            <?= $this->getFieldClass() ?>
+            <?= $block->escapeHtmlAttr($this->getFieldClass()) ?>
         '
-        placeholder="<?= $placeholder ?>"
-        style='<?= $this->getFieldStyle() ?>'
+        placeholder="<?= $block->escapeHtmlAttr($placeholder) ?>"
+        style='<?= $block->escapeHtmlAttr($this->getFieldStyle()) ?>'
         <?php if ($this->getField()->getHideLabel()): ?>
-            aria-label="<?= $this->getField()->getName() ?>"
+            aria-label="<?= $block->escapeHtmlAttr($this->getField()->getName()) ?>"
         <?php else: ?>
-            aria-labelledby="label_<?= $this->getFieldId() ?>"
+            aria-labelledby="label_<?= $block->escapeHtmlAttr($this->getFieldId()) ?>"
         <?php endif; ?>
         <?php if ($this->getField()->getRequired()): ?>
             aria-required="true"
         <?php endif; ?>
         <?php if ($this->getField()->getBrowserAutocomplete()): ?>
-            autocomplete="<?= $this->getField()->getBrowserAutocomplete() ?>"
+            autocomplete="<?= $block->escapeHtmlAttr($this->getField()->getBrowserAutocomplete()) ?>"
         <?php endif ?>
         <?php if ($this->getField()->getDisabled()): ?>
             disabled
         <?php endif ?>
-        <?= htmlspecialchars($this->getField()->getCustomAttributes()) ?>
-    ><?= $this->getFieldValue(); ?></textarea>
+        <?= /* @noEscape */ htmlspecialchars($this->getField()->getCustomAttributes()) ?>
+    ><?= $block->escapeHtml($this->getFieldValue()); ?></textarea>
 </div>

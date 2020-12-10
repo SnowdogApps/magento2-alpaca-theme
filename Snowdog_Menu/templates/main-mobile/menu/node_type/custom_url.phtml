@@ -2,14 +2,19 @@
 <?php
     $attributes = [];
     $class = $block->getMenuClass();
-    $classLink = $block->getIsRoot() ? $class . '__label link--invert' : $class . '__label';
-    $title = $block->getTitle();
-    $isContent = $block->getIsParent();
+    $isViewAllLink = $block->getIsViewAllLink();
+    if ($isViewAllLink) {
+        $title = __('View All');
+        $classLink = $class . '__label link--invert';
+    } else {
+        $classLink = $block->getIsRoot() ? $class . '__label link--invert' : $class . '__label';
+        $title = $block->getTitle();
+        $isContent = $block->getIsParent();
 
-    if ($block->getId() && $isContent) {
-        $attributes[] = 'aria-controls="dropdown-' . $block->getId() . '"';
+        if ($block->getId() && $isContent) {
+            $attributes[] = 'aria-controls="dropdown-' . $block->getId() . '"';
+        }
     }
-
     $attributes[] = 'class="' . $classLink . '"';
 
     if ($block->getTarget()) {
@@ -17,20 +22,20 @@
     }
 ?>
 <a
-    href="<?= $block->getContent() ?>"
-    <?= implode(' ', $attributes) ?>
-    <?php if ($isContent): ?>
+    href="<?= $block->escapeUrl($block->getContent()) ?>"
+    <?= /* @noEscape */ implode(' ', $attributes) ?>
+    <?php if ($isContent && !$isViewAllLink): ?>
         role="button"
         aria-expanded="false"
     <?php endif; ?>
 >
-    <?= $title ?>
-    <?php if ($isContent): ?>
+    <?= $block->escapeHtml($title) ?>
+    <?php if ($isContent && !$isViewAllLink): ?>
         <svg
             class="
                 icon
-                <?= $class ?>__icon
-                <?= ($block->getLevel() > 0) ? $class . '__icon--inner' : '' ?>
+                <?= $block->escapeHtmlAttr($class) ?>__icon
+                <?= ($block->getLevel() > 0) ? $block->escapeHtmlAttr($class) . '__icon--inner' : '' ?>
             "
             role="presentation"
             focusable="false"
