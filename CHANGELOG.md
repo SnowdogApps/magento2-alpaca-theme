@@ -61,6 +61,7 @@ All notable changes to this project will be documented in this file.
 ### Removed
 - unnecessary header-button margin styles (#68780)
 - focus effect from button-add-to on mobile & desktop (caused issues on touch screens) (#73623)
+- duplicated stock status for configurable products (#73939)
 
 ## [Released]
 ## [2.10.0] - 2020-10-21
