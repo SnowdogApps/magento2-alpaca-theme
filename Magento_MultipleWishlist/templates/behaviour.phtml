@@ -273,6 +273,8 @@
                         dropdown-list__label
                         button
                         button--icon
+                        product-view__button--wishlist
+                        multiwishlist-btn-<%- data.wishlists[0].params.data.product %>
                     "
                     title="<%- window.jQuery.mage.__('Wish List') %>"
                     type="button"
@@ -347,9 +349,14 @@
                                         role="button"
                                         tabindex="0"
                                         data-action-keypress="true"
-                                        data-post='<%- JSON.stringify(item.params) %>'
-                                        data-action="add-to-wishlist"
                                         title="<%- item.name %>"
+                                        data-mage-init='{
+                                            "wishlistItem": {
+                                                "class": "button--icon-filled",
+                                                "addToParams": <%- JSON.stringify(item.params) %>,
+                                                "isEEVersion": true
+                                            }
+                                        }'
                                     >
                                         <%- item.name %>
                                     </span>

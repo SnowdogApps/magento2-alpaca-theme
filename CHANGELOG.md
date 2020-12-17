@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+## [Released]
+## [2.11.0] - 2020-12-10
+
 ### Added
 - adjustems to store credit templates (#72456) Affects: store credit daschboard & checkout payment step
 - store credit dashboard to components (#72456)
@@ -31,6 +35,13 @@ All notable changes to this project will be documented in this file.
 - amasty styles loading (#73336)
 - product-grid-item on safari (#73677)
 - reward points tooltips position on cart view - moved inside messages (#70571)
+- buttons alignemnt on PDP for out of stock product (#72455)
+- adding products to wishlist with ajax (on grid, catalog, PDP) with selected product options (#70731)
+- bundle product - price styling in wishlist (#70731)
+- bundle/downloadable PDP for editing wishlist item - broken layout (#70731)
+- bundle/configurable PDP for editing wishlist item - selected options don't save after clicking "update wish list" (#70731)
+- breadcrumbs on PDP - missing crumbs when some navigation nodes have type "wrapper" (#73409)
+- magepack issues with config generation for configurable products (#73183)
 
 ### Changed
 - a11y features on PDP - headings order, bundle fields, price labels, buttons labels, qty update buttons, rating form (#66039); Affects: bundles options and price templates, add to cart sticky, qty update implementation, rating, requires templates update is overwritten
@@ -50,6 +61,7 @@ All notable changes to this project will be documented in this file.
 ### Removed
 - unnecessary header-button margin styles (#68780)
 - focus effect from button-add-to on mobile & desktop (caused issues on touch screens) (#73623)
+- duplicated stock status for configurable products (#73939)
 
 ## [Released]
 ## [2.10.0] - 2020-10-21
@@ -59,6 +71,7 @@ All notable changes to this project will be documented in this file.
 - "back" link to requisiton list page (#70586)
 ### Changed
 - requisition list toolbar styling (#70586)
+- payment method template in customer dashboard (#73941)
 
 ### Fixed
 - issue with arrows looking wrong if gallery vertical/horizontal nav breakpoints are changed via configuration (#71113); Affects: gallery navigation
@@ -80,6 +93,7 @@ All notable changes to this project will be documented in this file.
 - error on company profle page (#72234)
 - tab content in quote view - removed escaping (#72243)
 - loading state/province options (#72291)
+- order details in user dashboard (#73940)
 ### Added
 - adjust sliders loading time + add slider widget template (#65842)
 - scroll-to.js file and added it for reviews on product page (#71248); Affects: Reviews buttons on PDP

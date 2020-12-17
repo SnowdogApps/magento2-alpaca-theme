@@ -123,7 +123,7 @@ define([
             controlLabelId = 'option-label-' + productData.productId + '-' + item.code + '-' + item.id,
             options = $widget._RenderSwatchOptions(item, controlLabelId),
             select = $widget._RenderSwatchSelect(item, chooseText),
-            input = $widget._RenderFormInput(item),
+            input = $widget._RenderFormInput(item, productData),
             listLabel = '',
             label = '',
             initLoader = container.find($('.' + $widget.options.classes.initLoader)) ;
@@ -155,7 +155,7 @@ define([
             initLoader.removeClass('loader--visible');
           }
           container.append(
-            '<div class="' + classes.attributeClass + ' ' + item.code + '" ' +
+            '<div class="swatch-attribute ' + classes.attributeClass + ' ' + item.code + '" ' +
                   'data-attribute-code="' + item.code + '" ' +
                   'data-attribute-id="' + item.id + '">' +
                 label +
@@ -270,7 +270,7 @@ define([
             attr += ' data-option-empty="true"';
           }
 
-          html += '<div class="' + optionContainerClass + '" ' + attr + '><div class="' + optionClass;
+          html += '<div class="swatch-option ' + optionContainerClass + '" ' + attr + '><div class="' + optionClass;
           if (type === 0) {
             // Text
             html += '">' + (value ? value : label);
@@ -328,13 +328,14 @@ define([
          * @param {Object} config
          * @private
          */
-        _RenderFormInput: function (config) {
-          return '<input class="' + this.options.classes.attributeInput + ' super-attribute-select" ' +
+        _RenderFormInput: function (config, productData) {
+          return '<input class="swatch-input ' + this.options.classes.attributeInput + ' super-attribute-select" ' +
             'name="super_attribute[' + config.id + ']" ' +
             'type="text" ' +
             'value="" ' +
             'data-selector="super_attribute[' + config.id + ']" ' +
             'data-validate="{required: true}" ' +
+            'data-product="' + productData.productId + '"' +
             'aria-required="true" ' +
             'aria-invalid="false" ' +
             'aria-hidden="true" ' +

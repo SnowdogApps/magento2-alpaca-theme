@@ -96,7 +96,7 @@ define([
                     $(this.options.wishlistLink).each($.proxy(function (index, e) {
                         var element = $(e),
                         buttonName = element.text().trim(),
-                        generalParams = element.data('post'),
+                        generalParams = element.data('multiplewishlist'),
                         tmplData = {
                             wishlists: [],
                             generalParams: generalParams,
@@ -120,7 +120,7 @@ define([
                                 params: currentParams
                             });
                         }
-    
+
                         if (this.options.canCreate) {
                             tmplData.wishlists.push({
                                 newClass: 'new',
