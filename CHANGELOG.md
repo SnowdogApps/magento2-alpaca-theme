@@ -71,6 +71,7 @@ All notable changes to this project will be documented in this file.
 - "back" link to requisiton list page (#70586)
 ### Changed
 - requisition list toolbar styling (#70586)
+- payment method template in customer dashboard (#73941)
 
 ### Fixed
 - issue with arrows looking wrong if gallery vertical/horizontal nav breakpoints are changed via configuration (#71113); Affects: gallery navigation
