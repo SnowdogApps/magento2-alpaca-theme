@@ -93,6 +93,7 @@ All notable changes to this project will be documented in this file.
 - error on company profle page (#72234)
 - tab content in quote view - removed escaping (#72243)
 - loading state/province options (#72291)
+- order details in user dashboard (#73940)
 ### Added
 - adjust sliders loading time + add slider widget template (#65842)
 - scroll-to.js file and added it for reviews on product page (#71248); Affects: Reviews buttons on PDP
