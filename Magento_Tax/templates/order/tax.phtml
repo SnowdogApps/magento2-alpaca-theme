@@ -11,55 +11,55 @@
 ?>
 
 <?php if ($_fullInfo && $block->displayFullSummary()) : ?>
-        <?php foreach ($_fullInfo as $info) : ?>
-            <?php
-                $percent    = $info['percent'];
-                $amount     = $info['tax_amount'];
-                $baseAmount = $info['base_tax_amount'];
-                $title      = $info['title'];
-            ?>
-            <tr
-                class="
-                    totals
-                    tax
-                    details
-                    details-<?= (int) $taxIter ?>
-                    <?= ($block->getIsPlaneMode()) ? ' plane' : '' ?>
-                "
-            >
-                <td <?= /* @noEscape */ $block->getLabelProperties() ?>>
-                    <?= $block->escapeHtml($title) ?>
-                    <?php if ($percent !== null) : ?>
-                        (<?= (float) $percent ?>%)
-                    <?php endif; ?>
-                    <br />
-                </td>
-                <td <?= /* @noEscape */ $block->getValueProperties() ?> rowspan="1">
-                    <?= /* @noEscape */ $_order->formatPrice($amount) ?>
-                </td>
-            </tr>
-        <?php endforeach; ?>
+    <?php foreach ($_fullInfo as $info) : ?>
+        <?php
+            $percent    = $info['percent'];
+            $amount     = $info['tax_amount'];
+            $baseAmount = $info['base_tax_amount'];
+            $title      = $info['title'];
+        ?>
+        <tr
+            class="
+                totals
+                tax
+                details
+                details-<?= (int) $taxIter ?>
+                <?= ($block->getIsPlaneMode()) ? ' plane' : '' ?>
+            "
+        >
+            <td <?= /* @noEscape */ $block->getLabelProperties() ?>>
+                <?= $block->escapeHtml($title) ?>
+                <?php if ($percent !== null) : ?>
+                    (<?= (float) $percent ?>%)
+                <?php endif; ?>
+                <br />
+            </td>
+            <td <?= /* @noEscape */ $block->getValueProperties() ?> rowspan="1">
+                <?= /* @noEscape */ $_order->formatPrice($amount) ?>
+            </td>
+        </tr>
+    <?php endforeach; ?>
 <?php endif; ?>
 
 <?php if ($block->displayFullSummary() && $_fullInfo && !$block->getIsPlaneMode()) : ?>
-<tr class="totals-tax-summary">
+    <tr class="totals-tax-summary">
 <?php elseif ($block->displayFullSummary() && $_fullInfo && $block->getIsPlaneMode()) : ?>
-<tr class="totals-tax-summary plane">
+    <tr class="totals-tax-summary plane">
 <?php else : ?>
-<tr class="totals-tax">
+    <tr class="totals-tax">
 <?php endif; ?>
-    <td <?= /* @noEscape */ $block->getLabelProperties() ?>>
-        <?php if ($block->displayFullSummary()) : ?>
-            <div class="detailed">
+        <td <?= /* @noEscape */ $block->getLabelProperties() ?>>
+            <?php if ($block->displayFullSummary()) : ?>
+                <div class="detailed">
+                    <?= $block->escapeHtml(__('Tax')) ?>
+                </div>
+            <?php else : ?>
                 <?= $block->escapeHtml(__('Tax')) ?>
-            </div>
-        <?php else : ?>
-            <?= $block->escapeHtml(__('Tax')) ?>
-        <?php endif; ?>
-    </td>
-    <td
-        <?= /* @noEscape */ $block->getValueProperties() ?>
-    >
-        <?= /* @noEscape */ $_order->formatPrice($_source->getTaxAmount()) ?>
-    </td>
-</tr>
+            <?php endif; ?>
+        </td>
+        <td
+            <?= /* @noEscape */ $block->getValueProperties() ?>
+        >
+            <?= /* @noEscape */ $_order->formatPrice($_source->getTaxAmount()) ?>
+        </td>
+    </tr>
