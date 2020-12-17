@@ -1,8 +1,4 @@
 <?php
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
 
 /**
  * @var \Magento\Payment\Block\Info $block
@@ -11,22 +7,23 @@
 $specificInfo = $block->getSpecificInformation();
 $title = $block->escapeHtml($block->getMethod()->getTitle());
 ?>
-<dl class="payment-method">
-    <dt class="title"><?= /* @noEscape */ $title ?></dt>
-<?php if ($specificInfo) : ?>
-    <dd class="content">
-        <table class="data table">
-            <caption class="table-caption"><?= /* @noEscape */ $title ?></caption>
+<div class="payment-method">
+    <span class="title">
+        <?= /* @noEscape */ $title ?>
+    </span>
+    <?php if ($specificInfo) : ?>
+        <div class="content">
             <?php foreach ($specificInfo as $label => $value) : ?>
-                <tr>
-                    <th scope="row"><?= $block->escapeHtml($label) ?></th>
-                    <td>
+                <div>
+                    <span>
+                        <?= $block->escapeHtml($label) ?>:
+                    </span>
+                    <span>
                         <?= /* @noEscape */ nl2br($block->escapeHtml(implode("\n", $block->getValueAsArray($value, true)))) ?>
-                    </td>
-                </tr>
+                    </span>
+                </div>
             <?php endforeach; ?>
-        </table>
-    </dd>
-<?php endif;?>
-</dl>
+        </div>
+    <?php endif;?>
+</div>
 <?= $block->getChildHtml() ?>
