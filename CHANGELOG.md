@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Fixed
+- image width in requisition list (#73942)
 
 ## [Released]
 ## [2.11.0] - 2020-12-10
