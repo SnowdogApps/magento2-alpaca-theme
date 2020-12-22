@@ -1,0 +1,31 @@
+<span class="amcard-title" data-bind="i18n: 'Schedule delivery'"></span>
+<div class="amcard-radio-container">
+    <label class="amcard-label-block">
+        <input type="radio" name="is_date_delivery" class="amcard-radio" data-bind="checked: isSendLater, checkedValue: 0"/>
+        <span class="amcard-icon"></span>
+        <span class="amcard-name" data-bind="i18n: 'Send now'"></span>
+    </label>
+    <label class="amcard-label-block">
+        <input type="radio" name="is_date_delivery" class="amcard-radio" data-bind="checked: isSendLater, checkedValue: 1, afterRender: getSheduleDeliveryType.bind($data, $element.name)"/>
+        <span class="amcard-icon"></span>
+        <span class="amcard-name" data-bind="i18n: 'Send later'"></span>
+    </label>
+</div>
+<!-- ko if: isSendLater -->
+<div class="amcard-field-block -datepicker">
+    <span class="amcard-title" data-bind="i18n: 'Delivery Date'"></span>
+    <label class="amcard-label">
+        <input class="amcard-field required-entry"
+               afterRender="initDatepicker"
+               data-amcard-js="datepicker"
+               name="am_giftcard_date_delivery"
+               data-bind="value: timeValue, attr:{placeholder: 'MM/DD/YY'}, event: {change: validateValue.bind($data)}, value: getPreconfiguredValue($element.name)"/>
+    </label>
+</div>
+<div class="amcard-field-block">
+    <span class="amcard-title" data-bind="i18n: 'Timezone'"></span>
+    <select name="am_giftcard_date_delivery_timezone" data-bind="foreach: $data.timezones, value: getPreconfiguredValue($element.name)">
+        <option data-bind="text: label, value: value"></option>
+    </select>
+</div>
+<!-- /ko -->

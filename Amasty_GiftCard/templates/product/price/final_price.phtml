@@ -1,0 +1,70 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_GiftCard
+ */
+?>
+<?php
+/**
+ * phpcs:ignoreFile
+ */
+?>
+<?php /** @var \Amasty\GiftCard\Pricing\Render\FinalPriceBox $block */ ?>
+<?php $productId = $block->getSaleableItem()->getId(); ?>
+
+<?php if ($block->getCanShowPrice() !== false && !$block->isProductForm()): ?>
+    <div class="price-box">
+        <?php if (!$block->isSinglePrice()): ?>
+            <span class="price-label"><?= $block->escapeHtml(__('From')); ?></span>
+        <?php endif; ?>
+            <span class="price"
+                  id="product-price-<?= $block->escapeHtmlAttr($productId . $block->getIdSuffix()); ?>">
+            <?= $block->escapeHtml($block->convertAndFormatCurrency($block->getMinPrice(), false)); ?>
+        </span>
+    </div>
+<?php endif; ?>
+
+<?php if ($block->isProductForm()): ?>
+    <?php $currency = $block->getCurrencyShortName();
+    $product = $block->getSaleableItem(); ?>
+        <span class="price-final_price">
+            <span class="price-wrapper"
+                  data-price-amount="<?= $block->isSinglePrice()
+                      ? $block->escapeHtmlAttr($block->convertCurrency($block->getFinalPrice($product)))
+                      : '0'; ?>"
+                  data-price-type="finalPrice"
+                  id="product-price-<?= $block->escapeHtmlAttr($productId . $block->getIdSuffix()); ?>"
+            >
+                <span class="price">
+                    <?= $block->escapeHtml($block->convertAndFormatCurrency($block->getMinPrice(), false)); ?>
+                </span>
+            </span>
+        </span>
+<script type="text/x-magento-init">
+{
+    "*": {
+        "Magento_Ui/js/core/app": {
+            "components": {
+                "price": {
+                    "component": "Amasty_GiftCard/js/price",
+                    "template": "Amasty_GiftCard/price",
+                    "prices": <?= /** @noEscape */ $block->getPredefinedAmounts() ?>,
+                    "currencyCode": "<?= $block->escapeHtmlAttr($block->getCurrencyCode()) ?>",
+                    "feeType": "<?= $block->escapeHtmlAttr($product->getAmGiftcardFeeType()) ?>",
+                    "feeValue": "<?= $block->escapeHtmlAttr($product->getAmGiftcardFeeValue()) ?>",
+                    "feeStatus": "<?= $block->escapeHtmlAttr($product->getAmGiftcardFeeEnable()) ?>",
+                    "feeValueConverted": "<?= $block->escapeHtmlAttr($this->convertCurrency($product->getAmGiftcardFeeValue())) ?>",
+                    "productId": "<?= $block->escapeHtmlAttr($product->getId()); ?>",
+                    "customMinAmountCurrency": "<?= /** @noEscape */ $block->convertAndFormatCurrency($block->getOpenAmountMin(), false) ?>",
+                    "customMaxAmountCurrency": "<?= /** @noEscape */ $block->convertAndFormatCurrency($block->getOpenAmountMax(), false) ?>",
+                    "customMinAmount": "<?= $block->escapeHtmlAttr($this->convertCurrency($block->getOpenAmountMin())) ?>",
+                    "customMaxAmount": "<?= $block->escapeHtmlAttr($this->convertCurrency($block->getOpenAmountMax())) ?>",
+                    "isOpenAmount": "<?= $block->escapeHtmlAttr($block->isOpenAmount()) ?>"
+                }
+            }
+        }
+    }
+}
+</script>
+<?php endif; ?>

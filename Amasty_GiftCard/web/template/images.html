@@ -1,0 +1,57 @@
+<span class="amcard-title" data-bind="i18n: 'Choose card design'"></span>
+<div class="amcard-carousel-container">
+    <div data-amcard-js="carousel">
+        <!-- ko foreach: images -->
+        <div class="amcard-image-container">
+            <img class="amcard-image"
+                 data-bind="attr: {src: $data.src, 'data-id': $data.id, 'data-img-full-src': $data.src}"
+                 data-amcard-js="amcard-image"/>
+        </div>
+        <!-- /ko -->
+    </div>
+    <input type="text"
+           name="am_giftcard_image"
+           class="amcard-input -hidden",
+           afterRender="getPreconfiguredImageSlide.bind($data, $element.name)"
+           data-bind="value: checkedImageId, css: {'required-entry': !customImage()}"
+           data-amgiftcard-js="amcard-image-input"/>
+</div>
+
+<div class="amcard-form-container -interior" afterRender="initSlick">
+    <!-- ko if: isCustomImageAllowed -->
+    <div data-bind="visible: !customImage()">
+        <span data-bind="i18n: 'or upload your photo'"></span>
+        <div class="amcard-upload-container">
+            <label class="amcard-label-block -upload">
+                <span data-bind="i18n: 'Browse'"></span>
+                <input class="amcard-input"
+                       type="file"
+                       name="amgiftcard-userimage-input"
+                       accept=".jpg, .jpeg, .gif, .png"
+                       data-amcard-js="custom-image"
+                       data-bind="event: {change: uploadImage.bind($data, $element.files[0])}"/>
+            </label>
+            <div class="amcard-question-container" if="tooltip">
+                <p class="amcard-tooltip-container">
+                    <span class="amcard-text" data-bind="text: tooltip"></span>
+                </p>
+            </div>
+            <input type="hidden" name="am_giftcard_custom_image" data-bind="value: getPreconfiguredValue($element.name)"/>
+        </div>
+        <span class="amcard-warning" data-bind="text: errorMessage"></span>
+    </div>
+    <!-- /ko -->
+    <!-- ko if: customImage -->
+<!--    <div class="amcard-customer-image" afterAdd="getPreconfiguredImage">-->
+    <div class="amcard-customer-image">
+        <div class="amcard-container" data-bind="css: {'-active': isCustomImageChecked}">
+            <img class="amcard-image" data-bind="attr: {src: customImage().src}, click: useCustomImage.bind($data)"/>
+        </div>
+        <div class="amcard-image-information">
+            <span class="amcard-title" data-bind="i18n: 'Your Image'"></span>
+            <p class="amcard-description" data-bind="text: customImage().name"></p>
+            <button class="amcard-delete" data-bind="i18n: 'Delete', click: deleteCustomImage"></button>
+        </div>
+    </div>
+    <!-- /ko -->
+</div>
