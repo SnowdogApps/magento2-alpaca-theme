@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Added
-- add option to customize number of slides to show in product grid (#70261)
+- add option to customize number of slides to show in templates with sliders (#70261)
 
 ## [Released]
 ## [2.11.0] - 2020-12-10
