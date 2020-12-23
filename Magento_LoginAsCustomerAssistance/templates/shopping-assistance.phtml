@@ -1,9 +1,4 @@
 <?php
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
-
 use Magento\Framework\Escaper;
 use Magento\LoginAsCustomerAssistance\Api\IsAssistanceEnabledInterface;
 use Magento\LoginAsCustomerAssistance\ViewModel\ShoppingAssistanceViewModel;
@@ -25,30 +20,63 @@ $viewModel = $block->getViewModel();
 </script>
 
 <?php if ($viewModel->isLoginAsCustomerEnabled()): ?>
-    <div class="field choice">
-        <input type="checkbox"
-               name="assistance_allowed_checkbox"
-               title="<?= $escaper->escapeHtmlAttr(__($viewModel->getAssistanceCheckboxTitle())) ?>"
-               value="1"
-               id="assistance_allowed_checkbox"
-               <?php if ($viewModel->isAssistanceAllowed()): ?>checked="checked"<?php endif; ?>
-               class="checkbox">
-        <label for="assistance_allowed_checkbox" class="label">
-            <span><?= $escaper->escapeHtmlAttr(__($viewModel->getAssistanceCheckboxTitle())) ?></span>
-        </label>
+    <div
+        class="
+            field
+            choice
+            margin-bottom-l
+        "
+    >
+        <div class="checkbox">
 
-        <input type="hidden" name="assistance_allowed" value=""/>
+            <input
+                type="checkbox"
+                name="assistance_allowed_checkbox"
+                title="<?= $escaper->escapeHtmlAttr(__($viewModel->getAssistanceCheckboxTitle())) ?>"
+                value="1"
+                id="assistance_allowed_checkbox"
+                <?php if ($viewModel->isAssistanceAllowed()): ?>
+                    checked="checked"
+                <?php endif; ?>
+                class="checkbox__field"
+            />
+            <svg
+                class="
+                    checkbox__icon
+                    checkbox__icon--checked
+                "
+                role="presentation"
+                focusable="false"
+            >
+                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#checked')) ?>"></use>
+            </svg>
 
-        <div class="field-tooltip toggle">
-            <span id="tooltip-label" class="label"><span>Tooltip</span></span>
-            <span id="tooltip" class="field-tooltip-action action-help" tabindex="0" data-toggle="dropdown"
-                  data-bind="mageInit: {'dropdown':{'activeClass': '_active', 'parent': '.field-tooltip.toggle'}}"
-                  aria-labelledby="tooltip-label" aria-haspopup="true" aria-expanded="false" role="button">
-         </span>
-            <div class="field-tooltip-content" data-target="dropdown"
-                 aria-hidden="true">
-                <?= $escaper->escapeHtmlAttr(__($viewModel->getAssistanceCheckboxTooltip())) ?>
-            </div>
+            <svg
+                class="
+                    checkbox__icon
+                    checkbox__icon--unchecked
+                "
+                role="presentation"
+                focusable="false"
+            >
+                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#unchecked')) ?>"></use>
+            </svg>
+            <label
+                for="assistance_allowed_checkbox"
+                class="checkbox__label"
+            >
+                <?= $escaper->escapeHtmlAttr(__($viewModel->getAssistanceCheckboxTitle())) ?>
+            </label>
+
+            <input
+                type="hidden"
+                name="assistance_allowed"
+                value=""
+            />
         </div>
+
+        <span>
+            <?= $escaper->escapeHtmlAttr(__($viewModel->getAssistanceCheckboxTooltip())) ?>
+        </span>
     </div>
 <?php endif ?>
