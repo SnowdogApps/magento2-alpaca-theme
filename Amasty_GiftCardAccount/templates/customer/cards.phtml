@@ -1,0 +1,46 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_GiftCardAccount
+ */
+?>
+<?php /* @var $block \Amasty\GiftCardAccount\Block\Customer\Cards */ ?>
+
+<div class="amcardacc-codes-block" data-bind="scope: 'amcard-account-render'">
+    <fieldset class="fieldset">
+        <legend class="legend" data-bind="i18n: 'Gift Codes'"></legend>
+        <!-- ko template: getTemplate() --><!-- /ko -->
+    </fieldset>
+</div>
+<div class="amcardacc-template-container" data-amcardacc-js="template" data-bind="scope: 'amcard-giftcards'">
+    <div class="amcardacc-messages-container" data-bind="css: {'-visible': isVisibleMessage}">
+        <div role="alert" class="message message-error error">
+            <div data-bind="text: errorMessage"></div>
+        </div>
+    </div>
+    <!-- ko template: getTemplate() --><!-- /ko -->
+</div>
+<script type="text/x-magento-init">
+    {
+        "[data-amcardacc-js='template']": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "amcard-account-render": {
+                        "component": "Amasty_GiftCardAccount/js/view/account/codes",
+                        "template": "Amasty_GiftCardAccount/account/codes",
+                        "deleteCardUrl": "<?= $block->escapeUrl($block->getUrl('amgcard/account/remove')) ?>",
+                        "isAccount": "1"
+                    },
+                    "amcard-giftcards": {
+                        "component": "Amasty_GiftCardAccount/js/view/account/cards",
+                        "template": "Amasty_GiftCardAccount/account/cards",
+                        "addCardUrl": "<?= $block->escapeUrl($block->getUrl('amgcard/account/addCard')) ?>",
+                        "isAccount": "1",
+                        "cards": <?= /** @noEscape */ $block->getCardsFront() ?>
+                    }
+                }
+            }
+        }
+    }
+</script>
