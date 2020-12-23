@@ -1,109 +1,341 @@
 <?php
-/**
- * @author Amasty Team
- * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
- * @package Amasty_GiftCard
- */
+/** @var $block \Amasty\GiftCard\Block\Product\View\Type\GiftCard */
+$product = $block->getProduct();
 ?>
-<?php /** @var $block \Amasty\GiftCard\Block\Product\View\Type\GiftCard */ ?>
-<?php $product = $block->getProduct(); ?>
 <!-- ko scope: 'giftCard' -->
-<div class="amcard-general-container" data-bind="css: {'-visible': isContainerReady}">
+<div
+    class="amcard-general-container amgift-card"
+    data-bind="css: {
+        '-visible': isContainerReady
+    }"
+>
     <!-- ko if: giftCardType == cardTypes.combined -->
-    <div class="amcard-form-container">
-        <span class="amcard-title" data-bind="i18n: 'Want to send a physical gift card or prefer to keep things digital?'"></span>
-        <div class="amcard-flex-container -checkbox">
-            <div class="amcard-checkbox-container">
-                <input type="checkbox"
-                       id="amcard-checkbox-physical"
-                       class="amcard-checkbox"
-                       data-bind="checked: isPhysicalGift, checkedValue: 2, css: {'required-entry': !currentCardType()}"/>
-                <label for="amcard-checkbox-physical" class="amcard-label">
-                    <span class="amcard-name" data-bind="i18n: 'Physical Gift Card'"></span>
-                </label>
-            </div>
-            <div class="amcard-checkbox-container">
-                <input type="checkbox"
-                       id="amcard-checkbox-egift"
-                       class="amcard-checkbox"
-                       data-bind="checked: isEGift, checkedValue: 1, css: {'required-entry': !currentCardType()}"/>
-                <label for="amcard-checkbox-egift" class="amcard-label">
-                    <span class="amcard-name" data-bind="i18n: 'e-Gift Card'"></span>
-                </label>
-            </div>
+        <div
+            class="
+                amcard-form-container
+                margin-bottom-s
+            "
+
+        >
+            <fieldset class="fieldset">
+                <legend
+                    class="amcard-title"
+                    data-bind="i18n: 'Want to send a physical gift card or prefer to keep things digital?'"
+                ></legend>
+
+                <div
+                    class="
+                        amcard-flex-container
+                        -checkbox
+                    "
+                >
+                    <div
+                        class="
+                            amcard-checkbox-container
+                            checkbox
+                        "
+                    >
+                        <input
+                            type="checkbox"
+                            id="amcard-checkbox-physical"
+                            class="
+                                amcard-checkbox
+                                checkbox__field
+                            "
+                            data-bind="
+                                checked: isPhysicalGift,
+                                checkedValue: 2,
+                                css: {'required-entry': !currentCardType()}
+                            "
+                        />
+                        <svg
+                            role="presentation"
+                            focusable="false"
+                            class="
+                                checkbox__icon
+                                checkbox__icon--checked
+                            "
+                        >
+                            <use data-bind="attr: { 'xlink:href': require.toUrl('images/icons-sprite.svg#checked') }" xlink:href=''></use>
+                        </svg>
+
+                        <svg
+                            role="presentation"
+                            focusable="false"
+                            class="
+                                checkbox__icon
+                                checkbox__icon--unchecked
+                            "
+                        >
+                            <use data-bind="attr: { 'xlink:href': require.toUrl('images/icons-sprite.svg#unchecked') }" xlink:href=''></use>
+                        </svg>
+                        <label
+                            for="amcard-checkbox-physical"
+                            class="
+                                label
+                                checkbox__label
+                            "
+                        >
+                            <span
+                                class="amcard-name"
+                                data-bind="i18n: 'Physical Gift Card'"
+                            ></span>
+                        </label>
+                    </div>
+                    <div
+                        class="
+                            amcard-checkbox-container
+                            checkbox
+                        "
+                    >
+                        <input
+                            type="checkbox"
+                            id="amcard-checkbox-egift"
+                            class="
+                                amcard-checkbox
+                                checkbox__field
+                            "
+                            data-bind="
+                                checked: isEGift,
+                                checkedValue: 1, css: {'required-entry': !currentCardType()}
+                            "
+                        />
+                        <svg
+                            role="presentation"
+                            focusable="false"
+                            class="
+                                checkbox__icon
+                                checkbox__icon--checked
+                            "
+                        >
+                            <use data-bind="attr: { 'xlink:href': require.toUrl('images/icons-sprite.svg#checked') }" xlink:href=''></use>
+                        </svg>
+
+                        <svg
+                            role="presentation"
+                            focusable="false"
+                            class="
+                                checkbox__icon
+                                checkbox__icon--unchecked
+                            "
+                        >
+                            <use data-bind="attr: { 'xlink:href': require.toUrl('images/icons-sprite.svg#unchecked') }" xlink:href=''></use>
+                        </svg>
+                        <label
+                            for="amcard-checkbox-egift"
+                            class="
+                                label
+                                checkbox__label
+                            "
+                        >
+                            <span
+                                class="amcard-name"
+                                data-bind="i18n: 'e-Gift Card'"
+                            ></span>
+                        </label>
+                    </div>
+                </div>
+                <input
+                    type="text"
+                    name="am_giftcard_type"
+                    class="
+                        amcard-input
+                        -hidden
+                        required-entry
+                    "
+                    data-bind="
+                        value: currentCardType,
+                        afterRender: getGiftCardType.bind($data, $element.name)
+                    "
+                />
+            </fieldset>
         </div>
-        <input type="text"
-               name="am_giftcard_type"
-               class="amcard-input -hidden required-entry"
-               data-bind="value: currentCardType, afterRender: getGiftCardType.bind($data, $element.name)"/>
-    </div>
     <!-- /ko -->
-    <div class="amcard-form-container" data-bind="scope: 'price'">
+    <div
+        class="amcard-form-container"
+        data-bind="scope: 'price'"
+    >
         <!-- ko template: getTemplate() --><!-- /ko -->
     </div>
-    <div class="amcard-form-container -interior" data-bind="scope: 'images'">
+    <div
+        class="
+            amcard-form-container
+            -interior
+        "
+        data-bind="scope: 'images'"
+    >
         <!-- ko template: getTemplate() --><!-- /ko -->
     </div>
     <div class="amcard-form-container">
         <div class="amcard-flex-container">
             <!-- ko if: isShowField('am_giftcard_sender_name') -->
-            <div class="amcard-field-container">
-                <span class="amcard-title" data-bind="i18n: 'Your Name'"></span>
-                <div class="amcard-field-block">
-                    <input type="text"
-                           class="amcard-field required-entry"
-                           name="am_giftcard_sender_name"
-                           data-amcard-js="field"
-                           data-bind="attr: {placeholder: $t('Enter Sender Name')}, value: getPreconfiguredValue($element.name)"/>
+                <div class="amcard-field-container">
+                    <div
+                        class="
+                            amcard-field-block
+                            input
+                        "
+                    >
+                        <label
+                            class="
+                                amcard-title
+                                label
+                                input__label
+                            "
+                            data-bind="i18n: 'Your Name'"
+                            for="am_giftcard_sender_name"
+                        ></label>
+                        <input
+                            type="text"
+                            class="
+                                amcard-field
+                                required-entry
+                                input__field
+                            "
+                            name="am_giftcard_sender_name"
+                            data-amcard-js="field"
+                            id="am_giftcard_sender_name"
+                            data-bind="
+                                attr: {
+                                    placeholder: $t('Enter Sender Name')
+                                },
+                                value: getPreconfiguredValue($element.name)
+                            "
+                        />
+                    </div>
                 </div>
-            </div>
             <!-- /ko -->
             <!-- ko if: isShowField('am_giftcard_recipient_name') && (!isPhysicalGift() || isEGift()) -->
-            <div class="amcard-field-container">
-                <span class="amcard-title" data-bind="i18n: 'Recipient Name'"></span>
-                <div class="amcard-field-block">
-                    <input type="text"
-                           class="amcard-field required-entry"
-                           name="am_giftcard_recipient_name"
-                           data-amcard-js="field"
-                           data-bind="attr: {placeholder: $t('Enter Recipient Name')}, value: getPreconfiguredValue($element.name)"/>
+                <div
+                    class="
+                        amcard-field-container
+                        input
+                    "
+                >
+                    <div class="amcard-field-block">
+                        <label
+                            class="
+                                amcard-title
+                                label
+                                input__label
+                            "
+                            data-bind="i18n: 'Recipient Name'"
+                            for="am_giftcard_recipient_name"
+                        ></label>
+                        <input
+                            type="text"
+                            class="
+                                amcard-field
+                                required-entry
+                                input__field
+                            "
+                            name="am_giftcard_recipient_name"
+                            id="am_giftcard_recipient_name"
+                            data-amcard-js="field"
+                            data-bind="
+                                attr: {
+                                    placeholder: $t('Enter Recipient Name')
+                                },
+                                value: getPreconfiguredValue($element.name)
+                            "
+                        />
+                    </div>
                 </div>
-            </div>
             <!-- /ko -->
         </div>
         <!-- ko if: !isPhysicalGift() || isEGift() -->
-        <span class="amcard-title" data-bind="i18n: 'Recipient Email'"></span>
-        <div class="amcard-field-block">
-            <input type="text"
-                   class="amcard-field required-entry"
-                   name="am_giftcard_recipient_email"
-                   data-amcard-js="field"
-                   data-bind="attr: {placeholder: $t('Enter Recipient Email')}, value: getPreconfiguredValue($element.name)"/>
-        </div>
+            <div
+                class="
+                    amcard-field-block
+                    input
+                "
+            >
+                <label
+                    class="
+                        amcard-title
+                        label
+                        input__label
+                    "
+                    data-bind="i18n: 'Recipient Email'"
+                    for="am_giftcard_recipient_email"
+                ></label>
+                <input
+                    type="text"
+                    class="
+                        amcard-field
+                        required-entry
+                        input__field
+                    "
+                    name="am_giftcard_recipient_email"
+                    id="am_giftcard_recipient_email"
+                    data-amcard-js="field"
+                    data-bind="
+                        attr: {
+                            placeholder: $t('Enter Recipient Email')
+                        },
+                        value: getPreconfiguredValue($element.name)
+                    "
+                />
+            </div>
         <!-- /ko -->
         <!-- ko if: isShowField('am_giftcard_message') -->
-        <span class="amcard-title" data-bind="i18n: 'Message'"></span>
-        <div class="amcard-field-block">
-            <textarea class="amcard-field"
-                      name="am_giftcard_message"
-                      cols="30" rows="2"
-                      data-amgiftcard-js="textarea"
-                      data-amcard-js="field"
-                      data-bind="attr: {placeholder: $t('Enter your message')}, value: getPreconfiguredValue($element.name)"></textarea>
-            <span data-amcard-js="char-counter"></span>
-        </div>
+            <div class="amcard-field-block input input--textarea">
+                <span
+                    class="
+                        amcard-title
+                        label
+                        input__label
+                    "
+                    data-bind="i18n: 'Message'"
+                ></span>
+                <textarea
+                    class="
+                        amcard-field
+                        input__field
+                        input__field--textarea
+                    "
+                    name="am_giftcard_message"
+                    cols="30"
+                    rows="2"
+                    data-amgiftcard-js="textarea"
+                    data-amcard-js="field"
+                    data-bind="
+                        attr: {
+                            placeholder: $t('Enter your message')
+                        },
+                        value: getPreconfiguredValue($element.name)
+                    "></textarea>
+                <span data-amcard-js="char-counter"></span>
+            </div>
         <!-- /ko -->
     </div>
     <!-- ko if: isEGift() || giftCardType == cardTypes.virtual -->
-    <div class="amcard-preview-container">
-        <input type="button" class="amcard-button" data-bind="value: $t('Preview Gift Card'), click: openGiftPreview"/>
-        <div class="amcard-preview" data-amcard-js="preview"></div>
-    </div>
+        <div class="amcard-preview-container margin-bottom-s">
+            <input
+                type="button"
+                class="
+                    amcard-button
+                    button
+                    amgift-card__content-button
+                "
+                data-bind="
+                    value: $t('Preview Gift Card'),
+                    click: openGiftPreview
+                "
+            />
+            <div
+                class="amcard-preview"
+                data-amcard-js="preview"
+            ></div>
+        </div>
     <!-- /ko -->
     <!-- ko if: isShowField('am_giftcard_date_delivery') -->
-    <div class="amcard-form-container" data-bind="scope: 'datepicker'">
-        <!-- ko template: getTemplate() --><!-- /ko -->
-    </div>
+        <div
+            class="amcard-form-container"
+            data-bind="scope: 'datepicker'"
+        >
+            <!-- ko template: getTemplate() --><!-- /ko -->
+        </div>
     <!-- /ko -->
 </div>
 <!-- /ko -->

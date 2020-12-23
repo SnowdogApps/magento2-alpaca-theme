@@ -41,7 +41,10 @@
                 <use data-bind="attr: {'xlink:href': require.toUrl('images/icons-sprite.svg#angle-down')}" xlink:href=''></use>
             </svg>
         </div>
-        <div class="cart-discount__content" data-role="content">
+        <div
+            class="cart-discount__content"
+            data-role="content"
+        >
             <div class="amcard-codes-list">
                 <!-- ko foreach: getRegion('messages') -->
                     <!-- ko template: getTemplate() --><!-- /ko -->
@@ -49,13 +52,15 @@
 
                 <!-- ko foreach: applyCodes().split(',')  -->
                     <!-- ko if: $data.length > 0 -->
-                    <div>
+                    <div class="cart-discount__codes-list">
                         <span data-bind="text: $data"></span>
                         <button
                             class="
                                 amcard-delete
                                 button
                                 button--secondary
+                                margin-left-l
+                                margin-top-s
                             "
                             type="button"
                             data-bind="
@@ -69,13 +74,19 @@
                     <!-- /ko -->
                 <!-- /ko -->
             </div>
-            <div class="cart-discount__controls padding-top-s">
+            <div
+                class="
+                    cart-discount__controls
+                    padding-top-s
+                "
+            >
                 <div
                     class="
                         amcard-field-block
                         -double
                         -code
-                        input cart-discount__content-input
+                        input
+                        cart-discount__content-input
                     "
                 >
                     <label
@@ -92,6 +103,7 @@
                     </label>
                     <input
                         type="text"
+                        id="gift-code-fake"
                         class="
                             amcard-field
                             input__field
@@ -115,7 +127,10 @@
                     "
                     data-bind="
                         click: apply.bind($data),
-                        attr: {value: $t('Add Code')}
+                        attr: {
+                            value: $t('Add Code'),
+                            'aria-label': $t('Add Code')
+                        }
                     "
                 />
             </div>
@@ -123,7 +138,8 @@
             <button
                 class="
                     amcard-check
-                    button cart-discount__content-button
+                    button
+                    cart-discount__content-button
                 "
                 data-bind="
                     i18n: 'Check Status',

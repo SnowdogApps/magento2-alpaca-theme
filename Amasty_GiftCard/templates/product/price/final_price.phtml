@@ -1,25 +1,24 @@
 <?php
 /**
- * @author Amasty Team
- * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
- * @package Amasty_GiftCard
- */
-?>
-<?php
-/**
  * phpcs:ignoreFile
  */
 ?>
-<?php /** @var \Amasty\GiftCard\Pricing\Render\FinalPriceBox $block */ ?>
-<?php $productId = $block->getSaleableItem()->getId(); ?>
+<?php
+/** @var \Amasty\GiftCard\Pricing\Render\FinalPriceBox $block */
+$productId = $block->getSaleableItem()->getId();
+?>
 
 <?php if ($block->getCanShowPrice() !== false && !$block->isProductForm()): ?>
     <div class="price-box">
         <?php if (!$block->isSinglePrice()): ?>
-            <span class="price-label"><?= $block->escapeHtml(__('From')); ?></span>
+            <span class="price-label">
+                <?= $block->escapeHtml(__('From')); ?>
+            </span>
         <?php endif; ?>
-            <span class="price"
-                  id="product-price-<?= $block->escapeHtmlAttr($productId . $block->getIdSuffix()); ?>">
+        <span
+            class="price price__value"
+            id="product-price-<?= $block->escapeHtmlAttr($productId . $block->getIdSuffix()); ?>"
+        >
             <?= $block->escapeHtml($block->convertAndFormatCurrency($block->getMinPrice(), false)); ?>
         </span>
     </div>
@@ -29,12 +28,18 @@
     <?php $currency = $block->getCurrencyShortName();
     $product = $block->getSaleableItem(); ?>
         <span class="price-final_price">
-            <span class="price-wrapper"
-                  data-price-amount="<?= $block->isSinglePrice()
-                      ? $block->escapeHtmlAttr($block->convertCurrency($block->getFinalPrice($product)))
-                      : '0'; ?>"
-                  data-price-type="finalPrice"
-                  id="product-price-<?= $block->escapeHtmlAttr($productId . $block->getIdSuffix()); ?>"
+            <span
+                class="
+                    price-wrapper
+                    price__value
+                "
+                data-price-amount="
+                    <?= $block->isSinglePrice()
+                        ? $block->escapeHtmlAttr($block->convertCurrency($block->getFinalPrice($product)))
+                        : '0'; ?>
+                "
+                data-price-type="finalPrice"
+                id="product-price-<?= $block->escapeHtmlAttr($productId . $block->getIdSuffix()); ?>"
             >
                 <span class="price">
                     <?= $block->escapeHtml($block->convertAndFormatCurrency($block->getMinPrice(), false)); ?>
