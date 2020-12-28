@@ -255,7 +255,6 @@ define([
             ' index="' + index + '"' +
             ' aria-selected="false"' +
             ' aria-checked="false"' +
-            ' aria-describedby="' + controlId + '"' +
             ' tabindex="0"' +
             ' data-option-type="' + type + '"' +
             ' data-option-id="' + id + '"' +
