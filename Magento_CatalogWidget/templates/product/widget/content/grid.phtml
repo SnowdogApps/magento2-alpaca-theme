@@ -16,18 +16,24 @@ use Magento\Framework\App\Action\Action;
     $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
     $description = false;
 
+    $sliderSlidesToShow = $block->getSliderSlidesToShow();
+    $sliderSlidesToShow767 = $block->getSliderSlidesToShow767();
+    $sliderSlidesToShow1023 = $block->getSliderSlidesToShow1023();
+
     //slider config
     $sliderArrows           = true;
     $sliderItemClass        = 'slider__item';
     $sliderClass            = 'slider--products';
     $sliderInfinite         = 'no';
-    $sliderSlidesToShow     = '2';
+    $sliderSlidesToShow     = $sliderSlidesToShow ? $sliderSlidesToShow : '2';
+    $sliderSlidesToShow767  = $sliderSlidesToShow767 ? $sliderSlidesToShow767 : '3';
+    $sliderSlidesToShow1023 = $sliderSlidesToShow1023 ? $sliderSlidesToShow1023 : '4';
     $sliderSlidesToScroll   = '1';
     $sliderResponsiveConfig = '[
         {
             "breakpoint": 767,
             "settings": {
-                "slidesToShow": 3,
+                "slidesToShow":' . $sliderSlidesToShow767 . ',
                 "slidesToScroll": 1,
                 "dots": false
             }
@@ -35,7 +41,7 @@ use Magento\Framework\App\Action\Action;
         {
             "breakpoint": 1023,
             "settings": {
-                "slidesToShow": 4,
+                "slidesToShow":' . $sliderSlidesToShow1023 . ',
                 "slidesToScroll": 1,
                 "dots": false
             }
