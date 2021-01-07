@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Fixed
+- paypal button covers popups on PDP and cart (#73943)
+- message in review section requires spaces bewteen links in text (#73943)
 - image width in requisition list (#73942)
 
 ## [Released]
