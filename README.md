@@ -40,7 +40,7 @@ Additional, non-opensource modules the theme works with to cover additional feat
 
 ## Installation
 Install whole package using composer:
-`composer require snowdog/alpaca-packages`
+`composer require snowdog/module-alpaca-packages`
 
 Node >=12.13.0 <13.0.0 is required for frontools and components
 
