@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 - paypal button covers popups on PDP and cart (#73943)
 - message in review section requires spaces bewteen links in text (#73943)
 - image width in requisition list (#73942)
+- search result pages (#68876)
 ### Added
 - option to customize number of slides to show in templates with sliders (#70261)
 
