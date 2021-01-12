@@ -1,5 +1,6 @@
 <?php
 /** @var $block \Magento\RequisitionList\Block\Catalog\Product\View\Addto\Requisition */
+$productSku = $block->getProduct()->getSku();
 ?>
 <div
     class="
@@ -21,8 +22,8 @@
                         "editModuleName": "requisition_<?= (int) $block->getComponentId() ?>.edit",
                         "title": "<?= $block->escapeJs(__('Add to Requisition List')); ?>",
                         "action": "<?= $block->escapeUrl($block->getUrl('requisition_list/item/add')); ?>",
-                        "sku": "<?= $block->escapeJs($block->getProduct()->getSku()) ?>",
-                        "productFormSelector": "#product_addtocart_form"
+                        "sku": "<?= $block->escapeJs($productSku) ?>",
+                        "productFormSelector": "form[data-product-sku='<?= $block->escapeJs($productSku) ?>']"
                     },
                     "requisition_<?= (int) $block->getComponentId() ?>.edit": {
                         "component": "Magento_RequisitionList/js/requisition/list/edit",

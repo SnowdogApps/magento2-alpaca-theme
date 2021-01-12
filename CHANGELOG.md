@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Updated
+- theme to Magento 2.3.6 (#72223)
 ### Fixed
 - paypal button covers popups on PDP and cart (#73943)
 - message in review section requires spaces bewteen links in text (#73943)
