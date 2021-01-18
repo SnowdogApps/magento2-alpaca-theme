@@ -42,6 +42,7 @@ All notable changes to this project will be documented in this file.
 - bundle/configurable PDP for editing wishlist item - selected options don't save after clicking "update wish list" (#70731)
 - breadcrumbs on PDP - missing crumbs when some navigation nodes have type "wrapper" (#73409)
 - magepack issues with config generation for configurable products (#73183)
+- scss variable for grid on PDP (#71511)
 
 ### Changed
 - a11y features on PDP - headings order, bundle fields, price labels, buttons labels, qty update buttons, rating form (#66039); Affects: bundles options and price templates, add to cart sticky, qty update implementation, rating, requires templates update is overwritten
