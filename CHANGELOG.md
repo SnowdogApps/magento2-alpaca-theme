@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 - message in review section requires spaces bewteen links in text (#73943)
 - image width in requisition list (#73942)
 - search result pages (#68876)
+- conatiner top space on PDP, category, home (#74745)
 ### Added
 - option to customize number of slides to show in templates with sliders (#70261)
 
