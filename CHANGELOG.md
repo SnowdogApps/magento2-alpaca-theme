@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+## [Released]
+
+## [2.12.0] - 2021-01-19
 ### Updated
 - theme to Magento 2.3.6 (#72223)
 ### Fixed
@@ -9,11 +13,16 @@ All notable changes to this project will be documented in this file.
 - message in review section requires spaces bewteen links in text (#73943)
 - image width in requisition list (#73942)
 - search result pages (#68876)
+- scss variable for grid on PDP (#71511)
+- order details in user dashboard (#73940)
 - conatiner top space on PDP, category, home (#74745)
 ### Added
 - option to customize number of slides to show in templates with sliders (#70261)
+### Removed
+- duplicated stock status for configurable products (#73939)
+### Changed
+- payment method template in customer dashboard (#73941)
 
-## [Released]
 ## [2.11.0] - 2020-12-10
 
 ### Added
@@ -52,7 +61,6 @@ All notable changes to this project will be documented in this file.
 - bundle/configurable PDP for editing wishlist item - selected options don't save after clicking "update wish list" (#70731)
 - breadcrumbs on PDP - missing crumbs when some navigation nodes have type "wrapper" (#73409)
 - magepack issues with config generation for configurable products (#73183)
-- scss variable for grid on PDP (#71511)
 
 ### Changed
 - a11y features on PDP - headings order, bundle fields, price labels, buttons labels, qty update buttons, rating form (#66039); Affects: bundles options and price templates, add to cart sticky, qty update implementation, rating, requires templates update is overwritten
@@ -72,7 +80,6 @@ All notable changes to this project will be documented in this file.
 ### Removed
 - unnecessary header-button margin styles (#68780)
 - focus effect from button-add-to on mobile & desktop (caused issues on touch screens) (#73623)
-- duplicated stock status for configurable products (#73939)
 
 ## [Released]
 ## [2.10.0] - 2020-10-21
@@ -82,7 +89,6 @@ All notable changes to this project will be documented in this file.
 - "back" link to requisiton list page (#70586)
 ### Changed
 - requisition list toolbar styling (#70586)
-- payment method template in customer dashboard (#73941)
 
 ### Fixed
 - issue with arrows looking wrong if gallery vertical/horizontal nav breakpoints are changed via configuration (#71113); Affects: gallery navigation
@@ -104,7 +110,7 @@ All notable changes to this project will be documented in this file.
 - error on company profle page (#72234)
 - tab content in quote view - removed escaping (#72243)
 - loading state/province options (#72291)
-- order details in user dashboard (#73940)
+
 ### Added
 - adjust sliders loading time + add slider widget template (#65842)
 - scroll-to.js file and added it for reviews on product page (#71248); Affects: Reviews buttons on PDP
