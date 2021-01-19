@@ -4,6 +4,25 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ## [Released]
+
+## [2.12.0] - 2021-01-19
+### Updated
+- theme to Magento 2.3.6 (#72223)
+### Fixed
+- paypal button covers popups on PDP and cart (#73943)
+- message in review section requires spaces bewteen links in text (#73943)
+- image width in requisition list (#73942)
+- search result pages (#68876)
+- scss variable for grid on PDP (#71511)
+- order details in user dashboard (#73940)
+- conatiner top space on PDP, category, home (#74745)
+### Added
+- option to customize number of slides to show in templates with sliders (#70261)
+### Removed
+- duplicated stock status for configurable products (#73939)
+### Changed
+- payment method template in customer dashboard (#73941)
+
 ## [2.11.0] - 2020-12-10
 
 ### Added
@@ -91,6 +110,7 @@ All notable changes to this project will be documented in this file.
 - error on company profle page (#72234)
 - tab content in quote view - removed escaping (#72243)
 - loading state/province options (#72291)
+
 ### Added
 - adjust sliders loading time + add slider widget template (#65842)
 - scroll-to.js file and added it for reviews on product page (#71248); Affects: Reviews buttons on PDP

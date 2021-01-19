@@ -12,10 +12,9 @@
 <?php
     /** @var \Snowdog\CategoryAttributes\ViewModel\ImageSize $categoryImageViewModel */
     $categoryImageViewModel = $block->getCategoryImageViewModel();
-    $_helper = $this->helper(Magento\Catalog\Helper\Output::class);
     $_category = $block->getCurrentCategory();
     $_imgHtml = '';
-    if ($_imgUrl = $_category->getImageUrl()) {
+    if ($_imgUrl = $block->getImage()->getUrl($_category)) {
         $imgSize = $categoryImageViewModel->get($_category);
         $imgWidth = $imgSize['width'];
         $imgHeight = $imgSize['height'];
@@ -41,7 +40,7 @@
                 />
             </div>
         ';
-        $_imgHtml = $_helper->categoryAttribute($_category, $_imgHtml, 'image');
+        $_imgHtml = $block->getOutput()->categoryAttribute($_category, $_imgHtml, 'image');
         /* @noEscape */ echo $_imgHtml;
     }
 ?>

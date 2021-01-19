@@ -2,42 +2,44 @@
 
 <tr id="order-item-row-<?= $block->escapeHtmlAttr($_item->getId()) ?>">
     <td data-th="<?= $block->escapeHtmlAttr(__('Product Name')) ?>">
-        <?= $block->escapeHtml($_item->getName()) ?>
+        <div>
+            <?= $block->escapeHtml($_item->getName()) ?>
 
-        <?php if ($_options = $block->getItemOptions()): ?>
-            <ul class="list">
-                <?php foreach ($_options as $_option): ?>
-                    <li>
-                        <?= $block->escapeHtml($_option['label']) ?>
+            <?php if ($_options = $block->getItemOptions()): ?>
+                <ul class="list">
+                    <?php foreach ($_options as $_option): ?>
+                        <li>
+                            <?= $block->escapeHtml($_option['label']) ?>:
 
-                        <?php if (!$block->getPrintStatus()): ?>
-                            <?php $_formatedOptionValue = $block->getFormatedOptionValue($_option) ?>
+                            <?php if (!$block->getPrintStatus()): ?>
+                                <?php $_formatedOptionValue = $block->getFormatedOptionValue($_option) ?>
 
-                            <?= $block->escapeHtml($_formatedOptionValue['value'], ['a', 'img']) ?>:&nbsp;
+                                <?= $block->escapeHtml($_formatedOptionValue['value'], ['a', 'img']) ?>&nbsp;
 
-                            <?php if (isset($_formatedOptionValue['full_view'])): ?>
+                                <?php if (isset($_formatedOptionValue['full_view'])): ?>
+                                    <strong>
+                                        <?= $block->escapeHtml($_option['label']) ?>:&nbsp;
+                                        <?= $block->escapeHtml($_formatedOptionValue['full_view']) ?>
+                                    </strong>
+                                <?php endif; ?>
+                            <?php else: ?>
                                 <strong>
-                                    <?= $block->escapeHtml($_option['label']) ?>:&nbsp;
-                                    <?= $block->escapeHtml($_formatedOptionValue['full_view']) ?>
+                                    <?= $block->escapeHtml((isset($_option['print_value']) ? $_option['print_value'] : $_option['value'])) ?>
                                 </strong>
                             <?php endif; ?>
-                        <?php else: ?>
-                            <strong>
-                                <?= $block->escapeHtml((isset($_option['print_value']) ? $_option['print_value'] : $_option['value'])) ?>
-                            </strong>
-                        <?php endif; ?>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
-        <?php endif; ?>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?>
 
-        <?php $addtInfoBlock = $block->getProductAdditionalInformationBlock(); ?>
+            <?php $addtInfoBlock = $block->getProductAdditionalInformationBlock(); ?>
 
-        <?php if ($addtInfoBlock): ?>
-            <?= $addtInfoBlock->setItem($_item)->toHtml() ?>
-        <?php endif; ?>
+            <?php if ($addtInfoBlock): ?>
+                <?= $addtInfoBlock->setItem($_item)->toHtml() ?>
+            <?php endif; ?>
 
-        <?= $block->escapeHtml($_item->getDescription()) ?>
+            <?= $block->escapeHtml($_item->getDescription()) ?>
+        </div>
     </td>
 
     <td data-th="<?= $block->escapeHtmlAttr(__('SKU')) ?>">

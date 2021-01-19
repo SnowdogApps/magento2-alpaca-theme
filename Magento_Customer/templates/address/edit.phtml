@@ -63,15 +63,18 @@
                     required
                 "
             >
-                <label for="street_1" class="label">
-                    <?= /* @noEscape */ $block->getAttributeData()->getFrontendLabel('street') ?>
+                <label
+                    for="street_1"
+                    class="label"
+                >
+                    <?= /* @noEscape */ $block->getAttributeData()->getFrontendLabel('street') . (__(': Line 1')) ?>
                 </label>
 
                 <input
                     type="text"
                     name="street[]"
                     value="<?= $block->escapeHtmlAttr($block->getStreetLine(1)) ?>"
-                    title="<?= $block->escapeHtmlAttr($block->getAttributeData()->getFrontendLabel('street')) ?>"
+                    title="<?= $block->escapeHtmlAttr($block->getAttributeData()->getFrontendLabel('street') . (__(': Line 1'))) ?>"
                     id="street_1"
                     class="
                         input__field
@@ -83,20 +86,21 @@
 
 
             <?php $_streetValidationClass = trim(str_replace('required-entry', '', $_streetValidationClass)); ?>
-            <?php for ($_i = 1, $_n = $this->helper(\Magento\Customer\Helper\Address::class)->getStreetLines(); $_i < $_n; $_i++) : ?>
+            <?php $_n = $this->helper(\Magento\Customer\Helper\Address::class)->getStreetLines() ?>
+            <?php for ($_i = 1; $_i < $_n; $_i++): ?>
                 <div class="input">
                     <label
                         class="label"
                         for="street_<?= $_i + 1 ?>"
                     >
-                        <span><?= $block->escapeHtml(__('Street Address %1', $_i + 1)) ?></span>
+                        <span><?= $block->escapeHtml(__('Street Address: Line %1', $_i + 1)) ?></span>
                     </label>
 
                     <input
                         type="text"
                         name="street[]"
                         value="<?= $block->escapeHtmlAttr($block->getStreetLine($_i + 1)) ?>"
-                        title="<?= $block->escapeHtmlAttr(__('Street Address %1', $_i + 1)) ?>"
+                        title="<?= $block->escapeHtmlAttr(__('Street Address: Line %1', $_i + 1)) ?>"
                         id="street_<?= $_i + 1 ?>"
                         class="
                             input__field
@@ -431,7 +435,7 @@
         },
         "#country": {
             "regionUpdater": {
-                "optionalRegionAllowed": <?= $block->getConfig('general/region/display_all') ? 'true' : 'false' ?>,
+                "optionalRegionAllowed": <?= /* @noEscape */ $block->getConfig('general/region/display_all') ? 'true' : 'false' ?>,
                 "regionListId": "#region_id",
                 "regionInputId": "#region",
                 "postcodeId": "#zip",
