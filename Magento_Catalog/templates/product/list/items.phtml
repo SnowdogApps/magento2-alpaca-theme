@@ -5,6 +5,7 @@ use Magento\Catalog\ViewModel\Product\Listing\PreparePostData;
 use Magento\Framework\App\ActionInterface;
 
 /* @var $block \Magento\Catalog\Block\Product\AbstractProduct */
+/** @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer */
 
 // TODO get magento version without objectManager
 $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
@@ -12,6 +13,8 @@ $productMetadata = $objectManager->get('Magento\Framework\App\ProductMetadataInt
 ?>
 
 <?php
+$_item = null;
+
 switch ($type = $block->getType()) {
     case 'related-rule':
         if ($exist = $block->hasItems()) {
@@ -23,6 +26,7 @@ switch ($type = $block->getType()) {
             $items = $block->getAllItems();
             $limit = $block->getPositionLimit();
             $shuffle = (int) $block->isShuffled();
+            $isWeightedRandom = (int) $block->getRotation()->isWeightedRandom($block->getProductListType());
             $canItemsAddToCart = $block->canItemsAddToCart();
 
             $showAddTo = true;
@@ -43,6 +47,7 @@ switch ($type = $block->getType()) {
             $items = $block->getItems();
             $limit = 0;
             $shuffle = 0;
+            $isWeightedRandom = 0;
             $canItemsAddToCart = $block->canItemsAddToCart();
 
             $showAddTo = true;
@@ -62,6 +67,7 @@ switch ($type = $block->getType()) {
             $items = $block->getAllItems();
             $limit = $block->getPositionLimit();
             $shuffle = (int) $block->isShuffled();
+            $isWeightedRandom = (int) $block->getRotation()->isWeightedRandom($block->getProductListType());
 
             $showAddTo = true;
             $showCart = true;
@@ -82,6 +88,7 @@ switch ($type = $block->getType()) {
             $items = $block->getItemCollection()->getItems();
             $limit = $block->getItemLimit('upsell');
             $shuffle = 0;
+            $isWeightedRandom = 0;
 
             $showAddTo = true;
             $showCart = true;
@@ -149,6 +156,9 @@ switch ($type = $block->getType()) {
 
     case 'other':
     break;
+
+    default:
+        $exist = null;
 }
 ?>
 <?php
@@ -189,16 +199,18 @@ $sliderResponsiveConfig = '[
     <?php if ($type == 'related' || $type == 'upsell'): ?>
         <?php if ($type == 'related'): ?>
             <section
-                class="section <?= $class ?>"
-                data-limit="<?= $limit ?>"
-                data-shuffle="<?= $shuffle ?>"
+                class="section <?= $block->escapeHtmlAttr($class) ?>"
+                data-limit="<?= $block->escapeHtmlAttr($limit) ?>"
+                data-shuffle="<?= /* @noEscape */ $shuffle ?>"
+                data-shuffle-weighted="<?= /* @noEscape */ $isWeightedRandom ?>"
             >
         <?php else: ?>
             <section
-                class="section <?= $class ?>"
+                class="section <?= $block->escapeHtmlAttr($class) ?>"
                 data-mage-init='{ "upsellProducts": {} }'
-                data-limit="<?= $limit ?>"
-                data-shuffle="<?= $shuffle ?>"
+                data-limit="<?= $block->escapeHtmlAttr($limit) ?>"
+                data-shuffle="<?= /* @noEscape */ $shuffle ?>"
+                data-shuffle-weighted="<?= /* @noEscape */ $isWeightedRandom ?>"
             >
         <?php endif; ?>
     <?php else: ?>
@@ -243,6 +255,10 @@ $sliderResponsiveConfig = '[
                         <?= $block->escapeHtmlAttr($sliderItemClass) ?>
                         <?= $key + 1 === 1 ? 'active' : '' ?>
                     "
+                    <?php if ($type == 'related' || $type == 'upsell'): ?>
+                        id="product-item_<?= /* @noEscape */ $_item->getId() ?>"
+                        data-shuffle-group="<?= $block->escapeHtmlAttr($_item->getPriority()) ?>"
+                    <?php endif; ?>
                 >
                     <div
                         class="
@@ -326,6 +342,7 @@ $sliderResponsiveConfig = '[
                                     <?= $block->getProductPrice($_item) ?>
                                 </div>
                                 <?php if ($showAddTo || $showCart): ?>
+                                    <?php // phpcs:disable ?>
                                     <div
                                         class="
                                             product-grid-item__actions
@@ -335,41 +352,19 @@ $sliderResponsiveConfig = '[
                                     >
                                         <?php if ($showAddTo): ?>
                                             <?php if ($addToBlock = $block->getChildBlock('addto')): ?>
-                                                <div class="product-grid-item__secondary-action">
+                                                <div
+                                                    class="product-grid-item__secondary-action"
+                                                    data-role="add-to-links"
+                                                >
                                                     <?= $addToBlock->setProduct($_item)->getChildHtml() ?>
                                                 </div>
                                             <?php endif; ?>
                                         <?php endif; ?>
+
                                         <?php if ($showCart): ?>
                                             <?php if ($_item->isSaleable()): ?>
                                                 <div class="product-grid-item__primary-action">
-                                                    <!-- Adding to cart with ajax when product has required option and is available -->
-                                                    <?php
-                                                        /** @var $viewModel PreparePostData */
-                                                        $viewModel = $block->getViewModel();
-                                                        $postArray = $viewModel->getPostData(
-                                                            $block->escapeUrl($block->getAddToCartUrl($_item)),
-                                                            ['product' => $_item->getEntityId()]
-                                                        );
-                                                        $postParams = $postArray['data'][ActionInterface::PARAM_NAME_URL_ENCODED];
-                                                    ?>
-                                                    <form
-                                                        data-role="tocart-form"
-                                                        data-product-sku="<?= $block->escapeHtmlAttr($_item->getSku()) ?>"
-                                                        action="<?= $block->escapeUrl($block->getAddToCartUrl($_item)) ?>"
-                                                        method="post"
-                                                    >
-                                                        <input
-                                                            type="hidden"
-                                                            name="product"
-                                                            value="<?= /* @noEscape */ (int)$_item->getEntityId() ?>"
-                                                        >
-                                                        <input
-                                                            type="hidden"
-                                                            name="<?= /* @noEscape */ Magento\Framework\App\Action\Action::PARAM_NAME_URL_ENCODED ?>"
-                                                            value="<?= /* @noEscape */ $postParams ?>"
-                                                        >
-                                                        <?= $block->getBlockHtml('formkey') ?>
+                                                    <?php if (!$_item->getTypeInstance()->isPossibleBuyFromList($_item)): ?>
                                                         <button
                                                             class="
                                                                 button
@@ -377,7 +372,12 @@ $sliderResponsiveConfig = '[
                                                                 tocart
                                                                 action
                                                             "
-                                                            type="submit"
+                                                            data-mage-init='{
+                                                                "redirectUrl": {
+                                                                    "url": "<?= $block->escapeUrl($block->getAddToCartUrl($_item)) ?>"
+                                                                }
+                                                            }'
+                                                            type="button"
                                                             aria-label="<?= $block->escapeHtmlAttr(__('Add to Cart')) ?>"
                                                             data-testid="add-to-cart-button"
                                                         >
@@ -389,7 +389,56 @@ $sliderResponsiveConfig = '[
                                                                 <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#shopping-cart')) ?>"></use>
                                                             </svg>
                                                         </button>
-                                                    </form>
+                                                    <?php else :?>
+                                                        <!-- Adding to cart with ajax when product has required option and is available -->
+                                                        <?php
+                                                        /** @var $viewModel PreparePostData */
+                                                        $viewModel = $block->getViewModel();
+                                                        $postArray = $viewModel->getPostData(
+                                                            $block->escapeUrl($block->getAddToCartUrl($_item)),
+                                                            ['product' => $_item->getEntityId()]
+                                                        );
+                                                        $value = $postArray['data'][ActionInterface::PARAM_NAME_URL_ENCODED];
+                                                        ?>
+                                                        <form
+                                                            data-role="tocart-form"
+                                                            data-product-sku="<?= $block->escapeHtmlAttr($_item->getSku()) ?>"
+                                                            action="<?= $block->escapeUrl($block->getAddToCartUrl($_item)) ?>"
+                                                            method="post"
+                                                        >
+                                                            <input
+                                                                type="hidden"
+                                                                name="product"
+                                                                value="<?= /* @noEscape */ (int)$_item->getEntityId() ?>"
+                                                            >
+                                                            <input
+                                                                type="hidden"
+                                                                name="<?= /* @noEscape */ ActionInterface::PARAM_NAME_URL_ENCODED?>"
+                                                                value="<?= /* @noEscape */ $value ?>"
+                                                            >
+                                                            <?= $block->getBlockHtml('formkey') ?>
+                                                            <button
+                                                                class="
+                                                                    button
+                                                                    button--add-to
+                                                                    tocart
+                                                                    action
+                                                                "
+                                                                type="submit"
+                                                                aria-label="<?= $block->escapeHtmlAttr(__('Add to Cart')) ?>"
+                                                                data-testid="add-to-cart-button"
+                                                            >
+                                                                <svg
+                                                                    class="icon button__icon"
+                                                                    role="presentation"
+                                                                    focusable="false"
+                                                                >
+                                                                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#shopping-cart')) ?>"></use>
+                                                                </svg>
+                                                            </button>
+                                                        </form>
+                                                    <?php endif; ?>
+
                                                     <?php if (!$block->isRedirectToCartEnabled()) :?>
                                                         <script type="text/x-magento-init">
                                                         {
@@ -415,6 +464,7 @@ $sliderResponsiveConfig = '[
                                             <?php endif; ?>
                                         <?php endif; ?>
                                     </div>
+                                    <?php // phpcs:enable ?>
                                 <?php endif; ?>
                             </div>
                         </section>
@@ -434,4 +484,15 @@ $sliderResponsiveConfig = '[
             <?= $sliderBlockAfter->toHtml(); ?>
         </div>
     </section>
+    <?php if (!$block->isRedirectToCartEnabled() && $_item): ?>
+        <script type="text/x-magento-init">
+        {
+            "[data-role=tocart-form], .form.map.checkout": {
+                "catalogAddToCart": {
+                    "product_sku": "<?= $block->escapeJs($_item->getSku()) ?>"
+                }
+            }
+        }
+        </script>
+    <?php endif;?>
 <?php endif; ?>

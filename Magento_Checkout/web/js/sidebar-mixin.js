@@ -103,7 +103,6 @@ define([
 
                 this._on(this.element, events);
                 this._calcHeight();
-                this._isOverflowed();
             },
         });
 

@@ -1,0 +1,149 @@
+<!-- ko if: isGiftCardEnable() -->
+    <div
+        class="
+            payment-option
+            _collapsible
+            opc-payment-additional
+            amgift-code
+            discount-code
+        "
+        data-bind="mageInit: {'collapsible':{'openedState': '_active'}}"
+    >
+        <div
+            class="
+                payment-option-title
+                field
+                choice
+                discount-code__button
+            "
+            data-role="title"
+        >
+            <span
+                class="
+                    action
+                    action-toggle
+                    discount-code__button-text
+                "
+                id="block-gift-card-heading"
+                role="heading"
+                aria-level="2"
+            >
+                <!-- ko i18n: 'Apply Gift Card Code'--><!-- /ko -->
+            </span>
+            <svg
+                class="
+                    icon
+                    discount-code__button-icon
+                "
+                role="presentation"
+            >
+                <use data-bind="attr: {'xlink:href': require.toUrl('images/icons-sprite.svg#angle-down')}" xlink:href=''></use>
+            </svg>
+        </div>
+        <div
+            class="
+                payment-option-content
+                discount-code__content
+            "
+            data-role="content"
+        >
+            <div class="amcard-codes-list">
+                <!-- ko foreach: getRegion('messages') -->
+                    <!-- ko template: getTemplate() --><!-- /ko -->
+                <!--/ko-->
+
+                <!-- ko foreach: applyCodes().split(',')  -->
+                    <!-- ko if: $data.length > 0 -->
+                        <div class="discount-code__codes-list">
+                            <div class="width-full">
+                                <span data-bind="text: $data"></span>
+                                <button
+                                    class="
+                                        amcard-delete
+                                        button
+                                        button--secondary
+                                        margin-left-l
+                                        margin-bottom-xs
+                                    "
+                                    data-bind="
+                                        text: $t('Remove'),
+                                        attr: {title: $t('Remove')},
+                                        click: $parent.removeSelected.bind($parent, $data),
+                                        'value': $data
+                                    "
+                                ></button>
+                            </div>
+                        </div>
+                    <!-- /ko -->
+                <!-- /ko -->
+            </div>
+            <div class="payment-option-inner">
+                <div
+                    class="
+                        amcard-field-block
+                        -double
+                        input
+                        input--inline
+                        discount-code__input
+                    "
+                >
+                    <label
+                        class="
+                            input__label
+                            label
+                            label--hidden
+                        "
+                        for="gift-code-fake"
+                    >
+                        <span
+                            data-bind="i18n: 'Enter gift card code'"
+                        ></span>
+                    </label>
+                    <input
+                        type="text"
+                        class="
+                            amcard-field
+                            input__field
+                            cart-discount__content-field
+                        "
+                        id="gift-code-fake"
+                        data-validate="{'required-entry':true}"
+                        data-bind="
+                            attr: {placeholder: $t('Enter your Code')},
+                            value: cardCode
+                        "
+                    />
+                    <input
+                        type="button"
+                        class="
+                            amcard-button
+                            button
+                            cart-discount__content-button
+                            amgift-card__content-button
+                        "
+                        data-bind="
+                            click: apply.bind($data),
+                            attr: {value: $t('Add Code')}
+                        "
+                    />
+                </div>
+                <button
+                    class="
+                        amcard-check
+                        button
+                        cart-discount__content-button
+                    "
+                    data-bind="
+                        i18n: 'Check Status',
+                        click: check.bind($data)
+                    "
+                ></button>
+            </div>
+            <!-- ko if: isCart -->
+                <div data-bind="scope: 'amcard-cart-render'">
+                    <!-- ko template: getTemplate() --><!-- /ko -->
+                </div>
+            <!-- /ko -->
+        </div>
+    </div>
+<!-- /ko -->

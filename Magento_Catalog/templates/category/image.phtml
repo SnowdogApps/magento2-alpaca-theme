@@ -14,7 +14,9 @@
     $categoryImageViewModel = $block->getCategoryImageViewModel();
     $_category = $block->getCurrentCategory();
     $_imgHtml = '';
-    if ($_imgUrl = $block->getImage()->getUrl($_category)) {
+?>
+<?php if ($_imgUrl = $block->getImage()->getUrl($_category)): ?>
+    <?php
         $imgSize = $categoryImageViewModel->get($_category);
         $imgWidth = $imgSize['width'];
         $imgHeight = $imgSize['height'];
@@ -41,6 +43,6 @@
             </div>
         ';
         $_imgHtml = $block->getOutput()->categoryAttribute($_category, $_imgHtml, 'image');
-        /* @noEscape */ echo $_imgHtml;
-    }
-?>
+    ?>
+    <?= /* @noEscape */ $_imgHtml; ?>
+<?php endif; ?>

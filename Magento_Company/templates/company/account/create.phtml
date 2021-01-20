@@ -2,13 +2,15 @@
 // phpcs:disable Magento2.Templates.ThisInTemplate
 use Magento\Customer\Block\Widget\Gender;
 use Magento\Customer\Block\Widget\Name;
-use Magento\Directory\Helper\Data;
-?>
-<?php
+use Magento\Company\Block\Company\Account\Create;
+use Magento\Directory\Helper\Data as DirectoryHelper;
+use Magento\Framework\View\Helper\SecureHtmlRenderer;
+
 /**
  * Create account form template
  *
- * @var $block \Magento\Company\Block\Company\Account\Create
+ * @var Create $block
+ * @var SecureHtmlRenderer $secureRenderer
  */
 ?>
 <div class="container auth">
@@ -425,8 +427,8 @@ use Magento\Directory\Helper\Data;
         </form>
     </div>
 </div>
-<?php $countries = $this->helper(Data::class)->getCountriesWithOptionalZip(true) ?>
-<script>
+
+<?php $scriptString = <<<script
     require([
         'jquery',
         'mage/mage'
@@ -439,7 +441,15 @@ use Magento\Directory\Helper\Data;
             ignore: ignore ? ':hidden:not(' + ignore + ')' : ':hidden'
         }).find('input:text').attr('autocomplete', 'off');
     });
-</script>
+script;
+?>
+<?= /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false); ?>
+
+<?php
+/** @var DirectoryHelper $directoryDataHelper */
+$directoryDataHelper = $block->getData('directoryDataHelper');
+$countries = $directoryDataHelper->getCountriesWithOptionalZip(true);
+?>
 <script type="text/x-magento-init">
     {
         "#country_id": {
@@ -449,7 +459,7 @@ use Magento\Directory\Helper\Data;
                 "regionInputId": "#region",
                 "postcodeId": "#zip",
                 "form": "#form-validate",
-                "regionJson": <?= /* @noEscape */ $this->helper(Data::class)->getRegionJson() ?>,
+                "regionJson": <?= /* @noEscape */ $directoryDataHelper->getRegionJson() ?>,
                 "defaultRegion": "",
                 "countriesWithOptionalZip": <?= /* @noEscape */ $countries ?>
             }

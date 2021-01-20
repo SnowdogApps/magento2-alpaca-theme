@@ -1,16 +1,19 @@
 <?php
-
 /**
  * Multishipping checkout billing information
  *
  * @var $block \Magento\Multishipping\Block\Checkout\Billing
+ * @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer
  */
 ?>
-<script>
-    window.checkoutConfig = <?= /* @noEscape */ $block->getCheckoutData()->getSerializedCheckoutConfigs(); ?>;
+<?php $checkoutConfig = /* @noEscape */ $block->getCheckoutData()->getSerializedCheckoutConfigs();
+$scriptString = <<<script
+    window.checkoutConfig = {$checkoutConfig};
     window.isCustomerLoggedIn = window.checkoutConfig.isCustomerLoggedIn;
     window.customerData = window.checkoutConfig.customerData;
-</script>
+script;
+?>
+<?= /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false) ?>
 <div
     id="checkout"
     data-bind="scope:'checkoutMessages'"
@@ -191,12 +194,13 @@
         </div>
     </div>
 </form>
-<script>
+<?php $quoteBaseGrandTotal = (float)$block->getQuoteBaseGrandTotal();
+$scriptString = <<<script
     require(['jquery', 'mage/mage'], function(jQuery) {
         var addtocartForm = jQuery('#multishipping-billing-form');
 
         addtocartForm.mage('payment', {
-            checkoutPrice: <?= (float) $block->getQuoteBaseGrandTotal() ?>
+            checkoutPrice: {$quoteBaseGrandTotal}
         });
 
         addtocartForm.mage('validation', {
@@ -209,33 +213,38 @@
             }
         });
     });
-</script>
+script;
+?>
+<?= /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false) ?>
 
-<script>
+<?php $scriptString = <<<script
     //<![CDATA[
     require(
         [
             'Magento_Checkout/js/model/quote',
             'jquery',
             'domReady!'
-        ],
-        function(quote, $) {
+        ], function(quote, $) {
             quote.billingAddress({
-                city: '<?= /* @noEscape */ $block->getAddress()->getCity() ?>',
-                company: '<?= /* @noEscape */ $block->getAddress()->getCompany(); ?>',
-                countryId: '<?= /* @noEscape */ $block->getAddress()->getCountryId(); ?>',
-                customerAddressId: '<?= /* @noEscape */ $block->getAddress()->getCustomerAddressId(); ?>',
-                customerId: '<?= /* @noEscape */ $block->getAddress()->getCustomerId(); ?>',
-                fax: '<?= /* @noEscape */ $block->getAddress()->getFax(); ?>',
-                firstname: '<?= /* @noEscape */ $block->getAddress()->getFirstname(); ?>',
-                lastname: '<?= /* @noEscape */ $block->getAddress()->getLastname(); ?>',
-                postcode: '<?= /* @noEscape */ $block->getAddress()->getPostcode(); ?>',
-                regionId: '<?= /* @noEscape */ $block->getAddress()->getRegionId(); ?>',
-                regionCode: '<?= /* @noEscape */ $block->getAddress()->getRegionCode() ?>',
-                region: '<?= /* @noEscape */ $block->getAddress()->getRegion(); ?>',
-                street: <?= /* @noEscape */ json_encode($block->getAddress()->getStreet()); ?>,
-                telephone: '<?= /* @noEscape */ $block->getAddress()->getTelephone(); ?>'
+script;
+$scriptString .= "city: '" . /* @noEscape */ $block->getAddress()->getCity() . "'," . PHP_EOL;
+$scriptString .= "company: '" . /* @noEscape */ $block->getAddress()->getCompany() . "'," . PHP_EOL;
+$scriptString .= "countryId: '" . /* @noEscape */ $block->getAddress()->getCountryId() . "'," . PHP_EOL;
+$scriptString .= "customerAddressId: '" . /* @noEscape */ $block->getAddress()->getCustomerAddressId() . "'," . PHP_EOL;
+$scriptString .= "customerId: '" . /* @noEscape */ $block->getAddress()->getCustomerId() . "'," . PHP_EOL;
+$scriptString .= "fax: '" . /* @noEscape */ $block->getAddress()->getFax() . "'," . PHP_EOL;
+$scriptString .= "firstname: '" . /* @noEscape */ $block->getAddress()->getFirstname() . "'," . PHP_EOL;
+$scriptString .= "lastname: '" . /* @noEscape */ $block->getAddress()->getLastname() . "'," . PHP_EOL;
+$scriptString .= "postcode: '" . /* @noEscape */ $block->getAddress()->getPostcode() . "'," . PHP_EOL;
+$scriptString .= "regionId: '" . /* @noEscape */ $block->getAddress()->getRegionId() . "'," . PHP_EOL;
+$scriptString .= "regionCode: '" . /* @noEscape */ $block->getAddress()->getRegionCode() . "'," . PHP_EOL;
+$scriptString .= "region: '" . /* @noEscape */ $block->getAddress()->getRegion() . "'," . PHP_EOL;
+$scriptString .= "street: " . /* @noEscape */ json_encode($block->getAddress()->getStreet()) . "," . PHP_EOL;
+$scriptString .= "telephone: '" . /* @noEscape */ $block->getAddress()->getTelephone() . "'" . PHP_EOL;
+$scriptString .= <<<script
             });
         });
     //]]>
-</script>
+script;
+?>
+<?= /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false) ?>
