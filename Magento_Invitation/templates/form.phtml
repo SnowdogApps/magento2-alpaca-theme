@@ -1,10 +1,9 @@
-<?php
-// phpcs:disable Magento2.Templates.ThisInTemplate
-// phpcs:disable Generic.Files.LineLength
-?>
 <?php /** @var $block \Magento\Invitation\Block\Form */?>
 <?= $block->getChildHtml('form_before') ?>
-
+<?php
+/** @var \Magento\Invitation\Helper\Data $invitationHelper */
+$invitationHelper = $block->getData('invitationHelper');
+?>
 <?php $maxPerSend = $block->getMaxInvitationsPerSend(); ?>
 <?php if ($maxPerSend) : ?>
     <form
@@ -56,8 +55,7 @@
             <?php if ($block->isInvitationMessageAllowed()) : ?>
                 <div
                     id="max-emails-message"
-                    style="display: none;"
-                    class="message"
+                    class="message display-none"
                     role="alert"
                 >
                     <?= $block->escapeHtml(
@@ -119,8 +117,7 @@
             <div class="actions-group__handler">
                 <a
                     href="
-                        <?= $block->escapeUrl($this->helper(\Magento\Invitation\Helper\Data::class)
-                            ->getCustomerInvitationUrl()) ?>
+                        <?= $block->escapeUrl($invitationHelper->getCustomerInvitationUrl()) ?>
                     "
                     class="
                         link
@@ -182,8 +179,7 @@
         <div class="actions-group__handler">
             <a
                 href="
-                    <?= $block->escapeUrl($this->helper(\Magento\Invitation\Helper\Data::class)
-                        ->getCustomerInvitationUrl()) ?>
+                    <?= $block->escapeUrl($invitationHelper->getCustomerInvitationUrl()) ?>
                 "
                 class="
                     link

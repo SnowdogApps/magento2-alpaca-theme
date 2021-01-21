@@ -824,7 +824,7 @@ define([
       ],
       'validate-state': [
           function (value) {
-              return value !== 0 || value === '';
+              return value !== 0;
           },
           $.mage.__('Please select State/Province.')
       ],
@@ -1053,12 +1053,12 @@ define([
           $.mage.__('This link is not allowed.')
       ],
       'validate-dob': [
-          function (value) {
+          function (value, param, params) {
               if (value === '') {
                   return true;
               }
 
-              return moment(value).isBefore(moment());
+              return moment.utc(value, params.dateFormat).isSameOrBefore(moment.utc());
           },
           $.mage.__('The Date of Birth should not be greater than today.')
       ]

@@ -1,13 +1,12 @@
 <?php
-/**
- * @var $block \Magento\RequisitionList\Block\Requisition\View\Details
- */
+/** @var $block \Magento\RequisitionList\Block\Requisition\View\Details */
+/** @var $escaper \Magento\Framework\Escaper */
 ?>
 <!-- ko scope: 'remove_items_massaction' -->
 <button
     type="button"
-    aria-label="<?= $block->escapeHtmlAttr(__('Remove Selected')) ?>"
-    data-mobile-label="<?= $block->escapeHtmlAttr(__('Remove')) ?>"
+    aria-label="<?= $escaper->escapeHtmlAttr(__('Remove Selected')) ?>"
+    data-mobile-label="<?= $escaper->escapeHtmlAttr(__('Remove')) ?>"
     class="
         dashboard-actions-toolbar__item
         button
@@ -19,9 +18,10 @@
         requisition_id: '<?= (int) $block->getRequest()->getParam('requisition_id') ?>'
     })"
 >
-    <?= $block->escapeHtml(__('Remove Selected')) ?>
+    <?= $escaper->escapeHtml(__('Remove Selected')) ?>
 </button>
 <!-- /ko -->
+<?php $content = __('Are you sure you would like to remove selected items from the requisition list?'); ?>
 <script type="text/x-magento-init">
     {
         "*": {
@@ -32,11 +32,11 @@
                         "selectProvider": "requisition.item.grid.selection.provider",
                         "hasConfirm": true,
                         "confirmConfig": {
-                            "content": "Are you sure you would like to remove selected items from the requisition list?",
+                            "content": "<?= $escaper->escapeJs($content) ?>",
                             "modalClass": "requisition-popup modal-slide",
-                            "confirmLabel": "<?= $block->escapeJs(__('Delete')) ?>"
+                            "confirmLabel": "<?= $escaper->escapeJs(__('Delete')) ?>"
                         },
-                        "action": "<?= $block->escapeUrl($block->getUrl('requisition_list/item/delete')) ?>"
+                        "action": "<?= $escaper->escapeUrl($block->getUrl('requisition_list/item/delete')) ?>"
                     }
                 }
             }

@@ -1,7 +1,8 @@
 <?php
 /** @var \Magento\Review\Block\Product\ReviewRenderer $block */
+/** @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer */
 
-$urlForm = $block->escapeUrl($block->getReviewsUrl()) . '#review-form';
+$urlForm = $block->getReviewsUrl() . '#review-form';
 ?>
 <?php if ($block->isReviewEnabled() && $block->getReviewsCount()): ?>
     <?php $rating = $block->escapeHtmlAttr($block->getRatingSummary()); ?>
@@ -12,6 +13,7 @@ $urlForm = $block->escapeUrl($block->getReviewsUrl()) . '#review-form';
             ?>
             <div
                 class="rating rating--secondary"
+                id="rating-result_<?= /* @noEscape */ $block->getProduct()->getId() ?>"
                 role="region"
                 aria-label="<?= $block->escapeHtmlAttr(__('Average rating for ')) . $productName ?>: <?= $block->escapeHtmlAttr($rating) ?>%"
                 title="<?= $block->escapeHtmlAttr(__('Average rating for ')) . $productName ?>: <?= $block->escapeHtmlAttr($rating) ?>%"
@@ -24,6 +26,10 @@ $urlForm = $block->escapeUrl($block->getReviewsUrl()) . '#review-form';
                 >
                     <span class="rating__indicator"></span>
                 </div>
+                <?= /* @noEscape */ $secureRenderer->renderStyleAsTag(
+                    'width:' . $rating . '%',
+                    '#rating-result_' . $block->getProduct()->getId() . ' .rating__star'
+                ) ?>
             </div>
         <?php endif;?>
     </div>
@@ -32,14 +38,13 @@ $urlForm = $block->escapeUrl($block->getReviewsUrl()) . '#review-form';
         class="
             rating
             rating--empty
-            "
-        >
+        "
+    >
         <a
             class="action add"
             href="<?= $block->escapeHtmlAttr($urlForm) ?>"
         >
-            <?=  $block->escapeHtml(__('Be the first to review this product')) ?>
+            <?= $block->escapeHtml(__('Be the first to review this product')) ?>
         </a>
     </div>
-
 <?php endif; ?>

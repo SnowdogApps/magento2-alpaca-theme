@@ -553,3 +553,24 @@ yarn magepackBundle --config <config_path>
 ```
 * clear cache
 * check results in browser
+
+### Magepack issues
+
+#### `fotoramaVersion` issue while generating magepack config
+
+While on product page you have error: `fotoramaVersion is not defined` and gallery doesn't work, `magepack.config.js` require some manual update:
+
+in `product` bundle followin 3 items should be at the end of product bundle object:
+
+```
+{
+  url: [],
+  name: 'product',
+  modules: {
+    ...
+    'Magento_Theme/js/mixins/gallery-mixin': 'Magento_Theme/js/mixins/gallery-mixin',
+    'fotorama/fotorama': 'fotorama/fotorama',
+    'mage/gallery/gallery': 'mage/gallery/gallery'
+  }
+}
+```
