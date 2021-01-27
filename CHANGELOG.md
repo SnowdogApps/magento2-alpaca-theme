@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Fixed
+- quality of images on compare products page (#74635)
 
 ## [Released]
 ## [2.13.0] - 2021-01-21
