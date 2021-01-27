@@ -1,0 +1,192 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/**
+ * @var \Magento\Framework\Escaper $escaper
+ * @var \Magento\OrderHistorySearch\Block\Filters $block
+ */
+?>
+<form data-mage-init='{"myOrdersFilter": {}, "validation": {}}'
+      class="form search my-orders-search-advanced"
+      action="<?=$escaper->escapeUrl($block->getSearchPostUrl()); ?>"
+      method="get"
+      id="my-orders-search-advanced-form">
+    <input type="hidden" id="advanced-filtering" name="advanced-filtering" value="" />
+    <fieldset class="fieldset info">
+        <div class="field search-sku field-50"
+             data-filter-label="<?=$escaper->escapeHtmlAttr(__('Product Name/SKU')); ?>">
+            <div class="control">
+                <input type="text"
+                       name="product-name-sku"
+                       id="product-name-sku"
+                       value="<?=$escaper->escapeHtmlAttr($block->prepareInputValue('product-name-sku')); ?>"
+                       title="<?=$escaper->escapeHtmlAttr(__('Product name/sku')); ?>"
+                       minlength="<?=(int)$block->getMinInputLength(); ?>"
+                       placeholder="<?=$escaper->escapeHtmlAttr(__('Search by SKU or Product Name')); ?>"
+                       class="input-text"/>
+                <button type="submit"></button>
+            </div>
+        </div>
+        <div class="field field-50 filters-collapse">
+            <button id="filter-show-btn" class="action secondary" type="button">
+                <?=$escaper->escapeHtml(__('Filter')); ?>
+            </button>
+            <button id="filter-close-btn" class="action secondary filter-close" type="button">
+                <?=$escaper->escapeHtml(__('Close')); ?>
+            </button>
+        </div>
+    </fieldset>
+    <fieldset class="fieldset info filter-summary"></fieldset>
+    <fieldset class="fieldset info extra-order-search" id="extra-order-search-filters">
+        <div class="field field-order-number field-50">
+            <label class="label" for="order-number"><?=$escaper->escapeHtml(__('Order Number')); ?></label>
+            <div class="control">
+                <input type="text"
+                       name="order-number"
+                       id="order-number"
+                       value="<?=$escaper->escapeHtmlAttr($block->prepareInputValue('order-number')); ?>"
+                       title="<?=$escaper->escapeHtmlAttr(__('Order Number')); ?>"
+                       placeholder="<?=$escaper->escapeHtmlAttr(__('Enter full or partial number...')); ?>"
+                       minlength="<?=(int)$block->getMinInputLength(); ?>"
+                       class="input-text"/>
+            </div>
+        </div>
+        <div class="field field-order-status field-50">
+            <label class="label" for="order-status"><?=$escaper->escapeHtmlAttr(__('Order Status')); ?></label>
+            <div class="control">
+                <?=$block->getOrderStatusSelectElementHtml(); ?>
+            </div>
+        </div>
+        <div class="field field-invoice-number field-50">
+            <label class="label" for="invoice-number"><?=$escaper->escapeHtml(__('Invoice Number')); ?></label>
+            <div class="control">
+                <input type="text"
+                       name="invoice-number"
+                       id="invoice-number"
+                       value="<?=$escaper->escapeHtmlAttr($block->prepareInputValue('invoice-number')); ?>"
+                       title="<?=$escaper->escapeHtmlAttr(__('Invoice number')); ?>"
+                       placeholder="<?=$escaper->escapeHtmlAttr(__('Enter full or partial number...')); ?>"
+                       minlength="<?=(int)$block->getMinInputLength(); ?>"
+                       class="input-text"/>
+            </div>
+        </div>
+        <?php
+        $datePlaceholder = $block->getLocaleDateFormat();
+        $dateAdditionalAttr = implode(' ', [
+            "placeholder='{$datePlaceholder}'",
+            "data-validate='{"
+            . "\"validate-formatted-date\": {\"dateFormat\": \"{$datePlaceholder}\"}, "
+            . "\"validate-formatted-date-range\": {\"dateFormat\":\"{$datePlaceholder}\"}"
+            . "}'"
+        ]);
+        ?>
+        <div class="field field-dates field-50">
+            <label class="label" for="order-date-from"><?=$escaper->escapeHtml(__('Order Date')); ?></label>
+            <div class="control">
+                <div class="range fields group group-2">
+                    <div class="field field-date">
+                        <div class="control">
+                            <span class="sub-label"><?=$escaper->escapeHtml(__('From')); ?>:</span>
+                            <?=$block->getDateElementToHtml(
+                                'order-date-from',
+                                'order-date-from',
+                                'Order date from',
+                                "$dateAdditionalAttr",
+                                'date-range-order_date-from'
+                            ); ?>
+                        </div>
+                    </div>
+                    <div class="field field-date">
+                        <div class="control">
+                            <span class="sub-label"><?=$escaper->escapeHtml(__('To')); ?>:</span>
+                            <?=$block->getDateElementToHtml(
+                                'order-date-to',
+                                'order-date-to',
+                                'Order date to',
+                                "$dateAdditionalAttr",
+                                'date-range-order_date-to'
+                            ); ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="field field-created-by field-50">
+            <label class="label" for="created-by"><?=$escaper->escapeHtml(__('Created By')); ?></label>
+            <div class="control">
+                <?=$block->getCreatedBySelectElementHtml(); ?>
+            </div>
+        </div>
+        <div class="field field-order-totals field-50">
+            <label class="label" for="order-total-min"><?=$escaper->escapeHtml(__('Order Total')); ?></label>
+            <div class="control">
+                <div class="range fields group group-2">
+                    <div class="field field-order-total">
+                        <div class="control">
+                            <span class="sub-label"><?=$escaper->escapeHtml(__('Min')); ?>:</span>
+                            <input
+                                type="text"
+                                name="order-total-min"
+                                id="order-total-min"
+                                value="<?= $escaper->escapeHtmlAttr(
+                                    $block->prepareInputIntegerValue('order-total-min')
+                                ); ?>"
+                                title="<?= $escaper->escapeHtmlAttr(__('Order total minimum')); ?>"
+                                data-validate="{'less-than-equals-to': '#order-total-max', 'digits': true}"
+                                data-msg-less-than-equals-to="<?= $escaper->escapeHtmlAttr(__(
+                                    "The 'Min' value must be lower than the 'Max' value."
+                                ))
+                                ?>"
+                                data-msg-digits="<?= $escaper->escapeHtmlAttr(__(
+                                    'Please enter a valid number in this field. ' .
+                                    'Enter only digits (0-9).'
+                                )) ?>"
+                                class="input-text"/>
+                        </div>
+                    </div>
+                    <div class="field field-order-total">
+                        <div class="control">
+                            <span class="sub-label"><?=$escaper->escapeHtml(__('Max')); ?>:</span>
+                            <input type="text"
+                               name="order-total-max"
+                               id="order-total-max"
+                               value="<?=$escaper->escapeHtmlAttr(
+                                   $block->prepareInputIntegerValue('order-total-max')
+                               ); ?>"
+                               title="<?=$escaper->escapeHtmlAttr(__('Order total maximum')); ?>"
+                               data-validate="{'digits': true}"
+                               data-msg-digits="<?= $escaper->escapeHtmlAttr(__(
+                                   'Please enter a valid number in this field. ' .
+                                   'Enter only digits (0-9).'
+                               )) ?>"
+                               class="input-text"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="actions-toolbar">
+            <div class="primary">
+                <a href="<?=$escaper->escapeUrl($block->getSearchPostUrl()); ?>">
+                    <button class="secondary"
+                            type="button"
+                            data-role="action"
+                            title="<?=$escaper->escapeHtmlAttr(__('Clear All')); ?>">
+                        <span><?=$escaper->escapeHtml(__('Clear All')); ?></span>
+                    </button>
+                </a>
+                <button type="submit"
+                        class="action primary"
+                        title="<?=$escaper->escapeHtmlAttr(__('Apply')); ?>">
+                    <span><?=$escaper->escapeHtml(__('Apply')); ?></span>
+                </button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+<div class="filter-divider">
+    <hr><br/>
+</div>
