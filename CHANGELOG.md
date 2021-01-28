@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Removed
+- EE - removed review amount and add your review link from product grid (#74637)
 
 ## [Released]
 ## [2.13.0] - 2021-01-21
