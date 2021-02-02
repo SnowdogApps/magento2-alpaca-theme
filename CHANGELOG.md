@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Fixed
 - quality of images on compare products page (#74635)
+### Removed
+- EE - removed review amount and add your review link from product grid (#74637)
+- duplicated requisition list button (#74883)
+### Added
+- new styles for my orders filters (#74638)
 
 ## [Released]
 ## [2.13.0] - 2021-01-21
