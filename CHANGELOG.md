@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Added
 - new styles for my orders filters (#74638)
+### Removed
+- duplicated requisition list button (#74883)
+
 ## [Released]
 ## [2.13.0] - 2021-01-21
 ### Updated
