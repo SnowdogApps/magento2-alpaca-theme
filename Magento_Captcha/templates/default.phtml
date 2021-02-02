@@ -2,12 +2,18 @@
 /** @var \Magento\Captcha\Block\Captcha\DefaultCaptcha $block */
 /** @var \Magento\Captcha\Model\DefaultModel $captcha */
 $captcha = $block->getCaptchaModel();
+/** @var bool $validationEnabled */
+$validationEnabled = $block->hasData('frontend_validation') ? $block->getData('frontend_validation') : true;
+$inputName = $block->escapeHtmlAttr(\Magento\Captcha\Helper\Data::INPUT_NAME_FIELD_VALUE);
+$loaderUrl = $block->escapeUrl($block->getViewFileUrl('images/loader-2.gif'));
 ?>
 <div
     class="
         input
-        required
         forgot-password__captcha-field
+        <?php if ($validationEnabled): ?>
+            required
+        <?php endif; ?>"
     "
 >
     <label
@@ -17,10 +23,12 @@ $captcha = $block->getCaptchaModel();
         <?= $block->escapeHtml(__('Please type the letters below')) ?>
     </label>
     <input
-        name="<?= $block->escapeHtmlAttr(\Magento\Captcha\Helper\Data::INPUT_NAME_FIELD_VALUE) ?>[<?= $block->escapeHtmlAttr($block->getFormId()) ?>]"
+        name="<?= /* @noEscape */ $inputName ?>[<?= $block->escapeHtmlAttr($block->getFormId()) ?>]"
         type="text"
         class="input__field"
-        data-validate="{ required: true }"
+        <?php if ($validationEnabled): ?>
+            data-validate="{ required: true }"
+        <?php endif; ?>"
         id="captcha_<?= $block->escapeHtmlAttr($block->getFormId()) ?>"
     />
 </div>
@@ -32,12 +40,11 @@ $captcha = $block->getCaptchaModel();
     data-mage-init='{
         "captcha": {
             "url": "<?= $block->escapeUrl($block->getRefreshUrl()) ?>",
-            "imageLoader": "<?= $block->escapeUrl($block->getViewFileUrl('images/loader-2.gif')) ?>",
+            "imageLoader": "<?= /* @noEscape */ $loaderUrl ?>",
             "type": "<?= $block->escapeHtmlAttr($block->getFormId()) ?>"
         }
     }'
 >
-
     <img
         alt="<?= $block->escapeHtmlAttr(__('Please type the letters below')) ?>"
         class="
