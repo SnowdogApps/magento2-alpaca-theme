@@ -1,9 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+## [Unreleased]### Updated
+- theme to Magento 2.4.2 (#75141)
 ### Fixed
 - quality of images on compare products page (#74635)
+- error on multishipping and requisition list pages on quantity update (#75141)
 ### Removed
 - EE - removed review amount and add your review link from product grid (#74637)
 - duplicated requisition list button (#74883)
