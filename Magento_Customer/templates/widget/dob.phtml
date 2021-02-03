@@ -1,5 +1,6 @@
 <?php
 
+/** @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer */
 /** @var \Magento\Customer\Block\Widget\Dob $block */
 
 /*
@@ -19,6 +20,7 @@ NOTE: Regarding styles - if we leave it this way, we'll move it to boxes.css. Al
 automatically using block input parameters.
 */
 
+$translatedCalendarConfigJson = $block->getTranslatedCalendarConfigJson();
 $fieldCssClass = 'margin-top-m field date field-' . $block->getHtmlId();
 $fieldCssClass .= $block->isRequired() ? ' required' : '';
 ?>
@@ -46,3 +48,21 @@ $fieldCssClass .= $block->isRequired() ? ' required' : '';
        }
     }
 </script>
+
+<?php $scriptString = <<<code
+
+require([
+    'jquery',
+    'jquery-ui-modules/datepicker'
+], function($){
+
+//<![CDATA[
+    $.extend(true, $, {
+        calendarConfig: {$translatedCalendarConfigJson}
+    });
+//]]>
+
+});
+code;
+?>
+<?= /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false) ?>
