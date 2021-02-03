@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Updated
+- theme to Magento 2.3.6.p1 (#75169)
+`
+### Fixed
+- error on multishipping page (#75169)
+- error on EE checkout (#75169)
 
 ## [Released]
 
