@@ -1,7 +1,8 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]### Updated
+## [Unreleased]
+### Updated
 - theme to Magento 2.4.2 (#75141)
 ### Fixed
 - quality of images on compare products page (#74635)

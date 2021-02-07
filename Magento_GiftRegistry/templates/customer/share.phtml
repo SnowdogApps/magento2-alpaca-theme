@@ -1,5 +1,7 @@
 <?php
-/** @var $block \Magento\GiftRegistry\Block\Customer\Share */
+/** @var $block \Magento\GiftRegistry\Block\Customer\Share
+ * @var $escaper \Magento\Framework\Escaper
+ * @var $secureRenderer \Magento\Framework\View\Helper\SecureHtmlRenderer  */
 
 if ($block->getFormData('sender_name')) {
     $senderName = $block->getFormData('sender_name');
@@ -21,12 +23,12 @@ if ($block->getFormData('sender_name')) {
                         input__label
                     "
                 >
-                        <?= $block->escapeHtml(__('First Name')) ?>
+                        <?= $escaper->escapeHtml(__('First Name')) ?>
                 </label>
                 <input
                     name="recipients[<%- data._index_ %>][name]"
                     type="text"
-                    title="<?= $block->escapeHtmlAttr(__('Name')) ?>"
+                    title="<?= $escaper->escapeHtmlAttr(__('Name')) ?>"
                     class="input__field"
                     id="recipients-name<%- data._index_ %>"
                     data-validate="{required:true}"
@@ -40,11 +42,11 @@ if ($block->getFormData('sender_name')) {
                         input__label
                     "
                 >
-                        <?= $block->escapeHtml(__('Email')) ?>
+                        <?= $escaper->escapeHtml(__('Email')) ?>
                 </label>
                 <input
                     name="recipients[<%- data._index_ %>][email]"
-                    title="<?= $block->escapeHtmlAttr(__('Email')) ?>"
+                    title="<?= $escaper->escapeHtmlAttr(__('Email')) ?>"
                     id="recipients-email<%- data._index_ %>"
                     type="email"
                     class="input__field"
@@ -64,18 +66,18 @@ if ($block->getFormData('sender_name')) {
                 "
                 id="btn-remove<%- data._index_ %>"
             >
-                    <?= $block->escapeHtml(__('Remove')) ?>
+                    <?= $escaper>escapeHtml(__('Remove')) ?>
             </button>
         </div>
     </div>
 </script>
 
 <form
-    action="<?= $block->escapeUrl($block->getSendUrl()) ?>"
+    action="<?= $escaper->escapeUrl($block->getSendUrl()) ?>"
     method="post"
     id="giftregistry-sharing-form"
     class="dashboard__form form-giftregistry-share"
-    data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
+    data-hasrequired="<?= $escaper->escapeHtmlAttr(__('* Required Fields')) ?>"
 >
     <h2 class="dashboard-form__title">
         <?= /* @noEscape */ $block->getFormHeader() ?>
@@ -83,7 +85,7 @@ if ($block->getFormData('sender_name')) {
     <fieldset class="fieldset margin-vc-m">
         <?= $block->getBlockHtml('formkey') ?>
         <legend class="fieldset__legend">
-            <?= $block->escapeHtml(__('Sender')) ?>
+            <?= $escaper->escapeHtml(__('Sender')) ?>
         </legend>
         <div class="input">
             <label
@@ -93,12 +95,12 @@ if ($block->getFormData('sender_name')) {
                     input__label
                 "
             >
-                <?= $block->escapeHtml(__('Name')) ?>
+                <?= $escaper->escapeHtml(__('Name')) ?>
             </label>
             <input
                 name="sender_name"
-                value="<?= $block->escapeHtmlAttr($senderName); ?>"
-                title="<?= $block->escapeHtmlAttr(__('Name')); ?>"
+                value="<?= $escaper->escapeHtmlAttr($senderName); ?>"
+                title="<?= $escaper->escapeHtmlAttr(__('Name')); ?>"
                 id="sender_name"
                 type="text"
                 class="input__field"
@@ -113,7 +115,7 @@ if ($block->getFormData('sender_name')) {
                     input__label
                 "
             >
-                <?= $block->escapeHtml(__('Message')) ?>
+                <?= $escaper->escapeHtml(__('Message')) ?>
             </label>
             <textarea
                 name="sender_message"
@@ -123,13 +125,13 @@ if ($block->getFormData('sender_name')) {
                 "
                 id="sender_message"
                 data-validate="{required:true}"
-            ><?= $block->escapeHtml($block->getFormData('sender_message')) ?></textarea>
+            ><?= $escaper->escapeHtml($block->getFormData('sender_message')) ?></textarea>
         </div>
     </fieldset>
 
     <fieldset class="fieldset margin-vc-m">
         <legend class="fieldset__legend">
-            <?= $block->escapeHtml(__('Invitee')) ?>
+            <?= $escaper->escapeHtml(__('Invitee')) ?>
         </legend>
         <div id="recipients-options"></div>
 
@@ -141,7 +143,7 @@ if ($block->getFormData('sender_name')) {
                     display-none
                 "
             >
-                <?= $block->escapeHtml(__('Maximum %1 email addresses.', $block->getRecipientsLimit())) ?>
+                <?= $escaper->escapeHtml(__('Maximum %1 email addresses.', $block->getRecipientsLimit())) ?>
             </div>
         <?php endif; ?>
         <?php if ($block->getRecipientsLimit()) :?>
@@ -153,7 +155,7 @@ if ($block->getFormData('sender_name')) {
                     margin-vc-m
                 "
             >
-                <?= $block->escapeHtml(__('Add Invitee')) ?>
+                <?= $escaper->escapeHtml(__('Add Invitee')) ?>
             </button>
         <?php endif; ?>
     </fieldset>
@@ -167,19 +169,19 @@ if ($block->getFormData('sender_name')) {
                     actions-group__button
                 "
             >
-                <?= $block->escapeHtml(__('Share Gift Registry')) ?>
+                <?= $escaper->escapeHtml(__('Share Gift Registry')) ?>
             </button>
         </div>
         <div class="actions-group__handler">
             <a
-                href="<?= $block->escapeUrl($block->getBackUrl()) ?>"
+                href="<?= $escaper->escapeUrl($block->getBackUrl()) ?>"
                 class="
                     link
                     actions-group__link
                 "
-                title="<?= $block->escapeHtmlAttr(__('Back')) ?>"
+                title="<?= $escaper->escapeHtmlAttr(__('Back')) ?>"
             >
-                <?= $block->escapeHtml(__('Back')) ?>
+                <?= $escaper->escapeHtml(__('Back')) ?>
             </a>
         </div>
     </div>
