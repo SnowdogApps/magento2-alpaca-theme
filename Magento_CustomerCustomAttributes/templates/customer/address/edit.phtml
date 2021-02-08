@@ -1,5 +1,4 @@
 <?php
-
 // phpcs:disable Magento2.Templates.ThisInTemplate
 ?>
 <?php
@@ -7,10 +6,14 @@
  * Edit customer address template
  *
  * @var $block \Magento\Customer\Block\Address\Edit
+ * @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer
  */
 /** @var \Magento\Customer\Helper\Address $addressHelper */
-$addressHelper = $this->helper(\Magento\Customer\Helper\Address::class);
+$addressHelper = $block->getData('addressHelper');
 $requiredAttributesPrechecked = $block->getData('required_attributes_prechecked');
+$displayAllRegions = $block->getConfig('general/region/display_all');
+/** @var \Magento\Directory\Helper\Data $directoryHelper */
+$directoryHelper = $block->getData('directoryHelper');
 ?>
 
 <form
@@ -138,13 +141,13 @@ $requiredAttributesPrechecked = $block->getData('required_attributes_prechecked'
                     for="street_1"
                     class="label"
                 >
-                    <?= /* @noEscape */ $block->getAttributeData()->getFrontendLabel('street') ?>
+                    <?= /* @noEscape */ $block->getAttributeData()->getFrontendLabel('street') . (__(': Line 1')) ?>
                 </label>
                 <input
                     type="text"
                     name="street[]"
                     value="<?= $block->escapeHtmlAttr($block->getStreetLine(1)) ?>"
-                    title="<?= $block->escapeHtmlAttr(__('Street Address')) ?>"
+                    title="<?= $block->escapeHtmlAttr(__('Street Address'). (__(': Line 1'))) ?>"
                     id="street_1"
                     class="
                         input__field
@@ -159,13 +162,13 @@ $requiredAttributesPrechecked = $block->getData('required_attributes_prechecked'
                         class="label"
                         for="street_<?= /* @noEscape */ $_i ?>"
                     >
-                        <?= $block->escapeHtml(__('Street Address %1', $_i)) ?>
+                        <?= $block->escapeHtml(__('Street Address: Line %1', $_i)) ?>
                     </label>
                     <input
                         type="text"
                         name="street[]"
                         value="<?= $block->escapeHtmlAttr($block->getStreetLine($_i)) ?>"
-                        title="<?= $block->escapeHtmlAttr(__('Street Address %1', $_i)) ?>"
+                        title="<?= $block->escapeHtmlAttr(__('Street Address: Line %1', $_i)) ?>"
                         id="street_<?= /* @noEscape */ $_i ?>"
                         class="input__field <?= /* @noEscape */ $_streetValidationClass ?>"
                     />
@@ -193,7 +196,8 @@ $requiredAttributesPrechecked = $block->getData('required_attributes_prechecked'
                     title="<?= /* @noEscape */ $block->getAttributeData()->getFrontendLabel('vat_id') ?>"
                     class="
                         input__field
-                        <?= /* @noEscape */ $this->helper(\Magento\Customer\Helper\Address::class)->getAttributeValidationClass('vat_id') ?>
+
+                        <?= /* @noEscape */ $addressHelper->getAttributeValidationClass('vat_id') ?>
                     "
                     id="vat_id"
                 />
@@ -219,7 +223,7 @@ $requiredAttributesPrechecked = $block->getData('required_attributes_prechecked'
                 title="<?= /* @noEscape */ $block->getAttributeData()->getFrontendLabel('city') ?>"
                 class="
                     input__field
-                    <?= /* @noEscape */ $this->helper(\Magento\Customer\Helper\Address::class)->getAttributeValidationClass('city') ?>
+                    <?= /* @noEscape */ $addressHelper->getAttributeValidationClass('city') ?>
                 "
                 id="city"
             />
@@ -232,9 +236,6 @@ $requiredAttributesPrechecked = $block->getData('required_attributes_prechecked'
                 required
             "
         >
-            <?php
-                $isFieldDisabled = (!$block->getConfig('general/region/display_all')) ? ' disabled="disabled"' : '';
-            ?>
             <label
                 class="label"
                 for="region_id"
@@ -250,7 +251,7 @@ $requiredAttributesPrechecked = $block->getData('required_attributes_prechecked'
                     validate-select
                     region_id
                 "
-                <?= /* @noEscape */ $isFieldDisabled ?>
+                <?= (!$displayAllRegions) ? ' disabled="disabled"' : ''; ?>
             >
                 <option
                     value=""
@@ -258,6 +259,7 @@ $requiredAttributesPrechecked = $block->getData('required_attributes_prechecked'
                     <?= $block->escapeHtml(__('Please select a region, state or province.')) ?>
                 </option>
             </select>
+
             <input
                 type="text"
                 id="region"
@@ -267,9 +269,9 @@ $requiredAttributesPrechecked = $block->getData('required_attributes_prechecked'
                 title="<?= /* @noEscape */ $block->getAttributeData()->getFrontendLabel('region') ?>"
                 class="
                     input__field
-                    <?= /* @noEscape */ $this->helper(\Magento\Customer\Helper\Address::class)->getAttributeValidationClass('region') ?>
+                    <?= /* @noEscape */ $addressHelper->getAttributeValidationClass('region') ?>
                 "
-                <?= /* @noEscape */ $isFieldDisabled ?>
+                <?= (!$displayAllRegions) ? ' disabled="disabled"' : ''; ?>
             />
         </div>
         <div
@@ -294,7 +296,7 @@ $requiredAttributesPrechecked = $block->getData('required_attributes_prechecked'
                 class="
                     input__field
                     validate-zip-international
-                    <?= /* @noEscape */ $this->helper(\Magento\Customer\Helper\Address::class)->getAttributeValidationClass('postcode') ?>
+                    <?= /* @noEscape */ $addressHelper->getAttributeValidationClass('postcode') ?>
                 "
             />
             <div
@@ -483,14 +485,14 @@ $requiredAttributesPrechecked = $block->getData('required_attributes_prechecked'
         },
         "#country": {
             "regionUpdater": {
-                "optionalRegionAllowed": <?= /* @noEscape */ ($block->getConfig('general/region/display_all') ? 'true' : 'false') ?>,
+                "optionalRegionAllowed": <?= /* @noEscape */ ($displayAllRegions ? 'true' : 'false') ?>,
                 "regionListId": "#region_id",
                 "regionInputId": "#region",
                 "postcodeId": "#zip",
                 "form": "#form-validate",
-                "regionJson": <?= /* @noEscape */ $this->helper(\Magento\Directory\Helper\Data::class)->getRegionJson() ?>,
+                "regionJson": <?= /* @noEscape */ $directoryHelper->getRegionJson() ?>,
                 "defaultRegion": "<?= /* @noEscape */ $block->getRegionId() ?>",
-                "countriesWithOptionalZip": <?= /* @noEscape */ $this->helper(\Magento\Directory\Helper\Data::class)->getCountriesWithOptionalZip(true) ?>
+                "countriesWithOptionalZip": <?= /* @noEscape */ $directoryHelper->getCountriesWithOptionalZip(true) ?>
             }
         }
     }

@@ -72,7 +72,7 @@
     }
 
     &--light {
-        text-transform: none;
+        text-transform: $button__text-transform--light;
         font-weight: $button__font-weight--light;
         text-transform: $button__text-transform--light;
     }
@@ -244,28 +244,54 @@
     &--add-to {
         overflow: hidden;
         @include add-to-button(block);
-        @include mq($screen-m) {
-            @include add-to-button(none);
-        }
 
         &:before {
             display: $button__before-display--add-to;
         }
 
         &:after {
+            display: $button__after-display--add-to;
             top: $button__after-position-top--add-to;
             left: $button__after-position-left--add-to;
             transform: $button__after-transform--add-to;
         }
 
-        .button__icon {
-            fill: $white;
-        }
-
         &:hover,
         &.focus-visible {
+            background-color: $button__background-hover--add-to;
+
+            &:before {
+                display: $button__before-display-hover--add-to;
+            }
+
             &:after {
+                display: $button__after-display-hover--add-to;
                 transform: $button__after-transform-hover--add-to;
+            }
+        }
+
+        .button__icon {
+            fill: $button__icon-fill--add-to;
+        }
+
+        @include mq($screen-m) {
+            @include add-to-button(none);
+        }
+
+        @include mq($screen-l) {
+            &:after {
+                display: $button__after-display--add-to\@large;
+            }
+
+            &:hover,
+            &.focus-visible {
+                &:before {
+                    display: $button__before-display-hover--add-to\@large;
+                }
+
+                &:after {
+                    display: $button__after-display-hover--add-to\@large;
+                }
             }
         }
     }

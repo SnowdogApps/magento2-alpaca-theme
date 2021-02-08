@@ -77,7 +77,7 @@ define([
         tierPriceTemplate: '',
         // tier prise selectors end
         // A price label selector
-        normalPriceLabelSelector: '.normal-price .price-label',
+        normalPriceLabelSelector: '.product-info-main .normal-price .price-label',
         // option for select2 lib
         select2options: {
           minimumResultsForSearch: Infinity,
@@ -111,6 +111,7 @@ define([
           container = this.element,
           classes = this.options.classes,
           chooseText = this.options.jsonConfig.chooseText,
+          showTooltip = this.options.showTooltip,
           $product = $widget.element.parents($widget.options.selectorProduct),
           prices = $widget._getNewPrices(),
           productData = this._determineProductData();
@@ -122,7 +123,7 @@ define([
             controlLabelId = 'option-label-' + productData.productId + '-' + item.code + '-' + item.id,
             options = $widget._RenderSwatchOptions(item, controlLabelId),
             select = $widget._RenderSwatchSelect(item, chooseText),
-            input = $widget._RenderFormInput(item),
+            input = $widget._RenderFormInput(item, productData),
             listLabel = '',
             label = '',
             initLoader = container.find($('.' + $widget.options.classes.initLoader)) ;
@@ -154,9 +155,9 @@ define([
             initLoader.removeClass('loader--visible');
           }
           container.append(
-            '<div class="' + classes.attributeClass + ' ' + item.code + '" ' +
-                  'attribute-code="' + item.code + '" ' +
-                  'attribute-id="' + item.id + '">' +
+            '<div class="swatch-attribute ' + classes.attributeClass + ' ' + item.code + '" ' +
+                  'data-attribute-code="' + item.code + '" ' +
+                  'data-attribute-id="' + item.id + '">' +
                 label +
                 '<div aria-activedescendant="" ' +
                       'tabindex="0" ' +
@@ -185,10 +186,13 @@ define([
           });
         });
 
-        // Connect Tooltip
-        container
-          .find('[option-type="1"], [option-type="2"], [option-type="0"], [option-type="3"]')
-          .SwatchRendererTooltip();
+        if (showTooltip === 1) {
+          // Connect Tooltip
+          container
+            .find('[data-option-type="1"], [data-option-type="2"],' +
+              ' [data-option-type="0"], [data-option-type="3"]')
+            .SwatchRendererTooltip();
+        }
 
         // Hide all elements below more button
         $('.' + classes.moreButton).nextAll().hide();
@@ -224,7 +228,7 @@ define([
           return '';
         }
 
-        $.each(config.options, function () {
+        $.each(config.options, function (index) {
           var id,
             type,
             value,
@@ -248,21 +252,24 @@ define([
           label = this.label ? this.label : '';
           attr =
             ' id="' + controlId + '-item-' + id + '"' +
+            ' index="' + index + '"' +
             ' aria-selected="false"' +
+            ' aria-checked="false"' +
             ' tabindex="0"' +
-            ' option-type="' + type + '"' +
-            ' option-id="' + id + '"' +
-            ' option-label="' + label + '"' +
+            ' data-option-type="' + type + '"' +
+            ' data-option-id="' + id + '"' +
+            ' data-option-label="' + label + '"' +
             ' aria-label="' + config.code + ' ' + label + '"' +
-            ' option-tooltip-thumb="' + thumb + '"' +
-            ' option-tooltip-value="' + value + '"' +
             ' role="option"';
 
+          attr += thumb !== '' ? ' data-option-tooltip-thumb="' + thumb + '"' : '';
+          attr += value !== '' ? ' data-option-tooltip-value="' + value + '"' : '';
+
           if (!this.hasOwnProperty('products') || this.products.length <= 0) {
-            attr += ' option-empty="true"';
+            attr += ' data-option-empty="true"';
           }
 
-          html += '<div class="' + optionContainerClass + '" ' + attr + '><div class="' + optionClass;
+          html += '<div class="swatch-option ' + optionContainerClass + '" ' + attr + '><div class="' + optionClass;
           if (type === 0) {
             // Text
             html += '">' + (value ? value : label);
@@ -296,14 +303,14 @@ define([
 
         html =
             '<select class="' + this.options.classes.selectClass + ' ' + config.code + '">' +
-            '<option value="0" option-id="0">' + chooseText + '</option>';
+            '<option value="0" data-option-id="0">' + chooseText + '</option>';
 
         $.each(config.options, function () {
           var label = this.label,
-              attr = ' value="' + this.id + '" option-id="' + this.id + '"';
+              attr = ' value="' + this.id + '" data-option-id="' + this.id + '"';
 
           if (!this.hasOwnProperty('products') || this.products.length <= 0) {
-            attr += ' option-empty="true"';
+            attr += ' data-option-empty="true"';
           }
 
           html += '<option ' + attr + '>' + label + '</option>';
@@ -320,13 +327,14 @@ define([
          * @param {Object} config
          * @private
          */
-        _RenderFormInput: function (config) {
-          return '<input class="' + this.options.classes.attributeInput + ' super-attribute-select" ' +
+        _RenderFormInput: function (config, productData) {
+          return '<input class="swatch-input ' + this.options.classes.attributeInput + ' super-attribute-select" ' +
             'name="super_attribute[' + config.id + ']" ' +
             'type="text" ' +
             'value="" ' +
             'data-selector="super_attribute[' + config.id + ']" ' +
             'data-validate="{required: true}" ' +
+            'data-product="' + productData.productId + '"' +
             'aria-required="true" ' +
             'aria-invalid="false" ' +
             'aria-hidden="true" ' +
@@ -371,8 +379,10 @@ define([
         var $parent = $this.parents('.' + $widget.options.classes.attributeClass),
           $wrapper = $this.parents('.' + $widget.options.classes.attributeOptionsWrapper),
           $label = $parent.find('.' + $widget.options.classes.attributeSelectedOptionLabelClass),
-          attributeId = $parent.attr('attribute-id'),
-          $input = $parent.find('.' + $widget.options.classes.attributeInput);
+          attributeId = $parent.data('attribute-id'),
+          $input = $parent.find('.' + $widget.options.classes.attributeInput),
+          $priceBox = $widget.element.parents($widget.options.selectorProduct)
+            .find(this.options.selectorProductPrice);
 
         if ($widget.inProductList) {
           $input = $widget.productForm.find(
@@ -385,14 +395,14 @@ define([
         }
 
         if ($this.hasClass('selected')) {
-          $parent.removeAttr('option-selected').find('.selected').removeClass('selected');
+          $parent.removeAttr('data-option-selected').find('.selected').removeClass('selected');
           $input.val('');
           $label.text('');
           $this.attr('aria-selected', false);
         } else {
-          $parent.attr('option-selected', $this.attr('option-id')).find('.selected').removeClass('selected');
-          $label.text($this.attr('option-label'));
-          $input.val($this.attr('option-id'));
+          $parent.attr('data-option-selected', $this.data('option-id')).find('.selected').removeClass('selected');
+          $label.text($this.data('option-label'));
+          $input.val($this.data('option-id'));
           $input.attr('data-attr-name', this._getAttributeCodeById(attributeId));
           $this.addClass('selected');
           $widget._toggleCheckedAttributes($this, $wrapper);
@@ -400,11 +410,17 @@ define([
 
         $widget._Rebuild();
 
-        if ($widget.element.parents($widget.options.selectorProduct)
-          .find(this.options.selectorProductPrice).is(':data(mage-priceBox)')
-        ) {
+        if ($priceBox.is(':data(mage-priceBox)')) {
           $widget._UpdatePrice();
         }
+
+        $(document).trigger('updateMsrpPriceBlock',
+          [
+            this._getSelectedOptionPriceIndex(),
+            $widget.options.jsonConfig.optionPrices,
+            $priceBox
+          ]
+        );
 
         $widget._loadMedia();
         $input.trigger('change');
@@ -416,8 +432,8 @@ define([
       },
       _Rebuild: function () {
         var $widget = this,
-          controls = $widget.element.find('.' + $widget.options.classes.attributeClass + '[attribute-id]'),
-          selected = controls.filter('[option-selected]');
+          controls = $widget.element.find('.' + $widget.options.classes.attributeClass + '[data-attribute-id]'),
+          selected = controls.filter('[data-option-selected]');
 
         // Enable all options
         $widget._Rewind(controls);
@@ -430,16 +446,16 @@ define([
         // Disable not available options
         controls.each(function () {
           var $this = $(this),
-            id = $this.attr('attribute-id'),
+            id = $this.data('attribute-id'),
             products = $widget._CalcProducts(id);
 
-          if (selected.length === 1 && selected.first().attr('attribute-id') === id) {
+          if (selected.length === 1 && selected.first().data('attribute-id') === id) {
             return;
           }
 
-          $this.find('[option-id]').each(function () {
+          $this.find('[data-option-id]').each(function () {
             var $element = $(this),
-              option = $element.attr('option-id');
+              option = $element.data('option-id');
 
             if (!$widget.optionsMap.hasOwnProperty(id) || !$widget.optionsMap[id].hasOwnProperty(option) ||
               $element.hasClass('selected') ||
@@ -466,10 +482,10 @@ define([
           result,
           tierPriceHtml;
 
-        $widget.element.find('.' + $widget.options.classes.attributeClass + '[option-selected]').each(function () {
-          var attributeId = $(this).attr('attribute-id');
+        $widget.element.find('.' + $widget.options.classes.attributeClass + '[data-option-selected]').each(function () {
+          var attributeId = $(this).data('attribute-id');
 
-          options[attributeId] = $(this).attr('option-selected');
+          options[attributeId] = $(this).attr('data-option-selected');
         });
 
         newPrices = $widget.options.jsonConfig.optionPrices[_.findKey($widget.options.jsonConfig.index, options)];

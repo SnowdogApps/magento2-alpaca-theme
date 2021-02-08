@@ -1,0 +1,82 @@
+<?php
+use Magento\Framework\Escaper;
+use Magento\LoginAsCustomerAssistance\Api\IsAssistanceEnabledInterface;
+use Magento\LoginAsCustomerAssistance\ViewModel\ShoppingAssistanceViewModel;
+
+/** @var Escaper $escaper */
+/** @var ShoppingAssistanceViewModel $viewModel */
+$viewModel = $block->getViewModel();
+?>
+
+<script type="text/x-magento-init">
+{
+    ".form-create-account, .form-edit-account": {
+        "Magento_LoginAsCustomerAssistance/js/opt-in": {
+            "allowAccess": "<?= /* @noEscape */ IsAssistanceEnabledInterface::ALLOWED ?>",
+            "denyAccess": "<?= /* @noEscape */ IsAssistanceEnabledInterface::DENIED ?>"
+        }
+    }
+}
+</script>
+
+<?php if ($viewModel->isLoginAsCustomerEnabled()): ?>
+    <div
+        class="
+            field
+            choice
+            margin-bottom-l
+        "
+    >
+        <div class="checkbox">
+
+            <input
+                type="checkbox"
+                name="assistance_allowed_checkbox"
+                title="<?= $escaper->escapeHtmlAttr(__($viewModel->getAssistanceCheckboxTitle())) ?>"
+                value="1"
+                id="assistance_allowed_checkbox"
+                <?php if ($viewModel->isAssistanceAllowed()): ?>
+                    checked="checked"
+                <?php endif; ?>
+                class="checkbox__field"
+            />
+            <svg
+                class="
+                    checkbox__icon
+                    checkbox__icon--checked
+                "
+                role="presentation"
+                focusable="false"
+            >
+                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#checked')) ?>"></use>
+            </svg>
+
+            <svg
+                class="
+                    checkbox__icon
+                    checkbox__icon--unchecked
+                "
+                role="presentation"
+                focusable="false"
+            >
+                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#unchecked')) ?>"></use>
+            </svg>
+            <label
+                for="assistance_allowed_checkbox"
+                class="checkbox__label"
+            >
+                <?= $escaper->escapeHtmlAttr(__($viewModel->getAssistanceCheckboxTitle())) ?>
+            </label>
+
+            <input
+                type="hidden"
+                name="assistance_allowed"
+                value=""
+            />
+        </div>
+
+        <span>
+            <?= $escaper->escapeHtmlAttr(__($viewModel->getAssistanceCheckboxTooltip())) ?>
+        </span>
+    </div>
+<?php endif ?>

@@ -1,443 +1,373 @@
-<?php /** @var $block \Amasty\GiftCard\Block\Product\View\Type\GiftCard */ ?>
-<?php $_currencyShortName = $block->getCurrencyShortName(); ?>
-<?php $_product = $block->getProduct(); ?>
+<?php
+/** @var $block \Amasty\GiftCard\Block\Product\View\Type\GiftCard */
+$product = $block->getProduct();
+?>
+<!-- ko scope: 'giftCard' -->
+<div
+    class="amcard-general-container amgift-card"
+    data-bind="css: {
+        '-visible': isContainerReady
+    }"
+>
+    <!-- ko if: giftCardType == cardTypes.combined -->
+        <div
+            class="
+                amcard-form-container
+                margin-bottom-s
+            "
 
-<?php if ($_product->isSaleable() && $block->isConfigured($_product)): ?>
-    <div
-        class="fieldset"
-        data-amgiftcard-js="amgiftcard-fieldset"
-        data-mage-init='{ "amastyGiftCardMain": {
-            "productId": "<?= $block->escapeJs($_product->getId()); ?>",
-            "feeType": "<?= $block->escapeJs($_product->getAmGiftcardFeeType()); ?>",
-            "feeValue": "<?= $block->escapeJs($block->getFeeAmount()); ?>"
-          }
-        }'
-    >
-        <?php if ($block->isMultiAmount() || $_product->getAmGiftcardPrices()): ?>
-            <div class="field required">
-                <label
-                    class="label"
-                    for="amgiftcard_amount"
-                >
-                    <?= $block->escapeHtml(__('Card Value in %1', $_currencyShortName)); ?>
-                </label>
-                <?php if ($block->isPredefinedAmount()): ?>
-                    <div class="control">
-                        <div class="select select--native">
-                            <select
-                                id="am_giftcard_amount"
-                                name="am_giftcard_amount"
-                                class="
-                                    select__field
-                                    required-entry
-                                "
-                                data-amgiftcard-js="amgiftcard-amount"
-                                data-mage-init='{"select": {}}'
-                            >
-                                <option value="">
-                                    <?= $block->escapeHtml(__('Choose an Amount...')); ?>
-                                </option>
-                                <?php
-                                $listAmounts = $block->getListAmounts();
-                                $selectedAmount = $block->getDefaultAmount();
-                                foreach ($listAmounts as $_amount): ?>
-                                    <option
-                                        data-value="<?= $block->escapeHtmlAttr($block->convertPrice($_amount)); ?>"
-                                        value="<?= $block->escapeHtmlAttr($block->convertPrice($_amount)); ?>"
-                                        data-amgiftcard-js="amgiftcard-amount-item"
-                                        <?php if ($selectedAmount === $_amount): ?>
-                                            selected
-                                        <?php endif; ?>
-                                        >
-                                        <?= /* @noEscape */ $block->getFormatPrice($_amount); ?>
-                                    </option>
-                                <?php endforeach; ?>
-                                <?php if ($_product->getAmAllowOpenAmount()): ?>
-                                    <option value="custom">
-                                        <?= $block->escapeHtml(__('Custom Amount')); ?>
-                                    </option>
-                                <?php endif; ?>
-                            </select>
-                        </div>
+        >
+            <fieldset class="fieldset">
+                <legend
+                    class="amcard-title"
+                    data-bind="i18n: 'Want to send a physical gift card or prefer to keep things digital?'"
+                ></legend>
 
-                        <?php if ($_product->getAmAllowOpenAmount()): ?>
-                            <div
-                                class="
-                                    input
-                                    <?php if ($block->isPredefinedAmount()): ?>
-                                        display-none
-                                    <?php endif; ?>
-                                "
-                                id="amgiftcard_amount_custom_block"
-                                data-amgiftcard-js="amgiftcard-custom-amount-wrapper"
-                            >
-                                <?php $_min = $_max = 0;
-                                if ($_product->getAmOpenAmountMin() || $_product->getAmOpenAmountMax()): ?>
-                                    <?php $_min = $_product->getAmOpenAmountMin(); ?>
-                                    <?php $_max = $_product->getAmOpenAmountMax(); ?>
-                                    <input
-                                        name="am_giftcard_amount_custom"
-                                        class="
-                                            input__field
-                                            validate-number-range
-                                            number-range-<?= $block->escapeHtmlAttr($block->round($block->convertPrice($_min)) . '-' . $block->round($block->convertPrice($_max))); ?>
-                                            required-entry
-                                            amgiftcard-min-amount
-                                            amgiftcard-max-amount
-                                        "
-                                        value="<?= $block->escapeHtmlAttr($block->getDefaultValue('am_giftcard_amount_custom')); ?>"
-                                        type="text"
-                                        data-amgiftcard-js="amgiftcard-amount-custom"
-                                    >
-                                    <div class="margin-top-xs">
-                                        <?php if ($_product->getAmOpenAmountMin()): ?>
-                                            <?= $block->escapeHtml(__('Minimum: %1', $block->getFormatPrice($_min)));?>
-                                        <?php endif; ?>
-
-                                        <?php if ($_product->getAmOpenAmountMax()): ?>
-                                            <?= $block->escapeHtml(__('Maximum: %1', $block->getFormatPrice($_max)));?>
-                                        <?php endif; ?>
-                                    </div>
-                                <?php endif; ?>
-                            </div>
-                        <?php endif; ?>
-                    </div>
-                <?php endif; ?>
-            </div>
-        <?php endif; ?>
-
-        <?php if ($_product->getAmGiftcardType() == \Amasty\GiftCard\Model\GiftCard::TYPE_COMBINED): ?>
-            <div class="field required">
-                <label
-                    for="am_giftcard_type"
-                    class="label"
-                >
-                    <?= $block->escapeHtml(__('Choose card type')); ?>
-                </label>
-                <div class="select select--native">
-                    <select
-                        id="am_giftcard_type"
-                        name="am_giftcard_type"
-                        class="select__field required-entry"
-                        data-amgiftcard-js="amgiftcard-type"
-                    >
-                        <option value="">
-                            <?= $block->escapeHtml(__('-- Please Select --')); ?>
-                        </option>
-                        <?php foreach ($block->getListCardTypes() as $_cardType): ?>
-                            <option
-                                value="<?= $block->escapeHtmlAttr($_cardType['value']); ?>"
-                                <?php if ($block->getDefaultValue('am_giftcard_type') == $_cardType['value']): ?>
-                                    selected
-                                <?php endif; ?>
-                            >
-                                <?= $block->escapeHtml($_cardType['label']); ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-                <p class="note amgiftcard-delivery-info">
-                    <?= $block->escapeHtml(__('Please be aware that printed gift card will be sent to the shipping address you specify during checkout.')); ?>
-                </p>
-            </div>
-        <?php endif; ?>
-
-        <?php if ($_images = $block->getImages()): ?>
-            <div
-                class="margin-bottom-m"
-                data-amgiftcard-js="amgiftcard-images"
-            >
-                <div class="input required">
-                    <label
-                        for="am_giftcard_image"
-                        class="input__label label"
-                    >
-                        <?= $block->escapeHtml(__('Choose card Image')); ?>
-                    </label>
-                    <input
-                        type="text"
-                        name="am_giftcard_image"
-                        class="
-                            input__field
-                            amgiftcard-image-input
-                            required-entry
-                        "
-                        value="<?= $block->escapeHtmlAttr($block->getDefaultValue('am_giftcard_image')); ?>"
-                        data-amgiftcard-js="amgiftcard-image-input"
-                    />
-                </div>
-                <?php foreach ($_images as $_image): ?>
-                    <img
-                        class="amgiftcard-image"
-                        data-id="<?= $block->escapeHtmlAttr($_image->getId()) ?>"
-                        src="<?= $block->escapeUrl($_image->getImageUrl()) ?>"
-                        data-img-full-src="<?= $block->escapeUrl($_image->getImageUrl()); ?>"
-                        data-amgiftcard-js="amgiftcard-image"
-                    />
-                <?php endforeach; ?>
-                <?php if ($block->getAllowUsersUploadImages()): ?>
-                    <div
-                        class="
-                            amgiftcard-image-container
-                            -hidden
-                            margin-top-xs
-                        "
-                    >
-                        <div class="amgiftcard-image-wrapper">
-                            <img
-                                class="amgiftcard-userimage"
-                                data-amgiftcard-js="amgiftcard-userimage"
-                                alt="<?= $block->escapeHtmlAttr(__('Gift Card Image')) ?>"
-                            />
-                        </div>
-                        <span
-                            class="amgiftcard-close"
-                            data-amgiftcard-js="amgiftcard-close"
-                        ></span>
-                    </div>
-                    <div class="amgiftcard-browse-container margin-top-xs">
-                        <div class="file-upload">
-                            <input
-                                class="amgiftcard-image-input file-upload__input"
-                                type="file"
-                                id="amgiftcard-userimage-input"
-                                name="amgiftcard-userimage-input"
-                                accept=".jpg, .jpeg, .gif, .png"
-                                data-amgiftcard-js="amgiftcard-userimage-input"
-                            >
-                            <label
-                                class="file-upload__wrapper"
-                                for="amgiftcard-userimage-input"
-                            >
-                                <span class="file-upload__label">
-                                    <?= $block->escapeHtml(__('or upload your image')) ?>
-                                </span>
-
-                                <span
-                                    class="button file-upload__button"
-                                    role="button"
-                                    tabindex="0"
-                                    aria-controls="amgiftcard-userimage-input"
-                                >
-                                    <?= $block->escapeHtml(__('Browse')) ?>
-                                </span>
-                            </label>
-                        </div>
-                    </div>
-                    <p
-                        class="amgiftcard-error"
-                        data-amgiftcard-js="amgiftcard-userimage-error"
-                    ></p>
-                <?php endif; ?>
-            </div>
-        <?php endif; ?>
-        <?php if ($block->isOptionEnable('am_giftcard_sender_name')): ?>
-            <div class="input required">
-                <label
-                    for="am_giftcard_sender_name"
-                    class="input__label label"
-                >
-                    <?= $block->escapeHtml(__('Sender Name')); ?>
-                </label>
-                <input
-                    type="text"
-                    id="am_giftcard_sender_name"
-                    name="am_giftcard_sender_name"
-                    class="input__field required-entry"
-                    value="<?= $block->escapeHtmlAttr($block->getDefaultValue('am_giftcard_sender_name')); ?>"
-                />
-            </div>
-        <?php endif; ?>
-        <?php if ($block->isOptionEnable('am_giftcard_sender_email')): ?>
-            <div class="input required">
-                <label
-                    for="am_giftcard_sender_email"
-                    class="input__label label"
-                >
-                    <?= $block->escapeHtml(__('Sender Email')); ?>
-                </label>
-                <input
-                    type="text"
-                    id="am_giftcard_sender_email"
-                    name="am_giftcard_sender_email"
-                    class="
-                        input__field
-                        validate-email
-                        required-entry
-                    "
-                    value="<?= $block->escapeHtmlAttr($block->getDefaultValue('am_giftcard_sender_email')); ?>"
-                />
-            </div>
-        <?php endif; ?>
-        <?php if ($_product->getAmGiftcardType() != \Amasty\GiftCard\Model\GiftCard::TYPE_PRINTED): ?>
-            <?php if ($block->isOptionEnable('am_giftcard_recipient_name')): ?>
                 <div
                     class="
-                        input
-                        required
-                        am_giftcard_recipient_data
+                        amcard-flex-container
+                        -checkbox
                     "
-                    data-amgiftcard-js="amgiftcard-recipient-data"
                 >
-                    <label
-                        for="am_giftcard_recipient_name"
-                        class="input__label label"
+                    <div
+                        class="
+                            amcard-checkbox-container
+                            checkbox
+                        "
                     >
-                        <?= $block->escapeHtml(__('Recipient Name')); ?>
-                    </label>
-                    <input
-                        type="text"
-                        id="am_giftcard_recipient_name"
-                        name="am_giftcard_recipient_name"
-                        class="input__field required-entry"
-                        value="<?= $block->escapeHtmlAttr($block->getDefaultValue('am_giftcard_recipient_name')); ?>"
-                    />
+                        <input
+                            type="checkbox"
+                            id="amcard-checkbox-physical"
+                            class="
+                                amcard-checkbox
+                                checkbox__field
+                            "
+                            data-bind="
+                                checked: isPhysicalGift,
+                                checkedValue: 2,
+                                css: {'required-entry': !currentCardType()}
+                            "
+                        />
+                        <svg
+                            role="presentation"
+                            focusable="false"
+                            class="
+                                checkbox__icon
+                                checkbox__icon--checked
+                            "
+                        >
+                            <use data-bind="attr: { 'xlink:href': require.toUrl('images/icons-sprite.svg#checked') }" xlink:href=''></use>
+                        </svg>
+
+                        <svg
+                            role="presentation"
+                            focusable="false"
+                            class="
+                                checkbox__icon
+                                checkbox__icon--unchecked
+                            "
+                        >
+                            <use data-bind="attr: { 'xlink:href': require.toUrl('images/icons-sprite.svg#unchecked') }" xlink:href=''></use>
+                        </svg>
+                        <label
+                            for="amcard-checkbox-physical"
+                            class="
+                                label
+                                checkbox__label
+                            "
+                        >
+                            <span
+                                class="amcard-name"
+                                data-bind="i18n: 'Physical Gift Card'"
+                            ></span>
+                        </label>
+                    </div>
+                    <div
+                        class="
+                            amcard-checkbox-container
+                            checkbox
+                        "
+                    >
+                        <input
+                            type="checkbox"
+                            id="amcard-checkbox-egift"
+                            class="
+                                amcard-checkbox
+                                checkbox__field
+                            "
+                            data-bind="
+                                checked: isEGift,
+                                checkedValue: 1, css: {'required-entry': !currentCardType()}
+                            "
+                        />
+                        <svg
+                            role="presentation"
+                            focusable="false"
+                            class="
+                                checkbox__icon
+                                checkbox__icon--checked
+                            "
+                        >
+                            <use data-bind="attr: { 'xlink:href': require.toUrl('images/icons-sprite.svg#checked') }" xlink:href=''></use>
+                        </svg>
+
+                        <svg
+                            role="presentation"
+                            focusable="false"
+                            class="
+                                checkbox__icon
+                                checkbox__icon--unchecked
+                            "
+                        >
+                            <use data-bind="attr: { 'xlink:href': require.toUrl('images/icons-sprite.svg#unchecked') }" xlink:href=''></use>
+                        </svg>
+                        <label
+                            for="amcard-checkbox-egift"
+                            class="
+                                label
+                                checkbox__label
+                            "
+                        >
+                            <span
+                                class="amcard-name"
+                                data-bind="i18n: 'e-Gift Card'"
+                            ></span>
+                        </label>
+                    </div>
                 </div>
-            <?php endif; ?>
-            <div
-                class="
-                    input
-                    required
-                    am_giftcard_recipient_data
-                "
-                data-amgiftcard-js="amgiftcard-recipient-data"
-            >
-                <label
-                    for="am_giftcard_recipient_email"
-                    class="input__label label"
-                >
-                    <?= $block->escapeHtml(__('Recipient Email')); ?>
-                </label>
                 <input
                     type="text"
-                    id="am_giftcard_recipient_email"
-                    name="am_giftcard_recipient_email"
+                    name="am_giftcard_type"
                     class="
-                        input__field
-                        validate-email
+                        amcard-input
+                        -hidden
                         required-entry
                     "
-                    value="<?= $block->escapeHtmlAttr($this->getDefaultValue('am_giftcard_recipient_email')); ?>"
+                    data-bind="
+                        value: currentCardType,
+                        afterRender: getGiftCardType.bind($data, $element.name)
+                    "
+                />
+            </fieldset>
+        </div>
+    <!-- /ko -->
+    <div
+        class="amcard-form-container"
+        data-bind="scope: 'price'"
+    >
+        <!-- ko template: getTemplate() --><!-- /ko -->
+    </div>
+    <div
+        class="
+            amcard-form-container
+            -interior
+        "
+        data-bind="scope: 'images'"
+    >
+        <!-- ko template: getTemplate() --><!-- /ko -->
+    </div>
+    <div class="amcard-form-container">
+        <div class="amcard-flex-container">
+            <!-- ko if: isShowField('am_giftcard_sender_name') -->
+                <div class="amcard-field-container">
+                    <div
+                        class="
+                            amcard-field-block
+                            input
+                        "
+                    >
+                        <label
+                            class="
+                                amcard-title
+                                label
+                                input__label
+                            "
+                            data-bind="i18n: 'Your Name'"
+                            for="am_giftcard_sender_name"
+                        ></label>
+                        <input
+                            type="text"
+                            class="
+                                amcard-field
+                                required-entry
+                                input__field
+                            "
+                            name="am_giftcard_sender_name"
+                            data-amcard-js="field"
+                            id="am_giftcard_sender_name"
+                            data-bind="
+                                attr: {
+                                    placeholder: $t('Enter Sender Name')
+                                },
+                                value: getPreconfiguredValue($element.name)
+                            "
+                        />
+                    </div>
+                </div>
+            <!-- /ko -->
+            <!-- ko if: isShowField('am_giftcard_recipient_name') && (!isPhysicalGift() || isEGift()) -->
+                <div
+                    class="
+                        amcard-field-container
+                        input
+                    "
+                >
+                    <div class="amcard-field-block">
+                        <label
+                            class="
+                                amcard-title
+                                label
+                                input__label
+                            "
+                            data-bind="i18n: 'Recipient Name'"
+                            for="am_giftcard_recipient_name"
+                        ></label>
+                        <input
+                            type="text"
+                            class="
+                                amcard-field
+                                required-entry
+                                input__field
+                            "
+                            name="am_giftcard_recipient_name"
+                            id="am_giftcard_recipient_name"
+                            data-amcard-js="field"
+                            data-bind="
+                                attr: {
+                                    placeholder: $t('Enter Recipient Name')
+                                },
+                                value: getPreconfiguredValue($element.name)
+                            "
+                        />
+                    </div>
+                </div>
+            <!-- /ko -->
+        </div>
+        <!-- ko if: !isPhysicalGift() || isEGift() -->
+            <div
+                class="
+                    amcard-field-block
+                    input
+                "
+            >
+                <label
+                    class="
+                        amcard-title
+                        label
+                        input__label
+                    "
+                    data-bind="i18n: 'Recipient Email'"
+                    for="am_giftcard_recipient_email"
+                ></label>
+                <input
+                    type="text"
+                    class="
+                        amcard-field
+                        required-entry
+                        input__field
+                    "
+                    name="am_giftcard_recipient_email"
+                    id="am_giftcard_recipient_email"
+                    data-amcard-js="field"
+                    data-bind="
+                        attr: {
+                            placeholder: $t('Enter Recipient Email')
+                        },
+                        value: getPreconfiguredValue($element.name)
+                    "
                 />
             </div>
-        <?php endif; ?>
-
-        <?php if ($block->isOptionEnable('am_giftcard_date_delivery')): ?>
-            <div class="field required">
-                <label
-                    for="am_giftcard_date_delivery"
-                    class="label"
-                >
-                    <?= $block->escapeHtml(__('Date of Certificate Delivery')); ?>
-                </label>
-                <div class="input input--datepicker">
-                    <input
-                        name="am_giftcard_date_delivery"
-                        id="am_giftcard_date_delivery"
-                        value="<?= $block->escapeHtmlAttr($block->getDefaultValue('am_giftcard_date_delivery')); ?>"
-                        class="
-                            required-entry
-                            datetime-picker
-                            validate-date
-                            date
-                        "
-                        type="text"
-                        data-amgiftcard-js="amgiftcard-delivery-date"
-                    >
-                </div>
-                <p
-                    class="amgiftcard-delivery-info display-none"
-                    data-amgiftcard-js="amgiftcard-delivery-info"
-                >
-                    <?=
-                        $block->escapeHtml(
-                            __('Please be aware that delivery date of printed certificates may be different due to post.')
-                        );
-                    ?>
-                </p>
-            </div>
-            <div class="field required">
-                <label
-                    for="am_giftcard_date_delivery_timezone"
-                    class="label"
-                >
-                    <?= $block->escapeHtml(__('Select timezone')); ?>
-                </label>
-                <div class="select select--native">
-                    <select
-                        class="select__field required-entry"
-                        name="am_giftcard_date_delivery_timezone"
-                        id="am_giftcard_date_delivery_timezone"
-                    >
-                        <option value=""></option>
-                        <?php foreach ($block->getListTimezones() as $_timezone): ?>
-                            <option
-                                value="<?= $block->escapeHtmlAttr($_timezone['value']); ?>"
-                                <?php if ($block->getDefaultValue('am_giftcard_date_delivery_timezone') == $_timezone['value']): ?>
-                                    selected
-                                <?php endif; ?>
-                            >
-                                <?= $block->escapeHtml($_timezone['label']); ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-            </div>
-        <?php endif; ?>
-
-        <?php if ($block->isOptionEnable(\Amasty\GiftCard\Model\Options::GIFT_MESSAGE)): ?>
-            <div class="input">
-                <label
-                    for="am_giftcard_message"
-                    class="input__label label"
-                >
-                    <?= $block->escapeHtml(__('Message')); ?>
-                </label>
+        <!-- /ko -->
+        <!-- ko if: isShowField('am_giftcard_message') -->
+            <div class="amcard-field-block input input--textarea">
+                <span
+                    class="
+                        amcard-title
+                        label
+                        input__label
+                    "
+                    data-bind="i18n: 'Message'"
+                ></span>
                 <textarea
+                    class="
+                        amcard-field
+                        input__field
+                        input__field--textarea
+                    "
                     name="am_giftcard_message"
-                    id="am_giftcard_message"
-                    class="input__field input__field--textarea"
-                    cols="5"
-                    rows="3"
-                ><?= $block->escapeHtml($block->getDefaultValue('am_giftcard_message')); ?></textarea>
+                    cols="30"
+                    rows="2"
+                    data-amgiftcard-js="textarea"
+                    data-amcard-js="field"
+                    data-bind="
+                        attr: {
+                            placeholder: $t('Enter your message')
+                        },
+                        value: getPreconfiguredValue($element.name)
+                    "></textarea>
+                <span data-amcard-js="char-counter"></span>
             </div>
-        <?php endif; ?>
-
-        <div class="amgiftcard-preview">
-            <button
-                title="<?= $block->escapeHtmlAttr(__('Preview Gift Card')) ?>"
-                class="button button--secondary"
-                data-amgiftcard-js="amgiftcard-preview"
-                disabled
-            >
-                <?= $block->escapeHtml(__('Preview Gift Card')) ?>
-            </button>
-        </div>
-
-        <script>
-            require([
-                'jquery',
-                "mage/calendar",
-                "mage/tooltip"
-            ], function ($) {
-                if ($('[data-amgiftcard-js="amgiftcard-delivery-date"]')) {
-                    $('[data-amgiftcard-js="amgiftcard-delivery-date"]').calendar({
-                        showTime: false,
-                        minDate: new Date(),
-                    });
-                }
-
-                $('[data-amgiftcard-js="info-tooltip"]').tooltip({
-                    position: {
-                        my: "left bottom",
-                        at: "right top",
-                        collision: "flipfit flipfit"
-
-                    },
-                    tooltipClass: "amgiftcard-tooltip",
-                    content: "<?= $block->escapeHtml(__($block->getTooltipContent())); ?>"
-                });
-            });
-        </script>
+        <!-- /ko -->
     </div>
-<?php endif; ?>
+    <!-- ko if: isEGift() || giftCardType == cardTypes.virtual -->
+        <div class="amcard-preview-container margin-bottom-s">
+            <input
+                type="button"
+                class="
+                    amcard-button
+                    button
+                    amgift-card__content-button
+                "
+                data-bind="
+                    value: $t('Preview Gift Card'),
+                    click: openGiftPreview
+                "
+            />
+            <div
+                class="amcard-preview"
+                data-amcard-js="preview"
+            ></div>
+        </div>
+    <!-- /ko -->
+    <!-- ko if: isShowField('am_giftcard_date_delivery') -->
+        <div
+            class="amcard-form-container"
+            data-bind="scope: 'datepicker'"
+        >
+            <!-- ko template: getTemplate() --><!-- /ko -->
+        </div>
+    <!-- /ko -->
+</div>
+<!-- /ko -->
+
+<script type="text/x-magento-init">
+{
+    "*": {
+        "Magento_Ui/js/core/app": {
+            "components": {
+                "datepicker": {
+                    "component": "Amasty_GiftCard/js/datepicker",
+                    "template": "Amasty_GiftCard/datepicker",
+                    "timezones": <?= /* @noEscape */ $block->getListTimezones() ?>
+                },
+                "images": {
+                    "component": "Amasty_GiftCard/js/images",
+                    "template": "Amasty_GiftCard/images",
+                    "images": <?= /* @noEscape */ $block->getImages() ?>,
+                    "isCustomImageAllowed": <?= /* @noEscape */ (int)$block->getAllowUsersUploadImages() ?>,
+                    "tooltip": "<?= $block->escapeHtml($block->getTooltipContent()) ?>",
+                    "customImageUrl": "<?= $block->escapeUrl($block->getCustomImageUrl()) ?>"
+                },
+                "giftCard": {
+                    "component": "Amasty_GiftCard/js/giftcard",
+                    "giftCardType": "<?= /* @noEscape */ $product->getAmGiftcardType() ?>",
+                    "previewUrl": "<?= $block->escapeUrl($block->getUrl('amgcard/preview/getPreviewContent')) ?>",
+                    "allowedFields": <?= /* @noEscape */ $block->getAvailableOptions() ?>,
+                    "preconfiguredValues": <?= /* @noEscape */ $block->getDefaultValues() ?>,
+                    "customImageUrl": "<?= $block->escapeUrl($block->getCustomImageUrl()) ?>"
+                }
+            }
+        }
+    }
+}
+</script>

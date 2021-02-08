@@ -1,8 +1,21 @@
 <?php
+// phpcs:disable Magento2.Templates.ThisInTemplate
+// phpcs:disable Generic.Files.LineLength.TooLong
+
 /** @var \Magento\Contact\Block\ContactForm $block */
+/** @var \Magento\Contact\ViewModel\UserDataProvider $viewModel */
+
+$viewModel = $block->getViewModel();
 ?>
 <div class="row center-xs">
-    <div class="col-xs-12 col-md-8 col-lg-6 start-xs">
+    <div
+        class="
+            col-xs-12
+            col-md-8
+            col-lg-6
+            start-xs
+        "
+    >
         <form
             class="form contact-us"
             action="<?= $block->escapeUrl($block->getFormAction()) ?>"
@@ -33,7 +46,7 @@
                         name="name"
                         id="name"
                         title="<?= $block->escapeHtmlAttr(__('Name')) ?>"
-                        value="<?= $block->escapeHtmlAttr($this->helper(\Magento\Contact\Helper\Data::class)->getPostValue('name') ? : $this->helper(\Magento\Contact\Helper\Data::class)->getUserName()) ?>"
+                        value="<?= $block->escapeHtmlAttr($viewModel->getUserName()) ?>"
                         class="input__field"
                         type="text"
                         data-validate="{required:true}"
@@ -50,7 +63,7 @@
                         name="email"
                         id="email"
                         title="<?= $block->escapeHtmlAttr(__('Email')) ?>"
-                        value="<?= $block->escapeHtmlAttr($this->helper(\Magento\Contact\Helper\Data::class)->getPostValue('email') ? : $this->helper(\Magento\Contact\Helper\Data::class)->getUserEmail()) ?>"
+                        value="<?= $block->escapeHtmlAttr($viewModel->getUserEmail()) ?>"
                         class="input__field"
                         type="email"
                         data-validate="{required:true, 'validate-email':true}"
@@ -67,9 +80,9 @@
                         name="telephone"
                         id="telephone"
                         title="<?= $block->escapeHtmlAttr(__('Phone')) ?>"
-                        value="<?= $block->escapeHtmlAttr($this->helper(\Magento\Contact\Helper\Data::class)->getPostValue('telephone')) ?>"
+                        value="<?= $block->escapeHtmlAttr($viewModel->getUserTelephone()) ?>"
                         class="input__field"
-                        type="text"
+                        type="tel"
                     />
                 </div>
                 <div class="input required">
@@ -86,7 +99,7 @@
                         class="input__field input__field--textarea"
                         rows="3"
                         data-validate="{required:true}"
-                    ><?= $block->escapeHtml($this->helper(\Magento\Contact\Helper\Data::class)->getPostValue('comment')) ?></textarea>
+                    ><?= $block->escapeHtml($viewModel->getUserComment()) ?></textarea>
                 </div>
                 <?= $block->getChildHtml('form.additional.info') ?>
             </fieldset>
@@ -112,3 +125,12 @@
         </form>
     </div>
 </div>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Customer/js/block-submit-on-send": {
+                "formId": "contact-form"
+            }
+        }
+    }
+</script>

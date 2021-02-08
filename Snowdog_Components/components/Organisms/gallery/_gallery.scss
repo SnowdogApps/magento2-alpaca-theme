@@ -105,7 +105,7 @@
         position: relative;
 
         .loader {
-            position: static;
+            z-index: 0;
         }
     }
 
@@ -126,7 +126,11 @@
         &.ratio-image {
             @include mq($screen-l) {
                 top: 0;
-                transform: translate(-50%, 0);
+                // thumbwidth + thumbmargin (fixed in fotorama.js)
+                padding-right: #{$gallery__thumb-width\@medium + 2px};
+                transform: $gallery__placeholder-transform;
+                max-height: 100%;
+                width: auto;
             }
         }
     }

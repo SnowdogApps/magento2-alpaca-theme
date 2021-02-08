@@ -1,6 +1,6 @@
 <?php
-// phpcs:disable Magento2.Files.LineLength
-
+// phpcs:disable Generic.Files.LineLength
+// phpcs:disable Magento2.Templates.ThisInTemplate.FoundHelper
 ?>
 <?php
 /**
@@ -12,7 +12,9 @@
 <form
     id="checkout_multishipping_form"
     data-mage-init='{
-        "multiShipping":{},
+        "multiShipping": {
+            "itemsQty": <?= /* @noEscape */ (int)$block->getCheckout()->getQuote()->getItemsSummaryQty() ?>
+        },
         "cartUpdate": {
             "validationURL": "<?= $block->escapeUrl($block->getUrl('multishipping/checkout/checkItems')) ?>",
             "eventName": "updateMulticartItemQty"
@@ -228,10 +230,14 @@
                                 role="gridcell"
                             >
                                 <a
-                                    href="<?= $block->escapeUrl($block->getItemDeleteUrl($_item)) ?>"
+                                    href="#"
                                     title="<?= $block->escapeHtmlAttr(__('Remove Item')) ?>"
                                     class="action delete"
                                     data-multiship-item-remove=""
+                                    data-post='<?= /* @noEscape */
+                                        $this->helper(\Magento\Framework\Data\Helper\PostHelper::class)
+                                        ->getPostData($block->getItemDeleteUrl($_item))
+                                    ?>'
                                 >
                                     <?= $block->escapeHtml(__('Remove item')) ?>
                                 </a>

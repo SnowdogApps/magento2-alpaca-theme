@@ -1,8 +1,5 @@
 <?php
-//phpcs:disable Squiz.ControlStructures.ControlSignature
-//phpcs:disable Squiz.WhiteSpace.ScopeClosingBrace
-//phpcs:disable PSR2.ControlStructures.SwitchDeclaration
-//phpcs:disable Magento2.Files.LineLength.MaxExceeded
+/** @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer */
 ?>
 <?php $_giftMessage = false; ?>
 <?php switch ($block->getCheckoutType()) : case 'onepage_checkout': ?>
@@ -200,13 +197,17 @@
                                 ><?= /* @noEscape */ $block->getEscaped($block->getMessage()->getMessage()) ?></textarea>
                             </div>
                         </fieldset>
-                        <script>
+                        <?php
+                        $entityId = (int) $block->getEntity()->getId();
+                        $scriptString = <<<script
                             require(['jquery'], function(jQuery){
-                                jQuery('#add-gift-options-<?= (int) $block->getEntity()->getId() ?>')
-                                    .add('#add-gift-options-for-order-<?= (int) $block->getEntity()->getId() ?>')
-                                    .removeClass('hidden');
+                                jQuery('#add-gift-options-{$entityId}')
+                                .add('#add-gift-options-for-order-{$entityId}')
+                                .removeClass('hidden');
                             });
-                        </script>
+                        script;
+                        ?>
+                        <?= /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false) ?>
                     </div>
                 </div>
             </dd>
@@ -367,15 +368,22 @@
                     <?php endforeach; ?>
                 </div>
             </dd>
-            <script>
+            <?php
+            $entityId = (int) $block->getEntity()->getId();
+            $scriptString = <<<script
                 require(['jquery'], function(jQuery){
-                    jQuery('#add-gift-options-<?= (int) $block->getEntity()->getId() ?>')
-                        .add('#add-gift-options-for-items-<?= (int) $block->getEntity()->getId() ?>')
-                        .removeClass('hidden');
+                    jQuery('#add-gift-options-{$entityId}')
+                    .add('#add-gift-options-for-items-{$entityId}')
+                    .removeClass('hidden');
                 });
-            </script>
+            script;
+            ?>
+            <?= /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false) ?>
             <?php endif; ?>
-            <dt class="extra-options-container" id="extra-options-container-<?= (int) $block->getEntity()->getId() ?>"></dt>
+            <dt
+                class="extra-options-container"
+                id="extra-options-container-<?= (int) $block->getEntity()->getId() ?>"
+            ></dt>
         </dl>
     </fieldset>
     <script type="text/x-magento-init">
@@ -766,9 +774,10 @@ case 'multishipping_address': ?>
             ></dt>
         </dl>
     </fieldset>
+    <?php $entityId = (int) $block->getEntity()->getId(); ?>
     <script type="text/x-magento-init">
         {
-            "#allow_gift_options_<?= (int) $block->getEntity()->getId() ?>, #allow_gift_options_for_order_<?= (int) $block->getEntity()->getId() ?>, #allow_gift_options_for_items_<?= (int) $block->getEntity()->getId() ?>": {
+            "#allow_gift_options_<?= /* @noEscape */ $entityId ?>, #allow_gift_options_for_order_<?= /* @noEscape */ $entityId ?>, #allow_gift_options_for_items_<?= /* @noEscape */ $entityId ?>": {
                 "giftOptions": {}
             }
         }

@@ -1,0 +1,128 @@
+<div class="amcard-flex-container radio">
+    <!-- ko if: prices().length > 1 -->
+        <fieldset
+            class="
+                amcard-field-container
+                fieldset
+            "
+        >
+            <legend class="amcard-title">
+                <span data-bind="i18n: 'Card Value in'"></span>
+                <span data-bind="text: currencyCode"></span>
+            </legend>
+            <div class="amcard-price-container">
+                <!-- ko foreach: prices -->
+                    <div
+                        class="radio__handler"
+                        data-bind="attr: {'data-test': $data.value }"
+                    >
+                        <label
+                            class="
+                                amcard-label-block
+                                -price
+                            "
+                            data-amcard-js="price"
+                            data-bind="
+                                css: {
+                                    '-active': $parent.currentPrice() == $data.value
+                                },
+                            "
+                        >
+                            <input
+                                type="radio"
+                                name="am_giftcard_amount"
+                                class="
+                                    amcard-radio
+                                    radio__field
+                                "
+                                afterRender="$parent.getCardPriceValue.bind($parent, $element.name)"
+                                data-bind="
+                                value: $data.value,
+                                event: {change: $parent.changeProductPrice.bind($parent)},
+                                checked: $parent.currentPrice,
+                                checkedValue: $data.value,
+                                css: {'required-entry': !$parent.customAmount()},
+                                "
+                            />
+                            <span
+                                class="radio__label"
+                                data-bind="text: $data.price"
+                            ></span>
+                        </label>
+                    </div>
+                <!-- /ko -->
+            </div>
+        </fieldset>
+    <!-- /ko -->
+    <!-- ko if: isOpenAmount -->
+        <div class="amcard-field-container">
+            <div
+                class="
+                    amcard-field-block
+                    input
+                "
+            >
+                <label
+                    class="
+                        amcard-title
+                        label
+                        input__label
+                    "
+                    for="am_giftcard_amount_custom_fake"
+                    data-bind="i18n: 'Other amount:'"
+                ></label>
+                <input
+                    type="number"
+                    class="
+                        amcard-field
+                        input__field
+                    "
+                    name="am_giftcard_amount_custom_fake"
+                    id="am_giftcard_amount_custom_fake"
+                    data-bind="
+                        attr: {
+                            placeholder: getAmountRange()
+                        },
+                        value: customAmount,
+                        event:{
+                            change: initCustomValidate.bind($data, customAmount)
+                        }
+                    "
+                />
+            </div>
+            <input
+                type="button"
+                class="
+                    amcard-button
+                    button
+                    amgift-card__content-button
+                "
+                data-bind="
+                    click: addCustomAmount.bind($data, customAmount, event),
+                    attr: {value: 'Add'}
+                "
+            />
+            <!-- ko ifnot: isValueValid -->
+                <span
+                    class="amcard-warning"
+                    data-bind="i18n: 'Please, enter valid value'"
+                ></span>
+            <!-- /ko -->
+        </div>
+    <!-- /ko -->
+</div>
+<!-- ko if: prices().length > 1 || isOpenAmount -->
+    <input
+        type="text"
+        class=
+            "amcard-input
+            -hidden
+        "
+        name="am_giftcard_amount_custom"
+        afterRender="getCustomPriceValue.bind($data, $element.name)"
+        data-bind="
+            value: customAmount,
+            css: {'required-entry': !currentPrice()}
+        "
+    />
+<!-- /ko -->

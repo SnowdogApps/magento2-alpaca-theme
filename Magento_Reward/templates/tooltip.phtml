@@ -1,0 +1,62 @@
+<?php
+// phpcs:disable Magento2.Files.LineLength
+// phpcs:disable Magento2.Templates.ThisInTemplate
+?>
+<?php
+/**
+ * @see \Magento\Reward\Block\Tooltip
+ * @var \Magento\Reward\Block\Tooltip $block
+ */
+?>
+<div
+    class="
+        message
+        info
+        reward
+        <?= $block->escapeHtmlAttr($block->getWrapperClass()) ?>
+    "
+>
+    <div>
+        <?php if ($block->hasRewardMessage()): ?>
+            <?=
+                $block->escapeHtml(
+                    __($block->getRewardMessage(),
+                        $this->helper(\Magento\Reward\Helper\Data::class)->formatReward($block->getRewardPoints(),
+                        $block->getRewardAmount(),
+                        null,
+                        '<strong>%s</strong>')
+                    ),
+                    ['strong']
+                )
+            ?>
+        <?php endif;?>
+        <?php if ($block->hasPointsBalance() && !$block->hasHideBalance()): ?>
+            <span class="reward-balance">
+                <?=
+                    $block->escapeHtml(
+                        __('Your balance is %1.',
+                            $this->helper(\Magento\Reward\Helper\Data::class)->formatReward($block->getPointsBalance(),
+                            null,
+                            null,
+                            '<strong>%s</strong>')
+                        ),
+                        ['strong']
+                    )
+                ?>
+            </span>
+        <?php endif;?>
+        <?php if (!$block->hasHideLink()): ?>
+            <?= $block->escapeHtml($block->renderLearnMoreLink(), ['a']) ?>
+        <?php endif;?>
+        <?php if ($block->hasQtyLimit() && $block->hasRewardQtyLimitationMessage()): ?>
+            <span class="reward-limit">
+                <?= $block->escapeHtml(__($block->getRewardQtyLimitationMessage(), "<strong>{$block->getQtyLimit()}</strong>"), ['strong']) ?>
+            </span>
+        <?php endif;?>
+        <?php if ($block->hasGuestNote()): ?>
+            <span class="reward-limit">
+                <?= $block->escapeHtml(__($block->getGuestNote())) ?>
+            </span>
+        <?php endif;?>
+    </div>
+</div>

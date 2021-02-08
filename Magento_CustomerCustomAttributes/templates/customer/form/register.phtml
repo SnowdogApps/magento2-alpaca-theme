@@ -1,10 +1,18 @@
 <?php
+/** @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer */
+?>
+<?php
 /**
  * Create account form template
  *
  * @var $block \Magento\Customer\Block\Form\Register
  */
-// phpcs:disable Magento2.Templates.ThisInTemplate
+?>
+<?php
+/** @var \Magento\Customer\Helper\Address $addressHelper */
+$addressHelper = $block->getData('addressHelper');
+/** @var \Magento\Directory\Helper\Data $directoryHelper */
+$directoryHelper = $block->getData('directoryHelper');
 ?>
 <div class="container auth">
     <div class="auth__links auth__links--registration">
@@ -157,6 +165,8 @@
                     <?php $block->restoreSessionData($customerAttributes->getMetadataForm());?>
                     <?= $customerAttributes->toHtml() ?>
                 <?php endif;?>
+
+                <?= $block->getChildHtml('fieldset_create_info_additional') ?>
             </fieldset>
         <?php if ($block->getShowAddressFields()): ?>
             <fieldset
@@ -193,7 +203,7 @@
                         title="<?= $block->escapeHtmlAttr(__('Company')) ?>"
                         class="
                             input__field
-                            <?= /* @noEscape */ $this->helper(\Magento\Customer\Helper\Address::class)->getAttributeValidationClass('company') ?>
+                            <?= /* @noEscape */ $addressHelper->getAttributeValidationClass('company') ?>
                         "
                     />
                 </div>
@@ -218,11 +228,11 @@
                         title="<?= /* @noEscape */ $block->getAttributeData()->getFrontendLabel('telephone') ?>"
                         class="
                             input__field
-                            <?= /* @noEscape */ $this->helper(\Magento\Customer\Helper\Address::class)->getAttributeValidationClass('telephone') ?>"
+                            <?= /* @noEscape */ $addressHelper->getAttributeValidationClass('telephone') ?>"
                         />
                 </div>
 
-                <?php $_streetValidationClass = $this->helper(\Magento\Customer\Helper\Address::class)->getAttributeValidationClass('street'); ?>
+                <?php $_streetValidationClass = $addressHelper->getAttributeValidationClass('street'); ?>
 
                 <div
                     class="
@@ -248,8 +258,9 @@
                             <?= /* @noEscape */ $_streetValidationClass ?>
                         "
                     />
+
                     <?php $_streetValidationClass = trim(str_replace('required-entry', '', $_streetValidationClass)); ?>
-                    <?php for ($_i = 2, $_n = $this->helper(\Magento\Customer\Helper\Address::class)->getStreetLines(); $_i <= $_n; $_i++): ?>
+                    <?php for ($_i = 2, $_n = $addressHelper->getStreetLines(); $_i <= $_n; $_i++): ?>
                         <div
                             class="
                                 input
@@ -292,7 +303,7 @@
                             name="city"
                             value="<?= $block->escapeHtmlAttr($block->getFormData()->getCity()) ?>"
                             title="<?= /* @noEscape */ $block->getAttributeData()->getFrontendLabel('city') ?>"
-                            class="input__field <?= /* @noEscape */ $this->helper(\Magento\Customer\Helper\Address::class)->getAttributeValidationClass('city') ?>"
+                            class="input__field <?= /* @noEscape */ $addressHelper->getAttributeValidationClass('city') ?>"
                             id="city"
                         />
                 </div>
@@ -335,7 +346,7 @@
                         class="
                             input__field
                             display-none
-                            <?= /* @noEscape */ $this->helper(\Magento\Customer\Helper\Address::class)->getAttributeValidationClass('region') ?>"
+                            <?= /* @noEscape */ $addressHelper->getAttributeValidationClass('region') ?>"
                         />
                 </div>
 
@@ -355,7 +366,7 @@
                         class="
                             input__field
                             validate-zip-international
-                            <?= /* @noEscape */ $this->helper(\Magento\Customer\Helper\Address::class)->getAttributeValidationClass('postcode') ?>
+                            <?= /* @noEscape */ $addressHelper->getAttributeValidationClass('postcode') ?>
                         "
                         data-validate="{'required':true, 'validate-zip-international':true}"
                     />
@@ -561,6 +572,9 @@
                         </svg>
                     </button>
                 </div>
+            </fieldset>
+
+            <fieldset class="fieldset additional_info">
                 <?= $block->getChildHtml('form_additional_info') ?>
             </fieldset>
             <div class="account-form__actions">
@@ -581,22 +595,29 @@
         </form>
     </div>
 </div>
+<?php if ($block->getShowAddressFields()): ?>
+    <?php
+        $displayAllRegions = $block->getConfig("general/region/display_all") ? "true" : "false";
+    ?>
 <script type="text/x-magento-init">
     {
-        <?php if ($block->getShowAddressFields()): ?>
         "#country": {
             "regionUpdater": {
-                "optionalRegionAllowed": <?= /* @noEscape */ ($block->getConfig("general/region/display_all") ? "true" : "false") ?>,
+                "optionalRegionAllowed": <?= /* @noEscape */ $displayAllRegions ?>,
                 "regionListId": "#region_id",
                 "regionInputId": "#region",
                 "postcodeId": "#zip",
                 "form": "#form-validate",
-                "regionJson": <?= /* @noEscape */ $this->helper(\Magento\Directory\Helper\Data::class)->getRegionJson() ?>,
+                "regionJson": <?= /* @noEscape */ $directoryHelper->getRegionJson() ?>,
                 "defaultRegion": "<?= /* @noEscape */ $block->getFormData()->getRegionId() ?>",
-                "countriesWithOptionalZip": <?= /* @noEscape */ $this->helper(\Magento\Directory\Helper\Data::class)->getCountriesWithOptionalZip(true) ?>
+                "countriesWithOptionalZip": <?= /* @noEscape */ $directoryHelper->getCountriesWithOptionalZip(true) ?>
             }
-        },
-        <?php endif; ?>
+        }
+    }
+</script>
+<?php endif; ?>
+<script type="text/x-magento-init">
+    {
         "*": {
             "Magento_CustomerCustomAttributes/validation": {
                 "ignore": <?= (int) ($_dob->isEnabled() || $customerAttributes->hasUserDefinedAttributes()) ?>,
@@ -607,41 +628,10 @@
                     "Magento_CustomerCustomAttributes/error-placement",
                     "Magento_CustomerCustomAttributes/validation-ignore"
                 ]
-            }
-        },
-        ".field.password": {
-            "passwordStrengthIndicator": {
-                "formSelector": "form.form-create-account"
+            },
+            "Magento_Customer/js/block-submit-on-send": {
+                "formId": "form-validate"
             }
         }
     }
-</script>
-
-<script>
-    require([
-        'jquery',
-        'mage/mage'
-    ], function($) {
-        var dataForm = $('#form-validate'),
-            ignore = <?= $_dob->isEnabled() ? '\'input[id$="full"]\'' : 'null' ?>;
-
-        dataForm.mage('validation', {
-            <?php if ($_dob->isEnabled()) : ?>
-                errorPlacement: function(error, element) {
-                    if (element.prop('id').search('full') !== -1) {
-                        var dobElement = $(element).parents('.customer-dob'),
-                            errorClass = error.prop('class');
-                        error.insertAfter(element.parent());
-                        dobElement.find('.validate-custom').addClass(errorClass)
-                            .after('<div class="' + errorClass + '"></div>');
-                    } else {
-                        error.insertAfter(element);
-                    }
-                },
-                ignore: ':hidden:not(' + ignore + ')'
-            <?php else : ?>
-                ignore: ignore ? ':hidden:not(' + ignore + ')' : ':hidden'
-            <?php endif ?>
-        });
-    });
 </script>

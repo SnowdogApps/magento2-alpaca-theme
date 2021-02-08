@@ -1,19 +1,32 @@
+<?php
+use Magento\Customer\Helper\Address;
+
+/** @var \Magento\Customer\Block\Form\Register $block */
+/** @var \Magento\Framework\Escaper $escaper */
+/** @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer */
+
+/** @var Magento\Customer\Helper\Address $addressHelper */
+$addressHelper = $block->getData('addressHelper');
+/** @var \Magento\Directory\Helper\Data $directoryHelper */
+$directoryHelper = $block->getData('directoryHelper');
+$formData = $block->getFormData();
+?>
 <div class="container auth">
     <div class="auth__links auth__links--registration">
         <a
-            href="<?= $block->escapeUrl($block->getUrl('customer/account/login')); ?>"
+            href="<?= $escaper->escapeUrl($block->getUrl('customer/account/login')); ?>"
             class="
                 button
                 button--link
                 auth__link
             "
         >
-            <?= $block->escapeHtml(__('Login')) ?>
+            <?= $escaper->escapeHtml(__('Login')) ?>
             <svg
                 class="icon auth__icon"
                 aria-hidden="true"
             >
-                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#expand-down')); ?>"></use>
+                <use xlink:href="<?= $escaper->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#expand-down')); ?>"></use>
             </svg>
         </a>
         <button
@@ -24,50 +37,50 @@
                 auth__link--active
             "
         >
-            <?= $block->escapeHtml(__('Create account')) ?>
+            <?= $escaper->escapeHtml(__('Create account')) ?>
             <svg
                 class="icon auth__icon"
                 aria-hidden="true"
             >
-                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#expand-down')); ?>"></use>
+                <use xlink:href="<?= $escaper->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#expand-down')); ?>"></use>
             </svg>
         </button>
     </div>
     <div class="account-form">
         <p class="account-form__info">
-            <?= $block->escapeHtml(__('Creating an account has many benefits: check out faster, keep more than one address, track orders and more.')) ?>
+            <?= $escaper->escapeHtml(__('Creating an account has many benefits: check out faster, keep more than one address, track orders and more.')) ?>
         </p>
         <?= $block->getChildHtml('form_fields_before') ?>
         <?= $block->getChildHtml('customer.form.register.extra') ?>
         <form
             class="account-form__form"
-            action="<?= $block->escapeUrl($block->getPostActionUrl()); ?>"
+            action="<?= $escaper->escapeUrl($block->getPostActionUrl()); ?>"
             method="post"
             id="form-validate"
             enctype="multipart/form-data"
         >
-            <?= $block->getBlockHtml('formkey'); ?>
+            <?= /* @noEscape */ $block->getBlockHtml('formkey') ?>
             <fieldset class="fieldset account-form__fieldset">
                 <legend class="fieldset__legend account-form__legend">
-                    <?= $block->escapeHtml(__('Personal information')) ?>
+                    <?= $escaper->escapeHtml(__('Personal information')) ?>
                 </legend>
                 <input
                     type="hidden"
                     name="success_url"
-                    value="<?= $block->escapeUrl($block->getSuccessUrl()); ?>"
+                    value="<?= $escaper->escapeUrl($block->getSuccessUrl()); ?>"
                 >
                 <input
                     type="hidden"
                     name="error_url"
-                    value="<?= $block->escapeUrl($block->getErrorUrl()); ?>"
+                    value="<?= $escaper->escapeUrl($block->getErrorUrl()); ?>"
                 >
                 <?= $block->getLayout()
                     ->createBlock(\Magento\Customer\Block\Widget\Name::class)
-                    ->setObject($block->getFormData())
+                    ->setObject($formData)
                     ->setForceUseCustomerAttributes(true)
                     ->toHtml()
                 ?>
-                <?php if ($block->isNewsletterEnabled()) : ?>
+                <?php if ($block->isNewsletterEnabled()): ?>
                     <div
                         class="
                             checkbox
@@ -79,13 +92,13 @@
                             type="checkbox"
                             id="is_subscribed"
                             name="is_subscribed"
-                            title="<?= $block->escapeHtmlAttr(__('Sign Up for Newsletter')); ?>"
+                            title="<?= $escaper->escapeHtmlAttr(__('Sign Up for Newsletter')); ?>"
                             value="1"
                             class="
                                 checkbox__field
                                 account-form__newsletter-checkbox-field
                             "
-                            <?= ($block->getFormData()->getIsSubscribed()) ? 'checked="checked"' : '' ?>
+                            <?= ($formData->getIsSubscribed()) ? 'checked="checked"' : '' ?>
                         >
                         <svg
                             class="
@@ -95,7 +108,7 @@
                             role="presentation"
                             focusable="false"
                         >
-                            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#checked')) ?>"></use>
+                            <use xlink:href="<?= $escaper->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#checked')) ?>"></use>
                         </svg>
                         <svg
                             class="
@@ -105,7 +118,7 @@
                             role="presentation"
                             focusable="false"
                         >
-                            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#unchecked')) ?>"></use>
+                            <use xlink:href="<?= $escaper->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#unchecked')) ?>"></use>
                         </svg>
                         <label
                             for="is_subscribed"
@@ -114,7 +127,7 @@
                                 account-form__newsletter-checkbox-label
                             "
                         >
-                            <?= $block->escapeHtml(__('Sign Up for Newsletter')) ?>
+                            <?= $escaper->escapeHtml(__('Sign Up for Newsletter')) ?>
                         </label>
                     </div>
                     <?php /* Extensions placeholder */ ?>
@@ -122,38 +135,39 @@
                 <?php endif ?>
                 <?php $_dob = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Dob::class) ?>
                 <?php if ($_dob->isEnabled()) : ?>
-                    <?= $_dob->setDate($block->getFormData()->getDob())
+                    <?= $_dob->setDate($formData->getDob())
                         ->setHtmlClass('input__field')
                         ->toHtml();
                     ?>
                 <?php endif; ?>
                 <?php $_taxvat = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Taxvat::class) ?>
                 <?php if ($_taxvat->isEnabled()) : ?>
-                    <?= $_taxvat->setTaxvat($block->getFormData()->getTaxvat())->toHtml() ?>
+                    <?= $_taxvat->setTaxvat($formData->getTaxvat())->toHtml() ?>
                 <?php endif; ?>
                 <?php $_gender = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Gender::class) ?>
                 <?php if ($_gender->isEnabled()) : ?>
-                    <?= $_gender->setGender($block->getFormData()->getGender())->toHtml() ?>
+                    <?= $_gender->setGender($formData->getGender())->toHtml() ?>
                 <?php endif; ?>
+                <?= $block->getChildHtml('fieldset_create_info_additional') ?>
             </fieldset>
             <fieldset class="fieldset account-form__fieldset">
                 <legend class="account-form__legend">
-                    <?= $block->escapeHtml(__('Sign-In information')) ?>
+                    <?= $escaper->escapeHtml(__('Sign-In information')) ?>
                 </legend>
                 <div class="input account-form__input required">
                     <label
                         class="label"
                         for="email_address"
                     >
-                        <?= $block->escapeHtml(__('Email')) ?>
+                        <?= $escaper->escapeHtml(__('Email')) ?>
                     </label>
                     <input
                         type="email"
                         name="email"
                         autocomplete="email"
                         id="email_address"
-                        value="<?= $block->escapeHtmlAttr($block->getFormData()->getEmail()); ?>"
-                        title="<?= $block->escapeHtmlAttr(__('Email')); ?>"
+                        value="<?= $escaper->escapeHtmlAttr($formData->getEmail()); ?>"
+                        title="<?= $escaper->escapeHtmlAttr(__('Email')); ?>"
                         class="input__field"
                         aria-required="true"
                         data-validate="{required:true, 'validate-email':true}"
@@ -177,16 +191,16 @@
                             class="label input__label"
                             for="password"
                         >
-                            <?= $block->escapeHtml(__('Password')) ?>
+                            <?= $escaper->escapeHtml(__('Password')) ?>
                         </label>
                         <input
                             type="password"
                             id="password"
                             name="password"
-                            title="<?= $block->escapeHtmlAttr(__('Password')); ?>"
+                            title="<?= $escaper->escapeHtmlAttr(__('Password')); ?>"
                             class="input__field"
-                            data-password-min-length="<?= $block->escapeHtml($block->getMinimumPasswordLength()); ?>"
-                            data-password-min-character-sets="<?= $block->escapeHtml($block->getRequiredCharacterClassesNumber()); ?>"
+                            data-password-min-length="<?= $escaper->escapeHtml($block->getMinimumPasswordLength()); ?>"
+                            data-password-min-character-sets="<?= $escaper->escapeHtml($block->getRequiredCharacterClassesNumber()); ?>"
                             data-validate="{
                                 required: true,
                                 'validate-customer-password': true
@@ -201,7 +215,7 @@
                                 button--icon
                                 input__button-pass
                             "
-                            aria-label="<?= $block->escapeHtmlAttr(__('Show/hide password')) ?>"
+                            aria-label="<?= $escaper->escapeHtmlAttr(__('Show/hide password')) ?>"
                             data-mage-init='{"passwordTrigger": {}}'
                         >
                             <svg
@@ -213,8 +227,8 @@
                                 role="presentation"
                                 focusable="false"
                             >
-                                <title><?= $block->escapeHtml(__('View password icon')) ?></title>
-                                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#visibility-off')); ?>"></use>
+                                <title><?= $escaper->escapeHtml(__('View password icon')) ?></title>
+                                <use xlink:href="<?= $escaper->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#visibility-off')); ?>"></use>
                             </svg>
 
                             <svg
@@ -226,8 +240,8 @@
                                 role="presentation"
                                 focusable="false"
                             >
-                                <title><?= $block->escapeHtml(__('Hide password icon')) ?></title>
-                                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#visibility')); ?>"></use>
+                                <title><?= $escaper->escapeHtml(__('Hide password icon')) ?></title>
+                                <use xlink:href="<?= $escaper->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#visibility')); ?>"></use>
                             </svg>
                         </button>
                     </div>
@@ -237,13 +251,13 @@
                             data-role="password-strength-meter"
                         >
                             <div class="password-strength__handle">
-                                <?= $block->escapeHtml(__('Password Strength')) ?>:
+                                <?= $escaper->escapeHtml(__('Password Strength')) ?>:
                                 <span
                                     class="password-strength__indicator"
                                     data-role="password-strength-meter-label"
                                     aria-live="polite"
                                 >
-                                    <?= $block->escapeHtml(__('No Password')) ?>
+                                    <?= $escaper->escapeHtml(__('No Password')) ?>
                                 </span>
                             </div>
                         </div>
@@ -260,12 +274,12 @@
                         class="label input__label"
                         for="password_confirmation"
                     >
-                        <?= $block->escapeHtml(__('Confirm password')) ?>
+                        <?= $escaper->escapeHtml(__('Confirm password')) ?>
                     </label>
                     <input
                         type="password"
                         name="password_confirmation"
-                        title="<?= $block->escapeHtmlAttr(__('Confirm password')); ?>"
+                        title="<?= $escaper->escapeHtmlAttr(__('Confirm password')); ?>"
                         id="password_confirmation"
                         class="input__field"
                         data-validate="{required:true, equalTo:'#password'}"
@@ -279,7 +293,7 @@
                             button--icon
                             input__button-pass
                         "
-                        aria-label="<?= $block->escapeHtmlAttr(__('Show/hide password')) ?>"
+                        aria-label="<?= $escaper->escapeHtmlAttr(__('Show/hide password')) ?>"
                         data-mage-init='{"passwordTrigger": {}}'
                     >
                         <svg
@@ -291,8 +305,8 @@
                             role="presentation"
                             focusable="false"
                         >
-                            <title><?= $block->escapeHtml(__('View password icon')) ?></title>
-                            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#visibility-off')); ?>"></use>
+                            <title><?= $escaper->escapeHtml(__('View password icon')) ?></title>
+                            <use xlink:href="<?= $escaper->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#visibility-off')); ?>"></use>
                         </svg>
 
                         <svg
@@ -304,53 +318,78 @@
                             role="presentation"
                             focusable="false"
                         >
-                            <title><?= $block->escapeHtml(__('Hide password icon')) ?></title>
-                            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#visibility')); ?>"></use>
+                            <title><?= $escaper->escapeHtml(__('Hide password icon')) ?></title>
+                            <use xlink:href="<?= $escaper->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#visibility')); ?>"></use>
                         </svg>
                     </button>
                 </div>
+            </fieldset>
+
+            <fieldset class="fieldset additional_info">
                 <?= $block->getChildHtml('form_additional_info'); ?>
             </fieldset>
+
             <div class="account-form__actions">
                 <button
                     type="submit"
                     class="button account-form__button"
                 >
-                    <?= $block->escapeHtml(__('Create an Account')) ?>
+                    <?= $escaper->escapeHtml(__('Create an Account')) ?>
                 </button>
             </div>
             <div class="account-form__validation-tips">
-                * <?= $block->escapeHtml(__('Required Fields')) ?>
+                * <?= $escaper->escapeHtml(__('Required Fields')) ?>
             </div>
         </form>
     </div>
 </div>
 
-<script>
-    require([
-        'jquery',
-        'mage/mage'
-    ], function($) {
-        var dataForm = $('#form-validate'),
-            ignore = <?= $_dob->isEnabled() ? '\'input[id$="full"]\'' : 'null' ?>;
+<?php $ignore = /* @noEscape */ $_dob->isEnabled() ? '\'input[id$="full"]\'' : 'null';
+$scriptString = <<<script
+require([
+    'jquery',
+    'mage/mage'
+], function($){
 
-        dataForm.mage('validation', {
-            <?php if ($_dob->isEnabled()) : ?>
-                errorPlacement: function(error, element) {
-                    if (element.prop('id').search('full') !== -1) {
-                        var dobElement = $(element).parents('.customer-dob'),
-                            errorClass = error.prop('class');
-                        error.insertAfter(element.parent());
-                        dobElement.find('.validate-custom').addClass(errorClass)
-                            .after('<div class="' + errorClass + '"></div>');
-                    } else {
-                        error.insertAfter(element);
-                    }
-                },
-                ignore: ':hidden:not(' + ignore + ')'
-            <?php else : ?>
-                ignore: ignore ? ':hidden:not(' + ignore + ')' : ':hidden'
-            <?php endif ?>
-        });
-    });
+    var dataForm = $('#form-validate');
+    var ignore = {$ignore};
+
+    dataForm.mage('validation', {
+script;
+if ($_dob->isEnabled()):
+    $scriptString .= <<<script
+        errorPlacement: function(error, element) {
+            if (element.prop('id').search('full') !== -1) {
+                var dobElement = $(element).parents('.customer-dob'),
+                    errorClass = error.prop('class');
+                error.insertAfter(element.parent());
+                dobElement.find('.validate-custom').addClass(errorClass)
+                    .after('<div class="' + errorClass + '"></div>');
+            }
+            else {
+                error.insertAfter(element);
+            }
+        },
+        ignore: ':hidden:not(' + ignore + ')'
+script;
+else:
+    $scriptString .= <<<script
+        ignore: ignore ? ':hidden:not(' + ignore + ')' : ':hidden'
+script;
+endif;
+$scriptString .= <<<script
+    }).find('input:text').attr('autocomplete', 'off');
+});
+script;
+?>
+<?= /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false) ?>
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Customer/js/block-submit-on-send": {
+                "formId": "form-validate"
+            }
+        }
+    }
 </script>

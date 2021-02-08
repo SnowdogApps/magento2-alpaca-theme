@@ -1,6 +1,4 @@
 <?php
-// phpcs:disable Magento2.Templates.ThisInTemplate
-
 /**
  * @var \Magento\Company\Block\Company\CompanyProfile $block
  * @var \Magento\Framework\DataObject $formSelectOptionsData
@@ -347,7 +345,13 @@ $company = $block->getCustomerCompany();
     </div>
 </form>
 
-<?php $regionValue = ((int) $company->getRegionId()) ? (int) $company->getRegionId() : ''; ?>
+<?php
+$regionValue = ((int)$company->getRegionId()) ? (int)$company->getRegionId() : '';
+/* @var Magento\Directory\Helper\Data $directoryDataHelper */
+$directoryDataHelper = $block->getData('directoryDataHelper');
+$regionJson = $directoryDataHelper->getRegionJson();
+$countriesList = $directoryDataHelper->getCountriesWithOptionalZip(true);
+?>
 <script type="text/x-magento-init">
     {
         "#company-edit-form": {
@@ -360,9 +364,9 @@ $company = $block->getCustomerCompany();
                 "regionInputId": "#region",
                 "postcodeId": "#postcode",
                 "form": "#company-edit-form",
-                "regionJson": <?= /* @noEscape */ $this->helper(\Magento\Directory\Helper\Data::class)->getRegionJson() ?>,
+                "regionJson": <?= /* @noEscape */ $regionJson ?>,
                 "defaultRegion": "<?= /* @noEscape */ $regionValue ?>",
-                "countriesWithOptionalZip": <?= /* @noEscape */ $this->helper(\Magento\Directory\Helper\Data::class)->getCountriesWithOptionalZip(true) ?>
+                "countriesWithOptionalZip": <?= /* @noEscape */ $countriesList ?>
             }
         }
     }

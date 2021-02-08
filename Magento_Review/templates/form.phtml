@@ -1,7 +1,6 @@
 <?php
-// @codingStandardsIgnoreFile
-
 /** @var \Magento\Review\Block\Form $block */
+//phpcs:disable Generic.Files.LineLength
 ?>
 <?php if ($block->getAllowWriteReviewFlag()): ?>
     <form
@@ -215,7 +214,7 @@
     <script type="text/x-magento-init">
     {
         "[data-role=product-review-form]": {
-            "Magento_Ui/js/core/app": <?= $block->getJsLayout() ?>
+            "Magento_Ui/js/core/app": <?= /* @noEscape */ $block->getJsLayout() ?>
         },
         "#review-form": {
             "Magento_Review/js/error-placement": {},
@@ -223,13 +222,12 @@
             "Magento_Review/js/submit-review": {}
         }
     }
-
     </script>
 <?php else: ?>
     <div class="message notlogged" id="review-form">
         <?=
         $block->escapeHtml(
-            __('Only registered users can write reviews. Please <a href="%1">Sign in</a> or <a href="%2">create an account</a>',
+            __('Only registered users can write reviews. Please <a href="%1" class="margin-hz-xs">Sign in</a> or <a href="%2" class="margin-left-xs">create an account</a>',
                 $block->getLoginLink(),
                 $block->getRegisterUrl()),
             ['a']

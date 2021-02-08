@@ -1,11 +1,11 @@
-<?php 
+<?php
     // TODO get magento version without objectManager
     $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
     $productMetadata = $objectManager->get('Magento\Framework\App\ProductMetadataInterface');
 
     $hasText = $block->getHasText();
     $buttonText = $block->getText();
-    $additionalClass = $block->getAdditionalClass(); 
+    $additionalClass = $block->getAdditionalClass();
 ?>
 
 <?php if ($block->getWishlistHelper()->isAllow()): ?>
@@ -24,11 +24,9 @@
         title="<?= $block->escapeHtmlAttr(__('Add to Wish List')) ?>"
         aria-label="<?= $block->escapeHtmlAttr(__('Add to Wish List')) ?>"
         data-testid="add-to-wishlist-button"
-        data-post='<?= /* @noEscape */ $block->getAddToWishlistParams($block->getProduct()) ?>'
-        data-action="add-to-wishlist"
+        data-multiplewishlist='<?= /* @noEscape */ $block->getAddToWishlistParams($block->getProduct()) ?>'
         data-mage-init='{
             "wishlistItem": {
-                "productId": "<?= /* @noEscape */ $productId ?>",
                 "class": "button--icon-filled",
                 "addToParams": <?= /* @noEscape */ $block->getAddToWishlistParams($block->getProduct()) ?>
             }
