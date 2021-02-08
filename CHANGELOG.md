@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+## [2.12.1] - 2021-02-08
 ### Updated
 - theme to Magento 2.3.6.p1 (#75169)
 `
