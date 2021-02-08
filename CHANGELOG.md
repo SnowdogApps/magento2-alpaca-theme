@@ -9,6 +9,8 @@ All notable changes to this project will be documented in this file.
 - duplicated requisition list button (#74883)
 ### Added
 - new styles for my orders filters (#74638)
+### Changed
+- apply code buttons to uppercase, update placeholders for gift card, add new template for gift card on commerce version (#74636)
 
 ## [Released]
 ## [2.13.0] - 2021-01-21
