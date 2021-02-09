@@ -100,7 +100,7 @@ define([
       _onPropertyChange: _.debounce(function () {
         var value = this.element.val();
 
-        this.submitBtn.disabled = this._isEmpty(value);
+        this.submitBtn.disabled = true;
 
         if (value.trim().length >= parseInt(this.options.minSearchLength, 10)) {
           this.searchForm.addClass('processing');
