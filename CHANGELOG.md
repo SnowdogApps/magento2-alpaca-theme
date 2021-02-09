@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+## [2.14.0] - 2021-02-09
 ### Updated
 - theme to Magento 2.4.2 (#75141)
 ### Fixed
