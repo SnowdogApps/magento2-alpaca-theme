@@ -13,7 +13,10 @@ define([
         groupedInfo: '#super-product-table input',
         downloadableInfo: '#downloadable-links-list input',
         customOptionsInfo: '.product-custom-option',
-        qtyInfo: '#qty'
+        qtyInfo: '#qty',
+        actionElement: '[data-action="add-to-wishlist"]',
+        productListWrapper: '.product-item-info',
+        productPageWrapper: '.product-info-main'
       },
 
       /**
@@ -23,16 +26,20 @@ define([
       _updateWishlistData: function (event) {
         var dataToAdd = {},
           isFileUploaded = false,
+          handleObjSelector = null,
           self = this,
           updateWishlistBtn = $('.product-view__addtowishlist--update');
 
         if (event.handleObj.selector == this.options.qtyInfo) { //eslint-disable-line eqeqeq
-          this._updateAddToWishlistButton({});
+          this._updateAddToWishlistButton({}, event);
           event.stopPropagation();
 
           return;
         }
-        $(event.handleObj.selector).each(function (index, element) {
+
+        handleObjSelector = $(event.currentTarget).closest('form').find(event.handleObj.selector);
+
+        handleObjSelector.each(function (index, element) {
           if ($(element).is('input[type=text]') ||
               $(element).is('input[type=email]') ||
               $(element).is('input[type=number]') ||
@@ -68,7 +75,7 @@ define([
         if (isFileUploaded) {
           this.bindFormSubmit();
         }
-        this._updateAddToWishlistButton(dataToAdd);
+        this._updateAddToWishlistButton(dataToAdd, event);
         event.stopPropagation();
       },
     });
