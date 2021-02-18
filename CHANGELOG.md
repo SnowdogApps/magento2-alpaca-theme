@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Updated
+- header variable & template; atomic `width-full-screen` class (#75554)
+
+### Added
+- handlebar `or` helper (#75554)
 
 ## [2.14.0] - 2021-02-09
 ### Updated
