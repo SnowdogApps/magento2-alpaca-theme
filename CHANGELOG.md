@@ -3,6 +3,17 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [Released]
+
+## [2.15.0] - 2021-02-25
+### Updated
+- header variable & template; atomic `width-full-screen` class (#75554)
+### Fixed
+- method typo (#76074)
+
+### Added
+- handlebar `or` helper (#75554)
+
 ## [2.14.0] - 2021-02-09
 ### Updated
 - theme to Magento 2.4.2 (#75141)
@@ -18,7 +29,6 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - apply code buttons to uppercase, update placeholders for gift card, add new template for gift card on commerce version (#74636)
 
-## [Released]
 ## [2.13.0] - 2021-01-21
 ### Updated
 - theme to Magento 2.4.1 (#70133)
