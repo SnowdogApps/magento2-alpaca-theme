@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Updated
+- Fractal npm dependencies (PLEASE UPDATE IN CHILD THEMES) (#75847)
 
 ## [2.14.0] - 2021-02-09
 ### Updated
