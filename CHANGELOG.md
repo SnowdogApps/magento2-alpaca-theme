@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Updated
 - Fractal npm dependencies (PLEASE UPDATE IN CHILD THEMES) (#75847)
+### Fixed
+- jumping images on PDP (#75491) Affects: images on PDP
 
 ## [Released]
 
