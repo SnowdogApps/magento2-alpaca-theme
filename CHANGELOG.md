@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 - Fractal npm dependencies (PLEASE UPDATE IN CHILD THEMES) (#75847)
 ### Fixed
 - Backorder product notification in minicart (#76180)
+- EE - Password trigger (#76538)
+- Disabled search button (#76537)
 
 ## [Released]
 
