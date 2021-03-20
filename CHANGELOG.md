@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 - jumping images on PDP (#75491) Affects: images on PDP
 - Backorder product notification in minicart (#76180)
+- EE - Password trigger (#76538)
 
 ## [Released]
 
