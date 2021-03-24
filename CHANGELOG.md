@@ -9,6 +9,8 @@ All notable changes to this project will be documented in this file.
 - Backorder product notification in minicart (#76180)
 - EE - Password trigger (#76538)
 - Disabled search button, styles on focus (#76537)
+- remove duplicated quantity-update import
+- remove php code from authentication-popup.html
 
 ## [Released]
 
