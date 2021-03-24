@@ -2,8 +2,24 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Added
+### Updated
+### Removed
+### Fixed
+
 
 ## [Released]
+
+## [2.16.0] - 2021-03-24
+### Updated
+- Fractal npm dependencies (PLEASE UPDATE IN CHILD THEMES) (#75847)
+### Fixed
+- jumping images on PDP (#75491) Affects: images on PDP
+- Backorder product notification in minicart (#76180)
+- EE - Password trigger (#76538)
+- Disabled search button, styles on focus (#76537)
+- remove duplicated quantity-update import
+- remove php code from authentication-popup.html
 
 ## [2.15.0] - 2021-02-25
 ### Updated
