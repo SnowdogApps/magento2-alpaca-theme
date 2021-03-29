@@ -1,5 +1,10 @@
 <?php
 /** @var Magento\CustomerCustomAttributes\Block\Form $block */
+
+use Magento\Customer\Block\Widget\Dob;
+use Magento\Customer\Block\Widget\Gender;
+use Magento\Customer\Block\Widget\Name;
+use Magento\Customer\Block\Widget\Taxvat;
 ?>
 <div class="dashboard-form">
     <form
@@ -17,14 +22,15 @@
                 <?= $block->escapeHtml(__('Account Information')) ?>
             </h2>
             <?= $block->getLayout()
-                ->createBlock(\Magento\Customer\Block\Widget\Name::class)
+                ->createBlock(Name::class)
                 ->setObject($block->getCustomer())
                 ->toHtml()
             ?>
 
-            <?php $_dob = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Dob::class) ?>
-            <?php $_taxvat = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Taxvat::class) ?>
-            <?php $_gender = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Gender::class) ?>
+            <?php $_dob = $block->getLayout()->createBlock(Dob::class) ?>
+            <?php $_taxvat = $block->getLayout()->createBlock(Taxvat::class) ?>
+            <?php $_gender = $block->getLayout()->createBlock(Gender::class) ?>
+
             <?php if ($_dob->isEnabled()): ?>
                 <?= $_dob->setDate($block->getCustomer()->getDob())->toHtml() ?>
             <?php endif ?>
@@ -117,6 +123,8 @@
                 <?php $block->restoreSessionData($userDefinedAttributes->getMetadataForm());?>
                 <?= $userDefinedAttributes->toHtml() ?>
             <?php endif;?>
+
+            <?= $block->getChildHtml('fieldset_edit_info_additional') ?>
         </fieldset>
 
         <fieldset
@@ -239,6 +247,9 @@
                     required
                 />
             </div>
+        </fieldset>
+
+        <fieldset class="fieldset additional_info">
             <?= $block->getChildHtml('form_additional_info') ?>
         </fieldset>
 

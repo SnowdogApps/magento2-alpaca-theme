@@ -1,9 +1,9 @@
 <?php
-
 /**
  * Template for displaying product price at product view page, gift registry and wish-list
  *
  * @var $block \Magento\Msrp\Pricing\Render\PriceBox
+ * @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer
  */
 ?>
 <?php
@@ -56,7 +56,9 @@ $priceElementIdPrefix = $block->getPriceElementIdPrefix() ? $block->getPriceElem
         $addToCartUrl = '';
         if ($product->isSaleable()) {
             /** @var Magento\Catalog\Block\Product\AbstractProduct $addToCartUrlGenerator */
-            $addToCartUrlGenerator = $block->getLayout()->getBlockSingleton(\Magento\Catalog\Block\Product\AbstractProduct::class);
+            $addToCartUrlGenerator = $block->getLayout()->getBlockSingleton(
+                \Magento\Catalog\Block\Product\AbstractProduct::class
+            );
             // phpcs:disable
             $addToCartUrl = $addToCartUrlGenerator->getAddToCartUrl(
                 $product,
@@ -100,13 +102,12 @@ $priceElementIdPrefix = $block->getPriceElementIdPrefix() ? $block->getPriceElem
             );
         }
         ?>
+        <?php $priceId = $block->escapeHtmlAttr($block->getPriceId() ? $block->getPriceId() : $priceElementId); ?>
         <span
-            id="<?= $block->escapeHtmlAttr($block->getPriceId() ? $block->getPriceId() : $priceElementId) ?>"
+            id="s_<?= /* @noEscape*/ $priceId ?>"
             class="display-none"
-        >
-        </span>
+        ></span>
         <button
-            href="javascript:void(0);"
             id="<?= /* @noEscape */ ($popupId) ?>"
             class="
                 button
@@ -118,14 +119,12 @@ $priceElementIdPrefix = $block->getPriceElementIdPrefix() ? $block->getPriceElem
             "
             type="button"
             aria-label="<?= $block->escapeHtmlAttr(__('See more information')) ?>"
-            <?php //phpcs:disable ?>
             data-mage-init='{
-                "addToCart":<?= /* @noEscape */ $this->helper(\Magento\Framework\Json\Helper\Data::class)->jsonEncode($data) ?>
+                "addToCart":<?= /* @noEscape */ $block->jsonEncode($data) ?>
             }'
         >
-            <?php //phpcs:enable?>
             <svg
-                class="icon "
+                class="icon"
                 role="img"
             >
                 <title><?= $block->escapeHtml(__('Show tooltip')) ?></title>

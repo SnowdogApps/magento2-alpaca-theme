@@ -1,21 +1,24 @@
 <?php
-/** @var \Magento\NegotiableQuote\Block\Quote\Info $block */
+/**
+ * @var \Magento\NegotiableQuote\Block\Quote\Info $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
 ?>
 <ul class="list list--table">
     <li class="list__item">
         <span class="list__label">
-            <?= $block->escapeHtml(__('Created:')) ?>
+            <?= $escaper->escapeHtml(__('Created:')) ?>
         </span>
         <span class="list__value">
             <date>
                 <?= /* @noEscape */ $block->formatDate($block->getQuote()->getCreatedAt(), \IntlDateFormatter::LONG) ?>
             </date>
-            (<?= $block->escapeHtml($block->getQuoteOwnerFullName()) ?>)
+            (<?= $escaper->escapeHtml($block->getQuoteOwnerFullName()) ?>)
         </span>
     </li>
     <li class="list__item">
         <span class="list__label">
-            <?= $block->escapeHtml(__('Expires:')) ?>
+            <?= $escaper->escapeHtml(__('Expires:')) ?>
         </span>
         <span class="list__value">
             <?php if ($block->isQuoteExpirationDateDisplayed()): ?>
@@ -23,16 +26,16 @@
                     <?= /* @noEscape */ $block->formatDate($block->getExpirationPeriodTime(), \IntlDateFormatter::LONG) ?>
                 </date>
             <?php else: ?>
-                <?= $block->escapeHtml(__('Never')) ?>
+                <?= $escaper->escapeHtml(__('Never')) ?>
             <?php endif; ?>
         </span>
     </li>
     <li class="list__item">
         <span class="list__label">
-            <?= $block->escapeHtml(__('Sales Rep.:')) ?>
+            <?= $escaper->escapeHtml(__('Sales Rep.:')) ?>
         </span>
         <span class="list__value">
-            <?= $block->escapeHtml($block->getSalesRep()) ?>
+            <?= $escaper->escapeHtml($block->getSalesRep()) ?>
         </span>
     </li>
 </ul>

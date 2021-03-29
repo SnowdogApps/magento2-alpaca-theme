@@ -2,6 +2,54 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Added
+### Updated
+### Removed
+### Fixed
+
+
+## [Released]
+
+## [2.16.0] - 2021-03-24
+### Updated
+- Fractal npm dependencies (PLEASE UPDATE IN CHILD THEMES) (#75847)
+### Fixed
+- jumping images on PDP (#75491) Affects: images on PDP
+- Backorder product notification in minicart (#76180)
+- EE - Password trigger (#76538)
+- Disabled search button, styles on focus (#76537)
+- remove duplicated quantity-update import
+- remove php code from authentication-popup.html
+
+## [2.15.0] - 2021-02-25
+### Updated
+- header variable & template; atomic `width-full-screen` class (#75554)
+### Fixed
+- method typo (#76074)
+
+### Added
+- handlebar `or` helper (#75554)
+
+## [2.14.0] - 2021-02-09
+### Updated
+- theme to Magento 2.4.2 (#75141)
+### Fixed
+- quality of images on compare products page (#74635)
+- error on multishipping and requisition list pages on quantity update (#75141)
+- error on mouse move in checkout address search modal (#75141)
+### Removed
+- EE - removed review amount and add your review link from product grid (#74637)
+- duplicated requisition list button (#74883)
+### Added
+- new styles for my orders filters (#74638)
+### Changed
+- apply code buttons to uppercase, update placeholders for gift card, add new template for gift card on commerce version (#74636)
+
+## [2.13.0] - 2021-01-21
+### Updated
+- theme to Magento 2.4.1 (#70133)
+
+## [2.12.0] - 2021-01-19
 ### Updated
 - theme to Magento 2.3.6 (#72223)
 ### Fixed
@@ -9,10 +57,16 @@ All notable changes to this project will be documented in this file.
 - message in review section requires spaces bewteen links in text (#73943)
 - image width in requisition list (#73942)
 - search result pages (#68876)
+- scss variable for grid on PDP (#71511)
+- order details in user dashboard (#73940)
+- conatiner top space on PDP, category, home (#74745)
 ### Added
 - option to customize number of slides to show in templates with sliders (#70261)
+### Removed
+- duplicated stock status for configurable products (#73939)
+### Changed
+- payment method template in customer dashboard (#73941)
 
-## [Released]
 ## [2.11.0] - 2020-12-10
 
 ### Added
@@ -20,6 +74,7 @@ All notable changes to this project will be documented in this file.
 - store credit dashboard to components (#72456)
 - adjustments to checkout address search templates (#72454)
 - adjustments to reward points templates (#70571) Affects: cart & checkout payment step
+- variables for product view add to cart button and cms contact max-width (#73403)
 
 ### Fixed
 - performance, changes for magepack - optimise js (minify js libs, datapicker, calendar, M2 bootstrap, marketing bar), styles loading (preload, remove useless variables), fonts (swap)
@@ -70,7 +125,6 @@ All notable changes to this project will be documented in this file.
 ### Removed
 - unnecessary header-button margin styles (#68780)
 - focus effect from button-add-to on mobile & desktop (caused issues on touch screens) (#73623)
-- duplicated stock status for configurable products (#73939)
 
 ## [Released]
 ## [2.10.0] - 2020-10-21
@@ -80,7 +134,6 @@ All notable changes to this project will be documented in this file.
 - "back" link to requisiton list page (#70586)
 ### Changed
 - requisition list toolbar styling (#70586)
-- payment method template in customer dashboard (#73941)
 
 ### Fixed
 - issue with arrows looking wrong if gallery vertical/horizontal nav breakpoints are changed via configuration (#71113); Affects: gallery navigation
@@ -102,7 +155,7 @@ All notable changes to this project will be documented in this file.
 - error on company profle page (#72234)
 - tab content in quote view - removed escaping (#72243)
 - loading state/province options (#72291)
-- order details in user dashboard (#73940)
+
 ### Added
 - adjust sliders loading time + add slider widget template (#65842)
 - scroll-to.js file and added it for reviews on product page (#71248); Affects: Reviews buttons on PDP

@@ -1,11 +1,14 @@
 <?php
-/** @var $block Magento\Company\Block\Company\Management\Info */
+/** @var Magento\Company\Block\Company\Management\Info $block
+ * @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer
+ */
 ?>
 <?php if ($block->hasCustomerCompany() && $block->isRoleEditAllowed()): ?>
     <div class="actions-group margin-vc-sm">
         <div class="actions-group__handler">
             <button
                 type="button"
+                id="add-new-role"
                 title="<?= $block->escapeHtmlAttr(__('Add New Role')) ?>"
                 class="
                     button
@@ -13,11 +16,16 @@
                     action
                     primary
                 "
-                onclick="location = ('<?= $block->escapeJs($block->escapeUrl($block->getUrl('*/*/edit'))) ?>')"
                 data-mobile-label="<?= $block->escapeHtmlAttr(__('Add New Role')) ?>"
             >
                 <?= $block->escapeHtml(__('Add New Role')) ?>
             </button>
+            <?php $url = $block->escapeJs($block->getUrl('*/*/edit')); ?>
+            <?= /* @noEscape */ $secureRenderer->renderEventListenerAsTag(
+                'onclick',
+                "location = ('{$url}')",
+                '.actions-group #add-new-role'
+            ); ?>
         </div>
     </div>
 <?php endif; ?>

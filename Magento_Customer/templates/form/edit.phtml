@@ -1,5 +1,8 @@
 <?php
+use Magento\Customer\Block\Widget\Name;
+
 /** @var \Magento\Customer\Block\Form\Edit $block */
+/** @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer */
 ?>
 <div class="dashboard-form">
     <form
@@ -17,10 +20,11 @@
                 <?= $block->escapeHtml(__('Account Information')) ?>
             </h2>
             <?= $block->getLayout()
-                ->createBlock(\Magento\Customer\Block\Widget\Name::class)
+                ->createBlock(Name::class)
                 ->setObject($block->getCustomer())
                 ->toHtml()
             ?>
+
             <?php $_dob = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Dob::class) ?>
             <?php $_taxvat = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Taxvat::class) ?>
             <?php $_gender = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Gender::class) ?>
@@ -110,6 +114,7 @@
                     <?= $block->escapeHtml(__('Change Password')) ?>
                 </label>
             </div>
+            <?= $block->getChildHtml('fieldset_edit_info_additional') ?>
         </div>
 
         <fieldset
@@ -230,7 +235,11 @@
                 />
             </div>
         </fieldset>
-        <?= $block->getChildHtml('form_additional_info') ?>
+
+        <fieldset class="fieldset additional_info">
+            <?= $block->getChildHtml('form_additional_info') ?>
+        </fieldset>
+
         <div class="actions-group margin-top-l">
             <div class="actions-group__handler">
                 <button
@@ -253,41 +262,52 @@
     </form>
 </div>
 
-<script>
+<?php $ignore = /* @noEscape */ $_dob->isEnabled() ? '\'input[id$="full"]\'' : 'null';
+$scriptString = <<<script
     require([
         "jquery",
         "mage/mage"
-    ], function($) {
+    ], function($){
         var dataForm = $('#form-validate');
-        var ignore = <?= $_dob->isEnabled() ? '\'input[id$="full"]\'' : 'null' ?>;
+        var ignore = {$ignore};
 
         dataForm.mage('validation', {
-            <?php if ($_dob->isEnabled()): ?>
-                errorPlacement: function(error, element) {
-                    if (element.prop('id').search('full') !== -1) {
-                        var dobElement = $(element).parents('.customer-dob'),
-                            errorClass = error.prop('class');
-                        error.insertAfter(element.parent());
-                        dobElement.find('.validate-custom').addClass(errorClass)
-                            .after('<div class="' + errorClass + '"></div>');
-                    } else {
-                        error.insertAfter(element);
-                    }
-                },
-                ignore: ':hidden:not(' + ignore + ')'
-            <?php else: ?>
-                ignore: ignore ? ':hidden:not(' + ignore + ')' : ':hidden'
-            <?php endif ?>
+script;
+if ($_dob->isEnabled()):
+    $scriptString .= <<<script
+        errorPlacement: function(error, element) {
+            if (element.prop('id').search('full') !== -1) {
+                var dobElement = $(element).parents('.customer-dob'),
+                    errorClass = error.prop('class');
+                error.insertAfter(element.parent());
+                dobElement.find('.validate-custom').addClass(errorClass)
+                    .after('<div class="' + errorClass + '"></div>');
+            }
+            else {
+                error.insertAfter(element);
+            }
+        },
+        ignore: ':hidden:not(' + ignore + ')'
+    script;
+else:
+    $scriptString .= <<<script
+        ignore: ignore ? ':hidden:not(' + ignore + ')' : ':hidden'
+    script;
+endif;
+$scriptString .= <<<script
         });
     });
-</script>
+script;
+?>
+<?= /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false) ?>
+<?php $changeEmailAndPasswordTitle = $block->escapeHtml(__('Change Email and Password')) ?>
 <script type="text/x-magento-init">
     {
         "[data-role=change-email], [data-role=change-password]": {
             "changeEmailPassword": {
                 "titleChangeEmail": "<?= $block->escapeJs($block->escapeHtml(__('Change Email'))) ?>",
                 "titleChangePassword": "<?= $block->escapeJs($block->escapeHtml(__('Change Password'))) ?>",
-                "titleChangeEmailAndPassword": "<?= $block->escapeJs($block->escapeHtml(__('Change Email and Password'))) ?>"
+                "titleChangeEmailAndPassword": "<?= $block->escapeJs($changeEmailAndPasswordTitle) ?>"
             }
         },
         "[data-container=new-password]": {

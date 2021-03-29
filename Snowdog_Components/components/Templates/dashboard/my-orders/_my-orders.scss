@@ -1,0 +1,110 @@
+@import 'my-orders-variables';
+
+.my-orders {
+    &__fieldset {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        padding: $my-orders__fieldset-padding;
+
+        @include mq($screen-m) {
+            flex-direction: row;
+            align-items: center;
+        }
+    }
+
+    &__search {
+        min-width: $my-orders__search-min-width;
+
+        @include mq($screen-m) {
+            margin: $my-orders__search-margin\@medium;
+            padding: $my-orders__search-padding\@medium;
+        }
+    }
+
+    &__select {
+        select {
+            @extend .select__field;
+        }
+    }
+
+    &__date {
+        input {
+            padding: $my-orders__date-padding;
+
+            @include mq($screen-m) {
+                padding: $my-orders__date-padding\@medium;
+            }
+        }
+
+        &--from {
+            @include mq($screen-m) {
+                margin: $my-orders__date-form-margin\@medium;
+            }
+        }
+    }
+
+    &__total {
+        &--min {
+            @include mq($screen-m) {
+                margin: $my-orders__total-min-margin\@medium;
+            }
+        }
+    }
+
+    &__field-wrapper {
+        @include mq($screen-m) {
+            display: flex;
+            align-items: center;
+        }
+
+        input {
+            @extend .input__field;
+        }
+    }
+
+    &__field-label {
+        margin: $my-orders__field-label-margin;
+    }
+
+    &__actions {
+        justify-content: flex-end;
+    }
+
+    &__filter-summary {
+        & > ul {
+            @extend .list;
+            padding: $my-orders__summary-list-padding;
+
+            & > li {
+                @extend .list__item;
+                display: flex;
+                flex-wrap: wrap;
+            }
+        }
+
+        .label,
+        .sub-label ,
+        span[data-name='order-date-from'],
+        span[data-name='order-total-min'] {
+            margin: $my-orders__summary-label-margin;
+        }
+
+        .action-remove {
+            @extend .button--link;
+            margin: $my-orders__summary-label-margin;
+
+            &:not(.action-clear-all) {
+                &:before {
+                    content: '';
+                    position: relative;
+                    display: flex;
+                    background: svg-uri("<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path fill='#{$my-orders__summary-icon-fill}' fill-rule='nonzero' d='M18.3 5.71a.996.996 0 0 0-1.41 0L12 10.59 7.11 5.7A.996.996 0 1 0 5.7 7.11L10.59 12 5.7 16.89a.996.996 0 1 0 1.41 1.41L12 13.41l4.89 4.89a.996.996 0 1 0 1.41-1.41L13.41 12l4.89-4.89c.38-.38.38-1.02 0-1.4z'/></svg>");
+                    background-repeat: no-repeat;
+                    width: $my-orders__summary-icon-size;
+                    height: $my-orders__summary-icon-size;
+                }
+            }
+        }
+    }
+}

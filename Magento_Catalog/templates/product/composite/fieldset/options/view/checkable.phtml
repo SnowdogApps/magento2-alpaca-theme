@@ -3,6 +3,7 @@ use Magento\Catalog\Model\Product\Option;
 
 /**
  * @var $block \Magento\Catalog\Block\Product\View\Options\Type\Select\Checkable
+ * @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer
  */
 $option = $block->getOption();
 if ($option): ?>
@@ -31,10 +32,16 @@ if ($option): ?>
                 class="radio__field product-custom-option"
                 name="options[<?= $block->escapeHtmlAttr($option->getId()) ?>]"
                 data-selector="options[<?= $block->escapeHtmlAttr($option->getId()) ?>]"
-                onclick="<?= $block->getSkipJsReloadPrice() ? '' : 'opConfig.reloadPrice()' ?>"
                 value=""
                 checked="checked"
             />
+            <?php if (!$block->getSkipJsReloadPrice()): ?>
+                <?= /* @noEscape */ $secureRenderer->renderEventListenerAsTag(
+                    'onclick',
+                    'opConfig.reloadPrice()',
+                    "options_" . $block->escapeJs($option->getId())
+                ) ?>
+            <?php endif; ?>
             <label
                 class="label radio__label"
                 for="options_<?= $block->escapeHtmlAttr($option->getId()) ?>"

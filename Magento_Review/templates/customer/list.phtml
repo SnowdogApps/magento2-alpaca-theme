@@ -1,3 +1,12 @@
+<?php
+/**
+ * @var \Magento\Review\Block\Customer\ListCustomer $block
+ * @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer
+ */
+
+/** @var \Magento\Review\Helper\Data $reviewHelper */
+$reviewHelper = $block->getData('reviewHelper');
+?>
 <?php if ($block->getReviews() && count($block->getReviews())): ?>
     <div class="dashboard-table">
         <div class="dashboard-table__header">
@@ -80,9 +89,7 @@
                                 data-th="<?= $block->escapeHtmlAttr(__('Review')) ?>"
                                 class="col description"
                             >
-                                <?php //phpcs:disable ?>
-                                <?= $this->helper(\Magento\Review\Helper\Data::class)->getDetailHtml($_review->getDetail()) ?>
-                                <?php //phpcs:enable ?>
+                                <?= $reviewHelper->getDetailHtml($review->getDetail()) ?>
                             </td>
                             <td
                                 data-th="<?= $block->escapeHtmlAttr(__('Actions')) ?>"

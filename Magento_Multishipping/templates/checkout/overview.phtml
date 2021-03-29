@@ -1,7 +1,12 @@
 <?php
-// phpcs:disable Magento2.Templates.ThisInTemplate
-
 /** @var \Magento\Multishipping\Block\Checkout\Overview $block */
+/** @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer */
+?>
+<?php
+/** @var \Magento\Tax\Helper\Data $taxHelper */
+$taxHelper = $block->getData('taxHelper');
+/** @var \Magento\Checkout\Helper\Data $checkoutHelper */
+$checkoutHelper = $block->getData('checkoutHelper');
 ?>
 <?php $errors = $block->getCheckoutData()->getAddressErrors(); ?>
 <?php foreach ($errors as $addressId => $error): ?>
@@ -54,10 +59,10 @@
                     </div>
                     <div class="actions-group margin-bottom-l">
                         <div class="actions-group__handler">
-                            <a 
-                                href="<?= $block->escapeUrl($block->getEditBillingAddressUrl($address)); ?>" 
+                            <a
+                                href="<?= $block->escapeUrl($block->getEditBillingAddressUrl($address)); ?>"
                                 class="
-                                    link 
+                                    link
                                     actions-group__link
                                 "
                                 title="<?= $block->escapeHtmlAttr(__('Change')); ?>"
@@ -86,10 +91,10 @@
                     </div>
                     <div class="actions-group margin-bottom-l">
                         <div class="actions-group__handler">
-                            <a 
-                                href="<?= $block->escapeUrl($block->getEditBillingUrl()); ?>" 
+                            <a
+                                href="<?= $block->escapeUrl($block->getEditBillingUrl()); ?>"
                                 class="
-                                    link 
+                                    link
                                     actions-group__link
                                 "
                                 title="<?= $block->escapeHtmlAttr(__('Change Payment Method')); ?>"
@@ -108,7 +113,7 @@
                 <?= $block->escapeHtml(__('Shipping Information')); ?>
             </h2>
         </div>
-        <?php $mergedCells = ($this->helper(Magento\Tax\Helper\Data::class)->displayCartBothPrices() ? 2 : 1); ?>
+        <?php $mergedCells = ($taxHelper->displayCartBothPrices() ? 2 : 1); ?>
         <?php foreach ($block->getShippingAddresses() as $index => $address): ?>
             <div class="block-content">
                 <a
@@ -140,10 +145,10 @@
                         </div>
                         <div class="actions-group margin-bottom-l">
                             <div class="actions-group__handler">
-                                <a 
-                                    href="<?= $block->escapeUrl($block->getEditShippingAddressUrl($address)); ?>" 
+                                <a
+                                    href="<?= $block->escapeUrl($block->getEditShippingAddressUrl($address)); ?>"
                                     class="
-                                        link 
+                                        link
                                         actions-group__link
                                     "
                                     title="<?= $block->escapeHtmlAttr(__('Change Shipping To Address')); ?>"
@@ -164,8 +169,7 @@
                                 <?php
                                 $exclTax = $block->getShippingPriceExclTax($address);
                                 $inclTax = $block->getShippingPriceInclTax($address);
-                                $displayBothPrices = $this->helper(Magento\Tax\Helper\Data::class)
-                                    ->displayShippingBothPrices() && $inclTax !== $exclTax;
+                                $displayBothPrices = $taxHelper->displayShippingBothPrices() && $inclTax !== $exclTax;
                                 ?>
                                 <?php if ($displayBothPrices): ?>
                                     <span
@@ -187,10 +191,10 @@
                         <?php endif; ?>
                         <div class="actions-group margin-bottom-l">
                             <div class="actions-group__handler">
-                                <a 
-                                    href="<?= $block->escapeUrl($block->getEditShippingUrl()); ?>" 
+                                <a
+                                    href="<?= $block->escapeUrl($block->getEditShippingUrl()); ?>"
                                     class="
-                                        link 
+                                        link
                                         actions-group__link
                                     "
                                     title="<?= $block->escapeHtmlAttr(__('Change Shipping Method')); ?>"
@@ -203,7 +207,7 @@
                 </div>
                 <div class="box-items margin-bottom-m">
                     <div class="box-content">
-                        <div 
+                        <div
                             class="
                                 order-review-wrapper
                                 table-wrapper
@@ -317,7 +321,7 @@
                         <?= $block->escapeHtml(__('Edit Items')); ?>
                     </a>
                 </strong>
-                <?php $mergedCells = ($this->helper(Magento\Tax\Helper\Data::class)->displayCartBothPrices() ? 2 : 1); ?>
+                <?php $mergedCells = ($taxHelper->displayCartBothPrices() ? 2 : 1); ?>
                 <div class="order-review-wrapper table-wrapper">
                     <table
                         class="
@@ -393,20 +397,20 @@
             <div class="price margin-bottom-m">
                 <span class="price__value">
                     <?= $block->escapeHtml(__('Grand Total:')); ?>
-                    <?= /* @noEscape */ $this->helper(Magento\Checkout\Helper\Data::class)
-                        ->formatPrice($block->getTotal()); ?>
+                    <?= /* @noEscape */ $checkoutHelper->formatPrice($block->getTotal()); ?>
                 </span>
             </div>
         </div>
         <?= /* @noEscape */ $block->getChildHtml('agreements') ?>
         <div
             class="
-                actions-group 
+                actions-group
                 margin-vc-m
             "
             id="review-buttons-container"
         >
             <div class="actions-group__handler">
+                <?= $block->getChildHtml('captcha') ?>
                 <button
                     type="submit"
                     class="
@@ -433,6 +437,18 @@
                     <?= $block->escapeHtml(__('Back to Billing Information')); ?>
                 </a>
             </div>
+            <span
+                id="review-please-wait"
+                class="
+                    please-wait
+                    load
+                    indicator
+                    display-none
+                "
+                data-text="<?= $block->escapeHtml(__('Submitting order information...')); ?>"
+            >
+                <?= $block->escapeHtml(__('Submitting order information...')); ?>
+            </span>
         </div>
     </div>
 </form>

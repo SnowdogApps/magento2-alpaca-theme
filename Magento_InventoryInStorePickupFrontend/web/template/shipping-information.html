@@ -1,0 +1,83 @@
+<!-- ko if: (isVisible()) -->
+    <div class="shipping-information">
+        <!-- ko if: (!isStorePickup()) -->
+            <div class="ship-to">
+                <div class="shipping-information__title">
+                    <span
+                        class="shipping-information__title-text"
+                        data-bind="i18n: 'Ship To:'"
+                    ></span>
+                    <button
+                        type="button"
+                        class="
+                            button
+                            button--icon
+                            button--icon-light
+                            shipping-information__button
+                        "
+                        data-bind="
+                            click: back,
+                            attr: {
+                                'aria-label': $t('Edit shipping address')
+                            }
+                        "
+                    >
+                        <svg
+                            role="presentation"
+                            focusable="false"
+                            class="icon button__icon"
+                        >
+                            <use
+                                data-bind="attr: { 'xlink:href': require.toUrl('images/icons-sprite.svg#edit') }"
+                                xlink:href=''
+                            ></use>
+                        </svg>
+                    </button>
+                </div>
+                <div class="shipping-information__content">
+                    <!-- ko foreach: getRegion('ship-to') -->
+                        <!-- ko template: getTemplate() --><!-- /ko -->
+                    <!--/ko-->
+                </div>
+            </div>
+        <!--/ko-->
+        <div class="ship-via">
+            <div class="shipping-information__title">
+                <span
+                    class="shipping-information__title-text"
+                    data-bind="i18n: 'Shipping Method:'"
+                ></span>
+                <button
+                    class="
+                        button
+                        button--icon
+                        button--icon-light
+                    "
+                    data-bind="
+                        click: backToShippingMethod,
+                        attr: {
+                            'aria-label': $t('Edit shipping address')
+                        }
+                    "
+                >
+                    <svg
+                        role="presentation"
+                        focusable="false"
+                        class="icon button__icon"
+                    >
+                        <use
+                            data-bind="attr: { 'xlink:href': require.toUrl('images/icons-sprite.svg#edit') }"
+                            xlink:href=''
+                        ></use>
+                    </svg>
+                </button>
+            </div>
+            <div class="shipping-information__content">
+                <span
+                    class="value"
+                    data-bind="text: getShippingMethodTitle()"
+                ></span>
+            </div>
+        </div>
+    </div>
+<!--/ko-->

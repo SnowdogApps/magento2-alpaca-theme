@@ -1,4 +1,12 @@
 <?php
+// phpcs:disable PSR2.ControlStructures.SwitchDeclaration
+// phpcs:disable Generic.WhiteSpace.ScopeIndent
+
+/** @var $block \Magento\Swatches\Block\LayeredNavigation\RenderLayered */
+/** @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer */
+/** @var \Magento\Framework\Escaper $escaper */
+?>
+<?php
 $swatchData = $block->getSwatchData();
 $swatchCode = $swatchData['attribute_code'];
 $swatchCodeScope = $swatchCode . 'Filter';
@@ -123,8 +131,8 @@ $attributeDescriptions = $helper->getAttributesDescriptions(['color']);
                 list
                 filter__list
             "
-            attribute-code="<?= $block->escapeHtmlAttr($swatchCodeScope) ?>"
-            attribute-id="<?= $block->escapeHtmlAttr($swatchData['attribute_id']) ?>"
+            data-attribute-code="<?= $block->escapeHtmlAttr($swatchCodeScope) ?>"
+            data-attribute-id="<?= $block->escapeHtmlAttr($swatchData['attribute_id']) ?>"
         >
             <?php foreach ($swatchData['options'] as $option => $label): ?>
                 <?php if (isset($swatchData['swatches'][$option]['type'])): ?>
@@ -142,11 +150,12 @@ $attributeDescriptions = $helper->getAttributesDescriptions(['color']);
                                 class="filter__swatch-option"
                                 href="<?= $block->escapeUrl($label['link']) ?>"
                                 aria-label="<?= $block->escapeHtmlAttr($label['label']) ?>"
+                                rel="nofollow"
                             >
                                 <div
-                                    option-type="3"
-                                    option-id="<?= $block->escapeHtmlAttr($option) ?>"
-                                    option-label="<?= $block->escapeHtmlAttr($label['label']) ?>"
+                                    data-option-type="3"
+                                    data-option-id="<?= $block->escapeHtmlAttr($option) ?>"
+                                    data-option-label="<?= $block->escapeHtmlAttr($label['label']) ?>"
                                 ></div>
                             </a>
                         </li>
@@ -161,7 +170,10 @@ $attributeDescriptions = $helper->getAttributesDescriptions(['color']);
                         <?php $swatchImagePath = $block->getSwatchPath(
                             'swatch_image',
                             $swatchData['swatches'][$option]['value']
-                        ); ?>
+                        );
+                        $escapedUrl = $block->escapeUrl($swatchImagePath);
+                        ?>
+
                         <li
                             class="
                                 filter__color-item
@@ -172,23 +184,32 @@ $attributeDescriptions = $helper->getAttributesDescriptions(['color']);
                                 href="<?= $block->escapeUrl($label['link']) ?>"
                                 aria-label="<?= $block->escapeHtmlAttr($label['label']) ?>"
                                 class="filter__color-option"
+                                rel="nofollow"
                             >
                                 <div
                                     class="filter__color-sample"
-                                    option-type="2"
-                                    option-id="<?= $block->escapeHtmlAttr($option) ?>"
-                                    option-label="<?= $block->escapeHtmlAttr($label['label']) ?>"
-                                    option-tooltip-thumb="<?= $block->escapeHtmlAttr($swatchThumbPath) ?>"
-                                    style="
-                                        background: url(<?= $block->escapeUrl($swatchImagePath) ?>) no-repeat center;
-                                        background-size: cover;
-                                    "
+                                    tabindex="-1"
+                                    data-option-type="2"
+                                    data-option-id="<?= $block->escapeHtmlAttr($option) ?>"
+                                    data-option-label="<?= $block->escapeHtmlAttr($label['label']) ?>"
+                                    data-option-tooltip-thumb="<?= $block->escapeHtmlAttr($swatchThumbPath) ?>"
+                                    data-option-tooltip-value=""
                                     title="<?= $block->escapeHtmlAttr($label['label']) ?>"
                                 ></div>
                                 <span class="filter__color-label">
                                     <?= $block->escapeHtml($label['label']) ?>
                                 </span>
                             </a>
+                            <?php
+                            $element = 'swatchImageOption' .$escaper->escapeJs($option);
+                            $script = 'var ' .$element
+                                .' = document.querySelector(\'div[data-option-id="' .$escaper->escapeJs($option)
+                                .'"]\');' .PHP_EOL;
+                            $script .= $element .'.style.background = "url(\''
+                                .$escapedUrl .'\') no-repeat center";' .PHP_EOL;
+                            $script .= $element .'.style.backgroundSize = "cover";';
+                            ?>
+                            <?= /* @noEscape*/ $secureRenderer->renderTag('script', [], $script, false); ?>
                         </li>
                     <?php
                             break;
@@ -203,19 +224,31 @@ $attributeDescriptions = $helper->getAttributesDescriptions(['color']);
                             <a
                                 href="<?= $block->escapeUrl($label['link']) ?>"
                                 class="filter__color-option"
+                                rel="nofollow"
                             >
                                 <div
                                     class="filter__color-sample"
-                                    option-type="1"
-                                    option-id="<?= $block->escapeHtmlAttr($option) ?>"
-                                    option-label="<?= $block->escapeHtmlAttr($label['label']) ?>"
-                                    option-tooltip-value="<?= $block->escapeHtmlAttr($swatchData['swatches'][$option]['value']) ?>"
-                                    style="background: <?= $block->escapeHtmlAttr($swatchData['swatches'][$option]['value']) ?>"
+                                    data-option-type="1"
+                                    data-option-id="<?= $block->escapeHtmlAttr($option) ?>"
+                                    data-option-label="<?= $block->escapeHtmlAttr($label['label']) ?>"
+                                    data-option-tooltip-value="<?= $block->escapeHtmlAttr($swatchData['swatches'][$option]['value']) ?>"
                                 ></div>
                                 <span class="filter__color-label">
                                     <?= $block->escapeHtml($label['label']) ?>
                                 </span>
                             </a>
+                            <?php
+                            $element = 'swatchImageOption' .$escaper->escapeJs($option);
+                            $backgroundValue = $escaper->escapeJs(
+                                str_replace('\'', '\\\'', $swatchData['swatches'][$option]['value'])
+                            );
+                            $script = 'var ' .$element
+                                .' = document.querySelector(\'div[data-option-id="' .$escaper->escapeJs($option)
+                                .'"]\');' .PHP_EOL;
+                            $script .= $element .'.style.background = "' .$backgroundValue
+                                .' no-repeat center";' .PHP_EOL;
+                            ?>
+                            <?= /* @noEscape*/ $secureRenderer->renderTag('script', [], $script, false); ?>
                         </li>
                     <?php
                             break;
@@ -231,9 +264,10 @@ $attributeDescriptions = $helper->getAttributesDescriptions(['color']);
                             <a
                                 href="<?= $block->escapeUrl($label['link']) ?>"
                                 class="filter__swatch-option"
-                                option-type="0"
-                                option-id="<?= $block->escapeHtmlAttr($option) ?>"
-                                option-label="<?= $block->escapeHtmlAttr($label['label']) ?>"
+                                data-option-type="0"
+                                data-option-id="<?= $block->escapeHtmlAttr($option) ?>"
+                                data-option-label="<?= $block->escapeHtmlAttr($label['label']) ?>"
+                                rel="nofollow"
                             >
                                 <?= $block->escapeHtml($swatchData['swatches'][$option]['value']) ?>
                             </a>
@@ -245,19 +279,15 @@ $attributeDescriptions = $helper->getAttributesDescriptions(['color']);
                 <?php endif; ?>
             <?php endforeach; ?>
         </ul>
-        <script>
-            require(
-                [
-                    "jquery",
-                    "Magento_Swatches/js/swatch-renderer"
-                ],
-                function ($)
-                {
-                    $('.swatch-layered.<?= $block->escapeHtmlAttr($swatchCodeScope) ?>')
-                        .find('[option-type="1"], [option-type="2"], [option-type="0"], [option-type="3"]')
-                        .SwatchRendererTooltip();
-                }
-            );
-        </script>
+
+        <?php $scriptString = <<<script
+            require(["jquery", "Magento_Swatches/js/swatch-renderer"], function ($) {
+                $('.swatch-layered.{$block->escapeJs($swatchCodeScope)}')
+                    .find('[data-option-type="1"], [data-option-type="2"], [data-option-type="0"], [data-option-type="3"]')
+                    .SwatchRendererTooltip();
+            });
+        script;
+        ?>
+        <?= /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false) ?>
     </div>
 </li>

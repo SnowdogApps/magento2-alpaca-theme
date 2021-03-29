@@ -1,13 +1,14 @@
 <?php
-
-// phpcs:disable Magento2.Templates.ThisInTemplate
-// phpcs:disable Magento2.Files.LineLength.MaxExceeded
-// phpcs:disable Squiz.ControlStructures.ControlSignature.NewlineAfterOpenBrace
-// phpcs:disable Squiz.WhiteSpace.ScopeClosingBrace.ContentBefore
+use Magento\Customer\Block\Widget\Name;
 
 /* @var $block \Magento\GiftRegistry\Block\Customer\Address\Edit */
-?>
+/** @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer */
 
+/** @var \Magento\Customer\Helper\Address $addressHelper */
+$addressHelper = $block->getData('addressHelper');
+/** @var \Magento\Directory\Helper\Data $directoryHelper */
+$directoryHelper = $block->getData('directoryHelper');
+?>
 <fieldset class="fieldset shipping_address">
     <legend class="fieldset__legend">
         <?= $block->escapeHtml(__('Shipping Address')) ?>
@@ -44,7 +45,12 @@
         "
         id="shipping-new-address-form"
     >
-        <?= $block->getLayout()->createBlock(Magento\Customer\Block\Widget\Name::class)->setObject($block->getAddress())->setFieldNameFormat('address[%s]')->toHtml() ?>
+        <?= $block->getLayout()
+            ->createBlock(Name::class)
+            ->setObject($block->getAddress())
+            ->setFieldNameFormat('address[%s]')
+            ->toHtml()
+        ?>
 
         <div class="input company">
             <label
@@ -59,11 +65,14 @@
                 name="address[company]"
                 value="<?= $block->escapeHtmlAttr($block->getAddress()->getCompany()) ?>"
                 title="<?= $block->escapeHtmlAttr(__('Company')) ?>"
-                class="input__field <?= $block->escapeHtmlAttr($this->helper(Magento\Customer\Helper\Address::class)->getAttributeValidationClass('company')) ?>"
+                class="
+                    input__field
+                    <?= $block->escapeHtmlAttr($addressHelper->getAttributeValidationClass('company')) ?>
+                "
             />
         </div>
 
-        <?php $_streetValidationClass = $block->escapeHtmlAttr($this->helper(Magento\Customer\Helper\Address::class)->getAttributeValidationClass('street')); ?>
+        <?php $_streetValidationClass = $block->escapeHtmlAttr($addressHelper->getAttributeValidationClass('street')); ?>
         <div
             class="
                 input
@@ -93,7 +102,7 @@
 
             <div class="nested">
                 <?php $_streetValidationClass = trim(str_replace('required-entry', '', $_streetValidationClass)); ?>
-                <?php for ($_i = 2, $_n = $this->helper(Magento\Customer\Helper\Address::class)->getStreetLines(); $_i <= $_n; $_i++) :?>
+                <?php for ($_i = 2, $_n = $addressHelper->getStreetLines(); $_i <= $_n; $_i++): ?>
                     <div
                         class="
                             input
@@ -133,7 +142,10 @@
                 title="<?= $block->escapeHtmlAttr(__('City')) ?>"
                 name="address[city]"
                 value="<?= $block->escapeHtmlAttr($block->getAddress()->getCity()) ?>"
-                class="input__field <?= $block->escapeHtmlAttr($this->helper(Magento\Customer\Helper\Address::class)->getAttributeValidationClass('city')) ?>"
+                class="
+                    input__field
+                    <?= $block->escapeHtmlAttr($addressHelper->getAttributeValidationClass('city')) ?>
+                "
                 id="address:city"
             />
         </div>
@@ -170,7 +182,11 @@
                         name="address[region]"
                         value="<?= $block->escapeHtmlAttr($block->getAddress()->getRegion()) ?>"
                         title="<?= $block->escapeHtmlAttr(__('State/Province')) ?>"
-                        class="input__field display-none <?= $block->escapeHtmlAttr($this->helper(Magento\Customer\Helper\Address::class)->getAttributeValidationClass('region')) ?>"
+                        class="
+                            input__field
+                            display-none
+                            <?= $block->escapeHtmlAttr($addressHelper->getAttributeValidationClass('region')) ?>
+                        "
                     />
                 </div>
             </div>
@@ -196,7 +212,11 @@
                 name="address[postcode]"
                 id="address:postcode"
                 value="<?= $block->escapeHtmlAttr($block->getAddress()->getPostcode()) ?>"
-                class="input__field validate-zip-international <?= $block->escapeHtmlAttr($this->helper(Magento\Customer\Helper\Address::class)->getAttributeValidationClass('postcode')) ?>"
+                class="
+                    input__field
+                    validate-zip-international
+                    <?= $block->escapeHtmlAttr($addressHelper->getAttributeValidationClass('postcode')) ?>
+                "
                 data-validate="{'required':true, 'validate-zip-international':true}"
             />
         </div>
@@ -232,11 +252,14 @@
                 <?= $block->escapeHtml(__('Phone Number')) ?>
             </label>
             <input
-                type="text"
+                type="tel"
                 name="address[telephone]"
                 value="<?= $block->escapeHtmlAttr($block->getAddress()->getTelephone()) ?>"
                 title="<?= $block->escapeHtmlAttr(__('Phone Number')) ?>"
-                class="input__field <?= $block->escapeHtmlAttr($this->helper(Magento\Customer\Helper\Address::class)->getAttributeValidationClass('telephone')) ?>"
+                class="
+                    input__field
+                    <?= $block->escapeHtmlAttr($addressHelper->getAttributeValidationClass('telephone')) ?>
+                "
                 id="address:telephone"
             />
         </div>
@@ -258,7 +281,10 @@
                 name="address[fax]"
                 value="<?= $block->escapeHtmlAttr($block->getAddress()->getFax()) ?>"
                 title="<?= $block->escapeHtmlAttr(__('Fax')) ?>"
-                class="input__field <?= $block->escapeHtmlAttr($this->helper(Magento\Customer\Helper\Address::class)->getAttributeValidationClass('fax')) ?>"
+                class="
+                    input__field
+                    <?= $block->escapeHtmlAttr($addressHelper->getAttributeValidationClass('fax')) ?>
+                "
                 id="address:fax"
             />
         </div>
@@ -272,7 +298,7 @@
                 "regionListId": "#address\\:region_id",
                 "regionInputId": "#address\\:region",
                 "postcodeId": "#address\\:postcode",
-                "regionJson": <?= /* @noEscape */ $this->helper(Magento\Directory\Helper\Data::class)->getRegionJson() ?>,
+                "regionJson": <?= /* @noEscape */ $directoryHelper->getRegionJson() ?>,
                 "defaultRegion": "<?= /* @noEscape */ $block->getAddress()->getRegionId() ?>"
             }
         }
