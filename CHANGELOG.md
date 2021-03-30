@@ -3,14 +3,15 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Added
-- images in snowdog menu desktop template (#70218)
-
 ### Updated
 ### Removed
 ### Fixed
 
 
 ## [Released]
+## [2.17.0] - 2021-03-30
+### Added
+- images in snowdog menu desktop template (#70218), compatible with `snowdog/module-menu` version `2.14.0`
 
 ## [2.16.0] - 2021-03-24
 ### Updated
