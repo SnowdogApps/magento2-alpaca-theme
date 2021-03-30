@@ -5,7 +5,8 @@
     $categoryUrl = $block->getCategoryUrl($nodeId);
     $categoryUrl = $categoryUrl ?: '#';
     $dataAttribute = '';
-
+    $imageUrl = $block->getImageUrl();
+    $imageAltText = $block->getImageAltText();
 
     $classLink = $block->getIsRoot() ? $class . '__link' : $class . '__inner-link';
     $title = $block->getTitle();
@@ -25,3 +26,12 @@
 >
     <?= $block->escapeHtml($title) ?>
 </a>
+
+<?php if($imageUrl): ?>
+    <img
+        src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAABCAQAAABN/Pf1AAAAC0lEQVR42mNkwAIAACoAAgu1Hc4AAAAASUVORK5CYII="
+        data-src="<?= $block->escapeUrl($imageUrl); ?>"
+        alt="<?= $block->escapeHtmlAttr($imageAltText); ?>"
+        class="image lazyload"
+    />
+<?php endif; ?>
