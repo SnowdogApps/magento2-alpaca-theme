@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Added
+- images in snowdog menu desktop template (#70218)
+
 ### Updated
 ### Removed
 ### Fixed
