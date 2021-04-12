@@ -1,0 +1,138 @@
+<div
+    class="
+        payment-option _collapsible
+        opc-payment-additional
+        giftcardaccount
+        discount-code
+    "
+    id="giftcardaccount-placer"
+    data-bind="mageInit: {
+        'collapsible': {
+            'openedState': '_active'
+        }
+    }"
+>
+    <div
+        class="
+            payment-option-title
+            field
+            choice
+            discount-code__button
+        "
+        data-role="title"
+    >
+        <span
+            class="
+                action
+                action-toggle
+                discount-code__button-text
+            "
+            id="block-giftcard-heading"
+            role="heading"
+            aria-level="2"
+        >
+            <!-- ko i18n: 'Apply Gift Card Code'--><!-- /ko -->
+        </span>
+        <svg
+        class="
+            icon
+            discount-code__button-icon
+        "
+        role="presentation"
+    >
+        <title><!-- ko i18n: 'See Details' --><!-- /ko --></title>
+        <use data-bind="attr: {'xlink:href': require.toUrl('images/icons-sprite.svg#angle-down')}" xlink:href=''></use>
+    </svg>
+    </div>
+    <div
+        class="
+            payment-option-content
+            discount-code__content
+        "
+        data-role="content">
+        <!-- ko foreach: getRegion('messages') -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <!--/ko-->
+        <form
+            class="form form-giftcard-account"
+            id="giftcard-form"
+            method="post"
+            data-bind="blockLoader: isLoading"
+        >
+            <div class="payment-option-inner">
+                <div class="field input discount-code__input">
+                    <div class="control">
+                        <label
+                            class="label label--hidden"
+                            for="giftcard-code"
+                        >
+                            <span data-bind="i18n: 'Enter gift card code'"></span>
+                        </label>
+                        <input
+                            class="input-text input__field"
+                            type="text"
+                            id="giftcard-code"
+                            name="giftcard_code"
+                            data-validate="{'required-entry':true}"
+                            data-bind="
+                                value: giftCartCode,
+                                attr: {
+                                    placeholder: $t('Enter gift card code')
+                                }
+                            "
+                        />
+                    </div>
+                </div>
+                <!-- ko if: giftCardAccount.isChecked-->
+                    <!-- ko if: giftCardAccount.isValid-->
+                    <div class="giftcard-account-info">
+                        <div class="giftcard-account-number">
+                            <!-- ko i18n: 'Gift Card:'--><!-- /ko -->
+                            <span class="giftcard-number">
+                                <!-- ko i18n: giftCardAccount.code--><!-- /ko -->
+                            </span>
+                        </div>
+
+                        <div class="giftcard-account-balance">
+                            <!-- ko i18n: 'Current Balance: '--><!-- /ko -->
+                            <span class="price">
+                                 <!-- ko text: getAmount(giftCardAccount.amount())--><!-- /ko -->
+                            </span>
+                        </div>
+                    </div>
+                    <!-- /ko -->
+                <!-- /ko -->
+            </div>
+            <div class="actions-toolbar">
+                <div class="primary">
+                    <button
+                        class="
+                            action
+                            action-add
+                            primary
+                        "
+                        type="submit"
+                        data-bind="
+                            'value': $t('Apply'),
+                            click: setGiftCard
+                        "
+                    >
+                        <!-- ko i18n: 'Apply'--><!-- /ko -->
+                    </button>
+                </div>
+                <div class="secondary">
+                    <button
+                        class="action action-check"
+                        type="button"
+                        data-bind="
+                            'value': $t('See Balance'),
+                            click: checkBalance
+                        "
+                    >
+                        <!-- ko i18n: 'See Balance'--><!-- /ko -->
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

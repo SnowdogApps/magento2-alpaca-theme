@@ -53,6 +53,12 @@ hbsEngine.handlebars.registerHelper('component', name => {
   return '@' + name;
 });
 
+hbsEngine.handlebars.registerHelper({
+  or() {
+    return Array.prototype.slice.call(arguments, 0, -1).some(Boolean);
+  }
+});
+
 // Gulp tasks
 const inheritance = (done) => {
   const components = fractal.components.get('path').replace(__dirname + '/build/', ''),

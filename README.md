@@ -1,4 +1,4 @@
-# Alpaca - components & theme for Magento 2.3
+# Alpaca - components & theme for Magento 2.4
 
 ## Description
 Alpaca Theme for Magento 2 is part of a `alpaca-packages`
