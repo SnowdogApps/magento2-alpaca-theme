@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Fixed
 - quality of images on compare products page (#74635)
+- error on paypal payment submit (#77324)
 ### Removed
 - EE - removed review amount and add your review link from product grid (#74637)
 - duplicated requisition list button (#74883)

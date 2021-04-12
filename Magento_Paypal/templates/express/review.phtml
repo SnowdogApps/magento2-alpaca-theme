@@ -15,6 +15,8 @@
             <?php if ($block->getShippingAddress()) : ?>
                 <div
                     class="
+                        box
+                        box-order-shipping-method
                         payapal-review__details-item
                         col-lg-4
                         margin-right-auto
@@ -28,63 +30,67 @@
                         class="form"
                     >
                         <fieldset class="fieldset">
-                            <legend class="fieldset__legend fieldset__legend--hidden">
+                            <legend
+                                class="
+                                    fieldset__legend
+                                    fieldset__legend--hidden
+                                    box-title
+                                "
+                            >
                                 <?= $block->escapeHtml(__('Shipping Method')) ?>
                             </legend>
                             <?php if ($block->canEditShippingMethod()) : ?>
                                 <?php if ($groups = $block->getShippingRateGroups()) : ?>
                                     <?php $currentRate = $block->getCurrentShippingRate(); ?>
-                                    <label
-                                        class="label"
-                                        for="shipping-method"
+                                    <div
+                                        class="
+                                            select
+                                            field
+                                            shipping
+                                            required
+                                        "
                                     >
-                                        <?= $block->escapeHtml(__('Shipping Method')) ?>
-                                    </label>
-                                    <div class="control">
-                                        <div
-                                            class="
-                                                select
-                                                select--native
-                                                field
-                                                shipping
-                                            "
+                                        <label
+                                            class="label select__label"
+                                            for="shipping-method"
                                         >
-                                            <select
-                                                name="shipping_method"
-                                                id="shipping-method"
-                                                class="select__field"
-                                                required
-                                            >
-                                                <?php if (!$currentRate) : ?>
-                                                    <option value="">
-                                                        <?= $block->escapeHtml(__('Please select a shipping method...')); ?>
-                                                    </option>
-                                                <?php endif; ?>
-                                                <?php foreach ($groups as $code => $rates) : ?>
-                                                    <optgroup
-                                                        label="<?= $block->escapeHtmlAttr($block->getCarrierName($code)); ?>"
-                                                    >
-                                                        <?php foreach ($rates as $rate) : ?>
-                                                            <option
-                                                                value="
-                                                                    <?=
-                                                                        $block->escapeHtml(
-                                                                            $block->renderShippingRateValue($rate)
-                                                                        );
-                                                                    ?>
-                                                                "
-                                                                <?= ($currentRate === $rate) ? ' selected="selected"' : ''; ?>
-                                                            >
-                                                                <?= /* @noEscape */ $block->renderShippingRateOption($rate); ?>
-                                                            </option>
-                                                        <?php endforeach; ?>
-                                                    </optgroup>
-                                                <?php endforeach; ?>
-                                            </select>
-                                        </div>
+                                            <?= $block->escapeHtml(__('Shipping Method')) ?>
+                                        </label>
+                                        <select
+                                            name="shipping_method"
+                                            id="shipping-method"
+                                            class="select__field select__field--native"
+                                            required
+                                        >
+                                            <?php if (!$currentRate) : ?>
+                                                <option value="">
+                                                    <?= $block->escapeHtml(__('Please select a shipping method...')); ?>
+                                                </option>
+                                            <?php endif; ?>
+                                            <?php foreach ($groups as $code => $rates) : ?>
+                                                <optgroup
+                                                    label="<?= $block->escapeHtmlAttr($block->getCarrierName($code)); ?>"
+                                                >
+                                                    <?php foreach ($rates as $rate) : ?>
+                                                        <option
+                                                            value="
+                                                                <?=
+                                                                    $block->escapeHtml(
+                                                                        $block->renderShippingRateValue($rate)
+                                                                    );
+                                                                ?>
+                                                            "
+                                                            <?= ($currentRate === $rate) ? ' selected="selected"' : ''; ?>
+                                                        >
+                                                            <?= /* @noEscape */ $block->renderShippingRateOption($rate); ?>
+                                                        </option>
+                                                    <?php endforeach; ?>
+                                                </optgroup>
+                                            <?php endforeach; ?>
+                                        </select>
                                     </div>
                                     <div class="actions-group actions-toolbar">
-                                        <div class="actions-group__handler">
+                                        <div class="actions-group__handler primary">
                                             <button
                                                 id="update-shipping-method-submit"
                                                 type="submit"
@@ -107,9 +113,7 @@
                                 <?php endif; ?>
                             <?php else : ?>
                                 <p>
-                                    <?= /* @noEscape */ $block->renderShippingRateOption(
-                                        $block->getCurrentShippingRate()
-                                    ); ?>
+                                    <?= /* @noEscape */ $block->renderShippingRateOption($block->getCurrentShippingRate()); ?>
                                 </p>
                             <?php endif; ?>
                         </fieldset>
