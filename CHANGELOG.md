@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 ### Updated
 ### Removed
 ### Fixed
+- error on paypal payment submit (#77324)
 
 
 ## [Released]
