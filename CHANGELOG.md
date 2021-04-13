@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 ### Updated
 ### Removed
 ### Fixed
+- image ratio in recently viewed widget (#77269)
 
 
 ## [Released]
