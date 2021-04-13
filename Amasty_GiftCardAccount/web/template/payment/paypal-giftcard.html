@@ -1,0 +1,30 @@
+<!-- ko if: isGiftCardEnable() -->
+<div class="amcard-field-container -cart -paypal">
+    <div class="amcard-codes-list">
+        <!-- ko foreach: codes -->
+        <div>
+            <span data-bind="text: $data.code"></span>
+            <a class="amcard-delete" data-bind="attr: {href: $parent.deleteCardUrl + 'gcard_code/' + $data.code, title: $t('Remove')}, text: $t('Remove')"></a>
+        </div>
+        <!-- /ko -->
+    </div>
+    <form method="post" class="amcard-form-container" data-amcard-js="paypal-form" data-bind="attr: {action: addCardUrl}">
+        <!-- ko foreach: getRegion('messages') -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <!--/ko-->
+        <span class="amcard-title" data-bind="i18n: 'Apply Gift Card Code'"></span>
+        <div class="amcard-field-block -double -code">
+            <input type="text"
+                   name="am_giftcard_code"
+                   class="amcard-field"
+                   data-bind="attr: {placeholder: $t('Enter your Code')}, value: cardCode"/>
+            <input type="button" class="amcard-button" data-bind="click: apply.bind($data, event), attr: {value: $t('Add Code')}"/>
+        </div>
+        <input type="text" class="amcard-field -validate" data-validate="{required:true}" data-bind="value: cardCode">
+    </form>
+    <button class="amcard-check" data-bind="i18n: 'Check Status', click: check.bind($data)"></button>
+</div>
+<div data-bind="scope: 'amcard-cart-render'">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+</div>
+<!-- /ko -->
