@@ -7,7 +7,8 @@ All notable changes to this project will be documented in this file.
 ### Removed
 ### Fixed
 - error on paypal payment submit (#77324)
-
+### Updated
+- markup for gift card code on paypal express review page (#70133)
 
 ## [Released]
 ## [2.17.0] - 2021-03-30
