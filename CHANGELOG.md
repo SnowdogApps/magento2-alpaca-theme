@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Added
+- titles for compare and wishlist buttons (#77368)
 ### Updated
 ### Removed
 ### Fixed
