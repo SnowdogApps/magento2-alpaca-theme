@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 - error on paypal payment submit (#77324)
 ### Updated
 - markup for gift card code on paypal express review page (#70133)
+- default image width set to `auto` and `max-wdith` to `100%` Affects: all images width
 
 ## [Released]
 ## [2.17.0] - 2021-03-30
