@@ -13,9 +13,6 @@ var config = {
       },
       "Magento_Theme/js/view/breadcrumbs": {
         "Magento_Catalog/js/mixins/breadcrumbs-mixin": true
-      },
-      "Magento_Catalog/js/product/list/columns/image": {
-        "Magento_Catalog/js/mixins/image-mixin.babel": true
       }
     }
   }
