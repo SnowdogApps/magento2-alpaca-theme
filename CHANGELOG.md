@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file.
 ### Updated
 ### Removed
 ### Fixed
-
+- password trigger on reset password page (#78130)
 
 ## [Released]
 
