@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 ### Updated
 ### Removed
 ### Fixed
+- password trigger on reset password page (#78130)
 
 ## [Released]
 ## [2.18.0] - 2021-04-21
