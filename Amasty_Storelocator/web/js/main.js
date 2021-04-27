@@ -1,7 +1,6 @@
 define([
   "jquery",
   "mage/translate",
-  "Amasty_Storelocator/vendor/chosen/chosen.min",
   "Amasty_Storelocator/vendor/jquery.ui.touch-punch.min",
   "Magento_Ui/js/lib/knockout/bindings/range",
   "Magento_Ui/js/modal/modal"
@@ -87,6 +86,9 @@ define([
       getMeasurement: function () {
           if (this.mapContainer.find('#amlocator-measurement').length > 0) {
               return this.mapContainer.find('#amlocator-measurement').val();
+          }
+          if(this.options.distanceConfig !== 'choose') {
+            return this.options.distanceConfig
           }
 
           return 'km';
@@ -261,10 +263,6 @@ define([
           if (this.options.isRadiusSlider) {
               this.createRadiusSlider();
           }
-
-          self.mapContainer.find(self.selectors.multipleSelect).chosen({
-              placeholder_text_multiple: $.mage.__("Select Some Options")
-          });
 
           self.mapContainer.find('.amlocator-clear').on('click', function (e) {
               e.preventDefault();
