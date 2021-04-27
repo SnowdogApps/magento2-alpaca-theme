@@ -9,6 +9,17 @@ All notable changes to this project will be documented in this file.
 - password trigger on reset password page (#78130)
 
 ## [Released]
+## [2.18.0] - 2021-04-21
+### Added
+- titles for compare and wishlist buttons (#77368)
+### Fixed
+- error on paypal payment submit (#77324)
+### Updated
+- markup for gift card code on paypal express review page (#70133)
+- default image width set to `auto` and `max-wdith` to `100%` Affects: all images width
+## [2.17.0] - 2021-03-30
+### Added
+- images in snowdog menu desktop template (#70218), compatible with `snowdog/module-menu` version `2.14.0`
 
 ## [2.16.0] - 2021-03-24
 ### Updated
