@@ -8,15 +8,17 @@ define(
         "jquery",
         'braintree',
         'braintreeApplePay',
-        'mage/translate'
-        ],
+        'mage/translate',
+        'Magento_Checkout/js/model/payment/additional-validators'
+    ],
     function (
         Component,
         ko,
         jQuery,
         braintree,
         applePay,
-        $t
+        $t,
+        additionalValidators
     ) {
         'use strict';
 
@@ -73,6 +75,10 @@ define(
                         el.alt = $t("Pay with Apple Pay");
                         el.addEventListener('click', function (e) {
                             e.preventDefault();
+
+                            if (!additionalValidators.validate()) {
+                                return
+                            }
 
                             // Payment request object
                             var paymentRequest = applePayInstance.createPaymentRequest(context.getPaymentRequest());
