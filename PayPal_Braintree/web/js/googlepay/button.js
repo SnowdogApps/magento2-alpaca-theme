@@ -1,7 +1,7 @@
 /**
  * Braintree Google Pay button
  **/
-define(
+ define(
     [
         'uiComponent',
         "knockout",
@@ -9,15 +9,17 @@ define(
         'braintree',
         'braintreeGooglePay',
         'mage/translate',
+        'Magento_Checkout/js/model/payment/additional-validators',
         'googlePayLibrary'
-        ],
+    ],
     function (
         Component,
         ko,
         jQuery,
         braintree,
         googlePay,
-        $t
+        $t,
+        additionalValidators
     ) {
         'use strict';
 
@@ -77,6 +79,11 @@ define(
                             if (response.result) {
                                 button.addEventListener('click', function (event) {
                                     event.preventDefault();
+
+                                    if (!additionalValidators.validate()) {
+                                        return
+                                    }
+
                                     jQuery("body").loader('show');
                                     var responseData;
 
