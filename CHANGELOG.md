@@ -7,6 +7,9 @@ All notable changes to this project will be documented in this file.
 ### Removed
 ### Fixed
 - password trigger on reset password page (#78130)
+- typo in checkout subtotal (#78230)
+- Magento_Ui dropdown styles mixin position (#78230)
+- price doesn't update on PDP after filling out product customizable options - type field and area (#78230)
 
 ## [Released]
 ## [2.18.0] - 2021-04-21
