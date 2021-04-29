@@ -7,6 +7,9 @@ All notable changes to this project will be documented in this file.
 ### Removed
 ### Fixed
 - password trigger on reset password page (#78130)
+- checkout agreement checkbox text on multishipping page (#78227)
+### Added
+- styles for Braintree Credit Card form on multishipping page (#78227)
 
 ## [Released]
 ## [2.18.0] - 2021-04-21
