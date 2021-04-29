@@ -1,4 +1,17 @@
+$braintree__tooltip-height              : 48px !default;
+$braintree__tooltip-content-width       : 270px !default;
+
+$braintree__tooltip-content-padding     : $spacer--small !default;
+$braintree__tooltip-content-border      : $border-width-base $border-style-base $gray-lightest !default;
+$braintree__tooltip-content-background  : $gray-lightest !default;
+
 .braintree {
+    display: none;
+
+    &._active {
+        display: block;
+    }
+
     &__input--date {
         display: flex;
         flex-wrap: wrap;
@@ -8,13 +21,41 @@
         }
     }
 
+
+
     &__tooltip-wrapper {
         position: relative;
 
         .braintree__tooltip {
-            height: 48px;
+            height: $braintree__tooltip-height;
             right: $spacer--medium;
         }
+    }
+
+    &__tooltip {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        cursor: pointer;
+        top: 0;
+
+        &._active {
+            .braintree__tooltip-content {
+                display: block;
+            }
+        }
+    }
+
+    &__tooltip-content {
+        position: absolute;
+        top: $braintree__tooltip-height;
+        right: 0;
+        display: none;
+        width: $braintree__tooltip-content-width;
+        border: 1$braintree__tooltip-content-border;
+        padding: $braintree__tooltip-content-padding;
+        background: $braintree__tooltip-content-background;
     }
 
     &__error {
