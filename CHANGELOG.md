@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 ### Added
 ### Updated
 ### Removed
+### Added
+- validation for google and apple pay buttons (#78181)
 ### Fixed
 - password trigger on reset password page (#78130)
 - typo in checkout subtotal (#78230)
