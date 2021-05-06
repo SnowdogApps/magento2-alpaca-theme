@@ -1,10 +1,11 @@
 define([
-  "uiComponent",
-  "jquery",
-  "underscore",
-  "Magento_Ui/js/modal/modal",
-], function (Component, $, _, modal) {
-  "use strict";
+  'uiComponent',
+  'jquery',
+  'underscore',
+  'Magento_Ui/js/modal/modal',
+  'Amasty_GdprCookie/js/model/cookie',
+], function (Component, $, _, modal, cookieModel) {
+  'use strict';
 
   return function (Component) {
     return Component.extend({
@@ -16,9 +17,9 @@ define([
 
       initModal: function () {
         var options = {
-          type: "popup",
+          type: 'popup',
           responsive: true,
-          modalClass: "",
+          modalClass: '',
           buttons: [],
         };
 
@@ -31,7 +32,7 @@ define([
           };
 
           options.opened = function () {
-            $(".modal-header button.action-close").hide();
+            $('.modal-header button.action-close').hide();
           };
         }
 
@@ -39,28 +40,41 @@ define([
 
         this.cookieModal.element.html($(this.element.container));
         this.cookieModal.openModal().on(
-          "modalclosed",
+          'modalclosed',
           function () {
-            this.cookieModal.element.html("");
-            $(window).off("resize", this.resizeFunc);
+            this.cookieModal.element.html('');
+            $(window).off('resize', this.resizeFunc);
           }.bind(this)
         );
       },
 
       saveCookie: function () {
-        var disabledFields = $(this.element.field + ":disabled");
+        var disabledFields = $(this.element.field + ':disabled');
 
-        disabledFields.removeAttr("disabled");
+        this.closeModal();
+
+        disabledFields.removeAttr('disabled');
         cookieModel()
           .saveCookie()
           .done(
             function () {
-              disabledFields.attr("disabled", true);
-              this.closeModal();
+              disabledFields.attr('disabled', true);
               cookieModel().triggerSave();
             }.bind(this)
           );
       },
+
+      allowCookies: function () {
+        this.closeModal();
+
+        cookieModel()
+          .allowAllCookies()
+          .done(
+            function () {
+              cookieModel().triggerAllow();
+            }.bind(this)
+          );
+      }
     });
   };
 });
