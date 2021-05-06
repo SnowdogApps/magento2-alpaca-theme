@@ -46,6 +46,21 @@ define([
           }.bind(this)
         );
       },
+
+      saveCookie: function () {
+        var disabledFields = $(this.element.field + ":disabled");
+
+        disabledFields.removeAttr("disabled");
+        cookieModel()
+          .saveCookie()
+          .done(
+            function () {
+              disabledFields.attr("disabled", true);
+              this.closeModal();
+              cookieModel().triggerSave();
+            }.bind(this)
+          );
+      },
     });
   };
 });
