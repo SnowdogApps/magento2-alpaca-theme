@@ -1,0 +1,131 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_GdprCookie
+ */
+?>
+<?php
+/** @var \Amasty\GdprCookie\Block\CookieBar $block */
+
+$cookiePrivacyText = /** @noEscape */ $block->getCookiePolicyText();
+$groups = $block->getAllGroups();
+?>
+<script>
+    window.isGdprCookieEnabled = true;
+    window.amCookieGroups = <?= /* @noEscape */ $groups ?>
+</script>
+<?php if ($block->getNoticeType() === \Amasty\GdprCookie\Model\Config\Source\CookiePolicyBarStyle::CONFIRMATION_MODAL && $cookiePrivacyText && $groups): ?>
+
+    <div data-role="gdpr-cookie-container" class="amgdprcookie-modal-template" data-bind="scope: 'gdpr-cookie-modal'">
+        <!-- ko template: getTemplate() --><!-- /ko -->
+    </div>
+    <div class="amgdprcookie-modal-block" data-amgdpr-js="modal"></div>
+    <script type="text/x-magento-init">
+    {
+        "[data-role=gdpr-cookie-container]": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "gdpr-cookie-modal": {
+                        "component": "Amasty_GdprCookie/js/modal",
+                        "isNotice": <?= $block->escapeHtmlAttr($block->isNotice()) ?>,
+                        "groups": <?= /* @noEscape */ $groups ?>,
+                        "cookieText": <?= /** @noEscape */ $cookiePrivacyText ?>,
+                       "settingsLink": "<?= $block->escapeUrl($block->getSettingsLink()) ?>",
+                       "websiteInteraction": "<?= $block->escapeHtmlAttr($block->getWebsiteInteraction()) ?>",
+                        "firstShowProcess": "<?= $block->escapeHtmlAttr($block->isProcessFirstShow()) ?>"
+                    }
+                }
+            }
+        }
+    }
+    </script>
+<?php elseif ($block->getNoticeType() === \Amasty\GdprCookie\Model\Config\Source\CookiePolicyBarStyle::CONFIRMATION && $cookiePrivacyText): ?>
+    <!-- ko scope: 'gdpr-cookie-container' -->
+    <div data-role="gdpr-cookie-container" class="amgdprcookie-bar-template" data-bind="css: {'-bottom' : isScrollBottom}">
+        <!-- ko template: getTemplate() --><!-- /ko -->
+    </div>
+    <!-- /ko -->
+    <script type="text/x-magento-init">
+    {
+        "[data-role=gdpr-cookie-container]": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "gdpr-cookie-container": {
+                        "component": "Amasty_GdprCookie/js/cookies",
+                        "noticeType": <?= $block->escapeHtmlAttr($block->getNoticeType()) ?>,
+                        "isNotice": <?= $block->escapeHtmlAttr($block->isNotice()) ?>,
+                        "policyText": <?= /** @noEscape */ $cookiePrivacyText ?>,
+                        "allowLink": "<?= $block->escapeUrl($block->getAllowLink()) ?>",
+                        "settingsLink": "<?= $block->escapeUrl($block->getSettingsLink()) ?>",
+                        "websiteInteraction": "<?= $block->escapeHtmlAttr($block->getWebsiteInteraction()) ?>",
+                        "firstShowProcess": "<?= $block->escapeHtmlAttr($block->isProcessFirstShow()) ?>",
+                        "barLocation": "<?= $block->escapeHtmlAttr($block->getBarLocation()) ?>",
+                        "groups": <?= /* @noEscape */ $groups ?>
+                    }
+                }
+            }
+        }
+    }
+    </script>
+    <style>
+        .amgdprcookie-bar-template {
+                z-index: 15;
+            <?php if ((int)$block->getBarLocation()): ?>
+                top: 0;
+            <?php else: ?>
+                bottom: 0;
+            <?php endif; ?>
+        }
+    </style>
+<?php endif; ?>
+<?php if ($cookiePrivacyText): ?>
+<style>
+    .amgdprcookie-modal-template,
+    .amgdprcookie-bar-container {
+    <?php if ((int)$block->getBarLocation() === \Amasty\GdprCookie\Model\Config\Source\CookieBarLocation::DISPLAY_AT_FOOTER): ?>
+        bottom: unset;
+    <?php endif; ?>
+        background-color: <?= $block->escapeHtml($block->getBackgroundBarCollor()); ?>;
+    }
+    .amgdprcookie-modal-template .amgdprcookie-policy,
+    .amgdprcookie-bar-container .amgdprcookie-policy {
+        color: <?= $block->escapeHtml($block->getTextBarCollor()); ?>;
+    }
+
+    .amgdprcookie-modal-template .amgdprcookie-text,
+    .amgdprcookie-bar-container .amgdprcookie-text {
+        color: <?= $block->escapeHtml($block->getDescriptionTextBarColor()); ?>;
+    }
+
+    .amgdprcookie-modal-template .amgdprcookie-header,
+    .amgdprcookie-bar-container .amgdprcookie-header {
+        color: <?= $block->escapeHtml($block->getHeaderTextBarColor()); ?>;
+    }
+
+    .amgdprcookie-modal-template .amgdprcookie-link,
+    .amgdprcookie-modal-template .amgdprcookie-policy a,
+    .amgdprcookie-bar-container .amgdprcookie-policy a {
+        color: <?= $block->escapeHtml($block->getLinksBarCollor()); ?>;
+    }
+
+    .amgdprcookie-modal-template .amgdprcookie-button.-allow,
+    .amgdprcookie-bar-container .amgdprcookie-button.-allow {
+        background-color: <?= $block->escapeHtml($block->getButtonBarCollor()) ?>;
+        border-color: <?= $block->escapeHtml($block->getButtonBarCollor()) ?>;
+        color: <?= $block->escapeHtml($block->getButtonTextBarCollor()) ?>;
+    }
+
+    .amgdprcookie-bar-container .amgdprcookie-button.-settings {
+        background-color: <?= $block->escapeHtml($block->getButtonSettingsColor()) ?>;
+        border-color: <?= $block->escapeHtml($block->getButtonSettingsColor()) ?>;
+        color: <?= $block->escapeHtml($block->getButtonSettingsTextColor()) ?>;
+    }
+
+    .amgdprcookie-modal-template .amgdprcookie-button.-save {
+        background-color: <?= $block->escapeHtml($block->getButtonSaveColor()) ?>;
+        border-color: <?= $block->escapeHtml($block->getButtonSaveColor()) ?>;
+        color: <?= $block->escapeHtml($block->getButtonSaveTextColor()) ?>;
+    }
+</style>
+<?php endif; ?>
