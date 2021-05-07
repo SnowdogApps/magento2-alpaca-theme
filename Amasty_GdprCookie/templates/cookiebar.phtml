@@ -1,27 +1,134 @@
 <?php
-/**
- * @author Amasty Team
- * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
- * @package Amasty_GdprCookie
- */
-?>
-<?php
 /** @var \Amasty\GdprCookie\Block\CookieBar $block */
 
 $cookiePrivacyText = /** @noEscape */ $block->getCookiePolicyText();
-$groups = $block->getAllGroups();
+$groupsJson = $block->getAllGroups();
+$groups = json_decode($groupsJson, true);
 ?>
-<script>
-    window.isGdprCookieEnabled = true;
-    window.amCookieGroups = <?= /* @noEscape */ $groups ?>
-</script>
 <?php if ($block->getNoticeType() === \Amasty\GdprCookie\Model\Config\Source\CookiePolicyBarStyle::CONFIRMATION_MODAL && $cookiePrivacyText && $groups): ?>
 
-    <div data-role="gdpr-cookie-container" class="amgdprcookie-modal-template" data-bind="scope: 'gdpr-cookie-modal'">
-        <!-- ko template: getTemplate() --><!-- /ko -->
+    <div data-role="gdpr-cookie-container" class="amgdprcookie-modal-template" data-amgdpr-js="modal">
+        <div data-bind="mageInit: {'cookieModal': {}}" role="dialog" aria-hidden="true" id="cookie-modal" data-modal="cookie-modal" class="modal " aria-labelledby="myTitle" aria-describedby="myDesc">
+            <div class="modal__container">
+                <form
+                    id="amgdprcookie-form"
+                    class="amgdprcookie-settings-form"
+                    data-amcookie-js="form-cookie"
+                    data-modal="cookie-modal"
+                >
+                    <div
+                        data-amcookie-js="groups"
+                        class="margin-bottom-xl modal__content"
+                    >
+                        <?php foreach ($groups as $key => $group): ?>
+                            <div class="margin-bottom-l">
+                                <h2>
+                                    <?= $block->escapeHtml(__($group['name'])) ?>
+                                </h2>
+                                <div
+                                    class="
+                                        field
+                                        choice
+                                        checkbox
+                                    "
+                                >
+                                    <input
+                                        id="<?= 'switch-box-' . $key ?>"
+                                        class="checkbox__field <?= $group['isEssential'] ? 'checkbox__field--disabled' : ''; ?>"
+                                        type="checkbox"
+                                        data-amcookie-js="field"
+                                        name="groups[]"
+                                        value="<?= /** @noEscape */ (int) $group['groupId'] ?>"
+                                        <?= $group['isEssential'] ? 'disabled' : ''; ?>
+                                        <?= $group['isEssential'] ? 'onclick="return false;"' : ''; ?>
+                                        <?= $group['checked'] ? 'checked' : ''; ?>
+                                    />
+
+                                    <svg
+                                        role="presentation"
+                                        focusable="false"
+                                        class="
+                                            checkbox__icon
+                                            checkbox__icon--checked
+                                        "
+                                    >
+                                        <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#checked')) ?>"></use>
+                                    </svg>
+
+                                    <svg
+                                        role="presentation"
+                                        focusable="false"
+                                        class="
+                                            checkbox__icon
+                                            checkbox__icon--unchecked
+                                        "
+                                    >
+                                        <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#unchecked')) ?>"></use>
+                                    </svg>
+
+                                    <label
+                                        for="<?= 'switch-box-' . $key ?>"
+                                        class="
+                                            label
+                                            checkbox__label
+                                        "
+                                    >
+                                        <?= $block->escapeHtml(__($group['name'] . ' Cookies')) ?>
+                                    </label>
+                                </div>
+                                <p>
+                                    <?= $block->escapeHtml($group['description']) ?>
+                                </p>
+                                <a
+                                    href="<?= $block->escapeUrl($block->getUrl('cookie-settings')) ?>"
+                                    class="link"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                <?= $block->escapeHtml(__('More information')) ?>
+                                </a>
+                            </div>
+                        <?php endforeach; ?>
+                        <p>
+                            <?= /** @noEscape */ $cookiePrivacyText ?>
+                        </p>
+                    </div>
+
+                    <div class="modal__bottom">
+                        <div class="modal__bottom-actions">
+                            <div class="modal__bottom-action">
+                                <button
+                                    class="button"
+                                    data-amcookie-js="settings-allow"
+                                >
+                                    <?= $block->escapeHtml(__('Allow all Cookies')); ?>
+                                </button>
+                            </div>
+                            <div class="modal__bottom-action">
+                                <button
+                                    class="
+                                        button
+                                        button--secondary
+                                    "
+                                    data-amcookie-js="settings-save"
+                                >
+                                    <?= $block->escapeHtml(__('Save')); ?>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
     <div class="amgdprcookie-modal-block" data-amgdpr-js="modal"></div>
     <script type="text/x-magento-init">
+        {"*": {
+                "Amasty_GdprCookie/js/settings": {}
+            }
+        }
+    </script>
+    <!-- <script type="text/x-magento-init">
     {
         "[data-role=gdpr-cookie-container]": {
             "Magento_Ui/js/core/app": {
@@ -29,7 +136,7 @@ $groups = $block->getAllGroups();
                     "gdpr-cookie-modal": {
                         "component": "Amasty_GdprCookie/js/modal",
                         "isNotice": <?= $block->escapeHtmlAttr($block->isNotice()) ?>,
-                        "groups": <?= /* @noEscape */ $groups ?>,
+                        "groups": <?= /* @noEscape */ $groupsJson ?>,
                         "cookieText": <?= /** @noEscape */ $cookiePrivacyText ?>,
                        "settingsLink": "<?= $block->escapeUrl($block->getSettingsLink()) ?>",
                        "websiteInteraction": "<?= $block->escapeHtmlAttr($block->getWebsiteInteraction()) ?>",
@@ -39,7 +146,7 @@ $groups = $block->getAllGroups();
             }
         }
     }
-    </script>
+    </script> -->
 <?php elseif ($block->getNoticeType() === \Amasty\GdprCookie\Model\Config\Source\CookiePolicyBarStyle::CONFIRMATION && $cookiePrivacyText): ?>
     <!-- ko scope: 'gdpr-cookie-container' -->
     <div data-role="gdpr-cookie-container" class="amgdprcookie-bar-template" data-bind="css: {'-bottom' : isScrollBottom}">
