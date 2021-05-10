@@ -5,11 +5,17 @@ All notable changes to this project will be documented in this file.
 ### Added
 ### Updated
 ### Removed
+### Added
 ### Fixed
 - password trigger on reset password page (#78130)
 - checkout agreement checkbox text on multishipping page (#78227)
 ### Added
 - styles for Braintree Credit Card form on multishipping page (#78227)
+- typo in checkout subtotal (#78230)
+- Magento_Ui dropdown styles mixin position (#78230)
+- price doesn't update on PDP after filling out product customizable options - type field and area (#78230)
+- not centered images on full screen (#78144)
+- validation for google and apple pay buttons (#78181)
 
 ## [Released]
 ## [2.18.0] - 2021-04-21
