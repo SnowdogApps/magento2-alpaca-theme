@@ -1,21 +1,52 @@
 <?php
 /** @var \Amasty\GdprCookie\Block\CookieBar $block */
 
-$cookiePrivacyText = /** @noEscape */ $block->getCookiePolicyText();
+$cookiePrivacyTextJson = /** @noEscape */ $block->getCookiePolicyText();
 $groupsJson = $block->getAllGroups();
 $groups = json_decode($groupsJson, true);
+$cookiePrivacyText = json_decode($cookiePrivacyTextJson, true);
 ?>
-<?php if ($block->getNoticeType() === \Amasty\GdprCookie\Model\Config\Source\CookiePolicyBarStyle::CONFIRMATION_MODAL && $cookiePrivacyText && $groups): ?>
-
+<?php if ($block->getNoticeType() === \Amasty\GdprCookie\Model\Config\Source\CookiePolicyBarStyle::CONFIRMATION_MODAL && $groups): ?>
     <div data-role="gdpr-cookie-container" class="amgdprcookie-modal-template" data-amgdpr-js="modal">
-        <div data-bind="mageInit: {'cookieModal': {}}" role="dialog" aria-hidden="true" id="cookie-modal" data-modal="cookie-modal" class="modal " aria-labelledby="myTitle" aria-describedby="myDesc">
-            <div class="modal__container">
+        <div
+            data-bind="mageInit: {
+                'cookieModal': {
+                    'isNotice': '<?= $block->escapeHtmlAttr($block->isNotice()) ?>',
+                    'websiteInteraction': '<?= $block->escapeHtmlAttr($block->getWebsiteInteraction()) ?>',
+                    'settingsLink': '<?= $block->escapeUrl($block->getSettingsLink()) ?>',
+                    'firstShowProcess': '<?= $block->escapeHtmlAttr($block->isProcessFirstShow()) ?>'
+                }
+            }"
+            role="dialog" aria-hidden="true" id="cookie-modal" data-modal="cookie-modal" class="modal" aria-labelledby="myTitle" aria-describedby="myDesc">
+            <div class="modal__container modal__cookies-container">
                 <form
                     id="amgdprcookie-form"
                     class="amgdprcookie-settings-form"
                     data-amcookie-js="form-cookie"
                     data-modal="cookie-modal"
                 >
+                    <button
+                        class="
+                            button
+                            button--icon
+                            button--rotate-icon
+                            modal__close-button
+                        "
+                        type="button"
+                        aria-label="<?= $escaper->escapeHtmlAttr(__('Close modal')) ?>"
+                    >
+                        <svg
+                            class="
+                                icon
+                                button__icon
+                                modal__close-button-icon
+                            "
+                            role="presentation"
+                            focusable="false"
+                        >
+                            <use xlink:href="<?= $escaper->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#close')); ?>"></use>
+                        </svg>
+                    </button>
                     <div
                         data-amcookie-js="groups"
                         class="margin-bottom-xl modal__content"
@@ -99,18 +130,20 @@ $groups = json_decode($groupsJson, true);
                             <div class="modal__bottom-action">
                                 <button
                                     class="button"
-                                    data-amcookie-js="settings-allow"
+                                    data-amcookie-js="allow-all-cookies"
+                                    type="button"
                                 >
                                     <?= $block->escapeHtml(__('Allow all Cookies')); ?>
                                 </button>
                             </div>
                             <div class="modal__bottom-action">
                                 <button
+                                    type="button"
                                     class="
                                         button
                                         button--secondary
                                     "
-                                    data-amcookie-js="settings-save"
+                                    data-amcookie-js="save-cookies"
                                 >
                                     <?= $block->escapeHtml(__('Save')); ?>
                                 </button>
@@ -121,60 +154,79 @@ $groups = json_decode($groupsJson, true);
             </div>
         </div>
     </div>
-    <div class="amgdprcookie-modal-block" data-amgdpr-js="modal"></div>
-    <script type="text/x-magento-init">
-        {"*": {
-                "Amasty_GdprCookie/js/settings": {}
-            }
-        }
-    </script>
-    <!-- <script type="text/x-magento-init">
-    {
-        "[data-role=gdpr-cookie-container]": {
-            "Magento_Ui/js/core/app": {
-                "components": {
-                    "gdpr-cookie-modal": {
-                        "component": "Amasty_GdprCookie/js/modal",
-                        "isNotice": <?= $block->escapeHtmlAttr($block->isNotice()) ?>,
-                        "groups": <?= /* @noEscape */ $groupsJson ?>,
-                        "cookieText": <?= /** @noEscape */ $cookiePrivacyText ?>,
-                       "settingsLink": "<?= $block->escapeUrl($block->getSettingsLink()) ?>",
-                       "websiteInteraction": "<?= $block->escapeHtmlAttr($block->getWebsiteInteraction()) ?>",
-                        "firstShowProcess": "<?= $block->escapeHtmlAttr($block->isProcessFirstShow()) ?>"
-                    }
-                }
-            }
-        }
-    }
-    </script> -->
 <?php elseif ($block->getNoticeType() === \Amasty\GdprCookie\Model\Config\Source\CookiePolicyBarStyle::CONFIRMATION && $cookiePrivacyText): ?>
-    <!-- ko scope: 'gdpr-cookie-container' -->
-    <div data-role="gdpr-cookie-container" class="amgdprcookie-bar-template" data-bind="css: {'-bottom' : isScrollBottom}">
-        <!-- ko template: getTemplate() --><!-- /ko -->
-    </div>
-    <!-- /ko -->
-    <script type="text/x-magento-init">
-    {
-        "[data-role=gdpr-cookie-container]": {
-            "Magento_Ui/js/core/app": {
-                "components": {
-                    "gdpr-cookie-container": {
-                        "component": "Amasty_GdprCookie/js/cookies",
-                        "noticeType": <?= $block->escapeHtmlAttr($block->getNoticeType()) ?>,
-                        "isNotice": <?= $block->escapeHtmlAttr($block->isNotice()) ?>,
-                        "policyText": <?= /** @noEscape */ $cookiePrivacyText ?>,
-                        "allowLink": "<?= $block->escapeUrl($block->getAllowLink()) ?>",
-                        "settingsLink": "<?= $block->escapeUrl($block->getSettingsLink()) ?>",
-                        "websiteInteraction": "<?= $block->escapeHtmlAttr($block->getWebsiteInteraction()) ?>",
-                        "firstShowProcess": "<?= $block->escapeHtmlAttr($block->isProcessFirstShow()) ?>",
-                        "barLocation": "<?= $block->escapeHtmlAttr($block->getBarLocation()) ?>",
-                        "groups": <?= /* @noEscape */ $groups ?>
-                    }
-                }
+    <div
+        data-role="gdpr-cookie-container"
+        class="amgdprcookie-bar-template display-none"
+        data-bind="mageInit: {
+            'cookieBar': {
+                'isNotice': '<?= $block->escapeHtmlAttr($block->isNotice()) ?>',
+                'settingsLink': '<?= $block->escapeUrl($block->getSettingsLink()) ?>',
+                'websiteInteraction': '<?= $block->escapeHtmlAttr($block->getWebsiteInteraction()) ?>',
+                'firstShowProcess': '<?= $block->escapeHtmlAttr($block->isProcessFirstShow()) ?>',
+                'barLocation': '<?= $block->escapeHtmlAttr($block->getBarLocation()) ?>'
             }
-        }
-    }
-    </script>
+        }"
+    >
+        <div
+            role="alertdialog"
+            tabindex="-1"
+            class="
+                cookie-message
+                cookie-message--open
+                cookie-message--actions
+                amgdprcookie-bar-container
+            "
+            data-amcookie-js="bar"
+        >
+            <div
+                role="document"
+                class="cookie-message__container"
+                tabindex="0"
+            >
+                <p
+                    class="cookie-message__text"
+                >
+                    <?= /** @noEscape */ $cookiePrivacyText ?>
+                </p>
+
+                <div class="cookie-message__actions">
+                    <div class="cookie-message__action">
+                        <button
+                            id="btn-cookie-allow"
+                            class="
+                                action
+                                amgdprcookie-button
+                                -allow
+                                button
+                                button--secondary
+                                cookie-message__button
+                            "
+                            data-amcookie-js="allow-all-cookies"
+                        >
+                            <?= $block->escapeHtml(__('Allow Cookies')) ?>
+                        </button>
+                    </div>
+                    <div class="cookie-message__action">
+                        <a
+                            href="<?= $block->escapeUrl($block->getSettingsLink()) ?>"
+                            id="btn-cookie-disallow"
+                            class="
+                                action
+                                amgdprcookie-button
+                                -settings
+                                button
+                                button--secondary
+                                cookie-message__button
+                            "
+                        >
+                            <?= $block->escapeHtml(__('Cookies Settings')) ?>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <style>
         .amgdprcookie-bar-template {
                 z-index: 15;

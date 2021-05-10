@@ -48,7 +48,9 @@ define([
         );
       },
 
-      saveCookie: function () {
+      saveCookie: function (e) {
+        e.preventDefault();
+
         var disabledFields = $(this.element.field + ':disabled');
 
         this.closeModal();
@@ -64,7 +66,9 @@ define([
           );
       },
 
-      allowCookies: function () {
+      allowCookies: function (e) {
+        e.preventDefault();
+
         this.closeModal();
 
         cookieModel()
