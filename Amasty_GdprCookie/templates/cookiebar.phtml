@@ -7,7 +7,11 @@ $groups = json_decode($groupsJson, true);
 $cookiePrivacyText = json_decode($cookiePrivacyTextJson, true);
 ?>
 <?php if ($block->getNoticeType() === \Amasty\GdprCookie\Model\Config\Source\CookiePolicyBarStyle::CONFIRMATION_MODAL && $groups): ?>
-    <div data-role="gdpr-cookie-container" class="amgdprcookie-modal-template" data-amgdpr-js="modal">
+    <div
+        data-role="gdpr-cookie-container"
+        class="amgdprcookie-modal-template"
+        data-amgdpr-js="modal"
+    >
         <div
             data-bind="mageInit: {
                 'cookieModal': {
@@ -17,7 +21,12 @@ $cookiePrivacyText = json_decode($cookiePrivacyTextJson, true);
                     'firstShowProcess': '<?= $block->escapeHtmlAttr($block->isProcessFirstShow()) ?>'
                 }
             }"
-            role="dialog" aria-hidden="true" id="cookie-modal" data-modal="cookie-modal" class="modal" aria-labelledby="myTitle" aria-describedby="myDesc">
+            role="dialog"
+            aria-hidden="true"
+            id="cookie-modal"
+            data-modal="cookie-modal"
+            class="modal"
+        >
             <div class="modal__container modal__cookies-container">
                 <form
                     id="amgdprcookie-form"
@@ -71,7 +80,6 @@ $cookiePrivacyText = json_decode($cookiePrivacyTextJson, true);
                                         name="groups[]"
                                         value="<?= /** @noEscape */ (int) $group['groupId'] ?>"
                                         <?= $group['isEssential'] ? 'disabled' : ''; ?>
-                                        <?= $group['isEssential'] ? 'onclick="return false;"' : ''; ?>
                                         <?= $group['checked'] ? 'checked' : ''; ?>
                                     />
 
@@ -200,6 +208,7 @@ $cookiePrivacyText = json_decode($cookiePrivacyTextJson, true);
                                 -allow
                                 button
                                 button--secondary
+                                button--link
                                 cookie-message__button
                             "
                             data-amcookie-js="allow-all-cookies"
@@ -217,6 +226,7 @@ $cookiePrivacyText = json_decode($cookiePrivacyTextJson, true);
                                 -settings
                                 button
                                 button--secondary
+                                button--link
                                 cookie-message__button
                             "
                         >
@@ -229,8 +239,8 @@ $cookiePrivacyText = json_decode($cookiePrivacyTextJson, true);
     </div>
     <style>
         .amgdprcookie-bar-template {
-                z-index: 15;
-            <?php if ((int)$block->getBarLocation()): ?>
+            z-index: 15;
+            <?php if ((int) $block->getBarLocation()): ?>
                 top: 0;
             <?php else: ?>
                 bottom: 0;
