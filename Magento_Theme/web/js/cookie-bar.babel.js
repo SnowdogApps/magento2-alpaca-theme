@@ -1,32 +1,33 @@
-define(["Amasty_GdprCookie/js/model/cookie"], function (cookieModel) {
-  "use strict";
+define([
+  'Amasty_GdprCookie/js/model/cookie'
+], function (cookieModel) {
+  'use strict'
 
   class CookieBar {
-    // eslint-disable-line
     constructor(element, config) {
-      this.config = config;
-      this.cookieBar = element;
+      this.config = config
+      this.cookieBar = element
 
       if (this.isShowNotificationBar()) {
         this.cookieBar.classList.remove('display-none')
       }
 
-      this.setListeners();
+      this.setListeners()
     }
 
     allowAllCookies() {
-      this.cookieBar.remove();
+      this.cookieBar.remove()
 
       cookieModel()
         .allowAllCookies()
         .done(
-          function () {
-            cookieModel().triggerAllow();
+          () => {
+            cookieModel().triggerAllow()
             if (this.config.websiteInteraction == 1) {
-              cookieModel().restoreInteraction();
+              cookieModel().restoreInteraction()
             }
-          }.bind(this)
-        );
+          }
+        )
     }
 
     isShowNotificationBar() {
@@ -35,24 +36,23 @@ define(["Amasty_GdprCookie/js/model/cookie"], function (cookieModel) {
         this.config.websiteInteraction,
         this.config.settingsLink,
         this.config.firstShowProcess
-      );
+      )
     }
 
     setListeners() {
       this.cookieBar.allowAllButton = this.cookieBar.querySelector(
         '[data-amcookie-js="allow-all-cookies"]'
-      );
+      )
 
-      // allow all cookies
       if (this.cookieBar.allowAllButton) {
-        this.cookieBar.allowAllButton.addEventListener("click", (e) =>
-          this.allowAllCookies(e)
-        );
+        this.cookieBar.allowAllButton.addEventListener('click', () =>
+          this.allowAllCookies()
+        )
       }
     }
   }
 
   return function (config, element) {
-    new CookieBar(element, config);
-  };
-});
+    new CookieBar(element, config)
+  }
+})
