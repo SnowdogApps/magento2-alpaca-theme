@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 ### Removed
 ### Added
 ### Fixed
+- image ratio in recently viewed widget & wishlist (#77269)
 - password trigger on reset password page (#78130)
 - checkout agreement checkbox text on multishipping page (#78227)
 ### Added
