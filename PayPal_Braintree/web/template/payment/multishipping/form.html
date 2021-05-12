@@ -1,0 +1,197 @@
+<div
+    data-bind="
+        attr: {
+            class: 'braintree payment-method payment-method-' + getCode()},
+            css: {'_active': isActive()
+        }
+    "
+>
+    <div>
+        <form
+            id="co-transparent-form-braintree"
+            class="form braintree__multishipping-form"
+            data-bind=""
+            method="post"
+            action="#"
+            novalidate="novalidate"
+        >
+            <fieldset
+                data-bind="
+                    attr: {
+                        class: 'fieldset payment items ccard ' + getCode(), id: 'payment_form_' + getCode()
+                    }
+                "
+            >
+                <legend class="legend fieldset__legend--hidden">
+                    <!-- ko i18n: 'Credit Card Information'--><!-- /ko -->
+                </legend>
+                <div
+                    class="
+                        input
+                        field
+                        number
+                        required
+                    "
+                >
+                    <label
+                        data-bind="attr: {for: getCode() + '_cc_number'}"
+                        class="label"
+                    >
+                        <!-- ko i18n: 'Credit Card Number'--><!-- /ko -->
+                    </label>
+                    <div class="control braintree-card-control">
+                        <!-- ko if: !selectedCardType() -->
+                            <img
+                                data-bind="attr: {'src': getIcons('NONE').url}"
+                                class="braintree-credit-card-selected width-initial"
+                            >
+                        <!--/ko-->
+                        <!-- ko if: selectedCardType() -->
+                            <img
+                                data-bind="attr: {'src': getIcons(selectedCardType()).url}"
+                                class="braintree-credit-card-selected width-initial"
+                            >
+                        <!--/ko-->
+
+                        <div
+                            data-bind="attr: {id: getCode() + '_cc_number'}"
+                            class="hosted-control input__field"
+                        ></div>
+                        <div class="hosted-error mage-error braintree__error">
+                            <!-- ko i18n: 'Please, enter valid Credit Card Number'--><!-- /ko -->
+                        </div>
+                    </div>
+                    <div>
+                        <ul
+                            class="
+                                credit-card-types braintree-credit-card-types
+                                list
+                                list--horizontal
+                            "
+                        >
+                            <!-- ko foreach: {data: getCcAvailableTypes(), as: 'item'} -->
+                            <li class="item list__item">
+                                <!--ko if: $parent.getIcons(item) -->
+                                <img
+                                    class="width-initial"
+                                    data-bind="attr: {
+                                        'src': $parent.getIcons(item).url
+                                    }"
+                                >
+                                <!--/ko-->
+                            </li>
+                            <!--/ko-->
+                        </ul>
+                        <input
+                            type="hidden"
+                            name="payment[cc_type]"
+                            class="input-text"
+                            value=""
+                            data-bind="
+                                attr: {
+                                    id: getCode() + '_cc_type', 'data-container': getCode() + '-cc-type'
+                                },
+                                value: creditCardType
+                            "
+                        >
+                    </div>
+                </div>
+
+                <div
+                    class="
+                        input
+                        field
+                        number
+                        required
+                    "
+                >
+                    <label
+                        data-bind="attr: {for: getCode() + '_expiration'}"
+                        class="label"
+                    >
+                        <!-- ko i18n: 'Expiration Date'--><!-- /ko -->
+                    </label>
+                    <div
+                        data-bind="attr: {id: getCode() + '_expirationDate'}"
+                        class="hosted-control input__field"
+                    ></div>
+
+                    <div class="hosted-error mage-error braintree__error">
+                        <!-- ko i18n: 'Please, enter valid Expiration Date'--><!-- /ko -->
+                    </div>
+                </div>
+                <!-- ko if: (hasVerification())-->
+                <div
+                    class="
+                        input
+                        field
+                        cvv
+                        required
+                    "
+                    data-bind="attr: {id: getCode() + '_cc_type_cvv_div'}"
+                >
+                    <label
+                        data-bind="attr: {for: getCode() + '_cc_cid'}"
+                        class="label"
+                    >
+                        <!-- ko i18n: 'Card Verification Number'--><!-- /ko -->
+                    </label>
+                    <div
+                        class="
+                            control
+                            _with-tooltip
+                            braintree__tooltip-wrapper
+                            padding-right-0
+                        "
+                    >
+                        <div
+                            data-bind="attr: {id: getCode() + '_cc_cid'}"
+                            class="hosted-control input__field hosted-cid"
+                        ></div>
+                        <div class="hosted-error mage-error braintree__error">
+                            <!-- ko i18n: 'Please, enter valid Card Verification Number'--><!-- /ko -->
+                        </div>
+
+                        <div class="field-tooltip toggle braintree__tooltip">
+                            <span
+                                class="field-tooltip-action action-cvv"
+                                tabindex="0"
+                                data-toggle="dropdown"
+                                data-bind="
+                                    attr: {title: $t('What is this?')},
+                                    mageInit: {'dropdown':{'activeClass': '_active'}}
+                                "
+                            >
+                                <!-- ko i18n: 'What is this?'--><!-- /ko -->
+                            </span>
+                            <div
+                                class="field-tooltip-content braintree__tooltip-content"
+                                data-target="dropdown"
+                                data-bind="html: getCvvImageHtml()"
+                            ></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /ko -->
+            </fieldset>
+            <input
+                type="submit"
+                id="braintree_submit"
+                class="display-none"
+            />
+        </form>
+
+        <div class="actions-toolbar display-none">
+            <div class="primary">
+                <button
+                    data-role="review-save"
+                    type="submit"
+                    data-bind="{click: placeOrderClick}"
+                    class="action primary checkout"
+                >
+                    <span data-bind="i18n: 'Place Order'"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
