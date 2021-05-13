@@ -79,13 +79,13 @@ $adressString = $location->getCity() . ', ' . $location->getAddress() . ', ' . $
                 </fieldset>
 
                 <div class="amlocator-addresses">
-                <div class="amlocator-route-icon">
-                    <span class="amlocator-icon -start"></span>
-                    <span class="amlocator-icon -dot"></span>
-                    <span class="amlocator-icon -dot"></span>
-                    <span class="amlocator-icon -dot"></span>
-                    <span class="amlocator-icon -end"></span>
-                </div>
+                    <div class="amlocator-route-icon">
+                        <span class="amlocator-icon -start"></span>
+                        <span class="amlocator-icon -dot"></span>
+                        <span class="amlocator-icon -dot"></span>
+                        <span class="amlocator-icon -dot"></span>
+                        <span class="amlocator-icon -end"></span>
+                    </div>
                     <div class="amlocator-inputs">
                         <input
                             class="
@@ -105,7 +105,7 @@ $adressString = $location->getCity() . ', ' . $location->getAddress() . ', ' . $
                             data-amlocator-js="destination-point"
                             type="text"
                             readonly
-                            value="<?= $block->escapeHtml($adressString); ?>"
+                            value="<?= $block->escapeHtmlAttr($adressString); ?>"
                         />
                     </div>
                     <input
@@ -156,69 +156,71 @@ $adressString = $location->getCity() . ', ' . $location->getAddress() . ', ' . $
             <div class="amlocator-block amlocator-location-info">
                 <div class="amlocator-block">
                     <span>
-                        <?= $block->escapeHtml(__('Zip: '))?>
+                        <?= $block->escapeHtml(__('Zip: ')) ?>
                     </span>
                     <span>
-                        <?= $block->escapeHtml($location->getZip())?>
+                        <?= $block->escapeHtml($location->getZip()) ?>
                     </span>
                 </div>
                 <div class="amlocator-block">
                     <span>
-                        <?= $block->escapeHtml(__('Country: '))?>
+                        <?= $block->escapeHtml(__('Country: ')) ?>
                     </span>
                     <span>
-                        <?= $block->escapeHtml($block->getLocationCountryName($location->getCountry()))?>
+                        <?= $block->escapeHtml($block->getLocationCountryName($location->getCountry())) ?>
                     </span>
                 </div>
                 <div class="amlocator-block">
                     <span>
-                        <?= $block->escapeHtml(__('City: '))?>
+                        <?= $block->escapeHtml(__('City: ')) ?>
                     </span>
                     <span>
-                        <?= $block->escapeHtml($location->getCity())?>
+                        <?= $block->escapeHtml($location->getCity()) ?>
                     </span>
                 </div>
                 <div class="amlocator-block">
-                    <span><?= $block->escapeHtml(__('Address: '))?></span>
-                    <span class="amlocator-text -bold"><?= $block->escapeHtml($location->getAddress())?></span>
+                    <span><?= $block->escapeHtml(__('Address: ')) ?></span>
+                    <span class="amlocator-text -bold">
+                        <?= $block->escapeHtml($location->getAddress()) ?>
+                    </span>
                 </div>
                 <div class="amlocator-block -contact">
                     <?php if (!empty($location->getWebsite())): ?>
                         <div class="amlocator-block">
                             <span class="amlocator-icon -website"></span>
                             <a
-                                href="<?= $block->escapeUrl($location->getWebsite())?>"
+                                href="<?= $block->escapeUrl($location->getWebsite()) ?>"
                                 class="amlocator-link"
-                                title="<?= $block->escapeHtml($location->getName()); ?>"
+                                title="<?= $block->escapeHtmlAttr($location->getName()); ?>"
                                 target="_blank"
                             >
                                 <?= $block->escapeUrl($location->getWebsite())?>
                             </a>
                         </div>
-                    <?php endif;
-                    if (!empty($location->getPhone())): ?>
+                    <?php endif; ?>
+                    <?php if (!empty($location->getPhone())): ?>
                         <div class="amlocator-block">
                             <span class="amlocator-icon -phone"></span>
                             <a
-                                href="tel:<?= $block->escapeHtml($location->getPhone())?>"
+                                href="tel:<?= $block->escapeHtmlAttr($location->getPhone()) ?>"
                                 class="amlocator-link"
                             >
-                                <?= $block->escapeHtml($location->getPhone())?>
+                                <?= $block->escapeHtml($location->getPhone()) ?>
                             </a>
                         </div>
-                    <?php endif;
-                    if (!empty($location->getEmail())): ?>
+                    <?php endif; ?>
+                    <?php if (!empty($location->getEmail())): ?>
                         <div class="amlocator-block">
                             <span class="amlocator-icon -email"></span>
                             <a
-                                href="mailto:<?= $block->escapeUrl($location->getEmail())?>"
+                                href="mailto:<?= $block->escapeUrl($location->getEmail()) ?>"
                                 class="amlocator-link"
-                                title="<?= $block->escapeHtml($location->getName()); ?>"
+                                title="<?= $block->escapeHtmlAttr($location->getName()); ?>"
                             >
-                                <?= $block->escapeUrl($location->getEmail())?>
+                                <?= $block->escapeUrl($location->getEmail()) ?>
                             </a>
                         </div>
-                    <?php endif;?>
+                    <?php endif; ?>
                 </div>
                 <div class="amlocator-block">
                     <a
@@ -240,7 +242,7 @@ $adressString = $location->getCity() . ', ' . $location->getAddress() . ', ' . $
                 </div>
                 <div class="amlocator-block amlocator-location-gallery">
                     <span class="amlocator-title">
-                        <?= $block->escapeHtml(__('Photos'))?>
+                        <?= $block->escapeHtml(__('Photos')) ?>
                     </span>
                     <div
                         class="amlocator-wrapper"
@@ -249,7 +251,7 @@ $adressString = $location->getCity() . ', ' . $location->getAddress() . ', ' . $
                         <?php foreach ($galleryImages as $image): ?>
                             <a
                                 class="amlocator-link"
-                                href="<?= $block->escapeHtml($image['path']) ?>"
+                                href="<?= $block->escapeUrl($image['path']) ?>"
                                 data-amlocator-js="location-image"
                                 data-fancybox="gallery"
                             >

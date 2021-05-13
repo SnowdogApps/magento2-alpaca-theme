@@ -37,30 +37,37 @@ if ($location && $block->isReviewsEnabled()) :
             <span>
                 <?= $block->escapeHtml(__('Reviews')); ?>
             </span>
-            <span class="amlocator-arrow" data-amlocator-js="collapse-indicator"></span>
+            <span
+                class="amlocator-arrow"
+                data-amlocator-js="collapse-indicator"
+            >
+            </span>
         </div>
 
         <div class="amlocator-reviews-general">
             <span class="amlocator-value">
-                <?= (float)round($locationAvgRating / 20, 1); ?>
+                <?= $block->escapeHtml((float)round($locationAvgRating / 20, 1)); ?>
             </span>
             <div class="amlocator-wrapper">
                 <div
                     class="amstars-rating-container -small"
-                    title="<?= (float)$locationAvgRating ?>%"
+                    title="<?= $block->escapeHtmlAttr((float)$locationAvgRating) ?>%"
                 >
                     <p class="amstars-stars" style="width:<?= (float)$locationAvgRating ?>%">
-                        <span class="hidden"><?= (float)$locationAvgRating ?>%</span>
+                        <span class="hidden">
+                            <?= $block->escapeHtml((float)$locationAvgRating) ?>%
+                        </span>
                     </p>
                 </div>
                 <span class="amlocator-count">
-                    <?= (int)$countOfRatings . $block->escapeHtml(__(' reviews')) ?>
+                    <?= $block->escapeHtml((int)$countOfRatings) . $block->escapeHtml(__(' reviews')) ?>
                 </span>
             </div>
             <button
                 class="amlocator-button button"
-                title="<?= $block->escapeHtml(__('Write a review')) ?>"
+                title="<?= $block->escapeHtmlAttr(__('Write a review')) ?>"
                 data-amlocator-js="write-review"
+                type="button"
             >
                 <?= $block->escapeHtml(__('Write a review')) ?>
             </button>
@@ -83,11 +90,11 @@ if ($location && $block->isReviewsEnabled()) :
                                 </p>
                                 <div
                                     class="amstars-rating-container -small"
-                                    title="<?= $block->escapeHtml($review['rating']) ?>%"
+                                    title="<?= $block->escapeHtmlAttr($review['rating']) ?>%"
                                 >
                                     <p
                                         class="amstars-stars"
-                                        style="width:<?= $block->escapeHtml($review['rating']) ?>%"
+                                        style="width:<?= $block->escapeHtmlAttr($review['rating']) ?>%"
                                     >
                                         <span class="hidden">
                                             <?= $block->escapeHtml($review['rating']) ?>%
@@ -149,11 +156,17 @@ if ($location && $block->isReviewsEnabled()) :
                         class="amlocator-review-form review-form"
                         id="amlocator-review-form"
                         method="post"
-                        data-mage-init='{"mage/validation": {"errorClass": "mage-error"}}'
+                        data-mage-init='
+                            {
+                                "mage/validation": {
+                                    "errorClass": "mage-error"
+                                }
+                            }
+                        '
                     >
                         <fieldset
                             class="fieldset review-fieldset"
-                            data-hasrequired="<?= $block->escapeHtml(__('* Required Fields')) ?>"
+                            data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
                         >
                             <fieldset
                                 class="
@@ -186,16 +199,16 @@ if ($location && $block->isReviewsEnabled()) :
                                                         <input
                                                             type="radio"
                                                             name="location-rating"
-                                                            id="rating_<?= $block->escapeHtml($iterator) ?>"
-                                                            value="<?= $block->escapeHtml($iterator) ?>"
+                                                            id="rating_<?= $block->escapeHtmlAttr($iterator) ?>"
+                                                            value="<?= $block->escapeHtmlAttr($iterator) ?>"
                                                             class="radio"
                                                             data-validate="{'amasty-rating-required':true}"
                                                         />
                                                         <label
-                                                            class="rating-<?= $block->escapeHtml($iterator) ?>"
-                                                            for="rating_<?= $block->escapeHtml($iterator) ?>"
+                                                            class="rating-<?= $block->escapeHtmlAttr($iterator) ?>"
+                                                            for="rating_<?= $block->escapeHtmlAttr($iterator) ?>"
                                                             title="
-                                                                <?= $block->escapeHtml(
+                                                                <?= $block->escapeHtmlAttr(
                                                                     __(
                                                                         '%1 %2',
                                                                         $iterator,
@@ -255,7 +268,7 @@ if ($location && $block->isReviewsEnabled()) :
                         <input
                             type="hidden"
                             name="review-location-id"
-                            value="<?= (int)$block->getLocationId() ?>"
+                            value="<?=  $block->escapeHtmlAttr((int)$block->getLocationId()) ?>"
                         />
                         <div class="actions-toolbar review-form-actions">
                             <div class="primary actions-primary">
