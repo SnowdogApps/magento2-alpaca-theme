@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Added
 ### Fixed
+- fix sales status label (#78562)
 ### Updated
 ### Removed
 
