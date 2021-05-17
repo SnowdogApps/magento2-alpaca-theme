@@ -7,10 +7,11 @@ All notable changes to this project will be documented in this file.
 ### Updated
 ### Removed
 
+## [Released]
+## [2.19.1] - 2021-05-17
 ### Fixed
 - not visible images in minicart (#78682)
 
-## [Released]
 ## [2.19.0] - 2021-05-12
 ### Fixed
 - image ratio in recently viewed widget & wishlist (#77269)
