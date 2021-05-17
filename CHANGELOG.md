@@ -7,6 +7,9 @@ All notable changes to this project will be documented in this file.
 ### Updated
 ### Removed
 
+### Fixed
+- not visible images in minicart (#78682)
+
 ## [Released]
 ## [2.19.0] - 2021-05-12
 ### Fixed
