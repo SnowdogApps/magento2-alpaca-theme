@@ -2,218 +2,255 @@
     class="minicart-product"
     data-role="product-item"
 >
-    <div class="minicart-product__image">
-        <a
-            class="minicart-product__image-link"
-            data-bind="
-                attr: {
-                    href: product_url,
-                    title: product_name
-                }
-            "
-            tabindex="-1"
-        >
-            <!-- ko foreach: $parent.getRegion('itemImage') -->
-                <!-- ko template: {name: getTemplate(), data: item.product_image} --><!-- /ko -->
-            <!-- /ko -->
-        </a>
-    </div>
-    <div class="minicart-product__data">
-        <div class="minicart-product__info">
-            <div class="minicart-product__name-wrapper">
-                <h3 class="minicart-product__name">
-                    <a
-                        data-bind="
-                            attr: {
-                                href: product_url,
-                                title: product_name
-                            },
-                            html: $parent.getProductNameUnsanitizedHtml(product_name)
-                        "
+    <div class="minicart-product__item">
+        <div class="minicart-product__image">
+            <a
+                class="minicart-product__image-link"
+                data-bind="
+                    attr: {
+                        href: product_url,
+                        title: product_name
+                    }
+                "
+                tabindex="-1"
+            >
+                <!-- ko foreach: $parent.getRegion('itemImage') -->
+                    <!-- ko template: {name: getTemplate(), data: item.product_image} --><!-- /ko -->
+                <!-- /ko -->
+            </a>
+        </div>
+        <div class="minicart-product__data">
+            <div class="minicart-product__info">
+                <div class="minicart-product__name-wrapper">
+                    <h3 class="minicart-product__name">
+                        <a
+                            data-bind="
+                                attr: {
+                                    href: product_url,
+                                    title: product_name
+                                },
+                                html: $parent.getProductNameUnsanitizedHtml(product_name)
+                            "
+                            class="
+                                link
+                                link--invert
+                                minicart-product__link
+                            "
+                        ></a>
+                    </h3>
+                    <!-- ko ifnot: canApplyMsrp -->
+                        <div
+                            class="
+                                minicart-product__price
+                                margin-bottom-xs
+                            "
+                        >
+                            <!-- ko foreach: $parent.getRegion('priceSidebar') -->
+                                <!-- ko template: {name: getTemplate(), data: item.product_price, as: 'price'} --><!-- /ko -->
+                            <!-- /ko -->
+                        </div>
+                    <!-- /ko -->
+                </div>
+                <!-- ko if: options.length -->
+                    <dl
                         class="
-                            link
-                            link--invert
-                            minicart-product__link
-                        "
-                    ></a>
-                </h3>
-                <!-- ko ifnot: canApplyMsrp -->
-                    <div
-                        class="
-                            minicart-product__price
-                            margin-bottom-xs
+                            list
+                            list--description
+                            minicart-product__attributes-list
                         "
                     >
-                        <!-- ko foreach: $parent.getRegion('priceSidebar') -->
-                            <!-- ko template: {name: getTemplate(), data: item.product_price, as: 'price'} --><!-- /ko -->
+                        <!-- ko foreach: { data: options, as: 'option' } -->
+                            <dt class="list__label">
+                                <!-- ko text: option.label --><!-- /ko -->
+                            </dt>
+                            <dd class="list__value">
+                                <span data-bind="html: option.value"></span>
+                            </dd>
                         <!-- /ko -->
+                    </dl>
+
+                    <div
+                        class="
+                            dropdown-list
+                            minicart-product__attributes
+                        "
+                    >
+                        <ul
+                            class="dropdown-list__list"
+                            data-mage-init='{ "dropdownList": { } }'
+                        >
+                            <li
+                                class="
+                                    dropdown-list__item
+                                    dropdown-list__item--collapse
+                                "
+                            >
+                                <button
+                                    class="
+                                        dropdown-list__label
+                                        minicart-product__attributes-button
+                                    "
+                                    aria-expanded="false"
+                                    data-bind="
+                                        attr: {
+                                            'aria-controls': 'details-' + item.item_id
+                                        }
+                                    "
+                                    type="button"
+                                >
+                                    <!-- ko i18n: 'See Details' --><!-- /ko -->
+                                    <svg
+                                        class="
+                                            icon
+                                            dropdown-list__icon
+                                        "
+                                        role="presentation"
+                                        focusable="false"
+                                    >
+                                        <title>
+                                            <!-- ko i18n: 'See Details' --><!-- /ko -->
+                                        </title>
+                                        <use
+                                            data-bind="attr: {'xlink:href': require.toUrl('images/icons-sprite.svg#angle-down')}"
+                                            xlink:href=''
+                                        ></use>
+                                    </svg>
+                                </button>
+                                <div
+                                    class="
+                                        dropdown-list__content
+                                        minicart-product__attributes-button
+                                    "
+                                    aria-hidden="true"
+                                    data-bind="
+                                        attr: {id: 'details-' + item.item_id }
+                                    "
+                                >
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 <!-- /ko -->
             </div>
-            <!-- ko if: options.length -->
-                <dl
-                    class="
-                        list
-                        list--description
-                        minicart-product__attributes-list
-                    "
-                >
-                    <!-- ko foreach: { data: options, as: 'option' } -->
-                        <dt class="list__label">
-                            <!-- ko text: option.label --><!-- /ko -->
-                        </dt>
-                        <dd class="list__value">
-                            <span data-bind="html: option.value"></span>
-                        </dd>
-                    <!-- /ko -->
-                </dl>
-
-                <div
-                    class="
-                        dropdown-list
-                        minicart-product__attributes
-                    "
-                >
-                    <ul
-                        class="dropdown-list__list"
-                        data-mage-init='{ "dropdownList": { } }'
+            <div class="minicart-product__bottom">
+                <div class="minicart-product__qty">
+                    <div
+                        class="
+                            input
+                            input--inline
+                            minicart-product__input
+                            margin-bottom-0
+                            margin-right-m
+                        "
                     >
-                        <li
+                        <label
                             class="
-                                dropdown-list__item
-                                dropdown-list__item--collapse
+                                label
+                                minicart-product__label
+                                margin-right-xs
+                            "
+                            data-bind="
+                                attr: { for: 'cart-item-'+item_id+'-qty' }
                             "
                         >
-                            <button
-                                class="
-                                    dropdown-list__label
-                                    minicart-product__attributes-button
-                                "
-                                aria-expanded="false"
-                                data-bind="
-                                    attr: {
-                                        'aria-controls': 'details-' + item.item_id
-                                    }
-                                "
-                                type="button"
-                            >
-                                <!-- ko i18n: 'See Details' --><!-- /ko -->
-                                <svg
-                                    class="
-                                        icon
-                                        dropdown-list__icon
-                                    "
-                                    role="presentation"
-                                    focusable="false"
-                                >
-                                    <title>
-                                        <!-- ko i18n: 'See Details' --><!-- /ko -->
-                                    </title>
-                                    <use
-                                        data-bind="attr: {'xlink:href': require.toUrl('images/icons-sprite.svg#angle-down')}"
-                                        xlink:href=''
-                                    ></use>
-                                </svg>
-                            </button>
-                            <div
-                                class="
-                                    dropdown-list__content
-                                    minicart-product__attributes-button
-                                "
-                                aria-hidden="true"
-                                data-bind="
-                                    attr: {id: 'details-' + item.item_id }
-                                "
-                            >
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            <!-- /ko -->
-        </div>
-        <div class="minicart-product__bottom">
-            <div class="minicart-product__qty">
-                <div
-                    class="
-                        input
-                        input--inline
-                        minicart-product__input
-                        margin-bottom-0
-                        margin-right-m
-                    "
-                >
-                    <label
-                        class="
-                            label
-                            minicart-product__label
-                            margin-right-xs
-                        "
-                        data-bind="
-                            attr: { for: 'cart-item-'+item_id+'-qty' }
-                        "
-                    >
-                        <!-- ko i18n: 'Qty' --><!-- /ko -->:
-                    </label>
-                    <input
-                        class="
-                            input__field
-                            minicart-product__field
-                            cart-item-qty
-                        "
-                        name="mini-qty"
-                        type="text"
-                        min="1"
+                            <!-- ko i18n: 'Qty' --><!-- /ko -->:
+                        </label>
+                        <input
+                            class="
+                                input__field
+                                minicart-product__field
+                                cart-item-qty
+                            "
+                            name="mini-qty"
+                            type="text"
+                            min="1"
+                            data-bind="
+                                attr: {
+                                    id: 'cart-item-'+item_id+'-qty',
+                                    placeholder: qty,
+                                    'data-cart-item': item_id,
+                                    'data-item-qty': qty,
+                                    'data-cart-item-id': product_sku,
+                                    'aria-label': $t('Change the quantity. Make sure to click update button to submit change.')
+                                },
+                                value: qty,
+                            "
+                            size="4"
+                            maxlength="12"
+                            autocomplete="off"
+                        >
+                    </div>
+                    <button
+                        type="button"
                         data-bind="
                             attr: {
-                                id: 'cart-item-'+item_id+'-qty',
-                                placeholder: qty,
+                                id: 'update-cart-item-'+item_id,
                                 'data-cart-item': item_id,
-                                'data-item-qty': qty,
-                                'data-cart-item-id': product_sku,
-                                'aria-label': $t('Change the quantity. Make sure to click update button to submit change.')
-                            },
-                            value: qty,
+                                title: $t('Update')
+                            }
                         "
-                        size="4"
-                        maxlength="12"
-                        autocomplete="off"
+                        class="
+                            button
+                            button--secondary
+                            minicart-product__update
+                            update-cart-item
+                        "
                     >
+                        <span data-bind="i18n: 'Update'"></span>
+                    </button>
                 </div>
-                <button
-                    type="button"
-                    data-bind="
-                        attr: {
-                            id: 'update-cart-item-'+item_id,
-                            'data-cart-item': item_id,
-                            title: $t('Update')
-                        }
-                    "
-                    class="
-                        button
-                        button--secondary
-                        minicart-product__update
-                        update-cart-item
-                    "
-                >
-                    <span data-bind="i18n: 'Update'"></span>
-                </button>
-            </div>
-            <div class="minicart-product__actions">
-                <!-- ko if: is_visible_in_site_visibility -->
+                <div class="minicart-product__actions">
+                    <!-- ko if: is_visible_in_site_visibility -->
+                        <a
+                            data-bind="
+                                attr: {
+                                    href: configure_url,
+                                    title: $t('Edit item'),
+                                    'aria-label': $t('Edit product in your shopping cart')
+                                }
+                            "
+                            class="
+                                button
+                                button--icon
+                                minicart-product__button
+                            "
+                            data-testid="edit-item-link"
+                        >
+                            <svg
+                                class="
+                                    icon
+                                    button__icon
+                                    minicart-product__button-icon
+                                "
+                                role="presentation"
+                                focusable="false"
+                            >
+                                <title><!-- ko i18n: 'Edit item' --><!-- /ko --></title>
+                                <use
+                                    data-bind="attr: { 'xlink:href': require.toUrl('images/icons-sprite.svg#edit') }"
+                                    xlink:href=''
+                                ></use>
+                            </svg>
+                        </a>
+                    <!-- /ko -->
+
                     <a
+                        href="#"
                         data-bind="
                             attr: {
-                                href: configure_url,
-                                title: $t('Edit item'),
-                                'aria-label': $t('Edit product in your shopping cart')
+                                'data-cart-item': item_id,
+                                title: $t('Remove item'),
+                                'aria-label': $t('Remove this product from your shopping cart')
                             }
                         "
                         class="
                             button
                             button--icon
                             minicart-product__button
+                            action
+                            delete
                         "
-                        data-testid="edit-item-link"
+                        data-testid="delete-item-link"
                     >
                         <svg
                             class="
@@ -224,51 +261,16 @@
                             role="presentation"
                             focusable="false"
                         >
-                            <title><!-- ko i18n: 'Edit item' --><!-- /ko --></title>
+                            <title>
+                                <!-- ko i18n: 'Remove item' --><!-- /ko -->
+                            </title>
                             <use
-                                data-bind="attr: { 'xlink:href': require.toUrl('images/icons-sprite.svg#edit') }"
+                                data-bind="attr: {'xlink:href': require.toUrl('images/icons-sprite.svg#remove')}"
                                 xlink:href=''
                             ></use>
                         </svg>
                     </a>
-                <!-- /ko -->
-
-                <a
-                    href="#"
-                    data-bind="
-                        attr: {
-                            'data-cart-item': item_id,
-                            title: $t('Remove item'),
-                            'aria-label': $t('Remove this product from your shopping cart')
-                        }
-                    "
-                    class="
-                        button
-                        button--icon
-                        minicart-product__button
-                        action
-                        delete
-                    "
-                    data-testid="delete-item-link"
-                >
-                    <svg
-                        class="
-                            icon
-                            button__icon
-                            minicart-product__button-icon
-                        "
-                        role="presentation"
-                        focusable="false"
-                    >
-                        <title>
-                            <!-- ko i18n: 'Remove item' --><!-- /ko -->
-                        </title>
-                        <use
-                            data-bind="attr: {'xlink:href': require.toUrl('images/icons-sprite.svg#remove')}"
-                            xlink:href=''
-                        ></use>
-                    </svg>
-                </a>
+                </div>
             </div>
         </div>
     </div>
