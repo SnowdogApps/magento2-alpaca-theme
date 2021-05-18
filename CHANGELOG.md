@@ -4,11 +4,14 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Added
 ### Fixed
-- fix sales status label (#78562)
 ### Updated
 ### Removed
 
 ## [Released]
+## [2.19.2] - 2021-05-18
+### Fixed
+- fix sales status label (#78562)
+
 ## [2.19.1] - 2021-05-17
 ### Fixed
 - not visible images in minicart (#78682)
