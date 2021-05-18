@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Added
 ### Fixed
+- fix product display with long names in minicart (#78748)
 ### Updated
 ### Removed
 
