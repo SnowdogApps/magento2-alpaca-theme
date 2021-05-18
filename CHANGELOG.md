@@ -4,11 +4,14 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Added
 ### Fixed
-- fix product display with long names in minicart (#78748)
 ### Updated
 ### Removed
 
 ## [Released]
+## [2.19.3] - 2021-05-18
+### Fixed
+- fix product display with long names in minicart (#78748)
+
 ## [2.19.2] - 2021-05-18
 ### Fixed
 - fix sales status label (#78562)
