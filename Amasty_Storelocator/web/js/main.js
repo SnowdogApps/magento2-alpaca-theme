@@ -105,9 +105,9 @@ define([
           }
 
           if (this.options.isRadiusSlider) {
-              if (this.mapContainer.find(this.selectors.radiusSelectValue).length
-                  && parseInt(this.mapContainer.find(this.selectors.radiusSelectValue).text()) != this.options.minRadiusValue) {
-                  radius = this.mapContainer.find(this.selectors.radiusSelectValue).val();
+              var slider = this.mapContainer[0].querySelector(this.selectors.radiusSlider);
+              if (slider && slider.noUiSlider && slider.noUiSlider.get() !== this.options.minRadiusValue) {
+                    radius = slider.noUiSlider.get();
               } else {
                   return null;
               }
@@ -462,7 +462,6 @@ define([
 
       createRadiusSlider: function () {
           var self = this,
-          radiusValue = self.mapContainer.find(self.selectors.radiusSelectValue),
           radiusMeasurment = document.querySelector('[data-amlocator-js="radius-measurment"]').innerHTML,
           measurmentSelect = document.querySelector('[data-amlocator-js="measurment-select"]');
           radiusSearchId = $("#" + self.options.searchRadiusId);
