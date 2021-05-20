@@ -50,12 +50,14 @@ define([
       navigateMe: function () {
           var self = this;
           self.needGoTo = 1;
+          if (self.mapContainer.find('.amlocator-text').val()) {
+            self.makeAjaxCall(1);
+          }
+
           if (navigator.geolocation) {
               navigator.geolocation.getCurrentPosition(function (position) {
-                  if (!self.mapContainer.find('.amlocator-text').val()) {
-                      self.latitude = position.coords.latitude;
-                      self.longitude = position.coords.longitude;
-                  }
+                  self.latitude = position.coords.latitude;
+                  self.longitude = position.coords.longitude;
                   self.makeAjaxCall(1);
               }, this.navigateFail.bind(self));
           } else {
@@ -88,7 +90,7 @@ define([
           if (this.mapContainer.find('#amlocator-measurement').length > 0) {
               return this.mapContainer.find('#amlocator-measurement').val();
           }
-          if(this.options.distanceConfig !== 'choose') {
+          if (this.options.distanceConfig !== 'choose') {
             return this.options.distanceConfig;
           }
 
