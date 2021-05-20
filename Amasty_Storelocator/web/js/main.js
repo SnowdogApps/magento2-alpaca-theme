@@ -1,10 +1,11 @@
 define([
   "jquery",
   "mage/translate",
+  "noUiSlider",
   "Amasty_Storelocator/vendor/jquery.ui.touch-punch.min",
   "Magento_Ui/js/lib/knockout/bindings/range",
   "Magento_Ui/js/modal/modal"
-], function ($, $t, chosen) {
+], function ($, $t, noUiSlider) {
 
   $.widget('mage.amLocator', {
       options: {},
@@ -88,7 +89,7 @@ define([
               return this.mapContainer.find('#amlocator-measurement').val();
           }
           if(this.options.distanceConfig !== 'choose') {
-            return this.options.distanceConfig
+            return this.options.distanceConfig;
           }
 
           return 'km';
@@ -459,35 +460,51 @@ define([
 
       createRadiusSlider: function () {
           var self = this,
-              radiusValue = self.mapContainer.find(self.selectors.radiusSelectValue),
-              radiusMeasurment = self.mapContainer.find('[data-amlocator-js="radius-measurment"]'),
-              measurmentSelect = self.mapContainer.find('[data-amlocator-js="measurment-select"]');
+          radiusValue = self.mapContainer.find(self.selectors.radiusSelectValue),
+          radiusMeasurment = document.querySelector('[data-amlocator-js="radius-measurment"]').innerHTML,
+          measurmentSelect = document.querySelector('[data-amlocator-js="measurment-select"]');
+          radiusSearchId = $("#" + self.options.searchRadiusId);
+          var rangeInput = document.querySelector('[data-amlocator-js="radius-select"]');
+          var range = self.mapContainer[0].querySelector(self.selectors.radiusSlider);
 
-          if (self.options.minRadiusValue <= self.options.maxRadiusValue) {
-              self.mapContainer.find(self.selectors.radiusSlider).slider({
-                  range: 'min',
-                  min: self.options.minRadiusValue,
-                  max: self.options.maxRadiusValue,
-                  create: function () {
-                      radiusValue.text($(this).slider("value"));
-                      if (self.options.measurementRadius != '') {
-                          radiusMeasurment.text(self.options.measurementRadius);
-                      } else {
-                          radiusMeasurment.text(measurmentSelect.val());
-                      };
-                      $("#" + self.options.searchRadiusId).val($(this).slider("value"));
-                  },
-                  slide: function (event, ui) {
-                      radiusValue.text(ui.value);
-                      radiusValue.val(ui.value);
-                      $("#" + self.options.searchRadiusId).val(ui.value);
-                  }
-              });
+          noUiSlider.create(range, {
+            start: 0,
+            connect: true,
+            tooltips: true,
+            format: {
+              from: function (value) {
+                return parseInt(value)
+              },
+              to: function (value) {
+                return parseInt(value)
+              }
+            },
+            range: {
+              'min': self.options.minRadiusValue,
+              'max': self.options.maxRadiusValue,
+            }
+          })
+
+          if (measurmentSelect) {
+            measurmentSelect.addEventListener('change', (event) => {
+              range.querySelector('.noUi-tooltip .unit').innerHTML = event.target.value;
+              if (self.options.enableCountingDistance
+                && self.latitude
+                && self.longitude
+              ) {
+                  self.calculateDistance(self.latitude, self.longitude);
+              }
+            })
           }
 
-          measurmentSelect.on('change', function () {
-              radiusMeasurment.text(this.value);
-          });
+          range.noUiSlider.on('update', (values) => {
+            rangeInput.value = values[0];
+            if (measurmentSelect) {
+              range.querySelector('.noUi-tooltip').insertAdjacentHTML('beforeend', '<span class="unit">' + measurmentSelect.value + '</span>');
+            } else {
+              range.querySelector('.noUi-tooltip').insertAdjacentHTML('beforeend', '<span class="unit">' + radiusMeasurment + '</span>');
+            }
+          })
       },
 
       deleteMarkers: function(mapId) {
