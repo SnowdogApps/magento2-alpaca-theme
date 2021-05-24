@@ -2,7 +2,9 @@
 
 ## Accessibility in tabs
 Our components is accordion on mobile and tabs on wider screens, so we have to implement a11y feature to be used in both cases:
-* use `role="widget"` on tab element
+* use `role="tablist"` on the element that serves as the container for the set of tabs
+* use `role="tab"` on tab element
+* use `role="tabpanel"` on tab content
 * use `buttons` elements as a labels/headings of tabs
 * Buttons should have following aria attributes:
     * `aria-expanded` - set to `true` if tab is open, to `false` when it's closed
@@ -12,7 +14,7 @@ Our components is accordion on mobile and tabs on wider screens, so we have to i
 * Tab content element should:
     * have an id to be bound to tab title
     * have `aria-hidden` attribute set to `true` if tab is closed and to `false` if it's open
-    * aria-labelledby with value of tab title id
+    * `aria-labelledby` with value of tab title id
 * Keyboard support:
     * accordions - on mobile, down & up arrow keys should move cursor between tab's titles, from first tab title up arrow should move a user to the last tab title, from last tab title down arrow should move user to first tab title.
     * tabs = on desktop - right & left arrow keys should move cursor between tab's titles, from first tab title left arrow should move a user to the last tab title, from last tab title right arrow should move user to first tab title.
