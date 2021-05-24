@@ -7,6 +7,9 @@ All notable changes to this project will be documented in this file.
 ### Updated
 ### Removed
 
+### Fixed
+- duplicated ids for msrp price popup (#78814)
+
 ## [Released]
 ## [2.19.3] - 2021-05-18
 ### Fixed
