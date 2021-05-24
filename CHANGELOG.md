@@ -7,14 +7,16 @@ All notable changes to this project will be documented in this file.
 ### Updated
 ### Removed
 
+
+## [Released]
+
+## [2.20.0] - 2021-05-24
 ### Fixed
 - duplicated ids for msrp price popup (#78814)
 ### Added
 - margin top to quote button in cart (#78684)
 ### Updated
 - tabs component accessibility
-
-## [Released]
 ## [2.19.3] - 2021-05-18
 ### Fixed
 - fix product display with long names in minicart (#78748)
