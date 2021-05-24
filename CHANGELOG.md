@@ -14,6 +14,10 @@ All notable changes to this project will be documented in this file.
 ## [2.19.3] - 2021-05-18
 ### Fixed
 - fix product display with long names in minicart (#78748)
+### Added
+- margin top to quote button in cart (#78684)
+### Updated
+- tabs component accessibility
 
 ## [2.19.2] - 2021-05-18
 ### Fixed
