@@ -7,7 +7,8 @@ All notable changes to this project will be documented in this file.
 ### Updated
 ### Removed
 
-
+### Fixed
+- empty product reviews list in customer dashboard (#78932)
 ## [Released]
 
 ## [2.20.0] - 2021-05-24
