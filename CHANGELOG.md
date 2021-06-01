@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 ### Fixed
 ### Updated
+- gallery style variables (#78380)
 ### Removed
 
 ## [Released]
