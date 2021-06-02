@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 - empty product reviews list in customer dashboard (#78932)
+- safari tab scroll issue on PDP (#78961)
 ## [Released]
 
 ## [2.20.0] - 2021-05-24
