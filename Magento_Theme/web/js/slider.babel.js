@@ -1,7 +1,6 @@
 define([
   'jquery',
-  'slick'
-], function ($, slick) {
+], function ($) {
   'use strict';
 
   return function (options, element) {
@@ -17,26 +16,28 @@ define([
           navPrev = slider.find(dataValues.elementNavPrev),
           navNext = slider.find(dataValues.elementNavNext);
 
-      slides.not('.slick-initialized').slick(
-        {
-          slide: dataValues.elementSlide,
-          dots: JSON.parse(dataValues.dots),
-          infinite: JSON.parse(dataValues.infinite),
-          centerMode: JSON.parse(dataValues.centerMode),
-          mobileFirst: JSON.parse(dataValues.mobileFirst),
-          prevArrow: navPrev,
-          nextArrow: navNext,
-          dotsClass: dataValues.dotsClass,
-          autoplay: JSON.parse(dataValues.autoplay),
-          autoplaySpeed: parseInt(dataValues.autoplaySpeed),
-          pauseOnFocus: JSON.parse(dataValues.pauseOnFocus),
-          pauseOnHover: JSON.parse(dataValues.pauseOnHover),
-          slidesToShow: parseInt(dataValues.slidesToShow),
-          slidesToScroll: parseInt(dataValues.slidesToScroll),
-          swipeToSlide: JSON.parse(dataValues.swipeToSlide),
-          responsive: JSON.parse(dataValues.responsiveConfig),
-        }
-      )
+      require(['slick'], function (slick) {
+        slides.not('.slick-initialized').slick(
+          {
+            slide: dataValues.elementSlide,
+            dots: JSON.parse(dataValues.dots),
+            infinite: JSON.parse(dataValues.infinite),
+            centerMode: JSON.parse(dataValues.centerMode),
+            mobileFirst: JSON.parse(dataValues.mobileFirst),
+            prevArrow: navPrev,
+            nextArrow: navNext,
+            dotsClass: dataValues.dotsClass,
+            autoplay: JSON.parse(dataValues.autoplay),
+            autoplaySpeed: parseInt(dataValues.autoplaySpeed),
+            pauseOnFocus: JSON.parse(dataValues.pauseOnFocus),
+            pauseOnHover: JSON.parse(dataValues.pauseOnHover),
+            slidesToShow: parseInt(dataValues.slidesToShow),
+            slidesToScroll: parseInt(dataValues.slidesToScroll),
+            swipeToSlide: JSON.parse(dataValues.swipeToSlide),
+            responsive: JSON.parse(dataValues.responsiveConfig),
+          }
+        )
+      });
     }
 
     function displaySlider(dataValues) {
