@@ -4,7 +4,9 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Added
 ### Fixed
+- escaper method used in qtyUpdater data-mage-init (#78380)
 ### Updated
+- gallery style variables (#78380)
 ### Removed
 
 ### Fixed
