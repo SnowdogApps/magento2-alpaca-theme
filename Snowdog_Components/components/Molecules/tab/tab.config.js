@@ -4,7 +4,7 @@ module.exports = {
     icon: {
       class: 'tab__icon',
       id: 'angle-down',
-      iconTitle: 'Angle Down'
+      hidden: true
     },
     tabs: [
       {
