@@ -4,63 +4,78 @@
  */
 
 define([
-    'underscore',
-    'jquery',
-    'mage/template',
-    'text!Magento_QuickOrder/templates/dropdown-item.html',
-    'jquery-ui-modules/autocomplete'
+  'underscore',
+  'jquery',
+  'mage/template',
+  'text!Magento_QuickOrder/templates/dropdown-item.html',
+  'jquery-ui-modules/autocomplete'
 ], function (_, $, mageTemplate, itemTpl) {
-    'use strict';
+  'use strict';
 
-    $.widget('mage.quickorderSkuAutocomplete', $.ui.autocomplete, {
-        options: {
-            minLength: 3,
-            delay: 300,
-            sourceUrl: '',
+  $.widget('mage.quickorderSkuAutocomplete', $.ui.autocomplete, {
+      options: {
+          minLength: 3,
+          delay: 300,
+          sourceUrl: '',
+          autoFocus: true,
 
-            /** Change */
-            change: function () {
-                $(this).trigger('change');
-            },
+          /** Change */
+          change: function () {
+              $(this).trigger('change');
+          },
 
-            /** Source */
-            source: function () {
-                this._searchProducts.apply(this, arguments);
-            }
-        },
+          focus: function(event, ui) {
+            const target = event.currentTarget
+            const items = $(target).find('.quickorder__link')
+            items.each((_, item) => {
+              const text = $(item).text().trim()
+              const parent = $(item).parent()
+              if (text === ui.item.labelSku) {
+                $(parent).addClass('focused')
+              } else {
+                $(parent).removeClass('focused')
+              }
+            })
+          },
 
-        /**
-         * Renders item in dropdown list for search results
-         *
-         * @param {Element} ul - HTML DOM element to add item to
-         * @param {Object} item
-         * @returns {*|jQuery|HTMLElement}
-         * @private
-         */
-        _renderItem: function (ul, item) {
-            this.itemTemplate = $(mageTemplate(itemTpl, {
-                data: {
-                    labelSku: item.labelSku,
-                    labelProductName: item.labelProductName
-                }
-            }));
+          /** Source */
+          source: function () {
+              this._searchProducts.apply(this, arguments);
+          }
+      },
 
-            return this.itemTemplate.appendTo(ul);
-        },
+      /**
+       * Renders item in dropdown list for search results
+       *
+       * @param {Element} ul - HTML DOM element to add item to
+       * @param {Object} item
+       * @returns {*|jQuery|HTMLElement}
+       * @private
+       */
+      _renderItem: function (ul, item) {
+          this.itemTemplate = $(mageTemplate(itemTpl, {
+              data: {
+                  labelSku: item.labelSku,
+                  labelProductName: item.labelProductName
+              }
+          }));
 
-        /**
-         * Search products
-         *
-         * @param {Object} request
-         * @param {Function} response
-         * @private
-         */
-        _searchProducts: function (request, response) {
-            $.getJSON(this.options.sourceUrl, {
-                q: request.term
-            }, response);
-        }
-    });
+          return this.itemTemplate.appendTo(ul);
+      },
 
-    return $.mage.quickorderSkuAutocomplete;
+      /**
+       * Search products
+       *
+       * @param {Object} request
+       * @param {Function} response
+       * @private
+       */
+      _searchProducts: function (request, response) {
+          $.getJSON(this.options.sourceUrl, {
+              q: request.term
+          }, response);
+      }
+  });
+
+  return $.mage.quickorderSkuAutocomplete;
 });
