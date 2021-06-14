@@ -1,9 +1,5 @@
 <button
     if="isAllowed()"
-    attr="
-        'data-post': getDataPost($row()),
-        title: getLabel()
-    "
     class="
         action
         button
@@ -11,7 +7,18 @@
         add-to-wishlist
         towishlist
     "
-    data-action="add-to-wishlist"
+    data-bind="
+        attr: {
+            title: getLabel()
+        },
+        mageInit: {
+            'wishlistItem': {
+                'class': 'button--icon-filled',
+                'addToParams':  JSON.parse(getDataPost($row()))
+            }
+        }
+    "
+
 >
     <svg
         class="icon button__icon"
