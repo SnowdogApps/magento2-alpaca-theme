@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 ### Fixed
 - code cleanup (#77782)
+- aos error & button add to cart sticky text on edit product in shopping cart page (#79328)
 ### Updated
 ### Removed
 
