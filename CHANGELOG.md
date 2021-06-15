@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 - code cleanup (#77782)
 - aos error & button add to cart sticky text on edit product in shopping cart page (#79328)
+- missing `_` in translations (#79500)
+
 ### Updated
 ### Removed
 
