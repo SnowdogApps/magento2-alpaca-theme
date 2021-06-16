@@ -3,12 +3,18 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Added
+- focus state for amlocator route creator icons (#73168)
 ### Fixed
 - code cleanup (#77782)
 - aos error & button add to cart sticky text on edit product in shopping cart page (#79328)
 - missing `_` in translations (#79500)
-
+- incorrent unit in store distance (#73168)
+- store review stars & input styling (#73168)
 ### Updated
+- unified store locator buttons styling (#73168)
+- store locator range slider replaced with noUiSlider (#73168)
+- store locator thumbnails `object-fit` set to cover (#73168)
+- route creator colors (#73168)
 ### Removed
 
 ## [Released]
