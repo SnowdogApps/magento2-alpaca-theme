@@ -3,6 +3,15 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Added
+### Fixed
+
+### Updated
+
+### Removed
+
+## [Released]
+## [2.22.0] - 2021-06-17
+### Added
 - focus state for amlocator route creator icons (#73168)
 ### Fixed
 - code cleanup (#77782)
@@ -16,9 +25,6 @@ All notable changes to this project will be documented in this file.
 - store locator range slider replaced with noUiSlider (#73168)
 - store locator thumbnails `object-fit` set to cover (#73168)
 - route creator colors (#73168)
-### Removed
-
-## [Released]
 ## [2.21.0] - 2021-06-09
 ### Updated
 - gallery style variables (#78380)
