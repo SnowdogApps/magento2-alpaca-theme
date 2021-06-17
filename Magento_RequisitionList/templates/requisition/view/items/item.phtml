@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @var $block \Magento\RequisitionList\Block\Requisition\View\Item
  */
@@ -57,22 +56,27 @@ $item = $block->getItem();
     <div>
         <div class="product-item-description margin-bottom-xs">
             <?php if ($block->getRequisitionListProduct()): ?>
-                <span class="product-item-name">
-                    <a href="<?= $block->escapeUrl($block->getProductUrlByItem()) ?>">
+                <div class="product-item-name">
+                    <a
+                        href="<?= $block->escapeUrl($block->getProductUrlByItem()) ?>"
+                        class="actions-group__link"
+                    >
                         <?= $block->escapeHtml($block->getRequisitionListProduct()->getName()) ?>
                     </a>
-                </span>
+                </div>
             <?php endif ?>
-            <div class="product-item-sku">
-                <strong>
-                    <?= $block->escapeHtml(__('SKU')) ?>:
-                </strong>
-                <span>
-                    <?= $block->escapeHtml($item->getSku()) ?>
-                </span>
-            </div>
-            <?php $block->getChildBlock('requisition.list.item.options')->setItem($item); ?>
-            <?= $block->getChildHtml('requisition.list.item.options', false) ?>
+            <dl class="list list--description">
+                <div class="product-item-sku">
+                    <dt class="list__label">
+                        <?= $block->escapeHtml(__('SKU')) ?>
+                    </dt>
+                    <dd class="list__value">
+                        <?= $block->escapeHtml($item->getSku()) ?>
+                    </dd>
+                </div>
+                <?php $block->getChildBlock('requisition.list.item.options')->setItem($item); ?>
+                <?= $block->getChildHtml('requisition.list.item.options', false) ?>
+            </dl>
             <?php if ($block->getItemError()): ?>
                 <div class="message error item-error">
                     <span>
@@ -110,7 +114,7 @@ $item = $block->getItem();
     data-th="<?= $block->escapeHtmlAttr(__('Qty')) ?>"
 >
     <div
-        class="quantity-update"
+        class="quantity-update quantity-update--no-buttons-m"
         data-mage-init='{ "qtyUpdater": {
             "increaseText": "<?= $block->escapeJs(__('The quantity was increased to')) ?>",
             "decreseText": "<?= $block->escapeJs(__('The quantity was decreased to')) ?>"

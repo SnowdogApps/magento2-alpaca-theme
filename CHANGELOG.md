@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 - missing `_` in translations (#79500)
 - incorrent unit in store distance (#73168)
 - store review stars & input styling (#73168)
+- multishipping and requisition list styling (#79008)
 ### Updated
 - unified store locator buttons styling (#73168)
 - store locator range slider replaced with noUiSlider (#73168)
