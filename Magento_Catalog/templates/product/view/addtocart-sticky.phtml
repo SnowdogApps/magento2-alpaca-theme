@@ -7,7 +7,13 @@ $productMetadata = $objectManager->get('Magento\Framework\App\ProductMetadataInt
 ?>
 
 <?php $_product = $block->getProduct(); ?>
-<?php $buttonTitle = __('Add to Cart'); ?>
+<?php
+if (strpos($block->getRequest()->getUriString(), 'checkout/cart')) {
+    $buttonTitle = __('Update Cart');
+} else {
+    $buttonTitle = __('Add to Cart');
+}
+?>
 
 <?php if ($_product->isSaleable()): ?>
 <div
@@ -17,7 +23,7 @@ $productMetadata = $objectManager->get('Magento\Framework\App\ProductMetadataInt
         <?= ($productMetadata->getEdition() == 'B2B') ? 'add-to-cart--ee' : '' ?>
     "
     data-aos="fade-up"
-    data-aos-anchor="#product-addtocart-button"
+    data-aos-anchor="#product-addtocart-button-sticky"
     data-aos-anchor-placement="bottom-top"
     data-aos-id="addtocart-sticky"
     data-mage-init='{"addToCartSticky": {} }'
@@ -51,7 +57,6 @@ $productMetadata = $objectManager->get('Magento\Framework\App\ProductMetadataInt
                     role="presentation"
                     focusable="false"
                 >
-                    <title><?= $block->escapeHtml(__('Add to Cart')) ?></title>
                     <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#shopping-cart')); ?>"></use>
                 </svg>
             </button>

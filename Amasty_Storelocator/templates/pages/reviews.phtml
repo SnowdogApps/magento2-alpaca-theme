@@ -1,0 +1,305 @@
+<?php
+
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Storelocator
+ */
+?>
+<?php
+/**
+ * @var \Amasty\Storelocator\Block\View\Reviews $block
+ * @var \Amasty\Storelocator\Model\Location $location
+ */
+$location = $block->getLocation();
+if ($location && $block->isReviewsEnabled()) :
+    $locationReviews = $location->getLocationReviews();
+    $countOfRatings =  $locationReviews ? count($locationReviews) : 0;
+    $format = $location->getDateFormat() ?: \IntlDateFormatter::MEDIUM;
+    $locationAvgRating = ($location->getLocationAverageRating())
+        ? $location->getLocationAverageRating()
+        : 0;
+?>
+    <div class="amlocator-block -separator">
+        <hr class="hr" />
+    </div>
+    <div
+        class="
+            amlocator-block
+            -reviews
+            amlocator-reviews-wrapper
+        "
+    >
+        <div
+            class="amlocator-collapse-title"
+            data-amlocator-js="collapse-trigger"
+        >
+            <span>
+                <?= $block->escapeHtml(__('Reviews')); ?>
+            </span>
+            <span
+                class="amlocator-arrow"
+                data-amlocator-js="collapse-indicator"
+            >
+            </span>
+        </div>
+
+        <div class="amlocator-reviews-general">
+            <span class="amlocator-value">
+                <?= $block->escapeHtml((float)round($locationAvgRating / 20, 1)); ?>
+            </span>
+            <div class="amlocator-wrapper">
+                <div
+                    class="amstars-rating-container -small"
+                    title="<?= $block->escapeHtmlAttr((float)$locationAvgRating) ?>%"
+                >
+                    <p class="amstars-stars" style="width:<?= (float)$locationAvgRating ?>%">
+                        <span class="hidden">
+                            <?= $block->escapeHtml((float)$locationAvgRating) ?>%
+                        </span>
+                    </p>
+                </div>
+                <span class="amlocator-count">
+                    <?= $block->escapeHtml((int)$countOfRatings) . $block->escapeHtml(__(' reviews')) ?>
+                </span>
+            </div>
+            <button
+                class="amlocator-button button"
+                title="<?= $block->escapeHtmlAttr(__('Write a review')) ?>"
+                data-amlocator-js="write-review"
+                type="button"
+            >
+                <?= $block->escapeHtml(__('Write a review')) ?>
+            </button>
+        </div>
+
+        <div
+            class="amlocator-location-reviews"
+            data-amlocator-js="collapse-content"
+        >
+            <ol class="amlocator-items">
+                <?php if ($locationReviews) : ?>
+                    <?php foreach ($locationReviews as $review) : ?>
+                        <li
+                            class="amlocator-location-review"
+                            data-amlocator-js="location-review"
+                        >
+                            <div class="amlocator-wrapper">
+                                <p class="amlocator-name">
+                                    <?= $block->escapeHtml($review['name']) ?>
+                                </p>
+                                <div
+                                    class="amstars-rating-container -small"
+                                    title="<?= $block->escapeHtmlAttr($review['rating']) ?>%"
+                                >
+                                    <p
+                                        class="amstars-stars"
+                                        style="width:<?= $block->escapeHtmlAttr($review['rating']) ?>%"
+                                    >
+                                        <span class="hidden">
+                                            <?= $block->escapeHtml($review['rating']) ?>%
+                                        </span>
+                                    </p>
+                                </div>
+                                <p
+                                    class="amlocator-message -collapsed"
+                                    data-amlocator-js="review-message"
+                                >
+                                    <?= $block->escapeHtml($review['review']) ?>
+                                </p>
+                                <div class="amlocator-footer">
+                                    <span
+                                        class="amlocator-link -full"
+                                        data-amlocator-js="toggle-review"
+                                    >
+                                        <?= $block->escapeHtml(__('See full review')) ?>
+                                    </span>
+                                    <time class="amlocator-date" datetime="
+                                        <?= $block->escapeHtml(
+                                            $block->formatDate($review['published_at'], $format)
+                                        ) ?>
+                                    ">
+                                        <?= $block->escapeHtml($block->formatDate($review['published_at'], $format)) ?>
+                                    </time>
+                                </div>
+                            </div>
+                        </li>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </ol>
+        </div>
+    </div>
+    <div
+        class="amlocator-popup-overlay"
+        style="display: none"
+        data-amlocator-js="review-popup"
+    >
+        <div
+            class="amlocator-review-popup"
+            data-amlocator-js="review-popup"
+        >
+            <span
+                class="amlocator-close"
+                data-amlocator-js="close-popup">
+            </span>
+            <?php if ($block->isCustomerAuthorized()) : ?>
+                <div class="amlocator-header">
+                    <span>
+                        <?= $block->escapeHtml(__("You're reviewing:")) ?>
+                    </span>
+                    <span class="amlocator-name">
+                        <?= $block->escapeHtml($block->getLocationName()); ?>
+                    </span>
+                </div>
+                <div class="amlocator-form-wrapper">
+                    <form
+                        class="amlocator-review-form review-form"
+                        id="amlocator-review-form"
+                        method="post"
+                        data-mage-init='
+                            {
+                                "mage/validation": {
+                                    "errorClass": "mage-error"
+                                }
+                            }
+                        '
+                    >
+                        <fieldset
+                            class="fieldset review-fieldset"
+                            data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
+                        >
+                            <fieldset
+                                class="
+                                    field
+                                    required
+                                    review-field-ratings
+                                "
+                            >
+                                <span class="label">
+                                    <span>
+                                        <?= $block->escapeHtml(__('Your Rating')) ?>
+                                    </span>
+                                </span>
+                                <div class="control">
+                                    <div
+                                        class="nested"
+                                        id="product-review-table"
+                                    >
+                                        <div
+                                            class="
+                                                field
+                                                choice
+                                                review-field-rating
+                                            "
+                                        >
+                                            <div class="control review-control-vote">
+                                                <?php $countOfStars = 5;
+                                                for ($iterator = 1; $iterator <= $countOfStars; $iterator++) : ?>
+                                                    <div class="review-rating-row">
+                                                        <input
+                                                            type="radio"
+                                                            name="location-rating"
+                                                            id="rating_<?= $block->escapeHtmlAttr($iterator) ?>"
+                                                            value="<?= $block->escapeHtmlAttr($iterator) ?>"
+                                                            class="radio"
+                                                            data-validate="{'amasty-rating-required':true}"
+                                                        />
+                                                        <label
+                                                            class="rating-<?= $block->escapeHtmlAttr($iterator) ?>"
+                                                            for="rating_<?= $block->escapeHtmlAttr($iterator) ?>"
+                                                            title="
+                                                                <?= $block->escapeHtmlAttr(
+                                                                    __(
+                                                                        '%1 %2',
+                                                                        $iterator,
+                                                                        $iterator > 1 ? __('stars') : __('star')
+                                                                    )
+                                                                ) ?>
+                                                            "
+                                                        >
+                                                            <span>
+                                                                <?= $block->escapeHtml(
+                                                                    __(
+                                                                        '%1 %2',
+                                                                        $iterator,
+                                                                        $iterator > 1 ? __('stars') : __('star')
+                                                                    )
+                                                                ) ?>
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                <?php endfor; ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input
+                                        type="hidden"
+                                        name="validate_rating"
+                                        class="validate-rating"
+                                        value=""
+                                    />
+                                </div>
+                            </fieldset>
+                            <div
+                                class="
+                                    field
+                                    review-field-text
+                                    required
+                                "
+                            >
+                                <label
+                                    for="review_field"
+                                    class="label"
+                                >
+                                    <span>
+                                        <?= $block->escapeHtml(__('Review')) ?>
+                                    </span>
+                                </label>
+                                <div class="control">
+                                    <textarea
+                                        name="detail"
+                                        id="review_field"
+                                        rows="3"
+                                        data-validate="{required:true}"
+                                    ></textarea>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <input
+                            type="hidden"
+                            name="review-location-id"
+                            value="<?=  $block->escapeHtmlAttr((int)$block->getLocationId()) ?>"
+                        />
+                        <div class="actions-toolbar review-form-actions">
+                            <div class="primary actions-primary">
+                                <button
+                                    type="submit"
+                                    class="
+                                        action
+                                        submit
+                                        primary
+                                        button
+                                    "
+                                >
+                                    <span>
+                                        <?= $block->escapeHtml(__('Submit Review')) ?>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            <?php else : ?>
+                <div>
+                    <?= $block->escapeHtml(
+                        __(
+                            'Please <a href="%1">log in</a> to leave a review.',
+                            $block->escapeUrl($block->getUrl('customer/account/login')),
+                        ),
+                        ['a']
+                    ) ?>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+<?php endif; ?>

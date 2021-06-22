@@ -3,6 +3,9 @@
 .store-locator {
     &__button-search {
         top: 0;
+        &.-hidden {
+            display: none;
+        }
     }
 
     &__today-label {
@@ -10,14 +13,6 @@
         @include mq($screen-m) {
             font-size: $store-locator__label-font-size\@medium;
         }
-    }
-
-    &__filter-actions {
-        display: flex;
-        flex-wrap: nowrap;
-        justify-content: $store-locator__filter-action-justify;
-        align-items: $store-locator__filter-action-align;
-        padding: $store-locator__filter-action-padding;
     }
 
     &__stores {
@@ -48,6 +43,8 @@
 
     .amlocator-filters-container {
         background-color: transparent;
+        padding: $store-locator__filter-padding;
+        margin: $store-locator__filter-margin;
     }
 
     .amlocator-store-desc {
@@ -89,6 +86,11 @@
         }
     }
 
+    .amlocator-attribute-wrapper
+    .amlocator-input {
+        margin: $store-locator__input-margin;
+    }
+
     .amlocator-schedule-table {
         margin: $store-locator__store-schedule-margin;
     }
@@ -113,10 +115,27 @@
     }
     // to overwrite amasty styles loaded in php script :/
     &.amlocator-main-container {
-        .amlocator-button {
-            color: $white;
+        .amlocator-search-container,
+        .amlocator-filters-container {
+            .amlocator-button {
+                color: $store-locator__button-color;
+                background-color: $store-locator__button-bg;
+                border: $store-locator__border;
+                font-weight: $store-locator__button-font-weight;
+                min-height: $store-locator__button-min-size;
+                padding: $store-locator__button-padding;
+
+                &:hover,
+                &:focus,
+                &.focus-visible {
+                    background-color: $store-locator__button-bg--active;
+                }
+            }
+        }
+
+        .amlocator-search-container .amlocator-button.-nearby {
+            color: $store-locator__button-color;
             background-color: $store-locator__button-bg;
-            border: $store-locator__border;
 
             &:hover,
             &:focus,
@@ -124,14 +143,20 @@
                 background-color: $store-locator__button-bg--active;
             }
         }
-        .amlocator-search-container .amlocator-button.-nearby {
-            color: $white;
-            background-color: $store-locator__button-bg;
 
-            &:hover,
-            &:focus,
-            &.focus-visible {
-                background-color: $store-locator__button-bg--active;
+        .amlocator-filters-container {
+            .amlocator-select[multiple] {
+                background-image: none;
+            }
+
+            .amlocator-clear {
+                color: $color-primary;
+
+                &:hover,
+                &:focus,
+                &.focus-visible {
+                    color: $store-locator__button-color;
+                }
             }
         }
     }
@@ -147,6 +172,88 @@
     }
 }
 
+.amlocator-location-container {
+    .amlocator-modes {
+        border: none;
+    }
+
+    .amlocator-column .amlocator-button {
+        color: $store-locator__button-color;
+        border: $store-locator__border;
+        font-weight: $store-locator__button-font-weight;
+        background-color: $store-locator__button-bg;
+
+        &:hover,
+        &:focus,
+        &.focus-visible {
+            color: $store-locator__button-color;
+            background-color: $store-locator__button-bg--active;
+        }
+    }
+
+    .amlocator-route-creator {
+        background-color: $store-locator__route-creator-bg;
+
+        .amlocator-mode,
+        .amlocator-swap {
+            display: unset;
+            @include visually-hidden;
+
+            &+ .amlocator-label {
+                opacity: $store-locator__route-creator-icon-opacity;
+            }
+
+            &:focus-visible + .amlocator-label {
+                opacity: 1;
+                @include focus;
+            }
+        }
+
+        .amlocator-mode:checked + .amlocator-label,
+        .amlocator-mode:focus + .amlocator-label,
+        .amlocator-mode + .amlocator-label:hover {
+            background-color: $store-locator__route-creator-label-bg;
+        }
+
+        .amlocator-route-icon .amlocator-icon.-dot {
+            opacity: $store-locator__route-creator-icon-opacity;
+            background-color: $store-locator__route-creator-icon-bg;
+        }
+    }
+
+    .amlocator-location-gallery {
+        .amlocator-image {
+            object-fit: cover;
+        }
+    }
+
+    .amlocator-review-popup {
+        .review-field-text textarea {
+            width: 100%;
+        }
+
+        .review-form-actions .action.submit.primary {
+            background-color: $store-locator__button-bg;
+
+            &:hover,
+            &:focus,
+            &.focus-visible {
+                color: $store-locator__button-color;
+                background-color: $store-locator__button-bg--active;
+            }
+        }
+
+        .review-rating-row {
+            display: flex;
+            align-items: $store-locator__rating-row-align;
+
+            .radio {
+                margin: $store-locator__rating-radio-margin;
+            }
+        }
+    }
+}
+
 .amlocator-schedule-container {
     background-color: $gray-lighter;
     .amlocator-today {
@@ -156,5 +263,16 @@
             display: none;
         }
     }
+}
 
+.amlocator-range-slider {
+    margin: $store-locator__range-slider-margin;
+    background-color: $store-locator__range-slider-bg-color !important; // sass-lint:disable-line no-important
+    .noUi-tooltip {
+        display: block;
+        font-size: $store-locator__range-slider-font-size;
+    }
+    .ui-slider-handle {
+        display: none;
+    }
 }
