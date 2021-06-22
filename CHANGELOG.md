@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 - yireo/magento2-webp2 package for webp images (#72754)
 ### Fixed
-
+- duplicated loader on PDP (#79360)
 ### Updated
 - adjusted styles for webp images (#72754)
 
