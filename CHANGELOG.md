@@ -3,10 +3,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Added
+- yireo/magento2-webp2 package for webp images (#72754)
 ### Fixed
 - code cleanup (#77782)
 ### Updated
+- adjusted styles for webp images (#72754)
 ### Removed
+- Lazy loading for slider and banner images (#72754)
 
 ## [Released]
 ## [2.21.0] - 2021-06-09
