@@ -1,0 +1,309 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Storelocator
+ */
+?>
+<?php
+/** @var \Amasty\Storelocator\Model\Location $location */
+/** @var \Amasty\Storelocator\Block\View\Location $block */
+$location = $block->getCurrentLocation();
+$location->setTemplatesHtml();
+
+$galleryImages = $block->getLocationGallery();
+
+$adressString = $location->getCity() . ', ' . $location->getAddress() . ', ' . $location->getZip();
+?>
+<div class="amlocator-location-main">
+    <div class="amlocator-location-container">
+        <div class="amlocator-column -left">
+            <div
+                class="
+                    amlocator-block
+                    -route
+                    amlocator-route-creator
+                "
+                data-amlocator-js="route-creator"
+            >
+                <fieldset class="amlocator-modes">
+                    <input
+                        class="amlocator-mode"
+                        id="driving-mode"
+                        name="travel-mode"
+                        data-amlocator-js="travel-mode"
+                        type="radio"
+                        value="DRIVING"
+                        checked
+                    />
+                    <label
+                        class="amlocator-label -driving"
+                        for="driving-mode"
+                    ></label>
+                    <input
+                        class="amlocator-mode"
+                        id="transit-mode"
+                        name="travel-mode"
+                        data-amlocator-js="travel-mode"
+                        type="radio"
+                        value="TRANSIT"
+                    />
+                    <label
+                        class="amlocator-label -transit"
+                        for="transit-mode"
+                    ></label>
+                    <input
+                        class="amlocator-mode"
+                        id="walking-mode"
+                        name="travel-mode"
+                        data-amlocator-js="travel-mode"
+                        type="radio"
+                        value="WALKING"
+                    />
+                    <label
+                        class="amlocator-label -walking"
+                        for="walking-mode"
+                    ></label>
+                    <input
+                        class="amlocator-mode"
+                        id="bicycling-mode"
+                        name="travel-mode"
+                        data-amlocator-js="travel-mode"
+                        type="radio"
+                        value="BICYCLING"
+                    />
+                    <label
+                        class="amlocator-label -bicycling"
+                        for="bicycling-mode"
+                    ></label>
+                </fieldset>
+
+                <div class="amlocator-addresses">
+                    <div class="amlocator-route-icon">
+                        <span class="amlocator-icon -start"></span>
+                        <span class="amlocator-icon -dot"></span>
+                        <span class="amlocator-icon -dot"></span>
+                        <span class="amlocator-icon -dot"></span>
+                        <span class="amlocator-icon -end"></span>
+                    </div>
+                    <div class="amlocator-inputs">
+                        <input
+                            class="
+                                amlocator-address
+                                -start
+                                input__field
+                            "
+                            data-amlocator-js="origin-point"
+                            type="text"
+                        />
+                        <input
+                            class="
+                                amlocator-address
+                                -end
+                                input__field
+                            "
+                            data-amlocator-js="destination-point"
+                            type="text"
+                            readonly
+                            value="<?= $block->escapeHtmlAttr($adressString); ?>"
+                        />
+                    </div>
+                    <input
+                        class="amlocator-swap"
+                        id="swap-mode"
+                        data-amlocator-js="swap-mode"
+                        type="checkbox"
+                    />
+                    <label
+                        class="amlocator-label"
+                        for="swap-mode"
+                    ></label>
+                </div>
+            </div>
+
+            <div
+                class="
+                    amlocator-block
+                    -directions
+                    amlocator-directions-wrapper
+                "
+                data-amlocator-js="directions"
+                style="display: none;"
+            >
+                <div
+                    class="amlocator-collapse-title"
+                    data-amlocator-js="collapse-trigger"
+                >
+                    <span>
+                        <?= $block->escapeHtml(__('Directions')); ?>
+                    </span>
+                    <span
+                        class="amlocator-arrow"
+                        data-amlocator-js="collapse-indicator"
+                    ></span>
+                </div>
+                <div
+                    class="amlocator-directions-container"
+                    data-amlocator-js="collapse-content"
+                >
+                    <div data-amlocator-js="directions-panel"></div>
+                </div>
+            </div>
+
+            <div class="amlocator-block -separator">
+                <hr class="hr"/>
+            </div>
+            <div class="amlocator-block amlocator-location-info">
+                <div class="amlocator-block">
+                    <span>
+                        <?= $block->escapeHtml(__('Zip: ')) ?>
+                    </span>
+                    <span>
+                        <?= $block->escapeHtml($location->getZip()) ?>
+                    </span>
+                </div>
+                <div class="amlocator-block">
+                    <span>
+                        <?= $block->escapeHtml(__('Country: ')) ?>
+                    </span>
+                    <span>
+                        <?= $block->escapeHtml($block->getLocationCountryName($location->getCountry())) ?>
+                    </span>
+                </div>
+                <div class="amlocator-block">
+                    <span>
+                        <?= $block->escapeHtml(__('City: ')) ?>
+                    </span>
+                    <span>
+                        <?= $block->escapeHtml($location->getCity()) ?>
+                    </span>
+                </div>
+                <div class="amlocator-block">
+                    <span><?= $block->escapeHtml(__('Address: ')) ?></span>
+                    <span class="amlocator-text -bold">
+                        <?= $block->escapeHtml($location->getAddress()) ?>
+                    </span>
+                </div>
+                <div class="amlocator-block -contact">
+                    <?php if (!empty($location->getWebsite())): ?>
+                        <div class="amlocator-block">
+                            <span class="amlocator-icon -website"></span>
+                            <a
+                                href="<?= $block->escapeUrl($location->getWebsite()) ?>"
+                                class="amlocator-link"
+                                title="<?= $block->escapeHtmlAttr($location->getName()); ?>"
+                                target="_blank"
+                            >
+                                <?= $block->escapeUrl($location->getWebsite()) ?>
+                            </a>
+                        </div>
+                    <?php endif; ?>
+                    <?php if (!empty($location->getPhone())): ?>
+                        <div class="amlocator-block">
+                            <span class="amlocator-icon -phone"></span>
+                            <a
+                                href="tel:<?= $block->escapeHtmlAttr($location->getPhone()) ?>"
+                                class="amlocator-link"
+                            >
+                                <?= $block->escapeHtml($location->getPhone()) ?>
+                            </a>
+                        </div>
+                    <?php endif; ?>
+                    <?php if (!empty($location->getEmail())): ?>
+                        <div class="amlocator-block">
+                            <span class="amlocator-icon -email"></span>
+                            <a
+                                href="mailto:<?= $block->escapeUrl($location->getEmail()) ?>"
+                                class="amlocator-link"
+                                title="<?= $block->escapeHtmlAttr($location->getName()); ?>"
+                            >
+                                <?= $block->escapeUrl($location->getEmail()) ?>
+                            </a>
+                        </div>
+                    <?php endif; ?>
+                </div>
+                <div class="amlocator-block">
+                    <a
+                        class="amlocator-link"
+                        data-amlocator-js="locator-panorama"
+                    >
+                        <?= $block->escapeHtml(__('Street View')) ?>
+                    </a>
+                </div>
+            </div>
+
+            <div class="amlocator-block">
+                <?= $block->getChildBlock('amasty_store_locator_schedule')->setData('location', $location)->toHtml(); ?>
+            </div>
+
+            <?php if (count($galleryImages)): ?>
+                <div class="amlocator-block -separator">
+                    <hr class="hr"/>
+                </div>
+                <div class="amlocator-block amlocator-location-gallery">
+                    <span class="amlocator-title">
+                        <?= $block->escapeHtml(__('Photos')) ?>
+                    </span>
+                    <div
+                        class="amlocator-wrapper"
+                        data-amlocator-js="locator-gallery"
+                    >
+                        <?php foreach ($galleryImages as $image): ?>
+                            <a
+                                class="amlocator-link"
+                                href="<?= $block->escapeUrl($image['path']) ?>"
+                                data-amlocator-js="location-image"
+                                data-fancybox="gallery"
+                            >
+                                <img
+                                    src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAABCAQAAABN/Pf1AAAAC0lEQVR42mNkwAIAACoAAgu1Hc4AAAAASUVORK5CYII&#x3D"
+                                    class="amlocator-image lazyload"
+                                    title="<?= $block->escapeHtmlAttr($location->getName()) ?>"
+                                    data-src="<?= $block->escapeUrl($image['path']) ?>"
+                                    alt="<?= $block->escapeHtmlAttr($location->getName()) ?>"
+                                />
+                            </a>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            <?php endif;?>
+            <?= $block->getLayout()
+                ->createBlock(\Amasty\Storelocator\Block\View\Reviews::class)
+                ->setData('location', $location)
+                ->toHtml(); ?>
+        </div>
+
+        <div class="amlocator-column -right">
+            <div
+                class="amlocator-block -map"
+                data-amlocator-js="location-map"
+            ></div>
+            <?= $block->getChildBlock('amasty_store_location_page_attributes')
+                ->setData('location', $location)
+                ->toHtml();
+            ?>
+            <div class="amlocator-description-grey">
+                <?= /** @escapeNotVerified */ $location->getLocationDescription() ?>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    require([
+        'jquery',
+        'Amasty_Storelocator/js/location-view',
+        'domReady!',
+        'https://maps.googleapis.com/maps/api/js?libraries=places&key=<?= $block->escapeHtml(
+            $block->configProvider->getApiKey()
+        ); ?>'
+    ], function ($) {
+        $('[data-amlocator-js="location-map"]').amLocationPage({
+            locationData: {
+                lat: <?= (float)$location->getLat() ?>,
+                lng: <?= (float)$location->getLng() ?>,
+                marker_url: '<?= $block->escapeHtml($location->getMarkerMediaUrl()) ?>'
+            }
+        });
+    });
+</script>
