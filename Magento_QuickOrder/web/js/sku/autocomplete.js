@@ -26,16 +26,12 @@ define([
 
           focus: function(event, ui) {
             const target = event.currentTarget
-            const items = $(target).find('.quickorder__link')
-            items.each((_, item) => {
-              const text = $(item).text().trim()
-              const parent = $(item).parent()
-              if (text === ui.item.labelSku) {
-                $(parent).addClass('focused')
-              } else {
-                $(parent).removeClass('focused')
-              }
-            })
+            $(target).find('.quickorder__list-item').removeClass('focused')
+            const item = $(target).find(
+              `.quickorder__link:contains(${ui.item.labelSku})`
+            )
+            const parent = $(item).parent()
+            $(parent).addClass('focused')
           },
 
           /** Source */
