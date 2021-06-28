@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 - yireo/magento2-webp2 package for webp images (#72754)
 ### Fixed
 - duplicated loader on PDP (#79360)
+- quickorder search suggestions styling (#78133)
 ### Updated
 - adjusted styles for webp images (#72754)
 
