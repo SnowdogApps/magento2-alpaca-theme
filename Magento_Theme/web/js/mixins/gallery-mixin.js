@@ -36,11 +36,11 @@ define([
           settings = this.settings,
           config = this.config,
           tpl = template(galleryTpl, {
-            next: $t('Next'),
-            previous: $t('Previous'),
-            exitFullScreen: $t('Exit fullscreen'),
-            zoomIn: $t('Zoom in'),
-            zoomOut: $t('Zoom out')
+            nextLabel: $t('Next'),
+            previousLabel: $t('Previous'),
+            exitFullScreenLabel: $t('Exit fullscreen'),
+            zoomInLabel: $t('Zoom in'),
+            zoomOutLabel: $t('Zoom out')
           }),
           mainImageIndex,
           $element = settings.$element,
