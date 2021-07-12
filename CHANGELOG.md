@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 - duplicated loader on PDP (#79360)
 - quickorder search suggestions styling (#78133)
+- shopping cart - visually hide qty label instead of display none (#80422)
 ### Updated
 - adjusted styles for webp images (#72754)
 
