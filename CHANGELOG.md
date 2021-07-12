@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 - duplicated loader on PDP (#79360)
 - quickorder search suggestions styling (#78133)
+- add to cart sticky shouldn't have focusable elements when it has `aria-hidden="true"` (#80420)
 ### Updated
 - adjusted styles for webp images (#72754)
 
