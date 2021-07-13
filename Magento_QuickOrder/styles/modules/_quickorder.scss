@@ -1,19 +1,26 @@
 // Variables
-$quickorder__image-max-width             : 250px;
+$quickorder__image-max-width             : 250px !default;
 
-$quickorder__input-flex                  : 1 0 100%;
-$quickorder__input-flex\@small           : 1 0 calc(100% - 180px);
-$quickorder__input-max-width\@small      : calc(100% - 180px);
-$quickorder__input-margin                : 0 0 $spacer--extra-small;
-$quickorder__input-margin\@small         : 0;
+$quickorder__input-flex                  : 1 0 100% !default;;
+$quickorder__input-flex\@small           : 1 0 calc(100% - 180px) !default;
+$quickorder__input-max-width\@small      : calc(100% - 180px) !default;
+$quickorder__input-margin                : 0 0 $spacer--extra-small !default;
+$quickorder__input-margin\@small         : 0 !default;
 
-$quickorder__input-qty-flex              : 1 0 calc(100% - 64px);
-$quickorder__input-qty-flex\@small       : 1 0 100px;
-$quickorder__input-qty-max-width         : calc(100% - 64px);
-$quickorder__input-qty-max-width\@small  : 100px;
-$quickorder__input-qty-margin\@small     : 0 0 0 $spacer--medium;
+$quickorder__input-qty-flex              : 1 0 calc(100% - 64px) !default;
+$quickorder__input-qty-flex\@small       : 1 0 100px !default;
+$quickorder__input-qty-max-width         : calc(100% - 64px) !default;
+$quickorder__input-qty-max-width\@small  : 100px !default;
+$quickorder__input-qty-margin\@small     : 0 0 0 $spacer--medium !default;
 
-$quickorder__button-remove-margin        : 25px 0 0 $spacer--medium;
+$quickorder__button-remove-margin        : 25px 0 0 $spacer--medium !default;
+
+$quickorder__autocomplete-border         : 1px solid $gray-dark !default;
+$quickorder__autocomplete-bg             : $white !default;
+$quickorder__autocomplete-padding        : 0 !default;
+
+$quickorder__list-item-bg--active        : $gray-light !default;
+$quickorder__list-item-padding           : $spacer--medium !default;
 
 .quickorder {
     &__image {
@@ -29,6 +36,10 @@ $quickorder__button-remove-margin        : 25px 0 0 $spacer--medium;
             .remove {
                 display: none;
             }
+        }
+
+        .ui-helper-hidden-accessible {
+            @include visually-hidden;
         }
     }
 
@@ -57,4 +68,28 @@ $quickorder__button-remove-margin        : 25px 0 0 $spacer--medium;
             margin: $quickorder__button-remove-margin;
         }
     }
+
+    &__list-item {
+        padding: $quickorder__list-item-padding;
+        line-height: $font-line-height;
+
+        &:hover,
+        &.focused {
+            background-color: $quickorder__list-item-bg--active;
+            cursor: pointer;
+        }
+    }
+
+    &__link {
+        font-weight: $font-weight-bold;
+    }
+}
+
+.ui-menu.ui-autocomplete {
+    border: $quickorder__autocomplete-border;
+    background-color: $quickorder__autocomplete-bg;
+    padding: $quickorder__autocomplete-padding;
+    position: absolute;
+    list-style: none;
+    z-index: 1;
 }

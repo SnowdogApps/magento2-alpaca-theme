@@ -39,6 +39,9 @@ define([], function () {
         item.setAttribute('aria-hidden', false);
       }
       else if (tabTitle === item.dataset.tab) {
+        item.scrollIntoView({
+          behavior: 'smooth'
+        });
         item.classList.add(activeTitleClass);
         item.setAttribute('aria-expanded', true);
         item.setAttribute('aria-selected', true);

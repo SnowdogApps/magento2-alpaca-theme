@@ -22,7 +22,8 @@
     $pictureFullUrl = $block->getPictureFullUrl();
     $mediaUrl = $this->helper('Magento\Cms\Helper\Wysiwyg\Images')->getBaseUrl();
     $pictureId = $block->getId();
-
+    $lazy = $block->getLazy() ?? true;
+    $pictureSrcAttr = $lazy ? 'data-srcset' : 'srcset';
 
     if ($pictureFullUrl) {
         $mediaUrl = false;
@@ -64,7 +65,7 @@
     >
         <?php if ($img480): ?>
             <source
-                data-srcset="
+                <?= $pictureSrcAttr ?>="
                     <?= $block->escapeUrl($mediaUrl . $img480) ?>
                     <?php if ($img480x2): ?>
                         <?= ' 1x, ' . $block->escapeUrl($mediaUrl . $img480x2) . ' 2x' ?>
@@ -75,7 +76,7 @@
         <?php endif ?>
         <?php if ($img768): ?>
             <source
-                data-srcset="
+                 <?= $pictureSrcAttr ?>="
                     <?= $block->escapeUrl($mediaUrl . $img768) ?>
                     <?php if ($img768x2): ?>
                         <?= ' 1x, ' . $block->escapeUrl($mediaUrl . $img768x2) . ' 2x' ?>
@@ -86,7 +87,7 @@
         <?php endif ?>
         <?php if ($img960): ?>
             <source
-                data-srcset="
+                 <?= $pictureSrcAttr ?>="
                     <?= $block->escapeUrl($mediaUrl . $img960) ?>
                     <?php if ($img960x2): ?>
                         <?= ' 1x, ' . $block->escapeUrl($mediaUrl . $img960x2) . ' 2x' ?>
@@ -97,7 +98,7 @@
         <?php endif ?>
         <?php if ($img1024): ?>
             <source
-                data-srcset="
+                 <?= $pictureSrcAttr ?>="
                     <?= $block->escapeUrl($mediaUrl . $img1024) ?>
                     <?php if ($img1024x2): ?>
                         <?= ' 1x, ' . $block->escapeUrl($mediaUrl . $img1024x2) . ' 2x' ?>
@@ -108,7 +109,7 @@
         <?php endif ?>
         <?php if ($img1328): ?>
             <source
-                data-srcset="
+                 <?= $pictureSrcAttr ?>="
                     <?= $block->escapeUrl($mediaUrl . $img1328) ?>
                     <?php if ($img1328x2): ?>
                         <?= ' 1x, ' . $block->escapeUrl($mediaUrl . $img1328x2) . ' 2x' ?>
@@ -119,7 +120,7 @@
         <?php endif ?>
         <?php if ($imgFull): ?>
             <source
-                data-srcset="
+                 <?= $pictureSrcAttr ?>="
                     <?= $block->escapeUrl($mediaUrl . $imgFull) ?>
                     <?php if ($imgFullx2): ?>
                         <?= ' 1x, ' . $block->escapeUrl($mediaUrl . $imgFullx2) . ' 2x' ?>
@@ -130,12 +131,16 @@
         <?php endif ?>
         <img
             class="
-                lazyload
+                <?= $lazy ? 'lazyload' : '' ?>
                 <?= $block->escapeHtmlAttr($imgClass) ?>
             "
-            data-src="<?= $block->escapeUrl($mediaUrl . $imgDefault) ?>"
             alt="<?= $block->escapeHtmlAttr($pictureAlt) ?>"
-            src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAABCAQAAABN/Pf1AAAAC0lEQVR42mNkwAIAACoAAgu1Hc4AAAAASUVORK5CYII="
+            <?php if ($lazy): ?>
+                data-src="<?= $block->escapeUrl($mediaUrl . $imgDefault) ?>"
+                src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAABCAQAAABN/Pf1AAAAC0lEQVR42mNkwAIAACoAAgu1Hc4AAAAASUVORK5CYII="
+            <?php else: ?>
+                src="<?= $block->escapeUrl($mediaUrl . $imgDefault) ?>"
+            <?php endif ?>
         />
     </picture>
     <!-- styles are rendered only if values for image ratio for mq are provided. Content Type (picture.phtml) id is required -->
