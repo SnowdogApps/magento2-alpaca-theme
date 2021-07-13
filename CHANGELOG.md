@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 - quickorder search suggestions styling (#78133)
 - select2 a11y - element `span[aria-labelledby="select2-sorter-container"] > .select2-selection__arrow[role="presentation"] > b` shouldn't have ARIA role presentation (#80452)
 - shopping cart - visually hide qty label instead of display none (#80422)
+- `aria-label` in gallery (#80417)
 ### Updated
 - adjusted styles for webp images (#72754)
 
