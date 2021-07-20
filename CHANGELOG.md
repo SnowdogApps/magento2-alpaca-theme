@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file.
 - `aria-label` in gallery (#80417)
 - add to cart sticky shouldn't have focusable elements when it has `aria-hidden="true"` (#80420)
 - some a11y issues in checkout (#80424)
+- gallery navigation not showing on load (#80752)
 ### Changed
 - instead of using atomic classes for some page heading styles added in a lot of places, created a new class for easier customization (#80498)
 ### Updated
