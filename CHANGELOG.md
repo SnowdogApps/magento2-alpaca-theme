@@ -14,6 +14,7 @@ All notable changes to this project will be documented in this file.
 - some a11y issues in checkout (#80424)
 ### Changed
 - instead of using atomic classes for some page heading styles added in a lot of places, created a new class for easier customization (#80498)
+- disable locate nearby button until ajax call is executed (#80047)
 ### Updated
 - adjusted styles for webp images (#72754)
 
