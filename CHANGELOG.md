@@ -16,6 +16,7 @@ All notable changes to this project will be documented in this file.
 
 ### Removed
 - lazy loading for slider and banner images (#72754)
+- authentication popup (#79679)
 
 ## [Released]
 ## [2.22.0] - 2021-06-17
