@@ -468,6 +468,11 @@ define([
           var rangeInput = document.querySelector('[data-amlocator-js="radius-select"]');
           var range = self.mapContainer[0].querySelector(self.selectors.radiusSlider);
 
+          if (self.options.minRadiusValue === self.options.maxRadiusValue) { // min and max radius value can't be the same
+            self.options.minRadiusValue = 0;
+            self.options.maxRadiusValue = 100;
+          }
+
           noUiSlider.create(range, {
             start: 0,
             connect: true,
