@@ -15,6 +15,7 @@ All notable changes to this project will be documented in this file.
 - gallery navigation not showing on load (#80752)
 - gallery placeholder not showing on load and jumping image on load (#80752)
 - shopping cart - product image not visible (#80868)
+- store locator error (#80756)
 ### Changed
 - instead of using atomic classes for some page heading styles added in a lot of places, created a new class for easier customization (#80498)
 ### Updated
