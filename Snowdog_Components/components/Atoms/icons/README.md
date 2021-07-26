@@ -1,6 +1,6 @@
 ## Icons
 
-All icons are gather into *icon-sprite.svg* file
+All icons are gathered into *icon-sprite.svg* file
 
 Use sprite to display svg inline in your project:
 
