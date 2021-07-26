@@ -1,0 +1,22 @@
+<div id="<?php echo $this->getContainerId() ?>" class="webforms-popup mfp-hide <?php echo str_replace('"', '\"', $this->getPopupCssClass()) ?>">
+    <?php
+    echo $this->getLayout()->createBlock(
+        'VladimirPopov\WebForms\Block\Form',
+        null,
+        ['data' => [
+            'webform_id' => $this->getWebformId(),
+            'async_load' => $this->getData('async_load'),
+            'template' => 'VladimirPopov_WebForms::' . $this->getFormTemplate(),
+        ]]
+    )->toHtml();
+    ?>
+</div>
+<button class="primary <?php echo $this->getButtonCssClass() ?>"
+        data-mage-init='{
+            "VladimirPopov_WebForms/js/popup": {
+                "container": "#<?php echo str_replace('"', '\"', $this->getContainerId()) ?>"
+            }
+        }'
+        type="button" title="<?php echo $this->getButtonText() ?>">
+    <span><?php echo __($this->getButtonText()) ?></span>
+</button>
