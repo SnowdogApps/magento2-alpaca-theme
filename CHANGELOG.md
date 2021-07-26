@@ -19,6 +19,7 @@ All notable changes to this project will be documented in this file.
 - instead of using atomic classes for some page heading styles added in a lot of places, created a new class for easier customization (#80498)
 ### Updated
 - adjusted styles for webp images (#72754)
+- store locator to the newest version (#80756)
 
 ### Removed
 - lazy loading for slider and banner images (#72754)
