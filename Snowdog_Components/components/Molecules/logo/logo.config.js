@@ -7,7 +7,7 @@ module.exports = {
     imageAttributes: '',
     imageClass: '',
     imageSrcSet: '',
-    imageSrc: '/images/logo/logo.svg',
+    imageSrc: '/images/icons/logo.svg',
     href: '#'
   }
 };
