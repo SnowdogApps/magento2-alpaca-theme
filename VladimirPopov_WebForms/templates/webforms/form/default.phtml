@@ -7,7 +7,7 @@ if ($this->getRegistry()->registry('redirect_url')) {
 ?>
     <meta http-equiv="refresh" content="0;url=<?= $this->getRegistry()->registry('redirect_url') ?>">
     <script type="text/javascript">
-        window.location = '<?= $this->getRegistry()->registry('redirect_url') ?>';
+        window.location = '<?= $block->escapeUrl($this->getRegistry()->registry('redirect_url')) ?>';
     </script>
 <?php
 }
@@ -18,7 +18,7 @@ $tmpResult = new \Magento\Framework\DataObject;
 if ($this->getResult()) {
     $tmpResult->setData($this->getResult()->getData());
 }
-$_uid = $this->getUid();
+$_uid = $block->escapeHtmlAttr($this->getUid());
 if (!empty($tmpData['field']) && is_array($tmpData['field'])) {
     foreach ($tmpData['field'] as $field_id => $value) {
         $tmpResult->setData('field_' . $field_id, $value);
@@ -26,7 +26,7 @@ if (!empty($tmpData['field']) && is_array($tmpData['field'])) {
 }
 ?>
 <?php if ($this->getForm()->getIsActive() == \VladimirPopov\WebForms\Model\Form::STATUS_DISABLED || !$this->isDirectAvailable()): ?>
-    <?= $this->getNotAvailableMessage(); ?>
+    <?= /* @noEscape */ $this->getNotAvailableMessage(); ?>
 <?php else: ?>
     <?php if ($this->isAjax()): ?>
         <div
@@ -50,7 +50,7 @@ if (!empty($tmpData['field']) && is_array($tmpData['field'])) {
                 message--success
             "
         >
-            <?= $this->getSuccessText() ?>
+            <?= /* @noEscape */ $this->getSuccessText() ?>
         </div>
     <?php endif; ?>
     <?php if (!$this->getSuccess() || $this->getData('after_submission_form')): ?>
@@ -65,7 +65,7 @@ if (!empty($tmpData['field']) && is_array($tmpData['field'])) {
             >
                 <div>
                     <?php foreach ($messages as $message) : ?>
-                        <?= /* @escapeNotVerified */ $message ?>
+                        <?= /* @noEscape */ $message ?>
                         <br />
                     <?php endforeach; ?>
                 </div>
@@ -80,7 +80,7 @@ if (!empty($tmpData['field']) && is_array($tmpData['field'])) {
         ?>
         <div
             id="webform_<?= $_uid ?>_form"
-            class="webforms" <?= $aria_describedby ?>
+            class="webforms" <?= /* @noEscape */ $aria_describedby ?>
         >
             <?php if ($this->getDescription()): ?>
                 <div
@@ -92,40 +92,40 @@ if (!empty($tmpData['field']) && is_array($tmpData['field'])) {
             <?php endif; ?>
 
             <form
-                action="<?= $this->getFormAction() ?>"
+                action="<?= $block->escapeUrl($this->getFormAction()) ?>"
                 method="post"
                 name="webform_<?= $_uid ?>"
                 id="webform_<?= $_uid ?>"
-                enctype="<?= $this->getEnctype() ?>"
-                class="form webforms-<?= $this->getForm()->getCode() ?>"
+                enctype="<?= $block->escapeHtmlAttr($this->getEnctype()) ?>"
+                class="form webforms-<?= $block->escapeHtmlAttr($this->getForm()->getCode()) ?>"
                 <?php if ($this->getDescription()): ?>
                     aria-describedby="<?= $_uid ?>form_description"
                 <?php endif; ?>
-                aria-label="<?= $this->getForm()->getName() ?>"
+                aria-label="<?= $block->escapeHtmlAttr($this->getForm()->getName()) ?>"
                 role="none"
             >
                 <input
                     name="form_key"
                     type="hidden"
-                    value="<?= /* @escapeNotVerified */ $this->getFormKey() ?>"
+                    value="<?= $block->escapeHtmlAttr($this->getFormKey()) ?>"
                 />
                 <input
                     type="hidden"
-                    name="submitForm_<?= $this->getForm()->getId() ?>"
+                    name="submitForm_<?= $block->escapeHtmlAttr($this->getForm()->getId()) ?>"
                     value="1"
                 />
                 <input
                     type="hidden"
                     name="webform_id"
-                    value="<?= $this->getForm()->getId() ?>"
+                    value="<?= $block->escapeHtmlAttr($this->getForm()->getId()) ?>"
                 />
 
                 <?php if (is_array($this->getData('hidden'))): ?>
                     <?php foreach ($this->getData('hidden') as $key => $value): ?>
                         <input
                             type="hidden"
-                            name="<?= $key ?>"
-                            value="<?= $value ?>"
+                            name="<?= $block->escapeHtmlAttr($key) ?>"
+                            value="<?= $block->escapeHtmlAttr($value) ?>"
                         />
                     <?php endforeach; ?>
                 <?php endif; ?>
@@ -146,17 +146,17 @@ if (!empty($tmpData['field']) && is_array($tmpData['field'])) {
 
                 <?php foreach ($this->getForm()->_getFieldsToFieldsets() as $fieldset_id => $fieldset): ?>
                     <fieldset
-                        id="fieldset_<?= $_uid . $fieldset_id ?>"
+                        id="fieldset_<?= $_uid . $block->escapeHtmlAttr($fieldset_id) ?>"
                         class="
                             fieldset
-                            fieldset-<?= $fieldset_id ?>
+                            fieldset-<?= $block->escapeHtmlAttr($fieldset_id) ?>
                             <?php if (!empty($fieldset['css_class'])): ?>
-                                <?= $fieldset['css_class']; ?>
+                                <?= $block->escapeHtmlAttr($fieldset['css_class']); ?>
                             <?php endif; ?>
                         "
                         style="
                             <?php if (!empty($fieldset['css_style'])): ?>
-                                <?= $fieldset['css_style'] . ";"; ?>
+                                <?= $block->escapeHtmlAttr($fieldset['css_style'] . ";"); ?>
                             <?php endif; ?>
                             <?php if ($fieldset['logic_visibility'] == \VladimirPopov\WebForms\Model\Logic::VISIBILITY_HIDDEN): ?>
                                 <?= 'display:none'; ?>
@@ -164,13 +164,13 @@ if (!empty($tmpData['field']) && is_array($tmpData['field'])) {
                         "
                         role="group"
                         <?php if ($fieldset_id): ?>
-                            aria-labelledby="legend_<?= $_uid . $fieldset_id ?>"
+                            aria-labelledby="legend_<?= $_uid . $block->escapeHtmlAttr($fieldset_id) ?>"
                         <?php endif; ?>
                     >
                         <?php if (!empty($fieldset['name'])): ?>
                             <h3
                                 class="legend"
-                                id="legend_<?= $_uid . $fieldset_id ?>"
+                                id="legend_<?= $_uid . $block->escapeHtmlAttr($fieldset_id) ?>"
                             >
                                 <?= $fieldset['name'] ?>
                             </h3>
@@ -196,15 +196,15 @@ if (!empty($tmpData['field']) && is_array($tmpData['field'])) {
                             if ($field->getComment()) $aria_describedby = "aria-describedby=\"comment_field" . $this->getFieldUid($field->getId()) . "\"";
                         ?>
                             <div
-                                id="field_<?= $this->getFieldUid($field->getId()) ?>"
+                                id="field_<?= $block->escapeHtmlAttr($this->getFieldUid($field->getId())) ?>"
                                 role="group"
                                 class="
                                     field
-                                    <?= $field->getCssClassContainer() ?>
-                                    <?= $field_css_type ?>
+                                    <?= $block->escapeHtmlAttr($field->getCssClassContainer()) ?>
+                                    <?= $block->escapeHtmlAttr($field_css_type) ?>
                                     webforms-fields-<?= $field->getId() ?>
                                     <?php if ($field->getCode()): ?>
-                                        <?= 'webforms-fields-' . $field->getCode(); ?>
+                                        <?= 'webforms-fields-' . $block->escapeHtmlAttr($field->getCode()); ?>
                                     <?php endif; ?>
                                     <?php if ($field->getRequired()): ?>
                                         required
@@ -220,7 +220,7 @@ if (!empty($tmpData['field']) && is_array($tmpData['field'])) {
                                 <?php if ($field->getType() != 'html' && $field->getType() != 'subscribe' && !$field->getHideLabel()) { ?>
                                     <label
                                         class="label"
-                                        id="label_field<?= $this->getFieldUid($field->getId()) ?>"
+                                        id="label_field<?= $block->escapeHtmlAttr($this->getFieldUid($field->getId())) ?>"
                                         <?= $label_for ?>>
                                         <?= $field->getName() ?>
                                         <?php
@@ -245,7 +245,7 @@ if (!empty($tmpData['field']) && is_array($tmpData['field'])) {
                                         <div
                                             style="display:none"
                                             class="validation-advice"
-                                            id="advice-required-entry-field<?= $this->getFieldUid($field->getId()) ?>"
+                                            id="advice-required-entry-field<?= $block->escapeHtmlAttr($this->getFieldUid($field->getId())) ?>"
                                         >
                                             <?= $field->getValidationAdvice() ?>
                                         </div>
@@ -255,7 +255,7 @@ if (!empty($tmpData['field']) && is_array($tmpData['field'])) {
                                         <div
                                             style="display:none"
                                             class="validation-advice"
-                                            id="advice-validate-length-min-field<?= $this->getFieldUid($field->getId()) ?>"
+                                            id="advice-validate-length-min-field<?= $block->escapeHtmlAttr($this->getFieldUid($field->getId())) ?>"
                                         >
                                             <?= $field->getValidateLengthMinMessage() ?>
                                         </div>
@@ -265,7 +265,7 @@ if (!empty($tmpData['field']) && is_array($tmpData['field'])) {
                                         <div
                                             style="display:none"
                                             class="validation-advice"
-                                            id="advice-validate-length-max-field<?= $this->getFieldUid($field->getId()) ?>"
+                                            id="advice-validate-length-max-field<?= $block->escapeHtmlAttr($this->getFieldUid($field->getId())) ?>"
                                         >
                                             <?= $field->getValidateLengthMaxMessage() ?>
                                         </div>
@@ -274,7 +274,7 @@ if (!empty($tmpData['field']) && is_array($tmpData['field'])) {
                                     <?php if ($field->getComment()): ?>
                                         <p
                                             class="webforms-fields-comment"
-                                            id="comment_field<?= $this->getFieldUid($field->getId()) ?>"
+                                            id="comment_field<?= $block->escapeHtmlAttr($this->getFieldUid($field->getId())) ?>"
                                             tabindex="0"
                                         >
                                             <?= nl2br($field->getComment()) ?>
@@ -305,7 +305,7 @@ if (!empty($tmpData['field']) && is_array($tmpData['field'])) {
                 >
                     <?php if ($this->getForm()->useCaptcha()): ?>
                         <?php $_captcha = $this->getCaptcha() ?>
-                        <div class="recaptcha<?= $_captcha->getVersion() ?>">
+                        <div class="recaptcha<?= $block->escapeHtmlAttr($_captcha->getVersion()) ?>">
                             <?= $_captcha->getHTML() ?>
                         </div>
                     <?php endif; ?>
@@ -333,11 +333,11 @@ if (!empty($tmpData['field']) && is_array($tmpData['field'])) {
                                 primary
                             "
                             id="webform_<?= $_uid ?>_submit_button"
-                            title="<?= __($this->getForm()->getSubmitButtonText()) ?>"
+                            title="<?= $block->escapeHtmlAttr(__($this->getForm()->getSubmitButtonText())) ?>"
                             name="field[submit]"
                             onclick="return false;"
                         >
-                            <?= __($this->getForm()->getSubmitButtonText()) ?>
+                            <?= $block->escapeHtml(__($this->getForm()->getSubmitButtonText())) ?>
                         </button>
                     </div>
                     <div class="secondary">
@@ -348,7 +348,7 @@ if (!empty($tmpData['field']) && is_array($tmpData['field'])) {
                         >
                             <div class="loading-indicator"></div>
                             <span id="webform_<?= $_uid ?>_progress_text">
-                                <?= __('Sending...') ?>
+                                <?= $block->escapeHtml(__('Sending...')) ?>
                             </span>
                         </div>
                     </div>
