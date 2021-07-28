@@ -7,7 +7,6 @@ var config = {
       "lazysizes"        : "Magento_Theme/js/lib/lazysizes.min",
       "noUiSlider"       : "Magento_Theme/js/lib/nouislider.min",
       "picturefill"      : "Magento_Theme/js/lib/picturefill.min",
-      "svg4everybody"    : "Magento_Theme/js/lib/svg4everybody.min",
       "slick"            : "Magento_Theme/js/lib/slick.min",
       "bannerCollapsible": "Magento_Theme/js/banner-collapsible.babel",
       "cookieMessage"    : "Magento_Theme/js/cookie-message.babel",
