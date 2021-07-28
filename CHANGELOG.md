@@ -17,7 +17,7 @@ All notable changes to this project will be documented in this file.
 - shopping cart - product image not visible (#80868)
 ### Changed
 - instead of using atomic classes for some page heading styles added in a lot of places, created a new class for easier customization (#80498)
-- magnificPopup to alpaca custom modal for Webforms (#80758)
+- magnificPopup to alpaca custom modal for Webforms, updated submit and button template to the newest version (#80758)
 ### Updated
 - adjusted styles for webp images (#72754)
 
