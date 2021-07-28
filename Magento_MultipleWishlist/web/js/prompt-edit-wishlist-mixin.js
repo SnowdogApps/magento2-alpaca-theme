@@ -34,10 +34,10 @@ define([
                         'name="' + this.options.isPublicFieldAttributeName +
                     '">' +
                     '<svg class="checkbox__icon checkbox__icon--checked" role="presentation" focusable="false">' +
-                        '<use xlink:href="' +  this.options.iconCheckboxChecked + '"></use>' +
+                        '<use href="' +  this.options.iconCheckboxChecked + '"></use>' +
                     '</svg>' +
                     '<svg class="checkbox__icon checkbox__icon--unchecked" role="presentation" focusable="false">' +
-                        '<use xlink:href="' +  this.options.iconCheckboxUnchecked + '"></use>' +
+                        '<use href="' +  this.options.iconCheckboxUnchecked + '"></use>' +
                     '</svg>' +
                     '<label ' +
                         'for="wishlist-public" ' +
