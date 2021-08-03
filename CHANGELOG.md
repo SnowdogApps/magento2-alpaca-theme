@@ -18,11 +18,14 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - instead of using atomic classes for some page heading styles added in a lot of places, created a new class for easier customization (#80498)
 - magnificPopup to alpaca custom modal for Webforms, updated submit and button template to the newest version (#80758)
+- disable locate nearby button until ajax call is executed (#80047)
 ### Updated
 - adjusted styles for webp images (#72754)
+- store locator to the newest version (#80756)
 
 ### Removed
 - lazy loading for slider and banner images (#72754)
+- authentication popup (#79679)
 
 ## [Released]
 ## [2.22.0] - 2021-06-17
