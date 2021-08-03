@@ -3,6 +3,15 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Added
+### Fixed
+### Changed
+### Updated
+### Removed
+
+
+## [Released]
+## [2.23.0] - 2021-08-03
+### Added
 - yireo/magento2-webp2 package for webp images (#72754)
 ### Fixed
 - duplicated loader on PDP (#79360)
@@ -26,7 +35,6 @@ All notable changes to this project will be documented in this file.
 - lazy loading for slider and banner images (#72754)
 - authentication popup (#79679)
 
-## [Released]
 ## [2.22.0] - 2021-06-17
 ### Added
 - focus state for amlocator route creator icons (#73168)
