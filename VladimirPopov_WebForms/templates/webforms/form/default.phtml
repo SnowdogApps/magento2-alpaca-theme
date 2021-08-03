@@ -152,13 +152,13 @@ if (!empty($tmpData['field']) && is_array($tmpData['field'])) {
                             <?php if (!empty($fieldset['css_class'])): ?>
                                 <?= $block->escapeHtmlAttr($fieldset['css_class']); ?>
                             <?php endif; ?>
+                            <?php if ($fieldset['logic_visibility'] == \VladimirPopov\WebForms\Model\Logic::VISIBILITY_HIDDEN): ?>
+                                <?= 'display-none' ?>
+                            <?php endif; ?>
                         "
                         style="
                             <?php if (!empty($fieldset['css_style'])): ?>
                                 <?= $block->escapeHtmlAttr($fieldset['css_style'] . ";"); ?>
-                            <?php endif; ?>
-                            <?php if ($fieldset['logic_visibility'] == \VladimirPopov\WebForms\Model\Logic::VISIBILITY_HIDDEN): ?>
-                                <?= 'display:none'; ?>
                             <?php endif; ?>
                         "
                         role="group"
@@ -242,8 +242,7 @@ if (!empty($tmpData['field']) && is_array($tmpData['field'])) {
 
                                     <?php if ($field->getValidationAdvice()): ?>
                                         <div
-                                            style="display:none"
-                                            class="validation-advice"
+                                            class="validation-advice display-none"
                                             id="advice-required-entry-field<?= $block->escapeHtmlAttr($this->getFieldUid($field->getId())) ?>"
                                         >
                                             <?= $field->getValidationAdvice() ?>
@@ -252,8 +251,7 @@ if (!empty($tmpData['field']) && is_array($tmpData['field'])) {
 
                                     <?php if ($field->getValidateLengthMinMessage()): ?>
                                         <div
-                                            style="display:none"
-                                            class="validation-advice"
+                                            class="validation-advice display-none"
                                             id="advice-validate-length-min-field<?= $block->escapeHtmlAttr($this->getFieldUid($field->getId())) ?>"
                                         >
                                             <?= $field->getValidateLengthMinMessage() ?>
@@ -262,8 +260,7 @@ if (!empty($tmpData['field']) && is_array($tmpData['field'])) {
 
                                     <?php if ($field->getValidateLengthMaxMessage()): ?>
                                         <div
-                                            style="display:none"
-                                            class="validation-advice"
+                                            class="validation-advice display-none"
                                             id="advice-validate-length-max-field<?= $block->escapeHtmlAttr($this->getFieldUid($field->getId())) ?>"
                                         >
                                             <?= $field->getValidateLengthMaxMessage() ?>
@@ -340,9 +337,8 @@ if (!empty($tmpData['field']) && is_array($tmpData['field'])) {
                     </div>
                     <div class="secondary">
                         <div
-                            class="please-wait"
+                            class="please-wait display-none"
                             id="webform_<?= $_uid ?>_sending_data"
-                            style="display:none;"
                         >
                             <div class="loading-indicator"></div>
                             <span id="webform_<?= $_uid ?>_progress_text">
