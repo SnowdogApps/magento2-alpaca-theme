@@ -57,7 +57,6 @@ if (!empty($tmpData['field']) && is_array($tmpData['field'])) {
         <?php if ($messages = $this->getErrorMessages()): ?>
             <div
                 class="
-                    message
                     error
                     message
                     message--error
@@ -209,12 +208,12 @@ if (!empty($tmpData['field']) && is_array($tmpData['field'])) {
                                     <?php if ($field->getRequired()): ?>
                                         required
                                     <?php endif; ?>
+                                    <?php if ($field->getData('logic_visibility') == \VladimirPopov\WebForms\Model\Logic::VISIBILITY_HIDDEN): ?>
+                                        display-none
+                                    <?php endif; ?>
                                 "
                                 <?= $aria_labelledby ?>
                                 <?= $aria_describedby ?>
-                                <?php if ($field->getData('logic_visibility') == \VladimirPopov\WebForms\Model\Logic::VISIBILITY_HIDDEN): ?>
-                                    <?= 'style="display:none"'; ?>
-                                <?php endif; ?>
                             >
 
                                 <?php if ($field->getType() != 'html' && $field->getType() != 'subscribe' && !$field->getHideLabel()) { ?>
@@ -335,7 +334,6 @@ if (!empty($tmpData['field']) && is_array($tmpData['field'])) {
                             id="webform_<?= $_uid ?>_submit_button"
                             title="<?= $block->escapeHtmlAttr(__($this->getForm()->getSubmitButtonText())) ?>"
                             name="field[submit]"
-                            onclick="return false;"
                         >
                             <?= $block->escapeHtml(__($this->getForm()->getSubmitButtonText())) ?>
                         </button>
