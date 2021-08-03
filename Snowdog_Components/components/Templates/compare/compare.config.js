@@ -21,7 +21,7 @@ module.exports = {
     productCount: {
       tag: 'h2',
       text: 'Product (2)',
-      class: 'heading--third-level heading--font-secondary margin-top-0 margin-bottom-xl text-center'
+      class: 'heading--third-level heading--font-secondary margin-bottom-xl text-center'
     },
     products: [
       {

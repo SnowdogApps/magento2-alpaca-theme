@@ -4,12 +4,37 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Added
 ### Fixed
-
+### Changed
 ### Updated
-
 ### Removed
 
+
 ## [Released]
+## [2.23.0] - 2021-08-03
+### Added
+- yireo/magento2-webp2 package for webp images (#72754)
+### Fixed
+- duplicated loader on PDP (#79360)
+- quickorder search suggestions styling (#78133)
+- select2 a11y - element `span[aria-labelledby="select2-sorter-container"] > .select2-selection__arrow[role="presentation"] > b` shouldn't have ARIA role presentation (#80452)
+- shopping cart - visually hide qty label instead of display none (#80422)
+- `aria-label` in gallery (#80417)
+- add to cart sticky shouldn't have focusable elements when it has `aria-hidden="true"` (#80420)
+- some a11y issues in checkout (#80424)
+- gallery navigation not showing on load (#80752)
+- gallery placeholder not showing on load and jumping image on load (#80752)
+- shopping cart - product image not visible (#80868)
+### Changed
+- instead of using atomic classes for some page heading styles added in a lot of places, created a new class for easier customization (#80498)
+- disable locate nearby button until ajax call is executed (#80047)
+### Updated
+- adjusted styles for webp images (#72754)
+- store locator to the newest version (#80756)
+
+### Removed
+- lazy loading for slider and banner images (#72754)
+- authentication popup (#79679)
+
 ## [2.22.0] - 2021-06-17
 ### Added
 - focus state for amlocator route creator icons (#73168)

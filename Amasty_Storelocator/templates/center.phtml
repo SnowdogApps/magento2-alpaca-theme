@@ -359,16 +359,32 @@ if ($productId):
 </div>
 
 <script>
-    require([
-        'jquery',
-        'Amasty_Storelocator/js/main',
-        'Amasty_Storelocator/js/cluster',
-        'domReady!',
-        'https://maps.googleapis.com/maps/api/js?libraries=places&key=<?= $block->escapeHtml(
-            $block->configProvider->getApiKey()
-        ); ?>'
-    ], function ($) {
-        var mapId = "#" + "<?= $block->escapeHtml($block->getMapId()); ?>";
+require([
+    'jquery',
+    'Amasty_Storelocator/js/main',
+    'Amasty_Storelocator/js/cluster',
+    'domReady!',
+    'mage/loader',
+    'https://maps.googleapis.com/maps/api/js?libraries=places&key=<?= $block->escapeHtml(
+        $block->configProvider->getApiKey()
+    ); ?>'
+], function ($) {
+    var mapId =  "<?= '#' . $block->escapeHtml($block->getMapId()); ?>",
+        $body = $('body'),
+        isLoaderAjaxInitiated = !!$.data($body.get(0), 'mage-loader'),
+        isLoaderInitiated = isLoaderAjaxInitiated,
+        initFunction,
+        tryToInit = function () {
+            if (isLoaderInitiated && isLoaderAjaxInitiated) {
+                initFunction();
+
+                return true;
+            }
+
+            return false;
+        };
+
+    initFunction = function () {
         $(mapId).amLocator({
             amMediaUrl :"<?= $block->escapeHtml($block->getAmStoreMediaUrl()); ?>",
             mapZoom: <?= $block->escapeHtml($block->getMapZoom()); ?>,
@@ -379,7 +395,7 @@ if ($productId):
             enableSuggestionClickSearch: "<?= (bool) $block->getSuggestionClickSearch(); ?>",
             enableCountingDistance: "<?= (bool) $block->getCountingDistance(); ?>",
             distanceConfig: "<?= $block->escapeHtml($block->getDistanceConfig()); ?>",
-            useGeoConfig: "<?= (bool)$block->getGeoUse()?>",
+            useGeoConfig: "<?= (bool) $block->getGeoUse()?>",
             allowedCountries: <?= /* @noEscape */ $block->getAllowedCountries(); ?>,
             ajaxCallUrl: "<?= $block->escapeHtml(
                 $block->getUrl('amlocator/index/ajax') . $block->getQueryString()
@@ -395,8 +411,18 @@ if ($productId):
                 maxRadiusValue: <?= (int) $block->getMaxRadiusValue(); ?>,
                 minRadiusValue: <?= (int) $block->getMinRadiusValue(); ?>,
                 measurementRadius: "<?= ($block->getDistanceConfig() != 'choose') ?
-                    $block->escapeHtml($block->getDistanceConfig()) : ''?>"
+                    $block->escapeHtml($block->getDistanceLabel()) : ''?>"
             <?php endif;?>
         });
+    };
+
+    tryToInit();
+    $body.on('loadercreate', function () {
+        isLoaderInitiated = true;
+        tryToInit();
+    }).on('loaderajaxcreate', function () {
+        isLoaderAjaxInitiated = true;
+        tryToInit();
     });
+})
 </script>

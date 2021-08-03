@@ -132,6 +132,12 @@ define([
               data: params,
               showLoader: true
           }).done($.proxy(function (response) {
+              let locateBtn = document.querySelector('.amlocator-button.-nearby');
+
+              if (locateBtn) {
+                locateBtn.disabled = false;
+              }
+
               response = JSON.parse(response);
               self.options.jsonLocations = response;
               self.getIdentifiers();
@@ -250,7 +256,8 @@ define([
 
       initializeFilter: function () {
           var self = this;
-          self.mapContainer.find('.amlocator-button.-nearby').click(function () {
+          self.mapContainer.find('.amlocator-button.-nearby').click(function (event) {
+              event.target.disabled = true;
               self.getIdentifiers($(this));
               self.ajaxCallUrl = self.options.ajaxCallUrl;
               self.navigateMe();
@@ -467,6 +474,11 @@ define([
           radiusSearchId = $("#" + self.options.searchRadiusId);
           var rangeInput = document.querySelector('[data-amlocator-js="radius-select"]');
           var range = self.mapContainer[0].querySelector(self.selectors.radiusSlider);
+
+          if (self.options.minRadiusValue === self.options.maxRadiusValue) { // min and max radius value can't be the same
+            self.options.minRadiusValue = 0;
+            self.options.maxRadiusValue = 100;
+          }
 
           noUiSlider.create(range, {
             start: 0,
