@@ -61,7 +61,7 @@ define([], function () {
     setListeners(modalTrigger) {
       const modal = {};
       modal.trigger = modalTrigger,
-      modal.el = document.querySelector(`.modal[data-modal=${modal.trigger.dataset.modalTrigger}]`),
+      modal.el = document.querySelector(`.modal[data-modal='${modal.trigger.dataset.modalTrigger}']`),
       modal.content     = modal.el.querySelector('.modal__content'),
       modal.closeButton = modal.el.querySelector('.modal__close-button'),
       modal.activeClass = 'modal--active',
