@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Added
 ### Fixed
+ - webforms width (#79614)
 ### Changed
 ### Updated
 ### Removed
