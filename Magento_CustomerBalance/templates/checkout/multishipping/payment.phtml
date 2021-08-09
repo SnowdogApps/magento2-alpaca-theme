@@ -1,0 +1,25 @@
+<?php
+// phpcs:disable Magento2.Templates.ThisInTemplate
+?>
+<?php if ($block->isAllowed()) : ?>
+<div class="checkout multishipping payment customerbalance" id="customerbalance-block">
+    <input type="hidden" name="payment[use_customer_balance]" value="0"/>
+
+    <div class="field choice payment">
+        <input type="checkbox" class="checkbox" name="payment[use_customer_balance]" value="1"
+               id="use-customer-balance"
+               data-mage-init='{"checkoutBalance":{
+                   "amountSubstracted":"<?= /* @noEscape */ $block->isCustomerBalanceUsed() ?>",
+                   "usedAmount":"<?= (float)$block->getQuote()->getBaseCustomerBalAmountUsed() ?>",
+                   "balance":"<?= (float)$block->getBalance() ?>"
+               }}'
+               <?= ($block->isCustomerBalanceUsed() ? 'checked' : '') ?>
+        />
+
+        <?php /* @noEscape */ $balance = $this->helper(Magento\Framework\Pricing\Helper\Data::class)->currency($block->getBalance()); ?>
+        <label for="use-customer-balance" class="label">
+            <span><?= $block->escapeHtml(__('Use Store Credit (%1 available)', $balance), ['span']) ?></span>
+        </label>
+    </div>
+</div>
+<?php endif; ?>
