@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Added
 ### Fixed
-- styling for store credit checkbox in multishipping checkout
+- styling for store credit checkbox in multishipping checkout (#81559)
 ### Changed
 ### Updated
 ### Removed
