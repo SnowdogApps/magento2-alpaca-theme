@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Added
 ### Fixed
+ - webforms templates (#79614)
 - jquery and fotorama don't use passive listeners to improve scrolling performance (#72752)
 ### Changed
 ### Updated
