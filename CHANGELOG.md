@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 ### Fixed
 - jquery and fotorama don't use passive listeners to improve scrolling performance (#72752)
+- tax field styling on checkout (#81627)
 ### Changed
 ### Updated
 ### Removed
