@@ -144,7 +144,7 @@ module.exports = {
       ]
     },
     table: {
-      class: 'margin-bottom-l',
+      class: 'margin-bottom-l table--tfoot-border',
       captionText: 'This is a table. Binded text in caption should explain what kind of data this table presents. Can be also a longer text with inline HTML elements inside',
       mainTags: [
         {

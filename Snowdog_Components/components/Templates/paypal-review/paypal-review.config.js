@@ -81,6 +81,7 @@ module.exports = {
       }
     },
     table: {
+      class: 'table--tfoot-border',
       mainTags: [
         {
           mainTag: 'thead',
