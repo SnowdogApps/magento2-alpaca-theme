@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
  - webforms templates (#79614)
 - jquery and fotorama don't use passive listeners to improve scrolling performance (#72752)
+- border styling for multishipping view (#81624)
 ### Changed
 ### Updated
 ### Removed
