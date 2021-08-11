@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 ### Changed
 ### Updated
+- bump select2, `select--search` component (#80105, #81472)
 ### Removed
 
 
