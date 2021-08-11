@@ -1,7 +1,7 @@
 'use strict';
 $(document).ready(function selectTwo() {
-  let elem = $('.select__field');
-  let isSearchable = $('.select').hasClass('select--search');
+  const elem = $('.select__field');
+  const isSearchable = $('.select').hasClass('select--search');
 
   function matchCustom(params, data) {
     if ($(data.element).data('option') === 'fallback') {

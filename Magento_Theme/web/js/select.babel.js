@@ -6,7 +6,7 @@ define([
   'use strict'
 
   return function (config, select) {
-    const isSearchable = $(select).hasClass('select--search')
+    const isSearchable = $(select).hasClass('select--search');
 
     function matchCustom(params, data) {
       if ($(data.element).data('option') === 'fallback') {
@@ -30,7 +30,7 @@ define([
 
     const selectId = select.id,
       defaultOptions = {
-        minimumResultsForSearch: isSearchable ? undefined : Infinity,
+        minimumResultsForSearch: Infinity,
         width: null,
         position: 'bottom',
         debug: true
@@ -42,11 +42,12 @@ define([
     }
 
     if (isSearchable) {
-      defaultOptions.dropdownCssClass = 'select-dropdown--search'
-      defaultOptions.matcher = matchCustom
+      defaultOptions.minimumResultsForSearch = undefined;
+      defaultOptions.dropdownCssClass = 'select-dropdown--search';
+      defaultOptions.matcher = matchCustom;
     }
 
-    config.options = Object.assign(defaultOptions, config.options)
-    $(`#${selectId}`).select2(config.options)
+    config.options = Object.assign(defaultOptions, config.options);
+    $(`#${selectId}`).select2(config.options);
   }
 })
