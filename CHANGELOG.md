@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Added
+- column template variables for catalog grid styles (#81732)
 ### Fixed
  - webforms templates (#79614)
 - jquery and fotorama don't use passive listeners to improve scrolling performance (#72752)
@@ -10,6 +11,7 @@ All notable changes to this project will be documented in this file.
 - tax field styling on checkout (#81627)
 - styling for payment & shipping information on company profile page (#81661)
 ### Changed
+- moved catalog grid scss variables to separate file (#81732)
 ### Updated
 ### Removed
 
