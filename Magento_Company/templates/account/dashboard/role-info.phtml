@@ -1,0 +1,27 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+/**
+ * @var \Magento\Company\Block\Company\Account\Dashboard\RoleInfo $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+$customerRoles = $block->getCustomerRoles();
+?>
+<?php if ($customerRoles): ?>
+<div class="box box-role">
+    <strong class="box-title">
+        <span><?= (count($customerRoles) == 1) ?
+                $escaper->escapeHtml(__('User Role')) :
+                $escaper->escapeHtml(__('User Roles')) ?></span>
+    </strong>
+    <div class="box-content">
+        <p class="company-roles">
+            <?php foreach ($customerRoles as $role): ?>
+            <span><?= $escaper->escapeHtml($role) ?></span>
+            <?php endforeach; ?>
+        </p>
+    </div>
+</div>
+<?php endif; ?>
