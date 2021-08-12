@@ -1,0 +1,40 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php
+/**
+ * @var \Magento\CompanyShipping\Block\Company\Profile\ShippingMethod $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+?>
+<div class="block block-company-profile-shipping-methods">
+    <div class="block-title">
+        <strong><?= $escaper->escapeHtml(__('Shipping Information')) ?></strong>
+    </div>
+    <div class="block-content">
+        <?php
+        if ($block->hasShippingMethods()): ?>
+            <div class="company-profile-shipping-methods">
+                <span class="shipping-methods-label">
+                    <?= $escaper->escapeHtml(__('Available Shipping Methods')) ?>
+                </span>
+                <ul class="shipping-methods-list">
+                    <?php foreach ($block->getShippingMethods() as $shippingMethod): ?>
+                        <li><?= $escaper->escapeHtml($shippingMethod) ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        <?php else: ?>
+            <div class="message message-notice notice">
+                <div data-ui-id="messages-message-notice">
+                    <?= $escaper->escapeHtml(
+                        __('This company has no shipping methods. Please contact store administrator.')
+                    ) ?>
+                </div>
+            </div>
+        <?php endif; ?>
+    </div>
+</div>
