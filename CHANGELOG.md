@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 - jquery and fotorama don't use passive listeners to improve scrolling performance (#72752)
 - styling for store credit checkbox in multishipping checkout (#81559)
 - tax field styling on checkout (#81627)
+- styling for payment & shipping information on company profile page (#81661)
 ### Changed
 ### Updated
 ### Removed
