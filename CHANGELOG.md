@@ -150,6 +150,18 @@ All notable changes to this project will be documented in this file.
 ### Updated
 - theme to Magento 2.4.1 (#70133)
 
+## [2.12.1] - 2021-02-08
+### Updated
+- theme to Magento 2.3.6.p1 (#75169)
+### Fixed
+- error on multishipping page (#75169)
+- error on EE checkout (#75169)
+### Added
+- requirement verification for captcha (#75169)
+- cookie options in sidebar mixin (#75169)
+### Changed
+- Update escaping functions for captcha and multishipping (#75169)
+
 ## [2.12.0] - 2021-01-19
 ### Updated
 - theme to Magento 2.3.6 (#72223)
