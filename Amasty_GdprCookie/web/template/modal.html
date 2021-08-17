@@ -1,105 +1,80 @@
 <!-- ko if: isShowModal -->
-<form
-    id="amgdprcookie-form"
-    class="amgdprcookie-settings-form"
-    data-amcookie-js="form-cookie"
->
-    <div
-        data-amcookie-js="groups"
-        class="margin-bottom-xl"
-    >
+<form id="amgdprcookie-form" class="amgdprcookie-settings-form" data-amcookie-js="form-cookie">
+    <div data-amcookie-js="groups" class="margin-bottom-xl">
         <!-- ko foreach: $data.groups -->
         <div class="margin-bottom-l">
             <h2 data-bind="text: $data.name"></h2>
-            <div
-                class="
+            <div class="
                     field
                     choice
                     checkbox
-                "
-            >
-                <input
-                    class="checkbox__field"
-                    type="checkbox"
-                    data-amcookie-js="field"
-                    name="groups[]"
-                    data-bind="
+                ">
+                <input class="checkbox__field" type="checkbox" data-amcookie-js="field" name="groups[]" data-bind="
                         attr: {id: 'switch-box-' + $index(), disabled: isEssential},
                         value: $data.groupId,
                         css: {'disabled': isEssential},
                         checked: checked
-                    "
-                />
-                <svg
-                    role="presentation"
-                    focusable="false"
-                    class="
+                    " />
+                <svg role="presentation" focusable="false" class="
                         checkbox__icon
                         checkbox__icon--checked
-                    "
-                >
-                    <use data-bind="attr: { 'xlink:href': require.toUrl('images/icons-sprite.svg#checked') }" xlink:href=''></use>
+                    ">
+                    <use data-bind="attr: { 'xlink:href': require.toUrl('images/icons-sprite.svg#checked') }"
+                        xlink:href=''></use>
                 </svg>
 
-                <svg
-                    role="presentation"
-                    focusable="false"
-                    class="
+                <svg role="presentation" focusable="false" class="
                         checkbox__icon
                         checkbox__icon--unchecked
-                    "
-                >
-                    <use data-bind="attr: { 'xlink:href': require.toUrl('images/icons-sprite.svg#unchecked') }" xlink:href=''></use>
+                    ">
+                    <use data-bind="attr: { 'xlink:href': require.toUrl('images/icons-sprite.svg#unchecked') }"
+                        xlink:href=''></use>
                 </svg>
 
-                <label
-                    data-bind="
-                        attr: {for: 'switch-box-' + $index()},
+                <label data-bind="
+                        attr: { for: 'switch-box-' + $index() },
                         text: $data.name + ' ' + 'Cookies'
-                    "
-                    class="
+                    " class="
                         label
                         checkbox__label
-                    "
-                ></label>
+                    "></label>
             </div>
             <p data-bind="text: $data.description"></p>
-            <a
-                class="link"
-                target="_blank"
-                data-bind="
+            <a class="link" target="_blank" data-bind="
                     i18n: 'More information',
-                    attr: {href: $parent.settingsLink}
-                "
-            ></a>
+                    attr: { href: $parent.settingsLink }
+                "></a>
         </div>
         <!--/ko-->
-        <p
-            data-bind="html: $data.cookieText"
-        ></p>
+        <p data-bind="html: $data.cookieText"></p>
     </div>
     <div class="modal__bottom">
         <div class="modal__bottom-actions">
             <div class="modal__bottom-action">
-                <button
-                    class="button"
+                <button class="button"
                     data-bind="
-                        i18n: 'Allow all Cookies',
+                        text: settingsBtnText || $t('Allow all Cookies'),
+                        attr: {
+                            title: settingsBtnText || $t('Allow all Cookies'),
+                            'aria-label': settingsBtnText || $t('Allow all Cookies')
+                            },
                         click: allowCookies
                     "
                 ></button>
             </div>
             <div class="modal__bottom-action">
-                <button
-                    class="
+                <button class="
                         button
                         button--secondary
                     "
                     data-bind="
-                        i18n: 'save',
-                        click: saveCookie
-                    "
-                ></button>
+                        text: acceptBtnText || $t('Save'),
+                        attr: {
+                            title: acceptBtnText || $t('Save'),
+                            'aria-label': acceptBtnText || $t('Save')
+                        },
+                        click: saveCookie.bind($data, $element, $data)
+                    "></button>
             </div>
         </div>
     </div>
