@@ -11,9 +11,13 @@ All notable changes to this project will be documented in this file.
 - tax field styling on checkout (#81627)
 - styling for payment & shipping information on company profile page (#81661)
 - user role styling on My Account page (#81750)
+- error on privacy settings section in account settings (#81873)
+- cookie modal not showing when clicking save button (#81873)
 ### Changed
 - moved catalog grid scss variables to separate file (#81732)
+- restored cookie-settings page for Amasty GDPR (#81873)
 ### Updated
+- cookie settings modal to new version of Amasty GDPR (#81873)
 ### Removed
 
 
