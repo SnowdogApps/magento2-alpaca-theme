@@ -18,6 +18,7 @@ All notable changes to this project will be documented in this file.
 - restored cookie-settings page for Amasty GDPR (#81873)
 ### Updated
 - cookie settings modal to new version of Amasty GDPR (#81873)
+- styling for cookie table information (#81873)
 ### Removed
 
 
