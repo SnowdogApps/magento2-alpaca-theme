@@ -49,8 +49,9 @@ $settings = $block->getPrivacySettings();
                                     checkbox__icon--checked
                                 "
                                 role="presentation"
+                                focusable="false"
                             >
-                                <use xlink:href="<?= $escaper->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#checked')) ?>"></use>
+                                <use href="<?= $escaper->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#checked')) ?>"></use>
                             </svg>
                             <svg
                                 class="
@@ -58,8 +59,9 @@ $settings = $block->getPrivacySettings();
                                     checkbox__icon--unchecked
                                 "
                                 role="presentation"
+                                focusable="false"
                             >
-                                <use xlink:href="<?= $escaper->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#unchecked')) ?>"></use>
+                                <use href="<?= $escaper->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#unchecked')) ?>"></use>
                             </svg>
                             <label
                                 for="agree-<?= $escaper->escapeHtmlAttr($setting['actionCode']) ?>"
@@ -123,18 +125,28 @@ $settings = $block->getPrivacySettings();
                     </button>
                 </form>
             <?php elseif (isset($setting['policiesText'])): ?>
-                <div data-role="amasty-gdpr-consent">
-                    <a href="#" title="<?= $escaper->escapeHtmlAttr(__('Read Privacy Policy')) ?>">
-                        <?= $escaper->escapeHtml(__('Read Privacy Policy')) ?>
-                    </a>
-                </div>
-                <?php if ($setting['isCookieEnabled']): ?>
-                    <div class="amgdpr-cookie-link">
-                        <a href="#" class="amgdpr-link" data-amgdpr-js="cookie-link" title="<?= $escaper->escapeHtmlAttr(__('Read Cookie Policy')) ?>">
-                            <?= $escaper->escapeHtml(__('Read Cookie Policy')) ?>
+                <div class="margin-bottom-l">
+                    <div data-role="amasty-gdpr-consent">
+                        <a
+                            href="#"
+                            title="<?= $escaper->escapeHtmlAttr(__('Read Privacy Policy')) ?>"
+                        >
+                            <?= $escaper->escapeHtml(__('Read Privacy Policy')) ?>
                         </a>
                     </div>
-                <?php endif; ?>
+                    <?php if ($setting['isCookieEnabled']): ?>
+                        <div class="amgdpr-cookie-link">
+                            <a
+                                href="#"
+                                class="amgdpr-link"
+                                data-amgdpr-js="cookie-link"
+                                title="<?= $escaper->escapeHtmlAttr(__('Read Cookie Policy')) ?>"
+                            >
+                                <?= $escaper->escapeHtml(__('Read Cookie Policy')) ?>
+                            </a>
+                        </div>
+                    <?php endif; ?>
+                </div>
             <?php else: ?>
                 <p class="policy-content"><?= /* @noEscape */ $block->stripHtmlTags($setting['content'], ['script']) ?></p>
             <?php endif; ?>

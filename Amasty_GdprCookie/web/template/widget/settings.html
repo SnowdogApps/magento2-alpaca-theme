@@ -14,7 +14,10 @@
                 dashboard-actions-toolbar__item
                 button--secondary
             "
-            data-bind="text: $t('Allow all'), click: allowCookies"
+            data-bind="
+                text: $t('Allow all'),
+                click: allowCookies
+            "
         ></button>
         <button
             class="
@@ -22,59 +25,70 @@
                 dashboard-actions-toolbar__item
                 button--secondary
             "
-            data-bind="text: $t('Save'), click: saveCookie.bind($data, $element, $data)"
+            data-bind="
+                text: $t('Save'),
+                click: saveCookie.bind($data, $element, $data)
+            "
         ></button>
     </div>
     <!-- ko foreach: $data.groups -->
-    <section class="section">
-        <div class="checkbox">
-            <input
-                type="checkbox"
-                class="checkbox__field"
-                data-amcookie-js="field"
-                name="groups[]"
+        <section class="section">
+            <div class="checkbox">
+                <input
+                    type="checkbox"
+                    class="checkbox__field"
+                    data-amcookie-js="field"
+                    name="groups[]"
+                    data-bind="
+                        attr: {
+                            id: 'widget-switch-box-' + $index(),
+                            disabled: isEssential
+                        },
+                        value: $data.groupId,
+                        css: {
+                            'disabled': isEssential
+                        },
+                        checked: checked
+                    "
+                />
+                <svg
+                    class="
+                        checkbox__icon
+                        checkbox__icon--checked
+                    "
+                    role="presentation"
+                    focusable="false"
+                >
+                    <use href="" data-bind="attr: { href: require.toUrl('images/icons-sprite.svg#checked') }"></use>
+                </svg>
+                <svg
+                    class="
+                        checkbox__icon
+                        checkbox__icon--unchecked
+                    "
+                    role="presentation"
+                    focusable="false"
+                >
+                    <use href="" data-bind="attr: { href: require.toUrl('images/icons-sprite.svg#unchecked') }"></use>
+                </svg>
+                <label
+                    class="checkbox__label"
+                    data-bind="
+                        attr: {
+                            for: 'widget-switch-box-' + $index()
+                        },
+                        i18n: $data.name
+                    "
+                ></label>
+            </div>
+            <p class="margin-bottom-s" data-bind="text: $data.description"></p>
+            <a
+                class="link"
                 data-bind="
-                    attr: {
-                        id: 'widget-switch-box-' + $index(),
-                        disabled: isEssential
-                    },
-                    value: $data.groupId,
-                    css: {
-                        'disabled': isEssential
-                    },
-                    checked: checked
+                    i18n: 'More Information',
+                    click: $parent.getInformationModal.bind($parent, $data)
                 "
-            />
-            <svg
-                class="
-                    checkbox__icon
-                    checkbox__icon--checked
-                "
-                role="presentation"
-                focusable="false"
-            >
-                <use href="" data-bind="attr: { href: require.toUrl('images/icons-sprite.svg#checked') }"></use>
-            </svg>
-            <svg
-                class="
-                    checkbox__icon
-                    checkbox__icon--unchecked
-                "
-                role="presentation"
-                focusable="false"
-            >
-                <use href="" data-bind="attr: { href: require.toUrl('images/icons-sprite.svg#unchecked') }"></use>
-            </svg>
-            <label
-                class="checkbox__label"
-                data-bind="attr: {for: 'widget-switch-box-' + $index()}, i18n: $data.name"
-            ></label>
-        </div>
-        <p class="margin-bottom-s" data-bind="text: $data.description"></p>
-        <a
-            class="link"
-            data-bind="i18n: 'More Information', click: $parent.getInformationModal.bind($parent, $data)"
-        ></a>
-    </section>
+            ></a>
+        </section>
     <!--/ko-->
 </form>
