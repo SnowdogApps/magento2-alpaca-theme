@@ -1,27 +1,27 @@
 <?php
 $_item = $block->getItem();
-$escapedProductName = $block->escapeHtml($block->getProductName());
+$escapedProductName = $escaper->escapeHtml($block->getProductName());
 ?>
 <tr>
     <td
-        data-th="<?= $block->escapeHtmlAttr(__('Product')) ?>"
+        data-th="<?= $escaper->escapeHtmlAttr(__('Product')) ?>"
         class="col product"
     >
         <div class="giftregistry__item">
             <?php if ($block->hasProductUrl()) :?>
-                <div 
+                <div
                     class="
                         giftregistry__image
                         margin-right-s
                     "
                 >
                     <a
-                        href="<?= $block->escapeUrl($block->getProductUrl()) ?>"
+                        href="<?= $escaper->escapeUrl($block->getProductUrl()) ?>"
                         class="
                             product-image
                             giftregistry__image-link
                         "
-                        title="<?= $block->escapeHtmlAttr($block->getProductName()) ?>"
+                        title="<?= $escaper->escapeHtmlAttr($block->getProductName()) ?>"
                     >
                         <?= $block->getImage($block->getProductForThumbnail(), 'product_thumbnail_image')->toHtml() ?>
                     </a>
@@ -31,19 +31,19 @@ $escapedProductName = $block->escapeHtml($block->getProductName());
                 <?php if ($block->hasProductUrl()) :?>
                     <a
                         class="link"
-                        href="<?= $block->escapeUrl($block->getProductUrl()) ?>"
+                        href="<?= $escaper->escapeUrl($block->getProductUrl()) ?>"
                     >
-                        <?= /** @noEscape */ $escapedProductName ?>
+                        <?= $escapedProductName ?>
                     </a>
                 <?php else : ?>
-                    <?= /** @noEscape */ $escapedProductName ?>
+                    <?= $escapedProductName ?>
                 <?php endif; ?>
                 <?php if ($_options = $block->getOptionList()) :?>
                     <dl class="product options list">
                         <?php foreach ($_options as $_option) : ?>
                             <?php $_formatedOptionValue = $block->getFormatedOptionValue($_option) ?>
                             <dt class="list__label">
-                                <?= $block->escapeHtml($_option['label']) ?>
+                                <?= $escaper->escapeHtml($_option['label']) ?>
                             </dt>
                             <dd
                                 class="
