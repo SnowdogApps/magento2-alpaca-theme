@@ -58,8 +58,11 @@
             <?php if ($this->isAjax()): ?>
                 <div
                     id="webform_<?= $escaper->escapeHtmlAttr($_uid) ?>_success_text"
-                    class="std webforms-success-text"
-                    style="display:none"
+                    class="
+                        std
+                        webforms-success-text
+                        display-none
+                    "
                 ></div>
             <?php endif; ?>
 
@@ -145,16 +148,16 @@
                                     <?php if (!empty($fieldset['css_class'])): ?>
                                         <?= $escaper->escapeHtmlAttr($fieldset['css_class']) ?>
                                     <?php endif; ?>
-                                "
-                                style="
-                                    <?php if (!empty($fieldset['css_style'])): ?>
-                                        <?= $escaper->escapeHtmlAttr($fieldset['css_style']) . ";" ?>
-                                    <?php endif; ?>
                                     <?php if (
                                             $fieldset['logic_visibility'] == \VladimirPopov\WebForms\Model\Logic::VISIBILITY_HIDDEN
                                         ):
                                     ?>
-                                        <?= 'display:none' ?>
+                                        display-none
+                                    <?php endif; ?>
+                                "
+                                style="
+                                    <?php if (!empty($fieldset['css_style'])): ?>
+                                        <?= $escaper->escapeHtmlAttr($fieldset['css_style']) . ";" ?>
                                     <?php endif; ?>
                                 "
                                 role="group"
@@ -192,13 +195,13 @@
                                             <?php if ($field->getRequired()): ?>
                                                 required
                                             <?php endif; ?>
+                                            <?php if (
+                                                    $field->getData('logic_visibility') == \VladimirPopov\WebForms\Model\Logic::VISIBILITY_HIDDEN
+                                                ):
+                                            ?>
+                                                display-none
+                                            <?php endif; ?>
                                         "
-                                        <?php if (
-                                                $field->getData('logic_visibility') == \VladimirPopov\WebForms\Model\Logic::VISIBILITY_HIDDEN
-                                            ):
-                                        ?>
-                                             <?= 'style="display:none"' ?>
-                                        <?php endif; ?>
                                     >
                                         <?php if (
                                                 $field->getType() != 'html' &&
@@ -228,8 +231,10 @@
                                             <?= $field->toHtml(); ?>
                                             <?php if ($field->getValidationAdvice()): ?>
                                                 <div
-                                                    style="display:none"
-                                                    class="validation-advice"
+                                                    class="
+                                                        validation-advice
+                                                        display-none
+                                                    "
                                                     id="advice-required-entry-field<?= $escaper->escapeHtmlAttr($this->getFieldUid($field->getId())) ?>"
                                                 >
                                                     <?= /* @noEscape */ $field->getValidationAdvice() ?>
@@ -237,7 +242,7 @@
                                             <?php endif; ?>
                                             <?php if ($field->getComment()): ?>
                                                 <p class="webforms-fields-comment">
-                                                    <?= /* @noEscape */ nl2br($escaper->escapeHtml($field->getComment())) ?>
+                                                    <?= nl2br($escaper->escapeHtml($field->getComment())) ?>
                                                 </p>
                                             <?php endif; ?>
                                         </div>
@@ -304,9 +309,11 @@
                             </div>
                             <div class="secondary">
                                 <div
-                                    class="please-wait"
+                                    class="
+                                        please-wait
+                                        display-none
+                                    "
                                     id="webform_<?= $escaper->escapeHtmlAttr($_uid) ?>_sending_data"
-                                    style="display:none;"
                                 >
                                     <div class="loading-indicator"></div>
                                     <span id="webform_<?= $escaper->escapeHtmlAttr($_uid) ?>_progress_text">
