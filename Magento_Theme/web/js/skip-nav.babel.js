@@ -3,7 +3,8 @@ define([], function () {
 
   function skipNavigation(skipElem) {
     skipElem.addEventListener('click', (e) => {
-      let targetElem = document.querySelector(e.target.hash);
+      const targetElem = document.querySelector(e.target.hash);
+
       if (targetElem) {
         targetElem.setAttribute('tabindex', -1);
         targetElem.focus();

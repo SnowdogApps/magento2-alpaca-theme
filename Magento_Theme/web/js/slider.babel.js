@@ -6,16 +6,16 @@ define([
 
   return function (options, element) {
     function init() {
-      let dataValues = element.dataset;
+      const dataValues = element.dataset;
 
       $.when(createSlickSlider(dataValues)).then(displaySlider(dataValues));
     }
 
     function createSlickSlider(dataValues) {
-      let slider = $(element),
-          slides = slider.find(dataValues.elementSlides),
-          navPrev = slider.find(dataValues.elementNavPrev),
-          navNext = slider.find(dataValues.elementNavNext);
+      const slider = $(element),
+            slides = slider.find(dataValues.elementSlides),
+            navPrev = slider.find(dataValues.elementNavPrev),
+            navNext = slider.find(dataValues.elementNavNext);
 
       slides.not('.slick-initialized').slick(
         {
