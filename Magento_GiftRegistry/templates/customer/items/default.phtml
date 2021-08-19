@@ -8,38 +8,21 @@ $escapedProductName = $escaper->escapeHtml($block->getProductName());
         class="col product"
     >
         <div class="giftregistry__item">
-            <?php if ($block->hasProductUrl()) :?>
-                <div
-                    class="
-                        giftregistry__image
-                        margin-right-s
-                    "
-                >
-                    <a
-                        href="<?= $escaper->escapeUrl($block->getProductUrl()) ?>"
-                        class="
-                            product-image
-                            giftregistry__image-link
-                        "
-                        title="<?= $escaper->escapeHtmlAttr($block->getProductName()) ?>"
-                    >
-                        <?= $block->getImage($block->getProductForThumbnail(), 'product_thumbnail_image')->toHtml() ?>
-                    </a>
-                </div>
-            <?php endif;?>
             <div class="giftregistry__info">
-                <?php if ($block->hasProductUrl()) :?>
-                    <a
-                        class="link"
-                        href="<?= $escaper->escapeUrl($block->getProductUrl()) ?>"
-                    >
+                <div>
+                    <?php if ($block->hasProductUrl()) :?>
+                        <a
+                            class="actions-group__link"
+                            href="<?= $escaper->escapeUrl($block->getProductUrl()) ?>"
+                        >
+                            <?= $escapedProductName ?>
+                        </a>
+                    <?php else : ?>
                         <?= $escapedProductName ?>
-                    </a>
-                <?php else : ?>
-                    <?= $escapedProductName ?>
-                <?php endif; ?>
+                    <?php endif; ?>
+                </div>
                 <?php if ($_options = $block->getOptionList()) :?>
-                    <dl class="product options list">
+                    <dl class="list list--description">
                         <?php foreach ($_options as $_option) : ?>
                             <?php $_formatedOptionValue = $block->getFormatedOptionValue($_option) ?>
                             <dt class="list__label">
@@ -70,6 +53,9 @@ $escapedProductName = $escaper->escapeHtml($block->getProductName());
                         <?php endforeach; ?>
                     </dl>
                 <?php endif;?>
+            </div>
+            <div class="giftregistry__image">
+                <?= $block->getImage($block->getProductForThumbnail(), 'product_thumbnail_image')->toHtml() ?>
             </div>
         </div>
     </td>
