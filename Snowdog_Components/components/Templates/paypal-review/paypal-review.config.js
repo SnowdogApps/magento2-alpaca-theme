@@ -95,6 +95,7 @@ module.exports = {
                   childTag: 'th',
                   content: 'Item',
                   childTagAttributes: 'scope="col" role="columnheader"',
+                  childTagClasses: 'width-full'
                 },
                 {
                   childTag: 'th',
