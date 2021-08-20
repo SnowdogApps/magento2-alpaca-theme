@@ -136,7 +136,6 @@ module.exports = {
         class: 'button--rotate-icon modal__close-button',
         icon: {
           id: 'close',
-          title: 'Close',
           class: 'button__icon modal__close-button-icon',
           hidden: true
         },
@@ -211,7 +210,6 @@ module.exports = {
       class: 'product-view__button',
       icon: {
         id: 'heart',
-        title: 'Arrow left',
         class: 'button__icon',
         hidden: true
       },
@@ -223,7 +221,6 @@ module.exports = {
       class: 'product-view__button',
       icon: {
         id: 'compare',
-        title: 'Add to compare list',
         class: 'button__icon',
         hidden: true
       },
@@ -240,7 +237,6 @@ module.exports = {
         class: 'button--rotate-icon modal__close-button',
         icon: {
           id: 'close',
-          title: 'Close',
           class: 'button__icon modal__close-button-icon',
           hidden: true
         },
@@ -272,7 +268,6 @@ module.exports = {
         class: 'button--rotate-icon modal__close-button',
         icon: {
           id: 'close',
-          title: 'Close',
           class: 'button__icon modal__close-button-icon',
           hidden: true
         },
@@ -300,7 +295,6 @@ module.exports = {
       icon: {
         class: 'tab__icon',
         id: 'angle-down',
-        title: 'Arrow down',
         hidden: true
       },
       tabs: [
@@ -533,7 +527,6 @@ module.exports = {
           class: 'product-view__button',
           iconBefore: {
             id: 'compare',
-            title: 'Add to compare list',
             class: 'button__icon',
             hidden: true
           },
@@ -545,7 +538,6 @@ module.exports = {
           class: 'product-view__button',
           iconBefore: {
             id: 'envelope',
-            title: 'Arrow left',
             class: 'button__icon',
             hidden: true
           },

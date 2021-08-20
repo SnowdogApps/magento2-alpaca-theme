@@ -76,7 +76,6 @@ module.exports = {
                         attributes: 'type="button" aria-label="Decrease the quantity"',
                         icon: {
                           id: 'minus',
-                          title: 'Minus mark',
                           class: 'button__icon quantity-update__icon',
                           hidden: true
                         }
@@ -87,7 +86,6 @@ module.exports = {
                         attributes: 'type="button" aria-label="Increase the quantity"',
                         icon: {
                           id: 'plus',
-                          title: 'Plus mark',
                           class: 'button__icon quantity-update__icon',
                           hidden: true
                         }
@@ -158,7 +156,6 @@ module.exports = {
                         attributes: 'type="button" aria-label="Decrease the quantity"',
                         icon: {
                           id: 'minus',
-                          title: 'Minus mark',
                           class: 'button__icon quantity-update__icon',
                           hidden: true
                         }
@@ -169,7 +166,6 @@ module.exports = {
                         attributes: 'type="button" aria-label="Increase the quantity"',
                         icon: {
                           id: 'plus',
-                          title: 'Plus mark',
                           class: 'button__icon quantity-update__icon',
                           hidden: true
                         }
