@@ -15,6 +15,7 @@ All notable changes to this project will be documented in this file.
 - user role styling on My Account page (#81750)
 - border styling for multishipping view (#81624)
 - styling for table in gift registy items (#81936)
+- quantity styling in table when product name is too long (#81950)
 ### Changed
 - moved catalog grid scss variables to separate file (#81732)
 ### Updated
