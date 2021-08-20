@@ -7,7 +7,8 @@
         class="
             dashboard-actions-toolbar
             margin-bottom-m
-    ">
+        "
+    >
         <button
             class="
                 button
@@ -82,13 +83,148 @@
                 ></label>
             </div>
             <p class="margin-bottom-s" data-bind="text: $data.description"></p>
-            <a
-                class="link"
-                data-bind="
-                    i18n: 'More Information',
-                    click: $parent.getInformationModal.bind($parent, $data)
+            <div
+                class="
+                    dropdown-list
+                    dropdown-list--detailed-content
                 "
-            ></a>
+            >
+                <ul
+                    class="dropdown-list__list"
+                    data-bind="
+                        mageInit: {
+                            'dropdownList': {}
+                        }
+                    "
+                >
+                    <li class="
+                            dropdown-list__item
+                            dropdown-list__item--collapse
+                        "
+                    >
+                        <button
+                            class="dropdown-list__label"
+                            type="button"
+                            aria-expanded="false"
+                            data-bind="
+                                    attr: {
+                                        'aria-controls': 'cookies-dropdown-info-' + $index()
+                                    },
+                            "
+                        >
+                            <!-- ko i18n: 'More Information' -->
+                            <!-- /ko -->
+                            <svg
+                                class="
+                                    icon
+                                    dropdown-list__icon
+                                "
+                                role="presentation"
+                                focusable="false"
+                            >
+                                <use data-bind="attr: { 'href': require.toUrl('images/icons-sprite.svg#angle-down')}" href=''></use>
+                            </svg>
+                        </button>
+                        <div
+                            class="dropdown-list__content"
+                            data-bind="
+                                attr: {
+                                    id: 'cookies-dropdown-info-' + $index()
+                                },
+                            "
+                            aria-hidden="true"
+                        >
+                            <table class="table">
+                                <caption
+                                    class="table__caption"
+                                    data-bind="i18n: 'This table contains cookies information'"
+                                >
+                                </caption>
+                                <thead>
+                                    <tr role="row">
+                                        <th
+                                            data-bind="i18n: 'Cookie Name'"
+                                            role="columnheader"
+                                            scope="col"
+                                        ></th>
+                                        <th
+                                            data-bind="i18n: 'Cookie Provider'"
+                                            role="columnheader"
+                                            scope="col"
+                                        ></th>
+                                        <th
+                                            data-bind="i18n: 'Cookie Description'"
+                                            role="columnheader"
+                                            scope="col"
+                                        ></th>
+                                        <th
+                                            data-bind="i18n: 'Cookie Lifetime'"
+                                            role="columnheader"
+                                            scope="col"
+                                        ></th>
+                                        <th
+                                            data-bind="i18n: 'Cookie Type'"
+                                            role="columnheader"
+                                            scope="col"
+                                        ></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- ko foreach: $data.cookies -->
+                                        <tr role="row">
+                                            <td
+                                                data-bind="
+                                                    text: $data.name,
+                                                    attr: {
+                                                        'data-th': $t('Cookie Name')
+                                                    }
+                                                "
+                                                role="gridcell"
+                                            ></td>
+                                            <td
+                                                data-bind="
+                                                    text: $data.provider,
+                                                    attr: {
+                                                        'data-th': $t('Cookie Provider')
+                                                    }
+                                                "
+                                                role="gridcell"
+                                            ></td>
+                                            <td
+                                                data-bind="
+                                                    text: $data.description,
+                                                    attr: {
+                                                        'data-th': $t('Cookie Description')
+                                                    }
+                                                "
+                                                role="gridcell"
+                                            ></td>
+                                            <td
+                                                data-bind="
+                                                    text: $data.lifetime,
+                                                    attr: {
+                                                        'data-th': $t('Cookie Lifetime')
+                                                    }
+                                                "
+                                                role="gridcell"
+                                            ></td>
+                                            <td
+                                                data-bind="
+                                                    text: $data.type,
+                                                    attr: {
+                                                        'data-th': $t('Cookie Name')
+                                                    }
+                                                "
+                                                role="gridcell"
+                                            ></td>
+                                        </tr>
+                                    <!-- /ko -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </section>
     <!--/ko-->
 </form>
