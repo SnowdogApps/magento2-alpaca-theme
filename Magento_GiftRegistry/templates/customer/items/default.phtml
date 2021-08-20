@@ -1,88 +1,87 @@
 <?php
 $_item = $block->getItem();
-$escapedProductName = $block->escapeHtml($block->getProductName());
+$escapedProductName = $escaper->escapeHtml($block->getProductName());
 ?>
 <tr>
     <td
-        data-th="<?= $block->escapeHtmlAttr(__('Product')) ?>"
+        data-th="<?= $escaper->escapeHtmlAttr(__('Product')) ?>"
         class="col product"
     >
-        <?php if ($block->hasProductUrl()) :?>
-            <a
-                href="<?= $block->escapeUrl($block->getProductUrl()) ?>"
-                class="product-image"
-                title="<?= $block->escapeHtmlAttr($block->getProductName()) ?>"
-            >
-        <?php endif;?>
-        <div class="giftregistry__item-image">
-            <?= $block->getImage($block->getProductForThumbnail(), 'product_thumbnail_image')->toHtml() ?>
+        <div class="giftregistry__item">
+            <div class="giftregistry__info">
+                <div>
+                    <?php if ($block->hasProductUrl()) :?>
+                        <a
+                            class="actions-group__link"
+                            href="<?= $escaper->escapeUrl($block->getProductUrl()) ?>"
+                        >
+                            <?= $escapedProductName ?>
+                        </a>
+                    <?php else : ?>
+                        <?= $escapedProductName ?>
+                    <?php endif; ?>
+                </div>
+                <?php if ($_options = $block->getOptionList()) :?>
+                    <dl class="list list--description">
+                        <?php foreach ($_options as $_option) : ?>
+                            <?php $_formatedOptionValue = $block->getFormatedOptionValue($_option) ?>
+                            <dt class="list__label">
+                                <?= $escaper->escapeHtml($_option['label']) ?>
+                            </dt>
+                            <dd
+                                class="
+                                    list__value
+                                    <?php if (isset($_formatedOptionValue['full_view'])) :?>
+                                        <?= "tooltip wrapper" ?>
+                                    <?php endif; ?>
+                                "
+                            >
+                                <?= $escaper->escapeHtml($_formatedOptionValue['value'], ['a']) ?>
+                                <?php if (isset($_formatedOptionValue['full_view'])) :?>
+                                    <div class="tooltip content">
+                                        <dl class="item-options">
+                                            <dt>
+                                                <?= $escaper->escapeHtml($_option['label']) ?>
+                                            </dt>
+                                            <dd>
+                                                <?= $escaper->escapeHtml($_formatedOptionValue['full_view']) ?>
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                <?php endif; ?>
+                            </dd>
+                        <?php endforeach; ?>
+                    </dl>
+                <?php endif;?>
+            </div>
+            <div class="giftregistry__image">
+                <?= $block->getImage($block->getProductForThumbnail(), 'product_thumbnail_image')->toHtml() ?>
+            </div>
         </div>
-        <?php if ($block->hasProductUrl()) :?>
-            </a>
-        <?php endif;?>
-
-        <?php if ($block->hasProductUrl()) :?>
-            <a
-                href="<?= $block->escapeUrl($block->getProductUrl()) ?>"
-            >
-                <?= /** @noEscape */ $escapedProductName ?>
-            </a>
-        <?php else : ?>
-            <?= /** @noEscape */ $escapedProductName ?>
-        <?php endif; ?>
-        <?php if ($_options = $block->getOptionList()) :?>
-        <dl class="product options list">
-            <?php foreach ($_options as $_option) : ?>
-                <?php $_formatedOptionValue = $block->getFormatedOptionValue($_option) ?>
-                <dt>
-                    <?= $block->escapeHtml($_option['label']) ?>
-                </dt>
-                <dd
-                    <?php if (isset($_formatedOptionValue['full_view'])) :?>
-                        class="tooltip wrapper"
-                    <?php endif; ?>
-                >
-                    <?= $block->escapeHtml($_formatedOptionValue['value'], ['a']) ?>
-                    <?php if (isset($_formatedOptionValue['full_view'])) :?>
-                        <div class="tooltip content">
-                            <dl class="item-options">
-                                <dt>
-                                    <?= $block->escapeHtml($_option['label']) ?>
-                                </dt>
-                                <dd>
-                                    <?= $block->escapeHtml($_formatedOptionValue['full_view']) ?>
-                                </dd>
-                            </dl>
-                        </div>
-                    <?php endif; ?>
-                </dd>
-            <?php endforeach; ?>
-        </dl>
-        <?php endif;?>
     </td>
     <td
-        data-th="<?= $block->escapeHtmlAttr(__('Note')) ?>"
+        data-th="<?= $escaper->escapeHtmlAttr(__('Note')) ?>"
         class="col note"
     >
         <div class="field note">
             <div class="input">
                 <textarea
-                    name="items[<?= $block->escapeHtmlAttr($_item->getId()) ?>][note]"
+                    name="items[<?= $escaper->escapeHtmlAttr($_item->getId()) ?>][note]"
                     rows="3"
                     cols="20"
                     class="input__field--textarea"
-                ><?= $block->escapeHtml($_item->getNote()) ?></textarea>
+                ><?= $escaper->escapeHtml($_item->getNote()) ?></textarea>
             </div>
         </div>
     </td>
     <td
-        data-th="<?= $block->escapeHtmlAttr(__('Added On')) ?>"
+        data-th="<?= $escaper->escapeHtmlAttr(__('Added On')) ?>"
         class="col date"
     >
-        <?= $block->escapeHtml($block->formatDate($_item->getAddedAt(), \IntlDateFormatter::MEDIUM)) ?>
+        <?= $escaper->escapeHtml($block->formatDate($_item->getAddedAt(), \IntlDateFormatter::MEDIUM)) ?>
     </td>
     <td
-        data-th="<?= $block->escapeHtmlAttr(__('Qty')) ?>"
+        data-th="<?= $escaper->escapeHtmlAttr(__('Qty')) ?>"
         class="col qty"
     >
         <div class="field qty">
@@ -93,29 +92,32 @@ $escapedProductName = $block->escapeHtml($block->getProductName());
                         qty
                         giftregistry__qty-field
                     "
-                    type="number" data-validate="{'validate-greater-than-zero':true}"
-                    name="items[<?= $block->escapeHtmlAttr($_item->getId()) ?>][qty]"
+                    type="number"
+                    data-validate="{
+                        'validate-greater-than-zero': true
+                    }"
+                    name="items[<?= $escaper->escapeHtmlAttr($_item->getId()) ?>][qty]"
                     value="<?= $_item->getQty() * 1 ?>"
                 />
             </div>
         </div>
     </td>
     <td
-        data-th="<?= $block->escapeHtmlAttr(__('Qty Fulfilled')) ?>"
+        data-th="<?= $escaper->escapeHtmlAttr(__('Qty Fulfilled')) ?>"
         class="col fulfilled"
     >
         <?= $_item->getQtyFulfilled() * 1 ?>
     </td>
     <td
-        data-th="<?= $block->escapeHtmlAttr(__('Delete')) ?>"
+        data-th="<?= $escaper->escapeHtmlAttr(__('Delete')) ?>"
         class="col actions"
     >
         <div class="checkbox margin-bottom-sm">
             <input
                 type="checkbox"
                 class="checkbox__field"
-                name="items[<?= $block->escapeHtmlAttr($_item->getItemId()) ?>][delete]"
-                id="items[<?= $block->escapeHtmlAttr($_item->getItemId()) ?>][delete]"
+                name="items[<?= $escaper->escapeHtmlAttr($_item->getItemId()) ?>][delete]"
+                id="items[<?= $escaper->escapeHtmlAttr($_item->getItemId()) ?>][delete]"
                 value="1"
             />
 
@@ -127,7 +129,7 @@ $escapedProductName = $block->escapeHtml($block->getProductName());
                 role="presentation"
                 focusable="false"
             >
-                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#checked')) ?>"></use>
+                <use xlink:href="<?= $escaper->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#checked')) ?>"></use>
             </svg>
 
             <svg
@@ -138,10 +140,10 @@ $escapedProductName = $block->escapeHtml($block->getProductName());
                 role="presentation"
                 focusable="false"
             >
-                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#unchecked')) ?>"></use>
+                <use xlink:href="<?= $escaper->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#unchecked')) ?>"></use>
             </svg>
             <label
-                for="items[<?= $block->escapeHtmlAttr($_item->getItemId()) ?>][delete]"
+                for="items[<?= $escaper->escapeHtmlAttr($_item->getItemId()) ?>][delete]"
                 class="checkbox__label"
             ></label>
         </div>
