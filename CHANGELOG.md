@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file.
 - tax field styling on checkout (#81627)
 - styling for payment & shipping information on company profile page (#81661)
 - user role styling on My Account page (#81750)
+- border styling for multishipping view (#81624)
 ### Changed
 - moved catalog grid scss variables to separate file (#81732)
 ### Updated

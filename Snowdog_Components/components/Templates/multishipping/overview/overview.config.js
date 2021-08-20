@@ -5,14 +5,14 @@ module.exports = {
       title: {
         tag: 'h2',
         class: 'dashboard-items__title margin-bottom-sm',
-        text: 'Billing Information'
+        text: 'Billing Information',
       },
       informations: [
         {
           title: {
             tag: 'h3',
             class: 'dashboard-items__subtitle',
-            text: 'Billing Address'
+            text: 'Billing Address',
           },
           class: 'col-sm-6',
           information: 'Arizona, 11-123, United States, T: 232112123',
@@ -25,25 +25,25 @@ module.exports = {
                   {
                     link: {
                       text: 'Change',
-                      class: 'actions-group__link'
-                    }
+                      class: 'actions-group__link',
+                    },
                   },
                   {
                     link: {
                       text: '',
-                      class: 'actions-group__link'
-                    }
-                  }
-                ]
-              }
-            ]
-          }
+                      class: 'actions-group__link',
+                    },
+                  },
+                ],
+              },
+            ],
+          },
         },
         {
           title: {
             tag: 'h3',
             class: 'dashboard-items__subtitle',
-            text: 'Payment Method'
+            text: 'Payment Method',
           },
           class: 'col-sm-6',
           information: 'Check / Money order',
@@ -56,34 +56,34 @@ module.exports = {
                   {
                     link: {
                       text: 'Change',
-                      class: 'actions-group__link'
-                    }
+                      class: 'actions-group__link',
+                    },
                   },
                   {
                     link: {
                       text: '',
-                      class: 'actions-group__link'
-                    }
-                  }
-                ]
-              }
-            ]
-          }
-        }
-      ]
+                      class: 'actions-group__link',
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        },
+      ],
     },
     shippingAddresses: {
       title: {
         tag: 'h2',
         class: 'dashboard-items__title margin-bottom-sm',
-        text: 'Shipping Information'
+        text: 'Shipping Information',
       },
       informations: [
         {
           title: {
             tag: 'h3',
             class: 'dashboard-items__subtitle',
-            text: 'Shipping To'
+            text: 'Shipping To',
           },
           class: 'col-sm-6',
           information: 'Arizona, 11-123, United States, T: 232112123',
@@ -96,25 +96,25 @@ module.exports = {
                   {
                     link: {
                       text: 'Change',
-                      class: 'actions-group__link'
-                    }
+                      class: 'actions-group__link',
+                    },
                   },
                   {
                     link: {
                       text: '',
-                      class: 'actions-group__link'
-                    }
-                  }
-                ]
-              }
-            ]
-          }
+                      class: 'actions-group__link',
+                    },
+                  },
+                ],
+              },
+            ],
+          },
         },
         {
           title: {
             tag: 'h3',
             class: 'dashboard-items__subtitle',
-            text: 'Shipping Method'
+            text: 'Shipping Method',
           },
           class: 'col-sm-6',
           information: 'Flat Rate (Fixed) $20.00',
@@ -127,25 +127,26 @@ module.exports = {
                   {
                     link: {
                       text: 'Change',
-                      class: 'actions-group__link'
-                    }
+                      class: 'actions-group__link',
+                    },
                   },
                   {
                     link: {
                       text: '',
-                      class: 'actions-group__link'
-                    }
-                  }
-                ]
-              }
-            ]
-          }
-        }
-      ]
+                      class: 'actions-group__link',
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        },
+      ],
     },
     table: {
-      class: 'margin-bottom-l',
-      captionText: 'This is a table. Binded text in caption should explain what kind of data this table presents. Can be also a longer text with inline HTML elements inside',
+      class: 'margin-bottom-l table--tfoot-scope-row',
+      captionText:
+        'This is a table. Binded text in caption should explain what kind of data this table presents. Can be also a longer text with inline HTML elements inside',
       mainTags: [
         {
           mainTag: 'thead',
@@ -157,26 +158,26 @@ module.exports = {
                 {
                   childTag: 'th',
                   content: 'Item',
-                  childTagAttributes: 'scope="col" role="columnheader"'
+                  childTagAttributes: 'scope="col" role="columnheader"',
                 },
                 {
                   childTag: 'th',
                   content: 'Price',
-                  childTagAttributes: 'scope="col" role="columnheader"'
+                  childTagAttributes: 'scope="col" role="columnheader"',
                 },
                 {
                   childTag: 'th',
                   content: 'Quantity',
-                  childTagAttributes: 'scope="col" role="columnheader"'
+                  childTagAttributes: 'scope="col" role="columnheader"',
                 },
                 {
                   childTag: 'th',
                   content: 'Subtotal',
-                  childTagAttributes: 'scope="col" role="columnheader"'
-                }
-              ]
+                  childTagAttributes: 'scope="col" role="columnheader"',
+                },
+              ],
             },
-          ]
+          ],
         },
         {
           mainTag: 'tbody',
@@ -188,24 +189,24 @@ module.exports = {
                 {
                   childTag: 'td',
                   childTagAttributes: 'data-th="Item:" role="gridcell"',
-                  content: 'Simple product with long name 1'
+                  content: 'Simple product with long name 1',
                 },
                 {
                   childTag: 'td',
                   childTagAttributes: 'data-th="Price:" role="gridcell"',
-                  content: '$7.59'
+                  content: '$7.59',
                 },
                 {
                   childTag: 'td',
                   childTagAttributes: 'data-th="Quantity:" role="gridcell"',
-                  content: '2'
+                  content: '2',
                 },
                 {
                   childTag: 'td',
                   childTagAttributes: 'data-th="Subtotal:" role="gridcell"',
-                  content: '$1,99.98'
-                }
-              ]
+                  content: '$1,99.98',
+                },
+              ],
             },
             {
               rowTag: 'tr',
@@ -214,26 +215,26 @@ module.exports = {
                 {
                   childTag: 'td',
                   childTagAttributes: 'data-th="Item:" role="gridcell"',
-                  content: 'Simple product with long name 1'
+                  content: 'Simple product with long name 1',
                 },
                 {
                   childTag: 'td',
                   childTagAttributes: 'data-th="Price:" role="gridcell"',
-                  content: '$7.59'
+                  content: '$7.59',
                 },
                 {
                   childTag: 'td',
                   childTagAttributes: 'data-th="Quantity:" role="gridcell"',
-                  content: '2'
+                  content: '2',
                 },
                 {
                   childTag: 'td',
                   childTagAttributes: 'data-th="Subtotal:" role="gridcell"',
-                  content: '$1,99.98'
-                }
-              ]
+                  content: '$1,99.98',
+                },
+              ],
             },
-          ]
+          ],
         },
         {
           mainTag: 'tfoot',
@@ -245,14 +246,14 @@ module.exports = {
                 {
                   childTag: 'td',
                   content: 'Subtotal',
-                  childTagAttributes: 'colspan=\'3\' role="gridcell"'
+                  childTagAttributes: 'colspan=\'3\' role="gridcell"',
                 },
                 {
                   childTag: 'td',
                   content: '$20.00',
-                  childTagAttributes: 'colspan=\'1\' role="gridcell"'
-                }
-              ]
+                  childTagAttributes: 'colspan=\'1\' role="gridcell"',
+                },
+              ],
             },
             {
               rowTag: 'tr',
@@ -261,14 +262,14 @@ module.exports = {
                 {
                   childTag: 'td',
                   content: 'Shipping & Handling',
-                  childTagAttributes: 'colspan=\'3\' role="gridcell"'
+                  childTagAttributes: 'colspan=\'3\' role="gridcell"',
                 },
                 {
                   childTag: 'td',
                   content: '$20.00',
-                  childTagAttributes: 'colspan=\'1\' role="gridcell"'
-                }
-              ]
+                  childTagAttributes: 'colspan=\'1\' role="gridcell"',
+                },
+              ],
             },
             {
               rowTag: 'tr',
@@ -277,14 +278,14 @@ module.exports = {
                 {
                   childTag: 'td',
                   content: 'Tax',
-                  childTagAttributes: 'colspan=\'3\' role="gridcell"'
+                  childTagAttributes: 'colspan=\'3\' role="gridcell"',
                 },
                 {
                   childTag: 'td',
                   content: '$20.00',
-                  childTagAttributes: 'colspan=\'1\' role="gridcell"'
-                }
-              ]
+                  childTagAttributes: 'colspan=\'1\' role="gridcell"',
+                },
+              ],
             },
             {
               rowTag: 'tr',
@@ -293,18 +294,18 @@ module.exports = {
                 {
                   childTag: 'td',
                   content: 'Total for this address',
-                  childTagAttributes: 'colspan=\'3\' role="gridcell"'
+                  childTagAttributes: 'colspan=\'3\' role="gridcell"',
                 },
                 {
                   childTag: 'td',
                   content: '$20.00',
-                  childTagAttributes: 'colspan=\'1\' role="gridcell"'
-                }
-              ]
-            }
-          ]
-        }
-      ]
+                  childTagAttributes: 'colspan=\'1\' role="gridcell"',
+                },
+              ],
+            },
+          ],
+        },
+      ],
     },
     checkbox: {
       id: 'checkbox',
@@ -312,7 +313,7 @@ module.exports = {
       attributes: '',
       label: {
         text: 'I have read and accept the privacy policy',
-        class: ''
+        class: '',
       },
     },
     grandTotalLabel: 'Grand Total:',
@@ -322,7 +323,7 @@ module.exports = {
       specialPrice: '',
       prefix: {
         tag: '',
-        text: 'Grand Total: $'
+        text: 'Grand Total: $',
       },
     },
     actions: {
@@ -333,10 +334,10 @@ module.exports = {
             {
               button: {
                 text: 'Place Order',
-                class: 'actions-group__button'
-              }
-            }
-          ]
+                class: 'actions-group__button',
+              },
+            },
+          ],
         },
         {
           action: [
@@ -344,12 +345,12 @@ module.exports = {
               link: {
                 text: 'Back to Billing Information',
                 title: 'Back to Billing Information',
-                class: 'actions-group__link'
-              }
-            }
-          ]
-        }
-      ]
-    }
-  }
-}
+                class: 'actions-group__link',
+              },
+            },
+          ],
+        },
+      ],
+    },
+  },
+};
