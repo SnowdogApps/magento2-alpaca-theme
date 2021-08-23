@@ -1,11 +1,4 @@
 <?php
-/**
- * @author Amasty Team
- * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
- * @package Amasty_GdprCookie
- */
-?>
-<?php
 /** @var \Amasty\GdprCookie\Block\CookieBar $block */
 /** @var \Magento\Framework\Escaper $escaper */
 
@@ -24,17 +17,27 @@ $confirmationClassic = \Amasty\GdprCookie\Model\Config\Source\CookiePolicyBarSty
 */
 ?>
 <?php if (!strpos($block->getRequest()->getRequestUri(), 'cookie-settings')): ?>
-    <?php if ($block->getNoticeType() === $confirmationModal && $notificationText): ?>
-
-        <div data-role="gdpr-cookie-container" class="amgdprcookie-modal-template" data-bind="scope: 'gdpr-cookie-modal'">
+    <?php if (
+            $block->getNoticeType() === $confirmationModal &&
+            $notificationText
+        ):
+    ?>
+        <div
+            data-role="gdpr-cookie-container"
+            class="amgdprcookie-modal-template"
+            data-bind="scope: 'gdpr-cookie-modal'"
+        >
             <!-- ko template: getTemplate() --><!-- /ko -->
-            <!-- ko if: $data.elems().length -->
-                <!-- ko foreach: $data.elems() -->
-                    <!--ko template: getTemplate()--><!-- /ko -->
-                <!-- /ko -->
+                <!-- ko if: $data.elems().length -->
+                    <!-- ko foreach: $data.elems() -->
+                        <!--ko template: getTemplate()--><!-- /ko -->
+                    <!-- /ko -->
             <!-- /ko -->
         </div>
-        <div class="amgdprcookie-modal-block" data-amgdpr-js="modal"></div>
+        <div
+            class="amgdprcookie-modal-block"
+            data-amgdpr-js="modal"
+        ></div>
         <script type="text/x-magento-init">
         {
             "[data-role=gdpr-cookie-container]": {
@@ -54,12 +57,27 @@ $confirmationClassic = \Amasty\GdprCookie\Model\Config\Source\CookiePolicyBarSty
             }
         }
         </script>
-    <?php elseif (($block->getNoticeType() === $confirmationClassic ||
-            $block->getNoticeType() === $confirmationPopup) && $notificationText): ?>
+    <?php elseif (
+            (
+                $block->getNoticeType() === $confirmationClassic ||
+                $block->getNoticeType() === $confirmationPopup
+            ) &&
+            $notificationText
+        ):
+    ?>
         <!-- ko scope: 'gdpr-cookie-container' -->
-        <div data-role="gdpr-cookie-container" class="amgdprcookie-bar-template" data-bind="css: {'-bottom' : isScrollBottom, '-popup' : isPopup}">
-            <!-- ko template: getTemplate() --><!-- /ko -->
-        </div>
+            <div
+                data-role="gdpr-cookie-container"
+                class="amgdprcookie-bar-template"
+                data-bind="
+                    css: {
+                        '-bottom' : isScrollBottom,
+                        '-popup' : isPopup
+                    }
+                "
+            >
+                <!-- ko template: getTemplate() --><!-- /ko -->
+            </div>
         <!-- /ko -->
         <script type="text/x-magento-init">
         {
