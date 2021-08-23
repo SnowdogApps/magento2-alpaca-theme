@@ -21,6 +21,7 @@ All notable changes to this project will be documented in this file.
 - moved catalog grid scss variables to separate file (#81732)
 - move all content to the left for product list view on mobile (#81767)
 ### Updated
+- bump select2, `select--search` component (#80105, #81472)
 ### Removed
 
 
