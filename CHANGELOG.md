@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file.
 - styling for payment & shipping information on company profile page (#81661)
 - user role styling on My Account page (#81750)
 - slider a11y - keyboard support, repeated price IDs, when product is included in multiple sliders on the page (#71760)
+- more info component js - close more info on ESC (#71760)
 ### Changed
 - moved catalog grid scss variables to separate file (#81732)
 ### Updated

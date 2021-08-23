@@ -59,7 +59,7 @@ class MoreInfo {
 
   initListeners() {
     window.addEventListener('resize', this.onToggleEvent);
-    this.moreInfo.addEventListener('keydown', this.onEscape);
+    this.moreInfo.addEventListener('keydown', this.onEscapeEvent);
     window.addEventListener('click', this.onOutsideEvent);
   }
 
