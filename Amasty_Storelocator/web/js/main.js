@@ -132,6 +132,12 @@ define([
               data: params,
               showLoader: true
           }).done($.proxy(function (response) {
+              let locateBtn = document.querySelector('.amlocator-button.-nearby');
+
+              if (locateBtn) {
+                locateBtn.disabled = false;
+              }
+
               response = JSON.parse(response);
               self.options.jsonLocations = response;
               self.getIdentifiers();
@@ -250,7 +256,8 @@ define([
 
       initializeFilter: function () {
           var self = this;
-          self.mapContainer.find('.amlocator-button.-nearby').click(function () {
+          self.mapContainer.find('.amlocator-button.-nearby').click(function (event) {
+              event.target.disabled = true;
               self.getIdentifiers($(this));
               self.ajaxCallUrl = self.options.ajaxCallUrl;
               self.navigateMe();

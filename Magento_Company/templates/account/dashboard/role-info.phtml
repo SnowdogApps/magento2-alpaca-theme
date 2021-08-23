@@ -1,0 +1,28 @@
+<?php
+/**
+ * @var \Magento\Company\Block\Company\Account\Dashboard\RoleInfo $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+$customerRoles = $block->getCustomerRoles();
+?>
+<?php if ($customerRoles): ?>
+    <div class="col-sm-6 dashboard-items__item">
+        <h3
+            class="
+                dashboard-items__subtitle
+                margin-bottom-l"
+        >
+            <?= (count($customerRoles) == 1) ?
+                $escaper->escapeHtml(__('User Role')) :
+                $escaper->escapeHtml(__('User Roles'))
+            ?>
+        </h3>
+        <ul class="list list--native">
+            <?php foreach ($customerRoles as $role): ?>
+                <li class="list__item">
+                    <?= $escaper->escapeHtml($role) ?>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+<?php endif; ?>
