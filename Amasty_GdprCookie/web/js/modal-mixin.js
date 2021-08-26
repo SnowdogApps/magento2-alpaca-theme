@@ -12,7 +12,8 @@ define([
                 template: {
                     afterRender: function () {
                     }
-                }
+                },
+                settingsLink: '/cookie-settings'
             },
 
             initModal: function () {
