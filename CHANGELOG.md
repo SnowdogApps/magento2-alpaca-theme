@@ -19,6 +19,7 @@ All notable changes to this project will be documented in this file.
 - quantity styling in table when product name is too long (#81950)
 - error on privacy settings section in account settings (#81873)
 - cookie modal not showing when clicking save button (#81873)
+- Quote reorder popup when having items in cart not displaying correctly (#82047)
 ### Changed
 - moved catalog grid scss variables to separate file (#81732)
 - move all content to the left for product list view on mobile (#81767)
