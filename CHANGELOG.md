@@ -15,20 +15,23 @@ All notable changes to this project will be documented in this file.
 - styling for payment & shipping information on company profile page (#81661)
 - user role styling on My Account page (#81750)
 - border styling for multishipping view (#81624)
-- styling for table in gift registy items (#81936)
+- styling for table in gift registry items (#81936)
 - quantity styling in table when product name is too long (#81950)
 - error on privacy settings section in account settings (#81873)
 - cookie modal not showing when clicking save button (#81873)
+- some icons a11y in templates (#80844)
 ### Changed
 - moved catalog grid scss variables to separate file (#81732)
 - move all content to the left for product list view on mobile (#81767)
 - restored cookie-settings page for Amasty GDPR (#81873)
+- `xlink:href` (deprecated) to `href` (#80844)
+- some icons code in templates to lower the number of icon related requests (#80844)
 ### Updated
 - bump select2, `select--search` component (#80105, #81472)
 - cookie settings modal to new version of Amasty GDPR (#81873)
 - styling for cookie table information (#81873)
 ### Removed
-
+- svg4everybody (no longer needed for browser support (#80844)
 
 ## [Released]
 ## [2.23.0] - 2021-08-03
