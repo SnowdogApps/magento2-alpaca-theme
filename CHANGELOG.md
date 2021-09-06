@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 - column template variables for catalog grid styles (#81732)
 - 'Recently viewed' component in fractal product bundle and product grouped templates
 - fractal template for gift registy items (#81936)
+- background color for 'Add to wishlist' button (#81767)
 ### Fixed
  - webforms templates (#79614)
 - jquery and fotorama don't use passive listeners to improve scrolling performance (#72752)
@@ -16,12 +17,19 @@ All notable changes to this project will be documented in this file.
 - border styling for multishipping view (#81624)
 - styling for table in gift registry items (#81936)
 - quantity styling in table when product name is too long (#81950)
+- error on privacy settings section in account settings (#81873)
+- cookie modal not showing when clicking save button (#81873)
 - some icons a11y in templates (#80844)
 ### Changed
 - moved catalog grid scss variables to separate file (#81732)
+- move all content to the left for product list view on mobile (#81767)
+- restored cookie-settings page for Amasty GDPR (#81873)
 - `xlink:href` (deprecated) to `href` (#80844)
 - some icons code in templates to lower the number of icon related requests (#80844)
 ### Updated
+- bump select2, `select--search` component (#80105, #81472)
+- cookie settings modal to new version of Amasty GDPR (#81873)
+- styling for cookie table information (#81873)
 ### Removed
 - svg4everybody (no longer needed for browser support (#80844)
 

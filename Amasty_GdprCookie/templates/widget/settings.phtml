@@ -1,200 +1,33 @@
 <?php
-/**
- * @author Amasty Team
- * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
- * @package Amasty_GdprCookie
- */
-?>
-<?php
 /** @var \Amasty\GdprCookie\Block\Widget\Settings $block */
 
 if (!$block->isNeedToShow()) {
     return;
 }
-
-$groups = $block->getAllGroups();
 ?>
-<div class="amgdprcookie-main-wrapper">
-    <form
-        id="amgdprcookie-form"
-        class="amgdprcookie-settings-form"
-        data-amcookie-js="form-cookie"
-    >
-        <div
-            class="
-                dashboard-actions-toolbar
-                margin-bottom-m
-            "
-        >
-            <button
-                class="
-                    button
-                    dashboard-actions-toolbar__item
-                    button--secondary
-                "
-                type="button"
-                data-amcookie-js="settings-allow"
-            >
-                <?= $block->escapeHtml(__('Allow all')); ?>
-            </button>
-            <button
-                class="
-                    button
-                    dashboard-actions-toolbar__item
-                    button--secondary
-                "
-                type="button"
-                data-amcookie-js="settings-save"
-            >
-                <?= $block->escapeHtml(__('Save')); ?>
-            </button>
-        </div>
-
-        <?php foreach ($groups as $groupData): ?>
-            <?php $groupId = (int) $groupData['groupId'] ?>
-            <section class="section">
-                <div class="checkbox">
-                    <input
-                        class="
-                            checkbox__field
-                            <?= $groupData['isEssential'] ? 'disabled' : ''; ?>
-                        "
-                        type="checkbox"
-                        id="switchBox<?= $block->escapeHtmlAttr($groupId) ?>"
-                        name="groups[]"
-                        value="<?= $block->escapeHtmlAttr($groupId) ?>"
-                        data-category-id="1"
-                        data-is-system="1"
-                        <?= $groupData['checked'] ? 'checked' : ''; ?>
-                        <?= $groupData['isEssential'] ? 'onclick="return false;"' : ''; ?>
-                    />
-                    <svg
-                        class="
-                            checkbox__icon
-                            checkbox__icon--checked
-                        "
-                        role="presentation"
-                        focusable="false"
-                    >
-                        <use href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#checked')) ?>"></use>
-                    </svg>
-                    <svg
-                        class="
-                            checkbox__icon
-                            checkbox__icon--unchecked
-                        "
-                        role="presentation"
-                        focusable="false"
-                    >
-                        <use href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#unchecked')) ?>"></use>
-                    </svg>
-                    <label
-                        class="checkbox__label"
-                        for="switchBox<?= $block->escapeHtmlAttr($groupId) ?>"
-                    >
-                        <?= $block->escapeHtml(__('%1 Cookies', $groupData['name'])); ?>
-                    </label>
-                </div>
-                <div class="section__content">
-                    <?= $block->escapeHtml($groupData['description']); ?>
-
-                    <div
-                        class="
-                            dropdown-list
-                            dropdown-list--detailed-content
-                        "
-                        data-mage-init='{ "dropdownList": {} }'
-                    >
-                        <ul class="dropdown-list__list">
-                            <li
-                                class="
-                                    dropdown-list__item
-                                    dropdown-list__item--collapse
-                                "
-                            >
-                                <button
-                                    class="dropdown-list__label"
-                                    aria-expanded="false"
-                                    aria-controls="dropdown-detailed-content-<?= $block->escapeHtmlAttr($groupId) ?>"
-                                    type="button"
-                                >
-                                    <?= $block->escapeHtml(__('List of cookies the %1 group collects', $groupData['name'])); ?>
-
-                                    <svg
-                                        class="icon dropdown-list__icon"
-                                        role="presentation"
-                                        focusable="false"
-                                    >
-                                        <use href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#angle-down')) ?>"></use>
-                                    </svg>
-                                </button>
-
-                                <div
-                                    id="dropdown-detailed-content-<?= $block->escapeHtmlAttr($groupId) ?>"
-                                    class="dropdown-list__content"
-                                    aria-hidden="true"
-                                >
-                                    <table class="table">
-                                        <thead>
-                                            <tr role="row">
-                                                <th
-                                                    scope="col"
-                                                    role="columnheader"
-                                                >
-                                                    <?= $block->escapeHtml(__('Cookie Name')); ?>
-                                                </th>
-                                                <th
-                                                    scope="col"
-                                                    role="columnheader"
-                                                >
-                                                    <?= $block->escapeHtml(__('Cookie Description')); ?>
-                                                </th>
-                                                <th
-                                                    scope="col"
-                                                    role="columnheader"
-                                                >
-                                                    <?= $block->escapeHtml(__('Cookie Lifetime')); ?>
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php foreach ($groupData['cookies'] as $cookie): ?>
-                                                <tr role="row">
-                                                    <td
-                                                        data-th="<?= $block->escapeHtmlAttr(__('Cookie Name')); ?>"
-                                                        role="gridcell"
-                                                    >
-                                                        <?= $block->escapeHtml($cookie['name']); ?>
-                                                    </td>
-                                                    <td
-                                                        data-th="<?= $block->escapeHtmlAttr(__('Cookie Description')); ?>"
-                                                        role="gridcell"
-                                                    >
-                                                        <?= $block->escapeHtml($cookie['description']); ?>
-                                                    </td>
-                                                    <td
-                                                        data-th="<?= $block->escapeHtmlAttr(__('Cookie Lifetime')); ?>"
-                                                        role="gridcell"
-                                                    >
-                                                        <?= $block->escapeHtml($cookie['lifetime']); ?>
-                                                    </td>
-                                                </tr>
-                                            <?php endforeach; ?>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-        <?php endforeach; ?>
-    </form>
+<div
+    data-role="gdpr-cookie-widget-container"
+    class="amgdprcookie-main-wrapper"
+    data-bind="scope: 'gdpr-cookie-settings-widget'"
+>
+    <!-- ko template: getTemplate() --><!-- /ko -->
+    <!-- ko if: $data.elems().length -->
+        <!-- ko foreach: $data.elems() -->
+            <!--ko template: getTemplate()--><!-- /ko -->
+        <!-- /ko -->
+    <!-- /ko -->
 </div>
+
 <script type="text/x-magento-init">
     {
-        "*": {
-            "Amasty_GdprCookie/js/settings": {}
+        "[data-role=gdpr-cookie-widget-container]": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "gdpr-cookie-settings-widget": {
+                        "component": "Amasty_GdprCookie/js/settings"
+                    }
+                }
+            }
         }
     }
 </script>

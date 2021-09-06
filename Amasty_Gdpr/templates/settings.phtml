@@ -1,124 +1,155 @@
 <?php
-/** @var $block \Amasty\Gdpr\Block\Settings */
-
+/** @var \Amasty\Gdpr\Block\Settings $block */
 $settings = $block->getPrivacySettings();
+
 ?>
 <?php foreach ($settings as $setting): ?>
     <div class="block">
         <h2 class="dashboard-form__title margin-bottom-sm">
-            <?= $block->escapeHtml($setting['title']) ?>
+            <?= $escaper->escapeHtml($setting['title']) ?>
         </h2>
         <div class="block-content">
-            <form
-                method="post"
-                action="<?= $block->escapeHtmlAttr($setting['action']) ?>"
-                data-mage-init='{"validation":{}}'
-            >
-                <input
-                    name="form_key"
-                    type="hidden"
-                    value="<?= $block->escapeHtmlAttr($block->getFormKey()) ?>"
-                />
-                <input
-                    name="is_order"
-                    type="hidden"
-                    value="<?= $block->escapeHtmlAttr($block->isOrder()) ?>"
-                />
-                <input
-                    name="order_increment_id"
-                    type="hidden"
-                    value="<?= $block->escapeHtmlAttr($block->getCurrentOderIncrementId()) ?>"
-                />
-                <p class="policy-content">
-                    <?= /* @noEscape */ $setting['content'] ?>
-                </p>
-                <?php if ($setting['hasCheckbox']): ?>
-                    <div
-                        class="
-                            checkbox
-                            margin-bottom-m
-                            required
-                        "
-                    >
-                        <input
-                            type="checkbox"
-                            id="agree-<?= $block->escapeHtmlAttr($setting['actionCode']) ?>"
-                            name="agree"
-                            class="checkbox__field"
-                            data-validate="{required:true}"
-                        >
-                        <svg
+            <?php if (isset($setting['action'])): ?>
+                <form
+                    method="post"
+                    action="<?= $escaper->escapeHtmlAttr($setting['action']) ?>"
+                    data-mage-init='{"validation":{}}'
+                >
+                    <input
+                        name="form_key"
+                        type="hidden"
+                        value="<?= $escaper->escapeHtmlAttr($block->getFormKey()) ?>"
+                    />
+                    <input
+                        name="order_increment_id"
+                        type="hidden"
+                        value="<?= $escaper->escapeHtmlAttr($block->getCurrentOderIncrementId()) ?>"
+                    />
+                    <p class="policy-content">
+                        <?= $escaper->escapeHtml($setting['content']); ?>
+                    </p>
+                    <?php if ($setting['hasCheckbox']): ?>
+                        <div
                             class="
-                                checkbox__icon
-                                checkbox__icon--checked
-                            "
-                            role="presentation"
-                        >
-                            <use href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#checked')) ?>"></use>
-                        </svg>
-                        <svg
-                            class="
-                                checkbox__icon
-                                checkbox__icon--unchecked
-                            "
-                            role="presentation"
-                        >
-                            <use href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#unchecked')) ?>"></use>
-                        </svg>
-                        <label
-                            for="agree-<?= $block->escapeHtmlAttr($setting['actionCode']) ?>"
-                            class="checkbox__label"
-                        >
-                            <span class="checkbox__text">
-                                <?= $block->escapeHtml($setting['checkboxText']) ?>
-                            </span>
-                        </label>
-                    </div>
-                <?php endif; ?>
-                <?php if ($setting['needPassword']): ?>
-                    <fieldset
-                        class="fieldset"
-                        data-hasrequired="* Required Fields"
-                        <?php if ($setting['hidePassword']): ?>
-                            hidden
-                        <?php endif; ?>
-                        name="passwordField"
-                    >
-                        <legend
-                            class="
-                                fieldset__legend
-                                fieldset__legend--hidden
+                                checkbox
+                                margin-bottom-m
+                                required
                             "
                         >
-                            <?= $block->escapeHtml(__('Current Password')) ?>
-                        </legend>
-                        <div class="input required">
-                            <label
-                                class="input__label"
-                                for="current-password"
-                            >
-                                <?= $block->escapeHtml(__('Current Password')) ?>
-                            </label>
                             <input
-                                type="password"
-                                class="input__field"
-                                name="current_password"
-                                id="current-password-<?= /* @noEscape */ $setting['actionCode'] ?>"
-                                data-input="current-password"
-                                autocomplete="off"
-                                aria-required="true"
+                                type="checkbox"
+                                id="agree-<?= $escaper->escapeHtmlAttr($setting['actionCode']) ?>"
+                                name="agree"
+                                class="checkbox__field"
                                 data-validate="{required:true}"
                             >
+                            <svg
+                                class="
+                                    checkbox__icon
+                                    checkbox__icon--checked
+                                "
+                                role="presentation"
+                                focusable="false"
+                            >
+                                <use href="<?= $escaper->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#checked')) ?>"></use>
+                            </svg>
+                            <svg
+                                class="
+                                    checkbox__icon
+                                    checkbox__icon--unchecked
+                                "
+                                role="presentation"
+                                focusable="false"
+                            >
+                                <use href="<?= $escaper->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#unchecked')) ?>"></use>
+                            </svg>
+                            <label
+                                for="agree-<?= $escaper->escapeHtmlAttr($setting['actionCode']) ?>"
+                                class="checkbox__label"
+                            >
+                                <span class="checkbox__text">
+                                    <?= $escaper->escapeHtml($setting['checkboxText']) ?>
+                                </span>
+                            </label>
                         </div>
-                    </fieldset>
-                <?php endif; ?>
-                <button
-                    type="submit"
-                    class="button margin-bottom-l"
-                >
-                    <?= $block->escapeHtml($setting['submitText']) ?>
-                </button>
-            </form>
+                    <?php endif; ?>
+                    <?php if (isset($setting['additionalBlock'])
+                        && $setting['additionalBlock'] instanceof \Magento\Framework\View\Element\AbstractBlock
+                    ): ?>
+                        <p class="control">
+                            <?= /* @noEscape */ $setting['additionalBlock']->toHtml(); ?>
+                        </p>
+                    <?php endif; ?>
+                    <?php if ($setting['needPassword']): ?>
+                        <fieldset
+                            class="fieldset"
+                            data-hasrequired="* Required Fields"
+                            <?php if ($setting['hidePassword']): ?>
+                                hidden
+                            <?php endif; ?>
+                            name="passwordField"
+                        >
+                            <legend
+                                class="
+                                    fieldset__legend
+                                    fieldset__legend--hidden
+                                "
+                            >
+                                <?= $escaper->escapeHtml(__('Current Password')) ?>
+                            </legend>
+                            <div class="input required">
+                                <label
+                                    class="input__label"
+                                    for="current-password"
+                                >
+                                    <?= $escaper->escapeHtml(__('Current Password')) ?>
+                                </label>
+                                <input
+                                    type="password"
+                                    class="input__field"
+                                    name="current_password"
+                                    id="current-password-<?= /* @noEscape */ $setting['actionCode'] ?>"
+                                    data-input="current-password"
+                                    autocomplete="off"
+                                    aria-required="true"
+                                    data-validate="{required:true}"
+                                >
+                            </div>
+                        </fieldset>
+                    <?php endif; ?>
+                    <button
+                        type="submit"
+                        class="button margin-bottom-l"
+                    >
+                        <?= $escaper->escapeHtml($setting['submitText']) ?>
+                    </button>
+                </form>
+            <?php elseif (isset($setting['policiesText'])): ?>
+                <div class="margin-bottom-l">
+                    <div data-role="amasty-gdpr-consent">
+                        <a
+                            href="#"
+                            title="<?= $escaper->escapeHtmlAttr(__('Read Privacy Policy')) ?>"
+                        >
+                            <?= $escaper->escapeHtml(__('Read Privacy Policy')) ?>
+                        </a>
+                    </div>
+                    <?php if ($setting['isCookieEnabled']): ?>
+                        <div class="amgdpr-cookie-link">
+                            <a
+                                href="#"
+                                class="amgdpr-link"
+                                data-amgdpr-js="cookie-link"
+                                title="<?= $escaper->escapeHtmlAttr(__('Read Cookie Policy')) ?>"
+                            >
+                                <?= $escaper->escapeHtml(__('Read Cookie Policy')) ?>
+                            </a>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            <?php else: ?>
+                <p class="policy-content"><?= /* @noEscape */ $block->stripHtmlTags($setting['content'], ['script']) ?></p>
+            <?php endif; ?>
         </div>
     </div>
 <?php endforeach; ?>

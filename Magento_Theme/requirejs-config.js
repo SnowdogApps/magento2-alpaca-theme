@@ -14,7 +14,7 @@ var config = {
       "fileUpload"       : "Magento_Theme/js/file-upload.babel",
       "marketingBar"     : "Magento_Theme/js/marketing-bar.babel",
       "modal"            : "Magento_Theme/js/modal.babel",
-      "select2"          : "Magento_Theme/js/lib/select2.min",
+      "select2"          : "Magento_Theme/js/lib/select2.full.min",
       "select"           : "Magento_Theme/js/select.babel",
       "scrollTop"        : "Magento_Theme/js/scroll-top.babel",
       "scrollTo"         : "Magento_Theme/js/scroll-to.babel",
