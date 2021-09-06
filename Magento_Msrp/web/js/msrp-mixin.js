@@ -13,10 +13,14 @@ define(['jquery'], function ($) {
 
     initMsrpPopup: function () {
       var popupDOM = $(this.options.popUpAttr)[0],
+        popupButton = $('#' + this.options.popupId),
         $msrpPopup = $(popupDOM.innerHTML.trim()),
+        popupButtonId = this.options.popupId + Math.random().toString(16).slice(2),
         self = this;
 
-      $msrpPopup.find(this.options.productIdInput).val(this.options.productId);
+      popupButton.attr('id', popupButtonId)
+
+      $msrpPopup.find(this.options.productIdInput).val(popupButtonId);
       $('body').append($msrpPopup);
       $msrpPopup.trigger('contentUpdated');
 
@@ -30,7 +34,7 @@ define(['jquery'], function ($) {
         .find(this.options.paypalCheckoutButons)
         .on('click', this.handleMsrpPaypalCheckout.bind(this));
 
-      $(this.options.popupId).on('click', this.openPopup.bind(this));
+      $('#' + popupButtonId).on('click', this.openPopup.bind(this));
 
       this.$popup = $msrpPopup;
 

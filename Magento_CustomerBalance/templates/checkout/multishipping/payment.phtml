@@ -1,0 +1,71 @@
+<?php
+// phpcs:disable Magento2.Templates.ThisInTemplate
+?>
+<?php if ($block->isAllowed()): ?>
+    <div
+        class="
+            checkout
+            multishipping
+            payment
+            customerbalance
+        "
+        id="customerbalance-block"
+    >
+        <input
+            type="hidden"
+            name="payment[use_customer_balance]"
+            value="0"
+        />
+
+        <div
+            class="
+                field
+                choice
+                checkbox
+            "
+        >
+            <input
+                type="checkbox"
+                class="checkbox__field"
+                name="payment[use_customer_balance]"
+                value="1"
+                id="use-customer-balance"
+                data-mage-init='{
+                    "checkoutBalance":{
+                        "amountSubstracted":"<?= /* @noEscape */ $block->isCustomerBalanceUsed() ?>",
+                        "usedAmount":"<?= (float)$block->getQuote()->getBaseCustomerBalAmountUsed() ?>",
+                        "balance":"<?= (float)$block->getBalance() ?>"
+                    }
+                }'
+                <?= ($block->isCustomerBalanceUsed() ? 'checked' : '') ?>
+            />
+            <svg
+                class="
+                    checkbox__icon
+                    checkbox__icon--checked
+                "
+                role="presentation"
+                focusable="false"
+            >
+                <use href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#checked')) ?>"></use>
+            </svg>
+            <svg
+                class="
+                    checkbox__icon
+                    checkbox__icon--unchecked
+                "
+                role="presentation"
+                focusable="false"
+            >
+                <use href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#unchecked')) ?>"></use>
+            </svg>
+            <?php /* @noEscape */ $balance = $this->helper(Magento\Framework\Pricing\Helper\Data::class)->currency($block->getBalance()); ?>
+            <label
+                for="use-customer-balance"
+                class="checkbox__label"
+            >
+                <?= $block->escapeHtml(__('Use Store Credit (%1 &nbsp;available)', $balance), ['span']) ?>
+            </label>
+        </div>
+    </div>
+<?php endif; ?>

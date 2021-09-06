@@ -3,18 +3,118 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Added
-### Updated
-### Removed
-### Added
-- validation for google and apple pay buttons (#78181)
+- column template variables for catalog grid styles (#81732)
+- 'Recently viewed' component in fractal product bundle and product grouped templates
+- fractal template for gift registy items (#81936)
+- background color for 'Add to wishlist' button (#81767)
 ### Fixed
+ - webforms templates (#79614)
+- jquery and fotorama don't use passive listeners to improve scrolling performance (#72752)
+- styling for store credit checkbox in multishipping checkout (#81559)
+- tax field styling on checkout (#81627)
+- styling for payment & shipping information on company profile page (#81661)
+- user role styling on My Account page (#81750)
+- border styling for multishipping view (#81624)
+- styling for table in gift registry items (#81936)
+- quantity styling in table when product name is too long (#81950)
+- error on privacy settings section in account settings (#81873)
+- cookie modal not showing when clicking save button (#81873)
+- some icons a11y in templates (#80844)
+### Changed
+- moved catalog grid scss variables to separate file (#81732)
+- move all content to the left for product list view on mobile (#81767)
+- restored cookie-settings page for Amasty GDPR (#81873)
+- `xlink:href` (deprecated) to `href` (#80844)
+- some icons code in templates to lower the number of icon related requests (#80844)
+### Updated
+- bump select2, `select--search` component (#80105, #81472)
+- cookie settings modal to new version of Amasty GDPR (#81873)
+- styling for cookie table information (#81873)
+### Removed
+- svg4everybody (no longer needed for browser support (#80844)
+
+## [Released]
+## [2.23.0] - 2021-08-03
+### Added
+- yireo/magento2-webp2 package for webp images (#72754)
+### Fixed
+- duplicated loader on PDP (#79360)
+- quickorder search suggestions styling (#78133)
+- select2 a11y - element `span[aria-labelledby="select2-sorter-container"] > .select2-selection__arrow[role="presentation"] > b` shouldn't have ARIA role presentation (#80452)
+- shopping cart - visually hide qty label instead of display none (#80422)
+- `aria-label` in gallery (#80417)
+- add to cart sticky shouldn't have focusable elements when it has `aria-hidden="true"` (#80420)
+- some a11y issues in checkout (#80424)
+- gallery navigation not showing on load (#80752)
+- gallery placeholder not showing on load and jumping image on load (#80752)
+- shopping cart - product image not visible (#80868)
+### Changed
+- instead of using atomic classes for some page heading styles added in a lot of places, created a new class for easier customization (#80498)
+- magnificPopup to Alpaca custom modal for Webforms, updated submit and button template to the newest version (#80758)
+- disable locate nearby button until ajax call is executed (#80047)
+### Updated
+- adjusted styles for webp images (#72754)
+- store locator to the newest version (#80756)
+
+### Removed
+- lazy loading for slider and banner images (#72754)
+- authentication popup (#79679)
+
+## [2.22.0] - 2021-06-17
+### Added
+- focus state for amlocator route creator icons (#73168)
+### Fixed
+- code cleanup (#77782)
+- aos error & button add to cart sticky text on edit product in shopping cart page (#79328)
+- missing `_` in translations (#79500)
+- incorrent unit in store distance (#73168)
+- store review stars & input styling (#73168)
+- multishipping and requisition list styling (#79008)
+### Updated
+- unified store locator buttons styling (#73168)
+- store locator range slider replaced with noUiSlider (#73168)
+- store locator thumbnails `object-fit` set to cover (#73168)
+- route creator colors (#73168)
+## [2.21.0] - 2021-06-09
+### Updated
+- gallery style variables (#78380)
+### Fixed
+- empty product reviews list in customer dashboard (#78932)
+- safari tab scroll issue on PDP (#78961)
+- quantity update button styles on focus (#79275)
+- escaper method used in qtyUpdater data-mage-init (#78380)
+
+## [2.20.0] - 2021-05-24
+### Fixed
+- duplicated ids for msrp price popup (#78814)
+### Added
+- margin top to quote button in cart (#78684)
+### Updated
+- tabs component accessibility
+## [2.19.3] - 2021-05-18
+### Fixed
+- fix product display with long names in minicart (#78748)
+
+## [2.19.2] - 2021-05-18
+### Fixed
+- fix sales status label (#78562)
+
+## [2.19.1] - 2021-05-17
+### Fixed
+- not visible images in minicart (#78682)
+
+## [2.19.0] - 2021-05-12
+### Fixed
+- image ratio in recently viewed widget & wishlist (#77269)
 - password trigger on reset password page (#78130)
+- checkout agreement checkbox text on multishipping page (#78227)
+### Added
+- styles for Braintree Credit Card form on multishipping page (#78227)
 - typo in checkout subtotal (#78230)
 - Magento_Ui dropdown styles mixin position (#78230)
 - price doesn't update on PDP after filling out product customizable options - type field and area (#78230)
 - not centered images on full screen (#78144)
-
-## [Released]
+- validation for google and apple pay buttons (#78181)
 ## [2.18.0] - 2021-04-21
 ### Added
 - titles for compare and wishlist buttons (#77368)
@@ -65,6 +165,18 @@ All notable changes to this project will be documented in this file.
 ## [2.13.0] - 2021-01-21
 ### Updated
 - theme to Magento 2.4.1 (#70133)
+
+## [2.12.1] - 2021-02-08
+### Updated
+- theme to Magento 2.3.6.p1 (#75169)
+### Fixed
+- error on multishipping page (#75169)
+- error on EE checkout (#75169)
+### Added
+- requirement verification for captcha (#75169)
+- cookie options in sidebar mixin (#75169)
+### Changed
+- Update escaping functions for captcha and multishipping (#75169)
 
 ## [2.12.0] - 2021-01-19
 ### Updated

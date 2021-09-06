@@ -113,10 +113,14 @@
                                         <?= $block->escapeHtml(__('Qty')) ?>
                                     </label>
                                     <div
-                                        class="quantity-update addon"
+                                        class="
+                                            quantity-update
+                                            quantity-update--no-buttons-m
+                                            addon
+                                        "
                                         data-mage-init='{ "qtyUpdater": {
-                                            "increaseText": "<?= $block->escapeHtml(__('The quantity was increased to')) ?>",
-                                            "decreseText": "<?= $block->escapeHtml(__('The quantity was decreased to')) ?>"
+                                            "increaseText": "<?= $block->escapeJs(__('The quantity was increased to')) ?>",
+                                            "decreseText": "<?= $block->escapeJs(__('The quantity was decreased to')) ?>"
                                         } }'
                                     >
                                         <button
@@ -139,7 +143,7 @@
                                                 role="presentation"
                                                 focusable="false"
                                             >
-                                                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#minus')); ?>"></use>
+                                                <use href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#minus')); ?>"></use>
                                             </svg>
                                         </button>
 
@@ -167,7 +171,7 @@
                                                 quantity-update__button--plus
                                             "
                                             type="button"
-                                            aria-label="<?= $block->escapeHtmlAttr(_('Increase the quantity')) ?>"
+                                            aria-label="<?= $block->escapeHtmlAttr(__('Increase the quantity')) ?>"
                                             data-testid="quantity-plus-button"
                                         >
                                             <svg
@@ -179,7 +183,7 @@
                                                 role="presentation"
                                                 focusable="false"
                                             >
-                                                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#plus')); ?>"></use>
+                                                <use href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#plus')); ?>"></use>
                                             </svg>
                                         </button>
                                         <p
@@ -233,18 +237,28 @@
                                 data-th="<?= $block->escapeHtmlAttr(__('Actions')) ?>"
                                 role="gridcell"
                             >
-                                <a
-                                    href="#"
-                                    title="<?= $block->escapeHtmlAttr(__('Remove Item')) ?>"
-                                    class="action delete"
-                                    data-multiship-item-remove=""
-                                    data-post='<?= /* @noEscape */
-                                        $this->helper(\Magento\Framework\Data\Helper\PostHelper::class)
-                                        ->getPostData($block->getItemDeleteUrl($_item))
-                                    ?>'
-                                >
-                                    <?= $block->escapeHtml(__('Remove item')) ?>
-                                </a>
+                                <div class="actions-group">
+                                    <div class="actions-group__handler">
+                                        <a
+                                            href="#"
+                                            title="<?= $block->escapeHtmlAttr(__('Remove Item')) ?>"
+                                            class="
+                                                button
+                                                button--link
+                                                actions-group__link
+                                                action
+                                                delete
+                                            "
+                                            data-multiship-item-remove=""
+                                            data-post='<?= /* @noEscape */
+                                                $this->helper(\Magento\Framework\Data\Helper\PostHelper::class)
+                                                ->getPostData($block->getItemDeleteUrl($_item))
+                                            ?>'
+                                        >
+                                            <?= $block->escapeHtml(__('Remove item')) ?>
+                                        </a>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                     <?php endif; ?>

@@ -3,21 +3,21 @@
 ?>
 <?php if (count($block->getStores()) > 1) : ?>
     <?php $id = $block->getIdModifier() ? '-' . $block->getIdModifier() : '' ?>
-    <div 
+    <div
         class="
             dropdown-list
             dropdown-list--detailed-content
             footer__dropdown-switcher
             margin-right-xs
-        " 
-        data-ui-id="language-switcher" 
+        "
+        data-ui-id="language-switcher"
         data-mage-init='{ "dropdownList": {} }'
         id="switcher-language<?= $block->escapeHtmlAttr($id) ?>"
     >
-        <div 
+        <div
             class="
-                actions 
-                dropdown 
+                actions
+                dropdown
                 options
                 switcher-options
             "
@@ -40,11 +40,10 @@
                                 icon
                                 dropdown-list__icon
                             "
-                            aria-hidden="true"
-                            role="img"
+                            role="presentation"
+                            focusable="false"
                         >
-                            <title><?= $block->escapeHtml(__('Arrow Down')); ?></title>
-                            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#angle-down')) ?>"></use>
+                            <use href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#angle-down')) ?>"></use>
                         </svg>
                     </button>
                     <div
@@ -52,20 +51,20 @@
                         class="dropdown-list__content"
                         aria-hidden="true"
                     >
-                        <ul 
+                        <ul
                             class="list"
                             data-target="dropdown"
                         >
                             <?php foreach ($block->getStores() as $_lang) : ?>
                                 <?php if ($_lang->getId() != $block->getCurrentStoreId()) : ?>
-                                    <li 
+                                    <li
                                         class="
                                             list__item
-                                            view-<?= $block->escapeHtml($_lang->getCode()) ?> 
+                                            view-<?= $block->escapeHtml($_lang->getCode()) ?>
                                             switcher-option
                                         "
                                     >
-                                        <a 
+                                        <a
                                             href="<?= $block->escapeUrl($block->getViewModel()->getTargetStoreRedirectUrl($_lang)) ?>"
                                             class="link"
                                             title="<?= $block->escapeHtmlAttr($_lang->getName()) ?>"
@@ -79,7 +78,7 @@
                     </div>
                 </li>
             </ul>
-    
+
         </div>
     </div>
 <?php endif; ?>
