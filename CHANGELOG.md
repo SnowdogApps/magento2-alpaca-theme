@@ -20,6 +20,7 @@ All notable changes to this project will be documented in this file.
 - error on privacy settings section in account settings (#81873)
 - cookie modal not showing when clicking save button (#81873)
 - some icons a11y in templates (#80844)
+- Quote reorder popup when having items in cart not displaying correctly (#82047)
 ### Changed
 - moved catalog grid scss variables to separate file (#81732)
 - move all content to the left for product list view on mobile (#81767)
