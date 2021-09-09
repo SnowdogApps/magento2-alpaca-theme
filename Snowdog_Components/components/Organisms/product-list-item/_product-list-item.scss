@@ -34,7 +34,7 @@
         @include mq($screen-m) {
             margin: $product-list-item__image-margin\@medium;
             flex-basis: $product-list-item__image-width\@medium;
-            width: $product-list-item__image-width\@medium;
+            min-width: $product-list-item__image-width\@medium;
         }
 
         @include mq($screen-xl) {
@@ -106,7 +106,6 @@
         &:hover {
             color: $product-list-item__name-color-hover;
             text-decoration: $product-list-item__name-decoration-hover;
-
         }
     }
 
@@ -143,12 +142,14 @@
 
         dl {
             @extend .list--description;
+
             color: $product-list-item__list-color;
         }
 
         dt {
             @extend .list__label;
             @extend %bullet;
+
             position: relative;
             padding: $product-list-item__list-label-padding;
         }
@@ -156,13 +157,12 @@
         dd {
             @extend .list__value;
         }
-
     }
 
     &__actions {
         display: flex;
         flex-flow: row wrap;
-        justify-content: flex-end;
+        justify-content: flex-start;
         align-items: center;
 
         @include mq($screen-m) {
@@ -184,7 +184,6 @@
             @include mq($screen-m) {
                 margin: $product-list-item__action-margin\@medium;
             }
-
         }
 
         &--ee {
@@ -193,6 +192,10 @@
 
             .button--tocompare {
                 background-color: $product-list-item-ee__tocompare-background-color;
+            }
+
+            .button--wishlist {
+                background-color: $product-list-item-ee__towishlist-background-color;
             }
 
             .button {
@@ -311,6 +314,7 @@
 
         .button--add-to {
             @include add-to-button($product-list-item__add-to-icon-display);
+
             padding: $spacer;
 
             @include mq($screen-m) {
@@ -379,12 +383,18 @@
     .swatch {
         &__container--catalog {
             .loader__icon {
-                margin:  $product-list-item__swatch-loader-icon-margin;
+                margin: $product-list-item__swatch-loader-icon-margin;
             }
         }
 
         &__wrapper {
-            justify-content: flex-end;
+            justify-content: flex-start;
+            margin-left: -$swatch__option-padding--catalog;
+
+            @include mq($screen-m) {
+                justify-content: flex-end;
+                margin-left: 0;
+            }
         }
     }
 }

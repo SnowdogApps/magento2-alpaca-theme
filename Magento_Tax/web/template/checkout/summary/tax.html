@@ -1,0 +1,63 @@
+<!-- ko if: ifShowValue() && !ifShowDetails() -->
+    <li class="order-summary__list-item">
+        <span
+            data-bind="text: title"
+            class="order-summary__label"
+        />
+
+        <span
+            class="order-summary__value"
+            data-bind="text: getValue()"
+        />
+    </li>
+<!-- /ko -->
+
+<!-- ko if: ifShowValue() && ifShowDetails() -->
+    <li
+        class="order-summary__list-item"
+        data-bind="mageInit: {
+            'toggleAdvanced':{
+                'selectorsToggleClass': 'shown',
+                'baseToggleClass': 'expanded',
+                'toggleContainers': '.totals-tax-details'
+            }
+        }"
+    >
+        <span
+            class="order-summary__label"
+            data-bind="text: title"
+        />
+
+        <span
+            class="order-summary__value"
+            data-bind="text: getValue()"
+        />
+    </li>
+
+    <!-- ko foreach: getDetails() -->
+        <!-- ko foreach: rates -->
+            <li class="order-summary__list-item">
+                <!-- ko if: percent -->
+                    <span
+                        class="order-summary__label"
+                        data-bind="text: title + ' (' + percent + '%)'"
+                    />
+                <!-- /ko -->
+
+                <!-- ko if: !percent -->
+                    <span
+                        class="order-summary__label"
+                        data-bind="text: title"
+                    />
+                <!-- /ko -->
+
+                <!-- ko ifnot: $parents[1].isCalculated() -->
+                    <span
+                        class="order-summary__value"
+                        data-bind="text: $parents[1].formatPrice($parents[0].amount)"
+                    />
+                <!-- /ko -->
+            </li>
+        <!-- /ko -->
+    <!-- /ko -->
+<!-- /ko -->

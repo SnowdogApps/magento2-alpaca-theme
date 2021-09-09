@@ -8,8 +8,39 @@ All notable changes to this project will be documented in this file.
 ### Updated
 ### Removed
 
-
 ## [Released]
+## [2.24.0] - 2021-09-09
+### Added
+- column template variables for catalog grid styles (#81732)
+- 'Recently viewed' component in fractal product bundle and product grouped templates
+- fractal template for gift registy items (#81936)
+- background color for 'Add to wishlist' button (#81767)
+### Fixed
+ - webforms templates (#79614)
+- jquery and fotorama don't use passive listeners to improve scrolling performance (#72752)
+- styling for store credit checkbox in multishipping checkout (#81559)
+- tax field styling on checkout (#81627)
+- styling for payment & shipping information on company profile page (#81661)
+- user role styling on My Account page (#81750)
+- border styling for multishipping view (#81624)
+- styling for table in gift registry items (#81936)
+- quantity styling in table when product name is too long (#81950)
+- error on privacy settings section in account settings (#81873)
+- cookie modal not showing when clicking save button (#81873)
+- some icons a11y in templates (#80844)
+- Quote reorder popup when having items in cart not displaying correctly (#82047)
+### Changed
+- moved catalog grid scss variables to separate file (#81732)
+- move all content to the left for product list view on mobile (#81767)
+- restored cookie-settings page for Amasty GDPR (#81873)
+- `xlink:href` (deprecated) to `href` (#80844)
+- some icons code in templates to lower the number of icon related requests (#80844)
+### Updated
+- bump select2, `select--search` component (#80105, #81472)
+- cookie settings modal to new version of Amasty GDPR (#81873)
+- styling for cookie table information (#81873)
+### Removed
+- svg4everybody (no longer needed for browser support (#80844)
 ## [2.23.0] - 2021-08-03
 ### Added
 - yireo/magento2-webp2 package for webp images (#72754)
@@ -26,6 +57,7 @@ All notable changes to this project will be documented in this file.
 - shopping cart - product image not visible (#80868)
 ### Changed
 - instead of using atomic classes for some page heading styles added in a lot of places, created a new class for easier customization (#80498)
+- magnificPopup to Alpaca custom modal for Webforms, updated submit and button template to the newest version (#80758)
 - disable locate nearby button until ajax call is executed (#80047)
 ### Updated
 - adjusted styles for webp images (#72754)
@@ -140,6 +172,18 @@ All notable changes to this project will be documented in this file.
 ## [2.13.0] - 2021-01-21
 ### Updated
 - theme to Magento 2.4.1 (#70133)
+
+## [2.12.1] - 2021-02-08
+### Updated
+- theme to Magento 2.3.6.p1 (#75169)
+### Fixed
+- error on multishipping page (#75169)
+- error on EE checkout (#75169)
+### Added
+- requirement verification for captcha (#75169)
+- cookie options in sidebar mixin (#75169)
+### Changed
+- Update escaping functions for captcha and multishipping (#75169)
 
 ## [2.12.0] - 2021-01-19
 ### Updated

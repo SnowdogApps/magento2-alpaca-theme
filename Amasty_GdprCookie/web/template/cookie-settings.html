@@ -1,0 +1,80 @@
+<form
+    id="amgdprcookie-form"
+    class="amgdprcookie-settings-form"
+    data-amcookie-js="form-cookie"
+>
+    <div class="margin-bottom-xl">
+        <!-- ko foreach: items -->
+            <section class="section">
+                <div class="checkbox">
+                    <input
+                        type="checkbox"
+                        data-amcookie-js="field"
+                        name="groups[]"
+                        class="checkbox__field"
+                        data-bind="
+                            value: groupId,
+                            attr: {
+                                id: 'switchBox-' + groupId,
+                                disabled: isEssential
+                            },
+                            checked: checked
+                        "
+                    />
+                    <svg
+                        class="
+                            checkbox__icon
+                            checkbox__icon--checked
+                        "
+                        role="presentation"
+                        focusable="false"
+                    >
+                        <use href="" data-bind="attr: { href: require.toUrl('images/icons-sprite.svg#checked') }"></use>
+                    </svg>
+                    <svg
+                        class="
+                            checkbox__icon
+                            checkbox__icon--unchecked
+                        "
+                        role="presentation"
+                        focusable="false"
+                    >
+                        <use href="" data-bind="attr: { href: require.toUrl('images/icons-sprite.svg#unchecked') }"></use>
+                    </svg>
+                    <label
+                        class="checkbox__label"
+                        data-bind="
+                            attr: {
+                                for: 'widget-switch-box-' + $index()
+                            },
+                            i18n: $data.name
+                        "
+                    ></label>
+                </div>
+                <p class="amgdprcookie-text" data-bind="text: description"></p>
+                <a
+                    href="/cookie-settings"
+                    class="link"
+                    target="_blank"
+                    data-bind="
+                        i18n: 'More Information',
+                    "
+                ></a>
+                <p data-bind="text: $parent.settingsLink"></p>
+            </section>
+        <!-- /ko -->
+    </div>
+    <div class="modal__bottom margin-bottom-l">
+        <div class="modal__bottom-actions">
+            <div class="modal__bottom-action">
+                <button
+                    class="button"
+                    data-bind="
+                        text: $t('Done'),
+                        click: $parent.saveCookie.bind($parent, $element, $data)
+                    "
+                ></button>
+            </div>
+        </div>
+    </div>
+</form>

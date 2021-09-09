@@ -1,6 +1,6 @@
 <?php
-// TODO: Add proper escaping methods e.g $block->escapeHtmlAttr(), format code, remove echo
-/** @var VladimirPopov\WebForms\Block\Form $this */ ?>
+/** @var VladimirPopov\WebForms\Block\Form $this */
+?>
 <?php $_uid = $this->getUid(); ?>
 <div
     class="
@@ -11,25 +11,34 @@
 >
     <div class="margin-bottom-xs">
         <strong>
-            <?= $block->escapeHtml($this->getForm()->getName()) ?>
+            <?= $escaper->escapeHtml($this->getForm()->getName()) ?>
         </strong>
     </div>
     <div class="block-content">
 
         <?php
-        /** @var VladimirPopov\WebForms\Block\Form $this */
-
-        // in case redirect fails
-
-        if ($this->getRegistry()->registry('redirect_url')) {
+        /**
+         * @var VladimirPopov\WebForms\Block\Form $this
+         * in case redirect fails
+         */
         ?>
-            <meta http-equiv="refresh" content="0;url=<?= $block->escapeUrl($this->getRegistry()->registry('redirect_url')) ?>">
+        <?php if ($this->getRegistry()->registry('redirect_url')): ?>
+            <meta
+                http-equiv="refresh"
+                content="
+                    0;url=<?= $escaper->escapeUrl($this->getRegistry()->registry('redirect_url')) ?>
+                "
+            >
             <script type="text/javascript">
-                window.location = '<?= $block->escapeJs($block->escapeUrl($this->getRegistry()->registry('redirect_url'))) ?>';
+                window.location = '<?=
+                    $escaper->escapeJs(
+                        $escaper->escapeUrl(
+                            $this->getRegistry()->registry('redirect_url')
+                        )
+                    ) ?>';
             </script>
+        <?php endif; ?>
         <?php
-        }
-
         // get temporary data
         $tmpData = $this->getSession()->getData('webform_result_tmp_' . $this->getForm()->getId());
         $tmpResult = new \Magento\Framework\DataObject;
@@ -38,268 +47,313 @@
                 $tmpResult->setData('field_' . $field_id, $value);
             }
         }
-        if ($this->getForm()->getIsActive() == \VladimirPopov\WebForms\Model\Form::STATUS_DISABLED || !$this->isDirectAvailable()) {
-            /* @noEscape */ echo $this->getNotAvailableMessage();
-        } else { ?>
-
-            <?php if ($this->isAjax()) { ?>
+        ?>
+        <?php if (
+                $this->getForm()->getIsActive() == \VladimirPopov\WebForms\Model\Form::STATUS_DISABLED ||
+                !$this->isDirectAvailable()
+            ):
+        ?>
+            <?= /* @noEscape */ $this->getNotAvailableMessage() ?>
+        <?php else: ?>
+            <?php if ($this->isAjax()): ?>
                 <div
-                    id="webform_<?= $block->escapeHtmlAttr($_uid) ?>_success_text"
-                    class="std webforms-success-text"
-                    style="display:none"
+                    id="webform_<?= $escaper->escapeHtmlAttr($_uid) ?>_success_text"
+                    class="
+                        std
+                        webforms-success-text
+                        display-none
+                    "
                 ></div>
-            <?php } ?>
+            <?php endif; ?>
 
-            <?php
-            if ($this->getSuccess()) {
-            ?>
+            <?php if ($this->getSuccess()): ?>
                 <div class="webforms-success-text">
                     <?= /* @noEscape */ $this->getSuccessText() ?>
                 </div>
-            <?php
-            }
-            if (!$this->getSuccess() || $this->getData('after_submission_form')) {
+            <?php endif; ?>
+
+            <?php if (
+                    !$this->getSuccess() ||
+                    $this->getData('after_submission_form')
+                ):
             ?>
                 <div
-                    id="webform_<?= $block->escapeHtmlAttr($_uid) ?>_form"
+                    id="webform_<?= $escaper->escapeHtmlAttr($_uid) ?>_form"
                     class="webforms"
                 >
-                    <?php if ($this->getDescription()) { ?>
+                    <?php if ($this->getDescription()): ?>
                         <div class="webforms-description-text">
                             <?= /* @noEscape */ $this->getDescription(); ?>
                         </div>
-                    <?php } ?>
+                    <?php endif; ?>
 
-                    <?php if ($this->isAjax()) { ?>
+                    <?php if ($this->isAjax()): ?>
                         <iframe
-                            id="webform_<?= $block->escapeHtmlAttr($_uid) ?>_iframe"
-                            name="webform_<?= $block->escapeHtmlAttr($_uid) ?>_iframe"
+                            id="webform_<?= $escaper->escapeHtmlAttr($_uid) ?>_iframe"
+                            name="webform_<?= $escaper->escapeHtmlAttr($_uid) ?>_iframe"
                             style="width:0;height:0;border:0;position:absolute"
                         ></iframe>
-                    <?php } ?>
+                    <?php endif; ?>
 
                     <form
                         class="form"
-                        action="<?= $block->escapeUrl($this->getFormAction()) ?>"
+                        action="<?= $escaper->escapeUrl($this->getFormAction()) ?>"
                         method="post"
-                        name="webform_<?= $block->escapeHtmlAttr($_uid) ?>"
-                        id="webform_<?= $block->escapeHtmlAttr($_uid) ?>"
-                        enctype="<?= $block->escapeHtmlAttr($this->getEnctype()) ?>"
-                        class="webforms-<?= $block->escapeHtmlAttr($this->getForm()->getCode()) ?>"
-                        <?php if ($this->isAjax()) { ?>
-                            target="webform_<?= $block->escapeHtmlAttr($_uid) ?>_iframe"
-                        <?php } ?>>
-
+                        name="webform_<?= $escaper->escapeHtmlAttr($_uid) ?>"
+                        id="webform_<?= $escaper->escapeHtmlAttr($_uid) ?>"
+                        enctype="<?= $escaper->escapeHtmlAttr($this->getEnctype()) ?>"
+                        class="webforms-<?= $escaper->escapeHtmlAttr($this->getForm()->getCode()) ?>"
+                        <?php if ($this->isAjax()): ?>
+                            target="webform_<?= $escaper->escapeHtmlAttr($_uid) ?>_iframe"
+                        <?php endif; ?>
+                    >
                         <input
                             name="form_key"
                             type="hidden"
-                            value="<?= $block->escapeHtmlAttr($this->getFormKey()) ?>"
+                            value="<?= $escaper->escapeHtmlAttr($this->getFormKey()) ?>"
                         />
                         <input
                             type="hidden"
-                            name="submitForm_<?= $block->escapeHtmlAttr($this->getForm()->getId()) ?>"
+                            name="submitForm_<?= $escaper->escapeHtmlAttr($this->getForm()->getId()) ?>"
                             value="1"
                         />
                         <input
                             type="hidden"
                             name="webform_id"
-                            value="<?= $block->escapeHtmlAttr($this->getForm()->getId()) ?>"
+                            value="<?= $escaper->escapeHtmlAttr($this->getForm()->getId()) ?>"
                         />
 
-                        <?php if (is_array($this->getData('hidden'))) {
-                            foreach ($this->getData('hidden') as $key => $value) {
-                        ?>
+                        <?php if (is_array($this->getData('hidden'))): ?>
+                            <?php foreach ($this->getData('hidden') as $key => $value): ?>
                                 <input
-                                    ype="hidden"
-                                    name="<?= $block->escapeHtmlAttr($key) ?>"
-                                    value="<?= $block->escapeHtmlAttr($value) ?>"
+                                    type="hidden"
+                                    name="<?= $escaper->escapeHtmlAttr($key) ?>"
+                                    value="<?= $escaper->escapeHtmlAttr($value) ?>"
                                 />
-                        <?php
-                            }
-                        } ?>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
 
-                        <?php if (count($this->getForm()->_getHidden())) {
-                            foreach ($this->getForm()->_getHidden() as $field) {
-                                echo $field->toHtml();
-                            }
-                        } ?>
-
-                        <?php foreach ($this->getForm()->_getFieldsToFieldsets() as $fieldset_id => $fieldset) { ?>
-
+                        <?php if (count($this->getForm()->_getHidden())): ?>
+                            <?php foreach ($this->getForm()->_getHidden() as $field): ?>
+                                <?= $field->toHtml() ?>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                        <!-- field_to_fieldsets -->
+                        <?php foreach ($this->getForm()->_getFieldsToFieldsets() as $fieldset_id => $fieldset): ?>
                             <fieldset
-                                id="fieldset_<?= $block->escapeHtmlAttr($_uid) . $block->escapeHtmlAttr($fieldset_id) ?>"
+                                id="fieldset_<?= $escaper->escapeHtmlAttr($_uid) . $escaper->escapeHtmlAttr($fieldset_id) ?>"
                                 class="
                                     fieldset
-                                    fieldset-<?= $block->escapeHtmlAttr($fieldset_id) ?>
-                                    <?php if (!empty($fieldset['css_class'])) echo $block->escapeHtmlAttr($fieldset['css_class']); ?>
+                                    fieldset-<?= $escaper->escapeHtmlAttr($fieldset_id) ?>
+                                    <?php if (!empty($fieldset['css_class'])): ?>
+                                        <?= $escaper->escapeHtmlAttr($fieldset['css_class']) ?>
+                                    <?php endif; ?>
+                                    <?php if (
+                                            $fieldset['logic_visibility'] == \VladimirPopov\WebForms\Model\Logic::VISIBILITY_HIDDEN
+                                        ):
+                                    ?>
+                                        display-none
+                                    <?php endif; ?>
                                 "
                                 style="
-                                    <?php if (!empty($fieldset['css_style'])) echo $block->escapeHtmlAttr($fieldset['css_style']) . ";"; ?>
-                                    <?php if ($fieldset['logic_visibility'] == \VladimirPopov\WebForms\Model\Logic::VISIBILITY_HIDDEN) echo 'display:none'; ?>
+                                    <?php if (!empty($fieldset['css_style'])): ?>
+                                        <?= $escaper->escapeHtmlAttr($fieldset['css_style']) . ";" ?>
+                                    <?php endif; ?>
                                 "
                                 role="group"
-                                aria-labelledby="legend_<?= $block->escapeHtmlAttr($_uid) . $block->escapeHtmlAttr($fieldset_id) ?>"
+                                aria-labelledby="legend_<?= $escaper->escapeHtmlAttr($_uid) . $escaper->escapeHtmlAttr($fieldset_id) ?>"
                             >
-
-                                <?php if (!empty($fieldset['name'])) { ?>
+                                <?php if (!empty($fieldset['name'])): ?>
                                     <legend
                                         class="legend"
-                                        id="legend_<?= $block->escapeHtmlAttr($_uid) . $block->escapeHtmlAttr($fieldset_id) ?>"
+                                        id="legend_<?= $escaper->escapeHtmlAttr($_uid) . $escaper->escapeHtmlAttr($fieldset_id) ?>"
                                     >
-                                        <?= $block->escapeHtmlAttr($fieldset['name']) ?>
+                                        <?= $escaper->escapeHtmlAttr($fieldset['name']) ?>
                                     </legend>
-                                <?php } ?>
+                                <?php endif; ?>
 
-                                <?php
-                                foreach ($fieldset['fields'] as $field) {
-                                    // set temporary value
-                                    $field->setData('result', $tmpResult);
-                                    $field->setData('uid', $_uid);
-                                    $field_css_type = 'type-' . str_replace('/', '-', $field->getType());
-                                    if ($field->getType() == 'subscribe') $field_css_type .= ' choice';
-                                ?>
+
+                                <?php foreach ($fieldset['fields'] as $field): ?>
+                                    <?php
+                                        $field->setData('result', $tmpResult);
+                                        $field->setData('uid', $_uid);
+                                        $field_css_type = 'type-' . str_replace('/', '-', $field->getType());
+                                        if ($field->getType() == 'subscribe') {
+                                            $field_css_type .= ' choice';
+                                        }
+                                    ?>
                                     <div
-                                        id="field_<?= $block->escapeHtmlAttr($this->getFieldUid($field->getId())) ?>"
+                                        id="field_<?= $escaper->escapeHtmlAttr($this->getFieldUid($field->getId())) ?>"
                                         class="
                                             field
-                                            <?= $block->escapeHtmlAttr($field->getCssClassContainer()) ?>
-                                            <?= $block->escapeHtmlAttr($field_css_type) ?> webforms-fields-<?= $block->escapeHtmlAttr($field->getId()) ?>
-                                            <?php if ($field->getCode()) { ?> webforms-fields-<?= $block->escapeHtmlAttr($field->getCode());} ?>
-                                            <?php if ($field->getRequired()) { ?>required<?php } ?>"
-                                            <?php if ($field->getData('logic_visibility') == \VladimirPopov\WebForms\Model\Logic::VISIBILITY_HIDDEN) echo 'style="display:none"'; ?>
-                                        >
-
-                                        <?php if ($field->getType() != 'html' && $field->getType() != 'subscribe' && !$field->getHideLabel()) { ?>
+                                            <?= $escaper->escapeHtmlAttr($field->getCssClassContainer()) ?>
+                                            <?= $escaper->escapeHtmlAttr($field_css_type) ?>
+                                            webforms-fields-<?= $escaper->escapeHtmlAttr($field->getId()) ?>
+                                            <?php if ($field->getCode()): ?>
+                                                webforms-fields-<?= $escaper->escapeHtmlAttr($field->getCode()) ?>
+                                            <?php endif; ?>
+                                            <?php if ($field->getRequired()): ?>
+                                                required
+                                            <?php endif; ?>
+                                            <?php if (
+                                                    $field->getData('logic_visibility') == \VladimirPopov\WebForms\Model\Logic::VISIBILITY_HIDDEN
+                                                ):
+                                            ?>
+                                                display-none
+                                            <?php endif; ?>
+                                        "
+                                    >
+                                        <?php if (
+                                                $field->getType() != 'html' &&
+                                                $field->getType() != 'subscribe' &&
+                                                !$field->getHideLabel()
+                                            ):
+                                        ?>
                                             <label
                                                 class="label"
-                                                id="label_field<?= $block->escapeHtmlAttr($this->getFieldUid($field->getId())) ?>"
-                                                for="field<?= $block->escapeHtmlAttr($this->getFieldUid($field->getId())) ?>"
+                                                id="label_field<?= $escaper->escapeHtmlAttr($this->getFieldUid($field->getId())) ?>"
+                                                for="field<?= $escaper->escapeHtmlAttr($this->getFieldUid($field->getId())) ?>"
                                             >
-                                                <?= $block->escapeHtml($field->getName()) ?>
-                                                <?php
-                                                $tooltip = $field->getTooltip();
-                                                if ($tooltip) {
-                                                    echo $this->getLayout()->createBlock(
-                                                        'VladimirPopov\WebForms\Block\Script\Tooltip',
-                                                        null
-                                                    )->setField($field)->setTooltip($tooltip)->toHtml();
-                                                }
-                                                ?>
+                                                <?= $escaper->escapeHtml($field->getName()) ?>
+                                                <?php $tooltip = $field->getTooltip(); ?>
+                                                <?php if ($tooltip): ?>
+                                                    <?= $this
+                                                            ->getLayout()
+                                                            ->createBlock(
+                                                                'VladimirPopov\WebForms\Block\Script\Tooltip',
+                                                                null
+                                                            )->setField($field)->setTooltip($tooltip)->toHtml();
+                                                    ?>
+                                                <?php endif; ?>
                                             </label>
-                                        <?php } ?>
-
+                                        <?php endif; ?>
                                         <div class="control">
                                             <?= $field->toHtml(); ?>
-
-                                            <?php if ($field->getValidationAdvice()) { ?>
+                                            <?php if ($field->getValidationAdvice()): ?>
                                                 <div
-                                                    style="display:none"
-                                                    class="validation-advice"
-                                                    id="advice-required-entry-field<?= $block->escapeHtmlAttr($this->getFieldUid($field->getId())) ?>"
+                                                    class="
+                                                        validation-advice
+                                                        display-none
+                                                    "
+                                                    id="advice-required-entry-field<?= $escaper->escapeHtmlAttr($this->getFieldUid($field->getId())) ?>"
                                                 >
                                                     <?= /* @noEscape */ $field->getValidationAdvice() ?>
                                                 </div>
-                                            <?php } ?>
-
-                                            <?php if ($field->getComment()) { ?>
+                                            <?php endif; ?>
+                                            <?php if ($field->getComment()): ?>
                                                 <p class="webforms-fields-comment">
-                                                    <?= /* @noEscape */ nl2br($block->escapeHtml($field->getComment())) ?>
+                                                    <?= nl2br($escaper->escapeHtml($field->getComment())) ?>
                                                 </p>
-                                            <?php } ?>
+                                            <?php endif; ?>
                                         </div>
                                     </div>
-                                <?php } ?>
+                                <?php endforeach; ?>
                             </fieldset>
+                        <?php endforeach; ?>
+                        <!-- /field_to_fieldsets -->
 
-                        <?php } // foreach 'fields_to_fieldsets'
-                        ?>
-
-                        <?= $this->getLayout()->createBlock(
-                            'VladimirPopov\WebForms\Block\Script\Gdpr',
-                            null,
-                            ['data' => [
-                                'uid' => $_uid
-                            ]]
-                        )->setForm($this->getForm())->toHtml();
+                        <?=
+                            $this
+                                ->getLayout()
+                                ->createBlock(
+                                    'VladimirPopov\WebForms\Block\Script\Gdpr',
+                                    null,
+                                    [
+                                        'data' => [
+                                            'uid' => $_uid
+                                        ]
+                                    ]
+                                )->setForm($this->getForm())->toHtml();
                         ?>
 
                         <div
-                            id="submit<?= $block->escapeHtmlAttr($_uid) ?>"
+                            id="submit<?= $escaper->escapeHtmlAttr($_uid) ?>"
                             class="
                                 actions-toolbar
                                 <?= ($this->getSubmitVisibility() == 'hidden') ? 'display-none' : '' ?>
                             "
                         >
-                            <?php if ($this->getForm()->useCaptcha()) { ?>
+                            <?php if ($this->getForm()->useCaptcha()): ?>
                                 <div class="recaptcha">
                                     <?= $this->getCaptcha()->getHTML() ?>
                                 </div>
-                            <?php } ?>
+                            <?php endif; ?>
 
-                            <?php if ($this->honeypot()) {
-                                echo $this->getLayout()->createBlock(
-                                    'Magento\Framework\View\Element\Template',
-                                    null,
-                                    [
-                                        'data' => [
-                                            'webform_id' => $this->getForm()->getId(),
-                                            'template' => 'VladimirPopov_WebForms::webforms/scripts/honeypot.phtml'
-                                        ]
-                                    ]
-                                )->toHtml();
-                            } ?>
+                            <?php if ($this->honeypot()): ?>
+                                <?=
+                                    $this
+                                        ->getLayout()
+                                        ->createBlock(
+                                            'Magento\Framework\View\Element\Template',
+                                            null,
+                                            [
+                                                'data' => [
+                                                    'webform_id' => $this->getForm()->getId(),
+                                                    'template' => 'VladimirPopov_WebForms::webforms/scripts/honeypot.phtml'
+                                                ]
+                                            ]
+                                        )->toHtml();
+                                ?>
+                            <?php endif; ?>
 
                             <div class="primary">
                                 <button
                                     type="submit"
                                     class="button action submit primary"
-                                    id="webform_<?= $block->escapeHtmlAttr($_uid) ?>_submit_button"
-                                    title="<?= $block->escapeHtmlAttr(__($this->getForm()->getSubmitButtonText())) ?>"
+                                    id="webform_<?= $escaper->escapeHtmlAttr($_uid) ?>_submit_button"
+                                    title="<?= $escaper->escapeHtmlAttr(__($this->getForm()->getSubmitButtonText())) ?>"
                                     onclick="return false;"
                                 >
-                                    <?= $block->escapeHtml(__($this->getForm()->getSubmitButtonText())) ?>
+                                    <?= $escaper->escapeHtml(__($this->getForm()->getSubmitButtonText())) ?>
                                 </button>
                             </div>
                             <div class="secondary">
                                 <div
-                                    class="please-wait"
-                                    id="webform_<?= $block->escapeHtmlAttr($_uid) ?>_sending_data"
-                                    style="display:none;"
+                                    class="
+                                        please-wait
+                                        display-none
+                                    "
+                                    id="webform_<?= $escaper->escapeHtmlAttr($_uid) ?>_sending_data"
                                 >
                                     <div class="loading-indicator"></div>
-                                    <span id="webform_<?= $block->escapeHtmlAttr($_uid) ?>_progress_text">
-                                        <?= $block->escapeHtml(__('Sending...')) ?>
+                                    <span id="webform_<?= $escaper->escapeHtmlAttr($_uid) ?>_progress_text">
+                                        <?= $escaper->escapeHtml(__('Sending...')) ?>
                                     </span>
                                 </div>
                             </div>
                         </div>
                     </form>
                 </div>
-
-                                    <?= $this->getLayout()->createBlock(
-                                        'VladimirPopov\WebForms\Block\Script\Submit',
-                                        null,
-                                        ['data' => [
-                                            'uid' => $_uid,
-                                            'ajax' => $this->isAjax(),
-                                            'scroll_to' => $this->getData('scroll_to'),
-                                            'after_submission_form' => $this->getData('after_submission_form')
-                                        ]]
-                                    )->setForm($this->getForm())->toHtml();
-                                    ?>
-
-                <?= $this->getLayout()->createBlock(
-                    'VladimirPopov\WebForms\Block\Script\Logic',
-                    null,
-                    ['data' => [
-                        'uid' => $_uid
-                    ]]
-                )->setForm($this->getForm())->toHtml();
+                <?=
+                    $this
+                        ->getLayout()
+                        ->createBlock(
+                            'VladimirPopov\WebForms\Block\Script\Submit',
+                            null,
+                            [
+                                'data' => [
+                                    'uid' => $_uid,
+                                    'ajax' => $this->isAjax(),
+                                    'scroll_to' => $this->getData('scroll_to'),
+                                    'after_submission_form' => $this->getData('after_submission_form')
+                                ]
+                            ]
+                        )->setForm($this->getForm())->toHtml();
                 ?>
-
-        <?php
-            } // if(show_success)
-        } // is active
-        ?>
+                <?=
+                    $this
+                        ->getLayout()
+                        ->createBlock(
+                            'VladimirPopov\WebForms\Block\Script\Logic',
+                            null,
+                            [
+                                'data' => [
+                                    'uid' => $_uid
+                                ]
+                            ]
+                        )->setForm($this->getForm())->toHtml();
+                ?>
+            <?php endif; ?>
+        <?php endif; ?>
     </div>
 </div>

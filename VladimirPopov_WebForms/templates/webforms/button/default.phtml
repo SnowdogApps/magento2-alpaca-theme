@@ -1,0 +1,70 @@
+<button
+    class="
+        button
+        primary
+        <?= $block->escapeHtmlAttr($this->getButtonCssClass()) ?>
+    "
+    data-modal-trigger="<?= $block->escapeHtmlAttr($this->getContainerId()) ?>"
+    data-mage-init='{"modal": {}}'
+    type="button"
+    title="<?= $block->escapeHtmlAttr($this->getButtonText()) ?>"
+>
+    <?= $block->escapeHtml(__($this->getButtonText())) ?>
+</button>
+<div
+    role="dialog"
+    aria-hidden="true"
+    id="<?= $block->escapeHtmlAttr($this->getContainerId()) ?>"
+    data-modal="<?= $block->escapeHtmlAttr($this->getContainerId()) ?>"
+    class="modal modal--button"
+>
+    <div
+        class="modal__container webforms__modal-container"
+        role="document"
+        tabindex="0"
+    >
+        <div class="modal__content webforms__modal-content">
+            <div
+                id="<?= $block->escapeHtmlAttr($this->getContainerId()) ?>"
+                class="
+                    webforms-popup
+                    mfp-hide
+                    <?= str_replace('"', '\"', $block->escapeHtmlAttr($this->getPopupCssClass())) ?>
+                "
+            >
+                <?= $this->getLayout()->createBlock(
+                    'VladimirPopov\WebForms\Block\Form',
+                    null,
+                    ['data' => [
+                        'webform_id' => $block->escapeHtml($this->getWebformId()),
+                        'async_load' => $block->escapeHtml($this->getData('async_load')),
+                        'template' => 'VladimirPopov_WebForms::' . $block->escapeHtml($this->getFormTemplate()),
+                    ]]
+                )->toHtml();
+                ?>
+            </div>
+        </div>
+        <button
+            class="
+                button
+                button--icon
+                button--rotate-icon
+                modal__close-button
+            "
+            type="button"
+            aria-label="<?= $block->escapeHtmlAttr(__('Close modal')) ?>"
+        >
+            <svg
+                class="
+                    icon
+                    button__icon
+                    modal__close-button-icon
+                "
+                role="presentation"
+                focusable="false"
+            >
+                <use href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#close')); ?>"></use>
+            </svg>
+        </button>
+    </div>
+</div>

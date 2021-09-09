@@ -8,7 +8,7 @@ module.exports = {
     },
     table: {
       table: {
-        captionText: 'This sis a table. Binded text in caption should explain what kind of data this table presents. Can be also a longer text with inline HTML elements inside',
+        captionText: 'This is a table. Binded text in caption should explain what kind of data this table presents. Can be also a longer text with inline HTML elements inside',
         class: 'margin-0',
         mainTags: [
           {
@@ -58,17 +58,71 @@ module.exports = {
                   {
                     childTag: 'td',
                     childTagAttributes: 'data-th="Qty:" role="gridcell"',
-                    contentComponent: 'quantity-update--full'
+                    contentComponent: 'quantity-update--full',
+                    contentContext: {
+                      class: 'quantity-update--no-buttons-m',
+                      qtyClass: 'input',
+                      qtyLabel: 'Qty',
+                      input: {
+                        id: 'qty',
+                        min: '1',
+                        name: 'qty',
+                        defaultValue: '1',
+                        ariaLabel: 'Change the quantity'
+                      },
+                      minusQtyButton: {
+                        tag: 'button',
+                        class: 'quantity-update__button quantity-update__button--minus',
+                        attributes: 'type="button" aria-label="Decrease the quantity"',
+                        icon: {
+                          id: 'minus',
+                          class: 'button__icon quantity-update__icon',
+                          hidden: true
+                        }
+                      },
+                      plusQtyButton: {
+                        tag: 'button',
+                        class: 'quantity-update__button quantity-update__button--plus',
+                        attributes: 'type="button" aria-label="Increase the quantity"',
+                        icon: {
+                          id: 'plus',
+                          class: 'button__icon quantity-update__icon',
+                          hidden: true
+                        }
+                      },
+                    }
                   },
                   {
                     childTag: 'td',
                     childTagAttributes: 'data-th="Send To:" role="gridcell"',
-                    contentComponent: 'select'
+                    contentComponent: 'select',
+                    contentContext: {
+                      field: {
+                        id: 'select-1'
+                      },
+                      label: {
+                        text: 'Send To'
+                      },
+                      options: [
+                        {
+                          text: 'Option 1',
+                          value: 'Option 1',
+                        },
+                        {
+                          text: 'Option 2',
+                          value: 'Option 2',
+                        },
+                        {
+                          text: 'Option 3',
+                          value: 'Option 3',
+                        }
+                      ]
+                    }
                   },
                   {
                     childTag: 'td',
                     childTagAttributes: 'data-th="Action:" role="gridcell"',
-                    content: '<a href="#">Remove item</a>'
+                    content: '<div class="actions-group"><div class="actions-group__handler"><a href="#" class="actions-group__button actions-group__link">Remove item</a></div></div>'
                   }
                 ]
               },
@@ -84,17 +138,72 @@ module.exports = {
                   {
                     childTag: 'td',
                     childTagAttributes: 'data-th="Qty:" role="gridcell"',
-                    contentComponent: 'quantity-update--full'
+                    contentComponent: 'quantity-update--full',
+                    contentContext: {
+                      class: 'quantity-update--no-buttons-m',
+                      qtyClass: 'input',
+                      qtyLabel: 'Qty',
+                      input: {
+                        id: 'qty',
+                        min: '1',
+                        name: 'qty',
+                        defaultValue: '1',
+                        ariaLabel: 'Change the quantity'
+                      },
+                      minusQtyButton: {
+                        tag: 'button',
+                        class: 'quantity-update__button quantity-update__button--minus',
+                        attributes: 'type="button" aria-label="Decrease the quantity"',
+                        icon: {
+                          id: 'minus',
+                          class: 'button__icon quantity-update__icon',
+                          hidden: true
+                        }
+                      },
+                      plusQtyButton: {
+                        tag: 'button',
+                        class: 'quantity-update__button quantity-update__button--plus',
+                        attributes: 'type="button" aria-label="Increase the quantity"',
+                        icon: {
+                          id: 'plus',
+                          class: 'button__icon quantity-update__icon',
+                          hidden: true
+                        }
+                      },
+                    }
                   },
                   {
                     childTag: 'td',
                     childTagAttributes: 'data-th="Send To:" role="gridcell"',
-                    contentComponent: 'select'
+                    contentComponent: 'select',
+                    contentContext: {
+                      field: {
+                        id: 'select-2',
+                      },
+                      script: true,
+                      label: {
+                        text: 'Send To'
+                      },
+                      options: [
+                        {
+                          text: 'Option 1',
+                          value: 'Option 1',
+                        },
+                        {
+                          text: 'Option 2',
+                          value: 'Option 2',
+                        },
+                        {
+                          text: 'Option 3',
+                          value: 'Option 3',
+                        }
+                      ]
+                    }
                   },
                   {
                     childTag: 'td',
                     childTagAttributes: 'data-th="Action:" role="gridcell"',
-                    content: '<a href="#">Remove item</a>'
+                    content: '<div class="actions-group"><div class="actions-group__handler"><a href="#" class="actions-group__button actions-group__link">Remove item</a></div></div>'
                   }
                 ]
               },
