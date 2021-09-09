@@ -3,6 +3,14 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Added
+### Fixed
+### Changed
+### Updated
+### Removed
+
+## [Released]
+## [2.24.0] - 2021-09-09
+### Added
 - column template variables for catalog grid styles (#81732)
 - 'Recently viewed' component in fractal product bundle and product grouped templates
 - fractal template for gift registy items (#81936)
@@ -33,8 +41,6 @@ All notable changes to this project will be documented in this file.
 - styling for cookie table information (#81873)
 ### Removed
 - svg4everybody (no longer needed for browser support (#80844)
-
-## [Released]
 ## [2.23.0] - 2021-08-03
 ### Added
 - yireo/magento2-webp2 package for webp images (#72754)
