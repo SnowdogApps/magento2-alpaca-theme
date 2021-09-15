@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Added
 ### Fixed
+
+- Asterix position in required checkboxes (#80129)
+
 ### Changed
 ### Updated
 ### Removed
