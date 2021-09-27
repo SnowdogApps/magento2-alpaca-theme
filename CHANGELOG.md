@@ -9,7 +9,12 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 ### Updated
+
+- Update to Magento 2.4.3 (#81212)
+
 ### Removed
+
+- vladimirpopov/webforms templates (#81212)
 
 ## [Released]
 ## [2.24.0] - 2021-09-09
