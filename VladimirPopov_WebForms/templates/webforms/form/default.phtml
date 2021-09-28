@@ -1,0 +1,383 @@
+<?php
+
+/** @var VladimirPopov\WebForms\Block\Form $this */
+
+// in case redirect fails
+if ($this->getRegistry()->registry('redirect_url')) {
+?>
+    <meta http-equiv="refresh" content="0;url=<?= $this->getRegistry()->registry('redirect_url') ?>">
+    <script type="text/javascript">
+        window.location = '<?= $block->escapeUrl($this->getRegistry()->registry('redirect_url')) ?>';
+    </script>
+<?php
+}
+
+// get temporary data
+$tmpData = $this->getSession()->getData('webform_result_tmp_' . $this->getForm()->getId());
+$tmpResult = new \Magento\Framework\DataObject;
+if ($this->getResult()) {
+    $tmpResult->setData($this->getResult()->getData());
+}
+$_uid = $block->escapeHtmlAttr($this->getUid());
+if (!empty($tmpData['field']) && is_array($tmpData['field'])) {
+    foreach ($tmpData['field'] as $field_id => $value) {
+        $tmpResult->setData('field_' . $field_id, $value);
+    }
+}
+?>
+<?php if ($this->getForm()->getIsActive() == \VladimirPopov\WebForms\Model\Form::STATUS_DISABLED || !$this->isDirectAvailable()): ?>
+    <?= /* @noEscape */ $this->getNotAvailableMessage(); ?>
+<?php else: ?>
+    <?php if ($this->isAjax()): ?>
+        <div
+            id="webform_<?= $_uid ?>_success_text"
+            class="
+                std
+                webforms-success-text
+                message
+                message--success
+                display-none
+            "
+        >
+        </div>
+    <?php endif; ?>
+
+    <?php if ($this->getSuccess()): ?>
+        <div
+            class="
+                webforms-success-text
+                message
+                message--success
+            "
+        >
+            <?= /* @noEscape */ $this->getSuccessText() ?>
+        </div>
+    <?php endif; ?>
+    <?php if (!$this->getSuccess() || $this->getData('after_submission_form')): ?>
+        <?php if ($messages = $this->getErrorMessages()): ?>
+            <div
+                class="
+                    error
+                    message
+                    message--error
+                "
+            >
+                <div>
+                    <?php foreach ($messages as $message) : ?>
+                        <?= /* @noEscape */ $message ?>
+                        <br />
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        <?php endif; ?>
+
+        <?php
+            $aria_describedby = "";
+            if ($this->getDescription()) {
+                $aria_describedby = "aria-describedby=\"{$_uid}form_description\"";
+            }
+        ?>
+        <div
+            id="webform_<?= $_uid ?>_form"
+            class="webforms" <?= /* @noEscape */ $aria_describedby ?>
+        >
+            <?php if ($this->getDescription()): ?>
+                <div
+                    id="<?= $_uid ?>form_description"
+                    class="webforms-description-text"
+                >
+                    <?= $this->getDescription(); ?>
+                </div>
+            <?php endif; ?>
+            <div class="row center-xs">
+                <div
+                    class="
+                        col-xs-12
+                        col-md-8
+                        col-lg-6
+                        start-xs
+                    "
+                >
+                    <form
+                        action="<?= $block->escapeUrl($this->getFormAction()) ?>"
+                        method="post"
+                        name="webform_<?= $_uid ?>"
+                        id="webform_<?= $_uid ?>"
+                        enctype="<?= $block->escapeHtmlAttr($this->getEnctype()) ?>"
+                        class="form webforms-<?= $block->escapeHtmlAttr($this->getForm()->getCode()) ?>"
+                        <?php if ($this->getDescription()): ?>
+                            aria-describedby="<?= $_uid ?>form_description"
+                        <?php endif; ?>
+                        aria-label="<?= $block->escapeHtmlAttr($this->getForm()->getName()) ?>"
+                        role="none"
+                    >
+                        <input
+                            name="form_key"
+                            type="hidden"
+                            value="<?= $block->escapeHtmlAttr($this->getFormKey()) ?>"
+                        />
+                        <input
+                            type="hidden"
+                            name="submitForm_<?= $block->escapeHtmlAttr($this->getForm()->getId()) ?>"
+                            value="1"
+                        />
+                        <input
+                            type="hidden"
+                            name="webform_id"
+                            value="<?= $block->escapeHtmlAttr($this->getForm()->getId()) ?>"
+                        />
+
+                        <?php if (is_array($this->getData('hidden'))): ?>
+                            <?php foreach ($this->getData('hidden') as $key => $value): ?>
+                                <input
+                                    type="hidden"
+                                    name="<?= $block->escapeHtmlAttr($key) ?>"
+                                    value="<?= $block->escapeHtmlAttr($value) ?>"
+                                />
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+
+                        <?php if ($tmpResult && $tmpResult->getId()): ?>
+                            <input
+                                type="hidden"
+                                name="result_id"
+                                value="<?= $tmpResult->getId() ?>"
+                            />
+                        <?php endif; ?>
+
+                        <?php if (count($this->getForm()->_getHidden())): ?>
+                            <?php foreach ($this->getForm()->_getHidden() as $field): ?>
+                                <?= $field->toHtml(); ?>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+
+                        <?php foreach ($this->getForm()->_getFieldsToFieldsets() as $fieldset_id => $fieldset): ?>
+                            <fieldset
+                                id="fieldset_<?= $_uid . $block->escapeHtmlAttr($fieldset_id) ?>"
+                                class="
+                                    fieldset
+                                    fieldset-<?= $block->escapeHtmlAttr($fieldset_id) ?>
+                                    <?php if (!empty($fieldset['css_class'])): ?>
+                                        <?= $block->escapeHtmlAttr($fieldset['css_class']); ?>
+                                    <?php endif; ?>
+                                    <?php if ($fieldset['logic_visibility'] == \VladimirPopov\WebForms\Model\Logic::VISIBILITY_HIDDEN): ?>
+                                        <?= 'display-none' ?>
+                                    <?php endif; ?>
+                                "
+                                style="
+                                    <?php if (!empty($fieldset['css_style'])): ?>
+                                        <?= $block->escapeHtmlAttr($fieldset['css_style'] . ";"); ?>
+                                    <?php endif; ?>
+                                "
+                                role="group"
+                                <?php if ($fieldset_id): ?>
+                                    aria-labelledby="legend_<?= $_uid . $block->escapeHtmlAttr($fieldset_id) ?>"
+                                <?php endif; ?>
+                            >
+                                <?php if (!empty($fieldset['name'])): ?>
+                                    <h3
+                                        class="legend"
+                                        id="legend_<?= $_uid . $block->escapeHtmlAttr($fieldset_id) ?>"
+                                    >
+                                        <?= $fieldset['name'] ?>
+                                    </h3>
+                                    <br>
+                                <?php endif; ?>
+
+                                <?php
+                                foreach ($fieldset['fields'] as $field) {
+                                    // set temporary value
+                                    $field->setData('result', $tmpResult);
+                                    $field->setData('uid', $_uid);
+                                    $field_css_type = 'type-' . str_replace('/', '-', $field->getType());
+                                    if ($field->getType() == 'subscribe') $field_css_type .= ' choice';
+                                    $aria_labelledby = "aria-labelledby=\"label_field" . $this->getFieldUid($field->getId()) . "\"";
+                                    if (in_array($field->getType(), array("html", "subscribe")) || $field->getHideLabel())
+                                        $aria_labelledby = "";
+                                    $label_for = "for=\"field" . $this->getFieldUid($field->getId()) . "\"";
+                                    if (in_array($field->getType(), array("select/radio", "select/checkbox"))) {
+                                        $label_for = "";
+                                    }
+
+                                    $aria_describedby = "";
+                                    if ($field->getComment()) $aria_describedby = "aria-describedby=\"comment_field" . $this->getFieldUid($field->getId()) . "\"";
+                                ?>
+                                    <div
+                                        id="field_<?= $block->escapeHtmlAttr($this->getFieldUid($field->getId())) ?>"
+                                        role="group"
+                                        class="
+                                            field
+                                            <?= $block->escapeHtmlAttr($field->getCssClassContainer()) ?>
+                                            <?= $block->escapeHtmlAttr($field_css_type) ?>
+                                            webforms-fields-<?= $field->getId() ?>
+                                            <?php if ($field->getCode()): ?>
+                                                <?= 'webforms-fields-' . $block->escapeHtmlAttr($field->getCode()); ?>
+                                            <?php endif; ?>
+                                            <?php if ($field->getRequired()): ?>
+                                                required
+                                            <?php endif; ?>
+                                            <?php if ($field->getData('logic_visibility') == \VladimirPopov\WebForms\Model\Logic::VISIBILITY_HIDDEN): ?>
+                                                display-none
+                                            <?php endif; ?>
+                                        "
+                                        <?= $aria_labelledby ?>
+                                        <?= $aria_describedby ?>
+                                    >
+
+                                        <?php if ($field->getType() != 'html' && $field->getType() != 'subscribe' && !$field->getHideLabel()) { ?>
+                                            <label
+                                                class="label"
+                                                id="label_field<?= $block->escapeHtmlAttr($this->getFieldUid($field->getId())) ?>"
+                                                <?= $label_for ?>>
+                                                <?= $field->getName() ?>
+                                                <?php
+                                                $tooltip = $field->getTooltip();
+                                                if ($tooltip): ?>
+                                                    <?= $this->getLayout()->createBlock(
+                                                        'VladimirPopov\WebForms\Block\Script\Tooltip',
+                                                        null
+                                                    )->setField($field)->setTooltip($tooltip)->toHtml(); ?>
+                                                <?php endif; ?>
+                                            </label>
+                                        <?php } ?>
+
+                                        <div
+                                            class="control"
+                                            role="group"
+                                            <?= $aria_labelledby ?>
+                                        >
+                                            <?= $field->toHtml(); ?>
+
+                                            <?php if ($field->getValidationAdvice()): ?>
+                                                <div
+                                                    class="validation-advice display-none"
+                                                    id="advice-required-entry-field<?= $block->escapeHtmlAttr($this->getFieldUid($field->getId())) ?>"
+                                                >
+                                                    <?= $field->getValidationAdvice() ?>
+                                                </div>
+                                            <?php endif; ?>
+
+                                            <?php if ($field->getValidateLengthMinMessage()): ?>
+                                                <div
+                                                    class="validation-advice display-none"
+                                                    id="advice-validate-length-min-field<?= $block->escapeHtmlAttr($this->getFieldUid($field->getId())) ?>"
+                                                >
+                                                    <?= $field->getValidateLengthMinMessage() ?>
+                                                </div>
+                                            <?php endif; ?>
+
+                                            <?php if ($field->getValidateLengthMaxMessage()): ?>
+                                                <div
+                                                    class="validation-advice display-none"
+                                                    id="advice-validate-length-max-field<?= $block->escapeHtmlAttr($this->getFieldUid($field->getId())) ?>"
+                                                >
+                                                    <?= $field->getValidateLengthMaxMessage() ?>
+                                                </div>
+                                            <?php endif; ?>
+
+                                            <?php if ($field->getComment()): ?>
+                                                <p
+                                                    class="webforms-fields-comment"
+                                                    id="comment_field<?= $block->escapeHtmlAttr($this->getFieldUid($field->getId())) ?>"
+                                                    tabindex="0"
+                                                >
+                                                    <?= nl2br($field->getComment()) ?>
+                                                </p>
+                                            <?php endif; ?>
+                                        </div>
+
+                                    </div>
+                                <?php } ?>
+                            </fieldset>
+                        <?php endforeach; // foreach 'fields_to_fieldsets' ?>
+
+                        <?= $this->getLayout()->createBlock(
+                            'VladimirPopov\WebForms\Block\Script\Gdpr',
+                            null,
+                            ['data' => [
+                                'uid' => $_uid
+                            ]]
+                        )->setForm($this->getForm())->toHtml();
+                        ?>
+
+                        <div
+                            id="submit<?= $_uid ?>"
+                            class="actions-toolbar"
+                            <?php if ($this->getSubmitVisibility() == 'hidden'): ?>
+                                style="display: none"
+                            <?php endif; ?>
+                        >
+                            <?php if ($this->getForm()->useCaptcha()): ?>
+                                <?php $_captcha = $this->getCaptcha() ?>
+                                <div class="recaptcha<?= $block->escapeHtmlAttr($_captcha->getVersion()) ?>">
+                                    <?= $_captcha->getHTML() ?>
+                                </div>
+                            <?php endif; ?>
+
+                            <?php if ($this->honeypot()): ?>
+                                <?= $this->getLayout()->createBlock(
+                                    'Magento\Framework\View\Element\Template',
+                                    null,
+                                    [
+                                        'data' => [
+                                            'webform_id' => $this->getForm()->getId(),
+                                            'template' => 'VladimirPopov_WebForms::webforms/scripts/honeypot.phtml'
+                                        ]
+                                    ]
+                                )->toHtml(); ?>
+                            <?php endif; ?>
+                            <div class="primary">
+                                <button
+                                    type="submit"
+                                    class="
+                                        button
+                                        margin-vc-m
+                                        action
+                                        submit
+                                        primary
+                                    "
+                                    id="webform_<?= $_uid ?>_submit_button"
+                                    title="<?= $block->escapeHtmlAttr(__($this->getForm()->getSubmitButtonText())) ?>"
+                                    name="field[submit]"
+                                >
+                                    <?= $block->escapeHtml(__($this->getForm()->getSubmitButtonText())) ?>
+                                </button>
+                            </div>
+                            <div class="secondary">
+                                <div
+                                    class="please-wait display-none"
+                                    id="webform_<?= $_uid ?>_sending_data"
+                                >
+                                    <div class="loading-indicator"></div>
+                                    <span id="webform_<?= $_uid ?>_progress_text">
+                                        <?= $block->escapeHtml(__('Sending...')) ?>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <?= $this->getLayout()->createBlock(
+            'VladimirPopov\WebForms\Block\Script\Submit',
+            null,
+            ['data' => [
+                'uid' => $_uid,
+                'ajax' => $this->isAjax(),
+                'scroll_to' => $this->getData('scroll_to'),
+                'after_submission_form' => $this->getData('after_submission_form')
+            ]]
+        )->setForm($this->getForm())->toHtml();
+        ?>
+
+        <?= $this->getLayout()->createBlock(
+            'VladimirPopov\WebForms\Block\Script\Logic',
+            null,
+            ['data' => [
+                'uid' => $_uid
+            ]]
+        )->setForm($this->getForm())->toHtml();
+        ?>
+    <?php endif; // if(show_success) ?>
+<?php endif; // is active ?>

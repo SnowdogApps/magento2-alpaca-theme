@@ -1,0 +1,83 @@
+<?php
+$validate = '';
+$checked = '';
+if ($this->getField()->getRequired()) {
+    $validate = "validate-one-required-by-name";
+}
+if ($this->getField()->isCheckedOption($this->getLabel())) {
+    $checked = "checked";
+}
+if ($this->getCustomerValue()){
+    $checked = "checked";
+}
+$label = __('Sign Up for Newsletter');
+if ($this->getField()->getCheckedOptionValue($this->getLabel()))
+    $label = $this->getField()->getCheckedOptionValue($this->getLabel());
+?>
+<input
+    type='hidden'
+    name='<?php echo $block->escapeHtmlAttr($this->getFieldName()) ?>'
+    value="0"
+/>
+<div class="checkbox">
+    <input
+        type='checkbox'
+        name='<?php echo $block->escapeHtmlAttr($this->getFieldName()) ?>'
+        id='<?php echo $block->escapeHtmlAttr($this->getFieldId()) . 0 ?>'
+        value="1"
+        class='checkbox__field <?php echo $block->escapeHtmlAttr($validate) ?>'
+        <?= /* @noEscape */ $checked ?>
+        <?= /* @noEscape */ htmlspecialchars($this->getField()->getCustomAttributes())?>
+    />
+    <svg
+        class="
+            checkbox__icon
+            checkbox__icon--checked
+        "
+        role="presentation"
+        focusable="false"
+    >
+        <use href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#checked')) ?>"></use>
+    </svg>
+
+    <svg
+        class="
+            checkbox__icon
+            checkbox__icon--unchecked
+        "
+        role="presentation"
+        focusable="false"
+    >
+        <use href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#unchecked')) ?>"></use>
+    </svg>
+    <label
+        for='<?php echo $block->escapeHtmlAttr($this->getFieldId()) . 0 ?>'
+        class='checkbox__label <?php echo $block->escapeHtmlAttr($this->getFieldClass()) ?>'
+        style='<?php echo $block->escapeHtmlAttr($this->getFieldStyle()) ?>'
+    >
+        <?php echo $block->escapeHtml($label) ?>
+    </label>
+    <?php if ($validate && $this->getField()->getValidationAdvice()) { ?>
+        <div
+            class="validation-advice"
+            id="advice-validate-one-required-by-name-<?php echo $block->escapeHtmlAttr($this->getFieldId()) . 0 ?>"
+            style="display:none"
+        >
+            <?php echo $block->escapeHtml($this->getField()->getValidationAdvice()) ?>
+        </div>
+    <?php } ?>
+</div>
+<?php
+    $tooltip = $this->getField()->getTooltip();
+    if($tooltip){
+        echo '&nbsp;'.$this->getLayout()->createBlock(
+            'core/template',
+            'field' . $this->getField()->getId() . '_tooltip',
+            array(
+                'title' => $label,
+                'tooltip' => $tooltip,
+                'template' => 'webforms/scripts/tooltip.phtml',
+            )
+        )->toHtml();
+    }
+?>

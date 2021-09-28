@@ -1,0 +1,56 @@
+<div class="input">
+    <?php if ($this->getShowAgreementText()): ?>
+        <div class="webforms-gdpr-text">
+            <?= /* @noEscape */ $this->getAgreementText() ?>
+        </div>
+    <?php endif; ?>
+    <?php if ($this->getShowCheckbox()): ?>
+        <div class="checkbox" role="group">
+            <input
+                id="gdpr_<?= $block->escapeHtmlAttr($this->getUid()) ?>"
+                type="checkbox"
+                name="gdpr"
+                class="
+                    checkbox__field
+                    <?= $this->getCheckboxRequired() ? 'required-entry' : '' ?>
+                "
+               value="1"
+            >
+            <svg
+                class="
+                    checkbox__icon
+                    checkbox__icon--checked
+                "
+                role="presentation"
+                focusable="false"
+            >
+                <use href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#checked')) ?>"></use>
+            </svg>
+
+            <svg
+                class="
+                    checkbox__icon
+                    checkbox__icon--unchecked
+                "
+                role="presentation"
+                focusable="false"
+            >
+                <use href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#unchecked')) ?>"></use>
+            </svg>
+            <label
+                for="gdpr_<?= $block->escapeHtmlAttr($this->getUid()); ?>"
+                class="checkbox__label"
+            >
+                <?= $block->escapeHtml($this->getCheckboxLabel()) ?>
+            </label>
+            <?php if (strlen($this->getErrorText()) > 0): ?>
+                <div
+                    class="validation-advice display-none"
+                    id="advice-required-entry-gdpr_<?= $block->escapeHtmlAttr($this->getUid()); ?>"
+                >
+                    <?= /* @noEscape */ $this->getErrorText() ?>
+                </div>
+            <?php endif; ?>
+        </div>
+    <?php endif; ?>
+</div>
