@@ -1,0 +1,141 @@
+<?php
+/** @var \ParadoxLabs\TokenBase\Block\Form\Cc $block */
+// @codingStandardsIgnoreFile
+
+$code           = $block->escapeQuote($block->getMethodCode());
+$image          = $block->getBrandingImage();
+$storedCards    = $block->getStoredCards();
+?>
+<fieldset class="fieldset payment items ccard <?php echo $code ?>" id="payment_form_<?php echo $code ?>" style="display:none;">
+    <?php if ($block->getTokenbaseMethod()->isAcceptJsEnabled() === true): ?>
+        <input type="hidden" name="payment[acceptjs_key]" id="<?php echo $code ?>-acceptjs-key" value="" />
+        <input type="hidden" name="payment[acceptjs_value]" id="<?php echo $code ?>-acceptjs-value" value="" />
+        <input type="hidden" name="payment[cc_last4]" id="<?php echo $code ?>-cc-last4" value="" />
+        <?php if ($block->getTokenbaseMethod()->getConfigData('can_store_bin') == 1): ?>
+            <input type="hidden" name="payment[cc_bin]" id="<?php echo $code ?>-cc-bin" value="" />
+        <?php endif; ?>
+    <?php endif; ?>
+    <?php if ($image): ?>
+        <div class="sorter">
+            <img src="<?php echo $block->escapeUrl($image); ?>" />
+        </div>
+    <?php endif; ?>
+    <?php if ($block->haveStoredCards()): ?>
+        <div class="field">
+            <label for="<?php echo $code ?>-card-id" class="label"><span><?php echo $block->escapeHtml(__('Payment Information')) ?></span></label>
+            <div class="input-box">
+                <select id="<?php echo $code ?>-card-id" name="payment[card_id]">
+                    <?php /** @var \ParadoxLabs\TokenBase\Model\Card $card */ ?>
+                    <?php foreach ($storedCards as $card): ?>
+                        <?php $card = $card->getTypeInstance(); ?>
+                        <option value="<?php echo $block->escapeQuote($card->getHash()) ?>" <?php if ($card->getId() == $block->getInfoData('tokenbase_id') || count($storedCards) == 1): ?>selected="selected"<?php endif; ?> data-type="<?php echo $block->escapeQuote($card->getType()) ?>">
+                            <?php echo $block->escapeHtml($card->getLabel()) ?>
+                        </option>
+                    <?php endforeach; ?>
+                    <option value=''><?php echo $block->escapeHtml(__('Add new card')) ?></option>
+                </select>
+            </div>
+        </div>
+    <?php endif; ?>
+    <div class="field type required hide-if-card-selected">
+        <div class="control">
+            <?php $_ccType = $block->getInfoData('cc_type') ?>
+            <ul class="credit-card-types">
+                <?php foreach ($block->getCcAvailableTypes() as $_typeCode => $_typeName): ?>
+                    <li class="item<?php if ($_typeCode == $_ccType): ?> _active<?php endif; ?>" data-type="<?php echo $block->escapeQuote($_typeCode); ?>">
+                        <img src="<?php echo $block->getViewFileUrl('Magento_Payment::images/cc/' . strtolower($_typeCode) . '.png'); ?>" alt="<?php echo $block->escapeQuote($_typeName); ?>" />
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+            <input type="hidden" name="payment[cc_type]" id="<?php echo $code ?>-cc-type" value="<?php echo $block->escapeQuote($_ccType); ?>" />
+        </div>
+    </div>
+    <div class="field number required hide-if-card-selected">
+        <label for="<?php echo $code ?>-cc-number" class="label"><span><?php echo $block->escapeHtml(__('Credit Card Number')) ?></span></label>
+        <div class="control">
+            <input type="text" id="<?php echo $code ?>-cc-number" name="payment[cc_number]"
+                   title="<?php echo $block->escapeQuote(__('Credit Card Number')) ?>" class="input-text" value="" autocomplete="cc-number"
+                   data-container="<?php echo $code ?>-cc-number"
+                   data-validate='{"required-number":true, "validate-cc-number":"#<?php echo $code ?>-cc-type", "validate-cc-type":"#<?php echo $code ?>-cc-type"}' />
+        </div>
+    </div>
+    <div class="field date required hide-if-card-selected">
+        <label for="<?php echo $code ?>-cc-exp-month" class="label"><span><?php echo $block->escapeHtml(__('Expiration Date')) ?></span></label>
+        <div class="control">
+            <div class="fields group group-2">
+                <div class="field no-label month">
+                    <div class="control">
+                        <select id="<?php echo $code ?>-cc-exp-month" name="payment[cc_exp_month]" class="select month" data-validate='{required:true, "validate-cc-exp":"#<?php echo $code ?>-cc-exp-year"}' autocomplete="cc-exp-month">
+                            <?php $_ccExpMonth = $block->getInfoData('cc_exp_month') ?>
+                            <?php foreach ($block->getCcMonths() as $k => $v): ?>
+                                <option value="<?php echo $k ? $block->escapeQuote($k) : '' ?>"<?php if ($k == $_ccExpMonth): ?> selected="selected"<?php endif ?>><?php echo $block->escapeHtml($v) ?></option>
+                            <?php endforeach ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="field no-label year">
+                    <div class="control">
+                        <?php $_ccExpYear = $block->getInfoData('cc_exp_year') ?>
+                        <select id="<?php echo $code ?>-cc-exp-year" name="payment[cc_exp_year]" class="select year" data-validate='{required:true}' autocomplete="cc-exp-year">
+                            <?php foreach ($block->getCcYears() as $k => $v): ?>
+                                <option value="<?php echo $k ? $block->escapeQuote($k) : '' ?>"<?php if ($k == $_ccExpYear): ?> selected="selected"<?php endif ?>><?php echo $block->escapeHtml($v) ?></option>
+                            <?php endforeach ?>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php if ($block->hasVerification()): ?>
+        <div class="field cvv required <?php if ($block->getMethod()->getConfigData('require_ccv') == 0): ?>hide-if-card-selected<?php endif; ?>">
+            <label for="<?php echo $code ?>-cc-cid" class="label"><span><?php echo $block->escapeHtml(__('Card Verification Number')) ?></span></label>
+            <div class="control _with-tooltip">
+                <input type="text" title="<?php echo $block->escapeQuote(__('Card Verification Number')) ?>" class="input-text cvv" id="<?php echo $code ?>-cc-cid" name="payment[cc_cid]" value="" data-validate='{"required-number":true, "validate-cc-cvn":"#<?php echo $code ?>-cc-type"}' autocomplete="cc-csc" maxlength="4" />
+                <?php $_content = '<img src=\"' . $block->escapeUrl($block->getViewFileUrl('Magento_Checkout::cvv.png')) . '\" alt=\"' . $block->escapeQuote(__('Card Verification Number Visual Reference')) . '\" title=\"' . $block->escapeQuote(__('Card Verification Number Visual Reference')) . '\" />'; ?>
+                <div class="note">
+                    <a href="#" class="action cvv" title="<?php echo $block->escapeQuote(__('What is this?')) ?>" data-mage-init='{"tooltip": {"content": "<?php echo $_content ?>"}}'><span><?php echo $block->escapeHtml(__('What is this?')) ?></span></a>
+                </div>
+            </div>
+        </div>
+    <?php endif; ?>
+
+    <?php echo $block->getChildHtml(); ?>
+    <?php if (!$block->isGuestCheckout()): ?>
+        <div class="field save hide-if-card-selected">
+            <div class="control">
+                <?php if ($block->getMethod()->getConfigData('allow_unsaved')): ?>
+                    <input type="hidden" name="payment[save]" value="0" />
+                    <input type="checkbox" title="<?php echo $block->escapeQuote(__('Save for next time')) ?>" class="input-checkbox" id="<?php echo $code ?>_save" name="payment[save]" value="1" <?php if ($block->getMethod()->getConfigData('savecard_opt_out') && $block->getInfoData('save') !== 0): ?>checked="checked"<?php endif; ?> />
+                    <label for="<?php echo $code ?>_save"><?php echo $block->escapeHtml(__('Save for next time')) ?></label>
+                <?php else: ?>
+                    <input type="hidden" name="payment[save]" value="1" />
+                    <label class="label" for="<?php echo $code ?>_save"><?php echo $block->escapeHtml(__('For your convenience, this data will be stored securely by our payment processor.')) ?></label>
+                <?php endif; ?>
+            </div>
+        </div>
+    <?php endif; ?>
+</fieldset>
+<script type="text/x-magento-init">
+    {
+        "#payment_form_<?php echo $code ?>": {
+            "tokenbaseForm": {
+                "code":"<?php echo $code ?>"
+            },
+            "tokenbaseCardFormatter": {
+                "ccTypeSelector": "#<?php echo $code ?>-cc-type",
+                "ccTypeContainer": ".credit-card-types"
+            }
+            <?php if ($block->getTokenbaseMethod()->isAcceptJsEnabled() === true): ?>,
+            "authnetcimAcceptjs": {
+                "apiLoginId": "<?php echo $block->escapeJsQuote($block->getMethod()->getConfigData('login')); ?>",
+                "clientKey": "<?php echo $block->escapeJsQuote($block->getMethod()->getConfigData('client_key')); ?>",
+                "method": "<?php echo $code; ?>",
+                "formSelector": ".main form",
+                "submitSelector": ".payments button[type=submit], button#payment-continue",
+                "cardSelector": "#<?php echo $code; ?>-card-id",
+                "sandbox": <?php echo $block->getMethod()->getConfigData('test') ? 'true' : 'false'; ?>
+            }
+            <?php endif; ?>
+        }
+    }
+</script>
