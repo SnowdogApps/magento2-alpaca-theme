@@ -85,6 +85,133 @@ define([
           position: 'bottom',
         },
       },
+      /**
+        * Callback for product media
+        *
+        * @param {Object} $this
+        *
+        * @param {Object} response
+        * @param {String} response.large
+        * @param {String} response.medium
+        * @param {String} response.small
+        * @param {String=} response.large_webp
+        * @param {String=} response.medium_webp
+        * @param {String=} response.small_webp
+        * @param {Boolean} isInProductView
+        * @private
+      */
+      _ProductMediaCallback: function ($this, response, isInProductView) {
+        var $main = isInProductView ? $this.parents('.column.main') : $this.parents('.product-item-info'),
+          $widget = this,
+          images = [],
+
+          /**
+           * Check whether object supported or not
+           *
+           * @param {Object} e
+           * @returns {*|Boolean}
+           */
+          support = function (e) {
+            return e.hasOwnProperty('large') && e.hasOwnProperty('medium') && e.hasOwnProperty('small');
+          };
+
+        if (_.size($widget) < 1 || !support(response)) {
+          this.updateBaseImage(this.options.mediaGalleryInitial, $main, isInProductView);
+
+          return;
+        }
+
+
+        // SNOWDOG CHANGES START
+        // With yireo/webp-images response is also
+        // returning .webp files
+        images.push({
+          full: response.large,
+          img: response.medium,
+          thumb: response.small,
+          isMain: true,
+          full_webp: response.large_webp,
+          img_webp: response.medium_webp,
+          thumb_webp: response.small_webp
+        });
+
+        if (response.hasOwnProperty('gallery')) {
+          $.each(response.gallery, function () {
+            if (!support(this) || response.large === this.large) {
+              return;
+            }
+            images.push({
+              full: this.large,
+              img: this.medium,
+              thumb: this.small,
+              full_webp: this.large_webp,
+              img_webp: this.medium_webp,
+              thumb_webp: this.small_webp
+            });
+          });
+        }
+        // SNOWDOG CHANGES END
+
+        this.updateBaseImage(images, $main, isInProductView);
+      },
+      /**
+        * Update [gallery-placeholder] or [product-image-photo]
+         * @param {Array} images
+         * @param {jQuery} context
+         * @param {Boolean} isInProductView
+      */
+      updateBaseImage: function (images, context, isInProductView) {
+        var justAnImage = images[0],
+          initialImages = this.options.mediaGalleryInitial,
+          imagesToUpdate,
+          gallery = context.find(this.options.mediaGallerySelector).data('gallery'),
+          isInitial;
+
+
+        if (isInProductView) {
+          if (_.isUndefined(gallery)) {
+            context.find(this.options.mediaGallerySelector).on('gallery:loaded', function () {
+              this.updateBaseImage(images, context, isInProductView);
+            }.bind(this));
+
+            return;
+          }
+
+          imagesToUpdate = images.length ? this._setImageType($.extend(true, [], images)) : [];
+          isInitial = _.isEqual(imagesToUpdate, initialImages);
+
+          if (this.options.gallerySwitchStrategy === 'prepend' && !isInitial) {
+            imagesToUpdate = imagesToUpdate.concat(initialImages);
+          }
+
+          imagesToUpdate = this._setImageIndex(imagesToUpdate);
+
+          gallery.updateData(imagesToUpdate);
+          this._addFotoramaVideoEvents(isInitial);
+        } else if (justAnImage && (justAnImage.img)) {
+          // SNOWDOG CHANGES START
+          // When swatch was loading an image it only loaded .jpg
+          // so we need add basic support for .webp images
+          context.find('img.product-image-photo').attr(
+            {
+              'src': justAnImage.img_webp ? justAnImage.img_webp : justAnImage.img,
+              'data-src': justAnImage.img_webp ? justAnImage.img_webp : justAnImage.img,
+              'srcset': justAnImage.img_webp ? justAnImage.img_webp : justAnImage.img,
+            }
+          );
+          if (justAnImage.img_webp) {
+            context
+              .find('picture.product-image-photo source[type="image/webp"]')
+              .attr(
+                {
+                  'data-src': justAnImage.img_webp,
+                  'srcset': justAnImage.img_webp,
+                }
+              )
+          }
+          // SNOWDOG CHANGES END
+        }
+      },
       _determineProductData: function () {
         // Check if product is in a list of products.
         var productId,
