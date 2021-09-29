@@ -119,7 +119,10 @@ define([
         if (customer().firstname) {
           const addToMessage = $.cookieStorage.get('mage-messages');
           // add class to mark that product is added to wishlist
-          if (addToMessage[0].type === 'success') {
+          if (
+              addToMessage[0] &&
+              addToMessage[0].type === 'success'
+          ) {
             addButtonClass();
             moreWishlistButton();
             // delay is needed, because M2 reload customer data
