@@ -125,7 +125,7 @@ define([
 
           xhr.setRequestHeader = function(name) {
             if (name !== 'X-Requested-With') {
-              setRequestHeader.apply(xhr, arguments);
+              setRequestHeader.apply(this, arguments);
             }
           }
 
