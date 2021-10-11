@@ -1,7 +1,21 @@
-define(function () {
+define([
+  'jquery',
+  'underscore',
+  'Magento_ReCaptchaFrontendUi/js/registry',
+],
+  function ($, _, registry) {
   'use strict';
 
   var mixin = {
+
+    // SNOWDOG CHANGES
+    // Add check if Recaptcha is disabled
+    getIsInvisibleRecaptcha: function () {
+      if (this.settings) {
+        return this.settings.invisible;
+      }
+    },
+
     initCaptcha: function () {
       var $parentForm,
         $wrapper,
@@ -14,7 +28,7 @@ define(function () {
       }
 
       // SNOWDOG CHANGES
-      // Halt function if Recaptcha is disabled
+      // Add check if Recaptcha is disabled
       if (typeof this.settings === 'undefined') {
         return;
       }
