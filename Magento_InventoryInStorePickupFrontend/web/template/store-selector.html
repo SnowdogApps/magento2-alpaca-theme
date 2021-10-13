@@ -1,0 +1,74 @@
+<div
+    id="store-selector"
+    data-bind="blockLoader: $parent.isLoading"
+    css="'store-selected': $parent.selectedLocation"
+    class="store-selector"
+>
+    <each
+        if="!quoteIsVirtual()"
+        args="getRegion('customer-email')"
+        render=""
+    />
+    <div class="step-title" data-role="title">
+        <translate args="'Store'"/>
+    </div>
+    <div
+        id="checkout-step-store-selector"
+        class="
+            step-content
+            store-selector__content
+        "
+        data-role="content"
+    >
+        <render args="selectedLocationTemplate"/>
+        <each
+            args="getRegion('after-selected-location')"
+            render=""
+        />
+        <form
+            class="form-continue"
+            submit="setPickupInformation"
+            novalidate="novalidate"
+        >
+            <div class="actions-toolbar">
+                <button
+                    type="button"
+                    class="
+                        button
+                        action
+                        store-selector__toolbar-button
+                    "
+                    click="openPopup"
+                >
+                    <span if="selectedLocation">
+                        <translate args="'Select Other'"/>
+                    </span>
+                    <span ifnot="selectedLocation">
+                        <translate args="'Select Store'"/>
+                    </span>
+                </button>
+                <button
+                    data-role="opc-continue"
+                    type="submit"
+                    class="
+                        button
+                        action
+                        continue
+                        store-selector__toolbar-button
+                    "
+                    css="disabled: !selectedLocation"
+                    enable="selectedLocation"
+                    disabled
+                >
+                    <span>
+                        <translate args="'Next'"/>
+                    </span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<div
+    id="opc-store-selector-popup"
+    render="storeSelectorPopupTemplate"
+/>
