@@ -8,6 +8,12 @@ All notable changes to this project will be documented in this file.
 ### Updated
 ### Removed
 
+## [2.24.1] - 2021-10-13
+### Changed
+- Frontools dependency removed
+### Fixed
+- Asterix position in required checkboxes (#80129)
+
 ## [Released]
 ## [2.24.0] - 2021-09-09
 ### Added
