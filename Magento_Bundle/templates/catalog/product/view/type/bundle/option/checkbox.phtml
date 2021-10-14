@@ -1,7 +1,11 @@
 <?php /* @var $block \Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\Checkbox */ ?>
 <?php $_option = $block->getOption() ?>
 <?php $_selections = $_option->getSelections() ?>
-
+<?php $inputClass = 'checkbox__field bundle option bundle-option-' . $block->escapeHtmlAttr($_option->getId()) ?>
+<?php $inputId = 'bundle-option-' . $block->escapeHtmlAttr($_option->getId()) ?>
+<?php $inputName = 'bundle_option[' . $block->escapeHtmlAttr($_option->getId()) . ']' ?>
+<?php $dataValidation = 'data-validate="{\'validate-one-required-by-name\':\'input[name^=&quot;bundle_option[' .
+    $block->escapeHtmlAttr($_option->getId()) . ']&quot;]:checked\'}"' ?>
 <div class="bundle-option">
     <h4
         class="
@@ -22,15 +26,16 @@
         >
     <?php else: ?>
         <?php foreach($_selections as $_selection): ?>
+            <?php $sectionId = $_selection->getSelectionId() ?>
             <div class="checkbox">
                 <input
                     class="checkbox__field bundle option"
                     id="bundle-option-<?= $block->escapeHtmlAttr($_option->getId()) ?>-<?= $_selection->getSelectionId() ?>"
                     type="checkbox"
-                    <?php if ($_option->getRequired()): ?> 
-                        <?= 
+                    <?php if ($_option->getRequired()): ?>
+                        <?=
                             'data-validate="{\'validate-one-required-by-name\':\'input[name^=&quot;bundle_option[' .
-                            $block->escapeHtmlAttr($_option->getId()) . ']&quot;]:checked\'}"' 
+                            $block->escapeHtmlAttr($_option->getId()) . ']&quot;]:checked\'}"'
                         ?>
                     <?php endif; ?>
                     name="bundle_option[<?= $block->escapeHtmlAttr($_option->getId()); ?>][<?= $block->escapeHtmlAttr($_selection->getId()) ?>]"
@@ -39,13 +44,33 @@
                     <?= (!$_selection->isSaleable()) ? ' disabled="disabled"' : ''; ?>
                     value="<?= $block->escapeHtmlAttr($_selection->getSelectionId()) ?>"
                 >
+
+                <input
+                    class="<?=/* @noEscape */ $inputClass ?> change-container-classname"
+                    id="<?=/* @noEscape */ $inputId . '-' . $block->escapeHtmlAttr($sectionId)?>"
+                    type="checkbox"
+                   <?php if ($_option->getRequired()): ?>
+                        <?= /* @noEscape */ $dataValidation ?>
+                   <?php endif;?>
+                   name="<?=/* @noEscape */ $inputName .'['. $block->escapeHtmlAttr($sectionId)?>]"
+                   data-selector="<?= /* @noEscape */ $inputName.'['.$block->escapeHtmlAttr($sectionId)?>]"
+                    <?php if ($block->isSelected($selection)): ?>
+                        <?= 'checked="checked"' ?>
+                    <?php endif; ?>
+                    <?php if (!$selection->isSaleable()): ?>
+                        <?= 'disabled="disabled"' ?>
+                    <?php endif; ?>
+                    value="<?= $block->escapeHtmlAttr($sectionId) ?>"
+                    data-errors-message-box="#validation-message-box"
+                />
+
                 <svg class="checkbox__icon" title="Checked">
                     <title><?= $block->escapeHtml(__('Checked')) ?></title>
                     <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#checked')) ?>"></use>
                 </svg>
                 <label
                     class="checkbox__label"
-                    for="bundle-option-<?= $block->escapeHtmlAttr($_option->getId()) ?>-<?= $_selection->getSelectionId() ?>"
+                    for="<?= /* @noEscape */ $inputId . '-' . $block->escapeHtmlAttr($sectionId) ?>"
                 >
                     <?= $block->getSelectionQtyTitlePrice($_selection) ?>
                     <br/>
@@ -53,5 +78,7 @@
                 </label>
             </div>
         <?php endforeach; ?>
+        <div id="bundle-option-<?= $block->escapeHtmlAttr($_option->getId()) ?>-container"></div>
+        <div id="validation-message-box"></div>
     <?php endif; ?>
 </div>
