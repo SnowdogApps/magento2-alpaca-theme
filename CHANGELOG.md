@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 ### Changed
 ### Updated
+- Filters position on category view (#83483)
 ### Removed
 
 ## [2.24.1] - 2021-10-13
