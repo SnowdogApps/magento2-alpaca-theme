@@ -113,9 +113,7 @@ use Magento\Framework\App\Action\Action;
 
                                 <?php if ($showWishlist || $showCompare): ?>
                                     <div class="catalog-grid-item__secondary-action">
-                                        <?php //phpcs:disable ?>
-                                        <?php if ($this->helper(\Magento\Wishlist\Helper\Data::class)->isAllow() && $showWishlist) : ?>
-                                        <?php //phpcs:enable ?>
+                                        <?php if ($this->helper(\Magento\Wishlist\Helper\Data::class)->isAllow() && $showWishlist): ?>
                                             <a
                                                 href="#"
                                                 data-post='<?= /* @noEscape */ $block->getAddToWishlistParams($_item) ?>'
@@ -134,9 +132,7 @@ use Magento\Framework\App\Action\Action;
                                             </a>
                                         <?php endif; ?>
                                         <?php if ($block->getAddToCompareUrl() && $showCompare): ?>
-                                            <?php //phpcs:disable ?>
                                             <?php $compareHelper = $this->helper(\Magento\Catalog\Helper\Product\Compare::class);?>
-                                            <?php //phpcs:enable ?>
                                             <a
                                                 href="#"
                                                 class="
@@ -164,4 +160,13 @@ use Magento\Framework\App\Action\Action;
 
         <?= $block->getPagerHtml() ?>
     <?php endif ?>
+    <?php if ($block->getBlockHtml('formkey')): ?>
+        <script type="text/x-magento-init">
+        {
+            ".block.widget [data-role=tocart-form]": {
+                "Magento_Catalog/js/validate-product": {}
+            }
+        }
+        </script>
+    <?php endif;?>
 <?php endif;?>
