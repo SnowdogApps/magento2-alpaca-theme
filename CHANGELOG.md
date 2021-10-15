@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 ### Updated
 - Update requisition list button on product view (#83517)
+- Filters position on category view (#83483)
 ### Removed
 
 ## [2.24.1] - 2021-10-13
