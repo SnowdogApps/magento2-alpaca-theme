@@ -1,5 +1,5 @@
-<?php 
-// phpcs:disable Magento2.Templates.ThisInTemplate 
+<?php
+// phpcs:disable Magento2.Templates.ThisInTemplate
 /**  @var $block \Magento\Checkout\Block\Cart\Grid */
 ?>
 <?php $mergedCells = ($this->helper(Magento\Tax\Helper\Data::class)->displayCartBothPrices() ? 2 : 1); ?>
@@ -19,8 +19,12 @@
     <?= $block->getBlockHtml('formkey') ?>
     <div
         id="shopping-cart-table"
-        data-mage-init='{"shoppingCart":{"emptyCartButton": "action.clear",
-        "updateCartActionContainer": "#update_cart_action_container"}}'
+        data-mage-init='{
+            "shoppingCart":{
+                "emptyCartButton": "cart-actions__clear",
+                "updateCartActionContainer": "#update_cart_action_container"
+            }
+        }'
     >
         <?php foreach ($block->getItems() as $_item): ?>
             <?= $block->getItemHtml($_item); ?>
@@ -42,17 +46,25 @@
                     <?= $block->escapeHtml(__('Continue Shopping')) ?>
                 </a>
             <?php endif; ?>
-            <button
-                type="submit"
-                name="update_cart_action"
-                data-cart-empty=""
-                value="empty_cart"
-                title="<?= $block->escapeHtmlAttr(__('Clear Shopping Cart')) ?>"
-                class="button button--secondary cart-actions__button"
-                id="empty_cart_button"
-            >
-                <?= $block->escapeHtml(__('Clear Shopping Cart')) ?>
-            </button>
+            <?php if ($block->getViewModel()->isClearShoppingCartEnabled()): ?>
+                <button
+                    type="button"
+                    name="update_cart_action"
+                    data-cart-empty=""
+                    value="empty_cart"
+                    title="<?= $block->escapeHtmlAttr(__('Clear Shopping Cart')) ?>"
+                    class="
+                        button
+                        button--secondary
+                        cart-actions__button
+                        cart-actions__clear
+                    "
+                    id="empty_cart_button"
+                >
+                    <?= $block->escapeHtml(__('Clear Shopping Cart')) ?>
+                </button>
+            <?php endif ?>
+
             <button
                 type="submit"
                 name="update_cart_action"
