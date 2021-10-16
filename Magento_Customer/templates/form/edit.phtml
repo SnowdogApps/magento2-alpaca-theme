@@ -1,3 +1,9 @@
+<?php
+use Magento\Customer\Block\Widget\Name;
+
+/** @var \Magento\Customer\Block\Form\Edit $block */
+/** @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer */
+?>
 <form
     class="
         dashboard-form
@@ -19,7 +25,7 @@
     <div class="dashboard-form__divider">
         <?=
             $block->getLayout()
-                ->createBlock(\Magento\Customer\Block\Widget\Name::class)
+                ->createBlock(Name::class)
                 ->setObject($block->getCustomer())
                 ->toHtml()
         ?>
@@ -49,15 +55,13 @@
                 value="1"
                 title="<?= $block->escapeHtmlAttr(__('Change Email')) ?>"
                 class="checkbox__field"
-            >
+            />
 
             <svg
                 class="checkbox__icon"
                 role="img"
             >
-                <title>
-                    <?= $block->escapeHtml(__('checked icon')) ?>
-                </title>
+                <title><?= $block->escapeHtml(__('checked icon')) ?></title>
                 <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#checked')) ?>"></use>
             </svg>
 
@@ -86,15 +90,13 @@
                 <?php if ($block->getChangePassword()): ?>
                     checked="checked"
                 <?php endif; ?>
-            >
+            />
 
             <svg
                 class="checkbox__icon"
                 role="img"
             >
-                <title>
-                    <?= $block->escapeHtml(__('checked icon')) ?>
-                </title>
+                <title><?= $block->escapeHtml(__('checked icon')) ?></title>
                 <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#checked')) ?>"></use>
             </svg>
 
@@ -104,6 +106,8 @@
             >
                 <?= $block->escapeHtml(__('Change Password')) ?>
             </label>
+
+            <?= $block->getChildHtml('fieldset_edit_info_additional') ?>
         </div>
 
         <div
@@ -144,8 +148,8 @@
                     value="<?= $block->escapeHtmlAttr($block->getCustomer()->getEmail()) ?>"
                     title="<?= $block->escapeHtmlAttr(__('Email')) ?>"
                     class="input__field"
-                    data-validate="{required:true, 'validate-email':true}"
-                >
+                    data-validate="{required: true, 'validate-email': true}"
+                />
             </div>
 
             <div class="input password required">
@@ -160,17 +164,17 @@
                     name="current_password"
                     data-input="current-password"
                     autocomplete="off"
-                >
+                />
             </div>
 
             <div
-                class="input dashboard-form--hidden newPassword required"
+                class="
+                    input
+                    dashboard-form--hidden
+                    newPassword
+                    required
+                "
                 data-container="new-password"
-                data-mage-init='{
-                    "passwordStrengthIndicator": {
-                        "defaultClassName": "password-strength--"
-                    }
-                }'
             >
                 <?php
                     $minPasswordLength = $block->escapeHtml($block->getMinimumPasswordLength());
@@ -189,23 +193,32 @@
                     data-password-min-length="<?= $block->escapeHtmlAttr($minPasswordLength) ?>"
                     data-password-min-character-sets="<?= $block->escapeHtmlAttr($maxPasswordLength) ?>"
                     data-input="new-password"
-                    data-validate="{required:true, 'validate-customer-password':true}"
+                    data-validate="{
+                        required: true,
+                        'validate-customer-password': true
+                    }"
                     autocomplete="off"
-                >
+                />
 
-                <div class="password-strength">
+                <div
+                    id="password-strength-meter-container"
+                    data-role="password-strength-meter"
+                    aria-live="polite"
+                    class="password-strength"
+                >
                     <div
-                        class="password-none"
+                        id="password-strength-meter"
                         data-role="password-strength-meter"
+                        class="password-none"
                     >
                         <div class="password-strength__handle">
-                            <?= $block->escapeHtml(__('Password Strength') . ':') ?>
+                            <?= $block->escapeHtml(__('Password Strength')) ?>:
                             <span
-                                class="password-strength__indicator"
+                                id="password-strength-meter-label"
                                 data-role="password-strength-meter-label"
-                                aria-live="polite"
+                                class="password-strength__indicator"
                             >
-                                <?= $block->escapeHtml(__('No Password')); ?>
+                                <?= $block->escapeHtml(__('No Password')) ?>
                             </span>
                         </div>
                     </div>
@@ -213,7 +226,12 @@
             </div>
 
             <div
-                class="input confirmPassword required"
+                class="
+                    input
+                    confirmation
+                    password
+                    required
+                "
                 data-container="confirm-password"
             >
                 <label class="label" for="password-confirmation">
@@ -229,6 +247,14 @@
                     autocomplete="off"
                 >
             </div>
+
+            <div
+                class="input choice"
+                data-bind="scope: 'showPassword'"
+            >
+                <!-- ko template: getTemplate() --><!-- /ko -->
+            </div>
+
 
             <?= $block->getChildHtml('form_additional_info'); ?>
         </div>
@@ -255,43 +281,67 @@
         </div>
     </div>
 </form>
-<script>
+<?php $ignore = /* @noEscape */ $_dob->isEnabled() ? '\'input[id$="full"]\'' : 'null';
+$scriptString = <<<script
     require([
         "jquery",
         "mage/mage"
-    ], function($) {
+    ], function($){
         var dataForm = $('#form-validate');
-        var ignore = <?= $_dob->isEnabled() ? '\'input[id$="full"]\'' : 'null'; ?>;
+        var ignore = {$ignore};
 
         dataForm.mage('validation', {
-        <?php if ($_dob->isEnabled()): ?>
-            errorPlacement: function(error, element) {
-                if (element.prop('id').search('full') !== -1) {
-                    var dobElement = $(element).parents('.customer-dob'),
-                        errorClass = error.prop('class');
-                    error.insertAfter(element.parent());
-                    dobElement.find('.validate-custom').addClass(errorClass)
-                        .after('<div class="' + errorClass + '"></div>');
-                }
-                else {
-                    error.insertAfter(element);
-                }
-            },
-            ignore: ':hidden:not(' + ignore + ')'
-        <?php else: ?>
-            ignore: ignore ? ':hidden:not(' + ignore + ')' : ':hidden'
-        <?php endif ?>
+script;
+if ($_dob->isEnabled()):
+    $scriptString .= <<<script
+        errorPlacement: function(error, element) {
+            if (element.prop('id').search('full') !== -1) {
+                var dobElement = $(element).parents('.customer-dob'),
+                    errorClass = error.prop('class');
+                error.insertAfter(element.parent());
+                dobElement.find('.validate-custom').addClass(errorClass)
+                    .after('<div class="' + errorClass + '"></div>');
+            }
+            else {
+                error.insertAfter(element);
+            }
+        },
+        ignore: ':hidden:not(' + ignore + ')'
+script;
+else:
+    $scriptString .= <<<script
+        ignore: ignore ? ':hidden:not(' + ignore + ')' : ':hidden'
+script;
+endif;
+$scriptString .= <<<script
         });
-
     });
-</script>
+script;
+?>
+<?= /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false) ?>
+<?php $changeEmailAndPasswordTitle = $block->escapeHtml(__('Change Email and Password')) ?>
 <script type="text/x-magento-init">
     {
         "[data-role=change-email], [data-role=change-password]": {
             "changeEmailPassword": {
                 "titleChangeEmail": "<?= $block->escapeJs($block->escapeHtml(__('Change Email'))) ?>",
                 "titleChangePassword": "<?= $block->escapeJs($block->escapeHtml(__('Change Password'))) ?>",
-                "titleChangeEmailAndPassword": "<?= $block->escapeJs($block->escapeHtml(__('Change Email and Password'))) ?>"
+                "titleChangeEmailAndPassword": "<?= $block->escapeJs($changeEmailAndPasswordTitle) ?>"
+            }
+        },
+        "[data-container=new-password]": {
+            "passwordStrengthIndicator": {
+                "formSelector": "form.form-edit-account"
+            }
+        },
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "showPassword": {
+                        "component": "Magento_Customer/js/show-password",
+                        "passwordSelector": "#current-password,#password,#password-confirmation"
+                    }
+                }
             }
         }
     }

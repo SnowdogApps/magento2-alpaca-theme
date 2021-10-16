@@ -6,7 +6,13 @@
  * @var \Magento\Customer\Block\Form\Login $block
  */
 ?>
-<div class="col-xs-12 col-md-6 login__form-column">
+<div
+    class="
+        col-xs-12
+        col-md-6
+        ogin__form-column
+    "
+>
     <h3>
         <?= $block->escapeHtml(__('Registered Customers')) ?>
     </h3>
@@ -19,7 +25,7 @@
         action="<?= $block->escapeUrl($block->getPostActionUrl()) ?>"
         method="post"
         id="login-form"
-        data-mage-init='{"validation":{}}'
+        data-mage-init='{"validation": {}}'
     >
         <fieldset class="fieldset login__fieldset">
             <legend class="fieldset__legends login__legend"></legend>
@@ -36,9 +42,9 @@
                     type="email"
                     class="input__field"
                     title="<?= $block->escapeHtmlAttr(__('Email')) ?>"
-                    data-mage-init='{"mage/trim-input":{}}'
+                    data-mage-init='{"mage/trim-input": {}}'
                     data-validate="{required:true, 'validate-email':true}"
-                >
+                />
             </div>
             <div class="input login__input required">
                 <label>
@@ -51,8 +57,11 @@
                     class="input__field"
                     id="pass"
                     title="<?= $block->escapeHtmlAttr(__('Password')) ?>"
-                    data-validate="{required:true}"
-                >
+                    data-validate="{required: true}"
+                />
+            </div>
+            <div class="field choice" data-bind="scope: 'showPassword'">
+                <!-- ko template: getTemplate() --><!-- /ko -->
             </div>
             <?= $block->getChildHtml('form_additional_info'); ?>
         </fieldset>
@@ -76,3 +85,20 @@
         </div>
     </form>
 </div>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Customer/js/block-submit-on-send": {
+                "formId": "login-form"
+            },
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "showPassword": {
+                        "component": "Magento_Customer/js/show-password",
+                        "passwordSelector": "#pass"
+                    }
+                }
+            }
+        }
+    }
+</script>

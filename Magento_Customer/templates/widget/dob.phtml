@@ -1,34 +1,30 @@
 <?php
-/**
+/** @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer */
+/** @var \Magento\Customer\Block\Widget\Dob $block */
+
+/*
 USAGE:
-
-Simple:
-
-<?php echo $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Dob::class)
+<?= $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Dob')
    ->setDate($block->getCustomer()->getDob())
    ->toHtml() ?>
 
 For checkout/onepage/billing.phtml:
 
-<?php echo $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Dob::class)
+<?= $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Dob')
    ->setDate($block->getCustomer()->getDob())
    ->setFieldIdFormat('billing:%s')
    ->setFieldNameFormat('billing[%s]')
    ->toHtml() ?>
 
-NOTE: Regarding styles - if we leave it this way, we'll move it to boxes.css
-      Alternatively we could calculate widths automatically using block input parameters.
+NOTE: Regarding styles - if we leave it this way, we'll move it to boxes.css. Alternatively we could calculate widths
+automatically using block input parameters.
 */
 
-/**
- * @see \Magento\Customer\Block\Widget\Dob
- */
-?>
-<?php
+$translatedCalendarConfigJson = $block->getTranslatedCalendarConfigJson();
 $fieldCssClass = 'input input--inline date input-' . $block->getHtmlId();
 $fieldCssClass .= $block->isRequired() ? ' required' : '';
 ?>
-<div class="<?= $fieldCssClass; ?>">
+<div class="<?= /* @noEscape */ $fieldCssClass; ?>">
     <label class="input__label" for="<?= /* @noEscape */ $block->getHtmlId()?>">
         <?= $block->escapeHtml($block->getStoreLabel('dob')) ?>
     </label>
@@ -46,4 +42,19 @@ $fieldCssClass .= $block->isRequired() ? ' required' : '';
            "Magento_Customer/js/validation": {}
        }
     }
- </script>
+</script>
+
+<?php $scriptString = <<<code
+require([
+    'jquery',
+    'jquery-ui-modules/datepicker'
+], function($) {
+    //<![CDATA[
+        $.extend(true, $, {
+            calendarConfig: {$translatedCalendarConfigJson}
+        });
+    //]]>
+});
+code;
+?>
+<?= /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false) ?>
