@@ -3,7 +3,7 @@ define([
   'underscore',
   'mage/template',
   'mage/translate',
-  'priceUtils',
+  'priceUtils'
 ], function ($, _, mageTemplate, $t, priceUtils) {
   'use strict';
 
@@ -82,12 +82,11 @@ define([
           moreText = this.options.moreButtonText,
           countAttributes = 0,
           html = '';
-
         if (!this.options.jsonSwatchConfig.hasOwnProperty(config.id)) {
           return '';
         }
 
-        $.each(config.options, function () {
+        $.each(config.options, function (index) {
           var id,
             type,
             value,
@@ -111,22 +110,25 @@ define([
           label = this.label ? this.label : '';
           attr =
             ' id="' + controlId + '-item-' + id + '"' +
+            ' index="' + index + '"' +
             ' aria-selected="false"' +
+            ' aria-checked="false"' +
             ' aria-describedby="' + controlId + '"' +
             ' tabindex="0"' +
-            ' option-type="' + type + '"' +
-            ' option-id="' + id + '"' +
-            ' option-label="' + label + '"' +
-            ' aria-label="' + label + '"' +
-            ' option-tooltip-thumb="' + thumb + '"' +
-            ' option-tooltip-value="' + value + '"' +
+            ' data-option-type="' + type + '"' +
+            ' data-option-id="' + id + '"' +
+            ' data-option-label="' + label + '"' +
+            ' aria-label="' + config.code + ' ' + label + '"' +
             ' role="option"';
 
+          attr += thumb !== '' ? ' data-option-tooltip-thumb="' + thumb + '"' : '';
+          attr += value !== '' ? ' data-option-tooltip-value="' + value + '"' : '';
+
           if (!this.hasOwnProperty('products') || this.products.length <= 0) {
-            attr += ' option-empty="true"';
+            attr += ' data-option-empty="true"';
           }
 
-          html += '<div class="' + optionContainerClass + '" ' + attr + '><div class="' + optionClass;
+          html += '<div class="swatch-option ' + optionContainerClass + '" ' + attr + '><div class="' + optionClass;
           if (type === 0) {
             // Text
             html += '">' + (value ? value : label);
@@ -146,7 +148,7 @@ define([
             // Default
             html += '">' + label;
           }
-          html += '</div></div>'
+          html += '</div></div>';
         });
 
         return html;
@@ -190,8 +192,10 @@ define([
         var $parent = $this.parents('.' + $widget.options.classes.attributeClass),
           $wrapper = $this.parents('.' + $widget.options.classes.attributeOptionsWrapper),
           $label = $parent.find('.' + $widget.options.classes.attributeSelectedOptionLabelClass),
-          attributeId = $parent.attr('attribute-id'),
-          $input = $parent.find('.' + $widget.options.classes.attributeInput);
+          attributeId = $parent.data('attribute-id'),
+          $input = $parent.find('.' + $widget.options.classes.attributeInput),
+          $priceBox = $widget.element.parents($widget.options.selectorProduct)
+            .find(this.options.selectorProductPrice);
 
         if ($widget.inProductList) {
           $input = $widget.productForm.find(
@@ -204,14 +208,14 @@ define([
         }
 
         if ($this.hasClass('selected')) {
-          $parent.removeAttr('option-selected').find('.selected').removeClass('selected');
+          $parent.removeAttr('data-option-selected').find('.selected').removeClass('selected');
           $input.val('');
           $label.text('');
           $this.attr('aria-selected', false);
         } else {
-          $parent.attr('option-selected', $this.attr('option-id')).find('.selected').removeClass('selected');
-          $label.text($this.attr('option-label'));
-          $input.val($this.attr('option-id'));
+          $parent.attr('data-option-selected', $this.data('option-id')).find('.selected').removeClass('selected');
+          $label.text($this.data('option-label'));
+          $input.val($this.data('option-id'));
           $input.attr('data-attr-name', this._getAttributeCodeById(attributeId));
           $this.addClass('selected');
           $widget._toggleCheckedAttributes($this, $wrapper);
@@ -219,11 +223,17 @@ define([
 
         $widget._Rebuild();
 
-        if ($widget.element.parents($widget.options.selectorProduct)
-          .find(this.options.selectorProductPrice).is(':data(mage-priceBox)')
-        ) {
+        if ($priceBox.is(':data(mage-priceBox)')) {
           $widget._UpdatePrice();
         }
+
+        $(document).trigger('updateMsrpPriceBlock',
+          [
+            this._getSelectedOptionPriceIndex(),
+            $widget.options.jsonConfig.optionPrices,
+            $priceBox
+          ]
+        );
 
         $widget._loadMedia();
         $input.trigger('change');
@@ -233,35 +243,73 @@ define([
           .find('.' + this.options.classes.optionContainerClass).attr('aria-selected', false);
         $this.attr('aria-selected', true);
       },
+      _Rebuild: function () {
+        var $widget = this,
+          controls = $widget.element.find('.' + $widget.options.classes.attributeClass + '[data-attribute-id]'),
+          selected = controls.filter('[data-option-selected]');
+
+        // Enable all options
+        $widget._Rewind(controls);
+
+        // done if nothing selected
+        if (selected.length <= 0) {
+          return;
+        }
+
+        // Disable not available options
+        controls.each(function () {
+          var $this = $(this),
+            id = $this.data('attribute-id'),
+            products = $widget._CalcProducts(id);
+
+          if (selected.length === 1 && selected.first().data('attribute-id') === id) {
+            return;
+          }
+
+          $this.find('[data-option-id]').each(function () {
+            var $element = $(this),
+              option = $element.data('option-id');
+
+            if (!$widget.optionsMap.hasOwnProperty(id) || !$widget.optionsMap[id].hasOwnProperty(option) ||
+              $element.hasClass('selected') ||
+              $element.is(':selected')) {
+              return;
+            }
+
+            if (_.intersection(products, $widget.optionsMap[id][option].products).length <= 0) {
+              $element.attr('disabled', true).addClass('disabled');
+            }
+          });
+        });
+      },
       _UpdatePrice: function () {
         var $widget = this,
           $product = $widget.element.parents($widget.options.selectorProduct),
           $productPrice = $product.find(this.options.selectorProductPrice),
           options = _.object(_.keys($widget.optionsMap), {}),
+          newPrices,
           result,
           tierPriceHtml;
 
-        $widget.element.find('.' + $widget.options.classes.attributeClass + '[option-selected]').each(function () {
-          var attributeId = $(this).attr('attribute-id');
+        $widget.element.find('.' + $widget.options.classes.attributeClass + '[data-option-selected]').each(function () {
+          var attributeId = $(this).data('attribute-id');
 
-          options[attributeId] = $(this).attr('option-selected');
+          options[attributeId] = $(this).attr('data-option-selected');
         });
 
-        result = $widget.options.jsonConfig.optionPrices[_.findKey($widget.options.jsonConfig.index, options)];
+        newPrices = $widget.options.jsonConfig.optionPrices[_.findKey($widget.options.jsonConfig.index, options)];
 
         $productPrice.trigger(
           'updatePrice', {
-            'prices': $widget._getPrices(result, $productPrice.priceBox('option').prices)
+            'prices': $widget._getPrices(newPrices, $productPrice.priceBox('option').prices)
           }
         );
 
-        if (typeof result != 'undefined' && result.oldPrice.amount !== result.finalPrice.amount) {
-          $(this.options.slyOldPriceSelector).show();
-        } else {
-          $(this.options.slyOldPriceSelector).hide();
-        }
+        result = newPrices ? newPrices : $widget._getNewPrices();
 
-        if (typeof result != 'undefined' && result.tierPrices.length) {
+        $widget._updateSpecialPrice(result);
+
+        if (typeof newPrices != 'undefined' && result.tierPrices.length) {
           if (this.options.tierPriceTemplate) {
             tierPriceHtml = mageTemplate(
               this.options.tierPriceTemplate, {
@@ -292,6 +340,22 @@ define([
             }
           }
         }.bind(this));
+      },
+      _updateSpecialPrice: function(result) {
+        var $widget = this,
+          $product = $widget.element.parents($widget.options.selectorProduct),
+          $productSlyOldPriceSelector = $product.find(this.options.slyOldPriceSelector),
+          $productSlyFinalPriceSelector = $product.find(this.options.slyFinalPriceSelector);
+
+        if (result.oldPrice.amount !== result.finalPrice.amount) {
+          $productSlyOldPriceSelector.show();
+          $productSlyFinalPriceSelector.addClass('price__value--special');
+          $productSlyFinalPriceSelector.removeClass('price__value--normal');
+        } else {
+          $productSlyOldPriceSelector.hide();
+          $productSlyFinalPriceSelector.removeClass('price__value--special');
+          $productSlyFinalPriceSelector.addClass('price__value--normal');
+        }
       },
       _EnableProductMediaLoader: function ($this) {
         var $widget = this;
