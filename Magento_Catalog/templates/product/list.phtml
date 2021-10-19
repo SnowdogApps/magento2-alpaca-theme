@@ -267,6 +267,14 @@ use Magento\Framework\App\Action\Action;
                                         action="<?= $escaper->escapeUrl($postParams['action']) ?>"
                                         method="post"
                                     >
+                                    <?php $optionsData = $block->getData('viewModel')->getOptionsData($_product); ?>
+                                        <?php foreach ($optionsData as $optionItem): ?>
+                                            <input
+                                                type="hidden"
+                                                name="<?= $escaper->escapeHtml($optionItem['name']) ?>"
+                                                value="<?= $escaper->escapeHtml($optionItem['value']) ?>"
+                                            >
+                                        <?php endforeach; ?>
                                         <input
                                             type="hidden"
                                             name="product"
@@ -501,10 +509,9 @@ use Magento\Framework\App\Action\Action;
         </ul>
     <?php endif; ?>
 
-    <?= $block->getToolbarHtml() ?>
+    <?= $block->getChildBlock('toolbar')->setIsBottom(true)->toHtml() ?>
 
-    <?php if (!$block->isRedirectToCartEnabled()): ?>
-        <script type="text/x-magento-init">
+    <script type="text/x-magento-init">
         {
             "[data-role=tocart-form], .form.map.checkout": {
                 "catalogAddToCart": {
@@ -512,6 +519,5 @@ use Magento\Framework\App\Action\Action;
                 }
             }
         }
-        </script>
-    <?php endif; ?>
+    </script>
 <?php endif; ?>

@@ -8,8 +8,8 @@ All notable changes to this project will be documented in this file.
 ### Updated
 - Update requisition list button on product view (#83517)
 - Filters position on category view (#83483)
+- Update to Magento 2.4.3 (#81212)
 ### Removed
-
 ## [2.24.1] - 2021-10-13
 ### Changed
 - Frontools dependency removed
