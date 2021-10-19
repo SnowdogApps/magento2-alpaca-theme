@@ -8,13 +8,18 @@ All notable changes to this project will be documented in this file.
 ### Updated
 ### Removed
 
+## [Released]
+## [2.25.0] - 2021-10-19
+### Fixed
+- Filters position on category view (#83483)
+### Updated
+- Update requisition list button on product view (#83517)
+- Update to Magento 2.4.3 (#81212)
 ## [2.24.1] - 2021-10-13
 ### Changed
 - Frontools dependency removed
 ### Fixed
 - Asterix position in required checkboxes (#80129)
-
-## [Released]
 ## [2.24.0] - 2021-09-09
 ### Added
 - column template variables for catalog grid styles (#81732)

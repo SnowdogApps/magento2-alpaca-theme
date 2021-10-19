@@ -38,7 +38,7 @@ define([
 
     if (config.type === 'number') {
       defaultOptions.sorter = (data) =>
-        data.sort((a, b) => a.text.localeCompare(b.text))
+        data.sort((a, b) => a.text.localeCompare(b.text, "en", { numeric: true }))
     }
 
     if (isSearchable) {

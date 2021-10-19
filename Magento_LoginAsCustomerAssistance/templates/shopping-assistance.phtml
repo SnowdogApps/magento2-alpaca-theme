@@ -8,18 +8,18 @@ use Magento\LoginAsCustomerAssistance\ViewModel\ShoppingAssistanceViewModel;
 $viewModel = $block->getViewModel();
 ?>
 
-<script type="text/x-magento-init">
-{
-    ".form-create-account, .form-edit-account": {
-        "Magento_LoginAsCustomerAssistance/js/opt-in": {
-            "allowAccess": "<?= /* @noEscape */ IsAssistanceEnabledInterface::ALLOWED ?>",
-            "denyAccess": "<?= /* @noEscape */ IsAssistanceEnabledInterface::DENIED ?>"
+<?php if ($viewModel->isLoginAsCustomerEnabled()): ?>
+    <script type="text/x-magento-init">
+    {
+        ".form-create-account, .form-edit-account": {
+            "Magento_LoginAsCustomerAssistance/js/opt-in": {
+                "allowAccess": "<?= /* @noEscape */ IsAssistanceEnabledInterface::ALLOWED ?>",
+                "denyAccess": "<?= /* @noEscape */ IsAssistanceEnabledInterface::DENIED ?>"
+            }
         }
     }
-}
-</script>
+    </script>
 
-<?php if ($viewModel->isLoginAsCustomerEnabled()): ?>
     <div
         class="
             field
