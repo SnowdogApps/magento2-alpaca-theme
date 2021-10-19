@@ -1,11 +1,11 @@
 <?php /* @var $block \Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\Checkbox */ ?>
 <?php $_option = $block->getOption() ?>
 <?php $_selections = $_option->getSelections() ?>
-<?php $inputClass = 'checkbox__field bundle option bundle-option-' . $block->escapeHtmlAttr($_option->getId()) ?>
-<?php $inputId = 'bundle-option-' . $block->escapeHtmlAttr($_option->getId()) ?>
-<?php $inputName = 'bundle_option[' . $block->escapeHtmlAttr($_option->getId()) . ']' ?>
+<?php $inputClass = 'checkbox__field bundle option bundle-option-' . $escaper->escapeHtmlAttr($_option->getId()) ?>
+<?php $inputId = 'bundle-option-' . $escaper->escapeHtmlAttr($_option->getId()) ?>
+<?php $inputName = 'bundle_option[' . $escaper->escapeHtmlAttr($_option->getId()) . ']' ?>
 <?php $dataValidation = 'data-validate="{\'validate-one-required-by-name\':\'input[name^=&quot;bundle_option[' .
-    $block->escapeHtmlAttr($_option->getId()) . ']&quot;]:checked\'}"' ?>
+    $escaper->escapeHtmlAttr($_option->getId()) . ']&quot;]:checked\'}"' ?>
 <div class="bundle-option">
     <h4
         class="
@@ -13,7 +13,7 @@
             <?= ($_option->getRequired()) ? 'bundle-option__title--required': '' ?>
         "
     >
-        <?= $block->escapeHtml($_option->getTitle()) ?>
+        <?= $escaper->escapeHtml($_option->getTitle()) ?>
     </h4>
     <?php if ($block->showSingle()): ?>
         <?= /* @noEscape */ $block->getSelectionQtyTitlePrice($_selections[0]) ?>
@@ -21,8 +21,8 @@
         <input
             type="hidden"
             class="bundle option"
-            name="bundle_option[<?= $block->escapeHtmlAttr($_option->getId()) ?>]"
-            value="<?= $block->escapeHtmlAttr($_selections[0]->getSelectionId()) ?>"
+            name="bundle_option[<?= $escaper->escapeHtmlAttr($_option->getId()) ?>]"
+            value="<?= $escaper->escapeHtmlAttr($_selections[0]->getSelectionId()) ?>"
         >
     <?php else: ?>
         <?php foreach($_selections as $_selection): ?>
@@ -30,47 +30,47 @@
             <div class="checkbox">
                 <input
                     class="checkbox__field bundle option"
-                    id="bundle-option-<?= $block->escapeHtmlAttr($_option->getId()) ?>-<?= $_selection->getSelectionId() ?>"
+                    id="bundle-option-<?= $escaper->escapeHtmlAttr($_option->getId()) ?>-<?= $_selection->getSelectionId() ?>"
                     type="checkbox"
                     <?php if ($_option->getRequired()): ?>
                         <?=
                             'data-validate="{\'validate-one-required-by-name\':\'input[name^=&quot;bundle_option[' .
-                            $block->escapeHtmlAttr($_option->getId()) . ']&quot;]:checked\'}"'
+                            $escaper->escapeHtmlAttr($_option->getId()) . ']&quot;]:checked\'}"'
                         ?>
                     <?php endif; ?>
-                    name="bundle_option[<?= $block->escapeHtmlAttr($_option->getId()); ?>][<?= $block->escapeHtmlAttr($_selection->getId()) ?>]"
-                    data-selector="bundle_option[<?= $block->escapeHtmlAttr($_option->getId()) ?>][<?= $block->escapeHtmlAttr($_selection->getId()) ?>]"
+                    name="bundle_option[<?= $escaper->escapeHtmlAttr($_option->getId()); ?>][<?= $escaper->escapeHtmlAttr($_selection->getId()) ?>]"
+                    data-selector="bundle_option[<?= $escaper->escapeHtmlAttr($_option->getId()) ?>][<?= $escaper->escapeHtmlAttr($_selection->getId()) ?>]"
                     <?= ($block->isSelected($_selection)) ? ' checked="checked"' : ''; ?>
                     <?= (!$_selection->isSaleable()) ? ' disabled="disabled"' : ''; ?>
-                    value="<?= $block->escapeHtmlAttr($_selection->getSelectionId()) ?>"
+                    value="<?= $escaper->escapeHtmlAttr($_selection->getSelectionId()) ?>"
                 >
 
                 <input
                     class="<?=/* @noEscape */ $inputClass ?> change-container-classname"
-                    id="<?=/* @noEscape */ $inputId . '-' . $block->escapeHtmlAttr($sectionId)?>"
+                    id="<?=/* @noEscape */ $inputId . '-' . $escaper->escapeHtmlAttr($sectionId)?>"
                     type="checkbox"
                    <?php if ($_option->getRequired()): ?>
                         <?= /* @noEscape */ $dataValidation ?>
                    <?php endif;?>
-                   name="<?=/* @noEscape */ $inputName .'['. $block->escapeHtmlAttr($sectionId)?>]"
-                   data-selector="<?= /* @noEscape */ $inputName.'['.$block->escapeHtmlAttr($sectionId)?>]"
+                   name="<?=/* @noEscape */ $inputName .'['. $escaper->escapeHtmlAttr($sectionId)?>]"
+                   data-selector="<?= /* @noEscape */ $inputName.'['.$escaper->escapeHtmlAttr($sectionId)?>]"
                     <?php if ($block->isSelected($selection)): ?>
                         <?= 'checked="checked"' ?>
                     <?php endif; ?>
                     <?php if (!$selection->isSaleable()): ?>
                         <?= 'disabled="disabled"' ?>
                     <?php endif; ?>
-                    value="<?= $block->escapeHtmlAttr($sectionId) ?>"
+                    value="<?= $escaper->escapeHtmlAttr($sectionId) ?>"
                     data-errors-message-box="#validation-message-box"
                 />
 
                 <svg class="checkbox__icon" title="Checked">
-                    <title><?= $block->escapeHtml(__('Checked')) ?></title>
-                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#checked')) ?>"></use>
+                    <title><?= $escaper->escapeHtml(__('Checked')) ?></title>
+                    <use xlink:href="<?= $escaper->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#checked')) ?>"></use>
                 </svg>
                 <label
                     class="checkbox__label"
-                    for="<?= /* @noEscape */ $inputId . '-' . $block->escapeHtmlAttr($sectionId) ?>"
+                    for="<?= /* @noEscape */ $inputId . '-' . $escaper->escapeHtmlAttr($sectionId) ?>"
                 >
                     <?= $block->getSelectionQtyTitlePrice($_selection) ?>
                     <br/>
@@ -78,7 +78,7 @@
                 </label>
             </div>
         <?php endforeach; ?>
-        <div id="bundle-option-<?= $block->escapeHtmlAttr($_option->getId()) ?>-container"></div>
+        <div id="bundle-option-<?= $escaper->escapeHtmlAttr($_option->getId()) ?>-container"></div>
         <div id="validation-message-box"></div>
     <?php endif; ?>
 </div>

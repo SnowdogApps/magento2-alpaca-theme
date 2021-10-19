@@ -2,32 +2,32 @@
 <?php $_order = $block->getItem()->getOrderItem()->getOrder() ?>
 
 <tr id="order-item-row-<?= (int) $_item->getId() ?>">
-    <td class="name" data-th="<?= $block->escapeHtmlAttr(__('Product Name')); ?>">
+    <td class="name" data-th="<?= $escaper->escapeHtmlAttr(__('Product Name')); ?>">
         <strong>
-            <?= $block->escapeHtml($_item->getName()) ?>
+            <?= $escaper->escapeHtml($_item->getName()) ?>
         </strong>
 
         <?php if ($_options = $block->getItemOptions()): ?>
             <ul class="list">
                 <?php foreach ($_options as $_option) : ?>
                     <li>
-                        <?= $block->escapeHtml($_option['label']).': ' ?>
+                        <?= $escaper->escapeHtml($_option['label']).': ' ?>
 
                         <?php if (!$block->getPrintStatus()): ?>
                             <?php $_formatedOptionValue = $block->getFormatedOptionValue($_option) ?>
 
-                            <?= $block->escapeHtml($_formatedOptionValue['value'], ['a', 'img']) . ': ' ?>
+                            <?= $escaper->escapeHtml($_formatedOptionValue['value'], ['a', 'img']) . ': ' ?>
 
                             <?php if (isset($_formatedOptionValue['full_view'])): ?>
                                 <strong>
-                                    <?= $block->escapeHtml($_option['label']).' ' ?>
+                                    <?= $escaper->escapeHtml($_option['label']).' ' ?>
 
-                                    <?= $block->escapeHtml($_formatedOptionValue['full_view']) ?>
+                                    <?= $escaper->escapeHtml($_formatedOptionValue['full_view']) ?>
                                 </strong>
                             <?php endif; ?>
                         <?php else: ?>
                             <strong>
-                                <?= $block->escapeHtml($_option['print_value'] ?? $_option['value']) ?>
+                                <?= $escaper->escapeHtml($_option['print_value'] ?? $_option['value']) ?>
                             <strong>
                         <?php endif; ?>
                     </li>
@@ -41,22 +41,22 @@
             <?= $addInfoBlock->setItem($_item->getOrderItem())->toHtml(); ?>
         <?php endif; ?>
 
-        <?= $block->escapeHtml($_item->getDescription()) ?>
+        <?= $escaper->escapeHtml($_item->getDescription()) ?>
     </td>
 
-    <td class="sku" data-th="<?= $block->escapeHtmlAttr(__('SKU')); ?>">
+    <td class="sku" data-th="<?= $escaper->escapeHtmlAttr(__('SKU')); ?>">
         <?= /* @noEscape */ $block->prepareSku($block->getSku()) ?>
     </td>
 
-    <td class="price" data-th="<?= $block->escapeHtmlAttr(__('Price')); ?>">
+    <td class="price" data-th="<?= $escaper->escapeHtmlAttr(__('Price')); ?>">
         <?= /* @noEscape */ $block->getItemPriceHtml(); ?>
     </td>
 
-    <td class="qty" data-th="<?= $block->escapeHtmlAttr(__('Qty Invoiced')); ?>">
+    <td class="qty" data-th="<?= $escaper->escapeHtmlAttr(__('Qty Invoiced')); ?>">
         <?= (float) $_item->getQty() ?>
     </td>
 
-    <td class="subtotal" data-th="<?= $block->escapeHtmlAttr(__('Subtotal')); ?>">
+    <td class="subtotal" data-th="<?= $escaper->escapeHtmlAttr(__('Subtotal')); ?>">
         <?= /* @noEscape */ $block->getItemRowTotalHtml(); ?>
     </td>
 </tr>

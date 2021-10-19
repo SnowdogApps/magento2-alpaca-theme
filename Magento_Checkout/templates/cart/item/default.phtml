@@ -13,7 +13,7 @@
 <div class="cart-list-item">
     <a
         class="cart-list-item__image"
-        href="<?= $block->escapeUrl($block->getProductUrl()) ?>"
+        href="<?= $escaper->escapeUrl($block->getProductUrl()) ?>"
     >
         <?= $block->getImage($block->getProductForThumbnail(), 'cart_page_product_thumbnail')->toHtml() ?>
     </a>
@@ -21,14 +21,14 @@
         <div class="cart-list-item__data">
             <?php if ($block->hasProductUrl()): ?>
                 <a
-                    href="<?= $block->escapeUrl($block->getProductUrl()) ?>"
+                    href="<?= $escaper->escapeUrl($block->getProductUrl()) ?>"
                     class="link link--invert cart-list-item__name"
                 >
-                    <?= $block->escapeHtml($block->getProductName()) ?>
+                    <?= $escaper->escapeHtml($block->getProductName()) ?>
                 </a>
             <?php else: ?>
                 <div class="link link--invert cart-list-item__name">
-                    <?= $block->escapeHtml($block->getProductName()) ?>
+                    <?= $escaper->escapeHtml($block->getProductName()) ?>
                 </div>
             <?php endif; ?>
             <div class="cart-list-item__details">
@@ -36,17 +36,17 @@
                     <div class="input cart-list-item__qty-wrapper">
                         <label
                             class="label label--hidden"
-                            for="cart-<?= $block->escapeHtmlAttr($_item->getId()) ?>-qty"
+                            for="cart-<?= $escaper->escapeHtmlAttr($_item->getId()) ?>-qty"
                         >
-                            <?= $block->escapeHtml(__('Qty')) ?>
+                            <?= $escaper->escapeHtml(__('Qty')) ?>
                         </label>
                         <input
-                            id="cart-<?= $block->escapeHtmlAttr($_item->getId()) ?>-qty"
-                            name="cart[<?= $block->escapeHtmlAttr($_item->getId()) ?>][qty]"
-                            data-cart-item-id="<?= $block->escapeHtmlAttr($_item->getSku()) ?>"
-                            value="<?= $block->escapeHtmlAttr($block->getQty()) ?>"
+                            id="cart-<?= $escaper->escapeHtmlAttr($_item->getId()) ?>-qty"
+                            name="cart[<?= $escaper->escapeHtmlAttr($_item->getId()) ?>][qty]"
+                            data-cart-item-id="<?= $escaper->escapeHtmlAttr($_item->getSku()) ?>"
+                            value="<?= $escaper->escapeHtmlAttr($block->getQty()) ?>"
                             type="text"
-                            title="<?= $block->escapeHtmlAttr(__('Qty')) ?>"
+                            title="<?= $escaper->escapeHtmlAttr(__('Qty')) ?>"
                             class="input__field cart-list-item__qty-input"
                             maxlength="12"
                             data-validate="{
@@ -71,7 +71,7 @@
                         <?php foreach ($messages as $message): ?>
                             <div class="item message <?= $message['type'] ?>">
                                 <div>
-                                    <?= $block->escapeHtml($message['text']) ?>
+                                    <?= $escaper->escapeHtml($message['text']) ?>
                                 </div>
                             </div>
                         <?php endforeach; ?>
@@ -92,7 +92,7 @@
                 >
                     <?php foreach ($_options as $_option): ?>
                         <?php $_formatedOptionValue = $block->getFormatedOptionValue($_option) ?>
-                        <dt class="list__label"><?= $block->escapeHtml($_option['label']) ?></dt>
+                        <dt class="list__label"><?= $escaper->escapeHtml($_option['label']) ?></dt>
                         <dd class="list__value">
                             <?php if (isset($_formatedOptionValue['full_view'])): ?>
                                 <?= $_formatedOptionValue['full_view'] ?>

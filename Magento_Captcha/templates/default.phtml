@@ -5,9 +5,9 @@
 $captcha = $block->getCaptchaModel();
 /** @var bool $validationEnabled */
 $validationEnabled = $block->hasData('frontend_validation') ? $block->getData('frontend_validation') : true;
-$inputName = $block->escapeHtmlAttr(\Magento\Captcha\Helper\Data::INPUT_NAME_FIELD_VALUE);
-$loaderUrl = $block->escapeUrl($block->getViewFileUrl('images/loader-2.gif'));
-$note = $block->escapeHtml(__('<strong>Attention</strong>: Captcha is case sensitive.'), ['strong']);
+$inputName = $escaper->escapeHtmlAttr(\Magento\Captcha\Helper\Data::INPUT_NAME_FIELD_VALUE);
+$loaderUrl = $escaper->escapeUrl($block->getViewFileUrl('images/loader-2.gif'));
+$note = $escaper->escapeHtml(__('<strong>Attention</strong>: Captcha is case sensitive.'), ['strong']);
 ?>
 <div
     class="
@@ -18,19 +18,19 @@ $note = $block->escapeHtml(__('<strong>Attention</strong>: Captcha is case sensi
 >
     <label
         class="label"
-        for="captcha_<?= $block->escapeHtmlAttr($block->getFormId()) ?>"
+        for="captcha_<?= $escaper->escapeHtmlAttr($block->getFormId()) ?>"
     >
-        <?= $block->escapeHtml(__('Please type the letters below')) ?>
+        <?= $escaper->escapeHtml(__('Please type the letters below')) ?>
     </label>
     <input
-        name="<?= /* @noEscape */ $inputName ?>[<?= $block->escapeHtmlAttr($block->getFormId()) ?>]"
+        name="<?= /* @noEscape */ $inputName ?>[<?= $escaper->escapeHtmlAttr($block->getFormId()) ?>]"
         type="text"
         class="
             input__field
             <?php if ($validationEnabled): ?> required-entry<?php endif; ?>
         "
         <?php if ($validationEnabled): ?>data-validate="{ required: true }"<?php endif; ?>
-        id="captcha_<?= $block->escapeHtmlAttr($block->getFormId()) ?>"
+        id="captcha_<?= $escaper->escapeHtmlAttr($block->getFormId()) ?>"
         autocomplete="off"
     />
 </div>
@@ -40,25 +40,25 @@ $note = $block->escapeHtml(__('<strong>Attention</strong>: Captcha is case sensi
         captcha
         forgot-password__captcha-wrapper
     "
-    data-captcha="<?= $block->escapeHtmlAttr($block->getFormId()) ?>"
-    id="captcha-container-<?= $block->escapeHtmlAttr($block->getFormId()) ?>"
+    data-captcha="<?= $escaper->escapeHtmlAttr($block->getFormId()) ?>"
+    id="captcha-container-<?= $escaper->escapeHtmlAttr($block->getFormId()) ?>"
     data-mage-init='{
         "captcha":{
-            "url": "<?= $block->escapeUrl($block->getRefreshUrl()) ?>",
+            "url": "<?= $escaper->escapeUrl($block->getRefreshUrl()) ?>",
             "imageLoader": "<?= /* @noEscape */ $loaderUrl ?>",
-            "type": "<?= $block->escapeHtmlAttr($block->getFormId()) ?>"
+            "type": "<?= $escaper->escapeHtmlAttr($block->getFormId()) ?>"
         }
     }'
 >
     <img
-        alt="<?= $block->escapeHtmlAttr(__('Please type the letters and numbers below')) ?>"
+        alt="<?= $escaper->escapeHtmlAttr(__('Please type the letters and numbers below')) ?>"
         class="
             captcha-img
             image
             forgot-password__image
         "
         height="<?= /* @noEscape */ (float) $block->getImgHeight() ?>"
-        src="<?= $block->escapeUrl($captcha->getImgSrc()) ?>"
+        src="<?= $escaper->escapeUrl($captcha->getImgSrc()) ?>"
     />
     <button
         type="button"
@@ -68,9 +68,9 @@ $note = $block->escapeHtml(__('<strong>Attention</strong>: Captcha is case sensi
             reload
             captcha-reload
         "
-        title="<?= $block->escapeHtmlAttr(__('Reload captcha')); ?>"
+        title="<?= $escaper->escapeHtmlAttr(__('Reload captcha')); ?>"
     >
-        <?= $block->escapeHtml(__('Reload captcha')) ?>
+        <?= $escaper->escapeHtml(__('Reload captcha')) ?>
     </button>
     <?php if ($captcha->isCaseSensitive()):?>
         <div class="captcha-note input__note">

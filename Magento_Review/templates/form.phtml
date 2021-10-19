@@ -5,7 +5,7 @@
 ?>
 <?php if ($block->getAllowWriteReviewFlag()): ?>
     <form
-        action="<?= $block->escapeUrl($block->getAction()) ?>"
+        action="<?= $escaper->escapeUrl($block->getAction()) ?>"
         class="product-view__review review review--add"
         method="post"
         id="review-form"
@@ -17,7 +17,7 @@
 
         <fieldset
             class="fieldset review__fieldset"
-            data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
+            data-hasrequired="<?= $escaper->escapeHtmlAttr(__('* Required Fields')) ?>"
             aria-labelledby="review-form-title"
         >
             <?php if ($block->getRatings() && $block->getRatings()->getSize()): ?>
@@ -25,9 +25,9 @@
                     id="review-form-title"
                     class="review__title"
                 >
-                    <?= $block->escapeHtml(__("You're reviewing:")); ?>
+                    <?= $escaper->escapeHtml(__("You're reviewing:")); ?>
                     <span class="review__title-product">
-                        <?= $block->escapeHtml($block->getProductInfo()->getName()); ?>
+                        <?= $escaper->escapeHtml($block->getProductInfo()->getName()); ?>
                     </span>
                 </h2>
 
@@ -41,7 +41,7 @@
                         id="rating-label-legend"
                         class="review__rating-legend"
                     >
-                        <?= $block->escapeHtml(__('Your Rating')) ?>
+                        <?= $escaper->escapeHtml(__('Your Rating')) ?>
                     </legend>
                     <?php
                         $dislayLabel = count($block->getRatings()) > 1;
@@ -51,9 +51,9 @@
                         <?php if ($dislayLabel): ?>
                             <label
                                 class="review__rating-legend"
-                                id="<?= $block->escapeHtmlAttr($_rating->getRatingCode()) ?>_rating_label"
+                                id="<?= $escaper->escapeHtmlAttr($_rating->getRatingCode()) ?>_rating_label"
                             >
-                                <?= $block->escapeHtml($_rating->getRatingCode()) ?>
+                                <?= $escaper->escapeHtml($_rating->getRatingCode()) ?>
                             </label>
                         <?php endif; ?>
                         <div
@@ -81,15 +81,15 @@
                                 >
 
                                     <label
-                                        for="<?= $block->escapeHtmlAttr($_inputId); ?>"
+                                        for="<?= $escaper->escapeHtmlAttr($_inputId); ?>"
                                         class="rating__star rating__star--rate"
-                                        aria-label="<?= $block->escapeHtmlAttr($_label); ?>"
+                                        aria-label="<?= $escaper->escapeHtmlAttr($_label); ?>"
                                     >
                                         <input
                                             type="radio"
-                                            name="<?= $block->escapeHtmlAttr('ratings[' . $_optionValue . ']') ?>"
-                                            id="<?= $block->escapeHtmlAttr($_inputId); ?>"
-                                            value="<?= $block->escapeHtmlAttr($_optionValue); ?>"
+                                            name="<?= $escaper->escapeHtmlAttr('ratings[' . $_optionValue . ']') ?>"
+                                            id="<?= $escaper->escapeHtmlAttr($_inputId); ?>"
+                                            value="<?= $escaper->escapeHtmlAttr($_optionValue); ?>"
                                             class="radio__field"
                                         />
 
@@ -104,7 +104,7 @@
                         id="toogleReviewError"
                         class="rating__error"
                     >
-                        <?= $block->escapeHtml(__('Please select one of each of the ratings above.')); ?>
+                        <?= $escaper->escapeHtml(__('Please select one of each of the ratings above.')); ?>
                     </div>
 
                     <input type="hidden" name="validate_rating" class="validate-rating" value=""/>
@@ -113,7 +113,7 @@
 
             <div class="input required">
                 <label for="nickname_field" class="label">
-                    <?= $block->escapeHtml(__('Nickname')); ?>
+                    <?= $escaper->escapeHtml(__('Nickname')); ?>
                 </label>
 
                 <input
@@ -128,7 +128,7 @@
 
             <div class="input required">
                 <label for="summary_field" class="label">
-                    <?= $block->escapeHtml(__('Summary')); ?>
+                    <?= $escaper->escapeHtml(__('Summary')); ?>
                 </label>
 
                 <input
@@ -143,7 +143,7 @@
 
             <div class="input review__field required">
                 <label for="review_field" class="input__label">
-                    <?= $block->escapeHtml(__('Review')); ?>
+                    <?= $escaper->escapeHtml(__('Review')); ?>
                 </label>
 
                 <textarea
@@ -159,7 +159,7 @@
         </fieldset>
 
         <button type="submit" id="reviewAddButton" class="button submit primary">
-            <?= $block->escapeHtml(__('Submit Review')); ?>
+            <?= $escaper->escapeHtml(__('Submit Review')); ?>
         </button>
     </form>
 
@@ -179,7 +179,7 @@
 <?php else: ?>
     <div class="message notlogged" id="review-form">
         <?=
-        $block->escapeHtml(
+        $escaper->escapeHtml(
             __('Only registered users can write reviews. Please <a href="%1">Sign in</a> or <a href="%2">create an account</a>',
                 $block->getLoginLink(),
                 $block->getRegisterUrl()),

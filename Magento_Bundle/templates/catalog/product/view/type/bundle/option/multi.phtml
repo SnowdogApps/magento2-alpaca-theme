@@ -9,33 +9,33 @@
             <?= ($_option->getRequired()) ? 'bundle-option__title--required': '' ?>
         "
     >
-        <?= $block->escapeHtml($_option->getTitle()) ?>
+        <?= $escaper->escapeHtml($_option->getTitle()) ?>
     </h4>
     <?php if ($block->showSingle()): ?>
         <?= /* @noEscape */ $block->getSelectionQtyTitlePrice($_selections[0]) ?>
         <input
             type="hidden"
-            name="bundle_option[<?= $block->escapeHtmlAttr($_option->getId()); ?>]"
-            value="<?= $block->escapeHtmlAttr($_selections[0]->getSelectionId()); ?>"
+            name="bundle_option[<?= $escaper->escapeHtmlAttr($_option->getId()); ?>]"
+            value="<?= $escaper->escapeHtmlAttr($_selections[0]->getSelectionId()); ?>"
         >
     <?php else: ?>
         <select
             multiple="multiple"
             size="5"
-            id="bundle-option-<?= $block->escapeHtmlAttr($_option->getId()); ?>"
-            name="bundle_option[<?= $block->escapeHtmlAttr($_option->getId()); ?>][]"
-            data-selector="bundle_option[<?= $block->escapeHtmlAttr($_option->getId()); ?>][]"
+            id="bundle-option-<?= $escaper->escapeHtmlAttr($_option->getId()); ?>"
+            name="bundle_option[<?= $escaper->escapeHtmlAttr($_option->getId()); ?>][]"
+            data-selector="bundle_option[<?= $escaper->escapeHtmlAttr($_option->getId()); ?>][]"
             class="bundle option"
             <?= ($_option->getRequired()) ? 'data-validate={required:true}' : ''; ?>
         >
             <?php if(!$_option->getRequired()): ?>
                 <option value="">
-                    <?= $block->escapeHtml(__('None')) ?>
+                    <?= $escaper->escapeHtml(__('None')) ?>
                 </option>
             <?php endif; ?>
             <?php foreach ($_selections as $_selection): ?>
                 <option
-                    value="<?= $block->escapeHtmlAttr($_selection->getSelectionId()) ?>"
+                    value="<?= $escaper->escapeHtmlAttr($_selection->getSelectionId()) ?>"
                     <?= ($block->isSelected($_selection)) ? ' selected="selected"' : '' ?>
                     <?= (!$_selection->isSaleable()) ? ' disabled="disabled"' : '' ?>
                 >

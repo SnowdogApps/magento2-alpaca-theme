@@ -5,25 +5,25 @@ use Magento\Vault\Block\CardRendererInterface;
 
 /** @var CardRendererInterface|Template $block */
 
-$ccNumberView = $block->escapeHtml($block->getNumberLast4Digits());
+$ccNumberView = $escaper->escapeHtml($block->getNumberLast4Digits());
 ?>
 <tr>
     <td
-        data-th="<?= $block->escapeHtmlAttr(__('Card Number')) ?>"
+        data-th="<?= $escaper->escapeHtmlAttr(__('Card Number')) ?>"
         class="col card-number"
     >
-        <?= $block->escapeHtml(__('ending ')); ?>
+        <?= $escaper->escapeHtml(__('ending ')); ?>
         <?= $ccNumberView ?>
     </td>
 
     <td
-        data-th="<?= $block->escapeHtmlAttr(__('Expiration Date')) ?>"
+        data-th="<?= $escaper->escapeHtmlAttr(__('Expiration Date')) ?>"
         class="col card-expire"
     >
-        <?= $block->escapeHtml($block->getExpDate()); ?>
+        <?= $escaper->escapeHtml($block->getExpDate()); ?>
     </td>
 
-    <td data-th="<?= $block->escapeHtmlAttr(__('Type')) ?>" class="col card-type">
+    <td data-th="<?= $escaper->escapeHtmlAttr(__('Type')) ?>" class="col card-type">
         <img
             src="<?= $block->getIconUrl(); ?>"
             width="<?= $block->getIconWidth(); ?>"
@@ -31,10 +31,10 @@ $ccNumberView = $block->escapeHtml($block->getNumberLast4Digits());
         >
     </td>
 
-    <td data-th="<?= $block->escapeHtmlAttr(__('Actions')) ?>" class="col actions">
+    <td data-th="<?= $escaper->escapeHtmlAttr(__('Actions')) ?>" class="col actions">
         <form
             class="form"
-            action="<?= $block->escapeUrl($block->getUrl('vault/cards/deleteaction')) ?>"
+            action="<?= $escaper->escapeUrl($block->getUrl('vault/cards/deleteaction')) ?>"
             method="post"
         >
             <?= $block->getBlockHtml('formkey') ?>
@@ -53,14 +53,14 @@ $ccNumberView = $block->escapeHtml($block->getNumberLast4Digits());
                         "type": "popup",
                         "modalClass": "my-credit-cards-popup",
                         "toggleEvent": "click",
-                        "title": "<?= $block->escapeHtml(__('Delete')) ?>",
+                        "title": "<?= $escaper->escapeHtml(__('Delete')) ?>",
                         "content": "
                             Are you sure you want to delete this card: <?= $ccNumberView ?>?
                         "
                     }
                 }'
             >
-                <?= $block->escapeHtml(__('Delete')) ?>
+                <?= $escaper->escapeHtml(__('Delete')) ?>
             </button>
         </form>
     </td>

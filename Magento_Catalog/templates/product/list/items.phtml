@@ -157,26 +157,26 @@ $_item = null;
     <?php if ($type == 'related' || $type == 'upsell'): ?>
         <?php if ($type == 'related'): ?>
             <div
-                class="product-view__slider <?= $block->escapeHtmlAttr($class) ?>"
-                data-limit="<?= $block->escapeHtmlAttr($limit) ?>"
+                class="product-view__slider <?= $escaper->escapeHtmlAttr($class) ?>"
+                data-limit="<?= $escaper->escapeHtmlAttr($limit) ?>"
                 data-shuffle="<?= /* @noEscape */ $shuffle ?>"
                 data-shuffle-weighted="<?= /* @noEscape */ $isWeightedRandom ?>"
             >
         <?php else: ?>
             <div
-                class="product-view__slider <?= $block->escapeHtmlAttr($class) ?>"
+                class="product-view__slider <?= $escaper->escapeHtmlAttr($class) ?>"
                 data-mage-init='{ "upsellProducts": {} }'
-                data-limit="<?= $block->escapeHtmlAttr($limit) ?>"
+                data-limit="<?= $escaper->escapeHtmlAttr($limit) ?>"
                 data-shuffle="<?= /* @noEscape */ $shuffle ?>"
                 data-shuffle-weighted="<?= /* @noEscape */ $isWeightedRandom ?>"
             >
         <?php endif; ?>
     <?php else: ?>
-        <div class="product-view__slider <?= $block->escapeHtmlAttr($class) ?>">
+        <div class="product-view__slider <?= $escaper->escapeHtmlAttr($class) ?>">
     <?php endif; ?>
 
-        <h4 id="block-<?= $block->escapeHtmlAttr($class) ?>-heading">
-            <?= $block->escapeHtml($title) ?>
+        <h4 id="block-<?= $escaper->escapeHtmlAttr($class) ?>-heading">
+            <?= $escaper->escapeHtml($title) ?>
         </h4>
 
         <div
@@ -198,7 +198,7 @@ $_item = null;
                             <?= /* @noEscape */ '<!-- ' . $image . '-->' ?>
 
                             <a
-                                href="<?= $block->escapeUrl($block->getProductUrl($_item)) ?>"
+                                href="<?= $escaper->escapeUrl($block->getProductUrl($_item)) ?>"
                                 class="catalog-grid-item__link"
                             >
                                 <div class="catalog-grid-item__image-wrapper">
@@ -209,11 +209,11 @@ $_item = null;
                             <section class="catalog-grid-item__details">
                                 <h2 class="catalog-grid-item__name">
                                     <a
-                                        href="<?= $block->escapeUrl($block->getProductUrl($_item)) ?>"
+                                        href="<?= $escaper->escapeUrl($block->getProductUrl($_item)) ?>"
                                         class="catalog-grid-item__name-link"
-                                        title="<?= $block->escapeHtml($_item->getName()) ?>"
+                                        title="<?= $escaper->escapeHtml($_item->getName()) ?>"
                                     >
-                                        <?= $block->escapeHtml($_item->getName()) ?>
+                                        <?= $escaper->escapeHtml($_item->getName()) ?>
                                     </a>
                                 </h2>
                                 <div class="catalog-grid-item__price">
@@ -241,15 +241,15 @@ $_item = null;
                                                                 }
                                                             }'
                                                             type="button"
-                                                            title="<?= $block->escapeHtmlAttr(__('Add to Cart')) ?>"
+                                                            title="<?= $escaper->escapeHtmlAttr(__('Add to Cart')) ?>"
                                                             data-testid="add-to-cart-button"
                                                         >
                                                             <span class="catalog-grid-item__cart-text">
-                                                                <?= $block->escapeHtml(__('Add to Cart')) ?>
+                                                                <?= $escaper->escapeHtml(__('Add to Cart')) ?>
                                                             </span>
                                                             <svg class="icon catalog-grid-item__cart-icon">
-                                                                <title><?= $block->escapeHtml(__('Add to Cart')) ?></title>
-                                                                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#shopping-cart')) ?>"></use>
+                                                                <title><?= $escaper->escapeHtml(__('Add to Cart')) ?></title>
+                                                                <use xlink:href="<?= $escaper->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#shopping-cart')) ?>"></use>
                                                             </svg>
                                                         </button>
                                                     <?php else: ?>
@@ -257,15 +257,15 @@ $_item = null;
                                                             /** @var $viewModel PreparePostData */
                                                             $viewModel = $block->getViewModel();
                                                             $postArray = $viewModel->getPostData(
-                                                                $block->escapeUrl($block->getAddToCartUrl($_item)),
+                                                                $escaper->escapeUrl($block->getAddToCartUrl($_item)),
                                                                 ['product' => $_item->getEntityId()]
                                                             );
                                                             $value = $postArray['data'][ActionInterface::PARAM_NAME_URL_ENCODED];
                                                         ?>
                                                         <form
                                                             data-role="tocart-form"
-                                                            data-product-sku="<?= $block->escapeHtmlAttr($_item->getSku()) ?>"
-                                                            action="<?= $block->escapeUrl($block->getAddToCartUrl($_item)) ?>"
+                                                            data-product-sku="<?= $escaper->escapeHtmlAttr($_item->getSku()) ?>"
+                                                            action="<?= $escaper->escapeUrl($block->getAddToCartUrl($_item)) ?>"
                                                             method="post"
                                                         >
                                                             <input
@@ -281,7 +281,7 @@ $_item = null;
                                                             <?= $block->getBlockHtml('formkey') ?>
                                                             <button
                                                                 type="submit"
-                                                                title="<?= $block->escapeHtmlAttr(__('Add to Cart')) ?>"
+                                                                title="<?= $escaper->escapeHtmlAttr(__('Add to Cart')) ?>"
                                                                 class="action tocart primary"
                                                             >
                                                             <button
@@ -293,15 +293,15 @@ $_item = null;
                                                                 "
                                                                 data-post='<?= $postData ?>'
                                                                 type="button"
-                                                                title="<?= $block->escapeHtmlAttr(__('Add to Cart')) ?>"
+                                                                title="<?= $escaper->escapeHtmlAttr(__('Add to Cart')) ?>"
                                                                 data-testid="add-to-cart-button"
                                                             >
                                                                 <span class="catalog-grid-item__cart-text">
-                                                                    <?= $block->escapeHtml(__('Add to Cart')) ?>
+                                                                    <?= $escaper->escapeHtml(__('Add to Cart')) ?>
                                                                 </span>
                                                                 <svg class="icon catalog-grid-item__cart-icon">
-                                                                    <title><?= $block->escapeHtml(__('Add to Cart')) ?></title>
-                                                                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#shopping-cart')) ?>"></use>
+                                                                    <title><?= $escaper->escapeHtml(__('Add to Cart')) ?></title>
+                                                                    <use xlink:href="<?= $escaper->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#shopping-cart')) ?>"></use>
                                                                 </svg>
                                                             </button>
                                                         </form>
@@ -310,11 +310,11 @@ $_item = null;
                                             <?php else: ?>
                                                 <?php if ($_item->isAvailable()): ?>
                                                     <div class="stock available">
-                                                        <?= $block->escapeHtml(__('In stock')) ?>
+                                                        <?= $escaper->escapeHtml(__('In stock')) ?>
                                                     </div>
                                                 <?php else: ?>
                                                     <div class="stock unavailable">
-                                                        <?= $block->escapeHtml(__('Out of stock')) ?>
+                                                        <?= $escaper->escapeHtml(__('Out of stock')) ?>
                                                     </div>
                                                 <?php endif; ?>
                                             <?php endif; ?>
