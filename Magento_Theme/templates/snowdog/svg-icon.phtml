@@ -1,9 +1,22 @@
 <?php
     $svgIcon = $block->getIcon();
     $svgIconClass = $block->getIconClass();
+    $svgIconTitle = $block->getIconTitle();
+    $svgIconRole = $block->getIconRole();
 ?>
-<?php if ($svgIcon && $svgIconClass): ?>
-    <svg title="icon-close" class="<?= $svgIconClass ?>">
+<?php if ($svgIcon): ?>
+    <svg
+        class="icon <?= $escaper->escapeHtmlAttr($svgIconClass) ?>"
+        <?php if ($svgIconRole == 'img'): ?>
+            role="img"
+        <?php else: ?>
+            role="presentation"
+            focusable="false"
+        <?php endif ?>
+    >
+        <?php if ($svgIconTitle && $svgIconRole == 'img'): ?>
+            <title><?= $svgIconTitle ?></title>
+        <?php endif ?>
         <use href="<?= $escaper->escapeUrl($block->getViewFileUrl("images/icons-sprite.svg#" . $svgIcon)) ?>"></use>
     </svg>
 <?php endif ?>
