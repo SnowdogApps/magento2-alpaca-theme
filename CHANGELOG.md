@@ -2,7 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
-- update theme files to Magento 2.4.3
+### Updated
+- theme files to Magento 2.4.3
 
 ## [1.7.0] - 2020-09-26
 ### Changed
