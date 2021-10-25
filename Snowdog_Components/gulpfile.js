@@ -1,30 +1,31 @@
 /* eslint-env node */
 /* eslint-disable one-var */
 
-const autoprefixer = require('autoprefixer')
-const bluebird = require('bluebird')
-const fractal = require('@frctl/fractal').create()
-const fs = require('fs-extra')
-const globby = require('globby')
-const gulp = require('gulp')
-const gulpif = require('gulp-if')
-const hbsEngine = fractal.components.engine()
-const log = require('gulp-logger')
-const logger = fractal.cli.console
-const mandelbrot = require('@frctl/mandelbrot')
-const notify = require('gulp-notify')
-const path = require('path')
-const plumber = require('gulp-plumber')
-const postcss = require('gulp-postcss')
-const reporter = require('postcss-reporter')
-const sass = require('gulp-sass')
-const sassError = require('gulp-sass-error')
-const sassLint = require('gulp-sass-lint')
-const sourcemaps = require('gulp-sourcemaps')
-const stylelint = require('stylelint')
-const svgSprite = require('gulp-svg-sprite')
-const util = require('gulp-util')
-const a11yPreview = '@views'
+const autoprefixer = require('autoprefixer'),
+      bluebird     = require('bluebird'),
+      eslint       = require('gulp-eslint'),
+      fractal      = require('@frctl/fractal').create(),
+      fs           = require('fs-extra'),
+      globby       = require('globby'),
+      gulp         = require('gulp'),
+      gulpif       = require('gulp-if'),
+      hbsEngine    = fractal.components.engine(),
+      log          = require('gulp-logger'),
+      logger       = fractal.cli.console,
+      mandelbrot   = require('@frctl/mandelbrot'),
+      notify       = require('gulp-notify'),
+      path         = require('path'),
+      plumber      = require('gulp-plumber'),
+      postcss      = require('gulp-postcss'),
+      reporter     = require('postcss-reporter'),
+      sass         = require('gulp-sass'),
+      sassError    = require('gulp-sass-error'),
+      sassLint     = require('gulp-sass-lint'),
+      sourcemaps   = require('gulp-sourcemaps'),
+      stylelint    = require('stylelint'),
+      svgSprite    = require('gulp-svg-sprite'),
+      util         = require('gulp-util'),
+      a11yPreview  = '@views';
 
 // Turn off Bluebird unhandled promises warnings
 bluebird.config({
@@ -193,6 +194,29 @@ const lintCSS = () => {
     ]));
 }
 
+const lintScript = () => {
+  return gulp.src(fractal.components.get('path') + '/**/*.js')
+    .pipe(
+      gulpif(
+        util.env.ci,
+        log({
+          display: 'name',
+          beforeEach: 'Processing: '
+        })
+      )
+    )
+    .pipe(
+      gulpif(!util.env.ci,
+        plumber({
+          errorHandler: notify.onError('Error: <%= error.message %>')
+        })
+      )
+    )
+    .pipe(eslint())
+    .pipe(eslint.format())
+    .pipe(gulpif(util.env.ci, eslint.failAfterError()));
+}
+
 const compileSVG = () => {
   return gulp.src(fractal.components.get('path') + '/Atoms/icons/files/*.svg')
     .pipe(svgSprite({
@@ -283,6 +307,7 @@ exports.inheritance = inheritance
 exports.compileStyle = compileStyle
 exports.lintSASS = lintSASS
 exports.lintCSS = lintCSS
+exports.lintScript = lintScript
 exports.compileSVG = compileSVG
 exports.a11y = a11y
 exports.watch = watch
