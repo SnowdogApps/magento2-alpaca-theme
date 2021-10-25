@@ -1,4 +1,5 @@
 module.exports = {
+  preview: '@checkout',
   title: 'Header module',
   context: {
     tabShippingButtonText: 'Shipping',
