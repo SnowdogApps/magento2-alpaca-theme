@@ -5,7 +5,7 @@ module.exports = {
     tabPickInStoreButtonText: 'Pick in store',
     title: {
       tag: 'span',
-      class: 'heading heading--second-level',
+      class: 'heading heading--second-level store-pickup__heading',
       text: 'Store'
     },
     selectOtherStoreButton: {
@@ -17,19 +17,25 @@ module.exports = {
     selectedStore: {
       name: {
         tag: 'p',
-        class: '',
+        class: 'store-pickup__paragraph',
         text: 'Good Wood Store'
       },
       address: {
         tag: 'p',
-        class: '',
+        class: 'store-pickup__paragraph',
         text: '119 Timberbrook Lane <br> Denver, Colorado 80216 <br> United States <br> 970-355-8188'
       },
       description: {
         tag: 'p',
-        class: '',
+        class: 'store-pickup__paragraph',
         text: 'The store is located next to the church.'
       }
+    },
+    nextButton: {
+      tag: 'button',
+      class: '',
+      text: 'Next',
+      attributes: 'type="button"'
     }
   },
   variants: [
@@ -39,7 +45,7 @@ module.exports = {
         selectedStore: false,
         noSelection: {
           tag: 'p',
-          class: '',
+          class: 'store-pickup__paragraph',
           text: 'We could not preselect pickup location based on available information, please select it manually.'
         },
         selectStoreButton: {
@@ -52,7 +58,7 @@ module.exports = {
           tag: 'button',
           class: '',
           text: 'Next',
-          attributes: 'type="button"'
+          attributes: 'type="button" disabled'
         }
       }
     }
