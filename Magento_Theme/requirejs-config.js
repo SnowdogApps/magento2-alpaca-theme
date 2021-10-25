@@ -1,20 +1,20 @@
 var config = {
   map: {
     "*": {
+      // Libs
       "aos"              : "Magento_Theme/js/lib/aos.min",
-      "closestPolyfill"  : "Magento_Theme/js/lib/closest-polyfill.min",
       "focusVisible"     : "Magento_Theme/js/lib/focus-visible.min",
       "lazysizes"        : "Magento_Theme/js/lib/lazysizes.min",
-      "noUiSlider"       : "Magento_Theme/js/lib/nouislider.min",
-      "picturefill"      : "Magento_Theme/js/lib/picturefill.min",
+      "select2"          : "Magento_Theme/js/lib/select2.full.min",
       "slick"            : "Magento_Theme/js/lib/slick.min",
+
+      // Modules
       "bannerCollapsible": "Magento_Theme/js/banner-collapsible.babel",
       "cookieMessage"    : "Magento_Theme/js/cookie-message.babel",
       "dropdownList"     : "Magento_Theme/js/dropdown-list.babel",
       "fileUpload"       : "Magento_Theme/js/file-upload.babel",
       "marketingBar"     : "Magento_Theme/js/marketing-bar.babel",
       "modal"            : "Magento_Theme/js/modal.babel",
-      "select2"          : "Magento_Theme/js/lib/select2.full.min",
       "select"           : "Magento_Theme/js/select.babel",
       "scrollTop"        : "Magento_Theme/js/scroll-top.babel",
       "scrollTo"         : "Magento_Theme/js/scroll-to.babel",
@@ -38,9 +38,6 @@ var config = {
     }
   },
   shim: {
-    "slider": {
-      "deps": ["jquery", "slick"]
-    },
     "select2":{
       "deps": ["jquery"]
     }
