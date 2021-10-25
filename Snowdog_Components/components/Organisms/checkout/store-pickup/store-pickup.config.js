@@ -9,12 +9,6 @@ module.exports = {
       class: 'heading heading--second-level store-pickup__heading',
       text: 'Store'
     },
-    selectOtherStoreButton: {
-      tag: 'button',
-      class: '',
-      text: 'Select other',
-      attributes: 'type="button"'
-    },
     selectedStore: {
       name: {
         tag: 'p',
@@ -30,6 +24,45 @@ module.exports = {
         tag: 'p',
         class: 'store-pickup__paragraph',
         text: 'The store is located next to the church.'
+      }
+    },
+    selectStoreModal: {
+      trigger: true,
+      modalTrigger: {
+        buttonModalTrigger: {
+          tag: 'button',
+          class: 'modal-trigger',
+          text: 'Select other',
+          attributes: 'data-modal-trigger="store-pickup-modal" type="button" aria-expanded="false"'
+        }
+      },
+      modal: {
+        class: '',
+        id: 'store-pickup-modal',
+        attributes: 'aria-labelledby="myTitle" aria-describedby="myDesc"'
+      },
+      buttonClose: {
+        tag: 'button',
+        text: '',
+        class: 'button--rotate-icon modal__close-button',
+        icon: {
+          id: 'close',
+          class: 'button__icon modal__close-button-icon',
+          hidden: true
+        },
+        attributes: 'type="button" aria-label="click to close the modal"'
+      },
+      modalTop: true,
+      heading: {
+        tag: 'h2',
+        class: 'heading--second-level',
+        attributes: 'id="modal-info-1-title"',
+        text: 'Select Store'
+      },
+      modalMiddle: true,
+      modalComponent: {
+        content: 'store-pickup-modal',
+        contentContext: ''
       }
     },
     nextButton: {
