@@ -1,80 +1,73 @@
 /* eslint-env node */
-/* eslint-disable one-var */
+import { globbySync } from 'globby'
 
-const autoprefixer = require('autoprefixer'),
-      bluebird     = require('bluebird'),
-      eslint       = require('gulp-eslint'),
-      fractal      = require('@frctl/fractal').create(),
-      fs           = require('fs-extra'),
-      globby       = require('globby'),
-      gulp         = require('gulp'),
-      gulpif       = require('gulp-if'),
-      hbsEngine    = fractal.components.engine(),
-      log          = require('gulp-logger'),
-      logger       = fractal.cli.console,
-      mandelbrot   = require('@frctl/mandelbrot'),
-      notify       = require('gulp-notify'),
-      path         = require('path'),
-      plumber      = require('gulp-plumber'),
-      postcss      = require('gulp-postcss'),
-      reporter     = require('postcss-reporter'),
-      sass         = require('gulp-sass'),
-      sassError    = require('gulp-sass-error'),
-      sassLint     = require('gulp-sass-lint'),
-      sourcemaps   = require('gulp-sourcemaps'),
-      stylelint    = require('stylelint'),
-      svgSprite    = require('gulp-svg-sprite'),
-      util         = require('gulp-util'),
-      a11yPreview  = '@views';
+import autoprefixer from 'autoprefixer'
+import eslint from 'gulp-eslint'
+import fractalCore from '@frctl/fractal'
+import fs from 'fs-extra'
+import gulp from 'gulp'
+import gulpif from 'gulp-if'
+import gulpSass from 'gulp-sass'
+import log from 'gulp-logger'
+import mandelbrot from '@frctl/mandelbrot'
+import nodeSass from 'node-sass'
+import notify from 'gulp-notify'
+import path from 'path'
+import plumber from 'gulp-plumber'
+import postcss from 'gulp-postcss'
+import reporter from 'postcss-reporter'
+import sassError from 'gulp-sass-error'
+import sassLint from 'gulp-sass-lint'
+import sourcemaps from 'gulp-sourcemaps'
+import stylelint from 'stylelint'
+import svgSprite from 'gulp-svg-sprite'
+import util from 'gulp-util'
 
-// Turn off Bluebird unhandled promises warnings
-bluebird.config({
-  warnings: false
-});
+const sass = gulpSass(nodeSass);
+const a11yPreview = '@views';
+const basePath = path.resolve('./');
 
 // Fractal configuration
+const fractal = fractalCore.create();
+const logger = fractal.cli.console;
+const instance = fractal.components.engine();
+
+instance.handlebars.registerHelper('static', (file, data) => {
+  return `/components/raw/${data.data.root._self.baseHandle}/${file}`
+});
+
+instance.handlebars.registerHelper('svg', icon => {
+  return `/images/icons-sprite.svg#${icon}`
+});
+
+instance.handlebars.registerHelper('component', name => `@${name}`);
+
+instance.handlebars.registerHelper('or', function() {
+  return Array.prototype.slice.call(arguments, 0, -1).some(Boolean)
+});
+
 fractal.set('project.title', 'Alpaca components for Magento 2');
-fractal.components.set('path', __dirname + '/build/components');
-fractal.docs.set('path', __dirname + '/build/docs');
-fractal.web.set('static.path', __dirname + '/build/public');
-fractal.web.set('builder.dest', __dirname + '/dest');
+fractal.components.set('path', basePath + '/build/components');
+fractal.docs.set('path', basePath + '/build/docs');
+fractal.web.set('static.path', basePath + '/build/public');
+fractal.web.set('builder.dest', basePath + '/dest');
 fractal.web.theme(mandelbrot({ skin: 'black' }));
-
-// Handlebars helpers
-hbsEngine.handlebars.registerHelper('static', (file, data) => {
-  return '/components/raw/' + data.data.root._self.baseHandle + '/' + file;
-});
-
-hbsEngine.handlebars.registerHelper('svg', icon => {
-  return '/images/icons-sprite.svg#' + icon;
-});
-
-hbsEngine.handlebars.registerHelper('component', name => {
-  return '@' + name;
-});
-
-hbsEngine.handlebars.registerHelper({
-  or() {
-    return Array.prototype.slice.call(arguments, 0, -1).some(Boolean);
-  }
-});
 
 // Gulp tasks
 const inheritance = (done) => {
-  const components = fractal.components.get('path').replace(__dirname + '/build/', ''),
-    docs = fractal.docs.get('path').replace(__dirname + '/build/', ''),
-    static = fractal.web.get('static.path').replace(__dirname + '/build/', '');
+  const componentsPath = fractal.components.get('path').replace(basePath + '/build/', '');
+  const docsPath = fractal.docs.get('path').replace(basePath + '/build/', '');
+  const staticPath = fractal.web.get('static.path').replace(basePath + '/build/', '');
 
   // Remove old build directory
   fs.removeSync('./build');
 
   // Find all local files
-  globby
-    .sync([
-      components + '/**',
-      docs + '/**',
-      static + '/**'
-    ], { nodir: true })
+  globbySync([
+    componentsPath + '/**',
+    docsPath + '/**',
+    staticPath + '/**'
+  ], { nodir: true })
     .forEach(file => {
       // Symlink all local files to build dir
       if (util.env.ci) {
@@ -90,23 +83,23 @@ const inheritance = (done) => {
         );
       }
     });
+
   if (fs.existsSync('./modules.json')) {
-    const modules = require('./modules.json');
+    const modules = import('./modules.json')
 
     // Go through array of module paths
     modules.forEach(src => {
       src = path.resolve(src);
 
       // Find all module files
-      globby
-        .sync([
-          src + '/' + components + '/**',
-          src + '/' + docs + '/**',
-          src + '/' + static + '/**'
-        ], { nodir: true })
+      globbySync([
+        src + '/' + componentsPath + '/**',
+        src + '/' + docsPath + '/**',
+        src + '/' + staticPath + '/**'
+      ], { nodir: true })
         .forEach(file => {
-          const srcPath = path.resolve(file),
-            destPath = srcPath.replace(src, path.resolve('build'));
+          const srcPath = path.resolve(file);
+          const destPath = srcPath.replace(src, path.resolve('build'));
 
           // Symlink all module files to build dir
           if (util.env.ci) {
@@ -259,7 +252,8 @@ const watchStyle = () => {
 const watchScript = () => {
   gulp.watch(
     fractal.components.get('path') + '/**/*.js',
-    { ignored: /.*\.(scss|hbs|svg)$/ }
+    { ignored: /.*\.(scss|hbs|svg)$/ },
+    lintScript
   )
 }
 
@@ -299,18 +293,6 @@ const buildFractal = () => {
   });
 }
 
-const dev = gulp.series(gulp.parallel(inheritance, compileSVG, compileStyle), a11y, startFractal, watch)
+export const dev = gulp.series(gulp.parallel(inheritance, compileSVG, compileStyle), a11y, startFractal, watch)
 
-const build = gulp.series(gulp.parallel(inheritance, compileSVG, compileStyle), buildFractal)
-
-exports.inheritance = inheritance
-exports.compileStyle = compileStyle
-exports.lintSASS = lintSASS
-exports.lintCSS = lintCSS
-exports.lintScript = lintScript
-exports.compileSVG = compileSVG
-exports.a11y = a11y
-exports.watch = watch
-exports.dev = dev
-exports.build = build
-exports.default = build
+export const build = gulp.series(gulp.parallel(inheritance, compileSVG, compileStyle), buildFractal)
