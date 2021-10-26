@@ -1,5 +1,5 @@
 module.exports = {
-  context : {
+  context: {
     badges: [
       {
         contentElement: 'badge'

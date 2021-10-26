@@ -1,7 +1,7 @@
 define([
   'jquery',
   'slick'
-], function ($, slick) {
+], function ($) {
   'use strict';
 
   return function (options, element) {
@@ -12,9 +12,9 @@ define([
     }
 
     function createSlickSlider(dataValues) {
-      const slider = $(element)
-      const slides = slider.find(dataValues.elementSlides)
-      const navPrev = slider.find(dataValues.elementNavPrev)
+      const slider = $(element);
+      const slides = slider.find(dataValues.elementSlides);
+      const navPrev = slider.find(dataValues.elementNavPrev);
       const navNext = slider.find(dataValues.elementNavNext)
 
       slides.not('.slick-initialized').slick({
@@ -38,7 +38,7 @@ define([
     }
 
     function displaySlider(dataValues) {
-      const slider = $(element)
+      const slider = $(element);
       const loader = slider.find(dataValues.elementLoader);
 
       loader.removeClass(dataValues.loaderVisibleClass);

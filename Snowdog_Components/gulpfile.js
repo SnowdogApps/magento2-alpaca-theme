@@ -61,8 +61,8 @@ hbsEngine.handlebars.registerHelper({
 // Gulp tasks
 const inheritance = (done) => {
   const components = fractal.components.get('path').replace(__dirname + '/build/', ''),
-        docs       = fractal.docs.get('path').replace(__dirname + '/build/', ''),
-        static     = fractal.web.get('static.path').replace(__dirname + '/build/', '');
+    docs = fractal.docs.get('path').replace(__dirname + '/build/', ''),
+    static = fractal.web.get('static.path').replace(__dirname + '/build/', '');
 
   // Remove old build directory
   fs.removeSync('./build');
@@ -104,8 +104,8 @@ const inheritance = (done) => {
           src + '/' + static + '/**'
         ], { nodir: true })
         .forEach(file => {
-          const srcPath  = path.resolve(file),
-                destPath = srcPath.replace(src, path.resolve('build'));
+          const srcPath = path.resolve(file),
+            destPath = srcPath.replace(src, path.resolve('build'));
 
           // Symlink all module files to build dir
           if (util.env.ci) {
@@ -235,8 +235,7 @@ const watchStyle = () => {
 const watchScript = () => {
   gulp.watch(
     fractal.components.get('path') + '/**/*.js',
-    { ignored: /.*\.(scss|hbs|svg)$/ },
-    lintScript
+    { ignored: /.*\.(scss|hbs|svg)$/ }
   )
 }
 

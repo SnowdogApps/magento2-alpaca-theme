@@ -2,11 +2,11 @@
 
 class SelectAll {
   constructor(wrapper) {
-    this.linkElement      = wrapper.querySelectorAll('input[value]');
-    this.allElements      = wrapper.querySelector('#links-all');
+    this.linkElement = wrapper.querySelectorAll('input[value]');
+    this.allElements = wrapper.querySelector('#links-all');
     this.allElementsLabel = wrapper.querySelector('label[for="links-all"] .checkbox__text');
-    this.checkedText      = this.allElements.getAttribute('data-checked');
-    this.notCheckedText   = this.allElements.getAttribute('data-notchecked');
+    this.checkedText = this.allElements.getAttribute('data-checked');
+    this.notCheckedText = this.allElements.getAttribute('data-notchecked');
 
     this.createGlobalEventHandlers();
   }

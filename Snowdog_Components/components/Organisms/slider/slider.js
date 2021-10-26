@@ -1,3 +1,4 @@
+/* global $ */
 (function Slider() {
   'use strict';
 
@@ -10,10 +11,10 @@
   }
 
   function createSlider(element, dataValues) {
-    let slider = $(element),
-        slides = slider.find(dataValues.elementSlides),
-        navPrev = slider.find(dataValues.elementNavPrev),
-        navNext = slider.find(dataValues.elementNavNext);
+    let slider = $(element);
+    let slides = slider.find(dataValues.elementSlides);
+    let navPrev = slider.find(dataValues.elementNavPrev);
+    let navNext = slider.find(dataValues.elementNavNext);
 
     slides.not('.slick-initialized').slick(
       {
@@ -38,8 +39,8 @@
   }
 
   function displaySlider(element, dataValues) {
-    let slider = $(element),
-        loader = slider.find(dataValues.elementLoader);
+    let slider = $(element);
+    let loader = slider.find(dataValues.elementLoader);
 
     loader.removeClass(dataValues.loaderVisibleClass);
     slider.removeClass(dataValues.loadingClass);

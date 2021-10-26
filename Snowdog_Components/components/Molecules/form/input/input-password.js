@@ -2,12 +2,12 @@
 
 (function inputPassword() {
 
-  const components = [...document.querySelectorAll('.input--password')],
-        activeClass = 'input__button-pass--active';
+  const components = [...document.querySelectorAll('.input--password')];
+  const activeClass = 'input__button-pass--active';
 
   components.forEach(component => {
-    const input = component.querySelector('.input__field'),
-          button = component.querySelector('.input__button-pass');
+    const input = component.querySelector('.input__field');
+    const button = component.querySelector('.input__button-pass');
 
     button.addEventListener('click', () => {
       if (!button.classList.contains(activeClass)) {

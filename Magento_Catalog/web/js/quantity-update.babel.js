@@ -4,11 +4,11 @@ define([], function () {
   class QuantityUpdate {
     constructor(element, config) {
       this.config = config;
-      this.elem        = element;
-      this.plus        = this.elem.querySelector('.quantity-update__button--plus');
-      this.minus       = this.elem.querySelector('.quantity-update__button--minus');
-      this.input       = this.elem.querySelector('.quantity-update__input');
-      this.alert       = this.elem.querySelector('.quantity-update__alert');
+      this.elem = element;
+      this.plus = this.elem.querySelector('.quantity-update__button--plus');
+      this.minus = this.elem.querySelector('.quantity-update__button--minus');
+      this.input = this.elem.querySelector('.quantity-update__input');
+      this.alert = this.elem.querySelector('.quantity-update__alert');
       this.activeClass = 'quantity-update--active';
       this.events();
       this.evaluateConditions();

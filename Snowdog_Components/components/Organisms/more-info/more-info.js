@@ -26,8 +26,8 @@ class MoreInfo {
   }
 
   toggle() {
-    let currentState = this.trigger.getAttribute('aria-expanded'),
-        triggerNewState = currentState === 'true' ? 'false'  : 'true';
+    let currentState = this.trigger.getAttribute('aria-expanded');
+    let triggerNewState = currentState === 'true' ? 'false' : 'true';
     this.trigger.setAttribute('aria-expanded', triggerNewState)
 
     if (currentState === 'false') {
