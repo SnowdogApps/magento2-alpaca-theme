@@ -32,7 +32,7 @@ module.exports = {
         buttonModalTrigger: {
           tag: 'button',
           class: 'modal-trigger',
-          text: 'Select other',
+          text: 'Select store',
           attributes: 'data-modal-trigger="store-pickup-modal" type="button" aria-expanded="false"'
         }
       },
@@ -81,12 +81,6 @@ module.exports = {
           tag: 'p',
           class: 'store-pickup__paragraph',
           text: 'We could not preselect pickup location based on available information, please select it manually.'
-        },
-        selectStoreButton: {
-          tag: 'button',
-          class: '',
-          text: 'Select store',
-          attributes: 'type="button"'
         },
         nextButton: {
           tag: 'button',
