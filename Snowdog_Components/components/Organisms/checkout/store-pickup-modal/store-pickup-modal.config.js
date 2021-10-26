@@ -65,7 +65,12 @@ module.exports = {
                 {
                   childTag: 'td',
                   childTagAttributes: 'data-th="Location Details" role="gridcell"',
-                  content: 'Good Wood Store<br>119 Timberbrook Lane<br>Denver, Colorado 80216<br>United States<br><a href="tel:970-355-8188">970-355-8188</a>'
+                  contentComponent: 'paragraph',
+                  contentContext: {
+                    tag: 'p',
+                    class: '',
+                    text: 'Good Wood Store<br>119 Timberbrook Lane<br>Denver, Colorado 80216<br>United States<br><a href="tel:970-355-8188">970-355-8188</a>'
+                  }
                 },
                 {
                   childTag: 'td',
@@ -81,7 +86,12 @@ module.exports = {
                 {
                   childTag: 'td',
                   childTagAttributes: 'data-th="Location Details" role="gridcell"',
-                  content: 'Good Wood Store 2<br>120 Timberbrook Lane<br>Denver, Colorado 80216<br>United States<br><a href="tel:970-355-8188">970-355-8188</a>'
+                  contentComponent: 'paragraph',
+                  contentContext: {
+                    tag: 'p',
+                    class: '',
+                    text: 'Good Wood Store 2<br>120 Timberbrook Lane<br>Denver, Colorado 80216<br>United States<br><a href="tel:970-355-8188">970-355-8188</a>'
+                  }
                 },
                 {
                   childTag: 'td',
