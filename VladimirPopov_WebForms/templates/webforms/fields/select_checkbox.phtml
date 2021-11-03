@@ -33,18 +33,58 @@
                 $label = "<figure><img src='{$option['image_src']}'/><figcaption>{$label}</figcaption></figure>";
             }
             ?>
-
-            <div class='field choice option-<?php echo $i?>' style='<?php echo $this->getFieldStyle() ?>'>
+              <div
+                class='
+                  field
+                  choice
+                  option-<?php echo $i?>
+                  checkbox
+                '
+                style='<?php echo $this->getFieldStyle() ?>'
+              >
                 <input type='checkbox'
-                       name='<?php echo $this->getFieldName() ?>[]'
-                       id='<?php echo $this->getFieldId() . $i ?>'
-                       value="<?php echo htmlspecialchars($option["value"]) ?>"
-                       class='checkbox <?php echo $validate ?> <?php echo $validate_min?> <?php echo $validate_max?>' <?php echo $checked ?>
-                       aria-labelledby="<?php echo $this->getFieldId() . $i ?>_label<?php if(!$this->getField()->getHideLabel()){?> label_<?php echo $this->getFieldId() ?><?php } ?>"
+                    name='<?php echo $this->getFieldName() ?>[]'
+                    id='<?php echo $this->getFieldId() . $i ?>'
+                    value="<?php echo htmlspecialchars($option["value"]) ?>"
+                    class='
+                        checkbox__field <?php echo $validate ?>
+                        <?php echo $validate_min?> <?php echo $validate_max?>
+                    '
+                    <?php echo $checked ?>
+                    aria-labelledby="
+                        <?php echo $this->getFieldId() . $i ?>
+                        _label<?php if(!$this->getField()->getHideLabel()){?>
+                        label_<?php echo $this->getFieldId() ?><?php } ?>
+                    "
                     <?php echo htmlspecialchars($this->getField()->getCustomAttributes())?>
                 />
-                <label id="<?php echo $this->getFieldId() . $i ?>_label"
-                       for='<?php echo $this->getFieldId() . $i ?>' class=''><?php echo $label ?></label>
+                <svg
+                    class="
+                            checkbox__icon
+                            checkbox__icon--checked
+                        "
+                        role="presentation"
+                        focusable="false"
+                        >
+                            <use href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#checked')) ?>"/>
+                        </svg>
+                        <svg
+                        class="
+                            checkbox__icon
+                            checkbox__icon--unchecked
+                        "
+                        role="presentation"
+                        focusable="false"
+                        >
+                            <use href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#unchecked')) ?>"/>
+                    </svg>
+                    <label
+                        id="<?php echo $this->getFieldId() . $i ?>_label"
+                        for='<?php echo $this->getFieldId() . $i ?>'
+                        class="checkbox__label"
+                    >
+                        <?php echo $label ?>
+                    </label>
                 <?php
                 $tooltip = $this->getField()->getTooltip($option["value"]);
                 if ($tooltip) {
@@ -54,9 +94,7 @@
                     )->setField($this->getField())->setTooltip($tooltip)->toHtml();
                 }
                 ?>
-
             </div>
-
             <?php
         }
     }
