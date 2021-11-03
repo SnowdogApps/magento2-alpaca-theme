@@ -33,22 +33,24 @@
                 $label = "<figure><img src='{$option['image_src']}'/><figcaption>{$label}</figcaption></figure>";
             }
             ?>
-              <div
+            <div
                 class='
-                  field
-                  choice
-                  option-<?php echo $i?>
-                  checkbox
+                    field
+                    choice
+                    option-<?php echo $i?>
+                    checkbox
                 '
                 style='<?php echo $this->getFieldStyle() ?>'
-              >
+            >
                 <input type='checkbox'
                     name='<?php echo $this->getFieldName() ?>[]'
                     id='<?php echo $this->getFieldId() . $i ?>'
                     value="<?php echo htmlspecialchars($option["value"]) ?>"
                     class='
-                        checkbox__field <?php echo $validate ?>
-                        <?php echo $validate_min?> <?php echo $validate_max?>
+                        checkbox__field
+                        <?php echo $validate ?>
+                        <?php echo $validate_min?>
+                        <?php echo $validate_max?>
                     '
                     <?php echo $checked ?>
                     aria-labelledby="
@@ -59,40 +61,34 @@
                     <?php echo htmlspecialchars($this->getField()->getCustomAttributes())?>
                 />
                 <svg
-                    class="
-                            checkbox__icon
-                            checkbox__icon--checked
-                        "
-                        role="presentation"
-                        focusable="false"
-                        >
-                            <use href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#checked')) ?>"/>
-                        </svg>
-                        <svg
-                        class="
-                            checkbox__icon
-                            checkbox__icon--unchecked
-                        "
-                        role="presentation"
-                        focusable="false"
-                        >
-                            <use href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#unchecked')) ?>"/>
-                    </svg>
-                    <label
-                        id="<?php echo $this->getFieldId() . $i ?>_label"
-                        for='<?php echo $this->getFieldId() . $i ?>'
-                        class="checkbox__label"
-                    >
-                        <?php echo $label ?>
-                    </label>
+                    class="checkbox__icon checkbox__icon--checked"
+                    role="presentation"
+                    focusable="false"
+                >
+                    <use href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#checked')) ?>"/>
+                </svg>
+                    <svg
+                    class="checkbox__icon checkbox__icon--unchecked"
+                    role="presentation"
+                    focusable="false"
+                >
+                    <use href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#unchecked')) ?>"/>
+                </svg>
+                <label
+                    id="<?php echo $this->getFieldId() . $i ?>_label"
+                    for='<?php echo $this->getFieldId() . $i ?>'
+                    class="checkbox__label"
+                >
+                    <?php echo $label ?>
+                </label>
                 <?php
-                $tooltip = $this->getField()->getTooltip($option["value"]);
-                if ($tooltip) {
-                    echo $this->getLayout()->createBlock(
-                        'VladimirPopov\WebForms\Block\Script\Tooltip',
-                        null
-                    )->setField($this->getField())->setTooltip($tooltip)->toHtml();
-                }
+                    $tooltip = $this->getField()->getTooltip($option["value"]);
+                    if ($tooltip) {
+                        echo $this->getLayout()->createBlock(
+                            'VladimirPopov\WebForms\Block\Script\Tooltip',
+                            null
+                        )->setField($this->getField())->setTooltip($tooltip)->toHtml();
+                    }
                 ?>
             </div>
             <?php
