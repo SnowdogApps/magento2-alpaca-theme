@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 - In-store pickup components (#82620)
 ### Fixed
+- Webform checkboxes inline style (#83891)
 ### Changed
 ### Updated
 ### Removed
