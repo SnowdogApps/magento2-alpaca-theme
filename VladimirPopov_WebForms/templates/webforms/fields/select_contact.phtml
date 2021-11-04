@@ -1,25 +1,24 @@
 <div class="select select--native">
     <select
-        name='<?php echo $this->getFieldName()?>'
-        id='<?php echo $this->getFieldId()?>'
+        name='<?= $this->getFieldName()?>'
+        id='<?= $this->getFieldId()?>'
         class='
             select__field
-            <?php echo $this->getFieldClass()?>
+            <?= $this->getFieldClass()?>
         '
         data-mage-init='{"select": {"options": {"shouldSort": false}}}'
-        style='<?php echo $this->getFieldStyle()?>' <?php if ($this->getField()->getDisabled()) { ?>
-        disabled <?php } ?> <?php echo htmlspecialchars($this->getField()->getCustomAttributes())?>
+        style='<?= $this->getFieldStyle()?>' <?php if ($this->getField()->getDisabled()) { ?>
+        disabled <?php } ?> <?= htmlspecialchars($this->getField()->getCustomAttributes())?>
         <?php if ($this->getField()->getHideLabel()) { ?>
-            aria-label="<?php echo $this->getField()->getName() ?>"
+            aria-label="<?= $this->getField()->getName() ?>"
         <?php } else { ?>
-            aria-labelledby="label_<?php echo $this->getFieldId() ?>" <?php } ?>
+            aria-labelledby="label_<?= $this->getFieldId() ?>" <?php } ?>
         <?php if ($this->getField()->getRequired()) { ?>
             aria-required="true"<?php } ?>
         <?php if($this->getField()->getBrowserAutocomplete()) { ?>
-            autocomplete="<?php echo $this->getField()->getBrowserAutocomplete()?>" <?php }?>
+            autocomplete="<?= $this->getField()->getBrowserAutocomplete()?>" <?php }?>
     >
-        <?php
-        foreach ($this->getFieldOptions() as $i => $option) {
+        <?php foreach ($this->getFieldOptions() as $i => $option) {
             $checked = false;
             if ($option["checked"]) {
                 $checked = 'selected';
@@ -32,7 +31,7 @@
                 }
                 if (!empty($option['optgroup']) && !empty($option['label'])) {
                     ?>
-                    <optgroup label="<?php echo $option['label'] ?>">
+                    <optgroup label="<?= $option['label'] ?>">
                     <?php
                 } elseif (!empty($option['optgroup_close'])) {
                     ?>
@@ -41,7 +40,7 @@
                 } else
                     if ($contact) {
                     ?>
-                    <option value="<?php echo $contact["email"] ? $i : $value;?>" <?php echo $checked?>><?php echo $contact['name']?></option>
+                    <option value="<?= $contact["email"] ? $i : $value;?>" <?= $checked?>><?= $contact['name']?></option>
                     <?php
                 }
             }
