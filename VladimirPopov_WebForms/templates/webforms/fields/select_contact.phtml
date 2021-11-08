@@ -1,50 +1,57 @@
 <div class="select select--native">
     <select
-        name='<?= $this->getFieldName()?>'
-        id='<?= $this->getFieldId()?>'
+        name='<?= $block->escapeHtmlAttr($this->getFieldName()) ?>'
+        id='<?= $block->escapeHtmlAttr($this->getFieldId()) ?>'
         class='
             select__field
-            <?= $this->getFieldClass()?>
+            <?= $block->escapeHtmlAttr($this->getFieldClass()) ?>
         '
         data-mage-init='{"select": {"options": {"shouldSort": false}}}'
-        style='<?= $this->getFieldStyle()?>' <?php if ($this->getField()->getDisabled()) { ?>
-        disabled <?php } ?> <?= htmlspecialchars($this->getField()->getCustomAttributes())?>
-        <?php if ($this->getField()->getHideLabel()) { ?>
-            aria-label="<?= $this->getField()->getName() ?>"
-        <?php } else { ?>
-            aria-labelledby="label_<?= $this->getFieldId() ?>" <?php } ?>
-        <?php if ($this->getField()->getRequired()) { ?>
-            aria-required="true"<?php } ?>
-        <?php if($this->getField()->getBrowserAutocomplete()) { ?>
-            autocomplete="<?= $this->getField()->getBrowserAutocomplete()?>" <?php }?>
+        <?= /* @noEscape */ htmlspecialchars($this->getField()->getCustomAttributes())?>
+        style='<?= $block->escapeHtmlAttr($this->getFieldStyle()) ?>'
+        <?php if ($this->getField()->getDisabled()): ?>
+            disabled
+        <?php endif;?>
+        <?php if ($this->getField()->getHideLabel()): ?>
+            aria-label="<?= $block->escapeHtmlAttr($this->getField()->getName()) ?>"
+        <?php else: ?>
+            aria-labelledby="label_<?= $block->escapeHtmlAttr($this->getFieldId()) ?>"
+        <?php endif; ?>
+        <?php if ($this->getField()->getRequired()): ?>
+            aria-required="true"
+        <?php endif; ?>
+        <?php if ($this->getField()->getBrowserAutocomplete()): ?>
+            autocomplete="<?= $block->escapeHtmlAttr($this->getField()->getBrowserAutocomplete()) ?>"
+        <?php endif; ?>
     >
-        <?php foreach ($this->getFieldOptions() as $i => $option) {
+        <?php foreach ($this->getFieldOptions() as $i => $option):
             $checked = false;
             if ($option["checked"]) {
                 $checked = 'selected';
             }
-            if (isset($option["value"])) {
+        ?>
+            <?php if (isset($option["value"])):
                 $contact = $this->getField()->getContactArray($option["value"]);
                 $value = $option["value"];
                 if ($option['null']) {
                     $value = '';
                 }
-                if (!empty($option['optgroup']) && !empty($option['label'])) {
-                    ?>
-                    <optgroup label="<?= $option['label'] ?>">
-                    <?php
-                } elseif (!empty($option['optgroup_close'])) {
-                    ?>
+            ?>
+                <?php if (!empty($option['optgroup']) && !empty($option['label'])): ?>
+                    <optgroup label="<?= $block->escapeHtmlAttr($option['label']) ?>">
+                    <?php elseif (!empty($option['optgroup_close'])): ?>
                     </optgroup>
-                    <?php
-                } else
-                    if ($contact) {
-                    ?>
-                    <option value="<?= $contact["email"] ? $i : $value;?>" <?= $checked?>><?= $contact['name']?></option>
-                    <?php
-                }
-            }
-        }
-        ?>
+                        <?php else: ?>
+                            <?php if ($contact): ?>
+                                <option
+                                    value="<?= $contact["email"] ? $block->escapeHtmlAttr($i) : $block->escapeHtmlAttr($value); ?>"
+                                    <?= /* @noEscape */ $checked?>
+                                >
+                                    <?= $block->escapeHtml($contact['name']) ?>
+                                </option>
+                        <?php endif; ?>
+                <?php endif; ?>
+           <?php endif; ?>
+        <?php endforeach; ?>
     </select>
 </div>

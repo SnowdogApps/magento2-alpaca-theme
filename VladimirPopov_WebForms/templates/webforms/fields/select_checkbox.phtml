@@ -4,7 +4,7 @@
     $validate_min = '';
     $validate_max = '';
     $options = $this->getFieldOptions();
-    foreach ($this->getFieldOptions() as $i => $option) {
+    foreach ($this->getFieldOptions() as $i => $option):
         $checked = false;
         $validate_min = '';
         $validate_max = '';
@@ -24,41 +24,43 @@
         if ($this->getMax() && $i == (count($options) - 1)) {
             $validate_max = "validate-field-options-max-{$this->getField()->getId()}";
         }
-        if(!$this->getField()->getValidationAdvice()){
+        if (!$this->getField()->getValidationAdvice()){
             $this->getField()->setValidationAdvice(__('Please select one of the options.'));
         }
-        if (isset($option["value"]) && empty($option['optgroup']) && empty($option['optgroup_close'])) {
+    ?>
+        <?php if (isset($option["value"]) && empty($option['optgroup']) && empty($option['optgroup_close'])):
             $label = $option["label"];
             if ($option["image_src"]) {
                 $label = "<figure><img src='{$option['image_src']}'/><figcaption>{$label}</figcaption></figure>";
             }
-            ?>
+        ?>
             <div
                 class='
                     field
                     choice
-                    option-<?= $i ?>
+                    option-<?= $block->escapeHtmlAttr($i) ?>
                     checkbox
                 '
-                style='<?= $this->getFieldStyle() ?>'
+                style='<?= $block->escapeHtmlAttr($this->getFieldStyle()) ?>'
             >
                 <input type='checkbox'
-                    name='<?= $this->getFieldName() ?>[]'
-                    id='<?= $this->getFieldId() . $i ?>'
-                    value="<?= htmlspecialchars($option["value"]) ?>"
+                    name='<?= $block->escapeHtmlAttr($this->getFieldName()) ?>[]'
+                    id='<?= $block->escapeHtmlAttr($this->getFieldId() . $i) ?>'
+                    value="<?= $block->escapeHtmlAttr(htmlspecialchars($option['value'])) ?>"
                     class='
                         checkbox__field
-                        <?= $validate ?>
-                        <?= $validate_min ?>
-                        <?= $validate_max ?>
+                        <?= $block->escapeHtmlAttr($validate) ?>"
+                        <?= $block->escapeHtmlAttr($validate_min ) ?>"
+                        <?= $block->escapeHtmlAttr($validate_max ) ?>"
                     '
-                    <?= $checked ?>
+                    <?= /* @noEscape */ $checked ?>
                     aria-labelledby="
-                        <?= $this->getFieldId() . $i ?>
-                        _label<?php if(!$this->getField()->getHideLabel()){?>
-                        label_<?= $this->getFieldId() ?><?php } ?>
+                        <?= $block->escapeHtmlAttr($this->getFieldId() . $i) ?>
+                        <?php if(!$this->getField()->getHideLabel()): ?>
+                                label_<?= $block->escapeHtmlAttr($this->getFieldId()) ?>
+                        <?php endif; ?>
                     "
-                    <?= htmlspecialchars($this->getField()->getCustomAttributes())?>
+                    <?= /* @noEscape */ htmlspecialchars($this->getField()->getCustomAttributes())?>
                 />
                 <svg
                     class="checkbox__icon checkbox__icon--checked"
@@ -75,11 +77,11 @@
                     <use href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#unchecked')) ?>"/>
                 </svg>
                 <label
-                    id="<?= $this->getFieldId() . $i ?>_label"
-                    for='<?= $this->getFieldId() . $i ?>'
+                    id="<?= $block->escapeHtmlAttr($this->getFieldId() . $i) ?>_label"
+                    for="<?= $block->escapeHtmlAttr($this->getFieldId() . $i) ?>"
                     class="checkbox__label"
                 >
-                    <?= $label ?>
+                    <?= $block->escapeHtml($label) ?>
                 </label>
                 <?php
                     $tooltip = $this->getField()->getTooltip($option["value"]);
@@ -91,31 +93,41 @@
                     }
                 ?>
             </div>
-            <?php
-        }
-    }
-    ?>
+        <?php endif; ?>
+    <?php endforeach; ?>
 </div>
-<?php if($validate_min) {
+
+<?php if ($validate_min):
     $validate_message = __('Please check at least %1 options', $this->getField()->getValue('options_checkbox_min'));
     if (!empty($this->getField()->getValue('options_checkbox_min_error_text')))
         $validate_message = $this->getField()->getValue('options_checkbox_min_error_text');
-    ?>
-    <div class="validation-advice"
-         id="advice-validate-field-options-min-<?= $this->getField()->getId()?>-<?= $this->getFieldId(). $i?>"
-         style="display:none"><?= $validate_message ?></div>
-<?php }?>
-<?php if($validate_max) {
+?>
+    <div
+        id="advice-validate-field-options-max-<?= $block->escapeHtmlAttr($this->getField()->getId())?>-<?= $block->escapeHtmlAttr($this->getFieldId(). $i)?>"
+        class="validation-advice display-none"
+    >
+        <?= $block->escapeHtml($validate_message) ?>
+    </div>
+<?php endif;?>
+
+<?php if ($validate_max):
     $validate_message = __('Please check not more than %1', $this->getField()->getValue('options_checkbox_max'));
     if (!empty($this->getField()->getValue('options_checkbox_max_error_text')))
         $validate_message = $this->getField()->getValue('options_checkbox_max_error_text');
-    ?>
-    <div class="validation-advice"
-         id="advice-validate-field-options-max-<?= $this->getField()->getId()?>-<?= $this->getFieldId(). $i?>"
-         style="display:none"><?= $validate_message ?></div>
-<?php }?>
-<?php if ($validate && $this->getField()->getValidationAdvice()) { ?>
-    <div class="validation-advice"
-         id="advice-validate-one-required-by-name-<?= $this->getFieldId() . $i ?>"
-         style="display:none"><?= $this->getField()->getValidationAdvice() ?></div>
-<?php } ?>
+?>
+    <div
+        id="advice-validate-field-options-max-<?= $block->escapeHtmlAttr($this->getField()->getId())?>-<?= $block->escapeHtmlAttr($this->getFieldId(). $i)?>"
+        class="validation-advice display-none"
+    >
+        <?= $block->escapeHtml($validate_message) ?>
+    </div>
+<?php endif;?>
+
+<?php if ($validate && $this->getField()->getValidationAdvice()): ?>
+    <div
+        id="advice-validate-one-required-by-name-<?= $block->escapeHtmlAttr($this->getFieldId() . $i) ?>"
+        class="validation-advice display-none"
+    >
+        <?= $block->escapeHtml($this->getField()->getValidationAdvice()) ?>
+    </div>
+<?php endif;?>
