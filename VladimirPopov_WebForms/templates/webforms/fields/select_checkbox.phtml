@@ -35,32 +35,32 @@
             }
         ?>
             <div
-                class='
+                class="
                     field
                     choice
                     option-<?= $block->escapeHtmlAttr($i) ?>
                     checkbox
-                '
+                "
                 style='<?= $block->escapeHtmlAttr($this->getFieldStyle()) ?>'
             >
                 <input type='checkbox'
                     name='<?= $block->escapeHtmlAttr($this->getFieldName()) ?>[]'
                     id='<?= $block->escapeHtmlAttr($this->getFieldId() . $i) ?>'
                     value="<?= $block->escapeHtmlAttr(htmlspecialchars($option['value'])) ?>"
-                    class='
+                    class="
                         checkbox__field
-                        <?= $block->escapeHtmlAttr($validate) ?>"
-                        <?= $block->escapeHtmlAttr($validate_min ) ?>"
-                        <?= $block->escapeHtmlAttr($validate_max ) ?>"
-                    '
+                        <?= $block->escapeHtmlAttr($validate) ?>
+                        <?= $block->escapeHtmlAttr($validate_min ) ?>
+                        <?= $block->escapeHtmlAttr($validate_max ) ?>
+                    "
                     <?= /* @noEscape */ $checked ?>
                     aria-labelledby="
                         <?= $block->escapeHtmlAttr($this->getFieldId() . $i) ?>
                         <?php if(!$this->getField()->getHideLabel()): ?>
-                                label_<?= $block->escapeHtmlAttr($this->getFieldId()) ?>
+                            label_<?= $block->escapeHtmlAttr($this->getFieldId()) ?>
                         <?php endif; ?>
                     "
-                    <?= /* @noEscape */ htmlspecialchars($this->getField()->getCustomAttributes())?>
+                    <?= /* @noEscape */ htmlspecialchars($this->getField()->getCustomAttributes()) ?>
                 />
                 <svg
                     class="checkbox__icon checkbox__icon--checked"
@@ -83,15 +83,14 @@
                 >
                     <?= $block->escapeHtml($label) ?>
                 </label>
-                <?php
-                    $tooltip = $this->getField()->getTooltip($option["value"]);
-                    if ($tooltip) {
-                        echo $this->getLayout()->createBlock(
-                            'VladimirPopov\WebForms\Block\Script\Tooltip',
-                            null
+                <?php $tooltip = $this->getField()->getTooltip($option["value"]); ?>
+                <?php if ($tooltip): ?>
+                    <?= $this->getLayout()->createBlock(
+                        'VladimirPopov\WebForms\Block\Script\Tooltip',
+                        null
                         )->setField($this->getField())->setTooltip($tooltip)->toHtml();
-                    }
-                ?>
+                    ?>
+                <?php endif; ?>
             </div>
         <?php endif; ?>
     <?php endforeach; ?>
@@ -103,7 +102,7 @@
         $validate_message = $this->getField()->getValue('options_checkbox_min_error_text');
 ?>
     <div
-        id="advice-validate-field-options-max-<?= $block->escapeHtmlAttr($this->getField()->getId())?>-<?= $block->escapeHtmlAttr($this->getFieldId(). $i)?>"
+        id="advice-validate-field-options-max-<?= $block->escapeHtmlAttr($this->getField()->getId())?>-<?= $block->escapeHtmlAttr($this->getFieldId(). $i) ?>"
         class="validation-advice display-none"
     >
         <?= $block->escapeHtml($validate_message) ?>
@@ -116,7 +115,7 @@
         $validate_message = $this->getField()->getValue('options_checkbox_max_error_text');
 ?>
     <div
-        id="advice-validate-field-options-max-<?= $block->escapeHtmlAttr($this->getField()->getId())?>-<?= $block->escapeHtmlAttr($this->getFieldId(). $i)?>"
+        id="advice-validate-field-options-max-<?= $block->escapeHtmlAttr($this->getField()->getId())?>-<?= $block->escapeHtmlAttr($this->getFieldId(). $i) ?>"
         class="validation-advice display-none"
     >
         <?= $block->escapeHtml($validate_message) ?>
@@ -130,4 +129,4 @@
     >
         <?= $block->escapeHtml($this->getField()->getValidationAdvice()) ?>
     </div>
-<?php endif;?>
+<?php endif; ?>
