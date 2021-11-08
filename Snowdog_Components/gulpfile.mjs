@@ -188,7 +188,7 @@ const lintCSS = () => {
 }
 
 const lintScript = () => {
-  return gulp.src(fractal.components.get('path') + '/**/*.js')
+  return gulp.src(['./components/**/*.js', '!**/*.config.js'])
     .pipe(
       gulpif(
         util.env.ci,
@@ -205,7 +205,7 @@ const lintScript = () => {
         })
       )
     )
-    .pipe(eslint())
+    .pipe(eslint({ fix: util.env.fix }))
     .pipe(eslint.format())
     .pipe(gulpif(util.env.ci, eslint.failAfterError()));
 }
@@ -293,6 +293,6 @@ const buildFractal = () => {
   });
 }
 
+export const lint = gulp.series(lintScript, lintSASS)
 export const dev = gulp.series(gulp.parallel(inheritance, compileSVG, compileStyle), a11y, startFractal, watch)
-
 export const build = gulp.series(gulp.parallel(inheritance, compileSVG, compileStyle), buildFractal)
