@@ -1,67 +1,101 @@
 <!doctype html>
 <html <?= $htmlAttributes ?>>
     <head <?= $headAttributes ?>>
-        <?php // TODO: Critical css ?>
+        <link
+            rel="preload"
+            href="<?= $this->getViewFileUrl('fonts/work-sans-regular.woff2') ?>"
+            as="font"
+            type="font/woff2"
+            crossorigin
+        >
+
+        <link
+            rel="preload"
+            href="<?= $this->getViewFileUrl('fonts/work-sans-medium.woff2') ?>"
+            as="font"
+            type="font/woff2"
+            crossorigin
+        >
+
+        <link
+            rel="preload"
+            href="<?= $this->getViewFileUrl('fonts/work-sans-bold.woff2') ?>"
+            as="font"
+            type="font/woff2"
+            crossorigin
+        >
+
+        <link
+            rel="preload"
+            href="<?= $this->getViewFileUrl('fonts/playfair-display-regular.woff2') ?>"
+            as="font"
+            type="font/woff2"
+            crossorigin
+        >
+
         <style>
-            body {
-                opacity: 0;
+            @font-face {
+                font-family: 'Work Sans';
+                src: url('<?= $this->getViewFileUrl('fonts/work-sans-regular.woff2') ?>') format('woff2');
+                font-weight: 400;
+                font-style: normal;
+                font-display: block;
+            }
+
+            @font-face {
+                font-family: 'Work Sans';
+                src: url('<?= $this->getViewFileUrl('fonts/work-sans-medium.woff2') ?>') format('woff2');
+                font-weight: 500;
+                font-style: normal;
+                font-display: block;
+            }
+
+            @font-face {
+                font-family: 'Work Sans';
+                src: url('<?= $this->getViewFileUrl('fonts/work-sans-bold.woff2') ?>') format('woff2');
+                font-weight: 700;
+                font-style: normal;
+                font-display: block;
+            }
+
+            @font-face {
+                font-family: 'Playfair Display';
+                src: url('<?= $this->getViewFileUrl('fonts/playfair-display-regular.woff2') ?>') format('woff2');
+                font-weight: 400;
+                font-style: normal;
+                font-display: block;
             }
         </style>
 
+        <style>
+            <?php
+                $criticalStyles = $this->assetRepo->createAsset('css/critical.css')->getContent();
+                echo str_replace('../images', $this->getViewFileUrl('images'), $criticalStyles);
+            ?>
+        </style>
+
         <link
-            href="<?= /* @noEscape */ $this->getViewFileUrl('css/styles.css') ?>"
+            href="<?= $this->getViewFileUrl('css/styles.css') ?>"
             rel="stylesheet"
             as="style"
             media="print"
             onload="this.media='all'"
         />
 
-        <link
-            rel="preload"
-            href="<?= /* @noEscape */ $this->getViewFileUrl('fonts/work-sans-regular.woff2') ?>"
-            as="font"
-            type="font/woff2"
-            crossorigin
-        >
-
-        <link
-            rel="preload"
-            href="<?= /* @noEscape */ $this->getViewFileUrl('fonts/work-sans-medium.woff2') ?>"
-            as="font"
-            type="font/woff2"
-            crossorigin
-        >
-
-        <link
-            rel="preload"
-            href="<?= /* @noEscape */ $this->getViewFileUrl('fonts/work-sans-bold.woff2') ?>"
-            as="font"
-            type="font/woff2"
-            crossorigin
-        >
-
-        <link
-            rel="preload"
-            href="<?= /* @noEscape */ $this->getViewFileUrl('fonts/playfair-display-regular.woff2') ?>"
-            as="font"
-            type="font/woff2"
-            crossorigin
-        >
-
-        <?= /* @noEscape */ $requireJs ?>
-        <?= /* @noEscape */ $headContent ?>
-        <?= /* @noEscape */ $headAdditional ?>
+        <?= $requireJs ?>
+        <?= $headContent ?>
+        <?= $headAdditional ?>
     </head>
     <body
         data-container="body"
         data-mage-init='{
             "loaderAjax": {},
             "loader": {
-                "icon": "<?= /* @noEscape */ $loaderIcon ?>"
+                "icon": "<?= $loaderIcon ?>"
             }
         }'
-        <?= /* @noEscape */ $bodyAttributes ?>
+        <?= $bodyAttributes ?>
     >
-        <?= /* @noEscape */ $layoutContent ?>
+        <?= $layoutContent ?>
     </body>
 </html>
