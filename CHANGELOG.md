@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 - In-store pickup components (#82620)
 ### Fixed
-- Display error message - phne number field (#83240)
+- Display error message - phone number field (#83240)
 ### Changed
 ### Updated
 ### Removed
