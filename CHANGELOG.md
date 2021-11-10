@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 - In-store pickup components (#82620)
 ### Fixed
+- Update button in minicart always shown (#83009)
 ### Changed
 ### Updated
 ### Removed
