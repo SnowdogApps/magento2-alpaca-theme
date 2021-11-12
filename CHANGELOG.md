@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 - In-store pickup components (#82620)
 ### Fixed
+- Remote shopping assistance checkbox on account creation (#83738)
 ### Changed
 ### Updated
 ### Removed
