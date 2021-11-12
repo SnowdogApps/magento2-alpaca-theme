@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 - In-store pickup components (#82620)
 ### Fixed
+- Display error message - phone number field (#83240)
 - Webform checkboxes inline style & Department select on Contact Page (#83891)
 - Update button in minicart always shown (#83009)
 ### Changed
