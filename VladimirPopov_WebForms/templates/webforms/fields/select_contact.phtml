@@ -1,0 +1,57 @@
+<div class="select select--native">
+    <select
+        name='<?= $block->escapeHtmlAttr($this->getFieldName()) ?>'
+        id='<?= $block->escapeHtmlAttr($this->getFieldId()) ?>'
+        class="
+            select__field
+            <?= $block->escapeHtmlAttr($this->getFieldClass()) ?>
+        "
+        data-mage-init='{"select": {"options": {"shouldSort": false}}}'
+        <?= /* @noEscape */ htmlspecialchars($this->getField()->getCustomAttributes()) ?>
+        style='<?= $block->escapeHtmlAttr($this->getFieldStyle()) ?>'
+        <?php if ($this->getField()->getDisabled()): ?>
+            disabled
+        <?php endif;?>
+        <?php if ($this->getField()->getHideLabel()): ?>
+            aria-label="<?= $block->escapeHtmlAttr($this->getField()->getName()) ?>"
+        <?php else: ?>
+            aria-labelledby="label_<?= $block->escapeHtmlAttr($this->getFieldId()) ?>"
+        <?php endif; ?>
+        <?php if ($this->getField()->getRequired()): ?>
+            aria-required="true"
+        <?php endif; ?>
+        <?php if ($this->getField()->getBrowserAutocomplete()): ?>
+            autocomplete="<?= $block->escapeHtmlAttr($this->getField()->getBrowserAutocomplete()) ?>"
+        <?php endif; ?>
+    >
+        <?php foreach ($this->getFieldOptions() as $i => $option):
+            $checked = false;
+            if ($option["checked"]) {
+                $checked = 'selected';
+            }
+        ?>
+            <?php if (isset($option["value"])):
+                $contact = $this->getField()->getContactArray($option["value"]);
+                $value = $option["value"];
+                if ($option['null']) {
+                    $value = '';
+                }
+            ?>
+                <?php if (!empty($option['optgroup']) && !empty($option['label'])): ?>
+                    <optgroup label="<?= $block->escapeHtmlAttr($option['label']) ?>">
+                    <?php elseif (!empty($option['optgroup_close'])): ?>
+                    </optgroup>
+                        <?php else: ?>
+                            <?php if ($contact): ?>
+                                <option
+                                    value="<?= $contact["email"] ? $block->escapeHtmlAttr($i) : $block->escapeHtmlAttr($value); ?>"
+                                    <?= /* @noEscape */ $checked ?>
+                                >
+                                    <?= $block->escapeHtml($contact['name']) ?>
+                                </option>
+                        <?php endif; ?>
+                <?php endif; ?>
+           <?php endif; ?>
+        <?php endforeach; ?>
+    </select>
+</div>
