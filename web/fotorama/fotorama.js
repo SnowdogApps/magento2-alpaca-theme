@@ -3218,10 +3218,16 @@ fotoramaVersion = '4.6.4';
         }
 
         that.cancelFullScreen = function () {
+            const fotoramaFramesCollection = document.getElementsByClassName('fotorama__stage__frame')
+
             if (o_nativeFullScreen && fullScreenApi.is()) {
                 fullScreenApi.cancel(document);
             } else {
                 cancelFullScreen();
+            }
+
+            for (let element of fotoramaFramesCollection) {
+                element.style.opacity = '0'
             }
 
             return this;
