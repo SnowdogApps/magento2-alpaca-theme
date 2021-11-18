@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 - Webform checkboxes inline style & Department select on Contact Page (#83891)
 - Update button in minicart always shown (#83009)
 - Remote shopping assistance on account creation (#83738)
+- Some styles loaded twice in checkout (#83768)
 ### Changed
 ### Updated
 ### Removed
