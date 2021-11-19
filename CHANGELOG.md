@@ -4,13 +4,13 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Added
 - In-store pickup components (#82620)
+- Conditional rendering in footer.hbs (#84599)
+- Missing variables in _footer.scss (#84599)
 ### Fixed
 - Display error message - phone number field (#83240)
 - Webform checkboxes inline style & Department select on Contact Page (#83891)
 - Update button in minicart always shown (#83009)
 - Remote shopping assistance on account creation (#83738)
-- Add missing variables in _footer.scss (#84599)
-- Add conditional rendering in footer.hbs (#84599) 
 ### Changed
 ### Updated
 ### Removed
