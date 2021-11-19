@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 - Update button in minicart always shown (#83009)
 - Remote shopping assistance on account creation (#83738)
 - Add missing variables in _footer.scss (#84599)
+- Add conditional rendering in footer.hbs (#84599) 
 ### Changed
 ### Updated
 ### Removed
