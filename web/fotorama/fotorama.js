@@ -3226,8 +3226,10 @@ fotoramaVersion = '4.6.4';
                 cancelFullScreen();
             }
 
-            for (let element of fotoramaFramesCollection) {
-                element.style.opacity = '0'
+            if (fotoramaFramesCollection && fotoramaFramesCollection.length) {
+                for (let i = 0; i < fotoramaFramesCollection.length; i++) {
+                    fotoramaFramesCollection[i].style.opacity = '0'
+                }
             }
 
             return this;
