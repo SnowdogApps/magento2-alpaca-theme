@@ -8,6 +8,7 @@ var config = {
       'lazysizes': 'Magento_Theme/js/lib/lazysizes.min',
       'select2': 'Magento_Theme/js/lib/select2.full.min',
       'slick': 'Magento_Theme/js/lib/slick.min',
+      "noUiSlider": "Magento_Theme/js/lib/nouislider.min",
 
       // Modules
       'bannerCollapsible': 'Magento_Theme/js/banner-collapsible.babel',
