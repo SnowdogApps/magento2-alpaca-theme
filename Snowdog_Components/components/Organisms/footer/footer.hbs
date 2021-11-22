@@ -11,15 +11,17 @@
                 </section>
             {{/if}}
 
-            <div class="footer__social-handler {{ socialHandlerClass }}">
-                <h3 class="footer__social-list-title">
-                    {{ socialListTitle }}
-                </h3>
+            {{#if socialIconList}}
+                <div class="footer__social-handler {{ socialHandlerClass }}">
+                    {{#if socialListTitle}}
+                        <h3 class="footer__social-list-title">
+                            {{ socialListTitle }}
+                        </h3>
+                    {{/if}}
 
-                {{#if socialIconList}}
                     {{ render '@list--icon' socialIconList }}
-                {{/if}}
-            </div>
+                </div>
+            {{/if}}
 
             {{#if linkList}}
                 <section class="footer__links">
@@ -55,16 +57,18 @@
                         </li>
                     {{/each}}
                 </ul>
-                
-                <div class="footer__switchers">
-                    {{#if language}}
-                        {{ render '@dropdown-list--detailed-content' language }}
-                    {{/if}}
 
-                    {{#if currency}}
-                        {{ render '@dropdown-list--detailed-content' currency }}
-                    {{/if}}
-                </div>
+                {{#if (or language currency)}}
+                    <div class="footer__switchers">
+                        {{#if language}}
+                            {{ render '@dropdown-list--detailed-content' language }}
+                        {{/if}}
+
+                        {{#if currency}}
+                            {{ render '@dropdown-list--detailed-content' currency }}
+                        {{/if}}
+                    </div>
+                {{/if}}
             </div>
         </section>
     {{/if}}
