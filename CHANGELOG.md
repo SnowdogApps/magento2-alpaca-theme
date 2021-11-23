@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Added
 - In-store pickup components (#82620)
+- Missing classes to home, product-view and catalog pages (#84674)
 ### Fixed
 - Display error message - phone number field (#83240)
 - Webform checkboxes inline style & Department select on Contact Page (#83891)
