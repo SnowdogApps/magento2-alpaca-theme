@@ -29,6 +29,14 @@ module.exports = {
         ],
         alt: 'image alt text'
       }
+    },
+    {
+      name: 'ratio',
+      context: {
+        wrapperClass: 'ratio-container',
+        class: 'ratio-image',
+        ratio: '100%'
+      }
     }
   ]
 };

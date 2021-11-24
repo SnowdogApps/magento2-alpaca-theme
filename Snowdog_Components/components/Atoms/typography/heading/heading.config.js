@@ -146,5 +146,29 @@ module.exports = {
         text: 'Sixth level heading - tag and class'
       }
     },
+    {
+      name: 'page-class',
+      context: {
+        tag: 'h1',
+        class: 'heading heading--page',
+        text: 'Page level heading - only class'
+      }
+    },
+    {
+      name: 'page-tag-and-class',
+      context: {
+        tag: 'div',
+        class: 'heading heading--page',
+        text: 'Page level heading - tag and class'
+      }
+    },
+    {
+      name: 'font-secondary-tag-and-class',
+      context: {
+        tag: 'div',
+        class: 'heading heading--font-secondary',
+        text: 'Font secondary heading - tag and class'
+      }
+    },
   ]
 };

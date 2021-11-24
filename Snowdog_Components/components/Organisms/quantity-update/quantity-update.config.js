@@ -38,6 +38,12 @@ module.exports = {
         qtyClass: 'input',
         qtyLabel: 'Qty'
       }
-    }
+    },
+    {
+      name: 'no-buttons-m',
+      context: {
+        class: 'quantity-update--no-buttons-m',
+      }
+    },
   ]
 }
