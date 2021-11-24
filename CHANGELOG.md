@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 ### Added
 - In-store pickup components (#82620)
 - Missing classes to home, product-view and catalog pages (#84674)
+- Conditional rendering in footer.hbs (#84599)
+- Missing variables in _footer.scss (#84599)
 ### Fixed
 - Display error message - phone number field (#83240)
 - Webform checkboxes inline style & Department select on Contact Page (#83891)
