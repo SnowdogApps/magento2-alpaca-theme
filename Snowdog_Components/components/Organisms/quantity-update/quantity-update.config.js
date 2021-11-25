@@ -40,7 +40,7 @@ module.exports = {
       }
     },
     {
-      name: 'no-buttons-m',
+      name: 'no-buttons-above-medium',
       context: {
         class: 'quantity-update--no-buttons-m',
       }

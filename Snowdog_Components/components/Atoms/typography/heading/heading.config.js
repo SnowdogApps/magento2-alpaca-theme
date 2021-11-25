@@ -147,27 +147,19 @@ module.exports = {
       }
     },
     {
-      name: 'page-class',
+      name: 'class-page',
       context: {
         tag: 'h1',
         class: 'heading heading--page',
-        text: 'Page level heading - only class'
+        text: 'Page heading'
       }
     },
     {
-      name: 'page-tag-and-class',
+      name: 'font-secondary',
       context: {
-        tag: 'div',
-        class: 'heading heading--page',
-        text: 'Page level heading - tag and class'
-      }
-    },
-    {
-      name: 'font-secondary-tag-and-class',
-      context: {
-        tag: 'div',
+        tag: 'h1',
         class: 'heading heading--font-secondary',
-        text: 'Font secondary heading - tag and class'
+        text: 'Font secondary heading'
       }
     },
   ]

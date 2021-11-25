@@ -33,9 +33,7 @@ module.exports = {
     {
       name: 'ratio',
       context: {
-        wrapperClass: 'ratio-container',
-        class: 'ratio-image',
-        ratio: '100%'
+        ratio: 'calc((480 / 480) * 100%)'
       }
     }
   ]
