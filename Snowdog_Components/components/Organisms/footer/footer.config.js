@@ -15,6 +15,7 @@ module.exports = {
         hidden: true,
       }
     },
+    newsletter: true,
     socialListTitle: 'Let\'s get social!',
     socialHandlerClass: '',
     socialIconList: {
