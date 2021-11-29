@@ -14,6 +14,7 @@ All notable changes to this project will be documented in this file.
 - Update button in minicart always shown (#83009)
 - Remote shopping assistance on account creation (#83738)
 - Galery showing multiple pictures in magnifier view (#80429)
+- Overflow on x axis caused by `slider--full-width` class (#84443)
 ### Changed
 ### Updated
 ### Removed
