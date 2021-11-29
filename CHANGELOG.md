@@ -15,6 +15,7 @@ All notable changes to this project will be documented in this file.
 - Remote shopping assistance on account creation (#83738)
 - Galery showing multiple pictures in magnifier view (#80429)
 - Overflow on x axis caused by `slider--full-width` class (#84443)
+- Some styles loaded twice in checkout (#83768)
 ### Changed
 ### Updated
 ### Removed
