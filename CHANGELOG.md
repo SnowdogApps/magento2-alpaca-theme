@@ -21,6 +21,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 ### Updated
 ### Removed
+- Qty input and update button from minicart in Fractal (#84747)
 
 ## [Released]
 ## [2.25.0] - 2021-10-19
