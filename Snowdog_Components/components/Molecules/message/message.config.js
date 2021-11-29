@@ -17,7 +17,7 @@ module.exports = {
       name: 'error',
       context: {
         class: 'message--error',
-        text: 'Please specify product\'s required options(s).'
+        text: 'Please specify product\'s required option(s).'
       }
     }
   ]

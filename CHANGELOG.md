@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 - Conditional rendering in footer.hbs (#84599)
 - Missing variables in _footer.scss (#84599)
 - Missing fractal component variants (#84723)
+- Messages component variant (#84729)
 ### Fixed
 - Display error message - phone number field (#83240)
 - Webform checkboxes inline style & Department select on Contact Page (#83891)
@@ -16,6 +17,7 @@ All notable changes to this project will be documented in this file.
 - Galery showing multiple pictures in magnifier view (#80429)
 - Overflow on x axis caused by `slider--full-width` class (#84443)
 - Some styles loaded twice in checkout (#83768)
+- Messages component display (#84729)
 ### Changed
 ### Updated
 ### Removed
