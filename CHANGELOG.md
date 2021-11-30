@@ -4,11 +4,18 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Added
 ### Fixed
+- Display error message - phone number field (#83240)
+- Webform checkboxes inline style & Department select on Contact Page (#83891)
+- Update button in minicart always shown (#83009)
 ### Changed
 ### Updated
 ### Removed
 
 ## [Released]
+## [2.25.1] - 2021-11-30
+### Fixed
+- Remote shopping assistance on account creation (#83738)`
+
 ## [2.25.0] - 2021-10-19
 ### Fixed
 - Filters position on category view (#83483)
