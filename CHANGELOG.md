@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+=========================================================
+USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
+=========================================================
+
 ## [Unreleased]
 ### Added
 - In-store pickup components (#82620)
@@ -13,7 +17,6 @@ All notable changes to this project will be documented in this file.
 - Display error message - phone number field (#83240)
 - Webform checkboxes inline style & Department select on Contact Page (#83891)
 - Update button in minicart always shown (#83009)
-- Remote shopping assistance on account creation (#83738)
 - Galery showing multiple pictures in magnifier view (#80429)
 - Overflow on x axis caused by `slider--full-width` class (#84443)
 - Some styles loaded twice in checkout (#83768)
@@ -23,6 +26,10 @@ All notable changes to this project will be documented in this file.
 ### Removed
 
 ## [Released]
+## [2.25.1] - 2021-11-30
+### Fixed
+- Remote shopping assistance on account creation (#83738)
+
 ## [2.25.0] - 2021-10-19
 ### Fixed
 - Filters position on category view (#83483)
