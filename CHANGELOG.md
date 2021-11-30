@@ -18,6 +18,7 @@ All notable changes to this project will be documented in this file.
 - Overflow on x axis caused by `slider--full-width` class (#84443)
 - Some styles loaded twice in checkout (#83768)
 - Messages component display (#84729)
+- Order summary not expanded by default (#84748)
 ### Changed
 ### Updated
 ### Removed
