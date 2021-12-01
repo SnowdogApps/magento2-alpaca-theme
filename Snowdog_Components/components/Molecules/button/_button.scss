@@ -223,7 +223,21 @@
 
     &--icon-fill {
         background: $button__background--icon-fill;
-        @include button-icon-fill($button__icon-after-mask--icon-fill);
+
+        &:after {
+            content: '';
+            display: block;
+            position: absolute;
+            left: auto;
+            mask: url($button__icon-after-mask--icon-fill) $button__icon-after-mask-repeat--icon-fill $button__icon-after-mask-position--icon-fill;
+            background-size: $button__icon-after-bg-size--icon-fill;
+            background-image: $button__icon-after-bg-image--icon-fill;
+            background-position: $button__icon-after-bg-position--icon-fill;
+            transition: $button__icon-after-transition--icon-fill;
+            opacity: $button__icon-after-oapcity--icon-fill;
+            z-index: $button__icon-after-z-index--icon-fill;
+        }
+
 
         &:before {
             background-color: $button__before-background--icon-fill;
@@ -232,13 +246,26 @@
 
         &:hover,
         &.focus-visible {
-            @include button-fill-bg();
             background-color: $button__background-hover--icon-fill;
+
+            .icon {
+                fill: $button__icon-fill-hover--icon-fill;
+            }
+            &:after {
+                display: block;
+                background-position: $button__icon-after-bg-position-hover--icon-fill;
+            }
         }
     }
 
     &--icon-filled {
-        @include button-fill-bg();
+        .icon {
+            fill: $button__icon-fill-hover--icon-fill;
+        }
+        &:after {
+            display: block;
+            background-position: $button__icon-after-bg-position-hover--icon-fill;
+        }
     }
 
     &--add-to {
