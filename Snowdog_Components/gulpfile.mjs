@@ -24,7 +24,6 @@ import svgSprite from 'gulp-svg-sprite'
 import util from 'gulp-util'
 
 const sass = gulpSass(nodeSass);
-const a11yPreview = '@views';
 const basePath = path.resolve('./');
 
 // Fractal configuration
@@ -223,18 +222,18 @@ const compileSVG = () => {
     .pipe(gulp.dest(fractal.web.get('static.path')));
 }
 
-function setA11yViewsPreview(args, done) {
+function setA11yPreviewLayout(args, done) {
   const app = this.fractal;
   for (let item of app.components.flatten()) {
     if (item.viewPath.includes('Templates')) {
-      item.preview = a11yPreview;
+      item.preview = '@a11y';
     }
   }
   done();
 }
 
 const a11y = () => {
-  fractal.cli.command('a11y-preview', setA11yViewsPreview, a11yPreview);
+  fractal.cli.command('a11y-preview', setA11yPreviewLayout);
   return fractal.cli.exec('a11y-preview');
 }
 
