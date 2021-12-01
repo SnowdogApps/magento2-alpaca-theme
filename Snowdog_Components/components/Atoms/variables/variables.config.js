@@ -1,3 +1,3 @@
 module.exports = {
-  status: 'wip'
+  hidden: true
 }

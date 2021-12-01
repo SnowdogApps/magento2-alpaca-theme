@@ -222,19 +222,25 @@ const compileSVG = () => {
     .pipe(gulp.dest(fractal.web.get('static.path')));
 }
 
-function setA11yPreviewLayout(args, done) {
-  const app = this.fractal;
-  for (let item of app.components.flatten()) {
-    if (item.viewPath.includes('Templates')) {
-      item.preview = '@a11y';
-    }
-  }
-  done();
-}
+// Those props are later avalivable via `_target.meta` in `_preview.hbs`
+const setAdditionalProps = () => {
+  fractal.cli.command('additional-props', function(args, done) {
+    const app = this.fractal;
 
-const a11y = () => {
-  fractal.cli.command('a11y-preview', setA11yPreviewLayout);
-  return fractal.cli.exec('a11y-preview');
+    for (let item of app.components.flatten()) {
+      // We need to explicitly set all the meta props for every component, otherwise it won't work properly
+
+      // Enable a11y tooling
+      item.meta.a11y = item.viewPath.includes('/Templates/');
+
+      // Set stylesheet for checkout
+      item.meta.checkout = item.viewPath.includes('/Templates/checkout/');
+    }
+
+    done();
+  });
+
+  return fractal.cli.exec('additional-props');
 }
 
 const watchStyle = () => {
@@ -293,5 +299,5 @@ const buildFractal = () => {
 }
 
 export const lint = gulp.series(lintScript, lintSASS)
-export const dev = gulp.series(gulp.parallel(inheritance, compileSVG, compileStyle), a11y, startFractal, watch)
+export const dev = gulp.series(gulp.parallel(inheritance, compileSVG, compileStyle), setAdditionalProps, startFractal, watch)
 export const build = gulp.series(gulp.parallel(inheritance, compileSVG, compileStyle), buildFractal)
