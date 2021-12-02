@@ -22,6 +22,7 @@ $filterCurrentValueTo = $filterConfig['currentValue']['to'];
 $filterUrl = $filterConfig['urlTemplate'];
 $filterSymbolPattern = $filterConfig['fieldFormat']['pattern'];
 $filterSymbol = str_replace('%s', '', $filterSymbolPattern);
+$attributeDescription = $block->getFilter()->getAttributeModel()->getData(\Snowdog\ProductAttributeDescription\Model\ProductAttributeDescriptionManager::ATTRIBUTE_DESCRIPTION_CODE);
 ?>
 <?php if (!($filterMinValueNumber === $filterMaxValueNumber)): ?>
 <li
@@ -71,13 +72,9 @@ $filterSymbol = str_replace('%s', '', $filterSymbolPattern);
     >
         <div
             class="more-info"
-            data-mage-init='{
-                "moreInfo": {
-                    "path": "/rest/V1/snowproductattributedescription/description/:attributeCode",
-                    "variable": ":attributeCode",
-                    "data": "<?= $block->escapeHtmlAttr($filterCode) ?>"
-                }
-            }'
+            <?php if ($attributeDescription): ?>
+                data-mage-init='{"moreInfo": {"attributeDescription": "<?= $attributeDescription ?>"}}'
+            <?php endif ?>
             aria-hidden="true"
         >
             <button

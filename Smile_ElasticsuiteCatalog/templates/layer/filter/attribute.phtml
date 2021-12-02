@@ -8,6 +8,7 @@
 <?php
 $datasId = $this->getFilter()->getRequestVar();
 $datascope = $datasId . 'Filter';
+$attributeDescription = $block->getFilter()->getAttributeModel()->getData(\Snowdog\ProductAttributeDescription\Model\ProductAttributeDescriptionManager::ATTRIBUTE_DESCRIPTION_CODE);
 ?>
 <li
     class="
@@ -54,14 +55,10 @@ $datascope = $datasId . 'Filter';
         aria-hidden="false"
     >
         <div
+            <?php if ($attributeDescription): ?>
+                data-mage-init='{"moreInfo": {"attributeDescription": "<?= $attributeDescription ?>"}}'
+            <?php endif ?>
             class="more-info"
-            data-mage-init='{
-                "moreInfo": {
-                    "path": "/rest/V1/snowproductattributedescription/description/:attributeCode",
-                    "variable": ":attributeCode",
-                    "data": "<?= $block->escapeJs($datasId) ?>"
-                }
-            }'
             aria-hidden="true"
         >
             <button
@@ -139,3 +136,4 @@ $datascope = $datasId . 'Filter';
         </script>
     </div>
 </li>
+
