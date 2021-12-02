@@ -13,6 +13,8 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - Missing variables in _footer.scss (#84599)
 - Missing fractal component variants (#84723)
 - Messages component variant (#84729)
+- blank layout (82529)
+- blank notice (82529)
 ### Fixed
 - Display error message - phone number field (#83240)
 - Webform checkboxes inline style & Department select on Contact Page (#83891)
