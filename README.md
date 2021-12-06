@@ -405,7 +405,7 @@ You can use Alpaca styles implementation to use different configuration of menu 
 
 ### Header & Footer CMS blocks
 
-We use CMS block to display and customise some content in header and footer, check `vendor/snowdog/theme-frontend-alpaca/Magento_Theme/layout/default.xml`  which cms block we use to buld the content structure, and check Alpaca components (Templates) to build HTML structure
+We use CMS blocks to display some customizable content in header and footer. Check `vendor/snowdog/theme-frontend-alpaca/Magento_Theme/layout/default.xml` to see which CMS blocks are displayed by default. When creating these CMS blocks, you can use templates from `vendor/snowdog/theme-frontend-alpaca/Snowodg_Components` as a base for the HTML structure.
 
 ### Homepage blocks
 
