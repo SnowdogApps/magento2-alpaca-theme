@@ -21,6 +21,7 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - Overflow on x axis caused by `slider--full-width` class (#84443)
 - Some styles loaded twice in checkout (#83768)
 - Messages component display (#84729)
+- Multiple product attribute description API requests (#490)
 ### Changed
 ### Updated
 ### Removed
