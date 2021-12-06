@@ -409,7 +409,7 @@ We use CMS blocks to display some customizable content in header and footer. Che
 
 ### Homepage blocks
 
-Homepage content is build using static blocks, check `vendor/snowdog/theme-frontend-alapca/Magento_Cms/layout/cms_index_index.xml` to see which CMS blocks are displayed by default and check Alpaca components (Templates) to build HTML structure
+Homepage content is built using static blocks. Check `vendor/snowdog/theme-frontend-alapca/Magento_Cms/layout/cms_index_index.xml` to see which CMS blocks are displayed by default. When creating these CMS blocks, you can use templates from `vendor/snowdog/theme-frontend-alpaca/Snowodg_Components` as a base for the HTML structure.
 
 ### SVG icons in cms block:
 
