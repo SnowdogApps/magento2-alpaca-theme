@@ -22,6 +22,7 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - Some styles loaded twice in checkout (#83768)
 - Messages component display (#84729)
 - Alpaca readme - wrong link and missing content (#85061)
+- Multiple product attribute description API requests (#490)
 ### Changed
 ### Updated
 ### Removed
