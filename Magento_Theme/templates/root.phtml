@@ -1,11 +1,14 @@
 <!doctype html>
 <html <?= $htmlAttributes ?>>
     <head <?= $headAttributes ?>>
-        <link
-            href="<?= /* @noEscape */ $this->getViewFileUrl('css/styles.css') ?>"
-            rel="stylesheet preload"
-            as="style"
-        />
+        <!-- Preventing styles from beeing loaded twice in /checkout -->
+        <?php if (!strpos($bodyAttributes, 'checkout-index-index')): ?>
+            <link
+                href="<?= /* @noEscape */ $this->getViewFileUrl('css/styles.css') ?>"
+                rel="stylesheet preload"
+                as="style"
+            >
+        <?php endif ?>
 
         <link
             rel="preload"

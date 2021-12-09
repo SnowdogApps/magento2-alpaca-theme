@@ -29,6 +29,12 @@ module.exports = {
         ],
         alt: 'image alt text'
       }
+    },
+    {
+      name: 'ratio',
+      context: {
+        ratio: 'calc((480 / 480) * 100%)'
+      }
     }
   ]
 };

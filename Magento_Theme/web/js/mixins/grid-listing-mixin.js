@@ -13,12 +13,20 @@ define([
       },
       hideLoader: function () {
         this.container.forEach(el => {
-          el.querySelector('.loader').classList.remove('loader--visible');
+          /** @type Element */
+          var loaderElement = el.querySelector('.loader');
+          if (loaderElement) {
+            loaderElement.classList.remove('loader--visible');
+          }
         });
       },
       showLoader: function () {
         this.container.forEach(el => {
-          el.querySelector('.loader').classList.add('loader--visible');
+          /** @type Element */
+          var loaderElement = el.querySelector('.loader');
+          if (loaderElement) {
+            loaderElement.classList.add('loader--visible');
+          }
         });
       },
       initAfterLoad: function () {

@@ -1,7 +1,49 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+=========================================================
+USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
+=========================================================
+
 ## [Unreleased]
+### Added
+- In-store pickup components (#82620)
+- Missing classes to home, product-view and catalog pages (#84674)
+- Conditional rendering in footer.hbs (#84599)
+- Missing variables in _footer.scss (#84599)
+- Missing fractal component variants (#84723)
+- Messages component variant (#84729)
+### Fixed
+- Display error message - phone number field (#83240)
+- Webform checkboxes inline style & Department select on Contact Page (#83891)
+- Update button in minicart always shown (#83009)
+- Galery showing multiple pictures in magnifier view (#80429)
+- Overflow on x axis caused by `slider--full-width` class (#84443)
+- Some styles loaded twice in checkout (#83768)
+- Messages component display (#84729)
+- Alpaca readme - wrong link and missing content (#85061)
+- Multiple product attribute description API requests (#490)
+### Changed
+### Updated
+### Removed
+
+## [Released]
+## [2.25.1] - 2021-11-30
+### Fixed
+- Remote shopping assistance on account creation (#83738)
+
+## [2.25.0] - 2021-10-19
+### Fixed
+- Filters position on category view (#83483)
+### Updated
+- Update requisition list button on product view (#83517)
+- Update to Magento 2.4.3 (#81212)
+## [2.24.1] - 2021-10-13
+### Changed
+- Frontools dependency removed
+### Fixed
+- Asterix position in required checkboxes (#80129)
+## [2.24.0] - 2021-09-09
 ### Added
 - column template variables for catalog grid styles (#81732)
 - 'Recently viewed' component in fractal product bundle and product grouped templates
@@ -20,6 +62,7 @@ All notable changes to this project will be documented in this file.
 - error on privacy settings section in account settings (#81873)
 - cookie modal not showing when clicking save button (#81873)
 - some icons a11y in templates (#80844)
+- Quote reorder popup when having items in cart not displaying correctly (#82047)
 ### Changed
 - moved catalog grid scss variables to separate file (#81732)
 - move all content to the left for product list view on mobile (#81767)
@@ -32,8 +75,6 @@ All notable changes to this project will be documented in this file.
 - styling for cookie table information (#81873)
 ### Removed
 - svg4everybody (no longer needed for browser support (#80844)
-
-## [Released]
 ## [2.23.0] - 2021-08-03
 ### Added
 - yireo/magento2-webp2 package for webp images (#72754)

@@ -5,22 +5,25 @@ Alpaca Theme for Magento 2 is part of a `alpaca-packages`
 To make it work with all features, we use following modules:
 
 Open source
-* magepal/magento2-gmailsmtpapp
-* magepal/magento2-googletagmanager
-* mailchimp/mc-magento2
-* smile/elasticsuite
-* snowdog/module-bullet-points
-* snowdog/module-category-attributes
-* snowdog/module-alpaca-acm
-* snowdog/module-menu
-* snowdog/module-product-attribute-description
-* snowdog/module-shipping-latency
-* webshopapps/module-matrixrate
+* [magepal/magento2-gmailsmtpapp](https://github.com/magepal/magento2-gmail-smtp-app)
+* [magepal/magento2-googletagmanager](https://github.com/magepal/magento2-google-tag-manager)
+* [mailchimp/mc-magento2](https://github.com/mailchimp/mc-magento2)
+* [smile/elasticsuite](https://github.com/Smile-SA/elasticsuite)
+* [snowdog/module-alpaca-general](https://github.com/SnowdogApps/magento2-alpaca-general)
+* [snowdog/module-bullet-points](https://github.com/SnowdogApps/magento2-bullet-points)
+* [snowdog/module-csp](https://github.com/SnowdogApps/magento2-module-csp)
+* [snowdog/module-category-attributes](https://github.com/SnowdogApps/magento2-category-attributes)
+* [snowdog/module-menu](https://github.com/SnowdogApps/magento2-menu)
+* [snowdog/module-product-attribute-description](https://github.com/SnowdogApps/magento2-product-attribute-description)
+* [snowdog/module-shipping-latency](https://github.com/SnowdogApps/magento2-shipping-latency)
+* [snowdog/module-wishlist-unlocker](https://github.com/SnowdogApps/magento2-wishlist-unlocker)
+* [webshopapps/module-matrixrate](https://github.com/webshopapps/module-matrixrate)
+
+Alpaca supports also following OS modules:
 * paradoxlabs/authnetcim
 * paradoxlabs/tokenbase
 * authorizenet/magento-module-creditcard
-
-and module-alpaca-acm (from github) which will be added in p.1
+* [snowdog/module-alpaca-acm](https://github.com/SnowdogApps/magento2-alpaca-acm) - alpaca customisation for paid `blackbird/contentmanager` extension
 
 Additional, non-opensource modules the theme works with to cover additional features:
 * amasty/adminactionslog
@@ -37,12 +40,14 @@ Additional, non-opensource modules the theme works with to cover additional feat
 * blackbird/contentmanager
 * vladimirpopov/webforms
 
-
 ## Installation
 Install whole package using composer:
 `composer require snowdog/module-alpaca-packages`
 
-Node >=12.13.0 <13.0.0 is required for frontools and components
+Install [snowdog/frontools](https://github.com/SnowdogApps/magento2-frontools):
+`composer require snowdog/frontools`
+
+Node.js [LTS version](https://nodejs.org/en/about/releases/). We recommend using [Volta](https://volta.sh/).
 
 ### Theme
 1. Create child theme composer repository:
@@ -168,8 +173,8 @@ But you can work on components separately and run them outside of Magento.
 
 2. Update project names in `package.json` and `gulpfile.js`
 
-3. Copy `styles.scss` from `theme-frontend-alpaca/Snowdog_Components/docs/styles/` and add child project variables import there.
-The file should look like this:
+3. Copy `styles.scss` and `checkout.scss` from `theme-frontend-alpaca/Snowdog_Components/docs/styles/` and add child project variables import there.
+Your `styles.scss`:
 
 ```scss
 // Variables
@@ -182,6 +187,21 @@ The file should look like this:
 // Styles necessary only for Fractal purposes
 @import 'fractal';
 ```
+
+Your `checkout.scss`:
+```scss
+// Variables
+@import '../../components/Atoms/variables/variables';
+@import '../../components/Atoms/variables/<child-theme>-variables';
+
+// Components
+@import '../../components/checkout';
+
+// Styles necessary only for Fractal purpoueses
+@import 'fractal';
+
+```
+
 4. Create `modules.json` file with an array of paths to parent components libraries.
 To inherit dependencies from Alpaca components, you have to define path to `theme-forntend-alpaca/Snowdog_Components`.
 In most cases it will look like this:
@@ -194,7 +214,7 @@ In most cases it will look like this:
 
 6. Run `yarn` and `yarn dev` to run components in fractal :tada:
 
-If you don't work with Magento and want to use only components for some other project, you can create separate repository or/and composer package from `theme-frontend-alpaca/Snowdog_Components` and set dependence to Alpaca components (`theme-frontend-alpaca/Snowdog_Components`) inside it.
+If you don't work with Magento and want to use only components for some other project, you can create separate repository or/and composer/npm package from `theme-frontend-alpaca/Snowdog_Components` and set dependence to Alpaca components (`theme-frontend-alpaca/Snowdog_Components`) inside it.
 
 ## Working with components & theme - customisation guide
 
@@ -385,11 +405,11 @@ You can use Alpaca styles implementation to use different configuration of menu 
 
 ### Header & Footer CMS blocks
 
-We use cms block to display and customise some content in header and footer, check `vendor/snowdog/theme-frontend-colibri/Magento_Theme/layout/default.xml`  which cms block we use and Alpaca components to buld the content structure
+We use CMS blocks to display some customizable content in header and footer. Check `vendor/snowdog/theme-frontend-alpaca/Magento_Theme/layout/default.xml` to see which CMS blocks are displayed by default. When creating these CMS blocks, you can use templates from `vendor/snowdog/theme-frontend-alpaca/Snowodg_Components` as a base for the HTML structure.
 
 ### Homepage blocks
 
-Homepage content is build using static blocks, check `vendor/snowdog/theme-frontend-colibri/Magento_Cms/layout/cms_index_index.xml` to see which cms blocks are displayed by default and check Alpaca components to build HTML structure
+Homepage content is built using static blocks. Check `vendor/snowdog/theme-frontend-alapca/Magento_Cms/layout/cms_index_index.xml` to see which CMS blocks are displayed by default. When creating these CMS blocks, you can use templates from `vendor/snowdog/theme-frontend-alpaca/Snowodg_Components` as a base for the HTML structure.
 
 ### SVG icons in cms block:
 
@@ -402,7 +422,7 @@ Homepage content is build using static blocks, check `vendor/snowdog/theme-front
 ### Responsive images
 
 * to display responsive image for banners and slider items, we use:
-* template `picture.phtml`: `vendor/snowdog/theme-frontend-colibri/Magento_Theme/templates/html/picture.phtml` you can adjust it for your needs in the child theme.
+* template `picture.phtml`: `vendor/snowdog/theme-frontend-alpaca/Magento_Theme/templates/html/picture.phtml` you can adjust it for your needs in the child theme.
 * usage of phtml in cms block/page:
 ```
 {{block class="Magento\Framework\View\Element\Template" template="Magento_Theme::html/picture.phtml" img480="<img-url>" img768="<img-url>" img960="<img-url>" img1024="<img-url>" img1328="<img-url>" img_full="<img-url>" picture_class="image" picture_alt="<descriptive image alternative text>" }}
@@ -460,27 +480,28 @@ If responisve image aspect ratio is added, additional styles inline are generate
 
 * is an extension to display additional information about shipping time
 * Extension work on catalog and product detail page, to customise it you need to set attribute (dropdown) option and create cms block for popup content
-* check [Shipping latency extension details](https://lab.snowdog.pro/colibri/magento2-shipping-latency) and theme implementation in: `vendor/snowdog/theme-frontend-colibri/Magento_Catalog/templates/product/list.phtml` (for catalog) and `vendor/snowdog/theme-frontend-colibri/Magento_Catalog/templates/product/view/shipping-latency.phtml` (for product detail page)
+* check [Shipping latency extension details](https://github.com/SnowdogApps/magento2-shipping-latency) and theme implementation in: `vendor/snowdog/theme-frontend-alpaca/Magento_Catalog/templates/product/list.phtml` (for catalog) and `vendor/snowdog/theme-frontend-alpaca/Magento_Catalog/templates/product/view/shipping-latency.phtml` (for product detail page)
 
 ### Bullet points - snowdog/module-bullet-points
 * Extension is used to display product attributes listed on product list item on catalog page
-* check [Bullet points extension details](https://lab.snowdog.pro/colibri/magento2-bullet-points)
+* check [Bullet points extension details](https://github.com/SnowdogApps/magento2-bullet-points)
 
 ### Category attributes - snowdog/module-category-attributes
 * it add a field for additional content on the bottom of catalog page
-* check [Category attributes extension details](https://lab.snowdog.pro/colibri/magento2-category-attributes)
+* check [Category attributes extension details](https://github.com/SnowdogApps/magento2-category-attributes)
 
 ### Product attribute description - snowdog/module-product-attribute-description
 * Extension allow to add additional description for attribute, implemented from admin level
-* check [Product attribute description extension details](https://lab.snowdog.pro/colibri/magento2-product-attribute-description)
+* check [Product attribute description extension details](https://github.com/SnowdogApps/magento2-product-attribute-description)
 * in theme is implemented on catalog level as an additional tooltip, check implementation:
-  * `vendor/snowdog/theme-frontend-colibri/Smile_ElasticsuiteCatalog/templates/layer/filter/attribute.phtml`
-  * `vendor/snowdog/theme-frontend-colibri/Magento_Swatches/templates/product/layered/renderer.phtml` (swatches)
-  * `vendor/snowdog/theme-frontend-colibri/Smile_ElasticsuiteCatalog/templates/layer/filter/slider.phtml` (range filter)
+  * `vendor/snowdog/theme-frontend-alpaca/Smile_ElasticsuiteCatalog/templates/layer/filter/attribute.phtml`
+  * `vendor/snowdog/theme-frontend-alpaca/Magento_Swatches/templates/product/layered/renderer.phtml` (swatches)
+  * `vendor/snowdog/theme-frontend-alpaca/Smile_ElasticsuiteCatalog/templates/layer/filter/slider.phtml` (range filter)
 
 ### Wishlist unlocker -  snowdog/module-wishlist-unlocker
 * This extension allow to show more than 3 items in sidebar wishlist (M2 default is 3)
 * Limit value can be set in admin: Store -> COnfiguration -> Customer -> Wish List -> General option -> Items Limit
+* check [Wishlist unlocker extension details](https://github.com/SnowdogApps/magento2-wishlist-unlocker)
 
 ## Magepack
 for Magento version < 2.3.6, mixins.js module patch is required/ [Patch provided and explained here](https://github.com/magento/baler/issues/23)
@@ -554,23 +575,3 @@ yarn magepackBundle --config <config_path>
 * clear cache
 * check results in browser
 
-### Magepack issues
-
-#### `fotoramaVersion` issue while generating magepack config
-
-While on product page you have error: `fotoramaVersion is not defined` and gallery doesn't work, `magepack.config.js` require some manual update:
-
-in `product` bundle followin 3 items should be at the end of product bundle object:
-
-```
-{
-  url: [],
-  name: 'product',
-  modules: {
-    ...
-    'Magento_Theme/js/mixins/gallery-mixin': 'Magento_Theme/js/mixins/gallery-mixin',
-    'fotorama/fotorama': 'fotorama/fotorama',
-    'mage/gallery/gallery': 'mage/gallery/gallery'
-  }
-}
-```
