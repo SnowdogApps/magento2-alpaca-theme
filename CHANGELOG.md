@@ -23,6 +23,7 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - Messages component display (#84729)
 - Alpaca readme - wrong link and missing content (#85061)
 - Multiple product attribute description API requests (#490)
+- New customer registration - middle name always required (#493)
 ### Changed
 ### Updated
 ### Removed
