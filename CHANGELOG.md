@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 - Missing variables in _footer.scss (#84599)
 - Missing fractal component variants (#84723)
 - Messages component variant (#84729)
+- option to remove Qty input and update button from minicart in Admin > Store > Configuration > Snowdog > Alpaca General > Mini Cart > Qty Update Disabled (#486)
 ### Fixed
 - Display error message - phone number field (#83240)
 - Webform checkboxes inline style & Department select on Contact Page (#83891)
@@ -21,7 +22,6 @@ All notable changes to this project will be documented in this file.
 ### Changed
 ### Updated
 ### Removed
-- Qty input and update button from minicart in Fractal (#84747)
 
 ## [Released]
 ## [2.25.0] - 2021-10-19
