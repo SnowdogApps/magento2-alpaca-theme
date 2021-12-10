@@ -1,12 +1,14 @@
 <?php
 /** @var \Amasty\GdprCookie\Block\CookieBar $block */
+/** @var \Amasty\GdprCookie\Block\widget\Settings $widget */
+
 
 $cookiePrivacyTextJson = $block->getCookiePolicyText();
-$groupsJson = $block->getAllGroups();
-$groups = json_decode($groupsJson, true);
 $cookiePrivacyText = json_decode($cookiePrivacyTextJson, true);
+$widget = $this->getLayout()->createBlock('Amasty\GdprCookie\Block\widget\Settings');
+$groupData = $widget->getGroupData()['groupData'];
 ?>
-<?php if ($block->getNoticeType() === \Amasty\GdprCookie\Model\Config\Source\CookiePolicyBarStyle::CONFIRMATION_MODAL && $groups): ?>
+<?php if ($block->getNoticeType() === \Amasty\GdprCookie\Model\Config\Source\CookiePolicyBarStyle::CONFIRMATION_MODAL && $groupData): ?>
     <div
         data-role="gdpr-cookie-container"
         class="amgdprcookie-modal-template"
@@ -15,7 +17,6 @@ $cookiePrivacyText = json_decode($cookiePrivacyTextJson, true);
         <div
             data-bind="mageInit: {
                 'cookieModal': {
-                    'isNotice': '<?= $block->escapeHtmlAttr($block->isNotice()) ?>',
                     'websiteInteraction': '<?= $block->escapeHtmlAttr($block->getWebsiteInteraction()) ?>',
                     'settingsLink': '<?= $block->escapeUrl($block->getSettingsLink()) ?>',
                     'firstShowProcess': '<?= $block->escapeHtmlAttr($block->isProcessFirstShow()) ?>'
@@ -60,7 +61,7 @@ $cookiePrivacyText = json_decode($cookiePrivacyTextJson, true);
                         data-amcookie-js="groups"
                         class="margin-bottom-xl modal__content"
                     >
-                        <?php foreach ($groups as $key => $group): ?>
+                        <?php foreach ($groupData as $key => $group): ?>
                             <div class="margin-bottom-l">
                                 <h2>
                                     <?= $block->escapeHtml(__($group['name'])) ?>
@@ -168,7 +169,6 @@ $cookiePrivacyText = json_decode($cookiePrivacyTextJson, true);
         class="amgdprcookie-bar-template display-none"
         data-bind="mageInit: {
             'cookieBar': {
-                'isNotice': '<?= $block->escapeHtmlAttr($block->isNotice()) ?>',
                 'settingsLink': '<?= $block->escapeUrl($block->getSettingsLink()) ?>',
                 'websiteInteraction': '<?= $block->escapeHtmlAttr($block->getWebsiteInteraction()) ?>',
                 'firstShowProcess': '<?= $block->escapeHtmlAttr($block->isProcessFirstShow()) ?>',

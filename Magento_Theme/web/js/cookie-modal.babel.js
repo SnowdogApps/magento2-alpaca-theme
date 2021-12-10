@@ -62,20 +62,20 @@ define([
     saveCookie() {
       this.closeModal()
 
-      cookieModel()
-        .saveCookie()
+      cookieModel
+        .setLastCookieAcceptance()
         .done(() => {
-          cookieModel().triggerSave()
+          cookieModel.triggerSave()
         })
     }
 
     allowAllCookies() {
       this.closeModal()
 
-      cookieModel()
+      cookieModel
         .allowAllCookies()
         .done(() => {
-          cookieModel().triggerAllow()
+          cookieModel.triggerAllow()
         })
     }
 
@@ -106,7 +106,7 @@ define([
         window.location.origin + window.location.pathname + '/'
 
       if (
-        cookieModel().isShowNotificationBar(
+        cookieModel.isShowNotificationBar(
           this.config.isNotice,
           this.config.websiteInteraction,
           this.config.settingsLink,
