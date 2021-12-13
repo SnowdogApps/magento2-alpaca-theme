@@ -1,6 +1,9 @@
 define([
-  'Amasty_GdprCookie/js/model/cookie'
-], function (cookieModel) {
+  'jquery',
+  'Amasty_GdprCookie/js/model/cookie',
+  'Amasty_GdprCookie/js/action/save',
+  'Amasty_GdprCookie/js/action/allow'
+], function ($, cookieModel, actionSave, actionAllow) {
   'use strict'
 
   class CookieModal {
@@ -32,6 +35,13 @@ define([
       }
     }
 
+    saveCookieAction() {
+      const formContainer = '[data-amcookie-js="form-cookie"]'
+      const form = $(formContainer);
+
+      actionSave(this.modal, form.serialize())
+    }
+
     modalOpenMq() {
       this.modal.setAttribute('aria-hidden', false)
     }
@@ -61,22 +71,12 @@ define([
 
     saveCookie() {
       this.closeModal()
-
-      cookieModel
-        .setLastCookieAcceptance()
-        .done(() => {
-          cookieModel.triggerSave()
-        })
+      this.saveCookieAction()
     }
 
     allowAllCookies() {
       this.closeModal()
-
-      cookieModel
-        .allowAllCookies()
-        .done(() => {
-          cookieModel.triggerAllow()
-        })
+      actionAllow()
     }
 
     setListeners() {
@@ -102,17 +102,15 @@ define([
       `
       this.modal.focused = ''
 
-      const settingsUrl =
-        window.location.origin + window.location.pathname + '/'
-
       if (
         cookieModel.isShowNotificationBar(
           this.config.isNotice,
-          this.config.websiteInteraction,
-          this.config.settingsLink,
-          this.config.firstShowProcess
-        ) &&
-        settingsUrl !== this.config.settingsLink
+          this.config.firstShowProcess,
+          this.config.acceptBtnText,
+          this.config.declineBtnText,
+          this.config.settingsBtnText,
+          this.config.isDeclineEnabled
+        )
       ) {
         this.openModal(this.modal)
       }
