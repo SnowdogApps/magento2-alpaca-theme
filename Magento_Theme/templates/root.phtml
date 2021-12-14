@@ -67,13 +67,14 @@
             }
         </style>
 
+        <?php
+            $criticalStyles = $this->assetRepo->createAsset('css/critical.css')->getContent();
+            $inlineStyles = str_replace('../images', $this->getViewFileUrl('images'), $criticalStyles);
+            $inlineStyles = str_replace('critical.css.map', $this->getViewFileUrl('css/critical.css.map'), $inlineStyles);
+        ?>
+
         <style>
-            <?php
-                $criticalStyles = $this->assetRepo->createAsset('css/critical.css')->getContent();
-                $content = str_replace('../images', $this->getViewFileUrl('images'), $criticalStyles);
-                $content = str_replace('critical.css.map', $this->getViewFileUrl('css/critical.css.map'), $criticalStyles);
-                echo $content;
-            ?>
+            <?= $inlineStyles; ?>
         </style>
 
         <link
