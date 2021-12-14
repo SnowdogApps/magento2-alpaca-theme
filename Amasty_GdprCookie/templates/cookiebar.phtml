@@ -4,6 +4,7 @@
 
 $confirmationModal = \Amasty\GdprCookie\Model\Config\Source\CookiePolicyBarStyle::CONFIRMATION_MODAL;
 $confirmationPopup = \Amasty\GdprCookie\Model\Config\Source\CookiePolicyBarStyle::CONFIRMATION_POPUP;
+$confirmationClassic = \Amasty\GdprCookie\Model\Config\Source\CookiePolicyBarStyle::CONFIRMATION;
 $cookiePrivacyTextJson = $block->getNotificationText();
 $cookiePrivacyText = json_decode($cookiePrivacyTextJson, true);
 $widget = $this->getLayout()->createBlock('Amasty\GdprCookie\Block\widget\Settings');
@@ -23,12 +24,7 @@ $groupData = $widget->getGroupData()['groupData'];
                 <div
                     data-bind="mageInit: {
                         'cookieModal': {
-                            'isNotice': '<?= $widget->isNeedToShow() ?>',
-                            'firstShowProcess': '<?= $block->escapeHtmlAttr($block->isProcessFirstShow()) ?>',
-                            'acceptBtnText': '<?= $block->escapeHtmlAttr($block->getAcceptButtonName()) ?>',
-                            'declineBtnText': '<?= $block->escapeHtmlAttr($block->getDeclineButtonName()) ?>',
-                            'settingsBtnText': '<?= $block->escapeHtmlAttr($block->getSettingsButtonName()) ?>',
-                            'isDeclineEnabled': <?= /* @noEscape */ (int)$block->getDeclineEnabled() ?>
+                            'isNotice': '<?= $widget->isNeedToShow() ?>'
                         }
                     }"
                     role="dialog"
@@ -125,7 +121,7 @@ $groupData = $widget->getGroupData()['groupData'];
                                                 <?= $block->escapeHtml(__($group['name'] . ' Cookies')) ?>
                                             </label>
                                         </div>
-                                        <p>
+                                        <p class="margin-bottom-m">
                                             <?= $block->escapeHtml($group['description']) ?>
                                         </p>
                                         <a
@@ -151,7 +147,12 @@ $groupData = $widget->getGroupData()['groupData'];
                                             data-amcookie-js="allow-all-cookies"
                                             type="button"
                                         >
-                                            <?= $block->escapeHtml(__('Allow all Cookies')); ?>
+                                            <!-- $block->getSettingsButtonName() in admin panel is Allow all Cookies - Amasty module bug -->
+                                            <?php if($block->escapeHtmlAttr($block->getSettingsButtonName())): ?>
+                                                <?= $block->escapeHtmlAttr($block->getSettingsButtonName()) ?>
+                                            <?php else: ?>
+                                                <?= $block->escapeHtml(__('Allow all Cookies')); ?>
+                                            <?php endif; ?>
                                         </button>
                                     </div>
                                     <div class="modal__bottom-action">
@@ -163,7 +164,11 @@ $groupData = $widget->getGroupData()['groupData'];
                                             "
                                             data-amcookie-js="save-cookies"
                                         >
-                                            <?= $block->escapeHtml(__('Save')); ?>
+                                            <?php if($block->escapeHtmlAttr($block->getAcceptButtonName())): ?>
+                                                <?= $block->escapeHtmlAttr($block->getAcceptButtonName()) ?>
+                                            <?php else: ?>
+                                                <?= $block->escapeHtml(__('Save')); ?>
+                                            <?php endif; ?>
                                         </button>
                                     </div>
                                 </div>
@@ -173,14 +178,14 @@ $groupData = $widget->getGroupData()['groupData'];
                 </div>
             </div>
         </div>
-    <?php elseif ($block->getNoticeType() === $confirmationPopup && $cookiePrivacyText): ?>
+    <?php elseif (($block->getNoticeType() === $confirmationClassic ||
+        $block->getNoticeType() === $confirmationPopup) && $cookiePrivacyText): ?>
         <div
             data-role="gdpr-cookie-container"
             class="amgdprcookie-bar-template display-none"
             data-bind="mageInit: {
                 'cookieBar': {
                     'isNotice': '<?= $widget->isNeedToShow() ?>',
-                    'firstShowProcess': '<?= $block->escapeHtmlAttr($block->isProcessFirstShow()) ?>',
                     'barLocation': '<?= $block->escapeHtmlAttr($block->getBarLocation()) ?>'
                 }
             }"
@@ -222,12 +227,16 @@ $groupData = $widget->getGroupData()['groupData'];
                                 "
                                 data-amcookie-js="allow-all-cookies"
                             >
-                                <?= $block->escapeHtml(__('Allow Cookies')) ?>
+                                <?php if($block->escapeHtmlAttr($block->getAcceptButtonName())): ?>
+                                    <?= $block->escapeHtmlAttr($block->getAcceptButtonName()) ?>
+                                <?php else: ?>
+                                    <?= $block->escapeHtml(__('Allow all Cookies')); ?>
+                                <?php endif; ?>
                             </button>
                         </div>
                         <div class="cookie-message__action">
                             <a
-                                href="<?= $block->escapeUrl($block->getSettingsLink()) ?>"
+                                href="<?= $block->escapeUrl($block->getUrl('cookie-settings')) ?>"
                                 id="btn-cookie-disallow"
                                 class="
                                     action
