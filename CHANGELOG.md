@@ -25,6 +25,7 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - Alpaca readme - wrong link and missing content (#85061)
 - Multiple product attribute description API requests (#490)
 - Checkbox link variant with class 'checkbox--link-checked' missing background (#492)
+- New customer registration - middle name always required (#493)
 ### Changed
 ### Updated
 ### Removed
