@@ -1,9 +1,8 @@
 define([
   'jquery',
-  'Amasty_GdprCookie/js/model/cookie',
   'Amasty_GdprCookie/js/action/save',
   'Amasty_GdprCookie/js/action/allow'
-], function ($, cookieModel, actionSave, actionAllow) {
+], function ($, actionSave, actionAllow) {
   'use strict'
 
   class CookieModal {
@@ -61,12 +60,15 @@ define([
       this.modal.addEventListener('keydown', (e) => {
         this.trap(e)
       })
+      document.body.classList.add('_has-modal')
     }
 
     closeModal() {
       this.modal.setAttribute('aria-hidden', true)
       this.modal.classList.remove(this.modal.activeClass)
       this.modal.focused.focus()
+      localStorage.setItem('amCookieBarFirstShow', 1)
+      document.body.classList.remove('_has-modal')
     }
 
     saveCookie() {
@@ -102,17 +104,8 @@ define([
       `
       this.modal.focused = ''
 
-      if (
-        cookieModel.isShowNotificationBar(
-          this.config.isNotice,
-          this.config.firstShowProcess,
-          this.config.acceptBtnText,
-          this.config.declineBtnText,
-          this.config.settingsBtnText,
-          this.config.isDeclineEnabled
-        )
-      ) {
-        this.openModal(this.modal)
+      if (this.config.isNotice && localStorage.getItem('amCookieBarFirstShow') !== '1') {
+        this.openModal()
       }
 
       // clicking on button (x) closes the modal
