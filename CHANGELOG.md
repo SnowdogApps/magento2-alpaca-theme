@@ -13,6 +13,7 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - Missing variables in _footer.scss (#84599)
 - Missing fractal component variants (#84723)
 - Messages component variant (#84729)
+- Checkbox 'link-checked' variant (#492)
 ### Fixed
 - Display error message - phone number field (#83240)
 - Webform checkboxes inline style & Department select on Contact Page (#83891)
@@ -23,6 +24,7 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - Messages component display (#84729)
 - Alpaca readme - wrong link and missing content (#85061)
 - Multiple product attribute description API requests (#490)
+- Checkbox link variant with class 'checkbox--link-checked' missing background (#492)
 - New customer registration - middle name always required (#493)
 ### Changed
 ### Updated
