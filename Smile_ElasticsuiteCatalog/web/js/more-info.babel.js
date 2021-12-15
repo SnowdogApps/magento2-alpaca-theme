@@ -17,8 +17,8 @@ function($) {
         this.createGlobalEventHandlers();
         this.moreInfo.addEventListener('click', this.onToggleEvent);
 
-        if (config.variable) {
-          this.fetchData(config);
+        if (config.attributeDescription) {
+          this.setAttributeDescription(config.attributeDescription)
         }
       }
 
@@ -67,19 +67,9 @@ function($) {
         }
       }
 
-      fetchData(config) {
-        let url = config.path.replace(config.variable, config.data);
-
-        return $.get(url)
-          .done((data) => {
-            if (data.length > 0) {
-              this.dataContent.innerHTML = data;
-              this.moreInfo.setAttribute('aria-hidden', 'false');
-            }
-          })
-          .fail((err) => {
-            console.error('Fetch Error:', err);
-          })
+      setAttributeDescription(attributeDescription) {
+          this.dataContent.innerHTML = attributeDescription;
+          this.moreInfo.setAttribute('aria-hidden', 'false')
       }
 
       initListeners() {
@@ -98,3 +88,4 @@ function($) {
     new MoreInfo(element, config);
   };
 });
+

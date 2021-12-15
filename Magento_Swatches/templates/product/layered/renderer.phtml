@@ -12,7 +12,7 @@ $swatchCode = $swatchData['attribute_code'];
 $swatchCodeScope = $swatchCode . 'Filter';
 $swatchLabel = $swatchData['attribute_label'];
 $helper = $this->helper('Snowdog\ProductAttributeDescription\Helper\Attribute');
-$attributeDescriptions = $helper->getAttributesDescriptions(['color']);
+$attributeDescriptions = $helper->getAttributesDescriptions([$swatchCode]);
 ?>
 <li
     class="
@@ -60,13 +60,9 @@ $attributeDescriptions = $helper->getAttributesDescriptions(['color']);
     >
         <div
             class="more-info"
-            data-mage-init='{
-                "moreInfo": {
-                    "path": "/rest/V1/snowproductattributedescription/description/:attributeCode",
-                    "variable": ":attributeCode",
-                    "data": "<?= $block->escapeJs($swatchCode) ?>"
-                }
-            }'
+            <?php if ($attributeDescriptions[$swatchCode]): ?>
+                data-mage-init='{"moreInfo": {"attributeDescription": "<?= $attributeDescriptions[$swatchCode] ?>"}}'
+            <?php endif ?>
             aria-hidden="true"
         >
             <button

@@ -72,28 +72,10 @@ define([
         /**
                  * @param {jQuery.Event} event
                  */
-        events['keyup ' + this.options.item.qty] = function (event) {
-          var code = (event.keyCode ? event.keyCode : event.which);
-          if (code !== 9 && code !== 16) {
-            self._showItemButton($(event.target));
-          }
-
-        };
-
-        /**
-                 * @param {jQuery.Event} event
-                 */
-        events['change ' + this.options.item.qty] = function (event) {
-          self._showItemButton($(event.target));
-        };
-
-        /**
-                 * @param {jQuery.Event} event
-                 */
-        events['click ' + this.options.item.button] = function (event) {
-          event.stopPropagation();
-          self._updateItemQty($(event.currentTarget));
-        };
+                events['click ' + this.options.item.button] = function (event) {
+                    event.stopPropagation();
+                    self._updateItemQty($(event.currentTarget));
+                };
 
         /**
                  * @param {jQuery.Event} event

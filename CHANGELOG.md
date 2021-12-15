@@ -1,14 +1,40 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+=========================================================
+USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
+=========================================================
+
 ## [Unreleased]
 ### Added
+- In-store pickup components (#82620)
+- Missing classes to home, product-view and catalog pages (#84674)
+- Conditional rendering in footer.hbs (#84599)
+- Missing variables in _footer.scss (#84599)
+- Missing fractal component variants (#84723)
+- Messages component variant (#84729)
+- Checkbox 'link-checked' variant (#492)
 ### Fixed
+- Display error message - phone number field (#83240)
+- Webform checkboxes inline style & Department select on Contact Page (#83891)
+- Update button in minicart always shown (#83009)
+- Galery showing multiple pictures in magnifier view (#80429)
+- Overflow on x axis caused by `slider--full-width` class (#84443)
+- Some styles loaded twice in checkout (#83768)
+- Messages component display (#84729)
+- Alpaca readme - wrong link and missing content (#85061)
+- Multiple product attribute description API requests (#490)
+- Checkbox link variant with class 'checkbox--link-checked' missing background (#492)
+- New customer registration - middle name always required (#493)
 ### Changed
 ### Updated
 ### Removed
 
 ## [Released]
+## [2.25.1] - 2021-11-30
+### Fixed
+- Remote shopping assistance on account creation (#83738)
+
 ## [2.25.0] - 2021-10-19
 ### Fixed
 - Filters position on category view (#83483)
