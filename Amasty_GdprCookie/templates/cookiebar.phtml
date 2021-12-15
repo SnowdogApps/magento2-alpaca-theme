@@ -5,10 +5,33 @@
 $confirmationModal = \Amasty\GdprCookie\Model\Config\Source\CookiePolicyBarStyle::CONFIRMATION_MODAL;
 $confirmationPopup = \Amasty\GdprCookie\Model\Config\Source\CookiePolicyBarStyle::CONFIRMATION_POPUP;
 $confirmationClassic = \Amasty\GdprCookie\Model\Config\Source\CookiePolicyBarStyle::CONFIRMATION;
+
 $cookiePrivacyTextJson = $block->getNotificationText();
 $cookiePrivacyText = json_decode($cookiePrivacyTextJson, true);
 $widget = $this->getLayout()->createBlock('Amasty\GdprCookie\Block\widget\Settings');
 $groupData = $widget->getGroupData()['groupData'];
+
+// Elements customised in admin panel
+// Modal & bar styles
+$backgroundColor = $block->getBackgroundColor();
+$linksColor = $block->getLinksColor();
+$groupTitleTextColor = $block->getTitleTextColor();
+$groupDescriptionTextColor = $block->getDescriptionTextColor();
+$policyTextColor = $block->getPolicyTextColor();
+
+// Save button
+$acceptButtonName = $block->getAcceptButtonName();
+$acceptButtonColor = $block->getAcceptButtonColor();
+$acceptButtonColorHover = $block->getAcceptButtonColorHover();
+$acceptTextColor = $block->getAcceptTextColor();
+$acceptTextColorHover = $block->getAcceptTextColorHover();
+
+// Allow All button
+$settingsButtonName = $block->getSettingsButtonName();
+$settingsButtonColor = $block->getSettingsButtonColor();
+$settingsButtonColorHover = $block->getSettingsButtonColorHover();
+$settingsTextColor = $block->getSettingsTextColor();
+$settingsTextColorHover = $block->getSettingsTextColorHover();
 ?>
 
 <!-- Don't display if in /cookie-settings -->
@@ -33,7 +56,12 @@ $groupData = $widget->getGroupData()['groupData'];
                     data-modal="cookie-modal"
                     class="modal"
                 >
-                    <div class="modal__container modal__cookies-container">
+                    <div
+                        class="modal__container modal__cookies-container"
+                        <?php if ($backgroundColor): ?>
+                            style="background-color: <?= $escaper->escapeHtml($backgroundColor);?>"
+                        <?php endif ?>
+                    >
                         <form
                             id="amgdprcookie-form"
                             class="amgdprcookie-settings-form"
@@ -47,6 +75,9 @@ $groupData = $widget->getGroupData()['groupData'];
                                     button--rotate-icon
                                     modal__close-button
                                 "
+                                <?php if ($backgroundColor): ?>
+                                    style="background-color: <?= $escaper->escapeHtml($backgroundColor);?>"
+                                <?php endif ?>
                                 type="button"
                                 aria-label="<?= $escaper->escapeHtmlAttr(__('Close modal')) ?>"
                             >
@@ -68,7 +99,11 @@ $groupData = $widget->getGroupData()['groupData'];
                             >
                                 <?php foreach ($groupData as $key => $group): ?>
                                     <div class="margin-bottom-l">
-                                        <h2>
+                                        <h2
+                                            <?php if ($groupTitleTextColor): ?>
+                                                style="color: <?= $escaper->escapeHtml($groupTitleTextColor);?>"
+                                            <?php endif ?>
+                                        >
                                             <?= $block->escapeHtml(__($group['name'])) ?>
                                         </h2>
                                         <div
@@ -121,7 +156,12 @@ $groupData = $widget->getGroupData()['groupData'];
                                                 <?= $block->escapeHtml(__($group['name'] . ' Cookies')) ?>
                                             </label>
                                         </div>
-                                        <p class="margin-bottom-m">
+                                        <p
+                                            class="margin-bottom-m"
+                                            <?php if ($groupDescriptionTextColor): ?>
+                                                style="color: <?= $escaper->escapeHtml($groupDescriptionTextColor);?>"
+                                            <?php endif ?>
+                                        >
                                             <?= $block->escapeHtml($group['description']) ?>
                                         </p>
                                         <a
@@ -129,12 +169,19 @@ $groupData = $widget->getGroupData()['groupData'];
                                             class="link"
                                             target="_blank"
                                             rel="noopener noreferrer"
+                                            <?php if ($linksColor): ?>
+                                                style="color: <?= $escaper->escapeHtml($linksColor);?>"
+                                            <?php endif ?>
                                         >
                                         <?= $block->escapeHtml(__('More information')) ?>
                                         </a>
                                     </div>
                                 <?php endforeach; ?>
-                                <p>
+                                <p
+                                    <?php if ($policyTextColor): ?>
+                                        style="color: <?= $escaper->escapeHtml($policyTextColor);?>"
+                                    <?php endif ?>
+                                >
                                     <?= /** @noEscape */ $cookiePrivacyText ?>
                                 </p>
                             </div>
@@ -143,13 +190,13 @@ $groupData = $widget->getGroupData()['groupData'];
                                 <div class="modal__bottom-actions">
                                     <div class="modal__bottom-action">
                                         <button
-                                            class="button"
+                                            class="button amgdprcookie__allow-all-button"
                                             data-amcookie-js="allow-all-cookies"
                                             type="button"
                                         >
-                                            <!-- $block->getSettingsButtonName() in admin panel is Allow all Cookies - Amasty module bug -->
-                                            <?php if($block->escapeHtmlAttr($block->getSettingsButtonName())): ?>
-                                                <?= $block->escapeHtmlAttr($block->getSettingsButtonName()) ?>
+                                            <!-- $block->getSettingsButtonName() in admin panel is Allow All Cookies - Amasty Module bug -->
+                                            <?php if($block->escapeHtmlAttr($settingsButtonName)): ?>
+                                                <?= $block->escapeHtmlAttr($settingsButtonName) ?>
                                             <?php else: ?>
                                                 <?= $block->escapeHtml(__('Allow all Cookies')); ?>
                                             <?php endif; ?>
@@ -161,11 +208,12 @@ $groupData = $widget->getGroupData()['groupData'];
                                             class="
                                                 button
                                                 button--secondary
+                                                amgdprcookie__accept-button
                                             "
                                             data-amcookie-js="save-cookies"
                                         >
-                                            <?php if($block->escapeHtmlAttr($block->getAcceptButtonName())): ?>
-                                                <?= $block->escapeHtmlAttr($block->getAcceptButtonName()) ?>
+                                            <?php if($block->escapeHtmlAttr($acceptButtonName)): ?>
+                                                <?= $block->escapeHtmlAttr($acceptButtonName) ?>
                                             <?php else: ?>
                                                 <?= $block->escapeHtml(__('Save')); ?>
                                             <?php endif; ?>
@@ -200,6 +248,9 @@ $groupData = $widget->getGroupData()['groupData'];
                     amgdprcookie-bar-container
                 "
                 data-amcookie-js="bar"
+                <?php if ($backgroundColor): ?>
+                    style="background-color: <?= $escaper->escapeHtml($backgroundColor);?>"
+                <?php endif ?>
             >
                 <div
                     role="document"
@@ -208,6 +259,9 @@ $groupData = $widget->getGroupData()['groupData'];
                 >
                     <p
                         class="cookie-message__text"
+                        <?php if ($policyTextColor): ?>
+                            style="color: <?= $escaper->escapeHtml($policyTextColor);?>"
+                        <?php endif ?>
                     >
                         <?= /** @noEscape */ $cookiePrivacyText ?>
                     </p>
@@ -224,11 +278,12 @@ $groupData = $widget->getGroupData()['groupData'];
                                     button--secondary
                                     button--link
                                     cookie-message__button
+                                    amgdprcookie__accept-button
                                 "
                                 data-amcookie-js="allow-all-cookies"
                             >
-                                <?php if($block->escapeHtmlAttr($block->getAcceptButtonName())): ?>
-                                    <?= $block->escapeHtmlAttr($block->getAcceptButtonName()) ?>
+                                <?php if($block->escapeHtmlAttr($acceptButtonName)): ?>
+                                    <?= $block->escapeHtmlAttr($acceptButtonName) ?>
                                 <?php else: ?>
                                     <?= $block->escapeHtml(__('Allow all Cookies')); ?>
                                 <?php endif; ?>
@@ -246,7 +301,11 @@ $groupData = $widget->getGroupData()['groupData'];
                                     button--secondary
                                     button--link
                                     cookie-message__button
+                                    amgdprcookie__allow-all-button
                                 "
+                                <?php if ($linksColor): ?>
+                                    style="color: <?= $escaper->escapeHtml($linksColor);?>"
+                                <?php endif ?>
                             >
                                 <?= $block->escapeHtml(__('Cookies Settings')) ?>
                             </a>
@@ -266,77 +325,46 @@ $groupData = $widget->getGroupData()['groupData'];
             }
         </style>
     <?php endif; ?>
-    <?php if ($cookiePrivacyText): ?>
-        <style>
-            .amgdprcookie-modal-template,
-            .amgdprcookie-bar-container {
-            <?php if ((int)$block->getBarLocation() === \Amasty\GdprCookie\Model\Config\Source\CookieBarLocation::DISPLAY_AT_FOOTER): ?>
-                bottom: unset;
-            <?php endif; ?>
-                background-color: <?= $escaper->escapeHtml($block->getBackgroundColor()); ?>;
+    <style>
+        <?php if($acceptButtonColor || $acceptTextColor): ?>
+            .amgdprcookie__accept-button {
+                <?php if($acceptButtonColor): ?>
+                    background-color: <?= $acceptButtonColor ?>;
+                <?php endif ?>
+                <?php if($acceptTextColor): ?>
+                    color: <?= $acceptTextColor ?>;
+                <?php endif ?>
             }
-            .amgdprcookie-modal-template .amgdprcookie-policy,
-            .amgdprcookie-bar-container .amgdprcookie-policy {
-                color: <?= $escaper->escapeHtml($block->getPolicyTextColor()); ?>;
+        <?php endif ?>
+        <?php if($acceptButtonColorHover || $acceptTextColorHover): ?>
+            .amgdprcookie__accept-button:hover {
+                <?php if($acceptButtonColorHover): ?>
+                    background-color: <?= $acceptButtonColorHover ?>;
+                <?php endif ?>
+                <?php if($acceptTextColorHover): ?>
+                    color: <?= $acceptTextColorHover ?>;
+                <?php endif ?>
             }
-
-            .amgdprcookie-modal-template .amgdprcookie-text,
-            .amgdprcookie-bar-container .amgdprcookie-text {
-                color: <?= $escaper->escapeHtml($block->getDescriptionTextColor()); ?>;
+        <?php endif ?>
+        <?php if($settingsButtonColor || $settingsTextColor): ?>
+            .amgdprcookie__allow-all-button {
+                <?php if($settingsButtonColor): ?>
+                    background-color: <?= $settingsButtonColor ?>;
+                <?php endif ?>
+                <?php if($settingsTextColor): ?>
+                    color: <?= $settingsTextColor ?>;
+                <?php endif ?>
             }
-
-            .amgdprcookie-modal-template .amgdprcookie-header,
-            .amgdprcookie-bar-container .amgdprcookie-header {
-                color: <?= $escaper->escapeHtml($block->getTitleTextColor()); ?>;
+        <?php endif ?>
+        <?php if($settingsButtonColorHover || $settingsTextColorHover): ?>
+            .amgdprcookie__allow-all-button:hover {
+                <?php if($settingsButtonColorHover): ?>
+                    background-color: <?= $settingsButtonColorHover ?>;
+                <?php endif ?>
+                <?php if($settingsTextColorHover): ?>
+                    color: <?= $settingsTextColorHover ?>;
+                <?php endif ?>
             }
-
-            .amgdprcookie-modal-template .amgdprcookie-link,
-            .amgdprcookie-modal-template .amgdprcookie-policy a,
-            .amgdprcookie-bar-container .amgdprcookie-policy a {
-                color: <?= $escaper->escapeHtml($block->getLinksColor()); ?>;
-            }
-
-            .amgdprcookie-modal-template .amgdprcookie-button.-save,
-            .amgdprcookie-bar-container .amgdprcookie-button.-allow {
-                background-color: <?= $escaper->escapeHtml($block->getAcceptButtonColor()) ?>;
-                border-color: <?= $escaper->escapeHtml($block->getAcceptButtonColor()) ?>;
-                color: <?= $escaper->escapeHtml($block->getAcceptTextColor()) ?>;
-            }
-
-            .amgdprcookie-modal-template .amgdprcookie-button.-save:hover,
-            .amgdprcookie-bar-container .amgdprcookie-button.-allow:hover {
-                background-color: <?= $escaper->escapeHtml($block->getAcceptButtonColorHover()) ?>;
-                border-color: <?= $escaper->escapeHtml($block->getAcceptButtonColorHover()) ?>;
-                color: <?= $escaper->escapeHtml($block->getAcceptTextColorHover()) ?>;
-            }
-
-            .amgdprcookie-modal-template .amgdprcookie-button.-allow,
-            .amgdprcookie-bar-container .amgdprcookie-button.-settings {
-                background-color: <?= $escaper->escapeHtml($block->getSettingsButtonColor()) ?>;
-                border-color: <?= $escaper->escapeHtml($block->getSettingsButtonColor()) ?>;
-                color: <?= $escaper->escapeHtml($block->getSettingsTextColor()) ?>;
-            }
-
-            .amgdprcookie-modal-template .amgdprcookie-button.-allow:hover,
-            .amgdprcookie-bar-container .amgdprcookie-button.-settings:hover {
-                background-color: <?= $escaper->escapeHtml($block->getSettingsButtonColorHover()) ?>;
-                border-color: <?= $escaper->escapeHtml($block->getSettingsButtonColorHover()) ?>;
-                color: <?= $escaper->escapeHtml($block->getSettingsTextColorHover()) ?>;
-            }
-
-            .amgdprcookie-modal-template .amgdprcookie-button.-decline,
-            .amgdprcookie-bar-container .amgdprcookie-button.-decline {
-                background-color: <?= $escaper->escapeHtml($block->getDeclineButtonColor()) ?>;
-                border-color: <?= $escaper->escapeHtml($block->getDeclineButtonColor()) ?>;
-                color: <?= $escaper->escapeHtml($block->getDeclineTextColor()) ?>;
-            }
-
-            .amgdprcookie-modal-template .amgdprcookie-button.-decline:hover,
-            .amgdprcookie-bar-container .amgdprcookie-button.-decline:hover {
-                background-color: <?= $escaper->escapeHtml($block->getDeclineButtonColorHover()) ?>;
-                border-color: <?= $escaper->escapeHtml($block->getDeclineButtonColorHover()) ?>;
-                color: <?= $escaper->escapeHtml($block->getDeclineTextColorHover()) ?>;
-            }
-        </style>
-    <?php endif; ?>
+        <?php endif ?>
+    </style>
 <?php endif ?>
