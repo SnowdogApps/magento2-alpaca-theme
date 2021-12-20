@@ -70,12 +70,12 @@ define([
         };
 
         /**
-                 * @param {jQuery.Event} event
-                 */
-                events['click ' + this.options.item.button] = function (event) {
-                    event.stopPropagation();
-                    self._updateItemQty($(event.currentTarget));
-                };
+           * @param {jQuery.Event} event
+           */
+        events['click ' + this.options.item.button] = function (event) {
+          event.stopPropagation();
+          self._updateItemQty($(event.currentTarget));
+        };
 
         /**
                  * @param {jQuery.Event} event

@@ -2,7 +2,7 @@ define([
   'jquery',
   '!domReady!'
 ],
-function($) {
+function() {
   'use strict';
 
   return function(config, element) {
@@ -68,8 +68,8 @@ function($) {
       }
 
       setAttributeDescription(attributeDescription) {
-          this.dataContent.innerHTML = attributeDescription;
-          this.moreInfo.setAttribute('aria-hidden', 'false')
+        this.dataContent.innerHTML = attributeDescription;
+        this.moreInfo.setAttribute('aria-hidden', 'false')
       }
 
       initListeners() {
