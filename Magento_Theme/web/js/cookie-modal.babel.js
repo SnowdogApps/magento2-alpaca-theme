@@ -34,11 +34,28 @@ define([
       }
     }
 
+    saveEssentialCookies() {
+      const toggleFieldSelector = '[data-amcookie-js="field"]'
+      const essentialCookies = $(toggleFieldSelector + ':disabled')
+
+      essentialCookies.removeAttr('disabled');
+
+      const formData = essentialCookies.serialize()
+
+      actionSave(this.modal, formData)
+    }
+
     saveCookieAction() {
       const formContainer = '[data-amcookie-js="form-cookie"]'
+      const toggleFieldSelector = '[data-amcookie-js="field"]'
       const form = $(formContainer);
+      const disabledFields = $(toggleFieldSelector + ':disabled')
 
-      actionSave(this.modal, form.serialize())
+      disabledFields.removeAttr('disabled');
+
+      const formData = form.serialize()
+
+      actionSave(this.modal, formData)
     }
 
     modalOpenMq() {
@@ -108,10 +125,12 @@ define([
         this.openModal()
       }
 
-      // clicking on button (x) closes the modal
+      // clicking on button (x) closes the modal and saves essential cookies
       if (this.modal.closeButton) {
-        this.modal.closeButton.addEventListener('click', () =>
+        this.modal.closeButton.addEventListener('click', () => {
+          this.saveEssentialCookies()
           this.closeModal()
+        }
         )
       }
 
@@ -129,12 +148,13 @@ define([
         )
       }
 
-      // escape key closes the modal
+      // escape key closes the modal and saves essential cookies
       window.addEventListener('keydown', (e) => {
         if (
           e.which === 27 &&
           this.modal.classList.contains(this.modal.activeClass)
         ) {
+          this.saveEssentialCookies()
           this.closeModal()
         }
       })
