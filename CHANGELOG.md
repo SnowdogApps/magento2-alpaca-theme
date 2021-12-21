@@ -22,6 +22,7 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - Overflow on x axis caused by `slider--full-width` class (#84443)
 - Some styles loaded twice in checkout (#83768)
 - Messages component display (#84729)
+- Order summary not expanded by default (#84748)
 - Alpaca readme - wrong link and missing content (#85061)
 - Multiple product attribute description API requests (#490)
 - Checkbox link variant with class 'checkbox--link-checked' missing background (#492)
