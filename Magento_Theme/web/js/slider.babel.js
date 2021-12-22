@@ -13,7 +13,7 @@ define([
       this.sliderItems = [];
       this.currentSlide = null;
       this.currentSlideIndex = 0;
-      this.focusable = 'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), object, embed, *[tabindex]';
+      this.focusable = 'a[href], area[href], input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), object, embed, *[tabindex]';
 
       this.init();
     }
@@ -59,24 +59,14 @@ define([
       });
     }
 
-    setFocus() {
-      const firstFocusableChild = this.currentSlide.querySelector(this.focusable);
-
-      if (firstFocusableChild) {
-        firstFocusableChild.focus();
-      } else {
-        this.currentSlide.setAttribute('tabindex', 0);
-        this.currentSlide.focus();
-      }
-    }
-
     switchFocusBetweenSlides() {
       this.changeInnerFocus(this.currentSlide, -1);
       this.currentSlide.setAttribute('tabindex', -1);
 
       this.currentSlide = this.sliderItems[this.currentSlideIndex];
       this.changeInnerFocus(this.currentSlide, 0);
-      this.setFocus();
+      this.currentSlide.setAttribute('tabindex', 0);
+      this.currentSlide.focus();
     }
 
     moveFocusForward() {
@@ -111,19 +101,37 @@ define([
           e.preventDefault();
           this.moveFocusBack();
         }
+        else if (e.key === 'Escape') {
+          e.preventDefault();
+          const focusableElements = [...document.querySelectorAll(this.focusable)];
+          const currentElementIndex = focusableElements.indexOf(e.target);
+
+          if (currentElementIndex > -1) {
+            let nextFocusableElementIndex = currentElementIndex;
+            let nextFocusableElement;
+
+            do {
+              nextFocusableElementIndex++;
+              nextFocusableElement = focusableElements[nextFocusableElementIndex];
+            } while (this.slider.contains(nextFocusableElement));
+
+            nextFocusableElement.focus();
+         }
+        }
       });
     }
 
     setKeyboardSupport() {
       const keyboardNavInfo = this.slider.querySelector(this.dataValues.elementKeyboardNavInfo);
 
-      this.changeInnerFocus(this.slider, -1);
-      this.changeInnerFocus(this.currentSlide, 0);
-      this.setFocus()
+      if ((this.sliderItems.length > 1) && keyboardNavInfo) {
+        this.changeInnerFocus(this.slider, -1);
+        this.changeInnerFocus(this.currentSlide, 0);
+        keyboardNavInfo.setAttribute('tabindex', 0);
 
-      if (this.sliderItems.length > 1) {
-        this.setKeyboardListeners();
-        keyboardNavInfo && keyboardNavInfo.setAttribute('tabindex', 0);
+        keyboardNavInfo.addEventListener('focus', () => {
+          this.setKeyboardListeners();
+        }, { once: true });
       }
     }
 
