@@ -27,8 +27,8 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - Multiple product attribute description API requests (#490)
 - Checkbox link variant with class 'checkbox--link-checked' missing background (#492)
 - New customer registration - middle name always required (#493)
-- slider a11y - keyboard support, repeated price IDs, when product is included in multiple sliders on the page (#71760)
-- more info component js - close more info on ESC (#71760)
+- slider a11y - keyboard support, repeated price IDs, when product is included in multiple sliders on the page (#459)
+- more info component js - close more info on ESC (#459)
 ### Changed
 ### Updated
 ### Removed
