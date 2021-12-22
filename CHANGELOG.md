@@ -1,9 +1,60 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+=========================================================
+USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
+=========================================================
+
 ## [Unreleased]
 ### Added
+- In-store pickup components (#82620)
+- Missing classes to home, product-view and catalog pages (#84674)
+- Conditional rendering in footer.hbs (#84599)
+- Missing variables in _footer.scss (#84599)
+- Missing fractal component variants (#84723)
+- Messages component variant (#84729)
+- Checkbox 'link-checked' variant (#492)
+### Fixed
+- Display error message - phone number field (#83240)
+- Webform checkboxes inline style & Department select on Contact Page (#83891)
+- Update button in minicart always shown (#83009)
+- Galery showing multiple pictures in magnifier view (#80429)
+- Overflow on x axis caused by `slider--full-width` class (#84443)
+- Some styles loaded twice in checkout (#83768)
+- Messages component display (#84729)
+- Order summary not expanded by default (#84748)
+- Alpaca readme - wrong link and missing content (#85061)
+- Multiple product attribute description API requests (#490)
+- Checkbox link variant with class 'checkbox--link-checked' missing background (#492)
+- New customer registration - middle name always required (#493)
+- slider a11y - keyboard support, repeated price IDs, when product is included in multiple sliders on the page (#71760)
+- more info component js - close more info on ESC (#71760)
+### Changed
+### Updated
+### Removed
+
+## [Released]
+## [2.25.1] - 2021-11-30
+### Fixed
+- Remote shopping assistance on account creation (#83738)
+
+## [2.25.0] - 2021-10-19
+### Fixed
+- Filters position on category view (#83483)
+### Updated
+- Update requisition list button on product view (#83517)
+- Update to Magento 2.4.3 (#81212)
+## [2.24.1] - 2021-10-13
+### Changed
+- Frontools dependency removed
+### Fixed
+- Asterix position in required checkboxes (#80129)
+## [2.24.0] - 2021-09-09
+### Added
 - column template variables for catalog grid styles (#81732)
+- 'Recently viewed' component in fractal product bundle and product grouped templates
+- fractal template for gift registy items (#81936)
+- background color for 'Add to wishlist' button (#81767)
 ### Fixed
  - webforms templates (#79614)
 - jquery and fotorama don't use passive listeners to improve scrolling performance (#72752)
@@ -11,15 +62,25 @@ All notable changes to this project will be documented in this file.
 - tax field styling on checkout (#81627)
 - styling for payment & shipping information on company profile page (#81661)
 - user role styling on My Account page (#81750)
-- slider a11y - keyboard support, repeated price IDs, when product is included in multiple sliders on the page (#71760)
-- more info component js - close more info on ESC (#71760)
+- border styling for multishipping view (#81624)
+- styling for table in gift registry items (#81936)
+- quantity styling in table when product name is too long (#81950)
+- error on privacy settings section in account settings (#81873)
+- cookie modal not showing when clicking save button (#81873)
+- some icons a11y in templates (#80844)
+- Quote reorder popup when having items in cart not displaying correctly (#82047)
 ### Changed
 - moved catalog grid scss variables to separate file (#81732)
+- move all content to the left for product list view on mobile (#81767)
+- restored cookie-settings page for Amasty GDPR (#81873)
+- `xlink:href` (deprecated) to `href` (#80844)
+- some icons code in templates to lower the number of icon related requests (#80844)
 ### Updated
+- bump select2, `select--search` component (#80105, #81472)
+- cookie settings modal to new version of Amasty GDPR (#81873)
+- styling for cookie table information (#81873)
 ### Removed
-
-
-## [Released]
+- svg4everybody (no longer needed for browser support (#80844)
 ## [2.23.0] - 2021-08-03
 ### Added
 - yireo/magento2-webp2 package for webp images (#72754)

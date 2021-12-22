@@ -115,28 +115,48 @@ define([
         data['wishlist_id'] = wishlistId;
       }
 
-      $.post(url, data).done(function() {
-        if (customer().firstname) {
-          const addToMessage = $.cookieStorage.get('mage-messages');
-          // add class to mark that product is added to wishlist
-          if (addToMessage[0].type === 'success') {
-            addButtonClass();
-            moreWishlistButton();
-            // delay is needed, because M2 reload customer data
-            // and msg dissapear after a second
-            setTimeout(function() {
-              customerData.set('messages', {
-                messages: addToMessage
-              });
-              // remove msg from cookie to not show after reload the page
-              $.cookieStorage.set('mage-messages', '');
-            }, 2000);
+      $.ajax({
+        method: 'POST',
+        url: url,
+        data: data,
+        xhr: function() {
+          const xhr = $.ajaxSettings.xhr();
+          const setRequestHeader = xhr.setRequestHeader;
+
+          xhr.setRequestHeader = function(name) {
+            if (name !== 'X-Requested-With') {
+              setRequestHeader.apply(this, arguments);
+            }
           }
+
+          return xhr;
         }
-        else {
-          window.location.href = loginUrl;
-        }
-      });
+      })
+        .done(function() {
+          if (customer().firstname) {
+            const addToMessage = $.cookieStorage.get('mage-messages');
+            // add class to mark that product is added to wishlist
+            if (
+                addToMessage[0] &&
+                addToMessage[0].type === 'success'
+            ) {
+              addButtonClass();
+              moreWishlistButton();
+              // delay is needed, because M2 reload customer data
+              // and msg dissapear after a second
+              setTimeout(function() {
+                customerData.set('messages', {
+                  messages: addToMessage
+                });
+                // remove msg from cookie to not show after reload the page
+                $.cookieStorage.set('mage-messages', '');
+              }, 2000);
+            }
+          }
+          else {
+            window.location.href = loginUrl;
+          }
+        });
     });
 
     setTimeout(() => {

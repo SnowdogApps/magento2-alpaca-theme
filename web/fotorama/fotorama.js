@@ -3218,10 +3218,18 @@ fotoramaVersion = '4.6.4';
         }
 
         that.cancelFullScreen = function () {
+            const fotoramaFramesCollection = document.getElementsByClassName('fotorama__stage__frame')
+
             if (o_nativeFullScreen && fullScreenApi.is()) {
                 fullScreenApi.cancel(document);
             } else {
                 cancelFullScreen();
+            }
+
+            if (fotoramaFramesCollection && fotoramaFramesCollection.length) {
+                for (let i = 0; i < fotoramaFramesCollection.length; i++) {
+                    fotoramaFramesCollection[i].style.opacity = '0'
+                }
             }
 
             return this;
