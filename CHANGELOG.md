@@ -24,6 +24,7 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - Alpaca readme - wrong link and missing content (#85061)
 - Multiple product attribute description API requests (#490)
 ### Changed
+- Changed and improved GDPR cookie module behavior (#400)
 ### Updated
 ### Removed
 
