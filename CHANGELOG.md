@@ -27,6 +27,7 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - Multiple product attribute description API requests (#490)
 - Checkbox link variant with class 'checkbox--link-checked' missing background (#492)
 - New customer registration - middle name always required (#493)
+- Country selector styling in contact-us form (#497)
 ### Changed
 ### Updated
 ### Removed
