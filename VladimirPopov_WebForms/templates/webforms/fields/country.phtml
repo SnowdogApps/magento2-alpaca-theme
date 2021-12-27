@@ -1,0 +1,21 @@
+<?php $_countries = $this->getCountries() ?>
+<?php if (count($_countries) > 0): ?>
+    <select
+            name="<?php echo $this->getFieldName()?>"
+            id='<?php echo $this->getFieldId()?>'
+            class='<?php echo $this->getFieldClass()?>'
+            <?php if ($this->getField()->getHideLabel()) { ?>aria-label="<?php echo $this->getField()->getName() ?>"
+        <?php } else { ?> aria-labelledby="label_<?php echo $this->getFieldId() ?>" <?php } ?>
+            <?php if($this->getField()->getBrowserAutocomplete()) { ?>autocomplete="<?php echo $this->getField()->getBrowserAutocomplete()?>" <?php }?>
+            <?php if($this->getField()->getRequired()) {?>aria-required="true"<?php }?>
+            style='<?php echo $this->getFieldStyle()?>' <?php if($this->getField()->getDisabled()){?> disabled <?php } ?>
+        <?php echo htmlspecialchars($this->getField()->getCustomAttributes())?>
+    >
+        <?php foreach($_countries as $_country): ?>
+            <?php $selected = ($this->getFieldValue() == $_country['value']) ? 'selected="selected"' : ''; ?>
+            <option value="<?php echo $_country['value'] ?>" <?php echo $selected ?>>
+                <?php echo $_country['label'] ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+<?php endif; ?>
