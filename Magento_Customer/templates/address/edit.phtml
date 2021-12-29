@@ -285,15 +285,14 @@ $viewModel = $block->getViewModel();
                         >
                             <?= $escaper->escapeHtml(__('Please select a country.')) ?>
                         </option>
-
-                        <?php for ($i = 0, $n = count($countryList); $i < $n; $i++): ?>
+                        <?php foreach ($countryList as $country): ?>
                             <option
-                                value="<?= $escaper->escapeHtmlAttr($countryList[$i]['value']) ?>"
-                                <?= ($block->getCountryId() === $countryList[$i]['value']) ? 'selected' : '')?>
+                                value="<?= $escaper->escapeHtmlAttr($country['value']) ?>"
+                                <?= $block->getCountryId() === $country['value'] ? 'selected' : '' ?>
                             >
-                                <?= $escaper->escapeHtml($countryList[$i]['label']) ?>
+                                <?= $escaper->escapeHtml($country['label']) ?>
                             </option>
-                        <?php endfor ?>
+                        <?php endforeach; ?>
                     </select>
                 </div>
             </div>
