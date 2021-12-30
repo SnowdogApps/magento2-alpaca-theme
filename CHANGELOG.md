@@ -28,6 +28,7 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - Checkbox link variant with class 'checkbox--link-checked' missing background (#492)
 - New customer registration - middle name always required (#493)
 ### Changed
+- Checkout summary "View Details" styling (#498)
 ### Updated
 ### Removed
 
