@@ -53,7 +53,8 @@ fractal.web.set('builder.dest', basePath + '/dest');
 fractal.web.theme(mandelbrot({ skin: 'black' }));
 
 // Gulp tasks
-const inheritance = (done) => {
+const inheritance = async () => {
+
   const componentsPath = fractal.components.get('path').replace(basePath + '/build/', '');
   const docsPath = fractal.docs.get('path').replace(basePath + '/build/', '');
   const staticPath = fractal.web.get('static.path').replace(basePath + '/build/', '');
@@ -83,11 +84,11 @@ const inheritance = (done) => {
       }
     });
 
-  if (fs.existsSync('./modules.json')) {
-    const modules = import('./modules.json')
+  if (fs.existsSync('./modules.mjs')) {
+    const modules = await import('./modules.mjs')
 
     // Go through array of module paths
-    modules.forEach(src => {
+    modules.default.forEach(src => {
       src = path.resolve(src);
 
       // Find all module files
@@ -105,12 +106,14 @@ const inheritance = (done) => {
             fs.copySync(srcPath, destPath, { overwrite: false });
           }
           else {
-            fs.ensureSymlinkSync(srcPath, destPath);
+            if (!fs.existsSync(destPath)) {
+              fs.ensureSymlinkSync(srcPath, destPath)
+            }
           }
         });
     });
   }
-  done();
+  await Promise.resolve();
 }
 
 const compileStyle = () => {
@@ -243,7 +246,7 @@ const setAdditionalProps = () => {
   return fractal.cli.exec('additional-props');
 }
 
-const watchStyle = () => {
+const watchStyle = (done) => {
   gulp.watch(
     [
       fractal.components.get('path') + '/**/*.scss',
@@ -252,18 +255,21 @@ const watchStyle = () => {
     { ignored: /.*\.(js|hbs|svg)$/ },
     gulp.series(lintSASS, compileStyle, lintCSS)
   );
+  done();
 }
 
-const watchScript = () => {
+const watchScript = (done) => {
   gulp.watch(
     fractal.components.get('path') + '/**/*.js',
     { ignored: /.*\.(scss|hbs|svg)$/ },
     lintScript
   )
+  done();
 }
 
-const watchSVG = () => {
+const watchSVG = (done) => {
   gulp.watch(fractal.components.get('path') + '/Atoms/icons/files/*.svg', compileSVG)
+  done();
 }
 
 const watch = gulp.parallel(watchStyle, watchScript, watchSVG)
