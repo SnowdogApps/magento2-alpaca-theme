@@ -10,6 +10,7 @@ define([
     constructor(element) {
       this.slider = element;
       this.dataValues = element.dataset;
+      this.sliderSlick = $(this.slider).find(this.dataValues.elementSlides);
       this.sliderItems = [];
       this.currentSlide = null;
       this.currentSlideIndex = 0;
@@ -20,11 +21,10 @@ define([
 
     createSlickSlider() {
       const slider = $(this.slider),
-            slides = slider.find(this.dataValues.elementSlides),
             prevArrow = slider.find(this.dataValues.elementNavPrev),
             nextArrow = slider.find(this.dataValues.elementNavNext);
 
-      slides.not('.slick-initialized').slick(
+      this.sliderSlick.not('.slick-initialized').slick(
         {
           slide: this.dataValues.elementSlide,
           dots: JSON.parse(this.dataValues.dots),
@@ -72,9 +72,11 @@ define([
     moveFocusForward() {
       if (this.currentSlideIndex === this.sliderItems.length - 1) {
         this.currentSlideIndex = 0;
+        this.sliderSlick.slick('slickGoTo', this.currentSlideIndex);
       }
       else {
         ++this.currentSlideIndex;
+        this.sliderSlick.slick('slickNext');
       }
 
       this.switchFocusBetweenSlides();
@@ -83,9 +85,11 @@ define([
     moveFocusBack() {
       if (this.currentSlideIndex === 0) {
         this.currentSlideIndex = this.sliderItems.length - 1
+        this.sliderSlick.slick('slickGoTo', this.currentSlideIndex);
       }
       else {
         --this.currentSlideIndex;
+        this.sliderSlick.slick('slickPrev');
       }
 
       this.switchFocusBetweenSlides();
