@@ -40,9 +40,8 @@ class MoreInfo {
 
   createGlobalEventHandlers() {
     this.onEscapeEvent = event => {
-      // TODO
-      // issue: this event is overwritten by dropdown-list keydown event
       if (event.which === 27) {
+        event.stopPropagation();
         this.toggle();
       }
     }
@@ -60,7 +59,7 @@ class MoreInfo {
 
   initListeners() {
     window.addEventListener('resize', this.onToggleEvent);
-    this.moreInfo.addEventListener('keydown', this.onEscape);
+    this.moreInfo.addEventListener('keydown', this.onEscapeEvent);
     window.addEventListener('click', this.onOutsideEvent);
   }
 

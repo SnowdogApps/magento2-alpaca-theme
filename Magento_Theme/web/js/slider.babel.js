@@ -1,52 +1,174 @@
 define([
   'jquery',
-  'slick'
-], function ($, slick) {
+  'slick',
+  'Magento_Swatches/js/swatch-renderer-mixin'
+// eslint-disable-next-line no-unused-vars
+], ($, slick, swatch) => {
   'use strict';
 
-  return function (options, element) {
-    function init() {
-      let dataValues = element.dataset;
+  class Slider {
+    constructor(element) {
+      this.slider = element;
+      this.dataValues = element.dataset;
+      this.sliderSlick = $(this.slider).find(this.dataValues.elementSlides);
+      this.sliderItems = [];
+      this.currentSlide = null;
+      this.currentSlideIndex = 0;
+      this.focusable = 'a[href], area[href], input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), object, embed, *[tabindex]';
 
-      $.when(createSlickSlider(dataValues)).then(displaySlider(dataValues));
+      this.init();
     }
 
-    function createSlickSlider(dataValues) {
-      let slider = $(element),
-          slides = slider.find(dataValues.elementSlides),
-          navPrev = slider.find(dataValues.elementNavPrev),
-          navNext = slider.find(dataValues.elementNavNext);
+    createSlickSlider() {
+      const slider = $(this.slider),
+            prevArrow = slider.find(this.dataValues.elementNavPrev),
+            nextArrow = slider.find(this.dataValues.elementNavNext);
 
-      slides.not('.slick-initialized').slick(
+      this.sliderSlick.not('.slick-initialized').slick(
         {
-          slide: dataValues.elementSlide,
-          dots: JSON.parse(dataValues.dots),
-          infinite: JSON.parse(dataValues.infinite),
-          centerMode: JSON.parse(dataValues.centerMode),
-          mobileFirst: JSON.parse(dataValues.mobileFirst),
-          prevArrow: navPrev,
-          nextArrow: navNext,
-          dotsClass: dataValues.dotsClass,
-          autoplay: JSON.parse(dataValues.autoplay),
-          autoplaySpeed: parseInt(dataValues.autoplaySpeed),
-          pauseOnFocus: JSON.parse(dataValues.pauseOnFocus),
-          pauseOnHover: JSON.parse(dataValues.pauseOnHover),
-          slidesToShow: parseInt(dataValues.slidesToShow),
-          slidesToScroll: parseInt(dataValues.slidesToScroll),
-          swipeToSlide: JSON.parse(dataValues.swipeToSlide),
-          responsive: JSON.parse(dataValues.responsiveConfig),
+          slide: this.dataValues.elementSlide,
+          dots: JSON.parse(this.dataValues.dots),
+          infinite: JSON.parse(this.dataValues.infinite),
+          centerMode: JSON.parse(this.dataValues.centerMode),
+          mobileFirst: JSON.parse(this.dataValues.mobileFirst),
+          prevArrow,
+          nextArrow,
+          dotsClass: this.dataValues.dotsClass,
+          autoplay: JSON.parse(this.dataValues.autoplay),
+          autoplaySpeed: parseInt(this.dataValues.autoplaySpeed),
+          pauseOnFocus: JSON.parse(this.dataValues.pauseOnFocus),
+          pauseOnHover: JSON.parse(this.dataValues.pauseOnHover),
+          slidesToShow: parseInt(this.dataValues.slidesToShow),
+          slidesToScroll: parseInt(this.dataValues.slidesToScroll),
+          swipeToSlide: JSON.parse(this.dataValues.swipeToSlide),
+          responsive: JSON.parse(this.dataValues.responsiveConfig),
+          accessibility: false
         }
       )
     }
 
-    function displaySlider(dataValues) {
-      let slider = $(element),
-          loader = slider.find(dataValues.elementLoader);
-
-      loader.removeClass(dataValues.loaderVisibleClass);
-      slider.removeClass(dataValues.loadingClass);
+    displaySlider() {
+      this.slider.classList.remove(this.dataValues.loadingClass);
     }
 
-    init();
+    changeInnerFocus(element, tabIndex) {
+      const focusableChildren = [...element.querySelectorAll(this.focusable)];
+
+      focusableChildren.forEach(item => {
+        item.setAttribute('tabindex', tabIndex);
+      });
+    }
+
+    switchFocusBetweenSlides() {
+      this.changeInnerFocus(this.currentSlide, -1);
+      this.currentSlide.setAttribute('tabindex', -1);
+
+      this.currentSlide = this.sliderItems[this.currentSlideIndex];
+      this.changeInnerFocus(this.currentSlide, 0);
+      this.currentSlide.setAttribute('tabindex', 0);
+      this.currentSlide.focus();
+    }
+
+    moveFocusForward() {
+      if (this.currentSlideIndex === this.sliderItems.length - 1) {
+        this.currentSlideIndex = 0;
+        this.sliderSlick.slick('slickGoTo', this.currentSlideIndex);
+      }
+      else {
+        ++this.currentSlideIndex;
+        this.sliderSlick.slick('slickNext');
+      }
+
+      this.switchFocusBetweenSlides();
+    }
+
+    moveFocusBack() {
+      if (this.currentSlideIndex === 0) {
+        this.currentSlideIndex = this.sliderItems.length - 1
+        this.sliderSlick.slick('slickGoTo', this.currentSlideIndex);
+      }
+      else {
+        --this.currentSlideIndex;
+        this.sliderSlick.slick('slickPrev');
+      }
+
+      this.switchFocusBetweenSlides();
+    }
+
+    setKeyboardListeners() {
+      this.slider.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          this.moveFocusForward();
+        }
+        else if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          this.moveFocusBack();
+        }
+        else if (e.key === 'Escape') {
+          e.preventDefault();
+          const focusableElements = [...document.querySelectorAll(this.focusable)];
+          const currentElementIndex = focusableElements.indexOf(e.target);
+
+          if (currentElementIndex > -1) {
+            let nextFocusableElementIndex = currentElementIndex;
+            let nextFocusableElement;
+
+            do {
+              nextFocusableElementIndex++;
+              nextFocusableElement = focusableElements[nextFocusableElementIndex];
+            } while (this.slider.contains(nextFocusableElement));
+
+            nextFocusableElement.focus();
+         }
+        }
+      });
+    }
+
+    setKeyboardSupport() {
+      const keyboardNavInfo = this.slider.querySelector(this.dataValues.elementKeyboardNavInfo);
+
+      if ((this.sliderItems.length > 1) && keyboardNavInfo) {
+        this.changeInnerFocus(this.slider, -1);
+        this.changeInnerFocus(this.currentSlide, 0);
+        keyboardNavInfo.setAttribute('tabindex', 0);
+
+        keyboardNavInfo.addEventListener('focus', () => {
+          this.setKeyboardListeners();
+        }, { once: true });
+      }
+    }
+
+    initKeyboardSupport() {
+      const swatchContainers = [...this.slider.querySelectorAll('.swatch__container')];
+      this.sliderItems = [...this.slider.querySelectorAll(this.dataValues.elementSlide)];
+      this.currentSlide = this.sliderItems[this.currentSlideIndex];
+
+      if (swatchContainers.length === 0) {
+        this.setKeyboardSupport();
+      }
+      else {
+        // If slider contains swatches, wait until all swatches are loaded
+        // before setting keyboard support
+        let initializedSwatchesNum = 0;
+
+        $(this.slider).on('swatch.initialized', () => {
+          initializedSwatchesNum++;
+          if (initializedSwatchesNum === swatchContainers.length) {
+            this.setKeyboardSupport();
+          }
+        })
+      }
+    }
+
+    init() {
+      $.when(this.createSlickSlider())
+        .then(this.displaySlider())
+        .then(this.initKeyboardSupport())
+    }
+  }
+
+  return (config, element) => {
+    new Slider(element);
   };
 });

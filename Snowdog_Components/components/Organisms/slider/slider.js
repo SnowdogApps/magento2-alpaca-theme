@@ -2,18 +2,18 @@
   'use strict';
 
   function init() {
-    let sliders = [...document.querySelectorAll('.slider')];
+    const sliders = [...document.querySelectorAll('.slider')];
     sliders.forEach(element => {
-      let dataValues = element.dataset;
+      const dataValues = element.dataset;
       $.when(createSlider(element, dataValues)).then(displaySlider(element, dataValues));
     });
   }
 
   function createSlider(element, dataValues) {
-    let slider = $(element),
-        slides = slider.find(dataValues.elementSlides),
-        navPrev = slider.find(dataValues.elementNavPrev),
-        navNext = slider.find(dataValues.elementNavNext);
+    const slider = $(element),
+          slides = slider.find(dataValues.elementSlides),
+          navPrev = slider.find(dataValues.elementNavPrev),
+          navNext = slider.find(dataValues.elementNavNext);
 
     slides.not('.slick-initialized').slick(
       {
@@ -38,8 +38,8 @@
   }
 
   function displaySlider(element, dataValues) {
-    let slider = $(element),
-        loader = slider.find(dataValues.elementLoader);
+    const slider = $(element),
+          loader = slider.find(dataValues.elementLoader);
 
     loader.removeClass(dataValues.loaderVisibleClass);
     slider.removeClass(dataValues.loadingClass);
