@@ -28,6 +28,7 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - New customer registration - middle name always required (#493)
 ### Changed
 ### Updated
+- Performance & quality improvements (#474)
 ### Removed
 
 ## [Released]
