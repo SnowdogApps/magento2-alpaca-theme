@@ -15,6 +15,7 @@ use Magento\Framework\App\Action\Action;
     $showCart = true;
     $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
     $description = false;
+    $widgetId = $block->getWidgetId() ? $block->getWidgetId() : '1';
 
     $sliderSlidesToShow = $block->getSliderSlidesToShow();
     $sliderSlidesToShow767 = $block->getSliderSlidesToShow767();
@@ -170,7 +171,7 @@ use Magento\Framework\App\Action\Action;
                         <?php endif; ?>
                         <div class="product-grid-item__details-bottom">
                             <div class="product-grid-item__price">
-                                <?= $block->getProductPriceHtml($_item, $type) ?>
+                                <?= $block->getProductPriceHtml($_item, $type . '-' . $widgetId) ?>
                             </div>
                             <?php if ($showWishlist || $showCompare || $showCart): ?>
                                 <div class="product-grid-item__actions">

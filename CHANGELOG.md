@@ -14,6 +14,7 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - Missing fractal component variants (#84723)
 - Messages component variant (#84729)
 - Checkbox 'link-checked' variant (#492)
+- option to remove Qty input and update button from minicart in Admin > Store > Configuration > Snowdog > Alpaca General > Mini Cart > Qty Update Disabled (#486)
 ### Fixed
 - Display error message - phone number field (#83240)
 - Webform checkboxes inline style & Department select on Contact Page (#83891)
@@ -22,11 +23,21 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - Overflow on x axis caused by `slider--full-width` class (#84443)
 - Some styles loaded twice in checkout (#83768)
 - Messages component display (#84729)
+- Order summary not expanded by default (#84748)
 - Alpaca readme - wrong link and missing content (#85061)
 - Multiple product attribute description API requests (#490)
 - Checkbox link variant with class 'checkbox--link-checked' missing background (#492)
 - New customer registration - middle name always required (#493)
+- Base paragraph styles overriding typography paragraph styles (#494)
+- Quantity buttons on multishipping checkout (#499)
+- slider a11y - keyboard support, repeated price IDs, when product is included in multiple sliders on the page (#459)
+- more info component js - close more info on ESC (#459)
+- More info button - bottom spacing (#496)
+- Country selector styling in contact-us form (#497)
+- Added escape methods to more-info (attribute description) (#495)
 ### Changed
+- Changed and improved GDPR cookie module behavior (#400)
+- Checkout summary "View Details" styling (#498)
 ### Updated
 - Performance & quality improvements (#474)
 ### Removed

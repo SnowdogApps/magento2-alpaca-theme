@@ -130,72 +130,74 @@
                 <!-- /ko -->
             </div>
             <div class="minicart-product__bottom">
-                <div class="minicart-product__qty">
-                    <div
-                        class="
-                            input
-                            input--inline
-                            minicart-product__input
-                            margin-bottom-0
-                            margin-right-m
-                        "
-                    >
-                        <label
+                <!-- ko ifnot: qty_update_disabled -->
+                    <div class="minicart-product__qty">
+                        <div
                             class="
-                                label
-                                minicart-product__label
-                                margin-right-xs
-                            "
-                            data-bind="
-                                attr: { for: 'cart-item-'+item_id+'-qty' }
+                                input
+                                input--inline
+                                minicart-product__input
+                                margin-bottom-0
+                                margin-right-m
                             "
                         >
-                            <!-- ko i18n: 'Qty' --><!-- /ko -->:
-                        </label>
-                        <input
-                            class="
-                                input__field
-                                minicart-product__field
-                                cart-item-qty
-                            "
-                            name="mini-qty"
-                            type="text"
-                            min="1"
+                            <label
+                                class="
+                                    label
+                                    minicart-product__label
+                                    margin-right-xs
+                                "
+                                data-bind="
+                                    attr: { for: 'cart-item-'+item_id+'-qty' }
+                                "
+                            >
+                                <!-- ko i18n: 'Qty' --><!-- /ko -->:
+                            </label>
+                            <input
+                                class="
+                                    input__field
+                                    minicart-product__field
+                                    cart-item-qty
+                                "
+                                name="mini-qty"
+                                type="text"
+                                min="1"
+                                data-bind="
+                                    attr: {
+                                        id: 'cart-item-'+item_id+'-qty',
+                                        placeholder: qty,
+                                        'data-cart-item': item_id,
+                                        'data-item-qty': qty,
+                                        'data-cart-item-id': product_sku,
+                                        'aria-label': $t('Change the quantity. Make sure to click update button to submit change.')
+                                    },
+                                    value: qty,
+                                "
+                                size="4"
+                                maxlength="12"
+                                autocomplete="off"
+                            >
+                        </div>
+                        <button
+                            type="button"
                             data-bind="
                                 attr: {
-                                    id: 'cart-item-'+item_id+'-qty',
-                                    placeholder: qty,
+                                    id: 'update-cart-item-'+item_id,
                                     'data-cart-item': item_id,
-                                    'data-item-qty': qty,
-                                    'data-cart-item-id': product_sku,
-                                    'aria-label': $t('Change the quantity. Make sure to click update button to submit change.')
-                                },
-                                value: qty,
+                                    title: $t('Update')
+                                }
                             "
-                            size="4"
-                            maxlength="12"
-                            autocomplete="off"
+                            class="
+                                button
+                                button--secondary
+                                minicart-product__update
+                                update-cart-item
+                            "
                         >
+                            <span data-bind="i18n: 'Update'"></span>
+                        </button>
                     </div>
-                    <button
-                        type="button"
-                        data-bind="
-                            attr: {
-                                id: 'update-cart-item-'+item_id,
-                                'data-cart-item': item_id,
-                                title: $t('Update')
-                            }
-                        "
-                        class="
-                            button
-                            button--secondary
-                            minicart-product__update
-                            update-cart-item
-                        "
-                    >
-                        <span data-bind="i18n: 'Update'"></span>
-                    </button>
-                </div>
+                <!-- /ko -->
                 <div class="minicart-product__actions">
                     <!-- ko if: is_visible_in_site_visibility -->
                         <a
