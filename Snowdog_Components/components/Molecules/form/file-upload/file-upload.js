@@ -4,13 +4,13 @@
   const components = [...document.querySelectorAll('.file-upload')];
 
   components.forEach(component => {
-    const input = component.querySelector('.file-upload__input'),
-          name   = component.querySelector('.file-upload__name'),
-          button = component.querySelector('span[role="button"]');
+    const input = component.querySelector('.file-upload__input');
+    const name = component.querySelector('.file-upload__name');
+    const button = component.querySelector('span[role="button"]');
 
     input.addEventListener('change', file => {
-      const filePath = file.target.value,
-            fileName = filePath.split('\\').pop();
+      const filePath = file.target.value;
+      const fileName = filePath.split('\\').pop();
 
       if (fileName) {
         name.textContent = fileName;

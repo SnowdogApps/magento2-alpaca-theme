@@ -1,5 +1,5 @@
 module.exports = {
-  preview: '@checkout',
+
   context: {
     iconCart: {
       class: 'estimated-section__icon',

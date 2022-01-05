@@ -1,5 +1,5 @@
 module.exports = {
-  preview: '@checkout',
+
   context: {
     button: {
       tag: 'button',

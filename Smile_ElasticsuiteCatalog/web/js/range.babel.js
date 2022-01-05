@@ -12,9 +12,9 @@ function rangeSlider(noUiSlider) {
     }
 
     function createRangeSlider(rangeFilter) {
-      const inputMax = rangeFilter.querySelector('.range-filter__field--upper'),
-            inputMin = rangeFilter.querySelector('.range-filter__field--lower'),
-            rangeSlider = rangeFilter.querySelector('.range-filter__slider');
+      const inputMax = rangeFilter.querySelector('.range-filter__field--upper');
+      const inputMin = rangeFilter.querySelector('.range-filter__field--lower');
+      const rangeSlider = rangeFilter.querySelector('.range-filter__slider');
 
       rangeSlider.classList.add('noUi-extended');
       initNoUiSlider(rangeSlider, inputMin, inputMax);
@@ -23,13 +23,13 @@ function rangeSlider(noUiSlider) {
     }
 
     function initNoUiSlider(rangeSlider, inputMin, inputMax) {
-      let minValue = parseInt(rangeSlider.getAttribute('data-min')),
-          maxValue = parseInt(rangeSlider.getAttribute('data-max')),
-          minCurrent = inputMin.value,
-          maxCurrent = inputMax.value;
+      let minValue = parseInt(rangeSlider.getAttribute('data-min'));
+      let maxValue = parseInt(rangeSlider.getAttribute('data-max'));
+      let minCurrent = inputMin.value;
+      let maxCurrent = inputMax.value;
 
       noUiSlider.create(rangeSlider, {
-        start: [minCurrent,maxCurrent],
+        start: [minCurrent, maxCurrent],
         connect: true,
         step: 1,
         range: {
@@ -63,8 +63,8 @@ function rangeSlider(noUiSlider) {
     }
 
     function a11yLabel(rangeSlider) {
-      const lowerControl = rangeSlider.querySelector('.noUi-handle-lower'),
-            upperControl = rangeSlider.querySelector('.noUi-handle-upper');
+      const lowerControl = rangeSlider.querySelector('.noUi-handle-lower');
+      const upperControl = rangeSlider.querySelector('.noUi-handle-upper');
       lowerControl.setAttribute('aria-label', `${config.sliderLabel}, minimal value`)
       upperControl.setAttribute('aria-label', `${config.sliderLabel}, maximum value`)
     }

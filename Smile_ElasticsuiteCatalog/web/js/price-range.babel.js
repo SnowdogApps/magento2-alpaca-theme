@@ -1,19 +1,20 @@
 'use strict';
 define(['jquery'], function($) {
   return function(options, element) {
-    var $filterButton = $(element),
-        filterUrl     = $filterButton.data('filterUrl'),
-        min           = $filterButton.data('min'),
-        max           = $filterButton.data('max'),
-        attribute     = $filterButton.data('attribute'),
-        lowerBound    = $('#' + attribute + '-lower'),
-        upperBound    = $('#' + attribute + '-upper'),
-        priceFileds   = [lowerBound, upperBound];
+    var $filterButton = $(element);
+    var filterUrl = $filterButton.data('filterUrl');
+    var min = $filterButton.data('min');
+    var max = $filterButton.data('max');
+    var attribute = $filterButton.data('attribute');
+    var lowerBound = $('#' + attribute + '-lower');
+    var upperBound = $('#' + attribute + '-upper');
+    var priceFileds = [lowerBound, upperBound];
 
     function toggleFilterButton(filterButtonIsDisabled) {
       if (filterButtonIsDisabled) {
         $filterButton.attr('disabled', 'disabled');
-      } else {
+      }
+      else {
         $filterButton.removeAttr('disabled');
       }
     }
@@ -24,7 +25,8 @@ define(['jquery'], function($) {
         if (inputValue.length > 0 && inputValue > 0) {
           toggleFilterButton(false);
           return false;
-        } else {
+        }
+        else {
           toggleFilterButton(true);
         }
       });
@@ -43,8 +45,8 @@ define(['jquery'], function($) {
     });
 
     $filterButton.click(function() {
-      var lower = parseFloat(lowerBound.val()),
-          upper = parseFloat(upperBound.val());
+      var lower = parseFloat(lowerBound.val());
+      var upper = parseFloat(upperBound.val());
 
       if (isNaN(lower)) {
         lower = min;

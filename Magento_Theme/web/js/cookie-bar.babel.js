@@ -7,7 +7,7 @@ define([
     constructor(element, config) {
       this.config = config
       this.cookieBar = element
- 
+
       this.setListeners()
       this.openModal()
     }

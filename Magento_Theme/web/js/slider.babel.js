@@ -20,9 +20,9 @@ define([
     }
 
     createSlickSlider() {
-      const slider = $(this.slider),
-            prevArrow = slider.find(this.dataValues.elementNavPrev),
-            nextArrow = slider.find(this.dataValues.elementNavNext);
+      const slider = $(this.slider)
+      const prevArrow = slider.find(this.dataValues.elementNavPrev)
+      const nextArrow = slider.find(this.dataValues.elementNavNext)
 
       this.sliderSlick.not('.slick-initialized').slick(
         {
@@ -120,7 +120,7 @@ define([
             } while (this.slider.contains(nextFocusableElement));
 
             nextFocusableElement.focus();
-         }
+          }
         }
       });
     }

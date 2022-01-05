@@ -39,6 +39,7 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - Changed and improved GDPR cookie module behavior (#400)
 - Checkout summary "View Details" styling (#498)
 ### Updated
+- Performance & quality improvements (#474)
 ### Removed
 
 ## [Released]

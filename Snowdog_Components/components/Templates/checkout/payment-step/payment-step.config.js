@@ -1,5 +1,5 @@
 module.exports = {
-  preview: '@checkout',
+
   context: {
     heading: {
       tag: 'h1',

@@ -1,7 +1,9 @@
 module.exports = {
   title: 'Gallery',
   default: 'vertical',
-  preview: '@docs-only-styles',
+  meta: {
+    docsOnlyStyles: true
+  },
   context: {
     typeVertical: true,
     dots: false,

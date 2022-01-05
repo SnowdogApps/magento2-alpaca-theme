@@ -1,8 +1,8 @@
 'use strict';
 
 (function() { // eslint-disable-line
-  const swatchWrapper = document.querySelector('.swatch__wrapper'),
-        swatchOptions = swatchWrapper.querySelectorAll('.swatch__option-container');
+  const swatchWrapper = document.querySelector('.swatch__wrapper');
+  const swatchOptions = swatchWrapper.querySelectorAll('.swatch__option-container');
 
   swatchOptions.forEach(option => {
     option.addEventListener('click', () => {

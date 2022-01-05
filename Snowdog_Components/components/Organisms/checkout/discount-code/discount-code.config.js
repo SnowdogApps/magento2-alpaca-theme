@@ -1,5 +1,5 @@
 module.exports = {
-  preview: '@checkout',
+
   context: {
     icon: {
       id: 'angle-down',

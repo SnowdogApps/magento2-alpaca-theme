@@ -8,24 +8,25 @@ define([
   'use strict';
 
   return function(config, elem) {
-    const button                 = elem,
-      customer                   = customerData.get('customer'),
-      productId                  = config.addToParams.data.product.toString(),
-      buttonClass                = config.class,
-      isEEVersion                = config.isEEVersion,
-      loginUrl                   = url.build('customer/account'),
-      productViewWrapperClass    = '.product-view__wrapper',
-      pdpButtonClass             = 'product-view__button--wishlist',
-      swatchContainerClass       = `.swatch-opt-${productId}`,
-      swatchOptionContainerClass = '.swatch',
-      multiwishlistButtonClass   = `.multiwishlist-btn-${productId}`;
+    const button = elem;
+    const customer = customerData.get('customer');
+    const productId = config.addToParams.data.product.toString();
+    const buttonClass = config.class;
+    const isEEVersion = config.isEEVersion;
+    const loginUrl = url.build('customer/account');
+    const productViewWrapperClass = '.product-view__wrapper';
+    const pdpButtonClass = 'product-view__button--wishlist';
+    const swatchContainerClass = `.swatch-opt-${productId}`;
+    const swatchOptionContainerClass = '.swatch';
+    const multiwishlistButtonClass = `.multiwishlist-btn-${productId}`;
 
     function addButtonClass() {
       if (isEEVersion) {
         const multiwishlistBtn = document.querySelector(multiwishlistButtonClass);
 
         multiwishlistBtn.classList.add(buttonClass);
-      } else {
+      }
+      else {
         button.classList.add(buttonClass);
       }
     }
@@ -44,7 +45,8 @@ define([
       if (key.substr(key.length - 2) == '[]') {
         key = key.substring(0, key.length - 2);
         data[`${key}[${value}]`] = value;
-      } else {
+      }
+      else {
         data[key] = value;
       }
 
@@ -52,17 +54,17 @@ define([
     }
 
     button.addEventListener('click', () => {
-      const url = config.addToParams.action,
-        formKey = $.mage.cookies.get('form_key'),
-        productViewWrapper = document.querySelector(productViewWrapperClass),
-        wishlistId = config.addToParams.data.wishlist_id,
-        swatchContainer = document.querySelector(swatchContainerClass),
-        data = {
-          action: 'add-to-wishlist',
-          form_key: formKey,
-          product: productId,
-          uenc: config.addToParams.data.uenc
-        };
+      const url = config.addToParams.action;
+      const formKey = $.mage.cookies.get('form_key');
+      const productViewWrapper = document.querySelector(productViewWrapperClass);
+      const wishlistId = config.addToParams.data.wishlist_id;
+      const swatchContainer = document.querySelector(swatchContainerClass);
+      const data = {
+        action: 'add-to-wishlist',
+        form_key: formKey,
+        product: productId,
+        uenc: config.addToParams.data.uenc
+      };
 
       // for condfigurable products
       // add options if selected
@@ -71,8 +73,8 @@ define([
 
         swatchOptionContainerArray.forEach(swatchOptionContainer => {
           if (swatchOptionContainer.hasAttribute('option-selected')) {
-            const key = `super_attribute[${swatchOptionContainer.getAttribute('attribute-id')}]`,
-              value = swatchOptionContainer.getAttribute('option-selected');
+            const key = `super_attribute[${swatchOptionContainer.getAttribute('attribute-id')}]`;
+            const value = swatchOptionContainer.getAttribute('option-selected');
 
             data[key] = value;
           }
@@ -83,29 +85,29 @@ define([
       // avoid adding options if it's not the main product
       // (i.e. it's in related products widget)
       if (productViewWrapper && productViewWrapper.contains(button)) {
-        const inputArray = productViewWrapper.querySelectorAll('input'),
-          selectArray = productViewWrapper.querySelectorAll('select');
+        const inputArray = productViewWrapper.querySelectorAll('input');
+        const selectArray = productViewWrapper.querySelectorAll('select');
 
         inputArray.forEach(input => {
           if (input.checked || input.type === 'number') {
-            const key = input.getAttribute('name'),
-              value = input.value;
+            const key = input.getAttribute('name');
+            const value = input.value;
 
             addElementData(data, key, value);
           }
         })
 
         selectArray.forEach(select => {
-          const key = select.getAttribute('name'),
-            selectOptionArray = select.querySelectorAll('option');
+          const key = select.getAttribute('name');
+          const selectOptionArray = select.querySelectorAll('option');
 
-            selectOptionArray.forEach(selectOption => {
-              if (selectOption.selected) {
-                const value = selectOption.value;
+          selectOptionArray.forEach(selectOption => {
+            if (selectOption.selected) {
+              const value = selectOption.value;
 
-                addElementData(data, key, value);
-              }
-            })
+              addElementData(data, key, value);
+            }
+          })
         })
       }
 
@@ -137,7 +139,7 @@ define([
             const addToMessage = $.cookieStorage.get('mage-messages');
             // add class to mark that product is added to wishlist
             if (
-                addToMessage[0] &&
+              addToMessage[0] &&
                 addToMessage[0].type === 'success'
             ) {
               addButtonClass();
@@ -160,8 +162,8 @@ define([
     });
 
     setTimeout(() => {
-      const wishlist = customerData.get('wishlist'),
-        items = wishlist().items;
+      const wishlist = customerData.get('wishlist');
+      const items = wishlist().items;
 
       if (items) {
         items.forEach(item => {

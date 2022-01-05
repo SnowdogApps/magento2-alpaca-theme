@@ -1,5 +1,5 @@
 module.exports = {
-  preview: '@checkout',
+
   context: {
     title: 'Shipping Address',
     labels: {

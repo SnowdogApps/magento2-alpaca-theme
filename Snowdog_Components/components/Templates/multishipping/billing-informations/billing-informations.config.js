@@ -1,5 +1,5 @@
 module.exports = {
-  preview: '@checkout',
+
   context: {
     shippingClass: 'margin-bottom-m',
     addresses: {
