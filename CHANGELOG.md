@@ -32,6 +32,7 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - Quantity buttons on multishipping checkout (#499)
 - slider a11y - keyboard support, repeated price IDs, when product is included in multiple sliders on the page (#459)
 - more info component js - close more info on ESC (#459)
+- More info button - bottom spacing (#496)
 ### Changed
 ### Updated
 ### Removed
