@@ -24,8 +24,8 @@ var config = {
       'slider': 'Magento_Theme/js/slider.babel',
       'tab': 'Magento_Theme/js/tab.babel',
       'tooltip': 'Magento_Theme/js/tooltip.babel',
-      "cookieModal": "Magento_Theme/js/cookie-modal.babel",
-      "cookieBar": "Magento_Theme/js/cookie-bar.babel"
+      'cookieModal': 'Magento_Theme/js/cookie-modal.babel',
+      'cookieBar': 'Magento_Theme/js/cookie-bar.babel'
     }
   },
   config: {

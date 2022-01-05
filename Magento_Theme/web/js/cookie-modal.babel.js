@@ -17,15 +17,16 @@ define([
         this.closeModal(this.modal)
       }
       if (e.which == 9) {
-        let currentFocus = document.activeElement,
-          totalOfFocusable = this.modal.focusableChildren.length,
-          focusedIndex = this.modal.focusableChildren.indexOf(currentFocus)
+        let currentFocus = document.activeElement;
+        let totalOfFocusable = this.modal.focusableChildren.length;
+        let focusedIndex = this.modal.focusableChildren.indexOf(currentFocus)
         if (e.shiftKey) {
           if (focusedIndex === 0) {
             e.preventDefault()
             this.modal.focusableChildren[totalOfFocusable - 1].focus()
           }
-        } else {
+        }
+        else {
           if (focusedIndex == totalOfFocusable - 1) {
             e.preventDefault()
             this.modal.focusableChildren[0].focus()
@@ -108,7 +109,7 @@ define([
         '[data-amcookie-js="save-cookies"]'
       )
       this.modal.activeClass = 'modal--active'
-      this.modal.focusable =`
+      this.modal.focusable = `
         a[href], area[href],
         input:not([disabled]),
         select:not([disabled]),
@@ -164,10 +165,11 @@ define([
         if (mqOpenBreakpoint.matches) {
           this.modalOpenMq()
         }
-        window.addEventListener('resize', (e) => {
+        window.addEventListener('resize', () => {
           if (mqOpenBreakpoint.matches) {
             this.modalOpenMq()
-          } else {
+          }
+          else {
             this.closeOpenMq()
           }
         })
