@@ -37,6 +37,7 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - Added escape methods to more-info (attribute description) (#495)
 ### Changed
 - Changed and improved GDPR cookie module behavior (#400)
+- Checkout summary "View Details" styling (#498)
 ### Updated
 ### Removed
 
