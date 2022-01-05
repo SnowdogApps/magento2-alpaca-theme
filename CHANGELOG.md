@@ -34,6 +34,7 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - more info component js - close more info on ESC (#459)
 - More info button - bottom spacing (#496)
 - Country selector styling in contact-us form (#497)
+- Added escape methods to more-info (attribute description) (#495)
 ### Changed
 ### Updated
 ### Removed
