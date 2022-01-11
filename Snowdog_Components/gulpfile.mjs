@@ -305,5 +305,5 @@ const buildFractal = () => {
 }
 
 export const lint = gulp.series(lintScript, lintSASS)
-export const dev = gulp.series(gulp.parallel(inheritance, compileSVG, compileStyle), setAdditionalProps, startFractal, watch)
-export const build = gulp.series(gulp.parallel(inheritance, compileSVG, compileStyle), buildFractal)
+export const dev = gulp.series(inheritance, gulp.parallel(compileSVG, compileStyle), setAdditionalProps, startFractal, watch)
+export const build = gulp.series(inheritance, gulp.parallel(compileSVG, compileStyle), buildFractal)
