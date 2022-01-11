@@ -35,6 +35,7 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - More info button - bottom spacing (#496)
 - Country selector styling in contact-us form (#497)
 - Added escape methods to more-info (attribute description) (#495)
+- Inheritance task in components (#501)
 ### Changed
 - Changed and improved GDPR cookie module behavior (#400)
 - Checkout summary "View Details" styling (#498)
