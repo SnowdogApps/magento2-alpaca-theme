@@ -2,11 +2,11 @@ define([], function () {
   'use strict';
 
   return function (config, element) {
-    const activeTitleClass = 'tab__title--active',
-      activeContentClass = 'tab__content--active',
-      tabItems = Array.from(element.children),
-      stickyLabels = document.querySelectorAll('.tab__title--sticky'),
-      allItems = [...tabItems, ...stickyLabels];
+    const activeTitleClass = 'tab__title--active';
+    const activeContentClass = 'tab__content--active';
+    const tabItems = Array.from(element.children);
+    const stickyLabels = document.querySelectorAll('.tab__title--sticky');
+    const allItems = [...tabItems, ...stickyLabels];
 
     allItems.forEach((item) => {
       const tabTitle = item.dataset.tab;

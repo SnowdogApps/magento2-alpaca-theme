@@ -1,12 +1,12 @@
 'use strict';
 
 (function() { // eslint-disable-line
-  const tab                = document.querySelector('.tab'),
-        activeTitleClass   = 'tab__title--active',
-        activeContentClass = 'tab__content--active',
-        children           = Array.from(tab.children),
-        titles             = [...tab.querySelectorAll('.tab__title')],
-        mqBreakpoint       = window.matchMedia('screen and (min-width: 768px)');
+  const tab = document.querySelector('.tab');
+  const activeTitleClass = 'tab__title--active';
+  const activeContentClass = 'tab__content--active';
+  const children = Array.from(tab.children);
+  const titles = [...tab.querySelectorAll('.tab__title')];
+  const mqBreakpoint = window.matchMedia('screen and (min-width: 768px)');
 
   function setActiveTab(elem) {
     const tabTitle = elem.dataset.tab;
@@ -60,9 +60,9 @@
   }
 
   function setKeyboardNav(e) {
-    let currentTitle = e.target,
-        currentTitleIndex = titles.indexOf(currentTitle),
-        isAccordion = currentTitle.parentNode.classList.contains('tab--accordion');
+    let currentTitle = e.target;
+    let currentTitleIndex = titles.indexOf(currentTitle);
+    let isAccordion = currentTitle.parentNode.classList.contains('tab--accordion');
 
     if (mqBreakpoint.matches && !isAccordion) {
       if (e.which == 39) {

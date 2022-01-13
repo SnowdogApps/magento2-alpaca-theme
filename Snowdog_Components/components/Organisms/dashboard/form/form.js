@@ -5,14 +5,14 @@
 class DashboardForm {
   constructor(checkboxPassword) {
     this.checkboxPassword = checkboxPassword;
-    this.checkboxEmail    = document.querySelector('input#changeEmail'),
-    this.confirmPassword  = document.querySelector('.confirmPassword'),
-    this.email            = document.querySelector('.email'),
-    this.fields           = document.querySelector('.dashboard-form__fields'),
-    this.newPassword      = document.querySelector('.newPassword'),
-    this.password         = document.querySelector('.password'),
-    this.title            = document.querySelector('.dashboard-form__title-form'),
-    this.toggledClass     = 'dashboard-form--hidden';
+    this.checkboxEmail = document.querySelector('input#changeEmail'),
+    this.confirmPassword = document.querySelector('.confirmPassword'),
+    this.email = document.querySelector('.email'),
+    this.fields = document.querySelector('.dashboard-form__fields'),
+    this.newPassword = document.querySelector('.newPassword'),
+    this.password = document.querySelector('.password'),
+    this.title = document.querySelector('.dashboard-form__title-form'),
+    this.toggledClass = 'dashboard-form--hidden';
 
     if (this.checkboxEmail) {
       this.checkboxEmail.addEventListener('change', () => {

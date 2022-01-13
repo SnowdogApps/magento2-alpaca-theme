@@ -356,7 +356,7 @@ module.exports = {
         }
       ]
     },
-    additionalBlockClass : 'margin-vc-l'
+    additionalBlockClass: 'margin-vc-l'
   },
   variants: [
     {

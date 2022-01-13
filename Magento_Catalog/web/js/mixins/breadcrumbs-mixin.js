@@ -1,10 +1,10 @@
 define([
-  "jquery",
-  "Magento_Catalog/js/product/breadcrumbs"
+  'jquery',
+  'Magento_Catalog/js/product/breadcrumbs'
 ], function ($) {
-  "use strict";
+  'use strict';
   return function (parentWidget) {
-    $.widget("mage.breadcrumbs", parentWidget, {
+    $.widget('mage.breadcrumbs', parentWidget, {
       /**
        * Find parent menu item for current.
        *
@@ -13,17 +13,17 @@ define([
        * @private
        */
       _getParentMenuItem: function (menuItem) {
-        var classes,
-          classNav,
-          parentClass,
-          parentMenuItem = null;
+        var classes;
+        var classNav;
+        var parentClass;
+        var parentMenuItem = null;
 
         if (!menuItem) {
           return null;
         }
 
-        classes = menuItem.parent().attr("class");
-        classNav = classes.match(/(nav\-)[0-9]+(\-[0-9]+)+/gi);
+        classes = menuItem.parent().attr('class');
+        classNav = classes.match(/(nav-)[0-9]+(-[0-9]+)+/gi);
 
         if (classNav) {
           classNav = classNav[0];
@@ -33,9 +33,9 @@ define([
           // in this case, look for a further ancestor
           parentClass = this._getParentClass(classNav);
 
-          while (parentClass.lastIndexOf("-") !== -1 && parentMenuItem === null) {
+          while (parentClass.lastIndexOf('-') !== -1 && parentMenuItem === null) {
             parentMenuItem = $(this.options.menuContainer).find(
-              "." + parentClass + " > a"
+              '.' + parentClass + ' > a'
             );
             parentMenuItem = parentMenuItem.length ? parentMenuItem : null;
 
@@ -49,7 +49,7 @@ define([
       },
 
       _getParentClass: function (className) {
-        return className.substr(0, className.lastIndexOf("-"));
+        return className.substr(0, className.lastIndexOf('-'));
       }
     });
     return $.mage.breadcrumbs;

@@ -43,9 +43,9 @@ class MegaMenu {
     });
     this.firstLevelLinks.forEach(link => {
       link.parentNode.addEventListener('keydown', (e) => {
-        let focusableInners = [...link.parentNode.querySelectorAll(this.childrenLinksSelector)],
-            indexInInners = focusableInners.indexOf(e.target),
-            indexInFirsts = this.firstLevelLinks.indexOf(e.target);
+        let focusableInners = [...link.parentNode.querySelectorAll(this.childrenLinksSelector)];
+        let indexInInners = focusableInners.indexOf(e.target);
+        let indexInFirsts = this.firstLevelLinks.indexOf(e.target);
         if (e.which === 40 && focusableInners.length) {
           e.preventDefault();
           this.moveFocusForward(focusableInners, indexInInners);

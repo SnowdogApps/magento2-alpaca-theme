@@ -32,17 +32,17 @@ define([
       * Initializes gallery with configuration options.
       */
       initGallery: function () {
-        var breakpoints = {},
-          settings = this.settings,
-          config = this.config,
-          tpl = template(galleryTpl, {
-            next: $t('Next'),
-            previous: $t('Previous')
-          }),
-          mainImageIndex,
-          $element = settings.$element,
-          $fotoramaElement,
-          $fotoramaStage;
+        var breakpoints = {};
+        var settings = this.settings;
+        var config = this.config;
+        var tpl = template(galleryTpl, {
+          next: $t('Next'),
+          previous: $t('Previous')
+        });
+        var mainImageIndex;
+        var $element = settings.$element;
+        var $fotoramaElement;
+        var $fotoramaStage;
 
         if (settings.breakpoints) {
           _.each(_.values(settings.breakpoints), function (breakpoint) {
@@ -104,11 +104,11 @@ define([
        * Creates breakpoints for gallery.
        */
       setupBreakpoints: function () {
-        var pairs,
-          settings = this.settings,
-          config = this.config,
-          startConfig = this.startConfig,
-          isTouchEnabled = this.isTouchEnabled;
+        var pairs;
+        var settings = this.settings;
+        var config = this.config;
+        var startConfig = this.startConfig;
+        var isTouchEnabled = this.isTouchEnabled;
 
         if (_.isObject(settings.breakpoints)) {
           pairs = _.pairs(settings.breakpoints);

@@ -9,9 +9,9 @@ define([], function () {
       this.start();
     }
     closeBar(el) {
-      const cookieMessage = el.currentTarget.parentElement.parentElement,
-            dataType      = cookieMessage.dataset.type,
-            focusable     = document.querySelectorAll('button:not([disabled]), a[href], area[href] input:not([disabled]), select:not([disabled]), textarea:not([disabled]), *[tabindex]:not([tabindex="-1"]), object, embed, *[contenteditable]');
+      const cookieMessage = el.currentTarget.parentElement.parentElement;
+      const dataType = cookieMessage.dataset.type;
+      const focusable = document.querySelectorAll('button:not([disabled]), a[href], area[href] input:not([disabled]), select:not([disabled]), textarea:not([disabled]), *[tabindex]:not([tabindex="-1"]), object, embed, *[contenteditable]');
 
       cookieMessage.classList.remove('cookie-message--open');
       localStorage.setItem(dataType, 'closed');

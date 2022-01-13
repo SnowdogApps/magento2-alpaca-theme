@@ -8,8 +8,8 @@ class Collapsible { // eslint-disable-line
     this.listener();
   }
   toggle() {
-    let currentState = this.trigger.getAttribute('aria-expanded'),
-        newState = currentState === 'true' ? 'false' : 'true';
+    let currentState = this.trigger.getAttribute('aria-expanded');
+    let newState = currentState === 'true' ? 'false' : 'true';
     this.trigger.setAttribute('aria-expanded', newState);
   }
 

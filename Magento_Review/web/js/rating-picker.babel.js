@@ -2,12 +2,12 @@ define([], function() {
   return function(config, element) {
     'use strict'
 
-    const activeItemClass   = 'rating__rate-item--active',
-          errorVisibleClass = 'rating__error--visible',
-          reviewError       = document.getElementById(config.reviewError),
-          ratingElements    = [...element.querySelectorAll('.rating__rate-item')],
-          submitButton      = document.getElementById(config.submitButton),
-          reviewForm        = document.getElementById(config.reviewForm);
+    const activeItemClass = 'rating__rate-item--active';
+    const errorVisibleClass = 'rating__error--visible';
+    const reviewError = document.getElementById(config.reviewError);
+    const ratingElements = [...element.querySelectorAll('.rating__rate-item')];
+    const submitButton = document.getElementById(config.submitButton);
+    const reviewForm = document.getElementById(config.reviewForm);
 
     let optionChoosen = false;
 

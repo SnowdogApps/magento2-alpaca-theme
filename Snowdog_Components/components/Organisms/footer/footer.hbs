@@ -1,23 +1,33 @@
 <footer class="footer {{ class }}" {{{ attributes }}}>
     {{#if handler }}
         <div class="footer__handler {{ handlerClass }}">
-            {{ render '@button--icon' scrollToTop }}
+            {{#if scrollToTop}}
+                {{ render '@button--icon' scrollToTop }}
+            {{/if}}
 
-            <section class="footer__newsletter">
-                {{ render '@newsletter' }}
-            </section>
+            {{#if newsletter}}
+                <section class="footer__newsletter">
+                    {{ render '@newsletter' }}
+                </section>
+            {{/if}}
 
-            <div class="footer__social-handler {{ socialHandlerClass }}">
-                <h3 class="footer__social-list-title">
-                    {{ socialListTitle }}
-                </h3>
+            {{#if socialIconList}}
+                <div class="footer__social-handler {{ socialHandlerClass }}">
+                    {{#if socialListTitle}}
+                        <h3 class="footer__social-list-title">
+                            {{ socialListTitle }}
+                        </h3>
+                    {{/if}}
 
-                {{ render '@list--icon' socialIconList }}
-            </div>
+                    {{ render '@list--icon' socialIconList }}
+                </div>
+            {{/if}}
 
-            <section class="footer__links">
-                {{ render '@dropdown-list' linkList }}
-            </section>
+            {{#if linkList}}
+                <section class="footer__links">
+                    {{ render '@dropdown-list' linkList }}
+                </section>
+            {{/if}}
         </div>
     {{/if}}
 
@@ -47,10 +57,18 @@
                         </li>
                     {{/each}}
                 </ul>
-                <div class="footer__switchers">
-                    {{ render '@dropdown-list--detailed-content' language }}
-                    {{ render '@dropdown-list--detailed-content' currency }}
-                </div>
+
+                {{#if (or language currency)}}
+                    <div class="footer__switchers">
+                        {{#if language}}
+                            {{ render '@dropdown-list--detailed-content' language }}
+                        {{/if}}
+
+                        {{#if currency}}
+                            {{ render '@dropdown-list--detailed-content' currency }}
+                        {{/if}}
+                    </div>
+                {{/if}}
             </div>
         </section>
     {{/if}}

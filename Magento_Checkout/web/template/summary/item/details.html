@@ -47,51 +47,82 @@
             class="
                 product
                 options
+                order-summary__dropdown-list
+                dropdown-list
+                dropdown-list--detailed-content
             "
             data-bind="mageInit: {'collapsible':{'openedState': 'active'}}"
         >
-            <span
-                data-role="title"
-                class="toggle"
-            >
-                <!-- ko i18n: 'View Details' --><!-- /ko -->
-            </span>
-            <div
-                data-role="content"
-                class="content"
-            >
-                <dl
-                    class="
-                        item-options
-                        list
-                        list--description
-                        minicart-product__attributes-list
-                    "
+
+            <ul class="dropdown-list__list">
+                <li class="
+                    dropdown-list__item
+                    dropdown-list__item--collapse"
                 >
-                    <!--ko foreach: JSON.parse($parent.options)-->
-                        <dt
-                            class="list__label"
-                            data-bind="text: label"
-                        ></dt>
-                        <!-- ko if: ($data.full_view)-->
-                            <!-- ko with: {full_viewUnsanitizedHtml: $data.full_view}-->
-                                <dd
-                                    class="list__value"
-                                    data-bind="html: full_viewUnsanitizedHtml"
-                                ></dd>
+                    <button
+                        class="
+                            toggle
+                            dropdown-list__label
+                        "
+                        aria-expanded="false"
+                        data-role="title"
+                        type="button"
+                    >
+                        <!-- ko i18n: 'View Details' --><!-- /ko -->
+                        <svg
+                            class="
+                                icon
+                                dropdown-list__icon
+                            "
+                            role="presentation"
+                            focusable="false"
+                        >
+                            <use data-bind="attr: { 'href': require.toUrl('images/icons-sprite.svg#angle-down')}" href=''></use>
+                        </svg>
+                    </button>
+
+                    <div
+                        data-role="content"
+                        class="
+                            content
+                            dropdown-list__content
+                        "
+                    >
+                        <dl
+                            class="
+                                item-options
+                                list
+                                list--description
+                                minicart-product__attributes-list
+                            "
+                        >
+                            <!--ko foreach: JSON.parse($parent.options)-->
+                                <dt
+                                    class="list__label"
+                                    data-bind="text: label"
+                                ></dt>
+                                <!-- ko if: ($data.full_view)-->
+                                    <!-- ko with: {full_viewUnsanitizedHtml: $data.full_view}-->
+                                        <dd
+                                            class="list__value"
+                                            data-bind="html: full_viewUnsanitizedHtml"
+                                        ></dd>
+                                    <!-- /ko -->
+                                <!-- /ko -->
+                                <!-- ko ifnot: ($data.full_view)-->
+                                    <!-- ko with: {valueUnsanitizedHtml: $data.value}-->
+                                        <dd
+                                            class="list__value"
+                                            data-bind="html: valueUnsanitizedHtml"
+                                        ></dd>
+                                    <!-- /ko -->
+                                <!-- /ko -->
                             <!-- /ko -->
-                        <!-- /ko -->
-                        <!-- ko ifnot: ($data.full_view)-->
-                            <!-- ko with: {valueUnsanitizedHtml: $data.value}-->
-                                <dd
-                                    class="list__value"
-                                    data-bind="html: valueUnsanitizedHtml"
-                                ></dd>
-                            <!-- /ko -->
-                        <!-- /ko -->
-                    <!-- /ko -->
-                </dl>
-            </div>
+                        </dl>
+                    </div>
+                </li>
+            </ul>
+
         </div>
     <!-- /ko -->
 </div>
