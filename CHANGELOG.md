@@ -43,6 +43,7 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 ### Updated
 - Performance & quality improvements (#474)
 ### Removed
+- Redundant EE store switcher (#503)
 
 ## [Released]
 ## [2.25.1] - 2021-11-30
