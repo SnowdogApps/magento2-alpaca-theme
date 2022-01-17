@@ -40,6 +40,7 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - Checkout cart icon hover style (#504)
 - Checkout - apply gift card styles (#508)
 - Checkout - cart link styles (#507)
+- Checkout - "Ship to" and "Shipping method" edit icons styles (#505)
 ### Changed
 - Changed and improved GDPR cookie module behavior (#400)
 - Checkout summary "View Details" styling (#498)
