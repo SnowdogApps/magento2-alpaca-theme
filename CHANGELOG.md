@@ -41,6 +41,7 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - Checkout - apply gift card styles (#508)
 - Checkout - cart link styles (#507)
 - Checkout - "Ship to" and "Shipping method" edit icons styles (#505)
+- Checkout recaptcha checkbox visibility (#506)
 ### Changed
 - Changed and improved GDPR cookie module behavior (#400)
 - Checkout summary "View Details" styling (#498)
