@@ -39,6 +39,7 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - Mobile menu custom_url template (#472)
 - Checkout cart icon hover style (#504)
 - Checkout - apply gift card styles (#508)
+- Checkout - cart link styles (#507)
 ### Changed
 - Changed and improved GDPR cookie module behavior (#400)
 - Checkout summary "View Details" styling (#498)
