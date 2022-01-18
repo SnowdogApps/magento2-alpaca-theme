@@ -578,7 +578,7 @@ module.exports = {
               title: 'Wish List',
               textClass: 'dropdown-list__text margin-hz-s',
               id: 'dropdown-buttons-content2',
-              class: 'button button--icon',
+              class: 'button button--icon button--icon-filled product-view__button--wishlist',
               iconBefore: {
                 id: 'heart',
                 title: 'Heart',
