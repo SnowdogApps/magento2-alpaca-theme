@@ -68,7 +68,12 @@
         </style>
 
         <?php
-            $criticalStyles = $this->assetRepo->createAsset('css/critical.css')->getContent();
+            $criticalStyles;
+            if (strpos($bodyAttributes, 'page-layout-checkout')) {
+                $criticalStyles = $this->assetRepo->createAsset('css/critical-checkout.css')->getContent();
+            } else {
+                $criticalStyles = $this->assetRepo->createAsset('css/critical.css')->getContent();
+            }
             $inlineStyles = str_replace('../images', $this->getViewFileUrl('images'), $criticalStyles);
             $inlineStyles = str_replace('critical.css.map', $this->getViewFileUrl('css/critical.css.map'), $inlineStyles);
         ?>
