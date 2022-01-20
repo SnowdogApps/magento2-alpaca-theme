@@ -98,6 +98,12 @@ define([
             var element = $(e);
             var buttonName = element.text().trim();
             var generalParams = element.data('multiplewishlist');
+            /**
+             * temp solution for Recently Viewed multiple wishlist console error (#86220)
+             */
+            if (!generalParams) {
+              return;
+            }
             var tmplData = {
               wishlists: [],
               generalParams: generalParams,
