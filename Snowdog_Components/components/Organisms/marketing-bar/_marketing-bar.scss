@@ -2,7 +2,10 @@
 
 .marketing-bar {
     position: relative;
+    display: flex;
+    align-items: center;
     padding: $marketing-bar__padding;
+    min-height: $marketing-bar__min-height;
     background-color: $marketing-bar__background-color;
     overflow: hidden;
 
@@ -14,11 +17,15 @@
         position: relative;
         display: flex;
         flex-flow: row nowrap;
-        justify-content: space-between;
+        justify-content: flex-start;
         align-items: center;
         width: 100%;
         max-width: $marketing-bar__container-max-width;
         margin: $marketing-bar__container-margin;
+
+        @include mq($screen-m) {
+            justify-content: center;
+        }
     }
 
     &__text {
@@ -43,17 +50,19 @@
     }
 
     &__close {
-        min-height: $marketing-bar__button-size !important;
-        background-color: $marketing-bar__button-background-color !important;
+        position: $marketing-bar__button-position;
+        right: $marketing-bar__button-right;
+        min-height: $marketing-bar__button-size;
+        background-color: $marketing-bar__button-background-color;
 
         &:hover {
             .marketing-bar__close-icon {
-                fill: $marketing-bar__button-icon-fill--hover !important;
+                fill: $marketing-bar__button-icon-fill--hover;
             }
         }
 
         .marketing-bar__close-icon {
-            fill: $marketing-bar__button-icon-fill !important;
+            fill: $marketing-bar__button-icon-fill;
         }
     }
 }
