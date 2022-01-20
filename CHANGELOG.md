@@ -14,7 +14,7 @@ All notable changes to this project will be documented in this file.
 - Remote shopping assistance on account creation (#83738)
 - Galery showing multiple pictures in magnifier view (#80429)
 ### Changed
-- Refactor yotpo styles (#84781)
+- Refactor and improve yotpo styles (#485)
 ### Updated
 ### Removed
 
