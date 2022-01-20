@@ -13,7 +13,7 @@ define([], function () {
 
     setListeners() {
       this.summaryLinks.forEach((item) => {
-        item.addEventListener('click', ev => this.goToTab(this.tab));
+        item.addEventListener('click', () => this.goToTab(this.tab));
 
         item.addEventListener('keydown', ev => {
           if (ev.which === 13) {

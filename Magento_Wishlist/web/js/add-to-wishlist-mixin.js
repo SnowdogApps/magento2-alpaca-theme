@@ -24,11 +24,11 @@ define([
        * @private
        */
       _updateWishlistData: function (event) {
-        var dataToAdd = {},
-          isFileUploaded = false,
-          handleObjSelector = null,
-          self = this,
-          updateWishlistBtn = $('.product-view__addtowishlist--update');
+        var dataToAdd = {};
+        var isFileUploaded = false;
+        var handleObjSelector = null;
+        var self = this;
+        var updateWishlistBtn = $('.product-view__addtowishlist--update');
 
         if (event.handleObj.selector == this.options.qtyInfo) { //eslint-disable-line eqeqeq
           this._updateAddToWishlistButton({}, event);
@@ -52,11 +52,11 @@ define([
             // ADDED: for configurable product edit wishlist PDP,
             // don't update dataToAdd if element doesn't belong to the product
             if ($(element).hasClass('super-attribute-select') && updateWishlistBtn.length) {
-              var btnProduct = updateWishlistBtn.data('post').data.product,
-                elementProduct = $(element).data('product').toString();
+              var btnProduct = updateWishlistBtn.data('post').data.product;
+              var elementProduct = $(element).data('product').toString();
 
               if (btnProduct !== elementProduct) {
-                  return;
+                return;
               }
             }
 

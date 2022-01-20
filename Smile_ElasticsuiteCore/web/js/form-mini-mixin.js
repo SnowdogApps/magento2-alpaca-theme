@@ -8,7 +8,7 @@ define([
   'Magento_Ui/js/modal/modal',
   'mage/translate',
   'Magento_Search/js/form-mini'
-], function (ko, $, _, mageTemplate, priceUtil, templateLoader) {
+], function (ko, $, _) {
   'use strict';
 
   return function (widget) {
@@ -65,7 +65,7 @@ define([
           if (typeIdentifier !== 'product' && this.options.templates[typeIdentifier]['titleRenderer']) {
             require([this.options.templates[typeIdentifier]['titleRenderer']], function (renderer) {
               this.component.titleRenderers[this.type] = renderer;
-            }.bind({component: this, type: typeIdentifier}));
+            }.bind({ component: this, type: typeIdentifier }));
           }
         }
       },
@@ -105,12 +105,16 @@ define([
         if (value.trim().length >= parseInt(this.options.minSearchLength, 10)) {
           this.searchForm.addClass('processing');
           this.currentRequest = $.ajax({
-            method: "GET",
+            method: 'GET',
             url: this.options.url,
-            data:{q: value},
+            data: { q: value },
             // This function will ensure proper killing of the last Ajax call.
             // In order to prevent requests of an old request to pop up later and replace results.
-            beforeSend: function() { if (this.currentRequest !== null) { this.currentRequest.abort(); }}.bind(this),
+            beforeSend: function() {
+              if (this.currentRequest !== null) {
+                this.currentRequest.abort();
+              }
+            }.bind(this),
             success: $.proxy(function (data) {
               var self = this;
               var lastElement = false;
@@ -145,12 +149,12 @@ define([
 
               $.each(sidebarElements, function(index, element) {
                 if (!lastElement || (lastElement && lastElement.type !== element.type)) {
-                   var sidebarSection = this._getSidebarSection(element.type, data);
-                   var elementHtml = this._renderItem(element, index);
+                  var sidebarSection = this._getSidebarSection(element.type, data);
+                  var elementHtml = this._renderItem(element, index);
 
-                   sidebarSection.append(elementHtml);
-                   sidebarWrapper.append(sidebarSection);
-                   content.append(sidebarWrapper);
+                  sidebarSection.append(elementHtml);
+                  sidebarWrapper.append(sidebarSection);
+                  content.append(sidebarWrapper);
                 }
 
                 lastElement = element;
@@ -177,11 +181,12 @@ define([
 
               if (this.responseList.indexList.length) {
                 this._updateAriaHasPopup(true);
-              } else {
+              }
+              else {
                 this._updateAriaHasPopup(false);
               }
 
-              $('.quicksearch__close-button').on('click', function (e) {
+              $('.quicksearch__close-button').on('click', function () {
                 self._resetResponseList(true);
                 self.autoComplete.hide();
               })
@@ -189,8 +194,8 @@ define([
               this.responseList.indexList
                 .on('click', function (e) {
                   self.responseList.selected = $(this);
-                  if (self.responseList.selected.attr("href")) {
-                    window.location.href = self.responseList.selected.attr("href");
+                  if (self.responseList.selected.attr('href')) {
+                    window.location.href = self.responseList.selected.attr('href');
                     e.stopPropagation();
                     return false;
                   }
@@ -208,12 +213,13 @@ define([
                     self._resetResponseList(false);
                   }
                 });
-            },this),
-            complete : $.proxy(function () {
+            }, this),
+            complete: $.proxy(function () {
               this.searchForm.removeClass('processing');
             }, this)
           });
-        } else {
+        }
+        else {
           this._resetResponseList(true);
           this.autoComplete.hide();
           this._updateAriaHasPopup(false);

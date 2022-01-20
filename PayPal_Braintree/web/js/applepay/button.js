@@ -1,14 +1,16 @@
+/* global ApplePaySession */
+
 /**
  * Braintree Apple Pay button
  **/
 define([
-  "uiComponent",
-  "knockout",
-  "jquery",
-  "braintree",
-  "braintreeApplePay",
-  "mage/translate",
-  "Magento_Checkout/js/model/payment/additional-validators",
+  'uiComponent',
+  'knockout',
+  'jquery',
+  'braintree',
+  'braintreeApplePay',
+  'mage/translate',
+  'Magento_Checkout/js/model/payment/additional-validators',
 ], function (
   Component,
   ko,
@@ -18,9 +20,7 @@ define([
   $t,
   additionalValidators
 ) {
-  "use strict";
-
-  var that;
+  'use strict';
 
   return {
     init: function (element, context) {
@@ -30,23 +30,23 @@ define([
       }
 
       // Context must implement these methods
-      if (typeof context.getClientToken !== "function") {
+      if (typeof context.getClientToken !== 'function') {
         console.error(
-          "Braintree ApplePay Context passed does not provide a getClientToken method",
+          'Braintree ApplePay Context passed does not provide a getClientToken method',
           context
         );
         return;
       }
-      if (typeof context.getPaymentRequest !== "function") {
+      if (typeof context.getPaymentRequest !== 'function') {
         console.error(
-          "Braintree ApplePay Context passed does not provide a getPaymentRequest method",
+          'Braintree ApplePay Context passed does not provide a getPaymentRequest method',
           context
         );
         return;
       }
-      if (typeof context.startPlaceOrder !== "function") {
+      if (typeof context.startPlaceOrder !== 'function') {
         console.error(
-          "Braintree ApplePay Context passed does not provide a startPlaceOrder method",
+          'Braintree ApplePay Context passed does not provide a startPlaceOrder method',
           context
         );
         return;
@@ -63,7 +63,7 @@ define([
         },
         function (clientErr, clientInstance) {
           if (clientErr) {
-            console.error("Error creating client:", clientErr);
+            console.error('Error creating client:', clientErr);
             return;
           }
 
@@ -75,7 +75,7 @@ define([
               // No instance
               if (applePayErr) {
                 console.error(
-                  "Braintree ApplePay Error creating applePayInstance:",
+                  'Braintree ApplePay Error creating applePayInstance:',
                   applePayErr
                 );
                 return;
@@ -83,11 +83,11 @@ define([
 
               // Create a button within the KO element, as apple pay can only be instantiated through
               // a valid on click event (ko onclick bind interferes with this).
-              var el = document.createElement("div");
-              el.className = "braintree-apple-pay-button";
-              el.title = $t("Pay with Apple Pay");
-              el.alt = $t("Pay with Apple Pay");
-              el.addEventListener("click", function (e) {
+              var el = document.createElement('div');
+              el.className = 'braintree-apple-pay-button';
+              el.title = $t('Pay with Apple Pay');
+              el.alt = $t('Pay with Apple Pay');
+              el.addEventListener('click', function (e) {
                 e.preventDefault();
 
                 if (!additionalValidators.validate()) {
@@ -101,31 +101,32 @@ define([
                 if (!paymentRequest) {
                   alert(
                     $t(
-                      "We're unable to take payments through Apple Pay at the moment. Please try an alternative payment method."
+                      'We\'re unable to take payments through Apple Pay at the moment. Please try an alternative payment method.'
                     )
                   );
                   console.error(
-                    "Braintree ApplePay Unable to create paymentRequest",
+                    'Braintree ApplePay Unable to create paymentRequest',
                     paymentRequest
                   );
                   return;
                 }
 
                 // Show the loader
-                jQuery("body").loader("show");
+                jQuery('body').loader('show');
 
                 // Init apple pay session
                 try {
                   var session = new ApplePaySession(1, paymentRequest);
-                } catch (err) {
-                  jQuery("body").loader("hide");
+                }
+                catch (err) {
+                  jQuery('body').loader('hide');
                   console.error(
-                    "Braintree ApplePay Unable to create ApplePaySession",
+                    'Braintree ApplePay Unable to create ApplePaySession',
                     err
                   );
                   alert(
                     $t(
-                      "We're unable to take payments through Apple Pay at the moment. Please try an alternative payment method."
+                      'We\'re unable to take payments through Apple Pay at the moment. Please try an alternative payment method.'
                     )
                   );
                   return false;
@@ -142,12 +143,12 @@ define([
                       if (validationErr) {
                         session.abort();
                         console.error(
-                          "Braintree ApplePay Error validating merchant:",
+                          'Braintree ApplePay Error validating merchant:',
                           validationErr
                         );
                         alert(
                           $t(
-                            "We're unable to take payments through Apple Pay at the moment. Please try an alternative payment method."
+                            'We\'re unable to take payments through Apple Pay at the moment. Please try an alternative payment method.'
                           )
                         );
                         return;
@@ -167,7 +168,7 @@ define([
                     function (tokenizeErr, payload) {
                       if (tokenizeErr) {
                         console.error(
-                          "Error tokenizing Apple Pay:",
+                          'Error tokenizing Apple Pay:',
                           tokenizeErr
                         );
                         session.completePayment(ApplePaySession.STATUS_FAILURE);
@@ -181,24 +182,25 @@ define([
                 };
 
                 // Attach onShippingContactSelect method
-                if (typeof context.onShippingContactSelect === "function") {
+                if (typeof context.onShippingContactSelect === 'function') {
                   session.onshippingcontactselected = function (event) {
                     return context.onShippingContactSelect(event, session);
                   };
                 }
 
                 // Attach onShippingMethodSelect method
-                if (typeof context.onShippingMethodSelect === "function") {
+                if (typeof context.onShippingMethodSelect === 'function') {
                   session.onshippingmethodselected = function (event) {
                     return context.onShippingMethodSelect(event, session);
                   };
                 }
 
                 // Hook
-                if (typeof context.onButtonClick === "function") {
+                if (typeof context.onButtonClick === 'function') {
                   context.onButtonClick(session, this, e);
-                } else {
-                  jQuery("body").loader("hide");
+                }
+                else {
+                  jQuery('body').loader('hide');
                   session.begin();
                 }
               });
@@ -214,9 +216,9 @@ define([
      * @return boolean
      */
     deviceSupported: function () {
-      if (location.protocol != "https:") {
+      if (location.protocol != 'https:') {
         console.warn(
-          "Braintree Apple Pay requires your checkout be served over HTTPS"
+          'Braintree Apple Pay requires your checkout be served over HTTPS'
         );
         return false;
       }
@@ -225,7 +227,7 @@ define([
         (window.ApplePaySession && ApplePaySession.canMakePayments()) !== true
       ) {
         console.warn(
-          "Braintree Apple Pay is not supported on this device/browser"
+          'Braintree Apple Pay is not supported on this device/browser'
         );
         return false;
       }

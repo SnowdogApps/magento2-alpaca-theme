@@ -1,3 +1,4 @@
+/* global $ */
 'use strict';
 $(document).ready(function selectTwo() {
   const elem = $('.select__field');
