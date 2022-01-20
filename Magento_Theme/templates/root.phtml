@@ -68,21 +68,24 @@
         </style>
 
         <?php
+            $isCheckout = strpos($bodyAttributes, 'page-layout-checkout');
             $criticalStyles;
-            if (strpos($bodyAttributes, 'page-layout-checkout')) {
+            if ($isCheckout) {
                 $criticalStyles = $this->assetRepo->createAsset('css/critical-checkout.css')->getContent();
+                $inlineStyles = str_replace('../images', $this->getViewFileUrl('images'), $criticalStyles);
+                $inlineStyles = str_replace('critical.css.map', $this->getViewFileUrl('css/critical-checkout.css.map'), $inlineStyles);
             } else {
                 $criticalStyles = $this->assetRepo->createAsset('css/critical.css')->getContent();
+                $inlineStyles = str_replace('../images', $this->getViewFileUrl('images'), $criticalStyles);
+                $inlineStyles = str_replace('critical.css.map', $this->getViewFileUrl('css/critical.css.map'), $inlineStyles);
             }
-            $inlineStyles = str_replace('../images', $this->getViewFileUrl('images'), $criticalStyles);
-            $inlineStyles = str_replace('critical.css.map', $this->getViewFileUrl('css/critical.css.map'), $inlineStyles);
         ?>
 
         <style>
             <?= $inlineStyles; ?>
         </style>
 
-        <?php if (!strpos($bodyAttributes, 'page-layout-checkout')): ?>
+        <?php if (!$isCheckout): ?>
             <link
                 href="<?= $this->getViewFileUrl('css/styles.css') ?>"
                 rel="stylesheet"
