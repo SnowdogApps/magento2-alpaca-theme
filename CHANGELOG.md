@@ -45,6 +45,7 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - PDP - add to wishlist/requsition list button styles (#509)
 - duplicated styles from extends imports (#510)
 - Recently Viewed - temporary wishlist button fix (#511)
+- Side menu close button position & text on hover (#513)
 ### Changed
 - Changed and improved GDPR cookie module behavior (#400)
 - Checkout summary "View Details" styling (#498)
