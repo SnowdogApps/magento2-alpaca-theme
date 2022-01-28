@@ -1,52 +1,81 @@
-<div
-    if="isMsrpApplicable($row())"
-    class="product-grid-item__price"
-    data-role="msrp-price-box"
-    afterRender="initListeners"
->
-    <span class="old-price map-old-price">
-        <span class="price-container price-msrp">
+<div class="product-grid-item__price">
+    <div
+        if="isMsrpApplicable($row())"
+        class="msrp"
+        data-role="msrp-price-box"
+        afterRender="initListeners"
+    >
+        <div class="price">
             <span
-                class="price-wrapper"
-                data-price-amount=""
-                data-price-type=""
-                html="getPrice($row())['msrp_price']"
+                class="
+                    price__value
+                    price__value--old
+                    old-price
+                    map-old-price
+                "
+            >
+                <span class="price-container price-msrp">
+                    <span
+                        class="price-wrapper"
+                        data-price-amount=""
+                        data-price-type=""
+                        html="getPrice($row())['msrp_price']"
+                    />
+                </span>
+            </span>
+        </div>
+
+        <if args="isShowPriceOnGesture($row())">
+            <button
+                type="button"
+                class="
+                    button
+                    button--icon
+                    msrp__tooltip-trigger-button
+                    tooltip__trigger-button
+                    action
+                    map-show-info
+                "
+                data-bind="
+                    attr: {
+                        'aria-label': $t('Click for price')
+                    }
+                "
+                data-role="msrp-popup-trigger"
+                aria-haspopup="true"
+            >
+                <svg
+                    class="icon"
+                    role="presentation"
+                    focusable="false"
+                >
+                    <use data-bind="attr: { 'href': require.toUrl('images/icons-sprite.svg#info') }" href=''></use>
+                </svg>
+            </button>
+
+            <render args="popupTmpl"/>
+        </if>
+
+        <ifnot args="isShowPriceOnGesture($row())">
+            <span
+                class="msrp-message"
+                html="getMsrpPriceMessage($row())"
             />
-        </span>
-    </span>
+        </ifnot>
+    </div>
 
-    <if args="isShowPriceOnGesture($row())">
-        <button
-            type="button"
-            class="action map-show-info"
-            data-role="msrp-popup-trigger"
-            aria-haspopup="true"
+    <ifnot args="isMsrpApplicable($row())">
+        <div
+            class="product-grid-item__price"
+            if="isAllowed()"
         >
-            <span translate="'Click for price'"/>
-        </button>
-
-        <render args="popupTmpl"/>
-    </if>
-
-    <ifnot args="isShowPriceOnGesture($row())">
-        <span
-            class="msrp-message"
-            html="getMsrpPriceMessage($row())"
-        />
+            <span class="price__value">
+                <each args="data: getPrices($row()), as: '$price'">
+                    <with args="$price">
+                        <render args="getBody()"/>
+                    </with>
+                </each>
+            </span>
+        </div>
     </ifnot>
 </div>
-
-<ifnot args="isMsrpApplicable($row())">
-    <div
-        class="product-grid-item__price"
-        if="isAllowed()"
-    >
-        <span class="price__value">
-            <each args="data: getPrices($row()), as: '$price'">
-                <with args="$price">
-                    <render args="getBody()"/>
-                </with>
-            </each>
-        </span>
-    </div>
-</ifnot>

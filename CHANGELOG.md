@@ -48,6 +48,7 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - Store Locator - Location View - "Additional Information" section display (#512)
 - Side menu close button position & text on hover (#513)
 - Side menu close button position on Safari (#513)
+- Recently Viewed - Minimum Advertised Price'd products (#514)
 ### Changed
 - Changed and improved GDPR cookie module behavior (#400)
 - Checkout summary "View Details" styling (#498)
