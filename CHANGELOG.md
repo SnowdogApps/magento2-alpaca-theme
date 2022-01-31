@@ -49,6 +49,8 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - Side menu close button position & text on hover (#513)
 - Side menu close button position on Safari (#513)
 - Recently Viewed - Minimum Advertised Price'd products (#514)
+- Magento Gift Card - page reloading when adding to cart (#515)
+- Magento Gift Card - missing required sign & validation messages (#515)
 ### Changed
 - Changed and improved GDPR cookie module behavior (#400)
 - Checkout summary "View Details" styling (#498)
