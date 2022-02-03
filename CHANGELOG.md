@@ -16,6 +16,7 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - Checkbox 'link-checked' variant (#492)
 - option to remove Qty input and update button from minicart in Admin > Store > Configuration > Snowdog > Alpaca General > Mini Cart > Qty Update Disabled (#486)
 ### Fixed
+- fix Success page styles after Performance & quality improvements (#86704)
 - Display error message - phone number field (#83240)
 - Webform checkboxes inline style & Department select on Contact Page (#83891)
 - Update button in minicart always shown (#83009)
