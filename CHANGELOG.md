@@ -49,6 +49,8 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - Side menu close button position & text on hover (#513)
 - Side menu close button position on Safari (#513)
 - Recently Viewed - Minimum Advertised Price'd products (#514)
+- Dashboard -> Privacy Settings - html in content doesn't render (#516)
+- Dashboard -> My Orders - table row overflows table on mobile (#516)
 ### Changed
 - Changed and improved GDPR cookie module behavior (#400)
 - Checkout summary "View Details" styling (#498)
