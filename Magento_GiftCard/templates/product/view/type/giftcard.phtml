@@ -10,7 +10,7 @@
     <?php if ($_product->isSaleable() && $block->isConfigured($_product)): ?>
         <fieldset class="fieldset giftcard send">
             <legend class="fieldset__legend fieldset__legend--hidden">
-                <?= $block->escapeHtml(__('Gift Card Information')) ?>
+                <?= $escaper->escapeHtml(__('Gift Card Information')) ?>
             </legend>
             <div
                 class="
@@ -23,14 +23,14 @@
                     for="giftcard_sender_name"
                     class="label"
                 >
-                    <?= $block->escapeHtml(__('Sender Name')) ?>
+                    <?= $escaper->escapeHtml(__('Sender Name')) ?>
                 </label>
                 <input
                     type="text"
                     id="giftcard_sender_name"
                     name="giftcard_sender_name"
                     class="required-entry input__field"
-                    value="<?= $block->escapeHtmlAttr($block->getDefaultSenderName()) ?>"
+                    value="<?= $escaper->escapeHtmlAttr($block->getDefaultSenderName()) ?>"
                 />
             </div>
             <?php if ($block->isEmailAvailable($_product)): ?>
@@ -46,18 +46,14 @@
                         for="giftcard_sender_email"
                         class="label"
                     >
-                        <?= $block->escapeHtml(__('Sender Email')) ?>
+                        <?= $escaper->escapeHtml(__('Sender Email')) ?>
                     </label>
                     <input
                         type="email"
                         id="giftcard_sender_email"
                         name="giftcard_sender_email"
-                        class="
-                            validate-email
-                            required-entry
-                            input__field
-                        "
-                        value="<?= $block->escapeHtmlAttr($block->getDefaultSenderEmail()) ?>"
+                        class="validate-email required-entry input__field"
+                        value="<?= $escaper->escapeHtmlAttr($block->getDefaultSenderEmail()) ?>"
                     />
                 </div>
             <?php endif; ?>
@@ -73,14 +69,14 @@
                     for="giftcard_recipient_name"
                     class="label"
                 >
-                    <?= $block->escapeHtml(__('Recipient Name')) ?>
+                    <?= $escaper->escapeHtml(__('Recipient Name')) ?>
                 </label>
                 <input
                     type="text"
                     id="giftcard_recipient_name"
                     name="giftcard_recipient_name"
                     class="required-entry input__field"
-                    value="<?= $block->escapeHtmlAttr($block->getDefaultValue('giftcard_recipient_name')) ?>"
+                    value="<?= $escaper->escapeHtmlAttr($block->getDefaultValue('giftcard_recipient_name')) ?>"
                 />
             </div>
             <?php if ($block->isEmailAvailable($_product)): ?>
@@ -96,18 +92,14 @@
                         for="giftcard_recipient_email"
                         class="label"
                     >
-                        <?= $block->escapeHtml(__('Recipient Email')) ?>
+                        <?= $escaper->escapeHtml(__('Recipient Email')) ?>
                     </label>
                     <input
                         type="email"
                         id="giftcard_recipient_email"
                         name="giftcard_recipient_email"
-                        class="
-                            validate-email
-                            required-entry
-                            input__field
-                        "
-                        value="<?= $block->escapeHtmlAttr($block->getDefaultValue('giftcard_recipient_email')) ?>"
+                        class="validate-email required-entry input__field"
+                        value="<?= $escaper->escapeHtmlAttr($block->getDefaultValue('giftcard_recipient_email')) ?>"
                     />
                 </div>
             <?php endif; ?>
@@ -118,7 +110,7 @@
                         for="giftcard-message"
                         class="label"
                     >
-                        <?= $block->escapeHtml(__('Message')) ?>
+                        <?= $escaper->escapeHtml(__('Message')) ?>
                     </label>
                     <textarea
                         name="giftcard_message"
@@ -130,19 +122,19 @@
                         "
                         <?php if ($block->getMessageMaxLength()): ?>
                             <?php
-                                $errorMessage = "'" . __('Maximum length of the message is %1 characters.', $block->escapeHtmlAttr($block->getMessageMaxLength()))
+                                $errorMessage = "'" . __('Maximum length of the message is %1 characters.', $escaper->escapeHtmlAttr($block->getMessageMaxLength()))
                                     . "'";
                             ?>
-
-                            <?= 'data-validate="{maxlength:'
-                                . $block->escapeHtmlAttr($block->getMessageMaxLength())
-                                . ',messages:{maxlength:' . $block->escapeHtmlAttr($block->escapeJs($errorMessage))
-                                . '}}"';
-                            ?>
+                            data-validate="{
+                                maxlength: <?= $escaper->escapeHtmlAttr($block->getMessageMaxLength()) ?>,
+                                messages: {
+                                    maxlength: <?= $escaper->escapeHtmlAttr($errorMessage) ?>
+                                }
+                            }"
                         <?php endif; ?>
                         cols="5"
                         rows="3"
-                    ><?= $block->escapeHtml($block->getDefaultValue('giftcard_message')) ?></textarea>
+                    ><?= $escaper->escapeHtml($block->getDefaultValue('giftcard_message')) ?></textarea>
                 </div>
             <?php endif; ?>
         </fieldset>
