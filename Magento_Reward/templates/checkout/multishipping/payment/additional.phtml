@@ -1,0 +1,39 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+use Magento\Reward\Block\Checkout\Payment\Additional;
+use Magento\Framework\Escaper;
+use Magento\Reward\Helper\Data as RewardHelper;
+
+// phpcs:disable Magento2.Files.LineLength
+// phpcs:disable Magento2.Templates.ThisInTemplate
+
+/**
+ * @var Additional $block
+ * @var Escaper $escaper
+ */
+?>
+<?php if ($block->getCanUseRewardPoints()): ?>
+    <?php
+    $url = $block->getUrl('magento_reward/cart/change');
+    $count = $this->helper(RewardHelper::class)->formatReward($block->getPointsBalance(), $block->getCurrencyAmount());
+    ?>
+    <div class="checkout multishipping payment additional rewardpoints" id="reward-block">
+        <div class="field choice payment">
+            <input type="checkbox" name="payment[use_reward_points]" value="1"
+                   id="use-reward-points"
+                   data-mage-init='{"multiShippingBalance":{
+                        "changeUrl":"<?= $escaper->escapeJs($escaper->escapeUrl($url)) ?>"
+                   }}'
+                    <?= $block->useRewardPoints() ? ' checked="checked"' : '' ?> class="checkbox" />
+            <label for="use-reward-points" class="label">
+                <span>
+                    <?= $escaper->escapeHtml(__('Use your reward points; %1 are available.', $count), ['span']) ?>
+                </span>
+            </label>
+        </div>
+    </div>
+<?php endif; ?>
