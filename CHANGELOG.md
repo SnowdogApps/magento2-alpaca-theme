@@ -16,7 +16,6 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - Checkbox 'link-checked' variant (#492)
 - option to remove Qty input and update button from minicart in Admin > Store > Configuration > Snowdog > Alpaca General > Mini Cart > Qty Update Disabled (#486)
 ### Fixed
-- fix Success page styles after Performance & quality improvements (#86704)
 - Display error message - phone number field (#83240)
 - Webform checkboxes inline style & Department select on Contact Page (#83891)
 - Update button in minicart always shown (#83009)
@@ -52,6 +51,7 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - Recently Viewed - Minimum Advertised Price'd products (#514)
 - Magento Gift Card - page reloading when adding to cart (#515)
 - Magento Gift Card - missing required sign & validation messages (#515)
+- fix Success page styles after Performance & quality improvements (#517)
 ### Changed
 - Changed and improved GDPR cookie module behavior (#400)
 - Checkout summary "View Details" styling (#498)
