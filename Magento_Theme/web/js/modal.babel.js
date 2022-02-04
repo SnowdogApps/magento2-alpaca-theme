@@ -102,7 +102,7 @@ define([], function () {
         });
       }
 
-      if (this.config && this.config.mqOpen) {
+      if (this.config.mqOpen) {
         const mqOpenBreakpoint = window.matchMedia(this.config.mqOpen);
         if (mqOpenBreakpoint.matches) {
           this.modalOpenMq(modal)
