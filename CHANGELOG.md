@@ -51,6 +51,8 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - Recently Viewed - Minimum Advertised Price'd products (#514)
 - Magento Gift Card - page reloading when adding to cart (#515)
 - Magento Gift Card - missing required sign & validation messages (#515)
+- Dashboard -> Privacy Settings - html in content doesn't render (#516)
+- Dashboard -> My Orders - table row overflows table on mobile (#516)
 ### Changed
 - Changed and improved GDPR cookie module behavior (#400)
 - Checkout summary "View Details" styling (#498)
