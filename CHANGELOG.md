@@ -57,6 +57,7 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - Changed and improved GDPR cookie module behavior (#400)
 - Checkout summary "View Details" styling (#498)
 - Refactor and improve yotpo styles (#485)
+- Atomic styles import placement from critical styles to the end of non critical (#519)
 ### Updated
 - Performance & quality improvements (#474)
 ### Removed
