@@ -31,7 +31,7 @@ module.exports = {
         hidden: true
       },
       field: {
-        class: 'search-form__input border-color-light',
+        class: 'search-form__input',
         id: 'search',
         name: 'search',
         type: 'search',
