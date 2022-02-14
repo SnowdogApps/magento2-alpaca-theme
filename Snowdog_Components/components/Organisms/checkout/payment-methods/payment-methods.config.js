@@ -1,5 +1,7 @@
 module.exports = {
-
+  meta: {
+    checkout: true
+  },
   context: {
     heading: 'Payment Method',
     paymentMethods: [

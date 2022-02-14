@@ -1,5 +1,7 @@
 module.exports = {
-  preview: '@checkout',
+  meta: {
+    checkout: true
+  },
   title: 'Header module',
   context: {
     tabShippingButtonText: 'Shipping',

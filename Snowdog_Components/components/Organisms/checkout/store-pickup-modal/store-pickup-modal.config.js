@@ -1,4 +1,7 @@
 module.exports = {
+  meta: {
+    checkout: true
+  },
   context: {
     search: {
       input: {
