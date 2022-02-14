@@ -15,6 +15,7 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - Messages component variant (#84729)
 - Checkbox 'link-checked' variant (#492)
 - option to remove Qty input and update button from minicart in Admin > Store > Configuration > Snowdog > Alpaca General > Mini Cart > Qty Update Disabled (#486)
+- missing store pickup style imports (#520)
 ### Fixed
 - Display error message - phone number field (#83240)
 - Webform checkboxes inline style & Department select on Contact Page (#83891)
@@ -53,6 +54,7 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - Magento Gift Card - missing required sign & validation messages (#515)
 - Dashboard -> Privacy Settings - html in content doesn't render (#516)
 - Dashboard -> My Orders - table row overflows table on mobile (#516)
+- styles loaded in fractal for checkout related components (#520)
 ### Changed
 - Changed and improved GDPR cookie module behavior (#400)
 - Checkout summary "View Details" styling (#498)

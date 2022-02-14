@@ -1,5 +1,7 @@
 module.exports = {
-
+  meta: {
+    checkout: true
+  },
   context: {
     title: 'Shipping Address',
     labels: {
