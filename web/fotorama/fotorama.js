@@ -3541,8 +3541,10 @@ fotoramaVersion = '4.6.4';
          */
         function preventCloseFullscreenEventPropagation() {
             const cancelCartMouseDown = (e) => {
-                e.preventDefault();
-                return false;
+                if (e.target === fullscreenIcon) {
+                    e.preventDefault();
+                    return false;
+                }
             }
 
             if (that.fullScreen) {
