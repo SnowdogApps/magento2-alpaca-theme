@@ -56,6 +56,7 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - Dashboard -> My Orders - table row overflows table on mobile (#516)
 - styles loaded in fractal for checkout related components (#520)
 - Fotorama - 'exit fullscreen' click triggers event on element below (#521)
+- Checkout success page and multishipping styles after performance & quality improvements (#517)
 ### Changed
 - Changed and improved GDPR cookie module behavior (#400)
 - Checkout summary "View Details" styling (#498)
