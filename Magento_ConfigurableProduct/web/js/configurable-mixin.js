@@ -1,26 +1,24 @@
 define([
   'jquery',
   'underscore',
-  'mage/template',
-  'mage/translate',
-  'priceUtils',
-  'priceBox',
   'jquery-ui-modules/widget',
-  'jquery/jquery.parsequery',
-  'fotoramaVideoEvents',
-], function ($, _, mageTemplate, $t, priceUtils) {
+], function ($, _) {
   'use strict';
 
   return function (targetWidget) {
     $.widget('mage.configurable', targetWidget, {
-      options: {},
+      options: {
+        priceWrapperClass: '.price__wrapper',
+        priceWrapperHiddenClass: 'opacity-0',
+        slyFinalPriceSelector: '.sly-final-price',
+        specialPriceClass: 'price__value--special'
+      },
 
       /**
        * Creates widget
        * @private
        */
       _create: function () {
-        console.log('testing')
         // Initial setting of various option values
         this._initializeOptions();
 
@@ -40,6 +38,8 @@ define([
         this._configureForValues();
 
         $(this.element).trigger('configurable.initialized');
+
+        $(this.options.priceWrapperClass).removeClass(this.options.priceWrapperHiddenClass);
       },
 
       /**
@@ -63,9 +63,11 @@ define([
             this.options.spConfig.optionPrices[optionId].finalPrice.amount
         ) {
           $(this.options.slyOldPriceSelector).show();
+          $(this.options.slyFinalPriceSelector).addClass(this.options.specialPriceClass);
         }
         else {
           $(this.options.slyOldPriceSelector).hide();
+          $(this.options.slyFinalPriceSelector).removeClass(this.options.specialPriceClass);
         }
 
         $(document).trigger('updateMsrpPriceBlock', [
