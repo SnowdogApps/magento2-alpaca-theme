@@ -58,6 +58,7 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - Fotorama - 'exit fullscreen' click triggers event on element below (#521)
 - Checkout success page and multishipping styles after performance & quality improvements (#517)
 ### Changed
+- MQ values for picture aspect ratio padding (#86854)
 - Changed and improved GDPR cookie module behavior (#400)
 - Checkout summary "View Details" styling (#498)
 - Refactor and improve yotpo styles (#485)
