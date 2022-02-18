@@ -59,6 +59,7 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - Checkout success page and multishipping styles after performance & quality improvements (#517)
 - Shopping cart - quantity not visible when quantity error message is displayed (#522)
 ### Changed
+- MQ values for picture aspect ratio padding (#86854)
 - Changed and improved GDPR cookie module behavior (#400)
 - Checkout summary "View Details" styling (#498)
 - Refactor and improve yotpo styles (#485)
