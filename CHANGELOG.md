@@ -57,6 +57,7 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - styles loaded in fractal for checkout related components (#520)
 - Fotorama - 'exit fullscreen' click triggers event on element below (#521)
 - Checkout success page and multishipping styles after performance & quality improvements (#517)
+- Shopping cart - quantity not visible when quantity error message is displayed (#522)
 ### Changed
 - Changed and improved GDPR cookie module behavior (#400)
 - Checkout summary "View Details" styling (#498)
