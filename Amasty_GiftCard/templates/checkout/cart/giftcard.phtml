@@ -19,7 +19,7 @@
                 class="cart-discount__button-text"
                 data-testid="apply-gift-card-title"
             >
-                <?= $block->escapeHtml(__('Apply Gift Card Code')) ?>
+                <?= $escaper->escapeHtml(__('Apply Gift Card Code')) ?>
             </span>
 
             <svg
@@ -28,7 +28,7 @@
                 focusable="false"
             >
                 <use href="
-                    <?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#angle-down')) ?>
+                    <?= $escaper->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#angle-down')) ?>
                 "></use>
             </svg>
         </button>
@@ -54,7 +54,7 @@
                 <?php if (count($getAppliedCodes)): ?>
                     <?php foreach ($getAppliedCodes as $code): ?>
                         <div>
-                            <?= $block->escapeHtml($code->getCode()) ?>
+                            <?= $escaper->escapeHtml($code->getCode()) ?>
 
                             <a
                                 class="
@@ -65,15 +65,15 @@
                                 "
                                 href="javascript:void(0);"
                                 data-href="
-                                    <?= $block->escapeUrl($block->getUrl(
+                                    <?= $escaper->escapeUrl($block->getUrl(
                                         'amgiftcard/cart/remove',
                                         ['code_id' => $code->getCodeId()]
                                     )) ?>
                                 "
-                                title="<?= $block->escapeHtmlAttr(__('Remove')) ?>"
+                                title="<?= $escaper->escapeHtmlAttr(__('Remove')) ?>"
                                 data-amgiftcard-js="amgiftcard-remove"
                             >
-                                <?= $block->escapeHtml(__('Remove')) ?>
+                                <?= $escaper->escapeHtml(__('Remove')) ?>
                             </a>
                         </div>
                     <?php endforeach; ?>
@@ -83,7 +83,7 @@
             <form
                 id="amgiftcard-form"
                 class="amgiftcard-form"
-                action="<?= $block->escapeUrl($block->getUrl('amgiftcard/cart/apply')) ?>"
+                action="<?= $escaper->escapeUrl($block->getUrl('amgiftcard/cart/apply')) ?>"
                 method="post"
                 data-amgiftcard-js="amgiftcard-form"
                 data-mage-init='{
@@ -114,7 +114,7 @@
                                 input__label
                             "
                         >
-                            <?= $block->escapeHtml($enterGiftCardLabel) ?>
+                            <?= $escaper->escapeHtml($enterGiftCardLabel) ?>
                         </label>
 
                         <input
@@ -123,7 +123,7 @@
                             name="am_giftcard_code"
                             value=""
                             class="input__field cart-discount__content-field"
-                            placeholder="<?= $block->escapeHtmlAttr($enterGiftCardLabel) ?>"
+                            placeholder="<?= $escaper->escapeHtmlAttr($enterGiftCardLabel) ?>"
                             data-validate="{required:true}"
                         >
                     </div>
@@ -133,9 +133,9 @@
                     <button
                         class="button cart-discount__content-button"
                         type="submit"
-                        value="<?= $block->escapeHtmlAttr($addGiftCartLabel) ?>"
+                        value="<?= $escaper->escapeHtmlAttr($addGiftCartLabel) ?>"
                     >
-                        <?= $block->escapeHtml($addGiftCartLabel) ?>
+                        <?= $escaper->escapeHtml($addGiftCartLabel) ?>
                     </button>
                 </div>
                 <?php
@@ -144,10 +144,10 @@
                 <button
                     type="button"
                     class="button"
-                    value="<?= $block->escapeHtmlAttr($checkGiftCartLabel) ?>"
+                    value="<?= $escaper->escapeHtmlAttr($checkGiftCartLabel) ?>"
                     data-amgiftcard-js="amgiftcard-check-status"
                 >
-                    <?= $block->escapeHtml($checkGiftCartLabel) ?>
+                    <?= $escaper->escapeHtml($checkGiftCartLabel) ?>
                 </button>
 
                 <script>
@@ -156,7 +156,7 @@
                         'Amasty_GiftCard/js/cart/main'
                     ], function ($) {
                         $('[data-amgiftcard-js="amgiftcard-check-status"]').amGiftcardCart({
-                            checkCardUrl: "<?= $block->escapeUrl($block->getUrl('amgiftcard/cart/check')) ?>"
+                            checkCardUrl: "<?= $escaper->escapeUrl($block->getUrl('amgiftcard/cart/check')) ?>"
                         });
                     });
                 </script>

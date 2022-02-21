@@ -1,75 +1,147 @@
 <?php
-/**
- * phpcs:ignoreFile
- */
-?>
-<?php
 /** @var \Amasty\GiftCard\Pricing\Render\FinalPriceBox $block */
 $productId = $block->getSaleableItem()->getId();
 ?>
 
 <?php if ($block->getCanShowPrice() !== false && !$block->isProductForm()): ?>
-    <div class="price-box">
-        <?php if (!$block->isSinglePrice()): ?>
-            <span class="price-label">
-                <?= $block->escapeHtml(__('From')); ?>
+    <div class="price">
+        <div class="price-box price__value">
+            <?php if (!$block->isSinglePrice()): ?>
+                <span class="price-label price__text">
+                    <?= $escaper->escapeHtml(__('From')); ?>
+                </span>
+            <?php endif; ?>
+            <span id="product-price-<?= $escaper->escapeHtmlAttr($productId . $block->getIdSuffix()); ?>">
+                <?= $escaper->escapeHtml($block->convertAndFormatCurrency($block->getMinPrice(), false)); ?>
             </span>
-        <?php endif; ?>
-        <span
-            class="price price__value"
-            id="product-price-<?= $block->escapeHtmlAttr($productId . $block->getIdSuffix()); ?>"
-        >
-            <?= $block->escapeHtml($block->convertAndFormatCurrency($block->getMinPrice(), false)); ?>
-        </span>
+        </div>
     </div>
 <?php endif; ?>
 
 <?php if ($block->isProductForm()): ?>
-    <?php $currency = $block->getCurrencyShortName();
-    $product = $block->getSaleableItem(); ?>
-        <span class="price-final_price">
+    <?php
+    $currency = $block->getCurrencyShortName();
+    $product = $block->getSaleableItem();
+    ?>
+    <div
+        class="amgiftcard-price-container"
+        data-bind="scope: 'price'"
+    >
+        <div
+            class="
+                amgiftcard-price-multiple
+                price
+                opacity-0
+            "
+            data-bind="
+                visible: $data.showCustomPrice,
+                css: {
+                    'opacity-0': !$data.isLoaded()
+                }
+            "
+        >
+            <div class="price-from">
+                <div
+                    class="
+                        price-container
+                        price-final_price
+                        price__value
+                        price__value--between
+                    "
+                >
+                    <span class="price-label price__text">
+                        <?= $escaper->escapeHtml(__('From')) ?>
+                    </span>
+                    <span
+                        data-price-amount="<?= $block->convertCurrency($block->getMinPrice()) ?>"
+                        data-price-type="minPrice"
+                        class="price-wrapper"
+                    >
+                        <span class="price__value">
+                            <?= $escaper->escapeHtml($block->convertAndFormatCurrency($block->getMinPrice(), false)) ?>
+                        </span>
+                    </span>
+                </div>
+            </div>
+            <div class="price-to">
+                <span
+                    class="
+                        price-container
+                        price-final_price
+                        tax
+                        weee
+                        price__value
+                        price__value--between
+                    "
+                >
+                    <span class="price-label price__text">
+                        <?= $escaper->escapeHtml(__('To')) ?>
+                    </span>
+                    <span
+                        data-price-amount="<?= $block->convertCurrency($block->getMaxPrice()) ?>"
+                        data-price-type="maxPrice"
+                        class="price-wrapper"
+                    >
+                        <span class="price__value">
+                            <?= $escaper->escapeHtml($block->convertAndFormatCurrency($block->getMaxPrice(), false)) ?>
+                        </span>
+                    </span>
+                </span>
+            </div>
+        </div>
+        <span
+            class="
+                price-final_price
+                price
+                display-none
+            "
+            data-bind="
+                visible: !$data.showCustomPrice(),
+                css: {
+                    'display-none': !$data.isLoaded()
+                }
+            "
+        >
             <span
-                class="
-                    price-wrapper
-                    price__value
-                "
+                class="price-wrapper price__value"
                 data-price-amount="
                     <?= $block->isSinglePrice()
-                        ? $block->escapeHtmlAttr($block->convertCurrency($block->getFinalPrice($product)))
-                        : '0'; ?>
+                        ? $escaper->escapeHtmlAttr($block->convertCurrency($block->getFinalPrice($product)))
+                        : '0';
+                    ?>
                 "
                 data-price-type="finalPrice"
-                id="product-price-<?= $block->escapeHtmlAttr($productId . $block->getIdSuffix()); ?>"
+                id="product-price-<?= $escaper->escapeHtmlAttr($productId . $block->getIdSuffix()) ?>"
             >
-                <span class="price">
-                    <?= $block->escapeHtml($block->convertAndFormatCurrency($block->getMinPrice(), false)); ?>
-                </span>
+                <?= $escaper->escapeHtml($block->convertAndFormatCurrency($block->getMinPrice(), false)) ?>
             </span>
         </span>
-<script type="text/x-magento-init">
-{
-    "*": {
-        "Magento_Ui/js/core/app": {
-            "components": {
-                "price": {
-                    "component": "Amasty_GiftCard/js/price",
-                    "template": "Amasty_GiftCard/price",
-                    "prices": <?= /** @noEscape */ $block->getPredefinedAmounts() ?>,
-                    "currencyCode": "<?= $block->escapeHtmlAttr($block->getCurrencyCode()) ?>",
-                    "feeType": "<?= $block->escapeHtmlAttr($product->getAmGiftcardFeeType()) ?>",
-                    "feeValue": "<?= $block->escapeHtmlAttr($product->getAmGiftcardFeeValue()) ?>",
-                    "feeStatus": "<?= $block->escapeHtmlAttr($product->getAmGiftcardFeeEnable()) ?>",
-                    "feeValueConverted": "<?= $block->escapeHtmlAttr($this->convertCurrency($product->getAmGiftcardFeeValue())) ?>",
-                    "productId": "<?= $block->escapeHtmlAttr($product->getId()); ?>",
-                    "customMinAmountCurrency": "<?= /** @noEscape */ $block->convertAndFormatCurrency($block->getOpenAmountMin(), false) ?>",
-                    "customMaxAmountCurrency": "<?= /** @noEscape */ $block->convertAndFormatCurrency($block->getOpenAmountMax(), false) ?>",
-                    "customMinAmount": "<?= $block->escapeHtmlAttr($this->convertCurrency($block->getOpenAmountMin())) ?>",
-                    "customMaxAmount": "<?= $block->escapeHtmlAttr($this->convertCurrency($block->getOpenAmountMax())) ?>",
-                    "isOpenAmount": "<?= $block->escapeHtmlAttr($block->isOpenAmount()) ?>"
+    </div>
+    <script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "price": {
+                        "component": "Amasty_GiftCard/js/price",
+                        "template": "Amasty_GiftCard/price",
+                        "prices": <?= /** @noEscape */ $block->getPredefinedAmounts() ?>,
+                        "currencyCode": "<?= $escaper->escapeHtmlAttr($block->getCurrencyCode()) ?>",
+                        "feeType": "<?= $escaper->escapeHtmlAttr($product->getAmGiftcardFeeType()) ?>",
+                        "feeValue": "<?= $escaper->escapeHtmlAttr($product->getAmGiftcardFeeValue()) ?>",
+                        "feeStatus": "<?= $escaper->escapeHtmlAttr($product->getAmGiftcardFeeEnable()) ?>",
+                        "feeValueConverted": "<?= $escaper->escapeHtmlAttr($this->convertCurrency($product->getAmGiftcardFeeValue())) ?>",
+                        "productId": "<?= $escaper->escapeHtmlAttr($product->getId()); ?>",
+                        "customMinAmountCurrency": "<?= /** @noEscape */ $block->convertAndFormatCurrency($block->getOpenAmountMin(), false) ?>",
+                        "customMaxAmountCurrency": "<?= /** @noEscape */ $block->convertAndFormatCurrency($block->getOpenAmountMax(), false) ?>",
+                        "customMinAmount": "<?= $escaper->escapeHtmlAttr($this->convertCurrency($block->getOpenAmountMin())) ?>",
+                        "customMaxAmount": "<?= $escaper->escapeHtmlAttr($this->convertCurrency($block->getOpenAmountMax())) ?>",
+                        "isOpenAmount": "<?= $escaper->escapeHtmlAttr($block->isOpenAmount()) ?>",
+                        "isSinglePrice": "<?= $escaper->escapeHtmlAttr($block->isSinglePrice()) ?>"
+                    }
                 }
             }
         }
     }
-}
-</script>
+    </script>
 <?php endif; ?>

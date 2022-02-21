@@ -4,9 +4,13 @@ $product = $block->getProduct();
 ?>
 <!-- ko scope: 'giftCard' -->
 <div
-    class="amcard-general-container amgift-card"
+    class="
+        amcard-general-container
+        amgift-card
+        opacity-0
+    "
     data-bind="css: {
-        '-visible': isContainerReady
+        'opacity-0': !isContainerReady
     }"
 >
     <!-- ko if: giftCardType == cardTypes.combined -->
@@ -15,12 +19,11 @@ $product = $block->getProduct();
                 amcard-form-container
                 margin-bottom-s
             "
-
         >
             <fieldset class="fieldset">
                 <legend
                     class="amcard-title"
-                    data-bind="i18n: 'Want to send a physical gift card or prefer to keep things digital?'"
+                    data-bind="i18n: 'Want to send a physical gift card or prefer to keep things digital?*'"
                 ></legend>
 
                 <div
@@ -38,6 +41,7 @@ $product = $block->getProduct();
                         <input
                             type="checkbox"
                             id="amcard-checkbox-physical"
+                            name="amcard-checkbox-physical"
                             class="
                                 amcard-checkbox
                                 checkbox__field
@@ -45,8 +49,11 @@ $product = $block->getProduct();
                             data-bind="
                                 checked: isPhysicalGift,
                                 checkedValue: 2,
-                                css: {'required-entry': !currentCardType()}
+                                css: {
+                                    'required-entry': !currentCardType()
+                                }
                             "
+                            data-errors-message-box="#checkbox-validation-message-box"
                         />
                         <svg
                             role="presentation"
@@ -56,7 +63,7 @@ $product = $block->getProduct();
                                 checkbox__icon--checked
                             "
                         >
-                            <use href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#checked')); ?>"></use>
+                            <use href="<?= $escaper->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#checked')); ?>"></use>
                         </svg>
 
                         <svg
@@ -67,7 +74,7 @@ $product = $block->getProduct();
                                 checkbox__icon--unchecked
                             "
                         >
-                            <use href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#unchecked')); ?>"></use>
+                            <use href="<?= $escaper->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#unchecked')); ?>"></use>
                         </svg>
                         <label
                             for="amcard-checkbox-physical"
@@ -91,14 +98,19 @@ $product = $block->getProduct();
                         <input
                             type="checkbox"
                             id="amcard-checkbox-egift"
+                            name="amcard-checkbox-egift"
                             class="
                                 amcard-checkbox
                                 checkbox__field
                             "
                             data-bind="
                                 checked: isEGift,
-                                checkedValue: 1, css: {'required-entry': !currentCardType()}
+                                checkedValue: 1,
+                                css: {
+                                    'required-entry': !currentCardType()
+                                }
                             "
+                            data-errors-message-box="#checkbox-validation-message-box"
                         />
                         <svg
                             role="presentation"
@@ -108,7 +120,7 @@ $product = $block->getProduct();
                                 checkbox__icon--checked
                             "
                         >
-                            <use href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#checked')); ?>"></use>
+                            <use href="<?= $escaper->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#checked')); ?>"></use>
                         </svg>
 
                         <svg
@@ -119,7 +131,7 @@ $product = $block->getProduct();
                                 checkbox__icon--unchecked
                             "
                         >
-                            <use href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#unchecked')); ?>"></use>
+                            <use href="<?= $escaper->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#unchecked')); ?>"></use>
                         </svg>
                         <label
                             for="amcard-checkbox-egift"
@@ -148,15 +160,18 @@ $product = $block->getProduct();
                         afterRender: getGiftCardType.bind($data, $element.name)
                     "
                 />
+                <div id="checkbox-validation-message-box"></div>
             </fieldset>
         </div>
     <!-- /ko -->
-    <div
-        class="amcard-form-container"
-        data-bind="scope: 'price'"
-    >
-        <!-- ko template: getTemplate() --><!-- /ko -->
-    </div>
+    <!-- ko if: isShowPrices -->
+        <div
+            class="amcard-form-container"
+            data-bind="scope: 'price'"
+        >
+            <!-- ko template: getTemplate() --><!-- /ko -->
+        </div>
+    <!-- /ko -->
     <div
         class="
             amcard-form-container
@@ -174,6 +189,7 @@ $product = $block->getProduct();
                         class="
                             amcard-field-block
                             input
+                            required
                         "
                     >
                         <label
@@ -201,6 +217,7 @@ $product = $block->getProduct();
                                 },
                                 value: getPreconfiguredValue($element.name)
                             "
+                            required="true"
                         />
                     </div>
                 </div>
@@ -212,7 +229,7 @@ $product = $block->getProduct();
                         input
                     "
                 >
-                    <div class="amcard-field-block">
+                    <div class="amcard-field-block required">
                         <label
                             class="
                                 amcard-title
@@ -238,6 +255,7 @@ $product = $block->getProduct();
                                 },
                                 value: getPreconfiguredValue($element.name)
                             "
+                            required="true"
                         />
                     </div>
                 </div>
@@ -248,6 +266,7 @@ $product = $block->getProduct();
                 class="
                     amcard-field-block
                     input
+                    required
                 "
             >
                 <label
@@ -265,9 +284,11 @@ $product = $block->getProduct();
                         amcard-field
                         required-entry
                         input__field
+                        validate-email
                     "
                     name="am_giftcard_recipient_email"
                     id="am_giftcard_recipient_email"
+                    type="email"
                     data-amcard-js="field"
                     data-bind="
                         attr: {
@@ -275,37 +296,16 @@ $product = $block->getProduct();
                         },
                         value: getPreconfiguredValue($element.name)
                     "
+                    required="true"
                 />
             </div>
         <!-- /ko -->
+        <!-- ko if: isShowField('mobilenumber') && (!isPhysicalGift() || isEGift()) -->
+            <!-- ko template: $data.phoneTemplate --><!-- /ko -->
+        <!-- /ko -->
         <!-- ko if: isShowField('am_giftcard_message') -->
-            <div class="amcard-field-block input input--textarea">
-                <span
-                    class="
-                        amcard-title
-                        label
-                        input__label
-                    "
-                    data-bind="i18n: 'Message'"
-                ></span>
-                <textarea
-                    class="
-                        amcard-field
-                        input__field
-                        input__field--textarea
-                    "
-                    name="am_giftcard_message"
-                    cols="30"
-                    rows="2"
-                    data-amgiftcard-js="textarea"
-                    data-amcard-js="field"
-                    data-bind="
-                        attr: {
-                            placeholder: $t('Enter your message')
-                        },
-                        value: getPreconfiguredValue($element.name)
-                    "></textarea>
-                <span data-amcard-js="char-counter"></span>
+            <div class="margin-bottom-m">
+                <!-- ko template: $data.amGiftcardMessageTemplate --><!-- /ko -->
             </div>
         <!-- /ko -->
     </div>
@@ -355,16 +355,17 @@ $product = $block->getProduct();
                     "template": "Amasty_GiftCard/images",
                     "images": <?= /* @noEscape */ $block->getImages() ?>,
                     "isCustomImageAllowed": <?= /* @noEscape */ (int)$block->getAllowUsersUploadImages() ?>,
-                    "tooltip": "<?= $block->escapeHtml($block->getTooltipContent()) ?>",
-                    "customImageUrl": "<?= $block->escapeUrl($block->getCustomImageUrl()) ?>"
+                    "tooltip": "<?= $escaper->escapeHtml($block->getTooltipContent()) ?>",
+                    "customImageUrl": "<?= $escaper->escapeUrl($block->getCustomImageUrl()) ?>"
                 },
                 "giftCard": {
                     "component": "Amasty_GiftCard/js/giftcard",
                     "giftCardType": "<?= /* @noEscape */ $product->getAmGiftcardType() ?>",
-                    "previewUrl": "<?= $block->escapeUrl($block->getUrl('amgcard/preview/getPreviewContent')) ?>",
+                    "previewUrl": "<?= $escaper->escapeUrl($block->getUrl('amgcard/preview/getPreviewContent')) ?>",
                     "allowedFields": <?= /* @noEscape */ $block->getAvailableOptions() ?>,
                     "preconfiguredValues": <?= /* @noEscape */ $block->getDefaultValues() ?>,
-                    "customImageUrl": "<?= $block->escapeUrl($block->getCustomImageUrl()) ?>"
+                    "customImageUrl": "<?= $escaper->escapeUrl($block->getCustomImageUrl()) ?>",
+                    "isShowPrices": "<?= /* @noEscape */ $block->isShowPrices() ?>"
                 }
             }
         }
