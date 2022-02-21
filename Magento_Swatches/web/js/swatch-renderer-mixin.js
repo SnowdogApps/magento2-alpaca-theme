@@ -22,7 +22,8 @@ define([
           selectClass: 'select__field',
           moreButton: 'swatch-more',
           loader: 'swatch-option-loading',
-          initLoader: 'loader'
+          initLoader: 'loader',
+          priceWrapperHiddenClass: 'opacity-0'
         },
         // option's json config
         jsonConfig: {},
@@ -331,7 +332,7 @@ define([
 
         // Display special price
         $widget._updateSpecialPrice(prices);
-        $product.find(this.options.specialPriceWrapper).removeClass('display-none');
+        $product.find(this.options.specialPriceWrapper).removeClass(this.options.classes.priceWrapperHiddenClass);
 
         // Handle events like click or change
         $widget._EventListener();
