@@ -58,6 +58,8 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - Fotorama - 'exit fullscreen' click triggers event on element below (#521)
 - Checkout success page and multishipping styles after performance & quality improvements (#517)
 - Shopping cart - quantity not visible when quantity error message is displayed (#522)
+- Amasty Gift Card form validation on PDP (#526)
+- `.label` extends (#526)
 ### Changed
 - MQ values for picture aspect ratio padding (#86854)
 - Changed and improved GDPR cookie module behavior (#400)
@@ -66,6 +68,8 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - Atomic styles import placement from critical styles to the end of non critical (#519)
 ### Updated
 - Performance & quality improvements (#474)
+- Amasty Gift Card to `2.8.0` (#526)
+- Amasty Gift Card Account to `1.4.0` (#526)
 ### Removed
 - Redundant EE store switcher (#503)
 
