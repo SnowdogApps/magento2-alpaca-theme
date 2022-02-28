@@ -3,22 +3,7 @@
 $productId = $block->getSaleableItem()->getId();
 ?>
 
-<?php if ($block->getCanShowPrice() !== false && !$block->isProductForm()): ?>
-    <div class="price">
-        <div class="price-box price__value">
-            <?php if (!$block->isSinglePrice()): ?>
-                <span class="price-label price__text">
-                    <?= $escaper->escapeHtml(__('From')); ?>
-                </span>
-            <?php endif; ?>
-            <span id="product-price-<?= $escaper->escapeHtmlAttr($productId . $block->getIdSuffix()); ?>">
-                <?= $escaper->escapeHtml($block->convertAndFormatCurrency($block->getMinPrice(), false)); ?>
-            </span>
-        </div>
-    </div>
-<?php endif; ?>
-
-<?php if ($block->isProductForm()): ?>
+<?php if ($block->isProductForm() || ($block->getCanShowPrice() !== false && !$block->isProductForm())): ?>
     <?php
     $currency = $block->getCurrencyShortName();
     $product = $block->getSaleableItem();
