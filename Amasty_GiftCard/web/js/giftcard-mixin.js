@@ -10,7 +10,7 @@ define(['jquery'], function ($) {
       },
       validateForm: function (event) {
         var textareaValue = $(this.element.textarea).val();
-        var isValidTextarea = textareaValue ? textareaValue.length < this.maxLength : true;
+        var isValidTextarea = textareaValue ? textareaValue.length <= this.maxLength : true;
 
         if ($('#product_addtocart_form').validate().form() && isValidTextarea) {
           return;
