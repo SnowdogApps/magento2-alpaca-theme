@@ -3,11 +3,30 @@ define([], function () {
 
   class ReviewsNavigation {
     constructor(element) {
-      this.summaryLinks = element.querySelectorAll('.yotpo-bottomline');
+      this.element = element;
+      this.summaryLinks = [];
+      this.summaryLinksClass = '.yotpo-bottomline';
       this.tab = document.querySelector('.tab__title--reviews');
 
       if (this.tab) {
-        this.setListeners();
+        this.init();
+      }
+    }
+
+    init() {
+      const self = this;
+      const getSummaryLinks = setInterval(() => {
+        if (self.summaryLinks.length > 0) {
+          clearInterval(getSummaryLinks);
+          self.setListeners();
+        }
+        else {
+          self.summaryLinks = self.element.querySelectorAll(self.summaryLinksClass);
+        }
+      }, 500);
+
+      if (this.tab) {
+        getSummaryLinks;
       }
     }
 
