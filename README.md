@@ -471,7 +471,7 @@ usage example:
 {{block class="Magento\Framework\View\Element\Template" template="Magento_Theme::html/picture.phtml" img_768="<img-url>" img_1024="<img-url>" img_full="<img-url>" img_default="<img-url>" picture_class="image" picture_alt="<descriptive alternative text for image>" img_ratio_width="1200" img_ratio_height="600" img_ratio_width_768="768" img_ratio_height_768="500" img_ratio_width_1024="472" img_ratio_height_1024="376" img_ratio_width_1328="1328" img_ratio_height_1328="1200" id="<unique-id>"}}
 ```
 !Important Note:
-If responisve image aspect ratio is added, additional styles inline are generated, so use it ONLY if needed (if aspect ratio for responsive image is different that for default image) to keep your code as clean as possible.
+If responsive image aspect ratio is added, additional styles inline are generated, so use it ONLY if needed (if aspect ratio for responsive image is different that for default image) to keep your code as clean as possible.
 
 ### Blog
 * we use Blackbird Content Manager (paid extension) for blog
@@ -574,4 +574,3 @@ yarn magepackBundle --config <config_path>
 ```
 * clear cache
 * check results in browser
-

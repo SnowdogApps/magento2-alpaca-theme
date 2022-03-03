@@ -64,6 +64,8 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - PDP - not working Yotpo button "Write a review" under the product's name (#530)
 - catalog list view - add to cart button changing width when text is changed to "Adding..." (#529)
 - catalog list view - add to cart button display on mobile (#528)
+- Amasty Gift Card form validation on PDP (#526)
+- `.label` extends (#526)
 ### Changed
 - MQ values for picture aspect ratio padding (#86854)
 - Changed and improved GDPR cookie module behavior (#400)
@@ -72,6 +74,8 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - Atomic styles import placement from critical styles to the end of non critical (#519)
 ### Updated
 - Performance & quality improvements (#474)
+- Amasty Gift Card to `2.8.0` (#526)
+- Amasty Gift Card Account to `1.4.0` (#526)
 ### Removed
 - Redundant EE store switcher (#503)
 

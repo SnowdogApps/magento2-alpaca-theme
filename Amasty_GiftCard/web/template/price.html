@@ -8,13 +8,18 @@
         >
             <legend class="amcard-title">
                 <span data-bind="i18n: 'Card Value in'"></span>
-                <span data-bind="text: currencyCode"></span>
+                &nbsp;
+                <span data-bind="text: currencyCode + '*'"></span>
             </legend>
             <div class="amcard-price-container">
                 <!-- ko foreach: prices -->
                     <div
                         class="radio__handler"
-                        data-bind="attr: {'data-test': $data.value }"
+                        data-bind="
+                            attr: {
+                                'data-test': $data.value
+                            }
+                        "
                     >
                         <label
                             class="
@@ -37,12 +42,17 @@
                                 "
                                 afterRender="$parent.getCardPriceValue.bind($parent, $element.name)"
                                 data-bind="
-                                value: $data.value,
-                                event: {change: $parent.changeProductPrice.bind($parent)},
-                                checked: $parent.currentPrice,
-                                checkedValue: $data.value,
-                                css: {'required-entry': !$parent.customAmount()},
+                                    value: $data.value,
+                                    event: {
+                                        change: $parent.changeProductPrice.bind($parent)
+                                    },
+                                    checked: $parent.currentPrice,
+                                    checkedValue: $data.value,
+                                    css: {
+                                        'required-entry': !$parent.customAmount()
+                                    },
                                 "
+                                data-errors-message-box="#amount-validation-message-box"
                             />
                             <span
                                 class="radio__label"
@@ -99,7 +109,9 @@
                 "
                 data-bind="
                     click: addCustomAmount.bind($data, customAmount, event),
-                    attr: {value: 'Add'}
+                    attr: {
+                        value: 'Add'
+                    }
                 "
             />
             <!-- ko ifnot: isValueValid -->
@@ -122,7 +134,16 @@
         afterRender="getCustomPriceValue.bind($data, $element.name)"
         data-bind="
             value: customAmount,
-            css: {'required-entry': !currentPrice()}
+            css: {
+                'required-entry': !currentPrice()
+            }
         "
+        data-errors-message-box="#amount-validation-message-box"
     />
+<!-- /ko -->
+<!-- ko if: prices().length > 1 -->
+    <div
+        id="amount-validation-message-box"
+        class="margin-bottom-s"
+    ></div>
 <!-- /ko -->
