@@ -24,6 +24,9 @@ theme-frontend-alpaca/
     └── _module-non-critical.scss
 ```
 
+## Tools
+You can use [this helper](https://github.com/ofrankowska/theme-alpaca-upgrade-helper) to update Alpaca theme to version >= 2.26.0
+
 ## Step by step guide
 
 1. Remove `<child-theme>/styles/styles.scss`
