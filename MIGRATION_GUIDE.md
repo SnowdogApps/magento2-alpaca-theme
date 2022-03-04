@@ -98,4 +98,44 @@ Also in `<child-theme>/Snowdog_Components/docs/styles/checkout.scss`
 ```
 
 # Magento_Theme module
+If you've overwritten `root.phtml` file please adjust content to the newest changes in `theme-frontend-alpaca/Magento_Theme/templates/root.phtml`
+
+```php
+<?php
+    $isCheckout = strpos($bodyAttributes, 'page-layout-checkout');
+    $criticalStyles;
+    if ($isCheckout) {
+        $criticalStyles = $this->assetRepo->createAsset('css/critical-checkout.css')->getContent();
+        $inlineStyles = str_replace('../images', $this->getViewFileUrl('images'), $criticalStyles);
+        $inlineStyles = str_replace('critical.css.map', $this->getViewFileUrl('css/critical-checkout.css.map'), $inlineStyles);
+    } else {
+        $criticalStyles = $this->assetRepo->createAsset('css/critical.css')->getContent();
+        $inlineStyles = str_replace('../images', $this->getViewFileUrl('images'), $criticalStyles);
+        $inlineStyles = str_replace('critical.css.map', $this->getViewFileUrl('css/critical.css.map'), $inlineStyles);
+    }
+?>
+
+<style>
+    <?= $inlineStyles; ?>
+</style>
+
+<?php if ($isCheckout): ?>
+    <link
+        href="<?= $this->getViewFileUrl('Magento_Checkout/checkout.css') ?>"
+        rel="stylesheet"
+        as="style"
+        media="print"
+        onload="this.media='all'"
+    />
+<?php else: ?>
+    <link
+        href="<?= $this->getViewFileUrl('css/styles.css') ?>"
+        rel="stylesheet"
+        as="style"
+        media="print"
+        onload="this.media='all'"
+    />
+<?php endif; ?>
+```
+
 Styles which uses `@extend` rule are moved to `Magento_Theme/styles/_module-critical.scss` and `Magento_Theme/styles/_module-non-critical.scss`
