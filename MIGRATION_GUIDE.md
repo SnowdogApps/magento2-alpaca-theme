@@ -24,7 +24,7 @@ theme-frontend-alpaca/
     └── _module-non-critical.scss
 ```
 
-# Step by step guide
+## Step by step guide
 
 1. Remove `<child-theme>/styles/styles.scss`
 
@@ -45,7 +45,7 @@ Example:
 
 5. Copy `_critical.scss`, `_non-critical.scss` files from `Snowdog_Components/components/styles/_critical.scss` and `Snowdog_Components/components/styles/_non-critical.scss` to `<child-theme>/Snowdog_Components/components/styles`
 
-6. Compare content from `_critical.scss` and `_non-critical.scss` with `_components.scss` files located in Atoms, Molecules, Organisms or Templates and adjust the content. For example if you extended button styles and imported it in `<child-theme>/Snowdog_Components/components/Molecules/_components.scss` e.g
+6. Compare content from `_critical.scss` and `_non-critical.scss` with `_components.scss` files located in Atoms, Molecules, Organisms or Templates and adjust the content with customised child theme. For example, if you extended button styles and imported it in `<child-theme>/Snowdog_Components/components/Molecules/_components.scss` e.g
 ```scss
 @import 'button/button-extend'; // extend
 ```
@@ -67,7 +67,7 @@ To:
 - `<child-theme>/Snowdog_Components/components/Organisms/_components.scss`
 - `<child-theme>/Snowdog_Components/components/Templates/_components.scss`
 
-8. Additional imports should be added to `<child-theme>/Snowdog_Components/docs/styles/styles.scss` file
+8. Additional imports should be added to `<child-theme>/Snowdog_Components/docs/styles/styles.scss` file:
 
 ```scss
 // Variables
@@ -96,6 +96,14 @@ Also in `<child-theme>/Snowdog_Components/docs/styles/checkout.scss`
 // Styles necessary only for Fractal purpoueses
 @import 'fractal';
 ```
+9. Adjust fractal components inheritance:
+* replace `<child-theme>/Snowdog_Components/modules.json` file with an array of paths to Alpaca components libraries with `modules.mjs` and adjust the content, example:
+```mjs
+export default [
+  "../../../../../../vendor/snowdog/theme-frontend-alpaca/Snowdog_Components"
+]
+```
+* copy content of `vendor/snowdog/theme-frontend-alpaca/Snowdog_Components/gulpfile.mjs` to child theme (`<child-theme>/Snowdog_Components/gulpfile.mjs`) components and adjust child components customisations if needed.
 
 # Magento_Theme module
 If you've overwritten `root.phtml` file please adjust content to the newest changes in `theme-frontend-alpaca/Magento_Theme/templates/root.phtml`
