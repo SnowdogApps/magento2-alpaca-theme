@@ -25,7 +25,7 @@ theme-frontend-alpaca/
 ```
 
 ## Tools
-You can use [this helper](https://github.com/ofrankowska/theme-alpaca-upgrade-helper) to update Alpaca theme to version >= 2.26.0
+You can use [this helper](https://github.com/SnowdogApps/theme-alpaca-upgrade-helper) to update Alpaca theme to version >= 2.26.0
 
 ## Step by step guide
 
@@ -149,4 +149,4 @@ If you've overwritten `root.phtml` file please adjust content to the newest chan
 <?php endif; ?>
 ```
 
-Styles which uses `@extend` rule are moved to `Magento_Theme/styles/_module-critical.scss` and `Magento_Theme/styles/_module-non-critical.scss`
+Styles which use `@extend` rule are moved to `Magento_Theme/styles/_module-critical.scss` and `Magento_Theme/styles/_module-non-critical.scss`
