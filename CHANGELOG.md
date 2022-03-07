@@ -66,6 +66,7 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - catalog list view - add to cart button display on mobile (#528)
 - Amasty Gift Card form validation on PDP (#526)
 - `.label` extends (#526)
+- Wishlist item update loses selected options in wishlist (#533)
 ### Changed
 - MQ values for picture aspect ratio padding (#86854)
 - Changed and improved GDPR cookie module behavior (#400)
