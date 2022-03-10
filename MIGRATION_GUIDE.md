@@ -123,7 +123,7 @@ export default [
   }
 ```
 
-# Magento_Theme module
+## Magento_Theme module
 If you've overwritten `root.phtml` file please adjust content to the newest changes in `theme-frontend-alpaca/Magento_Theme/templates/root.phtml`
 
 ```php
@@ -165,3 +165,11 @@ If you've overwritten `root.phtml` file please adjust content to the newest chan
 ```
 
 Styles which use `@extend` rule are moved to `Magento_Theme/styles/_module-critical.scss` and `Magento_Theme/styles/_module-non-critical.scss`
+
+## Minicart
+Theme Alpaca `2.26.0` requires [snowdog/module-alpaca-general](https://github.com/SnowdogApps/magento2-alpaca-general): `1.5.0`.
+We introduced an option to remove quantity input in minicart in `Admin > Store > Configuration > Snowdog > Alpaca General > Mini Cart > Qty`.
+
+## Magepack
+In `magepack.config.js` change:
+* `Magento_Wishlist/js/add-to-wishlist-mixin` -> `Magento_Wishlist/js/add-to-wishlist-mixin.babel`
