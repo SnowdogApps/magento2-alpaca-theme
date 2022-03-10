@@ -198,7 +198,7 @@ Your `checkout.scss`:
 // Components
 @import '../../components/checkout';
 
-// Styles necessary only for Fractal purpoueses
+// Styles necessary only for Fractal purposes
 @import 'fractal';
 
 ```

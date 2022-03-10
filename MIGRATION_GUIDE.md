@@ -96,7 +96,7 @@ Also in `<child-theme>/Snowdog_Components/docs/styles/checkout.scss`
 @import '../../components/styles/critical-checkout';
 @import '../../components/styles/checkout';
 
-// Styles necessary only for Fractal purpoueses
+// Styles necessary only for Fractal purposes
 @import 'fractal';
 ```
 9. Adjust fractal components inheritance:
