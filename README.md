@@ -1,5 +1,6 @@
 # Alpaca - components & theme for Magento 2.4
-
+## Migration guide for Alpaca theme >= 2.26.0
+`2.26.0` version includes a lot of changes and has different files structure, please go to [Migration Guide](./MIGRATION_GUIDE.md) for more informations
 ## Description
 Alpaca Theme for Magento 2 is part of a `alpaca-packages`
 To make it work with all features, we use following modules:
@@ -197,7 +198,7 @@ Your `checkout.scss`:
 // Components
 @import '../../components/checkout';
 
-// Styles necessary only for Fractal purpoueses
+// Styles necessary only for Fractal purposes
 @import 'fractal';
 
 ```
