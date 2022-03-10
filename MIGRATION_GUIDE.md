@@ -25,7 +25,7 @@ theme-frontend-alpaca/
 ```
 
 ## Tools
-You can use [this helper](https://github.com/SnowdogApps/theme-alpaca-upgrade-helper) to update Alpaca theme to version >= 2.26.0
+You can use [this helper](https://github.com/SnowdogApps/theme-alpaca-upgrade-helper) to update child theme styles to Alpaca version >= 2.26.0
 
 ## Step by step guide
 
@@ -107,6 +107,21 @@ export default [
 ]
 ```
 * copy content of `vendor/snowdog/theme-frontend-alpaca/Snowdog_Components/gulpfile.mjs` to child theme (`<child-theme>/Snowdog_Components/gulpfile.mjs`) components and adjust child components customisations if needed.
+
+10. Update the following component configuration options in `.config.js` files to their new version:
+* `preview: '@checkout'` ->
+```js
+    meta: {
+        checkout: true
+    }
+```
+
+* `preview: '@docs-only-styles'` ->
+```js
+  meta: {
+    docsOnlyStyles: true
+  }
+```
 
 # Magento_Theme module
 If you've overwritten `root.phtml` file please adjust content to the newest changes in `theme-frontend-alpaca/Magento_Theme/templates/root.phtml`
