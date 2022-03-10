@@ -1,10 +1,10 @@
 'use strict';
 class QuantityUpdate {
   constructor(htmlDivElement) {
-    this.elem        = htmlDivElement;
-    this.plus        = this.elem.querySelector('.quantity-update__button--plus');
-    this.minus       = this.elem.querySelector('.quantity-update__button--minus');
-    this.input       = this.elem.querySelector('.quantity-update__input');
+    this.elem = htmlDivElement;
+    this.plus = this.elem.querySelector('.quantity-update__button--plus');
+    this.minus = this.elem.querySelector('.quantity-update__button--minus');
+    this.input = this.elem.querySelector('.quantity-update__input');
     this.activeClass = 'quantity-update--active';
     this.events();
     this.evaluateConditions();

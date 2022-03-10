@@ -1,0 +1,27 @@
+<if args="isSalable($row()) && hasSpecialPrice($row())">
+    <span class="special-price price">
+        <span class="price__value price__value--special">
+            <span
+                class="price-container"
+                css="getAdjustmentCssClasses($row())"
+            >
+                <span
+                    class="price-wrapper"
+                    css="priceWrapperCssClasses"
+                    attr="
+                        ...priceWrapperAttr,
+                        'aria-label': label
+                    "
+                    data-price-amount=""
+                    data-price-type="finalPrice"
+                    html="getPrice($row())"
+                    args="'aria-label': label"
+                />
+
+                <each args="data: getAdjustments(), as: '$adj'">
+                    <render args="$adj.getBody()"/>
+                </each>
+            </span>
+        </span>
+    </span>
+</if>

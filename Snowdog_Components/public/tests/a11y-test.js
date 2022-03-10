@@ -1,40 +1,45 @@
-'use-strict'
+/* global axe */
 
 const critical = [
-        'background: red',
-        'color: white'
-      ].join(';'),
-      moderate = [
-        'background: #d04301',
-        'color: white'
-      ].join(';'),
-      element = [
-        'background: green',
-        'color: white'
-      ].join(';'),
-      baseStyles = [
-        'background: transparent',
-        'color: inherit'
-      ].join(';'),
-      optionsComponents = {
-        resultTypes: ['violations', 'incomplete'],
-        rules: {
-          'bypass': { enabled: false },
-          'landmark-one-main': { enabled: false },
-          'page-has-heading-one': { enabled: false },
-          'region': { enabled: false }
-        }
-      },
-      optionsViews = {
-        resultTypes: ['violations', 'incomplete']
-      };
+  'background: red',
+  'color: white'
+].join(';');
 
-let components = (document.querySelector('body')).classList.contains('components'),
-    options = (components) ? optionsComponents : optionsViews;
+const moderate = [
+  'background: #d04301',
+  'color: white'
+].join(';');
+
+const element = [
+  'background: green',
+  'color: white'
+].join(';');
+
+const baseStyles = [
+  'background: transparent',
+  'color: inherit'
+].join(';');
+
+const optionsComponents = {
+  resultTypes: ['violations', 'incomplete'],
+  rules: {
+    'bypass': { enabled: false },
+    'landmark-one-main': { enabled: false },
+    'page-has-heading-one': { enabled: false },
+    'region': { enabled: false }
+  }
+};
+
+const optionsViews = {
+  resultTypes: ['violations', 'incomplete']
+};
+
+let components = (document.querySelector('body')).classList.contains('components');
+let options = (components) ? optionsComponents : optionsViews;
 
 function displayResults(results) {
-  const violations = results.violations,
-        incomplete = results.incomplete;
+  const violations = results.violations;
+  const incomplete = results.incomplete;
 
   if (violations.length) {
     console.warn('Check you accessibility errors')
@@ -54,7 +59,7 @@ function displayResults(results) {
         item.helpUrl
       );
     })
-  };
+  }
   if (incomplete) {
     incomplete.forEach((item) => {
       let errorColor = (item.impact === ('critical' || 'serious')) ? critical : moderate;
@@ -79,7 +84,9 @@ axe.run(
   document,
   options,
   function (err, results) {
-    if (err) throw err;
+    if (err) {
+      throw err;
+    }
     displayResults(results);
   }
 );

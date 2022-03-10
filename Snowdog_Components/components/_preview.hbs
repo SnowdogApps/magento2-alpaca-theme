@@ -4,11 +4,23 @@
         <meta charset="utf-8">
         <title>{{ _target.title }}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link media="all" rel="stylesheet" href="{{ path '/css/styles.css' }}" />
+
+        {{#if _target.meta.checkout}}
+            <link media="all" rel="stylesheet" href="{{ path '/css/checkout.css' }}" />
+        {{else}}
+            <link media="all" rel="stylesheet" href="{{ path '/css/styles.css' }}" />
+        {{/if}}
+
         {{> @libs }}
         {{> @common-js }}
     </head>
-    <body class="components">
+
+    <body class="components {{#if _target.meta.docsOnlyStyles }}docs-only-styles{{/if}}">
         {{{ yield }}}
+
+        {{#if _target.meta.a11y  }}
+            <script src="{{ path '/tests/libs/axe.min.js' }}"></script>
+            <script src="{{ path '/tests/a11y-test.js' }}"></script>
+        {{/if}}
     </body>
 </html>

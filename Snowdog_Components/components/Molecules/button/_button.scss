@@ -1,8 +1,37 @@
 @import 'button-variables';
 
 .button {
-    @extend %button-before;
-    @extend %button-after;
+    &:before {
+        content: $button__before-content;
+        display: $button__before-display;
+        position: absolute;
+        width: $button__before-width;
+        left: $button__before-position-left;
+        top: $button__before-position-top;
+        bottom: $button__before-position-bottom;
+        background-color: $button__before-background;
+        transform: $button__before-transform;
+        transform-origin: $button__before-transform-origin;
+        transition: $button__transition;
+        pointer-events: none;
+    }
+
+    &:after {
+        content: $button__after-content;
+        display: $button__after-display;
+        position: absolute;
+        left: $button__after-position-left;
+        top: $button__after-position-top;
+        width: $button__icon-size;
+        height: $button__icon-size;
+        padding: $icon-padding ;
+        z-index: $button__after-z-index;
+        opacity: $button__after-opacity;
+        transform: $button__after-transform;
+        transform-origin: $button__after-transform-origin;
+        transition: $button__transition;
+        pointer-events: none;
+    }
 
     position: relative;
     display: inline-flex;
@@ -142,7 +171,7 @@
         .button__icon {
             width: $button__icon-size;
             height: $button__icon-size;
-            padding: $icon__padding;
+            padding: $icon-padding ;
             fill: $button__icon-fill;
             transition: $button__icon-transition;
             z-index: $button__icon-z-index;
@@ -205,8 +234,9 @@
 
     &--rotate-icon {
         &:before {
-            background-color: $button__before-background--rotate-icon;
+            background-color: $button__before-background--rotate-icon !important;
         }
+
         &:hover,
         &.focus-visible {
             background-color: $button__background-hover--rotate-icon;
@@ -223,7 +253,21 @@
 
     &--icon-fill {
         background: $button__background--icon-fill;
-        @include button-icon-fill($button__icon-after-mask--icon-fill);
+
+        &:after {
+            content: '';
+            display: block;
+            position: absolute;
+            left: auto;
+            mask: url($button__icon-after-mask--icon-fill) $button__icon-after-mask-repeat--icon-fill $button__icon-after-mask-position--icon-fill;
+            background-size: $button__icon-after-bg-size--icon-fill;
+            background-image: $button__icon-after-bg-image--icon-fill;
+            background-position: $button__icon-after-bg-position--icon-fill;
+            transition: $button__icon-after-transition--icon-fill;
+            opacity: $button__icon-after-oapcity--icon-fill;
+            z-index: $button__icon-after-z-index--icon-fill;
+        }
+
 
         &:before {
             background-color: $button__before-background--icon-fill;
@@ -232,13 +276,26 @@
 
         &:hover,
         &.focus-visible {
-            @include button-fill-bg();
             background-color: $button__background-hover--icon-fill;
+
+            .icon {
+                fill: $button__icon-fill-hover--icon-fill;
+            }
+            &:after {
+                display: block;
+                background-position: $button__icon-after-bg-position-hover--icon-fill;
+            }
         }
     }
 
     &--icon-filled {
-        @include button-fill-bg();
+        .icon {
+            fill: $button__icon-fill-hover--icon-fill;
+        }
+        &:after {
+            display: block;
+            background-position: $button__icon-after-bg-position-hover--icon-fill;
+        }
     }
 
     &--add-to {
@@ -294,13 +351,5 @@
                 }
             }
         }
-    }
-}
-
-//use .button-extend for wrappers that contains buttons without .button class that should have .button styles
-.button-extend {
-    [type="button"],
-    [type="submit"] {
-        @extend .button;
     }
 }

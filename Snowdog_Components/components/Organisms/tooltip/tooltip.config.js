@@ -1,6 +1,8 @@
 module.exports = {
-  preview: '@docs-only-styles',
   name: 'tooltip',
+  meta: {
+    docsOnlyStyles: true
+  },
   context: {
     class: '',
     title: 'Example title',

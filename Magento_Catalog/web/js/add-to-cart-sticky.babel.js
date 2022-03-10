@@ -11,7 +11,8 @@ define([], function () {
       focusableElements.forEach(el => {
         el.removeAttribute('tabindex');
       })
-    } else {
+    }
+    else {
       addToCartSticky.setAttribute('aria-hidden', 'true');
       focusableElements.forEach(el => {
         el.setAttribute('tabindex', '-1');

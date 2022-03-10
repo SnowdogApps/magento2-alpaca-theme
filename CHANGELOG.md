@@ -1,20 +1,95 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+=========================================================
+USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
+=========================================================
+
 ## [Unreleased]
 ### Added
+### Changed
+### Fixed
+### Removed
+### Updated
+
+## [Released]
+## [2.26.0] - 2022-03-10
+### Added
+- In-store pickup components (#82620)
+- Missing classes to home, product-view and catalog pages (#84674)
+- Conditional rendering in footer.hbs (#84599)
+- Missing variables in _footer.scss (#84599)
+- Missing fractal component variants (#84723)
+- Messages component variant (#84729)
+- Checkbox 'link-checked' variant (#492)
+- option to remove Qty input and update button from minicart in Admin > Store > Configuration > Snowdog > Alpaca General > Mini Cart > Qty Update Disabled (#486)
+- missing store pickup style imports (#520)
 ### Fixed
 - Display error message - phone number field (#83240)
 - Webform checkboxes inline style & Department select on Contact Page (#83891)
 - Update button in minicart always shown (#83009)
+- Galery showing multiple pictures in magnifier view (#80429)
+- Overflow on x axis caused by `slider--full-width` class (#84443)
+- Some styles loaded twice in checkout (#83768)
+- Messages component display (#84729)
+- Order summary not expanded by default (#84748)
+- Alpaca readme - wrong link and missing content (#85061)
+- Multiple product attribute description API requests (#490)
+- Checkbox link variant with class 'checkbox--link-checked' missing background (#492)
+- New customer registration - middle name always required (#493)
+- Base paragraph styles overriding typography paragraph styles (#494)
+- Quantity buttons on multishipping checkout (#499)
+- slider a11y - keyboard support, repeated price IDs, when product is included in multiple sliders on the page (#459)
+- more info component js - close more info on ESC (#459)
+- More info button - bottom spacing (#496)
+- Country selector styling in contact-us form (#497)
+- Added escape methods to more-info (attribute description) (#495)
+- Inheritance task in components (#501)
+- Mobile menu custom_url template (#472)
+- Checkout cart icon hover style (#504)
+- Checkout - apply gift card styles (#508)
+- Checkout - cart link styles (#507)
+- Checkout - "Ship to" and "Shipping method" edit icons styles (#505)
+- Checkout recaptcha checkbox visibility (#506)
+- PDP - add to wishlist/requsition list button styles (#509)
+- duplicated styles from extends imports (#510)
+- Recently Viewed - temporary wishlist button fix (#511)
+- Store Locator - Location View - "Additional Information" section display (#512)
+- Side menu close button position & text on hover (#513)
+- Side menu close button position on Safari (#513)
+- Recently Viewed - Minimum Advertised Price'd products (#514)
+- Magento Gift Card - page reloading when adding to cart (#515)
+- Magento Gift Card - missing required sign & validation messages (#515)
+- Dashboard -> Privacy Settings - html in content doesn't render (#516)
+- Dashboard -> My Orders - table row overflows table on mobile (#516)
+- styles loaded in fractal for checkout related components (#520)
+- Fotorama - 'exit fullscreen' click triggers event on element below (#521)
+- Checkout success page and multishipping styles after performance & quality improvements (#517)
+- Shopping cart - quantity not visible when quantity error message is displayed (#522)
+- configurable product price related issues - price not displayed when a configurable product doesn't have swatches, final price displayed as special in red when selected option doesn't have old price but some other options do, jumping price on load (use `opacity-0` instead of `display-none`) (#525)
+- configurable product select field width changing on load (#525)
+- spacing between Magento UI form element and its error message (#527)
+- PDP - not working Yotpo button "Write a review" under the product's name (#530)
+- catalog list view - add to cart button changing width when text is changed to "Adding..." (#529)
+- catalog list view - add to cart button display on mobile (#528)
+- Amasty Gift Card form validation on PDP (#526)
+- `.label` extends (#526)
+- Wishlist item update loses selected options in wishlist (#533)
 ### Changed
+- MQ values for picture aspect ratio padding (#86854)
+- Changed and improved GDPR cookie module behavior (#400)
+- Checkout summary "View Details" styling (#498)
+- Refactor and improve yotpo styles (#485)
+- Atomic styles import placement from critical styles to the end of non critical (#519)
 ### Updated
+- Performance & quality improvements (#474)
+- Amasty Gift Card to `2.8.0` (#526)
+- Amasty Gift Card Account to `1.4.0` (#526)
 ### Removed
-
-## [Released]
+- Redundant EE store switcher (#503)
 ## [2.25.1] - 2021-11-30
 ### Fixed
-- Remote shopping assistance on account creation (#83738)`
+- Remote shopping assistance on account creation (#83738)
 
 ## [2.25.0] - 2021-10-19
 ### Fixed

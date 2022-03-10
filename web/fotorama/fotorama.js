@@ -3218,10 +3218,18 @@ fotoramaVersion = '4.6.4';
         }
 
         that.cancelFullScreen = function () {
+            const fotoramaFramesCollection = document.getElementsByClassName('fotorama__stage__frame')
+
             if (o_nativeFullScreen && fullScreenApi.is()) {
                 fullScreenApi.cancel(document);
             } else {
                 cancelFullScreen();
+            }
+
+            if (fotoramaFramesCollection && fotoramaFramesCollection.length) {
+                for (let i = 0; i < fotoramaFramesCollection.length; i++) {
+                    fotoramaFramesCollection[i].style.opacity = '0'
+                }
             }
 
             return this;
@@ -3515,11 +3523,35 @@ fotoramaVersion = '4.6.4';
             if ($target.hasClass(videoPlayClass)) {
                 that.playVideo();
             } else if (target === fullscreenIcon) {
+                preventCloseFullscreenEventPropagation()
                 that.toggleFullScreen();
             } else if ($videoPlaying) {
                 target === videoClose && unloadVideo($videoPlaying, true, true);
             } else if (!$fotorama.hasClass(fullscreenClass)) {
                 that.requestFullScreen();
+            }
+        }
+
+        /**
+         * #86971
+         * clicking close fullscreen icon on mobile causes minicart opening
+         * this is known fotorama issue:
+         * https://github.com/artpolikarpov/fotorama/issues/530
+         * this is temporary fix
+         */
+        function preventCloseFullscreenEventPropagation() {
+            const cancelCartMouseDown = (e) => {
+                if (e.target === fullscreenIcon) {
+                    e.preventDefault();
+                    return false;
+                }
+            }
+
+            if (that.fullScreen) {
+                document.addEventListener('touchend', cancelCartMouseDown);
+                setTimeout(() => {
+                    document.removeEventListener('touchend', cancelCartMouseDown);
+                }, TRANSITION_DURATION)
             }
         }
 
@@ -3569,7 +3601,6 @@ fotoramaVersion = '4.6.4';
             },
             onTouchEnd: onTouchEnd,
             onEnd: function (result) {
-
                 function onEnd() {
                     slideNavShaft.l = result.newPos;
                     releaseAutoplay();

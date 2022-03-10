@@ -8,6 +8,7 @@ module.exports = {
     productName: 'Some product name',
     productPrice: '$85.00',
     productQty: {
+      visible: false,
       class: 'input--inline minicart-product__input margin-bottom-0 margin-right-m',
       label: {
         class: 'minicart-product__label',
@@ -24,6 +25,7 @@ module.exports = {
       }
     },
     updateQty: {
+      visible: false,
       tag: 'button',
       text: 'Update',
       class: 'button--secondary minicart-product__update',

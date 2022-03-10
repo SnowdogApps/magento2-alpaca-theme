@@ -15,7 +15,8 @@ define([], function () {
     }
 
     function findAncestor(element, containClass) {
-      while ((element = element.parentElement) && !element.classList.contains(containClass)) ;
+      /* eslint-disable-next-line no-empty */
+      while ((element = element.parentElement) && !element.classList.contains(containClass)) {}
       return element;
     }
 

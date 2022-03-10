@@ -37,10 +37,10 @@ The file should look like this:
 @import 'fractal';
 ```
 
-4. Create `modules.json` file with an array of paths to parent components libraries. To inherit dependencies from Alpaca components, you have to define path to `theme-forntend-alpaca/Snowdog_Components`.
+4. Create `modules.mjs` file with an array of paths to parent components libraries. To inherit dependencies from Alpaca components, you have to define path to `theme-forntend-alpaca/Snowdog_Components`.
    In most cases, inside Magento, it will look like this:
-  ```json
-  [
+  ```js
+  export default[
       "../../../snowdog/theme-frontend-alpaca/Snowdog_Components"
   ]
   ```

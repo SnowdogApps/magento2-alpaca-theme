@@ -2,7 +2,7 @@ define([
   'jquery',
   'select2',
   'domReady!'
-], function ($, select2) {
+], function ($) {
   'use strict'
 
   return function (config, select) {
@@ -28,17 +28,17 @@ define([
       return null;
     }
 
-    const selectId = select.id,
-      defaultOptions = {
-        minimumResultsForSearch: Infinity,
-        width: null,
-        position: 'bottom',
-        debug: true
-      }
+    const selectId = select.id;
+    const defaultOptions = {
+      minimumResultsForSearch: Infinity,
+      width: null,
+      position: 'bottom',
+      debug: true
+    }
 
     if (config.type === 'number') {
       defaultOptions.sorter = (data) =>
-        data.sort((a, b) => a.text.localeCompare(b.text, "en", { numeric: true }))
+        data.sort((a, b) => a.text.localeCompare(b.text, 'en', { numeric: true }))
     }
 
     if (isSearchable) {

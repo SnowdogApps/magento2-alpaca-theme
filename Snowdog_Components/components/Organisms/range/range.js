@@ -10,9 +10,9 @@
   }
 
   function createRangeSlider(rangeFilter) {
-    const inputMax = rangeFilter.querySelector('.range-filter__field--upper'),
-          inputMin = rangeFilter.querySelector('.range-filter__field--lower'),
-          rangeSlider = rangeFilter.querySelector('.range-filter__slider');
+    const inputMax = rangeFilter.querySelector('.range-filter__field--upper');
+    const inputMin = rangeFilter.querySelector('.range-filter__field--lower');
+    const rangeSlider = rangeFilter.querySelector('.range-filter__slider');
 
     rangeSlider.classList.add('noUi-extended');
     initNoUiSlider(rangeSlider);
@@ -20,8 +20,8 @@
   }
 
   function initNoUiSlider(rangeSlider) {
-    let minValue = parseInt(rangeSlider.getAttribute('data-min')),
-        maxValue = parseInt(rangeSlider.getAttribute('data-max'));
+    let minValue = parseInt(rangeSlider.getAttribute('data-min'));
+    let maxValue = parseInt(rangeSlider.getAttribute('data-max'));
 
     if (!minValue) {
       minValue = 0;

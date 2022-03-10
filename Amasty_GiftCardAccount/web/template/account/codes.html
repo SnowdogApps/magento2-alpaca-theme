@@ -1,61 +1,113 @@
-<div
-    class="
-        amcard-codes-list
-        discount-code__codes-list
-    "
->
-    <!-- ko foreach: cards -->
-        <div class="discount-code__codes-list-item">
-            <dl class="list list--description width-full">
-                <dt
-                    class="list__label"
-                    data-bind="i18n: 'Code' "
-                ></dt>
-                <dd
-                    class="list__value bold"
-                    data-bind="text: code"
-                ></dd>
-                <dt
-                    class="list__label"
-                    data-bind="i18n: 'Status' "
-                ></dt>
-                <dd
-                    class="list__value bold"
-                    data-bind="text: status"
-                ></dd>
-                <dt
-                    class="list__label"
-                    data-bind="i18n: 'Current Balance' "
-                ></dt>
-                <dd
-                    class="list__value bold"
-                    data-bind="html: balance"
-                ></dd>
-                <dt
-                    class="list__label"
-                    data-bind="i18n: 'Valid till' "
-                ></dt>
-                <dd
-                    class="list__value bold"
-                    data-bind="text: expiredDate"
-                ></dd>
-            </dl>
-            <!-- ko if: $parent.isAccount -->
-                <button
-                    type="button"
-                    class="
-                        button
-                        amcard-delete
-                        button--secondary
-                    "
-                    data-bind="
-                        text: $t('Remove'),
-                        attr: {title: $t('Remove')},
-                        click: $parent.removeGiftCode.bind($parent, event, $parent.deleteCardUrl + 'account_id/' + id),
-                        'value': $data
-                    "
-                ></button>
-            <!-- /ko -->
+<div class="amcard-codes-list dashboard-table">
+    <!-- ko foreach: getRegion('messages') -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+    <!--/ko-->
+    <div
+        class="table-wrapper"
+        if="hasCards()"
+    >
+        <div class="dashboard-table__header">
+            <h2 class="dashboard-table__title">
+                <text args="$t('Gift Codes')"/>
+            </h2>
         </div>
-    <!-- /ko -->
+        <div class="dashboard-table__content">
+            <table
+                class="
+                    data
+                    table
+                    table-code-items
+                "
+                tabindex="0"
+                role="table"
+            >
+                <caption class="table-caption table__caption">
+                    <text args="$t('Gift Codes')"/>
+                </caption>
+                <thead>
+                    <tr role="row">
+                        <th
+                            role="columnheader"
+                            scope="col"
+                            class="col code"
+                        >
+                            <text args="$t('Code')"/>
+                        </th>
+                        <th
+                            role="columnheader"
+                            scope="col"
+                            class="col status"
+                        >
+                            <text args="$t('Status')"/>
+                        </th>
+                        <!-- ko foreach: getRegion('extra-column-header') -->
+                            <!-- ko template: getTemplate() --><!-- /ko -->
+                        <!--/ko-->
+                        <th
+                            role="columnheader"
+                            scope="col"
+                            class="col balance"
+                        >
+                            <text args="$t('Current Balance')"/>
+                        </th>
+                        <th
+                            role="columnheader"
+                            scope="col"
+                            class="col expired-date"
+                        >
+                            <text args="$t('Valid Till')"/>
+                        </th>
+                        <th
+                            role="columnheader"
+                            scope="col"
+                            class="col expired-date"
+                            if="$data.isAccount"
+                        >
+                            <text args="$t('Action')"/>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                <!-- ko foreach: cards -->
+                    <tr role="row">
+                        <td
+                            attr="'data-th': $t('Code')"
+                            class="col code"
+                        >
+                            <text args="code"/>
+                        </td>
+                        <td
+                            attr="'data-th': $t('Status')"
+                            class="col status"
+                        >
+                            <text args="status"/>
+                        </td>
+                        <!-- ko foreach: $parent.getRegion('extra-column') -->
+                            <!-- ko template: getTemplate() --><!-- /ko -->
+                        <!--/ko-->
+                        <td
+                            attr="'data-th': $t('Current Balance')"
+                            class="col balance"
+                            html="balance"
+                        ></td>
+                        <td
+                            attr="'data-th': $t('Valid Till')"
+                            class="col expired-date"
+                        >
+                            <text args="expiredDate"/>
+                        </td>
+                        <td
+                            class="col actions"
+                            if="$parent.isAccount"
+                        >
+                            <!-- ko foreach: $parent.getRegion('action-button') -->
+                                <!-- ko template: getTemplate() --><!-- /ko -->
+                            <!--/ko-->
+                        </td>
+                    </tr>
+                <!-- /ko -->
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
