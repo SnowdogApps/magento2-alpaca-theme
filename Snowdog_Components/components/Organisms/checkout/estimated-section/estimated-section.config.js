@@ -1,5 +1,7 @@
 module.exports = {
-
+  meta: {
+    checkout: true
+  },
   context: {
     iconCart: {
       class: 'estimated-section__icon',

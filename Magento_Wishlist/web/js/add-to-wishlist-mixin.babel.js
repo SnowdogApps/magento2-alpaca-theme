@@ -53,9 +53,9 @@ define([
             // don't update dataToAdd if element doesn't belong to the product
             if ($(element).hasClass('super-attribute-select') && updateWishlistBtn.length) {
               var btnProduct = updateWishlistBtn.data('post').data.product;
-              var elementProduct = $(element).data('product').toString();
+              var elementProduct = $(element).data('product')?.toString();
 
-              if (btnProduct !== elementProduct) {
+              if (elementProduct && btnProduct !== elementProduct) {
                 return;
               }
             }

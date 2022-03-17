@@ -1,5 +1,7 @@
 module.exports = {
-
+  meta: {
+    checkout: true
+  },
   context: {
     shippingClass: 'margin-bottom-m',
     addresses: {
