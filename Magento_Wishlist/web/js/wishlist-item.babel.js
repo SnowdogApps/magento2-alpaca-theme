@@ -72,9 +72,10 @@ define([
         const swatchOptionContainerArray = swatchContainer.querySelectorAll(swatchOptionContainerClass);
 
         swatchOptionContainerArray.forEach(swatchOptionContainer => {
-          if (swatchOptionContainer.hasAttribute('option-selected')) {
-            const key = `super_attribute[${swatchOptionContainer.getAttribute('attribute-id')}]`;
-            const value = swatchOptionContainer.getAttribute('option-selected');
+          const hasSelectedOption = swatchOptionContainer.hasAttribute('data-option-selected')
+          if (hasSelectedOption) {
+            const key = `super_attribute[${swatchOptionContainer.getAttribute('data-attribute-id')}]`;
+            const value = swatchOptionContainer.getAttribute('data-option-selected');
 
             data[key] = value;
           }
