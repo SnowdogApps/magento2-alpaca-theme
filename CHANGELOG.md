@@ -12,6 +12,7 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 ### Changed
 ### Fixed
 - passing all properties when adding product to wishlist (#88178)
+- products with options don't keep them in wishlist
 ### Removed
 ### Updated
 
