@@ -11,8 +11,9 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 
 ### Changed
 ### Fixed
-- passing all properties when adding product to wishlist (#88178)
+- passing all properties when adding product to wishlist (#534)
 ### Removed
+- unnecessary !important flags (#537)
 ### Updated
 
 ## [Released]
