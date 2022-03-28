@@ -81,7 +81,7 @@ To create your own child theme see instructions below:
 After installing Alpaca theme, you can create child theme based on Alpaca Theme as a separate composer package (in `vendor` directory) or in `app/design/frontend` directory.
 In this guide, we will create it in `app/design/frontend`.
 
-1. Go to `app/design/frontend` and create directories with your Vendor name and with you theme name: `app/design/frontend/VENDOR_NAME/CHILD_THEME_NAME`, example: `app/design/frontend/Snowdog/alpaca-child`
+1. Go to `app/design/frontend` and create directories with your Vendor name and with your theme name: `app/design/frontend/VENDOR_NAME/CHILD_THEME_NAME`, example: `app/design/frontend/Snowdog/alpaca-child`
 2. Create configuration theme files:
 Inside `app/design/frontend/VENDOR_NAME/CHILD_THEME_NAME`, create `registration.php` and `theme.xml` files.
     * `registration.php`:
