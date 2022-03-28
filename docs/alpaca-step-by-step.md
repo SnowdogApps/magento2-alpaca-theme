@@ -281,7 +281,7 @@ More details about styles in Alpaca Theme & components and theits inheritance, y
     @import 'button';
     @import 'CHILD_THEME_NAME-button';
     ```
-    you need to change all import of `_button.scss` to `_button-extend.scss`:
+    you need to change all imports of `_button.scss` to `_button-extend.scss`:
     * copy `vendor/snowdog/theme-frontend-alpaca/Snowdog_Components/components/styles/_critical-checkout.scss` to `app/design/frontend/VENDOR_NAME/CHILD_THEME_NAME/Snowdog_Components/components/styles/_critical-checkout.scss` and change line `@import '../Molecules/button/button';` to `@import '../Molecules/button/button-extend';`
     * copy `vendor/snowdog/theme-frontend-alpaca/Snowdog_Components/components/styles/_critical.scss` to `app/design/frontend/VENDOR_NAME/CHILD_THEME_NAME/Snowdog_Components/components/styles/_critical-checkout.scss` and change line `@import '../Molecules/button/button';` to `@import '../Molecules/button/button-extend';`
 
