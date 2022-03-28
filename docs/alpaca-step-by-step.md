@@ -263,7 +263,7 @@ In theme:
 It's a quick guide to create extended styles for `button` component.
 More details about styles in Alpaca Theme & components and theits inheritance, you can find in [Working with Alpaca guide](./working-with-alpaca.md)
 
-  * Button Alpaca components styles can be found at: `vendor/snowdog/theme-frontend-alpaca/Snowdog_Components/components/Molecules/button/_button.scss`
+  * Button Alpaca component styles can be found at: `vendor/snowdog/theme-frontend-alpaca/Snowdog_Components/components/Molecules/button/_button.scss`
   * In your child theme, create 3 files:
     1) `app/design/frontend/VENDOR_NAME/CHILD_THEME_NAME/Snowdog_Components/components/Molecules/button/_CHILD_THEME_NAME-button-variables.scss`:
     ```scss
