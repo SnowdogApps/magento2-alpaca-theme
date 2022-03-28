@@ -31,7 +31,7 @@ Valet+ is a development environment for macOS. It doesn't use Vagrant or Docker 
     ```
     composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition <install-directory-name>
     ```
-    Change `<instal-directory-name>` to name of folder in which you wish to install your Magento project.
+    Change `<install-directory-name>` to name of folder in which you wish to install your Magento project.
 
 2. Create database
     * [See Magento docs](https://devdocs.magento.com/guides/v2.4/install-gde/install/cli/install-cli-subcommands-db.html) of creating the database schema.
