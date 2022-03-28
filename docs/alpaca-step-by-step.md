@@ -45,7 +45,7 @@ More info: [alpaca boilerplate npm project page](#to-do-here)
     ```
     [Learn about Frontools here](https://github.com/SnowdogApps/magento2-frontools)
 4. Run db queries to add to your database all Alpaca CMS block & content
-    [Link to db queries](#link-here)
+    [Copy db queries from here](https://github.com/SnowdogApps/create-alpaca-theme/blob/master/templates/database/queries.sql)
 
 5. Upgrade application, DB data and schema (_[learn more here](https://devdocs.magento.com/guides/v2.4/install-gde/install/cli/install-cli-subcommands-db-upgr.html#instgde-cli-db-upgr)_):
     ```
