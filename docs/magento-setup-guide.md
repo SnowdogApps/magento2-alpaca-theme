@@ -1,4 +1,4 @@
-# MAgento 2 setup guide
+# Magento 2 setup guide
 It's a quick guide to setup Magento 2 project on your local environment and configure it for development purposes.
 
 ## Table of Contents
