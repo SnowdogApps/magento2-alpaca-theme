@@ -59,7 +59,7 @@ More info: [alpaca boilerplate npm project page](#to-do-here)
     ````
     Setting up frontools creates symlinks. After set up, `yarn` commands are available from `<root-project-folder>/tools`<br/>
 7. Log in to admin panel.
-    - You can find admin page URL in `env.php` file in `backend` section
+    - You can find admin page URL in `app/etc/env.php` file in `backend` section (`frontName` parameter)
     - You can create new admin user by using magento CLI:
         ```
         bin/magento admin:user:create --admin-user="YOUR_USER_NAME" --admin-password="YOUR_PASS" --admin-firstname="Test" --admin-lastname="Test" --admin-email="test@test.com"
