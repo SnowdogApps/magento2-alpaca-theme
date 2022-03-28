@@ -37,7 +37,7 @@ More info: [alpaca boilerplate npm project page](#to-do-here)
     See [content of Alpaca Packages here](https://github.com/SnowdogApps/magento2-alpaca-packages)
 2. Install Alpaca Theme latest version:
     ```
-    composer require snowdog/theme-frontend-alpaca:2.26.*
+    composer require snowdog/theme-frontend-alpaca:^2.26
     ```
 3. Add frontools:
     ```
