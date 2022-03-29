@@ -9,7 +9,7 @@ It's separate npm package, created based on [Alpaca Components](https://github.c
 Magento 2 experience is not required to work with this code.
 
 ## Requirements
-- node version >=12.13.0 <13.0.0 installed globally
+- node version >=16 <17.0.0 installed globally
 - npm or yarn installed globally
 
 ## Installation
@@ -22,20 +22,7 @@ Magento 2 experience is not required to work with this code.
 
 2. Update project name in `package.json` and `gulpfile.js`
 
-3. Copy `styles.scss` from `theme-frontend-alpaca/Snowdog_Components/docs/styles/` and add child project variables import there.
-The file should look like this:
-
-```scss
-// Variables
-@import '../../components/Atoms/variables/variables';
-@import '../../components/Atoms/variables/<child-theme>-variables';
-
-// Components
-@import '../../components/styles';
-
-// Styles necessary only for Fractal purposes
-@import 'fractal';
-```
+3. Copy `styles.scss` and `checkout.scss` from `theme-frontend-alpaca/Snowdog_Components/docs/styles/` and add child project variables import there.
 
 4. Create `modules.mjs` file with an array of paths to parent components libraries. To inherit dependencies from Alpaca components, you have to define path to `theme-forntend-alpaca/Snowdog_Components`.
    In most cases, inside Magento, it will look like this:
@@ -45,6 +32,8 @@ The file should look like this:
   ]
   ```
 5. Customize or add new files following the same structure as in Alpaca components
+
+6. Components imports are located in files in: `vendor/snowdog/theme-frontend-alpaca/Snowdog_Components/components/styles`, copy appropriate file(s) from there in your child theme to import extended or new component(s)
 
 6. Run `yarn` and `yarn dev` to run components in fractal.build. :tada:
 

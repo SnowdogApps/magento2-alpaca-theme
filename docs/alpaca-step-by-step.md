@@ -22,10 +22,18 @@ More info: [alpaca boilerplate npm project page](#to-do-here)
 
 ## Requirements
 * Working Magento 2.4 project
-* Node ver 16
+* Node version 16
+* [yarn](https://yarnpkg.com/) (we recommended yarn but you can also use npm to install dependencies and run node command).
 
 ## Alpaca versions
-// TO DO - information about Alpaca Version for Magento OS versions
+This guide is adjusted to the latest version of Alpaca theme: ^2.26 and work with Magento 2.4.3
+If you work with older Magento version, use appropriate Alpaca Theme:
+* Alpaca 2.14.0 supports Magento 2.4.2
+* Alpaca 2.13.0 supports Magento 2.4.1
+* Alpaca 2.12.* supports Magento 2.3.6
+
+Check [Changelog file](../CHANGELOG.md) for more details<br>.
+
 
 ## Set up Alpaca Theme
   When using **Valet Plus** run commands in main project directory, with **Warden** remember to launch shell session see [Warden usage and common commands](https://docs.warden.dev/usage.html)
@@ -51,13 +59,56 @@ More info: [alpaca boilerplate npm project page](#to-do-here)
     ```
     bin/magento setup:upgrade
     ```
-6. Go to `vendor/snowdog/frontools` and run commands:
+6. Setup frontools
+  * in `<root-project-folder>/` create files:
+  `theme.json`:
+    ```json
+    {
+        "alpaca": {
+            "src": "vendor/snowdog/theme-frontend-alpaca",
+            "dest": "pub/static/frontend/Snowdog/alpaca",
+            "locale": ["en_US"],
+            "ignore": [
+                "**/node_modules/**",
+                "**/Snowdog_Components/docs/**",
+                "**/Snowdog_Components/build/**"
+            ]
+        }
+    }
+    ```
+
+    `browser-sync.json`, adjust file for your local domain:
+    ```json
+    [
+      {
+        "proxy": "<your_domain>.test",
+        "rewriteRules": [
+          {
+            "match": ".<your_domain>.test",
+            "replace": ""
+          }
+        ]
+      },
+      {
+        "proxy": "b2b.<your_domain>.test",
+        "rewriteRules": [
+          {
+            "match": ".b2b.<your_domain>.test",
+            "replace": ""
+          }
+        ]
+      }
+    ]
+    ```
+
+  * Go to `vendor/snowdog/frontools` and run commands:
     ````
-    yarn install
+    yarn
     yarn setup
     yarn styles && yarn svg && yarn babel
     ````
     Setting up frontools creates symlinks. After set up, `yarn` commands are available from `<root-project-folder>/tools`<br/>
+
 7. Log in to admin panel.
     - You can find admin page URL in `app/etc/env.php` file in `backend` section (`frontName` parameter)
     - You can create new admin user by using magento CLI:
@@ -76,13 +127,13 @@ More info: [alpaca boilerplate npm project page](#to-do-here)
 <br/><br/>
 Congrats! You've installed Alpaca Theme successfully!<br/>
 
-To create your own child theme see instructions below:
+To create your own child theme, see the instruction below:
 ## Set up Alpaca Child Theme
 After installing Alpaca theme, you can create child theme based on Alpaca Theme as a separate composer package (in `vendor` directory) or in `app/design/frontend` directory.
 In this guide, we will create it in `app/design/frontend`.
 
-1. Go to `app/design/frontend` and create directories with your Vendor name and with your theme name: `app/design/frontend/VENDOR_NAME/CHILD_THEME_NAME`, example: `app/design/frontend/Snowdog/alpaca-child`
-2. Create configuration theme files:
+1. Go to `app/design/frontend` and create directories with your Vendor name and with you theme name: `app/design/frontend/VENDOR_NAME/CHILD_THEME_NAME`, example: `app/design/frontend/Snowdog/alpaca-child`
+2. Create configuration theme's files:
 Inside `app/design/frontend/VENDOR_NAME/CHILD_THEME_NAME`, create `registration.php` and `theme.xml` files.
     * `registration.php`:
 
@@ -121,13 +172,13 @@ You can create also `README.md` and `CHANGELOG.md` files.
 4. Adjust styles inheritance in child theme:
 ### Add basic styles and child theme variables:
 In components:
-  * `app/design/VENDOR_NAME/CHILD_THEME_NAME/Snowdog_Components/components/Atoms/variables/_CHILD_THEME_NAME-variables.scss` - child theme variables, where you can create basic variables for a child theme or overwrite those from `vendor/snowdog/theme-frontend-alpaca/Snowdog_Components/components/Atoms/variables/_variables.scss` - change assigned value without `!default`)
+  * `app/design/VENDOR_NAME/CHILD_THEME_NAME/Snowdog_Components/components/Atoms/variables/_CHILD_THEME_NAME-variables.scss` - child theme variables, where you can create basic variables for a child theme or overwrite those from `vendor/snowdog/theme-frontend-alpaca/Snowdog_Components/components/Atoms/variables/_variables.scss` - change assigned value without `!default`
     * `app/design/VENDOR_NAME/CHILD_THEME_NAME/Snowdog_Components/docs/styles/styles.scss`:
     ```scss
     // Variables
     @import '../../components/Atoms/variables/variables';
 
-    // Child theme variables
+    // Child theme variables (imported after alpaca variables)
     @import "../../components/Atoms/variables/CHILD_THEME_NAME-variables";
 
     // Components
@@ -300,7 +351,7 @@ More details about styles in Alpaca Theme & components and theits inheritance, y
 * `gulpfile.mjs`
 * `package.json`
 
-2) in `package.json` and `gulpfile.mjs` replace Alpaca name to `CHILD_THEME_NAME`
+2) in `package.json` and `gulpfile.mjs` replace `Alpaca` name to `CHILD_THEME_NAME`
 3) Set inheritance from Alpaca component by creating `modules.mjs` file with following content:
 ```mjs
 export default [
@@ -311,7 +362,7 @@ export default [
 5) run `yarn dev` to work with components in dev mode.
 
 6. Create frontools config file to compile theme static assets:
-Go to `dev/tools/frontools/themes.json` and add your theme:
+Go to `dev/tools/frontools/themes.json` and add or adjust your theme:
 ```json
 {
   "alpaca": {
@@ -364,7 +415,6 @@ Go to `dev/tools/frontools/themes.json` and add your theme:
 12. Flush cache storage.
 
 ## Useful Links
-  * [Alpaca Theme details](https://github.com/SnowdogApps/magento2-alpaca-theme)
   * [Snowdog Frontools](https://github.com/SnowdogApps/magento2-frontools)
   * [Valet Plus](https://github.com/weprovide/valet-plus/wiki/Database)
   * [Fractal guide](https://fractal.build/guide/)

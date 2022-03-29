@@ -41,6 +41,7 @@ Valet+ is a development environment for macOS. It doesn't use Vagrant or Docker 
         ```
     * See Valet Plus [database documentation.](https://github.com/weprovide/valet-plus/wiki/Database)
 3. Configure database for Magento. Go to main directory of your project and run:
+(adjust `project-name`)
     ````sh
     bin/magento setup:install   --db-host="127.0.0.1" \
                                 --db-name="db-name" \
@@ -56,17 +57,11 @@ Valet+ is a development environment for macOS. It doesn't use Vagrant or Docker 
     Adjust options:
       * `db` fields - name, password and root
       * Your project local URL and your admin credentials
-4. Create `env` file:
-    * To work with custom database you'll need `env.php` file located in `app/etc`. [Read magento docs](https://devdocs.magento.com/guides/v2.4/config-guide/prod/config-reference-envphp.html) to see it's structure.
-    *  Valet Plus allows you to run command that will create `env.php` file for you:
-        ```
-        valet configure
-        ```
-5. Go to `app/etc/env.php` to check that all fields are properly set.
+4. Go to `app/etc/env.php` to check that all fields are properly set.
     * Set `frontName` to `admin`.
-        * Example - `'frontName' => 'admin'` will result in `yourpage.test/admin` as your admin panel URL.
+        * Example - `'frontName' => 'admin'` will result in `project-name.test/admin` as your admin panel URL.
     * Make sure that database fields are the same as you set in step 2.
-    * Set rest of the fields according to your own needs.
+    * Adjust rest of the fields according to your own needs.
     * See example `env.php` file below:
         ```php
         <?php
@@ -186,6 +181,15 @@ Valet+ is a development environment for macOS. It doesn't use Vagrant or Docker 
             ]
         ];
         ```
+5. Set up SSL (optional)
+    * Run command bellow to enable secure URLs in both the customer-facing and admin-only areas of your store (adjust url value):
+    ```
+    bin/magento setup:store-config:set --use-secure=1 --base-url="https://project-name.test/"
+    ```
+    * Run command below for to Valet to serve the site over encrypted TLS using HTTP/2:
+    ```
+    valet secure
+    ```
 
 ### Configure with Warden
 (_If you're using Valet Plus, skip to next paragraph_)<br />
@@ -196,7 +200,7 @@ See [Warden Magento 2 docs.](https://docs.warden.dev/environments/magento2.html)
     composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition <install-directory-name>
     ```
     Change `<instal-directory-name>` to name of folder in which you wish to install your Magento project.
-2. Inside project directory run
+2. Inside project directory run (adjust project-name):
     ```
     warden env-init project-name magento2
     ```
@@ -222,6 +226,40 @@ See [Warden Magento 2 docs.](https://docs.warden.dev/environments/magento2.html)
                                 'enable_http_auth' => 0
                             ]
                         ],
+                        'dev' => [
+                            'js' => [
+                                'merge_files' => 0,
+                                'enable_js_bundling' => 0,
+                                'minify_files' => 0
+                            ],
+                            'css' => [
+                                'merge_css_files' => 0,
+                                'minify_files' => 0
+                            ],
+                            'static' => [
+                                'sign' => '0'
+                            ]
+                        ],
+                        'web' => [
+                            'cookie' => [
+                                'cookie_domain' => 'project-name.test'
+                            ],
+                            'unsecure' => [
+                                'base_url' => 'https://project-name.test/',
+                                'base_link_url' => 'https://project-name.test/',
+                                'base_static_url' => 'https://project-name.test/static/',
+                                'base_media_url' => 'https://project-name.test/media/'
+                            ],
+                            'secure' => [
+                                'base_url' => 'https://project-name.test/',
+                                'base_link_url' => 'https://project-name.test/',
+                                'base_static_url' => 'https://project-name.test/static/',
+                                'base_media_url' => 'https://project-name.test/media/'
+                            ],
+                            'seo' => [
+                                'use_rewrites' => '1'
+                            ]
+                        ]
                     ]
                 ],
                 'crypt' => [
@@ -348,7 +386,7 @@ See [Warden Magento 2 docs.](https://docs.warden.dev/environments/magento2.html)
         defaultFileMode: "0644"
         defaultDirectoryMode: "0755"
     ```
-5. Set up SSL and start project environment
+5. Set up SSL and start project environment (adjust url):
     ```
     warden sign-certificate project-name.test
     warden env up
