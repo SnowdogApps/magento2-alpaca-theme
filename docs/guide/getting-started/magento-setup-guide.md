@@ -1,32 +1,21 @@
-# Magento 2 setup guide
-It's a quick guide to setup Magento 2 project on your local environment and configure it for development purposes.
+# Magento 2 Setup Guide
+If you have Magento already set up, you can skip this guide.
 
-## Table of Contents
-  * [Requirements](#requirements)
-  * [Install and configure Magento 2](#install-and-configure-magento-2)
-    * [Configure with Valet Plus](configure-with-valet-plus)
-    * [Configure with Warden](configure-with-warden)
-    * [Configuration for development purposes](configuration-for-development-purposes)
+To make working in local environment easier, we recommend using one of the tools listed below:
+  * [Valet+](https://github.com/weprovide/valet-plus/wiki) - works on macOS. It doesn't use Vagrant or Docker but configures your Mac to always run Nginx in the background when your machine starts.
+  * [Warden](https://docs.warden.dev/) - works on MacOS, Linux and Windows (WSL). It's based on Docker containers.
+
+Of course you can run Magento 2 projects without those tools _(see [Magneto 2 docs](https://devdocs.magento.com/guides/v2.4/install-gde/composer.html))_, however in this guide we will be covering set up with Valet+ and Warden.
 
 ## Requirements
-* Before we start, make sure you meet the requirements needed to run Magento 2.4 projects:
+Make sure:
+* You meet requirements needed to run Magento 2.4 projects:
   * See [system requirements](https://devdocs.magento.com/guides/v2.4/install-gde/system-requirements.html)
   * See [complete guide of prerequisites necessary to run Magento 2](https://devdocs.magento.com/guides/v2.4/install-gde/prereq/prereq-overview.html)
+* You have Valet+ or Warden successfully installed
 
-* To make working in local environment easier, I recommend using one of tools listed below:
-
-  * See [Valet Plus wiki](https://github.com/weprovide/valet-plus/wiki) - works on macOS
-  * See [Warden 2 docs](https://docs.warden.dev/installing.html#prerequisites) - works on macOS, Linux and Windows
-
-* Of course you can run Magento 2 projects without those tools _(see [Magneto 2 docs](https://devdocs.magento.com/guides/v2.4/install-gde/composer.html))_, however in this tutorial we will be covering set up with Valet Plus and Warden.
-
-## Install and configure Magento 2
-Local environment setup with Valet+ or Warden. Working env with one of those tools is required to move forward with this guide.
-
-### Configure with Valet Plus
-(_For configuration with Warden see paragraph below_)<br />
-Valet+ is a development environment for macOS. It doesn't use Vagrant or Docker but configures your Mac to always run Nginx in the background when your machine starts.
-
+## Installation
+### Valet+
 1. Install Magento 2 Community Edition in your valet directory
     ```
     composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition <install-directory-name>
@@ -191,10 +180,7 @@ Valet+ is a development environment for macOS. It doesn't use Vagrant or Docker 
     valet secure
     ```
 
-### Configure with Warden
-(_If you're using Valet Plus, skip to next paragraph_)<br />
-Warden is a similar to Valet+ for setting up local project environment. As opposed to Valet+, Warden works on MacOS, Linux and Windows (WSL). It's based on Docker containers.<br />
-See [Warden Magento 2 docs.](https://docs.warden.dev/environments/magento2.html)
+### Warden
 1. Install Magento 2
     ```
     composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition <install-directory-name>
@@ -396,7 +382,9 @@ See [Warden Magento 2 docs.](https://docs.warden.dev/environments/magento2.html)
     * See Warden [databse documentation.](https://docs.warden.dev/configuration/database.html)
     * Make sure database section in `env.php ` file is properly set.
 
-### Configuration for development purposes (for both Valet+ and Warden env):
+## Configuration for development purposes
+The following steps are common for Valet+ and Warden.
+
 1. Disable 2FA and CSP for development purposes - run:
     ```
     bin/magento module:disable Magento_TwoFactorAuth Magento_Csp
