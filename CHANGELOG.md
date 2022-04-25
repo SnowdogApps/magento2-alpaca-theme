@@ -12,6 +12,7 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 ### Changed
 ### Fixed
 - passing all properties when adding product to wishlist (#534)
+- minicart - "See Details" dropdown JS init (#88897)
 ### Removed
 - unnecessary !important flags (#537)
 ### Updated
