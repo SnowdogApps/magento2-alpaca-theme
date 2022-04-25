@@ -8,6 +8,7 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 ## [Unreleased]
 ### Added
 - New config options for Modal (closeOnEsc, closeOnBackdrop)
+- Missing arguments in layout for multishipping address
 
 ### Changed
 ### Fixed
