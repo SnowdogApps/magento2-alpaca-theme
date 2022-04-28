@@ -13,6 +13,8 @@
 $addressHelper = $block->getData('addressHelper');
 /** @var \Magento\Directory\Helper\Data $directoryHelper */
 $directoryHelper = $block->getData('directoryHelper');
+/** @var \Magento\CustomerCustomAttributes\ViewModel\Address\RegionProvider $regionProvider */
+$regionProvider = $block->getRegionProvider();
 ?>
 <div class="container auth">
     <div class="auth__links auth__links--registration">
@@ -602,13 +604,13 @@ $directoryHelper = $block->getData('directoryHelper');
 <script type="text/x-magento-init">
     {
         "#country": {
-            "regionUpdater": {
+            "directoryRegionUpdater": {
                 "optionalRegionAllowed": <?= /* @noEscape */ $displayAllRegions ?>,
                 "regionListId": "#region_id",
                 "regionInputId": "#region",
                 "postcodeId": "#zip",
                 "form": "#form-validate",
-                "regionJson": <?= /* @noEscape */ $directoryHelper->getRegionJson() ?>,
+                "regionJson": <?= /* @noEscape */ $regionProvider->getRegionJson() ?>,
                 "defaultRegion": "<?= /* @noEscape */ $block->getFormData()->getRegionId() ?>",
                 "countriesWithOptionalZip": <?= /* @noEscape */ $directoryHelper->getCountriesWithOptionalZip(true) ?>
             }

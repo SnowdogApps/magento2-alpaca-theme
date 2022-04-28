@@ -1,8 +1,7 @@
 <?php
-// phpcs:disable Magento2.Templates.ThisInTemplate
-// phpcs:disable Magento2.Files.LineLength.MaxExceeded
-
 /** @var $block \Magento\GiftRegistry\Block\Customer\Edit\Registry */
+/** @var \Magento\GiftRegistry\ViewModel\Address\RegionProvider $regionProvider */
+$regionProvider = $block->getRegionProvider();
 ?>
 
 <input
@@ -51,7 +50,7 @@
             id="title"
             value="<?= $block->escapeHtmlAttr($block->getEntity()->getTitle()) ?>"
             title="<?= $block->escapeHtmlAttr(__('Event')) ?>"
-            class="input__field"
+            class="input__field input-text"
             data-validate="{required:true}"
         />
     </div>
@@ -147,13 +146,13 @@
 
 <?php
 $fieldsets = $block->getGroupedRegistryAttributes();
-foreach ($fieldsets as $fieldset => $fields) : ?>
+foreach ($fieldsets as $fieldset => $fields): ?>
     <fieldset class="fieldset">
         <legend class="fieldset__legend">
             <?= $block->escapeHtml($block->getGroupLabel($fieldset)) ?>
         </legend>
 
-        <?php foreach ($fields as $field => $data) : ?>
+        <?php foreach ($fields as $field => $data): ?>
             <?php $isRequired = $block->isAttributeRequired($data); ?>
             <div
                 class="
@@ -172,22 +171,24 @@ foreach ($fieldsets as $fieldset => $fields) : ?>
                 <?= /* @noEscape */ $block->renderField($data, $field) ?>
             </div>
         <?php endforeach; ?>
-        <?php foreach ($fields as $field => $data) : ?>
-            <?php if ($block->useRegionUpdater($data)) : ?>
+        <?php foreach ($fields as $field => $data): ?>
+            <?php if ($block->useRegionUpdater($data)): ?>
+                <?php $currentRegion = $block->escapeJs($block->getEntity()->getFieldValue($data['id'] . '_region')) ?>
+                <?php $optionalRegion = $block->getConfig('general/region/display_all') ? 'true' : 'false' ?>
                 <script type="text/x-magento-init">
                 {
                     "#<?= $block->escapeJs($field) ?>": {
-                        "regionUpdater": {
-                            "optionalRegionAllowed": <?= ($block->getConfig('general/region/display_all') ? 'true' : 'false') ?>,
+                        "directoryRegionUpdater": {
+                            optionalRegionAllowed": <?= /* @noEscape */  $optionalRegion ?>,
                             "regionListId": "#<?= $block->escapeJs($field) ?>_region",
                             "regionInputId": "#<?= $block->escapeJs($field) ?>_region_text",
                             "isRegionRequired": false,
                             "isZipRequired": false,
                             "isCountryRequired": true,
-                            <?php if ($block->getEntity()->getFieldValue($data['id'] . '_region')) : ?>
-                            "currentRegion": <?= $block->escapeJs($block->getEntity()->getFieldValue($data['id'] . '_region')) ?>,
+                            <?php if ($block->getEntity()->getFieldValue($data['id'] . '_region')): ?>
+                            "currentRegion": <?= /* @noEscape */ $currentRegion ?>,
                             <?php endif; ?>
-                            "regionJson": <?= /* @noEscape */ $this->helper(Magento\Directory\Helper\Data::class)->getRegionJson() ?>
+                            "regionJson": <?= /* @noEscape */ $regionProvider->getRegionJson() ?>
                         }
                     }
                 }
