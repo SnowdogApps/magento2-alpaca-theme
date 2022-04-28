@@ -11,6 +11,7 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - Missing arguments in layout for multishipping address (#541)
 
 ### Changed
+- LCP image loading on PDP for performance (#543)
 ### Fixed
 - passing all properties when adding product to wishlist (#534)
 - minicart - "See Details" dropdown JS init (#88897)
