@@ -173,6 +173,14 @@ module.exports = {
       }
     },
     {
+      name: 'link-secondary',
+      context: {
+        class: 'button--link-secondary',
+        attributes: 'type="button" aria-label="Click to do something"',
+        text: 'I am a link button secondary'
+      }
+    },
+    {
       name: 'fluid',
       context: {
         class: 'button--fluid',
