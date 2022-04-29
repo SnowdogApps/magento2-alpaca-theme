@@ -26,7 +26,7 @@
             largeWrapper = options.largeWrapper || '.magnifier-preview',
             $magnifierPreview = $(largeWrapper);
 
-        curThumb = null,
+        var curThumb = null,
         magnifierOptions = {
             x: 0,
             y: 0,
