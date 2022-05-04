@@ -14,6 +14,9 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 ### Fixed
 - passing all properties when adding product to wishlist (#534)
 - minicart - "See Details" dropdown JS init (#88897)
+- Wrong display of discount amount in order summary on review & payments page (#540)
+- Misaligned contact bar (#542)
+- fotorama.js and magnifier.js magepack errors fixes (#544)
 ### Removed
 - unnecessary !important flags (#537)
 ### Updated
