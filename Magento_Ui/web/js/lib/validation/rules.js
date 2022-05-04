@@ -1101,20 +1101,20 @@ define([
       $.mage.__('The Date of Birth should not be greater than today.')
     ],
     'validate-no-utf8mb4-characters': [
-        function (value) {
-            var validator = this;
-            var message = $.mage.__('Please remove invalid characters: {0}.');
-            var matches = value.match(/(?:[\uD800-\uDBFF][\uDC00-\uDFFF])/g);
-            var result = matches === null;
+      function (value) {
+        var validator = this;
+        var message = $.mage.__('Please remove invalid characters: {0}.');
+        var matches = value.match(/(?:[\uD800-\uDBFF][\uDC00-\uDFFF])/g);
+        var result = matches === null;
 
-            if (!result) {
-                validator.charErrorMessage = message.replace('{0}', matches.join());
-            }
-
-            return result;
-        }, function () {
-            return this.charErrorMessage;
+        if (!result) {
+          validator.charErrorMessage = message.replace('{0}', matches.join());
         }
+
+        return result;
+      }, function () {
+        return this.charErrorMessage;
+      }
     ]
   }, function (data) {
     return {
