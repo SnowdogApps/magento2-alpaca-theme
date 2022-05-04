@@ -20,7 +20,7 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 ### Removed
 - unnecessary !important flags (#537)
 ### Updated
-- Magento to 2.4.4 (#88899)
+- Magento to 2.4.4 (#546)
 
 ## [Released]
 ## [2.26.0] - 2022-03-10
