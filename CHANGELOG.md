@@ -2,8 +2,10 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Removed
+- share wishlist - pre-populated whitespace in email and message fields (#547)
 ### Updated
-- theme files to Magento 2.4.3
+- theme files to Magento 2.4.3 (#469)
 
 ## [1.7.0] - 2020-09-26
 ### Changed
