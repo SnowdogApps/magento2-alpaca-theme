@@ -18,6 +18,7 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - Wrong display of discount amount in order summary on review & payments page (#540)
 - Misaligned contact bar (#542)
 - fotorama.js and magnifier.js magepack errors fixes (#544)
+- checkout - shipping method item error display (#85516)
 ### Removed
 - unnecessary !important flags (#537)
 ### Updated
