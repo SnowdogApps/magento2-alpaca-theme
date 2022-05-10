@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Fixed
+- items spacing in cart totals (#548)
 ### Removed
 - share wishlist - pre-populated whitespace in email and message fields (#547)
 ### Updated
