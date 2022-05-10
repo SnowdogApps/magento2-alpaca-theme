@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Fixed
+- items spacing in cart totals (#548)
 ### Updated
 - theme files to Magento 2.4.3
 
