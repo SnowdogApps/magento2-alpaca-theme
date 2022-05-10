@@ -161,11 +161,11 @@ You can create also `README.md` and `CHANGELOG.md` files.
 
     2. `app/design/VENDOR_NAME/CHILD_THEME_NAME/Snowdog_Components/docs/styles/styles.scss`
         ```scss
-        // Variables
-        @import '../../components/Atoms/variables/variables';
-
         // Child theme variables (imported after alpaca variables)
         @import "../../components/Atoms/variables/CHILD_THEME_NAME-variables";
+
+        // Variables
+        @import '../../components/Atoms/variables/variables';
 
         // Components
         @import '../../components/styles/critical';
@@ -177,11 +177,11 @@ You can create also `README.md` and `CHANGELOG.md` files.
 
     3. `app/design/VENDOR_NAME/CHILD_THEME_NAME/Snowdog_Components/docs/styles/checkout.scss`
         ```scss
-        // Variables
-        @import '../../components/Atoms/variables/variables';
-
         // Child theme variables
         @import "../../components/Atoms/variables/CHILD_THEME_NAME-variables";
+
+        // Variables
+        @import '../../components/Atoms/variables/variables';
 
         // Components
         @import '../../components/styles/critical-checkout';
@@ -193,11 +193,11 @@ You can create also `README.md` and `CHANGELOG.md` files.
 
     4. `app/design/VENDOR_NAME/CHILD_THEME_NAME/styles/styles.scss`
         ```scss
-        // Variables
-        @import '../Snowdog_Components/components/Atoms/variables/variables';
-
         // Child theme variables
         @import "../Snowdog_Components/components/Atoms/variables/CHILD_THEME_NAME-variables";
+
+        // Variables
+        @import '../Snowdog_Components/components/Atoms/variables/variables';
 
         // Components
         @import '../Snowdog_Components/components/styles/non-critical';
@@ -226,11 +226,11 @@ You can create also `README.md` and `CHANGELOG.md` files.
 
     5. `app/design/VENDOR_NAME/CHILD_THEME_NAME/styles/critical.scss`
         ```scss
-        // Variables
-        @import '../Snowdog_Components/components/Atoms/variables/variables';
-
         // Child theme variables
         @import "../Snowdog_Components/components/Atoms/variables/CHILD_THEME_NAME-variables";
+
+        // Variables
+        @import '../Snowdog_Components/components/Atoms/variables/variables';
 
         // Components
         @import '../Snowdog_Components/components/styles/critical';
@@ -245,11 +245,11 @@ You can create also `README.md` and `CHANGELOG.md` files.
         ```
     6. `app/design/VENDOR_NAME/CHILD_THEME_NAME/styles/critical-checkout.scss`
         ```scss
-            // Variables
-            @import '../Snowdog_Components/components/Atoms/variables/variables';
-
             // Child theme variables
             @import "../Snowdog_Components/components/Atoms/variables/CHILD_THEME_NAME-variables";
+
+            // Variables
+            @import '../Snowdog_Components/components/Atoms/variables/variables';
 
             // Components
             @import '../Snowdog_Components/components/styles/critical-checkout';
@@ -268,10 +268,11 @@ You can create also `README.md` and `CHANGELOG.md` files.
             // Mixins
             @import '../../Snowdog_Components/components/styles/mixins';
 
-            // Component variables
-            @import '../../Snowdog_Components/components/Atoms/variables/variables';
             // Child theme variables
             @import "../../Snowdog_Components/components/Atoms/variables/CHILD_THEME_NAME-variables";
+
+            // Component variables
+            @import '../../Snowdog_Components/components/Atoms/variables/variables';
 
             // Components partials for checkout
             @import '../../Snowdog_Components/components/styles/checkout';

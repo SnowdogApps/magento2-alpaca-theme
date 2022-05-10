@@ -82,7 +82,7 @@ A11y test files are located in in `Snowdog_Components/public/tests`.
 ### Global Variables
 * Create `app/design/frontend/VENDOR_NAME/CHILD_THEME_NAME/Snowdog_Components/components/Atoms/variables/_CHILD_THEME_NAME-variables.scss`
 * Modify any [Alpaca variable values](https://github.com/SnowdogApps/magento2-alpaca-theme/blob/master/Snowdog_Components/components/Atoms/variables/_variables.scss) or create new ones.
-* Import the file after Alpaca variables (search `// Variables` in Theme Alpaca to find all of the files that require variables import).
+* Import the file before Alpaca variables (search `// Variables` in Theme Alpaca to find all of the files that require variables import).
 ::: warning
 In child theme don't use `!default` flag when changing variables declared in Alpaca theme or creating new variables for your needs.
 :::
