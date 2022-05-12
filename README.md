@@ -75,8 +75,8 @@ Node.js [LTS version](https://nodejs.org/en/about/releases/). We recommend using
     * `styles/styles.scss`
     ```scss
     // Component variables
-    @import '../Snowdog_Components/components/Atoms/variables/variables';
     @import '../Snowdog_Components/components/Atoms/variables/<child-theme>-variables';
+    @import '../Snowdog_Components/components/Atoms/variables/variables';
 
     // Components
     @import '../Snowdog_Components/components/styles';
