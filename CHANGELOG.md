@@ -21,6 +21,7 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - checkout - shipping method item error display (#85516)
 ### Removed
 - unnecessary !important flags (#537)
+- elasticsuite footer (#549)
 ### Updated
 
 ## [Released]
