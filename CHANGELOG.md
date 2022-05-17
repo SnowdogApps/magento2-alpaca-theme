@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Fixed
 - items spacing in cart totals (#548)
+- wishlist PDP - change of qty using +/- buttons doesn't save (##551)
 ### Removed
 - share wishlist - pre-populated whitespace in email and message fields (#547)
 ### Updated
