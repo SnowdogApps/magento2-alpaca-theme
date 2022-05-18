@@ -13,7 +13,7 @@ class QuantityUpdate {
       this.evaluateConditions();
       this.triggerInput(e);
     });
-    this.minus.addEventListener('click', () => {
+    this.minus.addEventListener('click', e => {
       this.decrement();
       this.evaluateConditions();
       this.triggerInput(e);
