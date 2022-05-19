@@ -15,6 +15,11 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 ### Updated
 
 ## [Released]
+## [2.26.3] - 2022-05-19
+### Changed
+- docs url
+### Fixed
+- docs - comment about custom variables import order
 ## [2.26.2] - 2022-05-19
 ### Fixed
 - vitepress- dead link error
