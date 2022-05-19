@@ -7,12 +7,17 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 
 ## [Unreleased]
 ### Added
+- New config options for Modal (closeOnEsc, closeOnBackdrop)
 ### Changed
 ### Fixed
+- passing all properties when adding product to wishlist (#88178)
 ### Removed
 ### Updated
 
 ## [Released]
+## [2.26.1] - 2022-05-19
+### Added
+- docs and new readme (#535)
 ## [2.26.0] - 2022-03-10
 ### Added
 - In-store pickup components (#82620)

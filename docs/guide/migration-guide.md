@@ -1,6 +1,13 @@
-# Migration guide for Alpaca theme >= 2.26.0
+# Migration guide
+## >= 2.26.0
 
-## New files
+### Tools
+You can use [this helper](https://github.com/SnowdogApps/theme-alpaca-upgrade-helper) to update child theme styles to Alpaca version >= 2.26.0 automatically.
+
+Then move to [this](#start-here-when-using-upgrade-helper) step.
+
+### Step by step guide
+**New files overview**
 ```
 theme-frontend-alpaca/
 ├── styles/
@@ -23,11 +30,6 @@ theme-frontend-alpaca/
     ├── _module-critical.scss
     └── _module-non-critical.scss
 ```
-
-## Tools
-You can use [this helper](https://github.com/SnowdogApps/theme-alpaca-upgrade-helper) to update child theme styles to Alpaca version >= 2.26.0
-
-## Step by step guide
 
 1. Remove `<child-theme>/styles/styles.scss`
 
@@ -99,9 +101,10 @@ Also in `<child-theme>/Snowdog_Components/docs/styles/checkout.scss`
 // Styles necessary only for Fractal purposes
 @import 'fractal';
 ```
+### [*Start here when using upgrade helper*]
 9. Adjust fractal components inheritance:
 * replace `<child-theme>/Snowdog_Components/modules.json` file with an array of paths to Alpaca components libraries with `modules.mjs` and adjust the content, example:
-```mjs
+```js
 export default [
   "../../../../../../vendor/snowdog/theme-frontend-alpaca/Snowdog_Components"
 ]
@@ -109,59 +112,35 @@ export default [
 * copy content of `vendor/snowdog/theme-frontend-alpaca/Snowdog_Components/gulpfile.mjs` to child theme (`<child-theme>/Snowdog_Components/gulpfile.mjs`) components and adjust child components customisations if needed.
 
 10. Update the following component configuration options in `.config.js` files to their new version:
-* `preview: '@checkout'` ->
+* `preview: '@checkout'` to:
 ```js
     meta: {
         checkout: true
     }
 ```
 
-* `preview: '@docs-only-styles'` ->
+* `preview: '@docs-only-styles'` to:
 ```js
   meta: {
     docsOnlyStyles: true
   }
 ```
 
-# Magento_Theme module
-If you've overwritten `root.phtml` file please adjust content to the newest changes in `theme-frontend-alpaca/Magento_Theme/templates/root.phtml`
+11. Remove `Snowdog_Components/components/Atoms/_fonts/_fonts.scss` and add `Snowdog_Components/docs/styles/docs-only-styles/_fonts.scss` instead
 
-```php
-<?php
-    $isCheckout = strpos($bodyAttributes, 'page-layout-checkout');
-    $criticalStyles;
-    if ($isCheckout) {
-        $criticalStyles = $this->assetRepo->createAsset('css/critical-checkout.css')->getContent();
-        $inlineStyles = str_replace('../images', $this->getViewFileUrl('images'), $criticalStyles);
-        $inlineStyles = str_replace('critical.css.map', $this->getViewFileUrl('css/critical-checkout.css.map'), $inlineStyles);
-    } else {
-        $criticalStyles = $this->assetRepo->createAsset('css/critical.css')->getContent();
-        $inlineStyles = str_replace('../images', $this->getViewFileUrl('images'), $criticalStyles);
-        $inlineStyles = str_replace('critical.css.map', $this->getViewFileUrl('css/critical.css.map'), $inlineStyles);
-    }
-?>
+#### Magento_Theme module
+* If you've overwritten `root.phtml` file please adjust content to the newest changes in `theme-frontend-alpaca/Magento_Theme/templates/root.phtml`
 
-<style>
-    <?= $inlineStyles; ?>
-</style>
+* Styles which use `@extend` rule are moved to `Magento_Theme/styles/_module-critical.scss` and `Magento_Theme/styles/_module-non-critical.scss`
 
-<?php if ($isCheckout): ?>
-    <link
-        href="<?= $this->getViewFileUrl('Magento_Checkout/checkout.css') ?>"
-        rel="stylesheet"
-        as="style"
-        media="print"
-        onload="this.media='all'"
-    />
-<?php else: ?>
-    <link
-        href="<?= $this->getViewFileUrl('css/styles.css') ?>"
-        rel="stylesheet"
-        as="style"
-        media="print"
-        onload="this.media='all'"
-    />
-<?php endif; ?>
-```
+#### Minicart
+Theme Alpaca `2.26.0` requires [snowdog/module-alpaca-general](https://github.com/SnowdogApps/magento2-alpaca-general): `1.5.0`.
+We introduced an option to remove quantity input in minicart in `Admin > Store > Configuration > Snowdog > Alpaca General > Mini Cart > Qty`.
 
-Styles which use `@extend` rule are moved to `Magento_Theme/styles/_module-critical.scss` and `Magento_Theme/styles/_module-non-critical.scss`
+#### Magepack
+In `magepack.config.js`:
+1. Change:
+* `Magento_Wishlist/js/add-to-wishlist-mixin` to `Magento_Wishlist/js/add-to-wishlist-mixin.babel`
+2. Remove:
+* `'Magento_Theme/js/lib/lazysizes.min': 'Magento_Theme/js/lib/lazysizes.min'`
+* `'Magento_Theme/js/lib/picturefill.min': 'Magento_Theme/js/lib/picturefill.min'`

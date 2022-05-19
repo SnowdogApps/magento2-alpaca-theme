@@ -3,14 +3,16 @@ define([], function () {
 
   class Modal { // eslint-disable-line
     constructor(modalTrigger, config) {
-      this.config = config
+      const defaults = {
+        closeOnEsc: true,
+        closeOnBackdrop: true
+      }
+
+      this.config = Object.assign({}, defaults, config);
       this.setListeners(modalTrigger);
     }
 
     trap(e, modal) {
-      if (e.which == 27) {
-        this.closeModal(modal);
-      }
       if (e.which == 9) {
         let currentFocus = document.activeElement;
         let totalOfFocusable = modal.focusableChildren.length;
@@ -77,25 +79,30 @@ define([], function () {
         );
       }
 
-      // clicking anywhere outside of the modal closes the modal
-      window.addEventListener('click', (e) => {
-        if (e.target === modal.el
-          && modal.el.classList.contains(modal.activeClass)
-          && !modal.content.contains(e.target)
-        ) {
-          this.closeModal(modal)
-        }
-      });
-      // escape key closes the modal
-      window.addEventListener('keydown', (e) => {
-        if (e.which === 27
-          && modal.el.classList.contains(modal.activeClass)
-        ) {
-          this.closeModal(modal)
-        }
-      });
+      if (this.config.closeOnBackdrop) {
+        // clicking anywhere outside of the modal closes the modal
+        window.addEventListener('click', (e) => {
+          if (e.target === modal.el
+            && modal.el.classList.contains(modal.activeClass)
+            && !modal.content.contains(e.target)
+          ) {
+            this.closeModal(modal)
+          }
+        });
+      }
 
-      if (this.config && this.config.mqOpen) {
+      if (this.config.closeOnEsc) {
+        // escape key closes the modal
+        window.addEventListener('keydown', (e) => {
+          if (e.which === 27
+            && modal.el.classList.contains(modal.activeClass)
+          ) {
+            this.closeModal(modal)
+          }
+        });
+      }
+
+      if (this.config.mqOpen) {
         const mqOpenBreakpoint = window.matchMedia(this.config.mqOpen);
         if (mqOpenBreakpoint.matches) {
           this.modalOpenMq(modal)
