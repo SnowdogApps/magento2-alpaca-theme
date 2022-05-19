@@ -3,7 +3,7 @@
 
 [![Latest Stable Version](http://poser.pugx.org/snowdog/theme-frontend-alpaca/v)](https://packagist.org/packages/snowdog/theme-frontend-alpaca) <img src="https://img.shields.io/badge/Magento-2.4.3-blue.svg" alt="Magento 2.4.3"/> [![Total Downloads](http://poser.pugx.org/snowdog/theme-frontend-alpaca/downloads)](https://packagist.org/packages/snowdog/theme-frontend-alpaca)
 
-📚 [Documentation](https://alpaca-docs.vercel.app/) | 📝 [Changelog](./CHANGELOG.md) | 🔺 [Migration Guide](https://alpaca-docs.vercel.app/guide/migration-guide.html)
+📚 [Documentation](https://magento2-alpaca-docs.vercel.app/) | 📝 [Changelog](./CHANGELOG.md) | 🔺 [Migration Guide](https://magento2-alpaca-docs.vercel.app/guide/migration-guide.html)
 
 🔹 [Component Library](https://magento2-alpaca-theme.vercel.app/)<br>
 🔹 [Magento OS Demo](https://alpaca-community.snowdog.dev/)<br>
@@ -32,4 +32,4 @@
 
 ---
 
-To learn more about Alpaca, check [documentation](https://alpaca-docs.vercel.app/).
+To learn more about Alpaca, check [documentation](https://magento2-alpaca-docs.vercel.app/).
