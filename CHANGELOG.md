@@ -7,8 +7,11 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 
 ## [Unreleased]
 ### Added
+- New config options for Modal (closeOnEsc, closeOnBackdrop)
+
 ### Changed
 ### Fixed
+- passing all properties when adding product to wishlist (#88178)
 ### Removed
 ### Updated
 
