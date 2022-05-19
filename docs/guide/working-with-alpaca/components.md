@@ -9,7 +9,7 @@ In `Snowdog_Components` directory (inside Alpaca or Alpaca Child Theme) run:
 ````
 yarn && yarn dev
 ````
-Then go to http://localhost:4000/ and start exploring 🎉
+Then go to `http://localhost:4000/` and start exploring 🎉
 
 ::: tip
 Check [Alpaca Setup Guide](/guide/getting-started/alpaca-setup-guide.html) for more details.

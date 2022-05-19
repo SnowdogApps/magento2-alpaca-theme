@@ -15,6 +15,9 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 ### Updated
 
 ## [Released]
+## [2.26.2] - 2022-05-19
+### Fixed
+- vitepress- dead link error
 ## [2.26.1] - 2022-05-19
 ### Added
 - docs and new readme (#535)
