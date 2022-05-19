@@ -161,7 +161,7 @@ You can create also `README.md` and `CHANGELOG.md` files.
 
     2. `app/design/VENDOR_NAME/CHILD_THEME_NAME/Snowdog_Components/docs/styles/styles.scss`
         ```scss
-        // Child theme variables (imported after alpaca variables)
+        // Child theme variables (imported before alpaca variables)
         @import "../../components/Atoms/variables/CHILD_THEME_NAME-variables";
 
         // Variables
