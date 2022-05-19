@@ -9,7 +9,6 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 ### Added
 - New config options for Modal (closeOnEsc, closeOnBackdrop)
 - Missing arguments in layout for multishipping address (#541)
-
 ### Changed
 - LCP image loading on PDP for performance (#543)
 ### Fixed
@@ -25,6 +24,9 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 ### Updated
 
 ## [Released]
+## [2.26.1] - 2022-05-19
+### Added
+- docs and new readme (#535)
 ## [2.26.0] - 2022-03-10
 ### Added
 - In-store pickup components (#82620)
