@@ -1,7 +1,7 @@
 # Alpaca Setup Guide
 In this guide we will be covering how to set up Alpaca and create Alpaca Child Theme in an existing Magento project.
 
-If you need to help with setting up Magento project, check our [Magento 2 Setup Guide](/guide/getting-started/magento-setup-guide.html).
+If you need help with setting up Magento project, check our [Magento 2 Setup Guide](/guide/getting-started/magento-setup-guide.html).
 
 ## Requirements
 * Magento `2.4` project
