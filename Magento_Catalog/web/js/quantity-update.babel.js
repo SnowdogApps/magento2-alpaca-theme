@@ -8,13 +8,15 @@ class QuantityUpdate {
   }
 
   events() {
-    this.plus.addEventListener('click', () => {
+    this.plus.addEventListener('click', e => {
       this.increment();
       this.evaluateConditions();
+      this.triggerInput(e);
     });
-    this.minus.addEventListener('click', () => {
+    this.minus.addEventListener('click', e => {
       this.decrement();
       this.evaluateConditions();
+      this.triggerInput(e);
     });
   }
 
@@ -32,6 +34,15 @@ class QuantityUpdate {
     }
   }
 
+  triggerInput() {
+    const event = new Event('change', {
+      'bubbles': true,
+      'cancelable': true
+    });
+
+    this.input.dispatchEvent(event);
+  }
+
   disableMinus() {
     this.minus.classList.remove('quantity-update__button--disabled')
   }
@@ -44,5 +55,3 @@ class QuantityUpdate {
 define(() => (config, element) => {
   new QuantityUpdate(element);
 });
-
-
