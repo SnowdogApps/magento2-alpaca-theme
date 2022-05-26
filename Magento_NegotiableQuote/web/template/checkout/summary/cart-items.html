@@ -21,22 +21,14 @@
         data-role="title"
     >
         <span class="order-summary__tab-text">
-            <translate
-                args="maxCartItemsToDisplay"
-                if="maxCartItemsToDisplay < getCartLineItemsCount()"
-            />
-            <translate
-                args="'of'"
-                if="maxCartItemsToDisplay < getCartLineItemsCount()"
-            />
-            <span data-bind="text: getCartLineItemsCount()"></span>
+            <span data-bind="text: getItemsQty()"></span>
             <translate
                 args="'Item in Quote'"
-                if="getCartSummaryItemsCount() === 1"
+                if="getItemsQty() === 1"
             />
             <translate
                 args="'Items in Quote'"
-                if="getCartSummaryItemsCount() > 1"
+                if="getItemsQty() > 1"
             />
         </span>
         <svg
@@ -57,7 +49,7 @@
         "
         data-role="content"
     >
-        <each args="items()">
+        <each args="getItems()">
             <div class="order-summary__product-item">
                 <each
                     args="$parent.elems()"
@@ -65,22 +57,5 @@
                 />
             </div>
         </each>
-    </div>
-    <div
-        class="actions-toolbar"
-        if="maxCartItemsToDisplay < getCartLineItemsCount()"
-    >
-        <div class="secondary">
-            <a
-                class="
-                    action
-                    viewcart
-                    link
-                "
-                data-bind="attr: {href: cartUrl}"
-            >
-                <span data-bind="i18n: 'View and Edit Cart'"></span>
-            </a>
-        </div>
     </div>
 </div>
