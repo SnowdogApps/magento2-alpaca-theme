@@ -9,9 +9,9 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 ### Added
 - New config options for Modal (closeOnEsc, closeOnBackdrop)
 - Missing arguments in layout for multishipping address (#541)
-
 ### Changed
 - LCP image loading on PDP for performance (#543)
+- Order summary design in Quote (#553)
 ### Fixed
 - passing all properties when adding product to wishlist (#534)
 - minicart - "See Details" dropdown JS init (#88897)
@@ -21,9 +21,21 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - checkout - shipping method item error display (#85516)
 ### Removed
 - unnecessary !important flags (#537)
+- elasticsuite footer (#549)
 ### Updated
 
 ## [Released]
+## [2.26.3] - 2022-05-19
+### Changed
+- docs url
+### Fixed
+- docs - comment about custom variables import order
+## [2.26.2] - 2022-05-19
+### Fixed
+- vitepress- dead link error
+## [2.26.1] - 2022-05-19
+### Added
+- docs and new readme (#535)
 ## [2.26.0] - 2022-03-10
 ### Added
 - In-store pickup components (#82620)
