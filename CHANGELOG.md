@@ -12,6 +12,7 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 ### Changed
 - LCP image loading on PDP for performance (#543)
 - Order summary design in Quote (#553)
+- replace ObjectManager in phtml (#552)
 ### Fixed
 - passing all properties when adding product to wishlist (#534)
 - minicart - "See Details" dropdown JS init (#88897)
