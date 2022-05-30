@@ -124,7 +124,7 @@ After modules installation import content types from [Snowdog Alpaca ACM /import
         <block
             class="Blackbird\ContentManager\Block\Content\Widget\ContentList"
             name="my-slider"
-            template="Snowdog_Acm::content/view/sliders/list.phtml"
+            template="Blackbird_ContentManager::content/view/sliders/list.phtml"
         >
             <arguments>
                 // required argument with uniq name

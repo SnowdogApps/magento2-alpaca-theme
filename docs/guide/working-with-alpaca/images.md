@@ -76,4 +76,4 @@ To make working with responsive images easier, we've created [picture.phtml](htt
 * If images for different screen sizes have different aspect ratios than the default image, add  `img_ratio_width_...` and `img_ratio_height_...` attributes.
 
 ### Usage in PHTML Templates
-Check [list.phtml](https://github.com/SnowdogApps/magento2-alpaca-theme/blob/master/Snowdog_Acm/templates/content/widget/sliders/list.phtml) to see an example of how to use `picture.phtml` inside another template.
+Check [list.phtml](https://github.com/SnowdogApps/magento2-alpaca-theme/blob/master/Blackbird_ContentManager/templates/content/widget/sliders/list.phtml) to see an example of how to use `picture.phtml` inside another template.
