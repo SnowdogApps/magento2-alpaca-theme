@@ -101,9 +101,8 @@ Learn about Advanced Content Manager: [Documentation](https://www.advancedconten
 ### Installation
 Required modules:
 * [Blackbird Advanced Content Manager](https://www.advancedcontentmanager.com/)
-* [snowdog/module-alpaca-acm](https://github.com/SnowdogApps/magento2-alpaca-acm)
 
-After modules installation import content types from [Snowdog Alpaca ACM /imports directory](https://github.com/SnowdogApps/magento2-alpaca-acm/tree/master/imports) in `Admin -> Content -> Content Manager -> Content Types -> Import Content Types button`.
+After modules installation import content types from [module-alpaca-packages /imports directory](https://github.com/SnowdogApps/magento2-alpaca-packages/tree/master/imports) in `Admin -> Content -> Content Manager -> Content Types -> Import Content Types button`.
 ### Usage
 1. Add pictures for slider in `Admin -> Content -> Contents -> Pictures`
 2. Add slider in `Admin -> Content -> Contents -> Sliders`
@@ -168,4 +167,4 @@ After modules installation import content types from [Snowdog Alpaca ACM /import
             />
         </referenceBlock>
         ```
-        Check [Home Slider Example](https://github.com/SnowdogApps/magento2-alpaca-acm/blob/master/view/frontend/layout/cms_index_index.xml#L21)
+        Check [Home Slider Example](https://github.com/SnowdogApps/magento2-alpaca-theme/blob/master/Blackbird_ContentManager/layout/cms_index_index.xml#L21)

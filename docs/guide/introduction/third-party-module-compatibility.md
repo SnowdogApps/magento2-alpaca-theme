@@ -5,7 +5,6 @@ Besides modules included in [Alpaca Packages](#alpaca-packages), Alpaca supports
     * paradoxlabs/tokenbase
     * authorizenet/magento-module-creditcard
     * creativestyle/magesuite-magepack
-    * [snowdog/module-alpaca-acm](https://github.com/SnowdogApps/magento2-alpaca-acm) (Alpaca customisations for paid `blackbird/contentmanager` extension)
     * yireo/magento2-webp2
 
 * **Paid:**
