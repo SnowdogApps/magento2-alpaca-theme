@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+<page
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd"
+>
+    <update handle="cms_page_view" />
+    <body>
+        <referenceContainer name="content" htmlClass="home">
+            <!-- Main slider -->
+            <container
+                name="section.home.slider"
+                htmlTag="section"
+                htmlClass="section section--secondary"
+                before="-"
+            >
+                <container
+                    name="section.home.slider.content"
+                    htmlTag="div"
+                    htmlClass="section__content"
+                >
+                    <block
+                        class="Blackbird\ContentManager\Block\Content\Widget\ContentList"
+                        name="home-slider"
+                        template="Snowdog_Acm::content/view/sliders/list.phtml"
+                    >
+                        <arguments>
+                            <argument name="slider_picture_block" xsi:type="string">homepage-picture</argument>
+                            <argument name="slider_block" xsi:type="string">homepage-slider</argument>
+                            <argument name="lazy" xsi:type="boolean">false</argument>
+                        </arguments>
+                        <action method="setCtType">
+                            <argument name="type" xsi:type="string">sliders</argument>
+                        </action>
+                        <action method="setPager">
+                            <argument name="pager" xsi:type="boolean">false</argument>
+                        </action>
+                        <action method="setLimitDisplay">
+                            <argument name="limit_display" xsi:type="string">1</argument>
+                        </action>
+                        <action method="addAttributeToFilter">
+                            <argument name="attribute" xsi:type="string">cb_slider_id</argument>
+                            <argument name="condition" xsi:type="string">eq</argument>
+                            <argument name="value" xsi:type="string">home-slider</argument>
+                        </action>
+
+                        <block
+                            class="Magento\Framework\View\Element\Template"
+                            name="homepage-picture"
+                            template="Magento_Theme::html/picture.phtml"
+                        />
+
+                        <block
+                            class="Magento\Framework\View\Element\Template"
+                            name="homepage-slider"
+                            template="Magento_Theme::html/slider.phtml"
+                        />
+                    </block>
+                </container>
+            </container>
+
+
+            <!-- Top brands (slider) -->
+            <container
+                name="home-brands-section"
+                htmlTag="section"
+                htmlClass="section"
+                before="home-content"
+            >
+                <container
+                    name="home-brands-container"
+                    htmlTag="div"
+                    htmlClass="section__content"
+                >
+                    <block
+                        class="Blackbird\ContentManager\Block\Content\Widget\ContentList"
+                        name="brands-slider"
+                        template="Snowdog_Acm::content/view/sliders/list.phtml"
+                    >
+                        <arguments>
+                            <argument name="slider_picture_block" xsi:type="string">brand-picture</argument>
+                            <argument name="slider_block" xsi:type="string">brand-slider</argument>
+                            <argument name="slider_class" xsi:type="string">slider--brands</argument>
+                            <argument
+                                name="slider_title_class"
+                                xsi:type="string"
+                            >
+                                heading heading--first-level margin-0
+                            </argument>
+                        </arguments>
+                        <action method="setCtType">
+                            <argument name="type" xsi:type="string">sliders</argument>
+                        </action>
+                        <action method="setPager">
+                            <argument name="pager" xsi:type="boolean">false</argument>
+                        </action>
+                        <action method="setLimitDisplay">
+                            <argument name="limit_display" xsi:type="string">1</argument>
+                        </action>
+                        <action method="addAttributeToFilter">
+                            <argument name="attribute" xsi:type="string">cb_slider_id</argument>
+                            <argument name="condition" xsi:type="string">eq</argument>
+                            <argument name="value" xsi:type="string">brands-slider</argument>
+                        </action>
+
+                        <block
+                            class="Magento\Framework\View\Element\Template"
+                            name="brand-picture"
+                            template="Magento_Theme::html/picture.phtml"
+                        />
+
+                        <block
+                            class="Magento\Framework\View\Element\Template"
+                            name="brand-slider"
+                            template="Magento_Theme::html/slider.phtml"
+                        >
+                            <arguments>
+                                <argument
+                                    name="slider_title_class"
+                                    xsi:type="string"
+                                >
+                                    heading heading--first-level margin-0
+                                </argument>
+                            </arguments>
+                        </block>
+                    </block>
+                </container>
+            </container>
+        </referenceContainer>
+    </body>
+</page>

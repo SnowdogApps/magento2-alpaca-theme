@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<page
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        layout="1column"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd"
+>
+    <body>
+        <referenceBlock
+                name="contentmanager_view"
+                template="Snowdog_Acm::content/view/articles/view.phtml"
+        >
+            <block
+                    class="Magento\Framework\View\Element\Template"
+                    name="article-image"
+                    template="Magento_Theme::html/picture.phtml"
+            />
+            <block class="Blackbird\ContentManager\Block\Filter" name="blog-filter">
+                <action method="setFilters">
+                    <argument name="filters" xsi:type="array">
+                        <item name="1" xsi:type="string">cb_article_category</item>
+                    </argument>
+                </action>
+                <action method="setCtType">
+                    <argument name="type" xsi:type="string">articles</argument>
+                </action>
+            </block>
+            <block
+                    class="Blackbird\ContentManager\Block\Content\Widget\ContentList"
+                    name="recent-articles"
+            >
+                <action method="setCtType">
+                    <argument name="type" xsi:type="string">articles</argument>
+                </action>
+                <action method="setOrderField">
+                    <argument name="order_field" xsi:type="string">cb_article_date</argument>
+                </action>
+                <action method="setSortOrder">
+                    <argument name="sort_order" xsi:type="string">DESC</argument>
+                </action>
+                <action method="setLimitDisplay">
+                    <argument name="limit_display" xsi:type="string">6</argument>
+                </action>
+            </block>
+        </referenceBlock>
+    </body>
+</page>
