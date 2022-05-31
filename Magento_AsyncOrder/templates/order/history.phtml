@@ -1,12 +1,4 @@
 <?php
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
-
-// phpcs:disable Magento2.Templates.ThisInTemplate
-// @codingStandardsIgnoreFile
-
 /** @var \Magento\Sales\Block\Order\History $block */
 ?>
 <?php $_orders = $block->getOrders(); ?>
@@ -114,25 +106,23 @@
                             >
                                 <a
                                     href="<?= $escaper->escapeUrl($block->getViewUrl($_order)) ?>"
-                                    class="link dashboard-table__link"
+                                    class="link"
                                 >
                                     <?= $escaper->escapeHtml(__('View Order')) ?>
                                 </a>
-
                                 <?php if ($this->helper('Magento\Sales\Helper\Reorder')->canReorder($_order->getEntityId())): ?>
                                      |
-                                    <a
-                                        href="#"
+                                    <button
                                         data-post='<?= /* @noEscape */ $this->helper(\Magento\Framework\Data\Helper\PostHelper::class)->getPostData($block->getReorderUrl($_order)) ?>'
                                         class="
                                             action
                                             reorder
                                             link
-                                            dashboard-table__link
+                                            button--link-secondary
                                         "
                                     >
                                         <?= $escaper->escapeHtml(__('Reorder')) ?>
-                                    </a>
+                                    </button>
                                 <?php endif; ?>
                             </td>
                         </tr>
@@ -145,7 +135,12 @@
         <?= $block->getPagerHtml(); ?>
     <?php endif ?>
 <?php else: ?>
-    <div class="message info empty">
+    <div class="
+            message
+            info
+            empty
+        "
+    >
         <?= $escaper->escapeHtml($block->getEmptyOrdersMessage()) ?>
     </div>
 <?php endif; ?>
