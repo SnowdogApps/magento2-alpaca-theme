@@ -1,5 +1,12 @@
 # Migration guide
-## >= 2.26.0
+## 2.27.0
+### Snowdog_Acm module
+`snowdog/module-alpaca-acm` module is no longer needed.
+
+You can remove it from your project.
+If you have overwritten files from `Snowdog_Acm` directory in your child theme, please move them to `Blackbird_ContentManager` and remove `Snowdog_Acm` directory.
+
+## 2.26.0
 
 ### Tools
 You can use [this helper](https://github.com/SnowdogApps/theme-alpaca-upgrade-helper) to update child theme styles to Alpaca version >= 2.26.0 automatically.
