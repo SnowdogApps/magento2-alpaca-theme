@@ -1,7 +1,6 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-=========================================================
 USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 =========================================================
 
@@ -20,6 +19,7 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - Misaligned contact bar (#542)
 - fotorama.js and magnifier.js magepack errors fixes (#544)
 - checkout - shipping method item error display (#85516)
+- hiding State/Province field when it's not required for selected country (#554)
 ### Removed
 - unnecessary !important flags (#537)
 - elasticsuite footer (#549)
