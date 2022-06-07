@@ -20,6 +20,7 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - fotorama.js and magnifier.js magepack errors fixes (#544)
 - checkout - shipping method item error display (#85516)
 - My Orders styling issues in M244 (#556)
+- File upload link styling in Request a Quote (#557)
 ### Removed
 - unnecessary !important flags (#537)
 - elasticsuite footer (#549)
