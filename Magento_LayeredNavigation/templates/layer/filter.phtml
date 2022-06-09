@@ -1,15 +1,23 @@
+<?php
+// phpcs:disable Magento2.Templates.ThisInTemplate.FoundThis
+/** @var $block \Magento\LayeredNavigation\Block\Navigation\FilterRenderer */
+?>
 <?php foreach ($filterItems as $filterItem): ?>
     <?php if ($filterItem->getCount() > 0): ?>
         <li>
             <a
-                href="<?= $block->escapeUrl($filterItem->getUrl()) ?>"
+                href="<?= $escaper->escapeUrl($filterItem->getUrl()) ?>"
                 class="checkbox checkbox--link"
             >
-                <svg class="checkbox__icon" role="presentation">
-                    <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#checked') ?>"></use>
+                <svg
+                    class="checkbox__icon"
+                    role="presentation"
+                    focusable="false"
+                >
+                    <use href="<?= $escaper->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#checked')) ?>"></use>
                 </svg>
                 <span class="checkbox__label">
-                    <?= $filterItem->getLabel() ?>
+                    <?= /* @noEscape */ $filterItem->getLabel() ?>
                 </span>
             </a>
         </li>

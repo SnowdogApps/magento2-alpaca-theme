@@ -1,59 +1,116 @@
 <?php
-
-// @codingStandardsIgnoreFile
-
 /** @var $block \Magento\Checkout\Block\Cart\Sidebar */
+/** @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer */
 ?>
-
-<div data-block="minicart" class="minicart-wrapper">
-    <a class="action showcart minicart-trigger"
-       href="<?= $block->getShoppingCartUrl(); ?>"
-       data-bind="scope: 'minicart_content'">
-        <svg class="minicart-trigger__icon">
-            <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#shopping-cart'); ?>"></use>
+<div
+    data-block="minicart"
+    class="minicart-wrapper"
+>
+    <a
+        class="
+            action
+            showcart
+            minicart-trigger
+        "
+        href="<?= $escaper->escapeUrl($block->getShoppingCartUrl()) ?>"
+        data-bind="scope: 'minicart_content'"
+    >
+        <svg
+            class="minicart-trigger__icon"
+            role="presentation"
+            focusable="false"
+        >
+            <use href="<?= $escaper->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#shopping-cart')); ?>"></use>
         </svg>
-        <span class="counter qty empty minicart-trigger__counter"
-              data-bind="css: { empty: !!getCartParam('summary_count') == false }, blockLoader: isLoading">
-            <span class="counter-number minicart-trigger__counter-qty"><!-- ko text: getCartParam('summary_count') --><!-- /ko --></span>
-            <span class="counter-label minicart-trigger__counter-label">
-            <!-- ko if: getCartParam('summary_count') -->
+        <span
+            class="
+                counter
+                qty
+                empty
+                minicart-trigger__counter
+            "
+            data-bind="
+                css: {
+                    empty: !!getCartParam('summary_count') == false && !isLoading()
+                },
+                blockLoader: isLoading
+            "
+        >
+            <span
+                class="
+                    counter-number
+                    minicart-trigger__counter-qty
+                "
+            >
                 <!-- ko text: getCartParam('summary_count') --><!-- /ko -->
-                <!-- ko i18n: 'items' --><!-- /ko -->
-            <!-- /ko -->
+            </span>
+            <span
+                class="
+                    counter-label
+                    minicart-trigger__counter-label
+                "
+            >
+                <!-- ko if: getCartParam('summary_count') -->
+                    <!-- ko text: getCartParam('summary_count') --><!-- /ko -->
+                    <!-- ko i18n: 'items' --><!-- /ko -->
+                <!-- /ko -->
             </span>
         </span>
     </a>
     <?php if ($block->getIsNeedToDisplaySideBar()): ?>
-        <div class="block block-minicart minicart empty"
-             data-role="dropdownDialog"
-             data-mage-init='{"dropdownDialog":{
-                "appendTo":"[data-block=minicart]",
-                "triggerTarget":".showcart",
-                "timeout": "2000",
-                "closeOnMouseLeave": false,
-                "closeOnEscape": true,
-                "triggerClass":"active",
-                "parentClass":"active",
-                "buttons":[]}}'>
-            <div id="minicart-content-wrapper"
-                 class="minicart__wrapper"
-                 data-bind="scope: 'minicart_content'"
+        <div
+            class="block block-minicart minicart empty"
+            data-role="dropdownDialog"
+            data-mage-init='{
+                "dropdownDialog": {
+                    "appendTo": "[data-block=minicart]",
+                    "triggerTarget": ".showcart",
+                    "timeout": "2000",
+                    "closeOnMouseLeave": false,
+                    "closeOnEscape": true,
+                    "triggerClass": "active",
+                    "parentClass": "active",
+                    "buttons": []
+                }
+            }'
+        >
+            <div
+                id="minicart-content-wrapper"
+                class="minicart__wrapper"
+                data-bind="scope: 'minicart_content'"
             >
                 <!-- ko template: getTemplate() --><!-- /ko -->
             </div>
-            <?=  $block->getChildHtml('minicart.addons'); ?>
+            <?= $block->getChildHtml('minicart.addons'); ?>
         </div>
+    <?php else: ?>
+        <?php
+        $scriptString = <<<script
+            require(['jquery'], function ($) {
+                $('a.action.showcart').click(function() {
+                    $(document.body).trigger('processStart');
+                });
+            });
+        script;
+        ?>
+        <?= /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false); ?>
     <?php endif; ?>
-    <script>
-        window.checkout = <?= \Zend_Json::encode($block->getConfig()); ?>;
-    </script>
+    <?= /* @noEscape */ $secureRenderer->renderTag(
+        'script',
+        [],
+        'window.checkout = ' . /* @noEscape */ $block->getSerializedConfig(),
+        false
+    );
+    ?>
     <script type="text/x-magento-init">
     {
         "[data-block='minicart']": {
-            "Magento_Ui/js/core/app": <?= $block->getJsLayout(); ?>
+            "Magento_Ui/js/core/app": <?= /* @noEscape */ $block->getJsLayout() ?>
         },
         "*": {
-            "Magento_Ui/js/block-loader": "<?= $block->getViewFileUrl('images/loader-1.gif'); ?>"
+            "Magento_Ui/js/block-loader": "<?= $escaper->escapeJs(
+                $escaper->escapeUrl($block->getViewFileUrl('images/loader-1.gif'))
+            ) ?>"
         }
     }
     </script>

@@ -6,42 +6,49 @@
  * @var \Magento\Customer\Block\Form\Login $block
  */
 ?>
-<div class="col-xs-12 col-md-6 login__form-column">
+<div
+    class="
+        col-xs-12
+        col-md-6
+        ogin__form-column
+    "
+>
     <h3>
-        <?= __('Registered Customers') ?>
+        <?= $escaper->escapeHtml(__('Registered Customers')) ?>
     </h3>
     <div class="divider"></div>
     <p class="login__info">
-        <?= __('If you have an account, sign in with your email address.') ?>
+        <?= $escaper->escapeHtml(__('If you have an account, sign in with your email address.')) ?>
     </p>
     <form
         class="login__form"
-        action="<?= $block->getPostActionUrl() ?>"
+        action="<?= $escaper->escapeUrl($block->getPostActionUrl()) ?>"
         method="post"
         id="login-form"
-        data-mage-init='{"validation":{}}'
+        data-mage-init='{"validation": {}}'
     >
         <fieldset class="fieldset login__fieldset">
             <legend class="fieldset__legends login__legend"></legend>
             <?= $block->getBlockHtml('formkey'); ?>
             <div class="input login__input required">
                 <label for="email">
-                    <?= __('Email') ?>
+                    <?= $escaper->escapeHtml(__('Email')) ?>
                 </label>
                 <input
                     name="login[username]"
-                    value="<?= $block->escapeHtml($block->getUsername()) ?>"
+                    value="<?= $escaper->escapeHtmlAttr($block->getUsername()) ?>"
                     <?= ($block->isAutocompleteDisabled()) ? 'autocomplete="off"' : '' ?>
                     id="email"
                     type="email"
                     class="input__field"
-                    title="<?= __('Email') ?>"
+                    title="<?= $escaper->escapeHtmlAttr(__('Email')) ?>"
+                    data-mage-init='{"mage/trim-input": {}}'
                     data-validate="{required:true, 'validate-email':true}"
-                >
+                />
             </div>
             <div class="input login__input required">
                 <label>
-                   <?= __('Password') ?>
+                   <?= $escaper->escapeHtml(__('Password')) ?>
                 </label>
                 <input
                     name="login[password]"
@@ -49,9 +56,12 @@
                     <?= ($block->isAutocompleteDisabled()) ?  'autocomplete="off"': '' ?>
                     class="input__field"
                     id="pass"
-                    title="<?= __('Password') ?>"
-                    data-validate="{required:true}"
-                >
+                    title="<?= $escaper->escapeHtmlAttr(__('Password')) ?>"
+                    data-validate="{required: true}"
+                />
+            </div>
+            <div class="field choice" data-bind="scope: 'showPassword'">
+                <!-- ko template: getTemplate() --><!-- /ko -->
             </div>
             <?= $block->getChildHtml('form_additional_info'); ?>
         </fieldset>
@@ -63,15 +73,32 @@
                 id="send2"
                 data-testid="submit-login-button"
             >
-                <?= __('Sign In') ?>
+                <?= $escaper->escapeHtml(__('Sign In')) ?>
             </button>
             <a
-                href="<?= $block->getForgotPasswordUrl() ?>"
+                href="<?= $escaper->escapeUrl($block->getForgotPasswordUrl()) ?>"
                 class="login__forgot-password"
                 data-testid="forgot-password-link"
             >
-                <?= __('Forgot your password?') ?>
+                <?= $escaper->escapeHtml(__('Forgot your password?')) ?>
             </a>
         </div>
     </form>
 </div>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Customer/js/block-submit-on-send": {
+                "formId": "login-form"
+            },
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "showPassword": {
+                        "component": "Magento_Customer/js/show-password",
+                        "passwordSelector": "#pass"
+                    }
+                }
+            }
+        }
+    }
+</script>

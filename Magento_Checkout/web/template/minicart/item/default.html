@@ -1,19 +1,56 @@
 <div class="minicart-product" data-role="product-item">
     <div class="minicart-product__image">
-        <a data-bind="attr: {href: product_url, title: product_name}" tabindex="-1">
-            <!-- ko foreach: $parent.getRegion('itemImage') -->
-                <!-- ko template: {name: getTemplate(), data: item.product_image} --><!-- /ko -->
-            <!-- /ko -->
-        </a>
+        <!-- ko if: product_has_url -->
+            <a
+                data-bind="
+                    attr: {
+                        href: product_url,
+                        title: product_name
+                    }
+                "
+                tabindex="-1"
+                class="minicart-product__image-wrap"
+            >
+                <!-- ko foreach: $parent.getRegion('itemImage') -->
+                    <!-- ko template: {name: getTemplate(), data: item.product_image} --><!-- /ko -->
+                <!-- /ko -->
+            </a>
+        <!-- /ko -->
+        <!-- ko ifnot: product_has_url -->
+            <span class="minicart-product__image-wrap">
+                <!-- ko foreach: $parent.getRegion('itemImage') -->
+                    <!-- ko template: {name: getTemplate(), data: item.product_image} --><!-- /ko -->
+                <!-- /ko -->
+            </span>
+        <!-- /ko -->
     </div>
     <div class="minicart-product__info">
         <h3 class="minicart-product__name">
-            <a
-                data-bind="attr: {href: product_url, title: product_name}"
-                class="link link--invert minicart-product__link"
-            >
-                <!-- ko text: product_name --><!-- /ko -->
-            </a>
+            <!-- ko if: product_has_url -->
+                <a
+                    data-bind="
+                        attr: {
+                            href: product_url
+                        },
+                        html: $parent.getProductNameUnsanitizedHtml(product_name)
+                    "
+                    class="
+                        link
+                        link--invert
+                        minicart-product__link
+                    "
+                ></a>
+            <!-- /ko -->
+            <!-- ko ifnot: product_has_url -->
+                <span
+                    data-bind="html: $parent.getProductNameUnsanitizedHtml(product_name)"
+                    class="
+                        link
+                        link--invert
+                        minicart-product__link
+                    "
+                ></span>
+            <!-- /ko -->
         </h3>
         <!-- ko if: options.length -->
             <div class="dropdown-list minicart-product__attributes">
@@ -36,9 +73,12 @@
                             data-bind="attr: {'aria-controls': 'details-' + item.item_id }"
                         >
                             <!-- ko i18n: 'See Details' --><!-- /ko -->
-                            <svg class="icon dropdown-list__icon" role="img">
-                                <title><!-- ko i18n: 'See Details' --><!-- /ko --></title>
-                                <use data-bind="attr: { 'xlink:href': require.toUrl('images/icons-sprite.svg#angle-down') }" xlink:href=''></use>
+                            <svg
+                                class="icon dropdown-list__icon"
+                                role="presentation"
+                                focusable="false"
+                            >
+                                <use data-bind="attr: { 'href': require.toUrl('images/icons-sprite.svg#angle-down') }" href=''></use>
                             </svg>
                         </button>
                         <div
@@ -61,7 +101,15 @@
                                         <!-- ko text: option.label --><!-- /ko -->
                                     </dt>
                                     <dd class="list__value">
-                                        <span data-bind="html: option.value"></span>
+                                        <!-- ko if: Array.isArray(option.value) -->
+                                            <span data-bind="html: $parents[1].getOptionValueUnsanitizedHtml(option.value.join('<br/>'))"></span>
+                                        <!-- /ko -->
+                                        <!-- ko if: (!Array.isArray(option.value) && ['file', 'html'].includes(option.option_type)) -->
+                                            <span data-bind="html: $parents[1].getOptionValueUnsanitizedHtml(option.value)"></span>
+                                        <!-- /ko -->
+                                        <!-- ko if: (!Array.isArray(option.value) && !['file', 'html'].includes(option.option_type)) -->
+                                            <span data-bind="text: option.value"></span>
+                                        <!-- /ko -->
                                     </dd>
                                 <!-- /ko -->
                             </dl>
@@ -81,7 +129,12 @@
 
         <div class="minicart-product__bottom">
             <div class="minicart-product__qty">
-                <div class="input input--inline minicart-product__input">
+                <div
+                    class="
+                        input
+                        input--inline minicart-product__input
+                    "
+                >
                     <label
                         class="label minicart-product__label"
                         data-bind="
@@ -91,10 +144,13 @@
                         <!-- ko i18n: 'Qty' --><!-- /ko -->:
                     </label>
                     <input
-                        class="input__field minicart-product__field cart-item-qty"
+                        class="
+                            input__field
+                            minicart-product__field
+                            cart-item-qty
+                        "
                         name="mini-qty"
                         type="text"
-                        aria-label="Change the quantity"
                         min="1"
                         data-bind="
                             attr: {
@@ -102,14 +158,15 @@
                                 placeholder: qty,
                                 'data-cart-item': item_id,
                                 'data-item-qty': qty,
-                                'data-cart-item-id': product_sku
+                                'data-cart-item-id': product_sku,
+                                'aria-label': $t('Change the quantity. Make sure to click update button to submit change.')
                             },
-                            value: qty,
+                            value: qty
                         "
                         size="4"
                         maxlength="12"
                         autocomplete="off"
-                    >
+                    />
                 </div>
                 <button
                     type="button"
@@ -133,30 +190,71 @@
             <div class="minicart-product__actions">
                 <!-- ko if: is_visible_in_site_visibility -->
                     <a
-                        data-bind="attr: {href: configure_url, title: $t('Edit item')}"
-                        class="button button--icon minicart-product__button"
-                        aria-label="edit product in your shopping cart"
+                        data-bind="
+                            attr: {
+                                href: configure_url,
+                                title: $t('Edit item'),
+                                'aria-label': $t('edit product in your shopping cart')
+                            }
+                        "
+                        class="
+                            button
+                            button--icon
+                            minicart-product__button
+                        "
                         data-testid="edit-item-link"
                     >
-                        <svg class="button__icon minicart-product__button-icon" role="img">
-                            <title><!-- ko i18n: 'Edit item' --><!-- /ko --></title>
-                            <use data-bind="attr: { 'xlink:href': require.toUrl('images/icons-sprite.svg#edit') }" xlink:href=''></use>
+                        <svg
+                            class="
+                                button__icon
+                                minicart-product__button-icon
+                            "
+                            role="presentation"
+                            focusable="false"
+                        >
+                            <use data-bind="attr: { 'href': require.toUrl('images/icons-sprite.svg#edit') }" href=''></use>
                         </svg>
                     </a>
                 <!-- /ko -->
 
                 <a
                     href="#"
-                    data-bind="attr: {'data-cart-item': item_id, title: $t('Remove item')}"
-                    class="button button--icon minicart-product__button action delete"
-                    aria-label="remove this product from your shopping cart"
+                    data-bind="
+                        attr: {
+                            'data-cart-item': item_id,
+                            title: $t('Remove item'),
+                            'aria-label': $t('remove this product from your shopping cart')
+                        }
+                    "
+                    class="
+                        button
+                        button--icon
+                        minicart-product__button
+                        action
+                        delete
+                    "
                     data-testid="delete-item-link"
                 >
-                    <svg class="button__icon minicart-product__button-icon">
-                        <title><!-- ko i18n: 'Remove item' --><!-- /ko --></title>
-                        <use data-bind="attr: { 'xlink:href': require.toUrl('images/icons-sprite.svg#remove') }" xlink:href=''></use>
+                    <svg
+                        class="
+                            button__icon
+                            minicart-product__button-icon
+                        "
+                        role="presentation"
+                        focusable="false"
+                    >
+                        <use data-bind="attr: { 'href': require.toUrl('images/icons-sprite.svg#remove') }" href=''></use>
                     </svg>
                 </a>
+            </div>
+            <div
+                class="
+                    message
+                    minicart-product__message
+                "
+                if="$data.message"
+            >
+                <div data-bind="text: $data.message"></div>
             </div>
         </div>
     </div>

@@ -1,5 +1,5 @@
 <?php
-// @codingStandardsIgnoreFile
+/** @var $block \Magento\Checkout\Block\Onepage */
 ?>
 <div id="checkout" data-bind="scope:'checkout'" class="checkout-container">
     <div
@@ -11,7 +11,7 @@
         <div
             class="loader loader--visible"
             aria-live="polite"
-            aria-label="<?= __('Do not refresh the page') ?>"
+            aria-label="<?= $escaper->escapeHtmlAttr(__('Do not refresh the page')) ?>"
         >
             <div class="loader__circle"></div>
         </div>
@@ -20,23 +20,31 @@
     <script type="text/x-magento-init">
         {
             "#checkout": {
-                "Magento_Ui/js/core/app": <?= $block->getJsLayout() ?>
+                "Magento_Ui/js/core/app": <?= /* @noEscape */ $block->getJsLayout() ?>
             }
         }
     </script>
-    <script>
-        window.checkoutConfig = <?= $block->getSerializedCheckoutConfig() ?>;
+
+    <?php
+    $serializedCheckoutConfig = /* @noEscape */ $block->getSerializedCheckoutConfig();
+    $scriptString = <<<script
+        window.checkoutConfig = {$serializedCheckoutConfig};
         // Create aliases for customer.js model from customer module
         window.isCustomerLoggedIn = window.checkoutConfig.isCustomerLoggedIn;
         window.customerData = window.checkoutConfig.customerData;
-    </script>
-    <script>
+    script;
+    ?>
+    <?= /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false) ?>
+    <?php
+    $scriptString = <<<script
         require([
             'mage/url',
             'Magento_Ui/js/block-loader'
         ], function(url, blockLoader) {
-            blockLoader("<?= $block->getViewFileUrl('images/loader-1.gif') ?>");
-            return url.setBaseUrl('<?= $block->getBaseUrl() ?>');
+            blockLoader("{$escaper->escapeJs($escaper->escapeUrl($block->getViewFileUrl('images/loader-1.gif')))}");
+            return url.setBaseUrl('{$escaper->escapeJs($escaper->escapeUrl($block->getBaseUrl()))}');
         })
-    </script>
+    script;
+    ?>
+    <?= /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false) ?>
 </div>

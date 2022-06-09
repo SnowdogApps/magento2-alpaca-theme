@@ -1,46 +1,49 @@
+<?php
+// phpcs:disable Magento2.Templates.ThisInTemplate
+?>
 <?php $_order = $block->getOrder() ?>
 
 <?= $block->getChildHtml('order_links') ?>
 <?= $block->getChildHtml('order_items') ?>
 
 <?php
-    $isMessageAllowed = $this->helper('Magento\GiftMessage\Helper\Message')->isMessagesAllowed('order', $_order);
+    $isMessageAllowed = $this->helper(\Magento\GiftMessage\Helper\Message::class)->isMessagesAllowed('order', $_order);
 ?>
 
 <?php if ($isMessageAllowed && $_order->getGiftMessageId()): ?>
     <div class="dashboard__handler">
         <h4 class="dashboard__title--wrapped">
-            <?= __('Gift Message for This Order') ?>
+            <?= $escaper->escapeHtml(__('Gift Message for This Order')) ?>
         </h4>
     </div>
 
     <?php
-        $_giftMessage = $this->helper('Magento\GiftMessage\Helper\Message')->getGiftMessageForEntity($_order);
-        $getGiftMessage = $this->helper('Magento\GiftMessage\Helper\Message')->getEscapedGiftMessage($_order);
+        $_giftMessage = $this->helper(\Magento\GiftMessage\Helper\Message::class)->getGiftMessageForEntity($_order);
+        $getGiftMessage = $this->helper(\Magento\GiftMessage\Helper\Message::class)->getEscapedGiftMessage($_order);
     ?>
 
     <div class="row">
         <div class="col-sm-6 information">
             <h5 class="information__title">
-                <?= __('From') ?>
+                <?= $escaper->escapeHtml(__('From')) ?>
             </h5>
 
             <p class="information__text">
-                <?= $block->escapeHtml($_giftMessage->getSender()) ?>
+                <?= $escaper->escapeHtml($_giftMessage->getSender()) ?>
             </p>
         </div>
 
         <div class="col-sm-6 information">
             <h5 class="information__title">
-                <?= __('To') ?>
+                <?= $escaper->escapeHtml(__('To')) ?>
             </h5>
 
             <p class="information__text">
-                <?= $block->escapeHtml($_giftMessage->getRecipient()) ?>
+                <?= $escaper->escapeHtml($_giftMessage->getRecipient()) ?>
             </p>
 
             <p class="information__text">
-                <?= $getGiftMessage; ?>
+                <?= /* @escapeNotVerified */ $getGiftMessage; ?>
             </p>
         </div>
     </div>
@@ -49,9 +52,9 @@
 <div class="action dashboard__item">
     <div class="action__handler">
         <a class="link action__link"
-            href="<?= $block->getBackUrl() ?>"
+            href="<?= $escaper->escapeUrl($block->getBackUrl()) ?>"
         >
-            <?= $block->getBackTitle() ?>
+            <?= $escaper->escapeHtml($block->getBackTitle()) ?>
         </a>
     </div>
 </div>

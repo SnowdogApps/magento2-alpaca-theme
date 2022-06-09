@@ -54,7 +54,7 @@
                 // get the current <use>
                 var use = uses[index], parent = use.parentNode, svg = getSVGAncestor(parent);
                 if (svg) {
-                    var src = use.getAttribute("xlink:href") || use.getAttribute("href");
+                    var src = use.getAttribute("href") || use.getAttribute("href");
                     if (polyfill && (!opts.validate || opts.validate(src, svg, use))) {
                         // remove the <use> element
                         parent.removeChild(use);

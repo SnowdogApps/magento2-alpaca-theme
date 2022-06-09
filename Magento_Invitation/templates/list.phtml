@@ -8,7 +8,7 @@
 
     <div class="dashboard-table__header">
         <h3 class="dashboard-table__title">
-            <?= __('My Invitations'); ?>
+            <?= $escaper->escapeHtml(__('My Invitations')); ?>
         </h3>
     </div>
 
@@ -21,11 +21,11 @@
                 <thead>
                     <tr>
                         <th scope="col" class="col email">
-                            <?= __('Email'); ?>
+                            <?= $escaper->escapeHtml(__('Email')); ?>
                         </th>
 
                         <th scope="col" class="col status">
-                            <?= __('Status'); ?>
+                            <?= $escaper->escapeHtml(__('Status')); ?>
                         </th>
                     </tr>
                 </thead>
@@ -33,13 +33,13 @@
                 <tbody>
                     <?php foreach ($block->getInvitationCollection() as $invitation): ?>
                         <tr>
-                            <td data-th="<?= $block->escapeHtml(__('Email')); ?>"
+                            <td data-th="<?= $escaper->escapeHtmlAttr(__('Email')); ?>"
                                 class="col email"
                             >
-                                <?= $block->escapeHtml($invitation->getEmail()); ?>
+                                <?= $escaper->escapeHtml($invitation->getEmail()); ?>
                             </td>
 
-                            <td data-th="<?= $block->escapeHtml(__('Status')); ?>"
+                            <td data-th="<?= $escaper->escapeHtmlAttr(__('Status')); ?>"
                                 class="col status"
                             >
                                 <?= /* @escapeNotVerified */
@@ -54,7 +54,7 @@
         </div>
     <?php else: ?>
         <div class="message info empty">
-            <?= __('There are no sent invitations.'); ?>
+            <?= $escaper->escapeHtml(__('There are no sent invitations.')); ?>
         </div>
     <?php endif; ?>
 
@@ -65,18 +65,18 @@
         ?>
 
         <div class="action__handler">
-            <a href="<?= $getCustomerInvitaionUrl ?>"
+            <a href="<?= $escaper->escapeUrl($getCustomerInvitaionUrl) ?>"
                class="link action__link"
             >
-                <?= __('Send Invitations') ?>
+                <?= $escaper->escapeHtml(__('Send Invitations')) ?>
             </a>
         </div>
 
         <div class="action__handler">
-            <a href="<?= $block->escapeUrl($block->getBackUrl()) ?>"
+            <a href="<?= $escaper->escapeUrl($block->getBackUrl()) ?>"
                class="link action__link"
             >
-                <?= __('Back') ?>
+                <?= $escaper->escapeHtml(__('Back')) ?>
             </a>
         </div>
     </div>

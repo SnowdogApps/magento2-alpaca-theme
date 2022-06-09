@@ -8,27 +8,27 @@ $item = $block->getItem();
 ?>
 <td class="col col-checkbox">
     <input
-        name="<?= $block->escapeHtml($item->getSku()) ?>"
+        name="<?= $escaper->escapeHtml($item->getSku()) ?>"
         class="input-checkbox"
         type="checkbox"
-        data-item-id="<?= $block->escapeHtml($item->getId()) ?>"
+        data-item-id="<?= $escaper->escapeHtml($item->getId()) ?>"
         data-item-has-errors="<?= (int)!empty($item->getItemErrors()) ?>"
         data-action="requisition-item-check"
         data-role="select-item"
         value="1"
     >
 </td>
-<td class="col product" data-th="<?= $block->escapeHtml(__('Product')) ?>">
+<td class="col product" data-th="<?= $escaper->escapeHtmlAttr(__('Product')) ?>">
     <div class="product-item-description">
         <?php if ($block->getRequisitionListProduct()): ?>
             <span class="product-item-name">
-                <a href="<?= $block->getProductUrlByItem() ?>">
-                    <?= $block->escapeHtml($block->getRequisitionListProduct()->getName()) ?>
+                <a href="<?= $escaper->escapeUrl($block->getProductUrlByItem()) ?>">
+                    <?= $escaper->escapeHtml($block->getRequisitionListProduct()->getName()) ?>
                 </a>
             </span>
         <?php endif ?>
         <div class="product-item-sku">
-            <b><?= $block->escapeHtml(__('SKU')) ?>:</b>
+            <b><?= $escaper->escapeHtml(__('SKU')) ?>:</b>
             <span><?= $item->getSku() ?></span>
         </div>
         <?php $block->getChildBlock('requisition.list.item.options')->setItem($item); ?>
@@ -40,27 +40,27 @@ $item = $block->getItem();
         <?php endif ?>
     </div>
     <div class="product-item-image">
-        <img src="<?= $block->escapeUrl($block->getImageUrl()) ?>">
+        <img src="<?= $escaper->escapeUrl($block->getImageUrl()) ?>">
     </div>
 </td>
-<td class="col price" data-th="<?= $block->escapeHtml(__('Price')) ?>">
+<td class="col price" data-th="<?= $escaper->escapeHtmlAttr(__('Price')) ?>">
     <?php if (!$block->isOptionsUpdated() && $block->getRequisitionListProduct()): ?>
         <?= $block->getFormattedPrice() ?>
         <?php if ($block->displayBothPrices()): ?>
             <span
                 class="price-excluding-tax"
-                data-label="<?= $block->escapeHtml(__('Excl. Tax')) ?>"
+                data-label="<?= $escaper->escapeHtmlAttr(__('Excl. Tax')) ?>"
             >
                 <?= $block->getFormattedPriceExcludingTax() ?>
             </span>
         <?php endif ?>
     <?php endif ?>
 </td>
-<td class="col qty" data-th="<?= $block->escapeHtml(__('Qty')) ?>">
+<td class="col qty" data-th="<?= $escaper->escapeHtmlAttr(__('Qty')) ?>">
     <input
-        id="item-<?= $block->escapeHtml($item->getId()) ?>-qty"
-        name="qty[<?= $block->escapeHtml($item->getSku()) ?>]"
-        value="<?= $block->escapeHtml($item->getQty() * 1) ?>"
+        id="item-<?= $escaper->escapeHtml($item->getId()) ?>-qty"
+        name="qty[<?= $escaper->escapeHtml($item->getSku()) ?>]"
+        value="<?= $escaper->escapeHtml($item->getQty() * 1) ?>"
         <?php if (!$block->canEditQty()): ?>
             disabled="disabled"
         <?php endif ?>
@@ -77,12 +77,12 @@ $item = $block->getItem();
         data-role="requisition-item-qty"
     >
 </td>
-<td class="col subtotal action" data-th="<?= $block->escapeHtml(__('Subtotal')) ?>">
+<td class="col subtotal action" data-th="<?= $escaper->escapeHtmlAttr(__('Subtotal')) ?>">
     <div class="product-item-subtotal">
         <?php if (!$block->isOptionsUpdated() && $block->getRequisitionListProduct()): ?>
             <?= $block->getFormattedSubtotal() ?>
             <?php if ($block->displayBothPrices()): ?>
-                <span class="price-excluding-tax" data-label="<?= $block->escapeHtml(__('Excl. Tax')) ?>">
+                <span class="price-excluding-tax" data-label="<?= $escaper->escapeHtmlAttr(__('Excl. Tax')) ?>">
                     <?= $block->getFormattedSubtotalExcludingTax() ?>
                 </span>
             <?php endif ?>
@@ -91,29 +91,29 @@ $item = $block->getItem();
             <?php if ($block->canEdit()): ?>
                 <button
                     type="button"
-                    title="<?= $block->escapeHtml(__('Edit item')) ?>"
+                    title="<?= $escaper->escapeHtmlAttr(__('Edit item')) ?>"
                     data-action="edit-item"
                     data-update-item='{
-                        "editItemUrl":"<?= $block->escapeUrl($block->getItemConfigureUrl()) ?>"
+                        "editItemUrl":"<?= $escaper->escapeUrl($block->getItemConfigureUrl()) ?>"
                     }'
                     class="action action-edit"
                 >
-                    <?= $block->escapeHtml(__('Edit item')) ?>
+                    <?= $escaper->escapeHtml(__('Edit item')) ?>
                 </button>
             <?php endif ?>
             <button
                 type="button"
-                title="<?= $block->escapeHtml(__('Remove item')) ?>"
+                title="<?= $escaper->escapeHtmlAttr(__('Remove item')) ?>"
                 data-action="remove-item"
                 data-delete-list='{
-                    "deleteUrl":"<?= $block->escapeUrl(
+                    "deleteUrl":"<?= $escaper->escapeUrl(
                         $block->getUrl('*/item/delete', ['requisition_id' => $block->getRequest()->getParam('requisition_id')])
                     ) ?>",
-                    "itemId": "<?= $block->escapeHtml($item->getId()) ?>"
+                    "itemId": "<?= $escaper->escapeHtml($item->getId()) ?>"
                 }'
                 class="action action-delete"
             >
-                <?= $block->escapeHtml(__('Remove item')) ?>
+                <?= $escaper->escapeHtml(__('Remove item')) ?>
             </button>
         </div>
     </div>

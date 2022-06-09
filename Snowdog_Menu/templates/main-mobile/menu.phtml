@@ -1,17 +1,24 @@
 <?php /** @var \Snowdog\Menu\Block\Menu $block */ ?>
 <?php if ($block->getMenu()): ?>
     <?php $menuClass = $block->getMenu()->getCssClass() ?>
-    <div class="side-menu" data-mage-init='{ "sideMenu": { } }'>
+    <div
+        class="side-menu"
+        data-mage-init='{ "sideMenu": {} }'
+    >
         <button
             class="side-menu__trigger"
             type="button"
-            aria-label="<?= __('Side menu open') ?>"
+            aria-label="<?= $escaper->escapeHtmlAttr(__('Side menu open')) ?>"
         >
-            <svg class="side-menu__trigger-icon">
-                <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#mobile-menu') ?>"></use>
+            <svg
+                class="side-menu__trigger-icon"
+                role="presentation"
+                focusable="false"
+            >
+                <use href="<?= $escaper->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#mobile-menu')) ?>"></use>
             </svg>
             <span class="side-menu__trigger-text">
-                <?=  __('Menu') ?>
+                <?= $escaper->escapeHtml(__('Menu')) ?>
             </span>
         </button>
         <div class="side-menu__content">
@@ -19,18 +26,25 @@
                 <button
                     class="side-menu__trigger"
                     type="button"
-                    aria-label="<?= __('Side menu close') ?>"
+                    aria-label="<?= $escaper->escapeHtmlAttr(__('Side menu close')) ?>"
                 >
-                    <svg class="icon side-menu__trigger-icon">
-                        <use xlink:href="<?= $block->getViewFileUrl('/images/icons-sprite.svg#close') ?>"></use>
+                    <svg
+                        class="icon side-menu__trigger-icon"
+                        role="presentation"
+                        focusable="false"
+                    >
+                        <use href="<?= $escaper->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#close')) ?>"></use>
                     </svg>
                     <span class="header-button__text">
-                        <?=  __('Menu') ?>
+                        <?= $escaper->escapeHtml(__('Menu')) ?>
                     </span>
                 </button>
             </div>
-             <nav class="<?= $menuClass ?>" data-mage-init='{ "dropdownList": {} }'>
-                <ul class="<?= $menuClass ?>__list">
+             <nav
+                 class="<?= $escaper->escapeHtmlAttr($menuClass) ?>"
+                 data-mage-init='{ "dropdownList": {} }'
+             >
+                <ul class="<?= $escaper->escapeHtmlAttr($menuClass) ?>__list">
                     <?php foreach ($block->getNodes() as $node): ?>
                         <?php
                             $childrenLevel = $node->getLevel() + 1;
@@ -46,7 +60,7 @@
                         </li>
                     <?php endforeach ?>
                 </ul>
-                <div class="<?= $menuClass ?>__mobile-bg"></div>
+                <div class="<?= $escaper->escapeHtmlAttr($menuClass) ?>__mobile-bg"></div>
             </nav>
         </div>
         <div class="side-menu__overlay"></div>

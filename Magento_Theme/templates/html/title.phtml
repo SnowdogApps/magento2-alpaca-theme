@@ -6,18 +6,20 @@
 ?>
 
 <?php if (!empty($block->getPageHeading())): ?>
-    <div class="title-wrapper row row--no-margins between-xs <?= $block->getCssClass() ?>">
+    <div class="title-wrapper row row--no-margins between-xs <?= $escaper->escapeHtmlAttr($block->getCssClass()) ?>">
         <h1
             class="heading heading--page"
-            <?= $block->getId() ? 'id="' . $block->getId() . '"' : ''; ?>
-            <?= $block->getAddBaseAttributeAria() ? 'aria-labelledby="' . $block->getAddBaseAttributeAria() . '"' : ''; ?>
+            <?php if ($block->getId()) : ?>
+                id="<?= $escaper->escapeHtmlAttr($block->getId()) ?>"
+            <?php endif; ?>
+            <?= $escaper->escapeHtmlAttr($block->getAddBaseAttributeAria() ? 'aria-labelledby="' . $block->getAddBaseAttributeAria() . '"' : ''); ?>
         >
             <span
                 class="base"
                 data-ui-id="page-title-wrapper"
-                <?= $block->getAddBaseAttribute() ?>
+                <?= /* @noEscape */ $block->getAddBaseAttribute() ?>
             >
-                 <?= $block->escapeHtml($block->getPageHeading()); ?>
+                 <?= $escaper->escapeHtml($block->getPageHeading()); ?>
             </span>
         </h1>
         <?= $block->getChildHtml() ?>

@@ -7,11 +7,11 @@
             <div class="toolbar__amount--visible">
                 <span class="toolbar__amount-content">
                     <?php if ($block->getLastPageNum()>1): ?>
-                        <?= __('Items %1 to %2 of %3 total', $block->getFirstNum(), $block->getLastNum(), $block->getTotalNum()) ?>
+                        <?= $escaper->escapeHtml(__('Items %1 to %2 of %3 total', $block->getFirstNum(), $block->getLastNum(), $block->getTotalNum())) ?>
                     <?php elseif ($block->getTotalNum() == 1): ?>
-                        <?= __('%1 Item', $block->getTotalNum()) ?>
+                        <?= $escaper->escapeHtml(__('%1 Item', $block->getTotalNum())) ?>
                     <?php else: ?>
-                        <?= __('%1 Item(s)', $block->getTotalNum()) ?>
+                        <?= $escaper->escapeHtml(__('%1 Item(s)', $block->getTotalNum())) ?>
                     <?php endif; ?>
                 </span>
             </div>
@@ -20,26 +20,28 @@
         <?php if ($block->isShowPerPage()): ?>
             <div class="toolbar__limiter--relative">
                 <label class="label toolbar__limiter-label">
-                    <?= __('Show') ?>
+                    <?= $escaper->escapeHtml(__('Show')) ?>
                 </label>
 
                 <div class="select toolbar__limiter-wrapper">
-                    <select id="limiter"
-                            data-mage-init='
-                                {
-                                    "redirectUrl": {"event":"change"},
-                                    "select"     : {}
-                                }
-                            '
-                            class="select__field select__field--native"
+                    <select
+                        id="limiter"
+                        data-mage-init='
+                            {
+                                "redirectUrl": {"event":"change"},
+                                "select"     : {}
+                            }
+                        '
+                        class="select__field select__field--native"
                     >
                         <?php foreach ($block->getAvailableLimit() as $_key => $_limit): ?>
-                            <option value="<?= $block->getLimitUrl($_key) ?>"
-                                    <?php if ($block->isLimitCurrent($_key)): ?>
-                                        selected
-                                    <?php endif; ?>
+                            <option
+                                value="<?= $escaper->escapeHtmlAttr($block->getLimitUrl($_key)) ?>"
+                                <?php if ($block->isLimitCurrent($_key)): ?>
+                                    selected
+                                <?php endif; ?>
                             >
-                                <?= $_limit ?>
+                                <?= $escaper->escapeHtml($_limit) ?>
                             </option>
                         <?php endforeach; ?>
                     </select>
@@ -56,11 +58,15 @@
 
                             <a
                                 class="<?= $text ? 'link ' : 'action '?> pager__link previous"
-                                href="<?= $block->getPreviousPageUrl() ?>"
-                                title="<?= $text ? $text : __('Previous') ?>"
+                                href="<?= $escaper->escapeUrl($block->getPreviousPageUrl()) ?>"
+                                title="<?= $escaper->escapeHtml($text ? $text : __('Previous')) ?>"
                             >
-                                <svg class="pager__icon">
-                                    <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#arrow-left'); ?>"></use>
+                                <svg
+                                    class="pager__icon"
+                                    role="presentation"
+                                    focusable="false"
+                                >
+                                    <use href="<?= $escaper->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#arrow-left')); ?>"></use>
                                 </svg>
                             </a>
                         </li>
@@ -68,7 +74,10 @@
 
                     <?php if ($block->canShowFirst()): ?>
                         <li class="pager__item">
-                            <a class="pager__link link" href="<?= $block->getFirstPageUrl() ?>">
+                            <a
+                                class="pager__link link"
+                                href="<?= $escaper->escapeUrl($block->getFirstPageUrl()) ?>"
+                            >
                                 1
                             </a>
                         </li>
@@ -76,7 +85,11 @@
 
                     <?php if ($block->canShowPreviousJump()): ?>
                         <li class="pager__item">
-                            <a class="pager__link link" title="" href="<?= $block->getPreviousJumpUrl() ?>">
+                            <a
+                                class="pager__link link"
+                                title=""
+                                href="<?= $escaper->escapeUrl($block->getPreviousJumpUrl()) ?>"
+                            >
                                 <span>...</span>
                             </a>
                         </li>
@@ -85,12 +98,15 @@
                     <?php foreach ($block->getFramePages() as $_page): ?>
                         <?php if ($block->isPageCurrent($_page)): ?>
                             <li class="pager__item pager__item--current">
-                                <?= $_page ?>
+                                <?= $escaper->escapeHtml($_page) ?>
                             </li>
                         <?php else: ?>
                             <li class="pager__item">
-                                <a href="<?= $block->getPageUrl($_page) ?>" class="pager__link link">
-                                    <?= $_page ?>
+                                <a
+                                    href="<?= $escaper->escapeUrl($block->getPageUrl($_page)) ?>"
+                                    class="pager__link link"
+                                >
+                                    <?= $escaper->escapeHtml($_page) ?>
                                 </a>
                             </li>
                         <?php endif; ?>
@@ -98,7 +114,11 @@
 
                     <?php if ($block->canShowNextJump()): ?>
                         <li class="pager__item">
-                            <a class="pager__link link" title="" href="<?= $block->getNextJumpUrl() ?>">
+                            <a
+                                class="pager__link link"
+                                title=""
+                                href="<?= $escaper->escapeUrl($block->getNextJumpUrl()) ?>"
+                            >
                                 <span>...</span>
                             </a>
                         </li>
@@ -106,8 +126,11 @@
 
                     <?php if ($block->canShowLast()): ?>
                         <li class="pager__item">
-                            <a class="pager__link link" href="<?= $block->getLastPageUrl() ?>">
-                                <?= $block->getLastPageNum() ?>
+                            <a
+                                class="pager__link link"
+                                href="<?= $escaper->escapeUrl($block->getLastPageUrl()) ?>"
+                            >
+                                <?= $escaper->escapeHtml($block->getLastPageNum()) ?>
                             </a>
                         </li>
                     <?php endif; ?>
@@ -117,11 +140,15 @@
                             <?php $text = $block->getAnchorTextForNext() ? $block->getAnchorTextForNext() : '';?>
                             <a
                                 class="<?= $text ? 'link ' : 'action '?> pager__link next"
-                                href="<?= $block->getNextPageUrl() ?>"
-                                title="<?= $text ? $text : __('Next') ?>"
+                                href="<?= $escaper->escapeUrl($block->getNextPageUrl()) ?>"
+                                title="<?= $escaper->escapeHtmlAttr($text ? $text : __('Next')) ?>"
                             >
-                                <svg class="pager__icon">
-                                    <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#arrow-right'); ?>"></use>
+                                <svg
+                                    class="pager__icon"
+                                    role="presentation"
+                                    focusable="false"
+                                >
+                                    <use href="<?= $escaper->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#arrow-right')); ?>"></use>
                                 </svg>
                             </a>
                         </li>

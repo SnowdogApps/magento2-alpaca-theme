@@ -1,71 +1,77 @@
 <div class="minicart-content__total">
-    <!-- ko ifnot: getCartParam('summary_count') -->
-        <div class="subtitle empty" data-bind="visible: closeSidebar()">
-            <!-- ko i18n: 'You have no items in your shopping cart.' --><!-- /ko -->
-        </div>
-    <!-- /ko -->
-    <!-- ko if: getCartParam('summary_count') -->
+    <ifnot args="getCartParam('summary_count')">
+        <div
+            class="subtitle empty"
+            translate="'You have no items in your shopping cart.'"
+        ></div>
+    </ifnot>
+
+    <if args="getCartParam('summary_count')">
         <div class="minicart-content__total-counter">
             <!-- ko text: getCartParam('summary_count') --><!-- /ko -->
-            <!-- ko if: getCartParam('summary_count') == 1 -->
+            <!-- ko if: getCartParam('summary_count') === 1 -->
                 <!-- ko i18n: 'item' --><!-- /ko -->
             <!-- /ko -->
             <!-- ko if: getCartParam('summary_count') > 1 -->
                 <!-- ko i18n: 'items' --><!-- /ko -->
             <!-- /ko -->
         </div>
-
-        <!-- ko if: getCartParam('possible_onepage_checkout') -->
-            <!-- ko foreach: getRegion('subtotalContainer') -->
-                <!-- ko template: getTemplate() --><!-- /ko -->
-            <!-- /ko -->
-        <!-- /ko -->
-    <!-- /ko -->
+        <each args="getRegion('subtotalContainer')" render=""></each>
+    </if>
 </div>
-<!-- ko if: getCartParam('summary_count') -->
-    <!-- ko foreach: getRegion('extraInfo') -->
-        <!-- ko template: getTemplate() --><!-- /ko -->
-    <!-- /ko -->
+<if args="getCartParam('summary_count')">
+    <each args="getRegion('extraInfo')" render=""></each>
 
-    <!-- ko if: getCartParam('possible_onepage_checkout') -->
-        <div class="minicart-content__actions">
-            <button
-                id="top-cart-btn-checkout"
-                class="
-                    button
-                    button--secondary
-                    button--fluid
-                    minicart-content__checkout
-                "
-                type="button"
-                data-bind="attr: {title: $t('Go to Checkout')}"
-            >
-                <!-- ko i18n: 'Go to Checkout' --><!-- /ko -->
-            </button>
-        </div>
-    <!-- /ko -->
-<!-- /ko -->
+    <div class="minicart-content__actions" if="getCartParam('possible_onepage_checkout')">
+        <button
+            id="top-cart-btn-checkout"
+            class="
+                button
+                button--secondary
+                button--fluid
+                minicart-content__checkout
+            "
+            type="button"
+            data-bind="
+                attr: {
+                    title: $t('Go to Checkout')
+                },
+                click: closeMinicart()
+            "
+            translate="'Go to Checkout'"
+        ></button>
+        <div data-bind="html: getCartParamUnsanitizedHtml('extra_actions')"></div>
+    </div>
 
-<!-- ko if: getCartParam('summary_count') -->
-<div
-    id="mini-cart"
-    class="minicart-content__products-list"
-    data-bind="foreach: { data: getCartParam('items'), as: 'item' }"
->
-    <!-- ko foreach: $parent.getRegion($parent.getItemRenderer(item.product_type)) -->
-        <!-- ko template: {name: getTemplate(), data: item, afterRender: function() {$parents[1].initSidebar()}} --><!-- /ko -->
-    <!-- /ko -->
-</div>
-<!-- /ko -->
+    <div
+        id="mini-cart"
+        class="minicart-content__products-list"
+        data-bind="foreach: { data: getCartItems(), as: 'item' }"
+    >
+        <each
+            args="$parent.getRegion($parent.getItemRenderer(item.product_type))"
+            render="{
+                name: getTemplate(),
+                data: item,
+                afterRender: function() {
+                    $parents[1].initSidebar()
+                }
+            }"
+        ></each>
+    </div>
 
-<!-- ko if: getCartParam('summary_count') -->
     <div class="minicart-content__actions">
         <a
-            data-bind="attr: {href: shoppingCartUrl}"
-            class="link link--invert minicart-content__edit"
+            data-bind="attr: {
+                href: shoppingCartUrl
+            }"
+            class="
+                link
+                link--invert
+                minicart-content__edit
+            "
             data-testid="view-cart-link"
-        >
-            <!-- ko i18n: 'View and edit cart' --><!-- /ko -->
-        </a>
+            translate="'View and edit cart'"
+        ></a>        
     </div>
-<!-- /ko -->
+</if>

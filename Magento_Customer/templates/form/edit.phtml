@@ -1,31 +1,38 @@
+<?php
+use Magento\Customer\Block\Widget\Name;
+
+/** @var \Magento\Customer\Block\Form\Edit $block */
+/** @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer */
+?>
 <form
-    id="form-validate"
-    class="dashboard-form form"
-    action="<?= $block->getUrl('customer/account/editPost') ?>"
+    class="
+        dashboard-form
+        form
+    "
+    action="<?= $escaper->escapeUrl($block->getUrl('customer/account/editPost')) ?>"
     method="post"
+    id="form-validate"
     enctype="multipart/form-data"
-    data-hasrequired="<?= __('* Required Fields') ?>"
+    data-hasrequired="<?= $escaper->escapeHtmlAttr(__('* Required Fields')) ?>"
     autocomplete="off"
 >
     <?= $block->getBlockHtml('formkey') ?>
 
     <h3 class="dashboard-form__title">
-        <?= __('Account Information') ?>
+        <?= $escaper->escapeHtml(__('Account Information')) ?>
     </h3>
 
     <div class="dashboard-form__divider">
         <?=
             $block->getLayout()
-                ->createBlock('Magento\Customer\Block\Widget\Name')
+                ->createBlock(Name::class)
                 ->setObject($block->getCustomer())
                 ->toHtml()
         ?>
 
-        <?php
-            $_dob    = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Dob');
-            $_taxvat = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Taxvat');
-            $_gender = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Gender');
-        ?>
+        <?php $_dob = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Dob::class) ?>
+        <?php $_taxvat = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Taxvat::class) ?>
+        <?php $_gender = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Gender::class) ?>
 
         <?php if ($_dob->isEnabled()): ?>
             <?= $_dob->setDate($block->getCustomer()->getDob())->toHtml() ?>
@@ -46,20 +53,32 @@
                 name="change_email"
                 data-role="change-email"
                 value="1"
-                title="<?= __('Change Email') ?>"
+                title="<?= $escaper->escapeHtmlAttr(__('Change Email')) ?>"
                 class="checkbox__field"
-            >
+            />
 
-            <svg class="checkbox__icon">
-                <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#checked'); ?>"></use>
+            <svg
+                class="checkbox__icon"
+                role="presentation"
+                focusable="false"
+            >
+                <use href="<?= $escaper->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#checked')) ?>"></use>
             </svg>
 
-            <label class="checkbox__label" for="change-email">
-                <?= __('Change Email') ?>
+            <label
+                class="checkbox__label"
+                for="change-email"
+            >
+                <?= $escaper->escapeHtml(__('Change Email')) ?>
             </label>
         </div>
 
-        <div class="checkbox dashboard-form__divider">
+        <div
+            class="
+                checkbox
+                dashboard-form__divider
+            "
+        >
             <input
                 id="change-password"
                 class="checkbox__field"
@@ -67,37 +86,56 @@
                 name="change_password"
                 data-role="change-password"
                 value="1"
-                title="<?= __('Change Password') ?>"
+                title="<?= $escaper->escapeHtmlAttr(__('Change Password')) ?>"
                 <?php if ($block->getChangePassword()): ?>
                     checked="checked"
                 <?php endif; ?>
-            >
+            />
 
-            <svg class="checkbox__icon">
-                <use xlink:href="<?= $block->getViewFileUrl('images/icons-sprite.svg#checked'); ?>"></use>
+            <svg
+                class="checkbox__icon"
+                role="presentation"
+                focusable="false"
+            >
+                <use href="<?= $escaper->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#checked')) ?>"></use>
             </svg>
 
-            <label class="checkbox__label" for="change-password">
-                <?= __('Change Password') ?>
+            <label
+                class="checkbox__label"
+                for="change-password"
+            >
+                <?= $escaper->escapeHtml(__('Change Password')) ?>
             </label>
+
+            <?= $block->getChildHtml('fieldset_edit_info_additional') ?>
         </div>
 
         <div
-            class="dashboard-form__divider dashboard-form__fields"
+            class="
+                dashboard-form__divider
+                dashboard-form__fields
+            "
             data-container="change-email-password"
         >
             <h4 class="dashboard-form__title-form dashboard-form__divider">
                 <span data-title="change-email-password">
-                    <?= __('Change Email and Password') ?>
+                    <?= $escaper->escapeHtml(__('Change Email and Password')) ?>
                 </span>
             </h4>
 
             <div
-                class="input email required"
+                class="
+                    input
+                    email
+                    required
+                "
                 data-container="change-email"
             >
-                <label class="label" for="email">
-                    <?= __('Email') ?>
+                <label
+                    class="label"
+                    for="email"
+                >
+                    <?= $escaper->escapeHtml(__('Email')) ?>
                 </label>
 
                 <input
@@ -107,15 +145,16 @@
                     name="email"
                     autocomplete="email"
                     data-input="change-email"
-                    value="<?= $block->escapeHtml($block->getCustomer()->getEmail()) ?>"
-                    title="<?= __('Email') ?>"
-                    data-validate="{required:true, 'validate-email':true}"
-                >
+                    value="<?= $escaper->escapeHtmlAttr($block->getCustomer()->getEmail()) ?>"
+                    title="<?= $escaper->escapeHtmlAttr(__('Email')) ?>"
+                    class="input__field"
+                    data-validate="{required: true, 'validate-email': true}"
+                />
             </div>
 
             <div class="input password required">
                 <label class="label" for="current-password">
-                    <?= __('Current Password') ?>
+                    <?= $escaper->escapeHtml(__('Current Password')) ?>
                 </label>
 
                 <input
@@ -125,25 +164,25 @@
                     name="current_password"
                     data-input="current-password"
                     autocomplete="off"
-                >
+                />
             </div>
 
             <div
-                class="input dashboard-form--hidden newPassword required"
+                class="
+                    input
+                    dashboard-form--hidden
+                    newPassword
+                    required
+                "
                 data-container="new-password"
-                data-mage-init='{
-                    "passwordStrengthIndicator": {
-                        "defaultClassName": "password-strength--"
-                    }
-                }'
             >
                 <?php
-                    $minPasswordLength = $block->escapeHtml($block->getMinimumPasswordLength());
-                    $maxPasswordLength = $block->escapeHtml($block->getRequiredCharacterClassesNumber());
+                    $minPasswordLength = $escaper->escapeHtml($block->getMinimumPasswordLength());
+                    $maxPasswordLength = $escaper->escapeHtml($block->getRequiredCharacterClassesNumber());
                 ?>
 
                 <label class="label" for="password">
-                    <?= __('New Password') ?>
+                    <?= $escaper->escapeHtml(__('New Password')) ?>
                 </label>
 
                 <input
@@ -151,26 +190,35 @@
                     class="input__field"
                     type="password"
                     name="password"
-                    data-password-min-length="<?= $minPasswordLength ?>"
-                    data-password-min-character-sets="<?= $maxPasswordLength ?>"
+                    data-password-min-length="<?= $escaper->escapeHtmlAttr($minPasswordLength) ?>"
+                    data-password-min-character-sets="<?= $escaper->escapeHtmlAttr($maxPasswordLength) ?>"
                     data-input="new-password"
-                    data-validate="{required:true, 'validate-customer-password':true}"
+                    data-validate="{
+                        required: true,
+                        'validate-customer-password': true
+                    }"
                     autocomplete="off"
-                >
+                />
 
-                <div class="password-strength">
+                <div
+                    id="password-strength-meter-container"
+                    data-role="password-strength-meter"
+                    aria-live="polite"
+                    class="password-strength"
+                >
                     <div
-                        class="password-none"
+                        id="password-strength-meter"
                         data-role="password-strength-meter"
+                        class="password-none"
                     >
                         <div class="password-strength__handle">
-                            <?= __('Password Strength'); ?>:
+                            <?= $escaper->escapeHtml(__('Password Strength')) ?>:
                             <span
-                                class="password-strength__indicator"
+                                id="password-strength-meter-label"
                                 data-role="password-strength-meter-label"
-                                aria-live="polite"
+                                class="password-strength__indicator"
                             >
-                                <?= __('No Password'); ?>
+                                <?= $escaper->escapeHtml(__('No Password')) ?>
                             </span>
                         </div>
                     </div>
@@ -178,11 +226,16 @@
             </div>
 
             <div
-                class="input confirmPassword required"
+                class="
+                    input
+                    confirmation
+                    password
+                    required
+                "
                 data-container="confirm-password"
             >
                 <label class="label" for="password-confirmation">
-                    <?= __('Confirm New Password') ?>
+                    <?= $escaper->escapeHtml(__('Confirm New Password')) ?>
                 </label>
 
                 <input
@@ -195,6 +248,14 @@
                 >
             </div>
 
+            <div
+                class="input choice"
+                data-bind="scope: 'showPassword'"
+            >
+                <!-- ko template: getTemplate() --><!-- /ko -->
+            </div>
+
+
             <?= $block->getChildHtml('form_additional_info'); ?>
         </div>
     </div>
@@ -204,59 +265,83 @@
             <button
                 type="submit"
                 class="button action__button"
-                title="<?= __('Save') ?>"
+                title="<?= $escaper->escapeHtmlAttr(__('Save')) ?>"
             >
-                <?= __('Save') ?>
+                <?= $escaper->escapeHtml(__('Save')) ?>
             </button>
         </div>
 
         <div class="action__handler">
             <a
                 class="action__link"
-                href="<?= $block->escapeUrl($block->getBackUrl()) ?>"
+                href="<?= $escaper->escapeUrl($block->getBackUrl()) ?>"
             >
-                <?= __('Go back') ?>
+                <?= $escaper->escapeHtml(__('Go back')) ?>
             </a>
         </div>
     </div>
 </form>
-<script>
+<?php $ignore = /* @noEscape */ $_dob->isEnabled() ? '\'input[id$="full"]\'' : 'null';
+$scriptString = <<<script
     require([
         "jquery",
         "mage/mage"
-    ], function($) {
+    ], function($){
         var dataForm = $('#form-validate');
-        var ignore = <?= $_dob->isEnabled() ? '\'input[id$="full"]\'' : 'null'; ?>;
+        var ignore = {$ignore};
 
         dataForm.mage('validation', {
-        <?php if ($_dob->isEnabled()): ?>
-            errorPlacement: function(error, element) {
-                if (element.prop('id').search('full') !== -1) {
-                    var dobElement = $(element).parents('.customer-dob'),
-                        errorClass = error.prop('class');
-                    error.insertAfter(element.parent());
-                    dobElement.find('.validate-custom').addClass(errorClass)
-                        .after('<div class="' + errorClass + '"></div>');
-                }
-                else {
-                    error.insertAfter(element);
-                }
-            },
-            ignore: ':hidden:not(' + ignore + ')'
-        <?php else: ?>
-            ignore: ignore ? ':hidden:not(' + ignore + ')' : ':hidden'
-        <?php endif ?>
+script;
+if ($_dob->isEnabled()):
+    $scriptString .= <<<script
+        errorPlacement: function(error, element) {
+            if (element.prop('id').search('full') !== -1) {
+                var dobElement = $(element).parents('.customer-dob'),
+                    errorClass = error.prop('class');
+                error.insertAfter(element.parent());
+                dobElement.find('.validate-custom').addClass(errorClass)
+                    .after('<div class="' + errorClass + '"></div>');
+            }
+            else {
+                error.insertAfter(element);
+            }
+        },
+        ignore: ':hidden:not(' + ignore + ')'
+script;
+else:
+    $scriptString .= <<<script
+        ignore: ignore ? ':hidden:not(' + ignore + ')' : ':hidden'
+script;
+endif;
+$scriptString .= <<<script
         });
-
     });
-</script>
+script;
+?>
+<?= /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false) ?>
+<?php $changeEmailAndPasswordTitle = $escaper->escapeHtml(__('Change Email and Password')) ?>
 <script type="text/x-magento-init">
     {
         "[data-role=change-email], [data-role=change-password]": {
             "changeEmailPassword": {
-                "titleChangeEmail": "<?= __('Change Email') ?>",
-                "titleChangePassword": "<?= __('Change Password') ?>",
-                "titleChangeEmailAndPassword": "<?= __('Change Email and Password') ?>"
+                "titleChangeEmail": "<?= $escaper->escapeJs($escaper->escapeHtml(__('Change Email'))) ?>",
+                "titleChangePassword": "<?= $escaper->escapeJs($escaper->escapeHtml(__('Change Password'))) ?>",
+                "titleChangeEmailAndPassword": "<?= $escaper->escapeJs($changeEmailAndPasswordTitle) ?>"
+            }
+        },
+        "[data-container=new-password]": {
+            "passwordStrengthIndicator": {
+                "formSelector": "form.form-edit-account"
+            }
+        },
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "showPassword": {
+                        "component": "Magento_Customer/js/show-password",
+                        "passwordSelector": "#current-password,#password,#password-confirmation"
+                    }
+                }
             }
         }
     }

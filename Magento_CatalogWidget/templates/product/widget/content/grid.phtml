@@ -21,14 +21,14 @@ use Magento\Framework\App\Action\Action;
 
     <?php if ($heading = $block->getTitle()): ?>
         <h2 class="catalog-grid__title">
-            <?= $block->escapeHtml(__($heading)) ?>
+            <?= $escaper->escapeHtml(__($heading)) ?>
         </h2>
     <?php endif ?>
 
     <?php if (count($items) == 0): ?>
         <div class="message info empty">
             <div>
-                <?= __('We can\'t find products matching the selection.') ?>
+                <?= $escaper->escapeHtml(__('We can\'t find products matching the selection.')) ?>
             </div>
         </div>
     <?php else: ?>
@@ -36,25 +36,26 @@ use Magento\Framework\App\Action\Action;
             <?php foreach ($items as $_item): ?>
                 <li class="catalog-grid-item">
                     <a
-                        href="<?= $block->escapeUrl($block->getProductUrl($_item)) ?>"
+                        href="<?= $escaper->escapeUrl($block->getProductUrl($_item)) ?>"
                         class="catalog-grid-item__link"
-                        title="<?= $block->escapeHtmlAttr($_item->getName()) ?>"
+                        title="<?= $escaper->escapeHtmlAttr($_item->getName()) ?>"
                     >
-                        <?= $block->getImage($_item, $image)->toHtml() ?>
+                        <?= /* @noEscape */ $block->getImage($_item, $image)->toHtml() ?>
                     </a>
                     <section class="catalog-grid-item__details">
                         <h2 class="catalog-grid-item__name">
                             <a
-                                title="<?= $block->escapeHtmlAttr($_item->getName()) ?>"
-                                href="<?= $block->escapeUrl($block->getProductUrl($_item)) ?>"
+                                title="<?= $escaper->escapeHtmlAttr($_item->getName()) ?>"
+                                href="<?= $escaper->escapeUrl($block->getProductUrl($_item)) ?>"
                                 class="catalog-grid-item__name-link"
                             >
-                                <?= $block->escapeHtml($_item->getName()) ?>
+                                <?= $escaper->escapeHtml($_item->getName()) ?>
                             </a>
                         </h2>
 
                         <div class="catalog-grid-item__price">
                             <?= $block->getProductPriceHtml($_item, $type) ?>
+                            <?= $block->getProductDetailsHtml($_item) ?>
                         </div>
 
                         <?php if ($templateType): ?>
@@ -72,19 +73,19 @@ use Magento\Framework\App\Action\Action;
                                         <form
                                             class="catalog-grid-item__primary-form"
                                             data-role="tocart-form"
-                                            data-product-sku="<?= $block->escapeHtml($_item->getSku()) ?>"
-                                            action="<?= $postParams['action'] ?>"
+                                            data-product-sku="<?= $escaper->escapeHtmlAttr($_item->getSku()) ?>"
+                                            action="<?= $escaper->escapeUrl($postParams['action']) ?>"
                                             method="post"
                                         >
                                             <input
                                                 type="hidden"
                                                 name="product"
-                                                value="<?= $postParams['data']['product'] ?>"
+                                                value="<?= $escaper->escapeHtmlAttr($postParams['data']['product']) ?>"
                                             >
                                             <input
                                                 type="hidden"
-                                                name="<?= Action::PARAM_NAME_URL_ENCODED ?>"
-                                                value="<?= $postParams['data'][Action::PARAM_NAME_URL_ENCODED] ?>"
+                                                name="<?= /* @noEscape */ Action::PARAM_NAME_URL_ENCODED ?>"
+                                                value="<?= /* @noEscape */ $postParams['data'][Action::PARAM_NAME_URL_ENCODED] ?>"
                                             >
 
                                             <?= $block->getBlockHtml('formkey') ?>
@@ -100,10 +101,14 @@ use Magento\Framework\App\Action\Action;
                                                 type="submit"
                                             >
                                                 <span class="catalog-grid-item__cart-text">
-                                                    <?= __('Add to Cart') ?>
+                                                    <?= $escaper->escapeHtml(__('Add to Cart')) ?>
                                                 </span>
-                                                <svg class="icon catalog-grid-item__cart-icon">
-                                                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#shopping-cart')) ?>"></use>
+                                                <svg
+                                                    class="icon catalog-grid-item__cart-icon"
+                                                    role="presentation"
+                                                    focusable="false"
+                                                >
+                                                    <use href="<?= $escaper->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#shopping-cart')) ?>"></use>
                                                 </svg>
                                             </button>
                                         </form>
@@ -112,10 +117,10 @@ use Magento\Framework\App\Action\Action;
 
                                 <?php if ($showWishlist || $showCompare): ?>
                                     <div class="catalog-grid-item__secondary-action">
-                                        <?php if ($this->helper('Magento\Wishlist\Helper\Data')->isAllow() && $showWishlist): ?>
+                                        <?php if ($this->helper(\Magento\Wishlist\Helper\Data::class)->isAllow() && $showWishlist): ?>
                                             <a
                                                 href="#"
-                                                data-post='<?= $block->getAddToWishlistParams($_item) ?>'
+                                                data-post='<?= /* @noEscape */ $block->getAddToWishlistParams($_item) ?>'
                                                 class="
                                                     button
                                                     button--icon
@@ -123,15 +128,19 @@ use Magento\Framework\App\Action\Action;
                                                     towishlist
                                                 "
                                                 data-action="add-to-wishlist"
-                                                title="<?= $block->escapeHtmlAttr(__('Add to Wish List')) ?>"
+                                                title="<?= $escaper->escapeHtmlAttr(__('Add to Wish List')) ?>"
                                             >
-                                                <svg class="button__icon">
-                                                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#heart')) ?>"></use>
+                                                <svg
+                                                    class="button__icon"
+                                                    role="presentation"
+                                                    focusable="false"
+                                                >
+                                                    <use href="<?= $escaper->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#heart')) ?>"></use>
                                                 </svg>
                                             </a>
                                         <?php endif; ?>
                                         <?php if ($block->getAddToCompareUrl() && $showCompare): ?>
-                                            <?php $compareHelper = $this->helper('Magento\Catalog\Helper\Product\Compare');?>
+                                            <?php $compareHelper = $this->helper(\Magento\Catalog\Helper\Product\Compare::class);?>
                                             <a
                                                 href="#"
                                                 class="
@@ -140,11 +149,15 @@ use Magento\Framework\App\Action\Action;
                                                     action
                                                     tocompare
                                                 "
-                                                data-post='<?= $compareHelper->getPostDataParams($_item) ?>'
-                                                title="<?= $block->escapeHtmlAttr(__('Add to Compare')) ?>"
+                                                data-post='<?= /* @noEscape */ $compareHelper->getPostDataParams($_item) ?>'
+                                                title="<?= $escaper->escapeHtmlAttr(__('Add to Compare')) ?>"
                                             >
-                                                <svg class="button__icon">
-                                                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#compare')) ?>"></use>
+                                                <svg
+                                                    class="button__icon"
+                                                    role="presentation"
+                                                    focusable="false"
+                                                >
+                                                    <use href="<?= $escaper->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#compare')) ?>"></use>
                                                 </svg>
                                             </a>
                                         <?php endif; ?>
@@ -159,4 +172,13 @@ use Magento\Framework\App\Action\Action;
 
         <?= $block->getPagerHtml() ?>
     <?php endif ?>
+    <?php if ($block->getBlockHtml('formkey')): ?>
+        <script type="text/x-magento-init">
+        {
+            ".block.widget [data-role=tocart-form]": {
+                "Magento_Catalog/js/validate-product": {}
+            }
+        }
+        </script>
+    <?php endif;?>
 <?php endif;?>
