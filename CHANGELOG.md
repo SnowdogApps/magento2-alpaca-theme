@@ -2,9 +2,13 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+## [Released]
+## [1.8.0] - 2022-06-09
 ### Fixed
 - items spacing in cart totals (#548)
 - wishlist PDP - change of qty using +/- buttons doesn't save (##551)
+- country list select on address edit view - while there is one country allowed, it's not displayed in select options (#469)
 ### Removed
 - share wishlist - pre-populated whitespace in email and message fields (#547)
 ### Updated
