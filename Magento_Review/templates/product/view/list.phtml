@@ -14,7 +14,7 @@ $urlForm = $block->getReviewsUrl() . '#review-form';
         class="product-review__reviews"
         id="reviews"
         tabindex="0"
-        aria-label="<?= $block->escapeHtmlAttr(__('Reviews list')); ?>"
+        aria-label="<?= $escaper->escapeHtmlAttr(__('Reviews list')); ?>"
     >
         <ul class="list">
             <?php foreach ($_items as $_review): ?>
@@ -30,15 +30,15 @@ $urlForm = $block->getReviewsUrl() . '#review-form';
                                 class="review__author"
                                 itemprop="author"
                             >
-                                <?= $block->escapeHtml($_review->getNickname()); ?>
+                                <?= $escaper->escapeHtml($_review->getNickname()); ?>
                             </h3>
 
                             <time
                                 class="review__date"
                                 itemprop="datePublished"
-                                datetime="<?= $block->escapeHtmlAttr($block->formatDate($_review->getCreatedAt(), $format)); ?>"
+                                datetime="<?= $escaper->escapeHtmlAttr($block->formatDate($_review->getCreatedAt(), $format)); ?>"
                             >
-                                <?= $block->escapeHtml($block->formatDate($_review->getCreatedAt(), $format)); ?>
+                                <?= $escaper->escapeHtml($block->formatDate($_review->getCreatedAt(), $format)); ?>
                             </time>
 
                             <?php if (count($_review->getRatingVotes())): ?>
@@ -47,19 +47,19 @@ $urlForm = $block->getReviewsUrl() . '#review-form';
                                 ?>
                                 <?php
                                     foreach ($_review->getRatingVotes() as $_vote):
-                                        $_votePercetage = $block->escapeHtmlAttr($_vote->getPercent());
+                                        $_votePercetage = $escaper->escapeHtmlAttr($_vote->getPercent());
                                 ?>
                                     <div
                                         class="rating review__rating"
                                         itemprop="reviewRating"
                                         itemscope
                                         itemtype="http://schema.org/Rating"
-                                        aria-label="<?= $block->escapeHtmlAttr(__('Rating') . $_votePercetage); ?>%"
+                                        aria-label="<?= $escaper->escapeHtmlAttr(__('Rating') . $_votePercetage); ?>%"
                                         tabindex="0"
                                     >
                                         <?php if ($dislayLabel): ?>
                                             <span class="label rating__label">
-                                                <?= $block->escapeHtml($_vote->getRatingCode()) ?>
+                                                <?= $escaper->escapeHtml($_vote->getRatingCode()) ?>
                                             </span>
                                         <?php endif; ?>
 
@@ -87,11 +87,11 @@ $urlForm = $block->getReviewsUrl() . '#review-form';
                                 class="review__title"
                                 itemprop="name"
                             >
-                                <?= $block->escapeHtml($_review->getTitle()); ?>
+                                <?= $escaper->escapeHtml($_review->getTitle()); ?>
                             </h4>
 
                             <p class="product-view__review-content-text">
-                                <?= /* @noEscape */ nl2br($block->escapeHtml($_review->getDetail())); ?>
+                                <?= /* @noEscape */ nl2br($escaper->escapeHtml($_review->getDetail())); ?>
                             </p>
                         </div>
                     </div>

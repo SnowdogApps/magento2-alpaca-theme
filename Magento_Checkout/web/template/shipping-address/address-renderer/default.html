@@ -1,36 +1,40 @@
-<div 
-    class="shipping-address-item" 
+<div
+    class="shipping-address-item"
     css="'selected-item' : isSelected() , 'not-selected-item':!isSelected()"
 >
     <!-- ko if: (isSelected()) -->
-        <svg class="icon shipping-address-item__icon">
-            <use data-bind="attr: { 'xlink:href': require.toUrl('images/icons-sprite.svg#check') }" xlink:href=''></use>
+        <svg
+            class="icon shipping-address-item__icon"
+            role="presentation"
+            focusable="false"
+        >
+            <use data-bind="attr: { 'href': require.toUrl('images/icons-sprite.svg#check') }" href=''></use>
         </svg>
     <!-- /ko -->
-    <text args="address().prefix"/> 
-    <text args="address().firstname"/> 
-    <text args="address().middlename"/>
-    <text args="address().lastname"/> 
-    <text args="address().suffix"/><br/>
-    <text args="_.values(address().street).join(', ')"/><br/>
-    <text args="address().city "/>, 
-    <span text="address().region"></span> 
-    <text args="address().postcode"/><br/>
-    <text args="getCountryName(address().countryId)"/><br/>
-    <a 
-        if="address().telephone" 
-        attr="'href': 'tel:' + address().telephone" 
+    <text args="address().prefix"></text>
+    <text args="address().firstname"></text>
+    <text args="address().middlename"></text>
+    <text args="address().lastname"></text>
+    <text args="address().suffix"></text><br/>
+    <text args="_.values(address().street).join(', ')"></text><br/>
+    <text args="address().city "></text>,
+    <span text="address().region"></span>
+    <text args="address().postcode"></text><br/>
+    <text args="getCountryName(address().countryId)"></text><br/>
+    <a
+        if="address().telephone"
+        attr="'href': 'tel:' + address().telephone"
         text="address().telephone"
     ></a>
     <br/>
 
     <each args="data: address().customAttributes, as: 'element'">
-        <text args="$parent.getCustomAttributeLabel(element)"/>
+        <text args="$parent.getCustomAttributeLabel(element)"></text>
         <br/>
     </each>
 
-    <button 
-        visible="address().isEditable()" 
+    <button
+        visible="address().isEditable()"
         type="button"
         class="
             action
@@ -43,17 +47,17 @@
         <span translate="'Edit'"></span>
     </button>
     <!-- ko if: (!isSelected()) -->
-    <button 
-        type="button" 
-        click="selectAddress" 
-        class="
-            action 
-            action-select-shipping-item 
-            button 
-            button--secondary
-        "
-    >
-        <span translate="'Ship Here'"></span>
-    </button>
+        <button
+            type="button"
+            click="selectAddress"
+            class="
+                action
+                action-select-shipping-item
+                button
+                button--secondary
+            "
+        >
+            <span translate="'Ship Here'"></span>
+        </button>
     <!-- /ko -->
 </div>

@@ -2,13 +2,20 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Fixed
+- items spacing in cart totals (#548)
+- wishlist PDP - change of qty using +/- buttons doesn't save (##551)
+### Removed
+- share wishlist - pre-populated whitespace in email and message fields (#547)
+### Updated
+- theme files to Magento 2.4.3 (#469)
 
 ## [1.7.0] - 2020-09-26
 ### Changed
 - hide label for tooltip icon after updates in template (#66923)
 ### Fixed
 - container styles for customer/checkout. Affects: containers positioning/spacing in those areas (#66923)
-- styles for modal heading (#66923) 
+- styles for modal heading (#66923)
 ### Removed
 - some row classess from totals related templates (Magento_Ui). Affects: checkout/cart totals/shipping methods etc. (#66923)
 

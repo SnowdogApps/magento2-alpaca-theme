@@ -11,14 +11,18 @@
                     data-testid="pager-prev-link"
                     href="<?= $block->getPageUrl($block->getPage() - 1) ?>"
                     <?php if ($block->getPage() === 1) : ?>
-                        aria-label="<?= $block->escapeHtmlAttr(__("Link to previous page, disabled")) ?>"
+                        aria-label="<?= $escaper->escapeHtmlAttr(__("Link to previous page, disabled")) ?>"
                         disabled
                     <?php else: ?>
-                        aria-label="<?= __("Link to previous page") ?>"
+                        aria-label="<?= $escaper->escapeHtmlAttr(__("Link to previous page")) ?>"
                     <?php endif; ?>
                 >
-                    <svg class="pager__icon">
-                        <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#arrow-left')) ?>"></use>
+                    <svg
+                        class="pager__icon"
+                        role="presentation"
+                        focusable="false"
+                    >
+                        <use href="<?= $escaper->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#arrow-left')) ?>"></use>
                     </svg>
                 </a>
             </li>
@@ -33,7 +37,7 @@
                             <a
                                 class="pager__link link--invert"
                                 href="<?= $block->getPageUrl($page['page']) ?>"
-                                title="<?= __('Link to page ') . $page['label'] ?>"
+                                title="<?= $escaper->escapeHtmlAttr(__('Link to page ')) . $page['label'] ?>"
                             >
                                 <?= $page['label'] ?>
                             </a>
@@ -49,14 +53,18 @@
                     data-testid="pager-next-link"
                     href="<?= $block->getPageUrl($block->getPage() + 1) ?>"
                     <?php if ($block->getPage() === $block->getLastPageNum()): ?>
-                        aria-label="<?= __("Link to next page, disabled") ?>"
+                        aria-label="<?= $escaper->escapeHtmlAttr(__("Link to next page, disabled")) ?>"
                         disabled
                     <?php else: ?>
-                        aria-label="<?= __("Link to next page") ?>"
+                        aria-label="<?= $escaper->escapeHtmlAttr(__("Link to next page")) ?>"
                     <?php endif; ?>
                 >
-                    <svg class="pager__icon">
-                        <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#arrow-right')) ?>"></use>
+                    <svg
+                        class="pager__icon"
+                        role="presentation"
+                        focusable="false"
+                    >
+                        <use href="<?= $escaper->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#arrow-right')) ?>"></use>
                     </svg>
                 </a>
             </li>

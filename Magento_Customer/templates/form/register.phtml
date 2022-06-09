@@ -1,10 +1,30 @@
+<?php
+use Magento\Customer\Helper\Address;
+
+/** @var \Magento\Customer\Block\Form\Register $block */
+/** @var \Magento\Framework\Escaper $escaper */
+/** @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer */
+
+/** @var Magento\Customer\Helper\Address $addressHelper */
+$addressHelper = $block->getData('addressHelper');
+/** @var \Magento\Directory\Helper\Data $directoryHelper */
+$directoryHelper = $block->getData('directoryHelper');
+$formData = $block->getFormData();
+?>
+<?php $displayAll = $block->getConfig('general/region/display_all'); ?>
 <div class="row registration">
     <?= $block->getChildHtml('form_fields_before') ?>
     <?php /* Extensions placeholder */ ?>
     <?= $block->getChildHtml('customer.form.register.extra') ?>
     <form
-        class="col-xs-12 col-md-6 form registration__content"
-        action="<?= $block->escapeUrl($block->getPostActionUrl()) ?>"
+        class="
+            col-xs-12
+            col-md-6
+            form
+            form-create-account
+            registration__content
+        "
+        action="<?= $escaper->escapeUrl($block->getPostActionUrl()) ?>"
         method="post"
         id="form-validate"
         enctype="multipart/form-data"
@@ -13,42 +33,48 @@
         <?= /* @noEscape */ $block->getBlockHtml('formkey'); ?>
         <fieldset class="fieldset registration__fieldset">
             <legend class="form__legend fieldset__legend registration__legend">
-                <?= $block->escapeHtml(__('Personal Information')) ?>
+                <?= $escaper->escapeHtml(__('Personal Information')) ?>
             </legend>
             <div class="divider registration__divider"></div>
             <input
                 type="hidden"
                 name="success_url"
-                value="<?= $block->escapeUrl($block->getSuccessUrl()) ?>"
+                value="<?= $escaper->escapeUrl($block->getSuccessUrl()) ?>"
             >
             <input
                 type="hidden"
                 name="error_url"
-                value="<?= $block->escapeUrl($block->getErrorUrl()) ?>"
+                value="<?= $escaper->escapeUrl($block->getErrorUrl()) ?>"
             >
             <?= $block->getLayout()
                 ->createBlock(\Magento\Customer\Block\Widget\Name::class)
-                ->setObject($block->getFormData())
+                ->setObject($formData)
                 ->setForceUseCustomerAttributes(true)
                 ->toHtml()
             ?>
+
             <?php if ($block->isNewsletterEnabled()): ?>
                 <div class="checkbox registration__newsletter-checkbox">
                     <input
                         type="checkbox"
                         name="is_subscribed"
-                        title="<?= $block->escapeHtmlAttr(__('Sign Up for Newsletter')) ?>"
+                        title="<?= $escaper->escapeHtmlAttr(__('Sign Up for Newsletter')) ?>"
                         value="1"
                         id="is_subscribed"
                         class="checkbox__field registration__newsletter-checkbox-field"
-                        <?= /* @noEscape */ ($block->getFormData()->getIsSubscribed()) ? 'checked="checked"' : '' ?>
-                    >
+                        <?php if ($formData->getIsSubscribed()): ?>
+                            checked="checked"
+                        <?php endif; ?>
+                    />
                     <svg
-                        class="checkbox__icon registration__newsletter-checkbox-icon"
-                        role="img"
-                        aria-hidden="true"
+                        class="
+                            checkbox__icon
+                            registration__newsletter-checkbox-icon
+                        "
+                        role="presentation"
+                        focusable="false"
                     >
-                        <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#checked')) ?>"></use>
+                        <use href="<?= $escaper->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#checked')) ?>"></use>
                     </svg>
                     <label
                         for="is_subscribed"
@@ -57,109 +83,132 @@
                             registration__newsletter-checkbox-label
                         "
                     >
-                        <?= $block->escapeHtml(__('Sign Up for Newsletter')) ?>
+                        <?= $escaper->escapeHtml(__('Sign Up for Newsletter')) ?>
                     </label>
                 </div>
                 <?php /* Extensions placeholder */ ?>
                 <?= $block->getChildHtml('customer.form.register.newsletter') ?>
             <?php endif ?>
+
             <?php $_dob = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Dob::class) ?>
             <?php if ($_dob->isEnabled()): ?>
-                <?= $_dob->setDate($block->getFormData()->getDob())
-                    ->setHtmlClass('input__field')
-                    ->toHtml();
-                ?>
-            <?php endif; ?>
+                <?= $_dob->setDate($formData->getDob())->toHtml() ?>
+            <?php endif ?>
+
             <?php $_taxvat = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Taxvat::class) ?>
             <?php if ($_taxvat->isEnabled()): ?>
-                <?= $_taxvat->setTaxvat($block->getFormData()->getTaxvat())->toHtml() ?>
-            <?php endif; ?>
+                <?= $_taxvat->setTaxvat($formData->getTaxvat())->toHtml() ?>
+            <?php endif ?>
 
-            <?php $_gender = $block->getLayout()->createBlock(Magento\Customer\Block\Widget\Gender::class) ?>
+            <?php $_gender = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Gender::class) ?>
             <?php if ($_gender->isEnabled()): ?>
-                <?= $_gender->setGender($block->getFormData()->getGender())->toHtml() ?>
-            <?php endif; ?>
+                <?= $_gender->setGender($formData->getGender())->toHtml() ?>
+            <?php endif ?>
+
+            <?= $block->getChildHtml('fieldset_create_info_additional') ?>
         </fieldset>
         <fieldset
             class="fieldset registration__fieldset"
-            data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
+            data-hasrequired="<?= $escaper->escapeHtmlAttr(__('* Required Fields')) ?>"
         >
             <legend class="form__legend fieldset__legend registration__legend">
-                <?= $block->escapeHtml(__('Sign-in Information')) ?>
+                <?= $escaper->escapeHtml(__('Sign-in Information')) ?>
             </legend>
             <div class="divider registration__divider"></div>
-            <div class="input registration__input required">
+            <div
+                class="
+                    input
+                    registration__input
+                    required
+                "
+            >
                 <label for="email_address" class="input__label">
-                    <?= $block->escapeHtml(__('Email')) ?>
+                    <?= $escaper->escapeHtml(__('Email')) ?>
                 </label>
                 <input
                     type="email"
                     name="email"
                     autocomplete="email"
                     id="email_address"
-                    value="<?= $block->escapeHtmlAttr($block->getFormData()->getEmail()) ?>"
-                    title="<?= $block->escapeHtmlAttr(__('Email')) ?>"
+                    value="<?= $escaper->escapeHtmlAttr($formData->getEmail()) ?>"
+                    title="<?= $escaper->escapeHtmlAttr(__('Email')) ?>"
                     class="input__field"
-                    data-mage-init='{"mage/trim-input":{}}'
-                    data-validate="{required:true, 'validate-email':true}"
-                >
+                    data-mage-init='{
+                        "mage/trim-input": {}
+                    }'
+                    data-validate="{
+                        required:true,
+                        'validate-email':true
+                    }"
+                />
             </div>
-            <div
-                class="registration__password-wrapper"
-                data-mage-init='{
-                    "passwordStrengthIndicator": {
-                        "defaultClassName": "password-strength--"
-                    }
-                }'
-            >
+            <div class="registration__password-wrapper">
                 <div class="input required">
                     <label for="password" class="input__label">
-                        <?= $block->escapeHtml(__('Password')) ?>
+                        <?= $escaper->escapeHtml(__('Password')) ?>
                     </label>
                     <input
                         type="password"
                         name="password"
                         id="password"
-                        title="<?= $block->escapeHtmlAttr(__('Password')) ?>"
+                        title="<?= $escaper->escapeHtmlAttr(__('Password')) ?>"
                         class="input__field"
-                        data-password-min-length="<?= $block->escapeHtmlAttr($block->getMinimumPasswordLength()) ?>"
-                        data-password-min-character-sets="<?= $block->escapeHtmlAttr($block->getRequiredCharacterClassesNumber()) ?>"
+                        data-password-min-length="<?= $escaper->escapeHtmlAttr($block->getMinimumPasswordLength()) ?>"
+                        data-password-min-character-sets="<?= $escaper->escapeHtmlAttr($block->getRequiredCharacterClassesNumber()) ?>"
                         data-validate="{
                             required: true,
                             'validate-customer-password': true
                         }"
                         autocomplete="off"
-                    >
+                    />
                 </div>
-                <div class="password-strength">
+                <div
+                    id="password-strength-meter-container"
+                    data-role="password-strength-meter"
+                    aria-live="polite"
+                    class="password-strength"
+                >
                     <div
-                        class="password-none"
-                        data-role="password-strength-meter"
+                        class="
+                            password-none
+                            password-strength-meter
+                        "
+                        id="password-strength-meter"
                     >
                         <div class="password-strength__handle">
-                            <?= $block->escapeHtml(__('Password Strength')) ?>:
+                            <?= $escaper->escapeHtml(__('Password Strength')) ?>:
                             <span
-                                class="password-strength__indicator"
+                                id="password-strength-meter-label"
                                 data-role="password-strength-meter-label"
+                                class="password-strength__indicator"
                                 aria-live="polite"
                             >
-                                <?= $block->escapeHtml(__('No Password')) ?>
+                                <?= $escaper->escapeHtml(__('No Password')) ?>
                             </span>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="input registration__input required">
+            <div
+                class="
+                    input
+                    registration__input
+                    required
+                "
+            >
                 <label for="password-confirmation" class="input__label">
-                    <?= $block->escapeHtml(__('Confirm Password')) ?>
+                    <?= $escaper->escapeHtml(__('Confirm Password')) ?>
                 </label>
                 <input
                     type="password"
                     name="password_confirmation"
-                    title="<?= $block->escapeHtmlAttr(__('Confirm Password')) ?>"
+                    title="<?= $escaper->escapeHtmlAttr(__('Confirm Password')) ?>"
                     id="password-confirmation"
                     class="input__field"
-                    data-validate="{required:true, equalTo:'#password'}"
+                    data-validate="{
+                        required:true,
+                        equalTo: '#password'
+                    }"
                     autocomplete="off"
                 >
             </div>
@@ -168,39 +217,72 @@
         <button
             type="submit"
             class="button"
-            title="<?= $block->escapeHtmlAttr(__('Create an Account')) ?>"
+            title="<?= $escaper->escapeHtmlAttr(__('Create an Account')) ?>"
             data-testid="create-account-button"
         >
-            <?= $block->escapeHtml(__('Create an Account')) ?>
+            <?= $escaper->escapeHtml(__('Create an Account')) ?>
         </button>
     </form>
 </div>
-<script>
-    require([
-        'jquery',
-        'mage/mage'
-    ], function($) {
-        var dataForm = $('#form-validate'),
-            ignore = <?= $_dob->isEnabled() ? '\'input[id$="full"]\'' : 'null' ?>;
+<?php $ignore = /* @noEscape */ $_dob->isEnabled() ? '\'input[id$="full"]\'' : 'null';
+$scriptString = <<<script
+require([
+    'jquery',
+    'mage/mage'
+], function($){
 
-        dataForm.mage('validation', {
-            <?php if ($_dob->isEnabled()): ?>
-                errorPlacement: function(error, element) {
-                    if (element.prop('id').search('full') !== -1) {
-                        var dobElement = $(element).parents('.customer-dob'),
-                            errorClass = error.prop('class');
-                        error.insertAfter(element.parent());
-                        dobElement.find('.validate-custom').addClass(errorClass)
-                            .after('<div class="' + errorClass + '"></div>');
+    var dataForm = $('#form-validate');
+    var ignore = {$ignore};
+
+    dataForm.mage('validation', {
+script;
+if ($_dob->isEnabled()):
+    $scriptString .= <<<script
+        errorPlacement: function(error, element) {
+            if (element.prop('id').search('full') !== -1) {
+                var dobElement = $(element).parents('.customer-dob'),
+                    errorClass = error.prop('class');
+                error.insertAfter(element.parent());
+                dobElement.find('.validate-custom').addClass(errorClass)
+                    .after('<div class="' + errorClass + '"></div>');
+            }
+            else {
+                error.insertAfter(element);
+            }
+        },
+        ignore: ':hidden:not(' + ignore + ')'
+    script;
+else:
+    $scriptString .= <<<script
+        ignore: ignore ? ':hidden:not(' + ignore + ')' : ':hidden'
+script;
+endif;
+$scriptString .= <<<script
+    }).find('input:text').attr('autocomplete', 'off');
+});
+script;
+?>
+<?= /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false) ?>
+
+<script type="text/x-magento-init">
+    {
+        ".registration-form__password-wrapper": {
+            "passwordStrengthIndicator": {
+                "formSelector": "form.form-create-account"
+            }
+        },
+        "*": {
+            "Magento_Customer/js/block-submit-on-send": {
+                "formId": "form-validate"
+            },
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "showPassword": {
+                        "component": "Magento_Customer/js/show-password",
+                        "passwordSelector": "#password,#password-confirmation"
                     }
-                    else {
-                        error.insertAfter(element);
-                    }
-                },
-                ignore: ':hidden:not(' + ignore + ')'
-            <?php else: ?>
-                ignore: ignore ? ':hidden:not(' + ignore + ')' : ':hidden'
-            <?php endif ?>
-        }).find('input:text').attr('autocomplete', 'off');
-    });
+                }
+            }
+        }
+    }
 </script>

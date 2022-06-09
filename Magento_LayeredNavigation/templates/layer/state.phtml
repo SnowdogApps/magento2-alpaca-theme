@@ -4,11 +4,11 @@
     type="button"
     data-mage-init='{"skipFilters": {}}'
 >
-    <?= $block->escapeHtml(__('Skip to products')) ?>
+    <?= $escaper->escapeHtml(__('Skip to products')) ?>
 </button>
 <?php if (!empty($_filters)): ?>
     <h2 class="filters__heading">
-        <?= $block->escapeHtml(__('Now Shopping by')) ?>
+        <?= $escaper->escapeHtml(__('Now Shopping by')) ?>
     </h2>
     <div class="divider filters__divider"></div>
     <div class="filters__active">
@@ -16,27 +16,34 @@
             <?php foreach ($_filters as $_filter): ?>
                 <li class="active-filters__item list__item">
                     <a
-                        href="<?= $block->escapeUrl($_filter->getRemoveUrl()) ?>"
+                        href="<?= $escaper->escapeUrl($_filter->getRemoveUrl()) ?>"
                         class="active-filters__remove"
-                        aria-label="<?= $block->escapeHtmlAttr(__('Disable filter')
+                        aria-label="<?= $escaper->escapeHtmlAttr(__('Disable filter')
                             . ': '
-                            . $block->escapeHtmlAttr(__($_filter->getName()))
+                            . $escaper->escapeHtmlAttr(__($_filter->getName()))
                             . ' - '
-                            . $block->escapeHtmlAttr($block->stripTags($_filter->getLabel())))
+                            . $escaper->escapeHtmlAttr($block->stripTags($_filter->getLabel())))
                         ?>"
-                        title="<?= $block->escapeHtmlAttr(__('Disable filter')
+                        title="<?= $escaper->escapeHtmlAttr(__('Disable filter')
                             . ': '
-                            . $block->escapeHtmlAttr(__($_filter->getName()))
+                            . $escaper->escapeHtmlAttr(__($_filter->getName()))
                             . ' - '
-                            . $block->escapeHtmlAttr($block->stripTags($_filter->getLabel())))
+                            . $escaper->escapeHtmlAttr($block->stripTags($_filter->getLabel())))
                         ?>"
                     >
-                        <svg class="icon active-filters__remove-icon" role="presentation">
-                            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#close')) ?>"></use>
+                        <svg
+                            class="
+                                icon
+                                active-filters__remove-icon
+                            "
+                            role="presentation"
+                            focusable="false"
+                        >
+                            <use href="<?= $escaper->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#close')) ?>"></use>
                         </svg>
                     </a>
                     <span class="active-filters__label">
-                        <?= $block->escapeHtml(__($_filter->getName())) . '&nbsp;:&nbsp;' ?>
+                        <?= $escaper->escapeHtml(__($_filter->getName())) . '&nbsp;:&nbsp;' ?>
                     </span>
                     <span class="active-filters__value">
                         <?= $block->stripTags($_filter->getLabel()) ?>
@@ -45,11 +52,11 @@
             <?php endforeach ?>
             <li>
                 <a
-                    href="<?= $block->escapeUrl($block->getClearUrl()) ?>"
+                    href="<?= $escaper->escapeUrl($block->getClearUrl()) ?>"
                     class="active-filters__clear-all"
-                    title="<?= $block->escapeHtmlAttr(__('Clear all filters')) ?>"
+                    title="<?= $escaper->escapeHtmlAttr(__('Clear all filters')) ?>"
                 >
-                    <?= $block->escapeHtml(__('Clear All')) ?>
+                    <?= $escaper->escapeHtml(__('Clear All')) ?>
                 </a>
             </li>
         </ul>

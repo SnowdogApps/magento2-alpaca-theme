@@ -1,27 +1,31 @@
 <div class="checkout-billing-address">
-    <div 
+    <div
         class="
-            billing-address-same-as-shipping-block 
-            field 
+            billing-address-same-as-shipping-block
+            field
             choice
             checkbox
-        " 
+        "
         data-bind="visible: canUseShippingAddress()"
     >
-        <input 
-            type="checkbox" 
+        <input
+            type="checkbox"
             name="billing-address-same-as-shipping"
             class="checkbox__field"
             data-bind="
-                checked: isAddressSameAsShipping, 
-                click: useShippingAddress, 
+                checked: isAddressSameAsShipping,
+                click: useShippingAddress,
                 attr: {
                     id: 'billing-address-same-as-shipping-' + getCode($parent)
                 }
             "
         />
-        <svg class="checkbox__icon">
-            <use data-bind="attr: { 'xlink:href': require.toUrl('images/icons-sprite.svg#checked') }" xlink:href=''></use>
+        <svg
+            class="checkbox__icon"
+            role="presentation"
+            focusable="false"
+        >
+            <use data-bind="attr: { 'href': require.toUrl('images/icons-sprite.svg#checked') }" href=''></use>
         </svg>
 
         <label
@@ -32,19 +36,19 @@
                 }
             "
         >
-            <span 
+            <span
                 data-bind="i18n: 'My billing and shipping address are the same'"
             ></span>
         </label>
     </div>
 
-    <render args="detailsTemplate"/>
-    
+    <render args="detailsTemplate"></render>
+
     <fieldset class="fieldset" data-bind="visible: !isAddressDetailsVisible()">
         <each args="getRegion('billing-address-list')" render="" />
         <div data-bind="fadeVisible: isAddressFormVisible">
-            <render args="formTemplate"/>
+            <render args="formTemplate"></render>
         </div>
-        <render args="actionsTemplate"/>
+        <render args="actionsTemplate"></render>
     </fieldset>
 </div>

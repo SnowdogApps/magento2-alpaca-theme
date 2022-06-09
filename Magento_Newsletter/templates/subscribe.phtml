@@ -1,13 +1,13 @@
 <form
     class="newsletter"
     novalidate
-    action="<?= $block->escapeUrl($block->getFormActionUrl()) ?>"
+    action="<?= $escaper->escapeUrl($block->getFormActionUrl()) ?>"
     method="post"
     data-mage-init='{"validation": {"errorClass": "mage-error"}}'
     id="newsletter-validate-detail"
 >
     <div class="newsletter__heading">
-        <?= $block->escapeHtml(__('Sing up to our twisted newsletter')) ?>
+        <?= $escaper->escapeHtml(__('Sing up to our twisted newsletter')) ?>
     </div>
     <div class="newsletter__controls">
         <div class="input newsletter__input">
@@ -15,14 +15,14 @@
                 class="label newsletter__label"
                 for="newsletter"
             >
-                <?= $block->escapeHtml(__('Your email')) ?>
+                <?= $escaper->escapeHtml(__('Your email')) ?>
             </label>
             <input
                 name="email"
                 type="email"
                 id="newsletter"
                 class="input__field newsletter__field"
-                placeholder="<?= $block->escapeHtmlAttr(__('Enter your email')) ?>"
+                placeholder="<?= $escaper->escapeHtmlAttr(__('Enter your email')) ?>"
                 required
                 data-mage-init='{"mage/trim-input":{}}'
             />
@@ -31,7 +31,7 @@
             class="button newsletter__button"
             data-testid="submit-newsletter-button"
         >
-            <?= $block->escapeHtml(__('Submit')) ?>
+            <?= $escaper->escapeHtml(__('Submit')) ?>
         </button>
     </div>
     <div class="newsletter__agreements">
@@ -43,19 +43,32 @@
                 class="checkbox__field"
                 required
             >
-            <svg class="checkbox__icon">
-                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#checked')) ?>"></use>
+            <svg
+                class="checkbox__icon"
+                role="presentation"
+                focusable="false"
+            >
+                <use href="<?= $escaper->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#checked')) ?>"></use>
             </svg>
             <label
                 for="newsletterAgrrement"
                 class="checkbox__label"
             >
-                <?= $block->escapeHtml(__('I agree to')) ?>
+                <?= $escaper->escapeHtml(__('I agree to')) ?>
                 <a href="#">
-                    <?= $block->escapeHtml(__('Terms and conditions')) ?>
+                    <?= $escaper->escapeHtml(__('Terms and conditions')) ?>
                 </a>
-                <?= $block->escapeHtml(__('and I am happy to receive your newsletter with all your promotions.')) ?>
+                <?= $escaper->escapeHtml(__('and I am happy to receive your newsletter with all your promotions.')) ?>
             </label>
         </div>
     </div>
 </form>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Customer/js/block-submit-on-send": {
+                "formId": "newsletter-validate-detail"
+            }
+        }
+    }
+</script>

@@ -3,34 +3,35 @@
      data-mage-init='{
          "itemTable":{
              "addBlockData":{
-                 "widgetId": "<?= $block->escapeHtmlAttr($block->getUniqueId()) ?>"
+                 "widgetId": "<?= $escaper->escapeHtmlAttr($block->getUniqueId()) ?>"
              }
          }
      }'
 >
     <?php if (!$block->getIsTitleHidden()): ?>
         <h3 class="dashboard-form__title">
-            <?= $block->escapeHtml(__('Order by SKU')) ?>
+            <?= $escaper->escapeHtml(__('Order by SKU')) ?>
         </h3>
     <?php endif ?>
 
     <div class="dashboard-form__divider">
-        <form class="form form-addbysku"
-              action="<?= $block->getFormAction() ?>"
-              method="post"
-              data-mage-init='{"validation":{}}'
-              <?= $block->getIsMultipart() ? 'enctype="multipart/form-data"' : '' ?>
+        <form
+            class="form form-addbysku"
+            action="<?= $escaper->escapeUrl($block->getFormAction()) ?>"
+            method="post"
+            data-mage-init='{"validation":{}}'
+            <?= $block->getIsMultipart() ? 'enctype="multipart/form-data"' : '' ?>
         >
             <div data-container="items"></div>
 
             <div class="action dashboard__item">
                 <div class="action__handler">
                     <button type="button"
-                            title="<?= $block->escapeHtmlAttr(__('Add Row')) ?>"
+                            title="<?= $escaper->escapeHtmlAttr(__('Add Row')) ?>"
                             class="button action__button"
                             data-role="add"
                     >
-                        <?= $block->escapeHtml(__('Add Row')) ?>
+                        <?= $escaper->escapeHtml(__('Add Row')) ?>
                     </button>
                 </div>
             </div>
@@ -42,10 +43,10 @@
             <div class="action">
                 <div class="action__handler">
                     <button type="submit"
-                            title="<?= $block->escapeHtmlAttr(__('Add to Cart')) ?>"
+                            title="<?= $escaper->escapeHtmlAttr(__('Add to Cart')) ?>"
                             class="button action__button"
                     >
-                        <?= $block->escapeHtml(__('Add to Cart')) ?>
+                        <?= $escaper->escapeHtml(__('Add to Cart')) ?>
                     </button>
                 </div>
             </div>
@@ -63,7 +64,7 @@
                     <label for="id-items<%- data.widgetId %><%- data.rowIndex %>sku"
                            class="label"
                     >
-                        <?= $block->escapeHtml(__('SKU')) ?>
+                        <?= $escaper->escapeHtml(__('SKU')) ?>
                     </label>
 
                     <input type="text"
@@ -87,7 +88,7 @@
                     <label for="id-items<%- data.widgetId %><%- data.rowIndex %>qty"
                            class="label"
                     >
-                        <?= $block->escapeHtml(__('Qty')) ?>
+                        <?= $escaper->escapeHtml(__('Qty')) ?>
                     </label>
 
                     <input type="number"
@@ -110,10 +111,10 @@
                     <div class="action">
                         <div class="action__handler">
                             <button type="button" class="button action__button remove"
-                                    title="<?= $block->escapeHtmlAttr(__('Remove Row')) ?>"
+                                    title="<?= $escaper->escapeHtmlAttr(__('Remove Row')) ?>"
                                     data-role="delete"
                             >
-                                <?= $block->escapeHtml(__('Remove Row')) ?>
+                                <?= $escaper->escapeHtml(__('Remove Row')) ?>
                             </button>
                         </div>
                     </div>

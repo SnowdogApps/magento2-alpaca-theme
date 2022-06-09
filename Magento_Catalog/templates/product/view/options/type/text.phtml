@@ -25,8 +25,8 @@ if ($_option->getMaxCharacters()) {
         <?= /* @noEscape */ $class ?>
     "
 >
-    <label class="label" for="options_<?= $block->escapeHtmlAttr($_option->getId()) ?>_text">
-        <?= $block->escapeHtml($_option->getTitle()) ?>
+    <label class="label" for="options_<?= $escaper->escapeHtmlAttr($_option->getId()) ?>_text">
+        <?= $escaper->escapeHtml($_option->getTitle()) ?>
 
         <?= /* @noEscape */ $block->getFormatedPrice() ?>
     </label>
@@ -37,29 +37,29 @@ if ($_option->getMaxCharacters()) {
             id="options_<?= $_option->getId() ?>_text"
             class="input__field"
             <?php if (!empty($_textValidate)) {?>
-                data-validate="<?= $block->escapeHtml(json_encode($_textValidate)) ?>"
+                data-validate="<?= $escaper->escapeHtml(json_encode($_textValidate)) ?>"
             <?php } ?>
             name="options[<?= $_option->getId() ?>]"
             data-selector="options[<?= $_option->getId() ?>]"
-            value="<?= $block->escapeHtml($block->getDefaultValue()) ?>"
+            value="<?= $escaper->escapeHtml($block->getDefaultValue()) ?>"
         />
     <?php elseif ($_option->getType() == $isTextarea): ?>
         <textarea
-            id="options_<?= $block->escapeHtmlAttr($_option->getId()) ?>_text"
+            id="options_<?= $escaper->escapeHtmlAttr($_option->getId()) ?>_text"
             class="input__field input__field--textarea"
             <?php if (!empty($_textValidate)) {?>
-                data-validate="<?= $block->escapeHtmlAttr(json_encode($_textValidate)) ?>"
+                data-validate="<?= $escaper->escapeHtmlAttr(json_encode($_textValidate)) ?>"
             <?php } ?>
-            name="options[<?= $block->escapeHtmlAttr($_option->getId()) ?>]"
-            data-selector="options[<?= $block->escapeHtmlAttr($_option->getId()) ?>]"
+            name="options[<?= $escaper->escapeHtmlAttr($_option->getId()) ?>]"
+            data-selector="options[<?= $escaper->escapeHtmlAttr($_option->getId()) ?>]"
             rows="5"
             cols="25"
-        ><?= $block->escapeHtml($block->getDefaultValue()) ?></textarea>
+        ><?= $escaper->escapeHtml($block->getDefaultValue()) ?></textarea>
     <?php endif; ?>
 
     <?php if ($_option->getMaxCharacters()): ?>
         <p>
-            <?= $block->escapeHtml(__('Maximum number of characters:')) ?>
+            <?= $escaper->escapeHtml(__('Maximum number of characters:')) ?>
             <span class="character-counter no-display"></span>
             <strong>
                 <?= $_option->getMaxCharacters() ?>
@@ -69,11 +69,11 @@ if ($_option->getMaxCharacters()) {
     <?php if ($_option->getMaxCharacters()) :?>
         <script type="text/x-magento-init">
         {
-            "[data-selector='options[<?= $block->escapeJs($_option->getId()) ?>]']": {
+            "[data-selector='options[<?= $escaper->escapeJs($_option->getId()) ?>]']": {
                 "Magento_Catalog/js/product/remaining-characters": {
                     "maxLength":  "<?= (int)$_option->getMaxCharacters() ?>",
-                    "noteSelector": ".note_<?= $block->escapeJs($_option->getId()) ?>",
-                    "counterSelector": ".note_<?= $block->escapeJs($_option->getId()) ?> .character-counter"
+                    "noteSelector": ".note_<?= $escaper->escapeJs($_option->getId()) ?>",
+                    "counterSelector": ".note_<?= $escaper->escapeJs($_option->getId()) ?> .character-counter"
                 }
             }
         }

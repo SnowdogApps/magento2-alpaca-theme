@@ -1,0 +1,32 @@
+<?php
+/** @var \Magento\Customer\Block\Widget\Fax $block */
+?>
+
+<div
+    class="
+        input
+        fax
+        <?= $block->isRequired() ? 'required' : '' ?>
+    "
+>
+    <label
+        for="fax"
+        class="label"
+    >
+        <?= $escaper->escapeHtml(__('Fax')) ?>
+    </label>
+    <?php
+    $_validationClass = $escaper->escapeHtmlAttr(
+        $this->helper(\Magento\Customer\Helper\Address::class)
+                ->getAttributeValidationClass('fax')
+    );
+    ?>
+    <input
+        type="text"
+        name="fax"
+        id="fax"
+        value="<?= $escaper->escapeHtmlAttr($block->getFax()) ?>"
+        title="<?= $escaper->escapeHtmlAttr(__('Fax')) ?>"
+        class="input__field <?= $_validationClass ?: '' ?>"
+    />
+</div>

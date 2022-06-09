@@ -3,20 +3,20 @@
 ?>
 <form
     class="dashboard-form form"
-    action="<?= $block->escapeUrl($block->getSendUrl()) ?>"
+    action="<?= $escaper->escapeUrl($block->getSendUrl()) ?>"
     id="form-validate"
     method="post"
-    data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
+    data-hasrequired="<?= $escaper->escapeHtmlAttr(__('* Required Fields')) ?>"
     data-mage-init='{"validation": {}}'
 >
     <?= $block->getBlockHtml('formkey') ?>
     <h3 class="dashboard-form__title">
-        <?= $block->escapeHtml(__('Sharing Information')) ?>
+        <?= $escaper->escapeHtml(__('Sharing Information')) ?>
     </h3>
     <div class="dashboard-form__divider">
         <div class="input">
             <label class="label" for="email_address">
-                <?= $block->escapeHtml(__('Email addresses, separated by commas')) ?>
+                <?= $escaper->escapeHtml(__('Email addresses, separated by commas')) ?>
             </label>
             <textarea
                 class="input__field input__field--textarea"
@@ -25,13 +25,11 @@
                 rows="5"
                 id="email_address"
                 data-validate="{required: true, 'validate-emails': true}"
-            >
-                <?= $block->getEnteredData('emails') ?>
-            </textarea>
+            ><?= $block->getEnteredData('emails') ?></textarea>
         </div>
         <div class="input">
             <label class="label" for="message">
-                <?= $block->escapeHtml(__('Message')) ?>
+                <?= $escaper->escapeHtml(__('Message')) ?>
             </label>
             <textarea
                 class="input__field input__field--textarea"
@@ -39,9 +37,7 @@
                 name="message"
                 cols="60"
                 rows="5"
-            >
-                <?= $block->getEnteredData('message') ?>
-            </textarea>
+            ><?= $block->getEnteredData('message') ?></textarea>
         </div>
         <?php if ($this->helper(\Magento\Wishlist\Helper\Rss::class)->isRssAllow()): ?>
             <div class="checkbox">
@@ -50,14 +46,18 @@
                     name="rss_url"
                     id="rss_url"
                     value="1"
-                    title="<?= $block->escapeHtmlAttr(__('Check here to link an RSS feed to your Wish List.')) ?>"
+                    title="<?= $escaper->escapeHtmlAttr(__('Check here to link an RSS feed to your Wish List.')) ?>"
                     class="checkbox__field"
                 >
-                <svg class="checkbox__icon">
-                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#checked')); ?>"></use>
+                <svg
+                    class="checkbox__icon"
+                    role="presentation"
+                    focusable="false"
+                >
+                    <use href="<?= $escaper->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#checked')); ?>"></use>
                 </svg>
                 <label class="checkbox__label" for="rss_url">
-                    <?= $block->escapeHtml(__('Check here to link an RSS feed to your Wish List.')) ?>
+                    <?= $escaper->escapeHtml(__('Check here to link an RSS feed to your Wish List.')) ?>
                 </label>
             </div>
         <?php endif; ?>
@@ -67,18 +67,18 @@
         <div class="action__handler">
             <button
                 type="submit"
-                title="<?= $block->escapeHtmlAttr(__('Share Wish List')) ?>"
+                title="<?= $escaper->escapeHtmlAttr(__('Share Wish List')) ?>"
                 class="button action__button"
             >
-                <?= $block->escapeHtml(__('Share Wish List')) ?>
+                <?= $escaper->escapeHtml(__('Share Wish List')) ?>
             </button>
         </div>
         <div class="action__handler">
             <a
                 class="action__link"
-                href="<?= $block->escapeUrl($block->getBackUrl()) ?>"
+                href="<?= $escaper->escapeUrl($block->getBackUrl()) ?>"
             >
-                <?= $block->escapeHtml(__('Back')) ?>
+                <?= $escaper->escapeHtml(__('Back')) ?>
             </a>
         </div>
     </div>
