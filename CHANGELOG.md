@@ -1,7 +1,6 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-=========================================================
 USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 =========================================================
 
@@ -20,11 +19,17 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - Misaligned contact bar (#542)
 - fotorama.js and magnifier.js magepack errors fixes (#544)
 - checkout - shipping method item error display (#85516)
+- hiding State/Province field when it's not required for selected country (#554)
+- My Orders styling issues in M244 (#556)
+- File upload link styling in Request a Quote (#557)
+- Remove reward points button leading to 404 (#558)
 ### Removed
 - unnecessary !important flags (#537)
 - elasticsuite footer (#549)
 - `Snowdog_Acm` module and moved files to `Blackbird_ContentManager` directory (#555)
+- `select2magepack.full.min.js` that doesn't work correctly (select 2 ends up loading twice in magepack bundle and as a separate file), select2 should be removed from magepack config instead (#559)
 ### Updated
+- Magento to 2.4.4 (#546)
 
 ## [Released]
 ## [2.26.3] - 2022-05-19
@@ -694,7 +699,28 @@ Affects: if catalog (toolbar, filters, list) or mobile menu templates are overwr
 ### Removed
 - doubled add to cart for configurable products (#67192)
 
+## [1.8.0] - 2022-06-09
+### Fixed
+- items spacing in cart totals (#548)
+- wishlist PDP - change of qty using +/- buttons doesn't save (##551)
+- country list select on address edit view - while there is one country allowed, it's not displayed in select options (#469)
+### Removed
+- share wishlist - pre-populated whitespace in email and message fields (#547)
+### Updated
+- theme files to Magento 2.4.3 (#469)
 
+## [1.7.0] - 2020-09-26
+### Changed
+- hide label for tooltip icon after updates in template (#66923)
+### Fixed
+- container styles for customer/checkout. Affects: containers positioning/spacing in those areas (#66923)
+- styles for modal heading (#66923)
+### Removed
+- some row classess from totals related templates (Magento_Ui). Affects: checkout/cart totals/shipping methods etc. (#66923)
+
+## [1.6.0] - 2020-09-26
+### Changed
+- update theme files to Magento 2.3.5 p1
 
 ## [1.5.0] - 2020-05-26
 ### Added

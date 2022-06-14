@@ -3174,10 +3174,10 @@ window.fotoramaVersion = '4.6.4';
                     fullScreenApi.request(fotorama);
                 }
 
-                that.resize();
                 loadImg(activeIndexes, 'stage');
                 updateFotoramaState();
                 triggerEvent('fullscreenenter');
+                that.resize();
 
                 if (!('ontouchstart' in window)) {
                     $fullscreenIcon.focus();

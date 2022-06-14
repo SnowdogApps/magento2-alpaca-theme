@@ -21,7 +21,7 @@ define([
           this.createModal();
         }
         $('#' + this.options.createTmplData.popupWishlistFormId).attr('action', url);
-        $(this.options.createTmplData.focusElement).focus();
+        $(this.options.createTmplData.focusElement).trigger('focus');
         this.createAjax = isAjax;
       },
 

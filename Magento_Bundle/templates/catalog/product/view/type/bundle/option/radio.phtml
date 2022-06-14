@@ -1,10 +1,13 @@
 <?php
+use Magento\Bundle\ViewModel\ValidateQuantity;
 /* @var $block \Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\Radio */
 $_option = $block->getOption();
 $_selections = $_option->getSelections();
 $_default = $_option->getDefaultSelection();
 $_optionId = $_option->getId();
 list($_defaultQty, $_canChangeQty) = $block->getDefaultValues();
+/** @var ValidateQuantity $viewModel */
+$viewModel = $block->getData('validateQuantityViewModel');
 ?>
 
 <div class="bundle-option <?= ($_option->getRequired()) ? ' required': '' ?>">
@@ -123,6 +126,7 @@ list($_defaultQty, $_canChangeQty) = $block->getDefaultValues();
             name="bundle_option_qty[<?= $block->escapeHtmlAttr($_optionId) ?>]"
             data-selector="bundle_option_qty[<?= $block->escapeHtmlAttr($_optionId) ?>]"
             value="<?= $block->escapeHtmlAttr($_defaultQty) ?>"
+            data-validate="<?= $block->escapeHtmlAttr($viewModel->getQuantityValidators()) ?>"
             min="0"
         >
     </div>
