@@ -26,6 +26,7 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 ### Removed
 - unnecessary !important flags (#537)
 - elasticsuite footer (#549)
+- `Snowdog_Acm` module and moved files to `Blackbird_ContentManager` directory (#555)
 - `select2magepack.full.min.js` that doesn't work correctly (select 2 ends up loading twice in magepack bundle and as a separate file), select2 should be removed from magepack config instead (#559)
 ### Updated
 - Magento to 2.4.4 (#546)
