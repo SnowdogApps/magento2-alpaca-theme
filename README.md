@@ -1,7 +1,7 @@
 <div align="center">
 <img src="./web/images/icons/logo.svg" alt="Alpaca Logo" width="400"/>
 
-[![Latest Stable Version](http://poser.pugx.org/snowdog/theme-frontend-alpaca/v)](https://packagist.org/packages/snowdog/theme-frontend-alpaca) <img src="https://img.shields.io/badge/Magento-2.4.3-blue.svg" alt="Magento 2.4.3"/> [![Total Downloads](http://poser.pugx.org/snowdog/theme-frontend-alpaca/downloads)](https://packagist.org/packages/snowdog/theme-frontend-alpaca)
+[![Latest Stable Version](http://poser.pugx.org/snowdog/theme-frontend-alpaca/v)](https://packagist.org/packages/snowdog/theme-frontend-alpaca) <img src="https://img.shields.io/badge/Magento-2.4.4-blue.svg" alt="Magento 2.4.4"/> [![Total Downloads](http://poser.pugx.org/snowdog/theme-frontend-alpaca/downloads)](https://packagist.org/packages/snowdog/theme-frontend-alpaca)
 
 📚 [Documentation](https://magento2-alpaca-docs.vercel.app/) | 📝 [Changelog](./CHANGELOG.md) | 🔺 [Migration Guide](https://magento2-alpaca-docs.vercel.app/guide/migration-guide.html)
 

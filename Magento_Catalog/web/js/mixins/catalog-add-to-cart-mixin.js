@@ -10,8 +10,8 @@ define(['jquery', 'mage/translate'], function($, $t) {
 
         addToCartButton.addClass(this.options.addToCartButtonDisabledClass);
         addToCartButton.find('span').text(addToCartButtonTextWhileAdding);
-        addToCartButton.attr('title', addToCartButtonTextWhileAdding);
-        addToCartButton.attr('disabled', true);
+        addToCartButton.prop('title', addToCartButtonTextWhileAdding);
+        addToCartButton.prop('disabled', true);
       },
 
       enableAddToCartButton: function(form) {
@@ -21,7 +21,7 @@ define(['jquery', 'mage/translate'], function($, $t) {
         var addToCartButton = $(form).find(this.options.addToCartButtonSelector);
 
         addToCartButton.find('span').text(addToCartButtonTextAdded);
-        addToCartButton.attr('title', addToCartButtonTextAdded);
+        addToCartButton.prop('title', addToCartButtonTextAdded);
 
         setTimeout(function() {
           var addToCartButtonTextDefault =
@@ -30,9 +30,9 @@ define(['jquery', 'mage/translate'], function($, $t) {
           addToCartButton.removeClass(
             self.options.addToCartButtonDisabledClass
           );
-          addToCartButton.attr('disabled', false);
+          addToCartButton.prop('disabled', false);
           addToCartButton.find('span').text(addToCartButtonTextDefault);
-          addToCartButton.attr('title', addToCartButtonTextDefault);
+          addToCartButton.prop('title', addToCartButtonTextDefault);
         }, 1000);
       }
     });

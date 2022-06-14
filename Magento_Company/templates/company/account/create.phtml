@@ -449,19 +449,26 @@ script;
 /** @var DirectoryHelper $directoryDataHelper */
 $directoryDataHelper = $block->getData('directoryDataHelper');
 $countries = $directoryDataHelper->getCountriesWithOptionalZip(true);
+/** @var \Magento\Company\ViewModel\Address\RegionProvider $regionProvider */
+$regionProvider = $block->getRegionProvider(); ?>
 ?>
 <script type="text/x-magento-init">
     {
         "#country_id": {
-            "regionUpdater": {
+            "directoryRegionUpdater": {
                 "optionalRegionAllowed": <?= $block->getConfig('general/region/display_all') ? 'true' : 'false' ?>,
                 "regionListId": "#region_id",
                 "regionInputId": "#region",
                 "postcodeId": "#zip",
                 "form": "#form-validate",
-                "regionJson": <?= /* @noEscape */ $directoryDataHelper->getRegionJson() ?>,
+                "regionJson": <?= /* @noEscape */ $regionProvider->getRegionJson(); ?>,
                 "defaultRegion": "",
                 "countriesWithOptionalZip": <?= /* @noEscape */ $countries ?>
+            }
+        },
+        "*": {
+            "Magento_Customer/js/block-submit-on-send": {
+                "formId": "form-validate"
             }
         }
     }

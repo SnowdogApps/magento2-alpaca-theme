@@ -50,6 +50,8 @@ define([
        */
       _displayRegularPriceBlock: function (optionId) {
         var shouldBeShown = true;
+        var $priceBox = this.element.parents(this.options.selectorProduct)
+          .find(this.options.selectorProductPrice);
 
         _.each(this.options.settings, function (element) {
           if (element.value === '') {
@@ -73,6 +75,7 @@ define([
         $(document).trigger('updateMsrpPriceBlock', [
           optionId,
           this.options.spConfig.optionPrices,
+          $priceBox
         ]);
       },
     });

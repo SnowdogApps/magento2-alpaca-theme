@@ -20,11 +20,15 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - fotorama.js and magnifier.js magepack errors fixes (#544)
 - checkout - shipping method item error display (#85516)
 - hiding State/Province field when it's not required for selected country (#554)
+- My Orders styling issues in M244 (#556)
+- File upload link styling in Request a Quote (#557)
+- Remove reward points button leading to 404 (#558)
 ### Removed
 - unnecessary !important flags (#537)
 - elasticsuite footer (#549)
 - `select2magepack.full.min.js` that doesn't work correctly (select 2 ends up loading twice in magepack bundle and as a separate file), select2 should be removed from magepack config instead (#559)
 ### Updated
+- Magento to 2.4.4 (#546)
 
 ## [Released]
 ## [2.26.3] - 2022-05-19
