@@ -6,6 +6,14 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 
 ## [Unreleased]
 ### Added
+### Changed
+### Fixed
+### Removed
+### Updated
+
+## [Released]
+## [2.27.0] - 2022-06-14
+### Added
 - New config options for Modal (closeOnEsc, closeOnBackdrop)
 - Missing arguments in layout for multishipping address (#541)
 ### Changed
@@ -30,8 +38,6 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - `select2magepack.full.min.js` that doesn't work correctly (select 2 ends up loading twice in magepack bundle and as a separate file), select2 should be removed from magepack config instead (#559)
 ### Updated
 - Magento to 2.4.4 (#546)
-
-## [Released]
 ## [2.26.3] - 2022-05-19
 ### Changed
 - docs url
