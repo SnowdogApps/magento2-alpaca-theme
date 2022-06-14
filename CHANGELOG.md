@@ -23,6 +23,7 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 ### Removed
 - unnecessary !important flags (#537)
 - elasticsuite footer (#549)
+- `Snowdog_Acm` module and moved files to `Blackbird_ContentManager` directory (#555)
 ### Updated
 
 ## [Released]
