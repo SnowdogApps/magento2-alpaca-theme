@@ -1,0 +1,61 @@
+<div
+    class="
+        block
+        items-in-cart
+        order-summary__tab
+    "
+    data-bind="
+        mageInit: {
+            'collapsible': {
+                'openedState': 'active',
+                'active': true
+            }
+        }
+    "
+>
+    <div
+        class="
+            title
+            order-summary__tab-title
+        "
+        data-role="title"
+    >
+        <span class="order-summary__tab-text">
+            <span data-bind="text: getItemsQty()"></span>
+            <translate
+                args="'Item in Quote'"
+                if="getItemsQty() === 1"
+            />
+            <translate
+                args="'Items in Quote'"
+                if="getItemsQty() > 1"
+            />
+        </span>
+        <svg
+            class="order-summary__tab-icon"
+            role="presentation"
+            focusable="false"
+        >
+            <use
+                data-bind="attr: { 'href': require.toUrl('images/icons-sprite.svg#angle-down') }"
+                href=''
+            ></use>
+        </svg>
+    </div>
+    <div
+        class="
+            content
+            order-summary__products
+        "
+        data-role="content"
+    >
+        <each args="getItems()">
+            <div class="order-summary__product-item">
+                <each
+                    args="$parent.elems()"
+                    render=""
+                />
+            </div>
+        </each>
+    </div>
+</div>

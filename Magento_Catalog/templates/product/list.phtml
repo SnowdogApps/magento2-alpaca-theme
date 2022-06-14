@@ -18,9 +18,9 @@ use Magento\Framework\App\Action\Action;
     /** @var \Snowdog\ShippingLatency\Helper\Data $shippingLatencyHelper */
     $shippingLatencyHelper = $this->helper(\Snowdog\ShippingLatency\Helper\Data::class);
 
-    // TODO get magento version without objectManager
-    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-    $productMetadata = $objectManager->get('Magento\Framework\App\ProductMetadataInterface');
+    /** @var Snowdog\AlpacaGeneral\ViewModel\ProductMetadata $productMetadata */
+
+    $productMetadata = $block->getProductMetadata();
 
     $_product = null;
 ?>
@@ -267,8 +267,8 @@ use Magento\Framework\App\Action\Action;
                                         action="<?= $escaper->escapeUrl($postParams['action']) ?>"
                                         method="post"
                                     >
-                                    <?php $optionsData = $block->getData('viewModel')->getOptionsData($_product); ?>
-                                        <?php foreach ($optionsData as $optionItem): ?>
+                                    <?php $options = $block->getData('viewModel')->getOptionsData($_product); ?>
+                                        <?php foreach ($options as $optionItem): ?>
                                             <input
                                                 type="hidden"
                                                 name="<?= $escaper->escapeHtml($optionItem['name']) ?>"

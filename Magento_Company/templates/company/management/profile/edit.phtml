@@ -246,6 +246,7 @@ $company = $block->getCustomerCompany();
                     input
                     region-id
                     required
+                    field
                 "
             >
                 <label
@@ -349,8 +350,10 @@ $company = $block->getCustomerCompany();
 $regionValue = ((int)$company->getRegionId()) ? (int)$company->getRegionId() : '';
 /* @var Magento\Directory\Helper\Data $directoryDataHelper */
 $directoryDataHelper = $block->getData('directoryDataHelper');
-$regionJson = $directoryDataHelper->getRegionJson();
 $countriesList = $directoryDataHelper->getCountriesWithOptionalZip(true);
+/** @var \Magento\Company\ViewModel\Address\RegionProvider $regionProvider */
+$regionProvider = $block->getRegionProvider();
+$regionJson = $regionProvider->getRegionJson();
 ?>
 <script type="text/x-magento-init">
     {
@@ -358,7 +361,7 @@ $countriesList = $directoryDataHelper->getCountriesWithOptionalZip(true);
             "validation": {}
         },
         "#country_id": {
-            "regionUpdater": {
+            "directoryRegionUpdater": {
                 "optionalRegionAllowed": "true",
                 "regionListId": "#region_id",
                 "regionInputId": "#region",

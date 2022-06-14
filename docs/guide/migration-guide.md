@@ -1,5 +1,22 @@
 # Migration guide
-## >= 2.26.0
+## 2.27.0
+### Magepack
+If you use Magepack, then we recommend generating new `magepack.config.js`.
+Some JS caused us issues. We had to remove the following lines from the config:
+```
+'Magento_Theme/js/lib/select2.full.min': 'Magento_Theme/js/lib/select2.full.min'
+'jquery-ui-modules/effect': 'jquery/ui-modules/effect',
+'jquery-ui-modules/effect-blind': 'jquery/ui-modules/effect-blind',
+'jquery-ui-modules/effect-fade': 'jquery/ui-modules/effect-fade',
+```
+
+### Snowdog_Acm module
+`snowdog/module-alpaca-acm` module is no longer needed.
+
+You can remove it from your project.
+If you have overwritten files from `Snowdog_Acm` directory in your child theme, please move them to `Blackbird_ContentManager` and remove `Snowdog_Acm` directory.
+
+## 2.26.0
 
 ### Tools
 You can use [this helper](https://github.com/SnowdogApps/theme-alpaca-upgrade-helper) to update child theme styles to Alpaca version >= 2.26.0 automatically.

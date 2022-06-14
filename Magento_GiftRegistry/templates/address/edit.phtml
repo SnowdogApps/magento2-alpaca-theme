@@ -8,6 +8,8 @@ use Magento\Customer\Block\Widget\Name;
 $addressHelper = $block->getData('addressHelper');
 /** @var \Magento\Directory\Helper\Data $directoryHelper */
 $directoryHelper = $block->getData('directoryHelper');
+/** @var \Magento\GiftRegistry\ViewModel\Address\RegionProvider $regionProvider */
+$regionProvider = $block->getRegionProvider();
 ?>
 <fieldset class="fieldset shipping_address">
     <legend class="fieldset__legend">
@@ -293,12 +295,12 @@ $directoryHelper = $block->getData('directoryHelper');
 <script type="text/x-magento-init">
     {
         "#address\\:country_id": {
-            "regionUpdater": {
+            "directoryRegionUpdater": {
                 "optionalRegionAllowed": <?= ($block->getConfig('general/region/display_all') ? 'true' : 'false') ?>,
                 "regionListId": "#address\\:region_id",
                 "regionInputId": "#address\\:region",
                 "postcodeId": "#address\\:postcode",
-                "regionJson": <?= /* @noEscape */ $directoryHelper->getRegionJson() ?>,
+                "regionJson": <?= /* @noEscape */ $regionProvider->getRegionJson() ?>,
                 "defaultRegion": "<?= /* @noEscape */ $block->getAddress()->getRegionId() ?>"
             }
         }

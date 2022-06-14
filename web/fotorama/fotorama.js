@@ -1,7 +1,7 @@
 /*!
  * Fotorama 4.6.4 | http://fotorama.io/license/
  */
-fotoramaVersion = '4.6.4';
+window.fotoramaVersion = '4.6.4';
 (function (window, document, location, $, undefined) {
     "use strict";
     var _fotoramaClass = 'fotorama',
@@ -3174,10 +3174,10 @@ fotoramaVersion = '4.6.4';
                     fullScreenApi.request(fotorama);
                 }
 
-                that.resize();
                 loadImg(activeIndexes, 'stage');
                 updateFotoramaState();
                 triggerEvent('fullscreenenter');
+                that.resize();
 
                 if (!('ontouchstart' in window)) {
                     $fullscreenIcon.focus();
