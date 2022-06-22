@@ -11,10 +11,10 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - syntax error, `unexpected ','` in `Magento_Catalog/templates/product/widget/viewed/list.phtml` (#560)
 ### Removed
 ### Updated
-- amasty/module-gdpr => 2.8.3
-- amasty/module-gift-card => 2.8.4
-- amasty/module-store-locator => 2.5.3
-- amasty/shiprules => 2.8.3
+- amasty/module-gdpr => 2.8.3 (#562)
+- amasty/module-gift-card => 2.8.4 (#562)
+- amasty/module-store-locator => 2.5.3 (#562)
+- amasty/shiprules => 2.8.3 (#562)
 
 ## [Released]
 ## [2.27.0] - 2022-06-14
