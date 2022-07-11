@@ -9,6 +9,7 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 ### Changed
 ### Fixed
 - syntax error, `unexpected ','` in `Magento_Catalog/templates/product/widget/viewed/list.phtml` (#560)
+- missing Forgot password link in Login/Create account modal (#564)
 ### Removed
 ### Updated
 
