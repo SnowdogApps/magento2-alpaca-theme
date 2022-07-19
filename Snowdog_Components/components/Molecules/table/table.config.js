@@ -136,7 +136,7 @@ module.exports = {
                   {
                     childTag: 'th',
                     childTagAttributes: 'data-th="Example heading:" scope="row" role="rowheader"',
-                    content: 'Example content'
+                    content: 'Example heading'
                   },
                   {
                     childTag: 'td',
@@ -152,7 +152,7 @@ module.exports = {
                   {
                     childTag: 'th',
                     childTagAttributes: 'data-th="Example heading:" scope="row" role="rowheader"',
-                    content: 'Example content'
+                    content: 'Example heading'
                   },
                   {
                     childTag: 'td',
@@ -168,7 +168,7 @@ module.exports = {
                   {
                     childTag: 'th',
                     childTagAttributes: 'data-th="Example heading:" scope="row" role="rowheader"',
-                    content: 'Example content'
+                    content: 'Example heading'
                   },
                   {
                     childTag: 'td',
