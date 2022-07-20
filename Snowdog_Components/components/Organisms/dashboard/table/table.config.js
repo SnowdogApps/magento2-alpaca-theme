@@ -9,7 +9,7 @@ module.exports = {
     },
     link: {
       text: 'View All',
-      class: 'dashboard-table__link'
+      class: 'dashblink dashboard-table__link'
     },
     table: {
       captionText: 'This is a table. Binded text in caption should explain what kind of data this table presents. Can be also a longer text with inline HTML elements inside',
@@ -72,7 +72,7 @@ module.exports = {
                 {
                   childTag: 'td',
                   childTagAttributes: 'data-th="Order #:" role="gridcell"',
-                  content: '<a href="#">000000000123</a>'
+                  content: '000000000123'
                 },
                 {
                   childTag: 'td',
@@ -102,7 +102,7 @@ module.exports = {
                 {
                   childTag: 'td',
                   childTagAttributes: 'data-th="Action:" role="gridcell"',
-                  content: '<a href="#">View Order</a>'
+                  content: '<a class="link dashboard-table__link" href="#">View Order</a>'
                 }
               ]
             },
@@ -113,7 +113,7 @@ module.exports = {
                 {
                   childTag: 'td',
                   childTagAttributes: 'data-th="Order #:" role="gridcell"',
-                  content: '<a href="#">000000000124</a>'
+                  content: '000000000124'
                 },
                 {
                   childTag: 'td',
@@ -143,7 +143,7 @@ module.exports = {
                 {
                   childTag: 'td',
                   childTagAttributes: 'data-th="Action:" role="gridcell"',
-                  content: '<a href="#">View Order</a>'
+                  content: '<a class="link dashboard-table__link" href="#">View Order</a>'
                 }
               ]
             },
@@ -154,7 +154,7 @@ module.exports = {
                 {
                   childTag: 'td',
                   childTagAttributes: 'data-th="Order #:" role="gridcell"',
-                  content: '<a href="#">000000000125</a>'
+                  content: '000000000125'
                 },
                 {
                   childTag: 'td',
@@ -184,7 +184,7 @@ module.exports = {
                 {
                   childTag: 'td',
                   childTagAttributes: 'data-th="Action:" role="gridcell"',
-                  content: '<a href="#">View Order</a>'
+                  content: '<a class="link dashboard-table__link" href="#">View Order</a>'
                 }
               ]
             }

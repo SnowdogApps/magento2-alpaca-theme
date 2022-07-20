@@ -9,6 +9,9 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 ### Changed
 ### Fixed
 - syntax error, `unexpected ','` in `Magento_Catalog/templates/product/widget/viewed/list.phtml` (#560)
+- missing Forgot password link in Login/Create account modal (#564)
+- CLS issue caused by scrollbar appearing when non-critical styles are loaded (#566)
+- small component issues (#566)
 ### Removed
 ### Updated
 - amasty/module-gdpr => 2.8.3 (#562)
