@@ -6,6 +6,7 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 
 ## [Unreleased]
 ### Added
+- some component variables (#567)
 ### Changed
 ### Fixed
 - syntax error, `unexpected ','` in `Magento_Catalog/templates/product/widget/viewed/list.phtml` (#560)
