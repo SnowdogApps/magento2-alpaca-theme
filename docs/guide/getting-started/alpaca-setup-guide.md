@@ -294,7 +294,7 @@ You can create also `README.md` and `CHANGELOG.md` files.
         ```
 
 5. Create Components
-    1. Copy (`vendor/snowdog/theme-frontend-alpaca/Snwodog_Components`) files:
+    1. Copy (`vendor/snowdog/theme-frontend-alpaca/Snowdog_Components`) files:
     * `.browserslistrc`
     * `.editorconfig`
     * `.eslintignore`
