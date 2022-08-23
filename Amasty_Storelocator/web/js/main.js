@@ -5,8 +5,7 @@ define([
   'mage/translate',
   'noUiSlider',
   'Amasty_Storelocator/vendor/jquery.ui.touch-punch.min',
-  'Magento_Ui/js/lib/knockout/bindings/range',
-  'Magento_Ui/js/modal/modal'
+  'Magento_Ui/js/lib/knockout/bindings/range'
 ], function ($, $t, noUiSlider) {
 
   $.widget('mage.amLocator', {

@@ -12,6 +12,21 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 ### Updated
 
 ## [Released]
+## [2.28.0] - 2022-08-23
+### Added
+- some component variables (#567)
+### Changed
+### Fixed
+- syntax error, `unexpected ','` in `Magento_Catalog/templates/product/widget/viewed/list.phtml` (#560)
+- missing Forgot password link in Login/Create account modal (#564)
+- CLS issue caused by scrollbar appearing when non-critical styles are loaded (#566)
+- small component issues (#566)
+### Removed
+### Updated
+- amasty/module-gdpr => 2.8.3 (#562)
+- amasty/module-gift-card => 2.8.4 (#562)
+- amasty/module-store-locator => 2.5.3 (#562)
+- amasty/shiprules => 2.8.3 (#562)
 ## [2.27.0] - 2022-06-14
 ### Added
 - New config options for Modal (closeOnEsc, closeOnBackdrop)

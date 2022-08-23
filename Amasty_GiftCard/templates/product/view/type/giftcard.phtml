@@ -1,8 +1,14 @@
 <?php
-/** @var $block \Amasty\GiftCard\Block\Product\View\Type\GiftCard */
+/**
+ * @var $block Amasty\GiftCard\Block\Product\View\Type\GiftCard
+ * @var $escaper Magento\Framework\Escaper
+ */
+
 $product = $block->getProduct();
+$productId = $product->getId();
 ?>
-<!-- ko scope: 'giftCard' -->
+
+<!-- ko scope: 'giftCard_<?= $escaper->escapeHtml($productId) ?>' -->
 <div
     class="
         amcard-general-container
@@ -167,7 +173,7 @@ $product = $block->getProduct();
     <!-- ko if: isShowPrices -->
         <div
             class="amcard-form-container"
-            data-bind="scope: 'price'"
+            data-bind="scope: 'price_<?= $escaper->escapeHtmlAttr($productId) ?>'"
         >
             <!-- ko template: getTemplate() --><!-- /ko -->
         </div>
@@ -177,7 +183,7 @@ $product = $block->getProduct();
             amcard-form-container
             -interior
         "
-        data-bind="scope: 'images'"
+        data-bind="scope: 'images_<?= $escaper->escapeHtmlAttr($productId) ?>'"
     >
         <!-- ko template: getTemplate() --><!-- /ko -->
     </div>
@@ -332,25 +338,26 @@ $product = $block->getProduct();
     <!-- ko if: isShowField('am_giftcard_date_delivery') -->
         <div
             class="amcard-form-container"
-            data-bind="scope: 'datepicker'"
+            data-bind="scope: 'datepicker_<?= $escaper->escapeHtmlAttr($productId) ?>'"
         >
             <!-- ko template: getTemplate() --><!-- /ko -->
         </div>
     <!-- /ko -->
 </div>
 <!-- /ko -->
+<?= $block->getChildHtml('amgc.component.price') ?>
 
 <script type="text/x-magento-init">
 {
     "*": {
         "Magento_Ui/js/core/app": {
             "components": {
-                "datepicker": {
+                "datepicker_<?= $escaper->escapeHtml($productId) ?>": {
                     "component": "Amasty_GiftCard/js/datepicker",
                     "template": "Amasty_GiftCard/datepicker",
                     "timezones": <?= /* @noEscape */ $block->getListTimezones() ?>
                 },
-                "images": {
+                "images_<?= $escaper->escapeHtml($productId) ?>": {
                     "component": "Amasty_GiftCard/js/images",
                     "template": "Amasty_GiftCard/images",
                     "images": <?= /* @noEscape */ $block->getImages() ?>,
@@ -358,7 +365,7 @@ $product = $block->getProduct();
                     "tooltip": "<?= $escaper->escapeHtml($block->getTooltipContent()) ?>",
                     "customImageUrl": "<?= $escaper->escapeUrl($block->getCustomImageUrl()) ?>"
                 },
-                "giftCard": {
+                "giftCard_<?= $escaper->escapeHtml($productId) ?>": {
                     "component": "Amasty_GiftCard/js/giftcard",
                     "giftCardType": "<?= /* @noEscape */ $product->getAmGiftcardType() ?>",
                     "previewUrl": "<?= $escaper->escapeUrl($block->getUrl('amgcard/preview/getPreviewContent')) ?>",
