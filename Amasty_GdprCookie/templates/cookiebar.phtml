@@ -6,8 +6,6 @@ $confirmationModal = \Amasty\GdprCookie\Model\Config\Source\CookiePolicyBarStyle
 $confirmationPopup = \Amasty\GdprCookie\Model\Config\Source\CookiePolicyBarStyle::CONFIRMATION_POPUP;
 $confirmationClassic = \Amasty\GdprCookie\Model\Config\Source\CookiePolicyBarStyle::CONFIRMATION;
 
-$cookiePrivacyTextJson = $block->getNotificationText();
-$cookiePrivacyText = json_decode($cookiePrivacyTextJson, true);
 $widget = $this->getLayout()->createBlock('Amasty\GdprCookie\Block\Widget\Settings');
 $groupData = $widget->getGroupData()['groupData'];
 
@@ -41,8 +39,7 @@ $settingsTextColorHover = $block->getSettingsTextColorHover();
 */
 ?>
 <?php if (!strpos($block->getRequest()->getRequestUri(), 'cookie-settings')): ?>
-    <?php if (($block->getNoticeType() === $confirmationModal ||
-        $block->getNoticeType() === $confirmationPopup) && $cookiePrivacyText): ?>
+    <?php if ($block->getNoticeType() === $confirmationModal): ?>
         <div class="modals-wrapper">
             <div
                 data-role="gdpr-cookie-container"
@@ -183,13 +180,6 @@ $settingsTextColorHover = $block->getSettingsTextColorHover();
                                         </a>
                                     </div>
                                 <?php endforeach; ?>
-                                <p
-                                    <?php if ($policyTextColor): ?>
-                                        style="color: <?= $escaper->escapeHtml($policyTextColor);?>"
-                                    <?php endif ?>
-                                >
-                                    <?= /** @noEscape */ $cookiePrivacyText ?>
-                                </p>
                             </div>
 
                             <div class="modal__bottom">
@@ -232,7 +222,7 @@ $settingsTextColorHover = $block->getSettingsTextColorHover();
                 </div>
             </div>
         </div>
-    <?php elseif ($block->getNoticeType() === $confirmationClassic && $cookiePrivacyText): ?>
+    <?php elseif ($block->getNoticeType() === $confirmationClassic): ?>
         <div
             data-role="gdpr-cookie-container"
             class="amgdprcookie-bar-template display-none"
@@ -262,15 +252,6 @@ $settingsTextColorHover = $block->getSettingsTextColorHover();
                     class="cookie-message__container"
                     tabindex="0"
                 >
-                    <p
-                        class="cookie-message__text"
-                        <?php if ($policyTextColor): ?>
-                            style="color: <?= $escaper->escapeHtml($policyTextColor);?>"
-                        <?php endif ?>
-                    >
-                        <?= /** @noEscape */ $cookiePrivacyText ?>
-                    </p>
-
                     <div class="cookie-message__actions">
                         <div class="cookie-message__action">
                             <button
