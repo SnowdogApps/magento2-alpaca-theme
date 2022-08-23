@@ -6,6 +6,14 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 
 ## [Unreleased]
 ### Added
+### Changed
+### Fixed
+### Removed
+### Updated
+
+## [Released]
+## [2.28.0] - 2022-08-23
+### Added
 - some component variables (#567)
 ### Changed
 ### Fixed
@@ -19,8 +27,6 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 - amasty/module-gift-card => 2.8.4 (#562)
 - amasty/module-store-locator => 2.5.3 (#562)
 - amasty/shiprules => 2.8.3 (#562)
-
-## [Released]
 ## [2.27.0] - 2022-06-14
 ### Added
 - New config options for Modal (closeOnEsc, closeOnBackdrop)
