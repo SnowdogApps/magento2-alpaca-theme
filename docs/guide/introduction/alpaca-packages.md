@@ -5,7 +5,7 @@ Alpaca Theme is a part of [Alpaca Packages](https://github.com/SnowdogApps/magen
 [snowdog/module-menu](https://github.com/SnowdogApps/magento2-menu)<br>
 
 * Gives greater control over site navigation menus than native Magento 2 offers. Provides a drag-and-drop interface to build menus with links to categories, products, CMS pages, or custom URLs in the admin.
-* Used for desktop, mobile and footer menus. Example content can be imported with [these database queries](https://github.com/SnowdogApps/create-alpaca-theme/blob/master/templates/database/queries.sql).
+* Used for desktop, mobile and footer menus. Example content can be imported with [these database queries](https://github.com/SnowdogApps/create-alpaca-theme/blob/master/src/database/queries.sql).
 * You can modify the look of menu items by including Alpaca CSS classes in menu nodes configuration.
 
     For example: to create a column, add a menu node with type "wrapper" and classes `list__column list__column--hidden`.
