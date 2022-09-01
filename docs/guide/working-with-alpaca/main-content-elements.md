@@ -3,7 +3,7 @@
 
 ## Header and Footer
 * To make them easy to customize and update we use [CMS blocks](https://docs.magento.com/user-guide/cms/blocks.html).
-* Example content can be imported with [these database queries](https://github.com/SnowdogApps/create-alpaca-theme/blob/master/templates/database/queries.sql).
+* Example content can be imported with [these database queries](https://github.com/SnowdogApps/create-alpaca-theme/blob/master/src/database/queries.sql).
 * See default structure [here](https://github.com/SnowdogApps/magento2-alpaca-theme/tree/master/Magento_Theme/layout/default.xml).
 
 ## Menu
