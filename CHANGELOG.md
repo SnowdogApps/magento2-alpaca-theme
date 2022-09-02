@@ -8,6 +8,7 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 ### Added
 ### Changed
 ### Fixed
+- Magento_PageBuilder styles imports (#571)
 ### Removed
 ### Updated
 
