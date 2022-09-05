@@ -8,11 +8,13 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 ### Added
 ### Changed
 ### Fixed
-- Magento_PageBuilder styles imports (#571)
 ### Removed
 ### Updated
 
 ## [Released]
+## [2.28.2] - 2022-09-05
+### Fixed
+- Magento_PageBuilder styles imports (#571)
 ## [2.28.1] - 2022-09-01
 ### Fixed
 - broken `Magento_Msrp/web/template/product/price/price_box.html` template (add missing quote)
