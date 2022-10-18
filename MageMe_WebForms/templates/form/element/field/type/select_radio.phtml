@@ -1,0 +1,67 @@
+<?php
+/**
+ * @var SelectRadio $block
+ */
+
+use MageMe\WebForms\Block\Form\Element\Field\Type\SelectRadio;
+use MageMe\WebForms\Block\Form\Element\Tooltip;
+
+$validationRules = $block->getValidationRules();
+$validationDescriptions = $block->getValidationDescriptions();
+?>
+
+<div <?php if ($block->getIsLabelHidden()) { ?>aria-label="<?= $block->getFieldLabel() ?>"
+    <?php } else { ?> aria-labelledby="label_<?= $block->getFieldId() ?>" <?php } ?>
+>
+    <?php
+    $options = $block->getFieldOptions();
+    foreach ($block->getFieldOptions() as $i => $option) {
+        $checked = false;
+        if ($option["checked"]) {
+            $checked = 'checked';
+        }
+        if (isset($option["value"]) && empty($option['optgroup']) && empty($option['optgroup_close'])) {
+            $label = $block->applyTranslation($option["label"]);
+            if ($option["image_src"]) {
+                $label = "<figure><img src='{$option['image_src']}'/><figcaption>{$label}</figcaption></figure>";
+            }
+            ?>
+
+            <div class='field choice option-<?= $i ?>'
+                 style='<?= $block->getFieldStyle() ?>'
+            >
+                <input id='<?= $block->getFieldId() . $i ?>'
+                       name='<?= $block->getFieldName() ?>'
+                       type='radio'
+                       value="<?= htmlspecialchars((string)$option["value"]) ?>"
+                       class='radio'
+                       <?php if ($validationRules) { ?>
+                           data-validate="{<?= implode(", ", $validationRules); ?>}"
+                       <?php } ?>
+                       <?php foreach ($validationDescriptions as $key => $data) {
+                           echo $key . '=' . '"' . htmlspecialchars((string)$data) . '"';
+                       }
+                       ?>
+                       aria-labelledby="<?= $block->getFieldId() . $i ?>_label<?php if(!$block->getIsLabelHidden()) {?> label_<?= $block->getFieldId() ?><?php } ?>"
+                       <?= $checked ?>
+                       <?= htmlspecialchars((string)$block->getCustomAttributes()) ?>
+                />
+                <label id="<?= $block->getFieldId() . $i ?>_label"
+                       for='<?= $block->getFieldId() . $i ?>'
+                       class='<?= $block->getFieldClass() ?>'><?= $label ?></label>
+                <?php
+                $tooltip = $block->getField()->getTooltip($option["value"]);
+                if ($tooltip) {
+                    echo $block->getTooltipBlock()->setTooltip($tooltip)->toHtml();
+                }
+                ?>
+
+
+            </div>
+
+            <?php
+        }
+    }
+
+    ?>
+</div>
