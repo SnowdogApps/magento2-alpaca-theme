@@ -6,6 +6,7 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 
 ## [Unreleased]
 ### Added
+- Added styles and templates for MageMe_WebForms (old VladimirPopov_WebForms) module (#575)
 ### Changed
 ### Fixed
 ### Removed

@@ -1,0 +1,83 @@
+<?php
+/**
+ * @var SelectRadio $block
+ */
+
+use MageMe\WebForms\Block\Form\Element\Field\Type\SelectRadio;
+use MageMe\WebForms\Block\Form\Element\Tooltip;
+
+$validationRules = $block->getValidationRules();
+$validationDescriptions = $block->getValidationDescriptions();
+$options = $block->getFieldOptions();
+$escapedFieldId = $block->escapeHtmlAttr($block->getFieldId());
+?>
+
+<div
+    <?php if ($block->getIsLabelHidden()): ?>
+        aria-label="<?= $block->escapeHtmlAttr($block->getFieldLabel()) ?>"
+    <?php else: ?>
+        aria-labelledby="label_<?= $escapedFieldId ?>"
+    <?php endif; ?>
+>
+    <?php foreach ($block->getFieldOptions() as $i => $option): ?>
+        <?php
+        $checked = false;
+        if ($option["checked"]) {
+            $checked = 'checked';
+        }
+
+        if (isset($option["value"]) && empty($option['optgroup']) && empty($option['optgroup_close'])): ?>
+            <?php
+            $label = $block->applyTranslation($option["label"]);
+            if ($option["image_src"]) {
+                $label = "<figure><img src='{$option['image_src']}'/><figcaption>{$label}</figcaption></figure>";
+            }
+            ?>
+
+            <div
+                class="
+                    field
+                    choice
+                    option-<?= $block->escapeHtmlAttr($i) ?>
+                    radio__handler
+                "
+                style="<?= $block->escapeHtmlAttr($block->getFieldStyle()) ?>"
+            >
+                <input
+                    type='radio'
+                    id='<?= $escapedFieldId . $block->escapeHtmlAttr($i) ?>'
+                    name='<?= $block->escapeHtmlAttr($block->getFieldName()) ?>'
+                    value="<?= /* @noEscape */ htmlspecialchars((string)$option["value"]) ?>"
+                    class='radio__field'
+                    <?php if ($validationRules): ?>
+                        data-validate="{<?= implode(", ", $validationRules); ?>}"
+                    <?php endif; ?>
+                    <?php foreach ($validationDescriptions as $key => $data): ?>
+                        <?= $key . '=' . '"' . $block->escapeHtmlAttr(htmlspecialchars((string)$data)) . '"'; ?>
+                    <?php endforeach; ?>
+                    aria-labelledby="
+                        <?= $escapedFieldId . $block->escapeHtmlAttr($i) ?>_label
+                        <?php if(!$block->getIsLabelHidden()): ?>
+                            label_<?= $escapedFieldId ?>
+                        <?php endif; ?>
+                    "
+                    <?= /* @noEscape */ $checked ?>
+                    <?= /* @noEscape */ htmlspecialchars((string)$block->getCustomAttributes()) ?>
+                />
+                <label
+                    id="<?= $escapedFieldId . $block->escapeHtmlAttr($i) ?>_label"
+                    for='<?= $escapedFieldId . $block->escapeHtmlAttr($i) ?>'
+                    class='radio__label <?= $block->escapeHtmlAttr($block->getFieldClass()) ?>'
+                >
+                    <?= $block->escapeHtml($label) ?>
+                </label>
+
+                <?php
+                $tooltip = $block->getField()->getTooltip($option["value"]);
+                if ($tooltip): ?>
+                    <?= $block->getTooltipBlock()->setTooltip($tooltip)->toHtml(); ?>
+                <?php endif; ?>
+            </div>
+        <?php endif; ?>
+    <?php endforeach; ?>
+</div>
