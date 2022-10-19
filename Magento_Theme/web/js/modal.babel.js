@@ -55,11 +55,11 @@ define(['jquery'], function ($) {
     }
 
     loadModalContent(modal) {
-      let ajaxUrl = this.config.ajaxUrl,
-          ajaxTarget = this.config.ajaxTarget;
+      let ajaxUrl = this.config.ajaxUrl;
+      let ajaxTarget = this.config.ajaxTarget;
 
       if (ajaxUrl !== undefined && ajaxTarget !== undefined) {
-        self = this;
+        let self = this;
         $('body').trigger('processStart'); //show loader
 
         $.ajax({
@@ -75,7 +75,8 @@ define(['jquery'], function ($) {
           self.openModal(modal);
           $('body').trigger('processStop'); //hide loader
         });
-      } else {
+      }
+      else {
         $(ajaxTarget).html(this.config.ajaxErrorMessage);
         this.openModal(modal);
       }
@@ -100,7 +101,8 @@ define(['jquery'], function ($) {
         () => {
           if (this.config.useAjax) {
             this.loadModalContent(modal)
-          } else {
+          }
+          else {
             this.openModal(modal)
           }
         }
