@@ -1,0 +1,62 @@
+<?php
+/**
+ * @var Select $block
+ */
+
+use MageMe\WebForms\Block\Form\Element\Field\Type\Select;
+
+$validationRules = $block->getValidationRules();
+$validationDescriptions = $block->getValidationDescriptions();
+?>
+<select id='<?= $block->getFieldId() ?>'
+        name='<?= $block->getFieldName() ?>'
+        class='<?= $block->getFieldClass() ?>'
+        style='<?= $block->getFieldStyle() ?>'
+        <?php if ($validationRules) { ?>
+            data-validate="{<?= implode(", ", $validationRules); ?>}"
+        <?php } ?>
+        <?php foreach ($validationDescriptions as $key => $data) {
+            echo $key . '=' . '"' . htmlspecialchars((string)$data) . '"';
+        }
+        ?>
+        <?php if ($block->getIsLabelHidden()) { ?>aria-label="<?= $block->getFieldLabel() ?>"
+        <?php } else { ?> aria-labelledby="label_<?= $block->getFieldId() ?>" <?php } ?>
+        <?php if ($block->getIsRequired()) { ?>aria-required="true"<?php } ?>
+        <?php if ($block->getAutocomplete()) { ?>autocomplete="<?= $block->getAutocomplete() ?>" <?php } ?>
+        <?php if ($block->getIsMultiselect()) echo 'multiple'?>
+        <?= htmlspecialchars((string)$block->getCustomAttributes()) ?>
+>
+    <?php
+    foreach ($block->getFieldOptions() as $option) {
+        $checked = false;
+        $disabled = false;
+        if ($option["checked"]) {
+            $checked = 'selected';
+        }
+        if ($option["disabled"]) {
+            $disabled = 'disabled';
+        }
+        if (isset($option["value"])) {
+            $value = htmlspecialchars((string)$option["value"]);
+            if ($option['null']) {
+                $value = '';
+            }
+            if (!empty($option['optgroup']) && !empty($option['label'])) {
+                ?>
+                <optgroup label="<?= $block->applyTranslation($option['label']); ?>">
+                <?php
+            } elseif (!empty($option['optgroup_close'])) {
+                ?>
+                </optgroup>
+                <?php
+            } else {
+                ?>
+
+                <option value="<?= $value ?>" <?= $checked ?> <?= $disabled ?>><?= $block->applyTranslation($option['label']); ?></option>
+
+                <?php
+            }
+        }
+    }
+    ?>
+</select>
