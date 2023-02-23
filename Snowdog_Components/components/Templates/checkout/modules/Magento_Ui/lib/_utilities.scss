@@ -115,7 +115,6 @@
     $_line-height: normal
 ) {
     font-size: $_font-size;
-    font-size: $_font-size;
     letter-spacing: normal;
     line-height: $_line-height;
 }
@@ -161,10 +160,10 @@ $urls-resolved: inherit;
 
 @mixin _lib-abbor_el($_position, $_color) {
     @if $_position == left {
-        border-right-color: $_color;
+        border-#{$end-direction}-color: $_color;
     }
     @if $_position == right {
-        border-left-color: $_color;
+        border-#{$start-direction}-color: $_color;
     }
     @if $_position == up {
         border-bottom-color: $_color;
@@ -183,4 +182,45 @@ $urls-resolved: inherit;
     &:-moz-placeholder           { @content; }
     &::-moz-placeholder          { @content; }
     &:-ms-input-placeholder      { @content; }
+}
+
+
+
+//  Properties With Values
+//  (Top Right Bottom Left)
+//  ---------------------------------------------
+@mixin multi-lang($property, $top, $right, $bottom, $left) {
+    @if $direction == ltr {
+        #{$property}: $top $right $bottom $left;
+    } @else {
+        #{$property}: $top $left $bottom $right;
+    }
+}
+
+//
+//  Padding MultiLanguage
+//  ---------------------------------------------
+@function padding($top, $right, $bottom, $left) {
+    @if $direction == ltr {
+        @return $top $right $bottom $left;
+    } @else {
+        @return $top $left $bottom $right;
+    }
+}
+@mixin padding($top, $right, $bottom, $left) {
+    @include multi-lang(padding, $top, $right, $bottom, $left);
+}
+
+//
+//  Margin MultiLanguage
+//  ---------------------------------------------
+@function margin($top, $right, $bottom, $left) {
+    @if $direction == ltr {
+        @return $top $right $bottom $left;
+    } @else {
+        @return $top $left $bottom $right;
+    }
+}
+@mixin margin($top, $right, $bottom, $left) {
+    @include multi-lang(margin, $top, $right, $bottom, $left);
 }

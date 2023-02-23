@@ -41,7 +41,7 @@ $tooltip__z-index: 101 !default;
         z-index: $_tooltip-z-index;
         display: none;
         position: absolute;
-        text-align: left;
+        text-align: $start-direction;
 
         @include _lib-tooltip-border($_tooltip-border-width, $_tooltip-border-color);
 
@@ -110,7 +110,7 @@ $tooltip__z-index: 101 !default;
     @if $_tooltip-position == top {
         margin-bottom: $_tooltip-arrow-size;
         bottom: 100%;
-        left: 0;
+        #{$start-direction}: 0;
 
         &:after,
         &:before {
@@ -118,63 +118,63 @@ $tooltip__z-index: 101 !default;
         }
         &:after {
             border-top-color: $_tooltip-background;
-            left: $_tooltip-arrow-offset + $_tooltip-arrow-size;
-            margin-left: $_tooltip-arrow-after-margin;
+            #{$start-direction}: $_tooltip-arrow-offset + $_tooltip-arrow-size;
+            margin-#{$start-direction}: $_tooltip-arrow-after-margin;
         }
 
         &:before {
             border-top-color: $_tooltip-border-color;
-            left: $_tooltip-arrow-offset + $_tooltip-arrow-size;
-            margin-left: $_tooltip-arrow-before-margin;
+            #{$start-direction}: $_tooltip-arrow-offset + $_tooltip-arrow-size;
+            margin-#{$start-direction}: $_tooltip-arrow-before-margin;
         }
     }
     @else if $_tooltip-position == left {
-        margin-right: $_tooltip-arrow-size;
-        right: 100%;
+        margin-#{$end-direction}: $_tooltip-arrow-size;
+        #{$end-direction}: 100%;
         top: 0;
 
         &:after,
         &:before {
-            left: 100%;
+            #{$start-direction}: 100%;
         }
 
         &:after {
-            border-left-color: $_tooltip-background;
+            border-#{$start-direction}-color: $_tooltip-background;
             margin-top: $_tooltip-arrow-after-margin;
             top: $_tooltip-arrow-offset + $_tooltip-arrow-size;
         }
 
         &:before {
-            border-left-color: $_tooltip-border-color;
+            border-#{$start-direction}-color: $_tooltip-border-color;
             margin-top: $_tooltip-arrow-before-margin;
             top: $_tooltip-arrow-offset + $_tooltip-arrow-size;
         }
     }
     @else if $_tooltip-position == right {
-        margin-left: $_tooltip-arrow-size;
-        left: 100%;
+        margin-#{$start-direction}: $_tooltip-arrow-size;
+        #{$start-direction}: 100%;
         top: 0;
 
         &:after,
         &:before {
-            right: 100%;
+            #{$end-direction}: 100%;
         }
 
         &:after {
-            border-right-color: $_tooltip-background;
+            border-#{$end-direction}-color: $_tooltip-background;
             margin-top: $_tooltip-arrow-after-margin;
             top: $_tooltip-arrow-offset + $_tooltip-arrow-size;
         }
 
         &:before {
-            border-right-color: $_tooltip-border-color;
+            border-#{$end-direction}-color: $_tooltip-border-color;
             margin-top: $_tooltip-arrow-before-margin;
             top: $_tooltip-arrow-offset + $_tooltip-arrow-size;
         }
     }
     @else if $_tooltip-position == bottom {
         margin-top: $_tooltip-arrow-size;
-        left: 0;
+        #{$start-direction}: 0;
         top: 100%;
 
         &:after,
@@ -184,14 +184,14 @@ $tooltip__z-index: 101 !default;
 
         &:after {
             border-bottom-color: $_tooltip-background;
-            left: $_tooltip-arrow-offset + $_tooltip-arrow-size;
-            margin-left: $_tooltip-arrow-after-margin;
+            #{$start-direction}: $_tooltip-arrow-offset + $_tooltip-arrow-size;
+            margin-#{$start-direction}: $_tooltip-arrow-after-margin;
         }
 
         &:before {
             border-bottom-color: $_tooltip-border-color;
-            left: $_tooltip-arrow-offset + $_tooltip-arrow-size;
-            margin-left: $_tooltip-arrow-before-margin;
+            #{$start-direction}: $_tooltip-arrow-offset + $_tooltip-arrow-size;
+            margin-#{$start-direction}: $_tooltip-arrow-before-margin;
         }
     }
 }

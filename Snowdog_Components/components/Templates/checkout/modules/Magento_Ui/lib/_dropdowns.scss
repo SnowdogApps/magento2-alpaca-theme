@@ -171,10 +171,10 @@
         bottom: $_dropdown-list-position-bottom;
     }
     @if $_dropdown-list-position-left != false and $_dropdown-list-position-left != auto {
-        left: $_dropdown-list-position-left;
+        #{$start-direction}: $_dropdown-list-position-left;
     }
     @if $_dropdown-list-position-right != false and $_dropdown-list-position-right != auto {
-        right: $_dropdown-list-position-right;
+        #{$end-direction}: $_dropdown-list-position-right;
     }
 }
 
@@ -186,45 +186,45 @@
 ) {
     @if $_dropdown-split-toggle-position == left {
         #{$_button-selector} {
-            float: right;
+            float: $end-direction;
             margin: 0;
         }
         #{$_toggle-selector} {
-            float: left;
+            float: $start-direction;
             margin: 0;
         }
         @if $_dropdown-split-button-border-radius-fix {
             button#{$_button-selector} {
-                border-bottom-left-radius: 0;
-                border-top-left-radius: 0;
+                border-bottom-#{$start-direction}-radius: 0;
+                border-top-#{$start-direction}-radius: 0;
             }
 
             button + #{$_toggle-selector} {
-                border-bottom-right-radius: 0;
-                border-right: 0;
-                border-top-right-radius: 0;
+                border-bottom-#{$end-direction}-radius: 0;
+                border-#{$end-direction}: 0;
+                border-top-#{$end-direction}-radius: 0;
             }
         }
     }
     @else if $_dropdown-split-toggle-position == right {
         #{$_button-selector} {
-            float: left;
+            float: $start-direction;
             margin: 0;
         }
         #{$_toggle-selector} {
-            float: right;
+            float: $end-direction;
             margin: 0;
         }
         @if $_dropdown-split-button-border-radius-fix {
             button#{$_button-selector} {
-                border-bottom-right-radius: 0;
-                border-top-right-radius: 0;
+                border-bottom-#{$end-direction}-radius: 0;
+                border-top-#{$end-direction}-radius: 0;
             }
 
             button + #{$_toggle-selector} {
-                border-bottom-left-radius: 0;
-                border-left: 0;
-                border-top-left-radius: 0;
+                border-bottom-#{$start-direction}-radius: 0;
+                border-#{$start-direction}: 0;
+                border-top-#{$start-direction}-radius: 0;
             }
         }
     }
@@ -267,12 +267,12 @@
         );
 
         &:before {
-            left: $_dropdown-list-pointer-position-left-right;
+            #{$start-direction}: $_dropdown-list-pointer-position-left-right;
             top: $_dropdown-list-pointer-position-top;
         }
 
         &:after {
-            left: $_dropdown-list-pointer-position-left-right - 1;
+            #{$start-direction}: $_dropdown-list-pointer-position-left-right - 1;
             top: $_dropdown-list-pointer-position-top - 2;
         }
     }
@@ -283,12 +283,12 @@
         );
 
         &:before {
-            right: $_dropdown-list-pointer-position-left-right;
+            #{$end-direction}: $_dropdown-list-pointer-position-left-right;
             top: $_dropdown-list-pointer-position-top;
         }
 
         &:after {
-            right: $_dropdown-list-pointer-position-left-right - 1;
+            #{$end-direction}: $_dropdown-list-pointer-position-left-right - 1;
             top: $_dropdown-list-pointer-position-top - 2;
         }
     }

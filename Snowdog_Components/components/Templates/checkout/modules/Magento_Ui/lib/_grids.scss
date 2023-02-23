@@ -14,7 +14,6 @@ $grid-width   : ($column-width * $total-columns) + ($gutter-width * ($total-colu
 
 @mixin lib-inline-column-wrapper() {
     @if $using-ieclasses != true {
-        letter-spacing: -0.31em;
         letter-spacing: normal;
         word-spacing: -0.43em;
     }
@@ -28,13 +27,13 @@ $grid-width   : ($column-width * $total-columns) + ($gutter-width * ($total-colu
 }
 
 @mixin lib-column() {
-    float: left;
+    float: $start-direction;
     @include lib-column-gutter();
 }
 
 @mixin lib-column($span) {
     @if $span != true {
-        float: left;
+        float: $start-direction;
     }
 }
 
@@ -126,12 +125,12 @@ $grid-width   : ($column-width * $total-columns) + ($gutter-width * ($total-colu
 }
 
 @mixin lib-end-column() {
-    margin-right: 0;
-    float: right;
+    margin-#{$end-direction}: 0;
+    float: $end-direction;
 }
 
 @mixin lib-inline-end-column() {
-    margin-right: 0;
+    margin-#{$end-direction}: 0;
 }
 
 @mixin lib-span(
@@ -155,10 +154,10 @@ $grid-width   : ($column-width * $total-columns) + ($gutter-width * ($total-colu
     $end-column: inherit
 ) {
     @if $end-column {
-        margin-right: 0;
+        margin-#{$end-direction}: 0;
     }
     @else if $end-column != false {
         $calc-gutter-width: 100% * ($gutter-width / $grid-width);
-        margin-right: $calc-gutter-width;
+        margin-#{$end-direction}: $calc-gutter-width;
     }
 }
