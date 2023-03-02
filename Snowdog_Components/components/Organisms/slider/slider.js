@@ -33,6 +33,7 @@
         slidesToShow: parseInt(dataValues.slidesToShow),
         slidesToScroll: parseInt(dataValues.slidesToScroll),
         swipeToSlide: JSON.parse(dataValues.swipeToSlide),
+        rtl: JSON.parse(dataValues.rtl),
         responsive: JSON.parse(dataValues.responsiveConfig)
       }
     )
