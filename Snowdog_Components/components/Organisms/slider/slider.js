@@ -15,6 +15,9 @@
     const slides = slider.find(dataValues.elementSlides)
     const navPrev = slider.find(dataValues.elementNavPrev)
     const navNext = slider.find(dataValues.elementNavNext)
+    let direction;
+    (document.dir !== undefined)? direction = document.dir : direction =document.getElementsByTagName("html")[0].getAttribute("dir");
+    let rtl = direction === "rtl";
 
     slides.not('.slick-initialized').slick(
       {
@@ -33,7 +36,7 @@
         slidesToShow: parseInt(dataValues.slidesToShow),
         slidesToScroll: parseInt(dataValues.slidesToScroll),
         swipeToSlide: JSON.parse(dataValues.swipeToSlide),
-        rtl: JSON.parse(dataValues.rtl),
+        rtl: rtl,
         responsive: JSON.parse(dataValues.responsiveConfig)
       }
     )
