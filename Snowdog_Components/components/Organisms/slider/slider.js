@@ -16,8 +16,8 @@
     const navPrev = slider.find(dataValues.elementNavPrev)
     const navNext = slider.find(dataValues.elementNavNext)
     let direction;
-    (document.dir !== undefined)? direction = document.dir : direction =document.getElementsByTagName("html")[0].getAttribute("dir");
-    let rtl = direction === "rtl";
+    (document.dir !== undefined) ? direction = document.dir : direction = document.getElementsByTagName('html')[0].getAttribute('dir');
+    let rtl = direction === 'rtl';
 
     slides.not('.slick-initialized').slick(
       {

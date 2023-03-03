@@ -23,6 +23,9 @@ define([
       const slider = $(this.slider)
       const prevArrow = slider.find(this.dataValues.elementNavPrev)
       const nextArrow = slider.find(this.dataValues.elementNavNext)
+      let direction;
+      (document.dir !== undefined) ? direction = document.dir : direction = document.getElementsByTagName('html')[0].getAttribute('dir');
+      let rtl = direction === 'rtl';
 
       this.sliderSlick.not('.slick-initialized').slick(
         {
@@ -42,7 +45,8 @@ define([
           slidesToScroll: parseInt(this.dataValues.slidesToScroll),
           swipeToSlide: JSON.parse(this.dataValues.swipeToSlide),
           responsive: JSON.parse(this.dataValues.responsiveConfig),
-          accessibility: false
+          accessibility: false,
+          rtl: rtl,
         }
       )
     }
