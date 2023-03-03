@@ -2,7 +2,7 @@
 'use strict';
 $(document).ready(function selectTwo() {
   let direction;
-  (document.dir !== undefined)? direction = document.dir : direction =document.getElementsByTagName("html")[0].getAttribute("dir");
+  (document.dir !== undefined) ? direction = document.dir : direction = document.getElementsByTagName('html')[0].getAttribute('dir');
   const elem = $('.select__field');
   const isSearchable = $('.select').hasClass('select--search');
 

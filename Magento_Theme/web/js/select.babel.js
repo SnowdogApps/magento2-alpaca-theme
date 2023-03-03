@@ -7,6 +7,8 @@ define([
 
   return function (config, select) {
     const isSearchable = $(select).hasClass('select--search');
+    let direction;
+    (document.dir !== undefined) ? direction = document.dir : direction = document.getElementsByTagName('html')[0].getAttribute('dir');
 
     function matchCustom(params, data) {
       if ($(data.element).data('option') === 'fallback') {
@@ -33,7 +35,8 @@ define([
       minimumResultsForSearch: Infinity,
       width: null,
       position: 'bottom',
-      debug: true
+      debug: true,
+      dir: direction,
     }
 
     if (config.type === 'number') {
