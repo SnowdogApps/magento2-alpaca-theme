@@ -20,4 +20,4 @@ Besides modules included in [Alpaca Packages](#alpaca-packages), Alpaca supports
     * amasty/shiprestriction
     * apptrian/facebook-pixel
     * blackbird/contentmanager
-    * vladimirpopov/webforms
+    * mageme/module-webforms (old vladimirpopov/webforms)
