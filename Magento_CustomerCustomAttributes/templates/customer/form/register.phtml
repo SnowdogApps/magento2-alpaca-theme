@@ -13,6 +13,8 @@
 $addressHelper = $block->getData('addressHelper');
 /** @var \Magento\Directory\Helper\Data $directoryHelper */
 $directoryHelper = $block->getData('directoryHelper');
+/** @var \Magento\CustomerCustomAttributes\ViewModel\Address\RegionProvider $regionProvider */
+$regionProvider = $block->getRegionProvider();
 ?>
 <div class="container auth">
     <div class="auth__links auth__links--registration">
@@ -29,7 +31,7 @@ $directoryHelper = $block->getData('directoryHelper');
                 class="icon auth__icon"
                 aria-hidden="true"
             >
-                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#expand-down')); ?>"></use>
+                <use href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#expand-down')); ?>"></use>
             </svg>
         </a>
         <button
@@ -45,7 +47,7 @@ $directoryHelper = $block->getData('directoryHelper');
                 class="icon auth__icon"
                 aria-hidden="true"
             >
-                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#expand-down')); ?>"></use>
+                <use href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#expand-down')); ?>"></use>
             </svg>
         </button>
     </div>
@@ -118,7 +120,7 @@ $directoryHelper = $block->getData('directoryHelper');
                         role="presentation"
                         focusable="false"
                     >
-                        <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#checked')) ?>"></use>
+                        <use href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#checked')) ?>"></use>
                     </svg>
                     <svg
                         class="
@@ -128,7 +130,7 @@ $directoryHelper = $block->getData('directoryHelper');
                         role="presentation"
                         focusable="false"
                     >
-                        <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#unchecked')) ?>"></use>
+                        <use href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#unchecked')) ?>"></use>
                     </svg>
                     <label
                         for="is_subscribed"
@@ -316,6 +318,7 @@ $directoryHelper = $block->getData('directoryHelper');
                         select--native
                         account-form__input
                         required
+                        field
                     "
                 >
                     <label
@@ -482,8 +485,7 @@ $directoryHelper = $block->getData('directoryHelper');
                                 role="presentation"
                                 focusable="false"
                             >
-                                <title><?= $block->escapeHtml(__('View password icon')) ?></title>
-                                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#visibility-off')); ?>"></use>
+                                <use href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#visibility-off')); ?>"></use>
                             </svg>
 
                             <svg
@@ -495,8 +497,7 @@ $directoryHelper = $block->getData('directoryHelper');
                                 role="presentation"
                                 focusable="false"
                             >
-                                <title><?= $block->escapeHtml(__('Hide password icon')) ?></title>
-                                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#visibility')); ?>"></use>
+                                <use href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#visibility')); ?>"></use>
                             </svg>
                         </button>
                     </div>
@@ -558,8 +559,7 @@ $directoryHelper = $block->getData('directoryHelper');
                             role="presentation"
                             focusable="false"
                         >
-                            <title><?= $block->escapeHtml(__('View password icon')) ?></title>
-                            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#visibility-off')); ?>"></use>
+                            <use href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#visibility-off')); ?>"></use>
                         </svg>
 
                         <svg
@@ -571,8 +571,7 @@ $directoryHelper = $block->getData('directoryHelper');
                             role="presentation"
                             focusable="false"
                         >
-                            <title><?= $block->escapeHtml(__('Hide password icon')) ?></title>
-                            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#visibility')); ?>"></use>
+                            <use href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#visibility')); ?>"></use>
                         </svg>
                     </button>
                 </div>
@@ -606,13 +605,13 @@ $directoryHelper = $block->getData('directoryHelper');
 <script type="text/x-magento-init">
     {
         "#country": {
-            "regionUpdater": {
+            "directoryRegionUpdater": {
                 "optionalRegionAllowed": <?= /* @noEscape */ $displayAllRegions ?>,
                 "regionListId": "#region_id",
                 "regionInputId": "#region",
                 "postcodeId": "#zip",
                 "form": "#form-validate",
-                "regionJson": <?= /* @noEscape */ $directoryHelper->getRegionJson() ?>,
+                "regionJson": <?= /* @noEscape */ $regionProvider->getRegionJson() ?>,
                 "defaultRegion": "<?= /* @noEscape */ $block->getFormData()->getRegionId() ?>",
                 "countriesWithOptionalZip": <?= /* @noEscape */ $directoryHelper->getCountriesWithOptionalZip(true) ?>
             }

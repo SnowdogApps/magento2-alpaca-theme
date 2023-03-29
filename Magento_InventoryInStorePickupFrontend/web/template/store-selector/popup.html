@@ -1,0 +1,67 @@
+<div id="store-selector-popup">
+    <div class="store-pickup-modal">
+        <div class="store-pickup-modal__search">
+            <div class="input store-pickup-modal__search-field">
+                <label
+                    class="label input__label"
+                    for="store-selector-search-input"
+                >
+                    <translate args="'Search'"></translate>
+                </label>
+                <input
+                    id="store-selector-search-input"
+                    type="text"
+                    name="store-selector-search-query"
+                    class="input__field"
+                    maxlength="128"
+                    textInput="searchQuery"
+                    attr="placeholder: $t('Search with postcode or city name...')"
+                />
+            </div>
+            <button
+                type="submit"
+                title="Search"
+                class="button store-pickup-modal__search-button"
+                aria-label="Search"
+            >
+                <translate args="'Search'"></translate>
+            </button>
+        </div>
+    </div>
+    <p
+        class="paragraph store-pickup-modal__paragraph"
+        if="searchQuery() && nearbyLocations() && !nearbyLocations().length"
+    >
+        <translate args="'We were unable to find nearby locations for provided search query.'"></translate>
+    </p>
+    <p
+        class="paragraph store-pickup-modal__paragraph"
+        ifnot="searchQuery()"
+    >
+        <translate args="'Please provide postcode or city name to find nearest pickup locations.'"></translate>
+    </p>
+    <table
+        class="table store-pickup-modal__table margin-0"
+        data-bind="blockLoader: isLoading, visible: nearbyLocations() && nearbyLocations().length"
+    >
+        <thead>
+            <tr role="row">
+                <th
+                    translate="'Location Details'"
+                    role="columnheader"
+                    scope="col"
+                ></th>
+                <th
+                    translate="'Action'"
+                    role="columnheader"
+                    scope="col"
+                ></th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- ko foreach: { data: nearbyLocations(), as: 'location' } -->
+                <!-- ko template: { name: $parent.storeSelectorPopupItemTemplate } --><!-- /ko -->
+            <!-- /ko -->
+        </tbody>
+    </table>
+</div>

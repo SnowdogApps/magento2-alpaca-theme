@@ -24,7 +24,8 @@ define([
             self.element.find(self.options.linkElement + ':not(:checked)').each(function () {
               $(this).trigger('click');
             });
-          } else {
+          }
+          else {
             // CHANGED: selector
             $('[for="' + this.id + '"]').text($(this).attr('data-notchecked'));
             self.element.find(self.options.linkElement + ':checked').each(function () {
@@ -36,10 +37,10 @@ define([
         this._reloadPrice();
       },
       reloadAllCheckText: function () {
-        var allChecked = true,
-          allElementsCheck = $(this.options.allElements),
-          // CHANGED: selector
-          allElementsLabel = $('label[for="' + allElementsCheck.attr('id') + '"]');
+        var allChecked = true;
+        var allElementsCheck = $(this.options.allElements);
+        // CHANGED: selector
+        var allElementsLabel = $('label[for="' + allElementsCheck.attr('id') + '"]');
 
         // CHANGED: selector
         this.element.find(this.options.linkElement).each(function () {
@@ -51,7 +52,8 @@ define([
         if (allChecked) {
           allElementsLabel.text(allElementsCheck.attr('data-checked'));
           allElementsCheck.prop('checked', true);
-        } else {
+        }
+        else {
           allElementsLabel.text(allElementsCheck.attr('data-notchecked'));
           allElementsCheck.prop('checked', false);
         }

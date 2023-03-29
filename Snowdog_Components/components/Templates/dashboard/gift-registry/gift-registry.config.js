@@ -237,5 +237,120 @@ module.exports = {
         }
       }
     },
+    {
+      name: 'list',
+      title: 'Gift Registy Items',
+      context: {
+        heading: {
+          tag: 'h1',
+          class: 'heading dashboard__content-heading',
+          text: 'Gift Registy Items'
+        },
+        actions: {
+          sides: [
+            {
+              action: [
+                {
+                  button: {
+                    text: 'Update gift registry',
+                    class: 'actions-group__button'
+                  }
+                }
+              ]
+            },
+          ]
+        },
+        items: {
+          class: 'margin-bottom-xs',
+          table: {
+            captionText: 'Gift Items',
+            class: 'margin-0',
+            mainTags: [
+              {
+                mainTag: 'thead',
+                rowTags: [
+                  {
+                    rowTag: 'tr',
+                    rowTagAttributes: 'role="row"',
+                    childTags: [
+                      {
+                        childTag: 'th',
+                        childTagAttributes: 'scope="col"',
+                        content: 'Product'
+                      },
+                      {
+                        childTag: 'th',
+                        childTagAttributes: 'scope="col"',
+                        content: 'Note'
+                      },
+                      {
+                        childTag: 'th',
+                        childTagAttributes: 'scope="col"',
+                        content: 'Added On'
+                      },
+                      {
+                        childTag: 'th',
+                        childTagAttributes: 'scope="col"',
+                        content: 'Qty'
+                      },
+                      {
+                        childTag: 'th',
+                        childTagAttributes: 'scope="col"',
+                        content: 'Qty Fullified'
+                      },
+                      {
+                        childTag: 'th',
+                        childTagAttributes: 'scope="col"',
+                        content: 'Delete'
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                mainTag: 'tbody',
+                rowTags: [
+                  {
+                    rowTag: 'tr',
+                    childTags: [
+                      {
+                        childTag: 'td',
+                        childTagAttributes: 'data-th="Product"',
+                        content: '<div class="giftregistry__item"><div class="giftregistry__image margin-right-s"><img class="lazyload margin-right-m" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAABCAQAAABN/Pf1AAAAC0lEQVR42mNkwAIAACoAAgu1Hc4AAAAASUVORK5CYII=" data-src="/images/product/product-160_240.jpg" alt="Image of product Bluzka \'ONLSANSA SINGLET WVN\'"></div><div class="giftregisty__info"><span class="paypal-review__product-name">Bluzka \'ONLSANSA SINGLET WVN\'</span></div>'
+                      },
+                      {
+                        childTag: 'td',
+                        childTagAttributes: 'data-th="Note"',
+                        content: '<div class="field note"><div class="input"><textarea class="input__field--textarea" rows="3" cols="20"></textarea></div></div>'
+                      },
+                      {
+                        childTag: 'td',
+                        childTagAttributes: 'data-th="Added On"',
+                        content: 'Jan 15, 2021'
+                      },
+                      {
+                        childTag: 'td',
+                        childTagAttributes: 'data-th="Qty"',
+                        content: '<div class="input"><input type="number" class="input__field qty giftregistry__qty-field" value="1"/></div>'
+                      },
+                      {
+                        childTag: 'td',
+                        childTagAttributes: 'data-th="Qty Fullified"',
+                        content: '0'
+                      },
+                      {
+                        childTag: 'td',
+                        childTagAttributes: 'data-th="Deleted"',
+                        content: '@@checkbox'
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    }
   ]
 }

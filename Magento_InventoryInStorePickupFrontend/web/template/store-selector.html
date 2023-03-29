@@ -1,0 +1,62 @@
+<div
+    id="store-selector"
+    data-bind="blockLoader: $parent.isLoading"
+    css="'store-selected': $parent.selectedLocation"
+>
+    <each
+        if="!quoteIsVirtual()"
+        args="getRegion('customer-email')"
+        render=""
+    ></each>
+    <span
+        class="heading heading--second-level store-pickup__heading"
+        data-role="title"
+    >
+        <translate args="'Store'"></translate>
+    </span>
+    <div
+        id="checkout-step-store-selector"
+        class="store-pickup__section"
+        data-role="content"
+    >
+        <render args="selectedLocationTemplate"></render>
+        <each
+            args="getRegion('after-selected-location')"
+            render=""
+        ></each>
+        <form
+            submit="setPickupInformation"
+            novalidate="novalidate"
+        >
+            <div class="store-pickup__actions">
+                <button
+                    type="button"
+                    class="button store-pickup__action-select"
+                    click="openPopup"
+                >
+                    <span if="selectedLocation">
+                        <translate args="'Select Other'"></translate>
+                    </span>
+                    <span ifnot="selectedLocation">
+                        <translate args="'Select Store'"></translate>
+                    </span>
+                </button>
+                <button
+                    data-role="opc-continue"
+                    type="submit"
+                    class="button"
+                    css="disabled: !selectedLocation"
+                    enable="selectedLocation"
+                    disabled
+                >
+                    <translate args="'Next'"></translate>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<div
+    id="opc-store-selector-popup"
+    class="store-pickup__modal-content"
+    render="storeSelectorPopupTemplate"
+></div>

@@ -12,11 +12,11 @@ define(['jquery'], function ($) {
     },
 
     initMsrpPopup: function () {
-      var popupDOM = $(this.options.popUpAttr)[0],
-        popupButton = $('#' + this.options.popupId),
-        $msrpPopup = $(popupDOM.innerHTML.trim()),
-        popupButtonId = this.options.popupId + Math.random().toString(16).slice(2),
-        self = this;
+      var popupDOM = $(this.options.popUpAttr)[0];
+      var popupButton = $('#' + this.options.popupId);
+      var $msrpPopup = $(popupDOM.innerHTML.trim());
+      var popupButtonId = this.options.popupId + Math.random().toString(16).slice(2);
+      var self = this;
 
       popupButton.attr('id', popupButtonId)
 

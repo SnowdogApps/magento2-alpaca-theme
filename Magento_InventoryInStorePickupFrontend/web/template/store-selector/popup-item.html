@@ -1,0 +1,52 @@
+<tr role="row">
+    <td
+        data-bind="
+            attr: {
+                'data-th': $t('Location Details')
+            }
+        "
+        role="gridcell"
+    >
+        <p class="location-address">
+            <text args="location.name"></text><br />
+            <text args="location.street"></text><br/>
+            <text args="location.city"></text>, <span text="location.region"></span> <text args="location.postcode"></text><br/>
+            <text args="location.country"></text><br/>
+            <a
+                if="location.telephone"
+                attr="'href': 'tel:' + location.telephone"
+                text="location.telephone"
+            ></a>
+        </p>
+        <!-- ko if: location.description -->
+            <!-- ko with: {locationDescriptionUnsanitizedHtml: location.description} -->
+                <p html="locationDescriptionUnsanitizedHtml"></p>
+            <!-- /ko -->
+        <!-- /ko -->
+    </td>
+    <td
+        data-bind="
+            attr: {
+                'data-th': $t('Action')
+            }
+        "
+        role="gridcell"
+    >
+        <button
+            ifnot="$parent.isPickupLocationSelected($data)"
+            type="button"
+            class="action secondary action-select-shipping-item"
+            click="$parent.selectPickupLocation.bind($parent, $data)"
+        >
+            <translate args="'Ship Here'"></translate>
+        </button>
+        <button
+            if="$parent.isPickupLocationSelected($data)"
+            type="button"
+            class="action secondary"
+            disabled
+        >
+            <span translate="'Selected'"></span>
+        </button>
+    </td>
+</tr>

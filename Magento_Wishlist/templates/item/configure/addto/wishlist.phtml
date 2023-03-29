@@ -1,9 +1,8 @@
 <?php
 /** @var \Magento\Wishlist\Block\Item\Configure $block */
+/** @var Snowdog\AlpacaGeneral\ViewModel\ProductMetadata $productMetadata */
 
-// TODO get magento version without objectManager
-$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-$productMetadata = $objectManager->get('Magento\Framework\App\ProductMetadataInterface');
+$productMetadata = $block->getProductMetadata();
 ?>
 <?php if ($this->helper(\Magento\Wishlist\Helper\Data::class)->isAllow()) : ?>
     <button
@@ -25,7 +24,7 @@ $productMetadata = $objectManager->get('Magento\Framework\App\ProductMetadataInt
             role="presentation"
             focusable="false"
         >
-            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#heart')); ?>"></use>
+            <use href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#heart')); ?>"></use>
         </svg>
         <span class="button__text">
             <?= ($productMetadata->getEdition() == 'B2B') ? $block->escapeHtml(__('Update Wish List')) : $block->escapeHtml(__('Update')) ?>

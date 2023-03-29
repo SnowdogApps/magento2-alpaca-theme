@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 var config = {
   map: {
     '*': {
@@ -6,8 +7,8 @@ var config = {
   },
   config: {
     mixins: {
-      "Magento_Wishlist/js/add-to-wishlist": {
-        "Magento_Wishlist/js/add-to-wishlist-mixin": true
+      'Magento_Wishlist/js/add-to-wishlist': {
+        'Magento_Wishlist/js/add-to-wishlist-mixin.babel': true
       }
     }
   }

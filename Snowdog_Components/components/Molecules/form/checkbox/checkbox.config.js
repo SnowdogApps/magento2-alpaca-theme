@@ -40,6 +40,17 @@ module.exports = {
       }
     },
     {
+      name: 'link-checked',
+      view: 'checkbox--link.hbs',
+      context: {
+        class: 'checkbox--link-checked',
+        href: '#',
+        label: {
+          text: 'Checkbox link'
+        },
+      }
+    },
+    {
       name: 'no-icon',
       context: {
         id: 'checkbox-no-icon',

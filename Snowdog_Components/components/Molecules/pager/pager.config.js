@@ -6,7 +6,7 @@ module.exports = {
     arrowRightActive: true,
     ariaLabelLeft: 'Link to previous page, disabled',
     ariaLabelRight: 'Link to next page',
-    navItem : {
+    navItem: {
       class: 'button button--icon',
       iconPrev: {
         id: 'arrow-left',

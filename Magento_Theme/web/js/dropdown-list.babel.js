@@ -44,14 +44,15 @@ define([], function () {
         if (!dropdownContent.classList.contains(dropdownContentRight)) {
           dropdownContent.classList.add(dropdownContentRight);
         }
-      } else {
+      }
+      else {
         dropdownContent.classList.remove(dropdownContentRight);
       }
     }
 
     resetMqMediumOpen(item) {
-      const dropdownItem    = item.parentNode,
-            dropdownContent = dropdownItem.querySelector(`.${this.contentClass}`);
+      const dropdownItem = item.parentNode;
+      const dropdownContent = dropdownItem.querySelector(`.${this.contentClass}`);
 
       if (window.matchMedia(this.mq).matches) {
         this.removeAriaAttributes(item, dropdownContent);
@@ -63,8 +64,8 @@ define([], function () {
     }
 
     toggleContent(trigger, dropdownContent, opening) {
-      const dropdownBlock = trigger.closest('.dropdown-list'),
-            focusableElements = dropdownContent.querySelectorAll('button:not([disabled]), a[href], area[href] input:not([disabled]), select:not([disabled]), textarea:not([disabled]), *[tabindex]:not([tabindex="-1"]), object, embed, *[contenteditable]');
+      const dropdownBlock = trigger.closest('.dropdown-list');
+      const focusableElements = dropdownContent.querySelectorAll('button:not([disabled]), a[href], area[href] input:not([disabled]), select:not([disabled]), textarea:not([disabled]), *[tabindex]:not([tabindex="-1"]), object, embed, *[contenteditable]');
 
       if (!this.isMediumOpen(dropdownBlock)) {
         if (dropdownContent.clientHeight > 0) {
@@ -91,8 +92,8 @@ define([], function () {
 
     init() {
       this.dropdownItem.forEach(key => {
-        const dropdownId = key.getAttribute('aria-controls'),
-              dropdownContent = document.getElementById(dropdownId);
+        const dropdownId = key.getAttribute('aria-controls');
+        const dropdownContent = document.getElementById(dropdownId);
 
         key.addEventListener('click', e => {
           e.preventDefault();

@@ -7,10 +7,10 @@
         "
     >
         <a
-            href="<?= $block->escapeUrl($block->getProductUrl()) ?>"
+            href="<?= $escaper->escapeUrl($block->getProductUrl()) ?>"
             class="actions-group__link"
         >
-            <?= $block->escapeHtml($block->getProductName()) ?>
+            <?= $escaper->escapeHtml($block->getProductName()) ?>
         </a>
     </div>
     <?php if ($_options = $block->getOptionList()): ?>
@@ -24,7 +24,7 @@
             <?php foreach ($_options as $_option): ?>
                 <?php $_formatedOptionValue = $block->getFormatedOptionValue($_option) ?>
                 <dt class="list__label">
-                    <?= $block->escapeHtml($_option['label']) ?>
+                    <?= $escaper->escapeHtml($_option['label']) ?>
                 </dt>
                 <dd
                     class="
@@ -32,7 +32,7 @@
                         <?= (isset($_formatedOptionValue['full_view']) ? ' class="tooltip wrapper': '') ?>
                     "
                 >
-                    <?= $block->escapeHtml($_formatedOptionValue['value'], ['span']) ?>
+                    <?= $escaper->escapeHtml($_formatedOptionValue['value'], ['span', 'a']) ?>
                     <?php if (isset($_formatedOptionValue['full_view'])): ?>
                         <dl
                             class="
@@ -43,10 +43,10 @@
                             "
                         >
                             <dt class="list__label">
-                                <?= $block->escapeHtml($_option['label']) ?>
+                                <?= $escaper->escapeHtml($_option['label']) ?>
                             </dt>
                             <dd class="list__value">
-                                <?= $block->escapeHtml($_formatedOptionValue['full_view'], ['span']) ?>
+                                <?= $escaper->escapeHtml($_formatedOptionValue['full_view'], ['span']) ?>
                             </dd>
                         </dl>
                     <?php endif; ?>

@@ -7,9 +7,9 @@ class MarketingBar {
     this.start();
   }
   closeBar(el) {
-    const marketingBar = el.currentTarget.parentElement.parentElement,
-          dataType      = marketingBar.dataset.type,
-          focusable     = document.querySelectorAll('button:not([disabled]), a[href], area[href] input:not([disabled]), select:not([disabled]), textarea:not([disabled]), *[tabindex]:not([tabindex="-1"]), object, embed, *[contenteditable]');
+    const marketingBar = el.currentTarget.parentElement.parentElement;
+    const dataType = marketingBar.dataset.type;
+    const focusable = document.querySelectorAll('button:not([disabled]), a[href], area[href] input:not([disabled]), select:not([disabled]), textarea:not([disabled]), *[tabindex]:not([tabindex="-1"]), object, embed, *[contenteditable]');
 
     marketingBar.classList.add('marketing-bar--closed');
     localStorage.setItem(dataType, 'closed');

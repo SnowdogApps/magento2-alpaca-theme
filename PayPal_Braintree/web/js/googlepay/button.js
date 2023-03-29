@@ -1,15 +1,16 @@
+/* global google */
 /**
  * Braintree Google Pay button
  **/
 define([
-  "uiComponent",
-  "knockout",
-  "jquery",
-  "braintree",
-  "braintreeGooglePay",
-  "mage/translate",
-  "Magento_Checkout/js/model/payment/additional-validators",
-  "googlePayLibrary",
+  'uiComponent',
+  'knockout',
+  'jquery',
+  'braintree',
+  'braintreeGooglePay',
+  'mage/translate',
+  'Magento_Checkout/js/model/payment/additional-validators',
+  'googlePayLibrary',
 ], function (
   Component,
   ko,
@@ -19,7 +20,7 @@ define([
   $t,
   additionalValidators
 ) {
-  "use strict";
+  'use strict';
 
   return {
     init: function (element, context) {
@@ -29,23 +30,23 @@ define([
       }
 
       // Context must implement these methods
-      if (typeof context.getClientToken !== "function") {
+      if (typeof context.getClientToken !== 'function') {
         console.error(
-          "Braintree GooglePay Context passed does not provide a getClientToken method",
+          'Braintree GooglePay Context passed does not provide a getClientToken method',
           context
         );
         return;
       }
-      if (typeof context.getPaymentRequest !== "function") {
+      if (typeof context.getPaymentRequest !== 'function') {
         console.error(
-          "Braintree GooglePay Context passed does not provide a getPaymentRequest method",
+          'Braintree GooglePay Context passed does not provide a getPaymentRequest method',
           context
         );
         return;
       }
-      if (typeof context.startPlaceOrder !== "function") {
+      if (typeof context.startPlaceOrder !== 'function') {
         console.error(
-          "Braintree GooglePay Context passed does not provide a startPlaceOrder method",
+          'Braintree GooglePay Context passed does not provide a startPlaceOrder method',
           context
         );
         return;
@@ -58,11 +59,11 @@ define([
 
       // Create a button within the KO element, as google pay can only be instantiated through
       // a valid on click event (ko onclick bind interferes with this).
-      var button = document.createElement("button");
+      var button = document.createElement('button');
       button.className =
-        "braintree-googlepay-button long " +
-        (context.getBtnColor() == 1 ? "black" : "white");
-      button.title = $t("Buy with Google Pay");
+        'braintree-googlepay-button long ' +
+        (context.getBtnColor() == 1 ? 'black' : 'white');
+      button.title = $t('Buy with Google Pay');
 
       // init braintree api
       braintree.create(
@@ -71,7 +72,7 @@ define([
         },
         function (clientErr, clientInstance) {
           if (clientErr) {
-            console.error("Error creating client:", clientErr);
+            console.error('Error creating client:', clientErr);
             return;
           }
 
@@ -83,7 +84,7 @@ define([
               // No instance
               if (googlePayErr) {
                 console.error(
-                  "Braintree GooglePay Error creating googlePayInstance:",
+                  'Braintree GooglePay Error creating googlePayInstance:',
                   googlePayErr
                 );
                 return;
@@ -96,14 +97,14 @@ define([
                 })
                 .then(function (response) {
                   if (response.result) {
-                    button.addEventListener("click", function (event) {
+                    button.addEventListener('click', function (event) {
                       event.preventDefault();
 
                       if (!additionalValidators.validate()) {
                         return;
                       }
 
-                      jQuery("body").loader("show");
+                      jQuery('body').loader('show');
                       var responseData;
 
                       var paymentDataRequest = googlePaymentInstance.createPaymentDataRequest(
@@ -126,7 +127,7 @@ define([
                           // Handle errors
                           // err = {statusCode: "CANCELED"}
                           console.error(err);
-                          jQuery("body").loader("hide");
+                          jQuery('body').loader('hide');
                         });
                     });
 
@@ -135,7 +136,7 @@ define([
                 })
                 .catch(function (err) {
                   console.error(err);
-                  jQuery("body").loader("hide");
+                  jQuery('body').loader('hide');
                 });
             }
           );
@@ -144,6 +145,7 @@ define([
     },
 
     deviceSupported: function () {
+      /* eslint-disable-next-line compat/compat */
       return !!window.PaymentRequest;
     },
   };

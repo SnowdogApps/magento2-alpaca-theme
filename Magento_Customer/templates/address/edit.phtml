@@ -3,7 +3,9 @@
 /** @var \Magento\Customer\ViewModel\Address $viewModel */
 /** @var \Magento\Framework\Escaper $escaper */
 /** @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer */
+/** @var \Magento\Customer\ViewModel\Address\RegionProvider $regionProvider */
 $viewModel = $block->getViewModel();
+$regionProvider = $block->getRegionProvider();
 ?>
 <?php
 $_company = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Company::class);
@@ -253,10 +255,8 @@ $_regionValidationClass = $viewModel->addressGetAttributeValidationClass('region
                 />
                 <div
                     role="alert"
-                    class="
-                        message
-                        display-none
-                    "
+                    class="message"
+                    style="display: none;"
                 >
                     <span></span>
                 </div>
@@ -314,7 +314,7 @@ $_regionValidationClass = $viewModel->addressGetAttributeValidationClass('region
                         role="presentation"
                         focusable="false"
                     >
-                        <use xlink:href="<?= $escaper->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#checked')) ?>"></use>
+                        <use href="<?= $escaper->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#checked')) ?>"></use>
                     </svg>
 
                     <svg
@@ -325,7 +325,7 @@ $_regionValidationClass = $viewModel->addressGetAttributeValidationClass('region
                         role="presentation"
                         focusable="false"
                     >
-                        <use xlink:href="<?= $escaper->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#unchecked')) ?>"></use>
+                        <use href="<?= $escaper->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#unchecked')) ?>"></use>
                     </svg>
 
                     <label
@@ -371,7 +371,7 @@ $_regionValidationClass = $viewModel->addressGetAttributeValidationClass('region
                         role="presentation"
                         focusable="false"
                     >
-                        <use xlink:href="<?= $escaper->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#checked')) ?>"></use>
+                        <use href="<?= $escaper->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#checked')) ?>"></use>
                     </svg>
 
                     <svg
@@ -382,7 +382,7 @@ $_regionValidationClass = $viewModel->addressGetAttributeValidationClass('region
                         role="presentation"
                         focusable="false"
                     >
-                        <use xlink:href="<?= $escaper->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#unchecked')) ?>"></use>
+                        <use href="<?= $escaper->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#unchecked')) ?>"></use>
                     </svg>
 
                     <label
@@ -445,13 +445,13 @@ $_regionValidationClass = $viewModel->addressGetAttributeValidationClass('region
             }
         },
         "#country": {
-            "regionUpdater": {
+            "directoryRegionUpdater": {
                 "optionalRegionAllowed": <?= /* @noEscape */ $_displayAll ? 'true' : 'false' ?>,
                 "regionListId": "#region_id",
                 "regionInputId": "#region",
                 "postcodeId": "#zip",
                 "form": "#form-validate",
-                "regionJson": <?= /* @noEscape */ $viewModel->dataGetRegionJson() ?>,
+                "regionJson": <?= /* @noEscape */ $regionProvider->getRegionJson(); ?>,
                 "defaultRegion": "<?= (int) $block->getRegionId() ?>",
                 "countriesWithOptionalZip": <?= /* @noEscape */ $viewModel->dataGetCountriesWithOptionalZip(true) ?>
             }

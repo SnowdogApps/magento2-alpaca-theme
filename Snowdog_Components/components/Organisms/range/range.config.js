@@ -1,6 +1,8 @@
 module.exports = {
   status: 'wip',
-  preview: '@docs-only-styles',
+  meta: {
+    docsOnlyStyles: true
+  },
   context: {
     attributes: '',
     class: '',

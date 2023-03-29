@@ -22,6 +22,8 @@ $filterCurrentValueTo = $filterConfig['currentValue']['to'];
 $filterUrl = $filterConfig['urlTemplate'];
 $filterSymbolPattern = $filterConfig['fieldFormat']['pattern'];
 $filterSymbol = str_replace('%s', '', $filterSymbolPattern);
+$helperPath = \Snowdog\ProductAttributeDescription\Model\ProductAttributeDescriptionManager::ATTRIBUTE_DESCRIPTION_CODE;
+$attributeDescription = $block->getFilter()->getAttributeModel()->getData($helperPath);
 ?>
 <?php if (!($filterMinValueNumber === $filterMaxValueNumber)): ?>
 <li
@@ -56,8 +58,7 @@ $filterSymbol = str_replace('%s', '', $filterSymbolPattern);
                 role="presentation"
                 focusable="false"
             >
-                <title><?= $block->escapeHtml(__('Arrow down')) ?></title>
-                <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#angle-down')); ?>"></use>
+                <use href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#angle-down')); ?>"></use>
             </svg>
         </button>
     </div>
@@ -72,13 +73,9 @@ $filterSymbol = str_replace('%s', '', $filterSymbolPattern);
     >
         <div
             class="more-info"
-            data-mage-init='{
-                "moreInfo": {
-                    "path": "/rest/V1/snowproductattributedescription/description/:attributeCode",
-                    "variable": ":attributeCode",
-                    "data": "<?= $block->escapeHtmlAttr($filterCode) ?>"
-                }
-            }'
+            <?php if ($attributeDescription): ?>
+                data-mage-init='{"moreInfo": {"attributeDescription": "<?= $block->escapeJs($attributeDescription) ?>"}}'
+            <?php endif ?>
             aria-hidden="true"
         >
             <button
@@ -102,7 +99,7 @@ $filterSymbol = str_replace('%s', '', $filterSymbolPattern);
                     role="presentation"
                     focusable="false"
                 >
-                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#info')); ?>"></use>
+                    <use href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#info')); ?>"></use>
                 </svg>
             </button>
 
@@ -132,7 +129,7 @@ $filterSymbol = str_replace('%s', '', $filterSymbolPattern);
                             role="presentation"
                             focusable="false"
                         >
-                            <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#close')); ?>"></use>
+                            <use href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#close')); ?>"></use>
                         </svg>
                     </button>
                 </div>

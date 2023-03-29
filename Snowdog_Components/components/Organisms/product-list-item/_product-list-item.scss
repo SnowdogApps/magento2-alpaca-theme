@@ -34,7 +34,7 @@
         @include mq($screen-m) {
             margin: $product-list-item__image-margin\@medium;
             flex-basis: $product-list-item__image-width\@medium;
-            width: $product-list-item__image-width\@medium;
+            min-width: $product-list-item__image-width\@medium;
         }
 
         @include mq($screen-xl) {
@@ -106,7 +106,6 @@
         &:hover {
             color: $product-list-item__name-color-hover;
             text-decoration: $product-list-item__name-decoration-hover;
-
         }
     }
 
@@ -142,27 +141,19 @@
         }
 
         dl {
-            @extend .list--description;
             color: $product-list-item__list-color;
         }
 
         dt {
-            @extend .list__label;
-            @extend %bullet;
             position: relative;
             padding: $product-list-item__list-label-padding;
         }
-
-        dd {
-            @extend .list__value;
-        }
-
     }
 
     &__actions {
         display: flex;
         flex-flow: row wrap;
-        justify-content: flex-end;
+        justify-content: flex-start;
         align-items: center;
 
         @include mq($screen-m) {
@@ -184,7 +175,6 @@
             @include mq($screen-m) {
                 margin: $product-list-item__action-margin\@medium;
             }
-
         }
 
         &--ee {
@@ -193,6 +183,10 @@
 
             .button--tocompare {
                 background-color: $product-list-item-ee__tocompare-background-color;
+            }
+
+            .button--wishlist {
+                background-color: $product-list-item-ee__towishlist-background-color;
             }
 
             .button {
@@ -302,15 +296,16 @@
     }
 
     &__add-to-action {
-        flex-grow: 1;
-        max-width: 250px;
+        flex-grow: $product-list-item__add-to-action-flex-grow;
+        max-width: $product-list-item__add-to-action-max-width;
 
-        @include mq($screen-m) {
-            flex-grow: 0;
+        @include mq($screen-l) {
+            min-width: $product-list-item__add-to-action-min-width\@large;
         }
 
         .button--add-to {
             @include add-to-button($product-list-item__add-to-icon-display);
+
             padding: $spacer;
 
             @include mq($screen-m) {
@@ -343,26 +338,28 @@
 
     .button--wishlist {
         &.button--icon-filled {
-            @include button-fill-bg();
+            .icon {
+                fill: $color-primary;
+            }
 
-            &.button--icon-filled {
-                @extend .button--icon-fill;
-                @include button-fill-bg();
+            &:after {
+                display: block;
+                background-position: 0 100%;
+            }
 
-                &:hover,
-                &:active {
-                    &:before {
-                        background-color: $product-list-item__wishlist-filled-bg-color-hover;
-                    }
+            &:hover,
+            &:active {
+                &:before {
+                    background-color: $product-list-item__wishlist-filled-bg-color-hover;
+                }
 
-                    &:after {
-                        display: block;
-                        background-image: $product-list-item__wishlist-filled-bg-image-after-hover;
-                    }
+                &:after {
+                    display: block;
+                    background-image: $product-list-item__wishlist-filled-bg-image-after-hover;
+                }
 
-                    .icon {
-                        fill: $white;
-                    }
+                .icon {
+                    fill: $white;
                 }
             }
         }
@@ -379,12 +376,18 @@
     .swatch {
         &__container--catalog {
             .loader__icon {
-                margin:  $product-list-item__swatch-loader-icon-margin;
+                margin: $product-list-item__swatch-loader-icon-margin;
             }
         }
 
         &__wrapper {
-            justify-content: flex-end;
+            justify-content: flex-start;
+            margin-left: -$swatch__option-padding--catalog;
+
+            @include mq($screen-m) {
+                justify-content: flex-end;
+                margin-left: 0;
+            }
         }
     }
 }

@@ -1,7 +1,4 @@
 <?php
-// phpcs:disable Magento2.Templates.ThisInTemplate
-?>
-<?php
 /**
  * Edit customer address template
  *
@@ -14,6 +11,8 @@ $requiredAttributesPrechecked = $block->getData('required_attributes_prechecked'
 $displayAllRegions = $block->getConfig('general/region/display_all');
 /** @var \Magento\Directory\Helper\Data $directoryHelper */
 $directoryHelper = $block->getData('directoryHelper');
+/** @var \Magento\CustomerCustomAttributes\ViewModel\Address\RegionProvider $regionProvider */
+$regionProvider = $block->getRegionProvider();
 ?>
 
 <form
@@ -233,6 +232,7 @@ $directoryHelper = $block->getData('directoryHelper');
                 select--native
                 region
                 required
+                field
             "
         >
             <label
@@ -379,7 +379,7 @@ $directoryHelper = $block->getData('directoryHelper');
                     role="presentation"
                     focusable="false"
                 >
-                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#checked')) ?>"></use>
+                    <use href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#checked')) ?>"></use>
                 </svg>
                 <svg
                     class="
@@ -389,7 +389,7 @@ $directoryHelper = $block->getData('directoryHelper');
                     role="presentation"
                     focusable="false"
                 >
-                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#unchecked')) ?>"></use>
+                    <use href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#unchecked')) ?>"></use>
                 </svg>
                 <label
                     class="checkbox__label"
@@ -427,7 +427,7 @@ $directoryHelper = $block->getData('directoryHelper');
                     role="presentation"
                     focusable="false"
                 >
-                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#checked')) ?>"></use>
+                    <use href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#checked')) ?>"></use>
                 </svg>
                 <svg
                     class="
@@ -437,7 +437,7 @@ $directoryHelper = $block->getData('directoryHelper');
                     role="presentation"
                     focusable="false"
                 >
-                    <use xlink:href="<?= $block->escapeUrl($block->getViewFileUrl('/images/icons-sprite.svg#unchecked')) ?>"></use>
+                    <use href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#unchecked')) ?>"></use>
                 </svg>
                 <label
                     class="checkbox__label"
@@ -483,13 +483,13 @@ $directoryHelper = $block->getData('directoryHelper');
             }
         },
         "#country": {
-            "regionUpdater": {
+            "directoryRegionUpdater": {
                 "optionalRegionAllowed": <?= /* @noEscape */ ($displayAllRegions ? 'true' : 'false') ?>,
                 "regionListId": "#region_id",
                 "regionInputId": "#region",
                 "postcodeId": "#zip",
                 "form": "#form-validate",
-                "regionJson": <?= /* @noEscape */ $directoryHelper->getRegionJson() ?>,
+                "regionJson": <?= /* @noEscape */ $regionProvider->getRegionJson() ?>,
                 "defaultRegion": "<?= /* @noEscape */ $block->getRegionId() ?>",
                 "countriesWithOptionalZip": <?= /* @noEscape */ $directoryHelper->getCountriesWithOptionalZip(true) ?>
             }

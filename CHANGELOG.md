@@ -1,15 +1,222 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
+=========================================================
+
 ## [Unreleased]
 ### Added
+### Changed
 ### Fixed
-
+### Removed
 ### Updated
 
-### Removed
-
 ## [Released]
+## [2.28.2] - 2022-09-05
+### Fixed
+- Magento_PageBuilder styles imports (#571)
+## [2.28.1] - 2022-09-01
+### Fixed
+- broken `Magento_Msrp/web/template/product/price/price_box.html` template (add missing quote)
+## [2.28.0] - 2022-08-23
+### Added
+- some component variables (#567)
+### Changed
+### Fixed
+- syntax error, `unexpected ','` in `Magento_Catalog/templates/product/widget/viewed/list.phtml` (#560)
+- missing Forgot password link in Login/Create account modal (#564)
+- CLS issue caused by scrollbar appearing when non-critical styles are loaded (#566)
+- small component issues (#566)
+### Removed
+### Updated
+- amasty/module-gdpr => 2.8.3 (#562)
+- amasty/module-gift-card => 2.8.4 (#562)
+- amasty/module-store-locator => 2.5.3 (#562)
+- amasty/shiprules => 2.8.3 (#562)
+## [2.27.0] - 2022-06-14
+### Added
+- New config options for Modal (closeOnEsc, closeOnBackdrop)
+- Missing arguments in layout for multishipping address (#541)
+### Changed
+- LCP image loading on PDP for performance (#543)
+- Order summary design in Quote (#553)
+- replace ObjectManager in phtml (#552)
+### Fixed
+- passing all properties when adding product to wishlist (#534)
+- minicart - "See Details" dropdown JS init (#88897)
+- Wrong display of discount amount in order summary on review & payments page (#540)
+- Misaligned contact bar (#542)
+- fotorama.js and magnifier.js magepack errors fixes (#544)
+- checkout - shipping method item error display (#85516)
+- hiding State/Province field when it's not required for selected country (#554)
+- My Orders styling issues in M244 (#556)
+- File upload link styling in Request a Quote (#557)
+- Remove reward points button leading to 404 (#558)
+### Removed
+- unnecessary !important flags (#537)
+- elasticsuite footer (#549)
+- `Snowdog_Acm` module and moved files to `Blackbird_ContentManager` directory (#555)
+- `select2magepack.full.min.js` that doesn't work correctly (select 2 ends up loading twice in magepack bundle and as a separate file), select2 should be removed from magepack config instead (#559)
+### Updated
+- Magento to 2.4.4 (#546)
+## [2.26.3] - 2022-05-19
+### Changed
+- docs url
+### Fixed
+- docs - comment about custom variables import order
+## [2.26.2] - 2022-05-19
+### Fixed
+- vitepress- dead link error
+## [2.26.1] - 2022-05-19
+### Added
+- docs and new readme (#535)
+## [2.26.0] - 2022-03-10
+### Added
+- In-store pickup components (#82620)
+- Missing classes to home, product-view and catalog pages (#84674)
+- Conditional rendering in footer.hbs (#84599)
+- Missing variables in _footer.scss (#84599)
+- Missing fractal component variants (#84723)
+- Messages component variant (#84729)
+- Checkbox 'link-checked' variant (#492)
+- option to remove Qty input and update button from minicart in Admin > Store > Configuration > Snowdog > Alpaca General > Mini Cart > Qty Update Disabled (#486)
+- missing store pickup style imports (#520)
+### Fixed
+- Display error message - phone number field (#83240)
+- Webform checkboxes inline style & Department select on Contact Page (#83891)
+- Update button in minicart always shown (#83009)
+- Galery showing multiple pictures in magnifier view (#80429)
+- Overflow on x axis caused by `slider--full-width` class (#84443)
+- Some styles loaded twice in checkout (#83768)
+- Messages component display (#84729)
+- Order summary not expanded by default (#84748)
+- Alpaca readme - wrong link and missing content (#85061)
+- Multiple product attribute description API requests (#490)
+- Checkbox link variant with class 'checkbox--link-checked' missing background (#492)
+- New customer registration - middle name always required (#493)
+- Base paragraph styles overriding typography paragraph styles (#494)
+- Quantity buttons on multishipping checkout (#499)
+- slider a11y - keyboard support, repeated price IDs, when product is included in multiple sliders on the page (#459)
+- more info component js - close more info on ESC (#459)
+- More info button - bottom spacing (#496)
+- Country selector styling in contact-us form (#497)
+- Added escape methods to more-info (attribute description) (#495)
+- Inheritance task in components (#501)
+- Mobile menu custom_url template (#472)
+- Checkout cart icon hover style (#504)
+- Checkout - apply gift card styles (#508)
+- Checkout - cart link styles (#507)
+- Checkout - "Ship to" and "Shipping method" edit icons styles (#505)
+- Checkout recaptcha checkbox visibility (#506)
+- PDP - add to wishlist/requsition list button styles (#509)
+- duplicated styles from extends imports (#510)
+- Recently Viewed - temporary wishlist button fix (#511)
+- Store Locator - Location View - "Additional Information" section display (#512)
+- Side menu close button position & text on hover (#513)
+- Side menu close button position on Safari (#513)
+- Recently Viewed - Minimum Advertised Price'd products (#514)
+- Magento Gift Card - page reloading when adding to cart (#515)
+- Magento Gift Card - missing required sign & validation messages (#515)
+- Dashboard -> Privacy Settings - html in content doesn't render (#516)
+- Dashboard -> My Orders - table row overflows table on mobile (#516)
+- styles loaded in fractal for checkout related components (#520)
+- Fotorama - 'exit fullscreen' click triggers event on element below (#521)
+- Checkout success page and multishipping styles after performance & quality improvements (#517)
+- Shopping cart - quantity not visible when quantity error message is displayed (#522)
+- configurable product price related issues - price not displayed when a configurable product doesn't have swatches, final price displayed as special in red when selected option doesn't have old price but some other options do, jumping price on load (use `opacity-0` instead of `display-none`) (#525)
+- configurable product select field width changing on load (#525)
+- spacing between Magento UI form element and its error message (#527)
+- PDP - not working Yotpo button "Write a review" under the product's name (#530)
+- catalog list view - add to cart button changing width when text is changed to "Adding..." (#529)
+- catalog list view - add to cart button display on mobile (#528)
+- Amasty Gift Card form validation on PDP (#526)
+- `.label` extends (#526)
+- Wishlist item update loses selected options in wishlist (#533)
+### Changed
+- MQ values for picture aspect ratio padding (#86854)
+- Changed and improved GDPR cookie module behavior (#400)
+- Checkout summary "View Details" styling (#498)
+- Refactor and improve yotpo styles (#485)
+- Atomic styles import placement from critical styles to the end of non critical (#519)
+### Updated
+- Performance & quality improvements (#474)
+- Amasty Gift Card to `2.8.0` (#526)
+- Amasty Gift Card Account to `1.4.0` (#526)
+### Removed
+- Redundant EE store switcher (#503)
+## [2.25.1] - 2021-11-30
+### Fixed
+- Remote shopping assistance on account creation (#83738)
+
+## [2.25.0] - 2021-10-19
+### Fixed
+- Filters position on category view (#83483)
+### Updated
+- Update requisition list button on product view (#83517)
+- Update to Magento 2.4.3 (#81212)
+## [2.24.1] - 2021-10-13
+### Changed
+- Frontools dependency removed
+### Fixed
+- Asterix position in required checkboxes (#80129)
+## [2.24.0] - 2021-09-09
+### Added
+- column template variables for catalog grid styles (#81732)
+- 'Recently viewed' component in fractal product bundle and product grouped templates
+- fractal template for gift registy items (#81936)
+- background color for 'Add to wishlist' button (#81767)
+### Fixed
+ - webforms templates (#79614)
+- jquery and fotorama don't use passive listeners to improve scrolling performance (#72752)
+- styling for store credit checkbox in multishipping checkout (#81559)
+- tax field styling on checkout (#81627)
+- styling for payment & shipping information on company profile page (#81661)
+- user role styling on My Account page (#81750)
+- border styling for multishipping view (#81624)
+- styling for table in gift registry items (#81936)
+- quantity styling in table when product name is too long (#81950)
+- error on privacy settings section in account settings (#81873)
+- cookie modal not showing when clicking save button (#81873)
+- some icons a11y in templates (#80844)
+- Quote reorder popup when having items in cart not displaying correctly (#82047)
+### Changed
+- moved catalog grid scss variables to separate file (#81732)
+- move all content to the left for product list view on mobile (#81767)
+- restored cookie-settings page for Amasty GDPR (#81873)
+- `xlink:href` (deprecated) to `href` (#80844)
+- some icons code in templates to lower the number of icon related requests (#80844)
+### Updated
+- bump select2, `select--search` component (#80105, #81472)
+- cookie settings modal to new version of Amasty GDPR (#81873)
+- styling for cookie table information (#81873)
+### Removed
+- svg4everybody (no longer needed for browser support (#80844)
+## [2.23.0] - 2021-08-03
+### Added
+- yireo/magento2-webp2 package for webp images (#72754)
+### Fixed
+- duplicated loader on PDP (#79360)
+- quickorder search suggestions styling (#78133)
+- select2 a11y - element `span[aria-labelledby="select2-sorter-container"] > .select2-selection__arrow[role="presentation"] > b` shouldn't have ARIA role presentation (#80452)
+- shopping cart - visually hide qty label instead of display none (#80422)
+- `aria-label` in gallery (#80417)
+- add to cart sticky shouldn't have focusable elements when it has `aria-hidden="true"` (#80420)
+- some a11y issues in checkout (#80424)
+- gallery navigation not showing on load (#80752)
+- gallery placeholder not showing on load and jumping image on load (#80752)
+- shopping cart - product image not visible (#80868)
+### Changed
+- instead of using atomic classes for some page heading styles added in a lot of places, created a new class for easier customization (#80498)
+- magnificPopup to Alpaca custom modal for Webforms, updated submit and button template to the newest version (#80758)
+- disable locate nearby button until ajax call is executed (#80047)
+### Updated
+- adjusted styles for webp images (#72754)
+- store locator to the newest version (#80756)
+
+### Removed
+- lazy loading for slider and banner images (#72754)
+- authentication popup (#79679)
+
 ## [2.22.0] - 2021-06-17
 ### Added
 - focus state for amlocator route creator icons (#73168)
@@ -115,6 +322,18 @@ All notable changes to this project will be documented in this file.
 ## [2.13.0] - 2021-01-21
 ### Updated
 - theme to Magento 2.4.1 (#70133)
+
+## [2.12.1] - 2021-02-08
+### Updated
+- theme to Magento 2.3.6.p1 (#75169)
+### Fixed
+- error on multishipping page (#75169)
+- error on EE checkout (#75169)
+### Added
+- requirement verification for captcha (#75169)
+- cookie options in sidebar mixin (#75169)
+### Changed
+- Update escaping functions for captcha and multishipping (#75169)
 
 ## [2.12.0] - 2021-01-19
 ### Updated
@@ -507,7 +726,28 @@ Affects: if catalog (toolbar, filters, list) or mobile menu templates are overwr
 ### Removed
 - doubled add to cart for configurable products (#67192)
 
+## [1.8.0] - 2022-06-09
+### Fixed
+- items spacing in cart totals (#548)
+- wishlist PDP - change of qty using +/- buttons doesn't save (##551)
+- country list select on address edit view - while there is one country allowed, it's not displayed in select options (#469)
+### Removed
+- share wishlist - pre-populated whitespace in email and message fields (#547)
+### Updated
+- theme files to Magento 2.4.3 (#469)
 
+## [1.7.0] - 2020-09-26
+### Changed
+- hide label for tooltip icon after updates in template (#66923)
+### Fixed
+- container styles for customer/checkout. Affects: containers positioning/spacing in those areas (#66923)
+- styles for modal heading (#66923)
+### Removed
+- some row classess from totals related templates (Magento_Ui). Affects: checkout/cart totals/shipping methods etc. (#66923)
+
+## [1.6.0] - 2020-09-26
+### Changed
+- update theme files to Magento 2.3.5 p1
 
 ## [1.5.0] - 2020-05-26
 ### Added

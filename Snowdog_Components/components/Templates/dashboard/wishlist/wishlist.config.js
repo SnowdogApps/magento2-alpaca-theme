@@ -85,7 +85,6 @@ module.exports = {
           class: '',
           icon: {
             id: 'edit',
-            title: 'Edit',
             class: '',
             hidden: true
           }
@@ -96,7 +95,6 @@ module.exports = {
           class: '',
           icon: {
             id: 'remove',
-            title: 'Remove',
             class: '',
             hidden: true
           }
@@ -175,7 +173,6 @@ module.exports = {
           class: '',
           icon: {
             id: 'edit',
-            title: 'Edit',
             class: '',
             hidden: true
           }
@@ -186,7 +183,6 @@ module.exports = {
           class: '',
           icon: {
             id: 'remove',
-            title: 'Remove',
             class: '',
             hidden: true
           }

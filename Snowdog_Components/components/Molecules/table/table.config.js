@@ -136,7 +136,7 @@ module.exports = {
                   {
                     childTag: 'th',
                     childTagAttributes: 'data-th="Example heading:" scope="row" role="rowheader"',
-                    content: 'Example content'
+                    content: 'Example heading'
                   },
                   {
                     childTag: 'td',
@@ -152,7 +152,7 @@ module.exports = {
                   {
                     childTag: 'th',
                     childTagAttributes: 'data-th="Example heading:" scope="row" role="rowheader"',
-                    content: 'Example content'
+                    content: 'Example heading'
                   },
                   {
                     childTag: 'td',
@@ -168,7 +168,7 @@ module.exports = {
                   {
                     childTag: 'th',
                     childTagAttributes: 'data-th="Example heading:" scope="row" role="rowheader"',
-                    content: 'Example content'
+                    content: 'Example heading'
                   },
                   {
                     childTag: 'td',
@@ -177,6 +177,95 @@ module.exports = {
                   }
                 ]
               }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      name: 'tfoot-scope-row',
+      context: {
+        class: 'table--tfoot-scope-row',
+        mainTags: [
+          {
+            mainTag: 'thead',
+            rowTags: [
+              {
+                rowTag: 'tr',
+                rowTagAttributes: 'role="row"',
+                childTags: [
+                  {
+                    childTag: 'th',
+                    content: 'Example header',
+                    childTagAttributes: 'class="col item full-width" role="columnheader" scope="col"'
+                  },
+                  {
+                    childTag: 'th',
+                    content: 'Example header',
+                    childTagAttributes: 'class="col item" role="columnheader" scope="col"'
+                  },
+                  {
+                    childTag: 'th',
+                    content: 'Example header',
+                    childTagAttributes: 'class="col item" role="columnheader" scope="col"'
+                  },
+                  {
+                    childTag: 'th',
+                    content: 'Example header',
+                    childTagAttributes: 'class="col item" role="columnheader" scope="col"'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            mainTag: 'tbody',
+            rowTags: [
+              {
+                rowTag: 'tr',
+                childTags: [
+                  {
+                    childTag: 'td',
+                    childTagAttributes: 'class="col item" data-th="Example item"',
+                    content: 'Example item'
+                  },
+                  {
+                    childTag: 'td',
+                    childTagAttributes: 'class="col item" data-th="Example content"',
+                    content: 'Example content'
+                  },
+                  {
+                    childTag: 'td',
+                    childTagAttributes: 'class="col item" data-th="Example content"',
+                    content: 'Example content'
+                  },
+                  {
+                    childTag: 'td',
+                    childTagAttributes: 'class="col item" data-th="Example content"',
+                    content: 'Example content'
+                  },
+                ]
+              },
+            ]
+          },
+          {
+            mainTag: 'tfoot',
+            rowTags: [
+              {
+                rowTag: 'tr',
+                childTags: [
+                  {
+                    childTag: 'th',
+                    childTagAttributes: 'scope="row" colspan="3"',
+                    content: 'Example item'
+                  },
+                  {
+                    childTag: 'td',
+                    childTagAttributes: 'data-th="Example item"',
+                    content: 'Example value'
+                  }
+                ],
+              },
             ]
           }
         ]

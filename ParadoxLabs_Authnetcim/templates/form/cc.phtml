@@ -1,0 +1,346 @@
+<?php
+/** @var \ParadoxLabs\TokenBase\Block\Form\Cc $block */
+// @codingStandardsIgnoreFile
+
+$code           = $block->escapeQuote($block->getMethodCode());
+$image          = $block->getBrandingImage();
+$storedCards    = $block->getStoredCards();
+?>
+<fieldset
+    class="
+        fieldset
+        payment
+        items
+        ccard
+        <?= $code ?>
+        credit-card
+    "
+    id="payment_form_<?= $code ?>"
+    style="display:none;"
+>
+    <?php if ($block->getTokenbaseMethod()->isAcceptJsEnabled() === true): ?>
+        <input
+            type="hidden"
+            name="payment[acceptjs_key]"
+            id="<?= $code ?>-acceptjs-key"
+            value=""
+        />
+        <input
+            type="hidden"
+            name="payment[acceptjs_value]"
+            id="<?= $code ?>-acceptjs-value"
+            value=""
+        />
+        <input
+            type="hidden"
+            name="payment[cc_last4]"
+            id="<?= $code ?>-cc-last4"
+            value=""
+        />
+        <?php if ($block->getTokenbaseMethod()->getConfigData('can_store_bin') == 1): ?>
+            <input
+                type="hidden"
+                name="payment[cc_bin]"
+                id="<?= $code ?>-cc-bin"
+                value=""
+            />
+        <?php endif; ?>
+    <?php endif; ?>
+    <?php if ($image): ?>
+        <div class="sorter">
+            <img src="<?= $block->escapeUrl($image); ?>" />
+        </div>
+    <?php endif; ?>
+    <?php if ($block->haveStoredCards()): ?>
+        <div class="field">
+            <label
+                for="<?= $code ?>-card-id"
+                class="label"
+            >
+                    <?= $block->escapeHtml(__('Payment Information')) ?>
+            </label>
+            <div class="select">
+                <select
+                    id="<?= $code ?>-card-id"
+                    name="payment[card_id]"
+                    class="
+                        select__field
+                        select__field--native
+                    "
+                >
+                    <?php /** @var \ParadoxLabs\TokenBase\Model\Card $card */ ?>
+                    <?php foreach ($storedCards as $card): ?>
+                        <?php $card = $card->getTypeInstance(); ?>
+                        <option
+                            value="<?= $block->escapeQuote($card->getHash()) ?>"
+                            <?php if ($card->getId() == $block->getInfoData('tokenbase_id') || count($storedCards) == 1): ?>
+                                selected="selected"
+                            <?php endif; ?>
+                            data-type="<?= $block->escapeQuote($card->getType()) ?>"
+                        >
+                            <?= $block->escapeHtml($card->getLabel()) ?>
+                        </option>
+                    <?php endforeach; ?>
+                    <option value=''><?= $block->escapeHtml(__('Add new card')) ?></option>
+                </select>
+            </div>
+        </div>
+    <?php endif; ?>
+    <div
+        class="
+            field
+            type
+            required
+            hide-if-card-selected
+        "
+    >
+        <div class="control">
+            <?php $_ccType = $block->getInfoData('cc_type') ?>
+            <ul class="credit-card-types">
+                <?php foreach ($block->getCcAvailableTypes() as $_typeCode => $_typeName): ?>
+                    <li class="item<?php if ($_typeCode == $_ccType): ?> _active<?php endif; ?>" data-type="<?= $block->escapeQuote($_typeCode); ?>">
+                        <img src="<?= $block->getViewFileUrl('Magento_Payment::images/cc/' . strtolower($_typeCode) . '.png'); ?>" alt="<?= $block->escapeQuote($_typeName); ?>" />
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+            <input
+                type="hidden"
+                name="payment[cc_type]"
+                id="<?= $code ?>-cc-type"
+                value="<?= $block->escapeQuote($_ccType); ?>"
+            />
+        </div>
+    </div>
+    <div
+        class="
+            field
+            input
+            number
+            required
+            hide-if-card-selected
+        "
+    >
+        <label
+            for="<?= $code ?>-cc-number"
+            class="label"
+        >
+            <?= $block->escapeHtml(__('Credit Card Number')) ?>
+        </label>
+        <input
+            type="text"ś
+            id="<?= $code ?>-cc-number"
+            name="payment[cc_number]"
+            title="<?= $block->escapeHtmlAttr(__('Credit Card Number')) ?>"
+            class="input__field"
+            value=""
+            data-container="<?= $code ?>-cc-number"
+            autocomplete="cc-number"
+            data-validate='{
+                "required-number":true,
+                "validate-cc-number":"#<?= $code ?>-cc-type",
+                "validate-cc-type":"#<?= $code ?>-cc-type"
+            }'
+        />
+    </div>
+    <div
+        class="
+            field
+            date
+            required
+            hide-if-card-selected
+        "
+    >
+        <label
+            for="<?= $code ?>-cc-exp-month"
+            class="label"
+        >
+            <?= $block->escapeHtml(__('Expiration Date')) ?>
+        </label>
+        <div class="credit-card__date">
+            <div
+                class="
+                    select
+                    credit-card__select
+                    margin-right-s
+                    margin-bottom-0
+                "
+            >
+                <select
+                    id="<?= $code ?>-cc-exp-month"
+                    name="payment[cc_exp_month]"
+                    class="
+                        select__field
+                        select__field--native
+                        credit-card__field
+                        month
+                    "
+                    data-validate='{required:true, "validate-cc-exp":"#<?= $code ?>-cc-exp-year"}'
+                    autocomplete="cc-exp-month"
+                >
+                    <?php $_ccExpMonth = $block->getInfoData('cc_exp_month') ?>
+                    <?php foreach ($block->getCcMonths() as $k => $v): ?>
+                        <option
+                            value="<?= $k ? $block->escapeHtmlAttr($k) : '' ?>"
+                            <?php if ($k == $_ccExpMonth): ?> selected="selected"<?php endif ?>
+                        >
+                            <?= $block->escapeHtml($v) ?>
+                        </option>
+                    <?php endforeach ?>
+                </select>
+            </div>
+            <div
+                class="
+                    select
+                    credit-card__select
+                    margin-bottom-0
+                "
+            >
+                <?php $_ccExpYear = $block->getInfoData('cc_exp_year') ?>
+                <select
+                    id="<?= $code ?>-cc-exp-year"
+                    name="payment[cc_exp_year]"
+                    class="
+                        select__field
+                        select__field--native
+                        credit-card__field
+                        year
+                    "
+                    data-validate='{required:true}'
+                    autocomplete="cc-exp-year"
+                >
+                    <?php foreach ($block->getCcYears() as $k => $v): ?>
+                        <option
+                            value="<?= $k ? $block->escapeHtmlAttr($k) : '' ?>"
+                            <?php if ($k == $_ccExpYear): ?>
+                                selected="selected"
+                            <?php endif ?>
+                        >
+                            <?= $block->escapeHtml($v) ?>
+                        </option>
+                    <?php endforeach ?>
+                </select>
+            </div>
+        </div>
+    </div>
+    <?php if ($block->hasVerification()): ?>
+        <div
+            class="
+                input
+                field
+                cvv
+                required
+                <?php if ($block->getMethod()->getConfigData('require_ccv') == 0): ?>
+                    hide-if-card-selected
+                <?php endif; ?>
+            "
+        >
+            <label
+                for="<?= $code ?>-cc-cid"
+                class="label"
+            >
+                <?= $block->escapeHtml(__('Card Verification Number')) ?>
+            </label>
+            <input
+                type="text"
+                title="<?= $block->escapeHtmlAttr(__('Card Verification Number')) ?>"
+                class="input__field cvv"
+                id="<?= $code ?>-cc-cid"
+                name="payment[cc_cid]"
+                value=""
+                data-validate='{"required-number":true, "validate-cc-cvn":"#<?= $code ?>-cc-type"}'
+                autocomplete="cc-csc"
+                maxlength="4"
+            />
+        </div>
+    <?php endif; ?>
+
+    <?= $block->getChildHtml(); ?>
+    <?php if (!$block->isGuestCheckout()): ?>
+        <div class="field save hide-if-card-selected">
+            <div class="control">
+                <?php if ($block->getMethod()->getConfigData('allow_unsaved')): ?>
+                    <input
+                        type="hidden"
+                        name="payment[save]"
+                        value="0"
+                    />
+                    <div class="checkbox">
+                        <input
+                            type="checkbox"
+                            title="<?= $block->escapeHtmlAttr(__('Save for next time')) ?>"
+                            class="checkbox__field"
+                            id="<?= $code ?>_save"
+                            name="payment[save]"
+                            value="1"
+                            <?php if ($block->getMethod()->getConfigData('savecard_opt_out') && $block->getInfoData('save') !== 0): ?>
+                                checked="checked"
+                            <?php endif; ?>
+                        />
+                        <svg
+                            class="
+                                checkbox__icon
+                                checkbox__icon--checked
+                            "
+                            role="presentation"
+                            focusable="false"
+                        >
+                            <use href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#checked')) ?>"></use>
+                        </svg>
+                        <svg
+                            class="
+                                checkbox__icon
+                                checkbox__icon--unchecked
+                            "
+                            role="presentation"
+                            focusable="false"
+                        >
+                            <use href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#unchecked')) ?>"></use>
+                        </svg>
+                        <label
+                            class="checkbox__label"
+                            for="<?= $code ?>_save"
+                        >
+                            <?= $block->escapeHtml(__('Save for next time')) ?>
+                        </label>
+                    </div>
+                <?php else: ?>
+                    <input
+                        type="hidden"
+                        name="payment[save]"
+                        value="1"
+                    />
+                    <label
+                        class="label"
+                        for="<?= $code ?>_save"
+                    >
+                            <?= $block->escapeHtml(__('For your convenience, this data will be stored securely by our payment processor.')) ?>
+                    </label>
+                <?php endif; ?>
+            </div>
+        </div>
+    <?php endif; ?>
+</fieldset>
+<script type="text/x-magento-init">
+    {
+        "#payment_form_<?= $code ?>": {
+            "tokenbaseForm": {
+                "code":"<?= $code ?>"
+            },
+            "tokenbaseCardFormatter": {
+                "ccTypeSelector": "#<?= $code ?>-cc-type",
+                "ccTypeContainer": ".credit-card-types"
+            }
+            <?php if ($block->getTokenbaseMethod()->isAcceptJsEnabled() === true): ?>,
+            "authnetcimAcceptjs": {
+                "apiLoginId": "<?= $block->escapeJsQuote($block->getMethod()->getConfigData('login')); ?>",
+                "clientKey": "<?= $block->escapeJsQuote($block->getMethod()->getConfigData('client_key')); ?>",
+                "method": "<?= $code; ?>",
+                "formSelector": ".main form",
+                "submitSelector": ".payments button[type=submit], button#payment-continue",
+                "cardSelector": "#<?= $code; ?>-card-id",
+                "sandbox": <?= $block->getMethod()->getConfigData('test') ? 'true' : 'false'; ?>
+            }
+            <?php endif; ?>
+        }
+    }
+</script>

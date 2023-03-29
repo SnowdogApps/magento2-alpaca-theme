@@ -1,6 +1,8 @@
 module.exports = {
-  preview: '@docs-only-styles',
   collated: true,
+  meta: {
+    docsOnlyStyles: true
+  },
   context: {
     tag: 'button',
     class: '',
@@ -168,6 +170,14 @@ module.exports = {
         class: 'button--link',
         attributes: 'href="#" title="I am a link button"',
         text: 'I am a link button'
+      }
+    },
+    {
+      name: 'link-secondary',
+      context: {
+        class: 'button--link-secondary',
+        attributes: 'type="button" aria-label="Click to do something"',
+        text: 'I am a link button secondary'
       }
     },
     {
