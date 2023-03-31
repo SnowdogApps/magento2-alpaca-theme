@@ -1,0 +1,77 @@
+<?php
+/**
+ * @var SelectContact $block
+ */
+
+use MageMe\WebForms\Block\Form\Element\Field\Type\SelectContact;
+
+$validationRules = $block->getValidationRules();
+$validationDescriptions = $block->getValidationDescriptions();
+?>
+<div class="select select--native">
+    <select
+        id='<?= $block->escapeHtmlAttr($block->getFieldId()) ?>'
+        name='<?= $block->escapeHtmlAttr($block->getFieldName()) ?>'
+        class='
+            select__field
+            <?= $block->escapeHtmlAttr($block->getFieldClass()) ?>
+        '
+        data-mage-init='{
+            "select": {
+                "options": {
+                    "shouldSort": false
+                }
+            }
+        }'
+        style='<?= $block->escapeHtmlAttr($block->getFieldStyle()) ?>'
+        <?php if ($validationRules): ?>
+            data-validate="{<?= implode(", ", $validationRules); ?>}"
+        <?php endif; ?>
+        <?php foreach ($validationDescriptions as $key => $data): ?>
+            <?= /* @noEscape */ $key . '=' . '"' . htmlspecialchars((string)$data) . '"'; ?>
+        <?php endforeach; ?>
+        <?php if ($block->getIsLabelHidden()): ?>
+            aria-label="<?= $block->escapeHtmlAttr($block->getFieldLabel()) ?>"
+        <?php else: ?>
+            aria-labelledby="label_<?= $block->escapeHtmlAttr($block->getFieldId()) ?>"
+        <?php endif; ?>
+        <?php if ($block->getIsRequired()): ?>
+            aria-required="true"
+        <?php endif; ?>
+        <?php if ($block->getAutocomplete()): ?>
+            autocomplete="<?= $block->escapeHtmlAttr($block->getAutocomplete()) ?>"
+        <?php endif; ?>
+        <?= /* @noEscape */ htmlspecialchars((string)$block->getCustomAttributes()) ?>
+    >
+        <?php
+        foreach ($block->getFieldOptions() as $i => $option):
+            $checked = false;
+            if ($option["checked"]) {
+                $checked = 'selected';
+            }
+        ?>
+            <?php if (isset($option["value"])): ?>
+                <?php
+                $contact = $block->getContactArray($option["value"]);
+                $value = $option["value"];
+                if ($option['null']) {
+                    $value = '';
+                }
+                if (!empty($option['optgroup']) && !empty($option['label'])): ?>
+                    <optgroup label="<?= $block->escapeHtmlAttr($block->applyTranslation($option['label'])); ?>">
+                <?php elseif (!empty($option['optgroup_close'])): ?>
+                    </optgroup>
+                <?php else: ?>
+                    <?php if ($contact):?>
+                        <option
+                            value="<?= $contact["email"] ? $block->escapeHtmlAttr($i) : $block->escapeHtmlAttr($value); ?>"
+                            <?= /* @noEscape */ $checked ?>
+                        >
+                            <?= $block->escapeHtml($block->applyTranslation($contact['name'])); ?>
+                        </option>
+                    <?php endif; ?>
+                <?php endif; ?>
+            <?php endif; ?>
+        <?php endforeach ;?>
+    </select>
+</div>

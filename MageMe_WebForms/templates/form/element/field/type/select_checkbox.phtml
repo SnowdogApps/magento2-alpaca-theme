@@ -1,0 +1,91 @@
+<?php
+/**
+ * @var SelectCheckbox $block
+ */
+
+use MageMe\WebForms\Block\Form\Element\Field\Type\SelectCheckbox;
+
+$validationRules = $block->getValidationRules();
+$validationDescriptions = $block->getValidationDescriptions();
+$escapedFieldId = $block->escapeHtmlAttr($block->getFieldId());
+?>
+
+<div>
+    <?php
+    $options = $block->getFieldOptions();
+    foreach ($block->getFieldOptions() as $i => $option): ?>
+        <?php
+        $checked = false;
+        if ($option["checked"]) {
+            $checked = 'checked';
+        }
+        if (isset($option["value"]) && empty($option['optgroup']) && empty($option['optgroup_close'])): ?>
+            <?php
+            $label = $block->applyTranslation($option["label"]);
+            if ($option["image_src"]) {
+                $label = "<figure><img src='{$option['image_src']}'/><figcaption>{$label}</figcaption></figure>";
+            }
+            ?>
+
+            <div
+                class="
+                    field
+                    choice
+                    option-<?= $block->escapeHtmlAttr($i) ?>
+                    checkbox
+                "
+                style='<?= $block->escapeHtmlAttr($block->getFieldStyle()) ?>'
+            >
+                <input
+                    id='<?= $escapedFieldId . $block->escapeHtmlAttr($i) ?>'
+                    name='<?= $block->escapeHtmlAttr($block->getFieldName()) ?>'
+                    type='checkbox'
+                    value="<?= /* @noEscape */ htmlspecialchars((string)$option["value"]) ?>"
+                    class='checkbox__field'
+                    <?php if ($validationRules): ?>
+                        data-validate="{<?= implode(", ", $validationRules); ?>}"
+                    <?php endif; ?>
+                    <?php foreach ($validationDescriptions as $key => $data): ?>
+                        <?= $key . '=' . '"' . $block->escapeHtmlAttr(htmlspecialchars((string)$data)) . '"'; ?>
+                    <?php endforeach; ?>
+                    data-uid="<?= $block->escapeHtmlAttr($block->getFieldUid()) ?>"
+                    aria-labelledby="
+                        <?= $escapedFieldId . $block->escapeHtmlAttr($i) ?>_label
+                        <?php if(!$block->getField()->getIsLabelHidden()): ?>
+                            label_<?= $escapedFieldId ?>
+                        <?php endif; ?>
+                    "
+                    <?= /* @noEscape */ $checked ?>
+                    <?= /* @noEscape */ htmlspecialchars((string)$block->getCustomAttributes()) ?>
+                />
+
+                <svg
+                    class="checkbox__icon checkbox__icon--checked"
+                    role="presentation"
+                    focusable="false"
+                >
+                    <use href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#checked')) ?>"/>
+                </svg>
+                <svg
+                    class="checkbox__icon checkbox__icon--unchecked"
+                    role="presentation"
+                    focusable="false"
+                >
+                    <use href="<?= $block->escapeUrl($block->getViewFileUrl('images/icons-sprite.svg#unchecked')) ?>"/>
+                </svg>
+                <label
+                    class="checkbox__label"
+                    id="<?= $escapedFieldId . $block->escapeHtmlAttr($i) ?>_label"
+                    for='<?= $escapedFieldId . $block->escapeHtmlAttr($i) ?>'
+                >
+                    <?= $block->escapeHtml($label) ?>
+                </label>
+                <?php
+                $tooltip = $block->getField()->getTooltip($option["value"]);
+                if ($tooltip): ?>
+                    <?= $block->getTooltipBlock()->setTooltip($tooltip)->toHtml(); ?>
+                <?php endif; ?>
+            </div>
+        <?php endif; ?>
+    <?php endforeach; ?>
+</div>
