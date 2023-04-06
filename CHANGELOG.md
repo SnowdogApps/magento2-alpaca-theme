@@ -8,6 +8,7 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 ### Added
 ### Changed
 ### Fixed
+- Mage error styles on PDP (#581)
 ### Removed
 ### Updated
 
