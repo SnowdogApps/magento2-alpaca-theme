@@ -6,13 +6,19 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 
 ## [Unreleased]
 ### Added
-- Added styles and templates for MageMe_WebForms (old VladimirPopov_WebForms) module (#575)
 ### Changed
 ### Fixed
+- Mage error styles on PDP (#581)
 ### Removed
 ### Updated
 
 ## [Released]
+
+## [2.28.3] - 2023-03-31
+### Added
+- Added styles and templates for MageMe_WebForms (old VladimirPopov_WebForms) module (#575)
+### Fixed
+- Fix call to not existing method, backwards compatible up to 2.2.0 (#580)
 ## [2.28.2] - 2022-09-05
 ### Fixed
 - Magento_PageBuilder styles imports (#571)
