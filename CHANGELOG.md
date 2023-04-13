@@ -6,6 +6,7 @@ USE GITHUB ISSUE/PULL REQUEST NUMBERS, NOT INTERNAL ONE
 
 ## [Unreleased]
 ### Added
+- skip rendering href tag on empty content in `custom_url`
 ### Changed
 ### Fixed
 ### Removed
