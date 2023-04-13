@@ -4,6 +4,7 @@
     $class = $block->getMenuClass();
     $classLink = $block->getIsRoot() ? $class . '__label' : 'link footer__link';
     $title = $block->getTitle();
+    $content = $block->getContent();
     if ($block->getId()) {
         $attributes[] = 'aria-controls="dropdown-' . $block->getId() . '"';
     }
@@ -31,7 +32,9 @@
     </button>
 <?php else: ?>
     <a
-        href="<?= $block->escapeUrl($block->getContent()) ?>"
+        <?php if ($content): ?>
+            href="<?= $block->escapeUrl($content) ?>"
+        <?php endif; ?>
         class="<?= $block->escapeHtmlAttr($classLink) ?>"
     >
         <?= $block->escapeHtml($title) ?>

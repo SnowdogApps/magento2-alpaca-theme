@@ -6,6 +6,7 @@
     $title = $block->getTitle();
     $imageUrl = $block->getImageUrl();
     $imageAltText = $block->getImageAltText();
+    $content = $block->getContent();
     if ($block->getId()) {
         $attributes[] = 'data-menu="menu-' . $block->getId() . '"';
     }
@@ -17,7 +18,9 @@
     }
 ?>
 <a
-    href="<?= $block->escapeUrl($block->getContent()) ?>"
+    <?php if ($content): ?>
+        href="<?= $block->escapeUrl($content) ?>"
+    <?php endif; ?>
     <?= /* @noEscape */ implode(' ', $attributes) ?>
 >
     <?= $block->escapeHtml($title) ?>
