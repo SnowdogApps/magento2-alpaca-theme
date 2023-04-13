@@ -4,7 +4,8 @@
     $class = $block->getMenuClass();
     $isViewAllLink = $block->getIsViewAllLink();
     $isContent = $block->getIsParent();
-    
+    $content = $block->getContent();
+
     if ($isViewAllLink) {
         $title = __('View All');
         $classLink = $class . '__label link--invert';
@@ -23,7 +24,9 @@
     }
 ?>
 <a
-    href="<?= $block->escapeUrl($block->getContent()) ?>"
+    <?php if ($content): ?>
+        href="<?= $block->escapeUrl($content) ?>"
+    <?php endif; ?>
     <?= /* @noEscape */ implode(' ', $attributes) ?>
     <?php if (!$isViewAllLink && $isContent): ?>
         role="button"
