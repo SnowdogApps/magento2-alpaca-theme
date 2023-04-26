@@ -1,3 +1,8 @@
+# ⚠️ No longer maintained
+Thank you for your interest in Alpaca. Unfortunately, we've decided to discontinue the maintenance of this project. It's been quite a few years since it was created and we need to move forward. Magento 2.4.4 will be the last version officially supported.
+
+---
+
 <div align="center">
 <img src="./web/images/icons/logo.svg" alt="Alpaca Logo" width="400"/>
 
