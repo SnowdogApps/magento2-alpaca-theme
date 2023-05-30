@@ -5,12 +5,16 @@
  * @var $block \Magento\Catalog\Block\Category\View
  */
 ?>
-<?php $descriptionBottom = $block->getCurrentCategory()->getCategoryTextBottom(); ?>
-<?php if ($descriptionBottom): ?>
+<?php
+$filter = \Magento\Framework\App\ObjectManager::getInstance();
+$descriptionBottom = $block->getCurrentCategory()->getCategoryTextBottom();
+$filter_descriptionBottom = $filter->get('Magento\Cms\Model\Template\FilterProvider')->getPageFilter()->filter($descriptionBottom);
+?>
+<?php if ($filter_descriptionBottom): ?>
     <div class="catalog-list__category-description">
         <?= /* @noEscape */ $this->helper(Magento\Catalog\Helper\Output::class)->categoryAttribute(
             $block->getCurrentCategory(),
-            $descriptionBottom,
+            $filter_descriptionBottom,
             'category_text_bottom'
         ) ?>
     </div>
