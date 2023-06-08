@@ -38,6 +38,9 @@ var config = {
       },
       'Magento_Ui/js/grid/listing': {
         'Magento_Theme/js/mixins/grid-listing-mixin': true
+      },
+      'mage/loader': {
+        'Magento_Theme/js/mixins/loader-mixin': true
       }
     }
   },

@@ -1,4 +1,4 @@
-define([], function () {
+define(['jquery'], function ($) {
   'use strict';
 
   class Modal { // eslint-disable-line
@@ -54,6 +54,34 @@ define([], function () {
       });
     }
 
+    loadModalContent(modal) {
+      let ajaxUrl = this.config.ajaxUrl;
+      let ajaxTarget = this.config.ajaxTarget;
+
+      if (ajaxUrl !== undefined && ajaxTarget !== undefined) {
+        let self = this;
+        $('body').trigger('processStart'); //show loader
+
+        $.ajax({
+          url: ajaxUrl,
+          type: 'GET',
+          dataType: 'html'
+        }).done(function (data) {
+          $(ajaxTarget).html(data);
+          $(ajaxTarget).trigger('contentUpdated');
+        }).fail(function () {
+          $(ajaxTarget).html(this.config.ajaxErrorMessage);
+        }).always(function () {
+          self.openModal(modal);
+          $('body').trigger('processStop'); //hide loader
+        });
+      }
+      else {
+        $(ajaxTarget).html(this.config.ajaxErrorMessage);
+        this.openModal(modal);
+      }
+    }
+
     closeModal(modal) {
       modal.el.setAttribute('aria-hidden', true);
       modal.trigger.setAttribute('aria-expanded', false);
@@ -70,7 +98,14 @@ define([], function () {
       modal.focusable = 'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), object, embed, *[tabindex], *[contenteditable]',
       modal.focused = '';
       modal.trigger.addEventListener('click',
-        () => this.openModal(modal)
+        () => {
+          if (this.config.useAjax) {
+            this.loadModalContent(modal)
+          }
+          else {
+            this.openModal(modal)
+          }
+        }
       );
       // clicking on button (x) closes the modal
       if (modal.closeButton) {
