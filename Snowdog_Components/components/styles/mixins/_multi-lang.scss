@@ -1,0 +1,69 @@
+//  Properties With Values
+//  (Top Right Bottom Left)
+//  ---------------------------------------------
+@mixin multi-lang($property, $top, $right, $bottom, $left) {
+    @if $direction == ltr {
+        #{$property}: $top $right $bottom $left;
+    }
+    @else {
+        #{$property}: $top $left $bottom $right;
+    }
+}
+
+//
+//  Padding MultiLanguage
+//  ---------------------------------------------
+@function padding($top, $right, $bottom, $left) {
+    @if $direction == ltr {
+        @return $top $right $bottom $left;
+    }
+    @else {
+        @return $top $left $bottom $right;
+    }
+}
+@mixin padding($top, $right, $bottom, $left) {
+    @include multi-lang(padding, $top, $right, $bottom, $left);
+}
+
+//
+//  Margin MultiLanguage
+//  ---------------------------------------------
+@function margin($top, $right, $bottom, $left) {
+    @if $direction == ltr {
+        @return $top $right $bottom $left;
+    }
+    @else {
+        @return $top $left $bottom $right;
+    }
+}
+@mixin margin($top, $right, $bottom, $left) {
+    @include multi-lang(margin, $top, $right, $bottom, $left);
+}
+
+
+//
+//  Rotate MultiLanguage
+//  ---------------------------------------------
+@function rotate_c($deg) {
+    @if $direction == ltr {
+        @return rotate($deg);
+    }
+    @else {
+        @return rotate($deg * -1);
+    }
+}
+
+//
+//  Border MultiLanguage
+//  ---------------------------------------------
+@function border($top, $right, $bottom, $left) {
+    @if $direction == ltr {
+        @return $top $right $bottom $left;
+    }
+    @else {
+        @return $top $left $bottom $right;
+    }
+}
+@mixin border($top, $right, $bottom, $left) {
+    @include multi-lang(border-width, $top, $right, $bottom, $left);
+}

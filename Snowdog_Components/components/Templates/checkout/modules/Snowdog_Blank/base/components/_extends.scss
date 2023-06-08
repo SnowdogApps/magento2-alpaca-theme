@@ -13,8 +13,8 @@
 
 @mixin abs-product-options-list() {
     dt {
-        clear: left;
-        float: left;
+        clear: $start-direction;
+        float: $start-direction;
         margin: 0 $indent__s $indent__xs 0;
 
         &:after {
@@ -23,7 +23,7 @@
     }
 
     dd {
-        float: left;
+        float: $start-direction;
         margin: 0 0 $indent__xs;
     }
 }
@@ -49,12 +49,12 @@
     width: 48.8%;
 
     &:nth-child(odd) {
-        clear: left;
-        float: left;
+        clear: $start-direction;
+        float: $start-direction;
     }
 
     &:nth-child(even) {
-        float: right;
+        float: $end-direction;
     }
 }
 
@@ -86,7 +86,7 @@
     .block-title {
         @extend .abs-block-title;
         & > .action {
-            margin-left: 15px;
+            margin-#{$start-direction}: 15px;
         }
     }
 
@@ -96,7 +96,7 @@
 
         & > .action {
             font-weight: 400;
-            margin-left: $indent__s;
+            margin-#{$start-direction}: $indent__s;
         }
     }
 
@@ -117,7 +117,7 @@
 
 .abs-dropdown-simple {
     @include lib-dropdown(
-        $_dropdown-list-item-padding: 5px 5px 5px 23px,
+        $_dropdown-list-item-padding: padding(5px, 5px, 5px, 23px),
         $_dropdown-list-min-width   : 200px,
         $_icon-font-margin          : 0 0 0 5px,
         $_icon-font-vertical-align  : middle
@@ -163,7 +163,7 @@
 //  ---------------------------------------------
 
 @mixin abs-reset-left-margin() {
-    margin-left: 0;
+    margin-#{$start-direction}: 0;
 }
 
 .abs-reset-left-margin {
@@ -188,8 +188,8 @@
 
 .abs-action-remove {
     @extend .abs-action-button-as-link;
-    left: $indent__s;
-    margin-left: 70%;
+    #{$start-direction}: $indent__s;
+    margin-#{$start-direction}: 70%;
     position: absolute;
     top: 31px;
     width: auto;
@@ -202,7 +202,7 @@
 @include mq($screen__m) {
     @if $form-field-type-label-inline__width != false and $form-field-type-label-inline__width != '' {
         .abs-action-remove-desktop {
-            margin-left: $form-field-type-label-inline__width + 50%;
+            margin-#{$start-direction}: $form-field-type-label-inline__width + 50%;
             top: 6px;
         }
     }
@@ -235,7 +235,7 @@
                         }
                     }
 
-                    float: left;
+                    float: $start-direction;
                 }
             }
         }
@@ -296,7 +296,7 @@
 //  ---------------------------------------------
 
 @mixin abs-margin-for-forms-desktop() {
-    margin-left: $form-field-type-label-inline__width;
+    margin-#{$start-direction}: $form-field-type-label-inline__width;
 }
 
 @include mq($screen__m) {
@@ -447,7 +447,7 @@
 .abs-navigation-icon {
     &:after {
         position: absolute;
-        right: $indent__xs;
+        #{$end-direction}: $indent__xs;
         top: 0;
     }
 }
@@ -524,12 +524,12 @@
 
 .abs-tax-total {
     cursor: pointer;
-    padding-right: 12px;
+    padding-#{$end-direction}: 12px;
     position: relative;
 
     &:after {
         position: absolute;
-        right: -$indent__s;
+        #{$end-direction}: -$indent__s;
         top: 3px;
     }
 }
@@ -584,7 +584,7 @@
                 &.price,
                 &.subtotal {
                     box-sizing: border-box;
-                    float: left;
+                    float: $start-direction;
                     text-align: center;
                     white-space: nowrap;
                     width: 33%;
@@ -628,8 +628,8 @@
 
     .action.new {
         &:before {
-            margin-left: -17px;
-            margin-right: $indent__xs;
+            margin-#{$start-direction}: -17px;
+            margin-#{$end-direction}: $indent__xs;
         }
     }
 }
@@ -649,7 +649,7 @@
 
         &:after {
             position: absolute;
-            right: $indent__s;
+            #{$end-direction}: $indent__s;
             top: 0;
         }
     }
@@ -724,13 +724,13 @@
         margin-bottom: $indent__base;
         position: relative;
         .limiter {
-            float: right;
+            float: $end-direction;
             position: relative;
             z-index: 1;
         }
 
         .toolbar-amount {
-            float: left;
+            float: $start-direction;
             line-height: normal;
             padding: 7px 0 0;
             position: relative;
@@ -772,7 +772,7 @@
         }
 
         &.update {
-            padding-left: $indent__xs;
+            padding-#{$start-direction}: $indent__xs;
         }
     }
 }
@@ -800,21 +800,21 @@
 
 @include mq($screen__m) {
     .abs-shopping-cart-items-desktop {
-        float: left;
+        float: $start-direction;
         position: relative;
         width: 73%;
 
         .actions {
-            text-align: right;
+            text-align: $end-direction;
         }
 
         .action {
             &.continue {
-                float: left;
+                float: $start-direction;
             }
 
             &.clear {
-                margin-right: $indent__s;
+                margin-#{$end-direction}: $indent__s;
             }
         }
     }
@@ -836,7 +836,7 @@
 //  ---------------------------------------------
 
 .abs-field-date-input {
-    margin-right: $indent__s;
+    margin-#{$end-direction}: $indent__s;
     width: calc(100% - (40px + #{$indent__s}));
 }
 
@@ -849,7 +849,7 @@
     position: relative;
 
     input {
-        margin-right: $indent__s;
+        margin-#{$end-direction}: $indent__s;
         width: calc(100% - (21px + #{$indent__s} + #{$indent__xs}));
 
         &.cvv {
@@ -865,9 +865,9 @@
 //  ---------------------------------------------
 
 @mixin abs-checkout-tooltip-content-position-top() {
-    right: $checkout-tooltip-content-mobile__right;
+    #{$end-direction}: $checkout-tooltip-content-mobile__right;
     top: $checkout-tooltip-content-mobile__top;
-    left: auto;
+    #{$start-direction}: auto;
 
     &:before,
     &:after {
@@ -878,8 +878,8 @@
         );
         border-bottom-color: #f4f4f4;
         margin-top: $checkout-tooltip-icon-arrow__left;
-        right: $indent__s;
-        left: auto;
+        #{$end-direction}: $indent__s;
+        #{$start-direction}: auto;
         top: 0;
     }
 
@@ -905,7 +905,7 @@
 .abs-sidebar-totals {
     .mark {
         font-weight: $font-weight__regular;
-        padding-left: $spacer--extra-small;
+        padding-#{$start-direction}: $spacer--extra-small;
 
         strong {
             font-weight: $font-weight__regular;
@@ -913,8 +913,8 @@
     }
 
     .amount {
-        padding-right: $spacer--extra-small;
-        text-align: right;
+        padding-#{$end-direction}: $spacer--extra-small;
+        text-align: $end-direction;
         white-space: nowrap;
 
         strong {
@@ -929,8 +929,8 @@
         }
 
         .amount {
-            padding-right: $spacer--extra-small;
-            text-align: right;
+            padding-#{$end-direction}: $spacer--extra-small;
+            text-align: $end-direction;
 
             strong {
                 font-weight: $font-weight__bold;
@@ -952,12 +952,12 @@
             }
 
             .amount .price {
-                padding-right: $indent__m;
+                padding-#{$end-direction}: $indent__m;
                 position: relative;
 
                 &:after {
                     position: absolute;
-                    right: -5px;
+                    #{$end-direction}: -5px;
                     top: -12px;
                 }
             }
@@ -1001,7 +1001,7 @@
 
         &:after {
             position: absolute;
-            right: -5px;
+            #{$end-direction}: -5px;
             top: -5px;
         }
 
